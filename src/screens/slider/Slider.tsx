@@ -4,22 +4,26 @@ import { StyleSheet, ScrollView } from 'react-native'
 
 import SliderContent from '../../components/SliderContent'
 
-const sliderContent = [
+const slidersData = [
   {
     title: 'Welcome to Holidaily!',
     text: 'All your team days-off in one place.',
+    image: require('../../assets/Slider_Illustration-1_2@.png'),
   },
   {
     title: 'Real-time vacation checking',
     text: 'Check how many leaves have left.',
+    image: require('../../assets/Slider_Illustration-2_2@.png'),
   },
   {
     title: 'Request time off',
     text: 'Are you planning vacations or some personal time? Simply request it.',
+    image: require('../../assets/Slider_Illustration-3_2@.png'),
   },
   {
     title: 'Get notified',
     text: 'You’ll get notifications once the vacation is approved or rejected.',
+    image: require('../../assets/Slider_Illustration-4_2@.png'),
   },
 ]
 
@@ -33,10 +37,14 @@ const styles = StyleSheet.create({
 const Slider = () => (
   <SafeAreaView style={styles.container}>
     <ScrollView>
-      <SliderContent title={sliderContent[0].title} text={sliderContent[0].text} />
-      {/* <SliderContent title={sliderContent[1].title} text={sliderContent[1].text} />
-      <SliderContent title={sliderContent[2].title} text={sliderContent[2].text} />
-      <SliderContent title={sliderContent[3].title} text={sliderContent[3].text} /> */}
+      <SliderContent
+        title={slidersData[0].title}
+        text={slidersData[0].text}
+        image={slidersData[0].image}
+      />
+      {/* <SliderContent title={slidersData[1].title} text={slidersData[1].text} image={slidersData[1].image}/>
+      <SliderContent title={slidersData[2].title} text={slidersData[2].text} image={slidersData[2].image}/>
+      <SliderContent title={slidersData[3].title} text={slidersData[3].text} image={slidersData[3].image}/> */}
     </ScrollView>
   </SafeAreaView>
 )
