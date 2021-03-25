@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, ScrollView } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { AppRoutes } from '../../navigation/types'
 
 import SliderContent from '../../components/SliderContent'
 
@@ -34,19 +36,23 @@ const styles = StyleSheet.create({
   },
 })
 
-const Slider = () => (
+type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
+
+export type SliderProps = {
+  navigation: SliderNavigationProps
+}
+
+const Slider: FC<SliderProps> = ({ navigation }) => (
   <SafeAreaView style={styles.container}>
     <ScrollView>
       <SliderContent
-        title={slidersData[0].title}
-        text={slidersData[0].text}
-        image={slidersData[0].image}
-        sliderIndex={0}
+        title={slidersData[3].title}
+        text={slidersData[3].text}
+        image={slidersData[3].image}
+        sliderIndex={3}
         slidersCount={slidersData.length}
+        navigation={navigation}
       />
-      {/* <SliderContent title={slidersData[1].title} text={slidersData[1].text} image={slidersData[1].image} />
-      <SliderContent title={slidersData[2].title} text={slidersData[2].text} image={slidersData[2].image}/>
-      <SliderContent title={slidersData[3].title} text={slidersData[3].text} image={slidersData[3].image}/> */}
     </ScrollView>
   </SafeAreaView>
 )
