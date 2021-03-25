@@ -1,8 +1,10 @@
 import React, { FC, useCallback } from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
 
 import ProgressBar from './ProgressBar'
+
+const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   button: {
@@ -10,6 +12,7 @@ const styles = StyleSheet.create({
     right: -100,
   },
   container: {
+    width,
     flex: 1,
     alignItems: 'center',
   },
@@ -27,6 +30,7 @@ const styles = StyleSheet.create({
   },
   text: {
     maxWidth: '80%',
+    fontSize: 16,
     textAlign: 'center',
   },
   title: {
