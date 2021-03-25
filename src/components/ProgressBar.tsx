@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
   dot: {
     margin: 5,
-    marginTop: 50,
     width: 10,
     height: 10,
     backgroundColor: '#fff',
