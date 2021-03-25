@@ -41,8 +41,10 @@ const Slider = () => (
         title={slidersData[0].title}
         text={slidersData[0].text}
         image={slidersData[0].image}
+        sliderIndex={0}
+        slidersCount={slidersData.length}
       />
-      {/* <SliderContent title={slidersData[1].title} text={slidersData[1].text} image={slidersData[1].image}/>
+      {/* <SliderContent title={slidersData[1].title} text={slidersData[1].text} image={slidersData[1].image} />
       <SliderContent title={slidersData[2].title} text={slidersData[2].text} image={slidersData[2].image}/>
       <SliderContent title={slidersData[3].title} text={slidersData[3].text} image={slidersData[3].image}/> */}
     </ScrollView>
