@@ -1,6 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 
 export type AppRoutes = {
+  Slider: undefined
   Home: undefined
   TestScreen: undefined
 }
