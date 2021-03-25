@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, Dimensions } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { AppRoutes } from '../../navigation/types'
 
@@ -29,6 +29,8 @@ const slidersData = [
   },
 ]
 
+const { width } = Dimensions.get('window')
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -44,15 +46,17 @@ export type SliderProps = {
 
 const Slider: FC<SliderProps> = ({ navigation }) => (
   <SafeAreaView style={styles.container}>
-    <ScrollView>
-      <SliderContent
-        title={slidersData[3].title}
-        text={slidersData[3].text}
-        image={slidersData[3].image}
-        sliderIndex={3}
-        slidersCount={slidersData.length}
-        navigation={navigation}
-      />
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} snapToInterval={width}>
+      {slidersData.map((item, index) => (
+        <SliderContent
+          title={item.title}
+          text={item.text}
+          image={item.image}
+          sliderIndex={index}
+          slidersCount={slidersData.length}
+          navigation={navigation}
+        />
+      ))}
     </ScrollView>
   </SafeAreaView>
 )
