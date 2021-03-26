@@ -62,7 +62,7 @@ const SliderContent: FC<SliderContentProps> = ({
   navigation,
 }) => {
   const handlePressButton = useCallback(() => {
-    navigation.navigate('Home')
+    navigation.navigate('Signup')
   }, [navigation])
 
   return (
@@ -73,7 +73,6 @@ const SliderContent: FC<SliderContentProps> = ({
       <View style={styles.progressContainer}>
         <ProgressBar sliderIndex={sliderIndex} slidersCount={slidersCount} />
         {slidersCount - 1 === sliderIndex ? (
-          // Change navigate to register screen if created <------------------------------------
           <TouchableOpacity style={styles.button} onPress={handlePressButton}>
             <View>
               <Svg width="44" height="44" viewBox="0 0 44 44" fill="none">
