@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, ScrollView, Dimensions } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useSharedValue } from 'react-native-reanimated'
 import { AppRoutes } from '../../navigation/types'
 
 import SliderContent from '../../components/SliderContent'
@@ -44,26 +45,30 @@ interface SliderProps {
   navigation: SliderNavigationProps
 }
 
-const Slider: FC<SliderProps> = ({ navigation }) => (
-  <SafeAreaView style={styles.container}>
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      snapToInterval={width}
-      decelerationRate="fast">
-      {slidersData.map((item, index) => (
-        <SliderContent
-          key={item.title}
-          title={item.title}
-          text={item.text}
-          image={item.image}
-          sliderIndex={index}
-          slidersCount={slidersData.length}
-          navigation={navigation}
-        />
-      ))}
-    </ScrollView>
-  </SafeAreaView>
-)
+const Slider: FC<SliderProps> = ({ navigation }) => {
+  const translateX = useSharedValue(0)
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={width}
+        decelerationRate="fast">
+        {slidersData.map((item, index) => (
+          <SliderContent
+            key={item.title}
+            title={item.title}
+            text={item.text}
+            image={item.image}
+            sliderIndex={index}
+            slidersCount={slidersData.length}
+            navigation={navigation}
+          />
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  )
+}
 
 export default Slider
