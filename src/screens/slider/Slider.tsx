@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, View } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { useSharedValue } from 'react-native-reanimated'
+import Animated, { useSharedValue, useAnimatedScrollHandler } from 'react-native-reanimated'
 import { AppRoutes } from '../../navigation/types'
 
 import SliderContent from '../../components/SliderContent'
+import ProgressBar from '../../components/ProgressBar'
 
 const slidersData = [
   {
@@ -37,6 +38,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFB051',
   },
+  progressBarContainer: {
+    position: 'absolute',
+    height: 25,
+    bottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
 })
 
 type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
@@ -48,9 +57,14 @@ interface SliderProps {
 const Slider: FC<SliderProps> = ({ navigation }) => {
   const translateX = useSharedValue(0)
 
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    translateX.value = event.contentOffset.x
+  })
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
+      <Animated.ScrollView
+        onScroll={scrollHandler}
         horizontal
         showsHorizontalScrollIndicator={false}
         snapToInterval={width}
@@ -66,7 +80,10 @@ const Slider: FC<SliderProps> = ({ navigation }) => {
             navigation={navigation}
           />
         ))}
-      </ScrollView>
+      </Animated.ScrollView>
+      <View style={styles.progressBarContainer}>
+        <ProgressBar scrollPositionX={translateX.value} slidersCount={slidersData.length} />
+      </View>
     </SafeAreaView>
   )
 }

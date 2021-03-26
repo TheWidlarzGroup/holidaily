@@ -2,14 +2,12 @@ import React, { FC, useCallback } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
 
-import ProgressBar from './ProgressBar'
-
 const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    right: -100,
+    right: -150,
   },
   container: {
     width,
@@ -73,7 +71,6 @@ const SliderContent: FC<SliderContentProps> = ({
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.text}>{text}</Text>
       <View style={styles.progressContainer}>
-        <ProgressBar sliderIndex={sliderIndex} slidersCount={slidersCount} />
         {slidersCount - 1 === sliderIndex ? (
           <TouchableOpacity style={styles.button} onPress={handlePressButton}>
             <View>
