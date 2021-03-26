@@ -40,15 +40,20 @@ const styles = StyleSheet.create({
 
 type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
 
-export type SliderProps = {
+interface SliderProps {
   navigation: SliderNavigationProps
 }
 
 const Slider: FC<SliderProps> = ({ navigation }) => (
   <SafeAreaView style={styles.container}>
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} snapToInterval={width}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      snapToInterval={width}
+      decelerationRate="fast">
       {slidersData.map((item, index) => (
         <SliderContent
+          key={item.title}
           title={item.title}
           text={item.text}
           image={item.image}
