@@ -18,21 +18,18 @@ const styles = StyleSheet.create({
 })
 
 interface ProgressBarProps {
-  sliderIndex: number
+  scrollPositionX: number
   slidersCount: number
 }
 
-const ProgressBar: FC<ProgressBarProps> = ({ sliderIndex, slidersCount }) => {
+const ProgressBar: FC<ProgressBarProps> = ({ scrollPositionX, slidersCount }) => {
   const mockArr = Array(slidersCount).fill('')
 
   return (
     <View style={styles.progressBar}>
-      {mockArr.map((_, index) => {
-        if (index === sliderIndex) {
-          return <View style={[styles.dot, styles.activeDot]} key={index}></View>
-        }
-        return <View style={styles.dot} key={index}></View>
-      })}
+      {mockArr.map((_, index) => (
+        <View style={styles.dot} key={index}></View>
+      ))}
     </View>
   )
 }
