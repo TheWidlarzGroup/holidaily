@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     minHeight: 50,
     justifyContent: 'center',
+    position: 'absolute',
+    bottom: 20,
   },
   text: {
     maxWidth: '80%',
