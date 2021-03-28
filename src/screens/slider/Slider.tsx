@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 })
 
-type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
+export type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
 
 interface SliderProps {
   navigation: SliderNavigationProps
@@ -78,6 +78,7 @@ const Slider: FC<SliderProps> = ({ navigation }) => {
             sliderIndex={index}
             slidersCount={slidersData.length}
             navigation={navigation}
+            scrollPositionX={translateX}
           />
         ))}
       </Animated.ScrollView>

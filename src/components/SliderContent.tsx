@@ -1,6 +1,20 @@
 import React, { FC, useCallback } from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ImageSourcePropType,
+} from 'react-native'
 import Svg, { Path } from 'react-native-svg'
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+  interpolate,
+  Extrapolate,
+} from 'react-native-reanimated'
+import type { SliderNavigationProps } from '../screens/slider/Slider'
 
 const { width } = Dimensions.get('window')
 
@@ -18,7 +32,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: '90%',
     maxWidth: 400,
-    height: 400,
+    height: 450,
     borderRadius: 12,
   },
   progressContainer: {
@@ -45,12 +59,11 @@ const styles = StyleSheet.create({
 interface SliderContentProps {
   title: string
   text: string
-  // Fix later <--------------------------------
-  image: any
+  image: ImageSourcePropType
   sliderIndex: number
   slidersCount: number
-  // Fix later <--------------------------------
-  navigation: any
+  navigation: SliderNavigationProps
+  scrollPositionX: Animated.SharedValue<number>
 }
 
 const SliderContent: FC<SliderContentProps> = ({
@@ -60,14 +73,28 @@ const SliderContent: FC<SliderContentProps> = ({
   sliderIndex,
   slidersCount,
   navigation,
+  scrollPositionX,
 }) => {
   const handlePressButton = useCallback(() => {
     navigation.navigate('Signup')
   }, [navigation])
 
+  const style = useAnimatedStyle(() => {
+    const opacity = withTiming(
+      interpolate(
+        scrollPositionX.value,
+        [width * (sliderIndex - 1), width * sliderIndex, width * (sliderIndex + 1)],
+        [0, 1, 0],
+        Extrapolate.CLAMP
+      )
+    )
+
+    return { opacity }
+  })
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={image} />
+      <Animated.Image style={[styles.image, style]} source={image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.text}>{text}</Text>
       <View style={styles.progressContainer}>
