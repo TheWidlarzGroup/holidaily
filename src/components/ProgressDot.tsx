@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   interpolate,
+  interpolateColor,
   Extrapolate,
   withTiming,
 } from 'react-native-reanimated'
@@ -37,19 +38,19 @@ const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) => {
         duration: 200,
       }
     )
-    const opacity = withTiming(
-      interpolate(
+
+    const backgroundColor = withTiming(
+      interpolateColor(
         scrollPositionX.value,
-        [width * (index - 1), width * index],
-        [0.5, 1],
-        Extrapolate.CLAMP
+        [width * (index - 1), width * index, width * (index + 1)],
+        ['#fff', '#000', '#fff']
       ),
       {
         duration: 200,
       }
-    )
+    ) as any
 
-    return { opacity, transform: [{ scale }] }
+    return { backgroundColor, transform: [{ scale }] }
   })
 
   return <Animated.View style={[styles.dot, style]}></Animated.View>
