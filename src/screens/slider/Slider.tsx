@@ -82,7 +82,7 @@ const Slider: FC<SliderProps> = ({ navigation }) => {
         ))}
       </Animated.ScrollView>
       <View style={styles.progressBarContainer}>
-        <ProgressBar scrollPositionX={translateX.value} slidersCount={slidersData.length} />
+        <ProgressBar scrollPositionX={translateX} slidersCount={slidersData.length} />
       </View>
     </SafeAreaView>
   )
