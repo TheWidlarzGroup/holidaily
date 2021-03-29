@@ -4,9 +4,10 @@ import { StyleSheet, Dimensions, View } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import Animated, { useSharedValue, useAnimatedScrollHandler } from 'react-native-reanimated'
 import { AppRoutes } from '../../navigation/types'
+import { colors } from '../../utils/theme/colors'
 
-import SliderContent from '../../components/SliderContent'
-import ProgressBar from '../../components/ProgressBar'
+import { SliderContent } from '../../components/SliderContent'
+import { ProgressBar } from '../../components/ProgressBar'
 
 const slidersData = [
   {
@@ -33,28 +34,13 @@ const slidersData = [
 
 const { width } = Dimensions.get('window')
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFB051',
-  },
-  progressBarContainer: {
-    position: 'absolute',
-    height: 25,
-    bottom: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
-})
-
 export type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
 
 type SliderProps = {
   navigation: SliderNavigationProps
 }
 
-const Slider: FC<SliderProps> = ({ navigation }) => {
+export const Slider: FC<SliderProps> = ({ navigation }) => {
   const translateX = useSharedValue(0)
 
   const scrollHandler = useAnimatedScrollHandler((event) => {
@@ -89,4 +75,17 @@ const Slider: FC<SliderProps> = ({ navigation }) => {
   )
 }
 
-export default Slider
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.mainBackground,
+  },
+  progressBarContainer: {
+    position: 'absolute',
+    height: 25,
+    bottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+})

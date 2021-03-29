@@ -1,8 +1,8 @@
 import React from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import AppStackContainer from './navigation'
 import { ThemeProvider } from '@shopify/restyle'
+import AppStackContainer from './navigation'
 import { darkTheme, theme } from './utils/theme'
 
 export const Main = () => {

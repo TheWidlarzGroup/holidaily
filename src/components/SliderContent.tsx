@@ -18,48 +18,6 @@ import type { SliderNavigationProps } from '../screens/slider/Slider'
 
 const { width } = Dimensions.get('window')
 
-const styles = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 20,
-    right: -150,
-  },
-  container: {
-    width,
-    flex: 1,
-    alignItems: 'center',
-  },
-  image: {
-    flex: 0.7,
-    marginTop: 50,
-    width: '90%',
-    maxWidth: 400,
-    borderRadius: 12,
-  },
-  progressContainer: {
-    marginTop: 20,
-    minHeight: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    maxWidth: '80%',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  textContainer: {
-    flex: 0.3,
-    justifyContent: 'center',
-  },
-  title: {
-    marginTop: 20,
-    marginBottom: 10,
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-})
-
 type SliderContentProps = {
   title: string
   text: string
@@ -70,7 +28,7 @@ type SliderContentProps = {
   scrollPositionX: Animated.SharedValue<number>
 }
 
-const SliderContent: FC<SliderContentProps> = ({
+export const SliderContent: FC<SliderContentProps> = ({
   title,
   text,
   image,
@@ -122,4 +80,44 @@ const SliderContent: FC<SliderContentProps> = ({
   )
 }
 
-export default SliderContent
+const styles = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    bottom: 20,
+    right: -150,
+  },
+  container: {
+    width,
+    flex: 1,
+    alignItems: 'center',
+  },
+  image: {
+    flex: 0.7,
+    marginTop: 50,
+    width: '90%',
+    maxWidth: 400,
+    borderRadius: 12,
+  },
+  progressContainer: {
+    marginTop: 20,
+    minHeight: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    maxWidth: '80%',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  textContainer: {
+    flex: 0.3,
+    justifyContent: 'center',
+  },
+  title: {
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+})
