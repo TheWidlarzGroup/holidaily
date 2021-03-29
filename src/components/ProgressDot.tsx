@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 const { width } = Dimensions.get('window')
 
-interface ProgressDotProps {
+type ProgressDotProps = {
   scrollPositionX: Animated.SharedValue<number>
   index: number
 }
