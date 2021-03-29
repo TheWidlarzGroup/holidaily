@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 })
 
-interface ProgressBarProps {
+type ProgressBarProps = {
   scrollPositionX: Animated.SharedValue<number>
   slidersCount: number
 }

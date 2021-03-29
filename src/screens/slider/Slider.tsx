@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 
 export type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
 
-interface SliderProps {
+type SliderProps = {
   navigation: SliderNavigationProps
 }
 

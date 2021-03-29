@@ -21,6 +21,7 @@ const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
+    bottom: 20,
     right: -150,
   },
   container: {
@@ -29,23 +30,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
+    flex: 0.7,
     marginTop: 50,
     width: '90%',
     maxWidth: 400,
-    height: 450,
     borderRadius: 12,
   },
   progressContainer: {
     marginTop: 20,
     minHeight: 50,
     justifyContent: 'center',
-    position: 'absolute',
-    bottom: 20,
+    alignItems: 'center',
   },
   text: {
     maxWidth: '80%',
     fontSize: 16,
     textAlign: 'center',
+  },
+  textContainer: {
+    flex: 0.3,
+    justifyContent: 'center',
   },
   title: {
     marginTop: 20,
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
   },
 })
 
-interface SliderContentProps {
+type SliderContentProps = {
   title: string
   text: string
   image: ImageSourcePropType
@@ -95,8 +99,10 @@ const SliderContent: FC<SliderContentProps> = ({
   return (
     <View style={styles.container}>
       <Animated.Image style={[styles.image, style]} source={image} />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.text}>{text}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.text}>{text}</Text>
+      </View>
       <View style={styles.progressContainer}>
         {slidersCount - 1 === sliderIndex ? (
           <TouchableOpacity style={styles.button} onPress={handlePressButton}>
