@@ -7,16 +7,7 @@ import Animated, {
   Extrapolate,
   withTiming,
 } from 'react-native-reanimated'
-
-const styles = StyleSheet.create({
-  dot: {
-    margin: 5,
-    width: 10,
-    height: 10,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-  },
-})
+import { colors } from '../utils/theme/colors'
 
 const { width } = Dimensions.get('window')
 
@@ -25,7 +16,7 @@ type ProgressDotProps = {
   index: number
 }
 
-const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) => {
+export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) => {
   const style = useAnimatedStyle(() => {
     const scale = withTiming(
       interpolate(
@@ -43,7 +34,7 @@ const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) => {
       interpolateColor(
         scrollPositionX.value,
         [width * (index - 1), width * index, width * (index + 1)],
-        ['#fff', '#000', '#fff']
+        [colors.white, colors.black, colors.white]
       ),
       {
         duration: 200,
@@ -56,4 +47,12 @@ const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) => {
   return <Animated.View style={[styles.dot, style]}></Animated.View>
 }
 
-export default ProgressDot
+const styles = StyleSheet.create({
+  dot: {
+    margin: 5,
+    width: 10,
+    height: 10,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+  },
+})
