@@ -1,10 +1,11 @@
-import { useNavigation } from '@react-navigation/native'
 import React, { useCallback } from 'react'
-import { Pressable, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AppNavigationType } from '../../navigation/types'
+import { Box, Text } from '../../utils/theme'
 
-const TestScreen = () => {
+export const TestScreen = () => {
   const navigation = useNavigation<AppNavigationType<'TestScreen'>>()
 
   const goBack = useCallback(() => {
@@ -12,13 +13,21 @@ const TestScreen = () => {
   }, [navigation])
 
   return (
-    <SafeAreaView>
-      <Text>Home Screen</Text>
-      <Pressable onPress={goBack}>
-        <Text>Go back</Text>
-      </Pressable>
+    <SafeAreaView style={styles.safeArea}>
+      <Box margin="m">
+        <Text variant="title1">Home Screen</Text>
+      </Box>
+      <Box margin="m">
+        <Pressable onPress={goBack}>
+          <Text>Go back</Text>
+        </Pressable>
+      </Box>
     </SafeAreaView>
   )
 }
 
-export default TestScreen
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+})
