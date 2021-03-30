@@ -7,6 +7,6 @@ module.exports = {
   rules: {
     'import/no-unresolved': 0,
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': 'warn',
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 }

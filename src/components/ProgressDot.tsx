@@ -39,7 +39,7 @@ export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) =>
       {
         duration: 200,
       }
-    ) as any
+    )
 
     return { backgroundColor, transform: [{ scale }] }
   })

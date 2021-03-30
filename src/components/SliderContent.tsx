@@ -1,20 +1,12 @@
-import React, { FC, useCallback } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ImageSourcePropType,
-} from 'react-native'
-import Svg, { Path } from 'react-native-svg'
+import React, { FC } from 'react'
+import { StyleSheet, Dimensions, ImageSourcePropType } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   withTiming,
   interpolate,
   Extrapolate,
 } from 'react-native-reanimated'
-import type { SliderNavigationProps } from '../screens/slider/Slider'
+import { Box, Text } from '../utils/theme/index'
 
 const { width } = Dimensions.get('window')
 
@@ -24,7 +16,6 @@ type SliderContentProps = {
   image: ImageSourcePropType
   sliderIndex: number
   slidersCount: number
-  navigation: SliderNavigationProps
   scrollPositionX: Animated.SharedValue<number>
 }
 
@@ -34,12 +25,20 @@ export const SliderContent: FC<SliderContentProps> = ({
   image,
   sliderIndex,
   slidersCount,
-  navigation,
   scrollPositionX,
 }) => {
-  const handlePressButton = useCallback(() => {
-    navigation.navigate('Signup')
-  }, [navigation])
+  const containerStyle = useAnimatedStyle(() => {
+    const translateX = withTiming(
+      interpolate(
+        scrollPositionX.value,
+        [0, width * slidersCount],
+        [0, -width * slidersCount],
+        Extrapolate.CLAMP
+      )
+    )
+
+    return { transform: [{ translateX }] }
+  })
 
   const style = useAnimatedStyle(() => {
     const opacity = withTiming(
@@ -55,28 +54,15 @@ export const SliderContent: FC<SliderContentProps> = ({
   })
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, containerStyle]}>
       <Animated.Image style={[styles.image, style]} source={image} />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.text}>{text}</Text>
-      </View>
-      <View style={styles.progressContainer}>
-        {slidersCount - 1 === sliderIndex ? (
-          <TouchableOpacity style={styles.button} onPress={handlePressButton}>
-            <View>
-              <Svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-                <Path
-                  fillRule="evenodd"
-                  d="M41 22C41 32.4934 32.4934 41 22 41C11.5066 41 3 32.4934 3 22C3 11.5066 11.5066 3 22 3C32.4934 3 41 11.5066 41 22ZM44 22C44 34.1503 34.1503 44 22 44C9.84974 44 0 34.1503 0 22C0 9.84974 9.84974 0 22 0C34.1503 0 44 9.84974 44 22ZM29.0607 20.9393L23.0607 14.9393C22.4749 14.3536 21.5251 14.3536 20.9393 14.9393C20.3536 15.5251 20.3536 16.4749 20.9393 17.0607L24.3787 20.5H15C14.1716 20.5 13.5 21.1716 13.5 22C13.5 22.8284 14.1716 23.5 15 23.5H24.3787L20.9393 26.9393C20.3536 27.5251 20.3536 28.4749 20.9393 29.0607C21.5251 29.6464 22.4749 29.6464 23.0607 29.0607L29.0607 23.0607C29.6464 22.4749 29.6464 21.5251 29.0607 20.9393Z"
-                  fill="#000"
-                />
-              </Svg>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-      </View>
-    </View>
+      <Box style={styles.textContainer}>
+        <Text variant="title1">{title}</Text>
+        <Text variant="body1" style={styles.text}>
+          {text}
+        </Text>
+      </Box>
+    </Animated.View>
   )
 }
 
@@ -88,12 +74,11 @@ const styles = StyleSheet.create({
   },
   container: {
     width,
-    flex: 1,
     alignItems: 'center',
   },
   image: {
-    flex: 0.7,
-    marginTop: 50,
+    flex: 1,
+    marginTop: 20,
     width: '90%',
     maxWidth: 400,
     borderRadius: 12,
@@ -106,18 +91,10 @@ const styles = StyleSheet.create({
   },
   text: {
     maxWidth: '80%',
-    fontSize: 16,
-    textAlign: 'center',
   },
   textContainer: {
     flex: 0.3,
     justifyContent: 'center',
-  },
-  title: {
-    marginTop: 20,
-    marginBottom: 10,
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    alignItems: 'center',
   },
 })
