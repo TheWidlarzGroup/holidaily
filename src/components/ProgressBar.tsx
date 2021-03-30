@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
+import { Box } from '../utils/theme/index'
 
 import { ProgressDot } from './ProgressDot'
 
@@ -13,11 +14,11 @@ export const ProgressBar: FC<ProgressBarProps> = ({ scrollPositionX, slidersCoun
   const mockArr = Array(slidersCount).fill('')
 
   return (
-    <View style={styles.progressBar}>
+    <Box style={styles.progressBar}>
       {mockArr.map((_, index) => (
         <ProgressDot scrollPositionX={scrollPositionX} key={index} index={index} />
       ))}
-    </View>
+    </Box>
   )
 }
 

@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, View } from 'react-native'
+import { StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import Animated, { useSharedValue, useAnimatedScrollHandler } from 'react-native-reanimated'
 import { AppRoutes } from '../../navigation/types'
 import { colors } from '../../utils/theme/colors'
+import { Box } from '../../utils/theme/index'
 
 import { SliderContent } from '../../components/SliderContent'
 import { ProgressBar } from '../../components/ProgressBar'
@@ -47,6 +48,14 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
     translateX.value = event.contentOffset.x
   })
 
+  const handlePressButton = useCallback(() => {
+    if (translateX.value >= (slidersData.length - 1) * width) {
+      navigation.navigate('Signup')
+    } else {
+      translateX.value += width
+    }
+  }, [navigation, translateX])
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.ScrollView
@@ -54,6 +63,7 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         snapToInterval={width}
+        snapToEnd={false}
         decelerationRate="fast">
         {slidersData.map((item, index) => (
           <SliderContent
@@ -63,27 +73,41 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
             image={item.image}
             sliderIndex={index}
             slidersCount={slidersData.length}
-            navigation={navigation}
             scrollPositionX={translateX}
           />
         ))}
       </Animated.ScrollView>
-      <View style={styles.progressBarContainer}>
+      <Box style={styles.progressBarContainer}>
         <ProgressBar scrollPositionX={translateX} slidersCount={slidersData.length} />
-      </View>
+      </Box>
+      <TouchableOpacity style={styles.button} onPress={handlePressButton}>
+        <Text style={styles.buttonText}>Next</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 30,
+    width: 221,
+    height: 53,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.black,
+    borderRadius: 100,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: colors.white,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.mainBackground,
   },
   progressBarContainer: {
-    position: 'absolute',
-    height: 25,
-    bottom: 30,
+    flex: 0.15,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
