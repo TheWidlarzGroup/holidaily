@@ -1,8 +1,12 @@
 import React, { FC, useCallback } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, Dimensions, TouchableOpacity, Text, ScrollView } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import Animated, { useSharedValue, useAnimatedScrollHandler } from 'react-native-reanimated'
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedRef,
+} from 'react-native-reanimated'
 import { AppRoutes } from '../../navigation/types'
 import { colors } from '../../utils/theme/colors'
 import { Box } from '../../utils/theme/index'
@@ -35,7 +39,7 @@ const slidersData = [
 
 const { width } = Dimensions.get('window')
 
-export type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
+type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
 
 type SliderProps = {
   navigation: SliderNavigationProps
@@ -43,22 +47,26 @@ type SliderProps = {
 
 export const Slider: FC<SliderProps> = ({ navigation }) => {
   const translateX = useSharedValue(0)
+  const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
 
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    translateX.value = event.contentOffset.x
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      translateX.value = event.contentOffset.x
+    },
   })
 
   const handlePressButton = useCallback(() => {
     if (translateX.value >= (slidersData.length - 1) * width) {
       navigation.navigate('Signup')
     } else {
-      translateX.value += width
+      aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }
-  }, [navigation, translateX])
+  }, [navigation, translateX, aref])
 
   return (
     <SafeAreaView style={styles.container}>
       <Animated.ScrollView
+        ref={aref}
         onScroll={scrollHandler}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -72,7 +80,6 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
             text={item.text}
             image={item.image}
             sliderIndex={index}
-            slidersCount={slidersData.length}
             scrollPositionX={translateX}
           />
         ))}

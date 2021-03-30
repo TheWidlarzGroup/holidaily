@@ -1,11 +1,6 @@
 import React, { FC } from 'react'
 import { StyleSheet, Dimensions, ImageSourcePropType } from 'react-native'
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-  interpolate,
-  Extrapolate,
-} from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, interpolate, Extrapolate } from 'react-native-reanimated'
 import { Box, Text } from '../utils/theme/index'
 
 const { width } = Dimensions.get('window')
@@ -15,7 +10,6 @@ type SliderContentProps = {
   text: string
   image: ImageSourcePropType
   sliderIndex: number
-  slidersCount: number
   scrollPositionX: Animated.SharedValue<number>
 }
 
@@ -24,37 +18,21 @@ export const SliderContent: FC<SliderContentProps> = ({
   text,
   image,
   sliderIndex,
-  slidersCount,
   scrollPositionX,
 }) => {
-  const containerStyle = useAnimatedStyle(() => {
-    const translateX = withTiming(
-      interpolate(
-        scrollPositionX.value,
-        [0, width * slidersCount],
-        [0, -width * slidersCount],
-        Extrapolate.CLAMP
-      )
-    )
-
-    return { transform: [{ translateX }] }
-  })
-
   const style = useAnimatedStyle(() => {
-    const opacity = withTiming(
-      interpolate(
-        scrollPositionX.value,
-        [width * (sliderIndex - 1), width * sliderIndex, width * (sliderIndex + 1)],
-        [0, 1, 0],
-        Extrapolate.CLAMP
-      )
+    const opacity = interpolate(
+      scrollPositionX.value,
+      [width * (sliderIndex - 1), width * sliderIndex, width * (sliderIndex + 1)],
+      [0, 1, 0],
+      Extrapolate.CLAMP
     )
 
     return { opacity }
   })
 
   return (
-    <Animated.View style={[styles.container, containerStyle]}>
+    <Animated.View style={[styles.container]}>
       <Animated.Image style={[styles.image, style]} source={image} />
       <Box style={styles.textContainer}>
         <Text variant="title1">{title}</Text>
