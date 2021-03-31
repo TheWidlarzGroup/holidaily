@@ -34,22 +34,15 @@ export const SliderContent: FC<SliderContentProps> = ({
   return (
     <Animated.View style={[styles.container]}>
       <Animated.Image style={[styles.image, style]} source={image} />
-      <Box style={styles.textContainer}>
+      <Box flex={0.3} maxWidth="80%" justifyContent="center" alignItems="center">
         <Text variant="title1">{title}</Text>
-        <Text variant="body1" style={styles.text}>
-          {text}
-        </Text>
+        <Text variant="body1">{text}</Text>
       </Box>
     </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
-  button: {
-    position: 'absolute',
-    bottom: 20,
-    right: -150,
-  },
   container: {
     width,
     alignItems: 'center',
@@ -60,19 +53,5 @@ const styles = StyleSheet.create({
     width: '90%',
     maxWidth: 400,
     borderRadius: 12,
-  },
-  progressContainer: {
-    marginTop: 20,
-    minHeight: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    maxWidth: '80%',
-  },
-  textContainer: {
-    flex: 0.3,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
