@@ -1,20 +1,20 @@
 import React, { FC, useCallback } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, TouchableOpacity, Text, ScrollView } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
   useAnimatedRef,
 } from 'react-native-reanimated'
-import { AppRoutes } from '../../navigation/types'
+import { useNavigation } from '@react-navigation/native'
+import { AppNavigationType } from '../../navigation/types'
 import { colors } from '../../utils/theme/colors'
-import { Box } from '../../utils/theme/index'
+import { Box, Text } from '../../utils/theme/index'
 
 import { SliderContent } from '../../components/SliderContent'
 import { ProgressBar } from '../../components/ProgressBar'
 
-const slidersData = [
+const SLIDER_DATA = [
   {
     title: 'Welcome to Holidaily!',
     text: 'All your team days-off in one place.',
@@ -39,13 +39,8 @@ const slidersData = [
 
 const { width } = Dimensions.get('window')
 
-type SliderNavigationProps = StackNavigationProp<AppRoutes, 'Home'>
-
-type SliderProps = {
-  navigation: SliderNavigationProps
-}
-
-export const Slider: FC<SliderProps> = ({ navigation }) => {
+export const Slider: FC = () => {
+  const navigation = useNavigation<AppNavigationType<'Slider'>>()
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
 
@@ -56,12 +51,12 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
   })
 
   const handlePressButton = useCallback(() => {
-    if (translateX.value >= (slidersData.length - 1) * width) {
+    if (translateX.value >= (SLIDER_DATA.length - 1) * width) {
       navigation.navigate('Signup')
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }
-  }, [navigation, translateX, aref])
+  }, [navigation])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -70,10 +65,11 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
         onScroll={scrollHandler}
         horizontal
         showsHorizontalScrollIndicator={false}
-        snapToInterval={width}
-        snapToEnd={false}
+        pagingEnabled
+        scrollEventThrottle={16}
+        bounces={false}
         decelerationRate="fast">
-        {slidersData.map((item, index) => (
+        {SLIDER_DATA.map((item, index) => (
           <SliderContent
             key={item.title}
             title={item.title}
@@ -84,11 +80,11 @@ export const Slider: FC<SliderProps> = ({ navigation }) => {
           />
         ))}
       </Animated.ScrollView>
-      <Box style={styles.progressBarContainer}>
-        <ProgressBar scrollPositionX={translateX} slidersCount={slidersData.length} />
+      <Box flex={0.15} alignItems="center" justifyContent="center" alignSelf="center">
+        <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <TouchableOpacity style={styles.button} onPress={handlePressButton}>
-        <Text style={styles.buttonText}>Next</Text>
+        <Text variant="buttonText1">Next</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
@@ -105,18 +101,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black,
     borderRadius: 100,
   },
-  buttonText: {
-    fontSize: 18,
-    color: colors.white,
-  },
   container: {
     flex: 1,
     backgroundColor: colors.mainBackground,
-  },
-  progressBarContainer: {
-    flex: 0.15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
   },
 })

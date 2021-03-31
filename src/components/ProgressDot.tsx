@@ -33,7 +33,7 @@ export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) =>
     return { backgroundColor, transform: [{ scale }] }
   })
 
-  return <Animated.View style={[styles.dot, style]}></Animated.View>
+  return <Animated.View style={[styles.dot, style]} />
 }
 
 const styles = StyleSheet.create({
