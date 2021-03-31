@@ -1,14 +1,11 @@
-
 {
   "extends": "eslint-config-twg/tsconfig.json",
-  "include": [
-    "**/*"
-  ],
+  "include": ["**/*"],
   "compilerOptions": {
     "jsx": "react-native",
     "typeRoots": ["node_modules/@types"],
     "types": ["jest", "node"],
     "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": true
   }
 }
