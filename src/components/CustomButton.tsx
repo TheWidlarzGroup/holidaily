@@ -1,54 +1,87 @@
 import React, { FC } from 'react'
 import { FlexStyle, ActivityIndicator, StyleSheet } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text } from '../utils/theme/index'
+import { Text, Box } from '../utils/theme/index'
+import { colors } from '../utils/theme/colors'
 
 import { IconGoogle } from './icons/IconGoogle'
 import { IconSlack } from './icons/IconSlack'
 
+type CustomButtonVariants = 'transparent' | 'black' | 'orange'
+type CustomButtonIcons = 'google' | 'slack'
+
 interface CustomButtonProps extends RectButtonProperties, FlexStyle {
+  variant?: CustomButtonVariants
+  icon?: CustomButtonIcons
   label: string
-  textColor: 'white' | 'black'
-  backgroundColor?: 'black' | '#FF9F2D'
-  onPress?: () => void
-  icon?: 'google' | 'slack'
   disabled?: boolean
   loading?: boolean
+  onPress?: () => void
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
+  variant = 'transparent',
   label,
-  textColor,
-  backgroundColor,
   icon,
   disabled = false,
   loading = false,
   onPress,
   ...rest
 }) => {
-  const rippleColor = disabled ? undefined : 'rgba(0,0,0,0.2)'
+  let bgColor
+  let borderWidth = 2
+  let color = colors.black
+
+  switch (variant) {
+    case 'transparent':
+      color = colors.black
+      break
+    case 'black':
+      bgColor = colors.black
+      color = colors.white
+      borderWidth = 0
+      break
+    case 'orange':
+      bgColor = colors.secondary
+      color = colors.white
+      borderWidth = 0
+      break
+    default:
+      break
+  }
+
+  const backgroundColor = disabled ? colors.disabled : bgColor
+  const textColor = disabled ? colors.white : color
+  const rippleColor = disabled ? 'rgba(0,0,0,0)' : colors.tertiary
 
   return (
     <RectButton
       onPress={disabled ? () => null : onPress}
       activeOpacity={disabled ? 0 : 0.2}
       rippleColor={rippleColor}
-      style={[
-        styles.container,
-        backgroundColor && { backgroundColor, borderColor: backgroundColor },
-        rest,
-      ]}>
-      {loading ? (
-        <ActivityIndicator size="small" color={textColor} />
-      ) : (
-        <>
-          {icon === 'google' && <IconGoogle />}
-          {icon === 'slack' && <IconSlack />}
-          <Text variant="buttonText1" color={textColor}>
-            {label}
-          </Text>
-        </>
-      )}
+      style={[styles.container, { backgroundColor }, rest]}>
+      <Box
+        height="100%"
+        width="100%"
+        flexDirection="row"
+        alignSelf="center"
+        alignItems="center"
+        justifyContent="space-evenly"
+        borderWidth={borderWidth}
+        borderRadius="xxl"
+        borderColor="black">
+        {loading ? (
+          <ActivityIndicator size="small" color={textColor} />
+        ) : (
+          <>
+            {icon === 'google' && <IconGoogle />}
+            {icon === 'slack' && <IconSlack />}
+            <Text variant="buttonText1" style={{ color: textColor }}>
+              {label}
+            </Text>
+          </>
+        )}
+      </Box>
     </RectButton>
   )
 }
@@ -62,7 +95,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     borderRadius: 100,
-    borderWidth: 2,
-    borderColor: 'black',
   },
 })
