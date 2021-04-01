@@ -12,14 +12,9 @@ export const Signup: FC = () => (
     </Box>
     <Box width={200} height={200} backgroundColor="secondary" borderRadius="m" alignSelf="center" />
     <Box flex={0.6} justifyContent="center">
-      <CustomButton label="Continue with Gmail" textColor="black" icon="google" />
-      <CustomButton label="Continue with Slack" textColor="black" icon="slack" marginTop={16} />
-      <CustomButton
-        label="Sign up with E-mail"
-        textColor="white"
-        backgroundColor="#FF9F2D"
-        marginTop={40}
-      />
+      <CustomButton label="Continue with Gmail" variant="transparent" icon="google" />
+      <CustomButton label="Continue with Slack" variant="transparent" icon="slack" marginTop={16} />
+      <CustomButton label="Sign up with E-mail" variant="orange" marginTop={40} />
     </Box>
   </SafeAreaView>
 )
