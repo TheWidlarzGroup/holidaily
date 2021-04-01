@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { FlexStyle, ActivityIndicator, StyleSheet } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, Box } from '../utils/theme/index'
+import { Text, Box, theme } from '../utils/theme/index'
 import { colors } from '../utils/theme/colors'
 
-import { IconGoogle } from './icons/IconGoogle'
-import { IconSlack } from './icons/IconSlack'
+import IconGoogle from '../assets/icons/icon-google.svg'
+import IconSlack from '../assets/icons/icon-slack.svg'
 
 type CustomButtonVariants = 'transparent' | 'black' | 'orange'
 type CustomButtonIcons = 'google' | 'slack'
@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    borderRadius: 100,
+    borderRadius: theme.borderRadii.xxl,
   },
 })
