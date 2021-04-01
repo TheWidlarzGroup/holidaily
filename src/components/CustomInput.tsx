@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, TextInput } from 'react-native'
-import { Text } from '../utils/theme/index'
+import { Text, theme } from '../utils/theme/index'
+import { colors } from '../utils/theme/colors'
 
 type CustomInputTypes = {
   inputText: string
@@ -21,7 +22,7 @@ export const CustomInput: FC<CustomInputTypes> = ({
     <Text variant="label1" marginLeft="m" marginBottom="xs">
       {inputText}
     </Text>
-    {/* ikona widocznosci hasla dla inputow hasla, do dodania */}
+    {/* Password visibility icon to be added */}
     <TextInput
       style={[styles.input, isWrong && styles.errorBorder]}
       secureTextEntry={inputText === 'Password'}
@@ -35,14 +36,14 @@ export const CustomInput: FC<CustomInputTypes> = ({
 const styles = StyleSheet.create({
   input: {
     height: 50,
-    backgroundColor: '#E1E1E1',
-    borderRadius: 100,
-    paddingHorizontal: 20,
+    backgroundColor: colors.lightGrey,
+    borderRadius: theme.borderRadii.xxl,
+    paddingHorizontal: theme.spacing.m,
   },
 
   errorBorder: {
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: 'red',
+    borderColor: colors.errorRed,
   },
 })

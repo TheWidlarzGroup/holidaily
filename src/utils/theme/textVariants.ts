@@ -23,7 +23,7 @@ export const textVariants = {
   },
   remind1: {
     fontSize: 15,
-    color: 'lightGray',
+    color: 'grey',
     fontWeight: 'bold',
   },
   error1: {

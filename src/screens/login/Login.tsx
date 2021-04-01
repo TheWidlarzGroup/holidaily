@@ -5,23 +5,16 @@ import { StyleSheet, Pressable } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
-import { Box, Text } from '../../utils/theme/index'
+import { Box, Text, theme } from '../../utils/theme/index'
+import { colors } from '../../utils/theme/colors'
 import { CustomInput } from '../../components/CustomInput'
-
-type LoginTypes = {
-  email: string
-  password: string
-}
+import { emailRegex } from '../../utils/regexes/emailRegex'
+import { useLogin } from '../../hooks/useLogin'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-
-  const handleLogin = ({ email, password }: LoginTypes) => {
-    // To Do
-    console.log('email ', email)
-    console.log('password ', password)
-  }
+  const handleLogin = useLogin({ email: 'email', password: 'password' })
 
   const navigateToRemindPassword = useCallback(() => {
     // Uncomment when this screen will be ready
@@ -52,7 +45,7 @@ export const Login: FC = () => {
             name="email"
             rules={{
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: emailRegex,
                 message: 'Incorrect email, please try again',
               },
             }}
@@ -95,7 +88,7 @@ export const Login: FC = () => {
         </Box>
       </Box>
       <Box flex={0.4} justifyContent="center">
-        {/* do zmiany na button, ktory jest w pull requescie Bartka */}
+        {/* Will be changed to reusable button made by Bartek */}
         <Box
           width={221}
           height={53}
@@ -115,13 +108,13 @@ export const Login: FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
 
   input: {
     height: 50,
-    backgroundColor: '#E1E1E1',
-    borderRadius: 100,
-    paddingHorizontal: 20,
+    backgroundColor: colors.lightGrey,
+    borderRadius: theme.borderRadii.xxl,
+    paddingHorizontal: theme.spacing.m,
   },
 })
