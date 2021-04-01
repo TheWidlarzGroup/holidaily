@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
 import { Box, Text } from '../../utils/theme/index'
 
-import { Button } from '../../components/Button'
+import { CustomButton } from '../../components/CustomButton'
 
 export const Signup: FC = () => (
   <SafeAreaView style={styles.container}>
@@ -12,15 +12,14 @@ export const Signup: FC = () => (
     </Box>
     <Box width={200} height={200} backgroundColor="secondary" borderRadius="m" alignSelf="center" />
     <Box flex={0.6} justifyContent="center">
-      <Box>
-        <Button label="Continue with Gmail" textColor="black" icon="google" />
-      </Box>
-      <Box marginTop="m">
-        <Button label="Continue with Slack" textColor="black" icon="slack" />
-      </Box>
-      <Box marginTop="xl">
-        <Button label="Sign up with E-mail" textColor="white" backgroundColor="#FF9F2D" />
-      </Box>
+      <CustomButton label="Continue with Gmail" textColor="black" icon="google" />
+      <CustomButton label="Continue with Slack" textColor="black" icon="slack" marginTop={16} />
+      <CustomButton
+        label="Sign up with E-mail"
+        textColor="white"
+        backgroundColor="#FF9F2D"
+        marginTop={40}
+      />
     </Box>
   </SafeAreaView>
 )
