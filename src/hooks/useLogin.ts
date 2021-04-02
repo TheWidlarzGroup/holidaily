@@ -10,7 +10,7 @@ export const useLogin = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
 
   const handleLogin = ({ email, password }: LoginTypes) => {
-    // To Do
+    // TODO matthew: Handle Login !
     console.log('email ', email)
     console.log('password', password)
     navigation.navigate('Home')
