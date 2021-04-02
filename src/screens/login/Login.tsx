@@ -90,9 +90,8 @@ export const Login: FC = () => {
       <Box flex={0.4} justifyContent="center">
         {/* Will be changed to reusable button made by Bartek */}
         <Box
-          width={221}
+          marginHorizontal="xxl"
           height={53}
-          alignSelf="center"
           justifyContent="center"
           backgroundColor="mainBackground"
           borderRadius="xxl">

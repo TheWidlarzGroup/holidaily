@@ -11,11 +11,11 @@ type LoginTypes = {
 
 export const useLogin = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
-  const mutation = useMutation(LOGIN_USER)
+  const { mutate } = useMutation(LOGIN_USER)
 
   const handleLogin = ({ email, password }: LoginTypes) => {
-    // To Do
-    mutation.mutate({ email, password })
+    // TODO matthew: Handle Login !
+    mutate(console.log('xd'))
     console.log('email ', email)
     console.log('password', password)
     navigation.navigate('Home')
