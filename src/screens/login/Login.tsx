@@ -14,7 +14,7 @@ import { useLogin } from '../../hooks/useLogin'
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const handleLogin = useLogin({ email: 'email', password: 'password' })
+  const handleLogin = useLogin()
 
   const navigateToRemindPassword = useCallback(() => {
     // Uncomment when this screen will be ready
