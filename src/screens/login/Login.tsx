@@ -29,7 +29,7 @@ export const Login: FC = () => {
           Log in to your account
         </Text>
       </Box>
-      <Box width={327} alignSelf="center">
+      <Box marginHorizontal="l" alignSelf="center">
         <Box marginBottom="m">
           <Controller
             control={control}
