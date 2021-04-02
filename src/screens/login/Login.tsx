@@ -23,13 +23,13 @@ export const Login: FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Box flex={0.4} justifyContent="center" alignSelf="center">
+      <Box flex={0.4} justifyContent="center">
         <Text variant="title1">Nice to see you Again!</Text>
         <Text variant="body1" marginTop="s">
           Log in to your account
         </Text>
       </Box>
-      <Box marginHorizontal="l" alignSelf="center">
+      <Box marginHorizontal="l">
         <Box marginBottom="m">
           <Controller
             control={control}
