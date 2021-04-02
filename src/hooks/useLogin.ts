@@ -14,8 +14,6 @@ export const useLogin = () => {
   const { mutate } = useMutation(LOGIN_USER)
 
   const handleLogin = ({ email, password }: LoginTypes) => {
-    // TODO matthew: Handle Login !
-    mutate(console.log('xd'))
     console.log('email ', email)
     console.log('password', password)
     navigation.navigate('Home')
