@@ -9,4 +9,3 @@ export const IconTogglePasswordVisibility: FC = () => (
     />
   </Svg>
 )
-export default IconTogglePasswordVisibility
