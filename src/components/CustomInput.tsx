@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, Pressable } from 'react-native'
 import { Text, Box, theme } from '../utils/theme/index'
 import { colors } from '../utils/theme/colors'
 import { IconTogglePasswordVisibility } from '../assets/IconTogglePasswordVisbility'
+import useBooleanState from '../hooks/useBooleanState'
 
 type CustomInputTypes = {
   inputText: string
@@ -19,10 +20,10 @@ export const CustomInput: FC<CustomInputTypes> = ({
   value,
   isWrong,
 }) => {
-  const [passwordVisbility, setPasswordVisibility] = React.useState(inputText === 'Password')
+  const [state, { toggle }] = useBooleanState(inputText === 'Password')
 
   const togglePasswordVisibility = () => {
-    setPasswordVisibility(!passwordVisbility)
+    toggle()
   }
 
   return (
@@ -33,7 +34,7 @@ export const CustomInput: FC<CustomInputTypes> = ({
       <Box flexDirection="row">
         <TextInput
           style={[styles.input, isWrong && styles.errorBorder]}
-          secureTextEntry={passwordVisbility}
+          secureTextEntry={state}
           onBlur={onBlur}
           onChangeText={(newValue) => onChange(newValue)}
           value={value}
