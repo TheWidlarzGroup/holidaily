@@ -14,24 +14,28 @@ const endpoint = 'https://holidaily.danielgrychtol.com/api/graphiql'
 export const useLogin = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
 
-  const { mutate } = useMutation(async (variables) => {
-    const {
-      token: { token },
-    } = await request(
-      endpoint,
-      gql`
-        mutation loginUser($email: ${variables.email}, $password: ${variables.password}) {
-          loginUser(email: $email, password: $password) {
+  const { mutate } = useMutation<void, unknown, LoginTypes>(
+    async ({ email, password }: LoginTypes) => {
+      const {
+        token: { token },
+      } = await request(
+        endpoint,
+        gql`
+        mutation{
+          loginUser(email: ${email}, password: ${password}) {
             token
           }
         }
       `
-    )
-    return token
-  })
+      )
+      return token
+    }
+  )
 
   const handleLogin = ({ email, password }: LoginTypes) => {
-    mutate({ email, password } as any)
+    const variables = { email, password }
+    mutate(variables)
+
     console.log('email ', email)
     console.log('password', password)
     navigation.navigate('Home')
