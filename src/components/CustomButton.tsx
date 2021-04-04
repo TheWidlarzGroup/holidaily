@@ -7,7 +7,7 @@ import { colors } from '../utils/theme/colors'
 import IconGoogle from '../assets/icons/icon-google.svg'
 import IconSlack from '../assets/icons/icon-slack.svg'
 
-type CustomButtonVariants = 'transparent' | 'black' | 'orange'
+type CustomButtonVariants = 'primary' | 'secondary' | 'special'
 type CustomButtonIcons = 'google' | 'slack'
 
 interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -20,7 +20,7 @@ interface CustomButtonProps extends RectButtonProperties, FlexStyle {
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
-  variant = 'transparent',
+  variant = 'secondary',
   label,
   icon,
   disabled = false,
@@ -33,15 +33,15 @@ export const CustomButton: FC<CustomButtonProps> = ({
   let color = colors.black
 
   switch (variant) {
-    case 'transparent':
+    case 'secondary':
       color = colors.black
       break
-    case 'black':
+    case 'special':
       bgColor = colors.black
       color = colors.white
       borderWidth = 0
       break
-    case 'orange':
+    case 'primary':
       bgColor = colors.tertiary
       color = colors.white
       borderWidth = 0

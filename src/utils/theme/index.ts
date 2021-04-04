@@ -1,15 +1,7 @@
 import { createText, createBox, useTheme as useReTheme } from '@shopify/restyle'
 import { ViewStyle, TextStyle, ImageStyle } from 'react-native'
 import { textVariants } from './textVariants'
-import { colors } from './colors'
-
-export const palette = {
-  orangeLight: '#FFB051',
-  orangeMedium: '#FFB051',
-  orangeDark: '#E86E1F',
-  black: '#000',
-  white: '#fff',
-}
+import { colors, palette } from './colors'
 
 export const theme = {
   colors,
