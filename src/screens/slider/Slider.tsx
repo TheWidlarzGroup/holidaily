@@ -52,7 +52,7 @@ export const Slider: FC = () => {
   })
 
   const handlePressButton = useCallback(() => {
-    if (translateX.value >= (SLIDER_DATA.length - 1) * width) {
+    if (translateX.value >= (SLIDER_DATA.length - 2) * width) {
       navigation.navigate('Signup')
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
