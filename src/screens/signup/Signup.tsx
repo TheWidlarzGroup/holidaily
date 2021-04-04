@@ -22,14 +22,14 @@ export const Signup: FC = () => {
         alignSelf="center"
       />
       <Box flex={0.6} maxWidth={300} justifyContent="center" alignItems="center">
-        <CustomButton label="Continue with Gmail" variant="transparent" icon="google" />
+        <CustomButton label="Continue with Gmail" variant="secondary" icon="google" />
         <CustomButton
           label="Continue with Slack"
-          variant="transparent"
+          variant="secondary"
           icon="slack"
           marginTop={theme.spacing.m}
         />
-        <CustomButton label="Sign up with E-mail" variant="orange" marginTop={theme.spacing.xl} />
+        <CustomButton label="Sign up with E-mail" variant="primary" marginTop={theme.spacing.xl} />
       </Box>
     </SafeAreaView>
   )
