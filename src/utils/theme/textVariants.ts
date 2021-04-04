@@ -9,6 +9,7 @@ export const textVariants = {
     fontSize: 18,
     color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   title1: {
     fontSize: 28,
