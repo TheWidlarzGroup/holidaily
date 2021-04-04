@@ -11,9 +11,9 @@ type CustomButtonVariants = 'transparent' | 'black' | 'orange'
 type CustomButtonIcons = 'google' | 'slack'
 
 interface CustomButtonProps extends RectButtonProperties, FlexStyle {
+  label: string
   variant?: CustomButtonVariants
   icon?: CustomButtonIcons
-  label: string
   disabled?: boolean
   loading?: boolean
   onPress?: () => void
@@ -42,7 +42,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       borderWidth = 0
       break
     case 'orange':
-      bgColor = colors.secondary
+      bgColor = colors.tertiary
       color = colors.white
       borderWidth = 0
       break
@@ -51,31 +51,28 @@ export const CustomButton: FC<CustomButtonProps> = ({
   }
 
   const backgroundColor = disabled ? colors.disabled : bgColor
-  const textColor = disabled ? colors.white : color
-  const rippleColor = disabled ? 'rgba(0,0,0,0)' : colors.tertiary
+  const textColor = disabled ? colors.disabledText : color
 
   return (
     <RectButton
       onPress={disabled ? () => null : onPress}
       activeOpacity={disabled ? 0 : 0.2}
-      rippleColor={rippleColor}
       style={[styles.container, { backgroundColor }, rest]}>
       <Box
-        height="100%"
+        paddingVertical="xm"
         width="100%"
         flexDirection="row"
-        alignSelf="center"
         alignItems="center"
-        justifyContent="space-evenly"
+        justifyContent="center"
         borderWidth={borderWidth}
-        borderRadius="xxl"
-        borderColor="black">
+        borderColor={disabled ? 'disabled' : 'black'}
+        borderRadius="xxl">
         {loading ? (
           <ActivityIndicator size="small" color={textColor} />
         ) : (
           <>
-            {icon === 'google' && <IconGoogle />}
-            {icon === 'slack' && <IconSlack />}
+            {icon === 'google' && <IconGoogle style={styles.icon} />}
+            {icon === 'slack' && <IconSlack style={styles.icon} />}
             <Text variant="buttonText1" style={{ color: textColor }}>
               {label}
             </Text>
@@ -88,12 +85,13 @@ export const CustomButton: FC<CustomButtonProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 275,
-    height: 53,
+    marginHorizontal: theme.spacing.m,
     flexDirection: 'row',
-    alignSelf: 'center',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     borderRadius: theme.borderRadii.xxl,
+  },
+  icon: {
+    marginRight: theme.spacing.l,
   },
 })
