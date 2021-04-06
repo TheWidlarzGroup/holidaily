@@ -2,14 +2,15 @@ import React, { FC, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, Pressable } from 'react-native'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
-import { CustomInput } from '../../components/CustomInput'
-import { emailRegex } from '../../utils/regexes/emailRegex'
+import { FormInput } from '../../components/FormInput'
 import { useLogin } from '../../hooks/useLogin'
+import { emailRegex } from '../../utils/regexes/emailRegex'
+import { minPasswordLengthRegex } from '../../utils/regexes/minPasswordLengthRegex'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
@@ -31,53 +32,24 @@ export const Login: FC = () => {
       </Box>
       <Box marginHorizontal="l">
         <Box marginBottom="m">
-          <Controller
+          <FormInput
             control={control}
-            render={({ onChange, onBlur, value }) => (
-              <CustomInput
-                inputText="E-mail Address"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                isWrong={errors.email !== undefined}
-              />
-            )}
+            errors={errors}
             name="email"
-            rules={{
-              pattern: {
-                value: emailRegex,
-                message: 'Incorrect email, please try again',
-              },
-            }}
-            defaultValue=""
+            inputText="E-mail Address"
+            validationPattern={emailRegex}
+            errorMessage="Incorrect email, please try again"
           />
-          {errors.email && (
-            <Text variant="error1" marginTop="s" marginLeft="m">
-              {errors.email.message}
-            </Text>
-          )}
         </Box>
         <Box>
-          <Controller
+          <FormInput
             control={control}
-            render={({ onChange, onBlur, value }) => (
-              <CustomInput
-                inputText="Password"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                isWrong={errors.password !== undefined}
-              />
-            )}
+            errors={errors}
             name="password"
-            rules={{ required: true }}
-            defaultValue=""
+            inputText="Password"
+            validationPattern={minPasswordLengthRegex}
+            errorMessage="Incorrect Password, please try again"
           />
-          {errors.password && (
-            <Text variant="error1" marginTop="s" marginLeft="m">
-              Incorrect password, please try again
-            </Text>
-          )}
         </Box>
         <Box alignSelf="flex-end">
           <Pressable onPress={navigateToRemindPassword}>
