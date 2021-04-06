@@ -7,10 +7,10 @@ import Animated, {
   useAnimatedRef,
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import { AppNavigationType } from '../../navigation/types'
 import { colors } from '../../utils/theme/colors'
 import { Box, Text } from '../../utils/theme/index'
-
 import { SliderContent } from '../../components/SliderContent'
 import { ProgressBar } from '../../components/ProgressBar'
 
@@ -43,6 +43,7 @@ export const Slider: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Slider'>>()
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
+  const { t } = useTranslation('slider')
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -72,8 +73,8 @@ export const Slider: FC = () => {
         {SLIDER_DATA.map((item, index) => (
           <SliderContent
             key={item.title}
-            title={item.title}
-            text={item.text}
+            title={t(item.title)}
+            text={t(item.text)}
             image={item.image}
             sliderIndex={index}
             scrollPositionX={translateX}
@@ -84,7 +85,7 @@ export const Slider: FC = () => {
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <TouchableOpacity style={styles.button} onPress={handlePressButton}>
-        <Text variant="buttonText1">Next</Text>
+        <Text variant="buttonText1">{t('Next')}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
