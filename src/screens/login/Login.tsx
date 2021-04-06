@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable } from 'react-native'
+import { StyleSheet, Pressable, ActivityIndicator } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
@@ -14,12 +14,20 @@ import { useLogin } from '../../hooks/useLogin'
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const handleLogin = useLogin()
+  const { handleLogin, isLoading } = useLogin()
 
   const navigateToRemindPassword = useCallback(() => {
     // Uncomment when this screen will be ready
     // navigation.navigate('RemindPassword')
   }, [navigation])
+
+  if (isLoading) {
+    return (
+      <Box flex={0.4} justifyContent="center">
+        <ActivityIndicator size="large" color={colors.mainBackground} />
+      </Box>
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container}>
