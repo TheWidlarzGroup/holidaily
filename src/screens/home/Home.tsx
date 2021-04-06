@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import SecureStorage from 'react-native-secure-storage'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -11,6 +12,11 @@ export const Home = () => {
   const navigateToTestScreen = useCallback(() => {
     navigation.navigate('TestScreen')
   }, [navigation])
+
+  useEffect(() => {
+    const token = SecureStorage.getItem('token')
+    console.log('token', token)
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeArea}>

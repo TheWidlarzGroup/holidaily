@@ -1,7 +1,7 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable, ActivityIndicator } from 'react-native'
+import { StyleSheet, Pressable, ActivityIndicator, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
@@ -11,23 +11,35 @@ import { CustomInput } from '../../components/CustomInput'
 import { emailRegex } from '../../utils/regexes/emailRegex'
 import { useLogin } from '../../hooks/useLogin'
 
+const createAlert = (errorMessage: string) =>
+  Alert.alert('Login Error', errorMessage, [
+    {
+      text: 'Ok',
+      onPress: () => console.log('Ok Pressed'),
+    },
+  ])
+
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const { handleLogin, isLoading } = useLogin()
-
+  const { handleLogin, isLoading, isLoginError } = useLogin()
+  const isError = isLoginError?.isError
   const navigateToRemindPassword = useCallback(() => {
     // Uncomment when this screen will be ready
     // navigation.navigate('RemindPassword')
   }, [navigation])
 
-  if (isLoading) {
-    return (
-      <Box flex={0.4} justifyContent="center">
-        <ActivityIndicator size="large" color={colors.mainBackground} />
-      </Box>
-    )
+  if (isLoginError) {
+    if (isError && isLoginError.message) createAlert(isLoginError.message)
   }
+
+  // if (isLoading) {
+  //   return (
+  //     <Box flex={0.4} justifyContent="center">
+  //       <ActivityIndicator size="large" color={colors.mainBackground} />
+  //     </Box>
+  //   )
+  // }
 
   return (
     <SafeAreaView style={styles.container}>
