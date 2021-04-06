@@ -4,32 +4,15 @@ import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 import request, { gql } from 'graphql-request'
 import { AppNavigationType } from '../navigation/types'
-
-type LoginTypes = {
-  email: string
-  password: string
-}
-
-type UserTypes = {
-  loginUser: {
-    token: string
-    user: {
-      confirmed: boolean | null
-    }
-  }
-}
-
-type ErrorTypes = {
-  isError: boolean
-  message: string | undefined
-}
+import { UserTypes, ErrorTypes, LoginTypes } from '../types/useLoginTypes'
+import { endpoint } from '../utils/config/endpoint'
 
 const customErrorMessage = (errorMessage: string | undefined) => {
   if (errorMessage && errorMessage.startsWith('invalid_credentials')) {
     return 'Incorrect email or password, please try again'
   }
+  return 'Something went wrong, please try again later'
 }
-const endpoint = 'https://holidaily.danielgrychtol.com/api/graphiql'
 
 export const useLogin = () => {
   const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
@@ -58,23 +41,31 @@ export const useLogin = () => {
       onSuccess: async (data: UserTypes) => {
         const { confirmed } = data.loginUser.user
         const { token } = data.loginUser
+
         if (confirmed) {
           await SecureStorage.setItem('token', token)
           navigation.navigate('Home')
+        } else {
+          const errorObject = {
+            isError: true,
+            message: 'Please confirm your account',
+          }
+          setIsLoginError(errorObject)
         }
-      },
-      onError: (error: ErrorTypes) => {
-        const errorObject = {
-          isError: error !== null,
-          message: customErrorMessage(error.message),
-        }
-        setIsLoginError(errorObject)
       },
     }
   )
 
   const handleLogin = async ({ email, password }: LoginTypes) => {
-    await handleLoginUser({ email, password })
+    try {
+      await handleLoginUser({ email, password })
+    } catch (error) {
+      const errorObject = {
+        isError: error !== null,
+        message: customErrorMessage(error.message),
+      }
+      setIsLoginError(errorObject)
+    }
   }
 
   return { handleLogin, isLoading, isLoginError }

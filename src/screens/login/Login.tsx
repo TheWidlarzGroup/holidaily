@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, Pressable, ActivityIndicator, Alert } from 'react-native'
@@ -23,23 +23,27 @@ export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
   const { handleLogin, isLoading, isLoginError } = useLogin()
-  const isError = isLoginError?.isError
   const navigateToRemindPassword = useCallback(() => {
+    // TODO matthew:
     // Uncomment when this screen will be ready
     // navigation.navigate('RemindPassword')
   }, [navigation])
 
-  if (isLoginError) {
-    if (isError && isLoginError.message) createAlert(isLoginError.message)
-  }
+  useEffect(() => {
+    if (isLoginError) {
+      if (isLoginError?.isError && isLoginError.message) createAlert(isLoginError.message)
+    }
+  }, [isLoginError])
 
-  // if (isLoading) {
-  //   return (
-  //     <Box flex={0.4} justifyContent="center">
-  //       <ActivityIndicator size="large" color={colors.mainBackground} />
-  //     </Box>
-  //   )
-  // }
+  // TODO matthew:
+  // indicator will be moved to CustomButton after merge
+  if (isLoading) {
+    return (
+      <Box flex={0.4} justifyContent="center">
+        <ActivityIndicator size="large" color={colors.mainBackground} />
+      </Box>
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -108,7 +112,7 @@ export const Login: FC = () => {
         </Box>
       </Box>
       <Box flex={0.4} justifyContent="center">
-        {/* Will be changed to reusable button made by Bartek */}
+        {/* TODO matthew: Will be changed to reusable button made by Bartek */}
         <Box
           marginHorizontal="xxl"
           height={53}
