@@ -17,7 +17,7 @@ const resources = {
 
 i18next.use(initReactI18next).init({
   resources,
-  lng: locale.slice(0, 2),
+  lng: locale.slice(0, 2) || 'en',
   fallbackLng: ['en', 'pl'],
   keySeparator: false,
 
