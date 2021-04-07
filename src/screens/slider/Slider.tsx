@@ -85,7 +85,7 @@ export const Slider: FC = () => {
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <TouchableOpacity style={styles.button} onPress={handlePressButton}>
-        <Text variant="buttonText1">{t('Next')}</Text>
+        <Text variant="buttonText1">{t('next')}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
