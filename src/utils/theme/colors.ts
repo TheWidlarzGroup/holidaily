@@ -1,6 +1,7 @@
 export const palette = {
   orangeLight: '#FFB051',
   orangeMedium: '#FF9F2D',
+  orangeAlmostDark: '#FF8B3F',
   orangeDark: '#E86E1F',
   grey: '#878787',
   lightGrey: '#E1E1E1',
@@ -14,7 +15,7 @@ export const palette = {
 export const colors = {
   primary: palette.orangeLight,
   secondary: palette.orangeMedium,
-  tertiary: palette.orangeDark,
+  tertiary: palette.orangeAlmostDark,
   black: palette.black,
   white: palette.white,
   lightGrey: palette.lightGrey,
@@ -24,3 +25,4 @@ export const colors = {
   disabledText: palette.grayText,
   mainBackground: palette.orangeLight,
 }
+
