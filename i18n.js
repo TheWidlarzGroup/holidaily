@@ -8,10 +8,14 @@ const locale =
     : NativeModules.I18nManager.localeIdentifier
 
 const plTranslation = require('./translations/pl.json')
+const enTranslation = require('./translations/en.json')
 
 const resources = {
   pl: {
     ...plTranslation,
+  },
+  en: {
+    ...enTranslation,
   },
 }
 

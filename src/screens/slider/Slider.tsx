@@ -16,23 +16,23 @@ import { ProgressBar } from '../../components/ProgressBar'
 
 const SLIDER_DATA = [
   {
-    title: 'Welcome to Holidaily!',
-    text: 'All your team days-off in one place.',
+    title: 'slider1Title',
+    text: 'slider1SubTitle',
     image: require('../../assets/Slider_Illustration-1_2@.png'),
   },
   {
-    title: 'Real-time vacation checking',
-    text: 'Check how many leaves have left.',
+    title: 'slider2Title',
+    text: 'slider2SubTitle',
     image: require('../../assets/Slider_Illustration-2_2@.png'),
   },
   {
-    title: 'Request time off',
-    text: 'Are you planning vacations or some personal time? Simply request it.',
+    title: 'slider3Title',
+    text: 'slider3SubTitle',
     image: require('../../assets/Slider_Illustration-3_2@.png'),
   },
   {
-    title: 'Get notified',
-    text: 'You’ll get notifications once the vacation is approved or rejected.',
+    title: 'slider4Title',
+    text: 'slider4SubTitle',
     image: require('../../assets/Slider_Illustration-4_2@.png'),
   },
 ]
