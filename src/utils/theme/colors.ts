@@ -22,6 +22,5 @@ export const colors = {
   errorRed: palette.red,
   disabled: palette.gray,
   disabledText: palette.grayText,
-  //switch Theme
   mainBackground: palette.orangeLight,
 }
