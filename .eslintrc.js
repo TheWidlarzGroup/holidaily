@@ -9,4 +9,7 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
   },
+  globals: {
+    __DEV__: 'readonly',
+  },
 }
