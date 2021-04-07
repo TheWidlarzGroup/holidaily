@@ -32,7 +32,7 @@ export const CustomInput: FC<CustomInputTypes> = ({
           style={[styles.input, isWrong && styles.errorBorder]}
           secureTextEntry={state}
           onBlur={onBlur}
-          onChangeText={(newValue) => onChange(newValue)}
+          onChangeText={onChange}
           value={value}
         />
         {inputText === 'Password' && (

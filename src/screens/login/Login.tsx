@@ -1,7 +1,7 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable } from 'react-native'
+import { StyleSheet, Pressable, Alert } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
@@ -11,16 +11,29 @@ import { FormInput } from '../../components/FormInput'
 import { useLogin } from '../../hooks/useLogin'
 import { emailRegex } from '../../utils/regexes/emailRegex'
 import { minPasswordLengthRegex } from '../../utils/regexes/minPasswordLengthRegex'
+import { CustomButton } from '../../components/CustomButton'
+
+const createAlert = (errorMessage: string) =>
+  Alert.alert('Login Error', errorMessage, [
+    {
+      text: 'Ok',
+    },
+  ])
 
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const handleLogin = useLogin()
+  const { handleLogin, isLoading, isLoginError } = useLogin()
 
   const navigateToRemindPassword = useCallback(() => {
+    // TODO matthew:
     // Uncomment when this screen will be ready
     // navigation.navigate('RemindPassword')
   }, [navigation])
+
+  useEffect(() => {
+    if (isLoginError?.isError && isLoginError.message) createAlert(isLoginError.message)
+  }, [isLoginError])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,18 +72,13 @@ export const Login: FC = () => {
           </Pressable>
         </Box>
       </Box>
-      <Box flex={0.4} justifyContent="center">
-        {/* Will be changed to reusable button made by Bartek */}
-        <Box
-          marginHorizontal="xxl"
-          height={53}
-          justifyContent="center"
-          backgroundColor="mainBackground"
-          borderRadius="xxl">
-          <Pressable onPress={handleSubmit(handleLogin)}>
-            <Text variant="body1">Log in</Text>
-          </Pressable>
-        </Box>
+      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+        <CustomButton
+          label="Log in"
+          variant="primary"
+          onPress={handleSubmit(handleLogin)}
+          loading={isLoading}
+        />
       </Box>
     </SafeAreaView>
   )

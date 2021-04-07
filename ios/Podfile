@@ -10,6 +10,8 @@ target 'Holidayly' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNSecureStorage', :path => '../node_modules/react-native-secure-storage'
+
   target 'HolidaylyTests' do
     inherit! :complete
     # Pods for testing
