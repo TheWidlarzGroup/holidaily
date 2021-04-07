@@ -52,6 +52,9 @@ export const Login: FC = () => {
             inputText="E-mail Address"
             validationPattern={emailRegex}
             errorMessage="Incorrect email, please try again"
+            autoFocus
+            keyboardType="email-address"
+            autoCompleteType="email"
           />
         </Box>
         <Box>

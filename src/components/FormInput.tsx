@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { TextInputProps } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
 
 import { CustomInput } from './CustomInput'
@@ -13,13 +14,14 @@ type FormInputTypes = {
   errorMessage: string
 }
 
-export const FormInput: FC<FormInputTypes> = ({
+export const FormInput: FC<FormInputTypes & TextInputProps> = ({
   control,
   errors,
   name,
   inputText,
   validationPattern,
   errorMessage,
+  ...props
 }) => (
   <>
     <Controller
@@ -31,6 +33,7 @@ export const FormInput: FC<FormInputTypes> = ({
           onBlur={onBlur}
           value={value}
           isWrong={errors[name] !== undefined}
+          {...props}
         />
       )}
       name={name}
