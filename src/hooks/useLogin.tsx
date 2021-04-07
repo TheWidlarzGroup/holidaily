@@ -54,18 +54,17 @@ export const useLogin = () => {
         setIsLoginError(errorObject)
       }
     },
-  })
-
-  const handleLogin = async ({ email, password }: LoginTypes) => {
-    try {
-      await handleLoginUser({ email, password })
-    } catch (error) {
+    onError: (error: ErrorTypes) => {
       const errorObject = {
         isError: true,
         message: customErrorMessage(error.message),
       }
       setIsLoginError(errorObject)
-    }
+    },
+  })
+
+  const handleLogin = async ({ email, password }: LoginTypes) => {
+    await handleLoginUser({ email, password })
   }
 
   return { handleLogin, isLoading, isLoginError }
