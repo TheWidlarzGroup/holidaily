@@ -6,14 +6,22 @@ export const textVariants = {
     textAlign: 'center',
   },
   buttonText1: {
+    fontFamily: 'Nunito-Regular',
     fontSize: 18,
     color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   title1: {
+    fontFamily: 'Nunito-Bold',
     fontSize: 28,
     color: 'black',
-    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  title2: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 28,
+    color: 'black',
     textAlign: 'center',
   },
 }
