@@ -24,4 +24,18 @@ export const textVariants = {
     color: 'black',
     textAlign: 'center',
   },
+  label1: {
+    fontSize: 15,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  remind1: {
+    fontSize: 15,
+    color: 'grey',
+    fontWeight: 'bold',
+  },
+  error1: {
+    fontSize: 12,
+    color: 'errorRed',
+  },
 }
