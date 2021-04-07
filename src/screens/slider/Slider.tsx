@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Dimensions, ScrollView } from 'react-native'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -9,10 +9,11 @@ import Animated, {
 import { useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from '../../navigation/types'
 import { colors } from '../../utils/theme/colors'
-import { Box, Text } from '../../utils/theme/index'
+import { Box } from '../../utils/theme/index'
 
 import { SliderContent } from '../../components/SliderContent'
 import { ProgressBar } from '../../components/ProgressBar'
+import { CustomButton } from '../../components/CustomButton'
 
 const SLIDER_DATA = [
   {
@@ -51,7 +52,7 @@ export const Slider: FC = () => {
   })
 
   const handlePressButton = useCallback(() => {
-    if (translateX.value >= (SLIDER_DATA.length - 1) * width) {
+    if (translateX.value >= (SLIDER_DATA.length - 2) * width) {
       navigation.navigate('Signup')
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
@@ -83,26 +84,17 @@ export const Slider: FC = () => {
       <Box flex={0.15} alignItems="center" justifyContent="center" alignSelf="center">
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
-      <TouchableOpacity style={styles.button} onPress={handlePressButton}>
-        <Text variant="buttonText1">Next</Text>
-      </TouchableOpacity>
+      <Box maxWidth={300} marginBottom="xl">
+        <CustomButton variant="special" label="Next" onPress={handlePressButton} />
+      </Box>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  button: {
-    marginBottom: 30,
-    width: 221,
-    height: 53,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.black,
-    borderRadius: 100,
-  },
   container: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: colors.mainBackground,
   },
 })
