@@ -7,11 +7,11 @@ const locale =
     ? NativeModules.SetttingManager.settings.AppleLocale
     : NativeModules.I18nManager.localeIdentifier
 
-const sliderTranslation = require('./translations/slider.json')
+const plTranslation = require('./translations/pl.json')
 
 const resources = {
   pl: {
-    slider: sliderTranslation,
+    ...plTranslation,
   },
 }
 
