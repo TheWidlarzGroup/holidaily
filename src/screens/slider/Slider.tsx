@@ -7,6 +7,7 @@ import Animated, {
   useAnimatedRef,
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import { AppNavigationType } from '../../navigation/types'
 import { colors } from '../../utils/theme/colors'
 import { Box } from '../../utils/theme/index'
@@ -17,23 +18,23 @@ import { CustomButton } from '../../components/CustomButton'
 
 const SLIDER_DATA = [
   {
-    title: 'Welcome to Holidaily!',
-    text: 'All your team days-off in one place.',
+    title: 'slider1Title',
+    text: 'slider1SubTitle',
     image: require('../../assets/Slider_Illustration-1_2@.png'),
   },
   {
-    title: 'Real-time vacation checking',
-    text: 'Check how many leaves have left.',
+    title: 'slider2Title',
+    text: 'slider2SubTitle',
     image: require('../../assets/Slider_Illustration-2_2@.png'),
   },
   {
-    title: 'Request time off',
-    text: 'Are you planning vacations or some personal time? Simply request it.',
+    title: 'slider3Title',
+    text: 'slider3SubTitle',
     image: require('../../assets/Slider_Illustration-3_2@.png'),
   },
   {
-    title: 'Get notified',
-    text: 'You’ll get notifications once the vacation is approved or rejected.',
+    title: 'slider4Title',
+    text: 'slider4SubTitle',
     image: require('../../assets/Slider_Illustration-4_2@.png'),
   },
 ]
@@ -44,6 +45,7 @@ export const Slider: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Slider'>>()
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
+  const { t } = useTranslation('slider')
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -73,8 +75,8 @@ export const Slider: FC = () => {
         {SLIDER_DATA.map((item, index) => (
           <SliderContent
             key={item.title}
-            title={item.title}
-            text={item.text}
+            title={t(item.title)}
+            text={t(item.text)}
             image={item.image}
             sliderIndex={index}
             scrollPositionX={translateX}
