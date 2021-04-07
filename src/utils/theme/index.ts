@@ -14,7 +14,7 @@ export const theme = {
     xl: 40,
     xxl: 75,
   },
-  //must be sth here
+  // must be sth here
   breakpoints: {
     phone: 0,
     tablet: 768,

@@ -2,6 +2,9 @@ export const palette = {
   orangeLight: '#FFB051',
   orangeMedium: '#FF9F2D',
   orangeDark: '#E86E1F',
+  grey: '#878787',
+  lightGrey: '#E1E1E1',
+  red: '#FF3D30',
   black: '#000',
   white: '#fff',
   gray: '#E1E1E1',
@@ -14,9 +17,10 @@ export const colors = {
   tertiary: palette.orangeDark,
   black: palette.black,
   white: palette.white,
+  lightGrey: palette.lightGrey,
+  grey: palette.grey,
+  errorRed: palette.red,
   disabled: palette.gray,
   disabledText: palette.grayText,
-
-  //switch Theme
   mainBackground: palette.orangeLight,
 }

@@ -1,8 +1,10 @@
 import React, { FC } from 'react'
+import { Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { StyleSheet, Dimensions } from 'react-native'
 import { Box, Text, theme } from '../../utils/theme/index'
-
 import { CustomButton } from '../../components/CustomButton'
 
 export const Signup: FC = () => {
