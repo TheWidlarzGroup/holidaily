@@ -22,10 +22,6 @@ export const CustomInput: FC<CustomInputTypes> = ({
 }) => {
   const [state, { toggle }] = useBooleanState(inputText === 'Password')
 
-  const togglePasswordVisibility = () => {
-    toggle()
-  }
-
   return (
     <>
       <Text variant="label1" marginLeft="m" marginBottom="xs">
@@ -36,12 +32,12 @@ export const CustomInput: FC<CustomInputTypes> = ({
           style={[styles.input, isWrong && styles.errorBorder]}
           secureTextEntry={state}
           onBlur={onBlur}
-          onChangeText={(newValue) => onChange(newValue)}
+          onChangeText={onChange}
           value={value}
         />
         {inputText === 'Password' && (
           <Box alignSelf="center" position="absolute" right={17}>
-            <Pressable onPress={togglePasswordVisibility}>
+            <Pressable onPress={toggle}>
               <IconTogglePasswordVisibility />
             </Pressable>
           </Box>

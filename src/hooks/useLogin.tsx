@@ -7,12 +7,27 @@ import { AppNavigationType } from '../navigation/types'
 import { UserTypes, ErrorTypes, LoginTypes } from '../types/useLoginTypes'
 import { endpoint } from '../utils/config/endpoint'
 
-const customErrorMessage = (errorMessage: string | undefined) => {
-  if (errorMessage && errorMessage.startsWith('invalid_credentials')) {
+const customErrorMessage = (errorMessage: string) => {
+  if (errorMessage?.startsWith('invalid_credentials')) {
     return 'Incorrect email or password, please try again'
   }
   return 'Something went wrong, please try again later'
 }
+
+const loginRequest = ({ email, password }: LoginTypes) =>
+  request(
+    endpoint,
+    gql`
+    mutation{
+      loginUser(email: "${email}", password: "${password}") {
+        token
+        user{
+          confirmed
+        }
+      }
+    }
+  `
+  )
 
 export const useLogin = () => {
   const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
@@ -21,47 +36,32 @@ export const useLogin = () => {
     UserTypes,
     ErrorTypes,
     LoginTypes
-  >(
-    async ({ email, password }: LoginTypes) =>
-      request(
-        endpoint,
-        gql`
-        mutation{
-          loginUser(email: "${email}", password: "${password}") {
-            token
-            user{
-              confirmed
-            }
-          }
-        }
-      `
-      ),
+  >(loginRequest, {
+    onSuccess: async (data: UserTypes) => {
+      const {
+        token,
+        user: { confirmed },
+      } = data.loginUser
 
-    {
-      onSuccess: async (data: UserTypes) => {
-        const { confirmed } = data.loginUser.user
-        const { token } = data.loginUser
-
-        if (confirmed) {
-          await SecureStorage.setItem('token', token)
-          navigation.navigate('Home')
-        } else {
-          const errorObject = {
-            isError: true,
-            message: 'Please confirm your account',
-          }
-          setIsLoginError(errorObject)
+      if (confirmed) {
+        await SecureStorage.setItem('token', token)
+        navigation.navigate('Home')
+      } else {
+        const errorObject = {
+          isError: true,
+          message: 'Please confirm your account',
         }
-      },
-    }
-  )
+        setIsLoginError(errorObject)
+      }
+    },
+  })
 
   const handleLogin = async ({ email, password }: LoginTypes) => {
     try {
       await handleLoginUser({ email, password })
     } catch (error) {
       const errorObject = {
-        isError: error !== null,
+        isError: true,
         message: customErrorMessage(error.message),
       }
       setIsLoginError(errorObject)

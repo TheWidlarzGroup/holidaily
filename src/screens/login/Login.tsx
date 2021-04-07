@@ -15,7 +15,6 @@ const createAlert = (errorMessage: string) =>
   Alert.alert('Login Error', errorMessage, [
     {
       text: 'Ok',
-      onPress: () => console.log('Ok Pressed'),
     },
   ])
 
@@ -30,9 +29,7 @@ export const Login: FC = () => {
   }, [navigation])
 
   useEffect(() => {
-    if (isLoginError) {
-      if (isLoginError?.isError && isLoginError.message) createAlert(isLoginError.message)
-    }
+    if (isLoginError?.isError && isLoginError.message) createAlert(isLoginError.message)
   }, [isLoginError])
 
   // TODO matthew:
@@ -63,7 +60,7 @@ export const Login: FC = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
-                isWrong={errors.email !== undefined}
+                isWrong={errors.email}
               />
             )}
             name="email"
@@ -90,7 +87,7 @@ export const Login: FC = () => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
-                isWrong={errors.password !== undefined}
+                isWrong={errors.password}
               />
             )}
             name="password"
