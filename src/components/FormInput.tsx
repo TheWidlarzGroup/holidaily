@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import { Controller } from 'react-hook-form'
+import { Controller, Control, FieldErrors } from 'react-hook-form'
 
 import { CustomInput } from './CustomInput'
 import { Text } from '../utils/theme/index'
 
 type FormInputTypes = {
-  control: any
-  errors: any
+  control: Control
+  errors: FieldErrors
   name: string
   inputText: string
   validationPattern: RegExp
