@@ -2,13 +2,14 @@ import React, { FC } from 'react'
 import { StyleSheet, TextInput, Pressable, TextInputProps } from 'react-native'
 import { Text, Box, theme } from '../utils/theme/index'
 import { colors } from '../utils/theme/colors'
-import { IconTogglePasswordVisibility } from '../assets/IconTogglePasswordVisbility'
 import useBooleanState from '../hooks/useBooleanState'
+import IconTogglePasswordVisibility from '../assets/icons/icon-togglePassword.svg'
 
 type CustomInputTypes = {
   inputText: string
   value: string
   isWrong: boolean
+  forwardRef?: React.Ref<TextInput>
 }
 
 export const CustomInput: FC<CustomInputTypes & TextInputProps> = ({
@@ -17,6 +18,7 @@ export const CustomInput: FC<CustomInputTypes & TextInputProps> = ({
   onBlur,
   value,
   isWrong,
+  forwardRef,
   ...props
 }) => {
   const [state, { toggle }] = useBooleanState(inputText === 'Password')
@@ -33,6 +35,7 @@ export const CustomInput: FC<CustomInputTypes & TextInputProps> = ({
           onBlur={onBlur}
           onChange={onChange}
           value={value}
+          ref={forwardRef}
           {...props}
         />
         {inputText === 'Password' && (

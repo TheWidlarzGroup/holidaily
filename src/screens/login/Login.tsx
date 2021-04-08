@@ -1,7 +1,7 @@
-import React, { FC, useCallback, useEffect } from 'react'
+import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable, Alert } from 'react-native'
+import { StyleSheet, Pressable, Alert, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
@@ -24,6 +24,7 @@ export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
   const { handleLogin, isLoading, isLoginError } = useLogin()
+  const passwordRef = useRef<TextInput>(null)
 
   const navigateToRemindPassword = useCallback(() => {
     // TODO matthew:
@@ -34,6 +35,10 @@ export const Login: FC = () => {
   useEffect(() => {
     if (isLoginError?.isError && isLoginError.message) createAlert(isLoginError.message)
   }, [isLoginError])
+
+  const onSubmitEditing = () => {
+    passwordRef?.current?.focus()
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,6 +60,8 @@ export const Login: FC = () => {
             autoFocus
             keyboardType="email-address"
             autoCompleteType="email"
+            onSubmitEditing={onSubmitEditing}
+            blurOnSubmit={false}
           />
         </Box>
         <Box>
@@ -65,6 +72,7 @@ export const Login: FC = () => {
             inputText="Password"
             validationPattern={minPasswordLengthRegex}
             errorMessage="Incorrect Password, please try again"
+            forwardRef={passwordRef}
           />
         </Box>
         <Box alignSelf="flex-end">

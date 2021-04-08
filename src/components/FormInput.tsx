@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { TextInputProps } from 'react-native'
+import { TextInputProps, TextInput } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
 
 import { CustomInput } from './CustomInput'
@@ -12,6 +12,7 @@ type FormInputTypes = {
   inputText: string
   validationPattern: RegExp
   errorMessage: string
+  forwardRef?: React.Ref<TextInput>
 }
 
 export const FormInput: FC<FormInputTypes & TextInputProps> = ({
@@ -21,6 +22,7 @@ export const FormInput: FC<FormInputTypes & TextInputProps> = ({
   inputText,
   validationPattern,
   errorMessage,
+  forwardRef,
   ...props
 }) => (
   <>
@@ -33,6 +35,7 @@ export const FormInput: FC<FormInputTypes & TextInputProps> = ({
           onBlur={onBlur}
           value={value}
           isWrong={errors[name] !== undefined}
+          forwardRef={forwardRef}
           {...props}
         />
       )}
