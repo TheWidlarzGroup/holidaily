@@ -24,7 +24,7 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="https" />
+            <data android:scheme="https" android:path="holidaily.danielgrychtol.com" android:domain="holidaily.danielgrychtol.com"/>
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />

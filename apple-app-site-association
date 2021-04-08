@@ -1,9 +1,16 @@
 {
     "applinks": {
         "apps": [],
-        "details": [{
-            "appID": "X.com.holidayly",
-            "paths": ["/"]
+        "details": [
+            {
+                "appIDs": [ "x.com.holidayly" ],
+                "components": [
+                    {
+                        "/": "/app/reset_password",
+                        "/": "/app/confirm"
+                    }
+                ],
+                "paths": [ "/app/reset_password", "/app/confirm" ]
             }
         ]
     }

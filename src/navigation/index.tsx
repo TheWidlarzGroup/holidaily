@@ -18,7 +18,10 @@ const config = {
 }
 
 const linking = {
-  prefixes: ['https://holidaily.danielgrychtol.com/'],
+  prefixes: [
+    'https://holidaily.danielgrychtol.com/',
+    'https://holidaily.danielgrychtol.com/confirm/',
+  ],
   config,
 }
 const AppStackContainer = () => (
