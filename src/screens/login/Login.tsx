@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable, Alert } from 'react-native'
+import { StyleSheet, Pressable, Alert, Linking, Button } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
@@ -20,6 +20,23 @@ const createAlert = (errorMessage: string) =>
     },
   ])
 
+const supportedUrl = 'deeplink://holidaily.danielgrychtol.com'
+
+const unsupportedUrl = 'https://holidaily.Unsupported.com'
+
+const OpenUrlButton = ({ url, children }: any) => {
+  const handlePress = useCallback(async () => {
+    const supported = await Linking.canOpenURL(url)
+
+    if (supported) {
+      await Linking.openURL(url)
+    } else {
+      console.log('dont know how to open this url')
+    }
+  }, [url])
+
+  return <Button title={children} onPress={handlePress} />
+}
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
@@ -42,6 +59,8 @@ export const Login: FC = () => {
         <Text variant="body1" marginTop="s">
           Log in to your account
         </Text>
+        <OpenUrlButton url={supportedUrl}>Open supported Url</OpenUrlButton>
+        <OpenUrlButton url={unsupportedUrl}>Open unsupported Url</OpenUrlButton>
       </Box>
       <Box marginHorizontal="l">
         <Box marginBottom="m">
