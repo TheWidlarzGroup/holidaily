@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from '../utils/theme/index'
 
-export const DialogBox1: FC = () => {
+export const FirstDialogBox: FC = () => {
   const { t } = useTranslation('modal')
   return (
     <Box backgroundColor="primary" alignItems="center" padding="lplus" borderRadius="mplus">

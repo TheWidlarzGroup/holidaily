@@ -7,7 +7,7 @@ import { Box, Text, theme } from '../../utils/theme/index'
 import { CustomButton } from '../../components/CustomButton'
 import { CustomModal } from '../../components/CustomModal'
 import { colors } from '../../utils/theme/colors'
-import { DialogBox1 } from '../../components/DialogBox1'
+import { FirstDialogBox } from '../../components/FirstDialogBox'
 
 export const Signup: FC = () => {
   const { width } = Dimensions.get('window')
@@ -55,7 +55,7 @@ export const Signup: FC = () => {
         backdropOpacity={1}
         style={styles.modal}
         hideModalContentWhileAnimating>
-        <DialogBox1 />
+        <FirstDialogBox />
       </CustomModal>
     </SafeAreaView>
   )
