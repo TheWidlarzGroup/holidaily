@@ -12,6 +12,7 @@ type FormInputTypes = {
   inputText: string
   validationPattern: RegExp
   errorMessage: string
+  required?: boolean
   forwardRef?: React.Ref<TextInput>
 }
 
@@ -22,6 +23,7 @@ export const FormInput: FC<FormInputTypes & TextInputProps> = ({
   inputText,
   validationPattern,
   errorMessage,
+  required,
   forwardRef,
   ...props
 }) => (
@@ -31,7 +33,7 @@ export const FormInput: FC<FormInputTypes & TextInputProps> = ({
       render={({ onChange, onBlur, value }) => (
         <CustomInput
           inputText={inputText}
-          onChange={onChange}
+          onChangeText={onChange}
           onBlur={onBlur}
           value={value}
           isWrong={errors[name] !== undefined}
@@ -41,6 +43,7 @@ export const FormInput: FC<FormInputTypes & TextInputProps> = ({
       )}
       name={name}
       rules={{
+        required,
         pattern: {
           value: validationPattern,
           message: errorMessage,
@@ -50,7 +53,7 @@ export const FormInput: FC<FormInputTypes & TextInputProps> = ({
     />
     {errors[name] && (
       <Text variant="error1" marginTop="s" marginLeft="m">
-        {errors[name].message}
+        {errors[name].message ? errors[name].message : 'This field is required'}
       </Text>
     )}
   </>

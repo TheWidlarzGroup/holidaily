@@ -62,6 +62,7 @@ export const Login: FC = () => {
             autoCompleteType="email"
             onSubmitEditing={onSubmitEditing}
             blurOnSubmit={false}
+            required
           />
         </Box>
         <Box>
@@ -73,6 +74,7 @@ export const Login: FC = () => {
             validationPattern={minPasswordLengthRegex}
             errorMessage="Incorrect Password, please try again"
             forwardRef={passwordRef}
+            required
           />
         </Box>
         <Box alignSelf="flex-end">
