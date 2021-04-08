@@ -1,7 +1,14 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable, Alert, TextInput } from 'react-native'
+import {
+  StyleSheet,
+  Pressable,
+  Alert,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { AppNavigationType } from '../../navigation/types'
@@ -41,59 +48,64 @@ export const Login: FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Box flex={0.4} justifyContent="center">
-        <Text variant="title1">Nice to see you Again!</Text>
-        <Text variant="body1" marginTop="s">
-          Log in to your account
-        </Text>
-      </Box>
-      <Box marginHorizontal="l">
-        <Box marginBottom="m">
-          <FormInput
-            control={control}
-            errors={errors}
-            name="email"
-            inputText="E-mail Address"
-            validationPattern={emailRegex}
-            errorMessage="Incorrect email, please try again"
-            autoFocus
-            keyboardType="email-address"
-            autoCompleteType="email"
-            onSubmitEditing={onSubmitEditing}
-            blurOnSubmit={false}
-            required
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <Box flex={0.4} justifyContent="center">
+          <Text variant="title1">Nice to see you Again!</Text>
+          <Text variant="body1" marginTop="s">
+            Log in to your account
+          </Text>
+        </Box>
+
+        <Box marginHorizontal="l">
+          <Box marginBottom="m">
+            <FormInput
+              control={control}
+              errors={errors}
+              name="email"
+              inputText="E-mail Address"
+              validationPattern={emailRegex}
+              errorMessage="Incorrect email, please try again"
+              keyboardType="email-address"
+              autoCompleteType="email"
+              onSubmitEditing={onSubmitEditing}
+              blurOnSubmit={false}
+              required
+            />
+          </Box>
+          <Box>
+            <FormInput
+              control={control}
+              errors={errors}
+              name="password"
+              inputText="Password"
+              validationPattern={minPasswordLengthRegex}
+              errorMessage="Incorrect Password, please try again"
+              forwardRef={passwordRef}
+              required
+            />
+          </Box>
+
+          <Box alignSelf="flex-end">
+            <Pressable onPress={navigateToRemindPassword}>
+              <Text variant="remind1" marginRight="m" marginTop="xm">
+                Forgot your password?
+              </Text>
+            </Pressable>
+          </Box>
+        </Box>
+        <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+          <CustomButton
+            label="Log in"
+            variant="primary"
+            onPress={handleSubmit(handleLogin)}
+            loading={isLoading}
           />
         </Box>
-        <Box>
-          <FormInput
-            control={control}
-            errors={errors}
-            name="password"
-            inputText="Password"
-            validationPattern={minPasswordLengthRegex}
-            errorMessage="Incorrect Password, please try again"
-            forwardRef={passwordRef}
-            required
-          />
-        </Box>
-        <Box alignSelf="flex-end">
-          <Pressable onPress={navigateToRemindPassword}>
-            <Text variant="remind1" marginRight="m" marginTop="xm">
-              Forgot your password?
-            </Text>
-          </Pressable>
-        </Box>
-      </Box>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
-        <CustomButton
-          label="Log in"
-          variant="primary"
-          onPress={handleSubmit(handleLogin)}
-          loading={isLoading}
-        />
-      </Box>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   )
 }
 
