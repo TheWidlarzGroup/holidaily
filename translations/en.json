@@ -9,5 +9,11 @@
     "slider4Title": "Get notified",
     "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
     "next": "Next"
+  },
+  "modal": {
+    "dialogBox1Title": "We sent you a confirmation e-mail",
+    "dialogBox1SubTitle": "Go to your e-mail inbox and confirm your identity.",
+    "dialogBox2Title": "Welcome on board!",
+    "dialogBox2SubTitle": "Would you like to take a quick tour?"
   }
 }
