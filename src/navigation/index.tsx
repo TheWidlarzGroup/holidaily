@@ -11,8 +11,18 @@ import { Login } from '../screens/login/Login'
 
 const AppStack = createStackNavigator<AppRoutes>()
 
+const config = {
+  screens: {
+    Home: '/',
+  },
+}
+
+const linking = {
+  prefixes: ['https://holidaily.danielgrychtol.com/'],
+  config,
+}
 const AppStackContainer = () => (
-  <NavigationContainer>
+  <NavigationContainer linking={linking}>
     <AppStack.Navigator headerMode="none" initialRouteName="Slider">
       <AppStack.Screen name="Slider" component={Slider} />
       <AppStack.Screen name="Signup" component={Signup} />

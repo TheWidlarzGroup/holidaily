@@ -1,0 +1,10 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [{
+            "appID": "X.com.holidayly",
+            "paths": ["/"]
+            }
+        ]
+    }
+}
