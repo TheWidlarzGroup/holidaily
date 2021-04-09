@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { StyleSheet, TextInput, Pressable } from 'react-native'
 import { Text, Box, theme } from '../utils/theme/index'
 import { colors } from '../utils/theme/colors'
@@ -21,6 +21,12 @@ export const CustomInput: FC<CustomInputTypes> = ({
   isWrong,
 }) => {
   const [state, { toggle }] = useBooleanState(inputText === 'Password')
+  const [isFocused, setIsFocused] = useState(false)
+
+  const handleOnBlur = () => {
+    onBlur()
+    setIsFocused(false)
+  }
 
   return (
     <>
@@ -29,10 +35,15 @@ export const CustomInput: FC<CustomInputTypes> = ({
       </Text>
       <Box flexDirection="row">
         <TextInput
-          style={[styles.input, isWrong && styles.errorBorder]}
+          style={[
+            styles.input,
+            isWrong && styles.errorBorder,
+            !isWrong && isFocused && styles.border,
+          ]}
           secureTextEntry={state}
-          onBlur={onBlur}
+          onBlur={handleOnBlur}
           onChangeText={onChange}
+          onFocus={() => setIsFocused(true)}
           value={value}
         />
         {inputText === 'Password' && (
@@ -60,5 +71,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: colors.errorRed,
+  },
+  border: {
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: colors.black,
   },
 })
