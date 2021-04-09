@@ -48,12 +48,13 @@ export const Signup: FC = () => {
       <CustomModal
         isVisible={isVisible}
         onBackButtonPress={() => setIsVisible(false)}
-        backdropColor={colors.modalBackground}
+        onBackdropPress={() => setIsVisible(false)}
+        backdropColor={colors.white}
         animationInTiming={600}
         animationOutTiming={400}
         backdropTransitionInTiming={600}
         backdropTransitionOutTiming={400}
-        backdropOpacity={1}
+        backdropOpacity={0.8}
         style={styles.modal}
         hideModalContentWhileAnimating>
         <FirstRegisterDialogBox />
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    backgroundColor: colors.modalBackground,
     marginHorizontal: theme.spacing.l,
   },
 })

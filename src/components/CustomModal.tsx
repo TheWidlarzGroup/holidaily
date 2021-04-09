@@ -3,7 +3,6 @@ import Modal, { ModalProps } from 'react-native-modal'
 import { Box } from '../utils/theme/index'
 
 type StyleProps = {
-  backgroundColor: string
   marginHorizontal: number
 }
 
