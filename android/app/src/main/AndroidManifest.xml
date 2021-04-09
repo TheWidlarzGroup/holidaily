@@ -24,9 +24,25 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="https" android:path="holidaily.danielgrychtol.com"/>
-            <data android:scheme="deeplink" android:host="home"/>
+            <data
+              android:scheme="https"
+              android:host="holidaily.danielgrychtol.com"
+              android:pathPrefix="/confirm"
+            />
         </intent-filter>
+
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+              android:scheme="https"
+              android:host="holidaily.danielgrychtol.com"
+              android:pathPrefix="/password_reset"
+            />
+        </intent-filter>
+
+        
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>

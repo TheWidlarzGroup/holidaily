@@ -13,15 +13,12 @@ const AppStack = createStackNavigator<AppRoutes>()
 
 const config = {
   screens: {
-    Home: '/',
+    Home: '/confirm/:token',
   },
 }
 
 const linking = {
-  prefixes: [
-    'https://holidaily.danielgrychtol.com/',
-    'https://holidaily.danielgrychtol.com/confirm/',
-  ],
+  prefixes: ['https://holidaily.danielgrychtol.com', 'holidaily://open'],
   config,
 }
 const AppStackContainer = () => (

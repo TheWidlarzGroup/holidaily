@@ -3,15 +3,17 @@
         "apps": [],
         "details": [
             {
-                "appIDs": [ "x.com.holidayly" ],
+                "appIDs": [ "x.app.holidaily" ],
                 "components": [
                     {
-                        "/": "/app/reset_password",
-                        "/": "/app/confirm"
+                        "/": "/confirm/*",
+                    },
+                    {
+                        "/": "/password_reset/*",
                     }
                 ],
-                "paths": [ "/app/reset_password", "/app/confirm" ]
+                "paths": [ "/confirm/*", "/password_reset/*" ]
             }
         ]
-    }
+    } 
 }

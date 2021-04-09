@@ -1,12 +1,30 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
-import { useNavigation } from '@react-navigation/native'
-import { Pressable, StyleSheet } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Alert, Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AppNavigationType } from '../../navigation/types'
 import { Box, Text } from '../../utils/theme'
+import { Mutation } from 'react-query/types/core/mutation'
+import { confirmAccount } from '../../graphql/mutations/confirmAccount'
+
+type RouteProps = {
+  key: string
+  name: string
+  params: {
+    token: string
+  }
+}
 
 export const Home = () => {
+  const {
+    params: { token },
+  } = useRoute<RouteProps>() || { params: { token: '' } }
+
+  useEffect(() => {
+    Alert.alert('token', token)
+  }, [token])
+
   const navigation = useNavigation<AppNavigationType<'Home'>>()
   const navigateToTestScreen = useCallback(() => {
     navigation.navigate('TestScreen')
