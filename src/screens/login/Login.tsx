@@ -26,9 +26,7 @@ export const Login: FC = () => {
   const { handleLogin, isLoading, isLoginError } = useLogin()
 
   const navigateToRemindPassword = useCallback(() => {
-    // TODO matthew:
-    // Uncomment when this screen will be ready
-    // navigation.navigate('RemindPassword')
+    navigation.navigate('ForgotPassword')
   }, [navigation])
 
   useEffect(() => {

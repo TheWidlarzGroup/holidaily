@@ -9,5 +9,11 @@
     "slider4Title": "Otrzymuj powiadomienia",
     "slider4SubTitle": "Dostaniesz powiadomienie kiedy wniosek zostanie zaakceptowany lub odrzucony",
     "next": "Dalej"
+  },
+  "forgotPassword": {
+    "forgotPasswordTitle": "Zapomniałeś hasła?",
+    "forgotPasswordSubTitle": "Wprowadź adres e-mail połączony ze swoim kontem.",
+    "forgotPressableText": "Chcesz użyć innego sposobu?",
+    "forgotResetButton": "Zresetuj hasło"
   }
 }

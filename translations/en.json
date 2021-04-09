@@ -9,5 +9,11 @@
     "slider4Title": "Get notified",
     "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
     "next": "Next"
+  },
+  "forgotPassword": {
+    "forgotPasswordTitle": "Forgot password?",
+    "forgotPasswordSubTitle": "Enter the e-mail address associated with your account.",
+    "forgotPressableText": "Want to try another way?",
+    "forgotResetButton": "Reset password"
   }
 }
