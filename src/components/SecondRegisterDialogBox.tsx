@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, Text, theme } from '../utils/theme/index'
 import { CustomButton } from './CustomButton'
 
-export const SecondDialogBox: FC = () => {
+export const SecondRegisterDialogBox: FC = () => {
   const { t } = useTranslation('modal')
 
   return (

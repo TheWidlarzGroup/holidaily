@@ -7,8 +7,8 @@ import { Box, Text, theme } from '../../utils/theme/index'
 import { CustomButton } from '../../components/CustomButton'
 import { CustomModal } from '../../components/CustomModal'
 import { colors } from '../../utils/theme/colors'
-import { FirstDialogBox } from '../../components/FirstDialogBox'
-import { SecondDialogBox } from '../../components/SecondDialogBox'
+import { FirstRegisterDialogBox } from '../../components/FirstRegisterDialogBox'
+import { SecondRegisterDialogBox } from '../../components/SecondRegisterDialogBox'
 
 export const Signup: FC = () => {
   const { width } = Dimensions.get('window')
@@ -56,7 +56,7 @@ export const Signup: FC = () => {
         backdropOpacity={1}
         style={styles.modal}
         hideModalContentWhileAnimating>
-        <FirstDialogBox />
+        <FirstRegisterDialogBox />
       </CustomModal>
     </SafeAreaView>
   )
