@@ -14,6 +14,8 @@
     "dialogBox1Title": "E-mail z potwierdzeniem został do Ciebie wysłany",
     "dialogBox1SubTitle": "Sprawdź swoją skrzynkę e-mail i potwierdź swoją tożsamość.",
     "dialogBox2Title": "Witamy na pokładzie!",
-    "dialogBox2SubTitle": "Chciałbyś obejrzeć krótką prezentację?"
+    "dialogBox2SubTitle": "Chciałbyś obejrzeć krótką prezentację?",
+    "dialog2FirstButton": "Yes, zaczynajmy!",
+    "dialog2SecondButton": "Nie, dziękuje"
   }
 }

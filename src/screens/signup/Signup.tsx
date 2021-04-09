@@ -8,6 +8,7 @@ import { CustomButton } from '../../components/CustomButton'
 import { CustomModal } from '../../components/CustomModal'
 import { colors } from '../../utils/theme/colors'
 import { FirstDialogBox } from '../../components/FirstDialogBox'
+import { SecondDialogBox } from '../../components/SecondDialogBox'
 
 export const Signup: FC = () => {
   const { width } = Dimensions.get('window')
@@ -68,6 +69,6 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: colors.modalBackground,
-    marginHorizontal: theme.spacing.xl,
+    marginHorizontal: theme.spacing.l,
   },
 })

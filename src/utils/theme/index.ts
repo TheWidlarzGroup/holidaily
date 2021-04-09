@@ -13,7 +13,8 @@ export const theme = {
     l: 24,
     lplus: 30,
     xl: 40,
-    xxl: 75,
+    xxl: 50,
+    xxxl: 75,
   },
   // must be sth here
   breakpoints: {

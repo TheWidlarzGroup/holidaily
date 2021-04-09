@@ -14,6 +14,8 @@
     "dialogBox1Title": "We sent you a confirmation e-mail",
     "dialogBox1SubTitle": "Go to your e-mail inbox and confirm your identity.",
     "dialogBox2Title": "Welcome on board!",
-    "dialogBox2SubTitle": "Would you like to take a quick tour?"
+    "dialogBox2SubTitle": "Would you like to take a quick tour?",
+    "dialog2FirstButton": "Yes, let's go!",
+    "dialog2SecondButton": "No, thanks"
   }
 }

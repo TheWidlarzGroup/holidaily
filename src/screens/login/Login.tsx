@@ -72,7 +72,7 @@ export const Login: FC = () => {
           </Pressable>
         </Box>
       </Box>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+      <Box flex={0.4} justifyContent="center" marginHorizontal="xxxl">
         <CustomButton
           label="Log in"
           variant="primary"
