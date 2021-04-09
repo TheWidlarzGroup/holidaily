@@ -16,11 +16,17 @@
     "forgotPressableText": "Want to try another way?",
     "forgotResetButton": "Reset password"
   },
+  "password": {
+    "password": "Password",
+    "newPassword": "New password",
+    "confirmNewPassowrd": "Confirm new password"
+  },
   "recoveryCode": {
     "recoveryCodeTitle": "Password Recovery",
     "recoveryCodeSubTitle": "Paste the 6-digit code",
     "newPassword": "Enter your new password",
     "paste": "Paste",
-    "resendCode": "Resend the code"
+    "resendCode": "Resend the code",
+    "updateButton": "Update"
   }
 }

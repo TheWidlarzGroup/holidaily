@@ -11,6 +11,7 @@ type FormInputTypes = {
   inputText: string
   validationPattern: RegExp
   errorMessage: string
+  passwordVisibilityIcon?: boolean
 }
 
 export const FormInput: FC<FormInputTypes> = ({
@@ -20,6 +21,7 @@ export const FormInput: FC<FormInputTypes> = ({
   inputText,
   validationPattern,
   errorMessage,
+  passwordVisibilityIcon,
 }) => (
   <>
     <Controller
@@ -31,6 +33,7 @@ export const FormInput: FC<FormInputTypes> = ({
           onBlur={onBlur}
           value={value}
           isWrong={errors[name] !== undefined}
+          passwordVisibilityIcon={passwordVisibilityIcon}
         />
       )}
       name={name}

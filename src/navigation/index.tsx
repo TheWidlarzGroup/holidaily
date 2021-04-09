@@ -9,6 +9,7 @@ import { Home } from '../screens/home/Home'
 import { ForgotPassword } from '../screens/forgotPassword/ForgotPassword'
 import { Login } from '../screens/login/Login'
 import { RecoveryCode } from '../screens/recoveryCode/recoveryCode'
+import { NewPassword } from '../screens/newPassword/NewPassword'
 
 const AppStack = createStackNavigator<AppRoutes>()
 
@@ -21,6 +22,7 @@ const AppStackContainer = () => (
       <AppStack.Screen name="Home" component={Home} />
       <AppStack.Screen name="ForgotPassword" component={ForgotPassword} />
       <AppStack.Screen name="RecoveryCode" component={RecoveryCode} />
+      <AppStack.Screen name="NewPassword" component={NewPassword} />
     </AppStack.Navigator>
   </NavigationContainer>
 )

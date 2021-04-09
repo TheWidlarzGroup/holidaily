@@ -60,6 +60,7 @@ export const Login: FC = () => {
             inputText="Password"
             validationPattern={minPasswordLengthRegex}
             errorMessage="Incorrect Password, please try again"
+            passwordVisibilityIcon
           />
         </Box>
         <Box alignSelf="flex-end">

@@ -11,6 +11,7 @@ type CustomInputTypes = {
   onBlur: () => void
   value: string
   isWrong: boolean
+  passwordVisibilityIcon?: boolean
 }
 
 export const CustomInput: FC<CustomInputTypes> = ({
@@ -19,6 +20,7 @@ export const CustomInput: FC<CustomInputTypes> = ({
   onBlur,
   value,
   isWrong,
+  passwordVisibilityIcon,
 }) => {
   const [state, { toggle }] = useBooleanState(inputText === 'Password')
   const [isFocused, setIsFocused] = useState(false)
@@ -46,7 +48,7 @@ export const CustomInput: FC<CustomInputTypes> = ({
           onFocus={() => setIsFocused(true)}
           value={value}
         />
-        {inputText === 'Password' && (
+        {passwordVisibilityIcon && (
           <Box alignSelf="center" position="absolute" right={17}>
             <Pressable onPress={toggle}>
               <IconTogglePasswordVisibility />

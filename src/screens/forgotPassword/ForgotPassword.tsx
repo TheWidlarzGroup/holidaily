@@ -55,6 +55,7 @@ export const ForgotPassword: FC = () => {
     </SafeAreaView>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

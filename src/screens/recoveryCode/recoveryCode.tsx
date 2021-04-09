@@ -2,7 +2,9 @@ import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/native'
 
+import { AppNavigationType } from '../../navigation/types'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
 import { CustomButton } from '../../components/CustomButton'
@@ -10,6 +12,7 @@ import { CustomButton } from '../../components/CustomButton'
 export const RecoveryCode: FC = () => {
   const { t } = useTranslation('recoveryCode')
 
+  const navigation = useNavigation<AppNavigationType<'RecoveryCode'>>()
   return (
     <SafeAreaView style={styles.container}>
       <Box flexDirection="row" paddingHorizontal="m" justifyContent="space-between">
@@ -23,7 +26,12 @@ export const RecoveryCode: FC = () => {
         </Text>
       </Box>
       <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
-        <CustomButton label={t('paste')} variant="primary" marginBottom={theme.spacing.m} />
+        <CustomButton
+          label={t('paste')}
+          variant="primary"
+          marginBottom={theme.spacing.m}
+          onPress={() => navigation.navigate('NewPassword')}
+        />
         <CustomButton label={t('resendCode')} variant="secondary" />
       </Box>
     </SafeAreaView>

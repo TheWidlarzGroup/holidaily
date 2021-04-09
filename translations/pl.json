@@ -16,11 +16,17 @@
     "forgotPressableText": "Chcesz użyć innego sposobu?",
     "forgotResetButton": "Zresetuj hasło"
   },
+  "password": {
+    "password": "Hasło",
+    "newPassword": "Nowe hasło",
+    "confirmNewPassowrd": "Potwierdź nowe hasło"
+  },
   "recoveryCode": {
     "recoveryCodeTitle": "Odzyskiwanie hasła",
     "recoveryCodeSubTitle": "Wklej sześciocyfrowy kod",
     "newPassword": "Wprowadź nowe hasło",
     "paste": "Wklej",
-    "resendCode": "Wyślij kod ponownie"
+    "resendCode": "Wyślij kod ponownie",
+    "updateButton": "Aktualizuj"
   }
 }
