@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, Text } from '../utils/theme/index'
+import { Box, Text, theme } from '../utils/theme/index'
 import { CustomButton } from './CustomButton'
 
 export const SecondDialogBox: FC = () => {
@@ -18,10 +18,18 @@ export const SecondDialogBox: FC = () => {
       />
       <Text variant="body1">{t('dialogBox2SubTitle')}</Text>
       <Box marginTop="l" marginBottom="m">
-        <CustomButton label={t('dialog2FirstButton')} variant="special" paddingVertical={5} />
+        <CustomButton
+          label={t('dialog2FirstButton')}
+          variant="special"
+          paddingVertical={theme.spacing.xs}
+        />
       </Box>
       <Box paddingBottom="m">
-        <CustomButton label={t('dialog2SecondButton')} variant="transparent" paddingVertical={5} />
+        <CustomButton
+          label={t('dialog2SecondButton')}
+          variant="transparent"
+          paddingVertical={theme.spacing.xs}
+        />
       </Box>
     </Box>
   )
