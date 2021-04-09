@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 
-import { Box, Text } from '../../utils/theme/index'
+import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
 import { FormInput } from '../../components/FormInput'
 import { CustomButton } from '../../components/CustomButton'
@@ -13,12 +14,20 @@ import { minPasswordLengthRegex } from '../../utils/regexes/minPasswordLengthReg
 export const NewPassword: FC = () => {
   const { t } = useTranslation(['recoveryCode', 'password'])
   const { control, handleSubmit, errors } = useForm()
+  const barColor = useSharedValue('#E1E1E1')
 
+  const progressStyle = useAnimatedStyle(() => ({
+    backgroundColor: (barColor.value = '#FFB051'),
+  }))
+  useEffect(() => {})
   return (
     <SafeAreaView style={styles.container}>
       <Box flexDirection="row" paddingHorizontal="m" justifyContent="space-between">
         <Box backgroundColor="primary" style={styles.bar} marginRight="s" />
-        <Box backgroundColor="primary" style={styles.bar} marginLeft="s" />
+
+        <Animated.View style={[styles.rightBar, progressStyle]}>
+          <Box backgroundColor="primary" style={styles.bar} />
+        </Animated.View>
       </Box>
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
@@ -63,5 +72,9 @@ const styles = StyleSheet.create({
   bar: {
     flex: 1,
     height: 4,
+  },
+  rightBar: {
+    flex: 1,
+    marginLeft: theme.spacing.s,
   },
 })
