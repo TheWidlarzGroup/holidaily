@@ -25,4 +25,3 @@ export const colors = {
   disabledText: palette.grayText,
   mainBackground: palette.orangeLight,
 }
-

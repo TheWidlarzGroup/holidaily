@@ -7,6 +7,7 @@ export type AppRoutes = {
   Home: undefined
   TestScreen: undefined
   ForgotPassword: undefined
+  RecoveryCode: undefined
 }
 
 // for useNavigation hook

@@ -15,5 +15,12 @@
     "forgotPasswordSubTitle": "Wprowadź adres e-mail połączony ze swoim kontem.",
     "forgotPressableText": "Chcesz użyć innego sposobu?",
     "forgotResetButton": "Zresetuj hasło"
+  },
+  "recoveryCode": {
+    "recoveryCodeTitle": "Odzyskiwanie hasła",
+    "recoveryCodeSubTitle": "Wklej sześciocyfrowy kod",
+    "newPassword": "Wprowadź nowe hasło",
+    "paste": "Wklej",
+    "resendCode": "Wyślij kod ponownie"
   }
 }

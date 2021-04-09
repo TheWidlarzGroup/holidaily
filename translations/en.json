@@ -15,5 +15,12 @@
     "forgotPasswordSubTitle": "Enter the e-mail address associated with your account.",
     "forgotPressableText": "Want to try another way?",
     "forgotResetButton": "Reset password"
+  },
+  "recoveryCode": {
+    "recoveryCodeTitle": "Password Recovery",
+    "recoveryCodeSubTitle": "Paste the 6-digit code",
+    "newPassword": "Enter your new password",
+    "paste": "Paste",
+    "resendCode": "Resend the code"
   }
 }

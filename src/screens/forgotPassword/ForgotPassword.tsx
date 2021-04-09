@@ -3,7 +3,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, Pressable } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
+import { useNavigation } from '@react-navigation/native'
 
+import { AppNavigationType } from '../../navigation/types'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
 import { FormInput } from '../../components/FormInput'
@@ -13,6 +15,7 @@ import { emailRegex } from '../../utils/regexes/emailRegex'
 export const ForgotPassword: FC = () => {
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('forgotPassword')
+  const navigation = useNavigation<AppNavigationType<'ForgotPassword'>>()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,6 +49,7 @@ export const ForgotPassword: FC = () => {
           label={t('forgotResetButton')}
           variant="primary"
           paddingVertical={theme.spacing.xs}
+          onPress={() => navigation.navigate('RecoveryCode')}
         />
       </Box>
     </SafeAreaView>
