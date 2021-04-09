@@ -17,13 +17,10 @@ export const CustomModal: FC<CustomModalProps & Partial<ModalProps>> = ({
   style,
   children,
   ...props
-}) => {
-  console.log(isVisible)
-  return (
-    <Box>
-      <Modal isVisible={isVisible} {...props}>
-        <Box style={style}>{children}</Box>
-      </Modal>
-    </Box>
-  )
-}
+}) => (
+  <Box>
+    <Modal isVisible={isVisible} {...props}>
+      <Box style={style}>{children}</Box>
+    </Modal>
+  </Box>
+)

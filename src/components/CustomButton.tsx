@@ -7,7 +7,7 @@ import { colors } from '../utils/theme/colors'
 import IconGoogle from '../assets/icons/icon-google.svg'
 import IconSlack from '../assets/icons/icon-slack.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'special' | 'transparent'
+type CustomButtonVariants = 'primary' | 'secondary' | 'special'
 type CustomButtonIcons = 'google' | 'slack'
 
 interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -45,10 +45,6 @@ export const CustomButton: FC<CustomButtonProps> = ({
       bgColor = colors.tertiary
       color = colors.white
       borderWidth = 0
-      break
-    case 'transparent':
-      bgColor = 'transparent'
-      color = colors.black
       break
     default:
       break
