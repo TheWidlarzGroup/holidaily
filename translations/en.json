@@ -17,5 +17,11 @@
     "dialogBox2SubTitle": "Would you like to take a quick tour?",
     "dialog2FirstButton": "Yes, let's go!",
     "dialog2SecondButton": "No, thanks"
+  },
+  "signup": {
+    "signupTitle": "How would you like to sign in?",
+    "continueWGmail": "Continue with Gmail",
+    "continueWSlack": "Continue with Slack",
+    "signupWEmail": "Sign up with E-mail"
   }
 }
