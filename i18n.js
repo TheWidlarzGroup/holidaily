@@ -4,7 +4,7 @@ import { NativeModules, Platform } from 'react-native'
 
 const locale =
   Platform.OS === 'ios'
-    ? NativeModules.SetttingManager.settings.AppleLocale
+    ? NativeModules.SettingManager.settings.AppleLocale
     : NativeModules.I18nManager.localeIdentifier
 
 const plTranslation = require('./translations/pl.json')
