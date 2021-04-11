@@ -9,7 +9,7 @@ import { ErrorTypes } from '../types/useLoginTypes'
 export const useConfirmAccount = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
 
-  const { mutateAsync: handleConfirmAccount, isLoading } = useMutation<
+  const { mutateAsync: handleConfirmAccount, isLoading, isSuccess } = useMutation<
     ConfirmMutationTypes,
     ErrorTypes,
     ConfirmTypes
@@ -26,5 +26,5 @@ export const useConfirmAccount = () => {
     await handleConfirmAccount({ email, token })
   }
 
-  return { handleConfirm, isLoading }
+  return { handleConfirm, isLoading, isSuccess }
 }
