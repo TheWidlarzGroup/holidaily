@@ -5,10 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { CustomButton } from '../../components/CustomButton'
-import { CustomModal } from '../../components/CustomModal'
-import { colors } from '../../utils/theme/colors'
-import { FirstRegisterDialogBox } from '../../components/FirstRegisterDialogBox'
-import { SecondRegisterDialogBox } from '../../components/SecondRegisterDialogBox'
+import { PendingAccountConfirmationModal } from '../../components/PendingAccountConfirmationModal'
 import useBooleanState from '../../hooks/useBooleanState'
 import { getSquareDimension } from '../../utils/getSquareDimension'
 
@@ -41,20 +38,7 @@ export const Signup: FC = () => {
         />
         <CustomButton label={t('signupWEmail')} variant="primary" marginTop={theme.spacing.xl} />
       </Box>
-      <CustomModal
-        isVisible={state}
-        onBackButtonPress={setFalse}
-        onBackdropPress={setFalse}
-        backdropColor={colors.white}
-        animationInTiming={600}
-        animationOutTiming={400}
-        backdropTransitionInTiming={600}
-        backdropTransitionOutTiming={400}
-        backdropOpacity={0.8}
-        style={styles.modal}
-        hideModalContentWhileAnimating>
-        <FirstRegisterDialogBox />
-      </CustomModal>
+      <PendingAccountConfirmationModal isVisible={state} setFalse={setFalse} />
     </SafeAreaView>
   )
 }
