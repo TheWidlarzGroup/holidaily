@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
@@ -17,16 +17,22 @@ export const NewPassword: FC = () => {
   const barColor = useSharedValue('#E1E1E1')
 
   const progressStyle = useAnimatedStyle(() => ({
-    backgroundColor: (barColor.value = '#FFB051'),
+    backgroundColor: withTiming(barColor.value, {
+      duration: 1500,
+    }),
   }))
-  useEffect(() => {})
+
+  useEffect(() => {
+    barColor.value = '#FFB051'
+  })
+
   return (
     <SafeAreaView style={styles.container}>
       <Box flexDirection="row" paddingHorizontal="m" justifyContent="space-between">
         <Box backgroundColor="primary" style={styles.bar} marginRight="s" />
 
         <Animated.View style={[styles.rightBar, progressStyle]}>
-          <Box backgroundColor="primary" style={styles.bar} />
+          <Box style={styles.bar} />
         </Animated.View>
       </Box>
       <Box flex={0.2} justifyContent="center">
@@ -41,9 +47,9 @@ export const NewPassword: FC = () => {
             control={control}
             errors={errors}
             name="password"
-            inputText="Password"
+            inputText={t('password')}
             validationPattern={minPasswordLengthRegex}
-            errorMessage="Incorrect Password, please try again"
+            errorMessage={t('incorrectPassword')}
           />
         </Box>
         <Box>
@@ -51,9 +57,9 @@ export const NewPassword: FC = () => {
             control={control}
             errors={errors}
             name="password"
-            inputText="Confirm new password"
+            inputText={t('confirmNewPassword')}
             validationPattern={minPasswordLengthRegex}
-            errorMessage="Incorrect Password, please try again"
+            errorMessage={t('incorrectPassword')}
           />
         </Box>
       </Box>

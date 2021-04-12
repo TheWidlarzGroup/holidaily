@@ -19,7 +19,8 @@
   "password": {
     "password": "Password",
     "newPassword": "New password",
-    "confirmNewPassowrd": "Confirm new password"
+    "confirmNewPassowrd": "Confirm new password",
+    "incorrectPassword": "Incorrect password, please try again"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Password Recovery",

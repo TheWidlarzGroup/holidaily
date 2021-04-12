@@ -19,7 +19,8 @@
   "password": {
     "password": "Hasło",
     "newPassword": "Nowe hasło",
-    "confirmNewPassowrd": "Potwierdź nowe hasło"
+    "confirmNewPassowrd": "Potwierdź nowe hasło",
+    "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Odzyskiwanie hasła",
