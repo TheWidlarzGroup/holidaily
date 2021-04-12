@@ -9,7 +9,7 @@ type FormInputTypes = {
   control: Control
   errors: FieldErrors
   name: string
-  inputText: string
+  inputLabel: string
   validationPattern: RegExp
   errorMessage: string
   required?: boolean
@@ -17,7 +17,7 @@ type FormInputTypes = {
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
   (
-    { control, errors, name, inputText, validationPattern, errorMessage, required, ...props },
+    { control, errors, name, inputLabel, validationPattern, errorMessage, required, ...props },
     ref
   ) => (
     <>
@@ -25,11 +25,11 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
         control={control}
         render={({ onChange, onBlur, value }) => (
           <CustomInput
-            inputText={inputText}
+            inputLabel={inputLabel}
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
-            isWrong={errors[name] !== undefined}
+            isError={errors[name]}
             ref={ref}
             {...props}
           />
@@ -46,7 +46,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       />
       {errors[name] && (
         <Text variant="error1" marginTop="s" marginLeft="m">
-          {errors[name].message ? errors[name].message : 'This field is required'}
+          {errors[name].message || 'This field is required'}
         </Text>
       )}
     </>

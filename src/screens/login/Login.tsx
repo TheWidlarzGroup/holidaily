@@ -36,7 +36,7 @@ export const Login: FC = () => {
   }, [navigation])
 
   useEffect(() => {
-    if (isLoginError?.isError && isLoginError.message) createAlert(isLoginError.message)
+    if (isLoginError?.isError) createAlert(isLoginError.message)
   }, [isLoginError])
 
   const onSubmitEditing = () => {
@@ -59,7 +59,7 @@ export const Login: FC = () => {
               control={control}
               errors={errors}
               name="email"
-              inputText="E-mail Address"
+              inputLabel="E-mail Address"
               validationPattern={emailRegex}
               errorMessage="Incorrect email, please try again"
               keyboardType="email-address"
@@ -74,10 +74,10 @@ export const Login: FC = () => {
               control={control}
               errors={errors}
               name="password"
-              inputText="Password"
+              inputLabel="Password"
               validationPattern={minPasswordLengthRegex}
               errorMessage="Incorrect Password, please try again"
-              forwardRef={passwordRef}
+              ref={passwordRef}
               required
             />
           </Box>

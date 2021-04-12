@@ -7,23 +7,22 @@ import useBooleanState from '../hooks/useBooleanState'
 import IconTogglePasswordVisibility from '../assets/icons/icon-togglePassword.svg'
 
 type CustomInputTypes = {
-  inputText: string
-  value: string
-  isWrong: boolean
+  inputLabel: string
+  isError: boolean
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
-  ({ inputText, onChange, onBlur, value, isWrong, ...props }, ref) => {
-    const [state, { toggle }] = useBooleanState(inputText === 'Password')
+  ({ inputLabel, onChange, onBlur, value, isError, ...props }, ref) => {
+    const [state, { toggle }] = useBooleanState(inputLabel === 'Password')
 
     return (
       <>
         <Text variant="label1" marginLeft="m" marginBottom="xs">
-          {inputText}
+          {inputLabel}
         </Text>
         <Box flexDirection="row">
           <TextInput
-            style={[styles.input, isWrong && styles.errorBorder]}
+            style={[styles.input, isError && styles.errorBorder]}
             secureTextEntry={state}
             onBlur={onBlur}
             onChange={onChange}
@@ -31,7 +30,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             ref={ref}
             {...props}
           />
-          {inputText === 'Password' && (
+          {inputLabel === 'Password' && (
             <Box alignSelf="center" position="absolute" right={17}>
               <Pressable onPress={toggle}>
                 <IconTogglePasswordVisibility />
