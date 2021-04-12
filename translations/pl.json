@@ -9,5 +9,11 @@
     "slider4Title": "Otrzymuj powiadomienia",
     "slider4SubTitle": "Dostaniesz powiadomienie kiedy wniosek zostanie zaakceptowany lub odrzucony",
     "next": "Dalej"
+  },
+  "login": {
+    "loginTitle": "Miło widzieć cię ponownie!",
+    "loginSubTitle": "Zaloguj się na swoje konto.",
+    "loginForgotPassword": "Zapomniałes hasła?",
+    "loginButton": "Zaloguj się"
   }
 }
