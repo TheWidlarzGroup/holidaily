@@ -34,7 +34,7 @@ export const textVariants = {
     color: 'grey',
     fontWeight: 'bold',
   },
-  error1: {
+  inputErrorMessage: {
     fontSize: 12,
     color: 'errorRed',
   },
