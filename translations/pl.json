@@ -25,7 +25,7 @@
   "recoveryCode": {
     "recoveryCodeTitle": "Odzyskiwanie hasła",
     "recoveryCodeSubTitle": "Wklej sześciocyfrowy kod",
-    "newPassword": "Wprowadź nowe hasło",
+    "enterNewPassword": "Wprowadź nowe hasło",
     "paste": "Wklej",
     "resendCode": "Wyślij kod ponownie",
     "updateButton": "Aktualizuj"

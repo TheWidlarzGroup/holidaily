@@ -26,10 +26,10 @@ export const RecoveryCode: FC = () => {
           {t('recoveryCodeSubTitle')}
         </Text>
       </Box>
-      <Box marginHorizontal="xxl">
-        <RecoveryCodeInput />
+      <Box flex={0.3} marginHorizontal="xl">
+        <RecoveryCodeInput cellCount={6} />
       </Box>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+      <Box flex={0.2} justifyContent="center" marginHorizontal="xxl">
         <CustomButton
           label={t('paste')}
           variant="primary"

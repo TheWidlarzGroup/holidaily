@@ -41,10 +41,10 @@ export const NewPassword: FC = () => {
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
-          {t('password:newPassword')}
+          {t('enterNewPassword')}
         </Text>
       </Box>
-      <Box marginHorizontal="l">
+      <Box marginHorizontal="l" marginTop="l">
         <Box marginBottom="m">
           <FormInput
             control={control}

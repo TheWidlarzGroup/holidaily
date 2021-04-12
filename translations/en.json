@@ -25,7 +25,7 @@
   "recoveryCode": {
     "recoveryCodeTitle": "Password Recovery",
     "recoveryCodeSubTitle": "Paste the 6-digit code",
-    "newPassword": "Enter your new password",
+    "enterNewPassword": "Enter your new password",
     "paste": "Paste",
     "resendCode": "Resend the code",
     "updateButton": "Update"
