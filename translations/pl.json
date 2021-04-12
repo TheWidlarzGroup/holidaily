@@ -29,5 +29,10 @@
     "paste": "Wklej",
     "resendCode": "Wyślij kod ponownie",
     "updateButton": "Aktualizuj"
+  "login": {
+    "loginTitle": "Miło widzieć cię ponownie!",
+    "loginSubTitle": "Zaloguj się na swoje konto.",
+    "loginForgotPassword": "Zapomniałes hasła?",
+    "loginButton": "Zaloguj się"
   }
 }

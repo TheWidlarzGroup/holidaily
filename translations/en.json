@@ -29,5 +29,11 @@
     "paste": "Paste",
     "resendCode": "Resend the code",
     "updateButton": "Update"
+  "login": {
+    "loginTitle": "Nice to see you again!",
+    "loginSubTitle": "Log in to your account.",
+    "loginForgotPassword": "Forgot your password?",
+    "loginButton": "Log in"
+
   }
 }
