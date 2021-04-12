@@ -28,8 +28,7 @@ export const textVariants = {
     fontSize: 15,
     color: 'grey',
   },
-  error1: {
-    fontFamily: 'Nunito-Regular',
+  inputErrorMessage: {
     fontSize: 12,
     color: 'errorRed',
   },

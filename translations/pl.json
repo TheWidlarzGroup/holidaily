@@ -23,5 +23,11 @@
     "continueWGmail": "Kontynuuj z Gmailem",
     "continueWSlack": "Kontynuuj z Slackiem",
     "signupWEmail": "Użyj adresu e-mail"
+  },
+  "login": {
+    "loginTitle": "Miło widzieć cię ponownie!",
+    "loginSubTitle": "Zaloguj się na swoje konto.",
+    "loginForgotPassword": "Zapomniałes hasła?",
+    "loginButton": "Zaloguj się"
   }
 }
