@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { CustomButton } from '../../components/CustomButton'
-import { PendingAccountConfirmationModal } from '../../components/PendingAccountConfirmationModal'
+import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 import useBooleanState from '../../hooks/useBooleanState'
 import { getHalfOfTheWindowWidth } from '../../utils/getHalfOfTheWindowWidth'
 
@@ -38,7 +38,7 @@ export const Signup: FC = () => {
         />
         <CustomButton label={t('signupWEmail')} variant="primary" marginTop={theme.spacing.xl} />
       </Box>
-      <PendingAccountConfirmationModal isVisible={state} setFalse={setFalse} />
+      <PendingAccountConfirmationModal isVisible={state} onClose={setFalse} />
     </SafeAreaView>
   )
 }

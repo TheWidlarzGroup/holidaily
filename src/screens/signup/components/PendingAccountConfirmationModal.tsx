@@ -1,24 +1,22 @@
 import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
+import { ModalProps } from 'react-native-modal'
 
-import { CustomModal } from './CustomModal'
-import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
-import { theme } from '../utils/theme/index'
-import { colors } from '../utils/theme/colors'
+import { CustomModal } from '../../../components/CustomModal'
+import { FirstRegisterDialogBox } from '../../../components/FirstRegisterDialogBox'
+import { theme } from '../../../utils/theme/index'
+import { colors } from '../../../utils/theme/colors'
 
-type PendingAccountConfModalProps = {
-  isVisible: boolean
-  setFalse: () => void
-}
+type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & { onClose: () => void }
 
 export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> = ({
   isVisible,
-  setFalse,
+  onClose,
 }) => (
   <CustomModal
     isVisible={isVisible}
-    onBackButtonPress={setFalse}
-    onBackdropPress={setFalse}
+    onBackButtonPress={onClose}
+    onBackdropPress={onClose}
     backdropColor={colors.white}
     animationInTiming={600}
     animationOutTiming={400}
