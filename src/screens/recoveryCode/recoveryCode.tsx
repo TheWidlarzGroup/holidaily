@@ -9,17 +9,17 @@ import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
 import { CustomButton } from '../../components/CustomButton'
 import { RecoveryCodeInput } from '../../components/RecoveryCodeInput'
+import { RecoveryPasswordBar } from '../../components/RecoveryPasswordBar'
 
 export const RecoveryCode: FC = () => {
   const { t } = useTranslation('recoveryCode')
 
   const navigation = useNavigation<AppNavigationType<'RecoveryCode'>>()
+
   return (
     <SafeAreaView style={styles.container}>
-      <Box flexDirection="row" paddingHorizontal="m" justifyContent="space-between">
-        <Box backgroundColor="primary" flex={1} height={4} marginRight="s" />
-        <Box backgroundColor="lightGrey" flex={1} height={4} marginLeft="s" />
-      </Box>
+      <RecoveryPasswordBar currentScreen="RecoveryCode" />
+
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
