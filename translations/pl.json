@@ -19,7 +19,7 @@
   "password": {
     "password": "Hasło",
     "newPassword": "Nowe hasło",
-    "confirmNewPassowrd": "Potwierdź nowe hasło",
+    "confirmNewPassword": "Potwierdź nowe hasło",
     "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie"
   },
   "recoveryCode": {

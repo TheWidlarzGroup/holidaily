@@ -8,6 +8,7 @@ import { AppNavigationType } from '../../navigation/types'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { colors } from '../../utils/theme/colors'
 import { CustomButton } from '../../components/CustomButton'
+import { RecoveryCodeInput } from '../../components/RecoveryCodeInput'
 
 export const RecoveryCode: FC = () => {
   const { t } = useTranslation('recoveryCode')
@@ -24,6 +25,9 @@ export const RecoveryCode: FC = () => {
         <Text variant="body1" marginTop="s" marginHorizontal="l">
           {t('recoveryCodeSubTitle')}
         </Text>
+      </Box>
+      <Box marginHorizontal="xxl">
+        <RecoveryCodeInput />
       </Box>
       <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
         <CustomButton
