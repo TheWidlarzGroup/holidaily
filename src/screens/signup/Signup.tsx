@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/native'
 import { Box, Text, theme } from '../../utils/theme/index'
 import { CustomButton } from '../../components/CustomButton'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
@@ -10,8 +11,13 @@ import useBooleanState from '../../hooks/useBooleanState'
 import { getHalfOfTheWindowWidth } from '../../utils/getHalfOfTheWindowWidth'
 
 export const Signup: FC = () => {
+  const navigation = useNavigation()
   const [state, { setFalse, setTrue }] = useBooleanState(false)
   const { t } = useTranslation('signup')
+
+  const navigateToTestScreen = useCallback(() => {
+    navigation.navigate('SignupEmail')
+  }, [navigation])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,7 +42,12 @@ export const Signup: FC = () => {
           icon="slack"
           marginTop={theme.spacing.m}
         />
-        <CustomButton label={t('signupWEmail')} variant="primary" marginTop={theme.spacing.xl} />
+        <CustomButton
+          label={t('signupWEmail')}
+          variant="primary"
+          marginTop={theme.spacing.xl}
+          onPress={navigateToTestScreen}
+        />
       </Box>
       <PendingAccountConfirmationModal isVisible={state} onClose={setFalse} />
     </SafeAreaView>

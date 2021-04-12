@@ -39,4 +39,14 @@ export const textVariants = {
     fontSize: 18,
     textAlign: 'center',
   },
+  lightGreyRegular: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'grey',
+  },
+  lightGreyBold: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'grey',
+  },
 }

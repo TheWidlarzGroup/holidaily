@@ -8,9 +8,7 @@ import { Box, Text } from '../../utils/theme'
 
 export const Home = () => {
   const navigation = useNavigation<AppNavigationType<'Home'>>()
-  const navigateToTestScreen = useCallback(() => {
-    navigation.navigate('TestScreen')
-  }, [navigation])
+  const navigateToTestScreen = useCallback(() => {}, [navigation])
 
   return (
     <SafeAreaView style={styles.safeArea}>
