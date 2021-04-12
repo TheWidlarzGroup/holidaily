@@ -1,51 +1,49 @@
-import React, { FC } from 'react'
-import { StyleSheet, TextInput, Pressable } from 'react-native'
+import React, { forwardRef } from 'react'
+import { StyleSheet, TextInput, Pressable, TextInputProps } from 'react-native'
 import { Text, Box, theme } from '../utils/theme/index'
 import { colors } from '../utils/theme/colors'
-import { IconTogglePasswordVisibility } from '../assets/IconTogglePasswordVisbility'
+
 import useBooleanState from '../hooks/useBooleanState'
+import IconTogglePasswordVisibility from '../assets/icons/icon-togglePassword.svg'
 
 type CustomInputTypes = {
-  inputText: string
-  onChange: (newValue: string) => void
-  onBlur: () => void
-  value: string
-  isWrong: boolean
+  inputLabel: string
+  isError: boolean
 }
 
-export const CustomInput: FC<CustomInputTypes> = ({
-  inputText,
-  onChange,
-  onBlur,
-  value,
-  isWrong,
-}) => {
-  const [state, { toggle }] = useBooleanState(inputText === 'Password')
+export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
+  ({ inputLabel, onChange, onBlur, value, isError, ...props }, ref) => {
+    const [state, { toggle }] = useBooleanState(inputLabel === 'Password')
 
-  return (
-    <>
-      <Text variant="label1" marginLeft="m" marginBottom="xs">
-        {inputText}
-      </Text>
-      <Box flexDirection="row">
-        <TextInput
-          style={[styles.input, isWrong && styles.errorBorder]}
-          secureTextEntry={state}
-          onBlur={onBlur}
-          onChangeText={onChange}
-          value={value}
-        />
-        {inputText === 'Password' && (
-          <Box alignSelf="center" position="absolute" right={17}>
-            <Pressable onPress={toggle}>
-              <IconTogglePasswordVisibility />
-            </Pressable>
-          </Box>
-        )}
-      </Box>
-    </>
-  )
-}
+    return (
+      <>
+        <Text variant="label1" marginLeft="m" marginBottom="xs">
+          {inputLabel}
+        </Text>
+        <Box flexDirection="row">
+          <TextInput
+            style={[styles.input, isError && styles.errorBorder]}
+            secureTextEntry={state}
+            onBlur={onBlur}
+            onChange={onChange}
+            value={value}
+            ref={ref}
+            {...props}
+          />
+          {inputLabel === 'Password' && (
+            <Box alignSelf="center" position="absolute" right={17}>
+              <Pressable onPress={toggle}>
+                <IconTogglePasswordVisibility />
+              </Pressable>
+            </Box>
+          )}
+        </Box>
+      </>
+    )
+  }
+)
+
+CustomInput.displayName = 'CustomInput'
 
 const styles = StyleSheet.create({
   input: {
