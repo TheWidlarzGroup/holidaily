@@ -17,8 +17,8 @@ export const RecoveryCode: FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Box flexDirection="row" paddingHorizontal="m" justifyContent="space-between">
-        <Box backgroundColor="primary" style={styles.bar} marginRight="s" />
-        <Box backgroundColor="lightGrey" style={styles.bar} marginLeft="s" />
+        <Box backgroundColor="primary" flex={1} height={4} marginRight="s" />
+        <Box backgroundColor="lightGrey" flex={1} height={4} marginLeft="s" />
       </Box>
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
@@ -46,9 +46,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-  },
-  bar: {
-    flex: 1,
-    height: 4,
   },
 })
