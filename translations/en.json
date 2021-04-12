@@ -10,7 +10,10 @@
     "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
     "next": "Next"
   },
+
   "forgotPassword": {
+    "email": "E-mail Address",
+    "incorrectEmail": "Incorrect e-mail, please try again",
     "forgotPasswordTitle": "Forgot password?",
     "forgotPasswordSubTitle": "Enter the e-mail address associated with your account.",
     "forgotPressableText": "Want to try another way?",
@@ -29,11 +32,11 @@
     "paste": "Paste",
     "resendCode": "Resend the code",
     "updateButton": "Update"
+  },
   "login": {
     "loginTitle": "Nice to see you again!",
     "loginSubTitle": "Log in to your account.",
     "loginForgotPassword": "Forgot your password?",
     "loginButton": "Log in"
-
   }
 }

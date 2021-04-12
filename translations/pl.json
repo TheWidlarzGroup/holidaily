@@ -11,6 +11,8 @@
     "next": "Dalej"
   },
   "forgotPassword": {
+    "email": "Adres e-mail",
+    "incorrectEmail": "Nieprawidłowy adres e-mail, proszę spróbuj ponownie",
     "forgotPasswordTitle": "Zapomniałeś hasła?",
     "forgotPasswordSubTitle": "Wprowadź adres e-mail połączony ze swoim kontem.",
     "forgotPressableText": "Chcesz użyć innego sposobu?",
@@ -29,6 +31,7 @@
     "paste": "Wklej",
     "resendCode": "Wyślij kod ponownie",
     "updateButton": "Aktualizuj"
+  },
   "login": {
     "loginTitle": "Miło widzieć cię ponownie!",
     "loginSubTitle": "Zaloguj się na swoje konto.",

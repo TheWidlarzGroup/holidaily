@@ -33,7 +33,7 @@ export const NewPassword: FC = () => {
             control={control}
             errors={errors}
             name="password"
-            inputText={t('password:password')}
+            inputLabel={t('password:password')}
             validationPattern={minPasswordLengthRegex}
             errorMessage={t('password:incorrectPassword')}
           />
@@ -43,7 +43,7 @@ export const NewPassword: FC = () => {
             control={control}
             errors={errors}
             name="confirmPassword"
-            inputText={t('password:confirmNewPassword')}
+            inputLabel={t('password:confirmNewPassword')}
             validationPattern={minPasswordLengthRegex}
             errorMessage={t('password:incorrectPassword')}
           />

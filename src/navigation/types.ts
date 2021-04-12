@@ -5,7 +5,6 @@ export type AppRoutes = {
   Signup: undefined
   Login: undefined
   Home: undefined
-  TestScreen: undefined
   ForgotPassword: undefined
   RecoveryCode: undefined
   NewPassword: undefined

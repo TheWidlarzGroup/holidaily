@@ -31,9 +31,9 @@ export const ForgotPassword: FC = () => {
             control={control}
             errors={errors}
             name="email"
-            inputText="E-mail Address"
+            inputLabel={t('email')}
             validationPattern={emailRegex}
-            errorMessage="Incorrect email, please try again"
+            errorMessage={t('incorrectEmail')}
           />
         </Box>
         <Box alignSelf="flex-end">
