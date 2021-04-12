@@ -7,7 +7,7 @@ import { Box, Text, theme } from '../../utils/theme/index'
 import { CustomButton } from '../../components/CustomButton'
 import { PendingAccountConfirmationModal } from '../../components/PendingAccountConfirmationModal'
 import useBooleanState from '../../hooks/useBooleanState'
-import { getSquareDimension } from '../../utils/getSquareDimension'
+import { getHalfOfTheWindowWidth } from '../../utils/getHalfOfTheWindowWidth'
 
 export const Signup: FC = () => {
   const [state, { setFalse, setTrue }] = useBooleanState(false)
@@ -22,8 +22,8 @@ export const Signup: FC = () => {
         </Pressable>
       </Box>
       <Box
-        width={getSquareDimension()}
-        height={getSquareDimension()}
+        width={getHalfOfTheWindowWidth()}
+        height={getHalfOfTheWindowWidth()}
         backgroundColor="secondary"
         borderRadius="m"
         alignSelf="center"

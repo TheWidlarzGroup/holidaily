@@ -20,7 +20,7 @@ export const SecondRegisterDialogBox: FC = () => {
       <Box marginTop="l" marginBottom="m">
         <CustomButton
           label={t('dialog2FirstButton')}
-          variant="special"
+          variant="blackBgButton"
           paddingVertical={theme.spacing.xs}
         />
       </Box>
