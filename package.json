@@ -30,8 +30,7 @@
     "react-native-secure-storage": "^0.1.2",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
-    "react-query": "^3.13.4",
-    "save": "^2.4.0"
+    "react-query": "^3.13.4"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
