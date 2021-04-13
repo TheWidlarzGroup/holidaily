@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    borderRadius: theme.borderRadii.xxl,
+    borderRadius: theme.borderRadii.l,
   },
   icon: {
     marginRight: theme.spacing.l,
