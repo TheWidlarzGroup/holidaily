@@ -27,7 +27,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     useEffect(() => {
       if (isError) {
-        errorOpacity.value = 1
+        errorOpacity.value = 2
       } else {
         errorOpacity.value = 0
       }
