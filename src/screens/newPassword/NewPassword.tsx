@@ -15,7 +15,6 @@ const checkIfPasswordsMatch = (password1: string, password2: string) => password
 
 export const NewPassword: FC = () => {
   const { t } = useTranslation(['recoveryCode', 'password'])
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { control, handleSubmit, errors, getValues } = useForm()
 
   return (
