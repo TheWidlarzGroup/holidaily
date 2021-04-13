@@ -3,7 +3,7 @@ import { Box, theme } from '../utils/theme/index'
 import { AnimatedBar } from './AnimatedBar'
 
 type RecoveryPasswordBarTypes = {
-  currentScreen: string
+  currentScreen: 'RecoveryCode' | 'NewPassword'
 }
 
 export const RecoveryPasswordBar: FC<RecoveryPasswordBarTypes> = ({ currentScreen }) => (

@@ -41,7 +41,8 @@ export const RecoveryCodeInput: FC<RecoveryCodeInputProps> = ({ cellCount }) => 
           onLayout={getCellOnLayoutHandler(index)}>
           {symbol || (isFocused ? <Cursor /> : null)}
         </Text>
-      )}></CodeField>
+      )}
+    />
   )
 }
 
