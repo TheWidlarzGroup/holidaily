@@ -13,6 +13,7 @@
       "components/*": ["./components/*"],
       "hooks/*": ["hooks/*"],
       "graphqlActions/*": ["graphql/*"],
+      "navigation/*": ["navigation/*"],
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
       "utlis/*": ["utils/*"]
