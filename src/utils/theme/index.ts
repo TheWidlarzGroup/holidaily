@@ -11,8 +11,10 @@ export const theme = {
     xm: 12,
     m: 16,
     l: 24,
+    lplus: 30,
     xl: 40,
-    xxl: 75,
+    xxl: 50,
+    xxxl: 75,
   },
   // must be sth here
   breakpoints: {
@@ -21,7 +23,9 @@ export const theme = {
   },
   borderRadii: {
     s: 4,
+    xm: 8,
     m: 10,
+    mplus: 12,
     l: 25,
     xl: 75,
     xxl: 100,

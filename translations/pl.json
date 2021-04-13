@@ -31,6 +31,19 @@
     "paste": "Wklej",
     "resendCode": "Wyślij kod ponownie",
     "updateButton": "Aktualizuj"
+  "modal": {
+    "dialogBox1Title": "E-mail z potwierdzeniem został do Ciebie wysłany",
+    "dialogBox1SubTitle": "Sprawdź swoją skrzynkę e-mail i potwierdź swoją tożsamość.",
+    "dialogBox2Title": "Witamy na pokładzie!",
+    "dialogBox2SubTitle": "Chciałbyś obejrzeć krótką prezentację?",
+    "dialog2FirstButton": "Yes, zaczynajmy!",
+    "dialog2SecondButton": "Nie, dziękuje"
+  },
+  "signup": {
+    "signupTitle": "Jak chciałbyś się zarejestrować",
+    "continueWGmail": "Kontynuuj z Gmailem",
+    "continueWSlack": "Kontynuuj z Slackiem",
+    "signupWEmail": "Użyj adresu e-mail"
   },
   "login": {
     "loginTitle": "Miło widzieć cię ponownie!",

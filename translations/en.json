@@ -10,7 +10,6 @@
     "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
     "next": "Next"
   },
-
   "forgotPassword": {
     "email": "E-mail Address",
     "incorrectEmail": "Incorrect e-mail, please try again",
@@ -32,6 +31,20 @@
     "paste": "Paste",
     "resendCode": "Resend the code",
     "updateButton": "Update"
+
+  "modal": {
+    "dialogBox1Title": "We sent you a confirmation e-mail",
+    "dialogBox1SubTitle": "Go to your e-mail inbox and confirm your identity.",
+    "dialogBox2Title": "Welcome on board!",
+    "dialogBox2SubTitle": "Would you like to take a quick tour?",
+    "dialog2FirstButton": "Yes, let's go!",
+    "dialog2SecondButton": "No, thanks"
+  },
+  "signup": {
+    "signupTitle": "How would you like to sign in?",
+    "continueWGmail": "Continue with Gmail",
+    "continueWSlack": "Continue with Slack",
+    "signupWEmail": "Sign up with E-mail"
   },
   "login": {
     "loginTitle": "Nice to see you again!",
