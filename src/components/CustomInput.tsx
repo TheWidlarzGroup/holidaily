@@ -26,11 +26,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     }))
 
     useEffect(() => {
-      if (isError) {
-        errorOpacity.value = 2
-      } else {
-        errorOpacity.value = 0
-      }
+      errorOpacity.value = isError ? 2 : 0
     }, [isError])
 
     return (
