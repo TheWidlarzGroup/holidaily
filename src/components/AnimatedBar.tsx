@@ -11,7 +11,7 @@ export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide }) => {
 
   const progressStyle = useAnimatedStyle(() => ({
     width: withTiming(`${barWidth.value}%`, {
-      duration: 1500,
+      duration: 1000,
     }),
   }))
 
