@@ -15,6 +15,7 @@ export type CreateUserTypes = {
   createUser: {
     user: {
       email: string
+      name: string
     }
   }
 }
