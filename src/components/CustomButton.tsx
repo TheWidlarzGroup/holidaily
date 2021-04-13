@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { FlexStyle, ActivityIndicator, StyleSheet } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, Box, theme } from '../utils/theme/index'
-import { colors } from '../utils/theme/colors'
+import { Text, Box, theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
 
-import IconGoogle from '../assets/icons/icon-google.svg'
-import IconSlack from '../assets/icons/icon-slack.svg'
+import IconGoogle from 'assets/icons/icon-google.svg'
+import IconSlack from 'assets/icons/icon-slack.svg'
 
 type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
 type CustomButtonIcons = 'google' | 'slack'

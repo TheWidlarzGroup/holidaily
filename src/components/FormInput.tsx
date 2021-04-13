@@ -2,8 +2,8 @@ import React, { forwardRef } from 'react'
 import { TextInputProps, TextInput } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
 
+import { Text } from 'utils/theme/index'
 import { CustomInput } from './CustomInput'
-import { Text } from '../utils/theme/index'
 
 type FormInputTypes = {
   control: Control

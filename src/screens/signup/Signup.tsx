@@ -3,11 +3,11 @@ import { Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useTranslation } from 'react-i18next'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { CustomButton } from '../../components/CustomButton'
+import { Box, Text, theme } from 'utils/theme/index'
+import { CustomButton } from 'components/CustomButton'
+import useBooleanState from 'hooks/useBooleanState'
+import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
-import useBooleanState from '../../hooks/useBooleanState'
-import { getHalfOfTheWindowWidth } from '../../utils/getHalfOfTheWindowWidth'
 
 export const Signup: FC = () => {
   const [state, { setFalse, setTrue }] = useBooleanState(false)

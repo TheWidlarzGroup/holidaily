@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
-import { CustomModal } from '../../../components/CustomModal'
-import { FirstRegisterDialogBox } from '../../../components/FirstRegisterDialogBox'
-import { theme } from '../../../utils/theme/index'
-import { colors } from '../../../utils/theme/colors'
+import { CustomModal } from 'components/CustomModal'
+import { FirstRegisterDialogBox } from 'components/FirstRegisterDialogBox'
+import { theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
 
 type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & { onClose: () => void }
 

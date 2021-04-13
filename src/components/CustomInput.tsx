@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react'
 import { StyleSheet, TextInput, Pressable, TextInputProps } from 'react-native'
-import { Text, Box, theme } from '../utils/theme/index'
-import { colors } from '../utils/theme/colors'
+import IconTogglePasswordVisibility from 'assets/icons/icon-togglePassword.svg'
+import { Text, Box, theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
 
-import useBooleanState from '../hooks/useBooleanState'
-import IconTogglePasswordVisibility from '../assets/icons/icon-togglePassword.svg'
+import useBooleanState from 'hooks/useBooleanState'
 
 type CustomInputTypes = {
   inputLabel: string

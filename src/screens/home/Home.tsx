@@ -3,8 +3,8 @@ import React, { useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { AppNavigationType } from '../../navigation/types'
-import { Box, Text } from '../../utils/theme'
+import { AppNavigationType } from 'navigation/types'
+import { Box, Text } from 'utils/theme'
 
 export const Home = () => {
   const navigation = useNavigation<AppNavigationType<'Home'>>()
