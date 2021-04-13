@@ -7,6 +7,5 @@
     "types": ["jest", "node"],
     "skipLibCheck": true,
     "sourceMap": true
-  },
-  "no-unbound-method": false
+  }
 }
