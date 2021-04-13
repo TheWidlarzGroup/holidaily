@@ -3,7 +3,12 @@ export type SignupTypes = {
   firstName: string
   lastName: string
   password: string
-  passwordConfirmation: string
+}
+
+export type HandleSignupTypes = {
+  email: string
+  nameSurname: string
+  password: string
 }
 
 export type CreateUserTypes = {

@@ -1,48 +1,39 @@
 import { useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { useMutation } from 'react-query'
 
-import { AppNavigationType } from '../navigation/types'
 import { ErrorTypes } from '../types/useLoginTypes'
-import { SignupTypes, CreateUserTypes } from '../types/useSignupTypes'
-import { loginMutation } from '../graphql/mutations/loginMutation'
+import { SignupTypes, CreateUserTypes, HandleSignupTypes } from '../types/useSignupTypes'
+import { signupMutation } from '../graphql/mutations/signupMutation'
 
 const customErrorMessage = (errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
-    return 'Incorrect email or password, please try again'
+    return 'Incorrect email, please try again'
   }
   return 'Something went wrong, please try again later'
 }
 
 export const useSignup = () => {
-  const [isError, setIsError] = useState<ErrorTypes>()
-  const navigation = useNavigation<AppNavigationType<'Signup'>>()
-  const { mutateAsync: handleLoginUser, isLoading } = useMutation<
+  const [isSignupError, setIsSignupError] = useState<ErrorTypes>()
+  const { mutateAsync: handleSignupUser, isLoading, isSuccess } = useMutation<
     CreateUserTypes,
     ErrorTypes,
     SignupTypes
-  >(loginMutation, {
-    onSuccess: () => {
-      navigation.navigate('Home')
-    },
+  >(signupMutation, {
     onError: (error: ErrorTypes) => {
       const errorObject = {
         isError: true,
         message: customErrorMessage(error.message),
       }
-      setIsError(errorObject)
+      setIsSignupError(errorObject)
     },
   })
 
-  const handleLogin = async ({
-    email,
-    firstName,
-    lastName,
-    password,
-    passwordConfirmation,
-  }: SignupTypes) => {
-    await handleLoginUser({ email, firstName, lastName, password, passwordConfirmation })
+  const handleSignup = async ({ email, nameSurname, password }: HandleSignupTypes) => {
+    const splitNameSurname = nameSurname.split(' ')
+    const firstName = splitNameSurname[0]
+    const lastName = splitNameSurname[1]
+    await handleSignupUser({ email, firstName, lastName, password })
   }
 
-  return { handleLogin, isLoading, isError }
+  return { handleSignup, isLoading, isSignupError, isSuccess }
 }
