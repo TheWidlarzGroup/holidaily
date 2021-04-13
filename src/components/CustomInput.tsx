@@ -17,7 +17,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
   ({ inputLabel, onChange, onBlur, value, isError, ...props }, ref) => {
     const [state, { toggle }] = useBooleanState(inputLabel === 'Password')
 
-    const errorOpacity = useSharedValue(0.2)
+    const errorOpacity = useSharedValue(0)
 
     const progressStyle = useAnimatedStyle(() => ({
       borderWidth: withTiming(errorOpacity.value, {

@@ -1,1 +1,1 @@
-export const minTwoWordsRegex = /(\w.+\s).+/i
+export const minTwoWordsRegex = /^(\w+\s).+/i
