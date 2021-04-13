@@ -1,6 +1,7 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import { TextInputProps, TextInput } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { CustomInput } from './CustomInput'
 import { Text } from '../utils/theme/index'
@@ -13,14 +14,39 @@ type FormInputTypes = {
   validationPattern: RegExp
   errorMessage: string
   required?: boolean
+  signupPasswordHint?: string
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
   (
-    { control, errors, name, inputLabel, validationPattern, errorMessage, required, ...props },
+    {
+      control,
+      errors,
+      name,
+      inputLabel,
+      validationPattern,
+      errorMessage,
+      required,
+      signupPasswordHint,
+      ...props
+    },
     ref
   ) => {
-    console.log(!!errors[name])
+    const errorOpacity = useSharedValue(0)
+
+    const progressStyle = useAnimatedStyle(() => ({
+      opacity: withTiming(errorOpacity.value, {
+        duration: 300,
+      }),
+    }))
+
+    useEffect(() => {
+      if (errors[name]) {
+        errorOpacity.value = 1
+      } else {
+        errorOpacity.value = 0
+      }
+    }, [errors[name]])
     return (
       <>
         <Controller
@@ -46,9 +72,16 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           }}
           defaultValue=""
         />
-        {errors[name] && (
+
+        <Animated.View style={progressStyle}>
           <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
-            {errors[name].message || 'This field is required'}
+            {errors[name]?.message || 'This field is required'}
+          </Text>
+        </Animated.View>
+
+        {signupPasswordHint && (
+          <Text variant="lightGreyRegular" marginTop="s" marginLeft="m" textAlign="center">
+            {signupPasswordHint}
           </Text>
         )}
       </>
