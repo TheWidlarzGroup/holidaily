@@ -6,21 +6,11 @@ import { AppRoutes } from './types'
 import { Slider } from '../screens/slider/Slider'
 import { Signup } from '../screens/signup/Signup'
 import { Home } from '../screens/home/Home'
-import { TestScreen } from '../screens/home/TestScreen'
 import { Login } from '../screens/login/Login'
+import { linking } from './universalLinking'
 
 const AppStack = createStackNavigator<AppRoutes>()
 
-const config = {
-  screens: {
-    Home: '/confirm/:token',
-  },
-}
-
-const linking = {
-  prefixes: ['https://holidaily.danielgrychtol.com', 'holidaily://open'],
-  config,
-}
 const AppStackContainer = () => (
   <NavigationContainer linking={linking}>
     <AppStack.Navigator headerMode="none" initialRouteName="Slider">
@@ -28,7 +18,6 @@ const AppStackContainer = () => (
       <AppStack.Screen name="Signup" component={Signup} />
       <AppStack.Screen name="Login" component={Login} />
       <AppStack.Screen name="Home" component={Home} />
-      <AppStack.Screen name="TestScreen" component={TestScreen} />
     </AppStack.Navigator>
   </NavigationContainer>
 )
