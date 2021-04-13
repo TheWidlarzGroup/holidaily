@@ -18,10 +18,10 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
     onBackButtonPress={onClose}
     onBackdropPress={onClose}
     backdropColor={colors.white}
-    animationInTiming={600}
-    animationOutTiming={400}
-    backdropTransitionInTiming={600}
-    backdropTransitionOutTiming={400}
+    animationInTiming={500}
+    animationOutTiming={500}
+    backdropTransitionInTiming={500}
+    backdropTransitionOutTiming={500}
     backdropOpacity={0.8}
     style={styles.modal}
     hideModalContentWhileAnimating>
