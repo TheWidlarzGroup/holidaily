@@ -15,7 +15,7 @@ type CustomInputTypes = {
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
   ({ inputLabel, onChange, onBlur, value, isError, ...props }, ref) => {
-    const [state, { toggle }] = useBooleanState(inputLabel === 'Password')
+    const [isPasswordInput, { toggle }] = useBooleanState(inputLabel === 'Password')
 
     const errorOpacity = useSharedValue(0)
 
@@ -41,7 +41,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
         <Box flexDirection="row">
           <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
             <TextInput
-              secureTextEntry={state}
+              secureTextEntry={isPasswordInput}
               onBlur={onBlur}
               onChange={onChange}
               value={value}

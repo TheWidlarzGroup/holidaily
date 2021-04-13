@@ -29,9 +29,7 @@ export const useSignup = () => {
   })
 
   const handleSignup = async ({ email, nameSurname, password }: HandleSignupTypes) => {
-    const splitNameSurname = nameSurname.split(' ')
-    const firstName = splitNameSurname[0]
-    const lastName = splitNameSurname[1]
+    const [firstName, lastName] = nameSurname.split(' ')
     await handleSignupUser({ email, firstName, lastName, password })
   }
 

@@ -17,11 +17,11 @@ import { CustomButton } from '../../components/CustomButton'
 import { useSignup } from '../../hooks/useSignup'
 import { createAlert } from '../../utils/createAlert'
 import useBooleanState from '../../hooks/useBooleanState'
-import { PendingAccountConfirmationModal } from '../signup/components/PendingAccountConfirmationModal'
+import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
-  const [state, { setFalse, setTrue }] = useBooleanState(false)
+  const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
 
@@ -37,7 +37,7 @@ export const SignupEmail: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setTrue()
+      showModal()
     }
   }, [isSuccess])
 
@@ -120,7 +120,7 @@ export const SignupEmail: FC = () => {
           </Box>
         </Box>
       </KeyboardAvoidingView>
-      <PendingAccountConfirmationModal isVisible={state} onClose={setFalse} />
+      <PendingAccountConfirmationModal isVisible={isModalVisible} onClose={hideModal} />
     </SafeAreaView>
   )
 }
