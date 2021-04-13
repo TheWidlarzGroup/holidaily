@@ -31,7 +31,7 @@
     "paste": "Paste",
     "resendCode": "Resend the code",
     "updateButton": "Update"
-
+  },
   "modal": {
     "dialogBox1Title": "We sent you a confirmation e-mail",
     "dialogBox1SubTitle": "Go to your e-mail inbox and confirm your identity.",

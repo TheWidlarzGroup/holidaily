@@ -31,6 +31,7 @@
     "paste": "Wklej",
     "resendCode": "Wyślij kod ponownie",
     "updateButton": "Aktualizuj"
+  },
   "modal": {
     "dialogBox1Title": "E-mail z potwierdzeniem został do Ciebie wysłany",
     "dialogBox1SubTitle": "Sprawdź swoją skrzynkę e-mail i potwierdź swoją tożsamość.",
