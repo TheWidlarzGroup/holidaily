@@ -73,4 +73,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: colors.errorRed,
   },
+  border: {
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: colors.black,
+  },
 })

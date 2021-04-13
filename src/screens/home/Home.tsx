@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Box, Text } from '../../utils/theme'
 
+
 export const Home = () => (
   <SafeAreaView style={styles.safeArea}>
     <Box margin="m">

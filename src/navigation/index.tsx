@@ -6,8 +6,14 @@ import { AppRoutes } from './types'
 import { Slider } from '../screens/slider/Slider'
 import { Signup } from '../screens/signup/Signup'
 import { Home } from '../screens/home/Home'
+import { ForgotPassword } from '../screens/forgotPassword/ForgotPassword'
+import { Login } from '../screens/login/Login'
+import { RecoveryCode } from '../screens/recoveryCode/recoveryCode'
+import { NewPassword } from '../screens/newPassword/NewPassword'
+
 import { Login } from '../screens/login/Login'
 import { SignupEmail } from '../screens/signupEmail/SignupEmail'
+
 
 const AppStack = createStackNavigator<AppRoutes>()
 
@@ -18,7 +24,11 @@ const AppStackContainer = () => (
       <AppStack.Screen name="Signup" component={Signup} />
       <AppStack.Screen name="Login" component={Login} />
       <AppStack.Screen name="Home" component={Home} />
+      <AppStack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <AppStack.Screen name="RecoveryCode" component={RecoveryCode} />
+      <AppStack.Screen name="NewPassword" component={NewPassword} />
       <AppStack.Screen name="SignupEmail" component={SignupEmail} />
+
     </AppStack.Navigator>
   </NavigationContainer>
 )
