@@ -24,9 +24,7 @@ export const Login: FC = () => {
   const { t } = useTranslation('login')
 
   const navigateToRemindPassword = useCallback(() => {
-    // TODO matthew:
-    // Uncomment when this screen will be ready
-    // navigation.navigate('RemindPassword')
+    navigation.navigate('ForgotPassword')
   }, [navigation])
 
   useEffect(() => {
@@ -46,7 +44,6 @@ export const Login: FC = () => {
             {t('loginSubTitle')}
           </Text>
         </Box>
-
         <Box marginHorizontal="l">
           <Box marginBottom="m">
             <FormInput

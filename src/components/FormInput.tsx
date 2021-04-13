@@ -84,9 +84,23 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
             {signupPasswordHint}
           </Text>
         )}
-      </>
-    )
-  }
+        name={name}
+        rules={{
+          required,
+          pattern: {
+            value: validationPattern,
+            message: errorMessage,
+          },
+        }}
+        defaultValue=""
+      />
+      {errors[name] && (
+        <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
+          {errors[name].message || 'This field is required'}
+        </Text>
+      )}
+    </>
+  )
 )
 
 FormInput.displayName = 'FormInput'
