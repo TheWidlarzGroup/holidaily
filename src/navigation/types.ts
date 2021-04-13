@@ -5,7 +5,7 @@ export type AppRoutes = {
   Signup: undefined
   Login: undefined
   Home: undefined
-  TestScreen: undefined
+  SignupEmail: undefined
 }
 
 // for useNavigation hook
