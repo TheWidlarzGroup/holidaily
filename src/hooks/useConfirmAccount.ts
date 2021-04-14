@@ -1,10 +1,10 @@
 import { useMutation } from 'react-query'
 import { useNavigation } from '@react-navigation/native'
 
-import { AppNavigationType } from '../navigation/types'
-import { confirmAccount } from '../graphql/mutations/confirmAccount'
-import { ConfirmTypes, ConfirmMutationTypes } from '../types/useConfirmAccountTypes'
-import { ErrorTypes } from '../types/useLoginTypes'
+import { AppNavigationType } from 'navigation/types'
+import { confirmAccount } from 'graphqlActions/mutations/confirmAccount'
+import { ConfirmTypes, ConfirmMutationTypes } from 'types/useConfirmAccountTypes'
+import { ErrorTypes } from 'types/useLoginTypes'
 
 export const useConfirmAccount = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
