@@ -4,12 +4,12 @@ import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 
-import { Box, Text, theme } from '../../utils/theme/index'
-import { colors } from '../../utils/theme/colors'
-import { FormInput } from '../../components/FormInput'
-import { CustomButton } from '../../components/CustomButton'
-import { minPasswordLengthRegex } from '../../utils/regexes/minPasswordLengthRegex'
-import { RecoveryPasswordBar } from '../../components/RecoveryPasswordBar'
+import { Box, Text, theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
+import { FormInput } from 'components/FormInput'
+import { CustomButton } from 'components/CustomButton'
+import { passwordRegex } from 'utils/regexes/passwordRegex'
+import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 
 const checkIfPasswordsMatch = (password1: string, password2: string) => password1 === password2
 
@@ -33,7 +33,7 @@ export const NewPassword: FC = () => {
             errors={errors}
             name="password"
             inputLabel={t('password:password')}
-            validationPattern={minPasswordLengthRegex}
+            validationPattern={passwordRegex}
             errorMessage={t('password:incorrectPassword')}
           />
         </Box>
@@ -43,7 +43,7 @@ export const NewPassword: FC = () => {
             errors={errors}
             name="confirmPassword"
             inputLabel={t('password:confirmNewPassword')}
-            validationPattern={minPasswordLengthRegex}
+            validationPattern={passwordRegex}
             errorMessage={t('password:incorrectPassword')}
           />
         </Box>
