@@ -64,5 +64,11 @@
     "passwordHint": "Use a capital letter, number and special character.",
     "signUpBtn": "Sign up",
     "privacyPolicy": "By clicking sign up you are agreeing to the terms of use and acknowledging the privacy policy close."
+  },
+  "errorModals": {
+    "errorTitle": "Something's wrong :(",
+    "errorEmailSubTitle": "Please enter the same e-mail address as you use in our app.",
+    "errorBtnText": "Try Again",
+    "errorRecoveryCodeSubTitle": "Please check if you entered code correctly."
   }
 }

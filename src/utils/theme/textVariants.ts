@@ -33,7 +33,7 @@ export const textVariants = {
     fontSize: 12,
     color: 'errorRed',
   },
-  dialog1: {
+  boldBlack18: {
     fontFamily: 'Nunito-Bold',
     color: 'black',
     fontSize: 18,

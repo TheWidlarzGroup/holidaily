@@ -9,7 +9,7 @@ export const SecondRegisterDialogBox: FC = () => {
 
   return (
     <Box backgroundColor="primary" alignItems="center" padding="lplus" borderRadius="mplus">
-      <Text variant="dialog1">{t('dialogBox2Title')}</Text>
+      <Text variant="boldBlack18">{t('dialogBox2Title')}</Text>
       <Box
         backgroundColor="tertiary"
         style={styles.orangeBox}
