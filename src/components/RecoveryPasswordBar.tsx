@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, theme } from '../utils/theme/index'
+import { Box, theme } from 'utils/theme/index'
 import { AnimatedBar } from './AnimatedBar'
 
 type RecoveryPasswordBarTypes = {

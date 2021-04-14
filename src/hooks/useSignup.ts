@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 
-import { ErrorTypes } from '../types/useLoginTypes'
-import { SignupTypes, CreateUserTypes, HandleSignupTypes } from '../types/useSignupTypes'
-import { signupMutation } from '../graphql/mutations/signupMutation'
+import { ErrorTypes } from 'types/useLoginTypes'
+import { SignupTypes, CreateUserTypes, HandleSignupTypes } from 'types/useSignupTypes'
+import { signupMutation } from 'graphqlActions/mutations/signupMutation'
 
 const customErrorMessage = (errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {

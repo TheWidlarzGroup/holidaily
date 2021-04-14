@@ -2,9 +2,9 @@ import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, Pressable, TextInput, KeyboardAvoidingView } from 'react-native'
-
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text, theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
