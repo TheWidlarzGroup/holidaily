@@ -1,10 +1,11 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Pressable, Alert, TextInput, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Pressable, TextInput, KeyboardAvoidingView } from 'react-native'
 
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+<<<<<<< HEAD
 import { CustomButton } from 'components/CustomButton'
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text, theme } from 'utils/theme/index'
@@ -21,6 +22,18 @@ const createAlert = (errorMessage: string) =>
       text: 'Ok',
     },
   ])
+=======
+import { AppNavigationType } from '../../navigation/types'
+import { Box, Text, theme } from '../../utils/theme/index'
+import { colors } from '../../utils/theme/colors'
+import { FormInput } from '../../components/FormInput'
+import { useLogin } from '../../hooks/useLogin'
+import { emailRegex } from '../../utils/regexes/emailRegex'
+import { passwordRegex } from '../../utils/regexes/passwordRegex'
+import { CustomButton } from '../../components/CustomButton'
+import { isIos } from '../../utils/isIos'
+import { createAlert } from '../../utils/createAlert'
+>>>>>>> master
 
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
@@ -30,13 +43,11 @@ export const Login: FC = () => {
   const { t } = useTranslation('login')
 
   const navigateToRemindPassword = useCallback(() => {
-    // TODO matthew:
-    // Uncomment when this screen will be ready
-    // navigation.navigate('RemindPassword')
+    navigation.navigate('ForgotPassword')
   }, [navigation])
 
   useEffect(() => {
-    if (isLoginError?.isError) createAlert(isLoginError.message)
+    if (isLoginError?.isError) createAlert('Login Error', isLoginError.message)
   }, [isLoginError])
 
   const onSubmitEditing = () => {
@@ -52,7 +63,6 @@ export const Login: FC = () => {
             {t('loginSubTitle')}
           </Text>
         </Box>
-
         <Box marginHorizontal="l">
           <Box marginBottom="m">
             <FormInput
@@ -75,7 +85,7 @@ export const Login: FC = () => {
               errors={errors}
               name="password"
               inputLabel="Password"
-              validationPattern={minPasswordLengthRegex}
+              validationPattern={passwordRegex}
               errorMessage="Incorrect Password, please try again"
               ref={passwordRef}
               required

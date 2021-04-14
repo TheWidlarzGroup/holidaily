@@ -3,12 +3,34 @@
     "slider1Title": "Witaj w Holidaily!",
     "slider1SubTitle": "Wszystkie urlopy twojego zespołu w jednym miejscu.",
     "slider2Title": "Sprawdzanie wakacji w czasie rzeczywistym",
-    "slider2SubTitle": "Sprawdź jak dużo xxx zostało.",
+    "slider2SubTitle": "Sprawdź jak dużo dni urlopu zostało.",
     "slider3Title": "Poproś o czas wolny",
     "slider3SubTitle": "Planujesz wakacje lub czas dla siebie ? Po prostu o nie poproś.",
     "slider4Title": "Otrzymuj powiadomienia",
     "slider4SubTitle": "Dostaniesz powiadomienie kiedy wniosek zostanie zaakceptowany lub odrzucony",
     "next": "Dalej"
+  },
+  "forgotPassword": {
+    "email": "Adres e-mail",
+    "incorrectEmail": "Nieprawidłowy adres e-mail, proszę spróbuj ponownie",
+    "forgotPasswordTitle": "Zapomniałeś hasła?",
+    "forgotPasswordSubTitle": "Wprowadź adres e-mail połączony ze swoim kontem.",
+    "forgotPressableText": "Chcesz użyć innego sposobu?",
+    "forgotResetButton": "Zresetuj hasło"
+  },
+  "password": {
+    "password": "Hasło",
+    "newPassword": "Nowe hasło",
+    "confirmNewPassword": "Potwierdź nowe hasło",
+    "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie"
+  },
+  "recoveryCode": {
+    "recoveryCodeTitle": "Odzyskiwanie hasła",
+    "recoveryCodeSubTitle": "Wklej sześciocyfrowy kod",
+    "enterNewPassword": "Wprowadź nowe hasło",
+    "paste": "Wklej",
+    "resendCode": "Wyślij kod ponownie",
+    "updateButton": "Aktualizuj"
   },
   "modal": {
     "dialogBox1Title": "E-mail z potwierdzeniem został do Ciebie wysłany",
@@ -19,7 +41,7 @@
     "dialog2SecondButton": "Nie, dziękuje"
   },
   "signup": {
-    "signupTitle": "Jak chciałbyś się zarejestrować",
+    "signupTitle": "Jak chciałbyś się zarejestrować?",
     "continueWGmail": "Kontynuuj z Gmailem",
     "continueWSlack": "Kontynuuj z Slackiem",
     "signupWEmail": "Użyj adresu e-mail"
@@ -29,5 +51,18 @@
     "loginSubTitle": "Zaloguj się na swoje konto.",
     "loginForgotPassword": "Zapomniałes hasła?",
     "loginButton": "Zaloguj się"
+  },
+  "signupEmail": {
+    "signupEmailTitle": "Stwórz konto firmowe",
+    "nameSurname": "Imię i nazwisko",
+    "nameSurnameErrMsg": "Nieprawidłowe dane",
+    "companyName": "Nazwa firmy",
+    "email": "Adres e-mail",
+    "invalidEmailErrMsg": "Nieprawidłowy e-mail, prosze spróbowac ponownie",
+    "password": "Hasło",
+    "passwordConfirmation": "Potwierdzenie hasła",
+    "passwordHint": "Użyj wielkiej litery, cyfry i znaku specjalnego.",
+    "signUpBtn": "Zarejestruj się",
+    "privacyPolicy": "Klikajac zarejestruj się, wyrażasz zgodę na warunki użytkowania i politykę prywatności."
   }
 }
