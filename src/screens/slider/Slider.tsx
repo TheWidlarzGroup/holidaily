@@ -8,34 +8,34 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { AppNavigationType } from '../../navigation/types'
-import { colors } from '../../utils/theme/colors'
-import { Box } from '../../utils/theme/index'
+import { AppNavigationType } from 'navigation/types'
+import { colors } from 'utils/theme/colors'
+import { Box } from 'utils/theme/index'
 
-import { SliderContent } from '../../components/SliderContent'
-import { ProgressBar } from '../../components/ProgressBar'
-import { CustomButton } from '../../components/CustomButton'
+import { SliderContent } from 'components/SliderContent'
+import { ProgressBar } from 'components/ProgressBar'
+import { CustomButton } from 'components/CustomButton'
 
 const SLIDER_DATA = [
   {
     title: 'slider1Title',
     text: 'slider1SubTitle',
-    image: require('../../assets/Slider_Illustration-1_2@.png'),
+    image: require('assets/Slider_Illustration-1_2@.png'),
   },
   {
     title: 'slider2Title',
     text: 'slider2SubTitle',
-    image: require('../../assets/Slider_Illustration-2_2@.png'),
+    image: require('assets/Slider_Illustration-2_2@.png'),
   },
   {
     title: 'slider3Title',
     text: 'slider3SubTitle',
-    image: require('../../assets/Slider_Illustration-3_2@.png'),
+    image: require('assets/Slider_Illustration-3_2@.png'),
   },
   {
     title: 'slider4Title',
     text: 'slider4SubTitle',
-    image: require('../../assets/Slider_Illustration-4_2@.png'),
+    image: require('assets/Slider_Illustration-4_2@.png'),
   },
 ]
 

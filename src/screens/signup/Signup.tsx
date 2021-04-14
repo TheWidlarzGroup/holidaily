@@ -1,12 +1,12 @@
 import React, { FC, useCallback } from 'react'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { CustomButton } from '../../components/CustomButton'
-import { getHalfOfTheWindowWidth } from '../../utils/getHalfOfTheWindowWidth'
+import { useTranslation } from 'react-i18next'
+
+import { Box, Text, theme } from 'utils/theme/index'
+import { CustomButton } from 'components/CustomButton'
+import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
 
 export const Signup: FC = () => {
   const navigation = useNavigation()

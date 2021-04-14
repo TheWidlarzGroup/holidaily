@@ -6,6 +6,17 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["jest", "node"],
     "skipLibCheck": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "assets/*": ["assets/*"],
+      "components/*": ["./components/*"],
+      "hooks/*": ["hooks/*"],
+      "graphqlActions/*": ["graphql/*"],
+      "navigation/*": ["navigation/*"],
+      "screens/*": ["screens/*"],
+      "types/*": ["types/*"],
+      "utlis/*": ["utils/*"]
+    }
   }
 }
