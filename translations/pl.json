@@ -64,5 +64,11 @@
     "passwordHint": "Użyj wielkiej litery, cyfry i znaku specjalnego.",
     "signUpBtn": "Zarejestruj się",
     "privacyPolicy": "Klikajac zarejestruj się, wyrażasz zgodę na warunki użytkowania i politykę prywatności."
+  },
+  "errorModals": {
+    "errorTitle": "Coś poszło nie tak :(",
+    "errorEmailSubTitle": "Proszę wprowadzić ten sam mail, który został użyty w naszej aplikacji.",
+    "errorBtnText": "Spróbuj ponownie",
+    "errorRecoveryCodeSubTitle": "Proszę sprawdzić, czy wprowadzony kod jest poprawny"
   }
 }
