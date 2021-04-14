@@ -3,9 +3,9 @@ import { useNavigation } from '@react-navigation/native'
 import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
-import { AppNavigationType } from '../navigation/types'
-import { UserTypes, ErrorTypes, LoginTypes } from '../types/useLoginTypes'
-import { loginMutation } from '../graphql/mutations/loginMutation'
+import { loginMutation } from 'graphqlActions/mutations/loginMutation'
+import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
+import { AppNavigationType } from 'navigation/types'
 
 const customErrorMessage = (errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {

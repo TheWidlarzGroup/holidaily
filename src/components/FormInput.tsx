@@ -3,8 +3,8 @@ import { TextInputProps, TextInput } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
+import { Text } from 'utils/theme/index'
 import { CustomInput } from './CustomInput'
-import { Text } from '../utils/theme/index'
 
 type FormInputTypes = {
   control: Control

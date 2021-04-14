@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import Animated from 'react-native-reanimated'
-import { Box } from '../utils/theme/index'
+import { Box } from 'utils/theme/index'
 
 import { ProgressDot } from './ProgressDot'
 

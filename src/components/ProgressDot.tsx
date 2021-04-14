@@ -6,7 +6,7 @@ import Animated, {
   interpolateColor,
   Extrapolate,
 } from 'react-native-reanimated'
-import { colors } from '../utils/theme/colors'
+import { colors } from 'utils/theme/colors'
 
 const { width } = Dimensions.get('window')
 
