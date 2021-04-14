@@ -8,6 +8,7 @@ module.exports = {
     'import/no-unresolved': 0,
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+    'no-unbound-method': false,
   },
   globals: {
     __DEV__: 'readonly',

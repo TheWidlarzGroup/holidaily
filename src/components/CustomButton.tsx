@@ -7,7 +7,7 @@ import { colors } from '../utils/theme/colors'
 import IconGoogle from '../assets/icons/icon-google.svg'
 import IconSlack from '../assets/icons/icon-slack.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'special'
+type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
 type CustomButtonIcons = 'google' | 'slack'
 
 interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -36,7 +36,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
     case 'secondary':
       color = colors.black
       break
-    case 'special':
+    case 'blackBgButton':
       bgColor = colors.black
       color = colors.white
       borderWidth = 0
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    borderRadius: theme.borderRadii.xxl,
+    borderRadius: theme.borderRadii.l,
   },
   icon: {
     marginRight: theme.spacing.l,

@@ -10,10 +10,59 @@
     "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
     "next": "Next"
   },
+  "forgotPassword": {
+    "email": "E-mail Address",
+    "incorrectEmail": "Incorrect e-mail, please try again",
+    "forgotPasswordTitle": "Forgot password?",
+    "forgotPasswordSubTitle": "Enter the e-mail address associated with your account.",
+    "forgotPressableText": "Want to try another way?",
+    "forgotResetButton": "Reset password"
+  },
+  "password": {
+    "password": "Password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "incorrectPassword": "Incorrect password, please try again"
+  },
+  "recoveryCode": {
+    "recoveryCodeTitle": "Password Recovery",
+    "recoveryCodeSubTitle": "Paste the 6-digit code",
+    "enterNewPassword": "Enter your new password",
+    "paste": "Paste",
+    "resendCode": "Resend the code",
+    "updateButton": "Update"
+  },
+  "modal": {
+    "dialogBox1Title": "We sent you a confirmation e-mail",
+    "dialogBox1SubTitle": "Go to your e-mail inbox and confirm your identity.",
+    "dialogBox2Title": "Welcome on board!",
+    "dialogBox2SubTitle": "Would you like to take a quick tour?",
+    "dialog2FirstButton": "Yes, let's go!",
+    "dialog2SecondButton": "No, thanks"
+  },
+  "signup": {
+    "signupTitle": "How would you like to sign in?",
+    "continueWGmail": "Continue with Gmail",
+    "continueWSlack": "Continue with Slack",
+    "signupWEmail": "Sign up with E-mail"
+  },
   "login": {
     "loginTitle": "Nice to see you again!",
     "loginSubTitle": "Log in to your account.",
     "loginForgotPassword": "Forgot your password?",
     "loginButton": "Log in"
+  },
+  "signupEmail": {
+    "signupEmailTitle": "Create company account",
+    "nameSurname": "Name and surname",
+    "nameSurnameErrMsg": "Incorrect input",
+    "companyName": "Company name",
+    "email": "E-mail Address",
+    "invalidEmailErr": "Invalid e-mail, please try again",
+    "password": "Password",
+    "passwordConfirmation": "Password Confirmation",
+    "passwordHint": "Use a capital letter, number and special character.",
+    "signUpBtn": "Sign up",
+    "privacyPolicy": "By clicking sign up you are agreeing to the terms of use and acknowledging the privacy policy close."
   }
 }

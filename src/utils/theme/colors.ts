@@ -10,6 +10,7 @@ export const palette = {
   white: '#fff',
   gray: '#E1E1E1',
   grayText: '#F3F3F3',
+  grayModal: '#333333',
 }
 
 export const colors = {
@@ -24,5 +25,5 @@ export const colors = {
   disabled: palette.gray,
   disabledText: palette.grayText,
   mainBackground: palette.orangeLight,
+  modalBackground: palette.grayModal,
 }
-
