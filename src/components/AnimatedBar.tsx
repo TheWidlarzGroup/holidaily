@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import { Box } from '../utils/theme/index'
+import { Box } from 'utils/theme/index'
 
 type AnimatedBarProps = {
   margin: number

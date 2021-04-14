@@ -1,7 +1,7 @@
 import request, { gql } from 'graphql-request'
 
-import { RecoveryArgumentsTypes } from '../../types/useRecoveryTypes'
-import { endpoint } from '../../utils/config/endpoint'
+import { RecoveryArgumentsTypes } from 'types/useRecoveryTypes'
+import { endpoint } from 'utils/config/endpoint'
 
 export const recoveryMutation = ({ email }: RecoveryArgumentsTypes) =>
   request(
