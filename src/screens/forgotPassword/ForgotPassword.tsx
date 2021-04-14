@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 
-import { AppNavigationType } from '../../navigation/types'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { colors } from '../../utils/theme/colors'
-import { FormInput } from '../../components/FormInput'
-import { CustomButton } from '../../components/CustomButton'
-import { emailRegex } from '../../utils/regexes/emailRegex'
+import { AppNavigationType } from 'navigation/types'
+import { Box, Text, theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
+import { FormInput } from 'components/FormInput'
+import { CustomButton } from 'components/CustomButton'
+import { emailRegex } from 'utils/regexes/emailRegex'
 
 export const ForgotPassword: FC = () => {
   const { control, handleSubmit, errors } = useForm()

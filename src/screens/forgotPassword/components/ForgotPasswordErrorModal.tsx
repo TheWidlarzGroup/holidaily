@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
-import { CustomModal } from '../../../components/CustomModal'
-import { theme } from '../../../utils/theme/index'
-import { colors } from '../../../utils/theme/colors'
+import { CustomModal } from 'components/CustomModal'
+import { theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
 import { PasswordResetErrors } from './PasswordResetErrors'
 
 type ForgotPasswordErrorModalProps = Pick<ModalProps, 'isVisible'> & { hideModal: () => void }
