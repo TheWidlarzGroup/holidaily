@@ -75,7 +75,7 @@ export const Login: FC = () => {
 
           <Box alignSelf="flex-end">
             <Pressable onPress={navigateToRemindPassword}>
-              <Text variant="remind1" marginRight="m" marginTop="xm">
+              <Text variant="remind1" marginRight="m">
                 {t('loginForgotPassword')}
               </Text>
             </Pressable>
