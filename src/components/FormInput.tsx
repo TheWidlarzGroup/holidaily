@@ -84,11 +84,6 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
             {signupPasswordHint}
           </Text>
         )}
-        {errors[name] && (
-          <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
-            {errors[name].message || 'This field is required'}
-          </Text>
-        )}
       </>
     )
   }

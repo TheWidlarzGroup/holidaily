@@ -13,7 +13,7 @@ const EmailErrorImage = require('../../../assets/Illustration_error_cone.png')
 const RecoveryCodeErrorImage = require('../../../assets/Illustration_error_sunglasses.png')
 
 export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, subTitle }) => {
-  const { t } = useTranslation('ErrorModals')
+  const { t } = useTranslation('errorModals')
 
   return (
     <Box backgroundColor="lightGrey" alignItems="center" padding="lplus" borderRadius="mplus">
@@ -29,7 +29,7 @@ export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, s
         <Text variant="body1">{t(subTitle)}</Text>
       </Box>
       <Box paddingBottom="m">
-        <TouchableOpacity onPress={hideModal}>
+        <TouchableOpacity onPress={hideModal} activeOpacity={1}>
           <CustomButton
             label={t('errorBtnText')}
             variant="blackBgButton"
