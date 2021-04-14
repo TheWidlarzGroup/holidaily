@@ -5,16 +5,16 @@ import { StyleSheet, Pressable, TextInput, KeyboardAvoidingView } from 'react-na
 
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { AppNavigationType } from '../../navigation/types'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { colors } from '../../utils/theme/colors'
-import { FormInput } from '../../components/FormInput'
-import { useLogin } from '../../hooks/useLogin'
-import { emailRegex } from '../../utils/regexes/emailRegex'
-import { passwordRegex } from '../../utils/regexes/passwordRegex'
-import { CustomButton } from '../../components/CustomButton'
-import { isIos } from '../../utils/isIos'
-import { createAlert } from '../../utils/createAlert'
+import { AppNavigationType } from 'navigation/types'
+import { Box, Text, theme } from 'utils/theme/index'
+import { colors } from 'utils/theme/colors'
+import { FormInput } from 'components/FormInput'
+import { useLogin } from 'hooks/useLogin'
+import { emailRegex } from 'utils/regexes/emailRegex'
+import { passwordRegex } from 'utils/regexes/passwordRegex'
+import { CustomButton } from 'components/CustomButton'
+import { isIos } from 'utils/isIos'
+import { createAlert } from 'utils/createAlert'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()

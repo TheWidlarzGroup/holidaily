@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, Dimensions, ImageSourcePropType } from 'react-native'
 import Animated, { useAnimatedStyle, interpolate, Extrapolate } from 'react-native-reanimated'
-import { Box, Text } from '../utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 
 const { width } = Dimensions.get('window')
 

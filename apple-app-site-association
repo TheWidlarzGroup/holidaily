@@ -1,0 +1,19 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appIDs": [ "x.app.holidaily" ],
+                "components": [
+                    {
+                        "/": "/confirm/*",
+                    },
+                    {
+                        "/": "/password_reset/*",
+                    }
+                ],
+                "paths": [ "/confirm/*", "/password_reset/*" ]
+            }
+        ]
+    } 
+}

@@ -1,17 +1,15 @@
 import React, { FC, useCallback } from 'react'
 import { StyleSheet, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { CustomButton } from '../../components/CustomButton'
-import { getHalfOfTheWindowWidth } from '../../utils/getHalfOfTheWindowWidth'
-import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Box, Text, theme } from 'utils/theme/index'
+import { CustomButton } from 'components/CustomButton'
+import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
 
 export const Signup: FC = () => {
-  const [isVisible, setIsVisible] = useState(false)
   const navigation = useNavigation()
 
   const { t } = useTranslation('signup')
@@ -20,17 +18,11 @@ export const Signup: FC = () => {
     navigation.navigate('SignupEmail')
   }, [navigation])
 
-  const hideModal = () => {
-    setIsVisible(false)
-  }
   return (
     <SafeAreaView style={styles.container}>
       <Box flex={0.4} justifyContent="center" maxWidth={300}>
         <Text variant="title1">{t('signupTitle')}</Text>
       </Box>
-      <Pressable onPress={() => setIsVisible(true)}>
-        <Text>Open modal</Text>
-      </Pressable>
       <Box
         width={getHalfOfTheWindowWidth()}
         height={getHalfOfTheWindowWidth()}
@@ -53,7 +45,6 @@ export const Signup: FC = () => {
           onPress={navigateToTestScreen}
         />
       </Box>
-      <ForgotPasswordErrorModal isVisible={isVisible} hideModal={hideModal} />
     </SafeAreaView>
   )
 }

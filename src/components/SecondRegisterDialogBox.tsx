@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, theme } from '../utils/theme/index'
+import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from './CustomButton'
 
 export const SecondRegisterDialogBox: FC = () => {

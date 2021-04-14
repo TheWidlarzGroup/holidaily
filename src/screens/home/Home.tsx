@@ -1,9 +1,7 @@
 import React from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-import { Box, Text } from '../../utils/theme'
-
+import { Box, Text } from 'utils/theme'
 
 export const Home = () => (
   <SafeAreaView style={styles.safeArea}>

@@ -19,11 +19,9 @@ export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, s
     <Box backgroundColor="lightGrey" alignItems="center" padding="lplus" borderRadius="mplus">
       <Text variant="boldBlack18">{t('errorTitle')}</Text>
       <Box marginVertical="xxl" borderRadius="xm">
-        {subTitle === 'errorEmailSubTitle' ? (
-          <Image source={EmailErrorImage} />
-        ) : (
-          <Image source={RecoveryCodeErrorImage} />
-        )}
+        <Image
+          source={subTitle === 'errorEmailSubTitle' ? EmailErrorImage : RecoveryCodeErrorImage}
+        />
       </Box>
       <Box marginBottom="l">
         <Text variant="body1">{t(subTitle)}</Text>

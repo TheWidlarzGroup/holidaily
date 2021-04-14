@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text } from '../utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 
 export const FirstRegisterDialogBox: FC = () => {
   const { t } = useTranslation('modal')
