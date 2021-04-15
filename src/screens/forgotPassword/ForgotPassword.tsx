@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Pressable } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
@@ -60,11 +60,11 @@ export const ForgotPassword: FC = () => {
           />
         </Box>
         <Box alignSelf="flex-end">
-          <Pressable>
+          <TouchableOpacity>
             <Text variant="remind1" marginRight="m">
               {t('forgotPressableText')}
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </Box>
       </Box>
       <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">

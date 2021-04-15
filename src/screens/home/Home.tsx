@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, StyleSheet } from 'react-native'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box, Text } from 'utils/theme'
 import { AppNavigationType } from 'navigation/types'
@@ -22,14 +22,14 @@ export const Home = () => {
         <Text variant="title1">Home Screen</Text>
       </Box>
       <Box margin="m">
-        <Pressable onPress={navigateToLogin}>
+        <TouchableOpacity onPress={navigateToLogin}>
           <Text variant="body1">Login</Text>
-        </Pressable>
+        </TouchableOpacity>
       </Box>
       <Box margin="m">
-        <Pressable onPress={navigateToSignup}>
+        <TouchableOpacity onPress={navigateToSignup}>
           <Text variant="body1">Signup</Text>
-        </Pressable>
+        </TouchableOpacity>
       </Box>
     </SafeAreaView>
   )
