@@ -76,5 +76,13 @@
     "invalidCredentials": "Nieprawidłowy email lub hasło, proszę spróbuj ponownie",
     "alreadyConfirmed": "Konto jest już potwierdzony, możesz się zalogować",
     "invalidToken": "Twój token jest nieprawidłowy"
+  },
+  "updatePasswordModal": {
+    "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
+    "loginButton": "Zaloguj się"
+  },
+  "inputErrors": {
+    "requiredField": "To pole jest wymagane",
+    "passwordMatch": "Hasła muszą być identyczne"
   }
 }

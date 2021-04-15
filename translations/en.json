@@ -76,5 +76,13 @@
     "invalidCredentials": "Incorrect email or password, please try again",
     "alreadyConfirmed": "Account is already confirmed, you can now log in",
     "invalidToken": "Your token is invalid"
+  },
+  "updatePasswordModal": {
+    "passwordUpdated": "Your password has been updated!",
+    "loginButton": "Log in"
+  },
+  "inputErrors": {
+    "requiredField": "This field is required",
+    "passwordMatch": "Password must match"
   }
 }
