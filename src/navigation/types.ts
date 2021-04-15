@@ -9,7 +9,7 @@ export type AppRoutes = {
   RecoveryCode: undefined
   NewPassword: undefined
   SignupEmail: undefined
-
+  ConfirmedAccount: undefined
 }
 
 // for useNavigation hook

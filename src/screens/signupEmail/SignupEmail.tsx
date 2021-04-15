@@ -20,21 +20,8 @@ import useBooleanState from '../../hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 import { useConfirmAccount } from 'hooks/useConfirmAccount'
 
-type RouteProps = {
-  key: string
-  name: string
-  params: {
-    token: string
-  }
-}
-
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
-  const {
-    handleConfirm,
-    isLoading: isConfirmLoading,
-    isSuccess: isConfirmSuccess,
-  } = useConfirmAccount()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
@@ -50,20 +37,10 @@ export const SignupEmail: FC = () => {
   }, [isSignupError])
 
   useEffect(() => {
-    if (isSuccess && isConfirmSuccess) {
+    if (isSuccess) {
       showModal()
     }
-  }, [isSuccess, isConfirmSuccess])
-
-  const { params } = useRoute<RouteProps>()
-
-  useEffect(() => {
-    if (params) {
-      const { token } = params
-      console.log(token)
-      handleConfirm({ email: 'matthew@thewidlarzgroup.com', token })
-    }
-  }, [])
+  }, [isSuccess])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -144,11 +121,7 @@ export const SignupEmail: FC = () => {
           </Box>
         </Box>
       </KeyboardAvoidingView>
-      <PendingAccountConfirmationModal
-        isVisible={isModalVisible}
-        onClose={hideModal}
-        isConfirmed={isConfirmSuccess}
-      />
+      <PendingAccountConfirmationModal isVisible={isModalVisible} onClose={hideModal} />
     </SafeAreaView>
   )
 }

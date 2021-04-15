@@ -11,6 +11,7 @@ import { Login } from 'screens/login/Login'
 import { RecoveryCode } from 'screens/recoveryCode/recoveryCode'
 import { NewPassword } from 'screens/newPassword/NewPassword'
 import { SignupEmail } from 'screens/signupEmail/SignupEmail'
+import { ConfirmedAccount } from 'screens/confirmedAccount/ConfirmedAccount'
 import { AppRoutes } from './types'
 
 const AppStack = createStackNavigator<AppRoutes>()
@@ -26,6 +27,7 @@ const AppStackContainer = () => (
       <AppStack.Screen name="RecoveryCode" component={RecoveryCode} />
       <AppStack.Screen name="NewPassword" component={NewPassword} />
       <AppStack.Screen name="SignupEmail" component={SignupEmail} />
+      <AppStack.Screen name="ConfirmedAccount" component={ConfirmedAccount} />
     </AppStack.Navigator>
   </NavigationContainer>
 )

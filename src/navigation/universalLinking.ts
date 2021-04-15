@@ -1,6 +1,6 @@
 const config = {
   screens: {
-    SignupEmail: '/confirm/:token',
+    ConfirmedAccount: '/confirm/:token',
   },
 }
 
