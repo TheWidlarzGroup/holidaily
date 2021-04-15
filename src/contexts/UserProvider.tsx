@@ -1,4 +1,4 @@
-import { ReactNode, useState, memo, FC } from 'react'
+import React, { ReactNode, useState, memo, FC } from 'react'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
 type ProviderProps = {
@@ -13,7 +13,7 @@ const testUser = {
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState(testUser)
-  console.log(children)
+
   const handleUserDataChange = (userData: UserData) => {
     setUser(userData)
   }
