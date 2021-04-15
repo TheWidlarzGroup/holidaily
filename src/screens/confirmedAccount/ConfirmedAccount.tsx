@@ -41,11 +41,10 @@ export const ConfirmedAccount: FC = () => {
     navigation.navigate('Login')
   }, [navigation])
 
-  const asyncConfirmAccount = async (token: string) => {
-    await handleConfirmAccount({ email: 'mateki0@interia.pl', token })
-  }
-
   useEffect(() => {
+    const asyncConfirmAccount = async (token: string) => {
+      await handleConfirmAccount({ email: 'mateki0@interia.pl', token })
+    }
     if (params) {
       const { token } = params
       asyncConfirmAccount(token).catch((err) =>
@@ -60,11 +59,7 @@ export const ConfirmedAccount: FC = () => {
     } else {
       isConfirmError && createAlert('Confirm Error', isConfirmError, navigateToLogin)
     }
-  }, [isConfirmError])
-
-  useEffect(() => {
-    isSuccess && showModal()
-  }, [isSuccess])
+  }, [isConfirmError, isLoading])
 
   if (isLoading) {
     return <ActivityIndicator color={colors.primary} />
@@ -76,6 +71,7 @@ export const ConfirmedAccount: FC = () => {
         isVisible={isModalVisible}
         isConfirmed={isSuccess}
         hideModal={hideModal}
+        showModal={showModal}
       />
     </SafeAreaView>
   )
