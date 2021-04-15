@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect } from 'react'
-import { StyleSheet, TextInput, Pressable, TextInputProps } from 'react-native'
+import { StyleSheet, TextInput, TouchableOpacity, TextInputProps } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import IconTogglePasswordVisibility from 'assets/icons/icon-togglePassword.svg'
@@ -49,9 +49,9 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
           </Animated.View>
           {isPasswordIconVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
-              <Pressable onPress={toggle}>
+              <TouchableOpacity onPress={toggle}>
                 <IconTogglePasswordVisibility />
-              </Pressable>
+              </TouchableOpacity>
             </Box>
           )}
         </Box>
