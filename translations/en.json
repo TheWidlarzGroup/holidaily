@@ -71,6 +71,12 @@
     "errorBtnText": "Try Again",
     "errorRecoveryCodeSubTitle": "Please check if you entered code correctly."
   },
+  "mutationsErrors": {
+    "default": "Something went wrong, please try again later",
+    "invalidCredentials": "Incorrect email or password, please try again",
+    "alreadyConfirmed": "Account is already confirmed, you can now log in",
+    "invalidToken": "Your token is invalid"
+  },
   "updatePasswordModal": {
     "passwordUpdated": "Your password has been updated!",
     "loginButton": "Log in"
