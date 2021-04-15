@@ -52,3 +52,4 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
     </Box>
   )
 }
+

@@ -40,7 +40,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
     case 'blackBgButton':
       bgColor = colors.black
       color = colors.white
-      rippleColor = '#4b4b4b'
+      rippleColor = colors.blackBtnRippleColor
       borderWidth = 0
       break
     case 'primary':
