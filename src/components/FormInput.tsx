@@ -17,7 +17,7 @@ type FormInputTypes = {
   errorMessage: string
   required?: boolean
   signupPasswordHint?: string
-  passwordVisibilityIconIsVisible?: boolean
+  isPasswordIconVisible?: boolean
   passwordsAreEqual?: boolean
   screenName?: string
 }
@@ -33,7 +33,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       errorMessage,
       required,
       signupPasswordHint,
-      passwordVisibilityIconIsVisible,
+      isPasswordIconVisible,
       passwordsAreEqual,
       screenName,
       ...props
@@ -67,11 +67,9 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
-              isError={!!errors[name]}
+              isError={!!errors[name] || (!passwordsAreEqual && screenName === 'NewPassword')}
               ref={ref}
-              passwordsAreEqual={passwordsAreEqual}
-              passwordVisibilityIconIsVisible={passwordVisibilityIconIsVisible}
-              screenName={screenName}
+              isPasswordIconVisible={isPasswordIconVisible}
               {...props}
             />
           )}

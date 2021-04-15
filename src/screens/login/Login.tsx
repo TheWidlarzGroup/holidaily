@@ -67,7 +67,7 @@ export const Login: FC = () => {
             errorMessage="Incorrect Password, please try again"
             ref={passwordRef}
             required
-            passwordVisibilityIconIsVisible
+            isPasswordIconVisible
           />
         </Box>
 

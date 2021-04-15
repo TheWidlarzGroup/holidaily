@@ -27,9 +27,8 @@ export const NewPassword: FC = () => {
   }
 
   useEffect(() => {
-    const password = getValues('password')
-    const passwordConfirmation = getValues('confirmPassword')
-    const passwordsAreEqual = checkIfPasswordsMatch(password, passwordConfirmation)
+    const { password, confirmPassword } = watch(['password', 'confirmPassword'])
+    const passwordsAreEqual = checkIfPasswordsMatch(password, confirmPassword)
 
     !passwordsAreEqual ? setPasswordsAreNotEqual() : setArePasswordsEqual()
   }, [watch('password'), watch('confirmPassword')])
