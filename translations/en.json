@@ -70,5 +70,13 @@
     "errorEmailSubTitle": "Please enter the same e-mail address as you use in our app.",
     "errorBtnText": "Try Again",
     "errorRecoveryCodeSubTitle": "Please check if you entered code correctly."
+  },
+  "updatePasswordModal": {
+    "passwordUpdated": "Your password has been updated!",
+    "loginButton": "Log in"
+  },
+  "inputErrors": {
+    "requiredField": "This field is required",
+    "passwordMatch": "Password must match"
   }
 }

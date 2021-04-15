@@ -11,6 +11,7 @@ export const palette = {
   gray: '#E1E1E1',
   grayText: '#F3F3F3',
   grayModal: '#333333',
+  veryLightGray: 'rgba(255, 255, 255, 0.15)',
 }
 
 export const colors = {
@@ -26,4 +27,5 @@ export const colors = {
   disabledText: palette.grayText,
   mainBackground: palette.orangeLight,
   modalBackground: palette.grayModal,
+  blackBtnRippleColor: palette.veryLightGray,
 }

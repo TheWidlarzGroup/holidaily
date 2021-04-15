@@ -5,6 +5,8 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import { Text } from 'utils/theme/index'
 import { CustomInput } from './CustomInput'
+import { generateInputErrors } from 'utils/generateInputErrors'
+import { useTranslation } from 'react-i18next'
 
 type FormInputTypes = {
   control: Control
@@ -15,6 +17,10 @@ type FormInputTypes = {
   errorMessage: string
   required?: boolean
   signupPasswordHint?: string
+  isPasswordIconVisible?: boolean
+  passwordsAreEqual?: boolean
+  screenName?: string
+  isError: boolean
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -28,10 +34,15 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       errorMessage,
       required,
       signupPasswordHint,
+      isPasswordIconVisible,
+      passwordsAreEqual,
+      screenName,
+      isError,
       ...props
     },
     ref
   ) => {
+    const { t } = useTranslation('inputErrors')
     const errorOpacity = useSharedValue(0)
 
     const progressStyle = useAnimatedStyle(() => ({
@@ -41,12 +52,9 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     }))
 
     useEffect(() => {
-      if (errors[name]) {
-        errorOpacity.value = 1
-      } else {
-        errorOpacity.value = 0
-      }
-    }, [errors[name]])
+      errorOpacity.value = isError ? 1 : 0
+    }, [isError])
+
     return (
       <>
         <Controller
@@ -57,14 +65,15 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
-              isError={!!errors[name]}
+              isError={isError}
               ref={ref}
+              isPasswordIconVisible={isPasswordIconVisible}
               {...props}
             />
           )}
           name={name}
           rules={{
-            required,
+            required: `${t('requiredField')}`,
             pattern: {
               value: validationPattern,
               message: errorMessage,
@@ -75,7 +84,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
 
         <Animated.View style={progressStyle}>
           <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
-            {errors[name]?.message || 'This field is required'}
+            {generateInputErrors({ errors, name, passwordsAreEqual, screenName })}
           </Text>
         </Animated.View>
 

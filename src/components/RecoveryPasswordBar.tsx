@@ -15,7 +15,7 @@ export const RecoveryPasswordBar: FC<RecoveryPasswordBarTypes> = ({ currentScree
       </>
     ) : (
       <>
-        <Box backgroundColor="primary" height={4} flex={1} marginRight="s" />
+        <Box backgroundColor="tertiary" height={4} flex={1} marginRight="s" />
         <AnimatedBar marginSide="marginLeft" margin={theme.spacing.s} />
       </>
     )}

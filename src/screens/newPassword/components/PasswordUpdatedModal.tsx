@@ -3,20 +3,13 @@ import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
 import { CustomModal } from 'components/CustomModal'
+import { UpdateModalChildren } from './UpdateModalChildren'
 import { theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
-import { PasswordResetErrors } from './PasswordResetErrors'
 
-type ForgotPasswordErrorModalProps = Pick<ModalProps, 'isVisible'> & {
-  hideModal: () => void
-  subTitle: 'errorEmailSubTitle' | 'errorRecoveryCodeSubTitle'
-}
+type PasswordUpdatedModalProps = Pick<ModalProps, 'isVisible'> & { hideModal: () => void }
 
-export const ForgotPasswordErrorModal: FC<ForgotPasswordErrorModalProps> = ({
-  isVisible,
-  hideModal,
-  subTitle,
-}) => (
+export const PasswordUpdatedModal: FC<PasswordUpdatedModalProps> = ({ isVisible, hideModal }) => (
   <CustomModal
     isVisible={isVisible}
     onBackButtonPress={hideModal}
@@ -29,9 +22,10 @@ export const ForgotPasswordErrorModal: FC<ForgotPasswordErrorModalProps> = ({
     backdropOpacity={0.8}
     style={styles.modal}
     hideModalContentWhileAnimating>
-    <PasswordResetErrors hideModal={hideModal} subTitle={subTitle} />
+    <UpdateModalChildren />
   </CustomModal>
 )
+
 const styles = StyleSheet.create({
   modal: {
     marginHorizontal: theme.spacing.l,
