@@ -6,6 +6,7 @@ import { useMutation } from 'react-query'
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
 import { AppNavigationType } from 'navigation/types'
+import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
@@ -17,6 +18,7 @@ const customErrorMessage = (errorMessage: string) => {
 export const useLogin = () => {
   const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
   const navigation = useNavigation<AppNavigationType<'Login'>>()
+  const { handleUserDataChange } = useUserContext()
   const { mutateAsync: handleLoginUser, isLoading } = useMutation<
     UserTypes,
     ErrorTypes,
@@ -25,17 +27,25 @@ export const useLogin = () => {
     onSuccess: async (data: UserTypes) => {
       const {
         token,
-        user: { confirmed },
+        user: { confirmed, firstName, lastName, email },
       } = data.loginUser
 
       if (confirmed) {
+        handleUserDataChange({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        })
+
         await SecureStorage.setItem('token', token)
+
         navigation.navigate('Home')
       } else {
         const errorObject = {
           isError: true,
           message: 'Please confirm your account',
         }
+
         setIsLoginError(errorObject)
       }
     },
@@ -44,6 +54,7 @@ export const useLogin = () => {
         isError: true,
         message: customErrorMessage(error.message),
       }
+
       setIsLoginError(errorObject)
     },
   })

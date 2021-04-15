@@ -4,9 +4,11 @@ import { TouchableOpacity, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box, Text } from 'utils/theme'
 import { AppNavigationType } from 'navigation/types'
+import { useUserContext } from 'hooks/useUserContext'
 
 export const Home = () => {
   const navigation = useNavigation<AppNavigationType<'Home'>>()
+  const { user } = useUserContext()
 
   const navigateToLogin = useCallback(() => {
     navigation.navigate('Login')
@@ -19,7 +21,12 @@ export const Home = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Box margin="m">
-        <Text variant="title1">Home Screen</Text>
+        <Text variant="title1">{`Hello ${
+          user.firstName ? user.firstName + ' ' + user.lastName : 'Guest'
+        }`}</Text>
+        <Text variant="lightGreyRegular" textAlign="center">
+          {user.email}
+        </Text>
       </Box>
       <Box margin="m">
         <TouchableOpacity onPress={navigateToLogin}>
