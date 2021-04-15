@@ -33,7 +33,11 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
       backdropOpacity={0.8}
       style={styles.modal}
       hideModalContentWhileAnimating>
-      {isConfirmed ? <FirstRegisterDialogBox /> : <SecondRegisterDialogBox hideModal={hideModal} />}
+      {!isConfirmed ? (
+        <FirstRegisterDialogBox />
+      ) : (
+        <SecondRegisterDialogBox hideModal={hideModal} />
+      )}
     </CustomModal>
   )
 }

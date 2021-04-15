@@ -70,5 +70,11 @@
     "errorEmailSubTitle": "Proszę wprowadzić ten sam mail, który został użyty w naszej aplikacji.",
     "errorBtnText": "Spróbuj ponownie",
     "errorRecoveryCodeSubTitle": "Proszę sprawdzić, czy wprowadzony kod jest poprawny"
+  },
+  "mutationsErrors": {
+    "default": "Coś poszło nie tak, spróbuj ponownie później",
+    "invalidCredentials": "Nieprawidłowy email lub hasło, proszę spróbuj ponownie",
+    "alreadyConfirmed": "Konto jest już potwierdzony, możesz się zalogować",
+    "invalidToken": "Twój token jest nieprawidłowy"
   }
 }
