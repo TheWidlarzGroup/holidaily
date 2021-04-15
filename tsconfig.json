@@ -11,6 +11,7 @@
     "paths": {
       "assets/*": ["assets/*"],
       "components/*": ["./components/*"],
+      "contexts/*": ["./contexts/*"],
       "hooks/*": ["hooks/*"],
       "graphqlActions/*": ["graphql/*"],
       "navigation/*": ["navigation/*"],

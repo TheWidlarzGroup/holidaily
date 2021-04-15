@@ -8,6 +8,9 @@ export type UserTypes = {
     token: string
     user: {
       confirmed: boolean | null
+      firstName: string
+      lastName: string
+      email: string
     }
   }
 }
