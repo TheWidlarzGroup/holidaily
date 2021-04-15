@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
@@ -18,7 +18,7 @@ import { useSignup } from '../../hooks/useSignup'
 import { createAlert } from '../../utils/createAlert'
 import useBooleanState from '../../hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
-import { Container } from 'components/Container'
+
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)

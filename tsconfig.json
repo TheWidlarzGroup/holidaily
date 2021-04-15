@@ -16,7 +16,7 @@
       "navigation/*": ["navigation/*"],
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
-      "utlis/*": ["utils/*"]
+      "utils/*": ["utils/*"]
     }
   }
 }
