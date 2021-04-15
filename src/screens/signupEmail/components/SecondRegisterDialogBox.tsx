@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
@@ -25,9 +25,10 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
       <Text variant="boldBlack18">{t('dialogBox2Title')}</Text>
       <Box
         backgroundColor="tertiary"
-        style={styles.orangeBox}
         marginVertical="xxl"
         borderRadius="xm"
+        width={59}
+        height={59}
       />
       <Text variant="body1">{t('dialogBox2SubTitle')}</Text>
       <Box marginTop="l" marginBottom="m">
@@ -51,10 +52,3 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  orangeBox: {
-    height: 59,
-    width: 59,
-  },
-})
