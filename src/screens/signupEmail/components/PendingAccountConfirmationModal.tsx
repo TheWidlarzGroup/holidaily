@@ -3,15 +3,20 @@ import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
 import { CustomModal } from 'components/CustomModal'
-import { FirstRegisterDialogBox } from 'components/FirstRegisterDialogBox'
+import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
+import { SecondRegisterDialogBox } from './SecondRegisterDialogBox'
 import { theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 
-type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & { onClose: () => void }
+type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & {
+  onClose: () => void
+  isConfirmed: boolean
+}
 
 export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> = ({
   isVisible,
   onClose,
+  isConfirmed,
 }) => (
   <CustomModal
     isVisible={isVisible}
@@ -25,9 +30,7 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
     backdropOpacity={0.8}
     style={styles.modal}
     hideModalContentWhileAnimating>
-    {/* TODO matthew: When register and mutations will be ready
-        !isConfirmed ? <FirstRegisterDialogBox /> : <SecondRegisterDialogBox /> */}
-    <FirstRegisterDialogBox />
+    {!isConfirmed ? <FirstRegisterDialogBox /> : <SecondRegisterDialogBox />}
   </CustomModal>
 )
 

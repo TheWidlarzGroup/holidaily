@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
@@ -18,9 +18,23 @@ import { useSignup } from '../../hooks/useSignup'
 import { createAlert } from '../../utils/createAlert'
 import useBooleanState from '../../hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
+import { useConfirmAccount } from 'hooks/useConfirmAccount'
+
+type RouteProps = {
+  key: string
+  name: string
+  params: {
+    token: string
+  }
+}
 
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
+  const {
+    handleConfirm,
+    isLoading: isConfirmLoading,
+    isSuccess: isConfirmSuccess,
+  } = useConfirmAccount()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
@@ -36,10 +50,20 @@ export const SignupEmail: FC = () => {
   }, [isSignupError])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && isConfirmSuccess) {
       showModal()
     }
-  }, [isSuccess])
+  }, [isSuccess, isConfirmSuccess])
+
+  const { params } = useRoute<RouteProps>()
+
+  useEffect(() => {
+    if (params) {
+      const { token } = params
+      console.log(token)
+      handleConfirm({ email: 'matthew@thewidlarzgroup.com', token })
+    }
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -120,7 +144,11 @@ export const SignupEmail: FC = () => {
           </Box>
         </Box>
       </KeyboardAvoidingView>
-      <PendingAccountConfirmationModal isVisible={isModalVisible} onClose={hideModal} />
+      <PendingAccountConfirmationModal
+        isVisible={isModalVisible}
+        onClose={hideModal}
+        isConfirmed={isConfirmSuccess}
+      />
     </SafeAreaView>
   )
 }
