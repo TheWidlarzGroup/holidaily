@@ -26,6 +26,7 @@ export const ForgotPassword: FC = () => {
   const navigation = useNavigation<AppNavigationType<'ForgotPassword'>>()
 
   const handlePasswordReset = () => {
+    // Hard coded for now, just for testing and presentation
     startLoading()
     simulateLoading().then(() => {
       const email = getValues('email')

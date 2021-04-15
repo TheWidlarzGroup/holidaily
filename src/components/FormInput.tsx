@@ -52,11 +52,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     }))
 
     useEffect(() => {
-      if (isError) {
-        errorOpacity.value = 1
-      } else {
-        errorOpacity.value = 0
-      }
+      errorOpacity.value = isError ? 1 : 0
     }, [isError])
 
     return (
