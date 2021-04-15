@@ -14,20 +14,29 @@ import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPas
 
 import { Container } from 'components/Container'
 
+const simulateLoading = () => {
+  return new Promise((r) => setTimeout(r, 1000))
+}
+
 export const ForgotPassword: FC = () => {
+  const [isLoading, { setFalse: endLoading, setTrue: startLoading }] = useBooleanState(false)
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors, getValues } = useForm()
   const { t } = useTranslation('forgotPassword')
   const navigation = useNavigation<AppNavigationType<'ForgotPassword'>>()
 
   const handlePasswordReset = () => {
-    const email = getValues('email')
+    startLoading()
+    simulateLoading().then(() => {
+      const email = getValues('email')
 
-    if (email === 'janKowalski@twg.com') {
-      navigation.navigate('RecoveryCode')
-    } else {
-      showModal()
-    }
+      if (email === 'janKowalski@twg.com') {
+        navigation.navigate('RecoveryCode')
+      } else {
+        showModal()
+      }
+      endLoading()
+    })
   }
 
   return (
@@ -63,6 +72,7 @@ export const ForgotPassword: FC = () => {
           variant="primary"
           paddingVertical={theme.spacing.xs}
           onPress={handlePasswordReset}
+          loading={isLoading}
         />
       </Box>
       <ForgotPasswordErrorModal
