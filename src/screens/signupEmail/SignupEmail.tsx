@@ -53,6 +53,7 @@ export const SignupEmail: FC = () => {
           <Box marginBottom="s">
             <FormInput
               control={control}
+              isError={!!errors['nameSurname']}
               errors={errors}
               name="nameSurname"
               inputLabel={t('nameSurname')}
@@ -66,6 +67,7 @@ export const SignupEmail: FC = () => {
           <Box marginBottom="s">
             <FormInput
               control={control}
+              isError={!!errors['companyName']}
               errors={errors}
               name="companyName"
               inputLabel={t('companyName')}
@@ -80,6 +82,7 @@ export const SignupEmail: FC = () => {
           <Box marginBottom="s">
             <FormInput
               control={control}
+              isError={!!errors['email']}
               errors={errors}
               name="email"
               inputLabel={t('email')}
@@ -96,6 +99,7 @@ export const SignupEmail: FC = () => {
           <Box>
             <FormInput
               control={control}
+              isError={!!errors['password']}
               errors={errors}
               name="password"
               inputLabel={t('password')}

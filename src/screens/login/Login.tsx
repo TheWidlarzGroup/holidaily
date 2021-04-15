@@ -45,6 +45,7 @@ export const Login: FC = () => {
         <Box marginBottom="m">
           <FormInput
             control={control}
+            isError={!!errors['email']}
             errors={errors}
             name="email"
             inputLabel="E-mail Address"
@@ -60,6 +61,7 @@ export const Login: FC = () => {
         <Box>
           <FormInput
             control={control}
+            isError={!!errors['password']}
             errors={errors}
             name="password"
             inputLabel="Password"

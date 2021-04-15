@@ -20,6 +20,7 @@ type FormInputTypes = {
   isPasswordIconVisible?: boolean
   passwordsAreEqual?: boolean
   screenName?: string
+  isError: boolean
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -36,6 +37,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       isPasswordIconVisible,
       passwordsAreEqual,
       screenName,
+      isError,
       ...props
     },
     ref
@@ -50,12 +52,12 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     }))
 
     useEffect(() => {
-      if (errors[name] || (!passwordsAreEqual && screenName === 'NewPassword')) {
+      if (isError) {
         errorOpacity.value = 1
       } else {
         errorOpacity.value = 0
       }
-    }, [errors[name], passwordsAreEqual])
+    }, [isError])
 
     return (
       <>
@@ -67,7 +69,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
-              isError={!!errors[name] || (!passwordsAreEqual && screenName === 'NewPassword')}
+              isError={isError}
               ref={ref}
               isPasswordIconVisible={isPasswordIconVisible}
               {...props}

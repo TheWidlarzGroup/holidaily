@@ -52,6 +52,7 @@ export const NewPassword: FC = () => {
         <Box marginBottom="m">
           <FormInput
             control={control}
+            isError={!!errors['password'] || !arePasswordsEqual}
             errors={errors}
             name="password"
             inputLabel={t('password:password')}
@@ -67,6 +68,7 @@ export const NewPassword: FC = () => {
         <Box>
           <FormInput
             control={control}
+            isError={!!errors['confirmPassword'] || !arePasswordsEqual}
             errors={errors}
             name="confirmPassword"
             inputLabel={t('password:confirmNewPassword')}
