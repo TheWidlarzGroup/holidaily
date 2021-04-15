@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, TextInput } from 'react-native'
+import { TouchableOpacity, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -74,11 +74,11 @@ export const Login: FC = () => {
         </Box>
 
         <Box alignSelf="flex-end">
-          <Pressable onPress={navigateToRemindPassword}>
+          <TouchableOpacity onPress={navigateToRemindPassword}>
             <Text variant="remind1" marginRight="m">
               {t('loginForgotPassword')}
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </Box>
       </Box>
       <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
