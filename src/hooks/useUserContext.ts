@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { UserContext } from 'contexts/UserContext'
 
-const useUserContext = () => {
+export const useUserContext = () => {
   const context = useContext(UserContext)
 
   if (context) {
@@ -10,5 +10,3 @@ const useUserContext = () => {
 
   throw Error('Use this hook in UserProvider scope')
 }
-
-export default useUserContext
