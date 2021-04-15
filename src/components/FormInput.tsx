@@ -5,6 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import { Text } from 'utils/theme/index'
 import { CustomInput } from './CustomInput'
+import { generateInputErrors } from 'utils/generateInputErrors'
 
 type FormInputTypes = {
   control: Control
@@ -15,6 +16,9 @@ type FormInputTypes = {
   errorMessage: string
   required?: boolean
   signupPasswordHint?: string
+  passwordVisibilityIconIsVisible?: boolean
+  passwordsAreEqual?: boolean
+  screenName?: string
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -28,6 +32,9 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       errorMessage,
       required,
       signupPasswordHint,
+      passwordVisibilityIconIsVisible,
+      passwordsAreEqual,
+      screenName,
       ...props
     },
     ref
@@ -41,12 +48,13 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     }))
 
     useEffect(() => {
-      if (errors[name]) {
+      if (errors[name] || (!passwordsAreEqual && screenName === 'NewPassword')) {
         errorOpacity.value = 1
       } else {
         errorOpacity.value = 0
       }
-    }, [errors[name]])
+    }, [errors[name], passwordsAreEqual])
+
     return (
       <>
         <Controller
@@ -59,12 +67,16 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               value={value}
               isError={!!errors[name]}
               ref={ref}
+              passwordsAreEqual={passwordsAreEqual}
+              passwordVisibilityIconIsVisible={passwordVisibilityIconIsVisible}
+              screenName={screenName}
               {...props}
             />
           )}
           name={name}
           rules={{
             required,
+
             pattern: {
               value: validationPattern,
               message: errorMessage,
@@ -75,7 +87,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
 
         <Animated.View style={progressStyle}>
           <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
-            {errors[name]?.message || 'This field is required'}
+            {generateInputErrors({ errors, name, passwordsAreEqual, screenName })}
           </Text>
         </Animated.View>
 

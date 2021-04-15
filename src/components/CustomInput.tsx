@@ -10,11 +10,29 @@ import useBooleanState from 'hooks/useBooleanState'
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
+  passwordVisibilityIconIsVisible?: boolean
+  passwordsAreEqual?: boolean
+  screenName?: string
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
-  ({ inputLabel, onChange, onBlur, value, isError, ...props }, ref) => {
-    const [isPasswordInput, { toggle }] = useBooleanState(inputLabel === 'Password')
+  (
+    {
+      inputLabel,
+      onChange,
+      onBlur,
+      value,
+      isError,
+      passwordVisibilityIconIsVisible,
+      passwordsAreEqual,
+      screenName,
+      ...props
+    },
+    ref
+  ) => {
+    const [isPasswordInput, { toggle }] = useBooleanState(
+      inputLabel === 'Password' || inputLabel === 'Confirm new password'
+    )
 
     const errorOpacity = useSharedValue(0)
 
@@ -25,8 +43,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     }))
 
     useEffect(() => {
-      errorOpacity.value = isError ? 2 : 0
-    }, [isError])
+      errorOpacity.value = isError || (!passwordsAreEqual && screenName === 'NewPassword') ? 2 : 0
+    }, [isError, passwordsAreEqual])
 
     return (
       <>
@@ -44,7 +62,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               {...props}
             />
           </Animated.View>
-          {inputLabel === 'Password' && (
+          {passwordVisibilityIconIsVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
               <Pressable onPress={toggle}>
                 <IconTogglePasswordVisibility />

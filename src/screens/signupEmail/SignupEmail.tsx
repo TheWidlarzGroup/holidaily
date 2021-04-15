@@ -18,7 +18,7 @@ import { useSignup } from '../../hooks/useSignup'
 import { createAlert } from '../../utils/createAlert'
 import useBooleanState from '../../hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
-
+import { Container } from 'components/Container'
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
@@ -133,12 +133,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-  },
-
-  input: {
-    height: 50,
-    backgroundColor: colors.lightGrey,
-    borderRadius: theme.borderRadii.xxl,
-    paddingHorizontal: theme.spacing.m,
   },
 })
