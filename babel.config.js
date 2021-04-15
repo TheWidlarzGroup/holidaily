@@ -20,6 +20,7 @@ module.exports = {
         alias: {
           assets: './src/assets',
           components: './src/components',
+          contexts: './src/contexts',
           hooks: './src/hooks',
           graphqlActions: './src/graphql',
           navigation: './src/navigation',

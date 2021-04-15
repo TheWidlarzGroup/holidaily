@@ -11,6 +11,9 @@ export const loginMutation = ({ email, password }: LoginTypes) =>
         token
         user{
           confirmed
+          firstName
+          lastName
+          email
         }
       }
     }
