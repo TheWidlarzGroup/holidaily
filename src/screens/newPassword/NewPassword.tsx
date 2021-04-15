@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
+import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 
@@ -20,11 +21,8 @@ export const NewPassword: FC = () => {
     { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual },
   ] = useBooleanState(true)
   const { t } = useTranslation(['recoveryCode', 'password'])
-  const { control, handleSubmit, errors, getValues, watch } = useForm()
-
-  const handleUpdatePassword = () => {
-    arePasswordsEqual && showModal()
-  }
+  const { control, handleSubmit, errors, watch } = useForm()
+  const passwordConfirmationRef = useRef<TextInput>(null)
 
   useEffect(() => {
     const { password, confirmPassword } = watch(['password', 'confirmPassword'])
@@ -32,6 +30,14 @@ export const NewPassword: FC = () => {
 
     !passwordsAreEqual ? setPasswordsAreNotEqual() : setArePasswordsEqual()
   }, [watch('password'), watch('confirmPassword')])
+
+  const handleUpdatePassword = () => {
+    arePasswordsEqual && showModal()
+  }
+
+  const onSubmitEditing = () => {
+    passwordConfirmationRef?.current?.focus()
+  }
 
   return (
     <Container>
@@ -53,6 +59,8 @@ export const NewPassword: FC = () => {
             errorMessage={t('password:incorrectPassword')}
             screenName="NewPassword"
             passwordsAreEqual={arePasswordsEqual}
+            onSubmitEditing={onSubmitEditing}
+            blurOnSubmit={false}
             required
           />
         </Box>
@@ -66,6 +74,7 @@ export const NewPassword: FC = () => {
             errorMessage={t('password:incorrectPassword')}
             screenName="NewPassword"
             passwordsAreEqual={arePasswordsEqual}
+            ref={passwordConfirmationRef}
             required
           />
         </Box>
