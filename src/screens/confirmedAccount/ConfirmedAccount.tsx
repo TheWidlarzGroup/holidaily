@@ -41,15 +41,18 @@ export const ConfirmedAccount: FC = () => {
     navigation.navigate('Login')
   }, [navigation])
 
+  // TODO: refactor this component
   useEffect(() => {
     const asyncConfirmAccount = async (token: string) => {
-      await handleConfirmAccount({ email: 'mateki0@interia.pl', token })
+      try {
+        await handleConfirmAccount({ email: 'mateki0@interia.pl', token })
+      } catch (err) {
+        setIsConfirmError(customErrorMessage(t, err.message))
+      }
     }
     if (params) {
       const { token } = params
-      asyncConfirmAccount(token).catch((err) =>
-        setIsConfirmError(customErrorMessage(t, err.message))
-      )
+      asyncConfirmAccount(token)
     }
   }, [params])
 
