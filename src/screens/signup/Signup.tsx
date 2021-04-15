@@ -1,8 +1,7 @@
 import React, { FC, useCallback } from 'react'
-import { StyleSheet, Pressable } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Text, theme } from 'utils/theme/index'

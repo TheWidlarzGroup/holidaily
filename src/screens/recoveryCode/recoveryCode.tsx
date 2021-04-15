@@ -1,23 +1,35 @@
-import React, { FC } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet } from 'react-native'
+import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 
-import { AppNavigationType } from '../../navigation/types'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { colors } from '../../utils/theme/colors'
-import { CustomButton } from '../../components/CustomButton'
-import { RecoveryCodeInput } from '../../components/RecoveryCodeInput'
-import { RecoveryPasswordBar } from '../../components/RecoveryPasswordBar'
+import { AppNavigationType } from 'navigation/types'
+import { Box, Text, theme } from 'utils/theme/index'
+import { CustomButton } from 'components/CustomButton'
+import { RecoveryCodeInput } from 'components/RecoveryCodeInput'
+import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
+import useBooleanState from 'hooks/useBooleanState'
+import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
+import { useEffect } from 'react'
+import { Container } from 'components/Container'
 
 export const RecoveryCode: FC = () => {
+  const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
+  const [recoveryCode, setRecoveryCode] = useState('')
   const { t } = useTranslation('recoveryCode')
 
   const navigation = useNavigation<AppNavigationType<'RecoveryCode'>>()
 
+  useEffect(() => {
+    // Hard coded for now, just for testing and presentation
+    if (recoveryCode.length === 6 && recoveryCode !== '123456') {
+      showModal()
+    } else if (recoveryCode === '123456') {
+      navigation.navigate('NewPassword')
+    }
+  }, [recoveryCode])
+
   return (
-    <SafeAreaView style={styles.container}>
+    <Container>
       <RecoveryPasswordBar currentScreen="RecoveryCode" />
 
       <Box flex={0.2} justifyContent="center">
@@ -26,25 +38,18 @@ export const RecoveryCode: FC = () => {
           {t('recoveryCodeSubTitle')}
         </Text>
       </Box>
-      <Box flex={0.3} marginHorizontal="xl">
-        <RecoveryCodeInput cellCount={6} />
+      <Box flex={0.2} marginHorizontal="xl">
+        <RecoveryCodeInput cellCount={6} setValue={setRecoveryCode} value={recoveryCode} />
       </Box>
-      <Box flex={0.2} justifyContent="center" marginHorizontal="xxl">
-        <CustomButton
-          label={t('paste')}
-          variant="primary"
-          marginBottom={theme.spacing.m}
-          onPress={() => navigation.navigate('NewPassword')}
-        />
+      <Box flex={0.3} justifyContent="center" marginHorizontal="xxl">
+        <CustomButton label={t('paste')} variant="primary" marginBottom={theme.spacing.m} />
         <CustomButton label={t('resendCode')} variant="secondary" />
       </Box>
-    </SafeAreaView>
+      <ForgotPasswordErrorModal
+        isVisible={isModalVisible}
+        hideModal={hideModal}
+        subTitle="errorRecoveryCodeSubTitle"
+      />
+    </Container>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-})

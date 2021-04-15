@@ -12,10 +12,11 @@ import { Text, theme } from 'utils/theme/index'
 
 type RecoveryCodeInputProps = {
   cellCount: number
+  value: string
+  setValue: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const RecoveryCodeInput: FC<RecoveryCodeInputProps> = ({ cellCount }) => {
-  const [value, setValue] = useState('')
+export const RecoveryCodeInput: FC<RecoveryCodeInputProps> = ({ cellCount, value, setValue }) => {
   const codeFieldRef = useBlurOnFulfill({ value, cellCount })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.disabledText,
     borderRadius: theme.borderRadii.l,
     paddingHorizontal: theme.spacing.l,
+    paddingVertical: theme.spacing.s,
     alignItems: 'center',
   },
   cell: {

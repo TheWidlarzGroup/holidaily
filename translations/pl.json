@@ -70,5 +70,13 @@
     "errorEmailSubTitle": "Proszę wprowadzić ten sam mail, który został użyty w naszej aplikacji.",
     "errorBtnText": "Spróbuj ponownie",
     "errorRecoveryCodeSubTitle": "Proszę sprawdzić, czy wprowadzony kod jest poprawny"
+  },
+  "updatePasswordModal": {
+    "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
+    "loginButton": "Zaloguj się"
+  },
+  "inputErrors": {
+    "requiredField": "To pole jest wymagane",
+    "passwordMatch": "Hasła muszą być identyczne"
   }
 }
