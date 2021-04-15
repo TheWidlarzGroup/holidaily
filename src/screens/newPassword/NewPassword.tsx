@@ -11,18 +11,28 @@ import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 import useBooleanState from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
+import { useEffect } from 'react'
 
 export const NewPassword: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
+  const [
+    arePasswordsEqual,
+    { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual },
+  ] = useBooleanState(true)
   const { t } = useTranslation(['recoveryCode', 'password'])
-  const { control, handleSubmit, errors, getValues } = useForm()
+  const { control, handleSubmit, errors, getValues, watch } = useForm()
 
   const handleUpdatePassword = () => {
+    arePasswordsEqual && showModal()
+  }
+
+  useEffect(() => {
     const password = getValues('password')
     const passwordConfirmation = getValues('confirmPassword')
     const passwordsAreEqual = checkIfPasswordsMatch(password, passwordConfirmation)
-    passwordsAreEqual && showModal()
-  }
+
+    !passwordsAreEqual ? setPasswordsAreNotEqual() : setArePasswordsEqual()
+  }, [watch('password'), watch('confirmPassword')])
 
   return (
     <Container>
@@ -43,10 +53,7 @@ export const NewPassword: FC = () => {
             validationPattern={passwordRegex}
             errorMessage={t('password:incorrectPassword')}
             screenName="NewPassword"
-            passwordsAreEqual={checkIfPasswordsMatch(
-              getValues('password'),
-              getValues('confirmPassword')
-            )}
+            passwordsAreEqual={arePasswordsEqual}
             required
           />
         </Box>
@@ -59,10 +66,7 @@ export const NewPassword: FC = () => {
             validationPattern={passwordRegex}
             errorMessage={t('password:incorrectPassword')}
             screenName="NewPassword"
-            passwordsAreEqual={checkIfPasswordsMatch(
-              getValues('password'),
-              getValues('confirmPassword')
-            )}
+            passwordsAreEqual={arePasswordsEqual}
             required
           />
         </Box>

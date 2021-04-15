@@ -6,6 +6,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Text } from 'utils/theme/index'
 import { CustomInput } from './CustomInput'
 import { generateInputErrors } from 'utils/generateInputErrors'
+import { useTranslation } from 'react-i18next'
 
 type FormInputTypes = {
   control: Control
@@ -39,6 +40,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     },
     ref
   ) => {
+    const { t } = useTranslation('inputErrors')
     const errorOpacity = useSharedValue(0)
 
     const progressStyle = useAnimatedStyle(() => ({
@@ -75,8 +77,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           )}
           name={name}
           rules={{
-            required,
-
+            required: `${t('requiredField')}`,
             pattern: {
               value: validationPattern,
               message: errorMessage,

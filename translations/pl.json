@@ -74,5 +74,9 @@
   "updatePasswordModal": {
     "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
     "loginButton": "Zaloguj się"
+  },
+  "inputErrors": {
+    "requiredField": "To pole jest wymagane",
+    "passwordMatch": "Hasła muszą być identyczne"
   }
 }

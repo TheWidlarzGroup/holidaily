@@ -1,4 +1,5 @@
 import { FieldErrors } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 type GenerateInputErrorsTypes = {
   errors: FieldErrors
@@ -13,11 +14,11 @@ export const generateInputErrors = ({
   passwordsAreEqual,
   screenName,
 }: GenerateInputErrorsTypes) => {
-  if (errors[name] && !errors[name].message) {
-    return 'This field is required'
-  } else if (errors[name]) {
+  const { t } = useTranslation('inputErrors')
+  if (errors[name]) {
     return errors[name].message
-  } else if (!errors[name] && !passwordsAreEqual && screenName === 'NewPassword') {
-    return 'Password must match'
+  }
+  if (!errors[name] && !passwordsAreEqual && screenName === 'NewPassword') {
+    return t('passwordMatch')
   }
 }

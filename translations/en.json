@@ -74,5 +74,9 @@
   "updatePasswordModal": {
     "passwordUpdated": "Your password has been updated!",
     "loginButton": "Log in"
+  },
+  "inputErrors": {
+    "requiredField": "This field is required",
+    "passwordMatch": "Password must match"
   }
 }
