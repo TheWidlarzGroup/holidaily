@@ -15,9 +15,9 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
 
   const navigation = useNavigation<AppNavigationType<'ConfirmedAccount'>>()
 
-  const navigateToRemindPassword = useCallback(() => {
+  const navigateToLogin = useCallback(() => {
     hideModal()
-    navigation.navigate('ForgotPassword')
+    navigation.navigate('Login')
   }, [navigation])
 
   return (
@@ -32,7 +32,7 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
       />
       <Text variant="body1">{t('dialogBox2SubTitle')}</Text>
       <Box marginTop="l" marginBottom="m">
-        <TouchableOpacity activeOpacity={1} onPress={navigateToRemindPassword}>
+        <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
           <CustomButton
             label={t('dialog2FirstButton')}
             variant="blackBgButton"
@@ -41,7 +41,7 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
         </TouchableOpacity>
       </Box>
       <Box paddingBottom="m">
-        <TouchableOpacity activeOpacity={1} onPress={navigateToRemindPassword}>
+        <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
           <CustomButton
             label={t('dialog2SecondButton')}
             variant="secondary"
