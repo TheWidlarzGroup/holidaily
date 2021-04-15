@@ -20,6 +20,7 @@ export const RecoveryCode: FC = () => {
   const navigation = useNavigation<AppNavigationType<'RecoveryCode'>>()
 
   useEffect(() => {
+    // Hard coded for now, just for testing and presentation
     if (recoveryCode.length === 6 && recoveryCode !== '123456') {
       showModal()
     } else if (recoveryCode === '123456') {
