@@ -1,10 +1,10 @@
 import request, { gql } from 'graphql-request'
 import { LoginTypes } from 'types/useLoginTypes'
-import { endpoint } from 'utils/config/endpoint'
+import { GRAPHQL_ENDPOINT } from '@env'
 
 export const loginMutation = ({ email, password }: LoginTypes) =>
   request(
-    endpoint,
+    GRAPHQL_ENDPOINT,
     gql`
     mutation{
       loginUser(email: "${email}", password: "${password}") {
