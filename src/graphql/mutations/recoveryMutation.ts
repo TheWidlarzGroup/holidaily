@@ -1,11 +1,11 @@
 import request, { gql } from 'graphql-request'
 
 import { RecoveryArgumentsTypes } from 'types/useRecoveryTypes'
-import { endpoint } from 'utils/config/endpoint'
+import { GRAPHQL_ENDPOINT } from '@env'
 
 export const recoveryMutation = ({ email }: RecoveryArgumentsTypes) =>
   request(
-    endpoint,
+    GRAPHQL_ENDPOINT,
     gql`
     mutation{
       recoverPassword(email: "${email}") {
