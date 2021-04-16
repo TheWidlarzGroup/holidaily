@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity, TextInput } from 'react-native'
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { AppNavigationType } from 'navigation/types'
@@ -17,7 +17,7 @@ import { Container } from 'components/Container'
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const { handleLogin, isLoading, isLoginError } = useLogin()
+  const { handleLoginUser, isLoading, isLoginError } = useLogin()
   const passwordRef = useRef<TextInput>(null)
   const { t } = useTranslation('login')
 
@@ -32,6 +32,8 @@ export const Login: FC = () => {
   const onSubmitEditing = () => {
     passwordRef?.current?.focus()
   }
+
+  const onSubmit = handleSubmit((data) => handleLoginUser(data))
 
   return (
     <Container>
@@ -85,7 +87,7 @@ export const Login: FC = () => {
         <CustomButton
           label={t('loginButton')}
           variant="primary"
-          onPress={handleSubmit(handleLogin)}
+          onPress={onSubmit}
           loading={isLoading}
         />
       </Box>

@@ -19,53 +19,44 @@ export const useLogin = () => {
   const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { handleUserDataChange } = useUserContext()
-  const { mutateAsync: handleLoginUser, isLoading } = useMutation<
-    UserTypes,
-    ErrorTypes,
-    LoginTypes
-  >(loginMutation, {
-    onSuccess: async (data: UserTypes) => {
-      const {
-        token,
-        user: { confirmed, firstName, lastName, email },
-      } = data.loginUser
+  const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, any>(
+    loginMutation,
+    {
+      onSuccess: async (data: UserTypes) => {
+        const {
+          token,
+          user: { confirmed, firstName, lastName, email },
+        } = data.loginUser
 
-      if (confirmed) {
-        handleUserDataChange({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-        })
+        if (confirmed) {
+          handleUserDataChange({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+          })
 
-        await SecureStorage.setItem('token', token)
+          await SecureStorage.setItem('token', token)
 
-        navigation.navigate('Home')
-      } else {
+          navigation.navigate('Home')
+        } else {
+          const errorObject = {
+            isError: true,
+            message: 'Please confirm your account',
+          }
+
+          setIsLoginError(errorObject)
+        }
+      },
+      onError: (error: ErrorTypes) => {
         const errorObject = {
           isError: true,
-          message: 'Please confirm your account',
+          message: customErrorMessage(error.message),
         }
 
         setIsLoginError(errorObject)
-      }
-    },
-    onError: (error: ErrorTypes) => {
-      const errorObject = {
-        isError: true,
-        message: customErrorMessage(error.message),
-      }
-
-      setIsLoginError(errorObject)
-    },
-  })
-
-  const handleLogin = async ({ email, password }: LoginTypes) => {
-    try {
-      await handleLoginUser({ email, password })
-    } catch (err) {
-      console.log(err)
+      },
     }
-  }
+  )
 
-  return { handleLogin, isLoading, isLoginError }
+  return { handleLoginUser, isLoading, isLoginError }
 }

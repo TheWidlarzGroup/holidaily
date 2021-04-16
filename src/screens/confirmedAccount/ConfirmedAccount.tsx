@@ -20,7 +20,7 @@ type RouteProps = {
 }
 
 export const ConfirmedAccount: FC = () => {
-  const { asyncConfirmAccount, isLoading, isSuccess, confirmErrorMessage } = useConfirmAccount()
+  const { handleConfirmAccount, isLoading, isSuccess, confirmErrorMessage } = useConfirmAccount()
   const [isModalVisible, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
   const { params } = useRoute<RouteProps>()
   const { t } = useTranslation('mutationsErrors')
@@ -31,11 +31,10 @@ export const ConfirmedAccount: FC = () => {
     navigation.navigate('Login')
   }, [navigation])
 
-  // TODO: refactor this component
   useEffect(() => {
     if (params) {
       const { token } = params
-      asyncConfirmAccount(token)
+      handleConfirmAccount({ email: 'mateki0@interia.pl', token })
     }
   }, [params])
 

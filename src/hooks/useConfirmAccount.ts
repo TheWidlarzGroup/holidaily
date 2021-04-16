@@ -19,7 +19,7 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
 export const useConfirmAccount = () => {
   const { t } = useTranslation('mutationsErrors')
   const [confirmErrorMessage, setConfirmErrorMessage] = useState('')
-  const { mutateAsync: handleConfirmAccount, isLoading, isSuccess } = useMutation<
+  const { mutate: handleConfirmAccount, isLoading, isSuccess } = useMutation<
     Promise<void>,
     ErrorTypes,
     ConfirmTypes
@@ -29,12 +29,5 @@ export const useConfirmAccount = () => {
     },
   })
 
-  const asyncConfirmAccount = async (token: string) => {
-    try {
-      await handleConfirmAccount({ email: 'mateki0@interia.pl', token })
-    } catch (err) {
-      console.log(err)
-    }
-  }
-  return { asyncConfirmAccount, isLoading, isSuccess, confirmErrorMessage }
+  return { handleConfirmAccount, isLoading, isSuccess, confirmErrorMessage }
 }
