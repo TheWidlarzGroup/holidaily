@@ -53,6 +53,7 @@ export const ForgotPassword: FC = () => {
           <FormInput
             control={control}
             errors={errors}
+            isError={!!errors['email']}
             name="email"
             inputLabel={t('email')}
             validationPattern={emailRegex}
@@ -71,7 +72,6 @@ export const ForgotPassword: FC = () => {
         <CustomButton
           label={t('forgotResetButton')}
           variant="primary"
-          paddingVertical={theme.spacing.xs}
           onPress={handlePasswordReset}
           loading={isLoading}
         />

@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
@@ -43,14 +42,14 @@ export const SignupEmail: FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Box flex={0.2} justifyContent="center">
+      <Box height={95} justifyContent="center" zIndex={999}>
         <Text variant="title1">{t('signupEmailTitle')}</Text>
       </Box>
       <KeyboardAvoidingView
         behavior={isIos() ? 'padding' : 'height'}
         style={styles.keyboardAvoiding}>
         <Box marginHorizontal="l">
-          <Box marginBottom="s">
+          <Box>
             <FormInput
               control={control}
               isError={!!errors['nameSurname']}
@@ -64,7 +63,7 @@ export const SignupEmail: FC = () => {
               required
             />
           </Box>
-          <Box marginBottom="s">
+          <Box>
             <FormInput
               control={control}
               isError={!!errors['companyName']}
@@ -79,7 +78,7 @@ export const SignupEmail: FC = () => {
               required
             />
           </Box>
-          <Box marginBottom="s">
+          <Box>
             <FormInput
               control={control}
               isError={!!errors['email']}
@@ -106,6 +105,8 @@ export const SignupEmail: FC = () => {
               validationPattern={passwordRegex}
               errorMessage={t('nameSurnameErrMsg')}
               ref={inputsRefs[2]}
+              signupPasswordHint={t('passwordHint')}
+              isPasswordIconVisible
               required
             />
           </Box>
@@ -124,7 +125,7 @@ export const SignupEmail: FC = () => {
           </Box>
         </Box>
       </KeyboardAvoidingView>
-      <PendingAccountConfirmationModal isVisible={isModalVisible} onClose={hideModal} />
+      <PendingAccountConfirmationModal isVisible={isModalVisible} hideModal={hideModal} />
     </SafeAreaView>
   )
 }

@@ -10,7 +10,7 @@ import { colors } from 'utils/theme/colors'
 
 type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
-  showModal: () => void
+  showModal?: () => void
   isConfirmed?: boolean
 }
 
@@ -21,7 +21,7 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
   isConfirmed,
 }) => {
   useEffect(() => {
-    isConfirmed && showModal()
+    isConfirmed && showModal && showModal()
   }, [isConfirmed])
 
   return (
