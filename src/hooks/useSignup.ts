@@ -30,7 +30,11 @@ export const useSignup = () => {
 
   const handleSignup = async ({ email, nameSurname, password }: HandleSignupTypes) => {
     const [firstName, lastName] = nameSurname.split(' ')
-    await handleSignupUser({ email, firstName, lastName, password })
+    try {
+      await handleSignupUser({ email, firstName, lastName, password })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return { handleSignup, isLoading, isSignupError, isSuccess }

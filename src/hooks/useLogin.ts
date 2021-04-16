@@ -60,7 +60,11 @@ export const useLogin = () => {
   })
 
   const handleLogin = async ({ email, password }: LoginTypes) => {
-    await handleLoginUser({ email, password })
+    try {
+      await handleLoginUser({ email, password })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return { handleLogin, isLoading, isLoginError }
