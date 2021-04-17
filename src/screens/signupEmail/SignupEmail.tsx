@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { colors } from '../../utils/theme/colors'
-import { Box, Text, theme } from '../../utils/theme/index'
+import { Box, Text } from '../../utils/theme/index'
 import { FormInput } from '../../components/FormInput'
 import { emailRegex } from '../../utils/regexes/emailRegex'
 import { passwordRegex } from '../../utils/regexes/passwordRegex'
