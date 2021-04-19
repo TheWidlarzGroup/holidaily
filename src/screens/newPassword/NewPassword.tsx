@@ -63,6 +63,7 @@ export const NewPassword: FC = () => {
             onSubmitEditing={onSubmitEditing}
             blurOnSubmit={false}
             required
+            isPasswordIconVisible
           />
         </Box>
         <Box>
@@ -78,6 +79,7 @@ export const NewPassword: FC = () => {
             passwordsAreEqual={arePasswordsEqual}
             ref={passwordConfirmationRef}
             required
+            isPasswordIconVisible
           />
         </Box>
       </Box>

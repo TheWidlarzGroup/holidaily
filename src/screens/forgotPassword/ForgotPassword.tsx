@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 
 import { AppNavigationType } from 'navigation/types'
-import { Box, Text, theme } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { emailRegex } from 'utils/regexes/emailRegex'
@@ -53,6 +53,7 @@ export const ForgotPassword: FC = () => {
           <FormInput
             control={control}
             errors={errors}
+            isError={!!errors['email']}
             name="email"
             inputLabel={t('email')}
             validationPattern={emailRegex}
@@ -71,7 +72,6 @@ export const ForgotPassword: FC = () => {
         <CustomButton
           label={t('forgotResetButton')}
           variant="primary"
-          paddingVertical={theme.spacing.xs}
           onPress={handlePasswordReset}
           loading={isLoading}
         />

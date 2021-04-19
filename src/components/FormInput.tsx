@@ -89,7 +89,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
         </Animated.View>
 
         {signupPasswordHint && (
-          <Text variant="lightGreyRegular" marginTop="s" marginLeft="m" textAlign="center">
+          <Text variant="lightGreyRegular" marginTop="xs" marginLeft="m" textAlign="center">
             {signupPasswordHint}
           </Text>
         )}

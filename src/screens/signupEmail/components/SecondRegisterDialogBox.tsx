@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, theme } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
@@ -33,23 +33,14 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
       <Text variant="body1">{t('dialogBox2SubTitle')}</Text>
       <Box marginTop="l" marginBottom="m">
         <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
-          <CustomButton
-            label={t('dialog2FirstButton')}
-            variant="blackBgButton"
-            paddingVertical={theme.spacing.xs}
-          />
+          <CustomButton label={t('dialog2FirstButton')} variant="blackBgButton" />
         </TouchableOpacity>
       </Box>
       <Box paddingBottom="m">
         <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
-          <CustomButton
-            label={t('dialog2SecondButton')}
-            variant="secondary"
-            paddingVertical={theme.spacing.xs}
-          />
+          <CustomButton label={t('dialog2SecondButton')} variant="secondary" />
         </TouchableOpacity>
       </Box>
     </Box>
   )
 }
-

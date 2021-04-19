@@ -29,7 +29,6 @@ export const UpdateModalChildren: FC = () => {
           label={t('loginButton')}
           variant="blackBgButton"
           marginTop={theme.spacing.xl}
-          paddingVertical={theme.spacing.xs}
           marginBottom={theme.spacing.m}
         />
       </TouchableOpacity>
