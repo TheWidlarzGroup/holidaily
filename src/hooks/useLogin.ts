@@ -4,7 +4,7 @@ import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
-import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
+import { UserTypes, ErrorTypes } from 'types/useLoginTypes'
 import { AppNavigationType } from 'navigation/types'
 import { useUserContext } from './useUserContext'
 
@@ -16,9 +16,9 @@ const customErrorMessage = (errorMessage: string) => {
 }
 
 export const useLogin = () => {
-  const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
+  const [loginErrorMessage, setLoginErrorMessage] = useState('')
   const navigation = useNavigation<AppNavigationType<'Login'>>()
-  const { handleUserDataChange } = useUserContext()
+  const { handleUserDataChange, user } = useUserContext()
   const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, any>(
     loginMutation,
     {
@@ -29,34 +29,24 @@ export const useLogin = () => {
         } = data.loginUser
 
         if (confirmed) {
-          handleUserDataChange({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-          })
+          handleUserDataChange({ ...user, firstName: firstName, lastName: lastName, email: email })
 
           await SecureStorage.setItem('token', token)
 
           navigation.navigate('Home')
         } else {
-          const errorObject = {
-            isError: true,
-            message: 'Please confirm your account',
-          }
+          const errorMessage = 'Please confirm your account'
 
-          setIsLoginError(errorObject)
+          setLoginErrorMessage(errorMessage)
         }
       },
       onError: (error: ErrorTypes) => {
-        const errorObject = {
-          isError: true,
-          message: customErrorMessage(error.message),
-        }
+        const errorMessage = customErrorMessage(error.message)
 
-        setIsLoginError(errorObject)
+        setLoginErrorMessage(errorMessage)
       },
     }
   )
 
-  return { handleLoginUser, isLoading, isLoginError }
+  return { handleLoginUser, isLoading, loginErrorMessage }
 }

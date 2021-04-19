@@ -15,9 +15,7 @@ type CustomInputTypes = {
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
   ({ inputLabel, onChange, onBlur, value, isError, isPasswordIconVisible, ...props }, ref) => {
-    const [isPasswordInput, { toggle }] = useBooleanState(
-      isPasswordIconVisible !== undefined && isPasswordIconVisible
-    )
+    const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
 
     const errorOpacity = useSharedValue(0)
 

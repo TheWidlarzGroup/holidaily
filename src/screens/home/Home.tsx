@@ -8,7 +8,9 @@ import { useUserContext } from 'hooks/useUserContext'
 
 export const Home = () => {
   const navigation = useNavigation<AppNavigationType<'Home'>>()
-  const { user } = useUserContext()
+  const {
+    user: { isConfirmed, firstName, lastName, email },
+  } = useUserContext()
 
   const navigateToLogin = useCallback(() => {
     navigation.navigate('Login')
@@ -22,10 +24,10 @@ export const Home = () => {
     <SafeAreaView style={styles.safeArea}>
       <Box margin="m">
         <Text variant="title1">{`Hello ${
-          user.firstName ? user.firstName + ' ' + user.lastName : 'Guest'
+          firstName && isConfirmed ? firstName + ' ' + lastName : 'Guest'
         }`}</Text>
         <Text variant="lightGreyRegular" textAlign="center">
-          {user.email}
+          {isConfirmed && email}
         </Text>
       </Box>
       <Box margin="m">

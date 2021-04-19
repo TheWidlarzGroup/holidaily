@@ -20,7 +20,7 @@ import { PendingAccountConfirmationModal } from './components/PendingAccountConf
 import { useFocusEffect } from '@react-navigation/native'
 
 export const SignupEmail: FC = () => {
-  const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
+  const { handleSignup, isLoading, signupErrorMessage, isSuccess } = useSignup()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
@@ -32,8 +32,8 @@ export const SignupEmail: FC = () => {
   }
 
   useEffect(() => {
-    if (isSignupError?.isError) createAlert('Signup Error', isSignupError.message)
-  }, [isSignupError])
+    if (signupErrorMessage) createAlert('Signup Error', signupErrorMessage)
+  }, [signupErrorMessage])
 
   useEffect(() => {
     if (isSuccess) {

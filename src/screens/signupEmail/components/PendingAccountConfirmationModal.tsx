@@ -21,7 +21,8 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
   isConfirmed,
 }) => {
   useEffect(() => {
-    isConfirmed && showModal && showModal()
+    if (!isConfirmed || !showModal) return
+    showModal()
   }, [isConfirmed])
 
   return (

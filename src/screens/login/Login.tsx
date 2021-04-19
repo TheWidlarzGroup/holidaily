@@ -17,7 +17,7 @@ import { Container } from 'components/Container'
 export const Login: FC = () => {
   const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const { handleLoginUser, isLoading, isLoginError } = useLogin()
+  const { handleLoginUser, isLoading, loginErrorMessage } = useLogin()
   const passwordRef = useRef<TextInput>(null)
   const { t } = useTranslation('login')
 
@@ -26,8 +26,8 @@ export const Login: FC = () => {
   }, [navigation])
 
   useEffect(() => {
-    if (isLoginError?.isError) createAlert('Login Error', isLoginError.message)
-  }, [isLoginError])
+    if (loginErrorMessage) createAlert('Login Error', loginErrorMessage)
+  }, [loginErrorMessage])
 
   const onSubmitEditing = () => {
     passwordRef?.current?.focus()

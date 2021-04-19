@@ -10,6 +10,7 @@ import { useConfirmAccount } from 'hooks/useConfirmAccount'
 import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
 import { useTranslation } from 'react-i18next'
+import { useUserContext } from 'hooks/useUserContext'
 
 type RouteProps = {
   key: string
@@ -20,6 +21,9 @@ type RouteProps = {
 }
 
 export const ConfirmedAccount: FC = () => {
+  const {
+    user: { email },
+  } = useUserContext()
   const { handleConfirmAccount, isLoading, isSuccess, confirmErrorMessage } = useConfirmAccount()
   const [isModalVisible, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
   const { params } = useRoute<RouteProps>()
@@ -34,7 +38,7 @@ export const ConfirmedAccount: FC = () => {
   useEffect(() => {
     if (params) {
       const { token } = params
-      handleConfirmAccount({ email: 'mateki0@interia.pl', token })
+      handleConfirmAccount({ email, token })
     }
   }, [params])
 
