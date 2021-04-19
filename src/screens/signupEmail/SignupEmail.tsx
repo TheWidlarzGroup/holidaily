@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
@@ -17,6 +17,7 @@ import { useSignup } from '../../hooks/useSignup'
 import { createAlert } from '../../utils/createAlert'
 import useBooleanState from '../../hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
+import { useFocusEffect } from '@react-navigation/native'
 
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
@@ -39,6 +40,12 @@ export const SignupEmail: FC = () => {
       showModal()
     }
   }, [isSuccess])
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => hideModal()
+    }, [])
+  )
 
   return (
     <SafeAreaView style={styles.container}>
