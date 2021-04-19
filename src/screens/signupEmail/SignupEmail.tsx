@@ -42,7 +42,7 @@ export const SignupEmail: FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Box height={95} justifyContent="center" zIndex={999}>
+      <Box height={95} justifyContent="center">
         <Text variant="title1">{t('signupEmailTitle')}</Text>
       </Box>
       <KeyboardAvoidingView
