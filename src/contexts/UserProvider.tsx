@@ -9,6 +9,7 @@ const testUser = {
   firstName: '',
   lastName: '',
   email: '',
+  isConfirmed: false,
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {

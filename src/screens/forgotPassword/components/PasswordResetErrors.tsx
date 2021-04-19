@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, theme } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 
 type PasswordResetErrorsProps = {
@@ -28,11 +28,7 @@ export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, s
       </Box>
       <Box paddingBottom="m">
         <TouchableOpacity onPress={hideModal} activeOpacity={1}>
-          <CustomButton
-            label={t('errorBtnText')}
-            variant="blackBgButton"
-            paddingVertical={theme.spacing.xs}
-          />
+          <CustomButton label={t('errorBtnText')} variant="blackBgButton" />
         </TouchableOpacity>
       </Box>
     </Box>
