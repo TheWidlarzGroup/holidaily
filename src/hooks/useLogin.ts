@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
-import { AppNavigationType } from 'navigation/types'
+import { AppNavigationType, AuthNavigationType } from 'navigation/types'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
@@ -17,7 +17,7 @@ const customErrorMessage = (errorMessage: string) => {
 
 export const useLogin = () => {
   const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
-  const navigation = useNavigation<AppNavigationType<'Login'>>()
+  const navigation = useNavigation<AuthNavigationType<'Login'>>()
   const { handleUserDataChange } = useUserContext()
   const { mutateAsync: handleLoginUser, isLoading } = useMutation<
     UserTypes,
@@ -39,7 +39,10 @@ export const useLogin = () => {
 
         await SecureStorage.setItem('token', token)
 
-        navigation.navigate('Home')
+        navigation.navigate('DrawerNavigator', {
+          screen: 'BottomTabNavigator',
+          params: { screen: 'Dashboard' },
+        })
       } else {
         const errorObject = {
           isError: true,
