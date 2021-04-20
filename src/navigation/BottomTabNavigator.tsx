@@ -4,8 +4,9 @@ import { Signup } from 'screens/signup/Signup'
 import { Login } from 'screens/login/Login'
 import { ForgotPassword } from 'screens/forgotPassword/ForgotPassword'
 import { HomeStackNavigator } from './index'
+import { BottomRoutes } from './types'
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<BottomRoutes>()
 
 export const BottomTabNavigator = () => (
   <Tab.Navigator>

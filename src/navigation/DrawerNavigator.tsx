@@ -4,8 +4,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { BottomTabNavigator } from './BottomTabNavigator'
 import { Login } from 'screens/login/Login'
 import { Signup } from 'screens/signup/Signup'
+import { DrawerRoutes } from './types'
 
-const Drawer = createDrawerNavigator()
+const Drawer = createDrawerNavigator<DrawerRoutes>()
 
 export const DrawerNavigator = () => {
   return (
