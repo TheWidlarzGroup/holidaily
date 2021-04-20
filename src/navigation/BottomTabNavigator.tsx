@@ -1,18 +1,18 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Signup } from 'screens/signup/Signup'
-import { Login } from 'screens/login/Login'
-import { ForgotPassword } from 'screens/forgotPassword/ForgotPassword'
-import { HomeStackNavigator } from './index'
-import { BottomRoutes } from './types'
+import { BottomTabRoutes } from './types'
+import { Dashboard } from 'screens/dashboard/Dashboard'
+import { Calendar } from 'screens/calendar/Calendar'
+import { Panel } from 'screens/panel/Panel'
+import { Chat } from 'screens/chat/Chat'
 
-const Tab = createBottomTabNavigator<BottomRoutes>()
+const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
 export const BottomTabNavigator = () => (
   <Tab.Navigator>
-    <Tab.Screen name="Home" component={HomeStackNavigator} />
-    <Tab.Screen name="Login" component={Login} />
-    <Tab.Screen name="Signup" component={Signup} />
-    <Tab.Screen name="ForgotPassword" component={ForgotPassword} />
+    <Tab.Screen name="Dashboard" component={Dashboard} />
+    <Tab.Screen name="Calendar" component={Calendar} />
+    <Tab.Screen name="Panel" component={Panel} />
+    <Tab.Screen name="Chat" component={Chat} />
   </Tab.Navigator>
 )

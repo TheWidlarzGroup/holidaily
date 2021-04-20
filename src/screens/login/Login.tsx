@@ -4,7 +4,7 @@ import { TouchableOpacity, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { useLogin } from 'hooks/useLogin'
@@ -15,7 +15,7 @@ import { createAlert } from 'utils/createAlert'
 import { Container } from 'components/Container'
 
 export const Login: FC = () => {
-  const navigation = useNavigation<AppNavigationType<'Login'>>()
+  const navigation = useNavigation<AuthNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
   const { handleLogin, isLoading, isLoginError } = useLogin()
   const passwordRef = useRef<TextInput>(null)
