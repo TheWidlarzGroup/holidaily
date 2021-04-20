@@ -15,7 +15,7 @@ export const AppNavigation = () => {
   return (
     <NavigationContainer linking={linking}>
       <AppStack.Navigator headerMode="none">
-        {user.email ? (
+        {user !== null && user.email ? (
           <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
         ) : (
           <AppStack.Screen name="AuthStackNavigation" component={AuthStackNavigation} />

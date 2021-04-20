@@ -37,7 +37,7 @@ export type DrawerNavigationType<RouteName extends keyof DrawerRoutes> = Composi
 
 export type DrawerNavigationProps<RouteName extends keyof DrawerRoutes> = {
   navigation: CompositeNavigationProp<
-    DrawerNavigationProp<DrawerRoutes, RouteName>,
+    StackNavigationProp<DrawerRoutes, RouteName>,
     BottomTabNavigationProp<BottomTabRoutes>
   >
   route: RouteProp<DrawerRoutes, RouteName>
@@ -65,6 +65,7 @@ export type DrawerRoutes = {
   BottomTabNavigator: NestedNavigatorParams<BottomTabRoutes>
   About: undefined
   Settings: undefined
+  Logout: undefined
 }
 
 export type AuthRoutes = {

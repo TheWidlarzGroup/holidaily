@@ -8,7 +8,7 @@ export type UserData = {
 
 export type ContextProps = {
   user: UserData
-  handleUserDataChange: (userData: UserData) => void
+  handleUserDataChange: (userData: UserData | null) => void
 }
 
 export const UserContext = createContext<ContextProps | null>(null)
