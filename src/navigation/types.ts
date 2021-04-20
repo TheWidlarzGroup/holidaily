@@ -10,16 +10,14 @@ export type AuthNavigationType<RouteName extends keyof AuthRoutes> = CompositeNa
 >
 
 export type AuthNavigationProps<RouteName extends keyof AuthRoutes> = {
-  navigation: StackNavigationProp<AppRoutes, 'Authentication'>
-  route: RouteProp<AuthRoutes, RouteName>
+  navigation: StackNavigationProp<AuthRoutes, RouteName>
+  route: RouteProp<AppRoutes, 'Authentication'>
 }
 
 // for useNavigation hook
-export type BottomTabNavigationType<
-  RouteName extends keyof BottomTabRoutes
-> = CompositeNavigationProp<
-  StackNavigationProp<BottomTabRoutes, RouteName>,
-  StackNavigationProp<BottomTabRoutes>
+export type BottomTabNavigationType<RouteName extends keyof BottomTabRoutes> = StackNavigationProp<
+  BottomTabRoutes,
+  RouteName
 >
 
 export type BottomTabNavigationProps<RouteName extends keyof BottomTabRoutes> = {
@@ -30,7 +28,7 @@ export type BottomTabNavigationProps<RouteName extends keyof BottomTabRoutes> = 
 // for useNavigation hook
 export type DrawerNavigationType<RouteName extends keyof DrawerRoutes> = CompositeNavigationProp<
   StackNavigationProp<DrawerRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'Home'>
+  StackNavigationProp<AppRoutes, 'Main'>
 >
 
 export type DrawerNavigationProps<RouteName extends keyof DrawerRoutes> = {
@@ -49,7 +47,7 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
 
 export type AppRoutes = {
   Authentication: AuthRoutes
-  Home: DrawerRoutes
+  Main: DrawerRoutes
 }
 
 export type BottomTabRoutes = {

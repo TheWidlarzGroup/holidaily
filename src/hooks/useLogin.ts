@@ -17,7 +17,7 @@ const customErrorMessage = (errorMessage: string) => {
 
 export const useLogin = () => {
   const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
-  const navigation = useNavigation<AppNavigationType<'Home'>>()
+  const navigation = useNavigation<AppNavigationType<'Login'>>()
   const { handleUserDataChange } = useUserContext()
   const { mutateAsync: handleLoginUser, isLoading } = useMutation<
     UserTypes,
