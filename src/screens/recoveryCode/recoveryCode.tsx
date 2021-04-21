@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 
@@ -8,9 +8,8 @@ import { CustomButton } from 'components/CustomButton'
 import { RecoveryCodeInput } from 'components/RecoveryCodeInput'
 import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 import useBooleanState from 'hooks/useBooleanState'
-import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
-import { useEffect } from 'react'
 import { Container } from 'components/Container'
+import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 export const RecoveryCode: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)

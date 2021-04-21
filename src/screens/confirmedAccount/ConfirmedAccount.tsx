@@ -42,10 +42,10 @@ export const ConfirmedAccount: FC = () => {
   }, [params])
 
   useEffect(() => {
-    if (confirmErrorMessage === t('invalidToken')) {
+    if (confirmErrorMessage !== t('invalidToken')) {
+      createAlert('Confirm Error', confirmErrorMessage, navigateToLogin)
+    } else if (confirmErrorMessage && confirmErrorMessage !== t('invalidToken')) {
       createAlert('Confirm Error', confirmErrorMessage, showModal)
-    } else {
-      confirmErrorMessage && createAlert('Confirm Error', confirmErrorMessage, navigateToLogin)
     }
   }, [confirmErrorMessage])
 

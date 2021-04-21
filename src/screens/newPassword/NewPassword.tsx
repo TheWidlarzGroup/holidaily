@@ -27,7 +27,11 @@ export const NewPassword: FC = () => {
     const { password, confirmPassword } = watch(['password', 'confirmPassword'])
     const passwordsAreEqual = checkIfPasswordsMatch(password, confirmPassword)
 
-    !passwordsAreEqual ? setPasswordsAreNotEqual() : setArePasswordsEqual()
+    if (!passwordsAreEqual) {
+      setPasswordsAreNotEqual()
+    } else {
+      setArePasswordsEqual()
+    }
   }, [watch('password'), watch('confirmPassword')])
 
   const handleUpdatePassword = () => arePasswordsEqual && showModal()
@@ -59,7 +63,6 @@ export const NewPassword: FC = () => {
             passwordsAreEqual={arePasswordsEqual}
             onSubmitEditing={onSubmitEditing}
             blurOnSubmit={false}
-            required
             isPasswordIconVisible
           />
         </Box>
@@ -75,7 +78,6 @@ export const NewPassword: FC = () => {
             screenName="NewPassword"
             passwordsAreEqual={arePasswordsEqual}
             ref={passwordConfirmationRef}
-            required
             isPasswordIconVisible
           />
         </Box>

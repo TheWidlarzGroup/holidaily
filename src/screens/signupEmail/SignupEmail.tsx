@@ -68,7 +68,6 @@ export const SignupEmail: FC = () => {
               errorMessage={t('nameSurnameErrMsg')}
               onSubmitEditing={() => onSubmitEditing(0)}
               blurOnSubmit={false}
-              required
             />
           </Box>
           <Box>
@@ -83,7 +82,6 @@ export const SignupEmail: FC = () => {
               onSubmitEditing={() => onSubmitEditing(1)}
               blurOnSubmit={false}
               ref={inputsRefs[0]}
-              required
             />
           </Box>
           <Box>
@@ -100,7 +98,6 @@ export const SignupEmail: FC = () => {
               autoCompleteType="email"
               blurOnSubmit={false}
               ref={inputsRefs[1]}
-              required
             />
           </Box>
           <Box>
@@ -115,7 +112,6 @@ export const SignupEmail: FC = () => {
               ref={inputsRefs[2]}
               signupPasswordHint={t('passwordHint')}
               isPasswordIconVisible
-              required
             />
           </Box>
           <Box marginTop="xxl">

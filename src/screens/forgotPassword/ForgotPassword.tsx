@@ -18,7 +18,7 @@ const simulateLoading = () => new Promise((r) => setTimeout(r, 1000))
 export const ForgotPassword: FC = () => {
   const [isLoading, { setFalse: endLoading, setTrue: startLoading }] = useBooleanState(false)
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
-  const { control, handleSubmit, errors, getValues } = useForm()
+  const { control, errors, getValues } = useForm()
   const { t } = useTranslation('forgotPassword')
   const navigation = useNavigation<AuthNavigationType<'ForgotPassword'>>()
 
