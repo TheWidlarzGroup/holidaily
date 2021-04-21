@@ -1,23 +1,21 @@
 import React, { FC, useEffect, useRef } from 'react'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { colors } from '../../utils/theme/colors'
-import { Box, Text, theme } from '../../utils/theme/index'
-import { FormInput } from '../../components/FormInput'
-import { emailRegex } from '../../utils/regexes/emailRegex'
-import { passwordRegex } from '../../utils/regexes/passwordRegex'
-import { minOneSignRegex } from '../../utils/regexes/minOneSignRegex'
-import { minTwoWordsRegex } from '../../utils/regexes/minTwoWordsRegex'
-import { isIos } from '../../utils/isIos'
-import { CustomButton } from '../../components/CustomButton'
-import { useSignup } from '../../hooks/useSignup'
-import { createAlert } from '../../utils/createAlert'
-import useBooleanState from '../../hooks/useBooleanState'
+import { Box, Text } from 'utils/theme/index'
+import { FormInput } from 'components/FormInput'
+import { emailRegex } from 'utils/regexes/emailRegex'
+import { passwordRegex } from 'utils/regexes/passwordRegex'
+import { minOneSignRegex } from 'utils/regexes/minOneSignRegex'
+import { minTwoWordsRegex } from 'utils/regexes/minTwoWordsRegex'
+import { isIos } from 'utils/isIos'
+import { CustomButton } from 'components/CustomButton'
+import { useSignup } from 'hooks/useSignup'
+import { createAlert } from 'utils/createAlert'
+import useBooleanState from 'hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
@@ -42,7 +40,7 @@ export const SignupEmail: FC = () => {
   }, [isSuccess])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaWrapper>
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('signupEmailTitle')}</Text>
       </Box>
@@ -125,17 +123,12 @@ export const SignupEmail: FC = () => {
         </Box>
       </KeyboardAvoidingView>
       <PendingAccountConfirmationModal isVisible={isModalVisible} onClose={hideModal} />
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
 
 const styles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
   },
 })

@@ -8,7 +8,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 import { colors } from 'utils/theme/colors'
 import { Box } from 'utils/theme/index'
 
@@ -42,7 +42,7 @@ const SLIDER_DATA = [
 const { width } = Dimensions.get('window')
 
 export const Slider: FC = () => {
-  const navigation = useNavigation<AppNavigationType<'Slider'>>()
+  const navigation = useNavigation<AuthNavigationType<'Slider'>>()
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')

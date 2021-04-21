@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { RecoveryCodeInput } from 'components/RecoveryCodeInput'
@@ -17,7 +17,7 @@ export const RecoveryCode: FC = () => {
   const [recoveryCode, setRecoveryCode] = useState('')
   const { t } = useTranslation('recoveryCode')
 
-  const navigation = useNavigation<AppNavigationType<'RecoveryCode'>>()
+  const navigation = useNavigation<AuthNavigationType<'RecoveryCode'>>()
 
   useEffect(() => {
     // Hard coded for now, just for testing and presentation

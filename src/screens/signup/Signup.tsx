@@ -1,15 +1,15 @@
 import React, { FC, useCallback } from 'react'
-import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
+import { AuthNavigationType } from 'navigation/types'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 export const Signup: FC = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<AuthNavigationType<'Signup'>>()
 
   const { t } = useTranslation('signup')
 
@@ -18,7 +18,7 @@ export const Signup: FC = () => {
   }, [navigation])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaWrapper>
       <Box flex={0.4} justifyContent="center" maxWidth={300}>
         <Text variant="title1">{t('signupTitle')}</Text>
       </Box>
@@ -44,16 +44,6 @@ export const Signup: FC = () => {
           onPress={navigateToTestScreen}
         />
       </Box>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  modal: {
-    marginHorizontal: theme.spacing.l,
-  },
-})

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 import { Box, Text, theme } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
@@ -23,7 +23,7 @@ export const ForgotPassword: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors, getValues } = useForm()
   const { t } = useTranslation('forgotPassword')
-  const navigation = useNavigation<AppNavigationType<'ForgotPassword'>>()
+  const navigation = useNavigation<AuthNavigationType<'ForgotPassword'>>()
 
   const handlePasswordReset = () => {
     // Hard coded for now, just for testing and presentation
