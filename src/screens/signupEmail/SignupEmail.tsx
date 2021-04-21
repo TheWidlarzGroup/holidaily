@@ -1,23 +1,22 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-
-import { colors } from '../../utils/theme/colors'
-import { Box, Text } from '../../utils/theme/index'
-import { FormInput } from '../../components/FormInput'
-import { emailRegex } from '../../utils/regexes/emailRegex'
-import { passwordRegex } from '../../utils/regexes/passwordRegex'
-import { minOneSignRegex } from '../../utils/regexes/minOneSignRegex'
-import { minTwoWordsRegex } from '../../utils/regexes/minTwoWordsRegex'
-import { isIos } from '../../utils/isIos'
-import { CustomButton } from '../../components/CustomButton'
-import { useSignup } from '../../hooks/useSignup'
-import { createAlert } from '../../utils/createAlert'
-import useBooleanState from '../../hooks/useBooleanState'
-import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 import { useFocusEffect } from '@react-navigation/native'
+
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { Box, Text } from 'utils/theme/index'
+import { FormInput } from 'components/FormInput'
+import { emailRegex } from 'utils/regexes/emailRegex'
+import { passwordRegex } from 'utils/regexes/passwordRegex'
+import { minOneSignRegex } from 'utils/regexes/minOneSignRegex'
+import { minTwoWordsRegex } from 'utils/regexes/minTwoWordsRegex'
+import { isIos } from 'utils/isIos'
+import { CustomButton } from 'components/CustomButton'
+import { useSignup } from 'hooks/useSignup'
+import { createAlert } from 'utils/createAlert'
+import useBooleanState from 'hooks/useBooleanState'
+import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 
 export const SignupEmail: FC = () => {
   const { handleSignup, isLoading, signupErrorMessage, isSuccess } = useSignup()
@@ -42,14 +41,16 @@ export const SignupEmail: FC = () => {
   }, [isSuccess])
 
   useFocusEffect(
-    useCallback(() => {
-      return () => hideModal()
-    }, [])
+    useCallback(
+      () => hideModal(),
+
+      []
+    )
   )
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Box height={95} justifyContent="center">
+    <SafeAreaWrapper>
+      <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('signupEmailTitle')}</Text>
       </Box>
       <KeyboardAvoidingView
@@ -59,7 +60,7 @@ export const SignupEmail: FC = () => {
           <Box>
             <FormInput
               control={control}
-              isError={!!errors['nameSurname']}
+              isError={!!errors.nameSurname}
               errors={errors}
               name="nameSurname"
               inputLabel={t('nameSurname')}
@@ -67,13 +68,12 @@ export const SignupEmail: FC = () => {
               errorMessage={t('nameSurnameErrMsg')}
               onSubmitEditing={() => onSubmitEditing(0)}
               blurOnSubmit={false}
-              required
             />
           </Box>
           <Box>
             <FormInput
               control={control}
-              isError={!!errors['companyName']}
+              isError={!!errors.companyName}
               errors={errors}
               name="companyName"
               inputLabel={t('companyName')}
@@ -82,13 +82,12 @@ export const SignupEmail: FC = () => {
               onSubmitEditing={() => onSubmitEditing(1)}
               blurOnSubmit={false}
               ref={inputsRefs[0]}
-              required
             />
           </Box>
           <Box>
             <FormInput
               control={control}
-              isError={!!errors['email']}
+              isError={!!errors.email}
               errors={errors}
               name="email"
               inputLabel={t('email')}
@@ -99,13 +98,12 @@ export const SignupEmail: FC = () => {
               autoCompleteType="email"
               blurOnSubmit={false}
               ref={inputsRefs[1]}
-              required
             />
           </Box>
           <Box>
             <FormInput
               control={control}
-              isError={!!errors['password']}
+              isError={!!errors.password}
               errors={errors}
               name="password"
               inputLabel={t('password')}
@@ -114,7 +112,6 @@ export const SignupEmail: FC = () => {
               ref={inputsRefs[2]}
               signupPasswordHint={t('passwordHint')}
               isPasswordIconVisible
-              required
             />
           </Box>
           <Box marginTop="xxl">
@@ -133,17 +130,12 @@ export const SignupEmail: FC = () => {
         </Box>
       </KeyboardAvoidingView>
       <PendingAccountConfirmationModal isVisible={isModalVisible} hideModal={hideModal} />
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
 
 const styles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
   },
 })

@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useRef, useEffect } from 'react'
 import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
@@ -9,10 +9,9 @@ import { CustomButton } from 'components/CustomButton'
 import { passwordRegex } from 'utils/regexes/passwordRegex'
 import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
-import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 import useBooleanState from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
-import { useEffect } from 'react'
+import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 
 export const NewPassword: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
@@ -28,12 +27,14 @@ export const NewPassword: FC = () => {
     const { password, confirmPassword } = watch(['password', 'confirmPassword'])
     const passwordsAreEqual = checkIfPasswordsMatch(password, confirmPassword)
 
-    !passwordsAreEqual ? setPasswordsAreNotEqual() : setArePasswordsEqual()
+    if (!passwordsAreEqual) {
+      setPasswordsAreNotEqual()
+    } else {
+      setArePasswordsEqual()
+    }
   }, [watch('password'), watch('confirmPassword')])
 
-  const handleUpdatePassword = () => {
-    arePasswordsEqual && showModal()
-  }
+  const handleUpdatePassword = () => arePasswordsEqual && showModal()
 
   const onSubmitEditing = () => {
     passwordConfirmationRef?.current?.focus()
@@ -52,7 +53,7 @@ export const NewPassword: FC = () => {
         <Box marginBottom="m">
           <FormInput
             control={control}
-            isError={!!errors['password'] || !arePasswordsEqual}
+            isError={!!errors.password || !arePasswordsEqual}
             errors={errors}
             name="password"
             inputLabel={t('password:password')}
@@ -62,14 +63,13 @@ export const NewPassword: FC = () => {
             passwordsAreEqual={arePasswordsEqual}
             onSubmitEditing={onSubmitEditing}
             blurOnSubmit={false}
-            required
             isPasswordIconVisible
           />
         </Box>
         <Box>
           <FormInput
             control={control}
-            isError={!!errors['confirmPassword'] || !arePasswordsEqual}
+            isError={!!errors.confirmPassword || !arePasswordsEqual}
             errors={errors}
             name="confirmPassword"
             inputLabel={t('password:confirmNewPassword')}
@@ -78,7 +78,6 @@ export const NewPassword: FC = () => {
             screenName="NewPassword"
             passwordsAreEqual={arePasswordsEqual}
             ref={passwordConfirmationRef}
-            required
             isPasswordIconVisible
           />
         </Box>

@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { UserTypes, ErrorTypes } from 'types/useLoginTypes'
-import { AppNavigationType } from 'navigation/types'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
@@ -17,23 +15,18 @@ const customErrorMessage = (errorMessage: string) => {
 
 export const useLogin = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState('')
-  const navigation = useNavigation<AppNavigationType<'Login'>>()
-  const { handleUserDataChange, user } = useUserContext()
+
+  const { updateUser } = useUserContext()
   const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, any>(
     loginMutation,
     {
       onSuccess: async (data: UserTypes) => {
-        const {
-          token,
-          user: { confirmed, firstName, lastName, email },
-        } = data.loginUser
+        const { token, user } = data.loginUser
 
-        if (confirmed) {
-          handleUserDataChange({ ...user, firstName: firstName, lastName: lastName, email: email })
+        if (user.confirmed) {
+          updateUser(user)
 
           await SecureStorage.setItem('token', token)
-
-          navigation.navigate('Home')
         } else {
           const errorMessage = 'Please confirm your account'
 

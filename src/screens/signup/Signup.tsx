@@ -1,24 +1,29 @@
 import React, { FC, useCallback } from 'react'
-import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
+import { AuthNavigationType } from 'navigation/types'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export const Signup: FC = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<AuthNavigationType<'Signup'>>()
 
   const { t } = useTranslation('signup')
 
-  const navigateToTestScreen = useCallback(() => {
+  const navigateToSignupEmail = useCallback(() => {
     navigation.navigate('SignupEmail')
   }, [navigation])
 
+  const navigateToLogin = useCallback(() => {
+    navigation.navigate('Login')
+  }, [navigation])
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaWrapper>
       <Box flex={0.4} justifyContent="center" maxWidth={300}>
         <Text variant="title1">{t('signupTitle')}</Text>
       </Box>
@@ -40,20 +45,21 @@ export const Signup: FC = () => {
         <CustomButton
           label={t('signupWEmail')}
           variant="primary"
-          marginTop={theme.spacing.xl}
-          onPress={navigateToTestScreen}
+          marginTop={theme.spacing.l}
+          onPress={navigateToSignupEmail}
         />
+        <Box flexDirection="row" padding="m" justifyContent="center" alignItems="center">
+          <Text variant="body1" paddingRight={'xm'}>
+            {t('alreadyHaveAccount')}
+          </Text>
+          {/* FIXME: refactor need, reusable component TextLink */}
+          <TouchableOpacity onPress={navigateToLogin}>
+            <Text variant="body1" color={'primary'}>
+              Log in
+            </Text>
+          </TouchableOpacity>
+        </Box>
       </Box>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  modal: {
-    marginHorizontal: theme.spacing.l,
-  },
-})

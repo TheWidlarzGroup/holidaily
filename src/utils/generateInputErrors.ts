@@ -1,11 +1,12 @@
 import { FieldErrors } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 
 type GenerateInputErrorsTypes = {
   errors: FieldErrors
   name: string
   passwordsAreEqual?: boolean
   screenName?: string
+  t: TFunction<'inputErrors'>
 }
 
 export const generateInputErrors = ({
@@ -13,8 +14,8 @@ export const generateInputErrors = ({
   name,
   passwordsAreEqual,
   screenName,
+  t,
 }: GenerateInputErrorsTypes) => {
-  const { t } = useTranslation('inputErrors')
   if (errors[name]) {
     return errors[name].message
   }

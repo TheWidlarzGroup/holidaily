@@ -4,9 +4,9 @@ import { Controller, Control, FieldErrors } from 'react-hook-form'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { Text } from 'utils/theme/index'
-import { CustomInput } from './CustomInput'
 import { generateInputErrors } from 'utils/generateInputErrors'
 import { useTranslation } from 'react-i18next'
+import { CustomInput } from './CustomInput'
 
 type FormInputTypes = {
   control: Control
@@ -15,7 +15,6 @@ type FormInputTypes = {
   inputLabel: string
   validationPattern: RegExp
   errorMessage: string
-  required?: boolean
   signupPasswordHint?: string
   isPasswordIconVisible?: boolean
   passwordsAreEqual?: boolean
@@ -32,7 +31,6 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       inputLabel,
       validationPattern,
       errorMessage,
-      required,
       signupPasswordHint,
       isPasswordIconVisible,
       passwordsAreEqual,
@@ -84,7 +82,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
 
         <Animated.View style={progressStyle}>
           <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
-            {generateInputErrors({ errors, name, passwordsAreEqual, screenName })}
+            {generateInputErrors({ errors, name, passwordsAreEqual, screenName, t })}
           </Text>
         </Animated.View>
 

@@ -1,16 +1,16 @@
-import React, { FC, useCallback, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { StyleSheet, ActivityIndicator } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { AppNavigationType } from 'navigation/types'
+import { ActivityIndicator } from 'react-native'
+import { AuthNavigationType } from 'navigation/types'
+import { useTranslation } from 'react-i18next'
 
-import useBooleanState from '../../hooks/useBooleanState'
-import { PendingAccountConfirmationModal } from '../signupEmail/components/PendingAccountConfirmationModal'
+import useBooleanState from 'hooks/useBooleanState'
 import { useConfirmAccount } from 'hooks/useConfirmAccount'
 import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
-import { useTranslation } from 'react-i18next'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useUserContext } from 'hooks/useUserContext'
+import { PendingAccountConfirmationModal } from '../signupEmail/components/PendingAccountConfirmationModal'
 
 type RouteProps = {
   key: string
@@ -28,8 +28,7 @@ export const ConfirmedAccount: FC = () => {
   const [isModalVisible, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
   const { params } = useRoute<RouteProps>()
   const { t } = useTranslation('mutationsErrors')
-
-  const navigation = useNavigation<AppNavigationType<'ConfirmedAccount'>>()
+  const navigation = useNavigation<AuthNavigationType<'ConfirmedAccount'>>()
 
   const navigateToLogin = useCallback(() => {
     navigation.navigate('Login')
@@ -43,10 +42,10 @@ export const ConfirmedAccount: FC = () => {
   }, [params])
 
   useEffect(() => {
-    if (confirmErrorMessage === t('invalidToken')) {
+    if (confirmErrorMessage !== t('invalidToken')) {
+      createAlert('Confirm Error', confirmErrorMessage, navigateToLogin)
+    } else if (confirmErrorMessage && confirmErrorMessage !== t('invalidToken')) {
       createAlert('Confirm Error', confirmErrorMessage, showModal)
-    } else {
-      confirmErrorMessage && createAlert('Confirm Error', confirmErrorMessage, navigateToLogin)
     }
   }, [confirmErrorMessage])
 
@@ -55,19 +54,13 @@ export const ConfirmedAccount: FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaWrapper>
       <PendingAccountConfirmationModal
         isVisible={isModalVisible}
         isConfirmed={isSuccess}
         hideModal={hideModal}
         showModal={showModal}
       />
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-})

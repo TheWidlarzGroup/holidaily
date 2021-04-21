@@ -8,7 +8,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 import { colors } from 'utils/theme/colors'
 import { Box } from 'utils/theme/index'
 
@@ -42,7 +42,7 @@ const SLIDER_DATA = [
 const { width } = Dimensions.get('window')
 
 export const Slider: FC = () => {
-  const navigation = useNavigation<AppNavigationType<'Slider'>>()
+  const navigation = useNavigation<AuthNavigationType<'Slider'>>()
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
@@ -55,7 +55,7 @@ export const Slider: FC = () => {
 
   const handlePressButton = useCallback(() => {
     if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-      navigation.navigate('Home')
+      navigation.navigate('Signup')
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }
@@ -87,7 +87,7 @@ export const Slider: FC = () => {
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <Box maxWidth={300} marginBottom="xl">
-        <CustomButton variant="blackBgButton" label="Next" onPress={handlePressButton} />
+        <CustomButton variant="blackBgButton" label={t('next')} onPress={handlePressButton} />
       </Box>
     </SafeAreaView>
   )

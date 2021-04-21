@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 
 type SecondRegisterDialogBoxTypes = {
   hideModal: () => void
@@ -13,7 +13,7 @@ type SecondRegisterDialogBoxTypes = {
 export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hideModal }) => {
   const { t } = useTranslation('modal')
 
-  const navigation = useNavigation<AppNavigationType<'ConfirmedAccount'>>()
+  const navigation = useNavigation<AuthNavigationType<'ConfirmedAccount'>>()
 
   const navigateToLogin = useCallback(() => {
     hideModal()
