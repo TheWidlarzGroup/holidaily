@@ -5,17 +5,19 @@ import { DrawerRoutes } from './types'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { BottomTabNavigator } from './BottomTabNavigator'
-import { Logout } from 'components/Logout'
+import { CustomDrawerContent } from './CustomDrawerContent'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
 export const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      initialRouteName="About"
+      drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Drawer.Screen name="About" component={About} />
       <Drawer.Screen name="Settings" component={Settings} />
-      <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   )
 }
+// options={{ swipeEnabled: false }}

@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
-import { AppNavigationType, AuthNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
@@ -38,11 +38,7 @@ export const useLogin = () => {
         })
 
         await SecureStorage.setItem('token', token)
-
-        navigation.navigate('DrawerNavigator', {
-          screen: 'BottomTabNavigator',
-          params: { screen: 'Dashboard' },
-        })
+        navigation.navigate('BottomTabNavigator')
       } else {
         const errorObject = {
           isError: true,

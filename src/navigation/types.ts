@@ -52,6 +52,7 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
+  BottomTabNavigator: NestedNavigatorParams<BottomTabRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -65,7 +66,6 @@ export type DrawerRoutes = {
   BottomTabNavigator: NestedNavigatorParams<BottomTabRoutes>
   About: undefined
   Settings: undefined
-  Logout: undefined
 }
 
 export type AuthRoutes = {
