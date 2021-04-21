@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
 import { CustomModal } from 'components/CustomModal'
-import { UpdateModalChildren } from './UpdateModalChildren'
 import { theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
+import { UpdateModalChildren } from './UpdateModalChildren'
 
 type PasswordUpdatedModalProps = Pick<ModalProps, 'isVisible'> & { hideModal: () => void }
 

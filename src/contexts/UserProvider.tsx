@@ -5,7 +5,7 @@ type ProviderProps = {
   children: ReactNode
 }
 
-const testUser = {
+export const emptyUser = {
   firstName: '',
   lastName: '',
   email: '',
@@ -13,12 +13,12 @@ const testUser = {
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
-  const [user, setUser] = useState(testUser)
+  const [user, setUser] = useState(emptyUser)
 
-  const handleUserDataChange = (userData: UserData) => {
-    setUser(userData)
+  const updateUser = (newData: Partial<UserData>) => {
+    setUser((usr) => ({ ...usr, ...newData }))
   }
 
-  const value: ContextProps = { user, handleUserDataChange }
+  const value: ContextProps = { user, updateUser }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 })

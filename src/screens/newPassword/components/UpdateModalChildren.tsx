@@ -4,11 +4,11 @@ import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { CustomButton } from 'components/CustomButton'
 import { Box, Text, theme } from 'utils/theme/index'
-import { AppNavigationType } from 'navigation/types'
+import { AuthNavigationType } from 'navigation/types'
 
 export const UpdateModalChildren: FC = () => {
   const { t } = useTranslation('updatePasswordModal')
-  const navigation = useNavigation<AppNavigationType<'NewPassword'>>()
+  const navigation = useNavigation<AuthNavigationType<'NewPassword'>>()
 
   const navigateToLogin = useCallback(() => {
     navigation.navigate('Login')

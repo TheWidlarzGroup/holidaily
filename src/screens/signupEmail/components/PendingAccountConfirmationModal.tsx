@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
 import { CustomModal } from 'components/CustomModal'
-import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
-import { SecondRegisterDialogBox } from './SecondRegisterDialogBox'
 import { theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
+import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
+import { SecondRegisterDialogBox } from './SecondRegisterDialogBox'
 
 type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void

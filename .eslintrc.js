@@ -9,6 +9,7 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/unbound-method': 0,
+    'react/jsx-curly-brace-presence': 0,
   },
   globals: {
     __DEV__: 'readonly',

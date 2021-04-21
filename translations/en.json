@@ -44,7 +44,8 @@
     "signupTitle": "How would you like to sign in?",
     "continueWGmail": "Continue with Gmail",
     "continueWSlack": "Continue with Slack",
-    "signupWEmail": "Sign up with E-mail"
+    "signupWEmail": "Sign up with E-mail",
+    "alreadyHaveAccount" :"Already have an account?"
   },
   "login": {
     "loginTitle": "Nice to see you again!",

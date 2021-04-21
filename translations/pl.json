@@ -44,7 +44,8 @@
     "signupTitle": "Jak chciałbyś się zarejestrować?",
     "continueWGmail": "Kontynuuj z Gmailem",
     "continueWSlack": "Kontynuuj z Slackiem",
-    "signupWEmail": "Użyj adresu e-mail"
+    "signupWEmail": "Użyj adresu e-mail",
+    "alreadyHaveAccount": "Jestes juz z nami ?"
   },
   "login": {
     "loginTitle": "Miło widzieć cię ponownie!",

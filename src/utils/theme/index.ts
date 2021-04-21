@@ -47,7 +47,7 @@ export const Box = createBox<Theme>()
 export const Text = createText<Theme>()
 
 type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle }
-export const makeStyles = <T extends NamedStyles<T>>(styles: (theme: Theme) => T) => () => {
+export const makeStyles = <T extends NamedStyles<T>>(styles: (globalTheme: Theme) => T) => () => {
   const currentTheme = useTheme()
   return styles(currentTheme)
 }
