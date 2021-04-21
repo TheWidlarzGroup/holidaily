@@ -32,7 +32,7 @@ export const useSignup = () => {
     },
   })
 
-  const handleSignup = async ({ email, nameSurname, password }: HandleSignupTypes) => {
+  const handleSignup = ({ email, nameSurname, password }: HandleSignupTypes) => {
     const [firstName, lastName] = nameSurname.split(' ')
 
     handleSignupUser({ email, firstName, lastName, password })

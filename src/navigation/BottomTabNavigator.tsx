@@ -1,7 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { BottomTabRoutes } from './types'
 import { Dashboard } from 'screens/dashboard/Dashboard'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
@@ -11,6 +10,7 @@ import { CalendarIcon } from 'assets/icons/CalendarIcon'
 import { MessageIcon } from 'assets/icons/MessageIcon'
 import { PasteIcon } from 'assets/icons/PasteIcon'
 import { colors } from 'utils/theme/colors'
+import { BottomTabRoutes } from './types'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 

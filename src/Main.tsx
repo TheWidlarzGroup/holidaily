@@ -3,8 +3,8 @@ import { StatusBar } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
 
-import { darkTheme, theme } from './utils/theme'
 import { UserContextProvider } from 'contexts/UserProvider'
+import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 
 export const Main = () => {
