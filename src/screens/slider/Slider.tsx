@@ -87,7 +87,7 @@ export const Slider: FC = () => {
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <Box maxWidth={300} marginBottom="xl">
-        <CustomButton variant="blackBgButton" label="Next" onPress={handlePressButton} />
+        <CustomButton variant="blackBgButton" label={t('next')} onPress={handlePressButton} />
       </Box>
     </SafeAreaView>
   )

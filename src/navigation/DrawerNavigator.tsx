@@ -15,9 +15,8 @@ export const DrawerNavigator = () => {
       initialRouteName="About"
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="About" component={About} />
-      <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="About" component={About} options={{ swipeEnabled: false }} />
+      <Drawer.Screen name="Settings" component={Settings} options={{ swipeEnabled: false }} />
     </Drawer.Navigator>
   )
 }
-// options={{ swipeEnabled: false }}

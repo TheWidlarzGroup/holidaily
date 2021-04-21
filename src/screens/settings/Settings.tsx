@@ -10,7 +10,9 @@ export const Settings: FC = () => {
   const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
 
   const handleGoBack = useCallback(() => {
-    navigation.navigate('BottomTabNavigator')
+    navigation.navigate('Home', {
+      screen: 'Dashboard',
+    })
   }, [navigation])
 
   return (

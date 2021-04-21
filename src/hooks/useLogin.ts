@@ -38,7 +38,9 @@ export const useLogin = () => {
         })
 
         await SecureStorage.setItem('token', token)
-        navigation.navigate('BottomTabNavigator')
+        navigation.navigate('Home', {
+          screen: 'Dashboard',
+        })
       } else {
         const errorObject = {
           isError: true,
