@@ -10,7 +10,7 @@ export const About: FC = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
 
   const handleGoBack = useCallback(() => {
-    navigation.navigate('BottomTabNavigator', {
+    navigation.navigate('Home', {
       screen: 'Dashboard',
     })
   }, [navigation])

@@ -4,8 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { DrawerRoutes } from './types'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
-import { BottomTabNavigator } from './BottomTabNavigator'
 import { CustomDrawerContent } from './CustomDrawerContent'
+import { BottomTabNavigator as Home } from './BottomTabNavigator'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
@@ -14,7 +14,7 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator
       initialRouteName="About"
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
+      <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="About" component={About} />
       <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
