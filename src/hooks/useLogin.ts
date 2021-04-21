@@ -16,18 +16,15 @@ const customErrorMessage = (errorMessage: string) => {
 export const useLogin = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState('')
 
-  const { handleUserDataChange, user } = useUserContext()
+  const { updateUser } = useUserContext()
   const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, any>(
     loginMutation,
     {
       onSuccess: async (data: UserTypes) => {
-        const {
-          token,
-          user: { confirmed, firstName, lastName, email },
-        } = data.loginUser
+        const { token, user } = data.loginUser
 
-        if (confirmed) {
-          handleUserDataChange({ ...user, firstName, lastName, email })
+        if (user.confirmed) {
+          updateUser(user)
 
           await SecureStorage.setItem('token', token)
         } else {

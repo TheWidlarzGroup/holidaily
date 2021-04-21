@@ -14,7 +14,7 @@ const customErrorMessage = (errorMessage: string) => {
 }
 
 export const useSignup = () => {
-  const { handleUserDataChange, user } = useUserContext()
+  const { updateUser } = useUserContext()
   const [signupErrorMessage, setSignupErrorMessage] = useState('')
   const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
     SignupTypes,
@@ -23,7 +23,7 @@ export const useSignup = () => {
   >(signupMutation, {
     onSuccess: (data: SignupTypes) => {
       const { email } = data
-      handleUserDataChange({ ...user, email })
+      updateUser({ email })
     },
     onError: (error: ErrorTypes) => {
       const errorMessage = customErrorMessage(error.message)

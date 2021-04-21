@@ -9,12 +9,13 @@ import {
 import { CustomButton } from 'components/CustomButton'
 import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
+import { emptyUser } from 'contexts/UserProvider'
 
 export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
-  const { handleUserDataChange } = useUserContext()
+  const { updateUser } = useUserContext()
 
   const handleLogout = () => {
-    handleUserDataChange(null)
+    updateUser(emptyUser)
   }
 
   return (

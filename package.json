@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --config .prettierrc --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
