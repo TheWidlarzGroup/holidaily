@@ -16,7 +16,7 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState(emptyUser)
 
   const updateUser = (newData: Partial<UserData>) => {
-    setUser((user) => ({ ...user, ...newData }))
+    setUser((usr) => ({ ...usr, ...newData }))
   }
 
   const value: ContextProps = { user, updateUser }
