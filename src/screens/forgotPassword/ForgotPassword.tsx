@@ -5,18 +5,15 @@ import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 
 import { AuthNavigationType } from 'navigation/types'
-import { Box, Text, theme } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { emailRegex } from 'utils/regexes/emailRegex'
 import useBooleanState from 'hooks/useBooleanState'
-import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
-
 import { Container } from 'components/Container'
+import { ForgotPasswordErrorModal } from './components/ForgotPasswordErrorModal'
 
-const simulateLoading = () => {
-  return new Promise((r) => setTimeout(r, 1000))
-}
+const simulateLoading = () => new Promise((r) => setTimeout(r, 1000))
 
 export const ForgotPassword: FC = () => {
   const [isLoading, { setFalse: endLoading, setTrue: startLoading }] = useBooleanState(false)
@@ -53,6 +50,7 @@ export const ForgotPassword: FC = () => {
           <FormInput
             control={control}
             errors={errors}
+            isError={!!errors.email}
             name="email"
             inputLabel={t('email')}
             validationPattern={emailRegex}
@@ -71,7 +69,6 @@ export const ForgotPassword: FC = () => {
         <CustomButton
           label={t('forgotResetButton')}
           variant="primary"
-          paddingVertical={theme.spacing.xs}
           onPress={handlePasswordReset}
           loading={isLoading}
         />

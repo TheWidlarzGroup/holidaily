@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { ErrorTypes } from 'types/useLoginTypes'
-import { SignupTypes, CreateUserTypes, HandleSignupTypes } from 'types/useSignupTypes'
+import { SignupTypes, HandleSignupTypes } from 'types/useSignupTypes'
 import { signupMutation } from 'graphqlActions/mutations/signupMutation'
+import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
@@ -13,25 +14,29 @@ const customErrorMessage = (errorMessage: string) => {
 }
 
 export const useSignup = () => {
-  const [isSignupError, setIsSignupError] = useState<ErrorTypes>()
-  const { mutateAsync: handleSignupUser, isLoading, isSuccess } = useMutation<
-    CreateUserTypes,
+  const { handleUserDataChange, user } = useUserContext()
+  const [signupErrorMessage, setSignupErrorMessage] = useState('')
+  const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
+    SignupTypes,
     ErrorTypes,
     SignupTypes
   >(signupMutation, {
+    onSuccess: (data: SignupTypes) => {
+      const { email } = data
+      handleUserDataChange({ ...user, email })
+    },
     onError: (error: ErrorTypes) => {
-      const errorObject = {
-        isError: true,
-        message: customErrorMessage(error.message),
-      }
-      setIsSignupError(errorObject)
+      const errorMessage = customErrorMessage(error.message)
+
+      setSignupErrorMessage(errorMessage)
     },
   })
 
   const handleSignup = async ({ email, nameSurname, password }: HandleSignupTypes) => {
     const [firstName, lastName] = nameSurname.split(' ')
-    await handleSignupUser({ email, firstName, lastName, password })
+
+    handleSignupUser({ email, firstName, lastName, password })
   }
 
-  return { handleSignup, isLoading, isSignupError, isSuccess }
+  return { handleSignup, isLoading, signupErrorMessage, isSuccess }
 }

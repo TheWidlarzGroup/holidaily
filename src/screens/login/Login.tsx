@@ -17,7 +17,7 @@ import { Container } from 'components/Container'
 export const Login: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
-  const { handleLogin, isLoading, isLoginError } = useLogin()
+  const { handleLoginUser, isLoading, loginErrorMessage } = useLogin()
   const passwordRef = useRef<TextInput>(null)
   const { t } = useTranslation('login')
 
@@ -26,12 +26,14 @@ export const Login: FC = () => {
   }, [navigation])
 
   useEffect(() => {
-    if (isLoginError?.isError) createAlert('Login Error', isLoginError.message)
-  }, [isLoginError])
+    if (loginErrorMessage) createAlert('Login Error', loginErrorMessage)
+  }, [loginErrorMessage])
 
   const onSubmitEditing = () => {
     passwordRef?.current?.focus()
   }
+
+  const onLoginSubmit = handleSubmit((data) => handleLoginUser(data))
 
   return (
     <Container>
@@ -45,7 +47,7 @@ export const Login: FC = () => {
         <Box marginBottom="m">
           <FormInput
             control={control}
-            isError={!!errors['email']}
+            isError={!!errors.email}
             errors={errors}
             name="email"
             inputLabel="E-mail Address"
@@ -61,7 +63,7 @@ export const Login: FC = () => {
         <Box>
           <FormInput
             control={control}
-            isError={!!errors['password']}
+            isError={!!errors.password}
             errors={errors}
             name="password"
             inputLabel="Password"
@@ -85,7 +87,7 @@ export const Login: FC = () => {
         <CustomButton
           label={t('loginButton')}
           variant="primary"
-          onPress={handleSubmit(handleLogin)}
+          onPress={onLoginSubmit}
           loading={isLoading}
         />
       </Box>

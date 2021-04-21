@@ -16,6 +16,5 @@ export type UserTypes = {
 }
 
 export type ErrorTypes = {
-  isError: boolean
   message: string
 }

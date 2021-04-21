@@ -1,8 +1,10 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { useFocusEffect } from '@react-navigation/native'
 
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { emailRegex } from 'utils/regexes/emailRegex'
@@ -15,10 +17,9 @@ import { useSignup } from 'hooks/useSignup'
 import { createAlert } from 'utils/createAlert'
 import useBooleanState from 'hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 export const SignupEmail: FC = () => {
-  const { handleSignup, isLoading, isSignupError, isSuccess } = useSignup()
+  const { handleSignup, isLoading, signupErrorMessage, isSuccess } = useSignup()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
@@ -30,14 +31,22 @@ export const SignupEmail: FC = () => {
   }
 
   useEffect(() => {
-    if (isSignupError?.isError) createAlert('Signup Error', isSignupError.message)
-  }, [isSignupError])
+    if (signupErrorMessage) createAlert('Signup Error', signupErrorMessage)
+  }, [signupErrorMessage])
 
   useEffect(() => {
     if (isSuccess) {
       showModal()
     }
   }, [isSuccess])
+
+  useFocusEffect(
+    useCallback(
+      () => hideModal(),
+
+      []
+    )
+  )
 
   return (
     <SafeAreaWrapper>
@@ -48,10 +57,10 @@ export const SignupEmail: FC = () => {
         behavior={isIos() ? 'padding' : 'height'}
         style={styles.keyboardAvoiding}>
         <Box marginHorizontal="l">
-          <Box marginBottom="s">
+          <Box>
             <FormInput
               control={control}
-              isError={!!errors['nameSurname']}
+              isError={!!errors.nameSurname}
               errors={errors}
               name="nameSurname"
               inputLabel={t('nameSurname')}
@@ -62,10 +71,10 @@ export const SignupEmail: FC = () => {
               required
             />
           </Box>
-          <Box marginBottom="s">
+          <Box>
             <FormInput
               control={control}
-              isError={!!errors['companyName']}
+              isError={!!errors.companyName}
               errors={errors}
               name="companyName"
               inputLabel={t('companyName')}
@@ -77,10 +86,10 @@ export const SignupEmail: FC = () => {
               required
             />
           </Box>
-          <Box marginBottom="s">
+          <Box>
             <FormInput
               control={control}
-              isError={!!errors['email']}
+              isError={!!errors.email}
               errors={errors}
               name="email"
               inputLabel={t('email')}
@@ -97,13 +106,15 @@ export const SignupEmail: FC = () => {
           <Box>
             <FormInput
               control={control}
-              isError={!!errors['password']}
+              isError={!!errors.password}
               errors={errors}
               name="password"
               inputLabel={t('password')}
               validationPattern={passwordRegex}
               errorMessage={t('nameSurnameErrMsg')}
               ref={inputsRefs[2]}
+              signupPasswordHint={t('passwordHint')}
+              isPasswordIconVisible
               required
             />
           </Box>
@@ -122,7 +133,7 @@ export const SignupEmail: FC = () => {
           </Box>
         </Box>
       </KeyboardAvoidingView>
-      <PendingAccountConfirmationModal isVisible={isModalVisible} onClose={hideModal} />
+      <PendingAccountConfirmationModal isVisible={isModalVisible} hideModal={hideModal} />
     </SafeAreaWrapper>
   )
 }

@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
-import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
-import { AuthNavigationType } from 'navigation/types'
+import { UserTypes, ErrorTypes } from 'types/useLoginTypes'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
@@ -16,53 +14,35 @@ const customErrorMessage = (errorMessage: string) => {
 }
 
 export const useLogin = () => {
-  const [isLoginError, setIsLoginError] = useState<ErrorTypes>()
-  const navigation = useNavigation<AuthNavigationType<'Login'>>()
-  const { handleUserDataChange } = useUserContext()
-  const { mutateAsync: handleLoginUser, isLoading } = useMutation<
-    UserTypes,
-    ErrorTypes,
-    LoginTypes
-  >(loginMutation, {
-    onSuccess: async (data: UserTypes) => {
-      const {
-        token,
-        user: { confirmed, firstName, lastName, email },
-      } = data.loginUser
+  const [loginErrorMessage, setLoginErrorMessage] = useState('')
 
-      if (confirmed) {
-        handleUserDataChange({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-        })
+  const { handleUserDataChange, user } = useUserContext()
+  const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, any>(
+    loginMutation,
+    {
+      onSuccess: async (data: UserTypes) => {
+        const {
+          token,
+          user: { confirmed, firstName, lastName, email },
+        } = data.loginUser
 
-        await SecureStorage.setItem('token', token)
-        navigation.navigate('Home', {
-          screen: 'Dashboard',
-        })
-      } else {
-        const errorObject = {
-          isError: true,
-          message: 'Please confirm your account',
+        if (confirmed) {
+          handleUserDataChange({ ...user, firstName, lastName, email })
+
+          await SecureStorage.setItem('token', token)
+        } else {
+          const errorMessage = 'Please confirm your account'
+
+          setLoginErrorMessage(errorMessage)
         }
+      },
+      onError: (error: ErrorTypes) => {
+        const errorMessage = customErrorMessage(error.message)
 
-        setIsLoginError(errorObject)
-      }
-    },
-    onError: (error: ErrorTypes) => {
-      const errorObject = {
-        isError: true,
-        message: customErrorMessage(error.message),
-      }
+        setLoginErrorMessage(errorMessage)
+      },
+    }
+  )
 
-      setIsLoginError(errorObject)
-    },
-  })
-
-  const handleLogin = async ({ email, password }: LoginTypes) => {
-    await handleLoginUser({ email, password })
-  }
-
-  return { handleLogin, isLoading, isLoginError }
+  return { handleLoginUser, isLoading, loginErrorMessage }
 }

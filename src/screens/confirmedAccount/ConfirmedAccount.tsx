@@ -1,15 +1,16 @@
-import React, { FC, useCallback, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native'
 import { AuthNavigationType } from 'navigation/types'
-import { useTranslation, TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-import useBooleanState from '../../hooks/useBooleanState'
-import { PendingAccountConfirmationModal } from '../signupEmail/components/PendingAccountConfirmationModal'
+import useBooleanState from 'hooks/useBooleanState'
 import { useConfirmAccount } from 'hooks/useConfirmAccount'
 import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { useUserContext } from 'hooks/useUserContext'
+import { PendingAccountConfirmationModal } from '../signupEmail/components/PendingAccountConfirmationModal'
 
 type RouteProps = {
   key: string
@@ -19,19 +20,11 @@ type RouteProps = {
   }
 }
 
-const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
-  if (errorMessage?.startsWith('already_confirmed')) {
-    return translate('alreadyConfirmed')
-  }
-  if (errorMessage?.startsWith('invalid_token')) {
-    return translate('invalidToken')
-  }
-  return translate('default')
-}
-
 export const ConfirmedAccount: FC = () => {
-  const [isConfirmError, setIsConfirmError] = useState('')
-  const { handleConfirmAccount, isLoading, isSuccess } = useConfirmAccount()
+  const {
+    user: { email },
+  } = useUserContext()
+  const { handleConfirmAccount, isLoading, isSuccess, confirmErrorMessage } = useConfirmAccount()
   const [isModalVisible, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
   const { params } = useRoute<RouteProps>()
   const { t } = useTranslation('mutationsErrors')
@@ -41,28 +34,20 @@ export const ConfirmedAccount: FC = () => {
     navigation.navigate('Login')
   }, [navigation])
 
-  // TODO: refactor this component
   useEffect(() => {
-    const asyncConfirmAccount = async (token: string) => {
-      try {
-        await handleConfirmAccount({ email: 'mateki0@interia.pl', token })
-      } catch (err) {
-        setIsConfirmError(customErrorMessage(t, err.message))
-      }
-    }
     if (params) {
       const { token } = params
-      asyncConfirmAccount(token)
+      handleConfirmAccount({ email, token })
     }
   }, [params])
 
   useEffect(() => {
-    if (isConfirmError === t('invalidToken')) {
-      createAlert('Confirm Error', isConfirmError, showModal)
+    if (confirmErrorMessage === t('invalidToken')) {
+      createAlert('Confirm Error', confirmErrorMessage, showModal)
     } else {
-      isConfirmError && createAlert('Confirm Error', isConfirmError, navigateToLogin)
+      confirmErrorMessage && createAlert('Confirm Error', confirmErrorMessage, navigateToLogin)
     }
-  }, [isConfirmError, isLoading])
+  }, [confirmErrorMessage])
 
   if (isLoading) {
     return <ActivityIndicator color={colors.primary} />
