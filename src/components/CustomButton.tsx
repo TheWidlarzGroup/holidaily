@@ -36,6 +36,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   switch (variant) {
     case 'secondary':
       color = colors.black
+      rippleColor = colors.disabled
       break
     case 'blackBgButton':
       bgColor = colors.black
@@ -46,6 +47,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
     case 'primary':
       bgColor = colors.tertiary
       color = colors.white
+      rippleColor = colors.disabled
       borderWidth = 0
       break
     default:
@@ -57,7 +59,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
 
   return (
     <RectButton
-      rippleColor={rippleColor || null}
+      rippleColor={rippleColor}
       onPress={disabled ? () => null : onPress}
       activeOpacity={disabled ? 0 : 0.2}
       style={[styles.container, { backgroundColor }, rest]}>

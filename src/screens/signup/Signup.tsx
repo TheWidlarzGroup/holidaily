@@ -7,12 +7,12 @@ import { CustomButton } from 'components/CustomButton'
 import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
 import { AuthNavigationType } from 'navigation/types'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TextLink } from 'components/TextLink'
 
 export const Signup: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Signup'>>()
 
-  const { t } = useTranslation('signup')
+  const { t } = useTranslation(['signup', 'login'])
 
   const navigateToSignupEmail = useCallback(() => {
     navigation.navigate('SignupEmail')
@@ -24,7 +24,7 @@ export const Signup: FC = () => {
 
   return (
     <SafeAreaWrapper>
-      <Box flex={0.4} justifyContent="center" maxWidth={300}>
+      <Box flex={0.4} justifyContent="center" marginHorizontal="xl">
         <Text variant="title1">{t('signupTitle')}</Text>
       </Box>
       <Box
@@ -49,15 +49,14 @@ export const Signup: FC = () => {
           onPress={navigateToSignupEmail}
         />
         <Box flexDirection="row" padding="m" justifyContent="center" alignItems="center">
-          <Text variant="body1" paddingRight={'xm'}>
+          <Text variant="body1" paddingRight="xm">
             {t('alreadyHaveAccount')}
           </Text>
-          {/* FIXME: refactor need, reusable component TextLink */}
-          <TouchableOpacity onPress={navigateToLogin}>
-            <Text variant="body1" color={'primary'}>
-              Log in
-            </Text>
-          </TouchableOpacity>
+          <TextLink
+            text={t('login:loginButton')}
+            action={navigateToLogin}
+            variant="alreadyRegistered"
+          />
         </Box>
       </Box>
     </SafeAreaWrapper>

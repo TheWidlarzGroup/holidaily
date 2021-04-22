@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { TouchableOpacity } from 'react-native'
 
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
+import { TextLink } from './TextLink'
 
 type DrawerBackArrowProps = {
   goBack: () => void
@@ -9,8 +9,6 @@ type DrawerBackArrowProps = {
 
 export const DrawerBackArrow: FC<DrawerBackArrowProps> = ({ goBack }) => (
   <Box marginLeft="l">
-    <TouchableOpacity onPress={goBack}>
-      <Text>Go Back</Text>
-    </TouchableOpacity>
+    <TextLink text="Go Back" action={goBack} variant="body1" />
   </Box>
 )

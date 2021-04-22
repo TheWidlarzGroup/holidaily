@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { TouchableOpacity, TextInput } from 'react-native'
+import { TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
@@ -13,6 +13,7 @@ import { passwordRegex } from 'utils/regexes/passwordRegex'
 import { CustomButton } from 'components/CustomButton'
 import { createAlert } from 'utils/createAlert'
 import { Container } from 'components/Container'
+import { TextLink } from 'components/TextLink'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Login'>>()
@@ -74,11 +75,13 @@ export const Login: FC = () => {
         </Box>
 
         <Box alignSelf="flex-end">
-          <TouchableOpacity onPress={navigateToRemindPassword}>
-            <Text variant="remind1" marginRight="m">
-              {t('loginForgotPassword')}
-            </Text>
-          </TouchableOpacity>
+          <Box marginRight="m">
+            <TextLink
+              text={t('loginForgotPassword')}
+              action={navigateToRemindPassword}
+              variant="remind1"
+            />
+          </Box>
         </Box>
       </Box>
       <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">

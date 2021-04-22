@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
@@ -11,6 +10,7 @@ import { CustomButton } from 'components/CustomButton'
 import { emailRegex } from 'utils/regexes/emailRegex'
 import useBooleanState from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
+import { TextLink } from 'components/TextLink'
 import { ForgotPasswordErrorModal } from './components/ForgotPasswordErrorModal'
 
 const simulateLoading = () => new Promise((r) => setTimeout(r, 1000))
@@ -57,12 +57,12 @@ export const ForgotPassword: FC = () => {
             errorMessage={t('incorrectEmail')}
           />
         </Box>
-        <Box alignSelf="flex-end">
-          <TouchableOpacity>
-            <Text variant="remind1" marginRight="m">
-              {t('forgotPressableText')}
-            </Text>
-          </TouchableOpacity>
+        <Box alignSelf="flex-end" marginRight="m">
+          <TextLink
+            text={t('forgotPressableText')}
+            action={() => console.log('navigate')}
+            variant="remind1"
+          />
         </Box>
       </Box>
       <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
