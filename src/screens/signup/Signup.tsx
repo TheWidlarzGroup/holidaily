@@ -24,7 +24,7 @@ export const Signup: FC = () => {
 
   return (
     <SafeAreaWrapper>
-      <Box flex={0.4} justifyContent="center" maxWidth={300}>
+      <Box flex={0.4} justifyContent="center" marginHorizontal="xl">
         <Text variant="title1">{t('signupTitle')}</Text>
       </Box>
       <Box
