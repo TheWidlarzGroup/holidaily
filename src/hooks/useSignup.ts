@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { ErrorTypes } from 'types/useLoginTypes'
-import { SignupTypes, HandleSignupTypes } from 'types/useSignupTypes'
+import { SignupTypes, HandleSignupTypes, CreateUserTypes } from 'types/useSignupTypes'
 import { signupMutation } from 'graphqlActions/mutations/signupMutation'
 import { useUserContext } from './useUserContext'
 
@@ -17,12 +17,12 @@ export const useSignup = () => {
   const { updateUser } = useUserContext()
   const [signupErrorMessage, setSignupErrorMessage] = useState('')
   const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
-    SignupTypes,
+    CreateUserTypes,
     ErrorTypes,
     SignupTypes
   >(signupMutation, {
-    onSuccess: (data: SignupTypes) => {
-      const { email } = data
+    onSuccess: (data: CreateUserTypes) => {
+      const { email } = data?.createUser
       updateUser({ email })
     },
     onError: (error: ErrorTypes) => {

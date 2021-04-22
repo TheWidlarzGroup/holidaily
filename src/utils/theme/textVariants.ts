@@ -49,4 +49,9 @@ export const textVariants = {
     fontSize: 12,
     color: 'grey',
   },
+  alreadyRegistered: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+    color: 'primary',
+  },
 }

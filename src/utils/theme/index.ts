@@ -26,6 +26,7 @@ export const theme = {
     xm: 8,
     m: 10,
     mplus: 12,
+    loader: 20,
     l: 25,
     xl: 75,
     xxl: 100,
