@@ -22,7 +22,7 @@ export const useSignup = () => {
     SignupTypes
   >(signupMutation, {
     onSuccess: (data: CreateUserTypes) => {
-      const { email } = data?.createUser
+      const { email } = data.createUser
       updateUser({ email })
     },
     onError: (error: ErrorTypes) => {
