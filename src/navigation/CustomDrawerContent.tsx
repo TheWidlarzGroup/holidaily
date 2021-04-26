@@ -10,8 +10,10 @@ import { CustomButton } from 'components/CustomButton'
 import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
 import { emptyUser } from 'contexts/UserProvider'
+import { useTranslation } from 'react-i18next'
 
 export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
+  const { t } = useTranslation('navigation')
   const { updateUser } = useUserContext()
 
   const handleLogout = () => {
@@ -25,7 +27,7 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
       </Box>
 
       <Box marginBottom="l">
-        <CustomButton label="Logout" variant="primary" onPress={handleLogout} />
+        <CustomButton label={t('logout')} variant="primary" onPress={handleLogout} />
       </Box>
     </DrawerContentScrollView>
   )

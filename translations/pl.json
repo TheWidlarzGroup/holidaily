@@ -85,5 +85,15 @@
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
+  },
+  "navigation": {
+    "logout": "Wyloguj się",
+    "home": "Strona Główna",
+    "about": "O nas",
+    "settings": "Ustawienia",
+    "dashboard": "Tablica",
+    "calendar": "Kalendarz",
+    "panel": "Panel",
+    "chat": "Czat"
   }
 }
