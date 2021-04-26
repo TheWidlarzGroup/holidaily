@@ -40,6 +40,13 @@ export const RecoveryCode: FC = () => {
     }
   }, [params])
 
+  useEffect(() => {
+    setCopiedCode('')
+    if (!copiedCode && recoveryCode.length === 6) {
+      handleValidatePasswordResetCode({ code: recoveryCode, email: 'user.email' })
+    }
+  }, [recoveryCode, copiedCode, user.email])
+
   const onValidatePasswordResetCode = () => {
     setRecoveryCode(copiedCode)
     handleValidatePasswordResetCode({ code: copiedCode, email: user.email })
