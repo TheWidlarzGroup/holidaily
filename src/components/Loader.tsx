@@ -1,85 +1,42 @@
 import React, { FC } from 'react'
-
-import { StyleSheet, View } from 'react-native'
-import { Box, theme } from 'utils/theme'
-import { colors } from 'utils/theme/colors'
-
-const propStyle = (percent: number, baseDegrees: number) => {
-  const rotateBy = baseDegrees + percent * 3.6
-  return {
-    transform: [{ rotateZ: `${rotateBy}deg` }],
-  }
-}
-
-const renderThirdLayer = (percent: number) => {
-  if (percent > 50) {
-    return <View style={[styles.secondProgressLayer, propStyle(percent - 50, 45)]}></View>
-  }
-  return <View style={styles.offsetLayer}></View>
-}
+import Svg, { Circle } from 'react-native-svg'
+import Animated from 'react-native-reanimated'
+import { StyleSheet } from 'react-native'
 
 type LoaderProps = {
-  percent: number
+  progress: number
 }
 
-export const Loader: FC<LoaderProps> = ({ percent }) => {
-  let firstProgressLayerStyle
+const { interpolate, multiply } = Animated
+const size = 40
+const strokeWidth = 6
+const AnimatedCircle = Animated.createAnimatedComponent(Circle)
+const { PI } = Math
+const r = (size - strokeWidth) / 2
+const cx = size / 2
+const cy = size / 2
 
-  if (percent > 50) {
-    firstProgressLayerStyle = propStyle(50, -135)
-  } else {
-    firstProgressLayerStyle = propStyle(percent, -135)
-  }
+export const Loader: FC<LoaderProps> = ({ progress }) => {
+  const circumference = r * 2 * PI
+  const a = interpolate(progress, [0, 1], [0, PI * 2])
+  const strokeDashoffset = multiply(a, r)
 
   return (
-    <Box
-      width={40}
-      height={40}
-      borderWidth={6}
-      borderRadius="loader"
-      borderColor="disabled"
-      justifyContent="center"
-      alignItems="center">
-      <View style={[styles.progressLayer, firstProgressLayerStyle]} />
-      {renderThirdLayer(percent)}
-    </Box>
+    <Svg width={size} height={size} style={styles.container}>
+      <Circle stroke="#fff" fill="none" {...{ strokeWidth, cx, cy, r }} />
+
+      <AnimatedCircle
+        stroke="#000"
+        fill="none"
+        strokeDasharray={`${circumference} ${circumference}`}
+        {...{ strokeDashoffset, strokeWidth, cx, cy, r }}
+      />
+    </Svg>
   )
 }
 
 const styles = StyleSheet.create({
-  progressLayer: {
-    width: 40,
-    height: 40,
-    borderWidth: 6,
-    borderRadius: theme.borderRadii.loader,
-    position: 'absolute',
-    borderLeftColor: 'transparent',
-    borderBottomColor: 'transparent',
-    borderRightColor: colors.white,
-    borderTopColor: colors.white,
-    transform: [{ rotateZ: '-45deg' }],
-  },
-  secondProgressLayer: {
-    width: 40,
-    height: 40,
-    position: 'absolute',
-    borderWidth: 6,
-    borderRadius: theme.borderRadii.loader,
-    borderLeftColor: 'transparent',
-    borderBottomColor: 'transparent',
-    borderRightColor: colors.white,
-    borderTopColor: colors.white,
-    transform: [{ rotateZ: '45deg' }],
-  },
-  offsetLayer: {
-    width: 40,
-    height: 40,
-    borderWidth: 6,
-    borderRadius: theme.borderRadii.loader,
-    borderLeftColor: 'transparent',
-    borderBottomColor: 'transparent',
-    borderRightColor: colors.disabled,
-    borderTopColor: colors.disabled,
-    transform: [{ rotateZ: '-135deg' }],
+  container: {
+    transform: [{ rotateZ: '270deg' }],
   },
 })

@@ -1,41 +1,22 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Loader } from 'components/Loader'
-
-function sleep(ms: any) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
+import { useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
 
 export const Dashboard: FC = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [time, setTime] = useState(0)
+  const progress = useSharedValue(0)
   useEffect(() => {
-    sleep(5000).then(() => setIsLoading(false))
-  })
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (time < 100) {
-        setTime((prevCount) => prevCount + 2)
-      } else {
-        setTime(0)
-      }
-    })
+    progress.value = withRepeat(withTiming(150, { duration: 1000 }), -1, true)
+  }, [progress])
 
-    if (!isLoading) {
-      clearInterval(timer)
-    }
-    return () => {
-      clearInterval(timer)
-    }
-  }, [time, isLoading])
   return (
     <SafeAreaWrapper>
       <Box margin="xl">
         <Text variant="title1">Welcome in dashboard</Text>
       </Box>
       <Box alignItems="center" backgroundColor="primary">
-        <Loader percent={time} />
+        <Loader progress={progress.value} />
       </Box>
     </SafeAreaWrapper>
   )
