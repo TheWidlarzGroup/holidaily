@@ -4,7 +4,7 @@ import { Text, Theme } from 'utils/theme'
 
 type TextLinkProps = {
   text: string
-  action: () => void
+  action: any
   variant: keyof Theme['textVariants']
 }
 export const TextLink: FC<TextLinkProps> = ({ text, variant, action }) => (

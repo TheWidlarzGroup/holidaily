@@ -38,14 +38,15 @@
     "dialogBox2Title": "Welcome on board!",
     "dialogBox2SubTitle": "Would you like to take a quick tour?",
     "dialog2FirstButton": "Yes, let's go!",
-    "dialog2SecondButton": "No, thanks"
+    "dialog2SecondButton": "No, thanks",
+    "resendCode": "Send again"
   },
   "signup": {
     "signupTitle": "How would you like to sign in?",
     "continueWGmail": "Continue with Gmail",
     "continueWSlack": "Continue with Slack",
     "signupWEmail": "Sign up with E-mail",
-    "alreadyHaveAccount" :"Already have an account?"
+    "alreadyHaveAccount": "Already have an account?"
   },
   "login": {
     "loginTitle": "Nice to see you again!",
@@ -76,7 +77,8 @@
     "default": "Something went wrong, please try again later",
     "invalidCredentials": "Incorrect email or password, please try again",
     "alreadyConfirmed": "Account is already confirmed, you can now log in",
-    "invalidToken": "Your token is invalid"
+    "invalidToken": "Your token is invalid",
+    "emailAlreadyTaken": "Email has already been taken"
   },
   "updatePasswordModal": {
     "passwordUpdated": "Your password has been updated!",

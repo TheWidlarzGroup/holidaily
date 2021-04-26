@@ -54,4 +54,9 @@ export const textVariants = {
     fontSize: 16,
     color: 'primary',
   },
+  resendWhite: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 15,
+    color: 'white',
+  },
 }
