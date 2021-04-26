@@ -14,6 +14,7 @@ import { CustomButton } from 'components/CustomButton'
 import { createAlert } from 'utils/createAlert'
 import { Container } from 'components/Container'
 import { TextLink } from 'components/TextLink'
+import { LoginTypes } from 'types/useLoginTypes'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Login'>>()
@@ -34,7 +35,7 @@ export const Login: FC = () => {
     passwordRef?.current?.focus()
   }
 
-  const onLoginSubmit = handleSubmit((data) => handleLoginUser(data))
+  const onLoginSubmit = handleSubmit((data: LoginTypes) => handleLoginUser(data))
 
   return (
     <Container>

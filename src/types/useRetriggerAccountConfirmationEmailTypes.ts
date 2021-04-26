@@ -5,7 +5,3 @@ export type RetriggerAccountConfirmationEmailMutationTypes = {
     }
   }
 }
-
-export type MutationSuccessReturnData = {
-  email: string
-}

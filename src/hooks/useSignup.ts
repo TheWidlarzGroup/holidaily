@@ -16,7 +16,6 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
   }
   return translate('default')
 }
-// emailAlreadyTaken
 
 export const useSignup = () => {
   const [userPassword, setUserPassword] = useState('')
@@ -30,12 +29,13 @@ export const useSignup = () => {
   >(signupMutation, {
     onSuccess: (data: CreateUserTypes) => {
       const { email } = data.createUser
-      console.log(userPassword)
+
       handleLoginUser({ email, password: userPassword })
     },
-    onError: (error: ErrorTypes, data: any) => {
+
+    onError: (error: ErrorTypes) => {
       const errorMessage = customErrorMessage(t, error.message)
-      console.log('here', data)
+
       setSignupErrorMessage(errorMessage)
     },
   })

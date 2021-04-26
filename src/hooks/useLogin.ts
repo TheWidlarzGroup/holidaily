@@ -23,7 +23,7 @@ export const useLogin = () => {
     {
       onSuccess: async (data: UserTypes) => {
         const { token, user } = data.loginUser
-        console.log('isLogged')
+
         if (user.confirmed) {
           updateUser(user)
 

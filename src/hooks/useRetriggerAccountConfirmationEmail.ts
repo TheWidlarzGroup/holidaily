@@ -3,10 +3,7 @@ import { useMutation } from 'react-query'
 import { useState } from 'react'
 import { useTranslation, TFunction } from 'react-i18next'
 import { retriggerAccountConfirmationEmail } from 'graphqlActions/mutations/retriggerAccountConfirmationEmail'
-import {
-  MutationSuccessReturnData,
-  RetriggerAccountConfirmationEmailMutationTypes,
-} from 'types/useRetriggerAccountConfirmationEmailTypes'
+import { RetriggerAccountConfirmationEmailMutationTypes } from 'types/useRetriggerAccountConfirmationEmailTypes'
 import { ErrorTypes } from 'types/useLoginTypes'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
@@ -21,8 +18,7 @@ export const useRetriggerAccountConfirmationEmail = () => {
   const [confirmErrorMessage, setConfirmErrorMessage] = useState('')
   const { mutate: handleRetriggerAccountConfirmationEmail, isLoading, isSuccess } = useMutation<
     RetriggerAccountConfirmationEmailMutationTypes,
-    ErrorTypes,
-    MutationSuccessReturnData
+    ErrorTypes
   >(retriggerAccountConfirmationEmail, {
     onError: (error) => {
       setConfirmErrorMessage(customErrorMessage(t, error.message))
