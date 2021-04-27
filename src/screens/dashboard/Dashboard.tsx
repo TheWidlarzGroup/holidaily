@@ -3,11 +3,15 @@ import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Loader } from 'components/Loader'
 import { useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
+import { colors } from 'utils/theme/colors'
 
 export const Dashboard: FC = () => {
-  const progress = useSharedValue(0)
+  const progress = useSharedValue<null | number>(null)
+
   useEffect(() => {
-    progress.value = withRepeat(withTiming(150, { duration: 1000 }), -1, true)
+    if (progress.value === null) {
+      progress.value = withRepeat(withTiming(1, { duration: 1000 }), -1, false)
+    }
   }, [progress])
 
   return (
@@ -16,7 +20,13 @@ export const Dashboard: FC = () => {
         <Text variant="title1">Welcome in dashboard</Text>
       </Box>
       <Box alignItems="center" backgroundColor="primary">
-        <Loader progress={progress.value} />
+        <Loader
+          progress={progress}
+          size={40}
+          strokeWidth={6}
+          backLayerColor={colors.disabled}
+          frontLayerColor={colors.white}
+        />
       </Box>
     </SafeAreaWrapper>
   )
