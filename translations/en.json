@@ -87,5 +87,15 @@
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
+  },
+  "navigation": {
+    "logout": "Logout",
+    "home": "Home",
+    "about": "About",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "panel": "Panel",
+    "chat": "Chat"
   }
 }
