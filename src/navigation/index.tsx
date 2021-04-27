@@ -11,7 +11,7 @@ export const AppNavigation = () => {
 
   return (
     <NavigationContainer linking={linking}>
-      {user?.firstName ? <DrawerNavigator /> : <AuthStackNavigation />}
+      {!user?.firstName ? <DrawerNavigator /> : <AuthStackNavigation />}
     </NavigationContainer>
   )
 }
