@@ -45,7 +45,7 @@
     "continueWGmail": "Continue with Gmail",
     "continueWSlack": "Continue with Slack",
     "signupWEmail": "Sign up with E-mail",
-    "alreadyHaveAccount" :"Already have an account?"
+    "alreadyHaveAccount": "Already have an account?"
   },
   "login": {
     "loginTitle": "Nice to see you again!",
@@ -85,5 +85,15 @@
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
+  },
+  "navigation": {
+    "logout": "Logout",
+    "home": "Home",
+    "about": "About",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "panel": "Panel",
+    "chat": "Chat"
   }
 }
