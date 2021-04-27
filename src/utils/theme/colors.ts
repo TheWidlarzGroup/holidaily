@@ -12,6 +12,9 @@ export const palette = {
   grayText: '#F3F3F3',
   grayModal: '#333333',
   veryLightGray: 'rgba(255, 255, 255, 0.15)',
+  grayTabIcons: '#6B6C7E',
+  tabBackgroundGray: '#E5E5E5',
+  addButtonGrayBackground: '#CCCCCC',
 }
 
 export const colors = {
@@ -28,4 +31,7 @@ export const colors = {
   mainBackground: palette.orangeLight,
   modalBackground: palette.grayModal,
   blackBtnRippleColor: palette.veryLightGray,
+  bottomBarIcons: palette.grayTabIcons,
+  bottomTabBackground: palette.tabBackgroundGray,
+  addButtonBackground: palette.addButtonGrayBackground,
 }
