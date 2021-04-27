@@ -1,9 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-import { useNavigation } from '@react-navigation/native'
 
-import { AuthNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
@@ -11,32 +9,34 @@ import { emailRegex } from 'utils/regexes/emailRegex'
 import useBooleanState from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { TextLink } from 'components/TextLink'
+import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
+import { InitializePasswordResetArgumentsTypes } from 'types/useInitializePasswordResetTypes'
+import { useUserContext } from 'hooks/useUserContext'
 import { ForgotPasswordErrorModal } from './components/ForgotPasswordErrorModal'
 
-const simulateLoading = () => new Promise((r) => setTimeout(r, 1000))
-
 export const ForgotPassword: FC = () => {
-  const [isLoading, { setFalse: endLoading, setTrue: startLoading }] = useBooleanState(false)
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
-  const { control, errors, getValues } = useForm()
+  const { control, errors, handleSubmit } = useForm()
+  const {
+    handleInitializePasswordReset,
+    isLoading,
+    initializePasswordResetErrorMessage,
+  } = useInitializePasswordReset()
+  const { updateUser } = useUserContext()
   const { t } = useTranslation('forgotPassword')
-  const navigation = useNavigation<AuthNavigationType<'ForgotPassword'>>()
 
-  const handlePasswordReset = () => {
-    // Hard coded for now, just for testing and presentation
-    startLoading()
-    simulateLoading().then(() => {
-      const email = getValues('email')
+  useEffect(() => {
+    if (initializePasswordResetErrorMessage) {
+      showModal()
+    }
+  }, [initializePasswordResetErrorMessage])
 
-      if (email === 'janKowalski@twg.com') {
-        navigation.navigate('RecoveryCode')
-      } else {
-        showModal()
-      }
-      endLoading()
-    })
-  }
-
+  const onInitializePasswordResetSubmit = handleSubmit(
+    (data: InitializePasswordResetArgumentsTypes) => {
+      updateUser({ email: data.email })
+      handleInitializePasswordReset(data)
+    }
+  )
   return (
     <Container>
       <Box flex={0.3} justifyContent="center">
@@ -69,7 +69,7 @@ export const ForgotPassword: FC = () => {
         <CustomButton
           label={t('forgotResetButton')}
           variant="primary"
-          onPress={handlePasswordReset}
+          onPress={onInitializePasswordResetSubmit}
           loading={isLoading}
         />
       </Box>
