@@ -1,6 +1,7 @@
 const config = {
   screens: {
     ConfirmedAccount: '/confirm/:token',
+    RecoveryCode: '/password_reset/:code',
   },
 }
 
