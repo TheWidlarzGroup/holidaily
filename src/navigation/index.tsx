@@ -11,7 +11,7 @@ export const AppNavigation = () => {
 
   return (
     <NavigationContainer linking={linking}>
-      {user?.firstName && user?.isConfirmed ? <DrawerNavigator /> : <AuthStackNavigation />}
+      {user?.isConfirmed ? <DrawerNavigator /> : <AuthStackNavigation />}
     </NavigationContainer>
   )
 }
