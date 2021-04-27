@@ -6,12 +6,10 @@ import { useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
 import { colors } from 'utils/theme/colors'
 
 export const Dashboard: FC = () => {
-  const progress = useSharedValue<null | number>(null)
+  const progress = useSharedValue<number>(0)
 
   useEffect(() => {
-    if (progress.value === null) {
-      progress.value = withRepeat(withTiming(1, { duration: 1000 }), -1, false)
-    }
+    progress.value = withRepeat(withTiming(1, { duration: 1000 }), -1, false)
   }, [progress])
 
   return (

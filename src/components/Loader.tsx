@@ -4,7 +4,7 @@ import Animated, { interpolate, useAnimatedProps } from 'react-native-reanimated
 import { StyleSheet } from 'react-native'
 
 type LoaderProps = {
-  progress: Animated.SharedValue<number | null>
+  progress: Animated.SharedValue<number>
   size: number
   strokeWidth: number
   backLayerColor: string
@@ -25,7 +25,7 @@ export const Loader: FC<LoaderProps> = ({
   const circumference = r * 2 * Math.PI
 
   const animatedProps = useAnimatedProps(() => {
-    const a = progress.value !== null ? interpolate(progress.value, [1, 0], [0, Math.PI * 2]) : 0
+    const a = interpolate(progress.value, [1, 0], [0, Math.PI * 2])
     const strokeDashoffset = a * r
     return {
       strokeDashoffset,
