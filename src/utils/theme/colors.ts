@@ -12,9 +12,11 @@ export const palette = {
   grayText: '#F3F3F3',
   grayModal: '#333333',
   veryLightGray: 'rgba(255, 255, 255, 0.15)',
-  grayTabIcons: '#6B6C7E',
+  grayTabIcons: '#D5D5D5',
   tabBackgroundGray: '#E5E5E5',
   addButtonGrayBackground: '#CCCCCC',
+  buttonShadow: 'rgba(0, 0, 0, 0.25)',
+  transparent: 'transparent',
 }
 
 export const colors = {
@@ -34,4 +36,6 @@ export const colors = {
   bottomBarIcons: palette.grayTabIcons,
   bottomTabBackground: palette.tabBackgroundGray,
   addButtonBackground: palette.addButtonGrayBackground,
+  addButtonShadow: palette.buttonShadow,
+  transparent: palette.transparent,
 }

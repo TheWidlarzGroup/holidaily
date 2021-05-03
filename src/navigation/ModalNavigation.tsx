@@ -1,11 +1,18 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-import { EmptyComponent } from 'components/EmptyComponent'
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 
-const AppStack = createStackNavigator<any>()
+import { RequestVacation } from 'screens/requestVacation/RequestVacation'
+import { DrawerNavigator } from './DrawerNavigator'
+import { ModalRoutes } from './types'
+
+const AppStack = createStackNavigator<ModalRoutes>()
 
 export const ModalNavigation = () => (
-  <AppStack.Navigator mode="modal" headerMode="none">
-    <AppStack.Screen name="Request" component={EmptyComponent} />
+  <AppStack.Navigator mode="modal" headerMode="none" initialRouteName="DrawerNavigator" screenOptions={{
+    ...TransitionPresets.ModalPresentationIOS, animationEnabled:true
+  }}>
+    <AppStack.Screen name="RequestVacation" component={RequestVacation} />
+    <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+    
   </AppStack.Navigator>
 )

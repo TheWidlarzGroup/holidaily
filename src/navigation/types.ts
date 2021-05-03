@@ -57,6 +57,8 @@ export type AppRoutes = {
 export type BottomTabRoutes = {
   Dashboard: undefined
   Calendar: undefined
+  RequestModal: undefined
+  RequestVacation: undefined
   Panel: undefined
   Chat: undefined
 }
@@ -76,4 +78,9 @@ export type AuthRoutes = {
   RecoveryCode: undefined
   NewPassword: undefined
   ConfirmedAccount: undefined
+}
+
+export type ModalRoutes = {
+  RequestVacation: undefined
+  DrawerNavigator: DrawerRoutes
 }

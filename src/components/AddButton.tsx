@@ -1,18 +1,30 @@
 import React, { FC } from 'react'
+import { TouchableOpacity, StyleSheet, GestureResponderEvent } from 'react-native'
+import { Box, theme } from 'utils/theme/index'
+import IconPlus from 'assets/icons/icon-plus.svg'
 
-import { Box, Text, theme } from 'utils/theme/index'
-
-export const AddButton: FC = () => (
-  <Box
-    backgroundColor="addButtonBackground"
-    justifyContent="center"
-    alignItems="center"
-    bottom={theme.spacing.m}
-    width={62}
-    height={62}
-    borderRadius="lplus">
-    <Text textAlign="center" color="bottomBarIcons" fontSize={52}>
-      +
-    </Text>
+type AddButtonProps = {
+  onPress:
+    | ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void)
+    | undefined
+}
+export const AddButton: FC<AddButtonProps> = ({ onPress }) => (
+  <Box position="relative" alignItems="center">
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <IconPlus />
+    </TouchableOpacity>
   </Box>
 )
+
+const styles = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    top: -theme.spacing.xxl,
+    backgroundColor: theme.colors.tertiary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 62,
+    height: 62,
+    borderRadius: theme.borderRadii.lplus,
+  },
+})
