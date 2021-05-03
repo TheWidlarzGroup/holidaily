@@ -54,9 +54,4 @@ export const textVariants = {
     fontSize: 16,
     color: 'primary',
   },
-  addButton: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 52,
-    color: 'bottomBarIcons',
-  },
 }

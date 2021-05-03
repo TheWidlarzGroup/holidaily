@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 
 import { AddButton } from 'components/AddButton'
 import { Box, theme } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
-import { BottomTabNavigationType } from 'navigation/types'
+import { ModalNavigationType } from 'navigation/types'
 
 type TabsHandlerProps = {
   tabs: any
@@ -14,12 +14,8 @@ type TabsHandlerProps = {
 }
 
 export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
-  const [activeTab, setActiveTab] = useState('')
-  const navigation = useNavigation<BottomTabNavigationType<any>>()
+  const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
 
-  useEffect(() => {
-    setActiveTab(tabs[activeTabIndex].name)
-  }, [activeTabIndex])
   return (
     <Box flexDirection="row">
       {tabs.map((tab: any, key: number) => {
@@ -54,7 +50,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
               height={40}>
               {getBottomTabIcon(
                 tab.name,
-                activeTab,
+                tabs[activeTabIndex].name,
                 theme.colors.black,
                 theme.colors.bottomBarIcons
               )}

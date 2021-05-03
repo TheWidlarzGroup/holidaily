@@ -6,7 +6,7 @@ import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
 import { Chat } from 'screens/chat/Chat'
 import { BottomTabRoutes } from './types'
-import { TabsUi } from 'components/BottomNav/TabsUi'
+import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
