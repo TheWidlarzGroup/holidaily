@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 
 import { AddButton } from 'components/AddButton'
 import { Box, theme } from 'utils/theme'

@@ -8,11 +8,15 @@ import { ModalRoutes } from './types'
 const AppStack = createStackNavigator<ModalRoutes>()
 
 export const ModalNavigation = () => (
-  <AppStack.Navigator mode="modal" headerMode="none" initialRouteName="DrawerNavigator" screenOptions={{
-    ...TransitionPresets.ModalPresentationIOS, animationEnabled:true
-  }}>
+  <AppStack.Navigator
+    mode="modal"
+    headerMode="none"
+    initialRouteName="DrawerNavigator"
+    screenOptions={{
+      ...TransitionPresets.ModalPresentationIOS,
+      animationEnabled: true,
+    }}>
     <AppStack.Screen name="RequestVacation" component={RequestVacation} />
     <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
-    
   </AppStack.Navigator>
 )
