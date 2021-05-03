@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import Svg, { Path } from 'react-native-svg'
 
 export type IconProps = {
-  fill?: string
+  fill: string
 }
 
 export const PasteIcon: FC<IconProps> = ({ fill }) => (
