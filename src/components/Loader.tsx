@@ -42,6 +42,7 @@ export const Loader: FC<LoaderProps> = ({
         fill="none"
         strokeDasharray={`${circumference} ${circumference}`}
         {...{ strokeWidth, cx, cy, r }}
+        strokeLinecap="round"
       />
     </Svg>
   )
