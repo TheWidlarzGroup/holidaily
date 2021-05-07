@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 import { TouchableOpacity, StyleSheet, GestureResponderEvent } from 'react-native'
+
 import { Box, theme } from 'utils/theme/index'
 import IconPlus from 'assets/icons/icon-plus.svg'
 
 type AddButtonProps = {
-  onPress:
-    | ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void)
-    | undefined
+  onPress: () => void
 }
+
 export const AddButton: FC<AddButtonProps> = ({ onPress }) => (
   <Box position="relative" alignItems="center">
     <TouchableOpacity style={styles.button} onPress={onPress}>

@@ -4,19 +4,22 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
+import { Box } from 'utils/theme'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
 export const ModalNavigation = () => (
-  <AppStack.Navigator
-    mode="modal"
-    headerMode="none"
-    initialRouteName="DrawerNavigator"
-    screenOptions={{
-      ...TransitionPresets.ModalPresentationIOS,
-      animationEnabled: true,
-    }}>
-    <AppStack.Screen name="RequestVacation" component={RequestVacation} />
-    <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
-  </AppStack.Navigator>
+  <Box flex={1} backgroundColor="black">
+    <AppStack.Navigator
+      mode="modal"
+      headerMode="none"
+      initialRouteName="DrawerNavigator"
+      screenOptions={{
+        ...TransitionPresets.ModalPresentationIOS,
+        animationEnabled: true,
+      }}>
+      <AppStack.Screen name="RequestVacation" component={RequestVacation} />
+      <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+    </AppStack.Navigator>
+  </Box>
 )
