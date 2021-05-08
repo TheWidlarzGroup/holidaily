@@ -8,7 +8,9 @@ import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
 
 type TabsHandlerProps = {
-  tabs: any
+  tabs: {
+    name: string
+  }[]
   tabWidth: number
   activeTabIndex: number
 }
@@ -28,26 +30,22 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
         }
         if (tab.name === 'RequestModal') {
           return (
-            <Box
-              key="logo"
-              width={tabWidth}
-              justifyContent="center"
-              alignItems="center"
-              flexDirection="column"
-              height={40}>
+            <Box key="logo" width={tabWidth} backgroundColor="transparent">
               <AddButton onPress={onPress} />
             </Box>
           )
         }
 
         return (
-          <TouchableOpacity {...{ key }} onPress={onPress}>
+          <TouchableOpacity {...{ key }} onPress={onPress} activeOpacity={1}>
             <Box
               width={tabWidth}
-              justifyContent="center"
+              height={40}
+              marginTop="lplus"
+              paddingTop="s"
               alignItems="center"
               flexDirection="column"
-              height={40}>
+              backgroundColor="white">
               {getBottomTabIcon(
                 tab.name,
                 tabs[activeTabIndex].name,

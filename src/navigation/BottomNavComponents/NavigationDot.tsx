@@ -21,7 +21,11 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex })
   const translateX = useSharedValue(startingPos)
 
   const progressStyle = useAnimatedStyle(() => ({
-    translateX: translateX.value,
+    transform: [
+      {
+        translateX: translateX.value,
+      },
+    ],
     width: interpolate(dotWidth.value, [5, 100, 5], [5, 40, 5]),
     height: dotHeight.value,
   }))
@@ -51,6 +55,7 @@ const styles = StyleSheet.create({
   dotContainer: {
     height: 5,
     marginBottom: 5,
+    backgroundColor: 'white',
   },
   dot: {
     borderRadius: 2.5,

@@ -1,10 +1,10 @@
 import React from 'react'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 
+import { Box } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
-import { Box } from 'utils/theme'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 

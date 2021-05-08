@@ -20,7 +20,7 @@ export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
   return (
     <Box>
       <Box width={windowWidth} position="absolute" bottom={0} backgroundColor="transparent">
-        <Box backgroundColor="white" flexDirection="column">
+        <Box flexDirection="column">
           <TabsHandler {...{ tabs, tabWidth }} activeTabIndex={state.index} />
           <NavigationDot width={tabWidth} activeTabIndex={state.index} />
         </Box>

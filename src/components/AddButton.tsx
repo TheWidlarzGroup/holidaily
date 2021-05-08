@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { TouchableOpacity, StyleSheet, GestureResponderEvent } from 'react-native'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 
 import { Box, theme } from 'utils/theme/index'
 import IconPlus from 'assets/icons/icon-plus.svg'
@@ -18,8 +18,6 @@ export const AddButton: FC<AddButtonProps> = ({ onPress }) => (
 
 const styles = StyleSheet.create({
   button: {
-    position: 'absolute',
-    top: -theme.spacing.xxl,
     backgroundColor: theme.colors.tertiary,
     justifyContent: 'center',
     alignItems: 'center',
