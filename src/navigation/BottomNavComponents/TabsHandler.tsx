@@ -40,7 +40,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
           <TouchableOpacity {...{ key }} onPress={onPress} activeOpacity={1}>
             <Box
               width={tabWidth}
-              height={40}
+              height={45}
               marginTop="lplus"
               paddingTop="s"
               alignItems="center"

@@ -5,6 +5,7 @@ import { NavigationState } from '@react-navigation/native'
 import { Box } from 'utils/theme'
 import { NavigationDot } from './NavigationDot'
 import { TabsHandler } from './TabsHandler'
+import { isIos } from 'utils/isIos'
 
 type TabsUiProps = {
   tabs: {
@@ -19,7 +20,11 @@ export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
 
   return (
     <Box>
-      <Box width={windowWidth} position="absolute" bottom={0} backgroundColor="transparent">
+      <Box
+        width={windowWidth}
+        position="absolute"
+        bottom={isIos() ? -5 : 0}
+        backgroundColor="transparent">
         <Box flexDirection="column">
           <TabsHandler {...{ tabs, tabWidth }} activeTabIndex={state.index} />
           <NavigationDot width={tabWidth} activeTabIndex={state.index} />

@@ -9,7 +9,7 @@ import { ModalRoutes } from './types'
 const AppStack = createStackNavigator<ModalRoutes>()
 
 export const ModalNavigation = () => (
-  <Box flex={1} backgroundColor="black">
+  <Box flex={1}>
     <AppStack.Navigator
       mode="modal"
       headerMode="none"

@@ -7,6 +7,7 @@ import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
 import { Chat } from 'screens/chat/Chat'
 import { BottomTabRoutes } from './types'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
@@ -21,11 +22,13 @@ const tabs = [
   { name: 'Chat' },
 ]
 export const BottomTabNavigator = () => (
-  <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
-    <Tab.Screen name="Dashboard" component={Dashboard} />
-    <Tab.Screen name="Calendar" component={Calendar} />
-    <Tab.Screen name="RequestModal" component={EmptyComponent} />
-    <Tab.Screen name="Panel" component={Panel} />
-    <Tab.Screen name="Chat" component={Chat} />
-  </Tab.Navigator>
+  <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
+      <Tab.Screen name="Dashboard" component={Dashboard} />
+      <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="RequestModal" component={EmptyComponent} />
+      <Tab.Screen name="Panel" component={Panel} />
+      <Tab.Screen name="Chat" component={Chat} />
+    </Tab.Navigator>
+  </SafeAreaView>
 )
