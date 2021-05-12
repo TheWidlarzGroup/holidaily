@@ -26,7 +26,7 @@ const resources = {
 
 i18next.use(initReactI18next).init({
   resources,
-  lng: 'en',
+  lng: locale.slice(0, 2),
   fallbackLng: 'en',
   keySeparator: false,
   debug: __DEV__,
