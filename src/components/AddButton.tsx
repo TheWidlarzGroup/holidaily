@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 
 import { Box, theme } from 'utils/theme/index'
 import IconPlus from 'assets/icons/icon-plus.svg'
@@ -11,9 +12,9 @@ type AddButtonProps = {
 
 export const AddButton: FC<AddButtonProps> = ({ onPress }) => (
   <Box position="relative" alignItems="center">
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <RectButton style={styles.button} onPress={onPress} rippleColor={theme.colors.lightGrey}>
       <IconPlus />
-    </TouchableOpacity>
+    </RectButton>
     <Box position="absolute" bottom={-28}>
       <CircleBg />
     </Box>

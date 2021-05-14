@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { AddButton } from 'components/AddButton'
 import { Box, theme } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
+import { BorderlessButton } from 'react-native-gesture-handler'
 
 type TabsHandlerProps = {
   tabs: {
@@ -37,25 +38,34 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
         }
 
         return (
-          <TouchableOpacity {...{ key }} onPress={onPress} activeOpacity={1}>
-            <Box
-              width={tabWidth}
-              height={45}
-              marginTop="lplus"
-              paddingTop="s"
-              alignItems="center"
-              flexDirection="column"
-              backgroundColor="white">
+          <Box
+            {...{ key }}
+            width={tabWidth}
+            height={45}
+            marginTop="lplus"
+            alignItems="center"
+            flexDirection="column"
+            backgroundColor="white"
+            zIndex={5}>
+            <BorderlessButton onPress={onPress} style={styles.button}>
               {getBottomTabIcon(
                 tab.name,
                 tabs[activeTabIndex].name,
                 theme.colors.black,
                 theme.colors.bottomBarIcons
               )}
-            </Box>
-          </TouchableOpacity>
+            </BorderlessButton>
+          </Box>
         )
       })}
     </Box>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    paddingTop: theme.spacing.xm,
+    paddingBottom: theme.spacing.s,
+    paddingHorizontal: theme.spacing.m,
+  },
+})
