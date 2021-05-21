@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
