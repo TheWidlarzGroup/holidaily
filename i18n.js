@@ -6,8 +6,9 @@ let locale
 if (Platform.OS !== 'ios') locale = NativeModules.I18nManager.localeIdentifier
 
 if ((locale === undefined || null) && Platform.OS === 'ios') {
-  locale = NativeModules.SettingsManager.settings.AppleLanguages[0]
-  if (locale == undefined) {
+  const localeArr = NativeModules.SettingsManager.settings.AppleLanguages
+  locale = localeArr[0]
+  if (locale === undefined) {
     locale = 'en'
   }
 }
