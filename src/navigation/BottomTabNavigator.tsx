@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Dashboard } from 'screens/dashboard/Dashboard'
@@ -7,7 +8,6 @@ import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
 import { Chat } from 'screens/chat/Chat'
 import { BottomTabRoutes } from './types'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 

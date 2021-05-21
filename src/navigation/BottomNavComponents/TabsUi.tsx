@@ -3,9 +3,9 @@ import { Dimensions } from 'react-native'
 import { NavigationState } from '@react-navigation/native'
 
 import { Box } from 'utils/theme'
+import { isIos } from 'utils/isIos'
 import { NavigationDot } from './NavigationDot'
 import { TabsHandler } from './TabsHandler'
-import { isIos } from 'utils/isIos'
 
 type TabsUiProps = {
   tabs: {
