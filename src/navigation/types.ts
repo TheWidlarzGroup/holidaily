@@ -63,6 +63,7 @@ export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
+  ModalRoutes: NestedNavigatorParams<DrawerRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -92,5 +93,5 @@ export type AuthRoutes = {
 
 export type ModalRoutes = {
   RequestVacation: undefined
-  DrawerNavigator: DrawerRoutes
+  DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
 }
