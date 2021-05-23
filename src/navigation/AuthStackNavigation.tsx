@@ -1,10 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-
 import { Slider } from 'screens/slider/Slider'
 import { ForgotPassword } from 'screens/forgotPassword/ForgotPassword'
 import { Login } from 'screens/login/Login'
-import { RecoveryCode } from 'screens/recoveryCode/RecoveryCode'
+import { RecoveryCode } from 'screens/recoveryCode/recoveryCode'
 import { NewPassword } from 'screens/newPassword/NewPassword'
 import { SignupEmail } from 'screens/signupEmail/SignupEmail'
 import { ConfirmedAccount } from 'screens/confirmedAccount/ConfirmedAccount'

@@ -61,7 +61,6 @@ export const RecoveryCode: FC = () => {
   return (
     <Container>
       <RecoveryPasswordBar currentScreen="RecoveryCode" />
-
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
