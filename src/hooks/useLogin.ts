@@ -3,7 +3,7 @@ import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
-import { UserTypes, ErrorTypes } from 'types/useLoginTypes'
+import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (errorMessage: string) => {
@@ -15,10 +15,8 @@ const customErrorMessage = (errorMessage: string) => {
 
 export const useLogin = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState('')
-
   const { updateUser } = useUserContext()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, any>(
+  const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, LoginTypes>(
     loginMutation,
     {
       onSuccess: async (data: UserTypes) => {
