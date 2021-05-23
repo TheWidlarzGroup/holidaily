@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, Dimensions, ScrollView } from 'react-native'
 import Animated, {
@@ -53,13 +53,13 @@ export const Slider: FC = () => {
     },
   })
 
-  const handlePressButton = useCallback(() => {
+  const handlePressButton = () => {
     if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
       navigation.navigate('Signup')
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }
-  }, [navigation])
+  }
 
   return (
     <SafeAreaView style={styles.container}>

@@ -22,3 +22,5 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const value: ContextProps = { user, updateUser }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 })
+
+UserContextProvider.displayName = 'UserContextProvider'

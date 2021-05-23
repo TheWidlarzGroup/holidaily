@@ -21,12 +21,12 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
 
   return (
     <Box flexDirection="row">
-      {tabs.map((tab: any, key: number) => {
+      {tabs.map((tab, key: number) => {
         const onPress = () => {
           if (tab.name === 'RequestModal') {
             navigation.navigate('RequestVacation')
           } else {
-            navigation.navigate(tab.name)
+            navigation.navigate(tab.name as never)
           }
         }
         if (tab.name === 'RequestModal') {

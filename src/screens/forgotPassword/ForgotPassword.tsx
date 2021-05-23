@@ -1,12 +1,11 @@
 import React, { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-
 import { Box, Text } from 'utils/theme/index'
+import { emailRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
-import { emailRegex } from 'utils/regexes/emailRegex'
-import useBooleanState from 'hooks/useBooleanState'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { TextLink } from 'components/TextLink'
 import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
@@ -29,7 +28,7 @@ export const ForgotPassword: FC = () => {
     if (initializePasswordResetErrorMessage) {
       showModal()
     }
-  }, [initializePasswordResetErrorMessage])
+  }, [initializePasswordResetErrorMessage, showModal])
 
   const onInitializePasswordResetSubmit = handleSubmit(
     (data: InitializePasswordResetArgumentsTypes) => {

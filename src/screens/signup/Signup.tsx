@@ -1,13 +1,12 @@
 import React, { FC, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
-import { getHalfOfTheWindowWidth } from 'utils/getHalfOfTheWindowWidth'
 import { AuthNavigationType } from 'navigation/types'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { TextLink } from 'components/TextLink'
+import { getHalfWindowWidth } from '../../utils/layout'
 
 export const Signup: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Signup'>>()
@@ -28,8 +27,8 @@ export const Signup: FC = () => {
         <Text variant="title1">{t('signupTitle')}</Text>
       </Box>
       <Box
-        width={getHalfOfTheWindowWidth()}
-        height={getHalfOfTheWindowWidth()}
+        width={getHalfWindowWidth()}
+        height={getHalfWindowWidth()}
         backgroundColor="secondary"
         borderRadius="m"
         alignSelf="center"

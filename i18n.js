@@ -1,17 +1,12 @@
 import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import { NativeModules, Platform } from 'react-native'
+import { NativeModules } from 'react-native'
+import { isAndroid, isIos } from './src/utils/layout'
 
-let locale
-if (Platform.OS !== 'ios') locale = NativeModules.I18nManager.localeIdentifier
+let locale = ''
 
-if ((locale === undefined || null) && Platform.OS === 'ios') {
-  /* eslint prefer-destructuring: ["error", {VariableDeclarator: {array: false}}] */
-  locale = NativeModules.SettingsManager.settings.AppleLanguages[0]
-  if (locale === undefined) {
-    locale = 'en'
-  }
-}
+if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
+else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
 
 const plTranslation = require('./translations/pl.json')
 const enTranslation = require('./translations/en.json')

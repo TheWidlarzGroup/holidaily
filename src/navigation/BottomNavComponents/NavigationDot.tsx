@@ -42,6 +42,7 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex })
       withTiming(0, { duration: 300 }),
       withTiming(5, { duration: 300 })
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTabIndex])
 
   return (
