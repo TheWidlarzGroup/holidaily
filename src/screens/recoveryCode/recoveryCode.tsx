@@ -6,7 +6,7 @@ import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { RecoveryCodeInput } from 'components/RecoveryCodeInput'
 import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
-import useBooleanState from 'hooks/useBooleanState'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { useUserContext } from 'hooks/useUserContext'
 import { useValidatePasswordResetCode } from 'hooks/useValidatePasswordResetCode'
@@ -45,7 +45,7 @@ export const RecoveryCode: FC = () => {
     if (!copiedCode && recoveryCode.length === 6) {
       handleValidatePasswordResetCode({ code: recoveryCode, email: 'user.email' })
     }
-  }, [recoveryCode, copiedCode, user.email])
+  }, [recoveryCode, copiedCode, user.email, handleValidatePasswordResetCode])
 
   const onValidatePasswordResetCode = () => {
     setRecoveryCode(copiedCode)
@@ -56,12 +56,11 @@ export const RecoveryCode: FC = () => {
     if (validatePasswordResetCodeErrorMessage) {
       showModal()
     }
-  }, [validatePasswordResetCodeErrorMessage])
+  }, [validatePasswordResetCodeErrorMessage, showModal])
 
   return (
     <Container>
       <RecoveryPasswordBar currentScreen="RecoveryCode" />
-
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
