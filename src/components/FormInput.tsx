@@ -51,6 +51,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
 
     useEffect(() => {
       errorOpacity.value = isError ? 1 : 0
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isError])
 
     return (

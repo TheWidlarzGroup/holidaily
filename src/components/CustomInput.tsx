@@ -5,7 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import IconTogglePasswordVisibility from 'assets/icons/icon-togglePassword.svg'
 import { Text, Box, theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
-import useBooleanState from 'hooks/useBooleanState'
+import { useBooleanState } from 'hooks/useBooleanState'
 
 type CustomInputTypes = {
   inputLabel: string
@@ -27,6 +27,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     useEffect(() => {
       errorOpacity.value = isError ? 2 : 0
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isError])
 
     return (

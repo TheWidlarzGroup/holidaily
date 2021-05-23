@@ -48,15 +48,28 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
   RouteName
 >
 
+// for useNavigation hook
+export type ModalNavigationType<RouteName extends keyof ModalRoutes> = CompositeNavigationProp<
+  StackNavigationProp<ModalRoutes, RouteName>,
+  StackNavigationProp<AppRoutes, 'DrawerNavigator'>
+>
+
+export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
+  navigation: StackNavigationProp<ModalRoutes, RouteName>
+  route: RouteProp<AppRoutes, 'DrawerNavigator'>
+}
+
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
+  ModalRoutes: NestedNavigatorParams<DrawerRoutes>
 }
 
 export type BottomTabRoutes = {
   Dashboard: undefined
   Calendar: undefined
+  RequestModal: undefined
   Panel: undefined
   Chat: undefined
 }
@@ -76,4 +89,9 @@ export type AuthRoutes = {
   RecoveryCode: undefined
   NewPassword: undefined
   ConfirmedAccount: undefined
+}
+
+export type ModalRoutes = {
+  RequestVacation: undefined
+  DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
 }

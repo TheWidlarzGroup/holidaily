@@ -3,17 +3,16 @@ import { useNavigation } from '@react-navigation/native'
 import { TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-
 import { AuthNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { useLogin } from 'hooks/useLogin'
-import { emailRegex } from 'utils/regexes/emailRegex'
-import { passwordRegex } from 'utils/regexes/passwordRegex'
 import { CustomButton } from 'components/CustomButton'
 import { createAlert } from 'utils/createAlert'
 import { Container } from 'components/Container'
 import { TextLink } from 'components/TextLink'
+import { emailRegex, passwordRegex } from 'utils/regex'
+import { LoginTypes } from 'types/useLoginTypes'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Login'>>()
@@ -34,7 +33,7 @@ export const Login: FC = () => {
     passwordRef?.current?.focus()
   }
 
-  const onLoginSubmit = handleSubmit((data) => handleLoginUser(data))
+  const onLoginSubmit = handleSubmit((data: LoginTypes) => handleLoginUser(data))
 
   return (
     <Container>

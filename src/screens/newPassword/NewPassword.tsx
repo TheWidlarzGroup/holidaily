@@ -2,14 +2,13 @@ import React, { FC, useRef, useEffect } from 'react'
 import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-
 import { Box, Text } from 'utils/theme/index'
+import { passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
-import { passwordRegex } from 'utils/regexes/passwordRegex'
 import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
-import useBooleanState from 'hooks/useBooleanState'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 
@@ -23,8 +22,9 @@ export const NewPassword: FC = () => {
   const { control, handleSubmit, errors, watch } = useForm()
   const passwordConfirmationRef = useRef<TextInput>(null)
 
+  const { password, confirmPassword } = watch(['password', 'confirmPassword'])
+
   useEffect(() => {
-    const { password, confirmPassword } = watch(['password', 'confirmPassword'])
     const passwordsAreEqual = checkIfPasswordsMatch(password, confirmPassword)
 
     if (!passwordsAreEqual) {
@@ -32,7 +32,7 @@ export const NewPassword: FC = () => {
     } else {
       setArePasswordsEqual()
     }
-  }, [watch('password'), watch('confirmPassword')])
+  }, [password, confirmPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
   const handleUpdatePassword = () => arePasswordsEqual && showModal()
 

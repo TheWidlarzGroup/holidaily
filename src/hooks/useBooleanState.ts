@@ -8,7 +8,7 @@ type StateHandlers = {
 }
 type UseBooleanState = [boolean, StateHandlers]
 
-const useBooleanState = (initialValue: boolean): UseBooleanState => {
+export const useBooleanState = (initialValue: boolean): UseBooleanState => {
   const [state, setState] = useState(initialValue)
 
   const handlers = useMemo(
@@ -23,5 +23,3 @@ const useBooleanState = (initialValue: boolean): UseBooleanState => {
 
   return [state, handlers]
 }
-
-export default useBooleanState

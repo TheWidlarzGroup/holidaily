@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native'
 import { AuthNavigationType } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
 
-import useBooleanState from 'hooks/useBooleanState'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { useConfirmAccount } from 'hooks/useConfirmAccount'
 import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
@@ -39,7 +39,7 @@ export const ConfirmedAccount: FC = () => {
       const { token } = params
       handleConfirmAccount({ email, token })
     }
-  }, [params])
+  }, [params, email, handleConfirmAccount])
 
   useEffect(() => {
     if (confirmErrorMessage !== t('invalidToken')) {
@@ -47,7 +47,7 @@ export const ConfirmedAccount: FC = () => {
     } else if (confirmErrorMessage && confirmErrorMessage !== t('invalidToken')) {
       createAlert('Confirm Error', confirmErrorMessage, showModal)
     }
-  }, [confirmErrorMessage])
+  }, [confirmErrorMessage, navigateToLogin, showModal, t])
 
   if (isLoading) {
     return <ActivityIndicator color={colors.primary} />
