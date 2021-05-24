@@ -10,12 +10,15 @@ const customErrorMessage = (errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
     return 'Incorrect email, please try again'
   }
-  return 'Something went wrong, please try again later'
+
+  // TODO:
+  // Change errors messages from strins to i18n keys,
+  // Add email taken handling (errorMessage?.startswith('email: has already been taken'))
 }
 
 export const useSignup = () => {
   const { updateUser } = useUserContext()
-  const [signupErrorMessage, setSignupErrorMessage] = useState('')
+  const [signupErrorMessage, setSignupErrorMessage] = useState<string | undefined>('')
   const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
     CreateUserTypes,
     ErrorTypes,
