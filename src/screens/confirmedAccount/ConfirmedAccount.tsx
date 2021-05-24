@@ -37,8 +37,6 @@ export const ConfirmedAccount: FC = () => {
   useEffect(() => {
     if (params) {
       const { token } = params
-      console.log('email', email)
-      console.log('token', token)
       handleConfirmAccount({ email, token })
     }
   }, [params, email, handleConfirmAccount])
