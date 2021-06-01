@@ -4,21 +4,25 @@ import { useMutation } from 'react-query'
 import { ErrorTypes } from 'types/useLoginTypes'
 import { SignupTypes, HandleSignupTypes, CreateUserTypes } from 'types/useSignupTypes'
 import { signupMutation } from 'graphqlActions/mutations/signupMutation'
-import { useUserContext } from './useUserContext'
+import { useTranslation, TFunction } from 'react-i18next'
+import { useLogin } from './useLogin'
 
-const customErrorMessage = (errorMessage: string) => {
+const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
-    return 'Incorrect email, please try again'
+    return translate('invalidCredentials')
   }
-
-  // TODO:
-  // Change errors messages from strins to i18n keys,
-  // Add email taken handling (errorMessage?.startswith('email: has already been taken'))
+  if (errorMessage?.startsWith('email: has already been taken')) {
+    return translate('emailAlreadyTaken')
+  }
+  return translate('default')
 }
 
 export const useSignup = () => {
-  const { updateUser } = useUserContext()
-  const [signupErrorMessage, setSignupErrorMessage] = useState<string | undefined>('')
+  const [userPassword, setUserPassword] = useState('')
+  const { t } = useTranslation('mutationsErrors')
+  const { handleLoginUser } = useLogin()
+  const [signupErrorMessage, setSignupErrorMessage] = useState('')
+
   const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
     CreateUserTypes,
     ErrorTypes,
@@ -26,10 +30,12 @@ export const useSignup = () => {
   >(signupMutation, {
     onSuccess: (data: CreateUserTypes) => {
       const { email } = data.createUser
-      updateUser({ email })
+
+      handleLoginUser({ email, password: userPassword })
     },
+
     onError: (error: ErrorTypes) => {
-      const errorMessage = customErrorMessage(error.message)
+      const errorMessage = customErrorMessage(t, error.message)
 
       setSignupErrorMessage(errorMessage)
     },
@@ -37,7 +43,7 @@ export const useSignup = () => {
 
   const handleSignup = ({ email, nameSurname, password }: HandleSignupTypes) => {
     const [firstName, lastName] = nameSurname.split(' ')
-
+    setUserPassword(password)
     handleSignupUser({ email, firstName, lastName, password })
   }
 
