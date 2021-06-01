@@ -14,6 +14,5 @@ export type HandleSignupTypes = {
 export type CreateUserTypes = {
   createUser: {
     email: string
-    name: string
   }
 }
