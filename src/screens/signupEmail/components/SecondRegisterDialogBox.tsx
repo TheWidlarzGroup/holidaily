@@ -18,7 +18,7 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
   const navigateToLogin = useCallback(() => {
     hideModal()
     navigation.navigate('Login')
-  }, [navigation])
+  }, [navigation, hideModal])
 
   return (
     <Box backgroundColor="primary" alignItems="center" padding="lplus" borderRadius="mplus">

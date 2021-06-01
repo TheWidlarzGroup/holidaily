@@ -12,6 +12,8 @@ export const palette = {
   grayText: '#F3F3F3',
   grayModal: '#333333',
   veryLightGray: 'rgba(255, 255, 255, 0.15)',
+  grayTabIcons: '#D5D5D5',
+  transparent: 'transparent',
 }
 
 export const colors = {
@@ -28,4 +30,7 @@ export const colors = {
   mainBackground: palette.orangeLight,
   modalBackground: palette.grayModal,
   blackBtnRippleColor: palette.veryLightGray,
+  bottomBarIcons: palette.grayTabIcons,
+
+  transparent: palette.transparent,
 }

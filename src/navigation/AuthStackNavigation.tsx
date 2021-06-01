@@ -1,6 +1,5 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-
 import { Slider } from 'screens/slider/Slider'
 import { ForgotPassword } from 'screens/forgotPassword/ForgotPassword'
 import { Login } from 'screens/login/Login'

@@ -3,19 +3,15 @@ import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useFocusEffect } from '@react-navigation/native'
-
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, Text } from 'utils/theme/index'
+import { isIos } from 'utils/layout'
+import { minTwoWordsRegex, minOneSignRegex, emailRegex, passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
-import { emailRegex } from 'utils/regexes/emailRegex'
-import { passwordRegex } from 'utils/regexes/passwordRegex'
-import { minOneSignRegex } from 'utils/regexes/minOneSignRegex'
-import { minTwoWordsRegex } from 'utils/regexes/minTwoWordsRegex'
-import { isIos } from 'utils/isIos'
 import { CustomButton } from 'components/CustomButton'
 import { useSignup } from 'hooks/useSignup'
 import { createAlert } from 'utils/createAlert'
-import useBooleanState from 'hooks/useBooleanState'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 
 export const SignupEmail: FC = () => {
@@ -23,7 +19,6 @@ export const SignupEmail: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
-
   const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null), useRef<TextInput>(null)]
 
   const onSubmitEditing = (index: number) => {
@@ -35,27 +30,17 @@ export const SignupEmail: FC = () => {
   }, [signupErrorMessage])
 
   useEffect(() => {
-    if (isSuccess) {
-      showModal()
-    }
-  }, [isSuccess])
+    if (isSuccess) showModal()
+  }, [isSuccess, showModal])
 
-  useFocusEffect(
-    useCallback(
-      () => hideModal(),
-
-      []
-    )
-  )
+  useFocusEffect(useCallback(() => hideModal(), [hideModal]))
 
   return (
     <SafeAreaWrapper>
       <Box flex={0.2} justifyContent="center">
         <Text variant="title1">{t('signupEmailTitle')}</Text>
       </Box>
-      <KeyboardAvoidingView
-        behavior={isIos() ? 'padding' : 'height'}
-        style={styles.keyboardAvoiding}>
+      <KeyboardAvoidingView behavior={isIos ? 'padding' : 'height'} style={styles.keyboardAvoiding}>
         <Box marginHorizontal="l">
           <Box>
             <FormInput
