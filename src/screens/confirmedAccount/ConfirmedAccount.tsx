@@ -42,12 +42,13 @@ export const ConfirmedAccount: FC = () => {
   }, [params, email, handleConfirmAccount])
 
   useEffect(() => {
-    if (confirmErrorMessage !== t('invalidToken')) {
+    if (confirmErrorMessage && confirmErrorMessage !== t('invalidToken')) {
       createAlert('Confirm Error', confirmErrorMessage, navigateToLogin)
     } else if (confirmErrorMessage && confirmErrorMessage !== t('invalidToken')) {
       createAlert('Confirm Error', confirmErrorMessage, showModal)
     }
-  }, [confirmErrorMessage, navigateToLogin, showModal, t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confirmErrorMessage])
 
   if (isLoading) {
     return <ActivityIndicator color={colors.primary} />

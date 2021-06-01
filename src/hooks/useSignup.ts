@@ -22,6 +22,7 @@ export const useSignup = () => {
   const { t } = useTranslation('mutationsErrors')
   const { handleLoginUser } = useLogin()
   const [signupErrorMessage, setSignupErrorMessage] = useState('')
+
   const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
     CreateUserTypes,
     ErrorTypes,
