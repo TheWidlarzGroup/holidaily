@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 
 export const Dashboard: FC = () => (
   <SafeAreaWrapper isDefaultBgColor>
-    <Box margin="xl">
-      <Text variant="title1">Welcome in dashboard</Text>
+    <Box>
+      <DashboardHeader />
     </Box>
   </SafeAreaWrapper>
 )

@@ -97,5 +97,8 @@
     "calendar": "Kalendarz",
     "panel": "Panel",
     "chat": "Czat"
+  },
+  "dashboard":{
+    "welcome": "Co słychać w Twoim zespole?"
   }
 }

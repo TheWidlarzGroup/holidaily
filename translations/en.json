@@ -97,5 +97,9 @@
     "calendar": "Calendar",
     "panel": "Panel",
     "chat": "Chat"
+  },
+  "dashboard":{
+    "welcome": "How's your team doing?"
   }
 }
+
