@@ -99,5 +99,9 @@
     "chat": "Chat",
     "editProfile": "Edit profile",
     "budget": "Holiday budget"
+  },
+  "dashboard":{
+    "welcome": "How's your team doing?"
   }
 }
+

@@ -99,5 +99,8 @@
     "chat": "Czat",
     "editProfile": "Edytuj profil",
     "budget": "Budżet wakacyjny"
+  },
+  "dashboard":{
+    "welcome": "Co słychać w Twoim zespole?"
   }
 }
