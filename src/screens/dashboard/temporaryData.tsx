@@ -33,7 +33,7 @@ export const companyDaysOff = [
     id: 1,
     isOnHoliday: true,
     dayStart: '2021-06-01',
-    dayEnd: '2021-06-14',
+    dayEnd: '2021-06-08',
     user: {
       id: 'user1',
       firstName: 'Peter',
