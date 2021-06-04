@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 60,
   },
   avatar: {
-    margin: theme.spacing.s,
+    margin: theme.spacing.xs,
     marginLeft: theme.spacing.m,
   },
   icon: {
