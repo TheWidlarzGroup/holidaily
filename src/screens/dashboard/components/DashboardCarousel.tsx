@@ -56,6 +56,7 @@ export const DashboardCarousel: FC = () => {
 const styles = StyleSheet.create({
   personContainer: {
     alignItems: 'center',
+    marginBottom: theme.spacing.m,
   },
   holidayTag: {
     backgroundColor: colors.tertiary,
