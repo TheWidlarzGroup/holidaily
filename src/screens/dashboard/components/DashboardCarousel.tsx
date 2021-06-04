@@ -6,15 +6,17 @@ import IconPlane from 'assets/icons/icon-plane.svg'
 import IconSuitcase from 'assets/icons/icon-suitcase.svg'
 import { colors } from 'utils/theme/colors'
 import { StyleSheet } from 'react-native'
-import { companyDaysOff, ValidationOfCompanyDayOff } from 'screens/dashboard/temporaryData'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useTranslation } from 'react-i18next'
+import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from '../heleper'
 
 export const DashboardCarousel: FC = () => {
-  const usersHolidays: ValidationOfCompanyDayOff[] = companyDaysOff
+  const { i18n } = useTranslation()
+  const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
 
   return (
-    <ScrollView horizontal>
-      {usersHolidays.map((item) => (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {companyHolidaysData.map((item) => (
         <Box key={item.id} style={styles.personContainer}>
           <Box style={styles.avatar}>
             <IconProfile width={70} height={70} />
@@ -34,14 +36,14 @@ export const DashboardCarousel: FC = () => {
             <Box style={styles.holidays}>
               <IconSuitcase />
               <Text marginLeft="xs" style={styles.holidaysActive}>
-                {item.dayEnd}
+                {item.dayToBeDisplayed}
               </Text>
             </Box>
           ) : (
             <Box style={styles.holidays}>
               <IconPlane />
               <Text marginLeft="xs" style={styles.holidaysInActive}>
-                {item.dayStart}
+                {item.dayToBeDisplayed}
               </Text>
             </Box>
           )}
