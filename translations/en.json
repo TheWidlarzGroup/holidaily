@@ -101,7 +101,13 @@
     "budget": "Holiday budget"
   },
   "dashboard":{
-    "welcome": "How's your team doing?"
+    "welcome": "How's your team doing?",
+    "teamsList": "Your teams",
+    "outOfWorkNow": "Out of work now",
+    "outOfWorkSoon": "Out of work soon",
+    "othersTeamMembers": "Others team members",
+    "outOfWork": "Out of work",
+    "backAtWork": "Back at work"
   }
 }
 

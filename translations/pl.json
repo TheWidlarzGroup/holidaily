@@ -101,6 +101,12 @@
     "budget": "Budżet wakacyjny"
   },
   "dashboard":{
-    "welcome": "Co słychać w Twoim zespole?"
+    "welcome": "Co słychać w Twoim zespole?",
+    "teamsList": "Twoje zespoły",
+    "outOfWorkNow": "Obecnie na urlopie",
+    "outOfWorkSoon": "Wkrótce na urlopie",
+    "othersTeamMembers": "Pozostali członkowie zespołu",
+    "outOfWork": "Urlop",
+    "backAtWork": "Powrót"
   }
 }
