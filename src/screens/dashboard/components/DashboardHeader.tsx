@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Box, Text, theme } from 'utils/theme'
-import IconProfile from 'assets/icons/icon-profile.svg'
-import IconBell from 'assets/icons/icon-bell.svg'
 import { useTranslation } from 'react-i18next'
 import { colors } from 'utils/theme/colors'
 import { StyleSheet } from 'react-native'
+import IconProfile from 'assets/icons/icon-profile.svg'
+import IconBell from 'assets/icons/icon-bell.svg'
 
 export const DashboardHeader: FC = () => {
   const { t } = useTranslation(['dashboard'])

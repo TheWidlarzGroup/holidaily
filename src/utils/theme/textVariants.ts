@@ -69,4 +69,9 @@ export const textVariants = {
     fontSize: 15,
     color: 'white',
   },
+  lightBlack12: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'black',
+  },
 }
