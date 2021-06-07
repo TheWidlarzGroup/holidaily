@@ -96,6 +96,8 @@
     "dashboard": "Tablica",
     "calendar": "Kalendarz",
     "panel": "Panel",
-    "chat": "Czat"
+    "chat": "Czat",
+    "editProfile": "Edytuj profil",
+    "budget": "Budżet wakacyjny"
   }
 }
