@@ -7,7 +7,7 @@ import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarouse
 import { ValidationOfGroupDayOff, userGroupsDaysOff } from 'screens/dashboard/temporaryData'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { colors } from 'utils/theme/colors'
 
 export const Dashboard: FC = () => {
@@ -15,11 +15,11 @@ export const Dashboard: FC = () => {
   const teamsList: ValidationOfGroupDayOff[] = userGroupsDaysOff
   return (
     <SafeAreaWrapper isDefaultBgColor>
-      <Box>
-        <DashboardHeader />
+      <DashboardHeader />
+      <ScrollView>
         <DashboardCarousel />
         <Box style={{ marginTop: theme.spacing.l }}>
-          <Text variant="lightGreyRegular" style={{ marginHorizontal: theme.spacing.m }}>
+          <Text variant="header" style={{ marginHorizontal: theme.spacing.m }}>
             {t('teamsList').toUpperCase()}
           </Text>
           <Box style={styles.teamsComtainer}>
@@ -48,7 +48,7 @@ export const Dashboard: FC = () => {
             ))}
           </Box>
         </Box>
-      </Box>
+      </ScrollView>
     </SafeAreaWrapper>
   )
 }
