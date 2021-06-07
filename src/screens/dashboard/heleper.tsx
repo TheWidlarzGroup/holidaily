@@ -1,36 +1,31 @@
 import { companyDaysOff, ValidationOfCompanyDayOff } from 'screens/dashboard/temporaryData'
+import { DateTime } from 'luxon'
 
 const usersHolidays: ValidationOfCompanyDayOff[] = companyDaysOff
 
 export const dataToBeDisplayed = (language: string): ValidationOfDataToBeDisplayed[] => {
-  const today: Date = new Date()
+  const today = DateTime.now()
   return usersHolidays.map((item) => {
     if (item.isOnHoliday) {
-      const backDate: Date = new Date(item.dayEnd)
-      backDate.setUTCDate(backDate.getUTCDate() + 1)
-      return backDate.getUTCDate() < today.getUTCDate() + 7
-        ? { ...item, dayToBeDisplayed: backDate.toLocaleDateString(language, { weekday: 'long' }) }
+      const lastDayOff = DateTime.fromISO(item.dayEnd)
+      const backDay = lastDayOff.plus({ days: 1 })
+      return backDay < today.plus({ days: 7 })
+        ? { ...item, dayToBeDisplayed: backDay.setLocale(language).toFormat('cccc') }
         : {
             ...item,
-            dayToBeDisplayed: backDate.toLocaleDateString(language, {
-              day: 'numeric',
-              month: 'long',
-            }),
+            dayToBeDisplayed: backDay.setLocale(language).toFormat('d LLLL'),
           }
     }
-    const lastWorkDate: Date = new Date(item.dayStart)
-    lastWorkDate.setUTCDate(lastWorkDate.getUTCDate() - 1)
-    return lastWorkDate.getUTCDate() < today.getUTCDate() + 7
+    const firstDayOff = DateTime.fromISO(item.dayStart)
+    const lastWorkDay = firstDayOff.minus({ days: 1 })
+    return lastWorkDay < today.plus({ days: 7 })
       ? {
           ...item,
-          dayToBeDisplayed: lastWorkDate.toLocaleDateString(language, { weekday: 'long' }),
+          dayToBeDisplayed: lastWorkDay.setLocale(language).toFormat('cccc'),
         }
       : {
           ...item,
-          dayToBeDisplayed: lastWorkDate.toLocaleDateString(language, {
-            day: 'numeric',
-            month: 'long',
-          }),
+          dayToBeDisplayed: lastWorkDay.setLocale(language).toFormat('d LLLL'),
         }
   })
 }
