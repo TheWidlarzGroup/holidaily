@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet } from 'react-native'
-import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer'
+import {
+  DrawerContentScrollView,
+  DrawerContentComponentProps,
+  DrawerItemList,
+} from '@react-navigation/drawer'
 
 import { Box, Text, theme } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
@@ -16,7 +20,6 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const handleLogout = () => {
     updateUser(emptyUser)
   }
-
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
       <Box>
@@ -45,6 +48,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                   onPress={() => {
                     props.navigation.navigate(route.name)
                   }}
+                  key={route.name}
                 />
               )
           )}
