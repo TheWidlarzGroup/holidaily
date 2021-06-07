@@ -5,6 +5,8 @@ import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-nav
 import { Box, Text, theme } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
 import { emptyUser } from 'contexts/UserProvider'
+import { getDrawerIcon } from 'utils/getDrawerIcon'
+import { DrawerItem } from 'navigation/DrawerItem'
 import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 import { MOCK_DATA } from 'navigation/MockData'
 
@@ -33,6 +35,24 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           </Text>
           <Text style={styles.subHeader}>{MOCK_DATA.job}</Text>
         </Box>
+        <Box marginTop="xxl">
+          {props.state.routes.map(
+            (route) =>
+              route.name !== 'Home' && (
+                <DrawerItem
+                  icon={getDrawerIcon(route.name)}
+                  text={route.name}
+                  onPress={() => {
+                    props.navigation.navigate(route.name)
+                  }}
+                />
+              )
+          )}
+        </Box>
+      </Box>
+
+      <Box marginBottom="xxl">
+        <DrawerItem text="Log out" icon={getDrawerIcon('Logout')} onPress={handleLogout} />
       </Box>
     </DrawerContentScrollView>
   )
