@@ -8,7 +8,6 @@ export const dataToBeDisplayed = (language: string): ValidationOfDataToBeDisplay
     if (item.isOnHoliday) {
       const backDate: Date = new Date(item.dayEnd)
       backDate.setUTCDate(backDate.getUTCDate() + 1)
-      console.log(backDate.toLocaleDateString(language, { weekday: 'long' }))
       return backDate.getUTCDate() < today.getUTCDate() + 7
         ? { ...item, dayToBeDisplayed: backDate.toLocaleDateString(language, { weekday: 'long' }) }
         : {

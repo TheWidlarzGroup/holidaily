@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Box, Text, theme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { colors } from 'utils/theme/colors'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import IconBell from 'assets/icons/icon-bell.svg'
 
@@ -12,9 +12,9 @@ export const DashboardHeader: FC = () => {
   return (
     <Box style={styles.container}>
       <Box style={styles.userContainer}>
-        <Box style={styles.iconContainer}>
+        <TouchableOpacity style={styles.iconContainer}>
           <IconProfile style={styles.avatar} width={50} height={50} />
-        </Box>
+        </TouchableOpacity>
         <Text variant="boldBlack18" paddingLeft="xm">
           {t('welcome')}
         </Text>
