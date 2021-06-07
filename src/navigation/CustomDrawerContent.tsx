@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Image, StyleSheet } from 'react-native'
-import {
-  DrawerContentScrollView,
-  DrawerContentComponentProps,
-  DrawerItemList,
-} from '@react-navigation/drawer'
+import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer'
 
 import { Box, Text, theme } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
