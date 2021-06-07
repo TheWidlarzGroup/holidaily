@@ -8,7 +8,7 @@ import { colors } from 'utils/theme/colors'
 import { StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from '../heleper'
+import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from '../helper'
 
 export const DashboardCarousel: FC = () => {
   const { i18n } = useTranslation()
@@ -19,7 +19,7 @@ export const DashboardCarousel: FC = () => {
       {companyHolidaysData.map((item) => (
         <Box key={item.id} style={styles.personContainer}>
           <Box style={styles.avatar}>
-            <IconProfile width={70} height={70} />
+            <IconProfile width={62} height={62} />
             {item.isOnHoliday && (
               <Box style={styles.holidayTag}>
                 <IconPalm />
