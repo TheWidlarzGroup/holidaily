@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Animated, { AnimatedStyleProp } from 'react-native-reanimated'
 
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Dashboard } from 'screens/dashboard/Dashboard'
@@ -21,14 +22,16 @@ const tabs = [
   { name: 'Panel' },
   { name: 'Chat' },
 ]
-export const BottomTabNavigator = () => (
+export const BottomTabNavigator = ({ screenStyles }: any) => (
   <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-    <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
-      <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="RequestModal" component={EmptyComponent} />
-      <Tab.Screen name="Panel" component={Panel} />
-      <Tab.Screen name="Chat" component={Chat} />
-    </Tab.Navigator>
+    <Animated.View style={[screenStyles, { flex: 1 }]}>
+      <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
+        <Tab.Screen name="Dashboard" component={Dashboard} />
+        <Tab.Screen name="Calendar" component={Calendar} />
+        <Tab.Screen name="RequestModal" component={EmptyComponent} />
+        <Tab.Screen name="Panel" component={Panel} />
+        <Tab.Screen name="Chat" component={Chat} />
+      </Tab.Navigator>
+    </Animated.View>
   </SafeAreaView>
 )
