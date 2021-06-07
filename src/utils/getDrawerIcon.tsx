@@ -18,7 +18,7 @@ export const getDrawerIcon = (tab: string) => {
     case 'Settings': {
       return <SettingsIcon {...props} />
     }
-    case 'Budget': {
+    case 'Holiday budget': {
       return <BudgetIcon {...props} />
     }
     case 'About': {
