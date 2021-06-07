@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, Text, theme } from 'utils/theme'
+import { StyleSheet, ScrollView } from 'react-native'
+import { colors } from 'utils/theme/colors'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
-import { useTranslation } from 'react-i18next'
 import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarousel'
 import { ValidationOfGroupDayOff, userGroupsDaysOff } from 'screens/dashboard/temporaryData'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import { StyleSheet, ScrollView } from 'react-native'
-import { colors } from 'utils/theme/colors'
 
 export const Dashboard: FC = () => {
   const { t } = useTranslation(['dashboard'])
@@ -41,8 +41,8 @@ export const Dashboard: FC = () => {
                   </Box>
                 </Box>
                 <Box style={styles.members}>
-                  <IconProfile />
-                  <IconProfile />
+                  <IconProfile width={62} height={62} />
+                  <IconProfile width={62} height={62} />
                 </Box>
               </Box>
             ))}
