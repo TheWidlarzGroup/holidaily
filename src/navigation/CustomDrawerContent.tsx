@@ -9,8 +9,9 @@ import { getDrawerIcon } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerItem'
 import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 import { MOCK_DATA } from 'navigation/MockData'
+import Animated from 'react-native-reanimated'
 
-export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
+export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { updateUser } = useUserContext()
 
   const handleLogout = () => {
@@ -18,42 +19,44 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   }
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
-      <Box>
-        <Box margin="m">
-          {MOCK_DATA.profilePicture ? (
-            <Image
-              source={{ uri: MOCK_DATA.profilePicture }}
-              style={{ width: 44, height: 44, borderRadius: 22 }}
-            />
-          ) : (
-            <UserIconPlaceholder width={44} height={44} />
-          )}
+      <Animated.View style={[style, { flex: 1 }]}>
+        <Box flex={1}>
+          <Box margin="m">
+            {MOCK_DATA.profilePicture ? (
+              <Image
+                source={{ uri: MOCK_DATA.profilePicture }}
+                style={{ width: 44, height: 44, borderRadius: 22 }}
+              />
+            ) : (
+              <UserIconPlaceholder width={44} height={44} />
+            )}
 
-          <Text marginTop="m" style={styles.header}>
-            {MOCK_DATA.firstName} {MOCK_DATA.lastName}
-          </Text>
-          <Text style={styles.subHeader}>{MOCK_DATA.job}</Text>
+            <Text marginTop="m" style={styles.header}>
+              {MOCK_DATA.firstName} {MOCK_DATA.lastName}
+            </Text>
+            <Text style={styles.subHeader}>{MOCK_DATA.job}</Text>
+          </Box>
+          <Box marginTop="xxl">
+            {props.state.routes.map(
+              (route) =>
+                route.name !== 'Home' && (
+                  <DrawerItem
+                    icon={getDrawerIcon(route.name)}
+                    text={route.name}
+                    onPress={() => {
+                      props.navigation.navigate(route.name)
+                    }}
+                    key={route.name}
+                  />
+                )
+            )}
+          </Box>
         </Box>
-        <Box marginTop="xxl">
-          {props.state.routes.map(
-            (route) =>
-              route.name !== 'Home' && (
-                <DrawerItem
-                  icon={getDrawerIcon(route.name)}
-                  text={route.name}
-                  onPress={() => {
-                    props.navigation.navigate(route.name)
-                  }}
-                  key={route.name}
-                />
-              )
-          )}
-        </Box>
-      </Box>
 
-      <Box marginBottom="xxl">
-        <DrawerItem text="Log out" icon={getDrawerIcon('Logout')} onPress={handleLogout} />
-      </Box>
+        <Box marginBottom="xxl">
+          <DrawerItem text="Log out" icon={getDrawerIcon('Logout')} onPress={handleLogout} />
+        </Box>
+      </Animated.View>
     </DrawerContentScrollView>
   )
 }
