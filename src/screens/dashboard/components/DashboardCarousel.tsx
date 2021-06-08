@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, Text, theme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconPlane from 'assets/icons/icon-plane.svg'
@@ -17,11 +17,11 @@ export const DashboardCarousel: FC = () => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {companyHolidaysData.map((item) => (
-        <Box key={item.id} style={styles.personContainer}>
-          <Box style={styles.avatar}>
+        <Box key={item.id} marginBottom="m" style={styles.personContainer}>
+          <Box marginHorizontal="m" marginTop="m" marginBottom="xs">
             <IconProfile width={62} height={62} />
             {item.isOnHoliday && (
-              <Box style={styles.holidayTag}>
+              <Box bg="tertiary" style={styles.holidayTag}>
                 <IconPalm />
               </Box>
             )}
@@ -35,14 +35,14 @@ export const DashboardCarousel: FC = () => {
           {item.isOnHoliday ? (
             <Box style={styles.holidays}>
               <IconSuitcase />
-              <Text marginLeft="xs" style={styles.holidaysActive}>
+              <Text marginLeft="xs" variant="activeHolDate">
                 {item.dayToBeDisplayed}
               </Text>
             </Box>
           ) : (
             <Box style={styles.holidays}>
               <IconPlane />
-              <Text marginLeft="xs" style={styles.holidaysInActive}>
+              <Text marginLeft="xs" variant="inActiveHolDate">
                 {item.dayToBeDisplayed}
               </Text>
             </Box>
@@ -56,10 +56,8 @@ export const DashboardCarousel: FC = () => {
 const styles = StyleSheet.create({
   personContainer: {
     alignItems: 'center',
-    marginBottom: theme.spacing.m,
   },
   holidayTag: {
-    backgroundColor: colors.tertiary,
     width: 36,
     height: 36,
     alignItems: 'center',
@@ -71,25 +69,9 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: colors.disabledText,
   },
-  avatar: {
-    marginHorizontal: theme.spacing.m,
-    marginTop: theme.spacing.m,
-    marginBottom: theme.spacing.xs,
-  },
+
   holidays: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  holidaysActive: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 12,
-    color: colors.tertiary,
-    lineHeight: 14,
-  },
-  holidaysInActive: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 12,
-    color: colors.black,
-    lineHeight: 14,
   },
 })
