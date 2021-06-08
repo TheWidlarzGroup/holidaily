@@ -37,13 +37,14 @@ export const DrawerNavigator = () => {
         })
         const screenShadowIOS = Animated.interpolateNode(props.progress, {
           inputRange: [0, 1],
-          outputRange: [0, 1],
+          outputRange: [0, 0.2],
         })
         screenStyles = {
           transform: [{ scale: screenScale }, { translateX: screenTranslate }],
           shadowOffset: { width: 0, height: 0 },
           shadowColor: theme.colors.black,
           shadowOpacity: screenShadowIOS,
+          shadowRadius: 10,
           elevation: screenShadowAndroid,
           borderWidth: 0,
           backgroundColor: '#0000',
