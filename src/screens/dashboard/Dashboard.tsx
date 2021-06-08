@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, theme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { StyleSheet, ScrollView } from 'react-native'
-import { colors } from 'utils/theme/colors'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarousel'
@@ -11,25 +10,31 @@ import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
 
 export const Dashboard: FC = () => {
-  const { t } = useTranslation(['dashboard'])
+  const { t } = useTranslation('dashboard')
   const teamsList: ValidationOfGroupDayOff[] = userGroupsDaysOff
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <DashboardHeader />
       <ScrollView>
         <DashboardCarousel />
-        <Box style={{ marginTop: theme.spacing.l }}>
-          <Text variant="header" style={{ marginHorizontal: theme.spacing.m }}>
+        <Box marginTop="l">
+          <Text variant="header" marginHorizontal="m">
             {t('teamsList').toUpperCase()}
           </Text>
-          <Box style={styles.teamsComtainer}>
+          <Box m="s" style={styles.teamsComtainer}>
             {teamsList.map((team) => (
-              <Box key={team.groupId} style={styles.teamComtainer}>
+              <Box
+                key={team.groupId}
+                bg="white"
+                borderRadius="m"
+                marginBottom="xm"
+                padding="s"
+                style={styles.teamComtainer}>
                 <Box style={styles.teamHeader}>
                   <Text variant="label1">{team.groupName}</Text>
                   <Box style={styles.counter}>
                     <IconPalm width={16} height={16} />
-                    <Text variant="label1" style={{ marginLeft: theme.spacing.xs }}>
+                    <Text variant="label1" marginLeft="s">
                       {team.users.reduce(
                         (acc, curr) =>
                           !curr.holidays || (curr.holidays && !curr.holidays.isOnHoliday)
@@ -40,7 +45,7 @@ export const Dashboard: FC = () => {
                     </Text>
                   </Box>
                 </Box>
-                <Box style={styles.members}>
+                <Box marginTop="xm" style={styles.members}>
                   <IconProfile width={62} height={62} />
                   <IconProfile width={62} height={62} />
                 </Box>
@@ -58,14 +63,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    margin: theme.spacing.s,
   },
   teamComtainer: {
-    backgroundColor: colors.white,
-    borderRadius: 10,
     flexBasis: '48%',
-    marginBottom: theme.spacing.xm,
-    padding: theme.spacing.s,
   },
   teamHeader: {
     flexDirection: 'row',
@@ -78,6 +78,5 @@ const styles = StyleSheet.create({
   members: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: theme.spacing.xm,
   },
 })

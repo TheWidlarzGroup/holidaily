@@ -79,4 +79,16 @@ export const textVariants = {
     fontSize: 12,
     color: 'headerGrey',
   },
+  activeHolDate: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'tertiary',
+    lineHeight: 14,
+  },
+  inActiveHolDate: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'black',
+    lineHeight: 14,
+  },
 }
