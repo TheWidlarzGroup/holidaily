@@ -14,6 +14,7 @@ import { BottomTabNavigator as Home } from './BottomTabNavigator'
 const Drawer = createDrawerNavigator()
 
 let screenStyles = {}
+let drawerStyles = {}
 
 export const DrawerNavigator = () => {
   const { t } = useTranslation('navigation')
@@ -22,38 +23,54 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator
       initialRouteName="Home"
       drawerContent={(props) => {
-        const scale = Animated.interpolateNode(props.progress, {
+        const screenScale = Animated.interpolateNode(props.progress, {
           inputRange: [0, 1],
           outputRange: [1, 0.8],
         })
-        const translate = Animated.interpolateNode(props.progress, {
+        const screenTranslate = Animated.interpolateNode(props.progress, {
           inputRange: [0, 1],
           outputRange: [0, 0.8 * width * -0.1],
         })
-        const shadowAndroid = Animated.interpolateNode(props.progress, {
+        const screenShadowAndroid = Animated.interpolateNode(props.progress, {
           inputRange: [0, 1],
           outputRange: [0, 10],
         })
-        const shadowIOS = Animated.interpolateNode(props.progress, {
+        const screenShadowIOS = Animated.interpolateNode(props.progress, {
           inputRange: [0, 1],
           outputRange: [0, 1],
         })
         screenStyles = {
-          transform: [{ scale }, { translateX: translate }],
+          transform: [{ scale: screenScale }, { translateX: screenTranslate }],
           shadowOffset: { width: 0, height: 0 },
           shadowColor: theme.colors.black,
-          shadowOpacity: shadowIOS,
-          elevation: shadowAndroid,
+          shadowOpacity: screenShadowIOS,
+          elevation: screenShadowAndroid,
           borderWidth: 0,
           backgroundColor: '#0000',
         }
-        return <CustomDrawerContent {...props} />
+        const drawerScale = Animated.interpolateNode(props.progress, {
+          inputRange: [0, 1],
+          outputRange: [1.1, 1],
+        })
+        const drawerTranslate = Animated.interpolateNode(props.progress, {
+          inputRange: [0, 1],
+          outputRange: [0.1 * width, 1],
+        })
+        const drawerOpacity = Animated.interpolateNode(props.progress, {
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+        })
+        drawerStyles = {
+          transform: [{ scale: drawerScale }, { translateX: drawerTranslate }],
+          opacity: drawerOpacity,
+        }
+        return <CustomDrawerContent {...props} style={drawerStyles} />
       }}
       overlayColor="transparent"
       drawerStyle={{ backgroundColor: 'transparent' }}
-      drawerType="slide">
+      drawerType="back">
       <Drawer.Screen name="Home" options={{ title: t('home') }}>
-        {(props) => <Home screenStyles={screenStyles} {...props} />}
+        {(props) => <Home style={screenStyles} {...props} />}
       </Drawer.Screen>
       <Drawer.Screen
         name="Edit profile"

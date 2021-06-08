@@ -2,6 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Animated from 'react-native-reanimated'
+import { ViewProps } from 'react-native'
 
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Dashboard } from 'screens/dashboard/Dashboard'
@@ -22,9 +23,9 @@ const tabs = [
   { name: 'Panel' },
   { name: 'Chat' },
 ]
-export const BottomTabNavigator = ({ screenStyles }: any) => (
+export const BottomTabNavigator = ({ style }: ViewProps) => (
   <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-    <Animated.View style={[screenStyles, { flex: 1 }]}>
+    <Animated.View style={[style, { flex: 1 }]}>
       <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
         <Tab.Screen name="Dashboard" component={Dashboard} />
         <Tab.Screen name="Calendar" component={Calendar} />
