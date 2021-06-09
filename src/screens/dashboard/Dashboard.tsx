@@ -5,13 +5,13 @@ import { ScrollView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarousel'
-import { ValidationOfGroupDayOff, userGroupsDaysOff } from 'screens/dashboard/temporaryData'
+import { ValidationOfGroupDayOff, USER_GROUPS_DAYS_OFF } from 'screens/dashboard/temporaryData'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
 
 export const Dashboard: FC = () => {
   const { t } = useTranslation('dashboard')
-  const teamsList: ValidationOfGroupDayOff[] = userGroupsDaysOff
+  const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <DashboardHeader />
