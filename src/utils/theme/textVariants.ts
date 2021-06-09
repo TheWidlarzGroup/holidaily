@@ -23,6 +23,11 @@ export const textVariants = {
     fontSize: 15,
     color: 'black',
   },
+  labelGrey: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 15,
+    color: 'labelLightGrey',
+  },
   remind1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,

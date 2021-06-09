@@ -98,5 +98,14 @@
     "panel": "Panel",
     "chat": "Czat",
     "editProfile": "Edytuj profil"
-  }  
+  },
+  "userProfile": {
+    "addPhoto": "Dodaj zdjęcie profilowe",
+    "editPhoto": "Edytuj zdjęcie profilowe",
+    "userNameSurname": "Imię i nazwisko",
+    "userRole": "Stanowisko",
+    "userPassword": "Hasło",
+    "userSubscriptions": "Obserwowane zespoły",
+    "userColor": "Twój kolor"
+  }
 }

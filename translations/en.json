@@ -98,5 +98,14 @@
     "panel": "Panel",
     "chat": "Chat",
     "editProfile": "Edit profile"
-  } 
+  },
+  "userProfile": {
+    "addPhoto": "Add profile picture",
+    "editPhoto": "Edit profile picture",
+    "userNameSurname": "Name and surname",
+    "userRole": "Role",
+    "userPassword": "Password",
+    "userSubscriptions": "Subscribed teams",
+    "userColor": "Your color"
+  }
 }
