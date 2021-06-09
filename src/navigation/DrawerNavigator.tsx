@@ -69,7 +69,6 @@ export const DrawerNavigator = () => {
         return <CustomDrawerContent {...props} style={drawerStyles} />
       }}
       overlayColor="transparent"
-      drawerStyle={{ backgroundColor: 'transparent' }}
       drawerType="back">
       <Drawer.Screen name="Home" options={{ title: t('home') }}>
         {(props) => <Home style={screenStyles} {...props} />}
