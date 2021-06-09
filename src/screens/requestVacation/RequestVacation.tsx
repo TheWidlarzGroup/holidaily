@@ -1,8 +1,12 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { StatusBar } from 'react-native'
+import { FirstStepRequestVacation } from './components/FirstStepRequestVacation'
+import { SecondStepRequestVacation } from './components/SecondStepRequestVacation'
+import { ProgressBar } from 'components/ProgressBar'
+import { AnimatedBar } from 'components/AnimatedBar'
 
 export const RequestVacation: FC = () => {
   useEffect(() => {
@@ -12,11 +16,15 @@ export const RequestVacation: FC = () => {
     }
   }, [])
 
+  const [step, setStep] = useState<number>(0)
+
   return (
     <SafeAreaWrapper>
-      <Box margin="xl">
-        <Text variant="title1">Request your vacation date</Text>
+      <Box margin="l">
+        <AnimatedBar margin={30} marginSide={'bottom'} />
+        {step === 0 && <FirstStepRequestVacation onClickNext={() => setStep(1)} />}
       </Box>
+      <Box margin="l">{step === 1 && <SecondStepRequestVacation />}</Box>
     </SafeAreaWrapper>
   )
 }
