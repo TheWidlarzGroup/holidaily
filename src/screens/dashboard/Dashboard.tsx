@@ -6,9 +6,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarousel'
 import { ValidationOfGroupDayOff, USER_GROUPS_DAYS_OFF } from 'screens/dashboard/temporaryData'
-import IconPalm from 'assets/icons/icon-palm.svg'
-import IconProfile from 'assets/icons/icon-profile.svg'
-import { qtyOnHolidayNow } from 'screens/dashboard/helper'
+import { TeamElement } from 'screens/dashboard/components/TeamElement'
 
 export const Dashboard: FC = () => {
   const { t } = useTranslation('dashboard')
@@ -25,27 +23,7 @@ export const Dashboard: FC = () => {
           </Text>
           <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {teamsList.map((team) => (
-              <Box
-                key={team.groupId}
-                bg="white"
-                borderRadius="m"
-                marginBottom="xm"
-                padding="s"
-                flexBasis="48%">
-                <Box flexDirection="row" justifyContent="space-between">
-                  <Text variant="label1">{team.groupName}</Text>
-                  <Box flexDirection="row" alignItems="center">
-                    <IconPalm width={16} height={16} />
-                    <Text variant="label1" marginLeft="s">
-                      {qtyOnHolidayNow(team.groupId)}
-                    </Text>
-                  </Box>
-                </Box>
-                <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-                  <IconProfile width={62} height={62} />
-                  <IconProfile width={62} height={62} />
-                </Box>
-              </Box>
+              <TeamElement {...team} key={team.groupId} />
             ))}
           </Box>
         </Box>
