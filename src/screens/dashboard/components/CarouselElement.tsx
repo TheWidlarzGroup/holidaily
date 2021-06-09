@@ -29,9 +29,7 @@ export const CarouselElement: FC<CarouselElementProps> = (props) => {
       </Text>
       <Box flexDirection="row" alignItems="center">
         {isOnHoliday ? <IconSuitcase /> : <IconPlane />}
-        <Text marginLeft="xs" variant={isOnHoliday ? 'activeHolDate' : 'inActiveHolDate'}>
-          {dayToBeDisplayed}
-        </Text>
+        <Text variant={isOnHoliday ? 'activeHolDate' : 'inActiveHolDate'}>{dayToBeDisplayed}</Text>
       </Box>
     </Box>
   )

@@ -1,10 +1,13 @@
 import {
   COMPANY_DAYS_OFF,
-  USER_GROUPS_DAYS_OFF,
   ValidationOfCompanyDayOff,
-  ValidationOfGroupDayOff,
 } from 'screens/dashboard/helpers/temporaryData'
-import { DateTime } from 'luxon'
+import {
+  isTimeIntervalLessThanWeek,
+  displayWeekday,
+  displayDayShort,
+  setDateToBeDisplayed,
+} from 'utils/functions'
 
 export type ValidationOfDataToBeDisplayed = {
   isOnHoliday: boolean
@@ -21,22 +24,6 @@ export type ValidationOfDataToBeDisplayed = {
 
 const USER_HOLIDAYS: ValidationOfCompanyDayOff[] = COMPANY_DAYS_OFF
 
-const isTimeIntervalLessThanWeek = (date: DateTime): boolean => {
-  const today = DateTime.now()
-  return date < today.plus({ days: 7 })
-}
-
-const displayWeekday = (date: DateTime, language: string) =>
-  date.setLocale(language).toFormat('cccc')
-
-const displayDayShort = (date: DateTime, language: string) =>
-  date.setLocale(language).toFormat('d LLLL')
-
-const setDateToBeDisplayed = (date: string, currentluOnHoliday: boolean) => {
-  const convertedDate = DateTime.fromISO(date)
-  return currentluOnHoliday ? convertedDate.plus({ days: 1 }) : convertedDate.minus({ days: 1 })
-}
-
 export const dataToBeDisplayed = (language: string): ValidationOfDataToBeDisplayed[] =>
   USER_HOLIDAYS.map((item) => {
     const dateToBeDisplay = item.isOnHoliday
@@ -49,14 +36,3 @@ export const dataToBeDisplayed = (language: string): ValidationOfDataToBeDisplay
           dayToBeDisplayed: displayDayShort(dateToBeDisplay, language),
         }
   })
-
-export const qtyOnHolidayNow = (id: number): number | string => {
-  type GroupType = ValidationOfGroupDayOff | undefined
-  const group: GroupType = USER_GROUPS_DAYS_OFF.find((e) => e.groupId === id)
-  if (group === undefined) return 'x'
-  return group.users.reduce(
-    (acc, curr) =>
-      !curr.holidays || (curr.holidays && !curr.holidays.isOnHoliday) ? acc : acc + 1,
-    0
-  )
-}
