@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer'
 
-import { Box, Text, theme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
 import { emptyUser } from 'contexts/UserProvider'
 import { getDrawerIcon } from 'utils/getDrawerIcon'
