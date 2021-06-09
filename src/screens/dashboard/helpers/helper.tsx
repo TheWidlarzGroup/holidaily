@@ -3,7 +3,7 @@ import {
   USER_GROUPS_DAYS_OFF,
   ValidationOfCompanyDayOff,
   ValidationOfGroupDayOff,
-} from 'screens/dashboard/temporaryData'
+} from 'screens/dashboard/helpers/temporaryData'
 import { DateTime } from 'luxon'
 
 export type ValidationOfDataToBeDisplayed = {
