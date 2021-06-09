@@ -3,7 +3,7 @@ import { BorderlessButton } from 'react-native-gesture-handler'
 import { Box, Text } from 'utils/theme'
 
 type DrawerItemProps = {
-  text: string
+  text?: string
   onPress: () => void
   icon?: React.ReactNode | undefined
 }

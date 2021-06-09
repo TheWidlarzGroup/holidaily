@@ -41,11 +41,11 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
           </Box>
           <Box marginTop="xxl">
             {props.state.routes.map(
-              ({name, key}) =>
+              ({ name, key }) =>
                 name !== 'Home' && (
                   <DrawerItem
                     icon={getDrawerIcon(name)}
-                    text={props.descriptors.[key].options.title}
+                    text={props.descriptors[key].options.title}
                     onPress={() => {
                       props.navigation.navigate(name)
                     }}
