@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
-import { StyleSheet, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarousel'
@@ -21,7 +21,7 @@ export const Dashboard: FC = () => {
           <Text variant="header" marginHorizontal="m">
             {t('teamsList').toUpperCase()}
           </Text>
-          <Box m="s" style={styles.teamsComtainer}>
+          <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {teamsList.map((team) => (
               <Box
                 key={team.groupId}
@@ -29,10 +29,10 @@ export const Dashboard: FC = () => {
                 borderRadius="m"
                 marginBottom="xm"
                 padding="s"
-                style={styles.teamComtainer}>
-                <Box style={styles.teamHeader}>
+                flexBasis="48%">
+                <Box flexDirection="row" justifyContent="space-between">
                   <Text variant="label1">{team.groupName}</Text>
-                  <Box style={styles.counter}>
+                  <Box flexDirection="row" alignItems="center">
                     <IconPalm width={16} height={16} />
                     <Text variant="label1" marginLeft="s">
                       {team.users.reduce(
@@ -45,7 +45,7 @@ export const Dashboard: FC = () => {
                     </Text>
                   </Box>
                 </Box>
-                <Box marginTop="xm" style={styles.members}>
+                <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
                   <IconProfile width={62} height={62} />
                   <IconProfile width={62} height={62} />
                 </Box>
@@ -57,26 +57,3 @@ export const Dashboard: FC = () => {
     </SafeAreaWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  teamsComtainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  teamComtainer: {
-    flexBasis: '48%',
-  },
-  teamHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  counter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  members: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-})
