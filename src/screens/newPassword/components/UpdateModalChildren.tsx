@@ -16,7 +16,7 @@ export const UpdateModalChildren: FC = () => {
 
   return (
     <Box backgroundColor="primary" alignItems="center" padding="lplus" borderRadius="mplus">
-      <Text variant="boldBlack18">{t('passwordUpdated')}</Text>
+      <Text variant="boldBlackCenter18">{t('passwordUpdated')}</Text>
       <Box
         backgroundColor="tertiary"
         marginVertical="xl"
