@@ -28,7 +28,7 @@ export const FirstRegisterDialogBox: FC = () => {
   }
   return (
     <Box backgroundColor="primary" alignItems="center" padding="lplus" borderRadius="mplus">
-      <Text variant="boldBlack18">{t('dialogBox1Title')}</Text>
+      <Text variant="boldBlackCenter18">{t('dialogBox1Title')}</Text>
       <Box
         backgroundColor="tertiary"
         marginVertical="xl"
