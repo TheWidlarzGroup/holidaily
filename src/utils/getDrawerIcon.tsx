@@ -5,27 +5,27 @@ import EditIcon from 'assets/icons/icon-edit.svg'
 import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
 
-const props = {
+const dimensions = {
   width: 40,
   height: 40,
 }
 
 export const getDrawerIcon = (tab: string) => {
   switch (tab) {
-    case 'Edit profile': {
-      return <EditIcon {...props} />
+    case 'EditProfile': {
+      return <EditIcon {...dimensions} />
     }
     case 'Settings': {
-      return <SettingsIcon {...props} />
+      return <SettingsIcon {...dimensions} />
     }
-    case 'Holiday budget': {
-      return <BudgetIcon {...props} />
+    case 'HolidayBudget': {
+      return <BudgetIcon {...dimensions} />
     }
     case 'About': {
-      return <AboutIcon {...props} />
+      return <AboutIcon {...dimensions} />
     }
     case 'Logout': {
-      return <LogoutIcon {...props} />
+      return <LogoutIcon {...dimensions} />
     }
     default:
       break

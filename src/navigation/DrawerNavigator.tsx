@@ -8,10 +8,11 @@ import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { Budget } from 'screens/budget/Budget'
 import { EditProfile } from 'screens/editProfile/EditProfile'
+import { DrawerRoutes } from 'navigation/types'
 import { CustomDrawerContent } from './CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
 
-const Drawer = createDrawerNavigator()
+const Drawer = createDrawerNavigator<DrawerRoutes>()
 
 let screenStyles = {}
 let drawerStyles = {}
@@ -74,12 +75,12 @@ export const DrawerNavigator = () => {
         {(props) => <Home style={screenStyles} {...props} />}
       </Drawer.Screen>
       <Drawer.Screen
-        name="Edit profile"
+        name="EditProfile"
         component={EditProfile}
         options={{ title: t('editProfile'), swipeEnabled: false }}
       />
       <Drawer.Screen
-        name="Holiday budget"
+        name="HolidayBudget"
         component={Budget}
         options={{ title: t('budget'), swipeEnabled: false }}
       />
