@@ -8,10 +8,12 @@ import { DashboardCarousel } from 'screens/dashboard/components/DashboardCarouse
 import { ValidationOfGroupDayOff, USER_GROUPS_DAYS_OFF } from 'screens/dashboard/temporaryData'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
+import { qtyOnHolidayNow } from 'screens/dashboard/helper'
 
 export const Dashboard: FC = () => {
   const { t } = useTranslation('dashboard')
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
+
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <DashboardHeader />
@@ -35,13 +37,7 @@ export const Dashboard: FC = () => {
                   <Box flexDirection="row" alignItems="center">
                     <IconPalm width={16} height={16} />
                     <Text variant="label1" marginLeft="s">
-                      {team.users.reduce(
-                        (acc, curr) =>
-                          !curr.holidays || (curr.holidays && !curr.holidays.isOnHoliday)
-                            ? acc
-                            : acc + 1,
-                        0
-                      )}
+                      {qtyOnHolidayNow(team.groupId)}
                     </Text>
                   </Box>
                 </Box>
