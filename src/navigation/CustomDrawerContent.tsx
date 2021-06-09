@@ -34,7 +34,6 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
             ) : (
               <UserIconPlaceholder width={imageSize} height={imageSize} />
             )}
-
             <Text marginTop="m" variant="boldBlack18">
               {MOCK_DATA.firstName} {MOCK_DATA.lastName}
             </Text>
@@ -42,15 +41,15 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
           </Box>
           <Box marginTop="xxl">
             {props.state.routes.map(
-              (route) =>
-                route.name !== 'Home' && (
+              ({name, key}) =>
+                name !== 'Home' && (
                   <DrawerItem
-                    icon={getDrawerIcon(route.name)}
-                    text={route.name}
+                    icon={getDrawerIcon(name)}
+                    text={props.descriptors.[key].options.title}
                     onPress={() => {
-                      props.navigation.navigate(route.name)
+                      props.navigation.navigate(name)
                     }}
-                    key={route.name}
+                    key={name}
                   />
                 )
             )}
