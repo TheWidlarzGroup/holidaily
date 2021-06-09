@@ -1,12 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
-
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { StatusBar } from 'react-native'
 import { FirstStepRequestVacation } from './components/FirstStepRequestVacation'
 import { SecondStepRequestVacation } from './components/SecondStepRequestVacation'
-import { ProgressBar } from 'components/ProgressBar'
-import { AnimatedBar } from 'components/AnimatedBar'
+import { useNavigation } from '@react-navigation/core'
+import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 
 export const RequestVacation: FC = () => {
   useEffect(() => {
@@ -17,14 +16,15 @@ export const RequestVacation: FC = () => {
   }, [])
 
   const [step, setStep] = useState<number>(0)
+  const navigation = useNavigation()
 
   return (
     <SafeAreaWrapper>
+      <HeaderRequestVacation />
       <Box margin="l">
-        <AnimatedBar margin={30} marginSide={'bottom'} />
         {step === 0 && <FirstStepRequestVacation onClickNext={() => setStep(1)} />}
+        {step === 1 && <SecondStepRequestVacation />}
       </Box>
-      <Box margin="l">{step === 1 && <SecondStepRequestVacation />}</Box>
     </SafeAreaWrapper>
   )
 }

@@ -59,4 +59,9 @@ export const textVariants = {
     fontSize: 15,
     color: 'white',
   },
+  modalHeader: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 20,
+    color: 'black',
+  },
 }
