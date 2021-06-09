@@ -1,5 +1,5 @@
 import React from 'react'
-import { BaseButton } from 'react-native-gesture-handler'
+import { BorderlessButton } from 'react-native-gesture-handler'
 import { Box, Text } from 'utils/theme'
 
 type DrawerItemProps = {
@@ -10,11 +10,15 @@ type DrawerItemProps = {
 
 export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
   <Box margin="s">
-    <BaseButton onPress={onPress}>
+    <BorderlessButton
+      onPress={onPress}
+      activeOpacity={0.1}
+      borderless={false}
+      rippleColor="#0000000e">
       <Box margin="s" flexDirection="row" alignItems="center">
         {icon && <Box marginRight="m">{icon}</Box>}
         <Text variant="boldBlack18">{text}</Text>
       </Box>
-    </BaseButton>
+    </BorderlessButton>
   </Box>
 )
