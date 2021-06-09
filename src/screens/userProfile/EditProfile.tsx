@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Image, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { FC, useState } from 'react'
+import { Image, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { FormInput } from 'components/FormInput'
@@ -12,21 +12,25 @@ export const EditProfile: FC = () => {
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('userProfile')
 
-  const userTeams = ['Smartsoft', 'Akademia']
+  const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])
 
   const onSubmitEditing = () => {}
+  const onChangeProfilePicture = () => {}
+  const onRemoveSubscribedTeam = (team: string) => {
+    setUserTeams(userTeams.filter((item: string) => item !== team))
+  }
 
   return (
     <SafeAreaWrapper>
       <Box style={styles.imgBox}>
-        <TouchableOpacity>
+        <Pressable onPress={onChangeProfilePicture}>
           <Image source={userProfilePicture || ProfileImgPlaceholder} style={styles.profileImg} />
-        </TouchableOpacity>
-        <TouchableOpacity>
+        </Pressable>
+        <Pressable onPress={onChangeProfilePicture}>
           <Text variant="boldOrange15" textAlign="center" marginBottom="xl">
             {userProfilePicture ? t('editPhoto') : t('addPhoto')}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </Box>
       <Box paddingHorizontal="m">
         <Box>
@@ -78,8 +82,10 @@ export const EditProfile: FC = () => {
         </Text>
         <Box flexDirection="row">
           {userTeams.map((team, idx) => (
-            <TouchableOpacity key={idx} style={styles.teamsListItem}>
-              <Text variant="resendWhite">{team}</Text>
+            <TouchableOpacity onPress={() => onRemoveSubscribedTeam(team)} key={idx}>
+              <Text style={styles.teamsListItem} variant="resendWhite">
+                {team}
+              </Text>
             </TouchableOpacity>
           ))}
         </Box>
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.m,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.l,
+    marginTop: theme.spacing.xxxl,
   },
   profileImg: {
     height: 112,
