@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 
-import { ValidationOfGroupDayOff } from 'screens/dashboard/temporaryData'
+import { ValidationOfGroupDayOff } from 'screens/dashboard/helpers/temporaryData'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import { qtyOnHolidayNow } from 'screens/dashboard/helper'
+import { qtyOnHolidayNow } from 'screens/dashboard/helpers/helper'
 
 export const TeamElement: FC<ValidationOfGroupDayOff> = (props) => {
   const { groupId, groupName } = props
