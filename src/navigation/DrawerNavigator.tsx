@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
+import { EditProfile } from 'screens/userProfile/EditProfile'
 import { DrawerRoutes } from './types'
 import { CustomDrawerContent } from './CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -17,6 +18,11 @@ export const DrawerNavigator = () => {
       initialRouteName="Home"
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} options={{ title: t('home') }} />
+      <Drawer.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ title: 'Edit profile', swipeEnabled: false }}
+      />
       <Drawer.Screen
         name="About"
         component={About}

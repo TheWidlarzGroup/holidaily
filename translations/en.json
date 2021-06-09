@@ -96,6 +96,7 @@
     "dashboard": "Dashboard",
     "calendar": "Calendar",
     "panel": "Panel",
-    "chat": "Chat"
-  }
+    "chat": "Chat",
+    "editProfile": "Edit profile"
+  } 
 }

@@ -59,4 +59,9 @@ export const textVariants = {
     fontSize: 15,
     color: 'white',
   },
+  boldOrange15: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 15,
+    color: 'tertiary',
+  },
 }
