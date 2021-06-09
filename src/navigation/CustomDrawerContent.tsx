@@ -1,19 +1,21 @@
 import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer'
+import Animated from 'react-native-reanimated'
+import { useTranslation } from 'react-i18next'
 
 import { Box, Text } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
 import { emptyUser } from 'contexts/UserProvider'
 import { getDrawerIcon } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerItem'
-import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 import { MOCK_DATA } from 'navigation/MockData'
-import Animated from 'react-native-reanimated'
+import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 
 const imageSize = 44
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
+  const { t } = useTranslation('navigation')
   const { updateUser } = useUserContext()
 
   const handleLogout = () => {
@@ -58,7 +60,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
         </Box>
 
         <Box marginBottom="xxl">
-          <DrawerItem text="Log out" icon={getDrawerIcon('Logout')} onPress={handleLogout} />
+          <DrawerItem text={t('logout')} icon={getDrawerIcon('Logout')} onPress={handleLogout} />
         </Box>
       </Animated.View>
     </DrawerContentScrollView>
