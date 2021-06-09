@@ -11,6 +11,8 @@ import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 import { MOCK_DATA } from 'navigation/MockData'
 import Animated from 'react-native-reanimated'
 
+const imageSize = 44
+
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { updateUser } = useUserContext()
 
@@ -25,16 +27,18 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
             {MOCK_DATA.profilePicture ? (
               <Image
                 source={{ uri: MOCK_DATA.profilePicture }}
-                style={{ width: 44, height: 44, borderRadius: 22 }}
+                style={{ width: imageSize, height: imageSize, borderRadius: imageSize / 2 }}
               />
             ) : (
-              <UserIconPlaceholder width={44} height={44} />
+              <UserIconPlaceholder width={imageSize} height={imageSize} />
             )}
 
-            <Text marginTop="m" style={styles.header}>
+            <Text marginTop="m" fontFamily="Nunito-Bold" color="black" fontSize={18}>
               {MOCK_DATA.firstName} {MOCK_DATA.lastName}
             </Text>
-            <Text style={styles.subHeader}>{MOCK_DATA.job}</Text>
+            <Text fontFamily="Nunito-Regular" color="grey" fontSize={16}>
+              {MOCK_DATA.job}
+            </Text>
           </Box>
           <Box marginTop="xxl">
             {props.state.routes.map(
@@ -67,6 +71,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: 'white',
   },
-  header: { fontFamily: 'Nunito-Bold', color: theme.colors.black, fontSize: 18 },
-  subHeader: { fontFamily: 'Nunito-Regular', color: theme.colors.grey, fontSize: 16 },
 })
