@@ -1,11 +1,24 @@
-import { companyDaysOff, ValidationOfCompanyDayOff } from 'screens/dashboard/temporaryData'
+import { COMPANY_DAYS_OFF, ValidationOfCompanyDayOff } from 'screens/dashboard/temporaryData'
 import { DateTime } from 'luxon'
 
-const usersHolidays: ValidationOfCompanyDayOff[] = companyDaysOff
+export type ValidationOfDataToBeDisplayed = {
+  isOnHoliday: boolean
+  id: number
+  dayStart: string
+  dayEnd: string
+  user: {
+    id: string
+    firstName: string
+    lastName: string
+  }
+  dayToBeDisplayed: string
+}
+
+const USER_HOLIDAYS: ValidationOfCompanyDayOff[] = COMPANY_DAYS_OFF
 
 export const dataToBeDisplayed = (language: string): ValidationOfDataToBeDisplayed[] => {
   const today = DateTime.now()
-  return usersHolidays.map((item) => {
+  return USER_HOLIDAYS.map((item) => {
     if (item.isOnHoliday) {
       const lastDayOff = DateTime.fromISO(item.dayEnd)
       const backDay = lastDayOff.plus({ days: 1 })
@@ -28,17 +41,4 @@ export const dataToBeDisplayed = (language: string): ValidationOfDataToBeDisplay
           dayToBeDisplayed: lastWorkDay.setLocale(language).toFormat('d LLLL'),
         }
   })
-}
-
-export type ValidationOfDataToBeDisplayed = {
-  isOnHoliday: boolean
-  id: number
-  dayStart: string
-  dayEnd: string
-  user: {
-    id: string
-    firstName: string
-    lastName: string
-  }
-  dayToBeDisplayed: string
 }

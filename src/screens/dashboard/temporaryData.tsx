@@ -28,7 +28,7 @@ export type UserDetails = {
   }
 }
 
-export const companyDaysOff = [
+export const COMPANY_DAYS_OFF = [
   {
     id: 1,
     isOnHoliday: true,
@@ -97,7 +97,7 @@ export const companyDaysOff = [
   },
 ]
 
-export const userGroupsDaysOff = [
+export const USER_GROUPS_DAYS_OFF = [
   {
     groupId: 1,
     groupName: 'Akademia',
