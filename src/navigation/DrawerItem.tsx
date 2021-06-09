@@ -14,10 +14,13 @@ export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
       onPress={onPress}
       activeOpacity={0.1}
       borderless={false}
-      rippleColor="#0000000e">
+      rippleColor="#00000008"
+      style={{ alignSelf: 'flex-start' }}>
       <Box margin="s" flexDirection="row" alignItems="center">
         {icon && <Box marginRight="m">{icon}</Box>}
-        <Text variant="boldBlack18">{text}</Text>
+        <Text variant="boldBlack18" marginRight="m">
+          {text}
+        </Text>
       </Box>
     </BorderlessButton>
   </Box>
