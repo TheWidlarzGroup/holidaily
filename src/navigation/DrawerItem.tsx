@@ -12,10 +12,8 @@ export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
   <Box margin="s">
     <BaseButton onPress={onPress}>
       <Box margin="s" flexDirection="row" alignItems="center">
-        <Box marginRight="m">{icon}</Box>
-        <Text fontFamily="Nunito-Bold" fontSize={18}>
-          {text}
-        </Text>
+        {icon && <Box marginRight="m">{icon}</Box>}
+        <Text variant="boldBlack18">{text}</Text>
       </Box>
     </BaseButton>
   </Box>

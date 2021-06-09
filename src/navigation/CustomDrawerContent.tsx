@@ -35,12 +35,10 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
               <UserIconPlaceholder width={imageSize} height={imageSize} />
             )}
 
-            <Text marginTop="m" fontFamily="Nunito-Bold" color="black" fontSize={18}>
+            <Text marginTop="m" variant="boldBlack18">
               {MOCK_DATA.firstName} {MOCK_DATA.lastName}
             </Text>
-            <Text fontFamily="Nunito-Regular" color="grey" fontSize={16}>
-              {MOCK_DATA.job}
-            </Text>
+            <Text variant="regularGrey16">{MOCK_DATA.job}</Text>
           </Box>
           <Box marginTop="xxl">
             {props.state.routes.map(
