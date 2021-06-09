@@ -1,6 +1,5 @@
 import React from 'react'
-import { TouchableWithoutFeedback } from 'react-native'
-
+import { BaseButton } from 'react-native-gesture-handler'
 import { Box, Text } from 'utils/theme'
 
 type DrawerItemProps = {
@@ -10,12 +9,14 @@ type DrawerItemProps = {
 }
 
 export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
-  <TouchableWithoutFeedback onPress={onPress}>
-    <Box margin="m" flexDirection="row" alignItems="center">
-      {icon}
-      <Text marginLeft="m" style={{ fontFamily: 'Nunito-Bold', fontSize: 18 }}>
-        {text}
-      </Text>
-    </Box>
-  </TouchableWithoutFeedback>
+  <Box margin="s">
+    <BaseButton onPress={onPress}>
+      <Box margin="s" flexDirection="row" alignItems="center">
+        <Box marginRight="m">{icon}</Box>
+        <Text fontFamily="Nunito-Bold" fontSize={18}>
+          {text}
+        </Text>
+      </Box>
+    </BaseButton>
+  </Box>
 )
