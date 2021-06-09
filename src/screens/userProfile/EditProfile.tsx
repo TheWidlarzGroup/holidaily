@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { FormInput } from 'components/FormInput'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Text, Box, theme } from 'utils/theme'
+import IconPlus from 'assets/icons/icon-plus.svg'
 
 export const EditProfile: FC = () => {
   const ProfileImgPlaceholder = require('assets/User_Picture_Placeholder.png')
@@ -16,6 +17,8 @@ export const EditProfile: FC = () => {
 
   const onSubmitEditing = () => {}
   const onChangeProfilePicture = () => {}
+  const onChangeUserColor = () => {}
+  const onAddSubscribedTeam = () => {}
   const onRemoveSubscribedTeam = (team: string) => {
     setUserTeams(userTeams.filter((item: string) => item !== team))
   }
@@ -77,10 +80,13 @@ export const EditProfile: FC = () => {
         </Box>
       </Box>
       <Box paddingHorizontal="m" marginBottom="l">
-        <Text variant="labelGrey" marginLeft="m" marginBottom="xm">
+        <Text variant="label1" marginLeft="m" marginBottom="xm">
           {t('userSubscriptions')}
         </Text>
-        <Box flexDirection="row">
+        <Box flexDirection="row" position="relative">
+          <Pressable onPress={onAddSubscribedTeam} style={styles.addTeamsBtn}>
+            <IconPlus />
+          </Pressable>
           {userTeams.map((team, idx) => (
             <TouchableOpacity onPress={() => onRemoveSubscribedTeam(team)} key={idx}>
               <Text style={styles.teamsListItem} variant="resendWhite">
@@ -91,9 +97,10 @@ export const EditProfile: FC = () => {
         </Box>
       </Box>
       <Box paddingHorizontal="m">
-        <Text variant="labelGrey" marginLeft="m">
+        <Text variant="label1" marginLeft="m">
           {t('userColor')}
         </Text>
+        <Pressable onPress={onChangeUserColor} style={styles.userColor}></Pressable>
       </Box>
     </SafeAreaWrapper>
   )
@@ -117,5 +124,24 @@ const styles = StyleSheet.create({
     marginRight: 8,
     paddingHorizontal: 20,
     paddingVertical: 12,
+  },
+  userColor: {
+    marginTop: theme.spacing.xm,
+    marginLeft: theme.spacing.m,
+    height: 44,
+    width: 44,
+    backgroundColor: 'red',
+    borderRadius: 44 / 2,
+  },
+  addTeamsBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    height: 44,
+    width: 44,
+    borderRadius: 44 / 2,
+    backgroundColor: theme.colors.disabledText,
   },
 })
