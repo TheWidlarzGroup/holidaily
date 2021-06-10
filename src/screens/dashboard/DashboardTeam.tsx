@@ -1,20 +1,25 @@
 import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
-import { DashboardNavigationProps } from 'navigation/types'
-import { useRoute } from '@react-navigation/native'
+import { DashboardNavigationProps, DashboardNavigationType } from 'navigation/types'
+import { useRoute, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { MateElement } from './components/MateElement'
+import { MateElement } from 'screens/dashboard/components/MateElement'
 import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
+import { RequiredUserDetails } from 'types/holidaysDataTypes'
 
 export const DashboardTeam: FC = () => {
   const { params } = useRoute<DashboardNavigationProps<'DashboardTeam'>>()
   const { t } = useTranslation('dashboard')
+
+  const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
+  const navigateToMateDetails = (mate: RequiredUserDetails) =>
+    navigation.navigate('DashboardTeamMember', { ...mate })
+
   const matesOnHoliday = params.users.filter(
     (mate) => mate.holidays && mate.holidays.isOnHoliday === true
   )
-
   const matesWithPlannedHolidays = params.users.filter(
     (mate) => mate.holidays && mate.holidays.isOnHoliday === false
   )
@@ -26,7 +31,7 @@ export const DashboardTeam: FC = () => {
     <SafeAreaWrapper>
       <ScrollView>
         <Box
-          paddingVertical="xl"
+          paddingVertical="m"
           backgroundColor="disabledText"
           borderBottomRightRadius="lmin"
           borderBottomLeftRadius="lmin">
@@ -37,13 +42,21 @@ export const DashboardTeam: FC = () => {
             {t('outOfWorkNow').toUpperCase()}
           </Text>
           {matesOnHoliday.map((mate) => (
-            <MateElement key={mate.id} {...mate} />
+            <MateElement
+              key={mate.id}
+              {...mate}
+              navigateToMateScreen={() => navigateToMateDetails(mate)}
+            />
           ))}
           <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
             {t('outOfWorkSoon').toUpperCase()}
           </Text>
           {matesWithPlannedHolidays.map((mate) => (
-            <MateElement key={mate.id} {...mate} />
+            <MateElement
+              key={mate.id}
+              {...mate}
+              navigateToMateScreen={() => navigateToMateDetails(mate)}
+            />
           ))}
           <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
             {t('othersTeamMembers').toUpperCase()}

@@ -6,7 +6,7 @@ import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import { TouchableOpacity } from 'react-native'
 
-interface TeamElementProps extends ValidationOfGroupDayOff {
+type TeamElementProps = ValidationOfGroupDayOff & {
   navigateToTeamScreen: () => void
 }
 

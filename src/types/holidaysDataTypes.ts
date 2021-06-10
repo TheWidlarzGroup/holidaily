@@ -26,3 +26,12 @@ export type UserDetails = UserData & {
     dayEnd?: string
   }
 }
+
+export type RequiredUserDetails = UserData & {
+  holidays: {
+    id: number
+    isOnHoliday: boolean
+    dayStart: string
+    dayEnd: string
+  }
+}
