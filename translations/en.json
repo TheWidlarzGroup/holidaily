@@ -89,7 +89,7 @@
     "passwordMatch": "Password must match"
   },
   "navigation": {
-    "logout": "Logout",
+    "logout": "Log out",
     "home": "Home",
     "about": "About",
     "settings": "Settings",
@@ -97,7 +97,8 @@
     "calendar": "Calendar",
     "panel": "Panel",
     "chat": "Chat",
-    "editProfile": "Edit profile"
+    "editProfile": "Edit profile",
+    "budget": "Holiday budget"
   },
   "userProfile": {
     "addPhoto": "Add profile picture",
@@ -106,6 +107,6 @@
     "userRole": "Role",
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
-    "userColor": "Your color"
+    "userColor": "Your color"  
   }
 }

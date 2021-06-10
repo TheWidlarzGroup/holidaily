@@ -76,6 +76,8 @@ export type BottomTabRoutes = {
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
+  EditProfile: undefined
+  HolidayBudget: undefined
   About: undefined
   Settings: undefined
   EditProfile: undefined

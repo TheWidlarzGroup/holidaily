@@ -97,7 +97,8 @@
     "calendar": "Kalendarz",
     "panel": "Panel",
     "chat": "Czat",
-    "editProfile": "Edytuj profil"
+    "editProfile": "Edytuj profil",
+    "budget": "Budżet wakacyjny"
   },
   "userProfile": {
     "addPhoto": "Dodaj zdjęcie profilowe",
@@ -106,6 +107,6 @@
     "userRole": "Stanowisko",
     "userPassword": "Hasło",
     "userSubscriptions": "Obserwowane zespoły",
-    "userColor": "Twój kolor"
+    "userColor": "Twój kolor"    
   }
 }

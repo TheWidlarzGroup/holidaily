@@ -2,15 +2,16 @@ import React, { FC, useState } from 'react'
 import { Image, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { FormInput } from 'components/FormInput'
+
+import { Box, Text, theme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { Text, Box, theme } from 'utils/theme'
+import { FormInput } from 'components/FormInput'
 import IconPlus from 'assets/icons/icon-plus.svg'
 
 export const EditProfile: FC = () => {
   const ProfileImgPlaceholder = require('assets/User_Picture_Placeholder.png')
   const userProfilePicture = require('assets/User_Picture_Placeholder.png')
-  const { control, handleSubmit, errors } = useForm()
+  const { control, errors } = useForm()
   const { t } = useTranslation('userProfile')
 
   const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])

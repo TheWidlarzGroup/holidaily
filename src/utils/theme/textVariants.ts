@@ -42,11 +42,21 @@ export const textVariants = {
     fontFamily: 'Nunito-Bold',
     color: 'black',
     fontSize: 18,
+  },
+  boldBlackCenter18: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 18,
     textAlign: 'center',
   },
   lightGreyRegular: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
+    color: 'grey',
+  },
+  regularGrey16: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
     color: 'grey',
   },
   lightGreyBold: {
