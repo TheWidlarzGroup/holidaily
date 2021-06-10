@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Text, Theme } from 'utils/theme'
+import { BaseOpacity, Text, Theme } from 'utils/theme'
 
 type TextLinkProps = {
   text: string
@@ -8,7 +7,7 @@ type TextLinkProps = {
   variant: keyof Theme['textVariants']
 }
 export const TextLink: FC<TextLinkProps> = ({ text, variant, action }) => (
-  <TouchableOpacity onPress={action}>
+  <BaseOpacity onPress={action}>
     <Text variant={variant}>{text}</Text>
-  </TouchableOpacity>
+  </BaseOpacity>
 )

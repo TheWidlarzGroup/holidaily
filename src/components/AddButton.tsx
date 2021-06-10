@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
-import { StyleSheet } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
-
-import { Box, theme } from 'utils/theme/index'
+import { Box, mkUseStyles, Theme, theme } from 'utils/theme/index'
 import IconPlus from 'assets/icons/icon-plus.svg'
 import CircleBg from 'assets/circle-bg.svg'
 
@@ -10,18 +8,21 @@ type AddButtonProps = {
   onPress: () => void
 }
 
-export const AddButton: FC<AddButtonProps> = ({ onPress }) => (
-  <Box position="relative" alignItems="center">
-    <RectButton style={styles.button} onPress={onPress} rippleColor={theme.colors.lightGrey}>
-      <IconPlus />
-    </RectButton>
-    <Box position="absolute" bottom={-28}>
-      <CircleBg />
+export const AddButton: FC<AddButtonProps> = ({ onPress }) => {
+  const styles = useStyles()
+  return (
+    <Box position="relative" alignItems="center">
+      <RectButton style={styles.button} onPress={onPress} rippleColor={theme.colors.lightGrey}>
+        <IconPlus />
+      </RectButton>
+      <Box position="absolute" bottom={-28}>
+        <CircleBg />
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   button: {
     backgroundColor: theme.colors.tertiary,
     justifyContent: 'center',
@@ -29,6 +30,6 @@ const styles = StyleSheet.create({
     width: 62,
     height: 62,
     borderRadius: theme.borderRadii.lplus,
-    zIndex: 2,
+    zIndex: theme.zIndices[2],
   },
-})
+}))
