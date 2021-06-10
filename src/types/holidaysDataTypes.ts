@@ -18,14 +18,11 @@ export type ValidationOfGroupDayOff = {
   users: UserDetails[]
 }
 
-export type UserDetails = {
-  id: string
-  firstName: string
-  lastName: string
-  holidays?: {
-    id: number
-    isOnHoliday: boolean
-    dayStart: string
-    dayEnd: string
+export type UserDetails = UserData & {
+  holidays: {
+    id?: number
+    isOnHoliday?: boolean
+    dayStart?: string
+    dayEnd?: string
   }
 }

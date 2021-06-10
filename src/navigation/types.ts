@@ -65,12 +65,12 @@ export type DashboardNavigationType<
   RouteName extends keyof DashboardRoutes
 > = CompositeNavigationProp<
   StackNavigationProp<DashboardRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'Dashboard'>
+  StackNavigationProp<AppRoutes, 'DashboardNavigation'>
 >
 
 export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = {
   navigation: StackNavigationProp<DashboardRoutes, RouteName>
-  route: RouteProp<AppRoutes, 'Dashboard'>
+  route: RouteProp<AppRoutes, 'DashboardNavigation'>
 }
 
 export type AppRoutes = {
@@ -78,11 +78,11 @@ export type AppRoutes = {
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
   ModalRoutes: NestedNavigatorParams<DrawerRoutes>
-  Dashboard: NestedNavigatorParams<DashboardRoutes>
+  DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
 }
 
 export type BottomTabRoutes = {
-  Dashboard: NestedNavigatorParams<DashboardRoutes>
+  DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   Calendar: undefined
   RequestModal: undefined
   Panel: undefined
