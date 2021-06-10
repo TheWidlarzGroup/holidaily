@@ -1,12 +1,11 @@
 import React, { FC, useState } from 'react'
-import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { BaseOpacity, Box, Text, theme } from 'utils/theme'
+import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import IconAdd from 'assets/icons/icon-add.svg'
 
 export const TeamSubscriptions: FC = () => {
   const { t } = useTranslation('userProfile')
-
+  const styles = useStyles()
   const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])
 
   const onAddSubscribedTeam = () => {
@@ -49,7 +48,7 @@ export const TeamSubscriptions: FC = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   team: {
     marginRight: theme.spacing.s,
     backgroundColor: theme.colors.black,
@@ -57,4 +56,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+}))

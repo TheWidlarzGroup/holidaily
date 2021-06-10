@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { BaseOpacity, Box, Text, theme } from 'utils/theme'
+import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
 export const ProfilePicture: FC = () => {
   const { t } = useTranslation('userProfile')
+  const styles = useStyles()
   const userProfilePicture = false // TODO check for user profile picutre
 
   const onChangeProfilePicture = () => {
@@ -27,10 +27,10 @@ export const ProfilePicture: FC = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   profileImg: {
     height: 112,
     width: 112,
     marginBottom: theme.spacing.m,
   },
-})
+}))
