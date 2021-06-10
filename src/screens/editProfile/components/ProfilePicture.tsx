@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Image, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
@@ -16,7 +16,7 @@ export const ProfilePicture: FC = () => {
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="xxxl">
       <BaseOpacity onPress={onChangeProfilePicture}>
-        <Image source={ProfileImgPlaceholder} style={styles.profileImg} />
+        <ProfileImgPlaceholder style={styles.profileImg} />
       </BaseOpacity>
       <BaseOpacity onPress={onChangeProfilePicture}>
         <Text variant="boldOrange15" textAlign="center" marginBottom="xl">
