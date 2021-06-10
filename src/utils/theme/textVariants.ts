@@ -69,4 +69,9 @@ export const textVariants = {
     fontSize: 15,
     color: 'white',
   },
+  holidayDate: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    lineHeight: 14,
+  },
 }
