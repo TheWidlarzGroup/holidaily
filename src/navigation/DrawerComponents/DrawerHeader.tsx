@@ -16,7 +16,7 @@ export const DrawerHeader = ({ firstName, lastName, job, image }: DrawerHeaderPr
   <Box margin="m">
     {image ? (
       <Image
-        source={require('assets/icons/icon-profile.svg')}
+        source={{ uri: image }}
         style={{ width: imageSize, height: imageSize, borderRadius: imageSize / 2 }}
       />
     ) : (
