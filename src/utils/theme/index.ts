@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { createText, createBox, useTheme as useReTheme, RNStyle } from '@shopify/restyle'
 import { TouchableOpacityProps, TouchableOpacity } from 'react-native'
 import { textVariants } from './textVariants'
@@ -30,5 +30,5 @@ export const BaseOpacity = createBox<
 type NamedStyles<T> = { [P in keyof T]: RNStyle }
 export const mkUseStyles = <T extends NamedStyles<T>>(styles: (globalTheme: Theme) => T) => () => {
   const currentTheme = useTheme()
-  return useMemo(() => ({ ...styles(currentTheme) }), [styles, currentTheme])
+  return useMemo(() => ({ ...styles(currentTheme) }), [currentTheme])
 }
