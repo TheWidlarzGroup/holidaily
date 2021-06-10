@@ -4,6 +4,7 @@ export const palette = {
   orangeAlmostDark: '#FF8B3F',
   orangeDark: '#E86E1F',
   grey: '#878787',
+  greyNeutral: '#B9B9B9',
   lightGrey: '#E1E1E1',
   red: '#FF3D30',
   black: '#000',
@@ -31,6 +32,7 @@ export const colors = {
   modalBackground: palette.grayModal,
   blackBtnRippleColor: palette.veryLightGray,
   bottomBarIcons: palette.grayTabIcons,
+  headerGrey: palette.greyNeutral,
 
   transparent: palette.transparent,
 }
