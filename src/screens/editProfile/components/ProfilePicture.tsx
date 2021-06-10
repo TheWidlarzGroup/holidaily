@@ -20,7 +20,7 @@ export const ProfilePicture: FC = () => {
       </BaseOpacity>
       <BaseOpacity onPress={onChangeProfilePicture}>
         <Text variant="boldOrange15" textAlign="center" marginBottom="xl">
-          {userProfilePicture ? t('editPhoto') : "t('addPhoto')"}
+          {userProfilePicture ? t('editPhoto') : t('addPhoto')}
         </Text>
       </BaseOpacity>
     </Box>

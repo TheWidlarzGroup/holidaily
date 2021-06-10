@@ -33,16 +33,13 @@ export const TeamSubscriptions: FC = () => {
           top={0}
           height={44}
           width={44}
-          borderRadius={44 / 2}
+          borderRadius="full"
           backgroundColor="lightGrey">
           <IconAdd />
         </BaseOpacity>
         {userTeams.map((team, idx) => (
-          <BaseOpacity
-            onPress={() => onRemoveSubscribedTeam(team)}
-            key={idx}
-            style={styles.teamBtn}>
-            <Text variant="resendWhite" marginRight={8} paddingHorizontal={20} paddingVertical={12}>
+          <BaseOpacity onPress={() => onRemoveSubscribedTeam(team)} key={idx} style={styles.team}>
+            <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm">
               {team}
             </Text>
           </BaseOpacity>
@@ -53,8 +50,11 @@ export const TeamSubscriptions: FC = () => {
 }
 
 const styles = StyleSheet.create({
-  teamBtn: {
+  team: {
+    marginRight: theme.spacing.s,
     backgroundColor: theme.colors.black,
     borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })

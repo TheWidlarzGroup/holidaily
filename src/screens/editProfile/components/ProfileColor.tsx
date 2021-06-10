@@ -22,7 +22,7 @@ export const ProfileColor: FC = () => {
         height={44}
         width={44}
         backgroundColor="errorRed"
-        borderRadius={44 / 2}></BaseOpacity>
+        borderRadius="full"></BaseOpacity>
     </Box>
   )
 }
