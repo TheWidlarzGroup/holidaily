@@ -103,6 +103,7 @@
   "userProfile": {
     "addPhoto": "Add profile picture",
     "editPhoto": "Edit profile picture",
+    "editDetailsErrMsg": "Something went wrong. Try again.",
     "userNameSurname": "Name and surname",
     "userRole": "Role",
     "userPassword": "Password",

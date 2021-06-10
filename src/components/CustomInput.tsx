@@ -39,6 +39,11 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       }),
     }))
 
+    const editInput = () => {
+      console.log('edit input')
+      // TODO: focus selected input
+    }
+
     useEffect(() => {
       errorOpacity.value = isError ? 2 : 0
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +80,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               borderWidth={4}
               borderColor="white"
               borderRadius="l">
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={editInput}>
                 <IconEdit style={{ width: 50, height: 50 }} />
               </TouchableOpacity>
             </Box>

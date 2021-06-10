@@ -103,6 +103,7 @@
   "userProfile": {
     "addPhoto": "Dodaj zdjęcie profilowe",
     "editPhoto": "Edytuj zdjęcie profilowe",
+    "editDetailsErrMsg": "Coś poszło nie tak. Spróbuj ponownie.",
     "userNameSurname": "Imię i nazwisko",
     "userRole": "Stanowisko",
     "userPassword": "Hasło",

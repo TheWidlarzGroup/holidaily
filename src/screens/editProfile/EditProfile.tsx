@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Text, theme } from 'utils/theme'
+import { minTwoWordsRegex, minOneSignRegex, passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import IconAdd from 'assets/icons/icon-add.svg'
 
@@ -15,11 +16,24 @@ export const EditProfile: FC = () => {
 
   const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])
 
-  const onSubmitEditing = () => {}
-  const onChangeProfilePicture = () => {}
-  const onChangeUserColor = () => {}
-  const onAddSubscribedTeam = () => {}
+  const onSubmitEditing = () => {
+    console.log('submit editing')
+    // TODO submit editing input
+  }
+  const onChangeProfilePicture = () => {
+    console.log('change user profile picture')
+    // TODO display modal to change user profile picture
+  }
+  const onChangeUserColor = () => {
+    console.log('change user color')
+    // TODO display modal to change user color
+  }
+  const onAddSubscribedTeam = () => {
+    console.log('add subscribed team')
+    // TODO display modal to add new subscriptions
+  }
   const onRemoveSubscribedTeam = (team: string) => {
+    // TODO display modal to confirm changes
     setUserTeams(userTeams.filter((item: string) => item !== team))
   }
 
@@ -43,8 +57,8 @@ export const EditProfile: FC = () => {
             errors={errors}
             name="nameSurname"
             inputLabel={t('userNameSurname')}
-            validationPattern={/^/}
-            errorMessage="Something went wrong, please try again."
+            validationPattern={minTwoWordsRegex}
+            errorMessage={t('editDetailsErrMsg')}
             keyboardType="default"
             autoCompleteType="off"
             onSubmitEditing={onSubmitEditing}
@@ -58,8 +72,8 @@ export const EditProfile: FC = () => {
             errors={errors}
             name="role"
             inputLabel={t('userRole')}
-            validationPattern={/^/}
-            errorMessage="Something went wrong, please try again."
+            validationPattern={minOneSignRegex}
+            errorMessage={t('editDetailsErrMsg')}
             keyboardType="default"
             autoCompleteType="off"
             onSubmitEditing={onSubmitEditing}
@@ -73,10 +87,8 @@ export const EditProfile: FC = () => {
             errors={errors}
             name="password"
             inputLabel={t('userPassword')}
-            validationPattern={/^/}
-            errorMessage="Something went wrong, please try again."
-            keyboardType="default"
-            autoCompleteType="off"
+            validationPattern={passwordRegex}
+            errorMessage={t('editDetailsErrMsg')}
             onSubmitEditing={onSubmitEditing}
             isEditIconVisible
           />
