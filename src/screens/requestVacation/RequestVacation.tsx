@@ -37,14 +37,14 @@ export const RequestVacation: FC = () => {
     <SafeAreaWrapper>
       <HeaderRequestVacation />
       <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
-      <Box margin="l">
+      <Box margin="l" flex={1}>
         {step === 0 && (
           <FirstStepRequestVacation
             nextStep={() => setStep(1)}
             changeRequestData={changeRequestData}
           />
         )}
-        {step === 1 && <SecondStepRequestVacation />}
+        {step === 1 && <SecondStepRequestVacation description={description} />}
       </Box>
     </SafeAreaWrapper>
   )

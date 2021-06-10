@@ -30,30 +30,32 @@ export const FirstStepRequestVacation: FC<FirstStepRequestVacationProps> = ({
   const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
   return (
-    <Box>
-      <Text variant="boldBlack18" textAlign="left">
-        Details
-      </Text>
-      <FormInput
-        control={control}
-        isError={!!errors.description}
-        errors={errors}
-        name="description"
-        inputLabel="Description (optional)"
-        validationPattern={/.*/}
-        errorMessage="Incorrect description"
-        keyboardType="default"
-        autoCompleteType="off"
-      />
+    <Box flex={1} justifyContent="space-between" paddingBottom="m">
+      <Box>
+        <Text variant="boldBlack18" textAlign="left">
+          Details
+        </Text>
+        <FormInput
+          control={control}
+          isError={!!errors.description}
+          errors={errors}
+          name="description"
+          inputLabel="Description (optional)"
+          validationPattern={/.*/}
+          errorMessage="Incorrect description"
+          keyboardType="default"
+          autoCompleteType="off"
+        />
 
-      <Text variant="boldBlack18" textAlign="left">
-        Additionals
-      </Text>
-      <Text variant="body1" textAlign="left">
-        {' '}
-        Add and attachment or write a message{' '}
-      </Text>
-      <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} marginTop="100%" />
+        <Text variant="boldBlack18" textAlign="left">
+          Additionals
+        </Text>
+        <Text variant="body1" textAlign="left">
+          {' '}
+          Add and attachment or write a message{' '}
+        </Text>
+      </Box>
+      <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
     </Box>
   )
 }

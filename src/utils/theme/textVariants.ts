@@ -6,6 +6,12 @@ export const textVariants = {
     color: 'black',
     textAlign: 'center',
   },
+  body1Bold: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+    color: 'black',
+    textAlign: 'center',
+  },
   buttonText1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 18,
@@ -62,6 +68,21 @@ export const textVariants = {
   modalHeader: {
     fontFamily: 'Nunito-Bold',
     fontSize: 20,
+    color: 'black',
+  },
+  heading4: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 24,
+    color: 'black',
+  },
+  heading1: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 36,
+    color: 'black',
+  },
+  captionText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
     color: 'black',
   },
 }
