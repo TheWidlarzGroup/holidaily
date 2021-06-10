@@ -1,26 +1,29 @@
-import React, { FC, useCallback } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import React from 'react'
+import { ScrollView, SafeAreaView } from 'react-native'
+import { mkUseStyles, Theme } from 'utils/theme/index'
 
-import { Box, Text } from 'utils/theme'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { AppNavigationType } from 'navigation/types'
-import { DrawerBackArrow } from 'components/DrawerBackArrow'
+import { ProfilePicture } from './components/ProfilePicture'
+import { ProfileDetails } from './components/ProfileDetails'
+import { TeamSubscriptions } from './components/TeamSubscriptions'
+import { ProfileColor } from './components/ProfileColor'
 
-export const EditProfile: FC = () => {
-  const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
-
-  const handleGoBack = useCallback(() => {
-    navigation.navigate('Home', {
-      screen: 'Dashboard',
-    })
-  }, [navigation])
+export const EditProfile = () => {
+  const styles = useStyles()
 
   return (
-    <SafeAreaWrapper>
-      <DrawerBackArrow goBack={handleGoBack} />
-      <Box margin="xl">
-        <Text variant="title1">Welcome in profile edit</Text>
-      </Box>
-    </SafeAreaWrapper>
+    <SafeAreaView>
+      <ScrollView style={styles.mainView}>
+        <ProfilePicture />
+        <ProfileDetails />
+        <TeamSubscriptions />
+        <ProfileColor />
+      </ScrollView>
+    </SafeAreaView>
   )
 }
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  mainView: {
+    backgroundColor: theme.colors.white,
+  },
+}))
