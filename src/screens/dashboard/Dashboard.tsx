@@ -9,11 +9,17 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
+import { DashboardNavigationType } from 'navigation/types'
+import { useNavigation } from '@react-navigation/native'
 
 export const Dashboard: FC = () => {
   const { t, i18n } = useTranslation('dashboard')
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
+
+  const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
+  const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>
+    navigation.navigate('DashboardTeam', { ...team })
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
@@ -36,7 +42,11 @@ export const Dashboard: FC = () => {
           </Text>
           <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
             {teamsList.map((team) => (
-              <TeamElement {...team} key={team.groupId} />
+              <TeamElement
+                {...team}
+                key={team.groupId}
+                navigateToTeamScreen={() => navigateToTeamDetails(team)}
+              />
             ))}
           </Box>
         </Box>

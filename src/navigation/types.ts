@@ -1,6 +1,7 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -59,15 +60,29 @@ export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
   route: RouteProp<AppRoutes, 'DrawerNavigator'>
 }
 
+// for useNavigation hook
+export type DashboardNavigationType<
+  RouteName extends keyof DashboardRoutes
+> = CompositeNavigationProp<
+  StackNavigationProp<DashboardRoutes, RouteName>,
+  StackNavigationProp<AppRoutes, 'Dashboard'>
+>
+
+export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = {
+  navigation: StackNavigationProp<DashboardRoutes, RouteName>
+  route: RouteProp<AppRoutes, 'Dashboard'>
+}
+
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
   ModalRoutes: NestedNavigatorParams<DrawerRoutes>
+  Dashboard: NestedNavigatorParams<DashboardRoutes>
 }
 
 export type BottomTabRoutes = {
-  Dashboard: undefined
+  Dashboard: NestedNavigatorParams<DashboardRoutes>
   Calendar: undefined
   RequestModal: undefined
   Panel: undefined
@@ -96,4 +111,10 @@ export type AuthRoutes = {
 export type ModalRoutes = {
   RequestVacation: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
+}
+
+export type DashboardRoutes = {
+  Dashboard: undefined
+  DashboardTeam: ValidationOfGroupDayOff
+  DashboardTeamMember: undefined
 }
