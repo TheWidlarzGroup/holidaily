@@ -14,6 +14,7 @@ export const palette = {
   grayModal: '#333333',
   veryLightGray: 'rgba(255, 255, 255, 0.15)',
   grayTabIcons: '#D5D5D5',
+  rippleColor: '#00000008',
   transparent: 'transparent',
 }
 
@@ -33,6 +34,7 @@ export const colors = {
   blackBtnRippleColor: palette.veryLightGray,
   bottomBarIcons: palette.grayTabIcons,
   headerGrey: palette.greyNeutral,
+  rippleColor: palette.rippleColor,
 
   transparent: palette.transparent,
 }
