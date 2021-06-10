@@ -80,7 +80,6 @@ export type DrawerRoutes = {
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
-  EditProfile: undefined
 }
 
 export type AuthRoutes = {

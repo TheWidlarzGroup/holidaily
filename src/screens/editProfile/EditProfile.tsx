@@ -1,12 +1,11 @@
 import React, { FC, useState } from 'react'
-import { Image, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, Pressable, TouchableOpacity, ScrollView } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Text, theme } from 'utils/theme'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { FormInput } from 'components/FormInput'
-import IconPlus from 'assets/icons/icon-plus.svg'
+import IconAdd from 'assets/icons/icon-add.svg'
 
 export const EditProfile: FC = () => {
   const ProfileImgPlaceholder = require('assets/User_Picture_Placeholder.png')
@@ -25,7 +24,7 @@ export const EditProfile: FC = () => {
   }
 
   return (
-    <SafeAreaWrapper>
+    <ScrollView style={styles.mainView}>
       <Box style={styles.imgBox}>
         <Pressable onPress={onChangeProfilePicture}>
           <Image source={userProfilePicture || ProfileImgPlaceholder} style={styles.profileImg} />
@@ -49,6 +48,7 @@ export const EditProfile: FC = () => {
             keyboardType="default"
             autoCompleteType="off"
             onSubmitEditing={onSubmitEditing}
+            isEditIconVisible
           />
         </Box>
         <Box>
@@ -63,6 +63,7 @@ export const EditProfile: FC = () => {
             keyboardType="default"
             autoCompleteType="off"
             onSubmitEditing={onSubmitEditing}
+            isEditIconVisible
           />
         </Box>
         <Box>
@@ -77,6 +78,7 @@ export const EditProfile: FC = () => {
             keyboardType="default"
             autoCompleteType="off"
             onSubmitEditing={onSubmitEditing}
+            isEditIconVisible
           />
         </Box>
       </Box>
@@ -86,7 +88,7 @@ export const EditProfile: FC = () => {
         </Text>
         <Box flexDirection="row" position="relative">
           <Pressable onPress={onAddSubscribedTeam} style={styles.addTeamsBtn}>
-            <IconPlus />
+            <IconAdd />
           </Pressable>
           {userTeams.map((team, idx) => (
             <TouchableOpacity onPress={() => onRemoveSubscribedTeam(team)} key={idx}>
@@ -97,17 +99,20 @@ export const EditProfile: FC = () => {
           ))}
         </Box>
       </Box>
-      <Box paddingHorizontal="m">
+      <Box paddingHorizontal="m" marginBottom="xl">
         <Text variant="label1" marginLeft="m">
           {t('userColor')}
         </Text>
         <Pressable onPress={onChangeUserColor} style={styles.userColor}></Pressable>
       </Box>
-    </SafeAreaWrapper>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  mainView: {
+    backgroundColor: 'white',
+  },
   imgBox: {
     paddingHorizontal: theme.spacing.m,
     justifyContent: 'center',
@@ -143,6 +148,6 @@ const styles = StyleSheet.create({
     height: 44,
     width: 44,
     borderRadius: 44 / 2,
-    backgroundColor: theme.colors.disabledText,
+    backgroundColor: theme.colors.lightGrey,
   },
 })
