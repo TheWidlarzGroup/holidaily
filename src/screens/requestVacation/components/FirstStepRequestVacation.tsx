@@ -1,40 +1,59 @@
-import React, { FC, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Box, Text } from 'utils/theme/index'
-import { TextLink } from 'components/TextLink'
-import { useRetriggerAccountConfirmationEmail } from 'hooks/useRetriggerAccountConfirmationEmail'
-import { ActivityIndicator } from 'react-native'
-import { colors } from 'utils/theme/colors'
-import { createAlert } from 'utils/createAlert'
+import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
+import { requestDataTypes } from '../RequestVacation'
 
-type FirstStepRequestVacationProps = {
-  onClickNext: () => void
+type FormTypes = {
+  date: undefined
+  description: string
 }
 
-export const FirstStepRequestVacation: FC<FirstStepRequestVacationProps> = ({ onClickNext }) => {
+type FirstStepRequestVacationProps = {
+  nextStep: () => void
+  changeRequestData: (callback: (currentData: requestDataTypes) => requestDataTypes) => void
+}
+
+export const FirstStepRequestVacation: FC<FirstStepRequestVacationProps> = ({
+  nextStep,
+  changeRequestData,
+}) => {
   const { control, handleSubmit, errors } = useForm()
 
-  const onSubmitEditing = () => {}
+  const handleLoginUser = (data: FormTypes) => {
+    if (Object.keys(errors).length) return
+    changeRequestData((oldData) => ({ ...oldData, description: data.description }))
+    nextStep()
+  }
+
+  const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
   return (
     <Box>
-      <Text variant="title1">Step 1</Text>
+      <Text variant="boldBlack18" textAlign="left">
+        Details
+      </Text>
       <FormInput
         control={control}
         isError={!!errors.description}
         errors={errors}
-        name="email"
+        name="description"
         inputLabel="Description (optional)"
-        validationPattern={/^/}
+        validationPattern={/.*/}
         errorMessage="Incorrect description"
         keyboardType="default"
         autoCompleteType="off"
-        onSubmitEditing={onSubmitEditing}
       />
-      <CustomButton label={'next'} variant="primary" onPress={onClickNext} />
+
+      <Text variant="boldBlack18" textAlign="left">
+        Additionals
+      </Text>
+      <Text variant="body1" textAlign="left">
+        {' '}
+        Add and attachment or write a message{' '}
+      </Text>
+      <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} marginTop="100%" />
     </Box>
   )
 }
