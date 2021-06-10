@@ -3,18 +3,19 @@ import { Image, StyleSheet, Pressable, TouchableOpacity, ScrollView } from 'reac
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { Box, Text, theme } from 'utils/theme'
+import { BaseOpacity, Box, Text, theme } from 'utils/theme'
 import { minTwoWordsRegex, minOneSignRegex, passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import IconAdd from 'assets/icons/icon-add.svg'
 
+import ProfileImgPlaceholder from 'assets/User_Picture_Placeholder.png'
+
 export const EditProfile: FC = () => {
-  const ProfileImgPlaceholder = require('assets/User_Picture_Placeholder.png')
-  const userProfilePicture = require('assets/User_Picture_Placeholder.png')
   const { control, errors } = useForm()
   const { t } = useTranslation('userProfile')
 
   const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])
+  const userProfilePicture = false // TODO check for user profile picutre
 
   const onSubmitEditing = () => {
     console.log('submit editing')
@@ -39,9 +40,9 @@ export const EditProfile: FC = () => {
 
   return (
     <ScrollView style={styles.mainView}>
-      <Box style={styles.imgBox}>
+      <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="xxxl">
         <Pressable onPress={onChangeProfilePicture}>
-          <Image source={userProfilePicture || ProfileImgPlaceholder} style={styles.profileImg} />
+          <Image source={ProfileImgPlaceholder} style={styles.profileImg} />
         </Pressable>
         <Pressable onPress={onChangeProfilePicture}>
           <Text variant="boldOrange15" textAlign="center" marginBottom="xl">
@@ -99,9 +100,19 @@ export const EditProfile: FC = () => {
           {t('userSubscriptions')}
         </Text>
         <Box flexDirection="row" position="relative">
-          <Pressable onPress={onAddSubscribedTeam} style={styles.addTeamsBtn}>
+          <BaseOpacity
+            onPress={onAddSubscribedTeam}
+            justifyContent="center"
+            alignItems="center"
+            position="absolute"
+            right={0}
+            top={0}
+            height={44}
+            width={44}
+            borderRadius={44 / 2}
+            backgroundColor="lightGrey">
             <IconAdd />
-          </Pressable>
+          </BaseOpacity>
           {userTeams.map((team, idx) => (
             <TouchableOpacity onPress={() => onRemoveSubscribedTeam(team)} key={idx}>
               <Text style={styles.teamsListItem} variant="resendWhite">
@@ -124,12 +135,6 @@ export const EditProfile: FC = () => {
 const styles = StyleSheet.create({
   mainView: {
     backgroundColor: 'white',
-  },
-  imgBox: {
-    paddingHorizontal: theme.spacing.m,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: theme.spacing.xxxl,
   },
   profileImg: {
     height: 112,
