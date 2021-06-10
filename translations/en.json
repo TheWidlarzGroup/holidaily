@@ -100,7 +100,7 @@
     "editProfile": "Edit profile",
     "budget": "Holiday budget"
   },
-  "dashboard":{
+  "dashboard": {
     "welcome": "How's your team doing?",
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
@@ -110,4 +110,3 @@
     "backAtWork": "Back at work"
   }
 }
-

@@ -1,18 +1,18 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Box, Text } from 'utils/theme'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import IconPlane from 'assets/icons/icon-plane.svg'
 import IconSuitcase from 'assets/icons/icon-suitcase.svg'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 
-interface CarouselElementProps {
+export type CarouselElementProps = {
   isOnHoliday: boolean
   firstName: string
   lastName: string
   dayToBeDisplayed: string
 }
 
-export const CarouselElement: FC<CarouselElementProps> = (props) => {
+export const CarouselElement = (props: CarouselElementProps) => {
   const { isOnHoliday, firstName, lastName, dayToBeDisplayed } = props
 
   return (
@@ -21,15 +21,17 @@ export const CarouselElement: FC<CarouselElementProps> = (props) => {
         <IconProfile width={62} height={62} />
         {isOnHoliday && <OnHolidayTag variant="small" />}
       </Box>
-      <Text variant="lightBlack12" style={{ lineHeight: 14 }}>
+      <Text variant="lightGreyRegular" color="black" style={{ lineHeight: 14 }}>
         {firstName}
       </Text>
-      <Text variant="lightBlack12" style={{ lineHeight: 14 }}>
+      <Text variant="lightGreyRegular" color="black" style={{ lineHeight: 14 }}>
         {lastName}
       </Text>
       <Box flexDirection="row" alignItems="center">
         {isOnHoliday ? <IconSuitcase /> : <IconPlane />}
-        <Text variant={isOnHoliday ? 'activeHolDate' : 'inActiveHolDate'}>{dayToBeDisplayed}</Text>
+        <Text variant="holidayDate" color={isOnHoliday ? 'tertiary' : 'black'}>
+          {dayToBeDisplayed}
+        </Text>
       </Box>
     </Box>
   )

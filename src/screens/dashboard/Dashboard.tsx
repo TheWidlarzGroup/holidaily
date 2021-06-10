@@ -4,10 +4,8 @@ import { Box, Text } from 'utils/theme'
 import { ScrollView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
-import {
-  ValidationOfGroupDayOff,
-  USER_GROUPS_DAYS_OFF,
-} from 'screens/dashboard/helpers/temporaryData'
+import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
+import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
@@ -33,7 +31,7 @@ export const Dashboard: FC = () => {
           ))}
         </ScrollView>
         <Box marginTop="l">
-          <Text variant="header" marginHorizontal="m">
+          <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
             {t('teamsList').toUpperCase()}
           </Text>
           <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { UserDetails } from 'screens/dashboard/helpers/temporaryData'
+import { UserDetails } from 'types/holidaysDataTypes'
 
 export type ValidationOfDataToBeDisplayed = {
   isOnHoliday: boolean
@@ -27,9 +27,9 @@ export const displayWeekday = (date: DateTime, language: string) =>
 export const displayDayShort = (date: DateTime, language: string) =>
   date.setLocale(language).toFormat('d LLLL')
 
-export const setDateToBeDisplayed = (date: string, currentluOnHoliday: boolean) => {
+export const setDateToBeDisplayed = (date: string, currentlyOnHoliday: boolean) => {
   const convertedDate = DateTime.fromISO(date)
-  return currentluOnHoliday ? convertedDate.plus({ days: 1 }) : convertedDate.minus({ days: 1 })
+  return currentlyOnHoliday ? convertedDate.plus({ days: 1 }) : convertedDate.minus({ days: 1 })
 }
 
 // SUM FUNCTIONS

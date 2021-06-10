@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
-import { ValidationOfGroupDayOff } from 'screens/dashboard/helpers/temporaryData'
+import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconProfile from 'assets/icons/icon-profile.svg'

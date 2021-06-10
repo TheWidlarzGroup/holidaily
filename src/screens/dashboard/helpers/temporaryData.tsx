@@ -1,39 +1,9 @@
-export type ValidationOfCompanyDayOff = {
-  id: number
-  isOnHoliday: boolean
-  dayStart: string
-  dayEnd: string
-  user: {
-    id: string
-    firstName: string
-    lastName: string
-  }
-}
-
-export type ValidationOfGroupDayOff = {
-  groupId: number
-  groupName: string
-  users: UserDetails[]
-}
-
-export type UserDetails = {
-  id: string
-  firstName: string
-  lastName: string
-  holidays?: {
-    id: number
-    isOnHoliday: boolean
-    dayStart: string
-    dayEnd: string
-  }
-}
-
 export const COMPANY_DAYS_OFF = [
   {
     id: 1,
     isOnHoliday: true,
     dayStart: '2021-06-01',
-    dayEnd: '2021-06-08',
+    dayEnd: '2021-06-13',
     user: {
       id: 'user1',
       firstName: 'Peter',
@@ -43,8 +13,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 2,
     isOnHoliday: true,
-    dayStart: '2021-06-05',
-    dayEnd: '2021-06-16',
+    dayStart: '2021-06-10',
+    dayEnd: '2021-07-10',
     user: {
       id: 'user2',
       firstName: 'Tom',
@@ -54,8 +24,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 3,
     isOnHoliday: false,
-    dayStart: '2021-06-11',
-    dayEnd: '2021-06-17',
+    dayStart: '2021-06-16',
+    dayEnd: '2021-06-20',
     user: {
       id: 'user3',
       firstName: 'Kamila',
@@ -65,8 +35,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 4,
     isOnHoliday: false,
-    dayStart: '2021-06-14',
-    dayEnd: '2021-06-20',
+    dayStart: '2021-06-28',
+    dayEnd: '2021-06-29',
     user: {
       id: 'user4',
       firstName: 'Ola',
@@ -76,8 +46,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 5,
     isOnHoliday: false,
-    dayStart: '2021-06-20',
-    dayEnd: '2021-06-20',
+    dayStart: '2021-07-16',
+    dayEnd: '2021-07-22',
     user: {
       id: 'user5',
       firstName: 'Ludwik',
@@ -87,8 +57,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 6,
     isOnHoliday: false,
-    dayStart: '2021-06-22',
-    dayEnd: '2021-06-24',
+    dayStart: '2021-07-22',
+    dayEnd: '2021-07-24',
     user: {
       id: 'user6',
       firstName: 'Paweł',
@@ -258,7 +228,7 @@ export const USER_GROUPS_DAYS_OFF = [
         lastName: 'Wysokogórska',
         holidays: {
           id: 3,
-          isOnHoliday: false,
+          isOnHoliday: true,
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },

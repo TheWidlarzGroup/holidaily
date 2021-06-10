@@ -69,26 +69,9 @@ export const textVariants = {
     fontSize: 15,
     color: 'white',
   },
-  lightBlack12: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 12,
-    color: 'black',
-  },
-  header: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 12,
-    color: 'headerGrey',
-  },
-  activeHolDate: {
+  holidayDate: {
     fontFamily: 'Nunito-Bold',
     fontSize: 12,
-    color: 'tertiary',
-    lineHeight: 14,
-  },
-  inActiveHolDate: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 12,
-    color: 'black',
     lineHeight: 14,
   },
 }

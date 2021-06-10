@@ -1,7 +1,5 @@
-import {
-  COMPANY_DAYS_OFF,
-  ValidationOfCompanyDayOff,
-} from 'screens/dashboard/helpers/temporaryData'
+import { COMPANY_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
+import { ValidationOfCompanyDayOff } from 'types/holidaysDataTypes'
 import {
   isTimeIntervalLessThanWeek,
   displayWeekday,

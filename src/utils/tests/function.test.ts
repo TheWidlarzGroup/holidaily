@@ -5,9 +5,10 @@ import {
   setDateToBeDisplayed,
   qtyOnHolidayNow,
 } from 'utils/functions'
+import { TEAM_MATES_AKADEMIA, TEAM_MATES_DEV } from 'utils/mocks/userMocks'
 import { DateTime } from 'luxon'
 
-describe('Data interval', () => {
+describe('isTimeIntervalLessThanWeek', () => {
   const inputDayFalse = DateTime.fromISO('2021-06-01')
   const inputDayTrue = DateTime.fromISO('2021-06-08')
   it('check if interval is less than 7 days from today', () => {
@@ -16,7 +17,7 @@ describe('Data interval', () => {
   })
 })
 
-describe('Data display as weekday', () => {
+describe('displayWeekday', () => {
   const inputDay = DateTime.fromISO('2021-06-09')
   it('should display weekday in proper language', () => {
     expect(displayWeekday(inputDay, 'pl')).toBe('środa')
@@ -24,7 +25,7 @@ describe('Data display as weekday', () => {
   })
 })
 
-describe('Data display day', () => {
+describe('displayDayShort', () => {
   const inputDay = DateTime.fromISO('2021-06-09')
   it('should display day and month name in proper language', () => {
     expect(displayDayShort(inputDay, 'pl')).toBe('9 czerwiec')
@@ -32,7 +33,7 @@ describe('Data display day', () => {
   })
 })
 
-describe('Data display', () => {
+describe('setDateToBeDisplayed', () => {
   const outputIfTrue = DateTime.fromISO('2021-06-11')
   const outputIfFalse = DateTime.fromISO('2021-06-09')
   it('should add or substract one day', () => {
@@ -41,22 +42,9 @@ describe('Data display', () => {
   })
 })
 
-describe('reduce', () => {
-  const usersList1 = [
-    { holidays: { isOnHoliday: true } },
-    { holidays: { isOnHoliday: true } },
-    { holidays: { isOnHoliday: false } },
-    { holidays: { isOnHoliday: true } },
-  ]
-  const usersList2 = [
-    { holidays: { isOnHoliday: false } },
-    { holidays: { isOnHoliday: false } },
-    { holidays: { isOnHoliday: false } },
-    { holidays: { isOnHoliday: false } },
-  ]
-
+describe('qtyOnHolidayNow', () => {
   it('sums up mates currently on holidays', () => {
-    expect(qtyOnHolidayNow(usersList1)).toBe(3)
-    expect(qtyOnHolidayNow(usersList2)).toBe(0)
+    expect(qtyOnHolidayNow(TEAM_MATES_AKADEMIA)).toBe(3)
+    expect(qtyOnHolidayNow(TEAM_MATES_DEV)).toBe(0)
   })
 })
