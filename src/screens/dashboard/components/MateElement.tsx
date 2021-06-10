@@ -27,8 +27,7 @@ export const MateElement = (props: UserDetails) => {
       backgroundColor="disabledText"
       borderRadius="lmin"
       flexDirection="row"
-      marginHorizontal="m"
-      marginVertical="xm"
+      marginVertical="s"
       alignItems="center">
       <Box marginHorizontal="m" marginTop="m" marginBottom="xs">
         <IconProfile width={62} height={62} />

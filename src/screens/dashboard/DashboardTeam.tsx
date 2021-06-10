@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { MateElement } from './components/MateElement'
+import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 
 export const DashboardTeam: FC = () => {
   const { params } = useRoute<DashboardNavigationProps<'DashboardTeam'>>()
@@ -31,18 +32,28 @@ export const DashboardTeam: FC = () => {
           borderBottomLeftRadius="lmin">
           <Text variant="header">{params.groupName}</Text>
         </Box>
-        <Text variant="lightGreyRegular" color="tertiary" marginHorizontal="m">
-          {t('outOfWorkNow').toUpperCase()}
-        </Text>
-        {matesOnHoliday.map((mate) => (
-          <MateElement key={mate.id} {...mate} />
-        ))}
-        <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
-          {t('outOfWorkSoon').toUpperCase()}
-        </Text>
-        {matesWithPlannedHolidays.map((mate) => (
-          <MateElement key={mate.id} {...mate} />
-        ))}
+        <Box marginHorizontal="m" paddingBottom="xxxl">
+          <Text variant="lightGreyRegular" color="tertiary" marginTop="l">
+            {t('outOfWorkNow').toUpperCase()}
+          </Text>
+          {matesOnHoliday.map((mate) => (
+            <MateElement key={mate.id} {...mate} />
+          ))}
+          <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
+            {t('outOfWorkSoon').toUpperCase()}
+          </Text>
+          {matesWithPlannedHolidays.map((mate) => (
+            <MateElement key={mate.id} {...mate} />
+          ))}
+          <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
+            {t('othersTeamMembers').toUpperCase()}
+          </Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {matesWithNoPlannedHolidays.map((mate) => (
+              <OtherMateElement key={mate.id} {...mate} />
+            ))}
+          </ScrollView>
+        </Box>
       </ScrollView>
     </SafeAreaWrapper>
   )
