@@ -9,17 +9,16 @@ import { Settings } from 'screens/settings/Settings'
 import { Budget } from 'screens/budget/Budget'
 import { EditProfile } from 'screens/editProfile/EditProfile'
 import { DrawerRoutes } from 'navigation/types'
-import { CustomDrawerContent } from './CustomDrawerContent'
+import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
-let screenStyles = {}
-let drawerStyles = {}
-
 export const DrawerNavigator = () => {
   const { t } = useTranslation('navigation')
   const { width } = useDimensions()
+  let screenStyles = {}
+  let drawerStyles = {}
   return (
     <Drawer.Navigator
       initialRouteName="Home"

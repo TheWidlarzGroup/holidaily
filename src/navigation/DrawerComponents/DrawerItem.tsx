@@ -3,9 +3,9 @@ import { BorderlessButton } from 'react-native-gesture-handler'
 import { Box, Text } from 'utils/theme'
 
 type DrawerItemProps = {
-  text?: string
   onPress: () => void
-  icon?: React.ReactNode | undefined
+  text?: string
+  icon?: React.ReactNode
 }
 
 export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
@@ -14,8 +14,7 @@ export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
       onPress={onPress}
       activeOpacity={0.1}
       borderless={false}
-      rippleColor="#00000008"
-      style={{ alignSelf: 'flex-start' }}>
+      rippleColor="#00000008">
       <Box margin="s" flexDirection="row" alignItems="center">
         {icon && <Box marginRight="m">{icon}</Box>}
         <Text variant="boldBlack18" marginRight="m">
