@@ -100,6 +100,16 @@
     "editProfile": "Edit profile",
     "budget": "Holiday budget"
   },
+  "userProfile": {
+    "addPhoto": "Add profile picture",
+    "editPhoto": "Edit profile picture",
+    "editDetailsErrMsg": "Something went wrong. Try again.",
+    "userNameSurname": "Name and surname",
+    "userRole": "Role",
+    "userPassword": "Password",
+    "userSubscriptions": "Subscribed teams",
+    "userColor": "Your color"
+  },
   "dashboard": {
     "welcome": "How's your team doing?",
     "teamsList": "Your teams",

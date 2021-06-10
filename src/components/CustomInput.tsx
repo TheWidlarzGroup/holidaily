@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, TouchableOpacity, TextInputProps } from 'react-n
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import IconTogglePasswordVisibility from 'assets/icons/icon-togglePassword.svg'
+import IconEdit from 'assets/icons/icon-edit-grey.svg'
 import { Text, Box, theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -11,10 +12,23 @@ type CustomInputTypes = {
   inputLabel: string
   isError: boolean
   isPasswordIconVisible?: boolean
+  isEditIconVisible?: boolean
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
-  ({ inputLabel, onChange, onBlur, value, isError, isPasswordIconVisible, ...props }, ref) => {
+  (
+    {
+      inputLabel,
+      onChange,
+      onBlur,
+      value,
+      isError,
+      isPasswordIconVisible,
+      isEditIconVisible,
+      ...props
+    },
+    ref
+  ) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
 
     const errorOpacity = useSharedValue(0)
@@ -24,6 +38,11 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
         duration: 300,
       }),
     }))
+
+    const editInput = () => {
+      console.log('edit input')
+      // TODO: focus selected input
+    }
 
     useEffect(() => {
       errorOpacity.value = isError ? 2 : 0
@@ -50,6 +69,19 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <Box alignSelf="center" position="absolute" right={17}>
               <TouchableOpacity onPress={toggle}>
                 <IconTogglePasswordVisibility />
+              </TouchableOpacity>
+            </Box>
+          )}
+          {isEditIconVisible && (
+            <Box
+              alignSelf="center"
+              position="absolute"
+              right={0}
+              borderWidth={4}
+              borderColor="white"
+              borderRadius="l">
+              <TouchableOpacity onPress={editInput}>
+                <IconEdit style={{ width: 50, height: 50 }} />
               </TouchableOpacity>
             </Box>
           )}
