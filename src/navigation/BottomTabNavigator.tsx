@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator<BottomTabRoutes>()
 const EmptyComponent = () => null
 const tabs = [
   {
-    name: 'Dashboard',
+    name: 'DashboardNavigation',
   },
   { name: 'Calendar' },
   { name: 'RequestModal' },
@@ -28,8 +28,8 @@ export const BottomTabNavigator = ({ style }: ViewProps) => (
     <Animated.View style={[style, { flex: 1 }]}>
       <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
         <Tab.Screen
-          name="Dashboard"
-          options={{ unmountOnBlur: true }}
+          name="DashboardNavigation"
+          // options={{ unmountOnBlur: true }}
           component={DashboardNavigation}
         />
         <Tab.Screen name="Calendar" component={Calendar} />

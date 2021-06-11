@@ -11,8 +11,8 @@ export const getBottomTabIcon = (
   fillInactive: string
 ) => {
   switch (tab) {
-    case 'Dashboard': {
-      return <HomeIcon fill={routeName === 'Dashboard' ? fillActive : fillInactive} />
+    case 'DashboardNavigation': {
+      return <HomeIcon fill={routeName === 'DashboardNavigation' ? fillActive : fillInactive} />
     }
     case 'Calendar': {
       return <CalendarIcon fill={routeName === 'Calendar' ? fillActive : fillInactive} />
