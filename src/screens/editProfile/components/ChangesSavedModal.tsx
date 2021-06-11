@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Text } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
@@ -12,6 +12,12 @@ type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
 
 export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({ isVisible, hideModal }) => {
   const styles = useStyles()
+
+  useEffect(() => {
+    setTimeout(() => hideModal(), 3000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <CustomModal
       isVisible={isVisible}
@@ -34,7 +40,7 @@ export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({ isVisible, hideM
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     height: 315,
-    backgroundColor: theme.colors.tertiary,
+    backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: 0,
     right: 0,
