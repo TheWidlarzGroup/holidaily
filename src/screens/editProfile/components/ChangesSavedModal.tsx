@@ -9,7 +9,7 @@ import { theme, BaseOpacity, mkUseStyles, Theme } from 'utils/theme/index'
 type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
   isVisible?: boolean
-  content?: string
+  content: string
 }
 
 export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({

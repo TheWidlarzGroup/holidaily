@@ -108,7 +108,8 @@
     "userRole": "Role",
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
-    "userColor": "Your color"
+    "userColor": "Your color",
+    "changesSaved": "Changes saved"
   },
   "dashboard": {
     "welcome": "How's your team doing?",

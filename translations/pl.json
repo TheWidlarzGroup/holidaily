@@ -108,7 +108,8 @@
     "userRole": "Stanowisko",
     "userPassword": "Hasło",
     "userSubscriptions": "Obserwowane zespoły",
-    "userColor": "Twój kolor"  
+    "userColor": "Twój kolor",
+    "changesSaved": "Zmiany zostały zapisane"
   },  
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
