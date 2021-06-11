@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
+import { TouchableOpacity } from 'react-native'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import IconBell from 'assets/icons/icon-bell.svg'
 
@@ -23,7 +24,9 @@ export const DashboardHeader: FC = () => {
         </Text>
       </Box>
       <Box padding="m">
-        <IconBell />
+        <TouchableOpacity>
+          <IconBell />
+        </TouchableOpacity>
       </Box>
     </Box>
   )

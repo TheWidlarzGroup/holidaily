@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { ScrollView } from 'react-native'
@@ -12,7 +12,7 @@ import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashbo
 import { DashboardNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 
-export const Dashboard: FC = () => {
+export const Dashboard = () => {
   const { t, i18n } = useTranslation('dashboard')
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
@@ -20,6 +20,7 @@ export const Dashboard: FC = () => {
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>
     navigation.navigate('DashboardTeam', { ...team })
+
 
   return (
     <SafeAreaWrapper isDefaultBgColor>

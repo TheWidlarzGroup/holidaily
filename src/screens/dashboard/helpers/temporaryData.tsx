@@ -112,6 +112,24 @@ export const USER_GROUPS_DAYS_OFF = [
         lastName: 'Nowak',
         holidays: {},
       },
+      {
+        id: 'user5',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska-Nowak',
+        holidays: {},
+      },
+      {
+        id: 'user7',
+        firstName: 'Ola',
+        lastName: 'Nowak',
+        holidays: {},
+      },
+      {
+        id: 'user8',
+        firstName: 'Ola',
+        lastName: 'Nowak',
+        holidays: {},
+      },
     ],
   },
   {
@@ -161,12 +179,7 @@ export const USER_GROUPS_DAYS_OFF = [
         id: 'user2',
         firstName: 'Tom',
         lastName: 'Waist',
-        holidays: {
-          id: 2,
-          isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
-        },
+        holidays: {},
       },
       {
         id: 'user3',

@@ -7,14 +7,14 @@ export const OtherMateElement = (props: UserDetails) => {
   const { firstName, lastName } = props
 
   return (
-    <Box marginVertical="s" marginRight="m" alignItems="center">
+    <Box marginVertical="m" alignItems="center" flexBasis="25%">
       <Box marginBottom="s">
         <IconProfile width={62} height={62} />
       </Box>
-      <Text variant="holidayDate" color="black">
+      <Text numberOfLines={1} variant="holidayDate" color="black">
         {firstName}
       </Text>
-      <Text variant="holidayDate" color="black">
+      <Text numberOfLines={1} variant="holidayDate" color="black">
         {lastName}
       </Text>
     </Box>

@@ -17,18 +17,19 @@ export const MateElement = (props: MateElementProps) => {
   const date = holidays.isOnHoliday ? holidays.dayStart : holidays.dayEnd
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
-  const version = holidays.isOnHoliday
-    ? {
-        color: 'tertiary',
-        text: 'backAtWork',
-      }
-    : {
-        color: 'greyDark',
-        text: 'lastDayAtWork',
-      }
+  const version = {
+    color: holidays.isOnHoliday ? 'tertiary' : 'greyDark',
+    text: holidays.isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
+    borderColor: holidays.isOnHoliday ? 'tertiary' : 'disabledText',
+  }
 
   return (
-    <Box backgroundColor="disabledText" borderRadius="lmin" marginVertical="s">
+    <Box
+      backgroundColor="disabledText"
+      borderRadius="lmin"
+      marginVertical="s"
+      borderColor={version.borderColor}
+      borderWidth={2}>
       <TouchableOpacity onPress={navigateToMateScreen}>
         <Box flexDirection="row" alignItems="center">
           <Box margin="m">
@@ -36,18 +37,9 @@ export const MateElement = (props: MateElementProps) => {
             {holidays.isOnHoliday && <OnHolidayTag variant="small" />}
           </Box>
           <Box marginVertical="s">
-            <Box flexDirection="row" marginBottom="s">
-              <Text variant="alreadyRegistered" color="black" style={{ lineHeight: 20 }}>
-                {firstName}
-              </Text>
-              <Text
-                marginLeft="xs"
-                variant="alreadyRegistered"
-                color="black"
-                style={{ lineHeight: 20 }}>
-                {lastName}
-              </Text>
-            </Box>
+            <Text variant="alreadyRegistered" color="black" lineHeight={20}>
+              {firstName} {lastName}
+            </Text>
             <Text variant="lightGreyRegular" color="headerGrey">
               {t(version.text).toUpperCase()}
             </Text>

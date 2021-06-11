@@ -10,7 +10,7 @@ export const AppNavigation = () => {
 
   return (
     <NavigationContainer linking={linking}>
-      {user?.firstName ? <ModalNavigation /> : <AuthStackNavigation />}
+      {!user?.firstName ? <ModalNavigation /> : <AuthStackNavigation />}
     </NavigationContainer>
   )
 }
