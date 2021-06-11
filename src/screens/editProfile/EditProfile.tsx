@@ -13,7 +13,7 @@ import { USER_DATA } from './helpers/mockedData'
 
 export const EditProfile = () => {
   const styles = useStyles()
-  const [isEdited, setIsEdited] = useState<boolean>(true)
+  const [isEdited, setIsEdited] = useState<boolean>(false)
   const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false)
 
   const handleEditSubmit = () => {
@@ -22,23 +22,23 @@ export const EditProfile = () => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.mainView}>
+    <SafeAreaView style={styles.mainView}>
+      <ScrollView>
         <ProfilePicture />
         <ProfileDetails {...USER_DATA} setIsEdited={setIsEdited} />
         <TeamSubscriptions />
         <ProfileColor />
-        {isEdited && (
-          <CustomButton label={'Save changes'} variant="primary" onPress={handleEditSubmit} />
-        )}
-        {isConfirmationModalVisible && (
-          <ChangesSavedModal
-            isVisible={isConfirmationModalVisible}
-            hideModal={() => setIsConfirmationModalVisible(false)}
-            content="Changes saved"
-          />
-        )}
       </ScrollView>
+      {isEdited && (
+        <CustomButton label={'Save changes'} variant="primary" onPress={handleEditSubmit} />
+      )}
+      {isConfirmationModalVisible && (
+        <ChangesSavedModal
+          isVisible={isConfirmationModalVisible}
+          hideModal={() => setIsConfirmationModalVisible(false)}
+          content="Changes saved"
+        />
+      )}
     </SafeAreaView>
   )
 }
@@ -46,5 +46,6 @@ export const EditProfile = () => {
 const useStyles = mkUseStyles((theme: Theme) => ({
   mainView: {
     backgroundColor: theme.colors.white,
+    flex: 1,
   },
 }))
