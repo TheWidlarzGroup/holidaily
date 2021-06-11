@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 
-export const ProfileColor: FC = () => {
+export const ProfileColor = () => {
   const { t } = useTranslation('userProfile')
 
   const onChangeUserColor = () => {
@@ -22,7 +22,8 @@ export const ProfileColor: FC = () => {
         height={44}
         width={44}
         backgroundColor="errorRed"
-        borderRadius="full"></BaseOpacity>
+        borderRadius="full"
+      />
     </Box>
   )
 }

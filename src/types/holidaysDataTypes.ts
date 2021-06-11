@@ -22,10 +22,13 @@ export type UserDetails = {
   id: string
   firstName: string
   lastName: string
+  role: string
+  password: string
   holidays?: {
     id: number
     isOnHoliday: boolean
     dayStart: string
     dayEnd: string
   }
+  teams?: string[]
 }
