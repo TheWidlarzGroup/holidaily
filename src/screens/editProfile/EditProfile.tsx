@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
-import { mkUseStyles, Theme } from 'utils/theme/index'
+import { mkUseStyles, Theme } from 'utils/theme'
 
 import { CustomButton } from 'components/CustomButton'
 import { ChangesSavedModal } from './components/ChangesSavedModal'
@@ -35,6 +35,7 @@ export const EditProfile = () => {
           <ChangesSavedModal
             isVisible={isConfirmationModalVisible}
             hideModal={() => setIsConfirmationModalVisible(false)}
+            content="Changes saved"
           />
         )}
       </ScrollView>

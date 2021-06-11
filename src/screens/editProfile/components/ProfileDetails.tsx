@@ -6,20 +6,19 @@ import { minTwoWordsRegex, minOneSignRegex, passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 
 type UserData = {
-  firstName?: string
-  lastName?: string
-  role?: string
-  password?: string
+  // firstName?: string
+  // lastName?: string
+  // role?: string
+  // password?: string
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ProfileDetails = ({ firstName, lastName, role, password, setIsEdited }: UserData) => {
+export const ProfileDetails = ({ setIsEdited }: UserData) => {
   const { control, errors } = useForm()
   const { t } = useTranslation('userProfile')
-  const nameSurname = `${firstName} ${lastName}`
 
   const onSubmitEditing = () => {
-    setIsEdited(true)    
+    setIsEdited(true)
     console.log('submit editing')
 
     // TODO submit editing input

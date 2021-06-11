@@ -8,9 +8,15 @@ import { theme, BaseOpacity, mkUseStyles, Theme } from 'utils/theme/index'
 
 type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
+  isVisible?: boolean
+  content?: string
 }
 
-export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({ isVisible, hideModal }) => {
+export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({
+  isVisible,
+  hideModal,
+  content,
+}) => {
   const styles = useStyles()
 
   useEffect(() => {
@@ -23,14 +29,16 @@ export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({ isVisible, hideM
       isVisible={isVisible}
       onBackdropPress={hideModal}
       backdropColor={theme.colors.transparent}
-      animationInTiming={300}
-      animationOutTiming={300}
-      animationType="slide"
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
+      animationInTiming={500}
+      animationOutTiming={500}
+      swipeDirection="down"
       backdropOpacity={1}
       style={styles.modal}
       hideModalContentWhileAnimating>
       <BaseOpacity onPress={hideModal} flex={1} justifyContent="center" alignItems="center">
-        <Text style={styles.confirmationMsg}>Changes saved</Text>
+        <Text style={styles.confirmationMsg}>{content}</Text>
         <TickIcon />
       </BaseOpacity>
     </CustomModal>
