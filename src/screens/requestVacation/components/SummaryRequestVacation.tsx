@@ -7,11 +7,11 @@ import PillIcon from 'assets/icons/pill.svg'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 
-type SecondStepRequestVacationProps = {
+type SummaryRequestVacationProps = {
   description: string
 }
 
-export const SecondStepRequestVacation = ({ description }: SecondStepRequestVacationProps) => {
+export const SummaryRequestVacation = ({ description }: SummaryRequestVacationProps) => {
   return (
     <Box flexDirection="column" justifyContent="space-between" flex={1} paddingTop="xl">
       <Box backgroundColor="primary" borderRadius="m" padding="m" flex={0.7}>

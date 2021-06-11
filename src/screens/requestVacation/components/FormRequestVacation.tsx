@@ -4,22 +4,25 @@ import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { requestDataTypes } from '../RequestVacation'
+import { useBooleanState } from 'hooks/useBooleanState'
+import { CalendarModal } from './CalendarModal'
 
 type FormTypes = {
   date: undefined
   description: string
 }
 
-type FirstStepRequestVacationProps = {
+type FormRequestVacationProps = {
   nextStep: () => void
   changeRequestData: (callback: (currentData: requestDataTypes) => requestDataTypes) => void
 }
 
-export const FirstStepRequestVacation: FC<FirstStepRequestVacationProps> = ({
+export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   nextStep,
   changeRequestData,
 }) => {
   const { control, handleSubmit, errors } = useForm()
+  const [calendarVisible, { setTrue, setFalse }] = useBooleanState(false)
 
   const handleLoginUser = (data: FormTypes) => {
     if (Object.keys(errors).length) return
@@ -35,6 +38,7 @@ export const FirstStepRequestVacation: FC<FirstStepRequestVacationProps> = ({
         <Text variant="boldBlack18" textAlign="left">
           Details
         </Text>
+        <CustomButton label={'calendar'} variant="secondary" onPress={setTrue} />
         <FormInput
           control={control}
           isError={!!errors.description}
@@ -56,6 +60,7 @@ export const FirstStepRequestVacation: FC<FirstStepRequestVacationProps> = ({
         </Text>
       </Box>
       <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
+      <CalendarModal isVisible={calendarVisible} hideModal={setFalse} />
     </Box>
   )
 }

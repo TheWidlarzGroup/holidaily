@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { FirstStepRequestVacation } from './components/FirstStepRequestVacation'
-import { SecondStepRequestVacation } from './components/SecondStepRequestVacation'
+import { FormRequestVacation } from './components/FormRequestVacation'
+import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 import { RequestVacationBar } from 'components/RequestVacationBar'
 
@@ -39,12 +39,9 @@ export const RequestVacation: FC = () => {
       <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
       <Box margin="l" flex={1}>
         {step === 0 && (
-          <FirstStepRequestVacation
-            nextStep={() => setStep(1)}
-            changeRequestData={changeRequestData}
-          />
+          <FormRequestVacation nextStep={() => setStep(1)} changeRequestData={changeRequestData} />
         )}
-        {step === 1 && <SecondStepRequestVacation description={description} />}
+        {step === 1 && <SummaryRequestVacation description={description} />}
       </Box>
     </SafeAreaWrapper>
   )
