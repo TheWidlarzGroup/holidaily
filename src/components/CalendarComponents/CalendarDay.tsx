@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, theme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
@@ -42,7 +42,7 @@ export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps
         </Box>
       </BorderlessButton>
       <Box position="absolute" top="100%">
-        {dots?.firstThree.map((dot: { key: string; color: string }) => (
+        {dots.firstThree.map((dot: { key: string; color: string }) => (
           <Box
             key={dot.key}
             width={10}
