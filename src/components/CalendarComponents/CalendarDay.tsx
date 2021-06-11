@@ -30,13 +30,13 @@ export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps
         <Box
           borderRadius="l"
           borderWidth={state === 'today' ? 2 : 0}
-          backgroundColor={state === 'selected' ? 'black' : 'white'}
+          backgroundColor={state === 'selected' ? 'black' : 'transparent'}
           width={26}
           height={26}
           justifyContent="center"
           alignItems="center"
           margin="s">
-          <Text variant="" color={textColor()} fontFamily="Nunito-Bold" fontSize={15}>
+          <Text color={textColor()} fontFamily="Nunito-Bold" fontSize={15}>
             {date.day}
           </Text>
         </Box>
