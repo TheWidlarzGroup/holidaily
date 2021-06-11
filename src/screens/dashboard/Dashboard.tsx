@@ -21,7 +21,6 @@ export const Dashboard = () => {
   const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>
     navigation.navigate('DashboardTeam', { ...team })
 
-
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <DashboardHeader />

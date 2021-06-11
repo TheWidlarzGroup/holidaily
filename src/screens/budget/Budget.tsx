@@ -9,7 +9,6 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 export const Budget: FC = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
 
-
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
       screen: 'DashboardNavigation',

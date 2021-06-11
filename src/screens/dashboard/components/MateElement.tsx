@@ -5,15 +5,11 @@ import IconProfile from 'assets/icons/icon-profile.svg'
 import { RequiredUserDetails } from 'types/holidaysDataTypes'
 import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/functions'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { BaseOpacity } from './BaseOpacity'
 
-type MateElementProps = RequiredUserDetails & {
-  navigateToMateScreen: () => void
-}
-
-export const MateElement = (props: MateElementProps) => {
+export const MateElement = (props: RequiredUserDetails) => {
   const { t, i18n } = useTranslation('dashboard')
-  const { firstName, lastName, holidays, navigateToMateScreen } = props
+  const { firstName, lastName, holidays } = props
   const date = holidays.isOnHoliday ? holidays.dayStart : holidays.dayEnd
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
@@ -24,34 +20,25 @@ export const MateElement = (props: MateElementProps) => {
   }
 
   return (
-    <Box
-      backgroundColor="disabledText"
-      borderRadius="lmin"
-      marginVertical="s"
-      borderColor={version.borderColor}
-      borderWidth={2}>
-      <TouchableOpacity onPress={navigateToMateScreen}>
-        <Box flexDirection="row" alignItems="center">
-          <Box margin="m">
-            <IconProfile width={62} height={62} />
-            {holidays.isOnHoliday && <OnHolidayTag variant="small" />}
-          </Box>
-          <Box marginVertical="s">
-            <Text variant="alreadyRegistered" color="black" lineHeight={20}>
-              {firstName} {lastName}
-            </Text>
-            <Text variant="lightGreyRegular" color="headerGrey">
-              {t(version.text).toUpperCase()}
-            </Text>
-            <Text variant="bold20" color={version.color}>
-              {displayDayShort(dateToBeDisplayed, i18n.language)}
-            </Text>
-            <Text variant="regular15" color={version.color}>
-              {displayWeekday(dateToBeDisplayed, i18n.language)}
-            </Text>
-          </Box>
-        </Box>
-      </TouchableOpacity>
-    </Box>
+    <BaseOpacity mate={props} borderColor={version.borderColor}>
+      <Box margin="m">
+        <IconProfile width={62} height={62} />
+        {holidays.isOnHoliday && <OnHolidayTag variant="small" />}
+      </Box>
+      <Box marginVertical="s">
+        <Text variant="alreadyRegistered" color="black" lineHeight={20}>
+          {firstName} {lastName}
+        </Text>
+        <Text variant="lightGreyRegular" color="headerGrey">
+          {t(version.text).toUpperCase()}
+        </Text>
+        <Text variant="bold20" color={version.color}>
+          {displayDayShort(dateToBeDisplayed, i18n.language)}
+        </Text>
+        <Text variant="regular15" color={version.color}>
+          {displayWeekday(dateToBeDisplayed, i18n.language)}
+        </Text>
+      </Box>
+    </BaseOpacity>
   )
 }
