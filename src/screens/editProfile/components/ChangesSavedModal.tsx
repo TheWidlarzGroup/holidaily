@@ -47,12 +47,13 @@ export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({
 
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
+    flex: 1,
     height: 315,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
+    bottom: -20,
+    left: -20,
+    right: -20,
     borderTopLeftRadius: theme.borderRadii.ml,
     borderTopRightRadius: theme.borderRadii.ml,
     justifyContent: 'center',

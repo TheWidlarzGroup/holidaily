@@ -1,19 +1,20 @@
 import React, { useRef } from 'react'
 import { TextInput, View } from 'react-native'
-import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { FormInput } from 'components/FormInput'
 import IconEdit from 'assets/icons/icon-edit-grey.svg'
 import { theme, mkUseStyles, Theme, Box } from 'utils/theme/'
 import { minTwoWordsRegex, minOneSignRegex, passwordRegex } from 'utils/regex'
+import { Control, FieldValues } from 'react-hook-form'
 
 type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
+  errors: { nameSurname?: string; role?: string; password?: string }
+  control: Control<FieldValues>
 }
 
-export const ProfileDetails = ({ setIsEdited }: UserData) => {
-  const { control, errors } = useForm()
+export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const styles = useStyles()
   const { t } = useTranslation('userProfile')
   const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null), useRef<TextInput>(null)]
@@ -40,8 +41,6 @@ export const ProfileDetails = ({ setIsEdited }: UserData) => {
           inputLabel={t('userNameSurname')}
           validationPattern={minTwoWordsRegex}
           errorMessage={t('editDetailsErrMsg')}
-          keyboardType="default"
-          autoCompleteType="off"
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
         />
@@ -63,8 +62,6 @@ export const ProfileDetails = ({ setIsEdited }: UserData) => {
           inputLabel={t('userRole')}
           validationPattern={minOneSignRegex}
           errorMessage={t('editDetailsErrMsg')}
-          keyboardType="default"
-          autoCompleteType="off"
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[1]}
         />

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
@@ -13,28 +14,51 @@ import { USER_DATA } from './helpers/mockedData'
 
 export const EditProfile = () => {
   const styles = useStyles()
+  const { errors, control, setValue } = useForm()
   const { t } = useTranslation('userProfile')
   const [isEdited, setIsEdited] = useState<boolean>(false)
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false)
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(true)
 
   const handleEditSubmit = () => {
-    setIsEdited(false)
-    setIsConfirmationModalVisible(true)
+    try {
+      // TODO: function updating user data
+      setIsEdited(false)
+      setIsConfirmationModalVisible(true)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
+  useEffect(() => {
+    if (USER_DATA) {
+      const { firstName, lastName, role, password } = USER_DATA
+      setValue('nameSurname', `${firstName} ${lastName}`)
+      setValue('role', role)
+      setValue('password', password)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [USER_DATA])
+
   return (
-    <SafeAreaView style={styles.mainView}>
-      <ScrollView style={isEdited ? { marginBottom: 100 } : { marginBottom: 0 }}>
-        <ProfilePicture />
-        <ProfileDetails {...USER_DATA} setIsEdited={setIsEdited} />
-        <TeamSubscriptions />
-        <ProfileColor />
-      </ScrollView>
-      {isEdited && (
-        <Box position="absolute" bottom={0} backgroundColor="white" height={100} paddingTop="m">
-          <CustomButton label={'Save changes'} variant="primary" onPress={handleEditSubmit} />
-        </Box>
-      )}
+    <>
+      <SafeAreaView style={styles.mainView}>
+        <ScrollView style={{ marginBottom: isEdited ? 100 : 0 }}>
+          <ProfilePicture />
+          <ProfileDetails
+            {...USER_DATA}
+            errors={errors}
+            control={control}
+            setIsEdited={setIsEdited}
+          />
+          <TeamSubscriptions />
+          <ProfileColor />
+        </ScrollView>
+        {isEdited && (
+          <Box position="absolute" bottom={0} backgroundColor="white" height={100} paddingTop="m">
+            <CustomButton label={'Save changes'} variant="primary" onPress={handleEditSubmit} />
+          </Box>
+        )}
+      </SafeAreaView>
       {isConfirmationModalVisible && (
         <ChangesSavedModal
           isVisible={isConfirmationModalVisible}
@@ -42,7 +66,7 @@ export const EditProfile = () => {
           content={t('changesSaved')}
         />
       )}
-    </SafeAreaView>
+    </>
   )
 }
 
