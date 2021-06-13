@@ -28,13 +28,13 @@ export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({
     <CustomModal
       isVisible={isVisible}
       onBackdropPress={hideModal}
-      backdropColor={theme.colors.transparent}
+      backdropColor={theme.colors.white}
+      backdropOpacity={0.8}
       animationIn="slideInUp"
       animationOut="slideOutDown"
       animationInTiming={500}
       animationOutTiming={500}
       swipeDirection="down"
-      backdropOpacity={1}
       style={styles.modal}
       hideModalContentWhileAnimating>
       <BaseOpacity onPress={hideModal} flex={1} justifyContent="center" alignItems="center">
@@ -58,7 +58,13 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     borderTopRightRadius: theme.borderRadii.ml,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowOffset: { width: -2, height: 0 },
+    shadowColor: theme.colors.black,
+    shadowOpacity: 0.04,
+    shadowRadius: 2,
+    elevation: 20,
   },
+
   confirmationMsg: {
     fontFamily: 'Nunito-Bold',
     color: 'black',

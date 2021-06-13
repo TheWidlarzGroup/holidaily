@@ -52,7 +52,13 @@ export const EditProfile = () => {
           <ProfileColor />
         </ScrollView>
         {isEdited && (
-          <Box position="absolute" bottom={0} backgroundColor="white" height={100} paddingTop="m">
+          <Box
+            position="absolute"
+            bottom={0}
+            backgroundColor="white"
+            height={100}
+            paddingTop="m"
+            style={styles.shadow}>
             <CustomButton label={'Save changes'} variant="primary" onPress={handleEditSubmit} />
           </Box>
         )}
@@ -72,5 +78,12 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   mainView: {
     backgroundColor: theme.colors.white,
     flex: 1,
+  },
+  shadow: {
+    shadowOffset: { width: -2, height: 0 },
+    shadowColor: theme.colors.black,
+    shadowOpacity: 0.04,
+    shadowRadius: 2,
+    elevation: 20,
   },
 }))

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
@@ -18,9 +18,11 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const styles = useStyles()
   const { t } = useTranslation('userProfile')
   const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null), useRef<TextInput>(null)]
+  const [iconInvisible, setIconInvisible] = useState<number>(-1)
 
   const onSubmitEditing = () => {
     setIsEdited(true)
+    setIconInvisible(-1)
   }
   const onFocusInput = (index: number) => {
     if (index === 2) {
@@ -28,12 +30,14 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
       return
     }
     inputsRefs[index]?.current?.focus()
+    setIconInvisible(index)
   }
 
   return (
     <Box paddingHorizontal="m">
       <Box position="relative">
-        <FormInput          
+        <FormInput
+          onFocus={() => setIconInvisible(0)}
           control={control}
           isError={!!errors.nameSurname}
           errors={errors}
@@ -44,17 +48,20 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
         />
-        <View style={styles.editButton}>
-          <RectButton
-            onPress={() => onFocusInput(0)}
-            activeOpacity={0.2}
-            rippleColor={theme.colors.rippleColor}>
-            <IconEdit />
-          </RectButton>
-        </View>
+        {iconInvisible !== 0 && (
+          <View style={styles.editButton}>
+            <RectButton
+              onPress={() => onFocusInput(0)}
+              activeOpacity={0.2}
+              rippleColor={theme.colors.rippleColor}>
+              <IconEdit />
+            </RectButton>
+          </View>
+        )}
       </Box>
       <Box>
         <FormInput
+          onFocus={() => setIconInvisible(1)}
           control={control}
           isError={!!errors.role}
           errors={errors}
@@ -65,14 +72,16 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[1]}
         />
-        <View style={styles.editButton}>
-          <RectButton
-            onPress={() => onFocusInput(1)}
-            activeOpacity={0.2}
-            rippleColor={theme.colors.rippleColor}>
-            <IconEdit />
-          </RectButton>
-        </View>
+        {iconInvisible !== 1 && (
+          <View style={styles.editButton}>
+            <RectButton
+              onPress={() => onFocusInput(1)}
+              activeOpacity={0.2}
+              rippleColor={theme.colors.rippleColor}>
+              <IconEdit />
+            </RectButton>
+          </View>
+        )}
       </Box>
       <Box>
         <FormInput
