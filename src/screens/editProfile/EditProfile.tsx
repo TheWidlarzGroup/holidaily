@@ -22,9 +22,15 @@ export const EditProfile = () => {
   const handleEditSubmit = () => {
     setIsEdited(false)
     setIsConfirmationModalVisible(true)
-    const values = getValues()
-    console.log(values)
-    // TODO: function updating user data with values
+    const { nameSurname, role, password } = getValues()
+    const formattedValues = {
+      firstName: nameSurname.split(' ')[0],
+      lastName: nameSurname.split(' ')[1],
+      role,
+      password,
+    }
+    console.log(formattedValues)
+    // TODO: function updating user data with formattedValues
   }
 
   useEffect(() => {
@@ -59,7 +65,7 @@ export const EditProfile = () => {
             height={100}
             paddingTop="m"
             style={styles.shadow}>
-            <CustomButton label={'Save changes'} variant="primary" onPress={handleEditSubmit} />
+            <CustomButton label={t('saveChanges')} variant="primary" onPress={handleEditSubmit} />
           </Box>
         )}
       </SafeAreaView>

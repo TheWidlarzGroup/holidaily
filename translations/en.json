@@ -109,6 +109,7 @@
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
     "userColor": "Your color",
+    "saveChanges": "Save changes",
     "changesSaved": "Changes saved"
   },
   "dashboard": {

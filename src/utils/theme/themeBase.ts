@@ -28,7 +28,7 @@ export const themeBase = createTheme({
     full: 9999,
   },
   boxShadow: {
-    default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 1.5',   
+    default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 1.5',
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 3',
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 7.5',
     xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 12.5',

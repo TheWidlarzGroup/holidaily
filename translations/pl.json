@@ -109,6 +109,7 @@
     "userPassword": "Hasło",
     "userSubscriptions": "Obserwowane zespoły",
     "userColor": "Twój kolor",
+    "saveChanges": "Zapisz zmiany",
     "changesSaved": "Zmiany zostały zapisane"
   },  
   "dashboard": {
