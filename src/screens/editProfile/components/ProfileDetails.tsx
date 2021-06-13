@@ -33,7 +33,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   return (
     <Box paddingHorizontal="m">
       <Box position="relative">
-        <FormInput
+        <FormInput          
           control={control}
           isError={!!errors.nameSurname}
           errors={errors}

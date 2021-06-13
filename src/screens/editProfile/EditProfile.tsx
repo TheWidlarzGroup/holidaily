@@ -14,19 +14,17 @@ import { USER_DATA } from './helpers/mockedData'
 
 export const EditProfile = () => {
   const styles = useStyles()
-  const { errors, control, setValue } = useForm()
+  const { errors, control, setValue, getValues } = useForm()
   const { t } = useTranslation('userProfile')
   const [isEdited, setIsEdited] = useState<boolean>(false)
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(true)
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false)
 
   const handleEditSubmit = () => {
-    try {
-      // TODO: function updating user data
-      setIsEdited(false)
-      setIsConfirmationModalVisible(true)
-    } catch (err) {
-      console.log(err)
-    }
+    setIsEdited(false)
+    setIsConfirmationModalVisible(true)
+    const values = getValues()
+    console.log(values)
+    // TODO: function updating user data with values
   }
 
   useEffect(() => {
