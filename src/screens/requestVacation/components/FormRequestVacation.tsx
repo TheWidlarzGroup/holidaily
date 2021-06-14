@@ -7,8 +7,8 @@ import { requestDataTypes } from '../RequestVacation'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CalendarModal } from './CalendarModal'
 import { InputButton } from 'components/InputButton'
-import { StyleSheet } from 'react-native'
-import { Checkbox } from 'components/CustomCheckbox'
+import { StyleSheet, Switch } from 'react-native'
+import { Checkbox } from 'components/Checkbox'
 
 type FormTypes = {
   date: undefined
