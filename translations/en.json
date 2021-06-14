@@ -42,7 +42,7 @@
     "resendCode": "Send again"
   },
   "signup": {
-    "signupTitle": "How would you like to sign in?",
+    "signupTitle": "How would you like to sign up?",
     "continueWGmail": "Continue with Gmail",
     "continueWSlack": "Continue with Slack",
     "signupWEmail": "Sign up with E-mail",

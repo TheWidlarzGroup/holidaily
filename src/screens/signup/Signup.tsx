@@ -1,61 +1,30 @@
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { useTranslation } from 'react-i18next'
-import { Box, Text, theme } from 'utils/theme/index'
-import { CustomButton } from 'components/CustomButton'
+import { Box } from 'utils/theme/index'
 import { AuthNavigationType } from 'navigation/types'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { TextLink } from 'components/TextLink'
-import { getHalfWindowWidth } from '../../utils/layout'
+import { SignupButtons } from './components/SignupButtons'
+import { SignupLoginBox } from './components/SingupLoginBox'
+import { SignupTitleAndLogo } from './components/SignupTitleAndLogo'
 
-export const Signup: FC = () => {
-  const navigation = useNavigation<AuthNavigationType<'Signup'>>()
-
-  const { t } = useTranslation(['signup', 'login'])
+export const Signup = () => {
+  const { navigate } = useNavigation<AuthNavigationType<'Signup'>>()
 
   const navigateToSignupEmail = useCallback(() => {
-    navigation.navigate('SignupEmail')
-  }, [navigation])
+    navigate('SignupEmail')
+  }, [navigate])
 
   const navigateToLogin = useCallback(() => {
-    navigation.navigate('Login')
-  }, [navigation])
+    navigate('Login')
+  }, [navigate])
 
   return (
     <SafeAreaWrapper>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xl">
-        <Text variant="title1">{t('signupTitle')}</Text>
-      </Box>
-      <Box
-        width={getHalfWindowWidth()}
-        height={getHalfWindowWidth()}
-        backgroundColor="secondary"
-        borderRadius="m"
-        alignSelf="center"
-      />
-      <Box flex={0.6} justifyContent="center" marginHorizontal="xl">
-        <CustomButton label={t('continueWGmail')} variant="secondary" icon="google" />
-        <CustomButton
-          label={t('continueWSlack')}
-          variant="secondary"
-          icon="slack"
-          marginTop={theme.spacing.m}
-        />
-        <CustomButton
-          label={t('signupWEmail')}
-          variant="primary"
-          marginTop={theme.spacing.l}
-          onPress={navigateToSignupEmail}
-        />
-        <Box flexDirection="row" padding="m" justifyContent="center" alignItems="center">
-          <Text variant="body1" paddingRight="xm">
-            {t('alreadyHaveAccount')}
-          </Text>
-          <TextLink
-            text={t('login:loginButton')}
-            action={navigateToLogin}
-            variant="alreadyRegistered"
-          />
+      <Box flex={1} justifyContent="space-between" marginHorizontal="xl">
+        <SignupTitleAndLogo />
+        <Box flex={1} justifyContent="space-between">
+          <SignupButtons onPress={navigateToSignupEmail} />
+          <SignupLoginBox onPress={navigateToLogin} />
         </Box>
       </Box>
     </SafeAreaWrapper>

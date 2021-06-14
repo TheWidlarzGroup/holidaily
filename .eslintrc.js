@@ -12,6 +12,7 @@ module.exports = {
     'react/jsx-curly-brace-presence': 0,
     'no-shadow': 0,
     '@typescript-eslint/no-shadow': 0,
+    'no-undef': 'off',
   },
   globals: {
     __DEV__: 'readonly',
