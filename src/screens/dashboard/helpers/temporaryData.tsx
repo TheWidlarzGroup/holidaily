@@ -9,6 +9,8 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Peter',
       lastName: 'Kansas',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Tom',
       lastName: 'Waist',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 3,
@@ -31,6 +35,8 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Kamila',
       lastName: 'Wysokogórska',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 4,
@@ -42,6 +48,8 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Ola',
       lastName: 'Nowak',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 5,
@@ -53,6 +61,8 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Ludwik',
       lastName: 'Chodak',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 6,
@@ -64,6 +74,8 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Paweł',
       lastName: 'Ogonek',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
 ]
 
@@ -82,6 +94,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-22',
           dayEnd: '2021-06-24',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user1',
@@ -93,6 +107,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-01',
           dayEnd: '2021-06-14',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user2',
@@ -104,6 +120,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -115,6 +133,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -126,6 +146,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
     ],
   },
@@ -143,6 +165,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -154,6 +178,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -165,6 +191,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
     ],
   },
@@ -182,6 +210,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -193,6 +223,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -204,6 +236,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
     ],
   },
@@ -221,6 +255,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -232,6 +268,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -243,6 +281,8 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
+        password: 'AwesomePassword',
       },
     ],
   },

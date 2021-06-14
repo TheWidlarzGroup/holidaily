@@ -9,6 +9,8 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-22',
       dayEnd: '2021-06-24',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user1',
@@ -20,6 +22,8 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-01',
       dayEnd: '2021-06-14',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user2',
@@ -31,6 +35,8 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-04',
       dayEnd: '2021-06-10',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user3',
@@ -42,6 +48,8 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-10',
       dayEnd: '2021-06-15',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user4',
@@ -53,6 +61,8 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-10',
       dayEnd: '2021-06-15',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
 ]
 
@@ -67,6 +77,8 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-22',
       dayEnd: '2021-06-24',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user1',
@@ -78,6 +90,8 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-01',
       dayEnd: '2021-06-14',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user2',
@@ -89,6 +103,8 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-04',
       dayEnd: '2021-06-10',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
   {
     id: 'user4',
@@ -100,5 +116,7 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-10',
       dayEnd: '2021-06-15',
     },
+    role: 'Software Developer',
+    password: 'AwesomePassword',
   },
 ]
