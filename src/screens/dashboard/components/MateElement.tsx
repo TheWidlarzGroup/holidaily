@@ -37,7 +37,7 @@ export const MateElement = (props: MateElementProps) => {
       onPress={navigateToMateDetails}>
       <Box margin="m">
         <IconProfile width={62} height={62} />
-        {holidays.isOnHoliday && <OnHolidayTag variant="small" />}
+        {holidays.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">
         <Text variant="alreadyRegistered" color="black" lineHeight={20}>

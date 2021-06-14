@@ -19,7 +19,7 @@ export const CarouselElement = (props: CarouselElementProps) => {
     <Box marginBottom="m" alignItems="center">
       <Box marginHorizontal="m" marginTop="m" marginBottom="xs">
         <IconProfile width={62} height={62} />
-        {isOnHoliday && <OnHolidayTag variant="small" />}
+        {isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Text variant="lightGreyRegular" color="black" lineHeight={14}>
         {firstName}
