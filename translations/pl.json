@@ -126,6 +126,7 @@
     "outOfWork": "Urlop",
     "backAtWork": "Powrót",
     "lastDayAtWork": "Ostatni dzień w pracy",
-    "SickLeave": "Chorobowe"
+    "SickLeave": "Chorobowe",
+    "coupleDaysOff": "Kilka dni wolnego"
   }
 }

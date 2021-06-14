@@ -5,7 +5,7 @@ import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
 export const MateHeader = (props: RequiredMateHolidaysData) => {
-  const { firstName, lastName, holidays } = props
+  const { firstName, lastName, holidays, role } = props
 
   return (
     <Box alignItems="center" borderBottomColor="black" borderBottomWidth={2} paddingBottom="l">
@@ -16,9 +16,11 @@ export const MateHeader = (props: RequiredMateHolidaysData) => {
       <Text variant="bold20" color="black" marginTop="m">
         {firstName} {lastName}
       </Text>
-      <Text variant="regularGrey16" color="headerGrey">
-        role need to be implemented
-      </Text>
+      {role && (
+        <Text variant="regularGrey16" color="headerGrey">
+          {role}
+        </Text>
+      )}
     </Box>
   )
 }

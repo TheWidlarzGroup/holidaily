@@ -126,6 +126,7 @@
     "outOfWork": "Out of work",
     "backAtWork": "Back at work",
     "lastDayAtWork": "Last day at work",
-    "SickLeave": "Sick time off"
+    "sickLeave": "Sick time off",
+    "coupleDaysOff": "A couple days off"
   }
 }

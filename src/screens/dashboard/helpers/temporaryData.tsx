@@ -111,7 +111,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-14',
           dayEnd: '2021-06-14',
           sickLeave: true,
-          description: 'Srilanka',
+          description: 'Terrible headache',
         },
       },
       {
@@ -222,7 +222,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
           sickLeave: true,
-          description: undefined,
+          description: 'Broken arm',
         },
       },
       {
@@ -237,7 +237,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
           sickLeave: false,
-          description: undefined,
+          description: 'Mountain trip',
         },
       },
       {
@@ -301,9 +301,9 @@ export const USER_GROUPS_DAYS_OFF = [
           id: 4,
           isOnHoliday: false,
           dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          dayEnd: '2021-06-30',
           sickLeave: false,
-          description: undefined,
+          description: 'Indonesia',
         },
       },
     ],

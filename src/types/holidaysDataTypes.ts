@@ -19,7 +19,7 @@ export type HolidayDetails = {
 }
 export type HolidayDetailsOptional = {
   sickLeave?: boolean
-  descriptiom?: string
+  description?: string
 }
 
 export type ValidationOfGroupDayOff = {
