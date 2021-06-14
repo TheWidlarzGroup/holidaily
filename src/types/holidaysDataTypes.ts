@@ -12,6 +12,12 @@ export type UserData = {
   lastName: string
 }
 
+export type HolidayDetails = {
+  id: number
+  isOnHoliday: boolean
+  dayStart?: string
+  dayEnd?: string
+}
 export type ValidationOfGroupDayOff = {
   groupId: number
   groupName: string
@@ -33,3 +39,5 @@ export type UserDetails = {
   }
   teams?: string[]
 }
+export type MateHolidaysData = UserData & { holidays: HolidayDetails }
+export type RequiredMateHolidaysData = UserData & { holidays: Required<HolidayDetails> }
