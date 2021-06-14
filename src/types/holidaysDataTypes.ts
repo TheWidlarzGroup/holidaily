@@ -17,6 +17,11 @@ export type HolidayDetails = {
   dayStart?: string
   dayEnd?: string
 }
+export type HolidayDetailsOptional = {
+  sickLeave?: boolean
+  descriptiom?: string
+}
+
 export type ValidationOfGroupDayOff = {
   groupId: number
   groupName: string
@@ -40,3 +45,8 @@ export type UserDetails = {
 }
 export type MateHolidaysData = UserData & { holidays: HolidayDetails }
 export type RequiredMateHolidaysData = UserData & { holidays: Required<HolidayDetails> }
+
+export type MateHolidaysData = UserData & { holidays: HolidayDetails & HolidayDetailsOptional }
+export type RequiredMateHolidaysData = UserData & {
+  holidays: Required<HolidayDetails> & HolidayDetailsOptional
+}
