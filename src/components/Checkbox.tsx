@@ -1,10 +1,9 @@
-import React, { forwardRef, useEffect } from 'react'
-import { StyleSheet, TextInput, TouchableOpacity, TextInputProps, Pressable } from 'react-native'
+import React from 'react'
+import { StyleSheet, Pressable } from 'react-native'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useDerivedValue,
-  useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
 

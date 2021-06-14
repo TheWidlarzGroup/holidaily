@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
-import { Box, Text } from 'utils/theme'
 import { Pressable, StatusBar } from 'react-native'
-import BackArrowIcon from 'assets/icons/backArrow.svg'
 import { useNavigation } from '@react-navigation/core'
+
+import { Box, Text } from 'utils/theme'
+import BackArrowIcon from 'assets/icons/backArrow.svg'
 
 export const HeaderRequestVacation: FC = () => {
   const navigation = useNavigation()

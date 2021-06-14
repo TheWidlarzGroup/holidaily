@@ -1,11 +1,10 @@
 import React, { FC, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
+
 import { CustomModal } from 'components/CustomModal'
-import { Box, theme, Text } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 import { CalendarRequestVacation } from './CalendarRequestVacation'
-import { Calendar } from 'react-native-calendars'
 
 type CalendarModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void

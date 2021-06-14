@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
-import { Box, Text } from 'utils/theme'
+
+import { Box } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
@@ -41,7 +42,7 @@ export const RequestVacation: FC = () => {
         {step === 0 && (
           <FormRequestVacation nextStep={() => setStep(1)} changeRequestData={changeRequestData} />
         )}
-        {step === 1 && <SummaryRequestVacation description={description} />}
+        {step === 1 && <SummaryRequestVacation description={description} sickTime={sickTime} />}
       </Box>
     </SafeAreaWrapper>
   )

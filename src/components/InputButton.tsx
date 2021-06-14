@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { StyleProp, StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
-import { Text, Box, theme, Theme } from 'utils/theme/index'
+import { Text, Box, theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 
 type ButtonInputTypes = {

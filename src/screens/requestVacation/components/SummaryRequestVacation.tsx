@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
+
 import { CustomButton } from 'components/CustomButton'
 import { Box, Text } from 'utils/theme/index'
 import CalendarIcon from 'assets/icons/calendar.svg'
@@ -9,9 +10,10 @@ import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 
 type SummaryRequestVacationProps = {
   description: string
+  sickTime: boolean
 }
 
-export const SummaryRequestVacation = ({ description }: SummaryRequestVacationProps) => {
+export const SummaryRequestVacation = ({ description, sickTime }: SummaryRequestVacationProps) => {
   return (
     <Box flexDirection="column" justifyContent="space-between" flex={1} paddingTop="xl">
       <Box backgroundColor="primary" borderRadius="m" padding="m" flex={0.7}>
@@ -24,10 +26,12 @@ export const SummaryRequestVacation = ({ description }: SummaryRequestVacationPr
           <CalendarIcon />
           <Text variant="body1Bold">22 April - 26 April</Text>
         </Box>
-        <Box flexDirection="row" alignItems="center">
-          <PillIcon />
-          <Text variant="body1">Sick time off</Text>
-        </Box>
+        {sickTime && (
+          <Box flexDirection="row" alignItems="center">
+            <PillIcon />
+            <Text variant="body1">Sick time off</Text>
+          </Box>
+        )}
         <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
         <Box flexDirection="row" justifyContent="space-around" alignItems="center">
           <Box alignItems="center">

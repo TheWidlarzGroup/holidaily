@@ -1,7 +1,7 @@
-import { CustomModal } from 'components/CustomModal'
 import React from 'react'
-import { Modal, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { CalendarList } from 'react-native-calendars'
+
 import { Box, Text, theme } from 'utils/theme'
 
 type CalendarRequestVacationProps = {}

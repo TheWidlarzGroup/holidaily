@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { Box, Text, theme } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
@@ -7,8 +8,9 @@ import { requestDataTypes } from '../RequestVacation'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CalendarModal } from './CalendarModal'
 import { InputButton } from 'components/InputButton'
-import { StyleSheet, Switch } from 'react-native'
 import { Checkbox } from 'components/Checkbox'
+import AddCommentIcon from 'assets/icons/addComment.svg'
+import PaperclipIcon from 'assets/icons/paperclip.svg'
 
 type FormTypes = {
   date: undefined
@@ -30,7 +32,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 
   const handleLoginUser = (data: FormTypes) => {
     if (Object.keys(errors).length) return
-    changeRequestData((oldData) => ({ ...oldData, description: data.description }))
+    changeRequestData((oldData) => ({ ...oldData, description: data.description, sickTime }))
     nextStep()
   }
 
@@ -53,7 +55,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
               errors={errors}
               name="description"
               inputLabel="Description (optional)"
-              validationPattern={/.*/}
+              validationPattern={/$/}
               errorMessage="Incorrect description"
               keyboardType="default"
               autoCompleteType="off"
@@ -64,7 +66,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           <Text variant="boldBlack18" textAlign="left">
             Sick time off
           </Text>
-          <Box flexDirection="row" justifyContent="space-between">
+          <Box flexDirection="row" justifyContent="space-between" alignItems="center">
             <Text variant="body1" textAlign="left">
               I'm not feeling well
             </Text>
@@ -72,13 +74,23 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           </Box>
         </Box>
 
-        <Text variant="boldBlack18" textAlign="left" marginTop="l">
-          Additionals
-        </Text>
-        <Text variant="body1" textAlign="left">
-          {' '}
-          Add and attachment or write a message{' '}
-        </Text>
+        <Box>
+          <Text variant="boldBlack18" textAlign="left" marginTop="l">
+            Additionals
+          </Text>
+          <Text variant="body1" textAlign="left">
+            {' '}
+            Add and attachment or write a message{' '}
+          </Text>
+          <Box flexDirection="row">
+            <Box backgroundColor="lightGrey" padding="xm" margin="s" borderRadius="l">
+              <PaperclipIcon width={22} height={22} />
+            </Box>
+            <Box backgroundColor="lightGrey" padding="xm" margin="s" borderRadius="l">
+              <AddCommentIcon width={22} height={22} />
+            </Box>
+          </Box>
+        </Box>
         <CalendarModal isVisible={calendarVisible} hideModal={setFalse} />
       </Box>
       <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
