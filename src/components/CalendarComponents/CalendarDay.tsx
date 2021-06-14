@@ -1,27 +1,29 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { DayComponentProps } from 'react-native-calendars'
+import { DayComponentProps, MultiDotMarking } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
 
-export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps) => {
+type CalendarDayProps = {
+  marking: MultiDotMarking
+}
+
+export const CalendarDay: FC<DayComponentProps & CalendarDayProps> = ({
+  date,
+  state,
+  marking,
+  onPress,
+}) => {
   const day = DateTime.fromISO(date.dateString)
-  const dots =
-    typeof marking === 'object' && 'dots' in marking
-      ? {
-          firstThree: marking?.dots.slice(0, 3),
-          isMore: marking?.dots.length > 3,
-        }
-      : {
-          firstThree: [],
-          isMore: false,
-        }
+  const dots = {
+    firstThree: marking?.dots.slice(0, 3),
+    isMore: marking?.dots.length > 3,
+  }
   const textColor = () => {
     if (state === 'selected') return 'white'
     if (isWeekend(day)) return 'grey'
-    if (typeof marking === 'object' && 'disabled' in marking && marking.disabled === true)
-      return 'grey'
+    if (marking?.disabled === true) return 'grey'
     return 'black'
   }
 
@@ -43,7 +45,7 @@ export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps
         </Box>
       </BorderlessButton>
       <Box position="absolute" top="100%">
-        {dots.firstThree.map((dot: { key: string; color: string }) => (
+        {dots.firstThree?.map((dot: { key: string; color: string }) => (
           <Box
             key={dot.key}
             width={10}
@@ -53,7 +55,7 @@ export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps
             style={{ backgroundColor: dot.color }}
           />
         ))}
-        {dots.isMore ? (
+        {dots.isMore && (
           <Box
             position="relative"
             width={4}
@@ -63,7 +65,7 @@ export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps
             top={-4}
             left={14}
           />
-        ) : null}
+        )}
       </Box>
     </Box>
   )
