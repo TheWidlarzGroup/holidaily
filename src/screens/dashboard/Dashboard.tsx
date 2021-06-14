@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { ScrollView } from 'react-native'
@@ -9,11 +9,18 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
+import { useUserContext } from 'hooks/useUserContext'
+import { USER_DATA } from 'utils/mocks/userMocks'
 
 export const Dashboard: FC = () => {
   const { t, i18n } = useTranslation('dashboard')
+  const { updateUser } = useUserContext()
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
+
+  useEffect(() => {
+    updateUser(USER_DATA)
+  }, [updateUser])
 
   return (
     <SafeAreaWrapper isDefaultBgColor>

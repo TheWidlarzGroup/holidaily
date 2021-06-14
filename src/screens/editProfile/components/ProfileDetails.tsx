@@ -69,7 +69,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           </Box>
         )}
       </Box>
-      <Box>
+      <Box position="relative">
         <FormInput
           onFocus={() => setIconInvisible(1)}
           control={control}
@@ -104,9 +104,9 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           </Box>
         )}
       </Box>
-      <Box>
+      <Box position="relative">
         {/* TODO: change FormInput to button opening update password modal */}
-        <FormInput
+        {/* <FormInput
           control={control}
           isError={!!errors}
           errors={errors}
@@ -137,7 +137,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
             rippleColor={theme.colors.rippleColor}>
             <IconEdit />
           </RectButton>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   )

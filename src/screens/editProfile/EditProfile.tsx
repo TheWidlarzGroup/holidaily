@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useUserContext } from 'hooks/useUserContext'
 import { splitName } from 'utils/splitName'
 import { ChangesSavedModal } from './components/ChangesSavedModal'
 import { ProfilePicture } from './components/ProfilePicture'
@@ -12,10 +13,9 @@ import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 
-import { USER_DATA } from './helpers/mockedData'
-
 export const EditProfile = () => {
-  const { firstName, lastName, role } = USER_DATA
+  const { user } = useUserContext()
+  const { firstName, lastName, role } = user
   const styles = useStyles()
   const { errors, control, getValues } = useForm({
     defaultValues: {
@@ -46,12 +46,7 @@ export const EditProfile = () => {
       <SafeAreaView style={styles.mainView}>
         <ScrollView style={{ marginBottom: isEdited ? 100 : 0 }}>
           <ProfilePicture />
-          <ProfileDetails
-            {...USER_DATA}
-            errors={errors}
-            control={control}
-            setIsEdited={setEditedTrue}
-          />
+          <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
           <ProfileColor />
         </ScrollView>
