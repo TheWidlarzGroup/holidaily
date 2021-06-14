@@ -6,16 +6,16 @@ import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
 type TeamSectionProps = {
   matesArray: RequiredMateHolidaysData[]
-  isOutOfOffiece: boolean
+  isOutOfOffice: boolean
 }
 
 export const TeamSection = (props: TeamSectionProps) => {
-  const { isOutOfOffiece, matesArray } = props
+  const { isOutOfOffice, matesArray } = props
   const { t } = useTranslation('dashboard')
 
   const version = {
-    color: isOutOfOffiece === true ? 'tertiary' : 'greyDark',
-    text: isOutOfOffiece === true ? 'outOfWorkNow' : 'outOfWorkSoon',
+    color: isOutOfOffice === true ? 'tertiary' : 'greyDark',
+    text: isOutOfOffice === true ? 'outOfWorkNow' : 'outOfWorkSoon',
   }
   return (
     <Box>

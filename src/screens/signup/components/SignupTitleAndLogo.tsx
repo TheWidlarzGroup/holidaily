@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Image } from 'react-native'
 import { Box, mkUseStyles, Text } from 'utils/theme'
+
 const logoSrc = require('assets/Logo.png')
 
 export const SignupTitleAndLogo = () => {

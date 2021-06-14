@@ -35,9 +35,9 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
           <Text variant="header">{params.groupName}</Text>
         </Box>
         <Box marginHorizontal="m" paddingBottom="xxxl">
-          {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffiece />}
+          {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
           {matesWithPlannedHolidays.length > 0 && (
-            <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffiece={false} />
+            <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
           )}
           {matesWithNoPlannedHolidays.length > 0 && (
             <>
