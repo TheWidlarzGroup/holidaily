@@ -116,7 +116,7 @@
     "userColor": "Twój kolor",
     "saveChanges": "Zapisz zmiany",
     "changesSaved": "Zmiany zostały zapisane"
-  },  
+  },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
     "teamsList": "Twoje zespoły",
@@ -125,6 +125,7 @@
     "othersTeamMembers": "Pozostali członkowie zespołu",
     "outOfWork": "Urlop",
     "backAtWork": "Powrót",
-    "lastDayAtWork": "Ostatni dzień w pracy"
+    "lastDayAtWork": "Ostatni dzień w pracy",
+    "SickLeave": "Chorobowe"
   }
 }

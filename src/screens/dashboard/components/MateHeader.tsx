@@ -8,7 +8,7 @@ export const MateHeader = (props: RequiredMateHolidaysData) => {
   const { firstName, lastName, holidays } = props
 
   return (
-    <Box alignItems="center" borderBottomColor="black" borderBottomWidth={2} paddingBottom="m">
+    <Box alignItems="center" borderBottomColor="black" borderBottomWidth={2} paddingBottom="l">
       <Box>
         <IconProfile width={104} height={104} />
         {holidays.isOnHoliday && <OnHolidayTag variant="large" background="white" />}

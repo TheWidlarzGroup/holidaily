@@ -13,7 +13,7 @@ type MateElementProps = RequiredMateHolidaysData
 export const MateElement = (props: MateElementProps) => {
   const { t, i18n } = useTranslation('dashboard')
   const { firstName, lastName, holidays } = props
-  const date = holidays.isOnHoliday ? holidays.dayStart : holidays.dayEnd
+  const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
   const version = {

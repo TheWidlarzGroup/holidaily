@@ -97,7 +97,7 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: true,
-          dayStart: '2021-06-01',
+          dayStart: '2021-06-14',
           dayEnd: '2021-06-14',
         },
         role: 'Software Developer',
