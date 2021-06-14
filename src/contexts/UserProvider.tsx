@@ -10,7 +10,7 @@ export const emptyUser = {
   firstName: '',
   lastName: '',
   email: '',
-  isConfirmed: true,
+  isConfirmed: false,
   role: '',
 }
 
