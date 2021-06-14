@@ -1,9 +1,11 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import { UserDetails } from 'types/holidaysDataTypes'
+import { UserData } from 'types/holidaysDataTypes'
 
-export const OtherMateElement = (props: UserDetails) => {
+type OtherMateElementProps = UserData
+
+export const OtherMateElement = (props: OtherMateElementProps) => {
   const { firstName, lastName } = props
 
   return (
