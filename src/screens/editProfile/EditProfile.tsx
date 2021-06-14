@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { splitName } from 'utils/splitName'
 import { ChangesSavedModal } from './components/ChangesSavedModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -30,9 +31,10 @@ export const EditProfile = () => {
     setEditedFalse()
     setTrue()
     const { nameSurname, role } = getValues()
+    const [firstName, lastName] = splitName(nameSurname)
     const formattedValues = {
-      firstName: nameSurname.split(' ')[0],
-      lastName: nameSurname.split(' ')[1],
+      firstName,
+      lastName,
       role,
     }
     console.log(formattedValues)
