@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { UserDetails } from 'types/holidaysDataTypes'
+import { MateHolidaysData } from 'types/holidaysDataTypes'
 
 export type ValidationOfDataToBeDisplayed = {
   isOnHoliday: boolean
@@ -35,7 +35,7 @@ export const setDateToBeDisplayed = (date: string, currentlyOnHoliday: boolean) 
 // SUM FUNCTIONS
 
 // function to count how many people are on holidays in team
-export const qtyOnHolidayNow = (users: UserDetails[]): number =>
+export const qtyOnHolidayNow = (users: MateHolidaysData[]): number =>
   users.reduce(
     (acc, curr) =>
       !curr.holidays || (curr.holidays && !curr.holidays.isOnHoliday) ? acc : acc + 1,
