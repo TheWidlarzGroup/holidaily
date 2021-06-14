@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import { UserData } from 'types/holidaysDataTypes'
+import { MateHolidaysData } from 'types/holidaysDataTypes'
 
-type OtherMateElementProps = UserData
+type OtherMateElementProps = MateHolidaysData
 
 export const OtherMateElement = (props: OtherMateElementProps) => {
   const { firstName, lastName } = props
