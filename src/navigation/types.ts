@@ -1,7 +1,7 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { ValidationOfGroupDayOff, RequiredUserDetails } from 'types/holidaysDataTypes'
+import { ValidationOfGroupDayOff, RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -116,5 +116,5 @@ export type ModalRoutes = {
 export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: ValidationOfGroupDayOff
-  DashboardTeamMember: RequiredUserDetails
+  DashboardTeamMember: RequiredMateHolidaysData
 }

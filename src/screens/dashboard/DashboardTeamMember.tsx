@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
-import { useRoute } from '@react-navigation/native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
-export const DashboardTeamMember = () => {
-  const { params } = useRoute<DashboardNavigationProps<'DashboardTeamMember'>>()
+type DashboardTeamMemberProps = DashboardNavigationProps<'DashboardTeamMember'>
+
+export const DashboardTeamMember: FC<DashboardTeamMemberProps> = ({ route }) => {
+  const { params } = route
 
   return (
     <SafeAreaWrapper>

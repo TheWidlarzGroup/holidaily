@@ -8,9 +8,9 @@ import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
-type Props = DashboardNavigationProps<'DashboardTeam'>
+type DashboardTeamProps = DashboardNavigationProps<'DashboardTeam'>
 
-export const DashboardTeam: FC<Props> = ({ route }) => {
+export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
 
