@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Box, Text, theme } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
+import PaperclipIcon from 'assets/icons/paperclip.svg'
+import AddCommentIcon from 'assets/icons/addComment.svg'
 import { FormInput } from 'components/FormInput'
+import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
-import { requestDataTypes } from '../RequestVacation'
+import { Checkbox } from 'components/Checkbox'
+import { RequestDataTypes } from '../RequestVacation'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CalendarModal } from './CalendarModal'
-import { InputButton } from 'components/InputButton'
-import { Checkbox } from 'components/Checkbox'
-import AddCommentIcon from 'assets/icons/addComment.svg'
-import PaperclipIcon from 'assets/icons/paperclip.svg'
 
 type FormTypes = {
   date: undefined
@@ -19,7 +19,7 @@ type FormTypes = {
 
 type FormRequestVacationProps = {
   nextStep: () => void
-  changeRequestData: (callback: (currentData: requestDataTypes) => requestDataTypes) => void
+  changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({

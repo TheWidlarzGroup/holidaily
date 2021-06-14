@@ -3,12 +3,12 @@ import { StatusBar } from 'react-native'
 
 import { Box } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { RequestVacationBar } from 'components/RequestVacationBar'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
-import { RequestVacationBar } from 'components/RequestVacationBar'
 
-export type requestDataTypes = {
+export type RequestDataTypes = {
   date: undefined
   description: string
   sickTime: boolean
@@ -27,7 +27,7 @@ export const RequestVacation: FC = () => {
   const [description, setDescription] = useState('')
   const [sickTime, setSickTime] = useState(false)
 
-  const changeRequestData = (callback: (currentData: requestDataTypes) => requestDataTypes) => {
+  const changeRequestData = (callback: (currentData: RequestDataTypes) => RequestDataTypes) => {
     const newData = callback({ date, description, sickTime })
     setDate(newData.date)
     setDescription(newData.description)

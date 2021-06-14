@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { Pressable, StatusBar } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import { Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import { Box, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/backArrow.svg'

@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-import { Text, Box, theme } from 'utils/theme/index'
+import { theme } from 'utils/theme/index'
 
 type CheckboxProps = {
   checked: boolean

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 
 import { CustomButton } from 'components/CustomButton'
@@ -13,44 +13,42 @@ type SummaryRequestVacationProps = {
   sickTime: boolean
 }
 
-export const SummaryRequestVacation = ({ description, sickTime }: SummaryRequestVacationProps) => {
-  return (
-    <Box flexDirection="column" justifyContent="space-between" flex={1} paddingTop="xl">
-      <Box backgroundColor="primary" borderRadius="m" padding="m" flex={0.7}>
-        <BackgroundPlant1 style={plantsStyles.plant1} />
-        <BackgroundPlant2 style={plantsStyles.plant2} />
-        <Box paddingLeft="s">
-          <Text variant="heading4">{description}</Text>
-        </Box>
+export const SummaryRequestVacation = ({ description, sickTime }: SummaryRequestVacationProps) => (
+  <Box flexDirection="column" justifyContent="space-between" flex={1} paddingTop="xl">
+    <Box backgroundColor="primary" borderRadius="m" padding="m" flex={0.7}>
+      <BackgroundPlant1 style={plantsStyles.plant1} />
+      <BackgroundPlant2 style={plantsStyles.plant2} />
+      <Box paddingLeft="s">
+        <Text variant="heading4">{description}</Text>
+      </Box>
+      <Box flexDirection="row" alignItems="center">
+        <CalendarIcon />
+        <Text variant="body1Bold">22 April - 26 April</Text>
+      </Box>
+      {sickTime && (
         <Box flexDirection="row" alignItems="center">
-          <CalendarIcon />
-          <Text variant="body1Bold">22 April - 26 April</Text>
+          <PillIcon />
+          <Text variant="body1">Sick time off</Text>
         </Box>
-        {sickTime && (
-          <Box flexDirection="row" alignItems="center">
-            <PillIcon />
-            <Text variant="body1">Sick time off</Text>
-          </Box>
-        )}
-        <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-        <Box flexDirection="row" justifyContent="space-around" alignItems="center">
-          <Box alignItems="center">
-            <Text variant="captionText">YOU'RE TAKING</Text>
-            <Text variant="heading1">3</Text>
-            <Text variant="captionText">DAYS OF PTO</Text>
-          </Box>
-          <Box alignItems="center">
-            <Text variant="captionText">YOU'LL HAVE</Text>
-            <Text variant="heading1">19</Text>
-            <Text variant="captionText">DAYS OF PTO LEFT</Text>
-          </Box>
+      )}
+      <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
+      <Box flexDirection="row" justifyContent="space-around" alignItems="center">
+        <Box alignItems="center">
+          <Text variant="captionText">YOU'RE TAKING</Text>
+          <Text variant="heading1">3</Text>
+          <Text variant="captionText">DAYS OF PTO</Text>
+        </Box>
+        <Box alignItems="center">
+          <Text variant="captionText">YOU'LL HAVE</Text>
+          <Text variant="heading1">19</Text>
+          <Text variant="captionText">DAYS OF PTO LEFT</Text>
         </Box>
       </Box>
-
-      <CustomButton label={'next'} variant="primary" onPress={() => {}} />
     </Box>
-  )
-}
+
+    <CustomButton label={'next'} variant="primary" onPress={() => {}} />
+  </Box>
+)
 
 const plantsStyles = StyleSheet.create({
   plant1: {
