@@ -23,7 +23,7 @@ export type UserDetails = {
   firstName: string
   lastName: string
   role: string
-  password: string
+  password?: string
   holidays?: {
     id: number
     isOnHoliday: boolean

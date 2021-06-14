@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Text } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
@@ -8,21 +8,15 @@ import { theme, BaseOpacity, mkUseStyles, Theme } from 'utils/theme/index'
 
 type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
-  isVisible?: boolean
   content: string
 }
-
-export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({
-  isVisible,
-  hideModal,
-  content,
-}) => {
+export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSavedModalProps) => {
   const styles = useStyles()
 
   useEffect(() => {
-    setTimeout(() => hideModal(), 3000)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const timer = setTimeout(() => hideModal(), 3000)
+    return () => clearTimeout(timer)
+  }, [hideModal])
 
   return (
     <CustomModal
@@ -32,8 +26,8 @@ export const ChangesSavedModal: FC<ChangesSavedModalProps> = ({
       backdropOpacity={0.8}
       animationIn="slideInUp"
       animationOut="slideOutDown"
-      animationInTiming={500}
-      animationOutTiming={500}
+      animationInTiming={300}
+      animationOutTiming={300}
       swipeDirection="down"
       style={styles.modal}
       hideModalContentWhileAnimating>
@@ -64,7 +58,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowRadius: 2,
     elevation: 20,
   },
-
   confirmationMsg: {
     fontFamily: 'Nunito-Bold',
     color: 'black',

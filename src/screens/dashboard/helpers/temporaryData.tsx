@@ -10,7 +10,6 @@ export const COMPANY_DAYS_OFF = [
       lastName: 'Kansas',
     },
     role: 'Software Developer',
-    password: 'AwesomePassword',
   },
   {
     id: 2,
@@ -23,7 +22,6 @@ export const COMPANY_DAYS_OFF = [
       lastName: 'Waist',
     },
     role: 'Software Developer',
-    password: 'AwesomePassword',
   },
   {
     id: 3,
@@ -36,7 +34,6 @@ export const COMPANY_DAYS_OFF = [
       lastName: 'Wysokogórska',
     },
     role: 'Software Developer',
-    password: 'AwesomePassword',
   },
   {
     id: 4,
@@ -49,7 +46,6 @@ export const COMPANY_DAYS_OFF = [
       lastName: 'Nowak',
     },
     role: 'Software Developer',
-    password: 'AwesomePassword',
   },
   {
     id: 5,
@@ -62,7 +58,6 @@ export const COMPANY_DAYS_OFF = [
       lastName: 'Chodak',
     },
     role: 'Software Developer',
-    password: 'AwesomePassword',
   },
   {
     id: 6,
@@ -75,7 +70,6 @@ export const COMPANY_DAYS_OFF = [
       lastName: 'Ogonek',
     },
     role: 'Software Developer',
-    password: 'AwesomePassword',
   },
 ]
 
@@ -95,7 +89,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-24',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user1',
@@ -108,7 +101,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-14',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user2',
@@ -121,7 +113,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-10',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -134,7 +125,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -147,7 +137,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
     ],
   },
@@ -166,7 +155,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-10',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -179,7 +167,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -192,7 +179,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
     ],
   },
@@ -211,7 +197,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-10',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -224,7 +209,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -237,7 +221,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
     ],
   },
@@ -256,7 +239,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-10',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user3',
@@ -269,7 +251,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
       {
         id: 'user4',
@@ -282,7 +263,6 @@ export const USER_GROUPS_DAYS_OFF = [
           dayEnd: '2021-06-15',
         },
         role: 'Software Developer',
-        password: 'AwesomePassword',
       },
     ],
   },

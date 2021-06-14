@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { ChangesSavedModal } from './components/ChangesSavedModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -13,35 +14,30 @@ import { ProfileColor } from './components/ProfileColor'
 import { USER_DATA } from './helpers/mockedData'
 
 export const EditProfile = () => {
+  const { firstName, lastName, role } = USER_DATA
   const styles = useStyles()
-  const { errors, control, setValue, getValues } = useForm()
+  const { errors, control, getValues } = useForm({
+    defaultValues: {
+      nameSurname: `${firstName} ${lastName}`,
+      role,
+    },
+  })
   const { t } = useTranslation('userProfile')
-  const [isEdited, setIsEdited] = useState<boolean>(false)
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState<boolean>(false)
+  const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
+  const [isConfirmationModalVisible, { setTrue, setFalse }] = useBooleanState(false)
 
   const handleEditSubmit = () => {
-    setIsEdited(false)
-    setIsConfirmationModalVisible(true)
-    const { nameSurname, role, password } = getValues()
+    setEditedFalse()
+    setTrue()
+    const { nameSurname, role } = getValues()
     const formattedValues = {
       firstName: nameSurname.split(' ')[0],
       lastName: nameSurname.split(' ')[1],
       role,
-      password,
     }
     console.log(formattedValues)
     // TODO: function updating user data with formattedValues
   }
-
-  useEffect(() => {
-    if (USER_DATA) {
-      const { firstName, lastName, role, password } = USER_DATA
-      setValue('nameSurname', `${firstName} ${lastName}`)
-      setValue('role', role)
-      setValue('password', password)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [USER_DATA])
 
   return (
     <>
@@ -52,7 +48,7 @@ export const EditProfile = () => {
             {...USER_DATA}
             errors={errors}
             control={control}
-            setIsEdited={setIsEdited}
+            setIsEdited={setEditedTrue}
           />
           <TeamSubscriptions />
           <ProfileColor />
@@ -72,7 +68,7 @@ export const EditProfile = () => {
       {isConfirmationModalVisible && (
         <ChangesSavedModal
           isVisible={isConfirmationModalVisible}
-          hideModal={() => setIsConfirmationModalVisible(false)}
+          hideModal={setFalse}
           content={t('changesSaved')}
         />
       )}

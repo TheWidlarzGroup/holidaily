@@ -1,21 +1,20 @@
 import React, { useRef, useState } from 'react'
-import { TextInput, View } from 'react-native'
+import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { FormInput } from 'components/FormInput'
 import IconEdit from 'assets/icons/icon-edit-grey.svg'
-import { theme, mkUseStyles, Theme, Box } from 'utils/theme/'
+import { theme, Box } from 'utils/theme/'
 import { minTwoWordsRegex, minOneSignRegex, passwordRegex } from 'utils/regex'
-import { Control, FieldValues } from 'react-hook-form'
+import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
 
 type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
-  errors: { nameSurname?: string; role?: string; password?: string }
+  errors: DeepMap<{ nameSurname: string; role: string }, FieldError>
   control: Control<FieldValues>
 }
 
 export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
-  const styles = useStyles()
   const { t } = useTranslation('userProfile')
   const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null), useRef<TextInput>(null)]
   const [iconInvisible, setIconInvisible] = useState<number>(-1)
@@ -49,14 +48,25 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           ref={inputsRefs[0]}
         />
         {iconInvisible !== 0 && (
-          <View style={styles.editButton}>
+          <Box
+            position="absolute"
+            right={0}
+            top={22}
+            backgroundColor="lightGrey"
+            borderRadius="full"
+            width={55}
+            height={55}
+            borderWidth={4}
+            borderColor="white"
+            justifyContent="center"
+            alignItems="center">
             <RectButton
               onPress={() => onFocusInput(0)}
               activeOpacity={0.2}
               rippleColor={theme.colors.rippleColor}>
               <IconEdit />
             </RectButton>
-          </View>
+          </Box>
         )}
       </Box>
       <Box>
@@ -73,20 +83,32 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           ref={inputsRefs[1]}
         />
         {iconInvisible !== 1 && (
-          <View style={styles.editButton}>
+          <Box
+            position="absolute"
+            right={0}
+            top={22}
+            backgroundColor="lightGrey"
+            borderRadius="full"
+            width={55}
+            height={55}
+            borderWidth={4}
+            borderColor="white"
+            justifyContent="center"
+            alignItems="center">
             <RectButton
               onPress={() => onFocusInput(1)}
               activeOpacity={0.2}
               rippleColor={theme.colors.rippleColor}>
               <IconEdit />
             </RectButton>
-          </View>
+          </Box>
         )}
       </Box>
       <Box>
+        {/* TODO: change FormInput to button opening update password modal */}
         <FormInput
           control={control}
-          isError={!!errors.password}
+          isError={!!errors}
           errors={errors}
           name="password"
           inputLabel={t('userPassword')}
@@ -97,31 +119,26 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           ref={inputsRefs[2]}
           onFocus={() => onFocusInput(2)}
         />
-        <View style={styles.editButton}>
+        <Box
+          position="absolute"
+          right={0}
+          top={22}
+          backgroundColor="lightGrey"
+          borderRadius="full"
+          width={55}
+          height={55}
+          borderWidth={4}
+          borderColor="white"
+          justifyContent="center"
+          alignItems="center">
           <RectButton
             onPress={() => onFocusInput(2)}
             activeOpacity={0.2}
             rippleColor={theme.colors.rippleColor}>
             <IconEdit />
           </RectButton>
-        </View>
+        </Box>
       </Box>
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  editButton: {
-    position: 'absolute',
-    right: 0,
-    top: 22,
-    backgroundColor: theme.colors.lightGrey,
-    borderRadius: theme.borderRadii.full,
-    width: 55,
-    height: 55,
-    borderWidth: theme.spacing.xs,
-    borderColor: theme.colors.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-}))
