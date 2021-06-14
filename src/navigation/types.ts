@@ -15,7 +15,7 @@ export type AuthNavigationType<RouteName extends keyof AuthRoutes> = CompositeNa
 
 export type AuthNavigationProps<RouteName extends keyof AuthRoutes> = {
   navigation: StackNavigationProp<AuthRoutes, RouteName>
-  route: RouteProp<AppRoutes, 'AuthStackNavigation'>
+  route: RouteProp<AuthRoutes, RouteName>
 }
 
 // for useNavigation hook
@@ -52,12 +52,12 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
 // for useNavigation hook
 export type ModalNavigationType<RouteName extends keyof ModalRoutes> = CompositeNavigationProp<
   StackNavigationProp<ModalRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'DrawerNavigator'>
+  StackNavigationProp<AppRoutes, 'ModalRoutes'>
 >
 
 export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
   navigation: StackNavigationProp<ModalRoutes, RouteName>
-  route: RouteProp<AppRoutes, 'DrawerNavigator'>
+  route: RouteProp<ModalRoutes, RouteName>
 }
 
 // for useNavigation hook
@@ -70,7 +70,7 @@ export type DashboardNavigationType<
 
 export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = {
   navigation: StackNavigationProp<DashboardRoutes, RouteName>
-  route: RouteProp<AppRoutes, 'DashboardNavigation'>
+  route: RouteProp<DashboardRoutes, RouteName>
 }
 
 export type AppRoutes = {

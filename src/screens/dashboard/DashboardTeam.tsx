@@ -1,25 +1,27 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
-import { useRoute } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
+import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
-export const DashboardTeam = () => {
-  const { params } = useRoute<DashboardNavigationProps<'DashboardTeam'>>()
+type Props = DashboardNavigationProps<'DashboardTeam'>
+
+export const DashboardTeam: FC<Props> = ({ route }) => {
+  const { params } = route
   const { t } = useTranslation('dashboard')
 
-  const matesOnHoliday = params.users.filter(
-    (mate) => mate.holidays && mate.holidays.isOnHoliday === true
-  )
+  const matesOnHoliday =
+    params &&
+    (params.users.filter((mate) => mate.holidays.isOnHoliday) as RequiredMateHolidaysData[])
   const matesWithPlannedHolidays = params.users.filter(
-    (mate) => mate.holidays && mate.holidays.isOnHoliday === false
-  )
+    (mate) => !mate.holidays.isOnHoliday && mate.holidays.dayStart
+  ) as RequiredMateHolidaysData[]
   const matesWithNoPlannedHolidays = params.users.filter(
-    (mate) => mate.holidays.isOnHoliday === undefined
+    (mate) => !mate.holidays.isOnHoliday && !mate.holidays.dayStart
   )
 
   return (

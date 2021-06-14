@@ -2,12 +2,14 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import { RequiredUserDetails } from 'types/holidaysDataTypes'
+import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/functions'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { BaseOpacity } from './BaseOpacity'
 
-export const MateElement = (props: RequiredUserDetails) => {
+type MateElementProps = RequiredMateHolidaysData
+
+export const MateElement = (props: MateElementProps) => {
   const { t, i18n } = useTranslation('dashboard')
   const { firstName, lastName, holidays } = props
   const date = holidays.isOnHoliday ? holidays.dayStart : holidays.dayEnd

@@ -2,10 +2,10 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MateElement } from 'screens/dashboard/components/MateElement'
-import { RequiredUserDetails } from 'types/holidaysDataTypes'
+import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
 type TeamSectionProps = {
-  matesArray: RequiredUserDetails[]
+  matesArray: RequiredMateHolidaysData[]
   isOutOfOffiece: boolean
 }
 
