@@ -1,4 +1,6 @@
+import { CustomModal } from 'components/CustomModal'
 import React from 'react'
+import { Modal, StyleSheet } from 'react-native'
 import { CalendarList } from 'react-native-calendars'
 import { Box, Text, theme } from 'utils/theme'
 
@@ -27,13 +29,19 @@ export const CalendarRequestVacation = ({}: CalendarRequestVacationProps) => {
           '2021-06-24': { selected: true, color: theme.colors.primary },
           '2021-06-25': { selected: true, endingDay: true, color: theme.colors.primary },
         }}
-        // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
         markingType={'period'}
       />
+      <Box style={styles.selectModal}>
+        <Text>22 Jun - 15 Jun</Text>
+        <Text>(4 days of PTO)</Text>
+      </Box>
     </Box>
   )
 }
 
-const vacation = { key: 'vacation', color: 'red', selectedDotColor: 'blue' }
-const massage = { key: 'massage', color: 'blue', selectedDotColor: 'blue' }
-const workout = { key: 'workout', color: 'green' }
+const styles = StyleSheet.create({
+  selectModal: {
+    height: 40,
+    backgroundColor: 'red',
+  },
+})
