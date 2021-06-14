@@ -5,18 +5,18 @@ import Animated from 'react-native-reanimated'
 import { ViewProps } from 'react-native'
 
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
-import { Dashboard } from 'screens/dashboard/Dashboard'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
 import { Chat } from 'screens/chat/Chat'
 import { BottomTabRoutes } from './types'
+import { DashboardNavigation } from './DashboardNavigation'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
 const EmptyComponent = () => null
 const tabs = [
   {
-    name: 'Dashboard',
+    name: 'DashboardNavigation',
   },
   { name: 'Calendar' },
   { name: 'RequestModal' },
@@ -27,7 +27,11 @@ export const BottomTabNavigator = ({ style }: ViewProps) => (
   <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
     <Animated.View style={[style, { flex: 1 }]}>
       <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
-        <Tab.Screen name="Dashboard" component={Dashboard} />
+        <Tab.Screen
+          name="DashboardNavigation"
+          // options={{ unmountOnBlur: true }}
+          component={DashboardNavigation}
+        />
         <Tab.Screen name="Calendar" component={Calendar} />
         <Tab.Screen name="RequestModal" component={EmptyComponent} />
         <Tab.Screen name="Panel" component={Panel} />

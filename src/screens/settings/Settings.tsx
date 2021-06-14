@@ -11,7 +11,10 @@ export const Settings: FC = () => {
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
-      screen: 'Dashboard',
+      screen: 'DashboardNavigation',
+      params: {
+        screen: 'Dashboard',
+      },
     })
   }, [navigation])
 

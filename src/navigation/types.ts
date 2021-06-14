@@ -1,6 +1,7 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { ValidationOfGroupDayOff, RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -14,7 +15,7 @@ export type AuthNavigationType<RouteName extends keyof AuthRoutes> = CompositeNa
 
 export type AuthNavigationProps<RouteName extends keyof AuthRoutes> = {
   navigation: StackNavigationProp<AuthRoutes, RouteName>
-  route: RouteProp<AppRoutes, 'AuthStackNavigation'>
+  route: RouteProp<AuthRoutes, RouteName>
 }
 
 // for useNavigation hook
@@ -51,12 +52,25 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
 // for useNavigation hook
 export type ModalNavigationType<RouteName extends keyof ModalRoutes> = CompositeNavigationProp<
   StackNavigationProp<ModalRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'DrawerNavigator'>
+  StackNavigationProp<AppRoutes, 'ModalRoutes'>
 >
 
 export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
   navigation: StackNavigationProp<ModalRoutes, RouteName>
-  route: RouteProp<AppRoutes, 'DrawerNavigator'>
+  route: RouteProp<ModalRoutes, RouteName>
+}
+
+// for useNavigation hook
+export type DashboardNavigationType<
+  RouteName extends keyof DashboardRoutes
+> = CompositeNavigationProp<
+  StackNavigationProp<DashboardRoutes, RouteName>,
+  StackNavigationProp<AppRoutes, 'DashboardNavigation'>
+>
+
+export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = {
+  navigation: StackNavigationProp<DashboardRoutes, RouteName>
+  route: RouteProp<DashboardRoutes, RouteName>
 }
 
 export type AppRoutes = {
@@ -64,10 +78,11 @@ export type AppRoutes = {
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
   ModalRoutes: NestedNavigatorParams<DrawerRoutes>
+  DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
 }
 
 export type BottomTabRoutes = {
-  Dashboard: undefined
+  DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   Calendar: undefined
   RequestModal: undefined
   Panel: undefined
@@ -96,4 +111,10 @@ export type AuthRoutes = {
 export type ModalRoutes = {
   RequestVacation: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
+}
+
+export type DashboardRoutes = {
+  Dashboard: undefined
+  DashboardTeam: ValidationOfGroupDayOff
+  DashboardTeamMember: RequiredMateHolidaysData
 }
