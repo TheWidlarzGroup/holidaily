@@ -6,7 +6,6 @@ import { CustomButton } from 'components/CustomButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
-import { splitName } from 'utils/splitName'
 import { ChangesSavedModal } from './components/ChangesSavedModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -19,7 +18,8 @@ export const EditProfile = () => {
   const styles = useStyles()
   const { errors, control, getValues } = useForm({
     defaultValues: {
-      nameSurname: `${firstName} ${lastName}`,
+      firstName,
+      lastName,
       role,
     },
   })
@@ -30,14 +30,8 @@ export const EditProfile = () => {
   const handleEditSubmit = () => {
     setEditedFalse()
     setTrue()
-    const { nameSurname, role } = getValues()
-    const [firstName, lastName] = splitName(nameSurname)
-    const formattedValues = {
-      firstName,
-      lastName,
-      role,
-    }
-    console.log(formattedValues)
+    const { firstName, lastName, role } = getValues()
+    console.log(firstName, lastName, role)
     // TODO: function updating user data with formattedValues
   }
 
