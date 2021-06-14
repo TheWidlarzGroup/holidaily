@@ -118,28 +118,5 @@
     "othersTeamMembers": "Pozostali członkowie zespołu",
     "outOfWork": "Urlop",
     "backAtWork": "Powrót"
-  },
-  "months": {
-    "january": "Styczeń",
-    "february": "Luty",
-    "march": "Marzec",
-    "april": "Kwiecień",
-    "may": "Maj",
-    "june": "Czerwiec",
-    "july": "Lipiec",
-    "august": "Sierpień",
-    "september": "Wrzesień",
-    "october": "Październik",
-    "november": "Listopad",
-    "december": "Grudzień"
-  },
-  "daysShort": {
-    "monday": "P",
-    "tuesday": "W",
-    "wednesday": "Ś",
-    "thursday": "C",
-    "friday": "P",
-    "saturday": "S",
-    "sunday": "N"
   }
 }

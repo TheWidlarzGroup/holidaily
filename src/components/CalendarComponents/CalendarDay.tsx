@@ -3,12 +3,12 @@ import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
-import { isWeekend } from 'utils/isWeekend'
+import { isWeekend } from 'utils/dates'
 
 export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps) => {
   const day = DateTime.fromISO(date.dateString)
   const dots =
-    marking?.dots !== undefined
+    typeof marking === 'object' && 'dots' in marking
       ? {
           firstThree: marking?.dots.slice(0, 3),
           isMore: marking?.dots.length > 3,
@@ -20,7 +20,8 @@ export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps
   const textColor = () => {
     if (state === 'selected') return 'white'
     if (isWeekend(day)) return 'grey'
-    if (marking?.disabled === true) return 'grey'
+    if (typeof marking === 'object' && 'disabled' in marking && marking.disabled === true)
+      return 'grey'
     return 'black'
   }
 

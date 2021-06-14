@@ -7,36 +7,14 @@ import {
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
+import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 
 type CalendarProps = RNCalendarProps
 
 export const Calendar = ({ theme, ...props }: CalendarProps) => {
-  const { t: tDays } = useTranslation('daysShort')
-  const { t: tMonths } = useTranslation('months')
-  LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = [
-    tDays('sunday'),
-    tDays('monday'),
-    tDays('tuesday'),
-    tDays('wednesday'),
-    tDays('thursday'),
-    tDays('friday'),
-    tDays('saturday'),
-  ]
-  const monthNames = [
-    tMonths('january'),
-    tMonths('february'),
-    tMonths('march'),
-    tMonths('april'),
-    tMonths('may'),
-    tMonths('june'),
-    tMonths('july'),
-    tMonths('august'),
-    tMonths('september'),
-    tMonths('october'),
-    tMonths('november'),
-    tMonths('december'),
-  ]
+  const { i18n } = useTranslation()
+  LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
   return (
     <RNCalendar
       firstDay={1}
@@ -49,7 +27,7 @@ export const Calendar = ({ theme, ...props }: CalendarProps) => {
         ...theme,
       }}
       dayComponent={CalendarDay}
-      renderHeader={(date) => <CalendarHeader monthName={monthNames[date.getMonth()]} />}
+      renderHeader={(date) => <CalendarHeader date={date} />}
       {...props}
     />
   )

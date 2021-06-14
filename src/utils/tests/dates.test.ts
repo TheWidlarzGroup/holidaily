@@ -1,4 +1,4 @@
-import { isWeekend } from 'utils/isWeekend'
+import { getMonthName, isWeekend } from 'utils/dates'
 import { DateTime } from 'luxon'
 
 describe('checksIfItsWeekend', () => {
@@ -17,5 +17,12 @@ describe('checksIfItsWeekend', () => {
     expect(isWeekend(friday)).toBe(false)
     expect(isWeekend(saturday)).toBe(true)
     expect(isWeekend(sunday)).toBe(true)
+  })
+})
+
+describe('getsMonthName', () => {
+  it('get proper month name from number', () => {
+    expect(getMonthName(1, 'en')).toBe('January')
+    expect(getMonthName(1, 'pl')).toBe('styczeń')
   })
 })
