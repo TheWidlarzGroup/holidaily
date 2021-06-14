@@ -25,7 +25,7 @@ export const useLogin = () => {
         const { token, user } = data.loginUser
 
         if (user.confirmed) {
-          updateUser(user)
+          updateUser({ ...user, isConfirmed: user.confirmed })
 
           await SecureStorage.setItem('token', token)
         } else {

@@ -5,7 +5,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import { FormInput } from 'components/FormInput'
 import IconEdit from 'assets/icons/icon-edit-grey.svg'
 import { theme, Box } from 'utils/theme/'
-import { minTwoWordsRegex, minOneSignRegex, passwordRegex } from 'utils/regex'
+import { minTwoWordsRegex, minOneSignRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
 
 type UserData = {

@@ -15,10 +15,11 @@ export type UserData = {
 export type ValidationOfGroupDayOff = {
   groupId: number
   groupName: string
-  users: UserDetails[]
+  users: Omit<UserDetails, 'isConfirmed'>[]
 }
 
 export type UserDetails = {
+  isConfirmed: boolean
   id: string
   firstName: string
   lastName: string
