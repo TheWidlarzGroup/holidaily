@@ -17,6 +17,7 @@ type FormInputTypes = {
   errorMessage: string
   signupPasswordHint?: string
   isPasswordIconVisible?: boolean
+  isEditIconVisible?: boolean
   passwordsAreEqual?: boolean
   screenName?: string
   isError: boolean
@@ -33,6 +34,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       errorMessage,
       signupPasswordHint,
       isPasswordIconVisible,
+      isEditIconVisible,
       passwordsAreEqual,
       screenName,
       isError,
@@ -67,6 +69,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               isError={isError}
               ref={ref}
               isPasswordIconVisible={isPasswordIconVisible}
+              isEditIconVisible={isEditIconVisible}
               {...props}
             />
           )}

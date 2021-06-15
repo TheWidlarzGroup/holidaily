@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native'
 import { AuthNavigationType } from 'navigation/types'
@@ -9,7 +9,6 @@ import { useConfirmAccount } from 'hooks/useConfirmAccount'
 import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { useUserContext } from 'hooks/useUserContext'
 import { PendingAccountConfirmationModal } from '../signupEmail/components/PendingAccountConfirmationModal'
 
 type RouteProps = {
@@ -20,10 +19,7 @@ type RouteProps = {
   }
 }
 
-export const ConfirmedAccount: FC = () => {
-  const {
-    user: { email },
-  } = useUserContext()
+export const ConfirmedAccount = () => {
   const { handleConfirmAccount, isLoading, isSuccess, confirmErrorMessage } = useConfirmAccount()
   const [isModalVisible, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
   const { params } = useRoute<RouteProps>()
@@ -35,11 +31,9 @@ export const ConfirmedAccount: FC = () => {
   }, [navigation])
 
   useEffect(() => {
-    if (params) {
-      const { token } = params
-      handleConfirmAccount({ email, token })
-    }
-  }, [params, email, handleConfirmAccount])
+    if (!params?.token) return
+    handleConfirmAccount({ token: params.token })
+  }, [params.token, handleConfirmAccount])
 
   useEffect(() => {
     if (confirmErrorMessage && confirmErrorMessage !== t('invalidToken')) {

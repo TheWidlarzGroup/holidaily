@@ -4,15 +4,19 @@ export const palette = {
   orangeAlmostDark: '#FF8B3F',
   orangeDark: '#E86E1F',
   grey: '#878787',
+  greyNeutral: '#B9B9B9',
   lightGrey: '#E1E1E1',
+  mediumLightGrey: '#D4D4D4',
   red: '#FF3D30',
   black: '#000',
   white: '#fff',
   gray: '#E1E1E1',
   grayText: '#F3F3F3',
   grayModal: '#333333',
+  greyDark: '#555555',
   veryLightGray: 'rgba(255, 255, 255, 0.15)',
   grayTabIcons: '#D5D5D5',
+  rippleColor: '#00000008',
   transparent: 'transparent',
 }
 
@@ -31,6 +35,10 @@ export const colors = {
   modalBackground: palette.grayModal,
   blackBtnRippleColor: palette.veryLightGray,
   bottomBarIcons: palette.grayTabIcons,
+  labelLightGrey: palette.mediumLightGrey,
+  headerGrey: palette.greyNeutral,
+  rippleColor: palette.rippleColor,
+  greyDark: palette.greyDark,
 
   transparent: palette.transparent,
 }

@@ -46,7 +46,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
             alignItems="center"
             flexDirection="column"
             backgroundColor="white"
-            zIndex={5}>
+            zIndex="5">
             <BorderlessButton onPress={onPress} style={styles.button}>
               {getBottomTabIcon(
                 tab.name,
