@@ -1,4 +1,5 @@
 import React from 'react'
+import { Image, ImageSourcePropType } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
@@ -6,9 +7,10 @@ import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 type ProfilePictureProps = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
   showModal: React.Dispatch<React.SetStateAction<boolean>>
+  photoURI: ImageSourcePropType | undefined
 }
 
-export const ProfilePicture = ({ setIsEdited, showModal }: ProfilePictureProps) => {
+export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePictureProps) => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const userProfilePicture = false // TODO check for user profile picutre
@@ -27,7 +29,11 @@ export const ProfilePicture = ({ setIsEdited, showModal }: ProfilePictureProps) 
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="xxxl">
       <BaseOpacity onPress={onChangeProfilePicture}>
-        <ProfileImgPlaceholder style={styles.profileImg} />
+        {photoURI ? (
+          <Image source={photoURI} style={styles.profileImg} />
+        ) : (
+          <ProfileImgPlaceholder style={styles.profileImg} />
+        )}
       </BaseOpacity>
       <BaseOpacity onPress={onChangeProfilePicture}>
         <Text variant="boldOrange15" textAlign="center" marginBottom="xl">

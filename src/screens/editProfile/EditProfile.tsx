@@ -1,5 +1,5 @@
-import React from 'react'
-import { ScrollView, SafeAreaView } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, SafeAreaView, ImageSourcePropType } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
@@ -31,6 +31,7 @@ export const EditProfile = () => {
     isUploadPictureModalVisible,
     { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
   ] = useBooleanState(false)
+  const [photoURI, setPhotoURI] = useState<ImageSourcePropType | undefined>()
 
   const handleEditDetailsSubmit = () => {
     setEditedFalse()
@@ -48,6 +49,7 @@ export const EditProfile = () => {
             {...user}
             setIsEdited={setEditedTrue}
             showModal={setUploadPictureModalVisibleTrue}
+            photoURI={photoURI}
           />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
@@ -79,6 +81,8 @@ export const EditProfile = () => {
           <UploadPictureModal
             isVisible={isUploadPictureModalVisible}
             hideModal={setUploadPictureModalVisibleFalse}
+            onUserCancelled={setEditedFalse}
+            setPhotoURI={setPhotoURI}
           />
         )}
       </SafeAreaView>

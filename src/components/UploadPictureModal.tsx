@@ -1,6 +1,8 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
+import { ImageSourcePropType } from 'react-native'
+import { ImageLibraryOptions, launchImageLibrary } from 'react-native-image-picker'
 import { CustomModal } from 'components/CustomModal'
 import { theme, BaseOpacity, mkUseStyles, Theme, Text, Box } from 'utils/theme'
 
@@ -9,13 +11,34 @@ import Gallery from 'assets/icons/icon-gallery.svg'
 
 type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
+  onUserCancelled: () => void
+  setPhotoURI: React.Dispatch<React.SetStateAction<ImageSourcePropType | undefined>>
 }
-export const UploadPictureModal = ({ isVisible, hideModal }: UploadPictureModalProps) => {
+export const UploadPictureModal = ({
+  isVisible,
+  hideModal,
+  onUserCancelled,
+  setPhotoURI,
+}: UploadPictureModalProps) => {
   const styles = useStyles()
   const { t } = useTranslation('uploadPictureModal')
 
-  const onOpenCamera = () => console.log('open camera')
-  const onOpenGallery = () => console.log('open gallery')
+  const onOpenCamera = () => {
+    console.log('open camera')
+  }
+  const onOpenGallery = () => {
+    console.log('open gallery')
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo',
+    }
+    launchImageLibrary(options, (response) => {
+      console.log({ response })
+      if (response.didCancel) {
+        onUserCancelled()
+      }
+      setPhotoURI(response?.assets?.uri)
+    })
+  }
 
   return (
     <CustomModal

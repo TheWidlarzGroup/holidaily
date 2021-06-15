@@ -12,6 +12,8 @@ target 'Holidayly' do
 
   pod 'RNSecureStorage', :path => '../node_modules/react-native-secure-storage'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'HolidaylyTests' do
     inherit! :complete
     # Pods for testing
