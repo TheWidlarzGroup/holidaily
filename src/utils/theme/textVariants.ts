@@ -88,4 +88,20 @@ export const textVariants = {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
   },
+  header: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 24,
+    color: 'black',
+    textAlign: 'center',
+  },
+  bold20: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 20,
+    lineHeight: 27,
+  },
+  regular15: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    lineHeight: 20,
+  },
 }

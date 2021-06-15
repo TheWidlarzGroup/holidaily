@@ -21,10 +21,10 @@ export const CarouselElement = (props: CarouselElementProps) => {
         <IconProfile width={62} height={62} />
         {isOnHoliday && <OnHolidayTag variant="small" />}
       </Box>
-      <Text variant="lightGreyRegular" color="black" style={{ lineHeight: 14 }}>
+      <Text variant="lightGreyRegular" color="black" lineHeight={14}>
         {firstName}
       </Text>
-      <Text variant="lightGreyRegular" color="black" style={{ lineHeight: 14 }}>
+      <Text variant="lightGreyRegular" color="black" lineHeight={14}>
         {lastName}
       </Text>
       <Box flexDirection="row" alignItems="center">
