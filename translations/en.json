@@ -84,6 +84,10 @@
     "passwordUpdated": "Your password has been updated!",
     "loginButton": "Log in"
   },
+  "uploadPictureModal": {
+    "openCamera": "Take a selfie",
+    "openGallery": "Choose from gallery"
+  },
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
