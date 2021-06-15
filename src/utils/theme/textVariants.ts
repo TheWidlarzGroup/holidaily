@@ -84,4 +84,8 @@ export const textVariants = {
     fontSize: 12,
     lineHeight: 14,
   },
+  bold15: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 15,
+  },
 }

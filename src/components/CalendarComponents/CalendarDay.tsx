@@ -30,7 +30,7 @@ export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPre
           justifyContent="center"
           alignItems="center"
           margin="s">
-          <Text color={textColor()} fontFamily="Nunito-Bold" fontSize={15}>
+          <Text color={textColor()} variant="bold15">
             {date.day}
           </Text>
         </Box>

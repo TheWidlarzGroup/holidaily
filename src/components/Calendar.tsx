@@ -18,8 +18,8 @@ export const Calendar = ({ theme, ...props }: RNCalendarProps) => {
       firstDay={1}
       hideExtraDays
       theme={{
-        textDayFontFamily: 'Nunito-Regular',
-        textDayFontSize: 12,
+        textDayFontFamily: appTheme.fontFamily.nunitoRegular,
+        textDayFontSize: appTheme.fontSize.xs,
         textSectionTitleColor: appTheme.colors.grey,
         arrowColor: appTheme.colors.black,
         ...theme,

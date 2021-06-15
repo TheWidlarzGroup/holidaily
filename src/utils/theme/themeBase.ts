@@ -62,6 +62,7 @@ export const themeBase = createTheme({
     sans: 'Arial',
     serif: 'Georgia',
     mono: 'Courier New',
+    nunitoRegular: 'Nunito-Regular',
   },
   fontWeight: {
     hairline: '100',

@@ -8,9 +8,7 @@ export const CalendarHeader = ({ date }: { date: Date }) => {
   const monthName = getMonthName(date.getMonth() + 1, i18n.language)
   return (
     <Box margin="xm">
-      <Text fontFamily="Nunito-Bold" fontSize={15}>
-        {monthName}
-      </Text>
+      <Text variant="bold15">{monthName}</Text>
     </Box>
   )
 }
