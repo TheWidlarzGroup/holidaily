@@ -77,10 +77,10 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Paweł',
         lastName: 'Ogonek',
         holidays: {
-          id: 6,
+          id: 1,
           isOnHoliday: false,
-          dayStart: '2021-06-22',
-          dayEnd: '2021-06-24',
+          dayStart: undefined,
+          dayEnd: undefined,
         },
       },
       {
@@ -100,7 +100,7 @@ export const USER_GROUPS_DAYS_OFF = [
         lastName: 'Waist',
         holidays: {
           id: 2,
-          isOnHoliday: true,
+          isOnHoliday: false,
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
@@ -110,10 +110,10 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Kamila',
         lastName: 'Wysokogórska',
         holidays: {
-          id: 3,
+          id: 1,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          dayStart: undefined,
+          dayEnd: undefined,
         },
       },
       {
@@ -121,10 +121,43 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         holidays: {
-          id: 4,
+          id: 1,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          dayStart: undefined,
+          dayEnd: undefined,
+        },
+      },
+      {
+        id: 'user5',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska-Nowak',
+        holidays: {
+          id: 1,
+          isOnHoliday: false,
+          dayStart: undefined,
+          dayEnd: undefined,
+        },
+      },
+      {
+        id: 'user7',
+        firstName: 'Ola',
+        lastName: 'Nowak',
+        holidays: {
+          id: 1,
+          isOnHoliday: false,
+          dayStart: undefined,
+          dayEnd: undefined,
+        },
+      },
+      {
+        id: 'user8',
+        firstName: 'Ola',
+        lastName: 'Nowak',
+        holidays: {
+          id: 1,
+          isOnHoliday: false,
+          dayStart: undefined,
+          dayEnd: undefined,
         },
       },
     ],
@@ -177,10 +210,10 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Tom',
         lastName: 'Waist',
         holidays: {
-          id: 2,
-          isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          id: 1,
+          isOnHoliday: false,
+          dayStart: undefined,
+          dayEnd: undefined,
         },
       },
       {

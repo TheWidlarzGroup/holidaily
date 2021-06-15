@@ -1,7 +1,6 @@
 import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { mkUseStyles, Theme } from 'utils/theme/index'
-
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
