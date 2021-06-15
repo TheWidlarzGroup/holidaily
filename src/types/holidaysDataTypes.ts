@@ -1,8 +1,8 @@
 export type ValidationOfCompanyDayOff = {
   id: number
   isOnHoliday: boolean
-  dayStart?: string
-  dayEnd?: string
+  dayStart: string
+  dayEnd: string
   user: UserData
 }
 export type UserData = {
@@ -19,7 +19,7 @@ export type HolidayDetails = {
 export type ValidationOfGroupDayOff = {
   groupId: number
   groupName: string
-  users?: MateHolidaysData[]
+  users: MateHolidaysData[]
 }
 export type UserDetails = {
   isConfirmed: boolean
@@ -31,8 +31,8 @@ export type UserDetails = {
   holidays?: {
     id: number
     isOnHoliday: boolean
-    dayStart?: string
-    dayEnd?: string
+    dayStart: string
+    dayEnd: string
   }
   teams?: string[]
 }

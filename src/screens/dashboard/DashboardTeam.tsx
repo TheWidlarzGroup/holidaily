@@ -36,10 +36,10 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
         </Box>
         <Box marginHorizontal="m" paddingBottom="xxxl">
           {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
-          {matesWithPlannedHolidays?.length > 0 && (
+          {matesWithPlannedHolidays.length > 0 && (
             <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
           )}
-          {matesWithNoPlannedHolidays?.length > 0 && (
+          {matesWithNoPlannedHolidays && matesWithNoPlannedHolidays?.length > 0 && (
             <>
               <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
                 {t('othersTeamMembers').toUpperCase()}
