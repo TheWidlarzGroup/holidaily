@@ -85,8 +85,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
         role: 'Software Developer',
       },
@@ -121,8 +121,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
         role: 'Software Developer',
       },
@@ -133,8 +133,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
       },
       {
@@ -144,8 +144,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
       },
       {
@@ -155,8 +155,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
       },
       {
@@ -166,8 +166,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
         role: 'Software Developer',
       },
@@ -226,8 +226,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
         role: 'Software Developer',
       },
