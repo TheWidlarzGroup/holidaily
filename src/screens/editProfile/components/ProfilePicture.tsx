@@ -3,14 +3,25 @@ import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
-export const ProfilePicture = () => {
+type ProfilePictureProps = {
+  setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
+  showModal: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const ProfilePicture = ({ setIsEdited, showModal }: ProfilePictureProps) => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const userProfilePicture = false // TODO check for user profile picutre
 
   const onChangeProfilePicture = () => {
-    console.log('change user profile picture')
-    // TODO display modal to change user profile picture
+    setIsEdited(true)
+    if (userProfilePicture) {
+      console.log('change user profile picture')
+      // TODO handle editing profile picture
+      return
+    }
+    console.log('add profile picture')
+    showModal(true)
   }
 
   return (

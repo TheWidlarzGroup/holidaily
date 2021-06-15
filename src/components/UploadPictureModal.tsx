@@ -9,17 +9,13 @@ import Gallery from 'assets/icons/icon-gallery.svg'
 
 type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
-  onOpenCamera: () => void
-  onOpenGallery: () => void
 }
-export const UploadPictureModal = ({
-  isVisible,
-  hideModal,
-  onOpenCamera,
-  onOpenGallery,
-}: UploadPictureModalProps) => {
+export const UploadPictureModal = ({ isVisible, hideModal }: UploadPictureModalProps) => {
   const styles = useStyles()
   const { t } = useTranslation('uploadPictureModal')
+
+  const onOpenCamera = () => console.log('open camera')
+  const onOpenGallery = () => console.log('open gallery')
 
   return (
     <CustomModal

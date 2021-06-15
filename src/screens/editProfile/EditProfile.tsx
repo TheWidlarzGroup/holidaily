@@ -6,6 +6,7 @@ import { CustomButton } from 'components/CustomButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import { UploadPictureModal } from 'components/UploadPictureModal'
 import { ChangesSavedModal } from './components/ChangesSavedModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -26,12 +27,16 @@ export const EditProfile = () => {
   const { t } = useTranslation('userProfile')
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
   const [isConfirmationModalVisible, { setTrue, setFalse }] = useBooleanState(false)
+  const [
+    isUploadPictureModalVisible,
+    { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
+  ] = useBooleanState(false)
 
-  const handleEditSubmit = () => {
+  const handleEditDetailsSubmit = () => {
     setEditedFalse()
     setTrue()
     const { firstName, lastName, role } = getValues()
-    console.log(firstName, lastName, role)
+    console.log({ firstName, lastName, role })
     // TODO: function updating user data with formattedValues
   }
 
@@ -39,7 +44,11 @@ export const EditProfile = () => {
     <>
       <SafeAreaView style={styles.mainView}>
         <ScrollView style={{ marginBottom: isEdited ? 100 : 0 }}>
-          <ProfilePicture />
+          <ProfilePicture
+            {...user}
+            setIsEdited={setEditedTrue}
+            showModal={setUploadPictureModalVisibleTrue}
+          />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
           <ProfileColor />
@@ -52,7 +61,11 @@ export const EditProfile = () => {
             height={100}
             paddingTop="m"
             style={styles.shadow}>
-            <CustomButton label={t('saveChanges')} variant="primary" onPress={handleEditSubmit} />
+            <CustomButton
+              label={t('saveChanges')}
+              variant="primary"
+              onPress={handleEditDetailsSubmit}
+            />
           </Box>
         )}
         {isConfirmationModalVisible && (
@@ -60,6 +73,12 @@ export const EditProfile = () => {
             isVisible={isConfirmationModalVisible}
             hideModal={setFalse}
             content={t('changesSaved')}
+          />
+        )}
+        {isUploadPictureModalVisible && (
+          <UploadPictureModal
+            isVisible={isUploadPictureModalVisible}
+            hideModal={setUploadPictureModalVisibleFalse}
           />
         )}
       </SafeAreaView>
