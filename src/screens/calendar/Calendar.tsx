@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react'
 
-import { Box } from 'utils/theme'
-import { FlatList, ScrollView } from 'react-native'
+import { Box, theme } from 'utils/theme'
+import { FlatList, SafeAreaView, ScrollView } from 'react-native'
 import { SliderItem } from 'screens/calendar/SliderItem'
+import { Calendar as CalendarComponent } from 'components/Calendar'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 const MOCKED_DATA = [
   { id: 1, title: 'Akademia', isSelected: true },
@@ -25,20 +27,41 @@ export const Calendar: FC = () => {
   }
 
   return (
-    <ScrollView>
-      <Box marginTop="l">
-        <FlatList
-          horizontal
-          data={data}
-          renderItem={({ item }) => (
-            <SliderItem {...item} toggleItemSelection={() => toggleItemSelection(item.id)} />
-          )}
-          ListHeaderComponent={() => <Box width={8} />}
-          ListFooterComponent={() => <Box width={8} />}
-          keyExtractor={({ id }) => id.toString()}
-          showsHorizontalScrollIndicator={false}
-        />
-      </Box>
-    </ScrollView>
+    <SafeAreaWrapper isDefaultBgColor>
+      <ScrollView>
+        <Box>
+          <FlatList
+            horizontal
+            data={data}
+            renderItem={({ item }) => (
+              <SliderItem {...item} toggleItemSelection={() => toggleItemSelection(item.id)} />
+            )}
+            ListHeaderComponent={() => <Box width={8} />}
+            ListFooterComponent={() => <Box width={8} />}
+            keyExtractor={({ id }) => id.toString()}
+            showsHorizontalScrollIndicator={false}
+          />
+          <Box
+            borderRadius="m"
+            backgroundColor="white"
+            marginTop="m"
+            style={{
+              borderRadius: 16,
+              shadowOffset: { width: 0, height: 0 },
+              shadowColor: theme.colors.black,
+              shadowOpacity: 0.1,
+              shadowRadius: 10,
+              elevation: 10,
+              borderWidth: 0,
+            }}>
+            <CalendarComponent
+              theme={{
+                calendarBackground: 'transparent',
+              }}
+            />
+          </Box>
+        </Box>
+      </ScrollView>
+    </SafeAreaWrapper>
   )
 }
