@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
-
 import { CustomModal } from 'components/CustomModal'
 import TickIcon from 'assets/icons/icon-button-tick.svg'
 import { theme, BaseOpacity, mkUseStyles, Theme, Text } from 'utils/theme/index'
@@ -49,8 +48,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     bottom: -20,
     left: -20,
     right: -20,
-    borderTopLeftRadius: theme.borderRadii.ml,
-    borderTopRightRadius: theme.borderRadii.ml,
+    borderTopLeftRadius: theme.borderRadii.lmin,
+    borderTopRightRadius: theme.borderRadii.lmin,
     justifyContent: 'center',
     alignItems: 'center',
     shadowOffset: { width: -2, height: 0 },

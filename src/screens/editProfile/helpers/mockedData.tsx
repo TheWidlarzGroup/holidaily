@@ -1,6 +1,7 @@
 import { UserDetails } from 'types/holidaysDataTypes'
 
 export const USER_DATA: UserDetails = {
+  isConfirmed: true,
   id: '1',
   firstName: 'Kamila',
   lastName: 'Wysokogórska',

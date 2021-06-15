@@ -5,18 +5,23 @@ import { RectButton } from 'react-native-gesture-handler'
 import { FormInput } from 'components/FormInput'
 import IconEdit from 'assets/icons/icon-edit-grey.svg'
 import { theme, Box } from 'utils/theme/'
-import { minTwoWordsRegex, minOneSignRegex } from 'utils/regex'
+import { minOneSignRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
 
 type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
-  errors: DeepMap<{ nameSurname: string; role: string }, FieldError>
+  errors: DeepMap<{ firstName: string; lastName: string; role: string }, FieldError>
   control: Control<FieldValues>
 }
 
 export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const { t } = useTranslation('userProfile')
-  const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null), useRef<TextInput>(null)]
+  const inputsRefs = [
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+  ]
   const [iconInvisible, setIconInvisible] = useState<number>(-1)
 
   const onSubmitEditing = () => {
@@ -24,7 +29,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
     setIconInvisible(-1)
   }
   const onFocusInput = (index: number) => {
-    if (index === 2) {
+    if (index === 3) {
       // TODO: open update password modal
       return
     }
@@ -38,11 +43,11 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
         <FormInput
           onFocus={() => setIconInvisible(0)}
           control={control}
-          isError={!!errors.nameSurname}
+          isError={!!errors.firstName}
           errors={errors}
-          name="nameSurname"
-          inputLabel={t('userNameSurname')}
-          validationPattern={minTwoWordsRegex}
+          name="firstName"
+          inputLabel={t('userFirstName')}
+          validationPattern={minOneSignRegex}
           errorMessage={t('editDetailsErrMsg')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
@@ -73,10 +78,10 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
         <FormInput
           onFocus={() => setIconInvisible(1)}
           control={control}
-          isError={!!errors.role}
+          isError={!!errors.lastName}
           errors={errors}
-          name="role"
-          inputLabel={t('userRole')}
+          name="lastName"
+          inputLabel={t('userLastName')}
           validationPattern={minOneSignRegex}
           errorMessage={t('editDetailsErrMsg')}
           onSubmitEditing={onSubmitEditing}
@@ -97,6 +102,41 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
             alignItems="center">
             <RectButton
               onPress={() => onFocusInput(1)}
+              activeOpacity={0.2}
+              rippleColor={theme.colors.rippleColor}>
+              <IconEdit />
+            </RectButton>
+          </Box>
+        )}
+      </Box>
+      <Box position="relative">
+        <FormInput
+          onFocus={() => setIconInvisible(2)}
+          control={control}
+          isError={!!errors.role}
+          errors={errors}
+          name="role"
+          inputLabel={t('userRole')}
+          validationPattern={minOneSignRegex}
+          errorMessage={t('editDetailsErrMsg')}
+          onSubmitEditing={onSubmitEditing}
+          ref={inputsRefs[2]}
+        />
+        {iconInvisible !== 2 && (
+          <Box
+            position="absolute"
+            right={0}
+            top={22}
+            backgroundColor="lightGrey"
+            borderRadius="full"
+            width={55}
+            height={55}
+            borderWidth={4}
+            borderColor="white"
+            justifyContent="center"
+            alignItems="center">
+            <RectButton
+              onPress={() => onFocusInput(2)}
               activeOpacity={0.2}
               rippleColor={theme.colors.rippleColor}>
               <IconEdit />

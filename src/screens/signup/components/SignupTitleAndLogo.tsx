@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Image } from 'react-native'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 
+const logoSrc = require('assets/Logo.png')
+
 export const SignupTitleAndLogo = () => {
   const { t } = useTranslation(['signup'])
   const styles = useStyles()
@@ -12,7 +14,7 @@ export const SignupTitleAndLogo = () => {
       <Text variant="title1" fontSize={24} marginVertical="l" marginHorizontal="xxl">
         {t('signupTitle')}
       </Text>
-      <Image source={require('../../../assets/Logo.png')} style={styles.image} />
+      <Image source={logoSrc} style={styles.image} />
     </Box>
   )
 }

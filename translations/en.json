@@ -104,7 +104,8 @@
     "addPhoto": "Add profile picture",
     "editPhoto": "Edit profile picture",
     "editDetailsErrMsg": "Something went wrong. Try again.",
-    "userNameSurname": "Name and surname",
+    "userFirstName": "Name",
+    "userLastName": "Surname",
     "userRole": "Role",
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
@@ -117,8 +118,9 @@
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
-    "othersTeamMembers": "Others team members",
+    "othersTeamMembers": "Team members",
     "outOfWork": "Out of work",
-    "backAtWork": "Back at work"
+    "backAtWork": "Back at work",
+    "lastDayAtWork": "Last day at work"
   }
 }
