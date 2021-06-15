@@ -15,13 +15,13 @@ type CheckboxProps = {
 }
 
 export const Checkbox = ({ checked, onClick }: CheckboxProps) => {
-  const backgroundProgress = useDerivedValue(() => {
-    return checked ? withTiming(1) : withTiming(0)
-  }, [checked])
+  const backgroundProgress = useDerivedValue(() => (checked ? withTiming(1) : withTiming(0)), [
+    checked,
+  ])
 
-  const offset = useDerivedValue(() => {
-    return checked ? DOT_POSITION_CHECKED : DOT_POSITION_UNCHECKED
-  }, [checked])
+  const offset = useDerivedValue(() => (checked ? DOT_POSITION_CHECKED : DOT_POSITION_UNCHECKED), [
+    checked,
+  ])
 
   const animatedDotStyle = useAnimatedStyle(
     () => ({

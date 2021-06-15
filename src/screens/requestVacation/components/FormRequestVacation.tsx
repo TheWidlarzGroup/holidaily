@@ -8,13 +8,18 @@ import { FormInput } from 'components/FormInput'
 import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
 import { Checkbox } from 'components/Checkbox'
-import { RequestDataTypes } from '../RequestVacation'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CalendarModal } from './CalendarModal'
 
 type FormTypes = {
   date: undefined
   description: string
+}
+
+type RequestDataTypes = {
+  date: undefined
+  description: string
+  sickTime: boolean
 }
 
 type FormRequestVacationProps = {

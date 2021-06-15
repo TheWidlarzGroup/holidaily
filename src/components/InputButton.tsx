@@ -24,7 +24,7 @@ export const InputButton = ({ inputLabel, value, isError = false, onClick }: But
 
   useEffect(() => {
     errorOpacity.value = isError ? 2 : 0
-  }, [isError])
+  }, [isError, errorOpacity])
 
   return (
     <Box>
