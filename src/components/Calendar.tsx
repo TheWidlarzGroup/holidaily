@@ -10,9 +10,7 @@ import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 
-type CalendarProps = RNCalendarProps
-
-export const Calendar = ({ theme, ...props }: CalendarProps) => {
+export const Calendar = ({ theme, ...props }: RNCalendarProps) => {
   const { i18n } = useTranslation()
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
   return (
@@ -27,7 +25,7 @@ export const Calendar = ({ theme, ...props }: CalendarProps) => {
         ...theme,
       }}
       dayComponent={CalendarDay}
-      renderHeader={(date) => <CalendarHeader date={date} />}
+      renderHeader={(date: Date) => <CalendarHeader date={date} />}
       {...props}
     />
   )

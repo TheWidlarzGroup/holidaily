@@ -1,20 +1,11 @@
 import React, { FC } from 'react'
 import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { DayComponentProps, MultiDotMarking } from 'react-native-calendars'
+import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
 
-type CalendarDayProps = {
-  marking: MultiDotMarking
-}
-
-export const CalendarDay: FC<DayComponentProps & CalendarDayProps> = ({
-  date,
-  state,
-  marking,
-  onPress,
-}) => {
+export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPress }) => {
   const day = DateTime.fromISO(date.dateString)
   const dots = {
     firstThree: marking?.dots.slice(0, 3),
