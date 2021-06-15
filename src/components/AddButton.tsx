@@ -15,7 +15,7 @@ export const AddButton: FC<AddButtonProps> = ({ onPress }) => {
       <RectButton style={styles.button} onPress={onPress} rippleColor={theme.colors.lightGrey}>
         <IconPlus />
       </RectButton>
-      <Box position="absolute" bottom={-28}>
+      <Box position="absolute" bottom={-13}>
         <CircleBg />
       </Box>
     </Box>
