@@ -55,14 +55,14 @@ export const EditProfile = () => {
             <CustomButton label={t('saveChanges')} variant="primary" onPress={handleEditSubmit} />
           </Box>
         )}
+        {isConfirmationModalVisible && (
+          <ChangesSavedModal
+            isVisible={isConfirmationModalVisible}
+            hideModal={setFalse}
+            content={t('changesSaved')}
+          />
+        )}
       </SafeAreaView>
-      {isConfirmationModalVisible && (
-        <ChangesSavedModal
-          isVisible={isConfirmationModalVisible}
-          hideModal={setFalse}
-          content={t('changesSaved')}
-        />
-      )}
     </>
   )
 }

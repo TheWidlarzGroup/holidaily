@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
-import { Text } from 'react-native'
 import { ModalProps } from 'react-native-modal'
-
 import { CustomModal } from 'components/CustomModal'
 import TickIcon from 'assets/icons/icon-button-tick.svg'
-import { theme, BaseOpacity, mkUseStyles, Theme } from 'utils/theme/index'
+import { theme, BaseOpacity, mkUseStyles, Theme, Text } from 'utils/theme/index'
 
 type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: () => void
@@ -32,7 +30,9 @@ export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSave
       style={styles.modal}
       hideModalContentWhileAnimating>
       <BaseOpacity onPress={hideModal} flex={1} justifyContent="center" alignItems="center">
-        <Text style={styles.confirmationMsg}>{content}</Text>
+        <Text variant="boldBlackCenter20" marginLeft="m">
+          {content}
+        </Text>
         <TickIcon />
       </BaseOpacity>
     </CustomModal>
@@ -48,8 +48,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     bottom: -20,
     left: -20,
     right: -20,
-    borderTopLeftRadius: theme.borderRadii.ml,
-    borderTopRightRadius: theme.borderRadii.ml,
+    borderTopLeftRadius: theme.borderRadii.lmin,
+    borderTopRightRadius: theme.borderRadii.lmin,
     justifyContent: 'center',
     alignItems: 'center',
     shadowOffset: { width: -2, height: 0 },
@@ -57,12 +57,5 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
-  },
-  confirmationMsg: {
-    fontFamily: 'Nunito-Bold',
-    color: 'black',
-    fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 48,
   },
 }))
