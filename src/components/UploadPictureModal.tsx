@@ -1,6 +1,11 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
-import { ImageLibraryOptions, launchImageLibrary, launchCamera } from 'react-native-image-picker'
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+  launchCamera,
+  ImagePickerResponse,
+} from 'react-native-image-picker'
 import { CustomModal } from 'components/CustomModal'
 import { UploadPictureButtons } from 'components/UploadPictureButtons'
 import { theme, mkUseStyles, Theme } from 'utils/theme'
@@ -20,31 +25,25 @@ export const UploadPictureModal = ({
 }: UploadPictureModalProps) => {
   const styles = useStyles()
 
+  const onHandleResponse = (response: ImagePickerResponse) => {
+    if (response.didCancel) {
+      onUserCancelled()
+    }
+    if (response.assets) {
+      const photo = response.assets[0]
+      setPhotoURI(photo.uri)
+    }
+  }
+
   const onUploadImage = (action: Action) => {
     hideModal()
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
     }
     if (action === 'gallery') {
-      launchImageLibrary(options, (response) => {
-        if (response.didCancel) {
-          onUserCancelled()
-        }
-        if (response.assets) {
-          const photo = response.assets[0]
-          setPhotoURI(photo.uri)
-        }
-      })
+      launchImageLibrary(options, (response) => onHandleResponse(response))
     } else {
-      launchCamera(options, (response) => {
-        if (response.didCancel) {
-          onUserCancelled()
-        }
-        if (response.assets) {
-          const photo = response.assets[0]
-          setPhotoURI(photo.uri)
-        }
-      })
+      launchCamera(options, (response) => onHandleResponse(response))
     }
   }
 
