@@ -9,28 +9,36 @@ export type Timestamp = {
   editedAt: Date
 }
 
-// Is Timestamp needed here?
+export type PostMetaData = {
+  author: UserData
+  timestamp: Timestamp
+}
+
 export type Reaction = {
-  author: UserData
-  type: 'angry' | 'thumb' | 'smile' | string
+  meta: PostMetaData
+  type: ReactionType
 }
 
-export type Comment = Timestamp & {
-  author: UserData
+export type ReactionType = 'angry' | 'thumb' | 'smile' | string
+
+export type Comment = {
+  meta: PostMetaData
   comments: Comment[]
   text: string
   reactions: Reaction[]
 }
 
-export type Feed = Timestamp & {
-  author: UserData
+export type FeedPost = {
+  meta: PostMetaData
   comments: Comment[]
-  data: FeedData[]
+  data: FeedPostData[]
   text: string
   reactions: Reaction[]
 }
 
-export type FeedData = {
-  type: 'image' | 'video'
+export type FeedPostData = {
+  type: FeedPostDataType
   src: string
 }
+
+export type FeedPostDataType = 'image' | 'video'
