@@ -1,7 +1,7 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
-import { ImageLibraryOptions, launchImageLibrary } from 'react-native-image-picker'
+import { ImageLibraryOptions, launchImageLibrary, launchCamera } from 'react-native-image-picker'
 import { CustomModal } from 'components/CustomModal'
 import { theme, BaseOpacity, mkUseStyles, Theme, Text, Box } from 'utils/theme'
 
@@ -22,24 +22,37 @@ export const UploadPictureModal = ({
   const styles = useStyles()
   const { t } = useTranslation('uploadPictureModal')
 
-  const onOpenCamera = () => {
-    hideModal()
-    console.log('open camera')
-  }
-  const onOpenGallery = () => {
+  const onUploadImage = (type: string) => {
     hideModal()
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
     }
-    launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        onUserCancelled()
-      }
-      if (response.assets) {
-        const photo = response.assets[0]
-        setPhotoURI(photo.uri)
-      }
-    })
+    switch (type) {
+      case 'gallery':
+        launchImageLibrary(options, (response) => {
+          if (response.didCancel) {
+            onUserCancelled()
+          }
+          if (response.assets) {
+            const photo = response.assets[0]
+            setPhotoURI(photo.uri)
+          }
+        })
+        break
+      case 'camera':
+        launchCamera(options, (response) => {
+          if (response.didCancel) {
+            onUserCancelled()
+          }
+          if (response.assets) {
+            const photo = response.assets[0]
+            setPhotoURI(photo.uri)
+          }
+        })
+        break
+      default:
+        break
+    }
   }
 
   return (
@@ -56,7 +69,10 @@ export const UploadPictureModal = ({
       style={styles.modal}
       hideModalContentWhileAnimating>
       <Box padding="lplus">
-        <BaseOpacity onPress={onOpenCamera} flexDirection="row" justifyContent="flex-start">
+        <BaseOpacity
+          onPress={() => onUploadImage('camera' as string)}
+          flexDirection="row"
+          justifyContent="flex-start">
           <Smartphone />
           <Box
             flexGrow={1}
@@ -68,7 +84,7 @@ export const UploadPictureModal = ({
           </Box>
         </BaseOpacity>
         <BaseOpacity
-          onPress={onOpenGallery}
+          onPress={() => onUploadImage('gallery' as string)}
           flexDirection="row"
           marginTop="m"
           justifyContent="center">
