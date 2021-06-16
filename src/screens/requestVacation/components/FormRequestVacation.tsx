@@ -2,14 +2,13 @@ import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Box, Text } from 'utils/theme/index'
-import PaperclipIcon from 'assets/icons/paperclip.svg'
-import AddCommentIcon from 'assets/icons/addComment.svg'
 import { FormInput } from 'components/FormInput'
 import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
 import { Checkbox } from 'components/Checkbox'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CalendarModal } from './CalendarModal'
+import { Additionals } from './Additionals'
 
 type FormTypes = {
   date: undefined
@@ -32,7 +31,10 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   changeRequestData,
 }) => {
   const { control, handleSubmit, errors } = useForm()
-  const [calendarVisible, { setTrue, setFalse }] = useBooleanState(false)
+  const [
+    calendarVisible,
+    { setTrue: setDisplayCalendarTrue, setFalse: setDisplayCalendarFalse },
+  ] = useBooleanState(false)
   const [sickTime, { toggle }] = useBooleanState(false)
 
   const handleLoginUser = (data: FormTypes) => {
@@ -51,7 +53,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             Details
           </Text>
           <Box marginTop="m">
-            <InputButton inputLabel="Date" onClick={setTrue} value={'24 Apr - 22 Jun'} />
+            <InputButton inputLabel="Date" onClick={setDisplayCalendarTrue} value={''} />
           </Box>
           <Box marginTop="m">
             <FormInput
@@ -78,25 +80,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             <Checkbox checked={sickTime} onClick={toggle} />
           </Box>
         </Box>
-
-        <Box>
-          <Text variant="boldBlack18" textAlign="left" marginTop="l">
-            Additionals
-          </Text>
-          <Text variant="body1" textAlign="left">
-            {' '}
-            Add and attachment or write a message{' '}
-          </Text>
-          <Box flexDirection="row">
-            <Box backgroundColor="lightGrey" padding="xm" margin="s" borderRadius="l">
-              <PaperclipIcon width={22} height={22} />
-            </Box>
-            <Box backgroundColor="lightGrey" padding="xm" margin="s" borderRadius="l">
-              <AddCommentIcon width={22} height={22} />
-            </Box>
-          </Box>
-        </Box>
-        <CalendarModal isVisible={calendarVisible} hideModal={setFalse} />
+        <Additionals />
+        <CalendarModal isVisible={calendarVisible} hideModal={setDisplayCalendarFalse} />
       </Box>
       <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
     </Box>

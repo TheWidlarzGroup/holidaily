@@ -1,17 +1,17 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { Box, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/backArrow.svg'
 
-export const HeaderRequestVacation: FC = () => {
+export const HeaderRequestVacation = () => {
   const navigation = useNavigation()
 
   return (
     <Box flexDirection="row" alignItems="center" paddingHorizontal="l" paddingBottom="l">
       <Box alignItems="center" justifyContent="center" flexDirection="row">
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={navigation.goBack}>
           <BackArrowIcon width={30} height={20} />
         </Pressable>
       </Box>

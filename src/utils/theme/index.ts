@@ -27,6 +27,8 @@ export const BaseOpacity = createBox<
   }
 >(TouchableOpacity)
 
+export const useColors = () => useTheme().colors
+
 type NamedStyles<T> = { [P in keyof T]: RNStyle }
 export const mkUseStyles = <T extends NamedStyles<T>>(styles: (globalTheme: Theme) => T) => () => {
   const currentTheme = useTheme()

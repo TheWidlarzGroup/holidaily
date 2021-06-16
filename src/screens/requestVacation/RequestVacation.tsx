@@ -14,6 +14,8 @@ export type RequestDataTypes = {
   sickTime: boolean
 }
 
+type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
+
 export const RequestVacation: FC = () => {
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -27,7 +29,7 @@ export const RequestVacation: FC = () => {
   const [description, setDescription] = useState('')
   const [sickTime, setSickTime] = useState(false)
 
-  const changeRequestData = (callback: (currentData: RequestDataTypes) => RequestDataTypes) => {
+  const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback({ date, description, sickTime })
     setDate(newData.date)
     setDescription(newData.description)

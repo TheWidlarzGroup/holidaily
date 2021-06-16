@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
-import { Text, Box, theme } from 'utils/theme/index'
-import { colors } from 'utils/theme/colors'
+import { Text, Box, mkUseStyles } from 'utils/theme/index'
 
 type ButtonInputTypes = {
   inputLabel: string
   value: string
+  onClick: F0
   isError?: boolean
-  onClick: () => void
 }
 
 export const InputButton = ({ inputLabel, value, isError = false, onClick }: ButtonInputTypes) => {
-  const errorOpacity = useSharedValue(0)
+  const styles = useStyles()
 
+  const errorOpacity = useSharedValue(0)
   const progressStyle = useAnimatedStyle(() => ({
     borderWidth: withTiming(errorOpacity.value, {
       duration: 300,
@@ -27,34 +27,32 @@ export const InputButton = ({ inputLabel, value, isError = false, onClick }: But
   }, [isError, errorOpacity])
 
   return (
-    <Box>
-      <TouchableOpacity onPress={onClick}>
-        <Text variant="label1" marginLeft="m" marginBottom="xs">
-          {inputLabel}
-        </Text>
-        <Box flexDirection="row">
-          <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
-            <Text variant="body1Bold" textAlign="left">
-              {' '}
-              {value}{' '}
-            </Text>
-          </Animated.View>
-          <Box alignSelf="center" position="absolute" right={0}>
-            <Box style={styles.button}>
-              <BackArrowIcon width={16} height={16} style={styles.icon} />
-            </Box>
+    <TouchableOpacity onPress={onClick}>
+      <Text variant="label1" marginLeft="m" marginBottom="xs">
+        {inputLabel}
+      </Text>
+      <Box flexDirection="row">
+        <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
+          <Text variant="body1Bold" textAlign="left">
+            {' '}
+            {value}{' '}
+          </Text>
+        </Animated.View>
+        <Box alignSelf="center" position="absolute" right={0}>
+          <Box style={styles.button}>
+            <BackArrowIcon width={16} height={16} style={styles.icon} />
           </Box>
         </Box>
-      </TouchableOpacity>
-    </Box>
+      </Box>
+    </TouchableOpacity>
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme) => ({
   input: {
     flex: 1,
     height: 50,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: theme.colors.lightGrey,
     borderRadius: theme.borderRadii.xxl,
     paddingHorizontal: theme.spacing.m,
     position: 'relative',
@@ -63,12 +61,12 @@ const styles = StyleSheet.create({
 
   errorBorder: {
     borderStyle: 'solid',
-    borderColor: colors.errorRed,
+    borderColor: theme.colors.errorRed,
   },
   border: {
     borderWidth: 2,
     borderStyle: 'solid',
-    borderColor: colors.black,
+    borderColor: theme.colors.black,
   },
   button: {
     borderWidth: 4,
@@ -81,4 +79,4 @@ const styles = StyleSheet.create({
   icon: {
     transform: [{ rotate: '180deg' }],
   },
-})
+}))

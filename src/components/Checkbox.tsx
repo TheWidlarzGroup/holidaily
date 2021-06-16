@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Pressable } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -7,14 +7,20 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-import { theme } from 'utils/theme/index'
+import { mkUseStyles, useColors } from 'utils/theme/index'
 
 type CheckboxProps = {
   checked: boolean
-  onClick: () => void
+  onClick: F0
 }
 
+const DOT_POSITION_UNCHECKED = -1
+const DOT_POSITION_CHECKED = 25
+
 export const Checkbox = ({ checked, onClick }: CheckboxProps) => {
+  const styles = useStyles()
+  const colors = useColors()
+
   const backgroundProgress = useDerivedValue(() => (checked ? withTiming(1) : withTiming(0)), [
     checked,
   ])
@@ -36,22 +42,21 @@ export const Checkbox = ({ checked, onClick }: CheckboxProps) => {
     const backgroundColor = interpolateColor(
       backgroundProgress.value,
       [0, 1],
-      [BACKGROUND_UNCHECKED, BACKGROUND_CHECKED]
+      [colors.lightGrey, colors.primary]
     )
     return { backgroundColor }
   }, [])
 
   return (
-    <Pressable onPress={onClick}>
+    <TouchableOpacity onPress={onClick}>
       <Animated.View style={[styles.container, backgroundStyles]}>
-        <Animated.View
-          style={[styles.dot, checked && styles.dotChecked, animatedDotStyle]}></Animated.View>
+        <Animated.View style={[styles.dot, checked && styles.dotChecked, animatedDotStyle]} />
       </Animated.View>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme) => ({
   container: {
     height: 32,
     width: 56,
@@ -72,9 +77,4 @@ const styles = StyleSheet.create({
   dotChecked: {
     backgroundColor: theme.colors.secondary,
   },
-})
-
-const DOT_POSITION_UNCHECKED = -1
-const DOT_POSITION_CHECKED = 25
-const BACKGROUND_UNCHECKED = theme.colors.lightGrey
-const BACKGROUND_CHECKED = theme.colors.primary
+}))
