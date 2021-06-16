@@ -25,21 +25,23 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   )
 
   return (
-    <SafeAreaWrapper>
-      <ScrollView>
+    <SafeAreaWrapper isDefaultBgColor>
+      <Box backgroundColor="white">
         <Box
-          paddingVertical="m"
+          paddingVertical="lplus"
           backgroundColor="disabledText"
           borderBottomRightRadius="lmin"
           borderBottomLeftRadius="lmin">
           <Text variant="header">{params.groupName}</Text>
         </Box>
-        <Box marginHorizontal="m" paddingBottom="xxxl">
-          {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
-          {matesWithPlannedHolidays.length > 0 && (
-            <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
-          )}
-          {matesWithNoPlannedHolidays?.length > 0 && (
+      </Box>
+      <Box paddingHorizontal="m" flexGrow={1} backgroundColor="white">
+        {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
+        {matesWithPlannedHolidays.length > 0 && (
+          <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
+        )}
+        <ScrollView>
+          {matesWithNoPlannedHolidays.length > 0 && (
             <>
               <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
                 {t('othersTeamMembers').toUpperCase()}
@@ -51,8 +53,8 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
               </Box>
             </>
           )}
-        </Box>
-      </ScrollView>
+        </ScrollView>
+      </Box>
     </SafeAreaWrapper>
   )
 }

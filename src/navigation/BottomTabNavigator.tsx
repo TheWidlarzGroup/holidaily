@@ -24,7 +24,7 @@ const tabs = [
   { name: 'Chat' },
 ]
 export const BottomTabNavigator = ({ style }: ViewProps) => (
-  <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+  <>
     <Animated.View style={[style, { flex: 1 }]}>
       <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
         <Tab.Screen
@@ -38,5 +38,5 @@ export const BottomTabNavigator = ({ style }: ViewProps) => (
         <Tab.Screen name="Chat" component={Chat} />
       </Tab.Navigator>
     </Animated.View>
-  </SafeAreaView>
+  </>
 )
