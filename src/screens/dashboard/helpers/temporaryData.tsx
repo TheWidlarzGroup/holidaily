@@ -115,6 +115,21 @@ export const USER_GROUPS_DAYS_OFF = [
         },
       },
       {
+        id: 'user9',
+        firstName: 'Peter',
+        lastName: 'Kansas',
+        picture: undefined,
+        role: 'Software Engineer',
+        holidays: {
+          id: 1,
+          isOnHoliday: true,
+          dayStart: '2021-06-14',
+          dayEnd: '2021-06-14',
+          sickLeave: true,
+          description: 'Terrible headache',
+        },
+      },
+      {
         id: 'user2',
         firstName: 'Tom',
         lastName: 'Waist',

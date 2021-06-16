@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Box } from 'utils/theme'
-import { DashboardNavigationProps, DashboardNavigationType } from 'navigation/types'
+import { DashboardNavigationProps } from 'navigation/types'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back.svg'
 import { MateHeader } from 'screens/dashboard/components/MateHeader'
@@ -14,7 +14,7 @@ type DashboardTeamMemberProps = DashboardNavigationProps<'DashboardTeamMember'>
 
 export const DashboardTeamMember: FC<DashboardTeamMemberProps> = ({ route }) => {
   const { params } = route
-  const navigation = useNavigation<DashboardNavigationType<'DashboardTeamMember'>>()
+  const { goBack } = useNavigation()
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
@@ -25,8 +25,8 @@ export const DashboardTeamMember: FC<DashboardTeamMemberProps> = ({ route }) => 
         flexGrow={1}
         borderTopLeftRadius="l"
         borderTopRightRadius="l">
-        <ScrollView>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+        <ScrollView showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity onPress={goBack}>
             <IconBack />
           </TouchableOpacity>
           <MateHeader {...params} />

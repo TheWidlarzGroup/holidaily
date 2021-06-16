@@ -16,6 +16,7 @@ export type ValidationOfDataToBeDisplayed = {
     id: string
     firstName: string
     lastName: string
+    picture?: string
   }
   dayToBeDisplayed: string
 }
