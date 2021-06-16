@@ -2,7 +2,6 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Animated from 'react-native-reanimated'
 import { ViewProps } from 'react-native'
-
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
@@ -27,7 +26,7 @@ export const BottomTabNavigator = ({ style }: ViewProps) => (
     <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
       <Tab.Screen
         name="DashboardNavigation"
-        // options={{ unmountOnBlur: true }}
+        options={{ unmountOnBlur: true }}
         component={DashboardNavigation}
       />
       <Tab.Screen name="Calendar" component={Calendar} />
