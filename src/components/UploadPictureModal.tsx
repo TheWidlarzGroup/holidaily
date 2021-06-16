@@ -1,18 +1,17 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
-import { useTranslation } from 'react-i18next'
 import { ImageLibraryOptions, launchImageLibrary, launchCamera } from 'react-native-image-picker'
 import { CustomModal } from 'components/CustomModal'
-import { theme, BaseOpacity, mkUseStyles, Theme, Text, Box } from 'utils/theme'
-
-import Smartphone from 'assets/icons/icon-smartphone.svg'
-import Gallery from 'assets/icons/icon-gallery.svg'
+import { UploadPictureButtons } from 'components/UploadPictureButtons'
+import { theme, mkUseStyles, Theme } from 'utils/theme'
 
 type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   onUserCancelled: F0
-  setPhotoURI: React.Dispatch<React.SetStateAction<string | undefined>>
+  setPhotoURI: F1<string | undefined>
 }
+type Action = 'gallery' | 'camera'
+
 export const UploadPictureModal = ({
   isVisible,
   hideModal,
@@ -20,38 +19,32 @@ export const UploadPictureModal = ({
   setPhotoURI,
 }: UploadPictureModalProps) => {
   const styles = useStyles()
-  const { t } = useTranslation('uploadPictureModal')
 
-  const onUploadImage = (type: string) => {
+  const onUploadImage = (action: Action) => {
     hideModal()
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
     }
-    switch (type) {
-      case 'gallery':
-        launchImageLibrary(options, (response) => {
-          if (response.didCancel) {
-            onUserCancelled()
-          }
-          if (response.assets) {
-            const photo = response.assets[0]
-            setPhotoURI(photo.uri)
-          }
-        })
-        break
-      case 'camera':
-        launchCamera(options, (response) => {
-          if (response.didCancel) {
-            onUserCancelled()
-          }
-          if (response.assets) {
-            const photo = response.assets[0]
-            setPhotoURI(photo.uri)
-          }
-        })
-        break
-      default:
-        break
+    if (action === 'gallery') {
+      launchImageLibrary(options, (response) => {
+        if (response.didCancel) {
+          onUserCancelled()
+        }
+        if (response.assets) {
+          const photo = response.assets[0]
+          setPhotoURI(photo.uri)
+        }
+      })
+    } else {
+      launchCamera(options, (response) => {
+        if (response.didCancel) {
+          onUserCancelled()
+        }
+        if (response.assets) {
+          const photo = response.assets[0]
+          setPhotoURI(photo.uri)
+        }
+      })
     }
   }
 
@@ -68,32 +61,7 @@ export const UploadPictureModal = ({
       swipeDirection="down"
       style={styles.modal}
       hideModalContentWhileAnimating>
-      <Box padding="lplus">
-        <BaseOpacity
-          onPress={() => onUploadImage('camera' as string)}
-          flexDirection="row"
-          justifyContent="flex-start">
-          <Smartphone />
-          <Box
-            flexGrow={1}
-            borderBottomColor="black"
-            borderBottomWidth={1}
-            paddingBottom="m"
-            marginLeft="m">
-            <Text variant="boldBlack18">{t('openCamera')}</Text>
-          </Box>
-        </BaseOpacity>
-        <BaseOpacity
-          onPress={() => onUploadImage('gallery' as string)}
-          flexDirection="row"
-          marginTop="m"
-          justifyContent="center">
-          <Gallery />
-          <Box flexGrow={1} marginLeft="m">
-            <Text variant="boldBlack18">{t('openGallery')}</Text>
-          </Box>
-        </BaseOpacity>
-      </Box>
+      <UploadPictureButtons onUploadImage={onUploadImage} />
     </CustomModal>
   )
 }
@@ -114,10 +82,5 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
-  },
-  borderBottom: {
-    borderBottomColor: theme.colors.black,
-    borderBottomWidth: 1,
-    paddingBottom: 17,
   },
 }))

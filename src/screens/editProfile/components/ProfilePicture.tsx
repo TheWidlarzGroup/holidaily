@@ -6,8 +6,8 @@ import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
 type ProfilePictureProps = {
-  setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
-  showModal: React.Dispatch<React.SetStateAction<boolean>>
+  setIsEdited: F1<boolean>
+  showModal: F1<boolean>
   photoURI: string | undefined
 }
 
