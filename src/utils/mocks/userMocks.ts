@@ -1,3 +1,20 @@
+import { UserDetails } from 'types/holidaysDataTypes'
+
+export const USER_DATA: UserDetails & { isConfirmed: boolean } = {
+  isConfirmed: true,
+  id: '1',
+  firstName: 'Kamila',
+  lastName: 'Wysokogórska',
+  role: 'Software Developer',
+  holidays: {
+    id: 1,
+    isOnHoliday: false,
+    dayStart: '21-10-2021',
+    dayEnd: '29-10-2021',
+  },
+  teams: ['Smartsoft', 'Akademia'],
+}
+
 export const TEAM_MATES_AKADEMIA = [
   {
     id: 'user6',
@@ -9,6 +26,7 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-22',
       dayEnd: '2021-06-24',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user1',
@@ -20,6 +38,7 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-01',
       dayEnd: '2021-06-14',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user2',
@@ -31,6 +50,7 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-04',
       dayEnd: '2021-06-10',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user3',
@@ -42,6 +62,7 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-10',
       dayEnd: '2021-06-15',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user4',
@@ -53,6 +74,7 @@ export const TEAM_MATES_AKADEMIA = [
       dayStart: '2021-06-10',
       dayEnd: '2021-06-15',
     },
+    role: 'Software Developer',
   },
 ]
 
@@ -67,6 +89,7 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-22',
       dayEnd: '2021-06-24',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user1',
@@ -78,6 +101,7 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-01',
       dayEnd: '2021-06-14',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user2',
@@ -89,6 +113,7 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-04',
       dayEnd: '2021-06-10',
     },
+    role: 'Software Developer',
   },
   {
     id: 'user4',
@@ -100,5 +125,6 @@ export const TEAM_MATES_DEV = [
       dayStart: '2021-06-10',
       dayEnd: '2021-06-15',
     },
+    role: 'Software Developer',
   },
 ]

@@ -16,11 +16,11 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
 
   const matesOnHoliday =
     params &&
-    (params.users.filter((mate) => mate.holidays.isOnHoliday) as RequiredMateHolidaysData[])
-  const matesWithPlannedHolidays = params.users.filter(
+    (params?.users?.filter((mate) => mate.holidays.isOnHoliday) as RequiredMateHolidaysData[])
+  const matesWithPlannedHolidays = params?.users?.filter(
     (mate) => !mate.holidays.isOnHoliday && mate.holidays.dayStart
   ) as RequiredMateHolidaysData[]
-  const matesWithNoPlannedHolidays = params.users.filter(
+  const matesWithNoPlannedHolidays = params?.users?.filter(
     (mate) => !mate.holidays.isOnHoliday && !mate.holidays.dayStart
   )
 
@@ -39,13 +39,13 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
           {matesWithPlannedHolidays.length > 0 && (
             <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
           )}
-          {matesWithNoPlannedHolidays.length > 0 && (
+          {matesWithNoPlannedHolidays?.length > 0 && (
             <>
               <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
                 {t('othersTeamMembers').toUpperCase()}
               </Text>
               <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
-                {matesWithNoPlannedHolidays.map((mate) => (
+                {matesWithNoPlannedHolidays?.map((mate) => (
                   <OtherMateElement key={mate.id} {...mate} />
                 ))}
               </Box>

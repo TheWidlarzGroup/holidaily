@@ -104,11 +104,14 @@
     "addPhoto": "Add profile picture",
     "editPhoto": "Edit profile picture",
     "editDetailsErrMsg": "Something went wrong. Try again.",
-    "userNameSurname": "Name and surname",
+    "userFirstName": "Name",
+    "userLastName": "Surname",
     "userRole": "Role",
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
-    "userColor": "Your color"
+    "userColor": "Your color",
+    "saveChanges": "Save changes",
+    "changesSaved": "Changes saved"
   },
   "dashboard": {
     "welcome": "How's your team doing?",

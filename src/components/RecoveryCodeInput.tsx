@@ -7,7 +7,7 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
 import { Text, theme } from 'utils/theme/index'
-import { colors } from '../utils/theme/colors'
+import { colors } from 'utils/theme/colors'
 
 type RecoveryCodeInputProps = {
   cellCount: number

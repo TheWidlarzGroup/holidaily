@@ -5,6 +5,7 @@ export type UserData = {
   lastName: string
   email: string
   isConfirmed: boolean
+  role: string
 }
 
 export type ContextProps = {

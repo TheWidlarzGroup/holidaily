@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
-export const ProfilePicture: FC = () => {
+export const ProfilePicture = () => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const userProfilePicture = false // TODO check for user profile picutre
