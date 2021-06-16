@@ -20,7 +20,12 @@ export type Reaction = {
   type: ReactionType
 }
 
-export type ReactionType = 'angry' | 'thumb' | 'smile' | string
+export enum ReactionType {
+  ANGRY = 'angry',
+  SMILE = 'smile',
+  THUMB_UP = 'thumb_up',
+  THUMB_DOWN = 'thumb_down',
+}
 
 export type Comment = {
   meta: PostMetaData
@@ -42,4 +47,7 @@ export type FeedPostData = {
   src: string
 }
 
-export type FeedPostDataType = 'image' | 'video'
+export enum FeedPostDataType {
+  IMAGE = 'image',
+  VIDEO = 'video',
+}
