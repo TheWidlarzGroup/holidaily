@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, SafeAreaView, ImageSourcePropType } from 'react-native'
+import { ScrollView, SafeAreaView } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
@@ -31,7 +31,7 @@ export const EditProfile = () => {
     isUploadPictureModalVisible,
     { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
   ] = useBooleanState(false)
-  const [photoURI, setPhotoURI] = useState<ImageSourcePropType | undefined>()
+  const [photoURI, setPhotoURI] = useState<string | undefined>()
 
   const handleEditDetailsSubmit = () => {
     setEditedFalse()

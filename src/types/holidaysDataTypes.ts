@@ -9,6 +9,7 @@ export type UserData = {
   id: string
   firstName: string
   lastName: string
+  photo?: string
 }
 export type HolidayDetails = {
   id: number
@@ -35,6 +36,7 @@ export type UserDetails = {
     dayEnd: string
   }
   teams?: string[]
+  photo?: string
 }
 export type MateHolidaysData = UserData & { holidays: HolidayDetails }
 export type RequiredMateHolidaysData = UserData & { holidays: Required<HolidayDetails> }

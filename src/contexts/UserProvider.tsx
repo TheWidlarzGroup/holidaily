@@ -12,6 +12,7 @@ export const emptyUser = {
   email: '',
   isConfirmed: false,
   role: '',
+  photo: '',
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {

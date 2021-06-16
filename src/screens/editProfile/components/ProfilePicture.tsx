@@ -1,36 +1,41 @@
-import React from 'react'
-import { Image, ImageSourcePropType } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useUserContext } from 'hooks/useUserContext'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
 type ProfilePictureProps = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
   showModal: React.Dispatch<React.SetStateAction<boolean>>
-  photoURI: ImageSourcePropType | undefined
+  photoURI: string | undefined
 }
 
 export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePictureProps) => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
-  const userProfilePicture = false // TODO check for user profile picutre
+  const { user } = useUserContext()
+  const { photo: userPhoto } = user
+  const [userProfilePicture, setUserProfilePicture] = useState<string | undefined>('')
 
   const onChangeProfilePicture = () => {
     setIsEdited(true)
-    if (userProfilePicture) {
-      console.log('change user profile picture')
-      // TODO handle editing profile picture
-      return
-    }
-    console.log('add profile picture')
     showModal(true)
   }
+
+  useEffect(() => {
+    if (photoURI) {
+      setUserProfilePicture(photoURI)
+    } else {
+      setUserProfilePicture(userPhoto)
+    }
+  }, [userPhoto, photoURI])
 
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="xxxl">
       <BaseOpacity onPress={onChangeProfilePicture}>
-        {photoURI ? (
-          <Image source={photoURI} style={styles.profileImg} />
+        {userProfilePicture ? (
+          <Image source={{ uri: userProfilePicture }} style={styles.profileImg} />
         ) : (
           <ProfileImgPlaceholder style={styles.profileImg} />
         )}
@@ -49,5 +54,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     height: 112,
     width: 112,
     marginBottom: theme.spacing.m,
+    borderRadius: 112 / 2,
   },
 }))
