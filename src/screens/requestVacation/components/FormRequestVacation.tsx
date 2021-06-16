@@ -31,10 +31,9 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   changeRequestData,
 }) => {
   const { control, handleSubmit, errors } = useForm()
-  const [
-    calendarVisible,
-    { setTrue: setDisplayCalendarTrue, setFalse: setDisplayCalendarFalse },
-  ] = useBooleanState(false)
+  const [calendarVisible, { setTrue: setDisplayCalendarTrue, setFalse: setDisplayCalendarFalse }] =
+    useBooleanState(false)
+
   const [sickTime, { toggle }] = useBooleanState(false)
 
   const handleLoginUser = (data: FormTypes) => {

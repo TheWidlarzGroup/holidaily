@@ -8,11 +8,8 @@ import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
 
 export const FirstRegisterDialogBox: FC = () => {
-  const {
-    handleRetriggerAccountConfirmationEmail,
-    isLoading,
-    confirmErrorMessage,
-  } = useRetriggerAccountConfirmationEmail()
+  const { handleRetriggerAccountConfirmationEmail, isLoading, confirmErrorMessage } =
+    useRetriggerAccountConfirmationEmail()
   const { t } = useTranslation('modal')
 
   const handleResendConfirmationEmail = () => {

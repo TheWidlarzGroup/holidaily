@@ -21,11 +21,8 @@ type RouteProps = {
 }
 
 export const RecoveryCode: FC = () => {
-  const {
-    handleValidatePasswordResetCode,
-    isLoading,
-    validatePasswordResetCodeErrorMessage,
-  } = useValidatePasswordResetCode()
+  const { handleValidatePasswordResetCode, isLoading, validatePasswordResetCodeErrorMessage } =
+    useValidatePasswordResetCode()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const [recoveryCode, setRecoveryCode] = useState('')
   const [copiedCode, setCopiedCode] = useState('')
