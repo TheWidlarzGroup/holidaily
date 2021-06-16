@@ -13,7 +13,7 @@ export const USER_DATA: UserDetails & { isConfirmed: boolean } = {
     dayEnd: '29-10-2021',
   },
   teams: ['Smartsoft', 'Akademia'],
-  photo: '',
+  photo: null,
 }
 
 export const TEAM_MATES_AKADEMIA = [

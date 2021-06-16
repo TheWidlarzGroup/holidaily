@@ -13,7 +13,7 @@ import { theme, mkUseStyles, Theme } from 'utils/theme'
 type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   onUserCancelled: F0
-  setPhotoURI: F1<string | undefined>
+  setPhotoURI: F1<string | null | undefined>
 }
 type Action = 'gallery' | 'camera'
 

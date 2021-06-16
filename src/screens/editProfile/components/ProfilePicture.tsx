@@ -6,9 +6,9 @@ import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
 type ProfilePictureProps = {
-  setIsEdited: F1<boolean>
-  showModal: F1<boolean>
-  photoURI: string | undefined
+  setIsEdited: F0
+  showModal: F0
+  photoURI: string | null | undefined
 }
 
 export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePictureProps) => {
@@ -16,11 +16,11 @@ export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePict
   const styles = useStyles()
   const { user } = useUserContext()
   const { photo: userPhoto } = user
-  const [userProfilePicture, setUserProfilePicture] = useState<string | undefined>('')
+  const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
 
   const onChangeProfilePicture = () => {
-    setIsEdited(true)
-    showModal(true)
+    setIsEdited()
+    showModal()
   }
 
   useEffect(() => {

@@ -30,7 +30,7 @@ export const EditProfile = () => {
     isUploadPictureModalVisible,
     { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
   ] = useBooleanState(false)
-  const [photoURI, setPhotoURI] = useState<string | undefined>()
+  const [photoURI, setPhotoURI] = useState<string | null | undefined>()
   const [
     isConfirmationModalVisible,
     { setTrue: showConfirmationModal, setFalse: hideConfirmationModal },
