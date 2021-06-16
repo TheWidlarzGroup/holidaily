@@ -39,7 +39,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
           {matesWithPlannedHolidays.length > 0 && (
             <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
           )}
-          {matesWithNoPlannedHolidays && matesWithNoPlannedHolidays?.length > 0 && (
+          {matesWithNoPlannedHolidays?.length > 0 && (
             <>
               <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
                 {t('othersTeamMembers').toUpperCase()}

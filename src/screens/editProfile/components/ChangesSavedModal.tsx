@@ -5,7 +5,7 @@ import TickIcon from 'assets/icons/icon-button-tick.svg'
 import { theme, BaseOpacity, mkUseStyles, Theme, Text } from 'utils/theme/index'
 
 type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
-  hideModal: () => void
+  hideModal: F0
   content: string
 }
 export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSavedModalProps) => {
