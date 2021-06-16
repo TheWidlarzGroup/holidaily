@@ -9,6 +9,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Peter',
       lastName: 'Kansas',
     },
+    role: 'Software Developer',
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Tom',
       lastName: 'Waist',
     },
+    role: 'Software Developer',
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Kamila',
       lastName: 'Wysokogórska',
     },
+    role: 'Software Developer',
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Ola',
       lastName: 'Nowak',
     },
+    role: 'Software Developer',
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Ludwik',
       lastName: 'Chodak',
     },
+    role: 'Software Developer',
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Paweł',
       lastName: 'Ogonek',
     },
+    role: 'Software Developer',
   },
 ]
 
@@ -79,9 +85,10 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user1',
@@ -93,6 +100,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-01',
           dayEnd: '2021-06-14',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user2',
@@ -104,6 +112,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user3',
@@ -112,9 +121,10 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user4',
@@ -123,8 +133,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
       },
       {
@@ -134,8 +144,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
       },
       {
@@ -145,8 +155,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
       },
       {
@@ -156,9 +166,10 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
+        role: 'Software Developer',
       },
     ],
   },
@@ -176,6 +187,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user3',
@@ -187,6 +199,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user4',
@@ -198,6 +211,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
       },
     ],
   },
@@ -212,9 +226,10 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: undefined,
-          dayEnd: undefined,
+          dayStart: '',
+          dayEnd: '',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user3',
@@ -226,6 +241,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user4',
@@ -237,6 +253,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
       },
     ],
   },
@@ -254,6 +271,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-04',
           dayEnd: '2021-06-10',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user3',
@@ -265,6 +283,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
       },
       {
         id: 'user4',
@@ -276,6 +295,7 @@ export const USER_GROUPS_DAYS_OFF = [
           dayStart: '2021-06-10',
           dayEnd: '2021-06-15',
         },
+        role: 'Software Developer',
       },
     ],
   },
