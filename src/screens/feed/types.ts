@@ -10,6 +10,7 @@ export type Timestamp = {
 }
 
 export type PostMetaData = {
+  id: string
   author: UserData
   timestamp: Timestamp
 }
