@@ -16,7 +16,7 @@ export const EditProfile = () => {
   const { user } = useUserContext()
   const { firstName, lastName, role } = user
   const styles = useStyles()
-  const { errors, control, getValues } = useForm({
+  const { errors, control } = useForm({
     defaultValues: {
       firstName,
       lastName,
@@ -25,14 +25,15 @@ export const EditProfile = () => {
   })
   const { t } = useTranslation('userProfile')
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
-  const [isConfirmationModalVisible, { setTrue, setFalse }] = useBooleanState(false)
+  const [
+    isConfirmationModalVisible,
+    { setTrue: showConfirmationModal, setFalse: hideConfirmationModal },
+  ] = useBooleanState(false)
 
   const handleEditSubmit = () => {
     setEditedFalse()
-    setTrue()
-    const { firstName, lastName, role } = getValues()
-    console.log(firstName, lastName, role)
-    // TODO: function updating user data with formattedValues
+    showConfirmationModal()
+    // TODO: function updating user data from const {firstName, lastName, role} = getValues()
   }
 
   return (
@@ -58,7 +59,7 @@ export const EditProfile = () => {
         {isConfirmationModalVisible && (
           <ChangesSavedModal
             isVisible={isConfirmationModalVisible}
-            hideModal={setFalse}
+            hideModal={hideConfirmationModal}
             content={t('changesSaved')}
           />
         )}
