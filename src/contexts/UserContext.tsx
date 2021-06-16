@@ -6,7 +6,7 @@ export type UserData = {
   email: string
   isConfirmed: boolean
   role: string
-  photo?: string | null | undefined
+  photo?: string | null
 }
 
 export type ContextProps = {

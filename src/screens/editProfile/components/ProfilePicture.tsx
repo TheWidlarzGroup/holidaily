@@ -8,7 +8,7 @@ import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 type ProfilePictureProps = {
   setIsEdited: F0
   showModal: F0
-  photoURI: string | null | undefined
+  photoURI: string | undefined | null
 }
 
 export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePictureProps) => {
