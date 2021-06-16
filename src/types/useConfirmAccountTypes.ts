@@ -1,5 +1,4 @@
 export type ConfirmTypes = {
-  email: string
   token: string
 }
 

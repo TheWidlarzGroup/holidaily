@@ -96,6 +96,28 @@
     "dashboard": "Tablica",
     "calendar": "Kalendarz",
     "panel": "Panel",
-    "chat": "Czat"
+    "chat": "Czat",
+    "editProfile": "Edytuj profil",
+    "budget": "Budżet wakacyjny"
+  },
+  "userProfile": {
+    "addPhoto": "Dodaj zdjęcie profilowe",
+    "editPhoto": "Edytuj zdjęcie profilowe",
+    "editDetailsErrMsg": "Coś poszło nie tak. Spróbuj ponownie.",
+    "userNameSurname": "Imię i nazwisko",
+    "userRole": "Stanowisko",
+    "userPassword": "Hasło",
+    "userSubscriptions": "Obserwowane zespoły",
+    "userColor": "Twój kolor"  
+  },  
+  "dashboard": {
+    "welcome": "Co słychać w Twoim zespole?",
+    "teamsList": "Twoje zespoły",
+    "outOfWorkNow": "Obecnie na urlopie",
+    "outOfWorkSoon": "Wkrótce na urlopie",
+    "othersTeamMembers": "Pozostali członkowie zespołu",
+    "outOfWork": "Urlop",
+    "backAtWork": "Powrót",
+    "lastDayAtWork": "Ostatni dzień w pracy"
   }
 }

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { FlexStyle, ActivityIndicator, StyleSheet } from 'react-native'
+import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, Box, theme } from 'utils/theme/index'
+import { Text, Box, mkUseStyles, Theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 
 import IconGoogle from 'assets/icons/icon-google.svg'
@@ -16,7 +16,7 @@ interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   icon?: CustomButtonIcons
   disabled?: boolean
   loading?: boolean
-  onPress?: () => void
+  onPress?: F0
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
@@ -28,6 +28,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   onPress,
   ...rest
 }) => {
+  const styles = useStyles()
   let bgColor
   let borderWidth = 2
   let color = colors.black
@@ -88,7 +89,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     marginHorizontal: theme.spacing.m,
     flexDirection: 'row',
@@ -99,4 +100,4 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: theme.spacing.l,
   },
-})
+}))

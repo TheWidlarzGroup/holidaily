@@ -42,7 +42,7 @@
     "resendCode": "Send again"
   },
   "signup": {
-    "signupTitle": "How would you like to sign in?",
+    "signupTitle": "How would you like to sign up?",
     "continueWGmail": "Continue with Gmail",
     "continueWSlack": "Continue with Slack",
     "signupWEmail": "Sign up with E-mail",
@@ -89,13 +89,35 @@
     "passwordMatch": "Password must match"
   },
   "navigation": {
-    "logout": "Logout",
+    "logout": "Log out",
     "home": "Home",
     "about": "About",
     "settings": "Settings",
     "dashboard": "Dashboard",
     "calendar": "Calendar",
     "panel": "Panel",
-    "chat": "Chat"
+    "chat": "Chat",
+    "editProfile": "Edit profile",
+    "budget": "Holiday budget"
+  },
+  "userProfile": {
+    "addPhoto": "Add profile picture",
+    "editPhoto": "Edit profile picture",
+    "editDetailsErrMsg": "Something went wrong. Try again.",
+    "userNameSurname": "Name and surname",
+    "userRole": "Role",
+    "userPassword": "Password",
+    "userSubscriptions": "Subscribed teams",
+    "userColor": "Your color"
+  },
+  "dashboard": {
+    "welcome": "How's your team doing?",
+    "teamsList": "Your teams",
+    "outOfWorkNow": "Out of work now",
+    "outOfWorkSoon": "Out of work soon",
+    "othersTeamMembers": "Team members",
+    "outOfWork": "Out of work",
+    "backAtWork": "Back at work",
+    "lastDayAtWork": "Last day at work"
   }
 }
