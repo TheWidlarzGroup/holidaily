@@ -22,6 +22,17 @@ export const Calendar = ({ theme, ...props }: RNCalendarProps) => {
         textDayFontSize: appTheme.fontSize.xs,
         textSectionTitleColor: appTheme.colors.grey,
         arrowColor: appTheme.colors.black,
+        'stylesheet.calendar.header': {
+          header: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingLeft: 10,
+            paddingRight: 10,
+            marginTop: 6,
+            alignItems: 'center',
+            marginBottom: 10,
+          },
+        },
         ...theme,
       }}
       dayComponent={CalendarDay}
