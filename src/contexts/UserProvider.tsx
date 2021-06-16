@@ -24,6 +24,12 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
     updateUser(USER_DATA)
   }, [user.isConfirmed])
 
+  useEffect(() => {
+    // Comment: Mocking user data, remove when BE ready
+    if (!user.isConfirmed) return
+    updateUser(USER_DATA)
+  }, [user.isConfirmed])
+
   const updateUser = (newData: Partial<UserData>) => {
     setUser((usr) => ({ ...usr, ...newData }))
   }
