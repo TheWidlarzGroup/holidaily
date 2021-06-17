@@ -1,5 +1,5 @@
-import React from 'react'
-import { FlatList, useWindowDimensions } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react'
+import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import { mkUseStyles, Text, BaseOpacity } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -18,22 +18,38 @@ type GalleryProps = {
 
 export const Gallery = ({ data }: GalleryProps) => {
   const [fullScreen, { setTrue: setFullScreen, setFalse: unsetFullScreen }] = useBooleanState(false)
-  const styles = useStyles()
+  const [imageIndex, setImageIndex] = useState(0)
+  const listRef = useRef<FlatList | null>(null)
 
-  const { width } = useWindowDimensions()
+  const styles = useStyles()
+  const { width: ITEM_WIDTH } = useWindowDimensions()
+
+  useEffect(() => {
+    listRef.current?.scrollToIndex({ index: imageIndex, animated: false })
+  }, [fullScreen, imageIndex])
+
+  const handleViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    const [item] = viewableItems
+    if (!item?.index && item?.index !== 0) return
+    setImageIndex(item.index)
+  }
 
   const List = () => (
     <FlatList
+      ref={listRef}
+      onViewableItemsChanged={handleViewableItemsChanged}
+      viewabilityConfig={{ viewAreaCoveragePercentThreshold: 100 }}
+      getItemLayout={(_, index) => ({ length: ITEM_WIDTH, offset: ITEM_WIDTH * index, index })}
       horizontal
       decelerationRate={0}
-      snapToInterval={width}
+      snapToInterval={ITEM_WIDTH}
       snapToAlignment="center"
       style={styles.list}
       contentContainerStyle={styles.contentContainer}
       data={data}
       renderItem={({ item }) => (
         <BaseOpacity onPress={setFullScreen} activeOpacity={1}>
-          <GalleryItem {...item} width={width} />
+          <GalleryItem {...item} width={ITEM_WIDTH} />
         </BaseOpacity>
       )}
       keyExtractor={(item) => item.src}
