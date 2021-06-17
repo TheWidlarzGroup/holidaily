@@ -1,18 +1,20 @@
 import React, { FC } from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
 
-export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPress }) => {
+export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPress, ...props }) => {
+  const styles = useStyles()
+
   const day = DateTime.fromISO(date.dateString)
   const dots = {
-    firstThree: marking?.dots.slice(0, 3),
-    isMore: marking?.dots.length > 3,
+    firstThree: marking?.dots?.slice(0, 3),
+    isMore: marking?.dots?.length > 3,
   }
   const textColor = () => {
-    if (state === 'selected') return 'white'
+    if (state === 'selected' || marking?.selected) return 'white'
     if (isWeekend(day)) return 'grey'
     if (marking?.disabled === true) return 'grey'
     return 'black'
@@ -20,21 +22,30 @@ export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPre
 
   return (
     <Box alignItems="center" position="relative" padding="s">
-      <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
-        <Box
-          borderRadius="l"
-          borderWidth={state === 'today' ? 2 : 0}
-          backgroundColor={state === 'selected' ? 'black' : 'transparent'}
-          width={26}
-          height={26}
-          justifyContent="center"
-          alignItems="center"
-          margin="s">
-          <Text color={textColor()} variant="bold15">
-            {date.day}
-          </Text>
-        </Box>
-      </BorderlessButton>
+      <Box
+        style={[
+          marking?.selected && styles.selected,
+          marking?.endingDay && styles.end,
+          marking?.startingDay && styles.start,
+          marking?.selected && isWeekend(day) && styles.selectedDisabled,
+        ]}>
+        <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
+          <Box
+            borderRadius="l"
+            borderWidth={state === 'today' ? 2 : 0}
+            borderColor={marking?.selected ? 'white' : 'black'}
+            backgroundColor={state === 'selected' ? 'black' : 'transparent'}
+            width={26}
+            height={26}
+            justifyContent="center"
+            alignItems="center"
+            margin="s">
+            <Text color={textColor()} variant="bold15">
+              {date.day}
+            </Text>
+          </Box>
+        </BorderlessButton>
+      </Box>
       <Box position="absolute" top="100%">
         {dots.firstThree?.map((dot: { key: string; color: string }) => (
           <Box
@@ -61,3 +72,21 @@ export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPre
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  selected: {
+    backgroundColor: theme.colors.tertiary,
+    color: theme.colors.white,
+  },
+  selectedDisabled: {
+    backgroundColor: '#ffc59e',
+  },
+  end: {
+    borderBottomRightRadius: theme.borderRadii.full,
+    borderTopRightRadius: theme.borderRadii.full,
+  },
+  start: {
+    borderBottomLeftRadius: theme.borderRadii.full,
+    borderTopLeftRadius: theme.borderRadii.full,
+  },
+}))
