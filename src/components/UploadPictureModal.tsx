@@ -15,7 +15,7 @@ type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
 }
-type Action = 'gallery' | 'camera'
+type PhotoSelectionChoice = 'gallery' | 'camera'
 
 export const UploadPictureModal = ({
   isVisible,
@@ -23,6 +23,7 @@ export const UploadPictureModal = ({
   onUserCancelled,
   setPhotoURI,
 }: UploadPictureModalProps) => {
+  // TODO: IOS setup required
   const styles = useStyles()
 
   const onHandleResponse = (response: ImagePickerResponse) => {
@@ -35,7 +36,7 @@ export const UploadPictureModal = ({
     }
   }
 
-  const onUploadImage = (action: Action) => {
+  const onUploadImage = (action: PhotoSelectionChoice) => {
     hideModal()
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
