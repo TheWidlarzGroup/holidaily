@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Calendar as RNCalendar,
   CalendarProps as RNCalendarProps,
@@ -7,11 +7,10 @@ import {
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
-import { getShortWeekDays } from 'utils/dates'
+import { getDatesBetween, getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
-import { DateTime } from 'luxon'
 
-type clickProps = {
+type ClickProps = {
   dateString: string
   timestamp: number
   day: number
@@ -19,26 +18,40 @@ type clickProps = {
   year: number
 }
 
-type customCalendarProps = {
+type MarkedDateType = {
+  selected?: boolean
+  color?: string
+  endingDay?: boolean
+  startingDay?: boolean
+}
+
+type CustomCalendarProps = {
+  onSelectedPeriodChange?: F2<string, string>
   selectable?: boolean
 }
 
 export const Calendar = ({
   theme,
+  onSelectedPeriodChange,
   selectable = false,
   ...props
-}: RNCalendarProps & customCalendarProps) => {
+}: RNCalendarProps & CustomCalendarProps) => {
   const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
   const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
 
-  const handleClick = ({ dateString }: clickProps) => {
+  useEffect(() => {
+    if (!onSelectedPeriodChange) return
+    onSelectedPeriodChange(selectedPeriodStart, setSelectedPeriodEnd)
+  }, [onSelectedPeriodChange, selectedPeriodStart, selectedPeriodEnd])
+
+  const handleClick = ({ dateString: clickedDate }: ClickProps) => {
     if (!selectable) return
-    if (!selectedPeriodStart || !selectedPeriodEnd) {
-      setSelectedPeriodStart(dateString)
-      setSelectedPeriodEnd(dateString)
+    if (!selectedPeriodStart || !selectedPeriodEnd || selectedPeriodStart !== selectedPeriodEnd) {
+      setSelectedPeriodStart(clickedDate)
+      setSelectedPeriodEnd(clickedDate)
       return
     }
-    const clickedDate = dateString
+
     if (clickedDate < selectedPeriodStart) setSelectedPeriodStart(clickedDate)
     if (clickedDate > selectedPeriodEnd) setSelectedPeriodEnd(clickedDate)
   }
@@ -65,34 +78,18 @@ export const Calendar = ({
   )
 }
 
-function getDatesBetween(start: string, end: string) {
-  const st = DateTime.fromISO(start)
-  const ed = DateTime.fromISO(end)
-
-  const dates: string[] = []
-
-  for (let i = 0; st.plus({ days: i }).toISODate() <= ed.toISODate(); i++) {
-    dates.push(st.plus({ days: i }).toISODate())
-  }
-
-  return dates
-}
-
-function genMarkedDates(start: string | undefined, end: string | undefined) {
+const genMarkedDates = (start: string | undefined, end: string | undefined) => {
   if (!start || !end) return {}
-
-  const obj: { [key: string]: any } = {}
+  const obj: { [key: string]: MarkedDateType } = {}
   const dates = getDatesBetween(start, end)
 
   dates.forEach((date) => {
     obj[date] = {
       selected: true,
-      color: 'orange',
     }
   })
 
   obj[dates[0]].startingDay = true
   obj[dates[dates.length - 1]].endingDay = true
-
   return obj
 }

@@ -5,7 +5,7 @@ import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
 
-export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPress, ...props }) => {
+export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPress }) => {
   const styles = useStyles()
 
   const day = DateTime.fromISO(date.dateString)
