@@ -1,10 +1,12 @@
-import React, { ReactNode } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import React, { ReactNode, RefObject } from 'react'
+import { Dimensions, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   useAnimatedGestureHandler,
+  useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
+  scrollTo,
   withTiming,
 } from 'react-native-reanimated'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
@@ -14,9 +16,11 @@ interface ItemProps {
   children: ReactNode
   positions: Animated.SharedValue<Positions>
   id: number
+  scrollView: RefObject<Animated.ScrollView>
+  scrollY: Animated.SharedValue<number>
 }
 
-export const Item = ({ children, positions, id }: ItemProps) => {
+export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps) => {
   const inset = useSafeAreaInsets()
   const containerHeight = Dimensions.get('window').height - inset.top - inset.bottom
   const contentHeight = (Object.keys(positions.value).length / COL) * SIZE
@@ -24,7 +28,17 @@ export const Item = ({ children, positions, id }: ItemProps) => {
   const position = getPosition(getOrder(p1.x, p1.y))
   const translateX = useSharedValue(position.x)
   const translateY = useSharedValue(position.y)
+
+  useAnimatedReaction(
+    () => positions.value[id],
+    (newOrder) => {
+      const newPosition = getPosition(newOrder)
+      translateX.value = withTiming(newPosition.x, animationConfig)
+      translateY.value = withTiming(newPosition.y, animationConfig)
+    }
+  )
   const isGestureActive = useSharedValue(false)
+
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     { x: number; y: number }
@@ -50,6 +64,25 @@ export const Item = ({ children, positions, id }: ItemProps) => {
           positions.value = newPositions
         }
       }
+      const lowerBound = scrollY.value
+      const upperBound = lowerBound + containerHeight - SIZE
+      const maxScroll = contentHeight - containerHeight
+      const leftToScrollDown = maxScroll - scrollY.value
+
+      if (translateY.value < lowerBound) {
+        const diff = Math.min(lowerBound - translateY.value, lowerBound)
+        scrollY.value -= diff
+        scrollTo(scrollView, 0, scrollY.value, false)
+        ctx.y -= diff
+        translateY.value = ctx.y + translationY
+      }
+      if (translateY.value > upperBound) {
+        const diff = Math.min(translateY.value - upperBound, leftToScrollDown)
+        scrollY.value += diff
+        ctx.y += diff
+        scrollTo(scrollView, 0, scrollY.value, false)
+        translateY.value = ctx.y + translationY
+      }
     },
     onEnd: () => {
       const destination = getPosition(positions.value[id])
@@ -59,6 +92,7 @@ export const Item = ({ children, positions, id }: ItemProps) => {
       translateY.value = withTiming(destination.y, animationConfig)
     },
   })
+
   const style = useAnimatedStyle(() => {
     const zIndex = isGestureActive.value ? 100 : 0
     const scale = isGestureActive.value ? 1.1 : 1
@@ -72,6 +106,7 @@ export const Item = ({ children, positions, id }: ItemProps) => {
       transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale }],
     }
   })
+
   return (
     <Animated.View style={style}>
       <PanGestureHandler onGestureEvent={onGestureEvent}>

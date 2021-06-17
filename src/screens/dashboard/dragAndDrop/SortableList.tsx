@@ -1,7 +1,10 @@
 import React, { ReactElement } from 'react'
-import { ScrollView } from 'react-native'
 import { Item } from 'screens/dashboard/dragAndDrop/Item'
-import { useSharedValue } from 'react-native-reanimated'
+import Animated, {
+  useAnimatedRef,
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from 'react-native-reanimated'
 import { COL, Positions, SIZE } from './Config'
 
 type SortableListProps = {
@@ -9,22 +12,36 @@ type SortableListProps = {
 }
 
 export const SortableList = ({ children }: SortableListProps) => {
+  const scrollView = useAnimatedRef<Animated.ScrollView>()
+  const scrollY = useSharedValue(0)
   const positions = useSharedValue<Positions>(
     Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
   )
+  const onScroll = useAnimatedScrollHandler({
+    onScroll: ({ contentOffset: { y } }) => {
+      scrollY.value = y
+    },
+  })
   return (
-    <ScrollView
+    <Animated.ScrollView
+      ref={scrollView}
       contentContainerStyle={{
         height: Math.ceil(children.length / COL) * SIZE,
       }}
       showsVerticalScrollIndicator={false}
       bounces={false}
-      scrollEventThrottle={16}>
+      scrollEventThrottle={16}
+      onScroll={onScroll}>
       {children.map((child) => (
-        <Item key={child.props.id} positions={positions} id={child.props.id}>
+        <Item
+          scrollView={scrollView}
+          scrollY={scrollY}
+          key={child.props.id}
+          positions={positions}
+          id={child.props.id}>
           {child}
         </Item>
       ))}
-    </ScrollView>
+    </Animated.ScrollView>
   )
 }

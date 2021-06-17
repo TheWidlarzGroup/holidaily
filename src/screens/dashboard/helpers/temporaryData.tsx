@@ -497,4 +497,60 @@ export const USER_GROUPS_DAYS_OFF = [
       },
     ],
   },
+  {
+    groupId: 9,
+    groupName: 'xxxxxxx',
+    users: [
+      {
+        id: 'user2',
+        firstName: 'Tom',
+        lastName: 'Waist',
+        holidays: {
+          id: 2,
+          isOnHoliday: true,
+          dayStart: '2021-06-04',
+          dayEnd: '2021-06-10',
+        },
+      },
+      {
+        id: 'user3',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska',
+        holidays: {
+          id: 3,
+          isOnHoliday: true,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+    ],
+  },
+  {
+    groupId: 10,
+    groupName: 'zzzzzz',
+    users: [
+      {
+        id: 'user2',
+        firstName: 'Tom',
+        lastName: 'Waist',
+        holidays: {
+          id: 2,
+          isOnHoliday: true,
+          dayStart: '2021-06-04',
+          dayEnd: '2021-06-10',
+        },
+      },
+      {
+        id: 'user3',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska',
+        holidays: {
+          id: 3,
+          isOnHoliday: true,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+    ],
+  },
 ]
