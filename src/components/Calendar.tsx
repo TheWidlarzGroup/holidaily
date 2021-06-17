@@ -9,6 +9,7 @@ import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getDatesBetween, getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
+import { genMarkedDates } from 'utils/genMarkedDates'
 
 type ClickProps = {
   dateString: string
@@ -16,13 +17,6 @@ type ClickProps = {
   day: number
   month: number
   year: number
-}
-
-type MarkedDateType = {
-  selected?: boolean
-  color?: string
-  endingDay?: boolean
-  startingDay?: boolean
 }
 
 type CustomCalendarProps = {
@@ -76,20 +70,4 @@ export const Calendar = ({
       {...props}
     />
   )
-}
-
-const genMarkedDates = (start: string | undefined, end: string | undefined) => {
-  if (!start || !end) return {}
-  const obj: { [key: string]: MarkedDateType } = {}
-  const dates = getDatesBetween(start, end)
-
-  dates.forEach((date) => {
-    obj[date] = {
-      selected: true,
-    }
-  })
-
-  obj[dates[0]].startingDay = true
-  obj[dates[dates.length - 1]].endingDay = true
-  return obj
 }
