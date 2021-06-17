@@ -27,12 +27,3 @@ target 'Holidayly' do
     flipper_post_install(installer)
   end
 end
-
-target 'Holidayly-tvOS' do
-  # Pods for Holidayly-tvOS
-
-  target 'Holidayly-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end
