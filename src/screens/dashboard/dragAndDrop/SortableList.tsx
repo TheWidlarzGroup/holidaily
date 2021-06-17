@@ -15,8 +15,10 @@ export const SortableList = ({ children }: SortableListProps) => {
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
   const positions = useSharedValue<Positions>(
+    // positions object from database
     Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
   )
+
   const onScroll = useAnimatedScrollHandler({
     onScroll: ({ contentOffset: { y } }) => {
       scrollY.value = y

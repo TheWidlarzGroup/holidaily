@@ -58,7 +58,7 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
           (key) => positions.value[key] === newOrder
         )
         if (idToSwap) {
-          const newPositions = JSON.parse(JSON.stringify(positions.value))
+          const newPositions = { ...positions.value }
           newPositions[id] = newOrder
           newPositions[idToSwap] = oldOrder
           positions.value = newPositions
@@ -68,7 +68,7 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
       const upperBound = lowerBound + containerHeight - SIZE_H
       const maxScroll = contentHeight - containerHeight
       const leftToScrollDown = maxScroll - scrollY.value
-      console.log(lowerBound, upperBound, maxScroll, leftToScrollDown)
+
       if (translateY.value < lowerBound) {
         const diff = Math.min(lowerBound - translateY.value, lowerBound)
         scrollY.value -= diff
@@ -90,6 +90,8 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
         isGestureActive.value = false
       })
       translateY.value = withTiming(destination.y, animationConfig)
+      // save order of teams
+      console.log(positions)
     },
   })
 

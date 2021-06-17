@@ -54,7 +54,6 @@ export const Dashboard = () => {
           />
         ))}
       </SortableList>
-      {/* </ScrollView> */}
     </SafeAreaWrapper>
   )
 }

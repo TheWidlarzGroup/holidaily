@@ -4,12 +4,10 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
-import { SIZE, MARGIN, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
+import { SIZE, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
 
 type TeamElementProps = ValidationOfGroupDayOff & {
-  id: number
   navigateToTeamScreen: () => void
-  onLongPress: () => void
 }
 
 export const TeamElement = (props: TeamElementProps) => {
