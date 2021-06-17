@@ -12,10 +12,17 @@ export const emptyUser = {
   email: '',
   isConfirmed: false,
   role: '',
+  photo: null,
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
-  const [user, setUser] = useState(emptyUser)
+  const [user, setUser] = useState<UserData>(emptyUser)
+
+  useEffect(() => {
+    // Comment: Mocking user data, remove when BE ready
+    if (!user.isConfirmed) return
+    updateUser(USER_DATA)
+  }, [user.isConfirmed])
 
   useEffect(() => {
     // Comment: Mocking user data, remove when BE ready
