@@ -374,4 +374,127 @@ export const USER_GROUPS_DAYS_OFF = [
       },
     ],
   },
+  {
+    groupId: 5,
+    groupName: 'aaaaa',
+    users: [
+      {
+        id: 'user2',
+        firstName: 'Tom',
+        lastName: 'Waist',
+        holidays: {
+          id: 2,
+          isOnHoliday: true,
+          dayStart: '2021-06-04',
+          dayEnd: '2021-06-10',
+        },
+      },
+      {
+        id: 'user3',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska',
+        holidays: {
+          id: 3,
+          isOnHoliday: true,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+      {
+        id: 'user4',
+        firstName: 'Ola',
+        lastName: 'Nowak',
+        holidays: {
+          id: 4,
+          isOnHoliday: false,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+    ],
+  },
+  {
+    groupId: 6,
+    groupName: 'sssss',
+    users: [
+      {
+        id: 'user2',
+        firstName: 'Tom',
+        lastName: 'Waist',
+        holidays: {
+          id: 2,
+          isOnHoliday: true,
+          dayStart: '2021-06-04',
+          dayEnd: '2021-06-10',
+        },
+      },
+      {
+        id: 'user3',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska',
+        holidays: {
+          id: 3,
+          isOnHoliday: true,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+    ],
+  },
+  {
+    groupId: 7,
+    groupName: 'ddddddd',
+    users: [
+      {
+        id: 'user2',
+        firstName: 'Tom',
+        lastName: 'Waist',
+        holidays: {
+          id: 2,
+          isOnHoliday: true,
+          dayStart: '2021-06-04',
+          dayEnd: '2021-06-10',
+        },
+      },
+      {
+        id: 'user3',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska',
+        holidays: {
+          id: 3,
+          isOnHoliday: true,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+    ],
+  },
+  {
+    groupId: 8,
+    groupName: 'ffffffff',
+    users: [
+      {
+        id: 'user2',
+        firstName: 'Tom',
+        lastName: 'Waist',
+        holidays: {
+          id: 2,
+          isOnHoliday: true,
+          dayStart: '2021-06-04',
+          dayEnd: '2021-06-10',
+        },
+      },
+      {
+        id: 'user3',
+        firstName: 'Kamila',
+        lastName: 'Wysokogórska',
+        holidays: {
+          id: 3,
+          isOnHoliday: true,
+          dayStart: '2021-06-10',
+          dayEnd: '2021-06-15',
+        },
+      },
+    ],
+  },
 ]
