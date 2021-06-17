@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, FlatList } from 'react-native'
+import { FlatList, useWindowDimensions } from 'react-native'
 import { mkUseStyles, Text, BaseOpacity } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -20,7 +20,7 @@ export const Gallery = ({ data }: GalleryProps) => {
   const [fullScreen, { setTrue: setFullScreen, setFalse: unsetFullScreen }] = useBooleanState(false)
   const styles = useStyles()
 
-  const { width } = Dimensions.get('window')
+  const { width } = useWindowDimensions()
 
   const List = () => (
     <FlatList
