@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
+import { EditPictureModal } from 'components/EditPictureModal'
 import { UploadPictureModal } from 'components/UploadPictureModal'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -28,8 +29,12 @@ export const EditProfile = () => {
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
   const [
     isUploadPictureModalVisible,
-    { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
-  ] = useBooleanState(true)
+    { setTrue: showUploadPictureModal, setFalse: hideUploadPictureModal },
+  ] = useBooleanState(false)
+  const [
+    isEditPictureModalVisible,
+    { setTrue: showEditPictureModal, setFalse: hideEditPictureModal },
+  ] = useBooleanState(false)
   const [photoURI, setPhotoURI] = useState<string | null | undefined>()
   const [
     isConfirmationModalVisible,
@@ -49,7 +54,8 @@ export const EditProfile = () => {
           <ProfilePicture
             {...user}
             setIsEdited={setEditedTrue}
-            showModal={setUploadPictureModalVisibleTrue}
+            showUploadModal={showUploadPictureModal}
+            showEditModal={showEditPictureModal}
             photoURI={photoURI}
           />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
@@ -78,11 +84,20 @@ export const EditProfile = () => {
             content={t('changesSaved')}
           />
         )}
-        {true && (
+        {isUploadPictureModalVisible && (
           <UploadPictureModal
             isVisible={isUploadPictureModalVisible}
-            hideModal={setUploadPictureModalVisibleFalse}
+            hideModal={hideUploadPictureModal}
             onUserCancelled={setEditedFalse}
+            setPhotoURI={setPhotoURI}
+            hideEditPictureModal={hideEditPictureModal}
+          />
+        )}
+        {isEditPictureModalVisible && (
+          <EditPictureModal
+            showUploadModal={showUploadPictureModal}
+            isVisible
+            hideModal={hideEditPictureModal}
             setPhotoURI={setPhotoURI}
           />
         )}

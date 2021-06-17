@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { Image } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
-import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
+import { Box, Text, mkUseStyles, Theme, theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
 type ProfilePictureProps = {
   setIsEdited: F0
-  showModal: F0
+  showUploadModal: F0
+  showEditModal: F0
   photoURI: string | undefined | null
 }
 
-export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePictureProps) => {
+export const ProfilePicture = ({
+  setIsEdited,
+  showUploadModal,
+  showEditModal,
+  photoURI,
+}: ProfilePictureProps) => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const { user } = useUserContext()
@@ -19,8 +26,15 @@ export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePict
   const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
 
   const onChangeProfilePicture = () => {
+    console.log('change picture')
     setIsEdited()
-    showModal()
+    showEditModal()
+  }
+
+  const onAddProfilePicture = () => {
+    console.log('add picture')
+    setIsEdited()
+    showUploadModal()
   }
 
   useEffect(() => {
@@ -33,18 +47,24 @@ export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePict
 
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="xxxl">
-      <BaseOpacity onPress={onChangeProfilePicture}>
+      <RectButton
+        onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
+        activeOpacity={0.2}
+        rippleColor={theme.colors.rippleColor}>
         {userProfilePicture ? (
           <Image source={{ uri: userProfilePicture }} style={styles.profileImg} />
         ) : (
           <ProfileImgPlaceholder style={styles.profileImg} />
         )}
-      </BaseOpacity>
-      <BaseOpacity onPress={onChangeProfilePicture}>
+      </RectButton>
+      <RectButton
+        onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
+        activeOpacity={0.2}
+        rippleColor={theme.colors.rippleColor}>
         <Text variant="boldOrange15" textAlign="center" marginBottom="xl">
           {userProfilePicture ? t('editPhoto') : t('addPhoto')}
         </Text>
-      </BaseOpacity>
+      </RectButton>
     </Box>
   )
 }
