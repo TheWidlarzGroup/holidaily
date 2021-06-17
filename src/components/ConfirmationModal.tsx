@@ -2,7 +2,8 @@ import React from 'react'
 import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
 import { CustomModal } from 'components/CustomModal'
-import { theme, mkUseStyles, Theme, Text, Box, BaseOpacity } from 'utils/theme/index'
+import { theme, mkUseStyles, Theme, Text, Box } from 'utils/theme/index'
+import { CustomButton } from './CustomButton'
 
 type ConfirmationModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
@@ -40,12 +41,21 @@ export const ConfirmationModal = ({
         <Text variant="body1" marginBottom="xxl">
           {content}
         </Text>
-        <BaseOpacity onPress={onAccept} style={styles.acceptBtn}>
-          <Text variant="buttonText1">{t('yes')}</Text>
-        </BaseOpacity>
-        <BaseOpacity onPress={onDecline} style={styles.declineBtn}>
-          <Text variant="boldBlack18">{t('no')}</Text>
-        </BaseOpacity>
+        <CustomButton
+          label={t('yes')}
+          variant="blackBgButton"
+          onPress={onAccept}
+          width={221}
+          height={53}
+          marginBottom={theme.spacing.xm}
+        />
+        <CustomButton
+          height={53}
+          width={221}
+          label={t('no')}
+          variant="secondary"
+          onPress={onDecline}
+        />
       </Box>
     </CustomModal>
   )
@@ -69,25 +79,5 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
-  },
-  acceptBtn: {
-    color: theme.colors.white,
-    backgroundColor: theme.colors.black,
-    width: 221,
-    height: 53,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: theme.borderRadii.xxl,
-    marginBottom: theme.spacing.xm,
-  },
-  declineBtn: {
-    color: theme.colors.transparent,
-    borderWidth: 2,
-    borderColor: theme.colors.black,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: theme.borderRadii.xxl,
-    width: 221,
-    height: 53,
   },
 }))
