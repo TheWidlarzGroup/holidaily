@@ -1,22 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useUserContext } from 'hooks/useUserContext'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 
-export const ProfilePicture = () => {
+type ProfilePictureProps = {
+  setIsEdited: F0
+  showModal: F0
+  photoURI: string | undefined | null
+}
+
+export const ProfilePicture = ({ setIsEdited, showModal, photoURI }: ProfilePictureProps) => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
-  const userProfilePicture = false // TODO check for user profile picutre
+  const { user } = useUserContext()
+  const { photo: userPhoto } = user
+  const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
 
   const onChangeProfilePicture = () => {
-    console.log('change user profile picture')
-    // TODO display modal to change user profile picture
+    setIsEdited()
+    showModal()
   }
+
+  useEffect(() => {
+    if (photoURI) {
+      setUserProfilePicture(photoURI)
+    } else {
+      setUserProfilePicture(userPhoto)
+    }
+  }, [userPhoto, photoURI])
 
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="xxxl">
       <BaseOpacity onPress={onChangeProfilePicture}>
-        <ProfileImgPlaceholder style={styles.profileImg} />
+        {userProfilePicture ? (
+          <Image source={{ uri: userProfilePicture }} style={styles.profileImg} />
+        ) : (
+          <ProfileImgPlaceholder style={styles.profileImg} />
+        )}
       </BaseOpacity>
       <BaseOpacity onPress={onChangeProfilePicture}>
         <Text variant="boldOrange15" textAlign="center" marginBottom="xl">
@@ -32,5 +54,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     height: 112,
     width: 112,
     marginBottom: theme.spacing.m,
+    borderRadius: 112 / 2,
   },
 }))

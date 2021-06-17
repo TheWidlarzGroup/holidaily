@@ -84,6 +84,10 @@
     "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
     "loginButton": "Zaloguj się"
   },
+  "uploadPictureModal": {
+    "openCamera": "Zrób zdjęcie",
+    "openGallery": "Wybierz z galerii"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
