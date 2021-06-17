@@ -1,7 +1,6 @@
 import React from 'react'
-import { RectButton } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-import { Text, Box, theme, mkUseStyles, Theme } from 'utils/theme'
+import { Text, Box, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import Gallery from 'assets/icons/icon-gallery.svg'
@@ -17,27 +16,25 @@ export const UploadPictureButtons = ({ onUploadImage }: UploadPictureButtonsProp
 
   return (
     <Box padding="lplus">
-      <RectButton
+      <BaseOpacity
         onPress={() => onUploadImage('camera')}
         activeOpacity={0.2}
-        rippleColor={theme.colors.rippleColor}
         style={styles.cameraBtn}>
         <Smartphone />
         <Box flexGrow={1} paddingBottom="m" marginLeft="m">
           <Text variant="boldBlack18">{t('openCamera')}</Text>
         </Box>
-      </RectButton>
+      </BaseOpacity>
       <Box height={1} backgroundColor="black" marginLeft="lplus" />
-      <RectButton
+      <BaseOpacity
         onPress={() => onUploadImage('gallery')}
         style={styles.galleryBtn}
-        activeOpacity={0.2}
-        rippleColor={theme.colors.rippleColor}>
+        activeOpacity={0.2}>
         <Gallery />
         <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('openGallery')}</Text>
         </Box>
-      </RectButton>
+      </BaseOpacity>
     </Box>
   )
 }

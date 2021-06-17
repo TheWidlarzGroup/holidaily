@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 import {
   ImageLibraryOptions,
@@ -12,6 +12,7 @@ import { theme, mkUseStyles, Theme } from 'utils/theme'
 
 type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
+  hideEditPictureModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
 }
@@ -22,6 +23,7 @@ export const UploadPictureModal = ({
   hideModal,
   onUserCancelled,
   setPhotoURI,
+  hideEditPictureModal,
 }: UploadPictureModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
@@ -47,6 +49,9 @@ export const UploadPictureModal = ({
       launchCamera(options, (response) => onHandleResponse(response))
     }
   }
+  useEffect(() => {
+    if (hideEditPictureModal) hideEditPictureModal()
+  }, [hideEditPictureModal])
 
   return (
     <CustomModal

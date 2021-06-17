@@ -86,7 +86,9 @@
   },
   "uploadPictureModal": {
     "openCamera": "Take a selfie",
-    "openGallery": "Choose from gallery"
+    "openGallery": "Choose from gallery",
+    "changePicture": "Change profile picture",
+    "deletePicture": "Delete profile picture"
   },
   "inputErrors": {
     "requiredField": "This field is required",
