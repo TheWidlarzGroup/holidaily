@@ -1,8 +1,4 @@
-export type UserData = {
-  id: string
-  firstName: string
-  lastName: string
-}
+import { UserData } from 'types/holidaysDataTypes'
 
 export type Timestamp = {
   createdAt: Date
@@ -20,12 +16,7 @@ export type Reaction = {
   type: ReactionType
 }
 
-export enum ReactionType {
-  ANGRY = 'angry',
-  SMILE = 'smile',
-  THUMB_UP = 'thumb_up',
-  THUMB_DOWN = 'thumb_down',
-}
+export type ReactionType = 'angry' | 'smile' | 'thumb_up' | 'thumb_down'
 
 export type Comment = {
   meta: PostMetaData
@@ -47,7 +38,4 @@ export type FeedPostData = {
   src: string
 }
 
-export enum FeedPostDataType {
-  IMAGE = 'image',
-  VIDEO = 'video',
-}
+export type FeedPostDataType = 'image' | 'video'
