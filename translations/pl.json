@@ -90,6 +90,11 @@
     "changePicture": "Zmień zdjęcie profilowe",
     "deletePicture": "Usuń zdjęcie profilowe"
   },
+  "confirmationModal": {
+    "areYouSure": "Jesteś pewny/a?",
+    "yes": "Tak",
+    "no": "Nie"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"

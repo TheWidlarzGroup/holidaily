@@ -90,6 +90,11 @@
     "changePicture": "Change profile picture",
     "deletePicture": "Delete profile picture"
   },
+  "confirmationModal": {
+    "areYouSure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No"
+  },
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
