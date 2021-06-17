@@ -7,7 +7,7 @@ import {
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
-import { getDatesBetween, getShortWeekDays } from 'utils/dates'
+import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 import { genMarkedDates } from 'utils/genMarkedDates'
 
