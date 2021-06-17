@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
-// import { ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-// import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
+import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
-// import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
-// import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
+import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
+import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
 import { DashboardNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
@@ -16,7 +16,7 @@ import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
 export const Dashboard = () => {
   const { t, i18n } = useTranslation('dashboard')
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
-  // const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
+  const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>
@@ -54,8 +54,6 @@ export const Dashboard = () => {
           />
         ))}
       </SortableList>
-      {/* </Box> */}
-      {/* </Box> */}
       {/* </ScrollView> */}
     </SafeAreaWrapper>
   )

@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated'
-import { COL, Positions, SIZE } from './Config'
+import { COL, Positions, SIZE_H } from './Config'
 
 type SortableListProps = {
   children: ReactElement<{ id: number }>[]
@@ -26,7 +26,7 @@ export const SortableList = ({ children }: SortableListProps) => {
     <Animated.ScrollView
       ref={scrollView}
       contentContainerStyle={{
-        height: Math.ceil(children.length / COL) * SIZE,
+        height: Math.ceil(children.length / COL) * SIZE_H,
       }}
       showsVerticalScrollIndicator={false}
       bounces={false}

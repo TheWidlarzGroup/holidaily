@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
-import { COL, getPosition, Positions, SIZE, getOrder, animationConfig } from './Config'
+import { COL, getPosition, Positions, SIZE, getOrder, animationConfig, SIZE_H } from './Config'
 
 interface ItemProps {
   children: ReactNode
@@ -23,7 +23,7 @@ interface ItemProps {
 export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps) => {
   const inset = useSafeAreaInsets()
   const containerHeight = Dimensions.get('window').height - inset.top - inset.bottom
-  const contentHeight = (Object.keys(positions.value).length / COL) * SIZE
+  const contentHeight = (Object.keys(positions.value).length / COL) * SIZE_H
   const p1 = getPosition(positions.value[id])
   const position = getPosition(getOrder(p1.x, p1.y))
   const translateX = useSharedValue(position.x)
@@ -65,10 +65,10 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
         }
       }
       const lowerBound = scrollY.value
-      const upperBound = lowerBound + containerHeight - SIZE
+      const upperBound = lowerBound + containerHeight - SIZE_H
       const maxScroll = contentHeight - containerHeight
       const leftToScrollDown = maxScroll - scrollY.value
-
+      console.log(lowerBound, upperBound, maxScroll, leftToScrollDown)
       if (translateY.value < lowerBound) {
         const diff = Math.min(lowerBound - translateY.value, lowerBound)
         scrollY.value -= diff
@@ -95,15 +95,15 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
 
   const style = useAnimatedStyle(() => {
     const zIndex = isGestureActive.value ? 100 : 0
-    const scale = isGestureActive.value ? 1.1 : 1
+
     return {
       position: 'absolute',
       top: 0,
       left: 0,
       width: SIZE,
-      height: SIZE,
+      height: SIZE_H,
       zIndex,
-      transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale }],
+      transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
     }
   })
 
