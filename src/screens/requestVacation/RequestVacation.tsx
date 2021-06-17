@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
 
 import { Box } from 'utils/theme'
@@ -16,18 +16,18 @@ export type RequestDataTypes = {
 
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
-export const RequestVacation: FC = () => {
+export const RequestVacation = () => {
+  const [step, setStep] = useState(0)
+  const [date, setDate] = useState()
+  const [description, setDescription] = useState('')
+  const [sickTime, setSickTime] = useState(false)
+
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
     return () => {
       StatusBar.setBarStyle('dark-content')
     }
   }, [])
-
-  const [step, setStep] = useState(0)
-  const [date, setDate] = useState()
-  const [description, setDescription] = useState('')
-  const [sickTime, setSickTime] = useState(false)
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback({ date, description, sickTime })

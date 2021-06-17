@@ -11,13 +11,13 @@ import { mkUseStyles, useColors } from 'utils/theme/index'
 
 type CheckboxProps = {
   checked: boolean
-  onClick: F0
+  onPress: F0
 }
 
 const DOT_POSITION_UNCHECKED = -1
 const DOT_POSITION_CHECKED = 25
 
-export const Checkbox = ({ checked, onClick }: CheckboxProps) => {
+export const Checkbox = ({ checked, onPress }: CheckboxProps) => {
   const styles = useStyles()
   const colors = useColors()
 
@@ -50,7 +50,7 @@ export const Checkbox = ({ checked, onClick }: CheckboxProps) => {
   }, [])
 
   return (
-    <TouchableOpacity onPress={onClick}>
+    <TouchableOpacity onPress={onPress}>
       <Animated.View style={[styles.container, backgroundStyles]}>
         <Animated.View style={[styles.dot, checked && styles.dotChecked, animatedDotStyle]} />
       </Animated.View>
@@ -65,7 +65,6 @@ const useStyles = mkUseStyles((theme) => ({
     borderRadius: theme.borderRadii.l,
     position: 'relative',
   },
-  containerChecked: {},
   dot: {
     position: 'absolute',
     top: -1,

@@ -76,7 +76,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             <Text variant="body1" textAlign="left">
               I'm not feeling well
             </Text>
-            <Checkbox checked={sickTime} onClick={toggle} />
+            <Checkbox checked={sickTime} onPress={toggle} />
           </Box>
         </Box>
         <Additionals />

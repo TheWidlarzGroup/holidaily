@@ -7,8 +7,8 @@ import { colors } from 'utils/theme/colors'
 import { CalendarRequestVacation } from './CalendarRequestVacation'
 
 type CalendarModalProps = Pick<ModalProps, 'isVisible'> & {
-  hideModal: () => void
-  showModal?: () => void
+  hideModal: F0
+  showModal?: F0
   isConfirmed?: boolean
 }
 
