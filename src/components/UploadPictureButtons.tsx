@@ -1,8 +1,7 @@
 import React from 'react'
-
+import { RectButton } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-
-import { BaseOpacity, Text, Box } from 'utils/theme'
+import { Text, Box, theme, mkUseStyles, Theme } from 'utils/theme'
 
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import Gallery from 'assets/icons/icon-gallery.svg'
@@ -14,33 +13,43 @@ type UploadPictureButtonsProps = {
 
 export const UploadPictureButtons = ({ onUploadImage }: UploadPictureButtonsProps) => {
   const { t } = useTranslation('uploadPictureModal')
+  const styles = useStyles()
 
   return (
     <Box padding="lplus">
-      <BaseOpacity
+      <RectButton
         onPress={() => onUploadImage('camera')}
-        flexDirection="row"
-        justifyContent="flex-start">
+        activeOpacity={0.2}
+        rippleColor={theme.colors.rippleColor}
+        style={styles.cameraBtn}>
         <Smartphone />
-        <Box
-          flexGrow={1}
-          borderBottomColor="black"
-          borderBottomWidth={1}
-          paddingBottom="m"
-          marginLeft="m">
+        <Box flexGrow={1} paddingBottom="m" marginLeft="m">
           <Text variant="boldBlack18">{t('openCamera')}</Text>
         </Box>
-      </BaseOpacity>
-      <BaseOpacity
+      </RectButton>
+      <Box height={1} backgroundColor="black" marginLeft="lplus" />
+      <RectButton
         onPress={() => onUploadImage('gallery')}
-        flexDirection="row"
-        marginTop="m"
-        justifyContent="center">
+        style={styles.galleryBtn}
+        activeOpacity={0.2}
+        rippleColor={theme.colors.rippleColor}>
         <Gallery />
         <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('openGallery')}</Text>
         </Box>
-      </BaseOpacity>
+      </RectButton>
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  cameraBtn: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  galleryBtn: {
+    flexDirection: 'row',
+    marginTop: theme.spacing.m,
+    justifyContent: 'center',
+  },
+}))

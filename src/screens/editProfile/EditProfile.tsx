@@ -29,7 +29,7 @@ export const EditProfile = () => {
   const [
     isUploadPictureModalVisible,
     { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
-  ] = useBooleanState(false)
+  ] = useBooleanState(true)
   const [photoURI, setPhotoURI] = useState<string | null | undefined>()
   const [
     isConfirmationModalVisible,
@@ -78,7 +78,7 @@ export const EditProfile = () => {
             content={t('changesSaved')}
           />
         )}
-        {isUploadPictureModalVisible && (
+        {true && (
           <UploadPictureModal
             isVisible={isUploadPictureModalVisible}
             hideModal={setUploadPictureModalVisibleFalse}
