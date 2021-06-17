@@ -25,8 +25,8 @@ export const CalendarDay: FC<DayComponentProps> = ({ date, state, marking, onPre
           borderRadius="l"
           borderWidth={state === 'today' ? 2 : 0}
           backgroundColor={state === 'selected' ? 'black' : 'transparent'}
-          width={26}
-          height={26}
+          width={28}
+          height={28}
           justifyContent="center"
           alignItems="center"
           margin="s">
