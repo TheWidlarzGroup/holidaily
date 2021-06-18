@@ -13,10 +13,10 @@ export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
 
   return (
     <Box>
-      <Box padding="s">
+      <Box paddingHorizontal="m" paddingVertical="s">
         <ExpandingText text={text} />
       </Box>
-      <Gallery data={data} />
+      {data.length > 0 ? <Gallery data={data} /> : null}
     </Box>
   )
 }
