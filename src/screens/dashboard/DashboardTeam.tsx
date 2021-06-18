@@ -26,7 +26,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   )
 
   return (
-    <SafeAreaWrapper isTabNavigation>
+    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
       <TeamHeader title={params.groupName} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Box paddingHorizontal="m" paddingBottom="xxl">

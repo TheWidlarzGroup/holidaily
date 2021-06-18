@@ -22,7 +22,7 @@ export const Dashboard = () => {
     navigation.navigate('DashboardTeam', { ...team })
 
   return (
-    <SafeAreaWrapper isDefaultBgColor isTabNavigation>
+    <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
       <DashboardHeader />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
