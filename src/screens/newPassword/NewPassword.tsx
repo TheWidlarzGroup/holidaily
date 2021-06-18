@@ -14,10 +14,8 @@ import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 
 export const NewPassword: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
-  const [
-    arePasswordsEqual,
-    { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual },
-  ] = useBooleanState(true)
+  const [arePasswordsEqual, { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual }] =
+    useBooleanState(true)
   const { t } = useTranslation(['recoveryCode', 'password'])
   const { control, handleSubmit, errors, watch } = useForm()
   const passwordConfirmationRef = useRef<TextInput>(null)

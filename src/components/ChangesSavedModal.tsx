@@ -30,7 +30,7 @@ export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSave
       style={styles.modal}
       hideModalContentWhileAnimating>
       <BaseOpacity onPress={hideModal} flex={1} justifyContent="center" alignItems="center">
-        <Text variant="boldBlackCenter20" marginBottom={48}>
+        <Text variant="boldBlackCenter20" marginBottom="xl">
           {content}
         </Text>
         <TickIcon />

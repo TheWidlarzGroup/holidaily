@@ -16,11 +16,8 @@ import { ForgotPasswordErrorModal } from './components/ForgotPasswordErrorModal'
 export const ForgotPassword: FC = () => {
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const { control, errors, handleSubmit } = useForm()
-  const {
-    handleInitializePasswordReset,
-    isLoading,
-    initializePasswordResetErrorMessage,
-  } = useInitializePasswordReset()
+  const { handleInitializePasswordReset, isLoading, initializePasswordResetErrorMessage } =
+    useInitializePasswordReset()
   const { updateUser } = useUserContext()
   const { t } = useTranslation('forgotPassword')
 
