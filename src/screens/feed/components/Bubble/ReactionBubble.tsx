@@ -14,10 +14,8 @@ type ReactionBubbleProps = {
 export const ReactionBubble = ({ selected, emoji, quantity, ...props }: ReactionBubbleProps) => {
   const [toggled, { toggle }] = useBooleanState(selected ?? false)
 
-  const bg = toggled ? 'primary' : 'rippleColor'
-
   return (
-    <Bubble margin="xs" onPress={toggle} {...props} {...bg}>
+    <Bubble margin="xs" onPress={toggle} {...props} bg={toggled ? 'primary' : 'rippleColor'}>
       <Text padding="s">{emoji}</Text>
       {quantity ? <Text paddingEnd="m">{quantity}</Text> : null}
     </Bubble>
