@@ -32,8 +32,8 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
           borderWidth={state === 'today' ? 2 : 0}
           borderColor={marking?.selected ? 'white' : 'black'}
           backgroundColor={state === 'selected' ? 'black' : 'transparent'}
-          width={26}
-          height={26}
+          width={28}
+          height={28}
           justifyContent="center"
           alignItems="center"
           margin="s">
