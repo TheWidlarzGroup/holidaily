@@ -1,4 +1,6 @@
-import { UserData } from 'types/holidaysDataTypes'
+import { UserData as DefaultUserData } from 'types/holidaysDataTypes'
+
+type UserData = DefaultUserData & { pictureUrl: string | null }
 
 export type Timestamp = {
   createdAt: Date
@@ -12,11 +14,11 @@ export type PostMetaData = {
 }
 
 export type Reaction = {
-  meta: PostMetaData
   type: ReactionType
+  users: string[]
 }
 
-export type ReactionType = 'angry' | 'smile' | 'thumb_up' | 'thumb_down'
+export type ReactionType = '😋' | '😎' | '😍' | '😀'
 
 export type Comment = {
   meta: PostMetaData
