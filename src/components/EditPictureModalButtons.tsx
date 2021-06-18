@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Box, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
+import { Text, Box, BaseOpacity } from 'utils/theme'
 
 import EditIcon from 'assets/icons/icon-edit-black.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
@@ -15,18 +15,28 @@ export const EditPictureModalButtons = ({
   onDeleteImage,
 }: EditPictureModalButtonsProps) => {
   const { t } = useTranslation('uploadPictureModal')
-  const styles = useStyles()
 
   return (
     <Box padding="lplus">
-      <BaseOpacity onPress={onChangeImage} activeOpacity={0.2} style={styles.changeBtn}>
+      <BaseOpacity
+        onPress={onChangeImage}
+        activeOpacity={0.2}
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="flex-start">
         <EditIcon />
-        <Box flexGrow={1} paddingBottom="m" marginLeft="m">
+        <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('changePicture')}</Text>
         </Box>
       </BaseOpacity>
-      <Box height={1} backgroundColor="black" marginLeft="lplus" />
-      <BaseOpacity onPress={onDeleteImage} style={styles.deleteBtn} activeOpacity={0.2}>
+      <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
+      <BaseOpacity
+        onPress={onDeleteImage}
+        flexDirection="row"
+        marginTop="m"
+        justifyContent="center"
+        alignItems="center"
+        activeOpacity={0.2}>
         <BinIcon />
         <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('deletePicture')}</Text>
@@ -35,15 +45,3 @@ export const EditPictureModalButtons = ({
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  changeBtn: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  deleteBtn: {
-    flexDirection: 'row',
-    marginTop: theme.spacing.m,
-    justifyContent: 'center',
-  },
-}))

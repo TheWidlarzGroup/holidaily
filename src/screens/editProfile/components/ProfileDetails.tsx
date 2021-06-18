@@ -56,11 +56,11 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           <Box
             position="absolute"
             right={0}
-            top={22}
+            top={20}
             backgroundColor="lightGrey"
             borderRadius="full"
-            width={55}
-            height={55}
+            width={58}
+            height={58}
             borderWidth={4}
             borderColor="white"
             justifyContent="center"
@@ -91,11 +91,11 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           <Box
             position="absolute"
             right={0}
-            top={22}
+            top={20}
             backgroundColor="lightGrey"
             borderRadius="full"
-            width={55}
-            height={55}
+            width={58}
+            height={58}
             borderWidth={4}
             borderColor="white"
             justifyContent="center"
@@ -126,11 +126,11 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           <Box
             position="absolute"
             right={0}
-            top={22}
+            top={20}
             backgroundColor="lightGrey"
             borderRadius="full"
-            width={55}
-            height={55}
+            width={58}
+            height={58}
             borderWidth={4}
             borderColor="white"
             justifyContent="center"

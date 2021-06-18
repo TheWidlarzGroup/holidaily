@@ -13,12 +13,20 @@ export const SaveChangesButton = ({ handleEditDetailsSubmit }: SaveChangesButton
   return (
     <Box
       position="absolute"
+      right={0}
+      left={0}
       bottom={0}
       backgroundColor="white"
-      height={100}
+      height={93}
       paddingTop="m"
+      alignItems="center"
       style={styles.shadow}>
-      <CustomButton label={t('saveChanges')} variant="primary" onPress={handleEditDetailsSubmit} />
+      <CustomButton
+        width={221}
+        label={t('saveChanges')}
+        variant="primary"
+        onPress={handleEditDetailsSubmit}
+      />
     </Box>
   )
 }

@@ -21,11 +21,11 @@ export const UploadPictureButtons = ({ onUploadImage }: UploadPictureButtonsProp
         activeOpacity={0.2}
         style={styles.cameraBtn}>
         <Smartphone />
-        <Box flexGrow={1} paddingBottom="m" marginLeft="m">
+        <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('openCamera')}</Text>
         </Box>
       </BaseOpacity>
-      <Box height={1} backgroundColor="black" marginLeft="lplus" />
+      <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
       <BaseOpacity
         onPress={() => onUploadImage('gallery')}
         style={styles.galleryBtn}
@@ -42,11 +42,13 @@ export const UploadPictureButtons = ({ onUploadImage }: UploadPictureButtonsProp
 const useStyles = mkUseStyles((theme: Theme) => ({
   cameraBtn: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   galleryBtn: {
     flexDirection: 'row',
     marginTop: theme.spacing.m,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 }))
