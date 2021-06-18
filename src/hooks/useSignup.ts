@@ -23,11 +23,11 @@ export const useSignup = () => {
   const { handleLoginUser } = useLogin()
   const [signupErrorMessage, setSignupErrorMessage] = useState('')
 
-  const { mutate: handleSignupUser, isLoading, isSuccess } = useMutation<
-    CreateUserTypes,
-    ErrorTypes,
-    SignupTypes
-  >(signupMutation, {
+  const {
+    mutate: handleSignupUser,
+    isLoading,
+    isSuccess,
+  } = useMutation<CreateUserTypes, ErrorTypes, SignupTypes>(signupMutation, {
     onSuccess: (data: CreateUserTypes) => {
       const { email } = data.createUser
 

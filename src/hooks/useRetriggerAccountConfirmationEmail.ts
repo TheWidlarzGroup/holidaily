@@ -16,14 +16,18 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
 export const useRetriggerAccountConfirmationEmail = () => {
   const { t } = useTranslation('mutationsErrors')
   const [confirmErrorMessage, setConfirmErrorMessage] = useState('')
-  const { mutate: handleRetriggerAccountConfirmationEmail, isLoading, isSuccess } = useMutation<
-    RetriggerAccountConfirmationEmailMutationTypes,
-    ErrorTypes
-  >(retriggerAccountConfirmationEmail, {
-    onError: (error) => {
-      setConfirmErrorMessage(customErrorMessage(t, error.message))
-    },
-  })
+  const {
+    mutate: handleRetriggerAccountConfirmationEmail,
+    isLoading,
+    isSuccess,
+  } = useMutation<RetriggerAccountConfirmationEmailMutationTypes, ErrorTypes>(
+    retriggerAccountConfirmationEmail,
+    {
+      onError: (error) => {
+        setConfirmErrorMessage(customErrorMessage(t, error.message))
+      },
+    }
+  )
 
   return { handleRetriggerAccountConfirmationEmail, isLoading, isSuccess, confirmErrorMessage }
 }

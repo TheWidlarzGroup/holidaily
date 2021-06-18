@@ -19,11 +19,11 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
 export const useConfirmAccount = () => {
   const { t } = useTranslation('mutationsErrors')
   const [confirmErrorMessage, setConfirmErrorMessage] = useState('')
-  const { mutate: handleConfirmAccount, isLoading, isSuccess } = useMutation<
-    Promise<void>,
-    ErrorTypes,
-    ConfirmTypes
-  >(confirmAccount, {
+  const {
+    mutate: handleConfirmAccount,
+    isLoading,
+    isSuccess,
+  } = useMutation<Promise<void>, ErrorTypes, ConfirmTypes>(confirmAccount, {
     onError: (error) => {
       setConfirmErrorMessage(customErrorMessage(t, error.message))
     },

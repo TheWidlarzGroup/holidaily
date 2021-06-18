@@ -84,6 +84,10 @@
     "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
     "loginButton": "Zaloguj się"
   },
+  "uploadPictureModal": {
+    "openCamera": "Zrób zdjęcie",
+    "openGallery": "Wybierz z galerii"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
@@ -104,11 +108,14 @@
     "addPhoto": "Dodaj zdjęcie profilowe",
     "editPhoto": "Edytuj zdjęcie profilowe",
     "editDetailsErrMsg": "Coś poszło nie tak. Spróbuj ponownie.",
-    "userNameSurname": "Imię i nazwisko",
+    "userFirstName": "Imię",
+    "userLastName": "Nazwisko",
     "userRole": "Stanowisko",
     "userPassword": "Hasło",
     "userSubscriptions": "Obserwowane zespoły",
-    "userColor": "Twój kolor"  
+    "userColor": "Twój kolor",
+    "saveChanges": "Zapisz zmiany",
+    "changesSaved": "Zmiany zostały zapisane"
   },  
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",

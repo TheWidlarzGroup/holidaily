@@ -21,10 +21,8 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
 export const useValidatePasswordResetCode = () => {
   const { t } = useTranslation('mutationsErrors')
   const navigation = useNavigation<AuthNavigationType<'RecoveryCode'>>()
-  const [
-    validatePasswordResetCodeErrorMessage,
-    setValidatePasswordResetCodeErrorMessage,
-  ] = useState('')
+  const [validatePasswordResetCodeErrorMessage, setValidatePasswordResetCodeErrorMessage] =
+    useState('')
   const { mutate: handleValidatePasswordResetCode, isLoading } = useMutation<
     ValidatePasswordResetCodeTypes,
     ErrorTypes,
