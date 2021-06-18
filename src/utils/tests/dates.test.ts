@@ -1,4 +1,4 @@
-import { getMonthName, isWeekend } from 'utils/dates'
+import { getMonthName, isWeekend, getDatesBetween } from 'utils/dates'
 import { DateTime } from 'luxon'
 
 describe('checksIfItsWeekend', () => {
@@ -24,5 +24,19 @@ describe('getsMonthName', () => {
   it('get proper month name from number', () => {
     expect(getMonthName(1, 'en')).toBe('January')
     expect(getMonthName(1, 'pl')).toBe('styczeń')
+  })
+})
+
+describe('getDatesBeetween', () => {
+  it('returns the correct dates', () => {
+    const dates = getDatesBetween('2021-06-19', '2021-06-22')
+    const expected = ['2021-06-19', '2021-06-20', '2021-06-21', '2021-06-22']
+    expect(dates).toMatchObject(expected)
+  })
+
+  it('works on months change', () => {
+    const dates = getDatesBetween('2021-06-29', '2021-07-02')
+    const expected = ['2021-06-29', '2021-06-30', '2021-07-01', '2021-07-02']
+    expect(dates).toMatchObject(expected)
   })
 })
