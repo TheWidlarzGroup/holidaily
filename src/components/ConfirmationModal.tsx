@@ -1,8 +1,9 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
 import { CustomModal } from 'components/CustomModal'
-import { theme, mkUseStyles, Theme, Text, Box } from 'utils/theme/index'
+import { theme, mkUseStyles, Theme, Text, Box } from 'utils/theme'
 import { CustomButton } from './CustomButton'
 
 type ConfirmationModalProps = Pick<ModalProps, 'isVisible'> & {
@@ -26,7 +27,7 @@ export const ConfirmationModal = ({
       isVisible={isVisible}
       onBackdropPress={hideModal}
       backdropColor={theme.colors.white}
-      backdropOpacity={0.8}
+      backdropOpacity={0.5}
       animationIn="slideInUp"
       animationOut="slideOutDown"
       animationInTiming={300}
@@ -41,21 +42,16 @@ export const ConfirmationModal = ({
         <Text variant="body1" marginBottom="xxl">
           {content}
         </Text>
-        <CustomButton
-          label={t('yes')}
-          variant="blackBgButton"
-          onPress={onAccept}
-          width={221}
-          height={53}
-          marginBottom={theme.spacing.xm}
-        />
-        <CustomButton
-          height={53}
-          width={221}
-          label={t('no')}
-          variant="secondary"
-          onPress={onDecline}
-        />
+        <Box marginBottom="xm">
+          <TouchableOpacity onPress={onAccept} activeOpacity={1}>
+            <CustomButton label={t('yes')} variant="blackBgButton" width={221} height={53} />
+          </TouchableOpacity>
+        </Box>
+        <Box>
+          <TouchableOpacity onPress={onDecline} activeOpacity={1}>
+            <CustomButton label={t('no')} variant="secondary" width={221} height={53} />
+          </TouchableOpacity>
+        </Box>
       </Box>
     </CustomModal>
   )
