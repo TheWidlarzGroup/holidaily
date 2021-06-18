@@ -1,10 +1,8 @@
 import React from 'react'
 import { Box } from 'utils/theme'
-import { DayComponentProps } from 'react-native-calendars'
+import { MarkingType } from './CalendarTypes'
 
-type CalendarDayDotsProps = Pick<DayComponentProps, 'marking'>
-
-export const CalendarDayDots = ({ marking }: CalendarDayDotsProps) => {
+export const CalendarDayDots = ({ marking }: MarkingType) => {
   const dots = {
     firstThree: marking?.dots?.slice(0, 3),
     isMore: marking?.dots?.length > 3,
