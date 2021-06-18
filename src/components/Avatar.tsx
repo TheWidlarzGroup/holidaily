@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image'
 const sizes = themeBase.avatarSize
 
 type AvatarProps = {
-  src?: string
+  src?: string | null
   size?: keyof typeof sizes | number
 }
 
