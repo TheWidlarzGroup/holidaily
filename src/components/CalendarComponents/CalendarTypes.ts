@@ -7,10 +7,10 @@ import {
   CustomMarking,
 } from 'react-native-calendars'
 
-type DayComponentProps2 = Omit<DayComponentProps, 'marking'>
+type DayComponentPropsWithoutMarking = Omit<DayComponentProps, 'marking'>
 
 export type MarkingType = {
   marking: MultiDotMarking & MultiPeriodMarking & PeriodMarking & DotMarking & CustomMarking
 }
 
-export type NewDayComponentProps = DayComponentProps2 & MarkingType
+export type NewDayComponentProps = DayComponentPropsWithoutMarking & MarkingType
