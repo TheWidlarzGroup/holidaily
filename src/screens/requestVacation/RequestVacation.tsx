@@ -37,7 +37,7 @@ export const RequestVacation = () => {
   }
 
   return (
-    <SafeAreaWrapper>
+    <Box flex={1}>
       <HeaderRequestVacation />
       <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
       <Box margin="l" flex={1}>
@@ -46,6 +46,6 @@ export const RequestVacation = () => {
         )}
         {step === 1 && <SummaryRequestVacation description={description} sickTime={sickTime} />}
       </Box>
-    </SafeAreaWrapper>
+    </Box>
   )
 }

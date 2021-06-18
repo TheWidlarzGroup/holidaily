@@ -3,16 +3,15 @@ import { ModalProps } from 'react-native-modal'
 
 import { CustomModal } from 'components/CustomModal'
 import { colors } from 'utils/theme/colors'
-import { CalendarRequestVacation } from './CalendarRequestVacation'
-import { mkUseStyles } from 'utils/theme'
+import { Text, mkUseStyles } from 'utils/theme'
 
-type CalendarModalProps = Pick<ModalProps, 'isVisible'> & {
+type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   showModal?: F0
   isConfirmed?: boolean
 }
 
-export const CalendarModal: FC<CalendarModalProps> = ({
+export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
   isVisible,
   hideModal,
   showModal,
@@ -38,7 +37,7 @@ export const CalendarModal: FC<CalendarModalProps> = ({
       backdropOpacity={0.8}
       style={styles.modal}
       hideModalContentWhileAnimating>
-      <CalendarRequestVacation />
+      <Text variant="body1Bold"> 18 Jun</Text>
     </CustomModal>
   )
 }
@@ -47,16 +46,13 @@ const useStyles = mkUseStyles((theme) => ({
   modal: {
     flex: 1,
     position: 'absolute',
-    top: 20,
+    bottom: -20,
     left: -20,
     right: -20,
-    marginTop: theme.spacing.lplus,
     borderTopLeftRadius: theme.borderRadii.lmin,
     borderTopRightRadius: theme.borderRadii.lmin,
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
-    elevation: 20,
+    backgroundColor: theme.colors.primary,
+    height: 180,
+    padding: 20,
   },
 }))
