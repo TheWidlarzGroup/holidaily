@@ -1,8 +1,8 @@
 import React from 'react'
-import { Calendar, CalendarMarkingProps } from 'react-native-calendars'
+import { Calendar } from 'react-native-calendars'
 import { NewCalendarBaseProps } from './CalendarTypes'
 
-export class NewCalendar extends React.Component<NewCalendarBaseProps & CalendarMarkingProps> {
+export class NewCalendar extends React.Component<NewCalendarBaseProps> {
   render() {
     return Calendar
   }

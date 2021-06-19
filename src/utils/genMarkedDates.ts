@@ -1,6 +1,6 @@
 import { getDatesBetween } from './dates'
 
-type MarkedDateType = {
+export type MarkedDateType = {
   selected?: boolean
   color?: string
   endingDay?: boolean

@@ -74,10 +74,10 @@ export const Calendar = ({
         },
         ...theme,
       }}
+      {...props}
       onDayPress={handleClick}
       renderHeader={(date: Date) => <CalendarHeader date={date} />}
       markedDates={genMarkedDates(selectedPeriodStart, selectedPeriodEnd)}
-      {...props}
     />
   )
 }
