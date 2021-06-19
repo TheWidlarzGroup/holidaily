@@ -1,3 +1,4 @@
+import { MultiDotMarking, PeriodMarking } from 'react-native-calendars'
 import { getDatesBetween } from './dates'
 
 export type MarkedDateType = {
@@ -9,16 +10,18 @@ export type MarkedDateType = {
 
 export const genMarkedDates = (start?: string, end?: string) => {
   if (!start || !end) return {}
-  const obj: any = {}
+  const obj: {
+    [date: string]: PeriodMarking & Partial<MultiDotMarking>
+  } = {}
   const dates = getDatesBetween(start, end)
 
   dates.forEach((date) => {
-    obj.markedDates[date] = {
+    obj[date] = {
       selected: true,
     }
   })
 
-  obj.markedDates[dates[0]].startingDay = true
-  obj.markedDates[dates[dates.length - 1]].endingDay = true
+  obj[dates[0]].startingDay = true
+  obj[dates[dates.length - 1]].endingDay = true
   return obj
 }
