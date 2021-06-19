@@ -6,23 +6,19 @@ import {
   DotMarking,
   CustomMarking,
   CalendarBaseProps,
+  CalendarMarkingProps,
 } from 'react-native-calendars'
-import { MarkedDateType } from 'utils/genMarkedDates'
 
-type DayComponentPropsWithoutMarking = Omit<DayComponentProps, 'marking'>
+export type DayComponentPropsWithoutMarking = Omit<DayComponentProps, 'marking'>
 
 export type MarkingType = {
   marking: MultiDotMarking & MultiPeriodMarking & PeriodMarking & DotMarking & CustomMarking
 }
 
-export type NewDayComponentProps = DayComponentPropsWithoutMarking & MarkingType
+export type NewDayComponentProps = Partial<DayComponentPropsWithoutMarking> & Partial<MarkingType>
 
 type CalendarBasePropsWithoutDay = Omit<CalendarBaseProps, 'dayComponent'>
 
-type NewCalendarMarkingProps = {
-  markedDates: MarkedDateType
-}
-
 export type NewCalendarBaseProps = CalendarBasePropsWithoutDay &
   NewDayComponentProps &
-  NewCalendarMarkingProps
+  CalendarMarkingProps

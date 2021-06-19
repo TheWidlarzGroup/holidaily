@@ -9,16 +9,16 @@ export type MarkedDateType = {
 
 export const genMarkedDates = (start?: string, end?: string) => {
   if (!start || !end) return {}
-  const obj: { [key: string]: MarkedDateType } = {}
+  const obj: any = {}
   const dates = getDatesBetween(start, end)
 
   dates.forEach((date) => {
-    obj[date] = {
+    obj.markedDates[date] = {
       selected: true,
     }
   })
 
-  obj[dates[0]].startingDay = true
-  obj[dates[dates.length - 1]].endingDay = true
+  obj.markedDates[dates[0]].startingDay = true
+  obj.markedDates[dates[dates.length - 1]].endingDay = true
   return obj
 }

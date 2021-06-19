@@ -2,10 +2,10 @@ import React from 'react'
 import { Box } from 'utils/theme'
 import { MarkingType } from './CalendarTypes'
 
-export const CalendarDayDots = ({ marking }: MarkingType) => {
+export const CalendarDayDots = ({ marking }: Partial<MarkingType>) => {
   const dots = {
     firstThree: marking?.dots?.slice(0, 3),
-    isMore: marking?.dots?.length > 3,
+    isMore: marking && marking?.dots?.length > 3,
   }
 
   return (
