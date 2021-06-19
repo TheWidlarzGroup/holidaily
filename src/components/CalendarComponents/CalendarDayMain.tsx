@@ -3,6 +3,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
+import { DateObject } from 'react-native-calendars'
 import { NewDayComponentProps } from './CalendarTypes'
 
 type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
@@ -10,7 +11,7 @@ type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'sta
 export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
   const styles = useStyles()
 
-  const day = DateTime.fromISO(date.dateString)
+  const day = date && DateTime.fromISO(date.dateString)
   const textColor = () => {
     if (state === 'selected' || marking?.selected) return 'white'
     if (isWeekend(day)) return 'grey'
@@ -26,7 +27,9 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
         marking?.startingDay && styles.start,
         marking?.selected && isWeekend(day) && styles.selectedDisabled,
       ]}>
-      <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
+      <BorderlessButton
+        onPress={() => onPress && onPress(date as DateObject)}
+        enabled={!isWeekend(day)}>
         <Box
           borderRadius="l"
           borderWidth={state === 'today' ? 2 : 0}
@@ -38,7 +41,7 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
           alignItems="center"
           margin="s">
           <Text color={textColor()} variant="bold15">
-            {date.day}
+            {date?.day}
           </Text>
         </Box>
       </BorderlessButton>
