@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Calendar as RNCalendar,
-  CalendarProps as RNCalendarProps,
-  LocaleConfig,
-} from 'react-native-calendars'
-import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
+import { LocaleConfig } from 'react-native-calendars'
 import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 import { genMarkedDates } from 'utils/genMarkedDates'
+import { NewCalendarBaseProps } from './CalendarComponents/CalendarTypes'
+import { NewCalendar } from './CalendarComponents/NewCalendar'
 
 type ClickProps = {
   dateString: string
@@ -20,7 +17,10 @@ type ClickProps = {
 }
 
 type CustomCalendarProps = {
-  onSelectedPeriodChange?: F2<string, string>
+  onSelectedPeriodChange?: F2<
+    string | undefined,
+    React.Dispatch<React.SetStateAction<string | undefined>>
+  >
   selectable?: boolean
 }
 
@@ -29,9 +29,9 @@ export const Calendar = ({
   onSelectedPeriodChange,
   selectable = false,
   ...props
-}: RNCalendarProps & CustomCalendarProps) => {
-  const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
-  const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
+}: NewCalendarBaseProps & CustomCalendarProps) => {
+  const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>(undefined)
+  const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (!onSelectedPeriodChange) return
@@ -53,7 +53,7 @@ export const Calendar = ({
   const { i18n } = useTranslation()
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
   return (
-    <RNCalendar
+    <NewCalendar
       firstDay={1}
       hideExtraDays
       theme={{
@@ -74,7 +74,6 @@ export const Calendar = ({
         },
         ...theme,
       }}
-      dayComponent={CalendarDay}
       onDayPress={handleClick}
       renderHeader={(date: Date) => <CalendarHeader date={date} />}
       markedDates={genMarkedDates(selectedPeriodStart, selectedPeriodEnd)}
