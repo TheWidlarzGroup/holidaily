@@ -40,7 +40,46 @@ export const MOCK_POSTS: FeedPost[] = [
         users: ['1', '2', '3', '4'],
       },
     ],
-    comments: [],
+    comments: [
+      {
+        meta: {
+          id: '1',
+          author: {
+            id: '1',
+            firstName: 'Actor / Director',
+            lastName: 'Jack Nickolson',
+            pictureUrl:
+              'https://images.unsplash.com/photo-1623790679437-72cbde564d59?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+          },
+          timestamp: {
+            createdAt: new Date(),
+            editedAt: new Date(),
+          },
+        },
+        comments: [],
+        reactions: [],
+        text: 'Hello darkness',
+      },
+      {
+        meta: {
+          id: '2',
+          author: {
+            id: '1',
+            firstName: 'Actor / Director',
+            lastName: 'Jack Nickolson',
+            pictureUrl:
+              'https://images.unsplash.com/photo-1623790679437-72cbde564d59?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+          },
+          timestamp: {
+            createdAt: new Date(),
+            editedAt: new Date(),
+          },
+        },
+        comments: [],
+        reactions: [],
+        text: 'Hello darkness',
+      },
+    ],
   },
   {
     meta: {
