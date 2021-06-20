@@ -7,22 +7,21 @@ import { EditPictureModalButtons } from './EditPictureModalButtons'
 
 type EditPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
-  showUploadModal: () => void
-  setPhotoURI: F1<string | undefined | null>
+  showUploadModal: F0
+  showDeleteCheckModal: F0
 }
 
 export const EditPictureModal = ({
   isVisible,
   hideModal,
-  setPhotoURI,
   showUploadModal,
+  showDeleteCheckModal,
 }: EditPictureModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
 
   const onDeleteImage = () => {
-    setPhotoURI(null)
-    hideModal()
+    showDeleteCheckModal()
   }
   const onChangeImage = () => {
     showUploadModal()
@@ -33,7 +32,7 @@ export const EditPictureModal = ({
       isVisible={isVisible}
       onBackdropPress={hideModal}
       backdropColor={theme.colors.white}
-      backdropOpacity={0.8}
+      backdropOpacity={0.5}
       animationIn="slideInUp"
       animationOut="slideOutDown"
       animationInTiming={300}

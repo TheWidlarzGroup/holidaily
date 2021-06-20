@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { CustomButton } from 'components/CustomButton'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { EditPictureModal } from 'components/EditPictureModal'
-import { UploadPictureModal } from 'components/UploadPictureModal'
-import { mkUseStyles, Theme, Box } from 'utils/theme'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
+import { SaveChangesButton } from './components/SaveChangesButton'
 
 export const EditProfile = () => {
   const { user } = useUserContext()
@@ -27,82 +25,35 @@ export const EditProfile = () => {
   })
   const { t } = useTranslation('userProfile')
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
+
   const [
-    isUploadPictureModalVisible,
-    { setTrue: showUploadPictureModal, setFalse: hideUploadPictureModal },
-  ] = useBooleanState(false)
-  const [
-    isEditPictureModalVisible,
-    { setTrue: showEditPictureModal, setFalse: hideEditPictureModal },
-  ] = useBooleanState(false)
-  const [photoURI, setPhotoURI] = useState<string | null | undefined>()
-  const [
-    isConfirmationModalVisible,
-    { setTrue: showConfirmationModal, setFalse: hideConfirmationModal },
+    isChangesSavedModalVisible,
+    { setTrue: showChangesSavedModal, setFalse: hideChangesSavedModal },
   ] = useBooleanState(false)
 
   const handleEditDetailsSubmit = () => {
     setEditedFalse()
-    showConfirmationModal()
+    showChangesSavedModal()
     // TODO: function updating user data from const {firstName, lastName, role} = getValues()
   }
 
   return (
-    <>
-      <SafeAreaView style={styles.mainView}>
-        <ScrollView style={{ marginBottom: isEdited ? 100 : 0 }}>
-          <ProfilePicture
-            {...user}
-            setIsEdited={setEditedTrue}
-            showUploadModal={showUploadPictureModal}
-            showEditModal={showEditPictureModal}
-            photoURI={photoURI}
-          />
-          <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
-          <TeamSubscriptions />
-          <ProfileColor />
-        </ScrollView>
-        {isEdited && (
-          <Box
-            position="absolute"
-            bottom={0}
-            backgroundColor="white"
-            height={100}
-            paddingTop="m"
-            style={styles.shadow}>
-            <CustomButton
-              label={t('saveChanges')}
-              variant="primary"
-              onPress={handleEditDetailsSubmit}
-            />
-          </Box>
-        )}
-        {isConfirmationModalVisible && (
-          <ChangesSavedModal
-            isVisible={isConfirmationModalVisible}
-            hideModal={hideConfirmationModal}
-            content={t('changesSaved')}
-          />
-        )}
-        {isUploadPictureModalVisible && (
-          <UploadPictureModal
-            isVisible={isUploadPictureModalVisible}
-            hideModal={hideUploadPictureModal}
-            onUserCancelled={setEditedFalse}
-            setPhotoURI={setPhotoURI}
-            hideEditPictureModal={hideEditPictureModal}
-          />
-        )}
-        {isEditPictureModalVisible && (
-          <EditPictureModal
-            showUploadModal={showUploadPictureModal}
-            isVisible
-            hideModal={hideEditPictureModal}
-            setPhotoURI={setPhotoURI}
-          />
-        )}
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={styles.mainView}>
+      <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+        <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
+        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+        <TeamSubscriptions />
+        <ProfileColor />
+      </ScrollView>
+      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleEditDetailsSubmit} />}
+      {isChangesSavedModalVisible && (
+        <ChangesSavedModal
+          isVisible={isChangesSavedModalVisible}
+          hideModal={hideChangesSavedModal}
+          content={t('changesSaved')}
+        />
+      )}
+    </SafeAreaView>
   )
 }
 
