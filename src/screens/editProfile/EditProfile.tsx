@@ -1,11 +1,13 @@
 import React from 'react'
-import { ScrollView, SafeAreaView } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import IconBack from 'assets/icons/icon-back.svg'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -13,6 +15,7 @@ import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
 export const EditProfile = () => {
+  const { goBack } = useNavigation()
   const { user } = useUserContext()
   const { firstName, lastName, role } = user
   const styles = useStyles()
@@ -24,6 +27,7 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
+
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
   const [
@@ -40,6 +44,9 @@ export const EditProfile = () => {
   return (
     <SafeAreaView style={styles.mainView}>
       <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+        <TouchableOpacity onPress={goBack} style={styles.backBtn}>
+          <IconBack />
+        </TouchableOpacity>
         <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
         <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
         <TeamSubscriptions />
@@ -68,5 +75,11 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
+  },
+  backBtn: {
+    position: 'absolute',
+    left: 15,
+    top: 65,
+    padding: 10,
   },
 }))
