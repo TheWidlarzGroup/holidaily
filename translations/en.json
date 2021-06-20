@@ -119,5 +119,10 @@
     "outOfWork": "Out of work",
     "backAtWork": "Back at work",
     "lastDayAtWork": "Last day at work"
+  },
+  "feed": {
+    "postCommentBtn": "Comment",
+    "comments": "Comments",
+    "noComments": "No comments yet"
   }
 }

@@ -32,6 +32,9 @@ export const setDateToBeDisplayed = (date: string, currentlyOnHoliday: boolean) 
   return currentlyOnHoliday ? convertedDate.plus({ days: 1 }) : convertedDate.minus({ days: 1 })
 }
 
+export const displayDDMonYYYY = (date: DateTime, language: string) =>
+  date.setLocale(language).toFormat('dd LLL yyyy')
+
 // SUM FUNCTIONS
 
 // function to count how many people are on holidays in team

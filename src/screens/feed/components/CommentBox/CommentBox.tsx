@@ -1,6 +1,7 @@
 import { Avatar } from 'components/Avatar'
 import { useBooleanState } from 'hooks/useBooleanState'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { FeedPost, Comment as CommentType } from '../../types'
@@ -15,20 +16,24 @@ export const CommentBox = ({ comments }: CommentBoxProps) => {
 
   return (
     <Box padding="s">
-      <CommentBoxBtn quantity={comments.length} onPress={toggle} opened={opened} />
-      <Box>
-        {opened && (
-          <FlatList
-            data={comments}
-            renderItem={({ item, index }) => {
-              const authorId = comments[index].meta.author.id
-              const prevAuthorId = comments?.[index - 1]?.meta.author?.id
-              return <Comment comment={item} hideAvatar={authorId === prevAuthorId} />
-            }}
-            keyExtractor={({ meta }) => meta.id}
-          />
-        )}
-      </Box>
+      {comments.length > 0 && (
+        <>
+          <CommentBoxBtn quantity={comments.length} onPress={toggle} opened={opened} />
+          <Box>
+            {opened && (
+              <FlatList
+                data={comments}
+                renderItem={({ item, index }) => {
+                  const authorId = comments[index].meta.author.id
+                  const prevAuthorId = comments?.[index - 1]?.meta.author?.id
+                  return <Comment comment={item} hideAvatar={authorId === prevAuthorId} />
+                }}
+                keyExtractor={({ meta }) => meta.id}
+              />
+            )}
+          </Box>
+        </>
+      )}
     </Box>
   )
 }
@@ -62,16 +67,19 @@ type CommentBoxBtnProps = {
   onPress: F0
 }
 
-const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps) => (
-  <BaseOpacity onPress={onPress} padding="s">
-    <Text>
-      {quantity === 0 ? (
-        'No comments yet.'
-      ) : (
-        <>
-          {quantity} Comments {opened ? '>' : '^'}
-        </>
-      )}
-    </Text>
-  </BaseOpacity>
-)
+const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps) => {
+  const { t } = useTranslation('feed')
+  return (
+    <BaseOpacity onPress={onPress} padding="s">
+      <Text>
+        {quantity === 0 ? (
+          <>{t('noComments')}</>
+        ) : (
+          <>
+            {quantity} {t('comments')} {opened ? '>' : '^'}
+          </>
+        )}
+      </Text>
+    </BaseOpacity>
+  )
+}

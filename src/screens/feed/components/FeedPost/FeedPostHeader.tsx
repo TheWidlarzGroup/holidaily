@@ -3,8 +3,8 @@ import React from 'react'
 import { FeedPost } from 'screens/feed/types'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
-
-// TODO: Localization
+import { displayDDMonYYYY } from 'utils/functions'
+import { useTranslation } from 'react-i18next'
 
 type FeedPostHeaderProps = Pick<FeedPost, 'meta'>
 
@@ -25,7 +25,9 @@ type HeaderInfoProps = Pick<FeedPostHeaderProps, 'meta'>
 
 const HeaderInfo = ({ meta }: HeaderInfoProps) => {
   const { timestamp, author } = meta
-  const formattedDate = displayDDMonYYYY(DateTime.fromJSDate(timestamp.createdAt), '')
+
+  const { i18n } = useTranslation('feed')
+  const formattedDate = displayDDMonYYYY(DateTime.fromJSDate(timestamp.createdAt), i18n.language)
 
   return (
     <>
@@ -42,8 +44,4 @@ const HeaderInfo = ({ meta }: HeaderInfoProps) => {
       </Box>
     </>
   )
-}
-
-function displayDDMonYYYY(date: DateTime, lang: string) {
-  return date.setLocale(lang).toFormat('dd LLL yyyy')
 }
