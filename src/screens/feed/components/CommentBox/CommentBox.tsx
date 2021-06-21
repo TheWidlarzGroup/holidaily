@@ -4,6 +4,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { BaseOpacity, Box, Text } from 'utils/theme'
+import IconArrowUp from 'assets/icons/icon-arrow-up.svg'
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { FeedPost, Comment as CommentType } from '../../types'
 import { Bubble } from '../Bubble/Bubble'
 
@@ -66,20 +68,37 @@ type CommentBoxBtnProps = {
   opened: boolean
   onPress: F0
 }
+const setRotationValue = (cond: boolean) => (cond ? 180 : 0)
 
 const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps) => {
   const { t } = useTranslation('feed')
+
+  const rotation = useSharedValue(setRotationValue(opened))
+
+  const rotationStyles = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }))
+
   return (
-    <BaseOpacity onPress={onPress} padding="s">
-      <Text>
-        {quantity === 0 ? (
-          <>{t('noComments')}</>
-        ) : (
-          <>
-            {quantity} {t('comments')} {opened ? '>' : '^'}
-          </>
-        )}
-      </Text>
+    <BaseOpacity
+      onPress={() => {
+        rotation.value = withSpring(setRotationValue(opened))
+        onPress()
+      }}
+      padding="s"
+      alignSelf="flex-start">
+      {quantity > 0 ? (
+        <Box flexDirection="row" alignItems="center">
+          <Box>
+            <Text>
+              {quantity} {t('comments')}
+            </Text>
+          </Box>
+          <Animated.View style={[rotationStyles]}>
+            <IconArrowUp />
+          </Animated.View>
+        </Box>
+      ) : null}
     </BaseOpacity>
   )
 }
