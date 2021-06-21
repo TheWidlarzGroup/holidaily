@@ -3,7 +3,6 @@ import { Box, Text } from 'utils/theme'
 import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 import { getDateWithMonthString, getDayName } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
-import { DateTime } from 'luxon'
 
 export type DayOffEvent = {
   person: string
