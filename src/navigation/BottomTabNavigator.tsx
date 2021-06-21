@@ -6,7 +6,8 @@ import { ViewProps } from 'react-native'
 
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
-import { Panel } from 'screens/panel/Panel'
+// import { Panel } from 'screens/panel/Panel'
+import { Feed } from 'screens/feed/Feed'
 import { Chat } from 'screens/chat/Chat'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
@@ -34,7 +35,7 @@ export const BottomTabNavigator = ({ style }: ViewProps) => (
         />
         <Tab.Screen name="Calendar" component={Calendar} />
         <Tab.Screen name="RequestModal" component={EmptyComponent} />
-        <Tab.Screen name="Panel" component={Panel} />
+        <Tab.Screen name="Panel" component={Feed} />
         <Tab.Screen name="Chat" component={Chat} />
       </Tab.Navigator>
     </Animated.View>

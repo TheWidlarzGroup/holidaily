@@ -6,7 +6,7 @@ type ProviderProps = {
 }
 
 export const emptyUser = {
-  firstName: '',
+  firstName: 'Joe',
   lastName: '',
   email: '',
   isConfirmed: false,
