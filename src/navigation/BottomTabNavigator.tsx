@@ -2,6 +2,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Animated from 'react-native-reanimated'
 import { ViewProps } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Panel } from 'screens/panel/Panel'
@@ -9,8 +11,6 @@ import { Chat } from 'screens/chat/Chat'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
-import { mkUseStyles, Theme } from 'utils/theme'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
