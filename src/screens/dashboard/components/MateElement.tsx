@@ -13,7 +13,7 @@ type MateElementProps = RequiredMateHolidaysData
 
 export const MateElement = (props: MateElementProps) => {
   const { t, i18n } = useTranslation('dashboard')
-  const { firstName, lastName, holidays, picture } = props
+  const { firstName, lastName, holidays, photo } = props
   const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
@@ -37,7 +37,7 @@ export const MateElement = (props: MateElementProps) => {
       alignItems="center"
       onPress={navigateToMateDetails}>
       <Box margin="m">
-        {picture ? <Image source={{ uri: picture }} /> : <IconProfile width={62} height={62} />}
+        {photo ? <Image source={{ uri: photo }} /> : <IconProfile width={62} height={62} />}
         {holidays.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">

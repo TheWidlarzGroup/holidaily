@@ -32,13 +32,13 @@ export const TeamElement = (props: TeamElementProps) => {
         </Box>
       </Box>
       <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-        {users[0]?.picture ? (
-          <Image source={{ uri: users[0].picture }} />
+        {users[0]?.photo ? (
+          <Image source={{ uri: users[0].photo }} />
         ) : (
           <IconProfile width={62} height={62} />
         )}
-        {users[1]?.picture ? (
-          <Image source={{ uri: users[0].picture }} />
+        {users[1]?.photo ? (
+          <Image source={{ uri: users[1].photo }} />
         ) : (
           <IconProfile width={62} height={62} />
         )}

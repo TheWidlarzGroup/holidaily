@@ -32,7 +32,7 @@ export const Dashboard = () => {
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}
               lastName={item.user.lastName}
-              picture={item.user.picture}
+              photo={item.user.photo}
               dayToBeDisplayed={item.dayToBeDisplayed}
             />
           ))}
