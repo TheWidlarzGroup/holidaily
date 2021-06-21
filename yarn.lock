@@ -1448,26 +1448,14 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
-"@types/react-native-calendars@^1.505.3":
-  version "1.505.3"
-  resolved "https://registry.yarnpkg.com/@types/react-native-calendars/-/react-native-calendars-1.505.3.tgz#8a3b7b6adf4a7753022cf53d72a34cdb2dc56659"
-  integrity sha512-YgJXlwf4Nznoe8hI4LC0ZlDYgAkCHAkG6iKTo8rg+lOyJyzrsFSWDrSv2mb4lLNZgNkdbMNLpT70Xdj52LueBA==
-  dependencies:
-    "@types/react" "*"
-    "@types/react-native" "*"
-    "@types/xdate" "*"
+"@types/react-native-calendars@https://github.com/mateki0/DefinitelyTyped":
+  version "0.0.3"
+  resolved "https://github.com/mateki0/DefinitelyTyped#b43316be60c63961e61a3f899e4ab9e05b28fd3c"
 
 "@types/react-native-dotenv@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@types/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz#32c58422a422c1adf68acce363ed791314d5a8e7"
   integrity sha512-ZxX+dU/yoQc0jTk+/NWttkiuXceJyN5FpOSqDl0WynN5GDzxwH7OMruQ47qcY8llo2RD3irjvzJ9BwC8gDiq0A==
-
-"@types/react-native@*":
-  version "0.64.10"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.10.tgz#5eb6a72c77ce0f7e6e14b19c61a6bc585975eef5"
-  integrity sha512-3Kb9QM5/WZ6p58yZ7VPbvjvi6Wc/ZkESgJhKso1gKkNuHBe/4WL6586R2JRDiz9Tsxal9lMnbj3fligBVGl8PA==
-  dependencies:
-    "@types/react" "*"
 
 "@types/react-native@^0.63.2":
   version "0.63.52"
@@ -1502,7 +1490,7 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
-"@types/xdate@*":
+"@types/xdate@^0.8.31":
   version "0.8.31"
   resolved "https://registry.yarnpkg.com/@types/xdate/-/xdate-0.8.31.tgz#7bec14a47c9bb30715d507f32bc82ab163149574"
   integrity sha512-iZYRKKK8UZXoepNh2kwK6TPITMj/dwdv0NzNi9DFMt2foGkU7h+ncaCpGsdD2fp/CXMs9dxPAzV9uddFy7c4QA==
@@ -6742,6 +6730,14 @@ react-native-modal@^11.7.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
+react-native-month-year-picker@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/react-native-month-year-picker/-/react-native-month-year-picker-1.6.4.tgz#badcbf4de7b2214773e8941ebd7e4933ccbedf26"
+  integrity sha512-cgL+A9nNASkQR8WOkzmXdFOiMI+BcqJekLkqvZSUfQi4bJw65PdIBl5VsaHP1pchBgUbw61GQRxS8pS/qAeeOA==
+  dependencies:
+    invariant "^2.2.4"
+    moment "^2.24.0"
+
 react-native-reanimated@^2.0.1:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.2.0.tgz#a6412c56b4e591d1f00fac949f62d0c72c357c78"
@@ -8386,7 +8382,7 @@ xcode@^2.0.0:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
 
-xdate@^0.8.0:
+xdate@^0.8.0, xdate@^0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/xdate/-/xdate-0.8.2.tgz#d7b033c00485d02695baf0044f4eacda3fc961a3"
   integrity sha1-17AzwASF0CaVuvAET06s2j/JYaM=
