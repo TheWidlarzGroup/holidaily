@@ -1,6 +1,6 @@
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
@@ -8,6 +8,7 @@ import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import IconBack from 'assets/icons/icon-back.svg'
+import { ModalProvider } from '../../contexts/ModalProvider'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -36,31 +37,33 @@ export const EditProfile = () => {
   ] = useBooleanState(false)
 
   const handleEditDetailsSubmit = () => {
-    setEditedFalse()
     showChangesSavedModal()
+    setEditedFalse()
     // TODO: function updating user data from const {firstName, lastName, role} = getValues()
   }
 
   return (
-    <SafeAreaView style={styles.mainView}>
-      <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
-        <TouchableOpacity onPress={goBack} style={styles.backBtn}>
-          <IconBack />
-        </TouchableOpacity>
-        <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
-        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
-        <TeamSubscriptions />
-        <ProfileColor />
-      </ScrollView>
-      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleEditDetailsSubmit} />}
-      {isChangesSavedModalVisible && (
-        <ChangesSavedModal
-          isVisible={isChangesSavedModalVisible}
-          hideModal={hideChangesSavedModal}
-          content={t('changesSaved')}
-        />
-      )}
-    </SafeAreaView>
+    <ModalProvider>
+      <SafeAreaView style={styles.mainView}>
+        <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+          <TouchableOpacity onPress={goBack} style={styles.backBtn}>
+            <IconBack />
+          </TouchableOpacity>
+          <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
+          <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+          <TeamSubscriptions />
+          <ProfileColor />
+        </ScrollView>
+        {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleEditDetailsSubmit} />}
+        {isChangesSavedModalVisible && (
+          <ChangesSavedModal
+            isVisible={isChangesSavedModalVisible}
+            hideModal={hideChangesSavedModal}
+            content={t('changesSaved')}
+          />
+        )}
+      </SafeAreaView>
+    </ModalProvider>
   )
 }
 

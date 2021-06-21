@@ -3,7 +3,6 @@ import { Image } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadPictureModal } from 'components/UploadPictureModal'
 import { EditPictureModal } from 'components/EditPictureModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
@@ -11,6 +10,7 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
 import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
 import { TextLink } from 'components/TextLink'
+import { useModalContext } from '../../../contexts/ModalProvider'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
@@ -18,40 +18,75 @@ type ProfilePictureProps = {
 }
 
 export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePictureProps) => {
+  const { handleModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const { user } = useUserContext()
   const { photo: userPhoto } = user
   const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
   const [photoURI, setPhotoURI] = useState<string | null | undefined>()
-  const [
-    isDeleteCompletionModalVisible,
-    { setTrue: showDeleteCompletionModal, setFalse: hideDeleteCompletionModal },
-  ] = useBooleanState(false)
-  const [
-    isUploadPictureModalVisible,
-    { setTrue: showUploadPictureModal, setFalse: hideUploadPictureModal },
-  ] = useBooleanState(false)
-  const [
-    isEditPictureModalVisible,
-    { setTrue: showEditPictureModal, setFalse: hideEditPictureModal },
-  ] = useBooleanState(false)
-  const [
-    isDeleteCheckModalVisible,
-    { setTrue: showDeleteCheckModal, setFalse: hideDeleteChceckModal },
-  ] = useBooleanState(false)
 
+  const showUploadPictureModal = () => {
+    handleModal(
+      <UploadPictureModal
+        isVisible
+        hideModal={() => handleModal()}
+        onUserCancelled={() => {
+          setIsEditedFalse()
+          handleModal()
+        }}
+        setPhotoURI={setPhotoURI}
+      />
+    )
+  }
+  const showDeleteConfirmationModal = () => {
+    handleModal(
+      <ConfirmationModal
+        isVisible
+        hideModal={() => handleModal()}
+        onAccept={() => {
+          handleModal()
+          handleDeletePicture()
+        }}
+        onDecline={() => {
+          handleModal()
+          setIsEditedFalse()
+        }}
+        content={t('deletePictureMessage')}
+      />
+    )
+  }
+  const showEditPictureModal = () => {
+    handleModal(
+      <EditPictureModal
+        showUploadModal={() => {
+          showUploadPictureModal()
+          setIsEditedTrue()
+        }}
+        isVisible
+        hideModal={() => {
+          handleModal()
+          setIsEditedFalse()
+        }}
+        showDeleteCheckModal={showDeleteConfirmationModal}
+      />
+    )
+  }
   const handleDeletePicture = () => {
-    showDeleteCompletionModal()
     setIsEditedFalse()
     setPhotoURI(null)
+    handleModal(
+      <ChangesSavedModal
+        isVisible
+        hideModal={() => handleModal()}
+        content={t('pictureDeletedMessage')}
+      />
+    )
   }
-
   const onChangeProfilePicture = () => {
     setIsEditedTrue()
     showEditPictureModal()
   }
-
   const onAddProfilePicture = () => {
     setIsEditedTrue()
     showUploadPictureModal()
@@ -86,55 +121,6 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
         variant="boldOrange15"
         action={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
       />
-      {isUploadPictureModalVisible && (
-        <UploadPictureModal
-          isVisible={isUploadPictureModalVisible}
-          hideModal={() => {
-            hideUploadPictureModal()
-          }}
-          onUserCancelled={setIsEditedFalse}
-          setPhotoURI={setPhotoURI}
-          hideEditPictureModal={hideEditPictureModal}
-        />
-      )}
-      {isEditPictureModalVisible && (
-        <EditPictureModal
-          showUploadModal={() => {
-            showUploadPictureModal()
-            setIsEditedTrue()
-          }}
-          isVisible
-          hideModal={() => {
-            hideEditPictureModal()
-            setIsEditedFalse()
-          }}
-          showDeleteCheckModal={showDeleteCheckModal}
-        />
-      )}
-      {isDeleteCheckModalVisible && (
-        <ConfirmationModal
-          isVisible
-          hideModal={hideDeleteChceckModal}
-          onAccept={() => {
-            handleDeletePicture()
-            hideDeleteChceckModal()
-            hideEditPictureModal()
-          }}
-          onDecline={() => {
-            hideDeleteChceckModal()
-            hideEditPictureModal()
-            setIsEditedFalse()
-          }}
-          content="Do you want to delete your profile picture?"
-        />
-      )}
-      {isDeleteCompletionModalVisible && (
-        <ChangesSavedModal
-          isVisible={isDeleteCompletionModalVisible}
-          hideModal={hideDeleteCompletionModal}
-          content={'Picture deleted!'}
-        />
-      )}
     </Box>
   )
 }
@@ -147,3 +133,32 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     borderRadius: 112 / 2,
   },
 }))
+
+// eslint-disable-next-line no-lone-blocks
+{
+  /* <TouchableOpacity
+onPress={() =>
+  handleModal(
+    <ChangesSavedModal isVisible content={'testestest'} hideModal={() => handleModal()} />
+  )
+}>
+<Text>{'test'}</Text>
+</TouchableOpacity>
+<TouchableOpacity
+onPress={() =>
+  handleModal(
+    <ConfirmationModal
+      isVisible
+      hideModal={() => handleModal()}
+      onAccept={() => {
+        handleDeletePicture()
+        handleModal()
+      }}
+      onDecline={() => handleModal()}
+      content="Do you want to delete your profile picture?"
+    />
+  )
+}>
+<Text>{'test yes/no'}</Text>
+</TouchableOpacity> */
+}

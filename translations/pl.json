@@ -122,7 +122,9 @@
     "userSubscriptions": "Obserwowane zespoły",
     "userColor": "Twój kolor",
     "saveChanges": "Zapisz zmiany",
-    "changesSaved": "Zmiany zostały zapisane"
+    "changesSaved": "Zmiany zostały zapisane",
+    "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
+    "pictureDeletedMessage": "Zdjęcie profilowe usunięte!"
   },  
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",

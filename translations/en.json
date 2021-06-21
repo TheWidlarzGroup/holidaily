@@ -122,7 +122,9 @@
     "userSubscriptions": "Subscribed teams",
     "userColor": "Your color",
     "saveChanges": "Save changes",
-    "changesSaved": "Changes saved"
+    "changesSaved": "Changes saved",
+    "deletePictureMessage": "Do you want to delete your profile picture?",
+    "pictureDeletedMessage": "Picture deleted!"
   },
   "dashboard": {
     "welcome": "How's your team doing?",
