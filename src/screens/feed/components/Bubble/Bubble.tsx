@@ -2,11 +2,10 @@ import React from 'react'
 import { TouchableOpacityProps } from 'react-native'
 import { BaseOpacity } from 'utils/theme'
 
-// TODO - Proper typings fro Bubble (inherit from BaseOpacity)
-
-export type BubbleProps = TouchableOpacityProps & {
-  children?: React.ReactNode
-}
+export type BubbleProps = React.ComponentProps<typeof BaseOpacity> &
+  TouchableOpacityProps & {
+    children?: React.ReactNode
+  }
 
 export const Bubble = ({ children, ...props }: BubbleProps) => (
   <BaseOpacity
