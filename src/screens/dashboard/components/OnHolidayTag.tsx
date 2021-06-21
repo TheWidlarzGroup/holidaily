@@ -1,14 +1,17 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Box } from 'utils/theme'
 
 import IconPalm from 'assets/icons/icon-palm.svg'
 
 type OnHolidayTagProps = {
   variant: 'small' | 'large'
+  background: 'white' | 'grey'
 }
 
-export const OnHolidayTag: FC<OnHolidayTagProps> = ({ variant }) => {
-  const size = variant === 'small' ? 36 : 42
+export const OnHolidayTag = (props: OnHolidayTagProps) => {
+  const { variant, background } = props
+
+  const size = variant === 'small' ? 36 : 51
   const styles = {
     width: size,
     height: size,
@@ -17,15 +20,17 @@ export const OnHolidayTag: FC<OnHolidayTagProps> = ({ variant }) => {
     left: -size / 3,
     borderWidth: 4,
   }
+  const iconWidth = variant === 'small' ? 17.41 : 29
+  const iconHeight = variant === 'small' ? 18.01 : 31
   return (
     <Box
       bg="tertiary"
-      borderColor="disabledText"
+      borderColor={background === 'white' ? 'white' : 'disabledText'}
       alignItems="center"
       position="absolute"
       justifyContent="center"
       style={{ ...styles }}>
-      <IconPalm />
+      <IconPalm width={iconWidth} height={iconHeight} />
     </Box>
   )
 }

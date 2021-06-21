@@ -134,6 +134,8 @@
     "othersTeamMembers": "Team members",
     "outOfWork": "Out of work",
     "backAtWork": "Back at work",
-    "lastDayAtWork": "Last day at work"
+    "lastDayAtWork": "Last day at work",
+    "sickLeave": "Sick time off",
+    "coupleDaysOff": "A couple days off"
   }
 }

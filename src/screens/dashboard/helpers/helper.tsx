@@ -7,16 +7,7 @@ import {
   setDateToBeDisplayed,
 } from 'utils/functions'
 
-export type ValidationOfDataToBeDisplayed = {
-  isOnHoliday: boolean
-  id: number
-  dayStart: string
-  dayEnd: string
-  user: {
-    id: string
-    firstName: string
-    lastName: string
-  }
+export type ValidationOfDataToBeDisplayed = ValidationOfCompanyDayOff & {
   dayToBeDisplayed: string
 }
 

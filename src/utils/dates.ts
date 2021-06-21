@@ -15,3 +15,15 @@ export const getShortWeekDays = (language: string): string[] =>
 
 export const getMonthName = (monthNumber: number, language: string): string =>
   DateTime.now().setLocale(language).set({ month: monthNumber }).monthLong
+
+export const getDatesBetween = (ISOStringStart: string, ISOStringEnd: string) => {
+  const start = DateTime.fromISO(ISOStringStart)
+  const end = DateTime.fromISO(ISOStringEnd)
+  const dates: string[] = []
+
+  for (let i = 0; start.plus({ days: i }).toISODate() <= end.toISODate(); i++) {
+    dates.push(start.plus({ days: i }).toISODate())
+  }
+
+  return dates
+}

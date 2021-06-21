@@ -133,32 +133,3 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     borderRadius: 112 / 2,
   },
 }))
-
-// eslint-disable-next-line no-lone-blocks
-{
-  /* <TouchableOpacity
-onPress={() =>
-  handleModal(
-    <ChangesSavedModal isVisible content={'testestest'} hideModal={() => handleModal()} />
-  )
-}>
-<Text>{'test'}</Text>
-</TouchableOpacity>
-<TouchableOpacity
-onPress={() =>
-  handleModal(
-    <ConfirmationModal
-      isVisible
-      hideModal={() => handleModal()}
-      onAccept={() => {
-        handleDeletePicture()
-        handleModal()
-      }}
-      onDecline={() => handleModal()}
-      content="Do you want to delete your profile picture?"
-    />
-  )
-}>
-<Text>{'test yes/no'}</Text>
-</TouchableOpacity> */
-}

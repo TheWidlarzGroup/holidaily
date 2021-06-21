@@ -81,8 +81,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   backBtn: {
     position: 'absolute',
-    left: 15,
+    left: 0,
     top: 65,
-    padding: 10,
   },
 }))
