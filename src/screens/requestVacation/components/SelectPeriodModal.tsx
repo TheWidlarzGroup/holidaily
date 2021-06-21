@@ -1,12 +1,15 @@
 import React, { FC, useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 
-import { CustomModal } from 'components/CustomModal'
 import { colors } from 'utils/theme/colors'
-import { Text, mkUseStyles } from 'utils/theme'
+import { Text, mkUseStyles, Box } from 'utils/theme'
+import { CustomModal } from 'components/CustomModal'
+import { CustomButton } from 'components/CustomButton'
 
 type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
+  periodStart: string
+  periodEnd: string
   showModal?: F0
   isConfirmed?: boolean
 }
@@ -15,6 +18,8 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
   isVisible,
   hideModal,
   showModal,
+  periodEnd,
+  periodStart,
   isConfirmed,
 }) => {
   const styles = useStyles()
@@ -24,21 +29,19 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
     showModal()
   }, [isConfirmed, showModal])
 
+  if (!isVisible) return <Box />
+
   return (
-    <CustomModal
-      isVisible={isVisible}
-      onBackButtonPress={hideModal}
-      onBackdropPress={hideModal}
-      backdropColor={colors.white}
-      animationInTiming={500}
-      animationOutTiming={500}
-      backdropTransitionInTiming={500}
-      backdropTransitionOutTiming={500}
-      backdropOpacity={0.8}
-      style={styles.modal}
-      hideModalContentWhileAnimating>
-      <Text variant="body1Bold"> 18 Jun</Text>
-    </CustomModal>
+    <Box style={styles.modal}>
+      <Text variant="boldBlackCenter18">
+        {periodStart}
+        {periodEnd !== periodStart && ` - ${periodEnd}`}
+      </Text>
+      <Text variant="body1" marginTop="xs" marginBottom="l">
+        ({`n`} days of PTO)
+      </Text>
+      <CustomButton label="Select" variant="primary" />
+    </Box>
   )
 }
 
@@ -52,7 +55,8 @@ const useStyles = mkUseStyles((theme) => ({
     borderTopLeftRadius: theme.borderRadii.lmin,
     borderTopRightRadius: theme.borderRadii.lmin,
     backgroundColor: theme.colors.primary,
-    height: 180,
-    padding: 20,
+    paddingHorizontal: theme.spacing.xxl,
+    paddingBottom: theme.spacing.xxl,
+    paddingTop: theme.spacing.l,
   },
 }))

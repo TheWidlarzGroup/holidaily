@@ -109,6 +109,7 @@ export type AuthRoutes = {
 
 export type ModalRoutes = {
   RequestVacation: undefined
+  RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
 }
 

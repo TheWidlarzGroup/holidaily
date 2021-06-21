@@ -7,8 +7,9 @@ import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
 import { Checkbox } from 'components/Checkbox'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { CalendarModal } from './CalendarModal'
 import { Additionals } from './Additionals'
+import { useNavigation } from '@react-navigation/core'
+import { ModalNavigationType } from 'navigation/types'
 
 type FormTypes = {
   date: undefined
@@ -42,6 +43,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     nextStep()
   }
 
+  const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
+
   const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
   return (
@@ -52,7 +55,11 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             Details
           </Text>
           <Box marginTop="m">
-            <InputButton inputLabel="Date" onClick={setDisplayCalendarTrue} value={''} />
+            <InputButton
+              inputLabel="Date"
+              onClick={() => navigation.navigate('RequestVacationCalendar')}
+              value={''}
+            />
           </Box>
           <Box marginTop="m">
             <FormInput
@@ -80,7 +87,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           </Box>
         </Box>
         <Additionals />
-        <CalendarModal isVisible={calendarVisible} hideModal={setDisplayCalendarFalse} />
       </Box>
       <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
     </Box>

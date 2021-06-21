@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Calendar as RNCalendar,
+  CalendarList as RNCalendarList,
   CalendarProps as RNCalendarProps,
   LocaleConfig,
 } from 'react-native-calendars'
@@ -22,12 +22,14 @@ type ClickProps = {
 type CustomCalendarProps = {
   onSelectedPeriodChange?: F2<string, string>
   selectable?: boolean
+  list?: boolean
 }
 
 export const Calendar = ({
   theme,
   onSelectedPeriodChange,
   selectable = false,
+  list = false,
   ...props
 }: RNCalendarProps & CustomCalendarProps) => {
   const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
@@ -35,7 +37,7 @@ export const Calendar = ({
 
   useEffect(() => {
     if (!onSelectedPeriodChange) return
-    onSelectedPeriodChange(selectedPeriodStart, setSelectedPeriodEnd)
+    onSelectedPeriodChange(selectedPeriodStart, selectedPeriodEnd)
   }, [onSelectedPeriodChange, selectedPeriodStart, selectedPeriodEnd])
 
   const handleClick = ({ dateString: clickedDate }: ClickProps) => {
@@ -53,7 +55,9 @@ export const Calendar = ({
   const { i18n } = useTranslation()
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
   return (
-    <RNCalendar
+    <RNCalendarList
+      pastScrollRange={list ? 50 : 0}
+      futureScrollRange={list ? 50 : 0}
       firstDay={1}
       hideExtraDays
       theme={{

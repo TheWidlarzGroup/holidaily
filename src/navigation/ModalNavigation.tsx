@@ -5,6 +5,7 @@ import { Box } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
+import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
@@ -19,6 +20,7 @@ export const ModalNavigation = () => (
         animationEnabled: true,
       }}>
       <AppStack.Screen name="RequestVacation" component={RequestVacation} />
+      <AppStack.Screen name="RequestVacationCalendar" component={CalendarRequestVacation} />
       <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
     </AppStack.Navigator>
   </Box>
