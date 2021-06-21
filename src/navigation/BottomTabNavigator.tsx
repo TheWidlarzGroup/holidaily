@@ -9,6 +9,8 @@ import { Chat } from 'screens/chat/Chat'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
+import { mkUseStyles, Theme } from 'utils/theme'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
@@ -22,20 +24,32 @@ const tabs = [
   { name: 'Panel' },
   { name: 'Chat' },
 ]
-export const BottomTabNavigator = ({ style }: ViewProps) => (
-  <SafeAreaWrapper>
-    <Animated.View style={[style, { flex: 1 }]}>
-      <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
-        <Tab.Screen
-          name="DashboardNavigation"
-          options={{ unmountOnBlur: true }}
-          component={DashboardNavigation}
-        />
-        <Tab.Screen name="Calendar" component={Calendar} />
-        <Tab.Screen name="RequestModal" component={EmptyComponent} />
-        <Tab.Screen name="Panel" component={Panel} />
-        <Tab.Screen name="Chat" component={Chat} />
-      </Tab.Navigator>
-    </Animated.View>
-  </SafeAreaWrapper>
-)
+export const BottomTabNavigator = ({ style }: ViewProps) => {
+  const styles = useStyles()
+  return (
+    <SafeAreaWrapper edges={['bottom']}>
+      <Animated.View style={[style, { flex: 1 }]}>
+        <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
+          <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
+            <Tab.Screen
+              name="DashboardNavigation"
+              options={{ unmountOnBlur: true }}
+              component={DashboardNavigation}
+            />
+            <Tab.Screen name="Calendar" component={Calendar} />
+            <Tab.Screen name="RequestModal" component={EmptyComponent} />
+            <Tab.Screen name="Panel" component={Panel} />
+            <Tab.Screen name="Chat" component={Chat} />
+          </Tab.Navigator>
+        </SafeAreaView>
+      </Animated.View>
+    </SafeAreaWrapper>
+  )
+}
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  safeAreaTop: {
+    flex: 1,
+    backgroundColor: theme.colors.bottomTabBgColor,
+  },
+}))
