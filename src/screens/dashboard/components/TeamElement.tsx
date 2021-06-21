@@ -1,4 +1,5 @@
 import React from 'react'
+import { Image } from 'react-native'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
@@ -31,8 +32,16 @@ export const TeamElement = (props: TeamElementProps) => {
         </Box>
       </Box>
       <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-        <IconProfile width={62} height={62} />
-        <IconProfile width={62} height={62} />
+        {users[0]?.photo ? (
+          <Image source={{ uri: users[0].photo }} />
+        ) : (
+          <IconProfile width={62} height={62} />
+        )}
+        {users[1]?.photo ? (
+          <Image source={{ uri: users[1].photo }} />
+        ) : (
+          <IconProfile width={62} height={62} />
+        )}
       </Box>
     </BaseOpacity>
   )

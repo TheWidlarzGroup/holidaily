@@ -22,9 +22,9 @@ export const Dashboard = () => {
     navigation.navigate('DashboardTeam', { ...team })
 
   return (
-    <SafeAreaWrapper isDefaultBgColor>
+    <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
       <DashboardHeader />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {companyHolidaysData.map((item) => (
             <CarouselElement
@@ -32,6 +32,7 @@ export const Dashboard = () => {
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}
               lastName={item.user.lastName}
+              photo={item.user.photo}
               dayToBeDisplayed={item.dayToBeDisplayed}
             />
           ))}

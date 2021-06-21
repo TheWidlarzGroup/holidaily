@@ -7,6 +7,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 
 type DashboardTeamProps = DashboardNavigationProps<'DashboardTeam'>
 
@@ -25,27 +26,21 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   )
 
   return (
-    <SafeAreaWrapper>
-      <ScrollView>
-        <Box
-          paddingVertical="m"
-          backgroundColor="disabledText"
-          borderBottomRightRadius="lmin"
-          borderBottomLeftRadius="lmin">
-          <Text variant="header">{params.groupName}</Text>
-        </Box>
-        <Box marginHorizontal="m" paddingBottom="xxxl">
+    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
+      <TeamHeader title={params.groupName} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Box paddingHorizontal="m" paddingBottom="xxl">
           {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
           {matesWithPlannedHolidays.length > 0 && (
             <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
           )}
-          {matesWithNoPlannedHolidays?.length > 0 && (
+          {matesWithNoPlannedHolidays.length > 0 && (
             <>
               <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
                 {t('othersTeamMembers').toUpperCase()}
               </Text>
               <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
-                {matesWithNoPlannedHolidays?.map((mate) => (
+                {matesWithNoPlannedHolidays.map((mate) => (
                   <OtherMateElement key={mate.id} {...mate} />
                 ))}
               </Box>

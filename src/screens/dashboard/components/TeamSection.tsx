@@ -14,7 +14,7 @@ export const TeamSection = (props: TeamSectionProps) => {
   const { t } = useTranslation('dashboard')
 
   const version = {
-    color: isOutOfOffice === true ? 'tertiary' : 'greyDark',
+    color: isOutOfOffice === true ? 'tertiary' : 'headerGrey',
     text: isOutOfOffice === true ? 'outOfWorkNow' : 'outOfWorkSoon',
   }
   return (
