@@ -12,8 +12,8 @@ export const Feed = () => {
   return (
     <SafeAreaView>
       <Box marginHorizontal="s">
-        <FeedHeader />
         <FlatList
+          ListHeaderComponent={<FeedHeader />}
           data={posts}
           renderItem={({ item }) => <FeedPost post={item} />}
           keyExtractor={({ meta }) => meta.id}
