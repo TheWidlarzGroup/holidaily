@@ -123,6 +123,7 @@
   "feed": {
     "postCommentBtn": "Skomentuj",
     "comments": "Komentarze",
-    "noComments": "Brak komentarzy"
+    "noComments": "Brak komentarzy",
+    "createPostLabel": "Wyślij pozdrowienia..."
   }
 }

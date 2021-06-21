@@ -123,6 +123,7 @@
   "feed": {
     "postCommentBtn": "Comment",
     "comments": "Comments",
-    "noComments": "No comments yet"
+    "noComments": "No comments yet",
+    "createPostLabel": "Send greetings..."
   }
 }
