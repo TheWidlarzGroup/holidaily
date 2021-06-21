@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
+import { Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
@@ -12,8 +13,8 @@ type MateElementProps = RequiredMateHolidaysData
 
 export const MateElement = (props: MateElementProps) => {
   const { t, i18n } = useTranslation('dashboard')
-  const { firstName, lastName, holidays } = props
-  const date = holidays.isOnHoliday ? holidays.dayStart : holidays.dayEnd
+  const { firstName, lastName, holidays, photo } = props
+  const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
   const version = {
@@ -36,8 +37,8 @@ export const MateElement = (props: MateElementProps) => {
       alignItems="center"
       onPress={navigateToMateDetails}>
       <Box margin="m">
-        <IconProfile width={62} height={62} />
-        {holidays.isOnHoliday && <OnHolidayTag variant="small" />}
+        {photo ? <Image source={{ uri: photo }} /> : <IconProfile width={62} height={62} />}
+        {holidays.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">
         <Text variant="alreadyRegistered" color="black" lineHeight={20}>
