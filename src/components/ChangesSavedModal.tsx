@@ -13,7 +13,7 @@ export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSave
 
   useEffect(() => {
     if (hideModal) {
-      const timer = setTimeout(() => hideModal(), 3000)
+      const timer = setTimeout(hideModal, 3000)
       return () => clearTimeout(timer)
     }
   }, [hideModal])

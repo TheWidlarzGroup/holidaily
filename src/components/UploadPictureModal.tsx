@@ -50,7 +50,7 @@ export const UploadPictureModal = ({
     }
   }
   useEffect(() => {
-    if (hideEditPictureModal) hideEditPictureModal()
+    hideEditPictureModal?.()
   }, [hideEditPictureModal])
 
   return (
