@@ -7,6 +7,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   scrollTo,
+  runOnJS,
   withTiming,
 } from 'react-native-reanimated'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
@@ -18,9 +19,19 @@ interface ItemProps {
   id: number
   scrollView: RefObject<Animated.ScrollView>
   scrollY: Animated.SharedValue<number>
+  editing: boolean
+  onDragEnd: () => void
 }
 
-export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps) => {
+export const Item = ({
+  children,
+  positions,
+  id,
+  scrollView,
+  scrollY,
+  editing,
+  onDragEnd,
+}: ItemProps) => {
   const inset = useSafeAreaInsets()
   const containerHeight = Dimensions.get('window').height - inset.top - inset.bottom
   const contentHeight = (Object.keys(positions.value).length / COL) * SIZE_H
@@ -92,6 +103,7 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
       translateY.value = withTiming(destination.y, animationConfig)
       // save order of teams
       console.log(positions)
+      runOnJS(onDragEnd)()
     },
   })
 
@@ -111,7 +123,7 @@ export const Item = ({ children, positions, id, scrollView, scrollY }: ItemProps
 
   return (
     <Animated.View style={style}>
-      <PanGestureHandler onGestureEvent={onGestureEvent}>
+      <PanGestureHandler enabled={editing} onGestureEvent={onGestureEvent}>
         <Animated.View style={StyleSheet.absoluteFill}>{children}</Animated.View>
       </PanGestureHandler>
     </Animated.View>

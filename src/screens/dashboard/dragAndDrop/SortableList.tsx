@@ -8,15 +8,17 @@ import Animated, {
 import { COL, Positions, SIZE_H } from './Config'
 
 type SortableListProps = {
-  children: ReactElement<{ id: number }>[]
+  children: ReactElement<{ groupId: number }>[]
+  editing: boolean
+  onDragEnd: F0
 }
 
-export const SortableList = ({ children }: SortableListProps) => {
+export const SortableList = ({ children, editing, onDragEnd }: SortableListProps) => {
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
   const positions = useSharedValue<Positions>(
     // positions object from database
-    Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
+    Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
   )
 
   const onScroll = useAnimatedScrollHandler({
@@ -38,9 +40,11 @@ export const SortableList = ({ children }: SortableListProps) => {
         <Item
           scrollView={scrollView}
           scrollY={scrollY}
-          key={child.props.id}
+          key={child.props.groupId}
           positions={positions}
-          id={child.props.id}>
+          editing={editing}
+          id={child.props.groupId}
+          onDragEnd={onDragEnd}>
           {child}
         </Item>
       ))}

@@ -7,11 +7,12 @@ import { Avatar } from 'components/Avatar'
 import { SIZE, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
 
 type TeamElementProps = ValidationOfGroupDayOff & {
-  navigateToTeamScreen: () => void
+  navigateToTeamScreen: F0
+  onLongPress: F0
 }
 
 export const TeamElement = (props: TeamElementProps) => {
-  const { groupId, groupName, users, navigateToTeamScreen } = props
+  const { groupId, groupName, users, navigateToTeamScreen, onLongPress } = props
 
   return (
     <Box key={groupId} width={SIZE} height={SIZE_H}>
@@ -21,7 +22,8 @@ export const TeamElement = (props: TeamElementProps) => {
         padding="s"
         bg="white"
         flex={1}
-        onPress={navigateToTeamScreen}>
+        onPress={navigateToTeamScreen}
+        onLongPress={onLongPress}>
         <Box flexDirection="row" justifyContent="space-between">
           <Text variant="label1">{groupName}</Text>
           <Box flexDirection="row" alignItems="center">
