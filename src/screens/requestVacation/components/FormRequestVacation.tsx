@@ -10,6 +10,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Additionals } from './Additionals'
 import { useNavigation } from '@react-navigation/core'
 import { ModalNavigationType } from 'navigation/types'
+import { getFormattedPeriod, getMonthName } from 'utils/dates'
 
 type FormTypes = {
   date: undefined
@@ -17,17 +18,21 @@ type FormTypes = {
 }
 
 type RequestDataTypes = {
-  date: undefined
   description: string
   sickTime: boolean
 }
 
 type FormRequestVacationProps = {
+  date: {
+    start?: Date
+    end?: Date
+  }
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
+  date,
   nextStep,
   changeRequestData,
 }) => {
@@ -43,7 +48,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     nextStep()
   }
 
-  const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
+  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
 
   const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
@@ -58,7 +63,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             <InputButton
               inputLabel="Date"
               onClick={() => navigation.navigate('RequestVacationCalendar')}
-              value={''}
+              value={getFormattedPeriod(date.start, date.end)}
             />
           </Box>
           <Box marginTop="m">

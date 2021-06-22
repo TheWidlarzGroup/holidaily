@@ -9,14 +9,18 @@ export const Additionals = () => (
       Additionals
     </Text>
     <Text variant="body1" textAlign="left">
-      {' '}
-      Add and attachment or write a message{' '}
+      Add and attachment or write a message
     </Text>
     <Box flexDirection="row">
-      <Box backgroundColor="lightGrey" padding="xm" margin="s" borderRadius="l">
+      <Box backgroundColor="lightGrey" padding="xm" marginVertical="m" borderRadius="l">
         <PaperclipIcon width={22} height={22} />
       </Box>
-      <Box backgroundColor="lightGrey" padding="xm" margin="s" borderRadius="l">
+      <Box
+        backgroundColor="lightGrey"
+        padding="xm"
+        marginVertical="m"
+        marginHorizontal="m"
+        borderRadius="l">
         <AddCommentIcon width={22} height={22} />
       </Box>
     </Box>

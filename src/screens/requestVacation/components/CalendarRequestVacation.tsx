@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import { Calendar } from 'components/Calendar'
+import { ModalNavigationType } from 'navigation/types'
 import React, { useState } from 'react'
 
 import { Box, mkUseStyles, Text, theme } from 'utils/theme'
@@ -8,14 +9,21 @@ import { DaysOfWeek } from './DaysOfWeek'
 import { SelectPeriodModal } from './SelectPeriodModal'
 
 export const CalendarRequestVacation = () => {
-  const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
-  const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
+  const [selectedPeriodStart, setSelectedPeriodStart] = useState<string>('')
+  const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string>('')
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<ModalNavigationType<'RequestVacationCalendar'>>()
 
-  const handleSelectionChange = (a: string, b: string) => {
-    setSelectedPeriodStart(a)
-    setSelectedPeriodEnd(b)
+  const handleSelectionChange = (a?: string, b?: string) => {
+    setSelectedPeriodStart(a || '')
+    setSelectedPeriodEnd(b || '')
+  }
+
+  const handleSubmit = () => {
+    navigation.navigate('RequestVacation', {
+      start: selectedPeriodStart,
+      end: selectedPeriodEnd,
+    })
   }
 
   const styles = useStyles()
@@ -34,7 +42,7 @@ export const CalendarRequestVacation = () => {
       />
       <SelectPeriodModal
         isVisible={!!selectedPeriodStart}
-        hideModal={() => navigation.goBack()}
+        onSubmit={handleSubmit}
         periodStart={selectedPeriodStart || ''}
         periodEnd={selectedPeriodEnd || ''}
       />

@@ -7,13 +7,21 @@ import PillIcon from 'assets/icons/pill.svg'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { SummaryDays } from './SummaryDays'
+import { getFormattedPeriod } from 'utils/dates'
 
 type SummaryRequestVacationProps = {
   description: string
   sickTime: boolean
+  startDate?: Date
+  endDate?: Date
 }
 
-export const SummaryRequestVacation = ({ description, sickTime }: SummaryRequestVacationProps) => {
+export const SummaryRequestVacation = ({
+  description,
+  sickTime,
+  endDate,
+  startDate,
+}: SummaryRequestVacationProps) => {
   const styles = useStyles()
 
   return (
@@ -22,11 +30,11 @@ export const SummaryRequestVacation = ({ description, sickTime }: SummaryRequest
         <BackgroundPlant1 style={styles.plant1} />
         <BackgroundPlant2 style={styles.plant2} />
         <Box paddingLeft="s">
-          <Text variant="heading4">{description}</Text>
+          <Text variant="heading4">{description || 'Time off'}</Text>
         </Box>
         <Box flexDirection="row" alignItems="center">
           <CalendarIcon />
-          <Text variant="body1Bold">22 April - 26 April</Text>
+          <Text variant="body1Bold">{getFormattedPeriod(startDate, endDate)}</Text>
         </Box>
         {sickTime && (
           <Box flexDirection="row" alignItems="center">

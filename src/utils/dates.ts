@@ -27,3 +27,11 @@ export const getDatesBetween = (ISOStringStart: string, ISOStringEnd: string) =>
 
   return dates
 }
+
+export const getFormattedPeriod = (dateA?: Date, dateB?: Date) => {
+  if (!dateA || !dateB) return ''
+  const a = `${dateA.getDate()} ${getMonthName(dateA.getMonth() + 1, 'en').slice(0, 3)}`
+  const b = `${dateB.getDate()} ${getMonthName(dateB.getMonth() + 1, 'en').slice(0, 3)}`
+  if (dateA.toISOString() === dateB.toISOString()) return a
+  return `${a} - ${b}`
+}
