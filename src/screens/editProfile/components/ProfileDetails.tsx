@@ -7,6 +7,8 @@ import IconEdit from 'assets/icons/icon-edit-grey.svg'
 import { theme, Box } from 'utils/theme/'
 import { minOneSignRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
+import { InputButton } from 'components/InputButton'
+import { useNavigation } from '@react-navigation/native'
 
 type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
@@ -16,6 +18,7 @@ type UserData = {
 
 export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const { t } = useTranslation('userProfile')
+
   const inputsRefs = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
@@ -36,6 +39,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
     inputsRefs[index]?.current?.focus()
     setIconInvisible(index)
   }
+  const navigation = useNavigation()
+  const navigateToChangePassword = () => navigation.navigate('ChangePassword')
 
   return (
     <Box paddingHorizontal="m">
@@ -144,40 +149,13 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           </Box>
         )}
       </Box>
-      <Box position="relative">
-        {/* TODO: change FormInput to button opening update password modal */}
-        {/* <FormInput
-          control={control}
-          isError={!!errors}
-          errors={errors}
-          name="password"
-          inputLabel={t('userPassword')}
-          validationPattern={passwordRegex}
-          errorMessage={t('editDetailsErrMsg')}
-          onSubmitEditing={onSubmitEditing}
-          secureTextEntry
-          ref={inputsRefs[2]}
-          onFocus={() => onFocusInput(2)}
+      <Box marginBottom="l">
+        <InputButton
+          inputLabel={'Password'}
+          value={'••••••••'}
+          onClick={navigateToChangePassword}
+          showEditIcon
         />
-        <Box
-          position="absolute"
-          right={0}
-          top={22}
-          backgroundColor="lightGrey"
-          borderRadius="full"
-          width={55}
-          height={55}
-          borderWidth={4}
-          borderColor="white"
-          justifyContent="center"
-          alignItems="center">
-          <RectButton
-            onPress={() => onFocusInput(2)}
-            activeOpacity={0.2}
-            rippleColor={theme.colors.rippleColor}>
-            <IconEdit />
-          </RectButton>
-        </Box> */}
       </Box>
     </Box>
   )
