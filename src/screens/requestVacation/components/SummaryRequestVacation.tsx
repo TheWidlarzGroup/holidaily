@@ -2,12 +2,12 @@ import React from 'react'
 
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles, Text } from 'utils/theme/index'
+import { getFormattedPeriod } from 'utils/dates'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import PillIcon from 'assets/icons/pill.svg'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { SummaryDays } from './SummaryDays'
-import { getFormattedPeriod } from 'utils/dates'
 
 type SummaryRequestVacationProps = {
   description: string

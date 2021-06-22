@@ -1,9 +1,7 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { ModalProps } from 'react-native-modal'
 
-import { colors } from 'utils/theme/colors'
 import { Text, mkUseStyles, Box } from 'utils/theme'
-import { CustomModal } from 'components/CustomModal'
 import { CustomButton } from 'components/CustomButton'
 import { getMonthName } from 'utils/dates'
 
@@ -35,7 +33,7 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
         {periodEnd !== periodStart && ` - ${formatDate(periodEnd)}`}
       </Text>
       <Text variant="body1" marginTop="xs" marginBottom="l">
-        ({`n`} days of PTO)
+        ({'n'} days of PTO)
       </Text>
       <CustomButton label="Select" variant="primary" onPress={onSubmit} />
     </Box>

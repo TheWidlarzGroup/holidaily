@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
 
 import { Box } from 'utils/theme'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { ModalNavigationProps } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
-import { ModalNavigationProps } from 'navigation/types'
 
 export type RequestDataTypes = {
   description: string
@@ -41,7 +40,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     const { params } = route
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
-  }, [route.params])
+  }, [route, route.params])
 
   return (
     <Box flex={1}>

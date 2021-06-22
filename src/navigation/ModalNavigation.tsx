@@ -3,9 +3,9 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 
 import { Box } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
+import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
-import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 

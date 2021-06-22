@@ -1,9 +1,9 @@
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import { Calendar } from 'components/Calendar'
 import { ModalNavigationType } from 'navigation/types'
 import React, { useState } from 'react'
 
-import { Box, mkUseStyles, Text, theme } from 'utils/theme'
+import { Box, mkUseStyles } from 'utils/theme'
 import { CalendarHeader } from './CalendarHeader'
 import { DaysOfWeek } from './DaysOfWeek'
 import { SelectPeriodModal } from './SelectPeriodModal'
@@ -33,8 +33,6 @@ export const CalendarRequestVacation = () => {
       <DaysOfWeek />
       <Calendar
         selectable
-        hideArrows
-        hideDayNames
         list
         style={styles.calendar}
         renderHeader={(date: Date) => <CalendarHeader date={date} />}
@@ -43,8 +41,8 @@ export const CalendarRequestVacation = () => {
       <SelectPeriodModal
         isVisible={!!selectedPeriodStart}
         onSubmit={handleSubmit}
-        periodStart={selectedPeriodStart || ''}
-        periodEnd={selectedPeriodEnd || ''}
+        periodStart={selectedPeriodStart}
+        periodEnd={selectedPeriodEnd}
       />
     </Box>
   )

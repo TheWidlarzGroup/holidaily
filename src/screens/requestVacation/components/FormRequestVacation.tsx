@@ -7,10 +7,10 @@ import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
 import { Checkbox } from 'components/Checkbox'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { Additionals } from './Additionals'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 import { ModalNavigationType } from 'navigation/types'
-import { getFormattedPeriod, getMonthName } from 'utils/dates'
+import { getFormattedPeriod } from 'utils/dates'
+import { Additionals } from './Additionals'
 
 type FormTypes = {
   date: undefined
@@ -37,9 +37,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   changeRequestData,
 }) => {
   const { control, handleSubmit, errors } = useForm()
-  const [calendarVisible, { setTrue: setDisplayCalendarTrue, setFalse: setDisplayCalendarFalse }] =
-    useBooleanState(false)
-
   const [sickTime, { toggle }] = useBooleanState(false)
 
   const handleLoginUser = (data: FormTypes) => {
