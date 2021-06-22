@@ -1,25 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
-import { mkUseStyles, Text, BaseOpacity } from 'utils/theme'
-import FastImage from 'react-native-fast-image'
+import { mkUseStyles, BaseOpacity } from 'utils/theme'
+
 import { useBooleanState } from 'hooks/useBooleanState'
 import Modal from 'react-native-modal'
+import { FeedPost } from 'screens/feed/types'
+import { GalleryItem } from './GalleryItem'
 
-type GalleryItemData = {
-  src: string
-  type?: string
-}
-
-type GalleryProps = {
-  data: GalleryItemData[]
-}
+type GalleryProps = Pick<FeedPost, 'data'>
 
 // TODO: Set list size to cover only image -> Backdrop Exit form Modal
 
 export const Gallery = ({ data }: GalleryProps) => {
   const [fullScreen, { setTrue: setFullScreen, setFalse: unsetFullScreen }] = useBooleanState(false)
   const [imageIndex, setImageIndex] = useState(0)
-  const listRef = useRef<FlatList | null>(null)
+  const listRef = useRef<FlatList>(null)
 
   const styles = useStyles()
   const { width: ITEM_WIDTH } = useWindowDimensions()
@@ -44,7 +39,6 @@ export const Gallery = ({ data }: GalleryProps) => {
       decelerationRate={0}
       snapToInterval={ITEM_WIDTH}
       snapToAlignment="center"
-      style={styles.list}
       contentContainerStyle={styles.contentContainer}
       data={data}
       renderItem={({ item }) => (
@@ -73,34 +67,8 @@ export const Gallery = ({ data }: GalleryProps) => {
   )
 }
 
-type GalleryItemProps = GalleryItemData & {
-  width: number
-}
-
-const GalleryItem = ({ src, type, width }: GalleryItemProps) => {
-  const styles = useStyles()
-
-  return (
-    <>
-      {type === 'image' ? (
-        <FastImage
-          style={[styles.image, { width }]}
-          source={{ uri: src }}
-          resizeMode={FastImage.resizeMode.cover}
-        />
-      ) : (
-        <Text>TODO: Video should be here</Text>
-      )}
-    </>
-  )
-}
-
-// TODO: Add aspectRatio to theme
-
 const useStyles = mkUseStyles(() => ({
-  list: {},
   modal: { margin: 0 },
-  image: { aspectRatio: 4 / 5 },
   contentContainer: {
     alignItems: 'center',
   },
