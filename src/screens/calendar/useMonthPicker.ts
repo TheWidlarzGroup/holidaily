@@ -2,10 +2,11 @@ import { RefObject, useState } from 'react'
 import { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
 import XDate from 'xdate'
 import { Calendar as RNCalendar } from 'react-native-calendars'
+import { DateTime } from 'luxon'
 
 export const useMonthPicker = (
   calendarRef: RefObject<RNCalendar>,
-  updateSelectedDate: F1<{ year: number; month: number }>
+  updateSelectedDate: F1<DateTime>
 ) => {
   const [isMonthPickerVisible, setIsMonthPickerVisible] = useState<boolean>(false)
 
@@ -13,7 +14,7 @@ export const useMonthPicker = (
     setIsMonthPickerVisible(false)
     switch (event) {
       case ACTION_DATE_SET:
-        updateSelectedDate({ year: newDate.getFullYear(), month: newDate.getMonth() + 1 })
+        updateSelectedDate(DateTime.fromJSDate(newDate))
         calendarRef.current.updateMonth(new XDate(newDate), true)
         break
       case ACTION_DISMISSED:

@@ -8,18 +8,11 @@ type FilterCategory = {
   title: string
   isSelected: boolean
 }
-export type SelectedDate = {
-  year: number
-  month: number
-}
 export const useCalendarData = () => {
   const [filterCategories, setFilterCategories] = useState<FilterCategory[]>(
     MOCKED_DATA.filterCategories
   )
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-  })
+  const [selectedDate, setSelectedDate] = useState<DateTime>(DateTime.local())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
 
   const toggleFilterItemSelection = (id: number) => {
@@ -33,8 +26,7 @@ export const useCalendarData = () => {
   useEffect(() => {
     const currentMonth = MOCKED_DATA.months.find((month) => {
       const thisMonth = DateTime.fromISO(month.date)
-      const selectedMonth = DateTime.local(selectedDate.year, selectedDate.month)
-      return thisMonth.equals(selectedMonth)
+      return thisMonth.month === selectedDate.month && thisMonth.year === selectedDate.year
     })
     if (currentMonth) setCurrentMonthDays(currentMonth.days)
     else setCurrentMonthDays([])

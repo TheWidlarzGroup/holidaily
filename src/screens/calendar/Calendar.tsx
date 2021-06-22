@@ -11,7 +11,8 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { CustomModal } from 'components/CustomModal'
 import { useMonthPicker } from 'screens/calendar/useMonthPicker'
 import { getMarkedDates } from 'screens/calendar/utils'
-import { useCalendarData, SelectedDate } from 'screens/calendar/useCalendarData'
+import { useCalendarData } from 'screens/calendar/useCalendarData'
+import { DateTime } from 'luxon'
 
 export const Calendar = () => {
   const calendarRef = useRef<RNCalendar>()
@@ -54,8 +55,8 @@ export const Calendar = () => {
           theme={{
             calendarBackground: 'transparent',
           }}
-          onMonthChange={(date: SelectedDate) =>
-            setSelectedDate({ year: date.year, month: date.month })
+          onMonthChange={(date: { dateString: string }) =>
+            setSelectedDate(DateTime.fromISO(date.dateString))
           }
           markedDates={getMarkedDates(currentMonthDays)}
           markingType={'multi-dot'}
@@ -75,10 +76,7 @@ export const Calendar = () => {
         }}
         isVisible={isMonthPickerVisible}
         onBackdropPress={() => hideMonthPicker()}>
-        <MonthPicker
-          onChange={handleMonthChange}
-          value={new Date(selectedDate.year, selectedDate.month - 1)}
-        />
+        <MonthPicker onChange={handleMonthChange} value={selectedDate.toJSDate()} />
       </CustomModal>
     </SafeAreaWrapper>
   )
