@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
+import EditIcon from 'assets/icons/icon-edit-grey.svg'
 import { Text, Box, mkUseStyles } from 'utils/theme/index'
 
 type ButtonInputTypes = {
@@ -10,9 +11,16 @@ type ButtonInputTypes = {
   value: string
   onClick: F0
   isError?: boolean
+  showEditIcon?: boolean
 }
 
-export const InputButton = ({ inputLabel, value, isError = false, onClick }: ButtonInputTypes) => {
+export const InputButton = ({
+  inputLabel,
+  value,
+  isError = false,
+  onClick,
+  showEditIcon = false,
+}: ButtonInputTypes) => {
   const styles = useStyles()
 
   const errorOpacity = useSharedValue(0)
@@ -27,20 +35,23 @@ export const InputButton = ({ inputLabel, value, isError = false, onClick }: But
   }, [isError, errorOpacity])
 
   return (
-    <TouchableOpacity onPress={onClick}>
+    <TouchableOpacity onPress={onClick} activeOpacity={0.2}>
       <Text variant="label1" marginLeft="m" marginBottom="xs">
         {inputLabel}
       </Text>
       <Box flexDirection="row">
         <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
           <Text variant="body1Bold" textAlign="left">
-            {' '}
-            {value}{' '}
+            {value}
           </Text>
         </Animated.View>
         <Box alignSelf="center" position="absolute" right={0}>
-          <Box style={styles.button}>
-            <BackArrowIcon width={16} height={16} style={styles.icon} />
+          <Box style={styles.button} padding={showEditIcon ? 'xs' : 'm'}>
+            {showEditIcon ? (
+              <EditIcon />
+            ) : (
+              <BackArrowIcon width={16} height={16} style={styles.icon} />
+            )}
           </Box>
         </Box>
       </Box>
@@ -72,7 +83,6 @@ const useStyles = mkUseStyles((theme) => ({
     borderWidth: 4,
     borderColor: 'white',
     borderStyle: 'solid',
-    padding: 17,
     borderRadius: theme.borderRadii.xl,
     left: 0,
   },
