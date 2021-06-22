@@ -3,7 +3,7 @@ import { ModalProps } from 'react-native-modal'
 
 import { Text, mkUseStyles, Box } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
-import { getMonthName } from 'utils/dates'
+import { getFormattedPeriod } from 'utils/dates'
 
 type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   onSubmit: F0
@@ -21,16 +21,10 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
 
   if (!isVisible) return <Box />
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return `${date.getDate()} ${getMonthName(date.getMonth() + 1, 'pl').slice(0, 3)} `
-  }
-
   return (
     <Box style={styles.modal}>
       <Text variant="boldBlackCenter18">
-        {formatDate(periodStart)}
-        {periodEnd !== periodStart && ` - ${formatDate(periodEnd)}`}
+        {getFormattedPeriod(new Date(periodStart), new Date(periodEnd))}
       </Text>
       <Text variant="body1" marginTop="xs" marginBottom="l">
         ({'n'} days of PTO)
