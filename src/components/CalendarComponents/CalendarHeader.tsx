@@ -11,10 +11,8 @@ export const CalendarHeader = ({ date, onHeaderPressed }: { date: Date; onHeader
   return (
     <TouchableOpacity onPress={onHeaderPressed}>
       <Box margin="xm" flexDirection="row" alignItems="center">
-        <Text variant="bold16" lineHeight={20}>
-          {monthName}
-        </Text>
-        <Text variant="captionText" lineHeight={20} marginLeft="s">
+        <Text variant="bold16Calendar">{monthName}</Text>
+        <Text variant="regular12Calendar" marginLeft="s">
           {year}
         </Text>
       </Box>
