@@ -29,13 +29,13 @@ export const DayInfo = ({ date, events, weekend }: DayInfoProps) => {
         backgroundColor="disabled"
         justifyContent="space-between"
         flexDirection="row"
-        borderTopRightRadius={weekend === 1 && 'lmin'}
-        borderTopLeftRadius={weekend === 1 && 'lmin'}
-        borderBottomRightRadius={weekend === 2 && 'lmin'}
-        borderBottomLeftRadius={weekend === 2 && 'lmin'}
-        borderBottomWidth={weekend === 1 && 1}
-        marginTop={weekend === 1 && 's'}
-        marginBottom={weekend === 2 && 's'}>
+        borderTopRightRadius={weekend === 1 ? 'lmin' : 0}
+        borderTopLeftRadius={weekend === 1 ? 'lmin' : 0}
+        borderBottomRightRadius={weekend === 2 ? 'lmin' : 0}
+        borderBottomLeftRadius={weekend === 2 ? 'lmin' : 0}
+        borderBottomWidth={weekend === 1 ? 1 : 0}
+        marginTop={weekend === 1 ? 's' : 0}
+        marginBottom={weekend === 2 ? 's' : 0}>
         <Text variant="regularWhite12">{getDateWithMonthString(date, i18n.language)}</Text>
         <Text variant="boldWhite12">{getDayName(date, i18n.language)}</Text>
       </Box>

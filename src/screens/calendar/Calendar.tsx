@@ -83,7 +83,7 @@ export const Calendar = () => {
       )
 
   return (
-    <SafeAreaWrapper isDefaultBgColor>
+    <SafeAreaWrapper isDefaultBgColor isTabNavigation>
       <Box>
         <FlatList
           horizontal
@@ -106,7 +106,7 @@ export const Calendar = () => {
         shadowColor="black"
         shadowOpacity={0.15}
         shadowRadius={6}
-        elevation={10}>
+        elevation={4}>
         <CalendarComponent
           theme={{
             calendarBackground: 'transparent',
