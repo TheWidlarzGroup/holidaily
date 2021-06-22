@@ -17,12 +17,13 @@ export const SaveChangesButton = ({ handleEditDetailsSubmit }: SaveChangesButton
       left={0}
       bottom={0}
       backgroundColor="white"
-      height={93}
-      paddingTop="m"
+      height={85}
       alignItems="center"
+      justifyContent="center"
       style={styles.shadow}>
       <CustomButton
         width={221}
+        height={53}
         label={t('saveChanges')}
         variant="primary"
         onPress={handleEditDetailsSubmit}
