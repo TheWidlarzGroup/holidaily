@@ -82,6 +82,17 @@ export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes
   navigation: StackNavigationProp<UserProfileRoutes, RouteName>
   route: RouteProp<UserProfileRoutes, RouteName>
 }
+// for useNavigation hook
+export type ForgotPasswordTypes<RouteName extends keyof ForgotPasswordRoutes> =
+  CompositeNavigationProp<
+    StackNavigationProp<ForgotPasswordRoutes, RouteName>,
+    StackNavigationProp<AppRoutes, 'ForgotPasswordNavigation'>
+  >
+
+export type ForgotPasswordProps<RouteName extends keyof ForgotPasswordRoutes> = {
+  navigation: StackNavigationProp<ForgotPasswordRoutes, RouteName>
+  route: RouteProp<ForgotPasswordRoutes, RouteName>
+}
 
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
@@ -90,6 +101,7 @@ export type AppRoutes = {
   ModalRoutes: NestedNavigatorParams<DrawerRoutes>
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
+  ForgotPasswordNavigation: NestedNavigatorParams<ForgotPasswordRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -117,6 +129,7 @@ export type AuthRoutes = {
   RecoveryCode: undefined
   NewPassword: undefined
   ConfirmedAccount: undefined
+  Recovery: undefined
 }
 
 export type ModalRoutes = {
@@ -133,4 +146,11 @@ export type DashboardRoutes = {
 export type UserProfileRoutes = {
   EditProfile: undefined
   ChangePassword: undefined
+  Recovery: undefined
+}
+
+export type ForgotPasswordRoutes = {
+  ForgotPassword: undefined
+  RecoveryCode: undefined
+  NewPassword: undefined
 }

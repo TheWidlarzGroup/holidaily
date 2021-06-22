@@ -18,6 +18,8 @@ export const ChangePassword = () => {
     StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
     return () => StatusBar.setBackgroundColor('white')
   }, [])
+  const navigation = useNavigation()
+  const navigateToForgotPassword = () => navigation.navigate('Recovery')
   return (
     <SafeAreaWrapper>
       <Box flex={1} backgroundColor="modalBackdrop">
@@ -48,7 +50,7 @@ export const ChangePassword = () => {
           <RectButton
             rippleColor={theme.colors.rippleColor}
             activeOpacity={0.2}
-            onPress={() => console.log('take user to forgot password flow')}
+            onPress={navigateToForgotPassword}
             style={styles.forgottenPasswordBtn}>
             <Text variant="labelGrey">{'Forgot your password?'}</Text>
           </RectButton>
