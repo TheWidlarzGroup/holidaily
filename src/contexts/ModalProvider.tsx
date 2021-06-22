@@ -1,6 +1,5 @@
 import React, { ReactNode, useContext, useState } from 'react'
 
-type DefaultValue = undefined
 type ContextValue = {
   modal: boolean
   handleModal: (content?: ReactNode) => void
@@ -10,7 +9,13 @@ type ContextProviderProps = {
   children: ReactNode
 }
 
-export const ModalContext = React.createContext<DefaultValue | ContextValue>(undefined)
+const initialValues = {
+  modal: false,
+  handleModal: () => {},
+  modalContent: null,
+}
+
+export const ModalContext = React.createContext<ContextValue>(initialValues)
 export const useModalContext = () => useContext(ModalContext)
 
 export const ModalProvider = ({ children }: ContextProviderProps) => {
