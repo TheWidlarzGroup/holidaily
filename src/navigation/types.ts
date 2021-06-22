@@ -72,12 +72,24 @@ export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = 
   route: RouteProp<DashboardRoutes, RouteName>
 }
 
+// for useNavigation hook
+export type UserProfileType<RouteName extends keyof UserProfileRoutes> = CompositeNavigationProp<
+  StackNavigationProp<UserProfileRoutes, RouteName>,
+  StackNavigationProp<AppRoutes, 'ProfileNavigation'>
+>
+
+export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes> = {
+  navigation: StackNavigationProp<UserProfileRoutes, RouteName>
+  route: RouteProp<UserProfileRoutes, RouteName>
+}
+
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
   ModalRoutes: NestedNavigatorParams<DrawerRoutes>
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
+  ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -90,7 +102,7 @@ export type BottomTabRoutes = {
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
-  EditProfile: undefined
+  ProfileNavigation: UserProfileRoutes
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
@@ -116,4 +128,9 @@ export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: ValidationOfGroupDayOff
   DashboardTeamMember: RequiredMateHolidaysData
+}
+
+export type UserProfileRoutes = {
+  EditProfile: undefined
+  ChangePassword: undefined
 }
