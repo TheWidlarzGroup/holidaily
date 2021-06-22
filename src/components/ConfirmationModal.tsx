@@ -43,13 +43,13 @@ export const ConfirmationModal = ({
           {content}
         </Text>
         <Box marginBottom="xm">
-          <TouchableOpacity onPress={onAccept} activeOpacity={1}>
-            <CustomButton label={t('yes')} variant="blackBgButton" width={221} height={53} />
+          <TouchableOpacity onPress={onDecline} activeOpacity={1}>
+            <CustomButton label={t('no')} variant="secondary" width={221} height={53} />
           </TouchableOpacity>
         </Box>
         <Box>
-          <TouchableOpacity onPress={onDecline} activeOpacity={1}>
-            <CustomButton label={t('no')} variant="secondary" width={221} height={53} />
+          <TouchableOpacity onPress={onAccept} activeOpacity={1}>
+            <CustomButton label={t('yes')} variant="blackBgButton" width={221} height={53} />
           </TouchableOpacity>
         </Box>
       </Box>
