@@ -3,6 +3,7 @@ import { Box, Text } from 'utils/theme'
 import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 import { getDateWithMonthString, getDayName } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
+import { weekendBasedStyles } from 'screens/calendar/utils'
 
 export type DayOffEvent = {
   person: string
@@ -29,13 +30,7 @@ export const DayInfo = ({ date, events, weekend }: DayInfoProps) => {
         backgroundColor="disabled"
         justifyContent="space-between"
         flexDirection="row"
-        borderTopRightRadius={weekend === 1 ? 'lmin' : 0}
-        borderTopLeftRadius={weekend === 1 ? 'lmin' : 0}
-        borderBottomRightRadius={weekend === 2 ? 'lmin' : 0}
-        borderBottomLeftRadius={weekend === 2 ? 'lmin' : 0}
-        borderBottomWidth={weekend === 1 ? 1 : 0}
-        marginTop={weekend === 1 ? 's' : 0}
-        marginBottom={weekend === 2 ? 's' : 0}>
+        style={weekendBasedStyles(weekend)}>
         <Text variant="regularWhite12">{getDateWithMonthString(date, i18n.language)}</Text>
         <Text variant="boldWhite12">{getDayName(date, i18n.language)}</Text>
       </Box>
