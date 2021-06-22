@@ -91,7 +91,6 @@ export const themeBase = createTheme({
     relaxed: '1.625rem',
     loose: '2rem',
   },
-  avatarSize: { s: 44, m: 88, l: 176 },
 })
 
 export type ThemeBase = typeof themeBase
