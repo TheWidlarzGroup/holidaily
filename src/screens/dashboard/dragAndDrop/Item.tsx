@@ -102,7 +102,6 @@ export const Item = ({
       })
       translateY.value = withTiming(destination.y, animationConfig)
       // save order of teams
-      console.log(positions)
       runOnJS(onDragEnd)()
     },
   })
@@ -112,7 +111,7 @@ export const Item = ({
 
     return {
       position: 'absolute',
-      top: 0,
+      top: 200,
       left: 0,
       width: SIZE,
       height: SIZE_H,

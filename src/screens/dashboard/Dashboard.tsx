@@ -27,9 +27,9 @@ export const Dashboard = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
-      <DashboardHeader />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {/* <DashboardHeader /> */}
+      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+      {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {companyHolidaysData.map((item) => (
             <CarouselElement
               key={item.id}
@@ -40,24 +40,24 @@ export const Dashboard = () => {
               dayToBeDisplayed={item.dayToBeDisplayed}
             />
           ))}
-        </ScrollView>
-        {/* <Box marginTop="l"> */}
-        <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
+        </ScrollView> */}
+      {/* <Box marginTop="l"> */}
+      {/* <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
           {t('teamsList').toUpperCase()}
-        </Text>
-        <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
-          <SortableList editing={sortable} onDragEnd={() => setSortable(false)}>
-            {teamsList.map((team) => (
-              <TeamElement
-                {...team}
-                key={team.groupId}
-                onLongPress={() => setSortable(true)}
-                navigateToTeamScreen={() => navigateToTeamDetails(team)}
-              />
-            ))}
-          </SortableList>
-        </Box>
-      </ScrollView>
+        </Text> */}
+      <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
+        <SortableList editing={sortable} onDragEnd={() => setSortable(false)}>
+          {teamsList.map((team) => (
+            <TeamElement
+              {...team}
+              key={team.groupId}
+              onLongPress={() => setSortable(true)}
+              navigateToTeamScreen={() => navigateToTeamDetails(team)}
+            />
+          ))}
+        </SortableList>
+      </Box>
+      {/* </ScrollView> */}
     </SafeAreaWrapper>
   )
 }

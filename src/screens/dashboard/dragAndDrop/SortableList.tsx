@@ -4,7 +4,9 @@ import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue,
+  useAnimatedStyle,
 } from 'react-native-reanimated'
+import { Box, Text } from 'utils/theme'
 import { COL, Positions, SIZE_H } from './Config'
 
 type SortableListProps = {
@@ -20,34 +22,49 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
     // positions object from database
     Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
   )
-
+  const translationY = useSharedValue(0)
   const onScroll = useAnimatedScrollHandler({
-    onScroll: ({ contentOffset: { y } }) => {
-      scrollY.value = y
+    onScroll: (event) => {
+      translationY.value = event.contentOffset.y
+      console.log(event.contentOffset.y)
     },
   })
+  const stylez = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateY: translationY.value,
+      },
+    ],
+  }))
+
   return (
-    <Animated.ScrollView
-      ref={scrollView}
-      contentContainerStyle={{
-        height: Math.ceil(children.length / COL) * SIZE_H,
-      }}
-      showsVerticalScrollIndicator={false}
-      bounces={false}
-      scrollEventThrottle={16}
-      onScroll={onScroll}>
-      {children.map((child) => (
-        <Item
-          scrollView={scrollView}
-          scrollY={scrollY}
-          key={child.props.groupId}
-          positions={positions}
-          editing={editing}
-          id={child.props.groupId}
-          onDragEnd={onDragEnd}>
-          {child}
-        </Item>
-      ))}
-    </Animated.ScrollView>
+    <Box width="100%">
+      <Animated.View style={stylez} />
+      <Animated.ScrollView
+        ref={scrollView}
+        contentContainerStyle={{
+          height: Math.ceil(children.length / COL) * SIZE_H + 200,
+        }}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+        scrollEventThrottle={16}
+        onScroll={onScroll}>
+        <Box height={200} backgroundColor="secondary">
+          <Text>pozostałe elementy do scrolowania</Text>
+        </Box>
+        {children.map((child) => (
+          <Item
+            scrollView={scrollView}
+            scrollY={scrollY}
+            key={child.props.groupId}
+            positions={positions}
+            editing={editing}
+            id={child.props.groupId}
+            onDragEnd={onDragEnd}>
+            {child}
+          </Item>
+        ))}
+      </Animated.ScrollView>
+    </Box>
   )
 }
