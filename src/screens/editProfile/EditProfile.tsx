@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
-import { ScrollView, SafeAreaView } from 'react-native'
+import React from 'react'
+import { ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { CustomButton } from 'components/CustomButton'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { UploadPictureModal } from 'components/UploadPictureModal'
-import { mkUseStyles, Theme, Box } from 'utils/theme'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import IconBack from 'assets/icons/icon-back.svg'
+import { ModalProvider } from '../../contexts/ModalProvider'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
+import { SaveChangesButton } from './components/SaveChangesButton'
 
 export const EditProfile = () => {
+  const { goBack } = useNavigation()
   const { user } = useUserContext()
   const { firstName, lastName, role } = user
   const styles = useStyles()
@@ -25,69 +28,42 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
+
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
+
   const [
-    isUploadPictureModalVisible,
-    { setTrue: setUploadPictureModalVisibleTrue, setFalse: setUploadPictureModalVisibleFalse },
-  ] = useBooleanState(false)
-  const [photoURI, setPhotoURI] = useState<string | null | undefined>()
-  const [
-    isConfirmationModalVisible,
-    { setTrue: showConfirmationModal, setFalse: hideConfirmationModal },
+    isChangesSavedModalVisible,
+    { setTrue: showChangesSavedModal, setFalse: hideChangesSavedModal },
   ] = useBooleanState(false)
 
   const handleEditDetailsSubmit = () => {
+    showChangesSavedModal()
     setEditedFalse()
-    showConfirmationModal()
     // TODO: function updating user data from const {firstName, lastName, role} = getValues()
   }
 
   return (
-    <>
+    <ModalProvider>
       <SafeAreaView style={styles.mainView}>
-        <ScrollView style={{ marginBottom: isEdited ? 100 : 0 }}>
-          <ProfilePicture
-            {...user}
-            setIsEdited={setEditedTrue}
-            showModal={setUploadPictureModalVisibleTrue}
-            photoURI={photoURI}
-          />
+        <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+          <TouchableOpacity onPress={goBack} style={styles.backBtn}>
+            <IconBack />
+          </TouchableOpacity>
+          <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
           <ProfileColor />
         </ScrollView>
-        {isEdited && (
-          <Box
-            position="absolute"
-            bottom={0}
-            backgroundColor="white"
-            height={100}
-            paddingTop="m"
-            style={styles.shadow}>
-            <CustomButton
-              label={t('saveChanges')}
-              variant="primary"
-              onPress={handleEditDetailsSubmit}
-            />
-          </Box>
-        )}
-        {isConfirmationModalVisible && (
+        {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleEditDetailsSubmit} />}
+        {isChangesSavedModalVisible && (
           <ChangesSavedModal
-            isVisible={isConfirmationModalVisible}
-            hideModal={hideConfirmationModal}
+            isVisible={isChangesSavedModalVisible}
+            hideModal={hideChangesSavedModal}
             content={t('changesSaved')}
           />
         )}
-        {isUploadPictureModalVisible && (
-          <UploadPictureModal
-            isVisible={isUploadPictureModalVisible}
-            hideModal={setUploadPictureModalVisibleFalse}
-            onUserCancelled={setEditedFalse}
-            setPhotoURI={setPhotoURI}
-          />
-        )}
       </SafeAreaView>
-    </>
+    </ModalProvider>
   )
 }
 
@@ -102,5 +78,10 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
+  },
+  backBtn: {
+    position: 'absolute',
+    left: 0,
+    top: 65,
   },
 }))

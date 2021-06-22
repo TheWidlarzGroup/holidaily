@@ -86,7 +86,14 @@
   },
   "uploadPictureModal": {
     "openCamera": "Zrób zdjęcie",
-    "openGallery": "Wybierz z galerii"
+    "openGallery": "Wybierz z galerii",
+    "changePicture": "Zmień zdjęcie profilowe",
+    "deletePicture": "Usuń zdjęcie profilowe"
+  },
+  "confirmationModal": {
+    "areYouSure": "Jesteś pewny/a?",
+    "yes": "Tak",
+    "no": "Nie"
   },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
@@ -115,8 +122,10 @@
     "userSubscriptions": "Obserwowane zespoły",
     "userColor": "Twój kolor",
     "saveChanges": "Zapisz zmiany",
-    "changesSaved": "Zmiany zostały zapisane"
-  },
+    "changesSaved": "Zmiany zostały zapisane",
+    "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
+    "pictureDeletedMessage": "Zdjęcie profilowe usunięte!"
+  },    
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
     "teamsList": "Twoje zespoły",

@@ -86,7 +86,14 @@
   },
   "uploadPictureModal": {
     "openCamera": "Take a selfie",
-    "openGallery": "Choose from gallery"
+    "openGallery": "Choose from gallery",
+    "changePicture": "Change profile picture",
+    "deletePicture": "Delete profile picture"
+  },
+  "confirmationModal": {
+    "areYouSure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No"
   },
   "inputErrors": {
     "requiredField": "This field is required",
@@ -115,7 +122,9 @@
     "userSubscriptions": "Subscribed teams",
     "userColor": "Your color",
     "saveChanges": "Save changes",
-    "changesSaved": "Changes saved"
+    "changesSaved": "Changes saved",
+    "deletePictureMessage": "Do you want to delete your profile picture?",
+    "pictureDeletedMessage": "Picture deleted!"
   },
   "dashboard": {
     "welcome": "How's your team doing?",

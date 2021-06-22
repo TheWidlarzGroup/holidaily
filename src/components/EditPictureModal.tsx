@@ -1,22 +1,31 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ModalProps } from 'react-native-modal'
-import { CustomModal } from 'components/CustomModal'
-import TickIcon from 'assets/icons/icon-button-tick.svg'
-import { theme, BaseOpacity, mkUseStyles, Theme, Text } from 'utils/theme/index'
 
-type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
-  hideModal?: F0
-  content?: string
+import { CustomModal } from 'components/CustomModal'
+import { theme, mkUseStyles, Theme } from 'utils/theme'
+import { EditPictureModalButtons } from './EditPictureModalButtons'
+
+type EditPictureModalProps = Pick<ModalProps, 'isVisible'> & {
+  hideModal: F0
+  showUploadModal: F0
+  showDeleteCheckModal: F0
 }
-export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSavedModalProps) => {
+
+export const EditPictureModal = ({
+  isVisible,
+  hideModal,
+  showUploadModal,
+  showDeleteCheckModal,
+}: EditPictureModalProps) => {
+  // TODO: IOS setup required
   const styles = useStyles()
 
-  useEffect(() => {
-    if (hideModal) {
-      const timer = setTimeout(hideModal, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [hideModal])
+  const onDeleteImage = () => {
+    showDeleteCheckModal()
+  }
+  const onChangeImage = () => {
+    showUploadModal()
+  }
 
   return (
     <CustomModal
@@ -31,12 +40,7 @@ export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSave
       swipeDirection="down"
       style={styles.modal}
       hideModalContentWhileAnimating>
-      <BaseOpacity onPress={hideModal} flex={1} justifyContent="center" alignItems="center">
-        <Text variant="boldBlackCenter20" marginBottom="xl">
-          {content}
-        </Text>
-        <TickIcon />
-      </BaseOpacity>
+      <EditPictureModalButtons onDeleteImage={onDeleteImage} onChangeImage={onChangeImage} />
     </CustomModal>
   )
 }
@@ -44,7 +48,7 @@ export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSave
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     flex: 1,
-    height: 315,
+    height: 175,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,
@@ -52,8 +56,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     right: -20,
     borderTopLeftRadius: theme.borderRadii.lmin,
     borderTopRightRadius: theme.borderRadii.lmin,
-    justifyContent: 'center',
-    alignItems: 'center',
     shadowOffset: { width: -2, height: 0 },
     shadowColor: theme.colors.black,
     shadowOpacity: 0.04,
