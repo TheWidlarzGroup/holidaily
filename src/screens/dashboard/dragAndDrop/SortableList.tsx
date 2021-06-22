@@ -22,17 +22,16 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
     // positions object from database
     Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
   )
-  const translationY = useSharedValue(0)
+
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
-      translationY.value = event.contentOffset.y
-      console.log(event.contentOffset.y)
+      scrollY.value = event.contentOffset.y
     },
   })
   const stylez = useAnimatedStyle(() => ({
     transform: [
       {
-        translateY: translationY.value,
+        translateY: scrollY.value,
       },
     ],
   }))

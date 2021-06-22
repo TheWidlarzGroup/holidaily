@@ -27,9 +27,8 @@ export const Dashboard = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
-      {/* <DashboardHeader /> */}
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-      {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <DashboardHeader />
+       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {companyHolidaysData.map((item) => (
             <CarouselElement
               key={item.id}
@@ -45,7 +44,7 @@ export const Dashboard = () => {
       {/* <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
           {t('teamsList').toUpperCase()}
         </Text> */}
-      <Box m="s" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
+      <Box m="s" paddingBottom='xxxl'>
         <SortableList editing={sortable} onDragEnd={() => setSortable(false)}>
           {teamsList.map((team) => (
             <TeamElement
@@ -57,7 +56,6 @@ export const Dashboard = () => {
           ))}
         </SortableList>
       </Box>
-      {/* </ScrollView> */}
     </SafeAreaWrapper>
   )
 }
