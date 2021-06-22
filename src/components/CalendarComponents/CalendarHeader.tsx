@@ -4,7 +4,7 @@ import { getMonthName } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 
-export const CalendarHeader = ({ date, onHeaderPressed }: { date: Date; onHeaderPressed: F0 }) => {
+export const CalendarHeader = ({ date, onHeaderPressed }: { date: Date; onHeaderPressed?: F0 }) => {
   const { i18n } = useTranslation()
   const monthName = getMonthName(date.getMonth() + 1, i18n.language)
   const year = date.getFullYear()
