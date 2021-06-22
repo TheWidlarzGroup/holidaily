@@ -1448,9 +1448,9 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
-"@types/react-native-calendars@https://github.com/mateki0/DefinitelyTyped/":
+"@types/react-native-calendars@https://github.com/mateki0/DefinitelyTyped":
   version "0.0.3"
-  resolved "https://github.com/mateki0/DefinitelyTyped/#b43316be60c63961e61a3f899e4ab9e05b28fd3c"
+  resolved "https://github.com/mateki0/DefinitelyTyped#b43316be60c63961e61a3f899e4ab9e05b28fd3c"
 
 "@types/react-native-dotenv@^0.2.0":
   version "0.2.0"
