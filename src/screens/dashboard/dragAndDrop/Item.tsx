@@ -1,5 +1,5 @@
 import React, { ReactNode, RefObject } from 'react'
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   useAnimatedGestureHandler,
@@ -11,7 +11,16 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
-import { COL, getPosition, Positions, SIZE, getOrder, animationConfig, SIZE_H } from './Config'
+import {
+  COL,
+  getPosition,
+  Positions,
+  SIZE,
+  getOrder,
+  animationConfig,
+  SIZE_H,
+  MARGIN,
+} from './Config'
 
 interface ItemProps {
   children: ReactNode
@@ -33,8 +42,10 @@ export const Item = ({
   onDragEnd,
 }: ItemProps) => {
   const inset = useSafeAreaInsets()
-  const containerHeight = Dimensions.get('window').height - inset.top - inset.bottom
-  const contentHeight = (Object.keys(positions.value).length / COL) * SIZE_H
+  const { height } = useWindowDimensions()
+  // 120 wysokość headera, 75 bottom navigator
+  const containerHeight = height - inset.top - inset.bottom
+  const contentHeight = Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H
   const p1 = getPosition(positions.value[id])
   const position = getPosition(getOrder(p1.x, p1.y))
   const translateX = useSharedValue(position.x)
@@ -75,20 +86,22 @@ export const Item = ({
           positions.value = newPositions
         }
       }
-      const lowerBound = scrollY.value
-      const upperBound = lowerBound + containerHeight - SIZE_H
-      const maxScroll = contentHeight - containerHeight
+      const offset = scrollY.value < 200 ? 200 - scrollY.value : 0
+      const upBound = scrollY.value
+      // offset wysokośc karuzeli - 200
+      const downBound = upBound + containerHeight - SIZE_H - 90 - 90 - offset
+      const maxScroll = contentHeight
       const leftToScrollDown = maxScroll - scrollY.value
-
-      if (translateY.value < lowerBound) {
-        const diff = Math.min(lowerBound - translateY.value, lowerBound)
+      console.log(translateY.value, upBound, downBound, maxScroll)
+      if (translateY.value > upBound) {
+        const diff = Math.min(upBound - translateY.value, upBound)
         scrollY.value -= diff
         scrollTo(scrollView, 0, scrollY.value, false)
         ctx.y -= diff
         translateY.value = ctx.y + translationY
       }
-      if (translateY.value > upperBound) {
-        const diff = Math.min(translateY.value - upperBound, leftToScrollDown)
+      if (translateY.value < downBound) {
+        const diff = Math.min(translateY.value - downBound, leftToScrollDown)
         scrollY.value += diff
         ctx.y += diff
         scrollTo(scrollView, 0, scrollY.value, false)

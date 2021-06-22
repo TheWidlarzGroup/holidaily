@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { ScrollView } from 'react-native'
@@ -15,7 +15,6 @@ import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
 
 export const Dashboard = () => {
   const [sortable, setSortable] = useState(false)
-
   const { t, i18n } = useTranslation('dashboard')
 
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
@@ -28,7 +27,7 @@ export const Dashboard = () => {
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
       <DashboardHeader />
-       {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {companyHolidaysData.map((item) => (
             <CarouselElement
               key={item.id}
@@ -44,7 +43,7 @@ export const Dashboard = () => {
       {/* <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
           {t('teamsList').toUpperCase()}
         </Text> */}
-      <Box m="s" paddingBottom='xxxl'>
+
         <SortableList editing={sortable} onDragEnd={() => setSortable(false)}>
           {teamsList.map((team) => (
             <TeamElement
@@ -55,7 +54,7 @@ export const Dashboard = () => {
             />
           ))}
         </SortableList>
-      </Box>
+
     </SafeAreaWrapper>
   )
 }

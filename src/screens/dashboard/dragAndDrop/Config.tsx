@@ -7,6 +7,8 @@ export const MARGIN = theme.spacing.xs
 export const SIZE = width / 2 - MARGIN
 export const COL = 2
 export const SIZE_H = 130
+export const HEADER = 90
+export const CAROUSEL = 200
 
 type Order = number
 export type Positions = {
@@ -14,7 +16,7 @@ export type Positions = {
 }
 export const animationConfig = {
   easing: Easing.inOut(Easing.ease),
-  duration: 350,
+  duration: 500,
 }
 export const getPosition = (order: number) => {
   'worklet'
