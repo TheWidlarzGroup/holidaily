@@ -5,9 +5,9 @@ import { Text } from 'utils/theme'
 import { Bubble } from './Bubble'
 
 type ReactionBubbleProps = {
+  emoji: string
   selectable?: boolean
   selected?: boolean
-  emoji: string
   quantity?: number
 }
 
