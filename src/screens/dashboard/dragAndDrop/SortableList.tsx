@@ -40,7 +40,7 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
   const { t } = useTranslation('dashboard')
 
   return (
-    <Box paddingBottom="xxxl">
+    <Box paddingBottom={'xxxl'}>
       <Animated.View style={stylez} />
       <Animated.ScrollView
         ref={scrollView}

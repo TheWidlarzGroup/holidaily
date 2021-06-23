@@ -47,7 +47,8 @@ export const Item = ({
   const { height } = useWindowDimensions()
 
   const containerHeight = height - inset.top - inset.bottom - HEADER_OFFSET - BOTTOM_OFFSET
-  const contentHeight = Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H + NESTED_ELEM_OFFSET
+  const contentHeight =
+    Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H + NESTED_ELEM_OFFSET
   const p1 = getPosition(positions.value[id])
   const position = getPosition(getOrder(p1.x, p1.y))
   const translateX = useSharedValue(position.x)
@@ -80,12 +81,12 @@ export const Item = ({
       const newOrder = getOrder(translateX.value, translateY.value)
       if (oldOrder !== newOrder) {
         const idToSwap = Object.keys(positions.value).find(
-          (key) => positions.value[key] === newOrder
+          (key) => positions.value[Number(key)] === newOrder
         )
         if (idToSwap) {
           const newPositions = { ...positions.value }
           newPositions[id] = newOrder
-          newPositions[idToSwap] = oldOrder
+          newPositions[Number(idToSwap)] = oldOrder
           positions.value = newPositions
         }
       }
@@ -98,7 +99,7 @@ export const Item = ({
       const leftToScrollDown = maxScroll - scrollY.value
       console.log(translateY.value, scrollY.value, upperBound, leftToScrollDown)
 
-      if (translateY.value < lowerBound ) {
+      if (translateY.value < lowerBound) {
         const diff = Math.min(lowerBound - translateY.value, lowerBound)
         scrollY.value -= diff
         scrollTo(scrollView, 0, scrollY.value, false)
@@ -106,7 +107,7 @@ export const Item = ({
         translateY.value = ctx.y + translationY
       }
 
-      if (translateY.value > upperBound ) {
+      if (translateY.value > upperBound) {
         const diff = Math.min(translateY.value - upperBound, leftToScrollDown)
         scrollY.value += diff
         scrollTo(scrollView, 0, scrollY.value, false)
