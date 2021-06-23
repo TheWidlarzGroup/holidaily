@@ -1,25 +1,37 @@
 import React, { useEffect } from 'react'
 import { StatusBar, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { useForm } from 'react-hook-form'
-import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { FormInput } from 'components/FormInput'
+import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
 import { passwordRegex } from 'utils/regex'
+import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
 
 export const ChangePassword = () => {
   const { errors, control } = useForm()
+  const { t } = useTranslation('password')
   const styles = useStyles()
-  const { goBack } = useNavigation()
+  const { goBack, navigate } = useNavigation()
+  const navigateToForgotPassword = () => navigate('Recovery')
+  const [isModalVisible, { toggle: toggleModal }] = useBooleanState(false)
+
+  const handleChangePassword = () => {
+    // const { currPassword, newPassword, confNewPassword } = getValues()
+    // TODO: check if current password matches and update new password
+    toggleModal()
+  }
+
   useEffect(() => {
     StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
     return () => StatusBar.setBackgroundColor('white')
   }, [])
-  const navigation = useNavigation()
-  const navigateToForgotPassword = () => navigation.navigate('Recovery')
+
   return (
     <SafeAreaWrapper>
       <Box flex={1} backgroundColor="modalBackdrop">
@@ -31,19 +43,26 @@ export const ChangePassword = () => {
           borderTopLeftRadius="lmin"
           padding="l"
           style={styles.shadow}>
+          {isModalVisible && (
+            <ChangesSavedModal
+              isVisible
+              hideModal={() => toggleModal()}
+              content={t('newPasswordSaved')}
+            />
+          )}
           <TouchableOpacity activeOpacity={0.2} onPress={goBack} style={styles.backBtn}>
             <IconBack />
           </TouchableOpacity>
           <Text variant="boldBlackCenter20" marginBottom="xxxxl">
-            {'Password change'}
+            {t('passwordChange')}
           </Text>
           <FormInput
             control={control}
             errors={errors}
             name={'currPassword'}
-            inputLabel={'Your current password'}
+            inputLabel={t('currPassword')}
             validationPattern={passwordRegex}
-            errorMessage={'Something went wrong.'}
+            errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
             isError={!!errors.password}
           />
@@ -58,9 +77,9 @@ export const ChangePassword = () => {
             control={control}
             errors={errors}
             name={'newPassword'}
-            inputLabel={'New password'}
+            inputLabel={t('newPassword')}
             validationPattern={passwordRegex}
-            errorMessage={'Something went wrong.'}
+            errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
             isError={!!errors.newPassword}
           />
@@ -68,9 +87,9 @@ export const ChangePassword = () => {
             control={control}
             errors={errors}
             name={'confNewPassword'}
-            inputLabel={'Repeat new password'}
+            inputLabel={t('confirmNewPassword')}
             validationPattern={passwordRegex}
-            errorMessage={'Something went wrong.'}
+            errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
             isError={!!errors.confNewPassword}
           />
@@ -78,7 +97,7 @@ export const ChangePassword = () => {
             <CustomButton
               label={'Save'}
               variant="primary"
-              onPress={() => console.log('save new password')}
+              onPress={handleChangePassword}
               width={221}
               height={53}
             />

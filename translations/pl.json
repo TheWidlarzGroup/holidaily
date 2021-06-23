@@ -19,10 +19,13 @@
     "forgotResetButton": "Zresetuj hasło"
   },
   "password": {
+    "currPassword": "Obecne hasło",
     "password": "Hasło",
     "newPassword": "Nowe hasło",
     "confirmNewPassword": "Potwierdź nowe hasło",
-    "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie"
+    "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie",
+    "newPasswordSaved": "Nowe hasło zapisane!",
+    "passwordChange": "Zmiana hasła" 
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Odzyskiwanie hasła",

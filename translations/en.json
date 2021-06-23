@@ -19,10 +19,13 @@
     "forgotResetButton": "Reset password"
   },
   "password": {
+    "currPassword": "Your current password",
     "password": "Password",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
-    "incorrectPassword": "Incorrect password, please try again"
+    "incorrectPassword": "Incorrect password, please try again",
+    "newPasswordSaved": "New password saved!",
+    "passwordChange": "Password change"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Password Recovery",
