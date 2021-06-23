@@ -1,15 +1,17 @@
 import { Dimensions } from 'react-native'
 import { Easing } from 'react-native-reanimated'
-import { theme } from 'utils/theme/index'
+// import { Theme } from 'utils/theme/index'
+import { themeBase } from 'utils/theme/themeBase'
 
 const { width } = Dimensions.get('window')
-export const MARGIN = theme.spacing.xs
+// export const MARGIN: Theme['spacing'] = themeBase.spacing.xs
+export const MARGIN = themeBase.spacing.xs
 export const SIZE_W = width / 2 - MARGIN
 export const COL = 2
 export const SIZE_H = 130
 // height of dashboard header, height of bottom padding, height of carousel nested in scrollView
 export const HEADER_OFFSET = 90
-export const BOTTOM_OFFSET = theme.spacing.xxxl
+export const BOTTOM_OFFSET = themeBase.spacing.xxxl
 export const NESTED_ELEM_OFFSET = 160
 
 type Order = number

@@ -1,6 +1,7 @@
 import React, { ReactNode, RefObject } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { themeBase } from 'utils/theme/themeBase'
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedReaction,
@@ -24,25 +25,20 @@ import {
   NESTED_ELEM_OFFSET,
 } from './Config'
 
-interface ItemProps {
+type ItemProps = {
   children: ReactNode
   positions: Animated.SharedValue<Positions>
   id: number
   scrollView: RefObject<Animated.ScrollView>
   scrollY: Animated.SharedValue<number>
   editing: boolean
-  onDragEnd: () => void
+  onDragEnd: F0
 }
 
-export const Item = ({
-  children,
-  positions,
-  id,
-  scrollView,
-  scrollY,
-  editing,
-  onDragEnd,
-}: ItemProps) => {
+export const Item = (props: ItemProps) => {
+  const { children, positions, id, scrollView, scrollY, editing, onDragEnd } = props
+
+  const isGestureActive = useSharedValue(false)
   const inset = useSafeAreaInsets()
   const { height } = useWindowDimensions()
 
@@ -62,7 +58,6 @@ export const Item = ({
       translateY.value = withTiming(newPosition.y, animationConfig)
     }
   )
-  const isGestureActive = useSharedValue(false)
 
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
@@ -97,7 +92,6 @@ export const Item = ({
       const upperBound = containerHeight - SIZE_H - stackElementOffset
       const maxScroll = contentHeight - containerHeight
       const leftToScrollDown = maxScroll - scrollY.value
-      console.log(translateY.value, scrollY.value, upperBound, leftToScrollDown)
 
       if (translateY.value < lowerBound) {
         const diff = Math.min(lowerBound - translateY.value, lowerBound)
@@ -127,7 +121,7 @@ export const Item = ({
   })
 
   const style = useAnimatedStyle(() => {
-    const zIndex = isGestureActive.value ? 100 : 0
+    const zIndex = isGestureActive.value ? themeBase.zIndices[50] : themeBase.zIndices[0]
 
     return {
       position: 'absolute',

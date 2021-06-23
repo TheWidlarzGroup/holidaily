@@ -21,27 +21,21 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
   const positions = useSharedValue<Positions>(
-    // positions object from database
+    // if positions object from database => { [child.props.groupId]: child.props.order }
     Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
   )
+  const { t } = useTranslation('dashboard')
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollY.value = event.contentOffset.y
     },
   })
-  const stylez = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: scrollY.value,
-      },
-    ],
-  }))
-  const { t } = useTranslation('dashboard')
+  const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
 
   return (
     <Box paddingBottom={'xxxl'}>
-      <Animated.View style={stylez} />
+      <Animated.View style={scrollStyle} />
       <Animated.ScrollView
         ref={scrollView}
         contentContainerStyle={{
