@@ -5,7 +5,7 @@ import {
   setDateToBeDisplayed,
   qtyOnHolidayNow,
   displayDDMonYYYY,
-  displayDatesRange
+  displayDatesRange,
 } from 'utils/functions'
 import { TEAM_MATES_AKADEMIA, TEAM_MATES_DEV } from 'utils/mocks/userMocks'
 import { DateTime } from 'luxon'
