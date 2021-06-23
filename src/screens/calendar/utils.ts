@@ -1,6 +1,7 @@
 import { ViewStyle } from 'react-native'
 import { theme } from 'utils/theme'
-import { DayInfoProps, DayOffEvent } from 'screens/calendar/components/DayInfo'
+import { DayInfoProps } from 'screens/calendar/components/DayInfo'
+import { DayOffEvent } from './components/DayEvent'
 
 export const weekendBasedStyles = (weekend: number) => {
   let styles: ViewStyle = {}
