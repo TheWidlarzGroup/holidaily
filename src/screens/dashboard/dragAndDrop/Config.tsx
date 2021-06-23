@@ -4,7 +4,7 @@ import { theme } from 'utils/theme/index'
 
 const { width } = Dimensions.get('window')
 export const MARGIN = theme.spacing.xs
-export const SIZE = width / 2 - MARGIN
+export const SIZE_W = width / 2 - MARGIN
 export const COL = 2
 export const SIZE_H = 130
 // height of dashboard header, height of bottom padding, height of carousel nested in scrollView
@@ -24,7 +24,7 @@ export const getPosition = (order: number) => {
   'worklet'
 
   return {
-    x: (order % COL) * SIZE,
+    x: (order % COL) * SIZE_W,
     y: Math.floor(order / COL) * SIZE_H,
   }
 }
@@ -33,6 +33,6 @@ export const getOrder = (x: number, y: number) => {
   'worklet'
 
   const row = Math.round(y / SIZE_H)
-  const col = Math.round(x / SIZE)
+  const col = Math.round(x / SIZE_W)
   return row * COL + col
 }

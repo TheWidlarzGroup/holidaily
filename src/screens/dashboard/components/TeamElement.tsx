@@ -4,7 +4,7 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
-import { SIZE, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
+import { SIZE_W, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
 
 type TeamElementProps = ValidationOfGroupDayOff & {
   navigateToTeamScreen: F0
@@ -15,7 +15,7 @@ export const TeamElement = (props: TeamElementProps) => {
   const { groupId, groupName, users, navigateToTeamScreen, onLongPress } = props
 
   return (
-    <Box key={groupId} width={SIZE} height={SIZE_H}>
+    <Box key={groupId} width={SIZE_W} height={SIZE_H}>
       <BaseOpacity
         borderRadius="m"
         margin="s"
