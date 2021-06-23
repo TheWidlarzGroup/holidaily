@@ -1,13 +1,15 @@
 import React, { ReactElement } from 'react'
 import { Item } from 'screens/dashboard/dragAndDrop/Item'
+import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated'
+import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
-import { COL, Positions, SIZE_H } from './Config'
+import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 type SortableListProps = {
   children: ReactElement<{ groupId: number }>[]
@@ -35,6 +37,7 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
       },
     ],
   }))
+  const { t } = useTranslation('dashboard')
 
   return (
     <Box paddingBottom="xxxl">
@@ -42,15 +45,19 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
       <Animated.ScrollView
         ref={scrollView}
         contentContainerStyle={{
-          height: Math.ceil(children.length / COL) * SIZE_H + 200,
+          height: Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET,
         }}
         showsVerticalScrollIndicator={false}
         bounces={false}
         scrollEventThrottle={16}
         onScroll={onScroll}>
-        <Box height={200} backgroundColor="secondary">
-          <Text>pozostałe elementy do scrolowania</Text>
+        <Box height={NESTED_ELEM_OFFSET}>
+          <Carousel />
+          <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
+            {t('teamsList').toUpperCase()}
+          </Text>
         </Box>
+
         {children.map((child) => (
           <Item
             scrollView={scrollView}

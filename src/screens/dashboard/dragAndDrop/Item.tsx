@@ -98,7 +98,7 @@ export const Item = ({
       const leftToScrollDown = maxScroll - scrollY.value
       console.log(translateY.value, scrollY.value, upperBound, leftToScrollDown)
 
-      if (translateY.value < lowerBound && translateY.value > 0) {
+      if (translateY.value < lowerBound ) {
         const diff = Math.min(lowerBound - translateY.value, lowerBound)
         scrollY.value -= diff
         scrollTo(scrollView, 0, scrollY.value, false)
@@ -106,7 +106,7 @@ export const Item = ({
         translateY.value = ctx.y + translationY
       }
 
-      if (translateY.value > upperBound && translateY.value > 0) {
+      if (translateY.value > upperBound ) {
         const diff = Math.min(translateY.value - upperBound, leftToScrollDown)
         scrollY.value += diff
         scrollTo(scrollView, 0, scrollY.value, false)
@@ -130,7 +130,7 @@ export const Item = ({
 
     return {
       position: 'absolute',
-      top: 200,
+      top: NESTED_ELEM_OFFSET,
       left: 0,
       width: SIZE,
       height: SIZE_H,
