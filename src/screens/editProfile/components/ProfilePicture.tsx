@@ -108,7 +108,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
         onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.2}
         rippleColor={theme.colors.rippleColor}>
-        <Avatar src={userProfilePicture} size="l" />
+        <Avatar src={userProfilePicture} size="l" marginBottom="m" />
       </RectButton>
       <TextLink
         text={userProfilePicture ? t('editPhoto') : t('addPhoto')}
