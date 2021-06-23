@@ -14,6 +14,7 @@ import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { passwordRegex } from 'utils/regex'
 import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
+import { ConfirmationModal } from 'components/ConfirmationModal'
 
 export const ChangePassword = () => {
   const { control, handleSubmit, errors, watch } = useForm()
@@ -24,6 +25,7 @@ export const ChangePassword = () => {
   const navigateToForgotPassword = () => navigate('Recovery')
   const [arePasswordsEqual, { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual }] =
     useBooleanState(true)
+  const [userEditedPassword, { setTrue: setUserEditedPassword }] = useBooleanState(false)
   const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
 
   const handleChangePassword = () => {
@@ -37,6 +39,26 @@ export const ChangePassword = () => {
           content={t('newPasswordSaved')}
         />
       )
+  }
+  const handleGoBack = () => {
+    if (userEditedPassword) {
+      handleModal(
+        <ConfirmationModal
+          isVisible
+          hideModal={() => handleModal()}
+          onAccept={() => {
+            handleModal()
+            goBack()
+          }}
+          onDecline={() => {
+            handleModal()
+          }}
+          content={"If you quit now, your changes won't be saved."}
+        />
+      )
+    } else {
+      goBack()
+    }
   }
 
   useEffect(() => {
@@ -65,7 +87,7 @@ export const ChangePassword = () => {
           borderTopLeftRadius="lmin"
           padding="l"
           style={styles.shadow}>
-          <TouchableOpacity activeOpacity={0.2} onPress={goBack} style={styles.backBtn}>
+          <TouchableOpacity activeOpacity={0.2} onPress={handleGoBack} style={styles.backBtn}>
             <IconBack />
           </TouchableOpacity>
           <Text variant="boldBlackCenter20" marginBottom="xxxxl">
@@ -74,12 +96,14 @@ export const ChangePassword = () => {
           <FormInput
             control={control}
             errors={errors}
+            screenName="ChangePassword"
             name={'currPassword'}
             inputLabel={t('currPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
             isError={!!errors.password}
+            onFocus={setUserEditedPassword}
           />
           <RectButton
             rippleColor={theme.colors.rippleColor}
@@ -91,22 +115,28 @@ export const ChangePassword = () => {
           <FormInput
             control={control}
             errors={errors}
+            screenName="ChangePassword"
             name={'newPassword'}
             inputLabel={t('newPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
+            passwordsAreEqual={arePasswordsEqual}
             isError={!!errors.newPassword}
+            onFocus={setUserEditedPassword}
           />
           <FormInput
             control={control}
             errors={errors}
+            screenName="ChangePassword"
             name={'confNewPassword'}
             inputLabel={t('confirmNewPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
-            isError={!!errors.confNewPassword}
+            passwordsAreEqual={arePasswordsEqual}
+            isError={!!errors.confNewPassword || !arePasswordsEqual}
+            onFocus={setUserEditedPassword}
           />
           <Box position="absolute" bottom={16} alignSelf="center">
             <CustomButton
@@ -139,6 +169,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginTop: -18,
     marginBottom: theme.spacing.lplus,
     marginRight: theme.spacing.xs,
-    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
   },
 }))
