@@ -17,21 +17,24 @@ import IconBack from 'assets/icons/icon-back.svg'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 
 export const ChangePassword = () => {
-  const { control, handleSubmit, errors, watch } = useForm()
+  const { control, handleSubmit, errors, watch, reset } = useForm()
   const { handleModal } = useModalContext()
-  const { t } = useTranslation('password')
+  const { t } = useTranslation('changePassword')
   const styles = useStyles()
   const { goBack, navigate } = useNavigation()
   const navigateToForgotPassword = () => navigate('Recovery')
   const [arePasswordsEqual, { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual }] =
     useBooleanState(true)
-  const [userEditedPassword, { setTrue: setUserEditedPassword }] = useBooleanState(false)
+  const [
+    userEditedPassword,
+    { setTrue: setUserEditedPassword, setFalse: setUserDidNotEditedPassword },
+  ] = useBooleanState(false)
   const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
 
   const handleChangePassword = () => {
     // const { currPassword, newPassword, confNewPassword } = getValues()
     // TODO: check if current password matches and update new password
-    if (arePasswordsEqual)
+    if (arePasswordsEqual) {
       handleModal(
         <ChangesSavedModal
           isVisible
@@ -39,6 +42,9 @@ export const ChangePassword = () => {
           content={t('newPasswordSaved')}
         />
       )
+      setUserDidNotEditedPassword()
+      reset()
+    }
   }
   const handleGoBack = () => {
     if (userEditedPassword) {
@@ -53,7 +59,7 @@ export const ChangePassword = () => {
           onDecline={() => {
             handleModal()
           }}
-          content={"If you quit now, your changes won't be saved."}
+          content={t('exitMessage')}
         />
       )
     } else {
@@ -110,7 +116,7 @@ export const ChangePassword = () => {
             activeOpacity={0.2}
             onPress={navigateToForgotPassword}
             style={styles.forgottenPasswordBtn}>
-            <Text variant="labelGrey">{'Forgot your password?'}</Text>
+            <Text variant="labelGrey">{t('forgotPasswordMessage')}</Text>
           </RectButton>
           <FormInput
             control={control}
