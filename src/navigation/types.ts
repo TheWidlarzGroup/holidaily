@@ -114,7 +114,7 @@ export type BottomTabRoutes = {
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
-  ProfileNavigation: UserProfileRoutes
+  ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
