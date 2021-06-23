@@ -137,5 +137,11 @@
     "lastDayAtWork": "Ostatni dzień w pracy",
     "SickLeave": "Chorobowe",
     "coupleDaysOff": "Kilka dni wolnego"
+  },
+  "feed": {
+    "postCommentBtn": "Skomentuj",
+    "comments": "Komentarze",
+    "noComments": "Brak komentarzy",
+    "createPostLabel": "Wyślij pozdrowienia..."
   }
 }

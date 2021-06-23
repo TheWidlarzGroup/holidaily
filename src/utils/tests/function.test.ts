@@ -4,6 +4,7 @@ import {
   displayDayShort,
   setDateToBeDisplayed,
   qtyOnHolidayNow,
+  displayDDMonYYYY,
   displayDatesRange,
 } from 'utils/functions'
 import { TEAM_MATES_AKADEMIA, TEAM_MATES_DEV } from 'utils/mocks/userMocks'
@@ -47,6 +48,14 @@ describe('qtyOnHolidayNow', () => {
   it('sums up mates currently on holidays', () => {
     expect(qtyOnHolidayNow(TEAM_MATES_AKADEMIA)).toBe(3)
     expect(qtyOnHolidayNow(TEAM_MATES_DEV)).toBe(0)
+  })
+})
+
+describe('displayDDMonYYYY', () => {
+  const inputDate = DateTime.fromISO('2021-06-11')
+  it('should display date in proper format', () => {
+    expect(displayDDMonYYYY(inputDate, 'en')).toBe('11 Jun 2021')
+    expect(displayDDMonYYYY(inputDate, 'pl')).toBe('11 cze 2021')
   })
 })
 

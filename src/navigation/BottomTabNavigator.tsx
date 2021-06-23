@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { mkUseStyles, Theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
-import { Panel } from 'screens/panel/Panel'
+import { Feed } from 'screens/feed/Feed'
 import { Chat } from 'screens/chat/Chat'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { BottomTabRoutes } from './types'
@@ -24,6 +24,7 @@ const tabs = [
   { name: 'Panel' },
   { name: 'Chat' },
 ]
+
 export const BottomTabNavigator = ({ style }: ViewProps) => {
   const styles = useStyles()
   return (
@@ -38,7 +39,7 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
             />
             <Tab.Screen name="Calendar" component={Calendar} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
-            <Tab.Screen name="Panel" component={Panel} />
+            <Tab.Screen name="Panel" component={Feed} />
             <Tab.Screen name="Chat" component={Chat} />
           </Tab.Navigator>
         </SafeAreaView>
