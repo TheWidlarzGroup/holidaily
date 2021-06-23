@@ -1,5 +1,5 @@
 import React, { ReactNode, RefObject } from 'react'
-import { Dimensions, StyleSheet, useWindowDimensions } from 'react-native'
+import { StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   useAnimatedGestureHandler,
@@ -19,7 +19,9 @@ import {
   getOrder,
   animationConfig,
   SIZE_H,
-  MARGIN,
+  HEADER_OFFSET,
+  BOTTOM_OFFSET,
+  NESTED_ELEM_OFFSET,
 } from './Config'
 
 interface ItemProps {
@@ -43,9 +45,9 @@ export const Item = ({
 }: ItemProps) => {
   const inset = useSafeAreaInsets()
   const { height } = useWindowDimensions()
-  // 120 wysokość headera, 75 bottom navigator
-  const containerHeight = height - inset.top - inset.bottom
-  const contentHeight = Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H
+
+  const containerHeight = height - inset.top - inset.bottom - HEADER_OFFSET - BOTTOM_OFFSET
+  const contentHeight = Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H + NESTED_ELEM_OFFSET
   const p1 = getPosition(positions.value[id])
   const position = getPosition(getOrder(p1.x, p1.y))
   const translateX = useSharedValue(position.x)
@@ -70,7 +72,8 @@ export const Item = ({
       ctx.x = translateX.value
       ctx.y = translateY.value
     },
-    onActive: ({ translationX, translationY }, ctx) => {
+    onActive: (foo, ctx) => {
+      const { translationX, translationY } = foo
       translateX.value = ctx.x + translationX
       translateY.value = ctx.y + translationY
       const oldOrder = positions.value[id]
@@ -86,25 +89,28 @@ export const Item = ({
           positions.value = newPositions
         }
       }
-      const offset = scrollY.value < 200 ? 200 - scrollY.value : 0
-      const upBound = scrollY.value
-      // offset wysokośc karuzeli - 200
-      const downBound = upBound + containerHeight - SIZE_H - 90 - 90 - offset
-      const maxScroll = contentHeight
+      // scroll while dragging
+      const lowerBound = scrollY.value < NESTED_ELEM_OFFSET ? 0 : scrollY.value - NESTED_ELEM_OFFSET
+      const stackElementOffset =
+        scrollY.value < NESTED_ELEM_OFFSET ? NESTED_ELEM_OFFSET - scrollY.value : 0
+      const upperBound = containerHeight - SIZE_H - stackElementOffset
+      const maxScroll = contentHeight - containerHeight
       const leftToScrollDown = maxScroll - scrollY.value
-      console.log(translateY.value, upBound, downBound, maxScroll)
-      if (translateY.value > upBound) {
-        const diff = Math.min(upBound - translateY.value, upBound)
+      console.log(translateY.value, scrollY.value, upperBound, leftToScrollDown)
+
+      if (translateY.value < lowerBound && translateY.value > 0) {
+        const diff = Math.min(lowerBound - translateY.value, lowerBound)
         scrollY.value -= diff
         scrollTo(scrollView, 0, scrollY.value, false)
         ctx.y -= diff
         translateY.value = ctx.y + translationY
       }
-      if (translateY.value < downBound) {
-        const diff = Math.min(translateY.value - downBound, leftToScrollDown)
+
+      if (translateY.value > upperBound && translateY.value > 0) {
+        const diff = Math.min(translateY.value - upperBound, leftToScrollDown)
         scrollY.value += diff
-        ctx.y += diff
         scrollTo(scrollView, 0, scrollY.value, false)
+        ctx.y += diff
         translateY.value = ctx.y + translationY
       }
     },

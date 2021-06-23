@@ -8,7 +8,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import { Box, Text } from 'utils/theme'
 import { COL, Positions, SIZE_H } from './Config'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 type SortableListProps = {
   children: ReactElement<{ groupId: number }>[]
@@ -38,7 +37,7 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
   }))
 
   return (
-    <Box>
+    <Box paddingBottom="xxxl">
       <Animated.View style={stylez} />
       <Animated.ScrollView
         ref={scrollView}
@@ -54,7 +53,7 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
         </Box>
         {children.map((child) => (
           <Item
-          scrollView={scrollView}
+            scrollView={scrollView}
             scrollY={scrollY}
             key={child.props.groupId}
             positions={positions}
@@ -65,6 +64,6 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
           </Item>
         ))}
       </Animated.ScrollView>
-  </Box>
+    </Box>
   )
 }

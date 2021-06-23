@@ -7,8 +7,10 @@ export const MARGIN = theme.spacing.xs
 export const SIZE = width / 2 - MARGIN
 export const COL = 2
 export const SIZE_H = 130
-export const HEADER = 90
-export const CAROUSEL = 200
+// height of dashboard header, height of bottom padding, height of carousel nested in scrollView
+export const HEADER_OFFSET = 90
+export const BOTTOM_OFFSET = 90
+export const NESTED_ELEM_OFFSET = 200
 
 type Order = number
 export type Positions = {
