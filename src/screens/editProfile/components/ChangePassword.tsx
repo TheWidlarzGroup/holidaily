@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { useForm } from 'react-hook-form'
+import { useModalContext } from 'contexts/ModalProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { FormInput } from 'components/FormInput'
@@ -16,11 +17,11 @@ import IconBack from 'assets/icons/icon-back.svg'
 
 export const ChangePassword = () => {
   const { control, handleSubmit, errors, watch } = useForm()
+  const { handleModal } = useModalContext()
   const { t } = useTranslation('password')
   const styles = useStyles()
   const { goBack, navigate } = useNavigation()
   const navigateToForgotPassword = () => navigate('Recovery')
-  const [isModalVisible, { toggle: toggleModal }] = useBooleanState(false)
   const [arePasswordsEqual, { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual }] =
     useBooleanState(true)
   const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
@@ -28,7 +29,14 @@ export const ChangePassword = () => {
   const handleChangePassword = () => {
     // const { currPassword, newPassword, confNewPassword } = getValues()
     // TODO: check if current password matches and update new password
-    if (arePasswordsEqual) toggleModal()
+    if (arePasswordsEqual)
+      handleModal(
+        <ChangesSavedModal
+          isVisible
+          hideModal={() => handleModal()}
+          content={t('newPasswordSaved')}
+        />
+      )
   }
 
   useEffect(() => {
@@ -57,13 +65,6 @@ export const ChangePassword = () => {
           borderTopLeftRadius="lmin"
           padding="l"
           style={styles.shadow}>
-          {isModalVisible && (
-            <ChangesSavedModal
-              isVisible
-              hideModal={() => toggleModal()}
-              content={t('newPasswordSaved')}
-            />
-          )}
           <TouchableOpacity activeOpacity={0.2} onPress={goBack} style={styles.backBtn}>
             <IconBack />
           </TouchableOpacity>
