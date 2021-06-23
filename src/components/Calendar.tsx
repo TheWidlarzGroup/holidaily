@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
+  CalendarList as RNCalendarList,
   Calendar as RNCalendar,
   CalendarProps as RNCalendarProps,
   LocaleConfig,
@@ -22,16 +23,19 @@ type ClickProps = {
 type CustomCalendarProps = {
   onSelectedPeriodChange?: F2<string, string>
   selectable?: boolean
+  list?: boolean
   onHeaderPressed?: F0
 }
 
 export const Calendar = React.forwardRef(
   (
     {
-      theme,
+      theme: themeProp,
       onSelectedPeriodChange,
       selectable = false,
       onHeaderPressed,
+      list = false,
+      markedDates = {},
       ...props
     }: RNCalendarProps & CustomCalendarProps,
     ref: RNCalendar
@@ -58,35 +62,62 @@ export const Calendar = React.forwardRef(
 
     const { i18n } = useTranslation()
     LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
+
+    const theme = {
+      textDayFontFamily: appTheme.fontFamily.nunitoRegular,
+      textDayFontSize: appTheme.fontSize.xs,
+      textSectionTitleColor: appTheme.colors.grey,
+      arrowColor: appTheme.colors.black,
+      'stylesheet.calendar.header': {
+        header: {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingLeft: 10,
+          paddingRight: 10,
+          marginTop: 6,
+          alignItems: 'center',
+          marginBottom: 10,
+        },
+      },
+      ...themeProp,
+    }
+
+    if (!list)
+      return (
+        <RNCalendar
+          firstDay={1}
+          hideExtraDays
+          theme={theme}
+          dayComponent={CalendarDay}
+          onDayPress={handleClick}
+          renderHeader={(date: Date) => (
+            <CalendarHeader date={date} onHeaderPressed={onHeaderPressed} />
+          )}
+          markedDates={{
+            ...markedDates,
+            ...genMarkedDates(selectedPeriodStart, selectedPeriodEnd),
+          }}
+          ref={ref}
+          {...props}
+        />
+      )
+
     return (
-      <RNCalendar
+      <RNCalendarList
+        pastScrollRange={0}
+        futureScrollRange={24}
         firstDay={1}
         hideExtraDays
-        theme={{
-          textDayFontFamily: appTheme.fontFamily.nunitoRegular,
-          textDayFontSize: appTheme.fontSize.xs,
-          textSectionTitleColor: appTheme.colors.grey,
-          arrowColor: appTheme.colors.black,
-          'stylesheet.calendar.header': {
-            header: {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingLeft: 10,
-              paddingRight: 10,
-              marginTop: 6,
-              alignItems: 'center',
-              marginBottom: 10,
-            },
-          },
-          ...theme,
-        }}
+        hideArrows
+        hideDayNames
+        theme={theme}
         dayComponent={CalendarDay}
         onDayPress={handleClick}
-        renderHeader={(date: Date) => (
-          <CalendarHeader date={date} onHeaderPressed={onHeaderPressed} />
-        )}
-        markedDates={genMarkedDates(selectedPeriodStart, selectedPeriodEnd)}
-        ref={ref}
+        renderHeader={(date: Date) => <CalendarHeader date={date} />}
+        markedDates={{
+          ...markedDates,
+          ...genMarkedDates(selectedPeriodStart, selectedPeriodEnd),
+        }}
         {...props}
       />
     )

@@ -7,7 +7,9 @@ import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
 import { Checkbox } from 'components/Checkbox'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { CalendarModal } from './CalendarModal'
+import { useNavigation } from '@react-navigation/native'
+import { ModalNavigationType } from 'navigation/types'
+import { getFormattedPeriod } from 'utils/dates'
 import { Additionals } from './Additionals'
 
 type FormTypes = {
@@ -16,24 +18,25 @@ type FormTypes = {
 }
 
 type RequestDataTypes = {
-  date: undefined
   description: string
   sickTime: boolean
 }
 
 type FormRequestVacationProps = {
+  date: {
+    start?: Date
+    end?: Date
+  }
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
+  date,
   nextStep,
   changeRequestData,
 }) => {
   const { control, handleSubmit, errors } = useForm()
-  const [calendarVisible, { setTrue: setDisplayCalendarTrue, setFalse: setDisplayCalendarFalse }] =
-    useBooleanState(false)
-
   const [sickTime, { toggle }] = useBooleanState(false)
 
   const handleLoginUser = (data: FormTypes) => {
@@ -41,6 +44,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     changeRequestData((oldData) => ({ ...oldData, description: data.description, sickTime }))
     nextStep()
   }
+
+  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
 
   const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
@@ -52,7 +57,11 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             Details
           </Text>
           <Box marginTop="m">
-            <InputButton inputLabel="Date" onClick={setDisplayCalendarTrue} value={''} />
+            <InputButton
+              inputLabel="Date"
+              onClick={() => navigation.navigate('RequestVacationCalendar')}
+              value={getFormattedPeriod(date.start, date.end)}
+            />
           </Box>
           <Box marginTop="m">
             <FormInput
@@ -80,7 +89,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           </Box>
         </Box>
         <Additionals />
-        <CalendarModal isVisible={calendarVisible} hideModal={setDisplayCalendarFalse} />
       </Box>
       <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
     </Box>

@@ -1,4 +1,10 @@
-import { getMonthName, isWeekend, getDatesBetween, getDayName } from 'utils/dates'
+import {
+  getMonthName,
+  isWeekend,
+  getDatesBetween,
+  getDayName,
+  getFormattedPeriod,
+} from 'utils/dates'
 import { DateTime } from 'luxon'
 
 describe('checksIfItsWeekend', () => {
@@ -50,5 +56,14 @@ describe('getDayNameFromISOString', () => {
 describe('getStringDateFromISOString', () => {
   it('returns correct date', () => {
     expect(getDayName('2021-06-21', 'pl')).toBe('poniedziałek')
+  })
+})
+
+describe('getFormattedPeriod', () => {
+  it('', () => {
+    const dateA = new Date('2021-06-29')
+    const dateB = new Date('2021-07-02')
+    const result = getFormattedPeriod(dateA, dateB, 'en')
+    expect(result).toBe('29 Jun - 2 Jul')
   })
 })
