@@ -102,7 +102,7 @@ export const ChangePassword = () => {
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
-            isError={!!errors.password}
+            isError={!!errors.currPassword}
             onFocus={setUserEditedPassword}
           />
           <RectButton
