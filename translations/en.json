@@ -137,5 +137,11 @@
     "lastDayAtWork": "Last day at work",
     "sickLeave": "Sick time off",
     "coupleDaysOff": "A couple days off"
+  },
+  "feed": {
+    "postCommentBtn": "Comment",
+    "comments": "Comments",
+    "noComments": "No comments yet",
+    "createPostLabel": "Send greetings..."
   }
 }
