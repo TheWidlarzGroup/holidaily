@@ -72,12 +72,36 @@ export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = 
   route: RouteProp<DashboardRoutes, RouteName>
 }
 
+// for useNavigation hook
+export type UserProfileType<RouteName extends keyof UserProfileRoutes> = CompositeNavigationProp<
+  StackNavigationProp<UserProfileRoutes, RouteName>,
+  StackNavigationProp<AppRoutes, 'ProfileNavigation'>
+>
+
+export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes> = {
+  navigation: StackNavigationProp<UserProfileRoutes, RouteName>
+  route: RouteProp<UserProfileRoutes, RouteName>
+}
+// for useNavigation hook
+export type ForgotPasswordTypes<RouteName extends keyof ForgotPasswordRoutes> =
+  CompositeNavigationProp<
+    StackNavigationProp<ForgotPasswordRoutes, RouteName>,
+    StackNavigationProp<AppRoutes, 'ForgotPasswordNavigation'>
+  >
+
+export type ForgotPasswordProps<RouteName extends keyof ForgotPasswordRoutes> = {
+  navigation: StackNavigationProp<ForgotPasswordRoutes, RouteName>
+  route: RouteProp<ForgotPasswordRoutes, RouteName>
+}
+
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Home: NestedNavigatorParams<BottomTabRoutes>
   ModalRoutes: NestedNavigatorParams<DrawerRoutes>
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
+  ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
+  ForgotPasswordNavigation: NestedNavigatorParams<ForgotPasswordRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -90,7 +114,7 @@ export type BottomTabRoutes = {
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
-  EditProfile: undefined
+  ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
@@ -105,6 +129,7 @@ export type AuthRoutes = {
   RecoveryCode: undefined
   NewPassword: undefined
   ConfirmedAccount: undefined
+  Recovery: undefined
 }
 
 export type ModalRoutes = {
@@ -120,4 +145,16 @@ export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: ValidationOfGroupDayOff
   DashboardTeamMember: RequiredMateHolidaysData
+}
+
+export type UserProfileRoutes = {
+  EditProfile: undefined
+  ChangePassword: undefined
+  Recovery: undefined
+}
+
+export type ForgotPasswordRoutes = {
+  ForgotPassword: undefined
+  RecoveryCode: undefined
+  NewPassword: undefined
 }
