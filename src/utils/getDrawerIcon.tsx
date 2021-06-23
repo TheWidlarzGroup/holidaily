@@ -5,7 +5,7 @@ import EditIcon from 'assets/icons/icon-edit.svg'
 import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
 
-export type Tab = 'EditProfile' | 'Settings' | 'HolidayBudget' | 'About' | 'Logout'
+export type Tab = 'ProfileNavigation' | 'Settings' | 'HolidayBudget' | 'About' | 'Logout'
 
 const dimensions = {
   width: 40,
@@ -14,7 +14,7 @@ const dimensions = {
 
 export const getDrawerIcon = (tab: Tab) => {
   switch (tab) {
-    case 'EditProfile': {
+    case 'ProfileNavigation': {
       return <EditIcon {...dimensions} />
     }
     case 'Settings': {
