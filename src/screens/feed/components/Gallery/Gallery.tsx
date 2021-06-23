@@ -25,7 +25,7 @@ export const Gallery = ({ data }: GalleryProps) => {
 
   const handleViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
     const [item] = viewableItems
-    if (!item?.index && item?.index !== 0) return
+    if (item === undefined || item.index === null) return
     setImageIndex(item.index)
   }
 

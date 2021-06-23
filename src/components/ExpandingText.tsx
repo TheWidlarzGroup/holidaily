@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Text } from 'utils/theme'
+import { BaseOpacity, Text } from 'utils/theme'
 
 type ExpandingTextProps = React.ComponentProps<typeof Text> & {
   text: string
@@ -16,8 +16,10 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
   }, [lines])
 
   return (
-    <Text {...textProps} numberOfLines={numOfLines} onPress={handlePress}>
-      {text}
-    </Text>
+    <BaseOpacity onPress={handlePress} activeOpacity={0.4}>
+      <Text {...textProps} numberOfLines={numOfLines}>
+        {text}
+      </Text>
+    </BaseOpacity>
   )
 }

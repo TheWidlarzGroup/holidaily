@@ -17,7 +17,7 @@ export const ReactionBubble = ({ selected, emoji, quantity, ...props }: Reaction
   return (
     <Bubble margin="xs" onPress={toggle} {...props} bg={toggled ? 'primary' : 'rippleColor'}>
       <Text padding="s">{emoji}</Text>
-      {quantity ? <Text paddingEnd="m">{quantity}</Text> : null}
+      {!!quantity && <Text paddingEnd="m">{quantity}</Text>}
     </Bubble>
   )
 }
