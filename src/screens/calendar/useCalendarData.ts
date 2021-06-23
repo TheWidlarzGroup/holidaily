@@ -2,12 +2,8 @@ import { useEffect, useState } from 'react'
 import { MOCKED_DATA } from 'screens/calendar/MockedData'
 import { DayInfoProps } from 'screens/calendar/components/DayInfo'
 import { DateTime } from 'luxon'
+import { FilterCategory } from './components/CategoriesSlider'
 
-type FilterCategory = {
-  id: number
-  title: string
-  isSelected: boolean
-}
 export const useCalendarData = () => {
   const [filterCategories, setFilterCategories] = useState<FilterCategory[]>(
     MOCKED_DATA.filterCategories

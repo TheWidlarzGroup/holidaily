@@ -1,18 +1,16 @@
 import React, { useRef } from 'react'
 
-import { FlatList } from 'react-native'
 import { Calendar as RNCalendar } from 'react-native-calendars'
-import MonthPicker from 'react-native-month-year-picker'
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { Calendar as CalendarComponent } from 'components/Calendar'
-import { SliderItem } from 'screens/calendar/components/SliderItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { CustomModal } from 'components/CustomModal'
 import { useMonthPicker } from 'screens/calendar/useMonthPicker'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { DateTime } from 'luxon'
+import { CategoriesSlider } from './components/CategoriesSlider'
+import { MonthPickerModal } from './components/MonthPickerModal'
 
 export const Calendar = () => {
   const calendarRef = useRef<RNCalendar>()
@@ -28,19 +26,10 @@ export const Calendar = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation>
-      <Box>
-        <FlatList
-          horizontal
-          data={filterCategories}
-          renderItem={({ item }) => (
-            <SliderItem {...item} toggleItemSelection={() => toggleFilterItemSelection(item.id)} />
-          )}
-          ListHeaderComponent={() => <Box width={8} />}
-          ListFooterComponent={() => <Box width={8} />}
-          keyExtractor={({ id }) => id.toString()}
-          showsHorizontalScrollIndicator={false}
-        />
-      </Box>
+      <CategoriesSlider
+        filterCategories={filterCategories}
+        toggleFilterItemSelection={toggleFilterItemSelection}
+      />
       <Box
         borderRadius="lmin"
         backgroundColor="white"
@@ -64,20 +53,13 @@ export const Calendar = () => {
           ref={calendarRef}
         />
       </Box>
-      <Box marginTop="m" flex={1}>
-        <EventsList days={currentMonthDays} />
-      </Box>
-      <CustomModal
-        style={{
-          position: 'absolute',
-          bottom: -20,
-          left: -20,
-          right: -20,
-        }}
-        isVisible={isMonthPickerVisible}
-        onBackdropPress={() => hideMonthPicker()}>
-        <MonthPicker onChange={handleMonthChange} value={selectedDate.toJSDate()} />
-      </CustomModal>
+      <EventsList days={currentMonthDays} />
+      <MonthPickerModal
+        isMonthPickerVisible={isMonthPickerVisible}
+        hideMonthPicker={hideMonthPicker}
+        handleMonthChange={handleMonthChange}
+        selectedDate={selectedDate}
+      />
     </SafeAreaWrapper>
   )
 }

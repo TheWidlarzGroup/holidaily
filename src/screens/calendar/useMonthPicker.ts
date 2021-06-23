@@ -4,13 +4,16 @@ import XDate from 'xdate'
 import { Calendar as RNCalendar } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 
+export type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
+export type MonthChangeNewDate = Date
+
 export const useMonthPicker = (
   calendarRef: RefObject<RNCalendar>,
   updateSelectedDate: F1<DateTime>
 ) => {
   const [isMonthPickerVisible, setIsMonthPickerVisible] = useState<boolean>(false)
 
-  const handleMonthChange = (event: ACTION_DATE_SET | ACTION_DISMISSED, newDate: Date) => {
+  const handleMonthChange = (event: MonthChangeEventType, newDate: MonthChangeNewDate) => {
     setIsMonthPickerVisible(false)
     switch (event) {
       case ACTION_DATE_SET:
