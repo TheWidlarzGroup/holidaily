@@ -12,10 +12,6 @@ target 'Holidayly' do
 
   pod 'RNSecureStorage', :path => '../node_modules/react-native-secure-storage'
 
-  target 'HolidaylyTests' do
-    inherit! :complete
-    # Pods for testing
-  end
 
   # Enables Flipper.
   #
@@ -24,14 +20,5 @@ target 'Holidayly' do
   use_flipper!({ 'Flipper-Folly' => '2.5.3', 'Flipper' => '0.87.0', 'Flipper-RSocket' => '1.3.1' })
   post_install do |installer|
     flipper_post_install(installer)
-  end
-end
-
-target 'Holidayly-tvOS' do
-  # Pods for Holidayly-tvOS
-
-  target 'Holidayly-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
   end
 end

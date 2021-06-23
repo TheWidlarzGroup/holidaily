@@ -84,6 +84,17 @@
     "passwordUpdated": "Your password has been updated!",
     "loginButton": "Log in"
   },
+  "uploadPictureModal": {
+    "openCamera": "Take a selfie",
+    "openGallery": "Choose from gallery",
+    "changePicture": "Change profile picture",
+    "deletePicture": "Delete profile picture"
+  },
+  "confirmationModal": {
+    "areYouSure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No"
+  },
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
@@ -104,11 +115,16 @@
     "addPhoto": "Add profile picture",
     "editPhoto": "Edit profile picture",
     "editDetailsErrMsg": "Something went wrong. Try again.",
-    "userNameSurname": "Name and surname",
+    "userFirstName": "Name",
+    "userLastName": "Surname",
     "userRole": "Role",
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
-    "userColor": "Your color"
+    "userColor": "Your color",
+    "saveChanges": "Save changes",
+    "changesSaved": "Changes saved",
+    "deletePictureMessage": "Do you want to delete your profile picture?",
+    "pictureDeletedMessage": "Picture deleted!"
   },
   "dashboard": {
     "welcome": "How's your team doing?",
@@ -118,7 +134,9 @@
     "othersTeamMembers": "Team members",
     "outOfWork": "Out of work",
     "backAtWork": "Back at work",
-    "lastDayAtWork": "Last day at work"
+    "lastDayAtWork": "Last day at work",
+    "sickLeave": "Sick time off",
+    "coupleDaysOff": "A couple days off"
   },
   "feed": {
     "postCommentBtn": "Comment",

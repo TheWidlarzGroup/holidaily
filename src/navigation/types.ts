@@ -61,12 +61,11 @@ export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
 }
 
 // for useNavigation hook
-export type DashboardNavigationType<
-  RouteName extends keyof DashboardRoutes
-> = CompositeNavigationProp<
-  StackNavigationProp<DashboardRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'DashboardNavigation'>
->
+export type DashboardNavigationType<RouteName extends keyof DashboardRoutes> =
+  CompositeNavigationProp<
+    StackNavigationProp<DashboardRoutes, RouteName>,
+    StackNavigationProp<AppRoutes, 'DashboardNavigation'>
+  >
 
 export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = {
   navigation: StackNavigationProp<DashboardRoutes, RouteName>

@@ -1,9 +1,9 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import IconAdd from 'assets/icons/icon-add.svg'
 
-export const TeamSubscriptions: FC = () => {
+export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])

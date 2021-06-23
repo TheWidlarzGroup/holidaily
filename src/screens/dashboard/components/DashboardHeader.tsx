@@ -11,7 +11,7 @@ export const DashboardHeader: FC = () => {
   const navigation = useNavigation()
 
   return (
-    <Box marginBottom="m" flexDirection="row" justifyContent="space-between" alignItems="center">
+    <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
         <BaseOpacity
           onPress={() => navigation.dispatch(DrawerActions.openDrawer())}

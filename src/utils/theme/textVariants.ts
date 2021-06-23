@@ -6,6 +6,12 @@ export const textVariants = {
     color: 'black',
     textAlign: 'center',
   },
+  body1Bold: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+    color: 'black',
+    textAlign: 'center',
+  },
   buttonText1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 18,
@@ -49,6 +55,12 @@ export const textVariants = {
     fontSize: 18,
     textAlign: 'center',
   },
+  boldBlackCenter20: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'center',
+  },
   lightGreyRegular: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
@@ -74,6 +86,26 @@ export const textVariants = {
     fontSize: 15,
     color: 'white',
   },
+  modalHeader: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 20,
+    color: 'black',
+  },
+  heading4: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 24,
+    color: 'black',
+  },
+  heading1: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 36,
+    color: 'black',
+  },
+  captionText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'black',
+  },
   boldOrange15: {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
@@ -83,6 +115,10 @@ export const textVariants = {
     fontFamily: 'Nunito-Bold',
     fontSize: 12,
     lineHeight: 14,
+  },
+  bold15: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 15,
   },
   header: {
     fontFamily: 'Nunito-Bold',

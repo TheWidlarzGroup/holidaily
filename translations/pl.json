@@ -84,6 +84,17 @@
     "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
     "loginButton": "Zaloguj się"
   },
+  "uploadPictureModal": {
+    "openCamera": "Zrób zdjęcie",
+    "openGallery": "Wybierz z galerii",
+    "changePicture": "Zmień zdjęcie profilowe",
+    "deletePicture": "Usuń zdjęcie profilowe"
+  },
+  "confirmationModal": {
+    "areYouSure": "Jesteś pewny/a?",
+    "yes": "Tak",
+    "no": "Nie"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
@@ -104,12 +115,17 @@
     "addPhoto": "Dodaj zdjęcie profilowe",
     "editPhoto": "Edytuj zdjęcie profilowe",
     "editDetailsErrMsg": "Coś poszło nie tak. Spróbuj ponownie.",
-    "userNameSurname": "Imię i nazwisko",
+    "userFirstName": "Imię",
+    "userLastName": "Nazwisko",
     "userRole": "Stanowisko",
     "userPassword": "Hasło",
     "userSubscriptions": "Obserwowane zespoły",
-    "userColor": "Twój kolor"
-  },
+    "userColor": "Twój kolor",
+    "saveChanges": "Zapisz zmiany",
+    "changesSaved": "Zmiany zostały zapisane",
+    "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
+    "pictureDeletedMessage": "Zdjęcie profilowe usunięte!"
+  },    
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
     "teamsList": "Twoje zespoły",
@@ -118,7 +134,9 @@
     "othersTeamMembers": "Pozostali członkowie zespołu",
     "outOfWork": "Urlop",
     "backAtWork": "Powrót",
-    "lastDayAtWork": "Ostatni dzień w pracy"
+    "lastDayAtWork": "Ostatni dzień w pracy",
+    "SickLeave": "Chorobowe",
+    "coupleDaysOff": "Kilka dni wolnego"
   },
   "feed": {
     "postCommentBtn": "Skomentuj",
