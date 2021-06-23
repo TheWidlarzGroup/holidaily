@@ -9,23 +9,37 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { FormInput } from 'components/FormInput'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
+import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { passwordRegex } from 'utils/regex'
 import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
 
 export const ChangePassword = () => {
-  const { errors, control } = useForm()
+  const { control, handleSubmit, errors, watch } = useForm()
   const { t } = useTranslation('password')
   const styles = useStyles()
   const { goBack, navigate } = useNavigation()
   const navigateToForgotPassword = () => navigate('Recovery')
   const [isModalVisible, { toggle: toggleModal }] = useBooleanState(false)
+  const [arePasswordsEqual, { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual }] =
+    useBooleanState(true)
+  const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
 
   const handleChangePassword = () => {
     // const { currPassword, newPassword, confNewPassword } = getValues()
     // TODO: check if current password matches and update new password
-    toggleModal()
+    if (arePasswordsEqual) toggleModal()
   }
+
+  useEffect(() => {
+    const passwordsAreEqual = checkIfPasswordsMatch(newPassword, confNewPassword)
+
+    if (!passwordsAreEqual) {
+      setPasswordsAreNotEqual()
+    } else {
+      setArePasswordsEqual()
+    }
+  }, [newPassword, confNewPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
   useEffect(() => {
     StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
@@ -97,7 +111,7 @@ export const ChangePassword = () => {
             <CustomButton
               label={'Save'}
               variant="primary"
-              onPress={handleChangePassword}
+              onPress={handleSubmit(handleChangePassword)}
               width={221}
               height={53}
             />
