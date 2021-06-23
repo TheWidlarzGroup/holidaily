@@ -1,9 +1,6 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
-import { Image } from 'react-native'
-import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
-
-const imageSize = 44
+import { Avatar } from 'components/Avatar'
 
 type DrawerHeaderProps = {
   firstName: string
@@ -14,14 +11,7 @@ type DrawerHeaderProps = {
 
 export const DrawerHeader = ({ firstName, lastName, job, image }: DrawerHeaderProps) => (
   <Box margin="m">
-    {image ? (
-      <Image
-        source={{ uri: image }}
-        style={{ width: imageSize, height: imageSize, borderRadius: imageSize / 2 }}
-      />
-    ) : (
-      <UserIconPlaceholder width={imageSize} height={imageSize} />
-    )}
+    <Avatar src={image} size="s" />
     <Text marginTop="m" variant="boldBlack18">
       {firstName} {lastName}
     </Text>
