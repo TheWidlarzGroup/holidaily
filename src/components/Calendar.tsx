@@ -32,8 +32,8 @@ export const Calendar = React.forwardRef(
     {
       theme: themeProp,
       onSelectedPeriodChange,
-      selectable = false,
       onHeaderPressed,
+      selectable = false,
       list = false,
       markedDates = {},
       ...props
@@ -45,7 +45,7 @@ export const Calendar = React.forwardRef(
 
     useEffect(() => {
       if (!onSelectedPeriodChange) return
-      onSelectedPeriodChange(selectedPeriodStart, setSelectedPeriodEnd)
+      onSelectedPeriodChange(selectedPeriodStart, selectedPeriodEnd)
     }, [onSelectedPeriodChange, selectedPeriodStart, selectedPeriodEnd])
 
     const handleClick = ({ dateString: clickedDate }: ClickProps) => {
