@@ -19,7 +19,7 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
 }) => {
   const styles = useStyles()
 
-  if (!isVisible) return <Box />
+  if (!isVisible) return null
 
   return (
     <Box style={styles.modal}>

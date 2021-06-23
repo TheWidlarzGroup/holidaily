@@ -19,12 +19,11 @@ export const CalendarRequestVacation = () => {
     setSelectedPeriodEnd(b || '')
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = () =>
     navigation.navigate('RequestVacation', {
       start: selectedPeriodStart,
       end: selectedPeriodEnd,
     })
-  }
 
   const styles = useStyles()
 
