@@ -70,7 +70,7 @@ const useStyles = mkUseStyles((theme) => ({
   },
   button: {
     borderWidth: 4,
-    borderColor: 'white',
+    borderColor: theme.colors.disabledText,
     borderStyle: 'solid',
     padding: 17,
     borderRadius: theme.borderRadii.xl,
