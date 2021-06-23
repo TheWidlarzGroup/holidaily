@@ -28,6 +28,12 @@ export const getDatesBetween = (ISOStringStart: string, ISOStringEnd: string) =>
   return dates
 }
 
+export const getDayName = (ISOString: string, language: string): string =>
+  DateTime.fromISO(ISOString).setLocale(language).weekdayLong
+
+export const getDateWithMonthString = (ISOString: string, language: string): string =>
+  DateTime.fromISO(ISOString).setLocale(language).toFormat('dd LLLL yyyy')
+
 export const getFormattedPeriod = (dateA?: Date, dateB?: Date, language?: string) => {
   if (!dateA || !dateB) return ''
   const a = `${dateA.getDate()} ${getMonthName(dateA.getMonth() + 1, language || '').slice(0, 3)}`

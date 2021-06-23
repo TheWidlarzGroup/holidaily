@@ -120,6 +120,16 @@ export const textVariants = {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
   },
+  bold16Calendar: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+    lineHeight: 20,
+  },
+  regular12Calendar: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    lineHeight: 20,
+  },
   header: {
     fontFamily: 'Nunito-Bold',
     fontSize: 24,
@@ -135,5 +145,15 @@ export const textVariants = {
     fontFamily: 'Nunito-Regular',
     fontSize: 15,
     lineHeight: 20,
+  },
+  regularWhite12: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'white',
+  },
+  boldWhite12: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'white',
   },
 }
