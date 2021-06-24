@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Image } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 
 const logoSrc = require('assets/Logo.png')
@@ -14,7 +14,7 @@ export const SignupTitleAndLogo = () => {
       <Text variant="title1" fontSize={24} marginVertical="l" marginHorizontal="xxl">
         {t('signupTitle')}
       </Text>
-      <Image source={logoSrc} style={styles.image} />
+      <FastImage source={logoSrc} style={styles.image} />
     </Box>
   )
 }

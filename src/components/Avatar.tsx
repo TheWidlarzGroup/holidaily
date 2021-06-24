@@ -3,7 +3,7 @@ import IconProfile from 'assets/icons/icon-profile.svg'
 import { Box } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 
-const sizes = { s: 44, m: 88, l: 176 }
+const sizes = { xs: 24, s: 44, m: 62, l: 112 }
 
 type AvatarProps = React.ComponentProps<typeof Box> & {
   src?: string | null
