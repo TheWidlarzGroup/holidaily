@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Calendar as RNCalendar } from 'react-native-calendars'
 import { Box } from 'utils/theme'
@@ -25,6 +25,12 @@ export const Calendar = () => {
   } = useCalendarData()
   const { isMonthPickerVisible, displayMonthPicker, hideMonthPicker, handleMonthChange } =
     useMonthPicker(calendarRef, setSelectedDate)
+  const [selectedDay, setSelectedDay] = useState('2021-06-01')
+
+  const getMarked = () => {
+    const markedDates = getMarkedDates(currentMonthDays)
+    return markedDates
+  }
 
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation>
@@ -49,13 +55,14 @@ export const Calendar = () => {
           onMonthChange={(date: { dateString: string }) =>
             setSelectedDate(DateTime.fromISO(date.dateString))
           }
-          markedDates={getMarkedDates(currentMonthDays)}
+          markedDates={getMarked()}
           markingType={'multi-dot'}
           onHeaderPressed={() => displayMonthPicker()}
-          onDayPress={({ day }: { day: number }) =>
-            currentMonthDays.length > 0 &&
-            flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
-          }
+          onDayPress={({ dateString, day }: { dateString: string; day: number }) => {
+            setSelectedDay(dateString)
+            if (currentMonthDays.length > 0)
+              flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
+          }}
           ref={calendarRef}
         />
       </Box>
