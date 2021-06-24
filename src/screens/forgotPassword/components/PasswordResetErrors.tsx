@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
-import { Image, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
+import FastImage from 'react-native-fast-image'
 
 type PasswordResetErrorsProps = {
   hideModal: () => void
@@ -19,7 +20,7 @@ export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, s
     <Box backgroundColor="lightGrey" alignItems="center" padding="lplus" borderRadius="mplus">
       <Text variant="boldBlackCenter18">{t('errorTitle')}</Text>
       <Box marginVertical="xxl" borderRadius="xm">
-        <Image
+        <FastImage
           source={subTitle === 'errorEmailSubTitle' ? EmailErrorImage : RecoveryCodeErrorImage}
         />
       </Box>

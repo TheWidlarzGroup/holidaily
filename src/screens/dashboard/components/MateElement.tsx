@@ -1,13 +1,12 @@
 import React from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
-import { Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import IconProfile from 'assets/icons/icon-profile.svg'
 import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/functions'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { useNavigation } from '@react-navigation/native'
 import { DashboardNavigationType } from 'navigation/types'
+import { Avatar } from 'components/Avatar'
 
 type MateElementProps = RequiredMateHolidaysData
 
@@ -37,7 +36,7 @@ export const MateElement = (props: MateElementProps) => {
       alignItems="center"
       onPress={navigateToMateDetails}>
       <Box margin="m">
-        {photo ? <Image source={{ uri: photo }} /> : <IconProfile width={62} height={62} />}
+        <Avatar src={photo} />
         {holidays.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">
