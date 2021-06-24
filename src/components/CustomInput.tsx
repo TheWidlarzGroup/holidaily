@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey,
     borderRadius: theme.borderRadii.xxl,
     paddingHorizontal: theme.spacing.m,
+    justifyContent: 'center',
   },
 
   errorBorder: {

@@ -28,7 +28,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
     handleModal(
       <UploadPictureModal
         isVisible
-        hideModal={handleModal}
+        hideModal={() => handleModal()}
         onUserCancelled={() => {
           setIsEditedFalse()
           handleModal()
