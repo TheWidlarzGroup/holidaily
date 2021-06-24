@@ -23,7 +23,14 @@ export const ModalNavigation = () => (
       <AppStack.Screen name="RequestVacation" component={RequestVacation} />
       <AppStack.Screen name="RequestVacationCalendar" component={CalendarRequestVacation} />
       <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
-      <AppStack.Screen name="Gallery" component={GalleryScreen} />
+      <AppStack.Screen
+        name="Gallery"
+        component={GalleryScreen}
+        options={{
+          cardStyle: { backgroundColor: 'rgba(30,30,30,0.95)' },
+          cardStyleInterpolator: undefined,
+        }}
+      />
     </AppStack.Navigator>
   </Box>
 )
