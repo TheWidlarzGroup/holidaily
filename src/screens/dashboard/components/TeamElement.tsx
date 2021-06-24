@@ -1,10 +1,9 @@
 import React from 'react'
-import { Image } from 'react-native'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
 import IconPalm from 'assets/icons/icon-palm.svg'
-import IconProfile from 'assets/icons/icon-profile.svg'
+import { Avatar } from 'components/Avatar'
 
 type TeamElementProps = ValidationOfGroupDayOff & {
   navigateToTeamScreen: () => void
@@ -32,16 +31,8 @@ export const TeamElement = (props: TeamElementProps) => {
         </Box>
       </Box>
       <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-        {users[0]?.photo ? (
-          <Image source={{ uri: users[0].photo }} />
-        ) : (
-          <IconProfile width={62} height={62} />
-        )}
-        {users[1]?.photo ? (
-          <Image source={{ uri: users[1].photo }} />
-        ) : (
-          <IconProfile width={62} height={62} />
-        )}
+        <Avatar src={users[0]?.photo} />
+        <Avatar src={users[1]?.photo} />
       </Box>
     </BaseOpacity>
   )
