@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
-  CalendarList as RNCalendarList,
   Calendar as RNCalendar,
   CalendarProps as RNCalendarProps,
   LocaleConfig,
@@ -10,20 +9,8 @@ import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
-import { genMarkedDates } from 'utils/genMarkedDates'
-
-type ClickProps = {
-  dateString: string
-  timestamp: number
-  day: number
-  month: number
-  year: number
-}
 
 type CustomCalendarProps = {
-  onSelectedPeriodChange?: F2<string, string>
-  selectable?: boolean
-  list?: boolean
   onHeaderPressed?: F0
 }
 
@@ -31,35 +18,12 @@ export const Calendar = React.forwardRef(
   (
     {
       theme: themeProp,
-      onSelectedPeriodChange,
       onHeaderPressed,
-      selectable = false,
-      list = false,
       markedDates = {},
       ...props
     }: RNCalendarProps & CustomCalendarProps,
     ref: RNCalendar
   ) => {
-    const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
-    const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
-
-    useEffect(() => {
-      if (!onSelectedPeriodChange) return
-      onSelectedPeriodChange(selectedPeriodStart, selectedPeriodEnd)
-    }, [onSelectedPeriodChange, selectedPeriodStart, selectedPeriodEnd])
-
-    const handleClick = ({ dateString: clickedDate }: ClickProps) => {
-      if (!selectable) return
-      if (!selectedPeriodStart || !selectedPeriodEnd || selectedPeriodStart !== selectedPeriodEnd) {
-        setSelectedPeriodStart(clickedDate)
-        setSelectedPeriodEnd(clickedDate)
-        return
-      }
-
-      if (clickedDate < selectedPeriodStart) setSelectedPeriodStart(clickedDate)
-      if (clickedDate > selectedPeriodEnd) setSelectedPeriodEnd(clickedDate)
-    }
-
     const { i18n } = useTranslation()
     LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
 
@@ -82,42 +46,19 @@ export const Calendar = React.forwardRef(
       ...themeProp,
     }
 
-    if (!list)
-      return (
-        <RNCalendar
-          firstDay={1}
-          hideExtraDays
-          theme={theme}
-          dayComponent={CalendarDay}
-          onDayPress={handleClick}
-          renderHeader={(date: Date) => (
-            <CalendarHeader date={date} onHeaderPressed={onHeaderPressed} />
-          )}
-          markedDates={{
-            ...markedDates,
-            ...genMarkedDates(selectedPeriodStart, selectedPeriodEnd),
-          }}
-          ref={ref}
-          {...props}
-        />
-      )
-
     return (
-      <RNCalendarList
-        pastScrollRange={0}
-        futureScrollRange={24}
+      <RNCalendar
         firstDay={1}
         hideExtraDays
-        hideArrows
-        hideDayNames
         theme={theme}
         dayComponent={CalendarDay}
-        onDayPress={handleClick}
-        renderHeader={(date: Date) => <CalendarHeader date={date} />}
+        renderHeader={(date: Date) => (
+          <CalendarHeader date={date} onHeaderPressed={onHeaderPressed} />
+        )}
         markedDates={{
           ...markedDates,
-          ...genMarkedDates(selectedPeriodStart, selectedPeriodEnd),
         }}
+        ref={ref}
         {...props}
       />
     )
