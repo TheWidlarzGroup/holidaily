@@ -5,7 +5,7 @@ import { CalendarDayDots } from './CalendarDayDots'
 import { CalendarDayMain } from './CalendarDayMain'
 
 export const CalendarDay = ({ date, state, marking, onPress }: DayComponentProps) => (
-  <Box alignItems="center" position="relative" padding="s">
+  <Box alignItems="center" position="relative">
     <CalendarDayMain marking={marking} date={date} onPress={onPress} state={state} />
     <CalendarDayDots marking={marking} />
   </Box>
