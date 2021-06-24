@@ -10,6 +10,7 @@ import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { DateTime } from 'luxon'
 import { FlatList } from 'react-native'
+import deepmerge from 'deepmerge'
 import { CategoriesSlider } from './components/CategoriesSlider'
 import { MonthPickerModal } from './components/MonthPickerModal'
 
@@ -26,11 +27,6 @@ export const Calendar = () => {
   const { isMonthPickerVisible, displayMonthPicker, hideMonthPicker, handleMonthChange } =
     useMonthPicker(calendarRef, setSelectedDate)
   const [selectedDay, setSelectedDay] = useState('2021-06-01')
-
-  const getMarked = () => {
-    const markedDates = getMarkedDates(currentMonthDays)
-    return markedDates
-  }
 
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation>
@@ -55,7 +51,9 @@ export const Calendar = () => {
           onMonthChange={(date: { dateString: string }) =>
             setSelectedDate(DateTime.fromISO(date.dateString))
           }
-          markedDates={getMarked()}
+          markedDates={deepmerge(getMarkedDates(currentMonthDays), {
+            [selectedDay]: { selected: true },
+          })}
           markingType={'multi-dot'}
           onHeaderPressed={() => displayMonthPicker()}
           onDayPress={({ dateString, day }: { dateString: string; day: number }) => {
