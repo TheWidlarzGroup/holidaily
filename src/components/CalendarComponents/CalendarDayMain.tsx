@@ -12,27 +12,28 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
 
   const day = DateTime.fromISO(date.dateString)
   const textColor = () => {
-    if (state === 'selected' || marking?.selected) return 'white'
-    if (isWeekend(day)) return 'grey'
-    if (marking?.disabled === true) return 'grey'
+    const isDisabled = isWeekend(day) || marking?.disabled
+    if (isDisabled && marking?.period) return 'white'
+    if (isDisabled) return 'grey'
+    if (marking?.selected || marking?.period) return 'white'
     return 'black'
   }
 
   return (
     <Box
       style={[
-        marking?.selected && !marking?.period && styles.selected,
-        marking?.selected && marking?.period && styles.selectedPeriod,
-        marking?.selected && marking?.endingDay && styles.end,
-        marking?.selected && marking?.startingDay && styles.start,
-        marking?.selected && marking?.period && isWeekend(day) && styles.selectedDisabled,
+        marking?.selected && styles.selected,
+        marking?.period && styles.selectedPeriod,
+        marking?.endingDay && styles.end,
+        marking?.startingDay && styles.start,
+        marking?.period && isWeekend(day) && styles.selectedDisabled,
       ]}>
       <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
         <Box
           borderRadius="l"
-          borderWidth={state === 'today' ? 2 : 0}
-          borderColor={marking?.selected ? 'white' : 'black'}
-          backgroundColor={state === 'selected' ? 'black' : 'transparent'}
+          borderWidth={state === 'today' || marking?.selected ? 2 : 0}
+          borderColor={marking?.period ? 'white' : 'black'}
+          backgroundColor={marking?.selected && !marking?.period ? 'black' : 'transparent'}
           width={28}
           height={28}
           justifyContent="center"
@@ -49,8 +50,6 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
 
 const useStyles = mkUseStyles((theme) => ({
   selected: {
-    color: theme.colors.white,
-    backgroundColor: theme.colors.black,
     borderBottomRightRadius: theme.borderRadii.full,
     borderTopRightRadius: theme.borderRadii.full,
     borderBottomLeftRadius: theme.borderRadii.full,
@@ -68,7 +67,6 @@ const useStyles = mkUseStyles((theme) => ({
     borderTopLeftRadius: theme.borderRadii.full,
   },
   selectedPeriod: {
-    color: theme.colors.white,
     backgroundColor: theme.colors.tertiary,
   },
 }))

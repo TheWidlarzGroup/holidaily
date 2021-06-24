@@ -15,7 +15,6 @@ export const genMarkedDates = (start?: string, end?: string) => {
 
   dates.forEach((date) => {
     obj[date] = {
-      selected: true,
       period: true,
     }
   })
