@@ -37,7 +37,7 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
           justifyContent="center"
           alignItems="center"
           margin="s">
-          <Text color={textColor()} variant="bold15">
+          <Text color={textColor()} variant={isWeekend(day) ? 'regular15Calendar' : 'bold15'}>
             {date.day}
           </Text>
         </Box>
