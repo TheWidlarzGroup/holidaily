@@ -1,53 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import { StatusBar, TouchableOpacity, TextInput } from 'react-native'
+import React, { FC, useEffect, useState, useCallback } from 'react'
+import { StatusBar, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { CustomButton } from 'components/CustomButton'
+import { ConfirmationModal } from 'components/ConfirmationModal'
+import { ChangesSavedModal } from 'components/ChangesSavedModal'
+import { useModalContext } from 'contexts/ModalProvider'
+import { UserProfileNavigationProps } from 'navigation/types'
 import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import { TEAMS, TeamsType } from 'utils/mocks/teamsMocks'
 import IconBack from 'assets/icons/icon-back.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
 
-export const SubscribeNewTeam = () => {
+type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
+
+export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = ({ route }) => {
+  const { params } = route
+  const { userTeams, setUserTeams } = params
   const styles = useStyles()
+  const { handleModal } = useModalContext()
   const { goBack } = useNavigation()
   const [searchPhrase, setSearchPhrase] = useState<string>('')
   const [masterData, setMasterData] = useState<TeamsType[]>([])
   const [filteredTeams, setFilteredTeams] = useState<TeamsType[]>([])
-  const [subscribedItems, setSubscribedItems] = useState<string[]>([])
+  const [subscribedTeams, setSubscribedTeams] = useState<TeamsType[]>([])
 
-  const addToSubscriptions = (teamName: string) => {
-    const subscriptions = subscribedItems.concat(teamName)
-    setSubscribedItems(subscriptions)
-  }
+  const filterAlreadySubmittedSubscriptions = useCallback(() => {
+    const teamsAvailableToSubscribe = TEAMS.filter(
+      ({ teamName }) => !userTeams.some((userTeam) => userTeam.teamName === teamName)
+    )
+    setMasterData(teamsAvailableToSubscribe)
+    setFilteredTeams(teamsAvailableToSubscribe)
+  }, [userTeams])
 
-  const handleSubscriptionSubmit = () => console.log('submit')
+  const checkTeamsAvailableToSubscribe = (subscriptions: TeamsType[]): TeamsType[] =>
+    masterData.filter(
+      (masterTeam) => !subscriptions.some(({ teamName }) => teamName === masterTeam.teamName)
+    )
+
   const searchFilter = (text: string) => {
     setSearchPhrase(text)
     if (text) {
-      const newData = masterData.filter(({ teamName }) =>
+      const filteredItems = filteredTeams.filter(({ teamName }) =>
         teamName.toLowerCase().includes(text.toLowerCase())
       )
-      setFilteredTeams(newData)
+      setFilteredTeams(filteredItems)
     } else {
-      setFilteredTeams(masterData)
+      setFilteredTeams(checkTeamsAvailableToSubscribe(subscribedTeams))
     }
   }
 
-  useEffect(() => {
-    //   TODO: handle incoming async TEAMS data
-    if (TEAMS) {
-      setMasterData(TEAMS)
-      setFilteredTeams(TEAMS)
-    }
-  }, [])
+  const addToSubscriptions = ({ teamName, id }: TeamsType) => {
+    const subscriptions = [...subscribedTeams, { teamName, id }]
+    setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
+    setSubscribedTeams(subscriptions)
+  }
 
-  const handleGoBack = () => goBack()
+  const removeFromSubscriptions = (teamName: string) => {
+    const subscriptions = subscribedTeams.filter((item) => item.teamName !== teamName)
+    setSubscribedTeams(subscriptions)
+    setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
+  }
+
+  const submitSubscriptions = () => {
+    setUserTeams([...subscribedTeams, ...userTeams])
+    handleModal(
+      <ChangesSavedModal
+        isVisible
+        content={'New teams subscribed!'}
+        hideModal={() => handleModal()}
+      />
+    )
+    goBack()
+  }
+
+  useEffect(() => {
+    if (TEAMS) filterAlreadySubmittedSubscriptions()
+  }, [filterAlreadySubmittedSubscriptions])
+
   useEffect(() => {
     StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
     return () => StatusBar.setBackgroundColor('white')
   }, [])
+
+  const handleGoBack = () => {
+    if (subscribedTeams.length > 0) {
+      handleModal(
+        <ConfirmationModal
+          isVisible
+          hideModal={() => handleModal()}
+          onAccept={() => {
+            setSubscribedTeams([])
+            setFilteredTeams(masterData)
+            handleModal()
+            goBack()
+          }}
+          onDecline={() => {
+            handleModal()
+          }}
+          content={"If you quit now, your changes won't be saved"}
+        />
+      )
+    } else {
+      goBack()
+    }
+  }
+
   return (
     <SafeAreaWrapper>
       <Box flex={1} backgroundColor="modalBackdrop">
@@ -63,7 +122,7 @@ export const SubscribeNewTeam = () => {
             <IconBack />
           </TouchableOpacity>
           <Text variant="boldBlackCenter20">{'Subscribe more teams'}</Text>
-          <Box position="relative" marginTop="lplus">
+          <Box position="relative" marginTop="lplus" marginBottom="xxl">
             <TextInput
               style={styles.searchInput}
               onChangeText={(text) => searchFilter(text)}
@@ -71,32 +130,39 @@ export const SubscribeNewTeam = () => {
             />
             <IconSearch style={styles.searchIcon} />
           </Box>
-          <Box flexDirection="row" flexWrap="wrap" marginTop="xxl">
-            {filteredTeams.map(({ teamName, id }) => (
+          <Box flexDirection="row" flexWrap="wrap">
+            {subscribedTeams.map(({ teamName, id }) => (
               <RectButton
                 key={id}
-                style={styles.teamItem}
-                onPress={() => addToSubscriptions(teamName)}>
-                <Text variant="bold15">{teamName}</Text>
+                style={styles.subscribedTeam}
+                onPress={() => removeFromSubscriptions(teamName)}>
+                <Text variant="resendWhite">{teamName}</Text>
               </RectButton>
             ))}
           </Box>
-          <Box flexDirection="row" flexWrap="wrap" marginTop="xxl">
-            {subscribedItems.map((item, index) => (
-              <RectButton key={index} style={styles.subscribedTeam}>
-                <Text variant="resendWhite">{item}</Text>
-              </RectButton>
-            ))}
-          </Box>
-          <Box position="absolute" bottom={16} alignSelf="center">
-            <CustomButton
-              label={'Subscribe'}
-              variant="primary"
-              onPress={handleSubscriptionSubmit}
-              width={221}
-              height={53}
-            />
-          </Box>
+          <ScrollView>
+            <Box flexDirection="row" flexWrap="wrap">
+              {filteredTeams.map(({ teamName, id }) => (
+                <RectButton
+                  key={id}
+                  style={styles.teamItem}
+                  onPress={() => addToSubscriptions({ teamName, id })}>
+                  <Text variant="bold15">{teamName}</Text>
+                </RectButton>
+              ))}
+            </Box>
+          </ScrollView>
+          {subscribedTeams.length > 0 && (
+            <Box position="absolute" bottom={16} alignSelf="center">
+              <CustomButton
+                label={'Subscribe'}
+                variant="primary"
+                onPress={submitSubscriptions}
+                width={221}
+                height={53}
+              />
+            </Box>
+          )}
         </Box>
       </Box>
     </SafeAreaWrapper>

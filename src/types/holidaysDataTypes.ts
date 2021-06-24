@@ -1,3 +1,5 @@
+import { TeamsType } from 'utils/mocks/teamsMocks'
+
 export type ValidationOfCompanyDayOff = {
   id: number
   isOnHoliday: boolean
@@ -48,4 +50,8 @@ export type UserDetails = {
 export type MateHolidaysData = UserData & { holidays: HolidayDetails & HolidayDetailsOptional }
 export type RequiredMateHolidaysData = UserData & {
   holidays: Required<HolidayDetails> & HolidayDetailsOptional
+}
+export type UserTeamsSubscriptions = {
+  userTeams: TeamsType[]
+  setUserTeams: React.Dispatch<React.SetStateAction<TeamsType[]>>
 }
