@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Box, Text } from 'utils/theme/index'
+import { Box, mkUseStyles, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { InputButton } from 'components/InputButton'
 import { CustomButton } from 'components/CustomButton'
@@ -11,6 +11,8 @@ import { useNavigation } from '@react-navigation/native'
 import { ModalNavigationType } from 'navigation/types'
 import { getFormattedPeriod } from 'utils/dates'
 import { Additionals } from './Additionals'
+import { ScrollView } from 'react-native-gesture-handler'
+import { MessageInput } from './MessageInput'
 
 type FormTypes = {
   date: undefined
@@ -38,6 +40,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 }) => {
   const { control, handleSubmit, errors } = useForm()
   const [sickTime, { toggle }] = useBooleanState(false)
+  const [showMessageInput, { toggle: toggleShowMessageInput }] = useBooleanState(false)
 
   const handleLoginUser = (data: FormTypes) => {
     if (Object.keys(errors).length) return
@@ -46,12 +49,13 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   }
 
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
+  const styles = useStyles()
 
   const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
   return (
-    <Box flex={1} justifyContent="space-between" paddingBottom="m">
-      <Box>
+    <Box flex={1}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         <Box>
           <Text variant="boldBlack18" textAlign="left">
             Details
@@ -88,9 +92,21 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             <Checkbox checked={sickTime} onPress={toggle} />
           </Box>
         </Box>
-        <Additionals />
-      </Box>
-      <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
+        <Additionals onPressMessage={toggleShowMessageInput} />
+      </ScrollView>
+      {showMessageInput ? (
+        <MessageInput />
+      ) : (
+        <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
+      )}
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  scrollView: {
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: theme.spacing.l,
+  },
+}))

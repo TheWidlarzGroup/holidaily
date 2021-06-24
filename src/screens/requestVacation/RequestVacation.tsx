@@ -46,23 +46,21 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     <Box flex={1}>
       <HeaderRequestVacation />
       <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
-      <Box margin="l" flex={1}>
-        {step === 0 && (
-          <FormRequestVacation
-            nextStep={() => setStep(1)}
-            changeRequestData={changeRequestData}
-            date={{ start: startDate, end: endDate }}
-          />
-        )}
-        {step === 1 && (
-          <SummaryRequestVacation
-            description={description}
-            sickTime={sickTime}
-            startDate={startDate}
-            endDate={endDate}
-          />
-        )}
-      </Box>
+      {step === 0 && (
+        <FormRequestVacation
+          nextStep={() => setStep(1)}
+          changeRequestData={changeRequestData}
+          date={{ start: startDate, end: endDate }}
+        />
+      )}
+      {step === 1 && (
+        <SummaryRequestVacation
+          description={description}
+          sickTime={sickTime}
+          startDate={startDate}
+          endDate={endDate}
+        />
+      )}
     </Box>
   )
 }

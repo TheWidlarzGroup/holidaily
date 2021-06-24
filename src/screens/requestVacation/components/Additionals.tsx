@@ -2,8 +2,13 @@ import React from 'react'
 import { Box, Text } from 'utils/theme/index'
 import PaperclipIcon from 'assets/icons/paperclip.svg'
 import AddCommentIcon from 'assets/icons/addComment.svg'
+import { TouchableOpacity } from 'react-native'
 
-export const Additionals = () => (
+type AdditionalsProps = {
+  onPressMessage: F0
+}
+
+export const Additionals = ({ onPressMessage }: AdditionalsProps) => (
   <Box>
     <Text variant="boldBlack18" textAlign="left" marginTop="l">
       Additionals
@@ -21,7 +26,9 @@ export const Additionals = () => (
         marginVertical="m"
         marginHorizontal="m"
         borderRadius="l">
-        <AddCommentIcon width={22} height={22} />
+        <TouchableOpacity onPress={onPressMessage}>
+          <AddCommentIcon width={22} height={22} />
+        </TouchableOpacity>
       </Box>
     </Box>
   </Box>
