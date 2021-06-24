@@ -21,10 +21,11 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
   return (
     <Box
       style={[
-        marking?.selected && styles.selected,
-        marking?.endingDay && styles.end,
-        marking?.startingDay && styles.start,
-        marking?.selected && isWeekend(day) && styles.selectedDisabled,
+        marking?.selected && !marking?.period && styles.selected,
+        marking?.selected && marking?.period && styles.selectedPeriod,
+        marking?.selected && marking?.endingDay && styles.end,
+        marking?.selected && marking?.startingDay && styles.start,
+        marking?.selected && marking?.period && isWeekend(day) && styles.selectedDisabled,
       ]}>
       <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
         <Box
@@ -48,8 +49,12 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
 
 const useStyles = mkUseStyles((theme) => ({
   selected: {
-    backgroundColor: theme.colors.tertiary,
     color: theme.colors.white,
+    backgroundColor: theme.colors.black,
+    borderBottomRightRadius: theme.borderRadii.full,
+    borderTopRightRadius: theme.borderRadii.full,
+    borderBottomLeftRadius: theme.borderRadii.full,
+    borderTopLeftRadius: theme.borderRadii.full,
   },
   selectedDisabled: {
     backgroundColor: '#ffc59e',
@@ -61,5 +66,9 @@ const useStyles = mkUseStyles((theme) => ({
   start: {
     borderBottomLeftRadius: theme.borderRadii.full,
     borderTopLeftRadius: theme.borderRadii.full,
+  },
+  selectedPeriod: {
+    color: theme.colors.white,
+    backgroundColor: theme.colors.tertiary,
   },
 }))
