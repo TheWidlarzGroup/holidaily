@@ -72,7 +72,7 @@ const useStyles = mkUseStyles((theme) => ({
     height: 34,
     width: 34,
     borderRadius: 32,
-    borderColor: theme.colors.white,
+    borderColor: theme.colors.disabledText,
     borderWidth: 3,
   },
   dotChecked: {

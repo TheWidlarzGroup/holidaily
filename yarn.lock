@@ -1490,6 +1490,11 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
+"@types/xdate@^0.8.31":
+  version "0.8.31"
+  resolved "https://registry.yarnpkg.com/@types/xdate/-/xdate-0.8.31.tgz#7bec14a47c9bb30715d507f32bc82ab163149574"
+  integrity sha512-iZYRKKK8UZXoepNh2kwK6TPITMj/dwdv0NzNi9DFMt2foGkU7h+ncaCpGsdD2fp/CXMs9dxPAzV9uddFy7c4QA==
+
 "@types/yargs-parser@*":
   version "20.2.0"
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-20.2.0.tgz#dd3e6699ba3237f0348cd085e4698780204842f9"
@@ -6730,6 +6735,14 @@ react-native-modal@^11.7.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
+react-native-month-year-picker@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/react-native-month-year-picker/-/react-native-month-year-picker-1.6.4.tgz#badcbf4de7b2214773e8941ebd7e4933ccbedf26"
+  integrity sha512-cgL+A9nNASkQR8WOkzmXdFOiMI+BcqJekLkqvZSUfQi4bJw65PdIBl5VsaHP1pchBgUbw61GQRxS8pS/qAeeOA==
+  dependencies:
+    invariant "^2.2.4"
+    moment "^2.24.0"
+
 react-native-reanimated@^2.0.1:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.2.0.tgz#a6412c56b4e591d1f00fac949f62d0c72c357c78"
@@ -8374,7 +8387,7 @@ xcode@^2.0.0:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
 
-xdate@^0.8.0:
+xdate@^0.8.0, xdate@^0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/xdate/-/xdate-0.8.2.tgz#d7b033c00485d02695baf0044f4eacda3fc961a3"
   integrity sha1-17AzwASF0CaVuvAET06s2j/JYaM=

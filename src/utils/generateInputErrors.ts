@@ -19,7 +19,11 @@ export const generateInputErrors = ({
   if (errors[name]) {
     return errors[name].message
   }
-  if (!errors[name] && !passwordsAreEqual && screenName === 'NewPassword') {
+  if (
+    !errors[name] &&
+    !passwordsAreEqual &&
+    (screenName === 'NewPassword' || screenName === 'ChangePassword')
+  ) {
     return t('passwordMatch')
   }
 }

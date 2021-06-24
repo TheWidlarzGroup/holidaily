@@ -22,7 +22,7 @@ export const Login: FC = () => {
   const { t } = useTranslation('login')
 
   const navigateToRemindPassword = useCallback(() => {
-    navigation.navigate('ForgotPassword')
+    navigation.navigate('Recovery')
   }, [navigation])
 
   useEffect(() => {

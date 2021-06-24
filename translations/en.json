@@ -18,11 +18,21 @@
     "forgotPressableText": "Want to try another way?",
     "forgotResetButton": "Reset password"
   },
-  "password": {
+  "password": {    
     "password": "Password",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
-    "incorrectPassword": "Incorrect password, please try again"
+    "incorrectPassword": "Incorrect password, please try again"    
+  },
+  "changePassword": {
+    "currPassword": "Your current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Repeat new password",
+    "passwordChange": "Password change",
+    "newPasswordSaved": "New password saved!",    
+    "exitMessage": "If you quit now, your changes won't be saved.",
+    "incorrectPassword": "Wrong password, please try again",
+    "forgotPasswordMessage": "Forgot your password?"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Password Recovery",
