@@ -9,6 +9,8 @@ import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
+import ArrowLeft from 'assets/icons/arrow-left.svg'
+import ArrowRight from 'assets/icons/arrow-right.svg'
 
 type CustomCalendarProps = {
   onHeaderPressed?: F0
@@ -58,6 +60,9 @@ export const Calendar = React.forwardRef(
         markedDates={{
           ...markedDates,
         }}
+        renderArrow={(direction: 'left' | 'right') =>
+          direction === 'left' ? <ArrowLeft /> : <ArrowRight />
+        }
         ref={ref}
         {...props}
       />

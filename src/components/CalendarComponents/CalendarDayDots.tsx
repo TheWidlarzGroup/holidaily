@@ -9,7 +9,6 @@ export const CalendarDayDots = ({ marking }: CalendarDayDotsProps) => {
     firstThree: marking?.dots?.slice(0, 3),
     isMore: marking?.dots?.length > 3,
   }
-  console.log(marking)
   return (
     <Box position="absolute" top="85%">
       {dots.firstThree?.map((dot: { key: string; color: string }) => (
