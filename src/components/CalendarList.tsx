@@ -5,7 +5,7 @@ import {
   LocaleConfig,
 } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
-import { Box, theme as appTheme, Text } from 'utils/theme'
+import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
