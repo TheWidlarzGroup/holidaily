@@ -5,14 +5,13 @@ import { themeBase } from 'utils/theme/themeBase'
 
 const { width } = Dimensions.get('window')
 // export const MARGIN: Theme['spacing'] = themeBase.spacing.xs
-export const MARGIN = themeBase.spacing.xs
-export const SIZE_W = width / 2 - MARGIN
+export const SIZE_W = width / 2
 export const COL = 2
 export const SIZE_H = 130
 // height of dashboard header, height of bottom padding, height of carousel nested in scrollView
 export const HEADER_OFFSET = 90
 export const BOTTOM_OFFSET = themeBase.spacing.xxxl
-export const NESTED_ELEM_OFFSET = 160
+export const NESTED_ELEM_OFFSET = 180
 
 type Order = number
 export type Positions = {
