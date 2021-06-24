@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { FlatList, ViewToken } from 'react-native'
-import { mkUseStyles } from 'utils/theme'
+import React, { useCallback, useRef, useState } from 'react'
+import { FlatList, ViewToken, useWindowDimensions } from 'react-native'
 
+import { GalleryItemData } from 'types/holidaysDataTypes'
 import { GalleryItem } from './GalleryItem'
-import { GalleryItemData } from './types'
 
 type GalleryProps = {
   data: GalleryItemData[]
@@ -12,16 +11,10 @@ type GalleryProps = {
   onItemPress?: F2<number, string>
 }
 
-// TODO: Set list size to cover only image -> Backdrop Exit form Modal
-
 export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: GalleryProps) => {
-  const [imageWidth, setImageWidth] = useState(0)
+  const { width: initialWidth } = useWindowDimensions() // Best width guess?
+  const [imageWidth, setImageWidth] = useState(initialWidth)
   const listRef = useRef<FlatList>(null)
-  const styles = useStyles()
-
-  useEffect(() => {
-    listRef.current?.scrollToIndex({ index, animated: false })
-  }, [index])
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -49,13 +42,14 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
     <FlatList
       horizontal
       ref={listRef}
+      initialScrollIndex={index}
       onLayout={(event) => setImageWidth(event.nativeEvent.layout.width)}
       viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
       getItemLayout={(_, index) => ({ length: imageWidth, offset: imageWidth * index, index })}
       decelerationRate={0}
       snapToInterval={imageWidth}
       snapToAlignment="center"
-      contentContainerStyle={styles.contentContainer}
+      contentContainerStyle={{ alignItems: 'center' }}
       data={data}
       renderItem={renderItem}
       keyExtractor={(item) => item.src}
@@ -64,10 +58,3 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
 }
 
 const viewabilityConfig = { waitForInteraction: true, viewAreaCoveragePercentThreshold: 95 }
-
-const useStyles = mkUseStyles(() => ({
-  modal: { margin: 0 },
-  contentContainer: {
-    alignItems: 'center',
-  },
-}))

@@ -1,7 +1,11 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { ValidationOfGroupDayOff, RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import {
+  ValidationOfGroupDayOff,
+  RequiredMateHolidaysData,
+  GalleryItemData,
+} from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -139,6 +143,7 @@ export type ModalRoutes = {
   }
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
+  Gallery: { data: GalleryItemData[]; index: number }
 }
 
 export type DashboardRoutes = {

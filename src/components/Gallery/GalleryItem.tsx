@@ -1,7 +1,7 @@
 import React from 'react'
 import FastImage from 'react-native-fast-image'
 import { BaseOpacity } from 'utils/theme'
-import { GalleryItemData } from './types'
+import { GalleryItemData } from 'types/holidaysDataTypes'
 
 type GalleryItemProps = GalleryItemData & {
   width: number

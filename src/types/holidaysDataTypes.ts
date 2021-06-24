@@ -49,3 +49,8 @@ export type MateHolidaysData = UserData & { holidays: HolidayDetails & HolidayDe
 export type RequiredMateHolidaysData = UserData & {
   holidays: Required<HolidayDetails> & HolidayDetailsOptional
 }
+
+export type GalleryItemData = {
+  src: string
+  type: 'image' | 'video'
+}
