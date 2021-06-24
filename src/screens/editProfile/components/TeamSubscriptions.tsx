@@ -12,7 +12,7 @@ export const TeamSubscriptions = () => {
 
   const onAddSubscribedTeam = () => navigate('SubscribeTeam')
 
-  const onRemoveSubscribedTeam = (team: string) => {
+  const onUnsubscribeTeam = (team: string) => {
     // TODO display modal to confirm changes
     setUserTeams(userTeams.filter((item: string) => item !== team))
   }
@@ -37,7 +37,7 @@ export const TeamSubscriptions = () => {
           <IconAdd />
         </BaseOpacity>
         {userTeams.map((team, idx) => (
-          <BaseOpacity onPress={() => onRemoveSubscribedTeam(team)} key={idx} style={styles.team}>
+          <BaseOpacity onPress={() => onUnsubscribeTeam(team)} key={idx} style={styles.team}>
             <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm">
               {team}
             </Text>
