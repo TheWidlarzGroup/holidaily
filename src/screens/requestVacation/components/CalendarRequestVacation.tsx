@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { Calendar } from 'components/Calendar'
+import { CalendarList } from 'components/CalendarList'
 import { ModalNavigationType } from 'navigation/types'
 import React, { useState } from 'react'
 
@@ -30,9 +30,8 @@ export const CalendarRequestVacation = () => {
   return (
     <Box backgroundColor="white" borderRadius="m" flex={1} alignItems="center">
       <DaysOfWeek />
-      <Calendar
+      <CalendarList
         selectable
-        list
         style={styles.calendar}
         renderHeader={(date: Date) => <CalendarHeader date={date} />}
         onSelectedPeriodChange={handleSelectionChange}
