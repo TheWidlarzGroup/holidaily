@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/native'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import IconAdd from 'assets/icons/icon-add.svg'
 
 export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
+  const { navigate } = useNavigation()
   const [userTeams, setUserTeams] = useState<string[]>(['Smartsoft', 'Akademia'])
 
-  const onAddSubscribedTeam = () => {
-    console.log('add subscribed team')
-    // TODO display modal to add new subscriptions
-  }
+  const onAddSubscribedTeam = () => navigate('SubscribeTeam')
+
   const onRemoveSubscribedTeam = (team: string) => {
     // TODO display modal to confirm changes
     setUserTeams(userTeams.filter((item: string) => item !== team))

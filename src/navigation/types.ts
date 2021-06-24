@@ -151,6 +151,7 @@ export type UserProfileRoutes = {
   EditProfile: undefined
   ChangePassword: undefined
   Recovery: undefined
+  SubscribeTeam: undefined
 }
 
 export type ForgotPasswordRoutes = {
