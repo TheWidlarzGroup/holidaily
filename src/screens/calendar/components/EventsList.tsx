@@ -15,6 +15,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
         <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
       )}
       keyExtractor={(item) => item.date}
+      initialScrollIndex={0}
       ref={flatListRef}
     />
   </Box>

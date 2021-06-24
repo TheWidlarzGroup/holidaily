@@ -52,9 +52,10 @@ export const Calendar = () => {
           markedDates={getMarkedDates(currentMonthDays)}
           markingType={'multi-dot'}
           onHeaderPressed={() => displayMonthPicker()}
-          onDayPress={({ day }: { day: number }) => {
+          onDayPress={({ day }: { day: number }) =>
+            currentMonthDays.length > 0 &&
             flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
-          }}
+          }
           ref={calendarRef}
         />
       </Box>
