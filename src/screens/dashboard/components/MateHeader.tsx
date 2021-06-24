@@ -1,9 +1,8 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
-import { Image } from 'react-native'
-import IconProfile from 'assets/icons/icon-profile.svg'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import { Avatar } from 'components/Avatar'
 
 export const MateHeader = (props: RequiredMateHolidaysData) => {
   const { firstName, lastName, holidays, role, photo } = props
@@ -11,7 +10,7 @@ export const MateHeader = (props: RequiredMateHolidaysData) => {
   return (
     <Box alignItems="center" borderBottomColor="black" borderBottomWidth={2} paddingBottom="l">
       <Box>
-        {photo ? <Image source={{ uri: photo }} /> : <IconProfile width={104} height={104} />}
+        <Avatar src={photo} size="l" />
         {holidays.isOnHoliday && <OnHolidayTag variant="large" background="white" />}
       </Box>
       <Text variant="bold20" color="black" marginTop="m">
