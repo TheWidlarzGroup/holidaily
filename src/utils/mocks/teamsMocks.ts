@@ -1,4 +1,9 @@
-export const TEAMS = [
+export type TeamsType = {
+  teamName: string
+  id: number | string
+}
+
+export const TEAMS: TeamsType[] = [
   { teamName: 'Akademia', id: 0 },
   { teamName: 'Accounting Department', id: 1 },
   { teamName: 'Human Resources', id: 2 },

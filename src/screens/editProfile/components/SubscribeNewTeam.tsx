@@ -5,7 +5,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { CustomButton } from 'components/CustomButton'
 import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
-import { TEAMS } from 'utils/mocks/teamsMocks'
+import { TEAMS, TeamsType } from 'utils/mocks/teamsMocks'
 import IconBack from 'assets/icons/icon-back.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
 
@@ -13,8 +13,35 @@ export const SubscribeNewTeam = () => {
   const styles = useStyles()
   const { goBack } = useNavigation()
   const [searchPhrase, setSearchPhrase] = useState<string>('')
+  const [masterData, setMasterData] = useState<TeamsType[]>([])
+  const [filteredTeams, setFilteredTeams] = useState<TeamsType[]>([])
+  const [subscribedItems, setSubscribedItems] = useState<string[]>([])
+
+  const addToSubscriptions = (teamName: string) => {
+    const subscriptions = subscribedItems.concat(teamName)
+    setSubscribedItems(subscriptions)
+  }
 
   const handleSubscriptionSubmit = () => console.log('submit')
+  const searchFilter = (text: string) => {
+    setSearchPhrase(text)
+    if (text) {
+      const newData = masterData.filter(({ teamName }) =>
+        teamName.toLowerCase().includes(text.toLowerCase())
+      )
+      setFilteredTeams(newData)
+    } else {
+      setFilteredTeams(masterData)
+    }
+  }
+
+  useEffect(() => {
+    //   TODO: handle incoming async TEAMS data
+    if (TEAMS) {
+      setMasterData(TEAMS)
+      setFilteredTeams(TEAMS)
+    }
+  }, [])
 
   const handleGoBack = () => goBack()
   useEffect(() => {
@@ -39,15 +66,25 @@ export const SubscribeNewTeam = () => {
           <Box position="relative" marginTop="lplus">
             <TextInput
               style={styles.searchInput}
-              onChangeText={setSearchPhrase}
+              onChangeText={(text) => searchFilter(text)}
               value={searchPhrase}
             />
             <IconSearch style={styles.searchIcon} />
           </Box>
           <Box flexDirection="row" flexWrap="wrap" marginTop="xxl">
-            {TEAMS.map(({ teamName, id }) => (
-              <RectButton key={id} style={styles.teamItem}>
+            {filteredTeams.map(({ teamName, id }) => (
+              <RectButton
+                key={id}
+                style={styles.teamItem}
+                onPress={() => addToSubscriptions(teamName)}>
                 <Text variant="bold15">{teamName}</Text>
+              </RectButton>
+            ))}
+          </Box>
+          <Box flexDirection="row" flexWrap="wrap" marginTop="xxl">
+            {subscribedItems.map((item, index) => (
+              <RectButton key={index} style={styles.subscribedTeam}>
+                <Text variant="resendWhite">{item}</Text>
               </RectButton>
             ))}
           </Box>
@@ -93,6 +130,14 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   teamItem: {
     backgroundColor: theme.colors.white,
+    marginTop: theme.spacing.m,
+    marginRight: theme.spacing.xm,
+    paddingHorizontal: theme.spacing.ml,
+    paddingVertical: theme.spacing.xm,
+    borderRadius: theme.borderRadii.xxl,
+  },
+  subscribedTeam: {
+    backgroundColor: theme.colors.black,
     marginTop: theme.spacing.m,
     marginRight: theme.spacing.xm,
     paddingHorizontal: theme.spacing.ml,
