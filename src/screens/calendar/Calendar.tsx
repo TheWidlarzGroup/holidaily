@@ -9,11 +9,13 @@ import { useMonthPicker } from 'screens/calendar/useMonthPicker'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { DateTime } from 'luxon'
+import { FlatList } from 'react-native'
 import { CategoriesSlider } from './components/CategoriesSlider'
 import { MonthPickerModal } from './components/MonthPickerModal'
 
 export const Calendar = () => {
-  const calendarRef = useRef<RNCalendar>()
+  const calendarRef = useRef<RNCalendar>(null)
+  const flatListRef = useRef<FlatList>(null)
   const {
     filterCategories,
     toggleFilterItemSelection,
@@ -50,10 +52,13 @@ export const Calendar = () => {
           markedDates={getMarkedDates(currentMonthDays)}
           markingType={'multi-dot'}
           onHeaderPressed={() => displayMonthPicker()}
+          onDayPress={({ day }: { day: number }) => {
+            flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
+          }}
           ref={calendarRef}
         />
       </Box>
-      <EventsList days={currentMonthDays} />
+      <EventsList days={currentMonthDays} ref={flatListRef} />
       <MonthPickerModal
         isMonthPickerVisible={isMonthPickerVisible}
         hideMonthPicker={hideMonthPicker}
