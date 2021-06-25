@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, useCallback } from 'react'
 import { StatusBar, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { CustomButton } from 'components/CustomButton'
@@ -17,10 +18,11 @@ import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
 
 export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
+  const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const { handleModal } = useModalContext()
   const { goBack } = useNavigation()
-  const [searchPhrase, setSearchPhrase] = useState<string>('')
+  const [searchPhrase, setSearchPhrase] = useState('')
   const [masterData, setMasterData] = useState<TeamsType[]>([])
   const [filteredTeams, setFilteredTeams] = useState<TeamsType[]>([])
   const [subscribedTeams, setSubscribedTeams] = useState<TeamsType[]>([])
@@ -104,7 +106,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           onDecline={() => {
             handleModal()
           }}
-          content={"If you quit now, your changes won't be saved"}
+          content={t('quitMessage')}
         />
       )
     } else {
@@ -130,7 +132,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           <Box position="relative" marginTop="lplus" marginBottom="xxl">
             <TextInput
               style={styles.searchInput}
-              onChangeText={(text) => searchFilter(text)}
+              onChangeText={searchFilter}
               value={searchPhrase}
             />
             <IconSearch style={styles.searchIcon} />

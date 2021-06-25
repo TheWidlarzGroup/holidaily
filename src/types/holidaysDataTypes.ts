@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 
 export type ValidationOfCompanyDayOff = {
@@ -53,5 +54,5 @@ export type RequiredMateHolidaysData = UserData & {
 }
 export type UserTeamsSubscriptions = {
   userTeams: TeamsType[]
-  setUserTeams: React.Dispatch<React.SetStateAction<TeamsType[]>>
+  setUserTeams: Dispatch<SetStateAction<TeamsType[]>>
 }
