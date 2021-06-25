@@ -18,18 +18,18 @@
     "forgotPressableText": "Want to try another way?",
     "forgotResetButton": "Reset password"
   },
-  "password": {    
+  "password": {
     "password": "Password",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
-    "incorrectPassword": "Incorrect password, please try again"    
+    "incorrectPassword": "Incorrect password, please try again"
   },
   "changePassword": {
     "currPassword": "Your current password",
     "newPassword": "New password",
     "confirmNewPassword": "Repeat new password",
     "passwordChange": "Password change",
-    "newPasswordSaved": "New password saved!",    
+    "newPasswordSaved": "New password saved!",
     "exitMessage": "If you quit now, your changes won't be saved.",
     "incorrectPassword": "Wrong password, please try again",
     "forgotPasswordMessage": "Forgot your password?"
@@ -134,7 +134,8 @@
     "saveChanges": "Save changes",
     "changesSaved": "Changes saved",
     "deletePictureMessage": "Do you want to delete your profile picture?",
-    "pictureDeletedMessage": "Picture deleted!"
+    "pictureDeletedMessage": "Picture deleted!",
+    "quitMessage": "If you quit now, your changes won't be saved"
   },
   "dashboard": {
     "welcome": "How's your team doing?",
