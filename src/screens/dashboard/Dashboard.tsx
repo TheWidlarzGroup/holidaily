@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
@@ -10,8 +10,6 @@ import { useNavigation } from '@react-navigation/native'
 import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
 
 export const Dashboard = () => {
-  const [sortable, setSortable] = useState(false)
-
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
@@ -21,12 +19,11 @@ export const Dashboard = () => {
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
       <DashboardHeader />
-      <SortableList editing={sortable} onDragEnd={() => setSortable(false)}>
+      <SortableList>
         {teamsList.map((team) => (
           <TeamElement
             {...team}
             key={team.groupId}
-            onLongPress={() => setSortable(true)}
             navigateToTeamScreen={() => navigateToTeamDetails(team)}
           />
         ))}

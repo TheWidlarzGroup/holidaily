@@ -13,17 +13,16 @@ import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 type SortableListProps = {
   children: ReactElement<{ groupId: number }>[]
-  editing: boolean
-  onDragEnd: F0
 }
 
-export const SortableList = ({ children, editing, onDragEnd }: SortableListProps) => {
+export const SortableList = ({ children }: SortableListProps) => {
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
   const positions = useSharedValue<Positions>(
     // if positions object from database => { [child.props.groupId]: child.props.order }
     Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
   )
+
   const { t } = useTranslation('dashboard')
 
   const onScroll = useAnimatedScrollHandler({
@@ -58,9 +57,7 @@ export const SortableList = ({ children, editing, onDragEnd }: SortableListProps
             scrollY={scrollY}
             key={child.props.groupId}
             positions={positions}
-            editing={editing}
-            id={child.props.groupId}
-            onDragEnd={onDragEnd}>
+            id={child.props.groupId}>
             {child}
           </Item>
         ))}

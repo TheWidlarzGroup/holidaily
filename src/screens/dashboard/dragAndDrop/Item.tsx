@@ -1,4 +1,4 @@
-import React, { ReactNode, RefObject } from 'react'
+import React, { ReactNode, RefObject, useState } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { themeBase } from 'utils/theme/themeBase'
@@ -11,7 +11,13 @@ import Animated, {
   runOnJS,
   withTiming,
 } from 'react-native-reanimated'
-import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
+import {
+  State,
+  LongPressGestureHandler,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+  LongPressGestureHandlerStateChangeEvent,
+} from 'react-native-gesture-handler'
 import {
   COL,
   getPosition,
@@ -31,12 +37,11 @@ type ItemProps = {
   id: number
   scrollView: RefObject<Animated.ScrollView>
   scrollY: Animated.SharedValue<number>
-  editing: boolean
-  onDragEnd: F0
 }
 
 export const Item = (props: ItemProps) => {
-  const { children, positions, id, scrollView, scrollY, editing, onDragEnd } = props
+  const { children, positions, id, scrollView, scrollY } = props
+  const [dragging, setDragging] = useState(false)
 
   const isGestureActive = useSharedValue(false)
   const inset = useSafeAreaInsets()
@@ -58,6 +63,12 @@ export const Item = (props: ItemProps) => {
       translateY.value = withTiming(newPosition.y, animationConfig)
     }
   )
+
+  const handleLongPressStateChange = (event: LongPressGestureHandlerStateChangeEvent) => {
+    if (event.nativeEvent.state === State.ACTIVE) {
+      setDragging(true)
+    }
+  }
 
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
@@ -116,13 +127,13 @@ export const Item = (props: ItemProps) => {
       })
       translateY.value = withTiming(destination.y, animationConfig)
       // save order of teams
-      runOnJS(onDragEnd)()
+      runOnJS(setDragging)(false)
     },
   })
 
   const style = useAnimatedStyle(() => {
     const zIndex = isGestureActive.value ? themeBase.zIndices[50] : themeBase.zIndices[0]
-
+    const scale = dragging ? 1.1 : 1
     return {
       position: 'absolute',
       top: NESTED_ELEM_OFFSET,
@@ -130,15 +141,17 @@ export const Item = (props: ItemProps) => {
       width: SIZE_W,
       height: SIZE_H,
       zIndex,
-      transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
+      transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale }],
     }
   })
 
   return (
-    <Animated.View style={style}>
-      <PanGestureHandler enabled={editing} onGestureEvent={onGestureEvent}>
-        <Animated.View style={StyleSheet.absoluteFill}>{children}</Animated.View>
-      </PanGestureHandler>
-    </Animated.View>
+    <LongPressGestureHandler minDurationMs={400} onHandlerStateChange={handleLongPressStateChange}>
+      <Animated.View style={style}>
+        <PanGestureHandler enabled={dragging} onGestureEvent={onGestureEvent}>
+          <Animated.View style={StyleSheet.absoluteFill}>{children}</Animated.View>
+        </PanGestureHandler>
+      </Animated.View>
+    </LongPressGestureHandler>
   )
 }
