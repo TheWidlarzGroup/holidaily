@@ -9,14 +9,13 @@ export const CalendarDayDots = ({ marking }: CalendarDayDotsProps) => {
     firstThree: marking?.dots?.slice(0, 3),
     isMore: marking?.dots?.length > 3,
   }
-
   return (
-    <Box position="absolute" top="100%">
+    <Box position="absolute" top="80%">
       {dots.firstThree?.map((dot: { key: string; color: string }) => (
         <Box
           key={dot.key}
-          width={10}
-          height={4}
+          width={8}
+          height={2}
           borderRadius="s"
           marginTop="xs"
           style={{ backgroundColor: dot.color }}
@@ -25,12 +24,12 @@ export const CalendarDayDots = ({ marking }: CalendarDayDotsProps) => {
       {dots.isMore && (
         <Box
           position="relative"
-          width={4}
-          height={4}
+          width={2}
+          height={2}
           backgroundColor="grey"
           borderRadius="s"
-          top={-4}
-          left={14}
+          top={-2}
+          left={10}
         />
       )}
     </Box>

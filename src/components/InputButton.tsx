@@ -46,7 +46,10 @@ export const InputButton = ({
           </Text>
         </Animated.View>
         <Box alignSelf="center" position="absolute" right={0}>
-          <Box style={styles.button} padding={showEditIcon ? 'xs' : 'm'}>
+          <Box
+            style={styles.button}
+            borderColor={showEditIcon ? 'white' : 'disabledText'}
+            padding={showEditIcon ? 'xs' : 'm'}>
             {showEditIcon ? (
               <EditIcon />
             ) : (
@@ -81,7 +84,6 @@ const useStyles = mkUseStyles((theme) => ({
   },
   button: {
     borderWidth: 4,
-    borderColor: theme.colors.disabledText,
     borderStyle: 'solid',
     borderRadius: theme.borderRadii.xl,
     left: 0,

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Image } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
@@ -7,9 +6,9 @@ import { UploadPictureModal } from 'components/UploadPictureModal'
 import { EditPictureModal } from 'components/EditPictureModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
-import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
-import ProfileImgPlaceholder from 'assets/icons/icon-profile-placeholder.svg'
+import { Box, theme } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
+import { Avatar } from 'components/Avatar'
 import { useModalContext } from '../../../contexts/ModalProvider'
 
 type ProfilePictureProps = {
@@ -20,7 +19,6 @@ type ProfilePictureProps = {
 export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePictureProps) => {
   const { handleModal } = useModalContext()
   const { t } = useTranslation('userProfile')
-  const styles = useStyles()
   const { user } = useUserContext()
   const { photo: userPhoto } = user
   const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
@@ -110,11 +108,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
         onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.2}
         rippleColor={theme.colors.rippleColor}>
-        {userProfilePicture ? (
-          <Image source={{ uri: userProfilePicture }} style={styles.profileImg} />
-        ) : (
-          <ProfileImgPlaceholder style={styles.profileImg} />
-        )}
+        <Avatar src={userProfilePicture} size="l" marginBottom="m" />
       </RectButton>
       <TextLink
         text={userProfilePicture ? t('editPhoto') : t('addPhoto')}
@@ -124,12 +118,3 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  profileImg: {
-    height: 112,
-    width: 112,
-    marginBottom: theme.spacing.m,
-    borderRadius: 112 / 2,
-  },
-}))

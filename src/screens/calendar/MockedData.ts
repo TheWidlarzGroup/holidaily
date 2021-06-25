@@ -107,6 +107,20 @@ export const MOCKED_DATA = {
               color: '#91A6FF',
               id: 2,
             },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: 'red',
+              id: 3,
+            },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: 'blue',
+              id: 4,
+            },
           ],
         },
         {
@@ -135,7 +149,36 @@ export const MOCKED_DATA = {
         },
         {
           date: '2021-06-24',
-          events: [],
+          events: [
+            {
+              person: 'Peter Kansas',
+              reason: 'A couple days off',
+              position: 'Software Developer',
+              color: '#FF88DC',
+              id: 1,
+            },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: '#91A6FF',
+              id: 2,
+            },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: 'dodgerblue',
+              id: 3,
+            },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: 'blue',
+              id: 4,
+            },
+          ],
         },
         {
           date: '2021-06-25',
