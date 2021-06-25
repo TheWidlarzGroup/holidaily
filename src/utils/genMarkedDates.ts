@@ -5,6 +5,7 @@ type MarkedDateType = {
   color?: string
   endingDay?: boolean
   startingDay?: boolean
+  period?: boolean
 }
 
 export const genMarkedDates = (start?: string, end?: string) => {
@@ -14,7 +15,7 @@ export const genMarkedDates = (start?: string, end?: string) => {
 
   dates.forEach((date) => {
     obj[date] = {
-      selected: true,
+      period: true,
     }
   })
 

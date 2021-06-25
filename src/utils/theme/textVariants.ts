@@ -130,6 +130,10 @@ export const textVariants = {
     fontSize: 12,
     lineHeight: 20,
   },
+  regular15Calendar: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+  },
   header: {
     fontFamily: 'Nunito-Bold',
     fontSize: 24,

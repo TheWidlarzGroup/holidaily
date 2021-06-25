@@ -26,10 +26,11 @@ export const getMarkedDates = (days: DayInfoProps[]) =>
   days
     .filter((day) => day.events?.length)
     .reduce(
-      (_, { date, events = [] }) => ({
+      (o, { date, events = [] }) => ({
+        ...o,
         [date]: {
           dots: events.map((event: DayOffEvent) => ({
-            key: event.person,
+            key: event.id,
             color: event.color,
           })),
         },
