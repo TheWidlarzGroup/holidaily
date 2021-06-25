@@ -35,7 +35,7 @@ export const ConfirmationModal = ({
       swipeDirection="down"
       style={styles.modal}
       hideModalContentWhileAnimating>
-      <Box justifyContent="center" alignItems="center">
+      <Box justifyContent="center" alignItems="center" paddingHorizontal="m">
         <Text variant="boldBlackCenter20" marginBottom="l">
           {t('areYouSure')}
         </Text>

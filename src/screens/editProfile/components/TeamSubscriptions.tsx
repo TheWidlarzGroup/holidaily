@@ -25,7 +25,7 @@ export const TeamSubscriptions = () => {
   }
 
   return (
-    <Box paddingHorizontal="m" marginBottom="s" position="relative">
+    <Box paddingHorizontal="m" marginBottom={userTeams.length > 0 ? 's' : 'xl'} position="relative">
       <Text variant="label1" marginLeft="m" marginBottom="xm">
         {t('userSubscriptions')}
       </Text>
@@ -35,7 +35,7 @@ export const TeamSubscriptions = () => {
         alignItems="center"
         position="absolute"
         right={24}
-        top={22}
+        top={32}
         height={44}
         width={44}
         borderRadius="full"
