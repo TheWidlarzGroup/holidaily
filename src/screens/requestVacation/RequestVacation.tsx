@@ -7,6 +7,8 @@ import { RequestVacationBar } from 'components/RequestVacationBar'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export type RequestDataTypes = {
   description: string
@@ -43,7 +45,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [route, route.params])
 
   return (
-    <Box flex={1}>
+    <SafeAreaView style={{ flex: 1 }}>
       <HeaderRequestVacation />
       <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
       {step === 0 && (
@@ -61,6 +63,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           endDate={endDate}
         />
       )}
-    </Box>
+    </SafeAreaView>
   )
 }
