@@ -12,12 +12,11 @@ import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import { TEAMS, TeamsType } from 'utils/mocks/teamsMocks'
 import IconBack from 'assets/icons/icon-back.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
+import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
 
-export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = ({ route }) => {
-  const { params } = route
-  const { userTeams, setUserTeams } = params
+export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const styles = useStyles()
   const { handleModal } = useModalContext()
   const { goBack } = useNavigation()
@@ -25,6 +24,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = ({ route }) => {
   const [masterData, setMasterData] = useState<TeamsType[]>([])
   const [filteredTeams, setFilteredTeams] = useState<TeamsType[]>([])
   const [subscribedTeams, setSubscribedTeams] = useState<TeamsType[]>([])
+  const { userTeams, setUserTeams } = useUserDetailsContext()
 
   const filterAlreadySubmittedSubscriptions = useCallback(() => {
     const teamsAvailableToSubscribe = TEAMS.filter(

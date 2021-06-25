@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 import IconAdd from 'assets/icons/icon-add.svg'
+import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
 export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const { navigate } = useNavigation()
-  const [userTeams, setUserTeams] = useState<TeamsType[]>([])
+  const { userTeams } = useUserDetailsContext()
+  const [teams, setTeams] = useState<TeamsType[]>([])
+  useEffect(() => {
+    setTeams(userTeams)
+  }, [userTeams])
 
-  const onAddSubscribedTeam = () => navigate('SubscribeTeam', { userTeams, setUserTeams })
+  const onAddSubscribedTeam = () => navigate('SubscribeTeam')
 
   const onUnsubscribeTeam = () => {
     // TODO display modal to confirm changes
@@ -38,7 +43,7 @@ export const TeamSubscriptions = () => {
         <IconAdd />
       </BaseOpacity>
       <Box flexDirection="row" marginRight="xl" flexWrap="wrap">
-        {userTeams.map(({ teamName, id }) => (
+        {teams.map(({ teamName, id }) => (
           <RectButton onPress={onUnsubscribeTeam} key={id} style={styles.team}>
             <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm">
               {teamName}
