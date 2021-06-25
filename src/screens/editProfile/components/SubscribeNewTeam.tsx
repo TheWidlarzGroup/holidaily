@@ -63,12 +63,17 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
     setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
   }
 
+  const confirmationMessage = () => {
+    const teamNames = subscribedTeams.map(({ teamName }) => teamName).join(' and ')
+    return `${teamNames} subscribed!`
+  }
+
   const submitSubscriptions = () => {
     setUserTeams([...subscribedTeams, ...userTeams])
     handleModal(
       <ChangesSavedModal
         isVisible
-        content={'New teams subscribed!'}
+        content={confirmationMessage()}
         hideModal={() => handleModal()}
       />
     )
