@@ -42,7 +42,6 @@ export const Calendar = () => {
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           onDayPress={({ dateString, day }: { dateString: string; day: number }) => {
-            console.log(dateString)
             setSelectedDate(new XDate(dateString))
             if (currentMonthDays.length > 0)
               flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
