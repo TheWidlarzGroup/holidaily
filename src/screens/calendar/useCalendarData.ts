@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { MOCKED_DATA } from 'screens/calendar/MockedData'
 import { DayInfoProps } from 'screens/calendar/components/DayInfo'
-import { DateTime } from 'luxon'
+import XDate from 'xdate'
 import { FilterCategory } from './components/CategoriesSlider'
 
 export const useCalendarData = () => {
   const [filterCategories, setFilterCategories] = useState<FilterCategory[]>(
     MOCKED_DATA.filterCategories
   )
-  const [selectedDate, setSelectedDate] = useState<DateTime>(DateTime.local())
+  const [selectedDate, setSelectedDate] = useState<XDate>(new XDate())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
 
   const toggleFilterItemSelection = (id: number) => {
@@ -21,8 +21,11 @@ export const useCalendarData = () => {
   }
   useEffect(() => {
     const currentMonth = MOCKED_DATA.months.find((month) => {
-      const thisMonth = DateTime.fromISO(month.date)
-      return thisMonth.month === selectedDate.month && thisMonth.year === selectedDate.year
+      const thisMonth = new XDate(month.date)
+      return (
+        thisMonth.getMonth() === selectedDate.getMonth() &&
+        thisMonth.getFullYear() === selectedDate.getFullYear()
+      )
     })
     if (currentMonth) setCurrentMonthDays(currentMonth.days)
     else setCurrentMonthDays([])

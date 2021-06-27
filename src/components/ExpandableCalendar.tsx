@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Box, Text, theme as appTheme } from 'utils/theme'
+import React, { useRef, useEffect } from 'react'
+import { Box, theme as appTheme } from 'utils/theme'
 import {
   Calendar as RNCalendar,
   WeekCalendar as RNWeekCalendar,
+  CalendarProps as RNCalendarProps,
   CalendarProvider,
   LocaleConfig,
 } from 'react-native-calendars'
@@ -21,13 +22,20 @@ import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
-export const ExpandableCalendar = ({ markedDates, ...props }) => {
+type MarkedDatesMultiDots = { [key: string]: { dots: { key: string | number; color: string }[] } }
+type ExpandableCalendarProps = {
+  markedDates: MarkedDatesMultiDots
+  selectedDate: XDate
+  setSelectedDate: F1<XDate>
+}
+
+export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
+  const { markedDates, selectedDate, setSelectedDate, ...restProps } = props
   const { i18n } = useTranslation()
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
   const calendarRef = useRef<RNCalendar>(null)
   const weekCalendarRef = useRef<RNWeekCalendar>(null)
-  const [selectedDate, setSelectedDate] = useState(new XDate())
-  const [isWeekView, { setTrue: setIsWeekView, setFalse: setMonthView }] = useBooleanState(true)
+  const [isMonthView, { setTrue: setMonthView, setFalse: setWeekView }] = useBooleanState(true)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
 
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
@@ -101,23 +109,23 @@ export const ExpandableCalendar = ({ markedDates, ...props }) => {
   }
   return (
     <>
+      <CalendarHeader
+        month={selectedDate}
+        renderHeader={(date: Date) => (
+          <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
+        )}
+        renderArrow={(direction: 'left' | 'right') =>
+          direction === 'left' ? <ArrowLeft /> : <ArrowRight />
+        }
+        theme={headerTheme}
+        addMonth={(count: 1 | -1) => {
+          if (isMonthView) setSelectedDate(selectedDate.clone().addMonths(count, true).setDate(1))
+          else setSelectedDate(selectedDate.clone().addWeeks(count))
+        }}
+      />
       <Box>
-        <CalendarHeader
-          month={selectedDate}
-          renderHeader={(date: Date) => (
-            <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
-          )}
-          renderArrow={(direction: 'left' | 'right') =>
-            direction === 'left' ? <ArrowLeft /> : <ArrowRight />
-          }
-          theme={headerTheme}
-          addMonth={(count: 1 | -1) => {
-            if (isWeekView) setSelectedDate(selectedDate.clone().addWeeks(count))
-            else setSelectedDate(selectedDate.clone().addMonths(count, true).setDate(1))
-          }}
-        />
-        {isWeekView ? (
-          <Box style={{ height: 60 }}>
+        {!isMonthView ? (
+          <Box style={{ height: 70, position: 'absolute' }}>
             <CalendarProvider
               date={selectedDate.toDate()}
               onDateChanged={(date: Date) => {
@@ -144,7 +152,7 @@ export const ExpandableCalendar = ({ markedDates, ...props }) => {
                   [selectedDate.toString('yyyy-MM-dd')]: { selected: true },
                 })}
                 ref={weekCalendarRef}
-                {...props}
+                {...restProps}
               />
             </CalendarProvider>
           </Box>
@@ -162,7 +170,7 @@ export const ExpandableCalendar = ({ markedDates, ...props }) => {
               [selectedDate.toString('yyyy-MM-dd')]: { selected: true },
             })}
             ref={calendarRef}
-            {...props}
+            {...restProps}
           />
         )}
       </Box>
