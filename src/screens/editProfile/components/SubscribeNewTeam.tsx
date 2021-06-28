@@ -16,6 +16,7 @@ import IconSearch from 'assets/icons/icon-search.svg'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
+type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 
 export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const { t } = useTranslation('userProfile')
@@ -23,20 +24,23 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const { handleModal } = useModalContext()
   const { goBack } = useNavigation()
   const [searchPhrase, setSearchPhrase] = useState('')
-  const [masterData, setMasterData] = useState<TeamsType[]>([])
-  const [filteredTeams, setFilteredTeams] = useState<TeamsType[]>([])
-  const [subscribedTeams, setSubscribedTeams] = useState<TeamsType[]>([])
+  const [masterData, setMasterData] = useState<ParsedTeamsType[]>([])
+  const [filteredTeams, setFilteredTeams] = useState<ParsedTeamsType[]>([])
+  const [subscribedTeams, setSubscribedTeams] = useState<ParsedTeamsType[]>([])
   const { userTeams, setUserTeams } = useUserDetailsContext()
 
+  const parseTeams = (teams: TeamsType[]) =>
+    teams?.map((team) => ({ id: team.id, teamName: team.teamName, isSelected: false }))
+
   const filterAlreadySubmittedSubscriptions = useCallback(() => {
-    const teamsAvailableToSubscribe = TEAMS.filter(
+    const teamsAvailableToSubscribe = parseTeams(TEAMS).filter(
       ({ teamName }) => !userTeams.some((userTeam) => userTeam.teamName === teamName)
     )
     setMasterData(teamsAvailableToSubscribe)
     setFilteredTeams(teamsAvailableToSubscribe)
   }, [userTeams])
 
-  const checkTeamsAvailableToSubscribe = (subscriptions: TeamsType[]): TeamsType[] =>
+  const checkTeamsAvailableToSubscribe = (subscriptions: ParsedTeamsType[]): ParsedTeamsType[] =>
     masterData.filter(
       (masterTeam) => !subscriptions.some(({ teamName }) => teamName === masterTeam.teamName)
     )
@@ -52,17 +56,24 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
       setFilteredTeams(checkTeamsAvailableToSubscribe(subscribedTeams))
     }
   }
+  const toggleSelection = (id: number | string) => {
+    filteredTeams.forEach((team) => {
+      if (team.id === id) {
+        team.isSelected = !team.isSelected
+      }
+    })
+  }
 
-  const addToSubscriptions = ({ teamName, id }: TeamsType) => {
-    const subscriptions = [...subscribedTeams, { teamName, id }]
-    setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
+  const addToSubscriptions = ({ teamName, id, isSelected }: ParsedTeamsType) => {
+    const subscriptions = [...subscribedTeams, { teamName, id, isSelected: !isSelected }]
+    toggleSelection(id)
     setSubscribedTeams(subscriptions)
   }
 
-  const removeFromSubscriptions = (teamName: string) => {
-    const subscriptions = subscribedTeams.filter((item) => item.teamName !== teamName)
+  const removeFromSubscriptions = (id: string | number) => {
+    const subscriptions = subscribedTeams.filter((item) => item.id !== id)
+    toggleSelection(id)
     setSubscribedTeams(subscriptions)
-    setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
   }
 
   const confirmationMessage = () => {
@@ -137,24 +148,20 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
             />
             <IconSearch style={styles.searchIcon} />
           </Box>
-          <Box flexDirection="row" flexWrap="wrap">
-            {subscribedTeams.map(({ teamName, id }) => (
-              <RectButton
-                key={id}
-                style={styles.subscribedTeam}
-                onPress={() => removeFromSubscriptions(teamName)}>
-                <Text variant="resendWhite">{teamName}</Text>
-              </RectButton>
-            ))}
-          </Box>
           <ScrollView>
             <Box flexDirection="row" flexWrap="wrap">
-              {filteredTeams.map(({ teamName, id }) => (
+              {filteredTeams.map(({ teamName, id, isSelected }) => (
                 <RectButton
                   key={id}
-                  style={styles.teamItem}
-                  onPress={() => addToSubscriptions({ teamName, id })}>
-                  <Text variant="bold15">{teamName}</Text>
+                  style={isSelected ? styles.subscribedTeam : styles.teamItem}
+                  onPress={() =>
+                    isSelected
+                      ? removeFromSubscriptions(id)
+                      : addToSubscriptions({ teamName, id, isSelected })
+                  }>
+                  <Text color={isSelected ? 'white' : 'black'} variant="bold15">
+                    {teamName}
+                  </Text>
                 </RectButton>
               ))}
             </Box>
