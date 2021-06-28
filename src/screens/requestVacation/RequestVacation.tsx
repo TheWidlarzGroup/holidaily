@@ -8,6 +8,8 @@ import { Box } from 'utils/theme'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
+import { RequestSent } from './components/RequestSent'
+import { useBooleanState } from 'hooks/useBooleanState'
 
 export type RequestDataTypes = {
   description: string
@@ -25,6 +27,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [description, setDescription] = useState('')
   const [sickTime, setSickTime] = useState(false)
   const [message, setMessage] = useState('')
+  const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -67,8 +70,10 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           startDate={startDate}
           endDate={endDate}
           message={message}
+          onNextPressed={showSentModal}
         />
       )}
+      <RequestSent hideModal={hideSentModal} isVisible={sentModal} />
     </SafeAreaView>
   )
 }

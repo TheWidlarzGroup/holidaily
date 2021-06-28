@@ -12,6 +12,7 @@ import { SummaryDays } from './SummaryDays'
 type SummaryRequestVacationProps = {
   description: string
   sickTime: boolean
+  onNextPressed: F0
   startDate?: Date
   endDate?: Date
   message?: string
@@ -20,6 +21,7 @@ type SummaryRequestVacationProps = {
 export const SummaryRequestVacation = ({
   description,
   sickTime,
+  onNextPressed,
   endDate,
   startDate,
   message,
@@ -53,7 +55,7 @@ export const SummaryRequestVacation = ({
         <SummaryDays />
       </Box>
 
-      <CustomButton label={'next'} variant="primary" onPress={() => {}} />
+      <CustomButton label={'Send request'} variant="primary" onPress={onNextPressed} />
     </Box>
   )
 }
