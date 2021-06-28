@@ -22,7 +22,7 @@ export const MessageInput = ({ onSubmitEditing, defaultValue = '' }: MessageInpu
           placeholder="Write your message..."
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={() => onSubmitEditing(messageContent)}
-          blurOnSubmit={true}
+          blurOnSubmit
           multiline
           defaultValue={defaultValue}
           onChange={(e) => setMessageContent(e.nativeEvent.text)}

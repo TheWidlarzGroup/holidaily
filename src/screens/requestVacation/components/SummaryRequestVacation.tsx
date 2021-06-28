@@ -14,6 +14,7 @@ type SummaryRequestVacationProps = {
   sickTime: boolean
   startDate?: Date
   endDate?: Date
+  message?: string
 }
 
 export const SummaryRequestVacation = ({
@@ -21,6 +22,7 @@ export const SummaryRequestVacation = ({
   sickTime,
   endDate,
   startDate,
+  message,
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
 
@@ -42,6 +44,9 @@ export const SummaryRequestVacation = ({
             <Text variant="body1">Sick time off</Text>
           </Box>
         )}
+        <Text variant="regular15" paddingTop="m">
+          {message}
+        </Text>
         <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
         <SummaryDays />
       </Box>
