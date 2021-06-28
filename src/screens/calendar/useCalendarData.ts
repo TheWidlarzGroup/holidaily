@@ -29,7 +29,7 @@ export const useCalendarData = () => {
     })
     if (currentMonth) setCurrentMonthDays(currentMonth.days)
     else setCurrentMonthDays([])
-  }, [selectedDate])
+  }, [selectedDate, filterCategories])
 
   return {
     filterCategories,
