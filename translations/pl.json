@@ -22,14 +22,14 @@
     "password": "Hasło",
     "newPassword": "Nowe hasło",
     "confirmNewPassword": "Potwierdź nowe hasło",
-    "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie" 
+    "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie"
   },
   "changePassword": {
     "currPassword": "Obecne hasło",
     "newPassword": "Nowe hasło",
     "confirmNewPassword": "Potwierdź nowe hasło",
     "passwordChange": "Zmiana hasła",
-    "newPasswordSaved": "Nowe hasło zapisane!",    
+    "newPasswordSaved": "Nowe hasło zapisane!",
     "exitMessage": "Jeśli wyjdziesz, twoje zmiany nie zostaną zapisane.",
     "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie",
     "forgotPasswordMessage": "Zapomniałeś hasła?"
@@ -135,7 +135,7 @@
     "changesSaved": "Zmiany zostały zapisane",
     "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
     "pictureDeletedMessage": "Zdjęcie profilowe usunięte!"
-  },    
+  },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
     "teamsList": "Twoje zespoły",
@@ -153,5 +153,12 @@
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
     "createPostLabel": "Wyślij pozdrowienia..."
+  },
+  "createPost": {
+    "title": "Stwórz Post",
+    "clearPost": "Wyczyść",
+    "inputPlaceholder": "Wyślij pozdrowienia...",
+    "sendPost": "Wyślij",
+    "postSent": "Wiadomość wysłana!"
   }
 }
