@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { MOCKED_DATA } from 'screens/calendar/MockedData'
-import { DayInfoProps } from 'screens/calendar/components/DayInfo'
 import XDate from 'xdate'
 import { FilterCategory } from './components/CategoriesSlider'
+import { DayInfoProps } from './components/DayInfo'
 
 export const useCalendarData = () => {
   const [filterCategories, setFilterCategories] = useState<FilterCategory[]>(
     MOCKED_DATA.filterCategories
   )
   const [selectedDate, setSelectedDate] = useState<XDate>(new XDate())
-  const [currentMonthDays, setCurrentMonthDays] = useState<any[]>([])
+  const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
 
   const toggleFilterItemSelection = (id: number) => {
     setFilterCategories((prevState) => {
