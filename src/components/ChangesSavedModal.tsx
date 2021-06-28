@@ -59,5 +59,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
+    paddingHorizontal: theme.spacing.m,
   },
 }))

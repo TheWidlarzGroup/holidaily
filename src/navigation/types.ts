@@ -5,6 +5,7 @@ import {
   ValidationOfGroupDayOff,
   RequiredMateHolidaysData,
   GalleryItemData,
+  UserTeamsSubscriptions,
 } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
@@ -156,6 +157,7 @@ export type UserProfileRoutes = {
   EditProfile: undefined
   ChangePassword: undefined
   Recovery: undefined
+  SubscribeTeam: UserTeamsSubscriptions
 }
 
 export type ForgotPasswordRoutes = {
