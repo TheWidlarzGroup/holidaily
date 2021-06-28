@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { ModalNavigationProps } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
+import { Box } from 'utils/theme'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
@@ -47,8 +48,10 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <HeaderRequestVacation />
-      <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
+      <Box paddingBottom="m">
+        <HeaderRequestVacation />
+        <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
+      </Box>
       {step === 0 && (
         <FormRequestVacation
           nextStep={() => setStep(1)}

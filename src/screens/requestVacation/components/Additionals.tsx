@@ -26,7 +26,7 @@ export const Additionals = ({
         Add and attachment or write a message
       </Text>
       <Box
-        flexDirection={messageContent ? 'column' : 'row'}
+        flexDirection={messageContent ? 'column-reverse' : 'row'}
         justifyContent="flex-start"
         alignItems="flex-start">
         <Box backgroundColor="lightGrey" padding="xm" margin="s" marginLeft={0} borderRadius="l">
