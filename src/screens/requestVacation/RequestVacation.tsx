@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 
-import { ModalNavigationProps } from 'navigation/types'
+import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
 import { Box } from 'utils/theme'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 import { RequestSent } from './components/RequestSent'
-import { useBooleanState } from 'hooks/useBooleanState'
 
 export type RequestDataTypes = {
   description: string
@@ -28,6 +29,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [sickTime, setSickTime] = useState(false)
   const [message, setMessage] = useState('')
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
+  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -41,6 +43,16 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setDescription(newData.description)
     setSickTime(newData.sickTime)
     setMessage(newData.message)
+  }
+
+  const reset = () => {
+    hideSentModal()
+    setStep(0)
+    setStartDate(undefined)
+    setEndDate(undefined)
+    setDescription('')
+    setSickTime(false)
+    setMessage('')
   }
 
   useEffect(() => {
@@ -73,7 +85,16 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           onNextPressed={showSentModal}
         />
       )}
-      <RequestSent hideModal={hideSentModal} isVisible={sentModal} />
+
+      <RequestSent
+        isVisible={sentModal}
+        onPress1={() => {}}
+        onPress2={reset}
+        onPress3={() => {
+          hideSentModal()
+          navigation.navigate('Home')
+        }}
+      />
     </SafeAreaView>
   )
 }
