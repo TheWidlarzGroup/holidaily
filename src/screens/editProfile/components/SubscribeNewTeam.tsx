@@ -13,6 +13,7 @@ import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import { TEAMS, TeamsType } from 'utils/mocks/teamsMocks'
 import IconBack from 'assets/icons/icon-back.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
+import IconClose from 'assets/icons/icon-circle-cross.svg'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
@@ -27,6 +28,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const [masterData, setMasterData] = useState<ParsedTeamsType[]>([])
   const [filteredTeams, setFilteredTeams] = useState<ParsedTeamsType[]>([])
   const [subscribedTeams, setSubscribedTeams] = useState<ParsedTeamsType[]>([])
+  const [searchedItems, setSearchedItems] = useState<ParsedTeamsType[]>([])
   const { userTeams, setUserTeams } = useUserDetailsContext()
 
   const parseTeams = (teams: TeamsType[]) =>
@@ -48,16 +50,19 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const searchFilter = (text: string) => {
     setSearchPhrase(text)
     if (text) {
-      const filteredItems = filteredTeams.filter(({ teamName }) =>
+      const searchedItems = filteredTeams.filter(({ teamName }) =>
         teamName.toLowerCase().includes(text.toLowerCase())
       )
-      setFilteredTeams(filteredItems)
+      setSearchedItems(searchedItems)
+      setFilteredTeams(checkTeamsAvailableToSubscribe(searchedItems))
     } else {
-      setFilteredTeams(checkTeamsAvailableToSubscribe(subscribedTeams))
+      setSearchedItems([])
+      setFilteredTeams(masterData)
     }
   }
+
   const toggleSelection = (id: number | string) => {
-    filteredTeams.forEach((team) => {
+    masterData.forEach((team) => {
       if (team.id === id) {
         team.isSelected = !team.isSelected
       }
@@ -103,7 +108,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   }, [])
 
   const handleGoBack = () => {
-    if (subscribedTeams.length > 0) {
+    if (subscribedTeams.length > 0 || searchedItems.length > 0) {
       handleModal(
         <ConfirmationModal
           isVisible
@@ -140,16 +145,46 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
             <IconBack />
           </TouchableOpacity>
           <Text variant="boldBlackCenter20">{'Subscribe more teams'}</Text>
-          <Box position="relative" marginTop="lplus" marginBottom="xxl">
+          <Box position="relative" marginTop="lplus" marginBottom="l">
             <TextInput
               style={styles.searchInput}
               onChangeText={searchFilter}
               value={searchPhrase}
             />
             <IconSearch style={styles.searchIcon} />
+            <RectButton
+              rippleColor={theme.colors.rippleColor}
+              activeOpacity={0.5}
+              style={styles.dropSearchBtn}
+              onPress={() => searchFilter('')}>
+              <IconClose />
+            </RectButton>
           </Box>
           <Text variant="lightGreyRegular">{`Selected: ${subscribedTeams.length}`}</Text>
           <ScrollView>
+            {searchedItems.length > 0 && (
+              <Box
+                flexDirection="row"
+                flexWrap="wrap"
+                borderBottomColor="headerGrey"
+                borderBottomWidth={1}
+                paddingBottom="xl">
+                {searchedItems.map(({ teamName, id, isSelected }) => (
+                  <RectButton
+                    key={id}
+                    style={isSelected ? styles.subscribedTeam : styles.teamItem}
+                    onPress={() =>
+                      isSelected
+                        ? removeFromSubscriptions(id)
+                        : addToSubscriptions({ teamName, id, isSelected })
+                    }>
+                    <Text color={isSelected ? 'white' : 'black'} variant="bold15">
+                      {teamName}
+                    </Text>
+                  </RectButton>
+                ))}
+              </Box>
+            )}
             <Box flexDirection="row" flexWrap="wrap">
               {filteredTeams.map(({ teamName, id, isSelected }) => (
                 <RectButton
@@ -224,5 +259,10 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     paddingHorizontal: theme.spacing.ml,
     paddingVertical: theme.spacing.xm,
     borderRadius: theme.borderRadii.xxl,
+  },
+  dropSearchBtn: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 }))
