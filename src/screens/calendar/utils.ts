@@ -2,7 +2,6 @@ import { ViewStyle } from 'react-native'
 import { theme } from 'utils/theme'
 import { DayInfoProps } from 'screens/calendar/components/DayInfo'
 import { DayOffEvent } from './components/DayEvent'
-import { FilterCategory } from './components/CategoriesSlider'
 
 export const weekendBasedStyles = (weekend: number) => {
   let styles: ViewStyle = {}
@@ -23,22 +22,17 @@ export const weekendBasedStyles = (weekend: number) => {
   return styles
 }
 
-export const getMarkedDates = (days: DayInfoProps[], filterCategories: FilterCategory[]) =>
+export const getMarkedDates = (days: DayInfoProps[]) =>
   days
     .filter((day) => day.events?.length)
     .reduce(
       (o, { date, events = [] }) => ({
         ...o,
         [date]: {
-          dots: events
-            .filter(
-              (event: DayOffEvent) =>
-                filterCategories?.find((category) => category.id === event.categoryId)?.isSelected
-            )
-            .map((event: DayOffEvent) => ({
-              key: event.id,
-              color: event.color,
-            })),
+          dots: events.map((event: DayOffEvent) => ({
+            key: event.id,
+            color: event.color,
+          })),
         },
       }),
       {}

@@ -37,7 +37,7 @@ export const Calendar = () => {
         shadowRadius={6}
         elevation={4}>
         <ExpandableCalendar
-          markedDates={getMarkedDates(currentMonthDays, filterCategories)}
+          markedDates={getMarkedDates(currentMonthDays)}
           markingType={'multi-dot'}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}

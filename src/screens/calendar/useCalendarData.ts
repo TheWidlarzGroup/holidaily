@@ -9,7 +9,7 @@ export const useCalendarData = () => {
     MOCKED_DATA.filterCategories
   )
   const [selectedDate, setSelectedDate] = useState<XDate>(new XDate())
-  const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
+  const [currentMonthDays, setCurrentMonthDays] = useState<any[]>([])
 
   const toggleFilterItemSelection = (id: number) => {
     setFilterCategories((prevState) => {
@@ -27,8 +27,19 @@ export const useCalendarData = () => {
         thisMonth.getFullYear() === selectedDate.getFullYear()
       )
     })
-    if (currentMonth) setCurrentMonthDays(currentMonth.days)
-    else setCurrentMonthDays([])
+    if (currentMonth) {
+      const newCurrentMonthDays = currentMonth.days.map((day) => {
+        if (day.weekend || !day.events) return day
+        return {
+          ...day,
+          events: day.events.filter(
+            (event) =>
+              filterCategories?.find((category) => category.id === event.categoryId)?.isSelected
+          ),
+        }
+      })
+      setCurrentMonthDays(newCurrentMonthDays)
+    } else setCurrentMonthDays([])
   }, [selectedDate, filterCategories])
 
   return {
