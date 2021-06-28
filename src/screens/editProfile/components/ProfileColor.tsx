@@ -11,7 +11,7 @@ export const ProfileColor = () => {
   }
 
   return (
-    <Box paddingHorizontal="m" marginBottom="xl">
+    <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
       <Text variant="label1" marginLeft="m">
         {t('userColor')}
       </Text>

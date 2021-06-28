@@ -25,11 +25,8 @@ export const TeamSubscriptions = () => {
   }
 
   return (
-    <Box
-      paddingHorizontal="m"
-      marginBottom={userTeams.length > 0 ? 's' : 'xxl'}
-      position="relative">
-      <Text variant="label1" marginLeft="m" marginBottom="xm">
+    <Box paddingHorizontal="m" position="relative">
+      <Text variant="label1" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
         {t('userSubscriptions')}
       </Text>
       <BaseOpacity
