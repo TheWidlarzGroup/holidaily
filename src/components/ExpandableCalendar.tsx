@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { Box, theme as appTheme } from 'utils/theme'
+import { Box } from 'utils/theme'
 import {
   Calendar as RNCalendar,
   WeekCalendar as RNWeekCalendar,
@@ -30,6 +30,11 @@ import Animated, {
 } from 'react-native-reanimated'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
+import {
+  calendarTheme,
+  headerTheme,
+  weekendCalendarTheme,
+} from './CalendarComponents/ExplandableCalendarTheme'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string | number; color: string }[] } }
@@ -39,7 +44,7 @@ type ExpandableCalendarProps = {
   setSelectedDate: F1<XDate>
 }
 
-const WEEK_CALENDAR_HEIGHT = 70
+const WEEK_CALENDAR_HEIGHT = 60
 const BASE_CALENDAR_HEIGHT = 290
 
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
@@ -58,69 +63,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     calendarRef?.current?.updateMonth(selectedDate)
   }, [selectedDate])
 
-  const theme = {
-    calendarBackground: 'transparent',
-  }
-  const headerTheme = {
-    'stylesheet.calendar.header': {
-      header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginTop: 6,
-        alignItems: 'center',
-        marginBottom: 10,
-      },
-      week: {
-        marginTop: 7,
-        paddingRight: 5,
-        paddingLeft: 5,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-      },
-      dayHeader: {
-        width: 32,
-        textAlign: 'center',
-        marginBottom: 8,
-        fontSize: 12,
-        fontFamily: 'Nunito-Regular',
-        color: appTheme.colors.grey,
-      },
-    },
-    ...theme,
-  }
-  const calendarTheme = {
-    'stylesheet.calendar.header': {
-      header: {
-        display: 'none',
-      },
-    },
-    ...theme,
-  }
-  const weekendCalendarTheme = {
-    'stylesheet.expandable.main': {
-      week: {
-        marginTop: 7,
-        marginBottom: 10,
-        paddingRight: 5,
-        paddingLeft: 5,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-      },
-      dayHeader: {
-        width: 32,
-        textAlign: 'center',
-        marginBottom: 8,
-        fontSize: 12,
-        fontFamily: 'Nunito-Regular',
-        color: appTheme.colors.grey,
-      },
-    },
-    ...theme,
-  }
-
-  const containerHeight = useSharedValue(70)
+  const containerHeight = useSharedValue(WEEK_CALENDAR_HEIGHT)
   const fullCalendarContainerRef = useAnimatedRef()
   const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
   const opacity = useDerivedValue(() =>
@@ -137,7 +80,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     },
     onActive: (event, ctx) => {
       const newHeight = event.translationY + ctx.offsetY
-      containerHeight.value = newHeight > 70 ? newHeight : 70
+      containerHeight.value = newHeight > WEEK_CALENDAR_HEIGHT ? newHeight : WEEK_CALENDAR_HEIGHT
     },
     onEnd: (event) => {
       containerHeight.value =
@@ -179,10 +122,11 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <Animated.View style={weekOpacity}>
             <Box style={{ height: WEEK_CALENDAR_HEIGHT, position: 'absolute' }}>
               <CalendarProvider
+                current={'2021-06-28'}
                 date={selectedDate.toDate()}
                 onDateChanged={(date: Date) => {
                   const newDate = new XDate(date)
-                  if (selectedDate.toString('yyyy-MM') !== newDate.toString('yyyy-MM'))
+                  if (selectedDate.toString('yyyy-MM-dd') !== newDate.toString('yyyy-MM-dd'))
                     setSelectedDate(newDate)
                 }}>
                 <RNWeekCalendar
@@ -190,28 +134,12 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                   firstDay={1}
                   theme={weekendCalendarTheme}
                   dayComponent={CalendarDay}
-                  onDayPress={({
-                    year,
-                    month,
-                    day,
-                  }: {
-                    year: number
-                    month: number
-                    day: number
-                  }) =>
-                    setSelectedDate(
-                      new XDate(
-                        new XDate()
-                          .setFullYear(year)
-                          .setMonth(month - 1)
-                          .setDate(day)
-                      )
-                    )
-                  }
                   markedDates={deepmerge(markedDates, {
                     [selectedDate.toString('yyyy-MM-dd')]: { selected: true },
                   })}
                   ref={weekCalendarRef}
+                  pastScrollRange={24}
+                  futureScrollRange={24}
                   {...restProps}
                 />
               </CalendarProvider>
@@ -225,13 +153,12 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 firstDay={1}
                 theme={calendarTheme}
                 dayComponent={CalendarDay}
-                onDayPress={({ dateString }: { dateString: string }) =>
-                  setSelectedDate(new XDate(dateString))
-                }
                 markedDates={deepmerge(markedDates, {
                   [selectedDate.toString('yyyy-MM-dd')]: { selected: true },
                 })}
                 ref={calendarRef}
+                pastScrollRange={24}
+                futureScrollRange={24}
                 {...restProps}
               />
             </Box>
