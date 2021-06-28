@@ -148,6 +148,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
             />
             <IconSearch style={styles.searchIcon} />
           </Box>
+          <Text variant="lightGreyRegular">{`Selected: ${subscribedTeams.length}`}</Text>
           <ScrollView>
             <Box flexDirection="row" flexWrap="wrap">
               {filteredTeams.map(({ teamName, id, isSelected }) => (
