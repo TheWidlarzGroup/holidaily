@@ -50,7 +50,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const searchFilter = (text: string) => {
     setSearchPhrase(text)
     if (text) {
-      const searchedItems = filteredTeams.filter(({ teamName }) =>
+      const searchedItems = masterData.filter(({ teamName }) =>
         teamName.toLowerCase().includes(text.toLowerCase())
       )
       setSearchedItems(searchedItems)
