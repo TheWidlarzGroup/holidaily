@@ -2,7 +2,12 @@ import React from 'react'
 import { TextInput } from 'react-native'
 import { Box, mkUseStyles, useColors } from 'utils/theme'
 
-export const MessageInput = () => {
+type MessageInputProps = {
+  onSubmitEditing: F1<string>
+  defaultValue: string
+}
+
+export const MessageInput = ({ onSubmitEditing, defaultValue = '' }: MessageInputProps) => {
   const styles = useStyles()
   const colors = useColors()
 
@@ -10,9 +15,12 @@ export const MessageInput = () => {
     <Box style={styles.container}>
       <TextInput
         style={styles.input}
-        multiline
         placeholder="Write your message..."
         placeholderTextColor={colors.headerGrey}
+        onSubmitEditing={(e) => onSubmitEditing(e.nativeEvent.text)}
+        blurOnSubmit={true}
+        multiline
+        defaultValue={defaultValue}
       />
     </Box>
   )

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigation } from '@react-navigation/native'
 import { ScrollView } from 'react-native'
@@ -42,7 +42,9 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 }) => {
   const { control, handleSubmit, errors } = useForm()
   const [sickTime, { toggle }] = useBooleanState(false)
-  const [showMessageInput, { toggle: toggleShowMessageInput }] = useBooleanState(false)
+  const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
+    useBooleanState(false)
+  const [messageContent, setMessageContent] = useState('')
 
   const handleLoginUser = (data: FormTypes) => {
     //if (Object.keys(errors).length) return
@@ -54,17 +56,26 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 
   const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
 
+  const handleMessageSubmit = (value: string) => {
+    setMessageContent(value)
+    hideMessageInput()
+  }
+
   return (
     <Box flex={1}>
       <ScrollView style={{ padding: 20 }}>
         <Details control={control} date={date} />
         <SickTime sickTime={sickTime} toggle={toggle} />
-        <Additionals onPressMessage={toggleShowMessageInput} />
+        <Additionals
+          onPressMessage={toggleShowMessageInput}
+          messageContent={showMessageInput ? '' : messageContent}
+          showMessageInput={showMessageInput}
+        />
         <Box height={50} />
       </ScrollView>
-      <Box>
+      <Box marginBottom={showMessageInput ? 0 : 'l'}>
         {showMessageInput ? (
-          <MessageInput />
+          <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={messageContent} />
         ) : (
           <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
         )}

@@ -25,7 +25,7 @@ export const SummaryRequestVacation = ({
   const styles = useStyles()
 
   return (
-    <Box flexDirection="column" justifyContent="space-between" flex={1} paddingTop="xl">
+    <Box flexDirection="column" justifyContent="space-between" flex={1} padding="l" paddingTop="xl">
       <Box backgroundColor="primary" borderRadius="m" padding="m" flex={0.7}>
         <BackgroundPlant1 style={styles.plant1} />
         <BackgroundPlant2 style={styles.plant2} />
