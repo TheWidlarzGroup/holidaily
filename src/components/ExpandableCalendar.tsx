@@ -18,10 +18,8 @@ import { CustomModal } from 'components/CustomModal'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
 import deepmerge from 'deepmerge'
 import { Platform } from 'react-native'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
-  measure,
-  runOnUI,
   useAnimatedGestureHandler,
   useAnimatedRef,
   useAnimatedStyle,
@@ -42,7 +40,7 @@ type ExpandableCalendarProps = {
 }
 
 const WEEK_CALENDAR_HEIGHT = 70
-const FULL_CALENDAR_HEIGHT = 290
+const BASE_CALENDAR_HEIGHT = 290
 
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
   const { markedDates, selectedDate, setSelectedDate, ...restProps } = props
@@ -124,24 +122,24 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
   const containerHeight = useSharedValue(70)
   const fullCalendarContainerRef = useAnimatedRef()
-  const fullCalendarHeight = useSharedValue(FULL_CALENDAR_HEIGHT) // TODO: Measure content height
-  // useDerivedValue(() => {
-  //   //     'worklet'
-  //   fullCalendarHeight.value = measure(fullCalendarContainerRef).height
-  // })
+  const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
   const opacity = useDerivedValue(() =>
     containerHeight.value >= fullCalendarHeight.value ? withTiming(1) : withTiming(0)
   )
-  const gestureHandler = useAnimatedGestureHandler({
-    onStart: (event, ctx) => {
+  const gestureHandler = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    {
+      offsetY: number
+    }
+  >({
+    onStart: (_, ctx) => {
       ctx.offsetY = containerHeight.value
-      // fullCalendarHeight.value = measure(fullCalendarContainerRef).height
     },
     onActive: (event, ctx) => {
       const newHeight = event.translationY + ctx.offsetY
       containerHeight.value = newHeight > 70 ? newHeight : 70
     },
-    onEnd: (event, ctx) => {
+    onEnd: (event) => {
       containerHeight.value =
         event.translationY > 100
           ? withSpring(fullCalendarHeight.value, { overshootClamping: true })
@@ -150,12 +148,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   })
 
   const containerHeightStyles = useAnimatedStyle(() => ({
-    height: containerHeight.value,
+    minHeight: containerHeight.value,
   }))
   const weekOpacity = useAnimatedStyle(() => ({
     opacity: 1 - opacity.value,
-    // height: opacity.value
-    // display: opacity.value === 1 ? 'none' : 'flex',
   }))
   const fullOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -255,7 +251,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <MonthPicker value={selectedDate} onChange={handlePicker} />
         </CustomModal>
       ) : (
-        <MonthPicker value={selectedDate} onChange={handlePicker} />
+        isPickerVisible && <MonthPicker value={selectedDate} onChange={handlePicker} />
       )}
     </>
   )
