@@ -33,6 +33,7 @@ export const TeamSubscriptions = () => {
     handleModal(
       <ChangesSavedModal
         isVisible
+        // TODO: fix bug: handleModal() wrapped in function to prevent app from crashing
         hideModal={() => handleModal()}
         content={`${teamName} unsubscribed!`}
       />
@@ -41,15 +42,15 @@ export const TeamSubscriptions = () => {
     handleModal(
       <ConfirmationModal
         isVisible
+        // TODO: fix bug: handleModal() wrapped in function to prevent app from crashing
         hideModal={() => handleModal()}
         onAccept={() => {
           handleModal()
           filterUnsubscribedTeams(teamName)
           showChangesSavedModal(teamName)
         }}
-        onDecline={() => {
-          handleModal()
-        }}
+        // TODO: fix bug: handleModal() wrapped in function to prevent app from crashing
+        onDecline={() => handleModal()}
         content={`If you unsubscribe ${teamName} Team you will no longer see its members.`}
       />
     )
