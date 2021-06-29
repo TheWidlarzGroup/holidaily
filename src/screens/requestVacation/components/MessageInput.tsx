@@ -1,40 +1,84 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
 import { Box, mkUseStyles, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/SendArrow.svg'
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
+} from 'react-native-reanimated'
 
 type MessageInputProps = {
   onSubmitEditing: F1<string>
   defaultValue: string
+  maxLenght?: number
 }
 
-export const MessageInput = ({ onSubmitEditing, defaultValue = '' }: MessageInputProps) => {
+export const MessageInput = ({
+  onSubmitEditing,
+  defaultValue = '',
+  maxLenght = 300,
+}: MessageInputProps) => {
   const [messageContent, setMessageContent] = useState('')
+  const [error, setError] = useState('')
 
   const styles = useStyles()
   const colors = useColors()
 
+  const errorProgress = useDerivedValue(() => (error ? withTiming(1) : withTiming(0)), [error])
+
+  const errorBorderStyle = useAnimatedStyle(() => {
+    const borderColor = interpolateColor(
+      errorProgress.value,
+      [0, 1],
+      [colors.tertiary, colors.errorRed]
+    )
+    return { borderColor }
+  }, [])
+
+  const errorMessageStyle = useAnimatedStyle(
+    () => ({
+      height: withTiming(errorProgress.value * 20, {
+        duration: 50,
+      }),
+      opacity: withTiming(errorProgress.value, {
+        duration: 100,
+      }),
+    }),
+    []
+  )
+
+  const handleSubmit = () => {
+    if (error) return
+    onSubmitEditing(messageContent)
+  }
+
+  useEffect(() => {
+    if (messageContent.length > maxLenght) setError(`Max. ${maxLenght} characters `)
+    else setError('')
+  }, [messageContent])
+
   return (
     <Box style={styles.container}>
-      <Box style={styles.inputBox}>
+      <Animated.View style={[styles.inputBox, errorBorderStyle]}>
         <TextInput
           style={styles.input}
           placeholder="Write your message..."
           placeholderTextColor={colors.headerGrey}
-          onSubmitEditing={() => onSubmitEditing(messageContent)}
+          onSubmitEditing={handleSubmit}
           blurOnSubmit
           multiline
           defaultValue={defaultValue}
           onChange={(e) => setMessageContent(e.nativeEvent.text)}
         />
         {!!messageContent && (
-          <TouchableOpacity
-            style={styles.sendArrow}
-            onPress={() => onSubmitEditing(messageContent)}>
+          <TouchableOpacity style={styles.sendArrow} onPress={handleSubmit}>
             <SendArrowIcon height={9} width={9} />
           </TouchableOpacity>
         )}
-      </Box>
+      </Animated.View>
+      <Animated.Text style={[styles.error, errorMessageStyle]}>{error}</Animated.Text>
     </Box>
   )
 }
@@ -51,9 +95,8 @@ const useStyles = mkUseStyles((theme) => ({
     borderRadius: theme.spacing.xm,
     backgroundColor: theme.colors.white,
     borderWidth: 2,
-    borderColor: theme.colors.tertiary,
     paddingVertical: theme.spacing.s,
-    paddingHorizontal: theme.spacing.m,
+    paddingHorizontal: theme.spacing.s,
     flexDirection: 'row',
   },
   input: {
@@ -69,5 +112,10 @@ const useStyles = mkUseStyles((theme) => ({
     alignSelf: 'flex-end',
     borderRadius: theme.borderRadii.full,
     marginLeft: 20,
+  },
+  error: {
+    alignSelf: 'flex-end',
+    paddingVertical: 2,
+    color: theme.colors.errorRed,
   },
 }))
