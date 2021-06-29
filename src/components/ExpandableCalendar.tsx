@@ -44,7 +44,7 @@ type ExpandableCalendarProps = {
   setSelectedDate: F1<XDate>
 }
 
-const WEEK_CALENDAR_HEIGHT = 60
+const WEEK_CALENDAR_HEIGHT = 62
 const BASE_CALENDAR_HEIGHT = 290
 
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
