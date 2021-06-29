@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -21,9 +21,9 @@ export const Calendar = () => {
   } = useCalendarData()
 
   const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
-    setSelectedDate(DateTime.fromISO(dateString))
     if (currentMonthDays.length > 0)
       flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
+    setTimeout(() => setSelectedDate(DateTime.fromISO(dateString)), 0)
   }
 
   return (
