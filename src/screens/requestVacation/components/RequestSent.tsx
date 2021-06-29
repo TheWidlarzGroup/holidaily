@@ -3,6 +3,8 @@ import { ModalProps } from 'react-native-modal'
 
 import { mkUseStyles, Theme, Box, Text } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
+import Animated, { useAnimatedStyle, useDerivedValue, withSpring } from 'react-native-reanimated'
+import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 
 type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
   onPress1: F0
@@ -13,10 +15,22 @@ type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
 export const RequestSent = ({ isVisible, onPress1, onPress2, onPress3 }: RequestSentProps) => {
   const styles = useStyles()
 
+  const { height } = useDimensions()
+  const progress = useDerivedValue(() => (isVisible ? 1 : 0), [isVisible])
+
+  const animatedModalStyles = useAnimatedStyle(() => {
+    const v = progress.value
+    const h = height
+    return {
+      transform: [{ translateY: withSpring((1 - v) * h, { overshootClamping: true }) }],
+      opacity: withSpring(v, { overshootClamping: true }),
+    }
+  }, [])
+
   if (!isVisible) return null
 
   return (
-    <Box style={styles.modal}>
+    <Animated.View style={[styles.modal, animatedModalStyles]}>
       <Box
         alignItems="center"
         paddingHorizontal="xxl"
@@ -42,7 +56,7 @@ export const RequestSent = ({ isVisible, onPress1, onPress2, onPress3 }: Request
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Animated.View>
   )
 }
 
