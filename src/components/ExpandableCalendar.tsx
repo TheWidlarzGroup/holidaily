@@ -79,6 +79,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const opacity = useDerivedValue(() =>
     containerHeight.value >= fullCalendarHeight.value ? withTiming(1) : withTiming(0)
   )
+  const isWeekVisible = useDerivedValue(() => containerHeight.value < fullCalendarHeight.value)
   const gestureHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     {
@@ -128,21 +129,23 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
         <Animated.View style={containerHeightStyles}>
           <Animated.View style={weekOpacity}>
             <Box style={{ height: WEEK_CALENDAR_HEIGHT, position: 'absolute' }}>
-              <CalendarProvider date={selectedDate.toJSDate()} onMonthChange={onMonthChange}>
-                <RNWeekCalendar
-                  hideDayNames
-                  firstDay={1}
-                  theme={weekendCalendarTheme}
-                  dayComponent={CalendarDay}
-                  markedDates={deepmerge(markedDates, {
-                    [selectedDate.toISODate()]: { selected: true },
-                  })}
-                  ref={weekCalendarRef}
-                  pastScrollRange={0}
-                  futureScrollRange={0}
-                  {...restProps}
-                />
-              </CalendarProvider>
+              {isWeekVisible && (
+                <CalendarProvider date={selectedDate.toJSDate()} onMonthChange={onMonthChange}>
+                  <RNWeekCalendar
+                    hideDayNames
+                    firstDay={1}
+                    theme={weekendCalendarTheme}
+                    dayComponent={CalendarDay}
+                    markedDates={deepmerge(markedDates, {
+                      [selectedDate.toISODate()]: { selected: true },
+                    })}
+                    ref={weekCalendarRef}
+                    pastScrollRange={0}
+                    futureScrollRange={0}
+                    {...restProps}
+                  />
+                </CalendarProvider>
+              )}
             </Box>
           </Animated.View>
           <Animated.View style={fullOpacity}>
