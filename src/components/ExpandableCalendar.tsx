@@ -28,6 +28,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { isIos } from 'utils/layout'
+import { DateTime } from 'luxon'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import {
@@ -40,8 +41,8 @@ type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string | number; color: string }[] } }
 type ExpandableCalendarProps = {
   markedDates: MarkedDatesMultiDots
-  selectedDate: XDate
-  setSelectedDate: F1<XDate>
+  selectedDate: DateTime
+  setSelectedDate: F1<DateTime>
 }
 
 const WEEK_CALENDAR_HEIGHT = 62
@@ -57,20 +58,19 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
     hidePicker()
-    if (event === ACTION_DATE_SET) setSelectedDate(new XDate(newDate))
+    if (event === ACTION_DATE_SET) setSelectedDate(DateTime.fromJSDate(newDate))
   }
   useEffect(() => {
-    calendarRef?.current?.updateMonth(selectedDate)
+    calendarRef?.current?.updateMonth(new XDate(selectedDate.toISODate()))
   }, [selectedDate])
   const handleAddMonth = (count: 1 | -1) => {
     if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
-      setSelectedDate(selectedDate.clone().addWeeks(count))
-    else setSelectedDate(selectedDate.clone().addMonths(count, true).setDate(1))
+      setSelectedDate(selectedDate.plus({ weeks: count }))
+    else setSelectedDate(selectedDate.plus({ months: count }))
   }
-  const handleDateChanged = (date: Date) => {
-    const newDate = new XDate(date)
-    if (selectedDate.toString('yyyy-MM-dd') !== newDate.toString('yyyy-MM-dd'))
-      setSelectedDate(newDate)
+
+  const onMonthChange = ({ dateString }: { dateString: string }) => {
+    setSelectedDate(DateTime.fromISO(dateString))
   }
 
   const fullCalendarContainerRef = useAnimatedRef()
@@ -113,7 +113,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   return (
     <>
       <CalendarHeader
-        month={selectedDate}
+        month={new XDate(selectedDate.toISODate())}
         renderHeader={(date: Date) => (
           <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
         )}
@@ -128,21 +128,16 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
         <Animated.View style={containerHeightStyles}>
           <Animated.View style={weekOpacity}>
             <Box style={{ height: WEEK_CALENDAR_HEIGHT, position: 'absolute' }}>
-              <CalendarProvider
-                current={'2021-06-28'}
-                date={selectedDate.toDate()}
-                onDateChanged={handleDateChanged}>
+              <CalendarProvider date={selectedDate.toJSDate()} onMonthChange={onMonthChange}>
                 <RNWeekCalendar
                   hideDayNames
                   firstDay={1}
                   theme={weekendCalendarTheme}
                   dayComponent={CalendarDay}
                   markedDates={deepmerge(markedDates, {
-                    [selectedDate.toString('yyyy-MM-dd')]: { selected: true },
+                    [selectedDate.toISODate()]: { selected: true },
                   })}
                   ref={weekCalendarRef}
-                  pastScrollRange={24}
-                  futureScrollRange={24}
                   {...restProps}
                 />
               </CalendarProvider>
@@ -157,11 +152,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 theme={calendarTheme}
                 dayComponent={CalendarDay}
                 markedDates={deepmerge(markedDates, {
-                  [selectedDate.toString('yyyy-MM-dd')]: { selected: true },
+                  [selectedDate.toISODate()]: { selected: true },
                 })}
                 ref={calendarRef}
-                pastScrollRange={24}
-                futureScrollRange={24}
                 {...restProps}
               />
             </Box>

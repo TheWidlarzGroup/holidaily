@@ -7,7 +7,7 @@ import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
-import XDate from 'xdate'
+import { DateTime } from 'luxon'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 export const Calendar = () => {
@@ -21,7 +21,7 @@ export const Calendar = () => {
   } = useCalendarData()
 
   const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
-    setSelectedDate(new XDate(dateString))
+    setSelectedDate(DateTime.fromISO(dateString))
     if (currentMonthDays.length > 0)
       flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
   }
