@@ -1,8 +1,9 @@
-import React, { ReactNode, useContext, useState } from 'react'
+import React, { ReactNode, createContext, useContext, useState } from 'react'
 
 type ContextValue = {
-  modal: boolean
-  handleModal: (content?: ReactNode) => void
+  isModalVisible: boolean
+  showModal: (content: ReactNode) => void
+  hideModal: F0
   modalContent: ReactNode
 }
 type ContextProviderProps = {
@@ -10,26 +11,30 @@ type ContextProviderProps = {
 }
 
 const initialValues = {
-  modal: false,
-  handleModal: () => {},
+  isModalVisible: false,
+  showModal: () => {},
+  hideModal: () => {},
   modalContent: null,
 }
 
-export const ModalContext = React.createContext<ContextValue>(initialValues)
+export const ModalContext = createContext<ContextValue>(initialValues)
 export const useModalContext = () => useContext(ModalContext)
 
 export const ModalProvider = ({ children }: ContextProviderProps) => {
-  const [modal, setModal] = useState<boolean>(false)
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [modalContent, setModalContent] = useState<ReactNode>(null)
 
-  const handleModal = (content?: ReactNode) => {
-    setModal(!modal)
-    if (content) setModalContent(content)
-    if (!content) setModalContent(null)
+  const showModal = (content: ReactNode) => {
+    setIsModalVisible(!isModalVisible)
+    setModalContent(content)
+  }
+  const hideModal = () => {
+    setIsModalVisible(!isModalVisible)
+    setModalContent(null)
   }
 
   return (
-    <ModalContext.Provider value={{ modal, handleModal, modalContent }}>
+    <ModalContext.Provider value={{ isModalVisible, showModal, hideModal, modalContent }}>
       {modalContent}
       {children}
     </ModalContext.Provider>
