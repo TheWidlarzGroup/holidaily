@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 
-export const isWeekend = (date: DateTime | undefined): boolean =>
-  date?.weekday === 6 || date?.weekday === 7
+export const isWeekend = (date: DateTime): boolean => date.weekday === 6 || date.weekday === 7
 
 const getWeekDaysFromSunday = (language: string): string[] => {
   const date = DateTime.now().setLocale(language)
