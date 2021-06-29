@@ -73,9 +73,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
       setSelectedDate(newDate)
   }
 
-  const containerHeight = useSharedValue(WEEK_CALENDAR_HEIGHT)
   const fullCalendarContainerRef = useAnimatedRef()
   const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
+  const containerHeight = useSharedValue(fullCalendarHeight.value)
   const opacity = useDerivedValue(() =>
     containerHeight.value >= fullCalendarHeight.value ? withTiming(1) : withTiming(0)
   )
