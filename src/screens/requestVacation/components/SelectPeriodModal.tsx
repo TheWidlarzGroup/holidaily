@@ -1,17 +1,10 @@
 import React, { FC } from 'react'
 import { ModalProps } from 'react-native-modal'
 
-import { Text, mkUseStyles, Box } from 'utils/theme'
+import { Text, mkUseStyles } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
 import { getFormattedPeriod } from 'utils/dates'
-import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
-import Animated, {
-  useAnimatedStyle,
-  useDerivedValue,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated'
-import { CustomModal } from 'components/CustomModal'
+import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 
 type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   onSubmit: F0

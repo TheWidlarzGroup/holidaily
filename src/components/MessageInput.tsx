@@ -12,14 +12,14 @@ import Animated, {
 type MessageInputProps = {
   onSubmitEditing: F1<string>
   defaultValue: string
-  maxLenght?: number
+  maxLength?: number
   autofocus?: boolean
 }
 
 export const MessageInput = ({
   onSubmitEditing,
   defaultValue = '',
-  maxLenght = 300,
+  maxLength = 300,
   autofocus = false,
 }: MessageInputProps) => {
   const [messageContent, setMessageContent] = useState('')
@@ -59,13 +59,13 @@ export const MessageInput = ({
   }
 
   useEffect(() => {
-    if (messageContent.length > maxLenght) setError(`Max. ${maxLenght} characters `)
+    if (messageContent.length > maxLength) setError(`Max. ${maxLength} characters `)
     else setError('')
-  }, [messageContent])
+  }, [messageContent, maxLength])
 
   useEffect(() => {
     if (autofocus) inputRef.current?.focus()
-  }, [])
+  }, [autofocus])
 
   return (
     <Box style={styles.container}>

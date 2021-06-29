@@ -5,14 +5,9 @@ import { Box } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Additionals } from './Additionals'
-import { MessageInput } from './MessageInput'
+import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
-
-type FormTypes = {
-  date: undefined
-  description: string
-}
 
 type RequestDataTypes = {
   description: string
