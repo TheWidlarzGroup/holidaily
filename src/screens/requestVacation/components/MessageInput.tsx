@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
 import { Box, mkUseStyles, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/SendArrow.svg'
@@ -13,15 +13,19 @@ type MessageInputProps = {
   onSubmitEditing: F1<string>
   defaultValue: string
   maxLenght?: number
+  autofocus?: boolean
 }
 
 export const MessageInput = ({
   onSubmitEditing,
   defaultValue = '',
   maxLenght = 300,
+  autofocus = false,
 }: MessageInputProps) => {
   const [messageContent, setMessageContent] = useState('')
   const [error, setError] = useState('')
+
+  const inputRef = useRef<TextInput>(null)
 
   const styles = useStyles()
   const colors = useColors()
@@ -59,10 +63,15 @@ export const MessageInput = ({
     else setError('')
   }, [messageContent])
 
+  useEffect(() => {
+    if (autofocus) inputRef.current?.focus()
+  }, [])
+
   return (
     <Box style={styles.container}>
       <Animated.View style={[styles.inputBox, errorBorderStyle]}>
         <TextInput
+          ref={inputRef}
           style={styles.input}
           placeholder="Write your message..."
           placeholderTextColor={colors.headerGrey}

@@ -68,7 +68,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
       </ScrollView>
       <Box marginBottom={showMessageInput ? 0 : 'l'}>
         {showMessageInput ? (
-          <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={message} />
+          <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={message} autofocus />
         ) : (
           <CustomButton label={'next'} variant="primary" onPress={handleFormSubmit} />
         )}
