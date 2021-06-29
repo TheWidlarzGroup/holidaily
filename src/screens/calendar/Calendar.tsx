@@ -20,6 +20,12 @@ export const Calendar = () => {
     currentMonthDays,
   } = useCalendarData()
 
+  const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
+    setSelectedDate(new XDate(dateString))
+    if (currentMonthDays.length > 0)
+      flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
+  }
+
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation>
       <CategoriesSlider
@@ -41,11 +47,7 @@ export const Calendar = () => {
           markingType={'multi-dot'}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-          onDayPress={({ dateString, day }: { dateString: string; day: number }) => {
-            setSelectedDate(new XDate(dateString))
-            if (currentMonthDays.length > 0)
-              flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
-          }}
+          onDayPress={handleDayPress}
         />
       </Box>
       <EventsList days={currentMonthDays} ref={flatListRef} />

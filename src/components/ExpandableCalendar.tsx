@@ -17,7 +17,6 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
 import deepmerge from 'deepmerge'
-import { Platform } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -28,6 +27,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated'
+import { isIos } from 'utils/layout'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import {
@@ -62,6 +62,16 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   useEffect(() => {
     calendarRef?.current?.updateMonth(selectedDate)
   }, [selectedDate])
+  const handleAddMonth = (count: 1 | -1) => {
+    if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
+      setSelectedDate(selectedDate.clone().addWeeks(count))
+    else setSelectedDate(selectedDate.clone().addMonths(count, true).setDate(1))
+  }
+  const handleDateChanged = (date: Date) => {
+    const newDate = new XDate(date)
+    if (selectedDate.toString('yyyy-MM-dd') !== newDate.toString('yyyy-MM-dd'))
+      setSelectedDate(newDate)
+  }
 
   const containerHeight = useSharedValue(WEEK_CALENDAR_HEIGHT)
   const fullCalendarContainerRef = useAnimatedRef()
@@ -111,11 +121,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           direction === 'left' ? <ArrowLeft /> : <ArrowRight />
         }
         theme={headerTheme}
-        addMonth={(count: 1 | -1) => {
-          if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
-            setSelectedDate(selectedDate.clone().addWeeks(count))
-          else setSelectedDate(selectedDate.clone().addMonths(count, true).setDate(1))
-        }}
+        addMonth={handleAddMonth}
+        firstDay={1}
       />
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={containerHeightStyles}>
@@ -124,11 +131,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
               <CalendarProvider
                 current={'2021-06-28'}
                 date={selectedDate.toDate()}
-                onDateChanged={(date: Date) => {
-                  const newDate = new XDate(date)
-                  if (selectedDate.toString('yyyy-MM-dd') !== newDate.toString('yyyy-MM-dd'))
-                    setSelectedDate(newDate)
-                }}>
+                onDateChanged={handleDateChanged}>
                 <RNWeekCalendar
                   hideDayNames
                   firstDay={1}
@@ -165,7 +168,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           </Animated.View>
         </Animated.View>
       </PanGestureHandler>
-      {Platform.OS === 'ios' ? (
+      {isIos ? (
         <CustomModal
           style={{
             position: 'absolute',
