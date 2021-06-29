@@ -9,12 +9,16 @@ export const useKeyboard = () => {
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', onOpenKeyboard)
+    Keyboard.addListener('keyboardWillShow', onOpenKeyboard)
     Keyboard.addListener('keyboardDidHide', onHideKeyboard)
+    Keyboard.removeListener('keyboardWillHide', onHideKeyboard)
 
     // cleanup function
     return () => {
       Keyboard.removeListener('keyboardDidShow', onOpenKeyboard)
+      Keyboard.addListener('keyboardWillShow', onOpenKeyboard)
       Keyboard.removeListener('keyboardDidHide', onHideKeyboard)
+      Keyboard.removeListener('keyboardWillHide', onHideKeyboard)
     }
   }, [onOpenKeyboard, onHideKeyboard])
 
