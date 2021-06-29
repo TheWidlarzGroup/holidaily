@@ -134,7 +134,8 @@
     "saveChanges": "Zapisz zmiany",
     "changesSaved": "Zmiany zostały zapisane",
     "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
-    "pictureDeletedMessage": "Zdjęcie profilowe usunięte!"
+    "pictureDeletedMessage": "Zdjęcie profilowe usunięte!",
+    "quitMessage": "If you quit now, your changes won't be saved"
   },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",

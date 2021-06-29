@@ -12,7 +12,7 @@ type GalleryProps = {
 }
 
 export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: GalleryProps) => {
-  const { width: initialWidth } = useWindowDimensions() // Best width guess?
+  const { width: initialWidth } = useWindowDimensions()
   const [imageWidth, setImageWidth] = useState(initialWidth)
   const listRef = useRef<FlatList>(null)
 
@@ -20,7 +20,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       const [item] = viewableItems
       if (item === undefined || item.index === null) return
-      if (onIndexChanged) onIndexChanged(item.index)
+      onIndexChanged?.(item.index)
     },
     [onIndexChanged]
   )
