@@ -1,4 +1,4 @@
-import React, { ReactNode, RefObject, useState } from 'react'
+import React, { ReactNode, RefObject } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { themeBase } from 'utils/theme/themeBase'
@@ -37,11 +37,22 @@ type ItemProps = {
   id: number
   scrollView: RefObject<Animated.ScrollView>
   scrollY: Animated.SharedValue<number>
+  draggedElement: number | null
+  onLongPress: F0
+  stopDragging: F0
 }
 
 export const Item = (props: ItemProps) => {
-  const { children, positions, id, scrollView, scrollY } = props
-  const [dragging, setDragging] = useState(false)
+  const {
+    children,
+    positions,
+    id,
+    scrollView,
+    scrollY,
+    draggedElement,
+    onLongPress,
+    stopDragging,
+  } = props
 
   const isGestureActive = useSharedValue(false)
   const inset = useSafeAreaInsets()
@@ -66,7 +77,7 @@ export const Item = (props: ItemProps) => {
 
   const handleLongPressStateChange = (event: LongPressGestureHandlerStateChangeEvent) => {
     if (event.nativeEvent.state === State.ACTIVE) {
-      setDragging(true)
+      onLongPress()
     }
   }
 
@@ -127,13 +138,13 @@ export const Item = (props: ItemProps) => {
       })
       translateY.value = withTiming(destination.y, animationConfig)
       // save order of teams
-      runOnJS(setDragging)(false)
+      runOnJS(stopDragging)()
     },
   })
 
   const style = useAnimatedStyle(() => {
     const zIndex = isGestureActive.value ? themeBase.zIndices[50] : themeBase.zIndices[0]
-    const scale = dragging ? 1.1 : 1
+    const scale = draggedElement === id ? 1.1 : 1
     return {
       position: 'absolute',
       top: NESTED_ELEM_OFFSET,
@@ -148,7 +159,7 @@ export const Item = (props: ItemProps) => {
   return (
     <LongPressGestureHandler minDurationMs={400} onHandlerStateChange={handleLongPressStateChange}>
       <Animated.View style={style}>
-        <PanGestureHandler enabled={dragging} onGestureEvent={onGestureEvent}>
+        <PanGestureHandler enabled={draggedElement === id} onGestureEvent={onGestureEvent}>
           <Animated.View style={StyleSheet.absoluteFill}>{children}</Animated.View>
         </PanGestureHandler>
       </Animated.View>

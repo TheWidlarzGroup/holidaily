@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import { Item } from 'screens/dashboard/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
@@ -16,21 +17,26 @@ type SortableListProps = {
 }
 
 export const SortableList = ({ children }: SortableListProps) => {
+  const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
+  const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
   const positions = useSharedValue<Positions>(
     // if positions object from database => { [child.props.groupId]: child.props.order }
     Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
   )
+  useFocusEffect(React.useCallback(() => () => setDraggedElement(null), []))
 
   const { t } = useTranslation('dashboard')
 
+  const onLongPress = (element: null | number) => {
+    setDraggedElement(element)
+  }
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollY.value = event.contentOffset.y
     },
   })
-  const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
 
   return (
     <Box paddingBottom={'xxxl'}>
@@ -54,6 +60,9 @@ export const SortableList = ({ children }: SortableListProps) => {
         {children.map((child) => (
           <Item
             scrollView={scrollView}
+            onLongPress={() => onLongPress(child.props.groupId)}
+            stopDragging={() => setDraggedElement(null)}
+            draggedElement={draggedElement}
             scrollY={scrollY}
             key={child.props.groupId}
             positions={positions}
