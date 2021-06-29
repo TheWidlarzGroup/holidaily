@@ -1,10 +1,9 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { Gallery } from 'components/Gallery/Gallery'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostFooter } from './PostFormFooter'
@@ -18,16 +17,12 @@ type CreatePostFormProps = {
 export const CreatePostForm = (props: CreatePostFormProps) => {
   const [state, dispatch] = usePostFormReducer()
   const [keyboardOpened] = useKeyboard()
-  const { goBack } = useNavigation()
 
   const galleryImages = state.images.map(assetToGalleryItem)
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <PostHeader
-        left={{ element: <Text>X</Text>, onPress: () => goBack() }}
-        right={{ element: <Text>C</Text>, onPress: () => dispatch({ type: 'reset' }) }}
-      />
+      <PostHeader />
       <Box flexGrow={1} padding="s">
         <Box paddingBottom="m">
           <PostBody
