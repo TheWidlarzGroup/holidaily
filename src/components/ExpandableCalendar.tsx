@@ -176,10 +176,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           }}
           isVisible={isPickerVisible}
           onBackdropPress={hidePicker}>
-          <MonthPicker value={selectedDate} onChange={handlePicker} />
+          <MonthPicker value={selectedDate.toJSDate()} onChange={handlePicker} />
         </CustomModal>
       ) : (
-        isPickerVisible && <MonthPicker value={selectedDate} onChange={handlePicker} />
+        isPickerVisible && <MonthPicker value={selectedDate.toJSDate()} onChange={handlePicker} />
       )}
     </>
   )
