@@ -23,7 +23,7 @@ export const Additionals = ({
         Additionals
       </Text>
       <Text variant="body1" textAlign="left">
-        Add and attachment or write a message
+        Add an attachment or write a message
       </Text>
       <Box
         flexDirection={messageContent ? 'column-reverse' : 'row'}
