@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react'
-import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, TextInput, ScrollView } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useFocusEffect } from '@react-navigation/native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { Box, Text } from 'utils/theme/index'
+import { Box, Text, theme } from 'utils/theme/index'
 import { isIos } from 'utils/layout'
 import { minTwoWordsRegex, minOneSignRegex, emailRegex, passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
@@ -41,7 +41,7 @@ export const SignupEmail = () => {
         <Text variant="title1">{t('signupEmailTitle')}</Text>
       </Box>
       <KeyboardAvoidingView behavior={isIos ? 'padding' : 'height'} style={styles.keyboardAvoiding}>
-        <Box marginHorizontal="l">
+        <ScrollView style={{ marginHorizontal: theme.spacing.l }}>
           <Box>
             <FormInput
               control={control}
@@ -99,21 +99,31 @@ export const SignupEmail = () => {
               isPasswordIconVisible
             />
           </Box>
-          <Box marginTop="xxl">
-            <Text variant="lightGreyBold" textAlign="center">
-              {t('privacyPolicy')}
-            </Text>
-          </Box>
-          <Box justifyContent="center" marginHorizontal="xxl" marginTop="m">
-            <CustomButton
-              variant="primary"
-              label={t('signUpBtn')}
-              onPress={handleSubmit(handleSignup)}
-              loading={isLoading}
-            />
-          </Box>
-        </Box>
+        </ScrollView>
       </KeyboardAvoidingView>
+      <Box
+        position="absolute"
+        right={0}
+        left={0}
+        bottom={0}
+        backgroundColor="white"
+        height={157}
+        alignItems="center"
+        style={styles.shadow}>
+        <Box marginHorizontal="xxl" marginTop="m">
+          <CustomButton
+            variant="primary"
+            label={t('signUpBtn')}
+            onPress={handleSubmit(handleSignup)}
+            loading={isLoading}
+          />
+        </Box>
+        <Box marginTop="l">
+          <Text variant="lightGreyBold" textAlign="center">
+            {t('privacyPolicy')}
+          </Text>
+        </Box>
+      </Box>
       <PendingAccountConfirmationModal isVisible={isModalVisible} hideModal={hideModal} />
     </SafeAreaWrapper>
   )
@@ -122,5 +132,12 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,
+  },
+  shadow: {
+    shadowOffset: { width: -2, height: 0 },
+    shadowColor: theme.colors.black,
+    shadowOpacity: 0.04,
+    shadowRadius: 2,
+    elevation: 20,
   },
 })
