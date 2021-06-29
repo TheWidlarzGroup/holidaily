@@ -4,9 +4,9 @@ import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
-import { PostFooter } from './PostFormFooter'
 import { useKeyboard } from '../useKeyboard'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
+import { PostFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
   onSend: F1<PostState>
@@ -18,6 +18,8 @@ export const CreatePostForm = (props: CreatePostFormProps) => {
 
   const galleryImages = state.images.map(assetToGalleryItem)
 
+  const sendDisabled = isSendDisabled(state)
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <PostHeader />
@@ -28,6 +30,7 @@ export const CreatePostForm = (props: CreatePostFormProps) => {
       />
       {!keyboardOpened && (
         <PostFooter
+          disabledCTA={sendDisabled}
           onCTAPress={() => props.onSend(state)}
           onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
         />
@@ -40,3 +43,5 @@ const assetToGalleryItem = (asset: Asset): GalleryItemData => ({
   type: asset.type ? 'image' : 'video',
   src: asset.uri ?? '',
 })
+
+const isSendDisabled = ({ text, images }: PostState) => text.length === 0 && images.length === 0

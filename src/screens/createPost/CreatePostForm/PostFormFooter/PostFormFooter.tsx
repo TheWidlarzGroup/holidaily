@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
-import { BaseOpacity, Box, Text } from 'utils/theme'
+import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 
 import IconCamera from 'assets/icons/icon-camera.svg'
-import IconGallery from 'assets/icons/icon-gallery.svg'
+import IconGallery from 'assets/icons/icon-gallery-2.svg'
 import IconLocation from 'assets/icons/icon-pin.svg'
 import {
   Asset,
@@ -11,13 +11,15 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker'
+import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
   onImagesPick: F1<Asset[]>
   onCTAPress: F0
+  disabledCTA: boolean
 }
 
-export const PostFooter = ({ onCTAPress, onImagesPick }: PostFooterProps) => {
+export const PostFooter = ({ onCTAPress, onImagesPick, disabledCTA }: PostFooterProps) => {
   const { t } = useTranslation('createPost')
 
   const imagePickCallback = useCallback(
@@ -62,16 +64,20 @@ export const PostFooter = ({ onCTAPress, onImagesPick }: PostFooterProps) => {
 
   return (
     <Box bg="rippleColor" borderTopLeftRadius="l" borderTopRightRadius="l">
-      <Box flexDirection="row" justifyContent="space-evenly" alignItems="center">
-        <BaseOpacity padding="m" onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
+      <Box
+        flexDirection="row"
+        justifyContent="space-evenly"
+        alignItems="center"
+        paddingVertical="m">
+        <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
           <IconCamera />
-        </BaseOpacity>
-        <BaseOpacity padding="m" onPress={handleGalleryPress}>
+        </FooterButton>
+        <FooterButton onPress={handleGalleryPress}>
           <IconGallery />
-        </BaseOpacity>
-        <BaseOpacity padding="m" onPress={handleLocationPress}>
+        </FooterButton>
+        <FooterButton onPress={handleLocationPress}>
           <IconLocation />
-        </BaseOpacity>
+        </FooterButton>
       </Box>
       <Box
         justifyContent="center"
@@ -79,7 +85,12 @@ export const PostFooter = ({ onCTAPress, onImagesPick }: PostFooterProps) => {
         paddingTop="xs"
         paddingBottom="l"
         paddingHorizontal="xxxl">
-        <BaseOpacity paddingVertical="m" borderRadius="xxl" bg="primary" onPress={onCTAPress}>
+        <BaseOpacity
+          paddingVertical="m"
+          borderRadius="xxl"
+          bg={disabledCTA ? 'headerGrey' : 'primary'}
+          onPress={onCTAPress}
+          disabled={disabledCTA}>
           <Text variant="buttonText1">{t('sendPost')}</Text>
         </BaseOpacity>
       </Box>
