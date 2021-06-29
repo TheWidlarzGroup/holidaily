@@ -37,7 +37,7 @@ export const useCalendarData = () => {
       })
       setCurrentMonthDays(newCurrentMonthDays)
     } else setCurrentMonthDays([])
-  }, [selectedDate, filterCategories])
+  }, [selectedDate.month, selectedDate.year, filterCategories])
 
   return {
     filterCategories,

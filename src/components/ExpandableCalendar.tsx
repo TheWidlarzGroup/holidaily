@@ -138,6 +138,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                     [selectedDate.toISODate()]: { selected: true },
                   })}
                   ref={weekCalendarRef}
+                  pastScrollRange={0}
+                  futureScrollRange={0}
                   {...restProps}
                 />
               </CalendarProvider>
