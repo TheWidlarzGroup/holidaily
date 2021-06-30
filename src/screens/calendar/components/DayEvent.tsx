@@ -8,6 +8,7 @@ export type DayOffEvent = {
   reason: string
   position: string
   color: string
+  categoryId: number
 }
 
 type DayEventProps = { event: DayOffEvent }
