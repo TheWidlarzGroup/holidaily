@@ -74,14 +74,15 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
     setSubscribedTeams(subscriptions)
   }
 
-  const confirmationMessage = () => {
-    const teamNames = subscribedTeams.map(({ teamName }) => teamName).join(' and ')
-    return `${teamNames} subscribed!`
-  }
-
   const submitSubscriptions = () => {
     setUserTeams([...subscribedTeams, ...userTeams])
-    showModal(<ChangesSavedModal isVisible content={confirmationMessage()} hideModal={hideModal} />)
+    showModal(
+      <ChangesSavedModal
+        isVisible
+        content={subscribedTeams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation')}
+        hideModal={hideModal}
+      />
+    )
     goBack()
   }
 
@@ -129,7 +130,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           <TouchableOpacity activeOpacity={0.2} onPress={handleGoBack} style={styles.backBtn}>
             <IconBack />
           </TouchableOpacity>
-          <Text variant="boldBlackCenter20">{'Subscribe more teams'}</Text>
+          <Text variant="boldBlackCenter20">{t('subscribeMoreTeams')}</Text>
           <Box position="relative" marginTop="lplus" marginBottom="l">
             <TextInput
               style={styles.searchInput}

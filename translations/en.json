@@ -135,7 +135,10 @@
     "changesSaved": "Changes saved",
     "deletePictureMessage": "Do you want to delete your profile picture?",
     "pictureDeletedMessage": "Picture deleted!",
-    "quitMessage": "If you quit now, your changes won't be saved"
+    "quitMessage": "If you quit now, your changes won't be saved",
+    "newTeamsConfirmation": "New teams subscribed!",
+    "newTeamConfirmation": "New team subscribed!",
+    "subscribeMoreTeams": "Subscribe more teams"
   },
   "dashboard": {
     "welcome": "How's your team doing?",

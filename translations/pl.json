@@ -135,7 +135,10 @@
     "changesSaved": "Zmiany zostały zapisane",
     "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
     "pictureDeletedMessage": "Zdjęcie profilowe usunięte!",
-    "quitMessage": "If you quit now, your changes won't be saved"
+    "quitMessage": "If you quit now, your changes won't be saved",
+    "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
+    "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
+    "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły"
   },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
