@@ -20,7 +20,7 @@ export const Settings: FC = () => {
 
   return (
     <SafeAreaWrapper>
-      <DrawerBackArrow goBack={handleGoBack} />
+      <DrawerBackArrow goBack={handleGoBack} title="Settings" />
 
       <Box margin="xl">
         <Text variant="title1">Welcome in Settings</Text>
