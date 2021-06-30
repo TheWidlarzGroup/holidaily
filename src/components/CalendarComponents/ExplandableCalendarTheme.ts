@@ -40,24 +40,3 @@ export const calendarTheme = {
   },
   ...theme,
 }
-export const weekendCalendarTheme = {
-  'stylesheet.expandable.main': {
-    week: {
-      marginTop: 7,
-      marginBottom: 10,
-      paddingRight: 5,
-      paddingLeft: 5,
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-    },
-    dayHeader: {
-      width: 32,
-      textAlign: 'center',
-      marginBottom: 8,
-      fontSize: 12,
-      fontFamily: 'Nunito-Regular',
-      color: appTheme.colors.grey,
-    },
-  },
-  ...theme,
-}
