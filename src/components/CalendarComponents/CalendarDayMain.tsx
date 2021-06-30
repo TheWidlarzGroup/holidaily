@@ -20,11 +20,15 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
   }
 
   const containerStyles = useAnimatedStyle(() => ({
-    borderRadius: 14,
+    borderRadius: 15,
     backgroundColor: withTiming(marking?.selected && !marking?.period ? '#000000ff' : '#00000000'),
-    width: 28,
-    height: 28,
+    width: 30,
+    height: 30,
+    top: -1,
+    left: -1,
     margin: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   }))
   return (
     <Box
@@ -36,7 +40,10 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
         marking?.period && isWeekend(day) && styles.selectedDisabled,
       ]}>
       <Animated.View style={containerStyles}>
-        <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
+        <BorderlessButton
+          onPress={() => onPress(date)}
+          enabled={!isWeekend(day)}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Box
             borderRadius="l"
             borderWidth={state === 'today' ? 2 : 0}
