@@ -16,6 +16,7 @@ declare module 'react-native-calendars' {
     LocaleConfig,
     CalendarProvider,
     WeekCalendar,
+    MultiDotMarking,
   } from '@types/react-native-calendars'
 
   export {
@@ -26,5 +27,6 @@ declare module 'react-native-calendars' {
     CalendarList,
     CalendarProvider,
     WeekCalendar,
+    MultiDotMarking,
   }
 }

@@ -2,9 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import { Box } from 'utils/theme'
 import {
   Calendar as RNCalendar,
-  WeekCalendar as RNWeekCalendar,
   CalendarProps as RNCalendarProps,
-  CalendarProvider,
   LocaleConfig,
 } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
@@ -34,8 +32,9 @@ import { CalendarDay } from './CalendarComponents/CalendarDay'
 import {
   calendarTheme,
   headerTheme,
-  weekendCalendarTheme,
+  // weekendCalendarTheme,
 } from './CalendarComponents/ExplandableCalendarTheme'
+import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string | number; color: string }[] } }
@@ -45,7 +44,7 @@ type ExpandableCalendarProps = {
   setSelectedDate: F1<DateTime>
 }
 
-const WEEK_CALENDAR_HEIGHT = 62
+const WEEK_CALENDAR_HEIGHT = 50
 const BASE_CALENDAR_HEIGHT = 290
 
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
@@ -53,7 +52,6 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const { i18n } = useTranslation()
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
   const calendarRef = useRef<RNCalendar>(null)
-  const weekCalendarRef = useRef<RNWeekCalendar>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
 
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
@@ -65,12 +63,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   }, [selectedDate])
   const handleAddMonth = (count: 1 | -1) => {
     if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
-      setSelectedDate(selectedDate.plus({ weeks: count }))
+      setSelectedDate(selectedDate.plus({ weeks: count }).startOf('week'))
     else setSelectedDate(selectedDate.plus({ months: count }))
-  }
-
-  const onMonthChange = ({ dateString }: { dateString: string }) => {
-    setSelectedDate(DateTime.fromISO(dateString))
   }
 
   const fullCalendarContainerRef = useAnimatedRef()
@@ -128,24 +122,24 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View style={containerHeightStyles}>
           <Animated.View style={weekOpacity}>
-            <Box style={{ height: WEEK_CALENDAR_HEIGHT, position: 'absolute' }}>
-              {isWeekVisible && (
-                <CalendarProvider date={selectedDate.toJSDate()} onMonthChange={onMonthChange}>
-                  <RNWeekCalendar
-                    hideDayNames
-                    firstDay={1}
-                    theme={weekendCalendarTheme}
-                    dayComponent={CalendarDay}
+            <Box>
+              <Box
+                style={{
+                  height: WEEK_CALENDAR_HEIGHT,
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                }}>
+                {isWeekVisible && (
+                  <WeekCalendar
+                    date={selectedDate}
                     markedDates={deepmerge(markedDates, {
                       [selectedDate.toISODate()]: { selected: true },
                     })}
-                    ref={weekCalendarRef}
-                    pastScrollRange={0}
-                    futureScrollRange={0}
                     {...restProps}
                   />
-                </CalendarProvider>
-              )}
+                )}
+              </Box>
             </Box>
           </Animated.View>
           <Animated.View style={fullOpacity}>
@@ -159,6 +153,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 markedDates={deepmerge(markedDates, {
                   [selectedDate.toISODate()]: { selected: true },
                 })}
+                disableMonthChange
                 ref={calendarRef}
                 {...restProps}
               />
