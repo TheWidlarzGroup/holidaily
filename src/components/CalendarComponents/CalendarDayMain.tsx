@@ -4,6 +4,7 @@ import { BorderlessButton } from 'react-native-gesture-handler'
 import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
+import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
 type CalendarDayMainProps = Pick<DayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
 
@@ -17,6 +18,14 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
     if (marking?.selected || marking?.period) return 'white'
     return 'black'
   }
+
+  const containerStyles = useAnimatedStyle(() => ({
+    borderRadius: 14,
+    backgroundColor: withTiming(marking?.selected && !marking?.period ? '#000000ff' : '#00000000'),
+    width: 28,
+    height: 28,
+    margin: 8,
+  }))
   return (
     <Box
       style={[
@@ -26,22 +35,23 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
         marking?.startingDay && styles.start,
         marking?.period && isWeekend(day) && styles.selectedDisabled,
       ]}>
-      <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
-        <Box
-          borderRadius="l"
-          borderWidth={state === 'today' || marking?.selected ? 2 : 0}
-          borderColor={marking?.period ? 'white' : 'black'}
-          backgroundColor={marking?.selected && !marking?.period ? 'black' : 'transparent'}
-          width={28}
-          height={28}
-          justifyContent="center"
-          alignItems="center"
-          margin="s">
-          <Text color={textColor()} variant={isWeekend(day) ? 'regular15Calendar' : 'bold15'}>
-            {date.day}
-          </Text>
-        </Box>
-      </BorderlessButton>
+      <Animated.View style={containerStyles}>
+        <BorderlessButton onPress={() => onPress(date)} enabled={!isWeekend(day)}>
+          <Box
+            borderRadius="l"
+            borderWidth={state === 'today' ? 2 : 0}
+            borderColor={marking?.period ? 'white' : 'black'}
+            backgroundColor="transparent"
+            width={28}
+            height={28}
+            justifyContent="center"
+            alignItems="center">
+            <Text color={textColor()} variant={isWeekend(day) ? 'regular15Calendar' : 'bold15'}>
+              {date.day}
+            </Text>
+          </Box>
+        </BorderlessButton>
+      </Animated.View>
     </Box>
   )
 }
