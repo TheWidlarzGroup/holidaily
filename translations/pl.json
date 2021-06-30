@@ -154,5 +154,8 @@
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
     "createPostLabel": "Wyślij pozdrowienia..."
+  },
+  "settings": {
+    "name": "Ustawienia"
   }
 }

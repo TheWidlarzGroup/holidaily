@@ -8,6 +8,7 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { Language } from './components/Language'
 import { DarkMode } from './components/DarkMode'
 import { BiometricPasscode } from './components/BiometricPasscode'
+import { useTranslation } from 'react-i18next'
 
 export const Settings: FC = () => {
   const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
@@ -21,12 +22,11 @@ export const Settings: FC = () => {
     })
   }, [navigation])
 
+  const { t } = useTranslation('settings')
+
   return (
     <SafeAreaWrapper>
-      <DrawerBackArrow goBack={handleGoBack} title="Settings" />
-      <Box margin="xl">
-        <Text variant="title1">Welcome in Settings</Text>
-      </Box>
+      <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
       <Box marginHorizontal="m">
         <DarkMode />
         <BiometricPasscode />

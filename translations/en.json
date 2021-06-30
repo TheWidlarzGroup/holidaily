@@ -154,5 +154,8 @@
     "comments": "Comments",
     "noComments": "No comments yet",
     "createPostLabel": "Send greetings..."
+  },
+  "settings": {
+    "name": "Settings"
   }
 }
