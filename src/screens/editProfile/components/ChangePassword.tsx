@@ -18,7 +18,7 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 
 export const ChangePassword = () => {
   const { control, handleSubmit, errors, watch, reset } = useForm()
-  const { handleModal } = useModalContext()
+  const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('changePassword')
   const styles = useStyles()
   const { goBack, navigate } = useNavigation()
@@ -35,12 +35,8 @@ export const ChangePassword = () => {
     // const { currPassword, newPassword, confNewPassword } = getValues()
     // TODO: check if current password matches and update new password
     if (arePasswordsEqual) {
-      handleModal(
-        <ChangesSavedModal
-          isVisible
-          hideModal={() => handleModal()}
-          content={t('newPasswordSaved')}
-        />
+      showModal(
+        <ChangesSavedModal isVisible hideModal={hideModal} content={t('newPasswordSaved')} />
       )
       setUserDidNotEditedPassword()
       reset()
@@ -48,17 +44,15 @@ export const ChangePassword = () => {
   }
   const handleGoBack = () => {
     if (userEditedPassword) {
-      handleModal(
+      showModal(
         <ConfirmationModal
           isVisible
-          hideModal={() => handleModal()}
+          hideModal={hideModal}
           onAccept={() => {
-            handleModal()
+            hideModal()
             goBack()
           }}
-          onDecline={() => {
-            handleModal()
-          }}
+          onDecline={hideModal}
           content={t('exitMessage')}
         />
       )
