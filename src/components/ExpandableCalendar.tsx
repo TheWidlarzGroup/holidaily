@@ -29,11 +29,7 @@ import { isIos } from 'utils/layout'
 import { DateTime } from 'luxon'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
-import {
-  calendarTheme,
-  headerTheme,
-  // weekendCalendarTheme,
-} from './CalendarComponents/ExplandableCalendarTheme'
+import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
