@@ -56,7 +56,7 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
   }
 
   return (
-    <Box flexDirection="row" justifyContent="space-between" style={{ marginHorizontal: 12 }}>
+    <Box flexDirection="row" justifyContent="space-around" style={{ marginHorizontal: 5 }}>
       {week.map((day) => (
         <Box key={day.toISODate()}>
           <CalendarDay
