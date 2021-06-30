@@ -4,7 +4,7 @@ import { TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationType } from 'navigation/types'
-import { Box, Text, mkUseStyles, Theme } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { FormInput } from 'components/FormInput'
 import { useLogin } from 'hooks/useLogin'
 import { CustomButton } from 'components/CustomButton'
@@ -12,10 +12,10 @@ import { createAlert } from 'utils/createAlert'
 import { Container } from 'components/Container'
 import { TextLink } from 'components/TextLink'
 import { emailRegex, passwordRegex } from 'utils/regex'
+import { shadow } from 'utils/theme/shadows'
 import { LoginTypes } from 'types/useLoginTypes'
 
 export const Login: FC = () => {
-  const styles = useStyles()
   const navigation = useNavigation<AuthNavigationType<'Login'>>()
   const { control, handleSubmit, errors } = useForm()
   const { handleLoginUser, isLoading, loginErrorMessage } = useLogin()
@@ -96,7 +96,7 @@ export const Login: FC = () => {
         backgroundColor="white"
         height={105}
         alignItems="center"
-        style={styles.shadow}>
+        style={shadow.xs}>
         <CustomButton
           label={t('loginButton')}
           variant="primary"
@@ -107,12 +107,3 @@ export const Login: FC = () => {
     </>
   )
 }
-const useStyles = mkUseStyles((theme: Theme) => ({
-  shadow: {
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
-    elevation: 20,
-  },
-}))

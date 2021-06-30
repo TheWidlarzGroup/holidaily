@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useFocusEffect } from '@react-navigation/native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, Text, theme } from 'utils/theme/index'
+import { shadow } from 'utils/theme/shadows'
 import { isIos } from 'utils/layout'
 import { minTwoWordsRegex, minOneSignRegex, emailRegex, passwordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
@@ -109,7 +110,7 @@ export const SignupEmail = () => {
         backgroundColor="white"
         height={157}
         alignItems="center"
-        style={styles.shadow}>
+        style={shadow.xs}>
         <Box marginHorizontal="xxl" marginTop="m">
           <CustomButton
             variant="primary"
@@ -132,12 +133,5 @@ export const SignupEmail = () => {
 const styles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,
-  },
-  shadow: {
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
-    elevation: 20,
   },
 })
