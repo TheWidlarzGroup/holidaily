@@ -15,6 +15,11 @@ import IconBack from 'assets/icons/icon-back.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
 import IconClose from 'assets/icons/icon-circle-cross.svg'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
+import {
+  filterNotSubmittedTeams,
+  checkTeamsAvailableToSubscribe,
+  filterSearchedItems,
+} from '../helpers/teamSubscriptionHelper'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
 type ParsedTeamsType = TeamsType & { isSelected?: boolean }
@@ -31,30 +36,18 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const [searchedItems, setSearchedItems] = useState<ParsedTeamsType[]>([])
   const { userTeams, setUserTeams } = useUserDetailsContext()
 
-  const parseTeams = (teams: TeamsType[]) =>
-    teams?.map((team) => ({ id: team.id, teamName: team.teamName, isSelected: false }))
-
   const filterAlreadySubmittedSubscriptions = useCallback(() => {
-    const teamsAvailableToSubscribe = parseTeams(TEAMS).filter(
-      ({ teamName }) => !userTeams.some((userTeam) => userTeam.teamName === teamName)
-    )
+    const teamsAvailableToSubscribe = filterNotSubmittedTeams(TEAMS, userTeams)
     setMasterData(teamsAvailableToSubscribe)
     setFilteredTeams(teamsAvailableToSubscribe)
   }, [userTeams])
 
-  const checkTeamsAvailableToSubscribe = (subscriptions: ParsedTeamsType[]): ParsedTeamsType[] =>
-    masterData.filter(
-      (masterTeam) => !subscriptions.some(({ teamName }) => teamName === masterTeam.teamName)
-    )
-
   const searchFilter = (text: string) => {
     setSearchPhrase(text)
     if (text) {
-      const searchedItems = masterData.filter(({ teamName }) =>
-        teamName.toLowerCase().includes(text.toLowerCase())
-      )
+      const searchedItems = filterSearchedItems(masterData, text)
       setSearchedItems(searchedItems)
-      setFilteredTeams(checkTeamsAvailableToSubscribe(searchedItems))
+      setFilteredTeams(checkTeamsAvailableToSubscribe(masterData, searchedItems))
     } else {
       setSearchedItems([])
       setFilteredTeams(masterData)
