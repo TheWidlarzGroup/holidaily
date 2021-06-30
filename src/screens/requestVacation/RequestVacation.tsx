@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
-import { Box } from 'utils/theme'
+import { Box, mkUseStyles } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
@@ -30,6 +30,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [message, setMessage] = useState('')
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
+  const styles = useStyles()
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -62,7 +63,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [route, route.params])
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Box paddingBottom="m">
         <HeaderRequestVacation />
         <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
@@ -88,9 +89,9 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
       <RequestSent
         isVisible={sentModal}
-        onPress1={() => {}}
-        onPress2={reset}
-        onPress3={() => {
+        onPressSee={() => {}}
+        onPressAnother={reset}
+        onPressOk={() => {
           hideSentModal()
           navigation.navigate('Home')
         }}
@@ -98,3 +99,9 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     </SafeAreaView>
   )
 }
+
+const useStyles = mkUseStyles(() => ({
+  container: {
+    flex: 1,
+  },
+}))

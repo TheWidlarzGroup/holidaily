@@ -7,12 +7,17 @@ import Animated, { useAnimatedStyle, useDerivedValue, withSpring } from 'react-n
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 
 type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
-  onPress1: F0
-  onPress2: F0
-  onPress3: F0
+  onPressSee: F0
+  onPressAnother: F0
+  onPressOk: F0
 }
 
-export const RequestSent = ({ isVisible, onPress1, onPress2, onPress3 }: RequestSentProps) => {
+export const RequestSent = ({
+  isVisible,
+  onPressSee,
+  onPressAnother,
+  onPressOk,
+}: RequestSentProps) => {
   const styles = useStyles()
 
   const { height } = useDimensions()
@@ -46,13 +51,13 @@ export const RequestSent = ({ isVisible, onPress1, onPress2, onPress3 }: Request
         <Text variant="body1">You will find all requests at the bottom of the screen.</Text>
         <Box marginTop="xl">
           <Box style={styles.button}>
-            <CustomButton label="See request" onPress={onPress1} />
+            <CustomButton label="See request" onPress={onPressSee} />
           </Box>
           <Box style={styles.button}>
-            <CustomButton label="Add another request" onPress={onPress2} />
+            <CustomButton label="Add another request" onPress={onPressAnother} />
           </Box>
           <Box style={styles.button}>
-            <CustomButton label="Ok, cool!" variant="blackBgButton" onPress={onPress3} />
+            <CustomButton label="Ok, cool!" variant="blackBgButton" onPress={onPressOk} />
           </Box>
         </Box>
       </Box>

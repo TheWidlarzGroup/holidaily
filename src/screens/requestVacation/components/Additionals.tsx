@@ -3,6 +3,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme/index'
 import PaperclipIcon from 'assets/icons/paperclip.svg'
 import AddCommentIcon from 'assets/icons/addComment.svg'
 import { TouchableOpacity } from 'react-native'
+import { MessageIcon } from './MessageIcon'
 
 type AdditionalsProps = {
   onPressMessage: F0
@@ -42,26 +43,11 @@ export const Additionals = ({
         )}
 
         {!showMessageInput && !!messageContent && (
-          <TouchableOpacity onPress={onPressMessage}>
-            <Box position="relative" style={{ padding: 25 }}>
-              <Box
-                backgroundColor="lightGrey"
-                padding="xm"
-                margin="s"
-                marginLeft={0}
-                borderRadius="l"
-                style={styles.cornerAddComment}>
-                <TouchableOpacity onPress={onPressMessage}>
-                  <AddCommentIcon width={22} height={22} />
-                </TouchableOpacity>
-              </Box>
-              <Box padding="l" backgroundColor="lightGrey" borderRadius="mplus">
-                <Text variant="regularGrey16" color="black">
-                  {messageContent}
-                </Text>
-              </Box>
-            </Box>
-          </TouchableOpacity>
+          <MessageIcon
+            messageContent={messageContent}
+            onPressMessage={onPressMessage}
+            showMessageInput={showMessageInput}
+          />
         )}
       </Box>
     </Box>

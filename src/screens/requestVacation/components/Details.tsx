@@ -1,7 +1,7 @@
 import { FormInput } from 'components/FormInput'
 import { InputButton } from 'components/InputButton'
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { ModalNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
@@ -18,6 +18,7 @@ type DetailsProps = {
 export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const { control, register, errors } = useForm()
+  const styles = useStyles()
 
   return (
     <Box>
@@ -45,8 +46,16 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
           {...register('description', { required: false })}
           maxLength={300}
+          style={styles.formInput}
         />
       </Box>
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  formInput: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+  },
+}))
