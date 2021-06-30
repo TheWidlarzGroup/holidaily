@@ -6,14 +6,9 @@ import { TouchableOpacity } from 'react-native'
 type MessageIconProps = {
   onPressMessage: F0
   messageContent: string
-  showMessageInput: boolean
 }
 
-export const MessageIcon = ({
-  onPressMessage,
-  messageContent,
-  showMessageInput,
-}: MessageIconProps) => {
+export const MessageIcon = ({ onPressMessage, messageContent }: MessageIconProps) => {
   const styles = useStyles()
 
   return (

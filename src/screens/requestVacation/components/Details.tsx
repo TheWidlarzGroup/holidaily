@@ -45,7 +45,7 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
           autoCompleteType="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
           {...register('description', { required: false })}
-          maxLength={300}
+          maxLengt={300}
           style={styles.formInput}
         />
       </Box>
@@ -53,7 +53,7 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
   )
 }
 
-const useStyles = mkUseStyles((theme) => ({
+const useStyles = mkUseStyles(() => ({
   formInput: {
     fontFamily: 'Nunito-Bold',
     fontSize: 16,
