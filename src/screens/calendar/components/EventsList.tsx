@@ -7,14 +7,20 @@ export type EventsListProps = {
   days: DayInfoProps[]
 }
 
-export const EventsList = ({ days }: EventsListProps) => (
+export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => (
   <Box marginTop="m" flex={1}>
     <FlatList
       data={days}
       renderItem={({ item }) => (
         <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
       )}
+      extraData={days}
       keyExtractor={(item) => item.date}
+      initialScrollIndex={0}
+      initialNumToRender={days.length}
+      onScrollToIndexFailed={() => {}}
+      ref={flatListRef}
     />
   </Box>
-)
+))
+EventsList.displayName = 'EventsList'

@@ -9,16 +9,14 @@ type CalendarDayMainProps = Pick<DayComponentProps, 'marking' | 'date' | 'state'
 
 export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
   const styles = useStyles()
-
   const day = DateTime.fromISO(date.dateString)
   const textColor = () => {
-    const isDisabled = isWeekend(day) || marking?.disabled
+    const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
     if (isDisabled && marking?.period) return 'white'
     if (isDisabled) return 'grey'
     if (marking?.selected || marking?.period) return 'white'
     return 'black'
   }
-
   return (
     <Box
       style={[
