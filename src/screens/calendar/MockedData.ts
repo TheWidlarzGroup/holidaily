@@ -28,19 +28,15 @@ export const MOCKED_DATA = {
       days: [
         {
           date: '2021-06-01',
-          events: [],
         },
         {
           date: '2021-06-02',
-          events: [],
         },
         {
           date: '2021-06-03',
-          events: [],
         },
         {
           date: '2021-06-04',
-          events: [],
         },
         {
           date: '2021-06-05',
@@ -52,23 +48,18 @@ export const MOCKED_DATA = {
         },
         {
           date: '2021-06-07',
-          events: [],
         },
         {
           date: '2021-06-08',
-          events: [],
         },
         {
           date: '2021-06-09',
-          events: [],
         },
         {
           date: '2021-06-10',
-          events: [],
         },
         {
           date: '2021-06-11',
-          events: [],
         },
         {
           date: '2021-06-12',
@@ -80,15 +71,12 @@ export const MOCKED_DATA = {
         },
         {
           date: '2021-06-14',
-          events: [],
         },
         {
           date: '2021-06-15',
-          events: [],
         },
         {
           date: '2021-06-16',
-          events: [],
         },
         {
           date: '2021-06-17',
@@ -99,6 +87,7 @@ export const MOCKED_DATA = {
               position: 'Software Developer',
               color: '#FF88DC',
               id: 1,
+              categoryId: 1,
             },
             {
               person: 'Tom Waits',
@@ -106,26 +95,20 @@ export const MOCKED_DATA = {
               position: 'Software Developer',
               color: '#91A6FF',
               id: 2,
+              categoryId: 1,
             },
             {
-              person: 'Tom Waits',
-              reason: 'Vacation in Portugal',
+              person: 'Kamila Wysokogórska',
+              reason: 'Hiking the Taras',
               position: 'Software Developer',
-              color: 'red',
+              color: '#80ED99',
               id: 3,
-            },
-            {
-              person: 'Tom Waits',
-              reason: 'Vacation in Portugal',
-              position: 'Software Developer',
-              color: 'blue',
-              id: 4,
+              categoryId: 2,
             },
           ],
         },
         {
           date: '2021-06-18',
-          events: [],
         },
         {
           date: '2021-06-19',
@@ -137,15 +120,12 @@ export const MOCKED_DATA = {
         },
         {
           date: '2021-06-21',
-          events: [],
         },
         {
           date: '2021-06-22',
-          events: [],
         },
         {
           date: '2021-06-23',
-          events: [],
         },
         {
           date: '2021-06-24',
@@ -156,6 +136,7 @@ export const MOCKED_DATA = {
               position: 'Software Developer',
               color: '#FF88DC',
               id: 1,
+              categoryId: 1,
             },
             {
               person: 'Tom Waits',
@@ -163,13 +144,15 @@ export const MOCKED_DATA = {
               position: 'Software Developer',
               color: '#91A6FF',
               id: 2,
+              categoryId: 1,
             },
             {
-              person: 'Tom Waits',
-              reason: 'Vacation in Portugal',
+              person: 'Kamila Wysokogórska',
+              reason: 'Hiking the Taras',
               position: 'Software Developer',
-              color: 'dodgerblue',
+              color: '#80ED99',
               id: 3,
+              categoryId: 2,
             },
             {
               person: 'Tom Waits',
@@ -177,12 +160,12 @@ export const MOCKED_DATA = {
               position: 'Software Developer',
               color: 'blue',
               id: 4,
+              categoryId: 1,
             },
           ],
         },
         {
           date: '2021-06-25',
-          events: [],
         },
         {
           date: '2021-06-26',
@@ -194,15 +177,46 @@ export const MOCKED_DATA = {
         },
         {
           date: '2021-06-28',
-          events: [],
         },
         {
           date: '2021-06-29',
-          events: [],
+          events: [
+            {
+              person: 'Peter Kansas',
+              reason: 'A couple days off',
+              position: 'Software Developer',
+              color: '#FF88DC',
+              id: 1,
+              categoryId: 1,
+            },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: '#91A6FF',
+              id: 2,
+              categoryId: 1,
+            },
+            {
+              person: 'Kamila Wysokogórska',
+              reason: 'Hiking the Taras',
+              position: 'Software Developer',
+              color: '#80ED99',
+              id: 3,
+              categoryId: 2,
+            },
+            {
+              person: 'Tom Waits',
+              reason: 'Vacation in Portugal',
+              position: 'Software Developer',
+              color: 'blue',
+              id: 4,
+              categoryId: 1,
+            },
+          ],
         },
         {
           date: '2021-06-30',
-          events: [],
         },
       ],
     },

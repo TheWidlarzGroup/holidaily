@@ -1,19 +1,17 @@
 import React, { useRef } from 'react'
 
-import { Calendar as RNCalendar } from 'react-native-calendars'
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
-import { Calendar as CalendarComponent } from 'components/Calendar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { useMonthPicker } from 'screens/calendar/useMonthPicker'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
+import { FlatList } from 'react-native'
+import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { DateTime } from 'luxon'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { MonthPickerModal } from './components/MonthPickerModal'
 
 export const Calendar = () => {
-  const calendarRef = useRef<RNCalendar>()
+  const flatListRef = useRef<FlatList>(null)
   const {
     filterCategories,
     toggleFilterItemSelection,
@@ -21,8 +19,12 @@ export const Calendar = () => {
     setSelectedDate,
     currentMonthDays,
   } = useCalendarData()
-  const { isMonthPickerVisible, displayMonthPicker, hideMonthPicker, handleMonthChange } =
-    useMonthPicker(calendarRef, setSelectedDate)
+
+  const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
+    if (currentMonthDays.length > 0)
+      flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
+    setTimeout(() => setSelectedDate(DateTime.fromISO(dateString)), 0)
+  }
 
   return (
     <SafeAreaWrapper isDefaultBgColor isTabNavigation>
@@ -40,26 +42,15 @@ export const Calendar = () => {
         shadowOpacity={0.15}
         shadowRadius={6}
         elevation={4}>
-        <CalendarComponent
-          theme={{
-            calendarBackground: 'transparent',
-          }}
-          onMonthChange={(date: { dateString: string }) =>
-            setSelectedDate(DateTime.fromISO(date.dateString))
-          }
+        <ExpandableCalendar
           markedDates={getMarkedDates(currentMonthDays)}
           markingType={'multi-dot'}
-          onHeaderPressed={() => displayMonthPicker()}
-          ref={calendarRef}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          onDayPress={handleDayPress}
         />
       </Box>
-      <EventsList days={currentMonthDays} />
-      <MonthPickerModal
-        isMonthPickerVisible={isMonthPickerVisible}
-        hideMonthPicker={hideMonthPicker}
-        handleMonthChange={handleMonthChange}
-        selectedDate={selectedDate}
-      />
+      <EventsList days={currentMonthDays} ref={flatListRef} />
     </SafeAreaWrapper>
   )
 }
