@@ -22,7 +22,7 @@ type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
-  const { handleModal } = useModalContext()
+  const { showModal, hideModal } = useModalContext()
   const { goBack } = useNavigation()
   const [searchPhrase, setSearchPhrase] = useState('')
   const [masterData, setMasterData] = useState<ParsedTeamsType[]>([])
@@ -88,13 +88,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
 
   const submitSubscriptions = () => {
     setUserTeams([...subscribedTeams, ...userTeams])
-    handleModal(
-      <ChangesSavedModal
-        isVisible
-        content={confirmationMessage()}
-        hideModal={() => handleModal()}
-      />
-    )
+    showModal(<ChangesSavedModal isVisible content={confirmationMessage()} hideModal={hideModal} />)
     goBack()
   }
 
@@ -109,19 +103,17 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
 
   const handleGoBack = () => {
     if (subscribedTeams.length > 0 || searchedItems.length > 0) {
-      handleModal(
+      showModal(
         <ConfirmationModal
           isVisible
-          hideModal={() => handleModal()}
+          hideModal={hideModal}
           onAccept={() => {
             setSubscribedTeams([])
             setFilteredTeams(masterData)
-            handleModal()
+            hideModal()
             goBack()
           }}
-          onDecline={() => {
-            handleModal()
-          }}
+          onDecline={hideModal}
           content={t('quitMessage')}
         />
       )
