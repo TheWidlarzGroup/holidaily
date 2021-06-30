@@ -46,6 +46,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
     <Box paddingHorizontal="m">
       <Box position="relative">
         <FormInput
+          onBlur={onSubmitEditing}
           onFocus={() => setIconInvisible(0)}
           control={control}
           isError={!!errors.firstName}
@@ -81,6 +82,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
       </Box>
       <Box position="relative">
         <FormInput
+          onBlur={onSubmitEditing}
           onFocus={() => setIconInvisible(1)}
           control={control}
           isError={!!errors.lastName}
@@ -116,6 +118,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
       </Box>
       <Box position="relative">
         <FormInput
+          onBlur={onSubmitEditing}
           onFocus={() => setIconInvisible(2)}
           control={control}
           isError={!!errors.role}

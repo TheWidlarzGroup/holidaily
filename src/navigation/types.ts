@@ -4,6 +4,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import {
   ValidationOfGroupDayOff,
   RequiredMateHolidaysData,
+  GalleryItemData,
   UserTeamsSubscriptions,
 } from 'types/holidaysDataTypes'
 
@@ -143,6 +144,7 @@ export type ModalRoutes = {
   }
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
+  Gallery: { data: GalleryItemData[]; index: number }
 }
 
 export type DashboardRoutes = {
