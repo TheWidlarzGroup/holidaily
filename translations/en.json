@@ -138,7 +138,9 @@
     "quitMessage": "If you quit now, your changes won't be saved",
     "newTeamsConfirmation": "New teams subscribed!",
     "newTeamConfirmation": "New team subscribed!",
-    "subscribeMoreTeams": "Subscribe more teams"
+    "subscribeMoreTeams": "Subscribe more teams",
+    "selected": "Selected: ",
+    "subscribe": "Subscribe"
   },
   "dashboard": {
     "welcome": "How's your team doing?",

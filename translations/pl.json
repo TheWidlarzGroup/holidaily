@@ -138,7 +138,9 @@
     "quitMessage": "If you quit now, your changes won't be saved",
     "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
-    "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły"
+    "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły",
+    "selected": "Zaznaczono: ",
+    "subscribe": "Subskrybuj"
   },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",

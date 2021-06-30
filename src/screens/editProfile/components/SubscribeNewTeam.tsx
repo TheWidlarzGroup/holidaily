@@ -146,7 +146,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
               <IconClose />
             </RectButton>
           </Box>
-          <Text variant="lightGreyRegular">{`Selected: ${subscribedTeams.length}`}</Text>
+          <Text variant="lightGreyRegular">{`${t('selected')} ${subscribedTeams.length}`}</Text>
           <ScrollView>
             {searchedItems.length > 0 && (
               <Box
@@ -191,7 +191,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           {subscribedTeams.length > 0 && (
             <Box position="absolute" bottom={16} alignSelf="center">
               <CustomButton
-                label={'Subscribe'}
+                label={t('subscribe')}
                 variant="primary"
                 onPress={submitSubscriptions}
                 width={221}
