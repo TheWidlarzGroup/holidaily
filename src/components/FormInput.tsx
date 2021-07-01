@@ -82,7 +82,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
         />
 
         <Animated.View style={progressStyle}>
-          <Text variant="inputErrorMessage" marginTop="s" marginLeft="m">
+          <Text variant="inputErrorMessage" marginTop="xs" marginLeft="m">
             {generateInputErrors({ errors, name, passwordsAreEqual, screenName, t })}
           </Text>
         </Animated.View>
