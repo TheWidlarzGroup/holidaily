@@ -11,7 +11,12 @@ export const SignupLoginBox = (p: SignupLoginBoxProps) => {
   const { t } = useTranslation(['signup'])
 
   return (
-    <Box flexDirection="row" padding="m" justifyContent="center" alignItems="center">
+    <Box
+      flexDirection="row"
+      padding="m"
+      paddingBottom="xl"
+      justifyContent="center"
+      alignItems="center">
       <Text variant="body1" paddingRight="xm">
         {t('alreadyHaveAccount')}
       </Text>
