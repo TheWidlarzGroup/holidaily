@@ -16,7 +16,8 @@ type LanguageProps = {
 
 export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => {
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
-  const [showAlert, { toggle: changeShowAlert }] = useBooleanState(false)
+  const [changeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
+    useBooleanState(false)
   const [selectedLng, setSelectedLng] = useState<'en' | 'pl'>('pl')
 
   const styles = useStyles()
@@ -25,11 +26,18 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
 
   const changeLanguage = (lng: 'pl' | 'en') => {
     if (lng == selectedLng) return
+    hideChangeAlert()
     setLoadingTrue()
     setSelectedLng(lng)
   }
 
+  const lngChangedAlert = () => {
+    showChangeAlert()
+    setTimeout(hideChangeAlert, 4 * 1000)
+  }
+
   useEffect(() => {
+    if (selectedLng === i18n.language) return
     i18n.changeLanguage(selectedLng).then(() =>
       setTimeout(() => {
         setLoadingFalse()
@@ -55,11 +63,6 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
       },
     ],
   }))
-
-  const lngChangedAlert = () => {
-    changeShowAlert()
-    setTimeout(changeShowAlert, 4 * 1000)
-  }
 
   return (
     <>
@@ -91,7 +94,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           </TouchableOpacity>
         </Animated.View>
       </Box>
-      <Alert show={showAlert}>
+      <Alert show={changeAlertVisible}>
         <CheckCircle style={styles.icon} />
         <Text variant="regular15">
           <Text variant="bold15">{t('language')} </Text>
