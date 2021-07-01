@@ -14,7 +14,7 @@ export const SignupButtons = (p: SignupButtonsProps) => {
 
   return (
     <Box flex={1} alignItems="center" justifyContent="center">
-      {!isIos && (
+      {isIos && (
         <CustomButton
           label={t('continueWApple')}
           variant="secondary"
