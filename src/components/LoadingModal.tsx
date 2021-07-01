@@ -1,32 +1,35 @@
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import React, { useEffect } from 'react'
-import { useSharedValue } from 'react-native-reanimated'
+import { StyleProp, ViewStyle } from 'react-native'
+import Animated, {
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import { Box, mkUseStyles, Text, useColors } from 'utils/theme'
 import { Loader } from './Loader'
 
 type LoadingModalProps = {
   show: boolean
+  style?: StyleProp<ViewStyle>
 }
 
-export const LoadingModal = ({ show }: LoadingModalProps) => {
+export const LoadingModal = ({ show, style }: LoadingModalProps) => {
   const styles = useStyles()
   const colors = useColors()
   const { height } = useDimensions()
   const loaderProgress = useSharedValue(0)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      loaderProgress.value += 0.02
-    }, 30)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
+  const showProgress = useDerivedValue(() => (show ? 1 : 0), [show])
+
+  const animatedOpacity = useAnimatedStyle(() => ({
+    opacity: withTiming(showProgress.value, { duration: 100 }),
+  }))
 
   if (!show) return null
-
   return (
-    <Box style={[styles.container, { height: height + 120 }]}>
+    <Animated.View style={[styles.container, { height: height + 120 }, style, animatedOpacity]}>
       <Loader
         progress={loaderProgress}
         size={40}
@@ -37,11 +40,11 @@ export const LoadingModal = ({ show }: LoadingModalProps) => {
       <Text variant="boldOrange15" marginTop="l">
         Wait a second...
       </Text>
-    </Box>
+    </Animated.View>
   )
 }
 
-const useStyles = mkUseStyles((theme) => ({
+const useStyles = mkUseStyles(() => ({
   container: {
     backgroundColor: 'rgba(255, 255, 255, .8)',
     position: 'absolute',
