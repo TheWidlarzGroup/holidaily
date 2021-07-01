@@ -27,15 +27,25 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     const [isFocused, setIsFocused] = useState(false)
 
     const errorOpacity = useSharedValue(0)
+    const borderColor = useSharedValue('black')
 
     const progressStyle = useAnimatedStyle(() => ({
       borderWidth: withTiming(errorOpacity.value, {
+        duration: 300,
+      }),
+      borderColor: withTiming(borderColor.value, {
         duration: 300,
       }),
     }))
 
     useEffect(() => {
       errorOpacity.value = isError || isFocused ? 2 : 0
+      if (isFocused) {
+        borderColor.value = 'black'
+      } else if (isError) {
+        borderColor.value = 'red'
+      }
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isError, isFocused])
 
@@ -49,13 +59,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
           {inputLabel}
         </Text>
         <Box flexDirection="row">
-          <Animated.View
-            style={[
-              styles.input,
-              isError && styles.errorBorder,
-              isFocused && styles.border,
-              progressStyle,
-            ]}>
+          <Animated.View style={[styles.input, progressStyle]}>
             <TextInput
               secureTextEntry={isPasswordInput}
               onBlur={handleOnBlur}
