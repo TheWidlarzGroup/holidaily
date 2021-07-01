@@ -162,5 +162,8 @@
     "english": "English",
     "polish": "Polish",
     "biometric": "Biometric passcode"
+  },
+  "loader":{
+    "wait": "Wait a second..."
   }
 }

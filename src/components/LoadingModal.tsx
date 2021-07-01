@@ -1,10 +1,13 @@
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
+import { useBooleanState } from 'hooks/useBooleanState'
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleProp, ViewStyle } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
+  withRepeat,
   withTiming,
 } from 'react-native-reanimated'
 import { Box, mkUseStyles, Text, useColors } from 'utils/theme'
@@ -16,32 +19,47 @@ type LoadingModalProps = {
 }
 
 export const LoadingModal = ({ show, style }: LoadingModalProps) => {
+  const loaderProgress = useSharedValue<number>(0)
+  const [hidden, { setTrue: setHiddenTrue, setFalse: setHiddenFalse }] = useBooleanState(!show)
   const styles = useStyles()
   const colors = useColors()
   const { height } = useDimensions()
-  const loaderProgress = useSharedValue(0)
+  const { t } = useTranslation('loader')
 
   const showProgress = useDerivedValue(() => (show ? 1 : 0), [show])
 
   const animatedOpacity = useAnimatedStyle(() => ({
-    opacity: withTiming(showProgress.value, { duration: 100 }),
+    opacity: withTiming(showProgress.value, { duration: 200 }),
   }))
 
-  if (!show) return null
-  return (
-    <Animated.View style={[styles.container, { height: height + 120 }, style, animatedOpacity]}>
-      <Loader
-        progress={loaderProgress}
-        size={40}
-        frontLayerColor={colors.secondary}
-        backLayerColor={colors.lightGrey}
-        strokeWidth={4}
-      />
-      <Text variant="boldOrange15" marginTop="l">
-        Wait a second...
-      </Text>
-    </Animated.View>
-  )
+  useEffect(() => {
+    loaderProgress.value = withRepeat(withTiming(1, { duration: 1000 }), -1, false)
+  }, [loaderProgress])
+
+  useEffect(() => {
+    if (show == true) setHiddenFalse()
+    else
+      setTimeout(() => {
+        setHiddenTrue()
+      }, 1000)
+  }, [show])
+
+  if (show || (!show && !hidden))
+    return (
+      <Animated.View style={[styles.container, { height: height + 120 }, style, animatedOpacity]}>
+        <Loader
+          progress={loaderProgress}
+          size={40}
+          frontLayerColor={colors.secondary}
+          backLayerColor={colors.lightGrey}
+          strokeWidth={4}
+        />
+        <Text variant="boldOrange15" marginTop="l">
+          {t('wait')}
+        </Text>
+      </Animated.View>
+    )
+  return null
 }
 
 const useStyles = mkUseStyles(() => ({

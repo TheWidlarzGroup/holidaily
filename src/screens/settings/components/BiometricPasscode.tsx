@@ -1,5 +1,4 @@
 import { Checkbox } from 'components/Checkbox'
-import { useBooleanState } from 'hooks/useBooleanState'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Text } from 'utils/theme'

@@ -35,7 +35,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
   }
 
   useEffect(() => {
-    i18n.changeLanguage(selectedLng).then(setLoadingFalse)
+    i18n.changeLanguage(selectedLng).then(() => setTimeout(setLoadingFalse, 1000))
   }, [selectedLng])
 
   const heightProgress = useDerivedValue(
