@@ -2,7 +2,8 @@ import React, { forwardRef, useEffect } from 'react'
 import { StyleSheet, TextInput, TouchableOpacity, TextInputProps } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
-import IconTogglePasswordVisibility from 'assets/icons/icon-togglePassword.svg'
+import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
+import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
 import { Text, Box, theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -49,7 +50,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
           {isPasswordIconVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
               <TouchableOpacity onPress={toggle}>
-                <IconTogglePasswordVisibility />
+                {isPasswordInput ? <IconPasswordInvisibile /> : <IconPasswordVisibile />}
               </TouchableOpacity>
             </Box>
           )}
