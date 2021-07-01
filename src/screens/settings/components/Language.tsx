@@ -1,19 +1,13 @@
-import { Loader } from 'components/Loader'
-import { LoadingModal } from 'components/LoadingModal'
 import { RadioInput } from 'components/RadioInput'
 import { useBooleanState } from 'hooks/useBooleanState'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import Animated, {
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
+import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { Box, mkUseStyles, Text } from 'utils/theme'
-import ArrowUp from 'assets/icons/arrowUp.svg'
 import ArrowDown from 'assets/icons/arrowDown.svg'
+import { Alert } from 'components/Alert'
+import CheckCircle from 'assets/icons/checkCircle.svg'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -22,6 +16,7 @@ type LanguageProps = {
 
 export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => {
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
+  const [showAlert, { toggle: changeShowAlert }] = useBooleanState(false)
   const [selectedLng, setSelectedLng] = useState<'en' | 'pl'>('pl')
 
   const styles = useStyles()
@@ -35,7 +30,12 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
   }
 
   useEffect(() => {
-    i18n.changeLanguage(selectedLng).then(() => setTimeout(setLoadingFalse, 1000))
+    i18n.changeLanguage(selectedLng).then(() =>
+      setTimeout(() => {
+        setLoadingFalse()
+        lngChangedAlert()
+      }, 1000)
+    )
   }, [selectedLng])
 
   const heightProgress = useDerivedValue(
@@ -56,35 +56,49 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
     ],
   }))
 
+  const lngChangedAlert = () => {
+    changeShowAlert()
+    setTimeout(changeShowAlert, 4 * 1000)
+  }
+
   return (
-    <Box style={styles.container}>
-      <Box style={styles.header}>
-        <Text variant="body1Bold" textAlign="left">
-          {t('language')}
-        </Text>
-        <TouchableOpacity
-          onPress={changeOpened}
-          hitSlop={{ top: 20, bottom: 20, left: 300, right: 20 }}>
-          <Animated.View style={animatedArrow}>
-            <ArrowDown />
-          </Animated.View>
-        </TouchableOpacity>
+    <>
+      <Box style={styles.container}>
+        <Box style={styles.header}>
+          <Text variant="body1Bold" textAlign="left">
+            {t('language')}
+          </Text>
+          <TouchableOpacity
+            onPress={changeOpened}
+            hitSlop={{ top: 20, bottom: 20, left: 300, right: 20 }}>
+            <Animated.View style={animatedArrow}>
+              <ArrowDown />
+            </Animated.View>
+          </TouchableOpacity>
+        </Box>
+        <Animated.View style={[styles.options, animatedOptions]}>
+          <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('en')}>
+            <Text variant="body1" marginVertical="s" textAlign="left">
+              {t('english')}
+            </Text>
+            <RadioInput checked={selectedLng == 'en'} onPress={() => {}} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('pl')}>
+            <Text variant="body1" textAlign="left">
+              {t('polish')}
+            </Text>
+            <RadioInput checked={selectedLng == 'pl'} onPress={() => {}} />
+          </TouchableOpacity>
+        </Animated.View>
       </Box>
-      <Animated.View style={[styles.options, animatedOptions]}>
-        <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('en')}>
-          <Text variant="body1" marginVertical="s" textAlign="left">
-            {t('english')}
-          </Text>
-          <RadioInput checked={selectedLng == 'en'} onPress={() => {}} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('pl')}>
-          <Text variant="body1" textAlign="left">
-            {t('polish')}
-          </Text>
-          <RadioInput checked={selectedLng == 'pl'} onPress={() => {}} />
-        </TouchableOpacity>
-      </Animated.View>
-    </Box>
+      <Alert show={showAlert}>
+        <CheckCircle style={styles.icon} />
+        <Text variant="regular15">
+          <Text variant="bold15">{t('language')} </Text>
+          {t('changed')}
+        </Text>
+      </Alert>
+    </>
   )
 }
 
@@ -108,5 +122,10 @@ const useStyles = mkUseStyles((theme) => ({
   },
   options: {
     overflow: 'hidden',
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginHorizontal: theme.spacing.m,
   },
 }))

@@ -161,7 +161,8 @@
     "language": "Language",
     "english": "English",
     "polish": "Polish",
-    "biometric": "Biometric passcode"
+    "biometric": "Biometric passcode",
+    "changed": "has been changed!"
   },
   "loader":{
     "wait": "Wait a second..."

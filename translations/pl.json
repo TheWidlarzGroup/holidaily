@@ -161,7 +161,8 @@
     "language": "Język",
     "english": "Angielski",
     "polish": "Polski",
-    "biometric": "Odblokuj odciskiem palca"
+    "biometric": "Odblokuj odciskiem palca",
+    "changed": "został zmieniony!"
   },
   "loader":{
     "wait": "Jeszcze chwilkę..."

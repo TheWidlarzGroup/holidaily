@@ -10,7 +10,7 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated'
-import { Box, mkUseStyles, Text, useColors } from 'utils/theme'
+import { mkUseStyles, Text, useColors } from 'utils/theme'
 import { Loader } from './Loader'
 
 type LoadingModalProps = {
@@ -44,22 +44,21 @@ export const LoadingModal = ({ show, style }: LoadingModalProps) => {
       }, 1000)
   }, [show])
 
-  if (show || (!show && !hidden))
-    return (
-      <Animated.View style={[styles.container, { height: height + 120 }, style, animatedOpacity]}>
-        <Loader
-          progress={loaderProgress}
-          size={40}
-          frontLayerColor={colors.secondary}
-          backLayerColor={colors.lightGrey}
-          strokeWidth={4}
-        />
-        <Text variant="boldOrange15" marginTop="l">
-          {t('wait')}
-        </Text>
-      </Animated.View>
-    )
-  return null
+  if (!show && hidden) return null
+  return (
+    <Animated.View style={[styles.container, { height: height + 120 }, style, animatedOpacity]}>
+      <Loader
+        progress={loaderProgress}
+        size={40}
+        frontLayerColor={colors.secondary}
+        backLayerColor={colors.lightGrey}
+        strokeWidth={4}
+      />
+      <Text variant="boldOrange15" marginTop="l">
+        {t('wait')}
+      </Text>
+    </Animated.View>
+  )
 }
 
 const useStyles = mkUseStyles(() => ({
