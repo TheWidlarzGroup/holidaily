@@ -42,9 +42,8 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
           index,
         }
       }}
-      onScrollToIndexFailed={(e) => {
-        console.log(e)
-      }}
+      onScrollToIndexFailed={() => {}}
+      windowSize={5}
       ref={flatListRef}
     />
   </Box>
