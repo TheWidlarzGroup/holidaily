@@ -12,6 +12,7 @@ import { createAlert } from 'utils/createAlert'
 import { Container } from 'components/Container'
 import { TextLink } from 'components/TextLink'
 import { emailRegex, passwordRegex } from 'utils/regex'
+import { shadow } from 'utils/theme/shadows'
 import { LoginTypes } from 'types/useLoginTypes'
 
 export const Login: FC = () => {
@@ -36,54 +37,66 @@ export const Login: FC = () => {
   const onLoginSubmit = handleSubmit((data: LoginTypes) => handleLoginUser(data))
 
   return (
-    <Container>
-      <Box flex={0.4} justifyContent="center">
-        <Text variant="title1">{t('loginTitle')}</Text>
-        <Text variant="body1" marginTop="s">
-          {t('loginSubTitle')}
-        </Text>
-      </Box>
-      <Box marginHorizontal="l">
-        <Box marginBottom="m">
-          <FormInput
-            control={control}
-            isError={!!errors.email}
-            errors={errors}
-            name="email"
-            inputLabel="E-mail Address"
-            validationPattern={emailRegex}
-            errorMessage="Incorrect email, please try again"
-            keyboardType="email-address"
-            autoCompleteType="email"
-            onSubmitEditing={onSubmitEditing}
-            blurOnSubmit={false}
-          />
+    <>
+      <Container>
+        <Box flex={0.4} justifyContent="center">
+          <Text variant="title1">{t('loginTitle')}</Text>
+          <Text variant="body1" marginTop="s">
+            {t('loginSubTitle')}
+          </Text>
         </Box>
-        <Box>
-          <FormInput
-            control={control}
-            isError={!!errors.password}
-            errors={errors}
-            name="password"
-            inputLabel="Password"
-            validationPattern={passwordRegex}
-            errorMessage="Incorrect Password, please try again"
-            ref={passwordRef}
-            isPasswordIconVisible
-          />
-        </Box>
-
-        <Box alignSelf="flex-end">
-          <Box marginRight="m">
-            <TextLink
-              text={t('loginForgotPassword')}
-              action={navigateToRemindPassword}
-              variant="remind1"
+        <Box marginHorizontal="l">
+          <Box marginBottom="m">
+            <FormInput
+              control={control}
+              isError={!!errors.email}
+              errors={errors}
+              name="email"
+              inputLabel="E-mail Address"
+              validationPattern={emailRegex}
+              errorMessage="Incorrect email, please try again"
+              keyboardType="email-address"
+              autoCompleteType="email"
+              onSubmitEditing={onSubmitEditing}
+              blurOnSubmit={false}
             />
           </Box>
+          <Box>
+            <FormInput
+              control={control}
+              isError={!!errors.password}
+              errors={errors}
+              name="password"
+              inputLabel="Password"
+              validationPattern={passwordRegex}
+              errorMessage="Incorrect Password, please try again"
+              ref={passwordRef}
+              isPasswordIconVisible
+            />
+          </Box>
+
+          <Box alignSelf="flex-end">
+            <Box marginRight="m">
+              <TextLink
+                text={t('loginForgotPassword')}
+                action={navigateToRemindPassword}
+                variant="remind1"
+              />
+            </Box>
+          </Box>
         </Box>
-      </Box>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+      </Container>
+      <Box
+        position="absolute"
+        right={0}
+        left={0}
+        bottom={0}
+        paddingHorizontal="xxl"
+        paddingTop="m"
+        backgroundColor="white"
+        height={105}
+        alignItems="center"
+        style={shadow.xs}>
         <CustomButton
           label={t('loginButton')}
           variant="primary"
@@ -91,6 +104,6 @@ export const Login: FC = () => {
           loading={isLoading}
         />
       </Box>
-    </Container>
+    </>
   )
 }
