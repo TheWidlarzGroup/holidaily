@@ -9,7 +9,12 @@ export const HeaderRequestVacation = () => {
   const navigation = useNavigation()
 
   return (
-    <Box flexDirection="row" alignItems="center" paddingHorizontal="l" paddingVertical="m">
+    <Box
+      flexDirection="row"
+      alignItems="center"
+      paddingHorizontal="l"
+      paddingVertical="m"
+      paddingTop={0}>
       <Box alignItems="center" justifyContent="center" flexDirection="row">
         <Pressable onPress={navigation.goBack}>
           <BackArrowIcon width={30} height={20} />
