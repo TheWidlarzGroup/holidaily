@@ -34,15 +34,10 @@ export const Checkbox = ({
     [checked]
   )
 
-  const offset = useDerivedValue(
-    () =>
-      checked
-        ? size == 'l'
-          ? DOT_POSITION_CHECKED
-          : DOT_POSITION_CHECKED_SMALL
-        : DOT_POSITION_UNCHECKED,
-    [checked]
-  )
+  const offset = useDerivedValue(() => {
+    if (!checked) return DOT_POSITION_UNCHECKED
+    return size === 'l' ? DOT_POSITION_CHECKED : DOT_POSITION_CHECKED_SMALL
+  }, [checked])
 
   const animatedDotStyle = useAnimatedStyle(
     () => ({
@@ -65,11 +60,11 @@ export const Checkbox = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <Animated.View
-        style={[size == 'l' ? styles.container : styles.constainerSmall, backgroundStyles]}>
+        style={[size === 'l' ? styles.container : styles.constainerSmall, backgroundStyles]}>
         <Animated.View
           style={[
             styles.dot,
-            size == 'l' ? styles.dotLarge : styles.dotSmall,
+            size === 'l' ? styles.dotLarge : styles.dotSmall,
             checked && styles.dotChecked,
             animatedDotStyle,
             { borderColor: backgroundColorProp },

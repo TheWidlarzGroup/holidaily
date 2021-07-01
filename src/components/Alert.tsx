@@ -3,6 +3,7 @@ import React, { useEffect, FC } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { mkUseStyles } from 'utils/theme'
+
 type AlertProps = {
   show: boolean
   style?: StyleProp<ViewStyle>
@@ -24,7 +25,7 @@ export const Alert: FC<AlertProps> = ({ show, style, children }) => {
   useEffect(() => {
     if (show) setHiddenFalse()
     else setTimeout(setHiddenTrue, 1000)
-  }, [show])
+  }, [show, setHiddenFalse, setHiddenTrue])
 
   if (!show && hidden) return null
   return <Animated.View style={[styles.container, style, animatedStyles]}>{children}</Animated.View>

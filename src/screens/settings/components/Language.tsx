@@ -1,6 +1,6 @@
 import { RadioInput } from 'components/RadioInput'
 import { useBooleanState } from 'hooks/useBooleanState'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
@@ -25,16 +25,16 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
   const { i18n, t } = useTranslation('settings')
 
   const changeLanguage = (lng: 'pl' | 'en') => {
-    if (lng == selectedLng) return
+    if (lng === selectedLng) return
     hideChangeAlert()
     setLoadingTrue()
     setSelectedLng(lng)
   }
 
-  const lngChangedAlert = () => {
+  const lngChangedAlert = useCallback(() => {
     showChangeAlert()
     setTimeout(hideChangeAlert, 4 * 1000)
-  }
+  }, [showChangeAlert, hideChangeAlert])
 
   useEffect(() => {
     if (selectedLng === i18n.language) return
@@ -44,7 +44,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
         lngChangedAlert()
       }, 1000)
     )
-  }, [selectedLng])
+  }, [selectedLng, i18n, lngChangedAlert, setLoadingFalse])
 
   const heightProgress = useDerivedValue(
     () => (opened ? withTiming(70, { duration: 200 }) : withTiming(0, { duration: 200 })),
@@ -84,13 +84,13 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
             <Text variant="body1" marginVertical="s" textAlign="left">
               {t('english')}
             </Text>
-            <RadioInput checked={selectedLng == 'en'} onPress={() => {}} />
+            <RadioInput checked={selectedLng === 'en'} onPress={() => {}} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('pl')}>
             <Text variant="body1" textAlign="left">
               {t('polish')}
             </Text>
-            <RadioInput checked={selectedLng == 'pl'} onPress={() => {}} />
+            <RadioInput checked={selectedLng === 'pl'} onPress={() => {}} />
           </TouchableOpacity>
         </Animated.View>
       </Box>
