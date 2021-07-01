@@ -46,11 +46,11 @@ export const UploadPictureModal = ({
     if (action === 'gallery') {
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
-      }, 100)
+      }, 50)
     } else {
       setTimeout(() => {
         launchCamera(options, (response) => onHandleResponse(response))
-      }, 100)
+      }, 50)
     }
   }
   useEffect(() => {

@@ -38,7 +38,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
           setPhotoURI={setPhotoURI}
         />
       )
-    }, 100)
+    }, 50)
   }
   const showDeleteConfirmationModal = () => {
     hideModal()
@@ -58,7 +58,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
           content={t('deletePictureMessage')}
         />
       )
-    }, 100)
+    }, 50)
   }
   const showEditPictureModal = () => {
     showModal(
@@ -78,7 +78,6 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   }
   const handleDeletePicture = () => {
     setIsEditedFalse()
-    console.log('delet')
     setPhotoURI(null)
     showModal(
       <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
