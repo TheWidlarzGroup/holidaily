@@ -156,6 +156,11 @@
     "createPostLabel": "Send greetings..."
   },
   "settings": {
-    "name": "Settings"
+    "name": "Settings",
+    "darkmode": "Dark mode",
+    "language": "Language",
+    "english": "English",
+    "polish": "Polish",
+    "biometric": "Biometric passcode"
   }
 }

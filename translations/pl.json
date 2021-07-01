@@ -156,6 +156,11 @@
     "createPostLabel": "Wyślij pozdrowienia..."
   },
   "settings": {
-    "name": "Ustawienia"
+    "name": "Ustawienia ",
+    "darkmode": "Ciemny motyw",
+    "language": "Język",
+    "english": "Angielski",
+    "polish": "Polski",
+    "biometric": "Odblokuj odciskiem palca"
   }
 }

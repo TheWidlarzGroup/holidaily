@@ -58,28 +58,28 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
 
   return (
     <Box style={styles.container}>
-      <Box flexDirection="row" justifyContent="space-between" alignItems="center">
+      <Box style={styles.header}>
         <Text variant="body1Bold" textAlign="left">
-          Language
+          {t('language')}
         </Text>
         <TouchableOpacity
           onPress={changeOpened}
           hitSlop={{ top: 20, bottom: 20, left: 300, right: 20 }}>
           <Animated.View style={animatedArrow}>
-            <ArrowUp />
+            <ArrowDown />
           </Animated.View>
         </TouchableOpacity>
       </Box>
       <Animated.View style={[styles.options, animatedOptions]}>
         <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('en')}>
           <Text variant="body1" marginVertical="s" textAlign="left">
-            English
+            {t('english')}
           </Text>
           <RadioInput checked={selectedLng == 'en'} onPress={() => {}} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('pl')}>
           <Text variant="body1" textAlign="left">
-            Polish
+            {t('polish')}
           </Text>
           <RadioInput checked={selectedLng == 'pl'} onPress={() => {}} />
         </TouchableOpacity>
@@ -94,6 +94,12 @@ const useStyles = mkUseStyles((theme) => ({
     borderRadius: theme.borderRadii.lplus,
     padding: theme.spacing.ml,
     marginVertical: theme.spacing.s,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: 3,
   },
   lng: {
     flexDirection: 'row',

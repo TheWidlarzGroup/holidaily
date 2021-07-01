@@ -1,16 +1,19 @@
 import { Checkbox } from 'components/Checkbox'
 import { useBooleanState } from 'hooks/useBooleanState'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 
 export const BiometricPasscode = () => {
   const styles = useStyles()
 
+  const { t } = useTranslation('settings')
+
   return (
     <Box style={styles.container}>
       <Box flexDirection="row" justifyContent="space-between" alignItems="center">
         <Text variant="body1Bold" textAlign="left">
-          Dark mode
+          {t('biometric')}
         </Text>
         <Checkbox checked={false} onPress={() => {}} size="s" />
       </Box>
