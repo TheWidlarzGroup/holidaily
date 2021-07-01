@@ -26,7 +26,13 @@ export const RadioInput = ({ checked, onPress }: RadioInputProps) => {
       [0, 1],
       [colors.transparent, colors.primary]
     )
-    return { borderColor }
+    const borderWidth = withTiming(changeProgress.value * 3, {
+      duration: 30,
+    })
+    const margin = withTiming((1 - changeProgress.value) * 3, {
+      duration: 30,
+    })
+    return { borderColor, borderWidth, margin }
   }, [])
 
   const animatedCenterStyles = useAnimatedStyle(() => {
@@ -54,15 +60,14 @@ export const RadioInput = ({ checked, onPress }: RadioInputProps) => {
 
 const useStyles = mkUseStyles((theme) => ({
   center: {
-    height: 17,
-    width: 17,
+    height: 15,
+    width: 15,
     backgroundColor: theme.colors.secondary,
     borderRadius: theme.borderRadii.full,
     borderColor: theme.colors.white,
-    borderWidth: 3,
+    borderWidth: 2.5,
   },
   ring: {
     borderRadius: theme.borderRadii.full,
-    borderWidth: 3,
   },
 }))

@@ -27,7 +27,7 @@ export const Settings: FC = () => {
   return (
     <SafeAreaWrapper>
       <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
-      <Box marginHorizontal="m">
+      <Box marginHorizontal="m" flex={1}>
         <DarkMode />
         <BiometricPasscode />
         <Language />
