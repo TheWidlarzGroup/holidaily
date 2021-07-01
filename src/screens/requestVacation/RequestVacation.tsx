@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 
-import { Box } from 'utils/theme'
-import { ModalNavigationProps } from 'navigation/types'
+import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
+import { Box, mkUseStyles } from 'utils/theme'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
+import { RequestSent } from './components/RequestSent'
 
 export type RequestDataTypes = {
   description: string
   sickTime: boolean
+  message: string
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
@@ -22,6 +27,10 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [endDate, setEndDate] = useState<Date>()
   const [description, setDescription] = useState('')
   const [sickTime, setSickTime] = useState(false)
+  const [message, setMessage] = useState('')
+  const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
+  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
+  const styles = useStyles()
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -31,9 +40,20 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, sickTime })
+    const newData = callback({ description, sickTime, message })
     setDescription(newData.description)
     setSickTime(newData.sickTime)
+    setMessage(newData.message)
+  }
+
+  const reset = () => {
+    hideSentModal()
+    setStep(0)
+    setStartDate(undefined)
+    setEndDate(undefined)
+    setDescription('')
+    setSickTime(false)
+    setMessage('')
   }
 
   useEffect(() => {
@@ -43,26 +63,45 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [route, route.params])
 
   return (
-    <Box flex={1}>
-      <HeaderRequestVacation />
-      <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
-      <Box margin="l" flex={1}>
-        {step === 0 && (
-          <FormRequestVacation
-            nextStep={() => setStep(1)}
-            changeRequestData={changeRequestData}
-            date={{ start: startDate, end: endDate }}
-          />
-        )}
-        {step === 1 && (
-          <SummaryRequestVacation
-            description={description}
-            sickTime={sickTime}
-            startDate={startDate}
-            endDate={endDate}
-          />
-        )}
+    <SafeAreaView style={styles.container}>
+      <Box paddingBottom="m">
+        <HeaderRequestVacation />
+        <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
       </Box>
-    </Box>
+      {step === 0 && (
+        <FormRequestVacation
+          nextStep={() => setStep(1)}
+          changeRequestData={changeRequestData}
+          date={{ start: startDate, end: endDate }}
+          message={message}
+        />
+      )}
+      {step === 1 && (
+        <SummaryRequestVacation
+          description={description}
+          sickTime={sickTime}
+          startDate={startDate}
+          endDate={endDate}
+          message={message}
+          onNextPressed={showSentModal}
+        />
+      )}
+
+      <RequestSent
+        isVisible={sentModal}
+        onPressSee={() => {}}
+        onPressAnother={reset}
+        onPressOk={() => {
+          hideSentModal()
+          navigation.navigate('Home')
+        }}
+      />
+    </SafeAreaView>
   )
 }
+
+const useStyles = mkUseStyles(() => ({
+  container: {
+    flex: 1,
+  },
+}))
