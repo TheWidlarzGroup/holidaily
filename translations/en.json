@@ -38,7 +38,7 @@
     "recoveryCodeTitle": "Password Recovery",
     "recoveryCodeSubTitle": "Paste the 6-digit code",
     "enterNewPassword": "Enter your new password",
-    "paste": "Paste",
+    "paste": "Paste the code",
     "resendCode": "Resend the code",
     "updateButton": "Update"
   },
