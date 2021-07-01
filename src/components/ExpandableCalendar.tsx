@@ -1,10 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Box } from 'utils/theme'
-import {
-  Calendar as RNCalendar,
-  CalendarProps as RNCalendarProps,
-  LocaleConfig,
-} from 'react-native-calendars'
+import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
 import ArrowLeft from 'assets/icons/arrow-left.svg'
@@ -31,13 +27,16 @@ import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
+import { CalendarRef } from './CalendarComponents/CalendarTypes'
+import { NewCalendar } from './CalendarComponents/NewCalendar'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
-type MarkedDatesMultiDots = { [key: string]: { dots: { key: string | number; color: string }[] } }
+type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
 type ExpandableCalendarProps = {
   markedDates: MarkedDatesMultiDots
   selectedDate: DateTime
   setSelectedDate: F1<DateTime>
+  onDayPress: F1<DateObject>
 }
 
 const WEEK_CALENDAR_HEIGHT = 50
@@ -47,7 +46,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const { markedDates, selectedDate, setSelectedDate, ...restProps } = props
   const { i18n } = useTranslation()
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
-  const calendarRef = useRef<RNCalendar>(null)
+  const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
 
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
@@ -140,7 +139,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           </Animated.View>
           <Animated.View style={fullOpacity}>
             <Box ref={fullCalendarContainerRef}>
-              <RNCalendar
+              <NewCalendar
                 hideDayNames
                 hideExtraDays
                 firstDay={1}
@@ -149,6 +148,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 markedDates={deepmerge(markedDates, {
                   [selectedDate.toISODate()]: { selected: true },
                 })}
+                markingType="multi-dot"
                 disableMonthChange
                 ref={calendarRef}
                 {...restProps}
