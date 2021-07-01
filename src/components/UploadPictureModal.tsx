@@ -44,9 +44,13 @@ export const UploadPictureModal = ({
       mediaType: 'photo',
     }
     if (action === 'gallery') {
-      launchImageLibrary(options, (response) => onHandleResponse(response))
+      setTimeout(() => {
+        launchImageLibrary(options, (response) => onHandleResponse(response))
+      }, 100)
     } else {
-      launchCamera(options, (response) => onHandleResponse(response))
+      setTimeout(() => {
+        launchCamera(options, (response) => onHandleResponse(response))
+      }, 100)
     }
   }
   useEffect(() => {
