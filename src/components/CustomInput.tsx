@@ -17,11 +17,13 @@ type CustomInputTypes = {
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
   ({ inputLabel, onChange, onBlur, value, isError, isPasswordIconVisible, ...props }, ref) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
+    const isFocused = true
 
     const errorOpacity = useSharedValue(0)
+    const focusOpacity = useSharedValue(0)
 
     const progressStyle = useAnimatedStyle(() => ({
-      borderWidth: withTiming(errorOpacity.value, {
+      borderWidth: withTiming(isError ? errorOpacity.value : focusOpacity.value, {
         duration: 300,
       }),
     }))
@@ -30,6 +32,10 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       errorOpacity.value = isError ? 2 : 0
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isError])
+    useEffect(() => {
+      focusOpacity.value = isFocused ? 2 : 0
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isFocused])
 
     return (
       <>
@@ -37,7 +43,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
           {inputLabel}
         </Text>
         <Box flexDirection="row">
-          <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
+          <Animated.View style={[styles.input, styles.errorBorder, styles.border, progressStyle]}>
             <TextInput
               secureTextEntry={isPasswordInput}
               onBlur={onBlur}
