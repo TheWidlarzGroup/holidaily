@@ -1,5 +1,12 @@
-import React, { forwardRef, useEffect } from 'react'
-import { StyleSheet, TextInput, TouchableOpacity, TextInputProps } from 'react-native'
+import React, { forwardRef, useEffect, useState } from 'react'
+import {
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  TextInputProps,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
@@ -17,37 +24,43 @@ type CustomInputTypes = {
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
   ({ inputLabel, onChange, onBlur, value, isError, isPasswordIconVisible, ...props }, ref) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
-    const isFocused = true
+    const [isFocused, setIsFocused] = useState(false)
 
     const errorOpacity = useSharedValue(0)
-    const focusOpacity = useSharedValue(0)
 
     const progressStyle = useAnimatedStyle(() => ({
-      borderWidth: withTiming(isError ? errorOpacity.value : focusOpacity.value, {
+      borderWidth: withTiming(errorOpacity.value, {
         duration: 300,
       }),
     }))
 
     useEffect(() => {
-      errorOpacity.value = isError ? 2 : 0
+      errorOpacity.value = isError || isFocused ? 2 : 0
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isError])
-    useEffect(() => {
-      focusOpacity.value = isFocused ? 2 : 0
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFocused])
+    }, [isError, isFocused])
 
+    const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      if (onBlur) onBlur(e)
+      setIsFocused(false)
+    }
     return (
       <>
         <Text variant="label1" marginLeft="m" marginBottom="xs">
           {inputLabel}
         </Text>
         <Box flexDirection="row">
-          <Animated.View style={[styles.input, styles.errorBorder, styles.border, progressStyle]}>
+          <Animated.View
+            style={[
+              styles.input,
+              isError && styles.errorBorder,
+              isFocused && styles.border,
+              progressStyle,
+            ]}>
             <TextInput
               secureTextEntry={isPasswordInput}
-              onBlur={onBlur}
+              onBlur={handleOnBlur}
               onChange={onChange}
+              onFocus={() => setIsFocused(true)}
               value={value}
               ref={ref}
               {...props}
