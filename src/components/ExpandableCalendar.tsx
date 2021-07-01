@@ -60,7 +60,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const handleAddMonth = (count: 1 | -1) => {
     if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
       setSelectedDate(selectedDate.plus({ weeks: count }).startOf('week'))
-    else setSelectedDate(selectedDate.plus({ months: count }))
+    else setSelectedDate(selectedDate.plus({ months: count }).startOf('month'))
   }
 
   const fullCalendarContainerRef = useAnimatedRef()
