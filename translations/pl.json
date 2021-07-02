@@ -53,10 +53,10 @@
   },
   "signup": {
     "signupTitle": "Jak chciałbyś się zarejestrować?",
-    "continueWGmail": "Kontynuuj z Gmailem",
-    "continueWSlack": "Kontynuuj z Slackiem",
+    "continueWGmail": "Zaloguj z Gmail",
+    "continueWApple": "Zaloguj z Apple",
     "signupWEmail": "Użyj adresu e-mail",
-    "alreadyHaveAccount": "Jestes juz z nami ?"
+    "alreadyHaveAccount": "Jestes juz z nami?"
   },
   "login": {
     "loginTitle": "Miło widzieć cię ponownie!",
@@ -135,7 +135,12 @@
     "changesSaved": "Zmiany zostały zapisane",
     "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
     "pictureDeletedMessage": "Zdjęcie profilowe usunięte!",
-    "quitMessage": "If you quit now, your changes won't be saved"
+    "quitMessage": "If you quit now, your changes won't be saved",
+    "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
+    "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
+    "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły",
+    "selected": "Zaznaczono: ",
+    "subscribe": "Subskrybuj"
   },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",

@@ -35,7 +35,7 @@ export const headerTheme = {
 export const calendarTheme = {
   'stylesheet.calendar.header': {
     header: {
-      display: 'none',
+      display: 'none' as const,
     },
   },
   ...theme,

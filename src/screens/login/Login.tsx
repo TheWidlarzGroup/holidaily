@@ -58,6 +58,7 @@ export const Login: FC = () => {
               errorMessage="Incorrect email, please try again"
               keyboardType="email-address"
               autoCompleteType="email"
+              autoCapitalize="none"
               onSubmitEditing={onSubmitEditing}
               blurOnSubmit={false}
             />

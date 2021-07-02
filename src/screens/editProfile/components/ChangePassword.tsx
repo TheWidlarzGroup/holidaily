@@ -166,7 +166,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     zIndex: theme.zIndices['5'],
   },
   forgottenPasswordBtn: {
-    marginTop: -18,
     marginBottom: theme.spacing.lplus,
     marginRight: theme.spacing.xs,
     alignSelf: 'flex-end',

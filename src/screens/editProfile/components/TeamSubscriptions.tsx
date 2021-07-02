@@ -50,16 +50,16 @@ export const TeamSubscriptions = () => {
   }
 
   return (
-    <Box paddingHorizontal="m" marginBottom={userTeams.length > 0 ? 's' : 'xl'} position="relative">
-      <Text variant="label1" marginLeft="m" marginBottom="xm">
+    <Box paddingHorizontal="m" position="relative">
+      <Text variant="label1" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
         {t('userSubscriptions')}
       </Text>
       <BaseOpacity
+        style={userTeams.length > 0 ? { right: 24 } : { left: 30 }}
         onPress={onSubscribeTeam}
         justifyContent="center"
         alignItems="center"
         position="absolute"
-        right={24}
         top={32}
         height={44}
         width={44}
