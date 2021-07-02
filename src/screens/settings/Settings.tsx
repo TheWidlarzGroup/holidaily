@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { Language } from './components/Language'
-import { DarkMode } from './components/DarkMode'
+import { DarkMode } from './components/DarkModeSwitch'
 import { BiometricPasscode } from './components/BiometricPasscode'
 
 export const Settings = () => {
