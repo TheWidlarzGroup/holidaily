@@ -8,9 +8,11 @@ import Animated, {
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { themeBase } from 'utils/theme/themeBase'
 
 type MessageInputProps = {
   onSubmitEditing: F1<string>
+  onBlur?: F0
   defaultValue: string
   maxLength?: number
   autofocus?: boolean
@@ -18,6 +20,7 @@ type MessageInputProps = {
 
 export const MessageInput = ({
   onSubmitEditing,
+  onBlur,
   defaultValue = '',
   maxLength = 300,
   autofocus = false,
@@ -58,6 +61,10 @@ export const MessageInput = ({
     onSubmitEditing(messageContent)
   }
 
+  const handleBlur = () => {
+    onBlur?.()
+  }
+
   useEffect(() => {
     if (messageContent.length > maxLength) setError(`Max. ${maxLength} characters `)
     else setError('')
@@ -72,10 +79,12 @@ export const MessageInput = ({
       <Animated.View style={[styles.inputBox, errorBorderStyle]}>
         <TextInput
           ref={inputRef}
+          underlineColorAndroid={themeBase.colors.transparent}
           style={styles.input}
           placeholder="Write your message..."
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={handleSubmit}
+          onBlur={handleBlur}
           blurOnSubmit
           multiline
           defaultValue={defaultValue}
@@ -114,6 +123,7 @@ const useStyles = mkUseStyles((theme) => ({
     color: 'black',
     flex: 1,
     padding: 0,
+    borderColor: theme.colors.transparent,
   },
   sendArrow: {
     backgroundColor: 'black',
