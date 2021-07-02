@@ -21,8 +21,8 @@ const tabs = [
   },
   { name: 'Calendar' },
   { name: 'RequestModal' },
-  { name: 'Panel' },
-  { name: 'Chat' },
+  { name: 'Stats' },
+  { name: 'Feed' },
 ]
 
 export const BottomTabNavigator = ({ style }: ViewProps) => {
@@ -39,8 +39,8 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
             />
             <Tab.Screen name="Calendar" component={Calendar} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
-            <Tab.Screen name="Panel" component={Feed} />
-            <Tab.Screen name="Chat" component={Chat} />
+            <Tab.Screen name="Stats" component={Chat} />
+            <Tab.Screen name="Feed" component={Feed} />
           </Tab.Navigator>
         </SafeAreaView>
       </Animated.View>
