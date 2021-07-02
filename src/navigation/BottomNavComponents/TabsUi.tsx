@@ -19,11 +19,7 @@ export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
 
   return (
     <Box>
-      <Box
-        width={windowWidth}
-        position="absolute"
-        bottom={isIos ? -5 : 0}
-        backgroundColor="transparent">
+      <Box width={windowWidth} position="absolute" bottom={-5} backgroundColor="transparent">
         <Box flexDirection="column">
           <TabsHandler {...{ tabs, tabWidth }} activeTabIndex={state.index} />
           <NavigationDot width={tabWidth} activeTabIndex={state.index} />
