@@ -159,5 +159,17 @@
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
     "createPostLabel": "Wyślij pozdrowienia..."
+  },
+  "settings": {
+    "name": "Ustawienia ",
+    "darkmode": "Ciemny motyw",
+    "language": "Język",
+    "english": "Angielski",
+    "polish": "Polski",
+    "biometric": "Odblokuj odciskiem palca",
+    "changed": "został zmieniony!"
+  },
+  "loader":{
+    "wait": "Jeszcze chwilkę..."
   }
 }
