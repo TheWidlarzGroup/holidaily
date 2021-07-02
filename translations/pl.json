@@ -53,10 +53,10 @@
   },
   "signup": {
     "signupTitle": "Jak chciałbyś się zarejestrować?",
-    "continueWGmail": "Kontynuuj z Gmailem",
-    "continueWSlack": "Kontynuuj z Slackiem",
+    "continueWGmail": "Zaloguj z Gmail",
+    "continueWApple": "Zaloguj z Apple",
     "signupWEmail": "Użyj adresu e-mail",
-    "alreadyHaveAccount": "Jestes juz z nami ?"
+    "alreadyHaveAccount": "Jestes juz z nami?"
   },
   "login": {
     "loginTitle": "Miło widzieć cię ponownie!",

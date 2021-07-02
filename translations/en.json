@@ -53,8 +53,8 @@
   },
   "signup": {
     "signupTitle": "How would you like to sign up?",
-    "continueWGmail": "Continue with Gmail",
-    "continueWSlack": "Continue with Slack",
+    "continueWGmail": "Log in with Gmail",
+    "continueWApple": "Log in with Apple",
     "signupWEmail": "Sign up with E-mail",
     "alreadyHaveAccount": "Already have an account?"
   },
