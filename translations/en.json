@@ -158,12 +158,12 @@
     "postCommentBtn": "Comment",
     "comments": "Comments",
     "noComments": "No comments yet",
-    "createPostLabel": "Send greetings..."
+    "createPostLabel": "What's up?"
   },
   "createPost": {
     "title": "Create Post",
     "clearPost": "Clear",
-    "inputPlaceholder": "Send greetings...",
+    "inputPlaceholder": "What's up?",
     "sendPost": "Post",
     "postSent": "Post published!"
   },

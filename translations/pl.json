@@ -158,12 +158,12 @@
     "postCommentBtn": "Skomentuj",
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
-    "createPostLabel": "Wyślij pozdrowienia..."
+    "createPostLabel": "Co tam?"
   },
   "createPost": {
     "title": "Stwórz Post",
     "clearPost": "Wyczyść",
-    "inputPlaceholder": "Wyślij pozdrowienia...",
+    "inputPlaceholder": "Co tam?",
     "sendPost": "Wyślij",
     "postSent": "Wiadomość wysłana!"
   },
