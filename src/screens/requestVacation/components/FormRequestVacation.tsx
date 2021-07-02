@@ -1,25 +1,18 @@
 import React, { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { ScrollView } from 'react-native'
 
-import { Box, Text } from 'utils/theme/index'
-import { FormInput } from 'components/FormInput'
-import { InputButton } from 'components/InputButton'
+import { Box } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
-import { Checkbox } from 'components/Checkbox'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { useNavigation } from '@react-navigation/native'
-import { ModalNavigationType } from 'navigation/types'
-import { getFormattedPeriod } from 'utils/dates'
 import { Additionals } from './Additionals'
-
-type FormTypes = {
-  date: undefined
-  description: string
-}
+import { MessageInput } from '../../../components/MessageInput'
+import { Details } from './Details'
+import { SickTime } from './SickTime'
 
 type RequestDataTypes = {
   description: string
   sickTime: boolean
+  message: string
 }
 
 type FormRequestVacationProps = {
@@ -29,68 +22,52 @@ type FormRequestVacationProps = {
   }
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
+  message: string
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   date,
   nextStep,
   changeRequestData,
+  message,
 }) => {
-  const { control, handleSubmit, errors } = useForm()
   const [sickTime, { toggle }] = useBooleanState(false)
+  const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
+    useBooleanState(false)
 
-  const handleLoginUser = (data: FormTypes) => {
-    if (Object.keys(errors).length) return
-    changeRequestData((oldData) => ({ ...oldData, description: data.description, sickTime }))
+  const handleFormSubmit = () => {
+    if (!date.start) return
     nextStep()
   }
 
-  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
+  const handleDescriptionChange = (description: string) => {
+    changeRequestData((oldData) => ({ ...oldData, description }))
+  }
 
-  const onFormSubmit = handleSubmit((data: FormTypes) => handleLoginUser(data))
+  const handleMessageSubmit = (message: string) => {
+    changeRequestData((oldData) => ({ ...oldData, message }))
+    hideMessageInput()
+  }
 
   return (
-    <Box flex={1} justifyContent="space-between" paddingBottom="m">
-      <Box>
-        <Box>
-          <Text variant="boldBlack18" textAlign="left">
-            Details
-          </Text>
-          <Box marginTop="m">
-            <InputButton
-              inputLabel="Date"
-              onClick={() => navigation.navigate('RequestVacationCalendar')}
-              value={getFormattedPeriod(date.start, date.end)}
-            />
-          </Box>
-          <Box marginTop="m">
-            <FormInput
-              control={control}
-              isError={!!errors.description}
-              errors={errors}
-              name="description"
-              inputLabel="Description (optional)"
-              validationPattern={/$/}
-              errorMessage="Incorrect description"
-              keyboardType="default"
-              autoCompleteType="off"
-            />
-          </Box>
-        </Box>
-        <Box marginTop="s">
-          <Text variant="boldBlack18" textAlign="left">
-            Sick time off
-          </Text>
-          <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-            <Text variant="body1" textAlign="left">
-              I'm not feeling well
-            </Text>
-            <Checkbox checked={sickTime} onPress={toggle} />
-          </Box>
-        </Box>
-        <Additionals />
+    <Box flex={1}>
+      <ScrollView style={{ padding: 20 }}>
+        <Details onDescriptionChange={handleDescriptionChange} date={date} />
+        <SickTime sickTime={sickTime} toggle={toggle} />
+        <Additionals
+          onPressMessage={toggleShowMessageInput}
+          messageContent={showMessageInput ? '' : message}
+          showMessageInput={showMessageInput}
+        />
+        <Box height={50} />
+      </ScrollView>
+      <Box marginBottom={showMessageInput ? 0 : 'l'}>
+        {showMessageInput ? (
+          <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={message} autofocus />
+        ) : (
+          <CustomButton label={'next'} variant="primary" onPress={handleFormSubmit} />
+        )}
       </Box>
-      <CustomButton label={'next'} variant="primary" onPress={onFormSubmit} />
     </Box>
   )
 }

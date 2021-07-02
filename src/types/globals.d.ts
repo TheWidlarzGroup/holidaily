@@ -1,4 +1,5 @@
 declare module 'react-native-secure-storage'
+declare module 'react-native-calendars/src/calendar/header'
 
 declare module 'react-native-month-year-picker' {
   import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
@@ -13,7 +14,19 @@ declare module 'react-native-calendars' {
     Calendar,
     CalendarList,
     LocaleConfig,
+    CalendarProvider,
+    WeekCalendar,
+    MultiDotMarking,
   } from '@types/react-native-calendars'
 
-  export { DayComponentProps, Calendar, LocaleConfig, CalendarProps, CalendarList }
+  export {
+    DayComponentProps,
+    Calendar,
+    LocaleConfig,
+    CalendarProps,
+    CalendarList,
+    CalendarProvider,
+    WeekCalendar,
+    MultiDotMarking,
+  }
 }
