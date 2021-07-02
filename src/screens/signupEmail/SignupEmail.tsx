@@ -82,6 +82,7 @@ export const SignupEmail = () => {
               onSubmitEditing={() => onSubmitEditing(2)}
               keyboardType="email-address"
               autoCompleteType="email"
+              autoCapitalize="none"
               blurOnSubmit={false}
               ref={inputsRefs[1]}
             />

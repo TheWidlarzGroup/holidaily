@@ -5,10 +5,10 @@ import { Text, Box, mkUseStyles, Theme } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 
 import IconGoogle from 'assets/icons/icon-google.svg'
-import IconSlack from 'assets/icons/icon-slack.svg'
+import IconApple from 'assets/icons/icon-apple.svg'
 
 type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
-type CustomButtonIcons = 'google' | 'slack'
+type CustomButtonIcons = 'google' | 'apple'
 
 interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   label: string
@@ -78,7 +78,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
         ) : (
           <>
             {icon === 'google' && <IconGoogle style={styles.icon} />}
-            {icon === 'slack' && <IconSlack style={styles.icon} />}
+            {icon === 'apple' && <IconApple style={styles.icon} />}
             <Text variant="buttonText1" style={{ color: textColor }}>
               {label}
             </Text>
@@ -98,6 +98,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     borderRadius: theme.borderRadii.l,
   },
   icon: {
-    marginRight: theme.spacing.l,
+    marginRight: theme.spacing.s,
   },
 }))
