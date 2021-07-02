@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { Language } from './components/Language'
-import { DarkMode } from './components/DarkModeSwitch'
+import { DarkModeSwitch } from './components/DarkModeSwitch'
 import { BiometricPasscode } from './components/BiometricPasscode'
 
 export const Settings = () => {
@@ -30,7 +30,7 @@ export const Settings = () => {
     <SafeAreaWrapper>
       <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
       <Box marginHorizontal="m" flex={1}>
-        <DarkMode />
+        <DarkModeSwitch />
         <BiometricPasscode />
         <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
       </Box>

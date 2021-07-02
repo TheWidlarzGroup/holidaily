@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 
-export const DarkMode = () => {
+export const DarkModeSwitch = () => {
   const styles = useStyles()
 
   const { t } = useTranslation('settings')
