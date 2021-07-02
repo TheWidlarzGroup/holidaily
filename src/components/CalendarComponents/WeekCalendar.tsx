@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from 'utils/theme'
 import { DateTime } from 'luxon'
-import { MultiDotMarking } from 'react-native-calendars'
+import { DateObject, MultiDotMarking } from 'react-native-calendars'
 import { CalendarDay } from './CalendarDay'
-
-type DateObject = {
-  dateString: string
-  day: string
-  month: string
-  year: string
-}
 
 type WeekCalendarProps = {
   date: DateTime
   markedDates: { [key: string]: MultiDotMarking }
-  onDayPress?: F1<DateObject>
+  onDayPress: F1<DateObject>
 }
 
 export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: WeekCalendarProps) => {
@@ -30,6 +23,9 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
   const getDateObject = (date: DateTime) => ({
     dateString: date.toISODate(),
     day: date.day,
+    month: date.month,
+    year: date.year,
+    timestamp: date.toMillis(),
   })
 
   const getState = (date: DateTime) => {
@@ -40,6 +36,7 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
       date.day === DateTime.now().day
     )
       return 'today'
+    return ''
   }
 
   const getMarking = (date: DateTime) => {
@@ -47,7 +44,7 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
       date.year === currentDate.year &&
       date.month === currentDate.month &&
       date.day === currentDate.day
-    const marking = date.toISODate() in markedDates && markedDates[date.toISODate()]
+    const marking = date.toISODate() in markedDates ? markedDates[date.toISODate()] : { dots: [] }
 
     return {
       selected: isSelected,

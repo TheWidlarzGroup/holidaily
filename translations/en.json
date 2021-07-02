@@ -38,7 +38,7 @@
     "recoveryCodeTitle": "Password Recovery",
     "recoveryCodeSubTitle": "Paste the 6-digit code",
     "enterNewPassword": "Enter your new password",
-    "paste": "Paste",
+    "paste": "Paste the code",
     "resendCode": "Resend the code",
     "updateButton": "Update"
   },
@@ -53,8 +53,8 @@
   },
   "signup": {
     "signupTitle": "How would you like to sign up?",
-    "continueWGmail": "Continue with Gmail",
-    "continueWSlack": "Continue with Slack",
+    "continueWGmail": "Log in with Gmail",
+    "continueWApple": "Log in with Apple",
     "signupWEmail": "Sign up with E-mail",
     "alreadyHaveAccount": "Already have an account?"
   },
@@ -135,7 +135,12 @@
     "changesSaved": "Changes saved",
     "deletePictureMessage": "Do you want to delete your profile picture?",
     "pictureDeletedMessage": "Picture deleted!",
-    "quitMessage": "If you quit now, your changes won't be saved"
+    "quitMessage": "If you quit now, your changes won't be saved",
+    "newTeamsConfirmation": "New teams subscribed!",
+    "newTeamConfirmation": "New team subscribed!",
+    "subscribeMoreTeams": "Subscribe more teams",
+    "selected": "Selected: ",
+    "subscribe": "Subscribe"
   },
   "dashboard": {
     "welcome": "How's your team doing?",

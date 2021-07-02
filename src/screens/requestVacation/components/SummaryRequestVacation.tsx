@@ -12,23 +12,27 @@ import { SummaryDays } from './SummaryDays'
 type SummaryRequestVacationProps = {
   description: string
   sickTime: boolean
+  onNextPressed: F0
   startDate?: Date
   endDate?: Date
+  message?: string
 }
 
 export const SummaryRequestVacation = ({
   description,
   sickTime,
+  onNextPressed,
   endDate,
   startDate,
+  message,
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
 
   return (
-    <Box flexDirection="column" justifyContent="space-between" flex={1} paddingTop="xl">
-      <Box backgroundColor="primary" borderRadius="m" padding="m" flex={0.7}>
+    <Box flexDirection="column" justifyContent="space-between" flex={1} padding="l" paddingTop="xl">
+      <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
         <BackgroundPlant1 style={styles.plant1} />
-        <BackgroundPlant2 style={styles.plant2} />
+        <BackgroundPlant2 style={styles.plant2} height={90} />
         <Box paddingLeft="s">
           <Text variant="heading4">{description || 'Time off'}</Text>
         </Box>
@@ -42,11 +46,16 @@ export const SummaryRequestVacation = ({
             <Text variant="body1">Sick time off</Text>
           </Box>
         )}
+        {!!message && (
+          <Text variant="regular15" paddingTop="m">
+            {message}
+          </Text>
+        )}
         <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
         <SummaryDays />
       </Box>
 
-      <CustomButton label={'next'} variant="primary" onPress={() => {}} />
+      <CustomButton label={'Send request'} variant="primary" onPress={onNextPressed} />
     </Box>
   )
 }
@@ -60,6 +69,6 @@ const useStyles = mkUseStyles(() => ({
   plant2: {
     position: 'absolute',
     bottom: 0,
-    left: 0,
+    left: -30,
   },
 }))

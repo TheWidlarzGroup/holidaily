@@ -23,7 +23,7 @@ export const DayEvent = ({ event }: DayEventProps) => (
       borderRadius="s"
       style={{ backgroundColor: event.color }}
     />
-    <Box>
+    <Box style={{ marginTop: 1 }}>
       <Box flexDirection="row" alignItems="center">
         <Text fontSize={12} fontFamily="Nunito-Bold" lineHeight={14}>
           {`${event.person}: `}

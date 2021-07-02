@@ -35,30 +35,32 @@ export const InputButton = ({
   }, [isError, errorOpacity])
 
   return (
-    <TouchableOpacity onPress={onClick} activeOpacity={0.2}>
+    <>
       <Text variant="label1" marginLeft="m" marginBottom="xs">
         {inputLabel}
       </Text>
-      <Box flexDirection="row">
-        <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
-          <Text variant="body1Bold" textAlign="left">
-            {value}
-          </Text>
-        </Animated.View>
-        <Box alignSelf="center" position="absolute" right={0}>
-          <Box
-            style={styles.button}
-            borderColor={showEditIcon ? 'white' : 'disabledText'}
-            padding={showEditIcon ? 'xs' : 'm'}>
-            {showEditIcon ? (
-              <EditIcon />
-            ) : (
-              <BackArrowIcon width={16} height={16} style={styles.icon} />
-            )}
+      <TouchableOpacity onPress={onClick} activeOpacity={0.2}>
+        <Box flexDirection="row">
+          <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>
+            <Text variant="body1Bold" textAlign="left">
+              {value}
+            </Text>
+          </Animated.View>
+          <Box alignSelf="center" position="absolute" right={0}>
+            <Box
+              style={styles.button}
+              borderColor={showEditIcon ? 'white' : 'disabledText'}
+              padding={showEditIcon ? 'xs' : 'm'}>
+              {showEditIcon ? (
+                <EditIcon />
+              ) : (
+                <BackArrowIcon width={16} height={16} style={styles.icon} />
+              )}
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </>
   )
 }
 

@@ -5,6 +5,7 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
   useAnimatedRef,
+  runOnJS,
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -47,15 +48,24 @@ export const Slider: FC = () => {
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
 
+  const navigateToSignup = () => {
+    navigation.navigate('Signup')
+  }
+
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       translateX.value = event.contentOffset.x
+    },
+    onEndDrag: () => {
+      if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
+        runOnJS(navigateToSignup)()
+      }
     },
   })
 
   const handlePressButton = () => {
     if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-      navigation.navigate('Signup')
+      navigateToSignup()
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }
@@ -71,7 +81,8 @@ export const Slider: FC = () => {
         pagingEnabled
         scrollEventThrottle={16}
         bounces={false}
-        decelerationRate="fast">
+        decelerationRate="fast"
+        overScrollMode="never">
         {SLIDER_DATA.map((item, index) => (
           <SliderContent
             key={item.title}
