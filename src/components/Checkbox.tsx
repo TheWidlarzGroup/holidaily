@@ -12,12 +12,20 @@ import { mkUseStyles, useColors } from 'utils/theme/index'
 type CheckboxProps = {
   checked: boolean
   onPress: F0
+  size?: 's' | 'l'
+  backgroundColor?: string
 }
 
 const DOT_POSITION_UNCHECKED = -1
 const DOT_POSITION_CHECKED = 25
+const DOT_POSITION_CHECKED_SMALL = 16
 
-export const Checkbox = ({ checked, onPress }: CheckboxProps) => {
+export const Checkbox = ({
+  checked,
+  onPress,
+  size = 'l',
+  backgroundColor: backgroundColorProp = '#F3F3F3',
+}: CheckboxProps) => {
   const styles = useStyles()
   const colors = useColors()
 
@@ -26,10 +34,10 @@ export const Checkbox = ({ checked, onPress }: CheckboxProps) => {
     [checked]
   )
 
-  const offset = useDerivedValue(
-    () => (checked ? DOT_POSITION_CHECKED : DOT_POSITION_UNCHECKED),
-    [checked]
-  )
+  const offset = useDerivedValue(() => {
+    if (!checked) return DOT_POSITION_UNCHECKED
+    return size === 'l' ? DOT_POSITION_CHECKED : DOT_POSITION_CHECKED_SMALL
+  }, [checked])
 
   const animatedDotStyle = useAnimatedStyle(
     () => ({
@@ -51,8 +59,17 @@ export const Checkbox = ({ checked, onPress }: CheckboxProps) => {
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <Animated.View style={[styles.container, backgroundStyles]}>
-        <Animated.View style={[styles.dot, checked && styles.dotChecked, animatedDotStyle]} />
+      <Animated.View
+        style={[size === 'l' ? styles.container : styles.constainerSmall, backgroundStyles]}>
+        <Animated.View
+          style={[
+            styles.dot,
+            size === 'l' ? styles.dotLarge : styles.dotSmall,
+            checked && styles.dotChecked,
+            animatedDotStyle,
+            { borderColor: backgroundColorProp },
+          ]}
+        />
       </Animated.View>
     </TouchableOpacity>
   )
@@ -65,15 +82,27 @@ const useStyles = mkUseStyles((theme) => ({
     borderRadius: theme.borderRadii.l,
     position: 'relative',
   },
+  constainerSmall: {
+    height: 22,
+    width: 38,
+    borderRadius: theme.borderRadii.l,
+    position: 'relative',
+  },
   dot: {
     position: 'absolute',
     top: -1,
     backgroundColor: 'rgba(255, 140, 63, 0.596)',
+    borderRadius: 32,
+  },
+  dotLarge: {
     height: 34,
     width: 34,
-    borderRadius: 32,
-    borderColor: theme.colors.disabledText,
     borderWidth: 3,
+  },
+  dotSmall: {
+    height: 23,
+    width: 23,
+    borderWidth: 2,
   },
   dotChecked: {
     backgroundColor: theme.colors.secondary,

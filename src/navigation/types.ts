@@ -113,8 +113,8 @@ export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   Calendar: undefined
   RequestModal: undefined
-  Panel: undefined
-  Chat: undefined
+  Stats: undefined
+  Feed: undefined
 }
 
 export type DrawerRoutes = {

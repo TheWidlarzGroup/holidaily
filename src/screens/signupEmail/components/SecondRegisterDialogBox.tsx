@@ -31,14 +31,14 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
         height={59}
       />
       <Text variant="body1">{t('dialogBox2SubTitle')}</Text>
-      <Box marginTop="l" marginBottom="m">
-        <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
-          <CustomButton label={t('dialog2FirstButton')} variant="blackBgButton" />
-        </TouchableOpacity>
-      </Box>
       <Box paddingBottom="m">
         <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
           <CustomButton label={t('dialog2SecondButton')} variant="secondary" />
+        </TouchableOpacity>
+      </Box>
+      <Box marginTop="l" marginBottom="m">
+        <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
+          <CustomButton label={t('dialog2FirstButton')} variant="blackBgButton" />
         </TouchableOpacity>
       </Box>
     </Box>

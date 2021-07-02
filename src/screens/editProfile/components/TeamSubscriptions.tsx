@@ -11,7 +11,7 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
 export const TeamSubscriptions = () => {
-  const { handleModal } = useModalContext()
+  const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const { navigate } = useNavigation()
@@ -22,7 +22,7 @@ export const TeamSubscriptions = () => {
     setTeams(userTeams)
   }, [userTeams])
 
-  const onAddSubscribedTeam = () => navigate('SubscribeTeam')
+  const onSubscribeTeam = () => navigate('SubscribeTeam')
 
   const filterUnsubscribedTeams = (teamName: string) => {
     const subscriptions = userTeams.filter((team) => team.teamName !== teamName)
@@ -30,43 +30,36 @@ export const TeamSubscriptions = () => {
   }
 
   const showChangesSavedModal = (teamName: string) =>
-    handleModal(
-      <ChangesSavedModal
-        isVisible
-        // TODO: fix bug: handleModal() wrapped in function to prevent app from crashing
-        hideModal={() => handleModal()}
-        content={`${teamName} unsubscribed!`}
-      />
+    showModal(
+      <ChangesSavedModal isVisible hideModal={hideModal} content={`${teamName} unsubscribed!`} />
     )
   const onUnsubscribeTeam = (teamName: string) => {
-    handleModal(
+    showModal(
       <ConfirmationModal
         isVisible
-        // TODO: fix bug: handleModal() wrapped in function to prevent app from crashing
-        hideModal={() => handleModal()}
+        hideModal={hideModal}
         onAccept={() => {
-          handleModal()
+          hideModal()
           filterUnsubscribedTeams(teamName)
           showChangesSavedModal(teamName)
         }}
-        // TODO: fix bug: handleModal() wrapped in function to prevent app from crashing
-        onDecline={() => handleModal()}
+        onDecline={hideModal}
         content={`If you unsubscribe ${teamName} Team you will no longer see its members.`}
       />
     )
   }
 
   return (
-    <Box paddingHorizontal="m" marginBottom={userTeams.length > 0 ? 's' : 'xl'} position="relative">
-      <Text variant="label1" marginLeft="m" marginBottom="xm">
+    <Box paddingHorizontal="m" position="relative">
+      <Text variant="label1" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
         {t('userSubscriptions')}
       </Text>
       <BaseOpacity
-        onPress={onAddSubscribedTeam}
+        style={userTeams.length > 0 ? { right: 24 } : { left: 30 }}
+        onPress={onSubscribeTeam}
         justifyContent="center"
         alignItems="center"
         position="absolute"
-        right={24}
         top={32}
         height={44}
         width={44}

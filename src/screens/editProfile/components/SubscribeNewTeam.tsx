@@ -13,70 +13,74 @@ import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
 import { TEAMS, TeamsType } from 'utils/mocks/teamsMocks'
 import IconBack from 'assets/icons/icon-back.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
+import IconClose from 'assets/icons/icon-circle-cross.svg'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
+import {
+  filterNotSubmittedTeams,
+  checkTeamsAvailableToSubscribe,
+  filterSearchedItems,
+} from '../helpers/teamSubscriptionHelper'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
+type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 
 export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
-  const { handleModal } = useModalContext()
+  const { showModal, hideModal } = useModalContext()
   const { goBack } = useNavigation()
   const [searchPhrase, setSearchPhrase] = useState('')
-  const [masterData, setMasterData] = useState<TeamsType[]>([])
-  const [filteredTeams, setFilteredTeams] = useState<TeamsType[]>([])
-  const [subscribedTeams, setSubscribedTeams] = useState<TeamsType[]>([])
+  const [masterData, setMasterData] = useState<ParsedTeamsType[]>([])
+  const [filteredTeams, setFilteredTeams] = useState<ParsedTeamsType[]>([])
+  const [subscribedTeams, setSubscribedTeams] = useState<ParsedTeamsType[]>([])
+  const [searchedItems, setSearchedItems] = useState<ParsedTeamsType[]>([])
   const { userTeams, setUserTeams } = useUserDetailsContext()
 
   const filterAlreadySubmittedSubscriptions = useCallback(() => {
-    const teamsAvailableToSubscribe = TEAMS.filter(
-      ({ teamName }) => !userTeams.some((userTeam) => userTeam.teamName === teamName)
-    )
+    const teamsAvailableToSubscribe = filterNotSubmittedTeams(TEAMS, userTeams)
     setMasterData(teamsAvailableToSubscribe)
     setFilteredTeams(teamsAvailableToSubscribe)
   }, [userTeams])
 
-  const checkTeamsAvailableToSubscribe = (subscriptions: TeamsType[]): TeamsType[] =>
-    masterData.filter(
-      (masterTeam) => !subscriptions.some(({ teamName }) => teamName === masterTeam.teamName)
-    )
-
   const searchFilter = (text: string) => {
     setSearchPhrase(text)
     if (text) {
-      const filteredItems = filteredTeams.filter(({ teamName }) =>
-        teamName.toLowerCase().includes(text.toLowerCase())
-      )
-      setFilteredTeams(filteredItems)
+      const searchedItems = filterSearchedItems(masterData, text)
+      setSearchedItems(searchedItems)
+      setFilteredTeams(checkTeamsAvailableToSubscribe(masterData, searchedItems))
     } else {
-      setFilteredTeams(checkTeamsAvailableToSubscribe(subscribedTeams))
+      setSearchedItems([])
+      setFilteredTeams(masterData)
     }
   }
 
-  const addToSubscriptions = ({ teamName, id }: TeamsType) => {
-    const subscriptions = [...subscribedTeams, { teamName, id }]
-    setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
+  const toggleSelection = (id: number | string) => {
+    masterData.forEach((team) => {
+      if (team.id === id) {
+        team.isSelected = !team.isSelected
+      }
+    })
+  }
+
+  const addToSubscriptions = ({ teamName, id, isSelected }: ParsedTeamsType) => {
+    const subscriptions = [...subscribedTeams, { teamName, id, isSelected: !isSelected }]
+    toggleSelection(id)
     setSubscribedTeams(subscriptions)
   }
 
-  const removeFromSubscriptions = (teamName: string) => {
-    const subscriptions = subscribedTeams.filter((item) => item.teamName !== teamName)
+  const removeFromSubscriptions = (id: string | number) => {
+    const subscriptions = subscribedTeams.filter((item) => item.id !== id)
+    toggleSelection(id)
     setSubscribedTeams(subscriptions)
-    setFilteredTeams(checkTeamsAvailableToSubscribe(subscriptions))
-  }
-
-  const confirmationMessage = () => {
-    const teamNames = subscribedTeams.map(({ teamName }) => teamName).join(' and ')
-    return `${teamNames} subscribed!`
   }
 
   const submitSubscriptions = () => {
     setUserTeams([...subscribedTeams, ...userTeams])
-    handleModal(
+    showModal(
       <ChangesSavedModal
         isVisible
-        content={confirmationMessage()}
-        hideModal={() => handleModal()}
+        content={subscribedTeams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation')}
+        hideModal={hideModal}
       />
     )
     goBack()
@@ -92,20 +96,18 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   }, [])
 
   const handleGoBack = () => {
-    if (subscribedTeams.length > 0) {
-      handleModal(
+    if (subscribedTeams.length > 0 || searchedItems.length > 0) {
+      showModal(
         <ConfirmationModal
           isVisible
-          hideModal={() => handleModal()}
+          hideModal={hideModal}
           onAccept={() => {
             setSubscribedTeams([])
             setFilteredTeams(masterData)
-            handleModal()
+            hideModal()
             goBack()
           }}
-          onDecline={() => {
-            handleModal()
-          }}
+          onDecline={hideModal}
           content={t('quitMessage')}
         />
       )
@@ -128,33 +130,60 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           <TouchableOpacity activeOpacity={0.2} onPress={handleGoBack} style={styles.backBtn}>
             <IconBack />
           </TouchableOpacity>
-          <Text variant="boldBlackCenter20">{'Subscribe more teams'}</Text>
-          <Box position="relative" marginTop="lplus" marginBottom="xxl">
+          <Text variant="boldBlackCenter20">{t('subscribeMoreTeams')}</Text>
+          <Box position="relative" marginTop="lplus" marginBottom="l">
             <TextInput
               style={styles.searchInput}
               onChangeText={searchFilter}
               value={searchPhrase}
             />
             <IconSearch style={styles.searchIcon} />
+            <RectButton
+              rippleColor={theme.colors.rippleColor}
+              activeOpacity={0.5}
+              style={styles.dropSearchBtn}
+              onPress={() => searchFilter('')}>
+              <IconClose />
+            </RectButton>
           </Box>
-          <Box flexDirection="row" flexWrap="wrap">
-            {subscribedTeams.map(({ teamName, id }) => (
-              <RectButton
-                key={id}
-                style={styles.subscribedTeam}
-                onPress={() => removeFromSubscriptions(teamName)}>
-                <Text variant="resendWhite">{teamName}</Text>
-              </RectButton>
-            ))}
-          </Box>
+          <Text variant="lightGreyRegular">{`${t('selected')} ${subscribedTeams.length}`}</Text>
           <ScrollView>
+            {searchedItems.length > 0 && (
+              <Box
+                flexDirection="row"
+                flexWrap="wrap"
+                borderBottomColor="headerGrey"
+                borderBottomWidth={1}
+                paddingBottom="xl">
+                {searchedItems.map(({ teamName, id, isSelected }) => (
+                  <RectButton
+                    key={id}
+                    style={isSelected ? styles.subscribedTeam : styles.teamItem}
+                    onPress={() =>
+                      isSelected
+                        ? removeFromSubscriptions(id)
+                        : addToSubscriptions({ teamName, id, isSelected })
+                    }>
+                    <Text color={isSelected ? 'white' : 'black'} variant="bold15">
+                      {teamName}
+                    </Text>
+                  </RectButton>
+                ))}
+              </Box>
+            )}
             <Box flexDirection="row" flexWrap="wrap">
-              {filteredTeams.map(({ teamName, id }) => (
+              {filteredTeams.map(({ teamName, id, isSelected }) => (
                 <RectButton
                   key={id}
-                  style={styles.teamItem}
-                  onPress={() => addToSubscriptions({ teamName, id })}>
-                  <Text variant="bold15">{teamName}</Text>
+                  style={isSelected ? styles.subscribedTeam : styles.teamItem}
+                  onPress={() =>
+                    isSelected
+                      ? removeFromSubscriptions(id)
+                      : addToSubscriptions({ teamName, id, isSelected })
+                  }>
+                  <Text color={isSelected ? 'white' : 'black'} variant="bold15">
+                    {teamName}
+                  </Text>
                 </RectButton>
               ))}
             </Box>
@@ -162,7 +191,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           {subscribedTeams.length > 0 && (
             <Box position="absolute" bottom={16} alignSelf="center">
               <CustomButton
-                label={'Subscribe'}
+                label={t('subscribe')}
                 variant="primary"
                 onPress={submitSubscriptions}
                 width={221}
@@ -216,5 +245,10 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     paddingHorizontal: theme.spacing.ml,
     paddingVertical: theme.spacing.xm,
     borderRadius: theme.borderRadii.xxl,
+  },
+  dropSearchBtn: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 }))

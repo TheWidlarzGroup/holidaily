@@ -67,15 +67,14 @@ export const RecoveryCode: FC = () => {
       <Box flex={0.2} marginHorizontal="xl">
         <RecoveryCodeInput cellCount={6} setValue={setRecoveryCode} value={recoveryCode} />
       </Box>
-      <Box flex={0.3} justifyContent="center" marginHorizontal="xxl">
+      <Box flex={0.5} justifyContent="flex-end" marginHorizontal="xxl">
+        <CustomButton label={t('resendCode')} variant="secondary" marginBottom={theme.spacing.m} />
         <CustomButton
           label={t('paste')}
           variant="primary"
-          marginBottom={theme.spacing.m}
           onPress={onValidatePasswordResetCode}
           loading={isLoading}
         />
-        <CustomButton label={t('resendCode')} variant="secondary" />
       </Box>
       <ForgotPasswordErrorModal
         isVisible={isModalVisible}

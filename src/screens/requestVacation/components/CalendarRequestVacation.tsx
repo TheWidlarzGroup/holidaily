@@ -35,6 +35,7 @@ export const CalendarRequestVacation = () => {
         style={styles.calendar}
         renderHeader={(date: Date) => <CalendarHeader date={date} />}
         onSelectedPeriodChange={handleSelectionChange}
+        markedDates={{}}
       />
       <SelectPeriodModal
         isVisible={!!selectedPeriodStart}
