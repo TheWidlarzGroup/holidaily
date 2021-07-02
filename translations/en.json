@@ -159,5 +159,17 @@
     "comments": "Comments",
     "noComments": "No comments yet",
     "createPostLabel": "Send greetings..."
+  },
+  "settings": {
+    "name": "Settings",
+    "darkmode": "Dark mode",
+    "language": "Language",
+    "english": "English",
+    "polish": "Polish",
+    "biometric": "Biometric passcode",
+    "changed": "has been changed!"
+  },
+  "loader":{
+    "wait": "Wait a second..."
   }
 }

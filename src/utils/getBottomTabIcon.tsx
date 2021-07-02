@@ -1,6 +1,6 @@
 import { CalendarIcon } from 'assets/icons/CalendarIcon'
 import { HomeIcon } from 'assets/icons/HomeIcon'
-import { MessageIcon } from 'assets/icons/MessageIcon'
+import { StatsIcon } from 'assets/icons/StatsIcon'
 import { PasteIcon } from 'assets/icons/PasteIcon'
 import React from 'react'
 
@@ -17,11 +17,11 @@ export const getBottomTabIcon = (
     case 'Calendar': {
       return <CalendarIcon fill={routeName === 'Calendar' ? fillActive : fillInactive} />
     }
-    case 'Panel': {
-      return <PasteIcon fill={routeName === 'Panel' ? fillActive : fillInactive} />
+    case 'Stats': {
+      return <StatsIcon fill={routeName === 'Stats' ? fillActive : fillInactive} />
     }
-    case 'Chat': {
-      return <MessageIcon fill={routeName === 'Chat' ? fillActive : fillInactive} />
+    case 'Feed': {
+      return <PasteIcon fill={routeName === 'Feed' ? fillActive : fillInactive} />
     }
     default:
       break
