@@ -22,7 +22,10 @@ type CustomInputTypes = {
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
-  ({ inputLabel, onChange, onBlur, value, isError, isPasswordIconVisible, ...props }, ref) => {
+  (
+    { inputLabel, onChange, onBlur, onFocus, value, isError, isPasswordIconVisible, ...props },
+    ref
+  ) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
     const [isFocused, setIsFocused] = useState(false)
 
@@ -40,18 +43,16 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     useEffect(() => {
       errorOpacity.value = isError || isFocused ? 2 : 0
-      if (isFocused) {
-        borderColor.value = 'black'
-      } else if (isError) {
-        borderColor.value = 'red'
-      }
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isError, isFocused])
+      borderColor.value = isFocused ? 'black' : 'red'
+    }, [borderColor, errorOpacity, isError, isFocused])
 
     const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-      if (onBlur) onBlur(e)
+      onBlur?.(e)
       setIsFocused(false)
+    }
+    const handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      onFocus?.(e)
+      setIsFocused(true)
     }
     return (
       <>
@@ -64,7 +65,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               secureTextEntry={isPasswordInput}
               onBlur={handleOnBlur}
               onChange={onChange}
-              onFocus={() => setIsFocused(true)}
+              onFocus={handleOnFocus}
               value={value}
               ref={ref}
               {...props}
