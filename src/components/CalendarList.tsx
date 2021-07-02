@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import {
-  CalendarList as RNCalendarList,
-  CalendarProps as RNCalendarProps,
-  LocaleConfig,
-} from 'react-native-calendars'
+import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 import { genMarkedDates } from 'utils/genMarkedDates'
-
-type ClickProps = {
-  dateString: string
-  timestamp: number
-  day: number
-  month: number
-  year: number
-}
+import { MarkingType } from './CalendarComponents/CalendarTypes'
+import { NewCalendarList } from './CalendarComponents/NewCalendar'
 
 type CustomCalendarProps = {
-  onSelectedPeriodChange?: F2<string, string>
+  markedDates: MarkingType | Record<string, never>
+  onSelectedPeriodChange?: F2<string | undefined, string | undefined>
   selectable?: boolean
   onHeaderPressed?: F0
 }
@@ -29,9 +20,9 @@ export const CalendarList = ({
   theme: themeProp,
   onSelectedPeriodChange,
   selectable = false,
-  markedDates = {},
+  markedDates,
   ...props
-}: RNCalendarProps & CustomCalendarProps) => {
+}: CustomCalendarProps & RNCalendarProps) => {
   const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
   const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
 
@@ -40,7 +31,7 @@ export const CalendarList = ({
     onSelectedPeriodChange(selectedPeriodStart, selectedPeriodEnd)
   }, [onSelectedPeriodChange, selectedPeriodStart, selectedPeriodEnd])
 
-  const handleClick = ({ dateString: clickedDate }: ClickProps) => {
+  const handleClick = ({ dateString: clickedDate }: DateObject) => {
     if (!selectable) return
     if (!selectedPeriodStart || !selectedPeriodEnd || selectedPeriodStart !== selectedPeriodEnd) {
       setSelectedPeriodStart(clickedDate)
@@ -70,12 +61,12 @@ export const CalendarList = ({
         alignItems: 'center',
         marginBottom: 10,
       },
-    },
+    } as const,
     ...themeProp,
   }
 
   return (
-    <RNCalendarList
+    <NewCalendarList
       pastScrollRange={0}
       futureScrollRange={24}
       firstDay={1}
@@ -84,6 +75,7 @@ export const CalendarList = ({
       hideDayNames
       theme={theme}
       dayComponent={CalendarDay}
+      markingType={'period'}
       onDayPress={handleClick}
       renderHeader={(date: Date) => <CalendarHeader date={date} />}
       markedDates={{

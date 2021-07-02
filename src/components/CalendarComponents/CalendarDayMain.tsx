@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { DayComponentProps } from 'react-native-calendars'
 import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import { NewDayComponentProps } from './CalendarTypes'
 
-type CalendarDayMainProps = Pick<DayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
+type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
 
 export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
   const styles = useStyles()
