@@ -14,6 +14,7 @@ import { TextLink } from 'components/TextLink'
 import { emailRegex, passwordRegex } from 'utils/regex'
 import { shadow } from 'utils/theme/shadows'
 import { LoginTypes } from 'types/useLoginTypes'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 export const Login: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'Login'>>()
@@ -37,7 +38,7 @@ export const Login: FC = () => {
   const onLoginSubmit = handleSubmit((data: LoginTypes) => handleLoginUser(data))
 
   return (
-    <>
+    <SafeAreaWrapper>
       <Container>
         <Box flex={0.4} justifyContent="center">
           <Text variant="title1">{t('loginTitle')}</Text>
@@ -104,6 +105,6 @@ export const Login: FC = () => {
           loading={isLoading}
         />
       </Box>
-    </>
+    </SafeAreaWrapper>
   )
 }
