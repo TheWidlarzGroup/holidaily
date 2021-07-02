@@ -24,8 +24,6 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
     backgroundColor: withTiming(marking?.selected && !marking?.period ? '#000000ff' : '#00000000'),
     width: 30,
     height: 30,
-    top: -1,
-    left: -1,
     margin: 8,
     justifyContent: 'center',
     alignItems: 'center',
