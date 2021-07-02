@@ -51,6 +51,7 @@ export const ForgotPassword: FC = () => {
               isError={!!errors.email}
               name="email"
               inputLabel={t('email')}
+              autoCapitalize="none"
               validationPattern={emailRegex}
               errorMessage={t('incorrectEmail')}
             />
