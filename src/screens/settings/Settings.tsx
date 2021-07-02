@@ -1,13 +1,19 @@
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-
 import { DrawerNavigationType } from 'navigation/types'
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
+import { useTranslation } from 'react-i18next'
+import { useBooleanState } from 'hooks/useBooleanState'
+import { LoadingModal } from 'components/LoadingModal'
+import { Language } from './components/Language'
+import { DarkModeSwitch } from './components/DarkModeSwitch'
+import { BiometricPasscode } from './components/BiometricPasscode'
 
-export const Settings: FC = () => {
+export const Settings = () => {
   const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
+  const [loading, { setTrue: setLoadingTrue, setFalse: setLoadingFalse }] = useBooleanState(false)
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
@@ -18,13 +24,17 @@ export const Settings: FC = () => {
     })
   }, [navigation])
 
+  const { t } = useTranslation('settings')
+
   return (
     <SafeAreaWrapper>
-      <DrawerBackArrow goBack={handleGoBack} />
-
-      <Box margin="xl">
-        <Text variant="title1">Welcome in Settings</Text>
+      <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
+      <Box marginHorizontal="m" flex={1}>
+        <DarkModeSwitch />
+        <BiometricPasscode />
+        <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
       </Box>
+      <LoadingModal show={loading} />
     </SafeAreaWrapper>
   )
 }
