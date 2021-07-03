@@ -11,6 +11,7 @@ import { TextLink } from 'components/TextLink'
 import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
 import { InitializePasswordResetArgumentsTypes } from 'types/useInitializePasswordResetTypes'
 import { useUserContext } from 'hooks/useUserContext'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { ForgotPasswordErrorModal } from './components/ForgotPasswordErrorModal'
 
 export const ForgotPassword: FC = () => {
@@ -34,47 +35,49 @@ export const ForgotPassword: FC = () => {
     }
   )
   return (
-    <Container>
-      <Box flex={0.3} justifyContent="center">
-        <Text variant="title1">{t('forgotPasswordTitle')}</Text>
-        <Text variant="body1" marginTop="s" marginHorizontal="l">
-          {t('forgotPasswordSubTitle')}
-        </Text>
-      </Box>
-      <Box marginHorizontal="l">
-        <Box>
-          <FormInput
-            control={control}
-            errors={errors}
-            isError={!!errors.email}
-            name="email"
-            inputLabel={t('email')}
-            autoCapitalize="none"
-            validationPattern={emailRegex}
-            errorMessage={t('incorrectEmail')}
+    <SafeAreaWrapper>
+      <Container>
+        <Box flex={0.3} justifyContent="center">
+          <Text variant="title1">{t('forgotPasswordTitle')}</Text>
+          <Text variant="body1" marginTop="s" marginHorizontal="l">
+            {t('forgotPasswordSubTitle')}
+          </Text>
+        </Box>
+        <Box marginHorizontal="l">
+          <Box>
+            <FormInput
+              control={control}
+              errors={errors}
+              isError={!!errors.email}
+              name="email"
+              inputLabel={t('email')}
+              autoCapitalize="none"
+              validationPattern={emailRegex}
+              errorMessage={t('incorrectEmail')}
+            />
+          </Box>
+          <Box alignSelf="flex-end" marginRight="m">
+            <TextLink
+              text={t('forgotPressableText')}
+              action={() => console.log('navigate')}
+              variant="remind1"
+            />
+          </Box>
+        </Box>
+        <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+          <CustomButton
+            label={t('forgotResetButton')}
+            variant="primary"
+            onPress={onInitializePasswordResetSubmit}
+            loading={isLoading}
           />
         </Box>
-        <Box alignSelf="flex-end" marginRight="m">
-          <TextLink
-            text={t('forgotPressableText')}
-            action={() => console.log('navigate')}
-            variant="remind1"
-          />
-        </Box>
-      </Box>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
-        <CustomButton
-          label={t('forgotResetButton')}
-          variant="primary"
-          onPress={onInitializePasswordResetSubmit}
-          loading={isLoading}
+        <ForgotPasswordErrorModal
+          isVisible={isModalVisible}
+          hideModal={hideModal}
+          subTitle="errorEmailSubTitle"
         />
-      </Box>
-      <ForgotPasswordErrorModal
-        isVisible={isModalVisible}
-        hideModal={hideModal}
-        subTitle="errorEmailSubTitle"
-      />
-    </Container>
+      </Container>
+    </SafeAreaWrapper>
   )
 }
