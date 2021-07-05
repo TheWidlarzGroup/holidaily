@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
@@ -7,10 +7,12 @@ import { ColorPicker } from './ColorPicker'
 
 export const ProfileColor = () => {
   const styles = useStyles()
+  const [userColor, setUserColor] = useState('transparent')
   const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('userProfile')
 
-  const onChangeUserColor = () => showModal(<ColorPicker hideModal={hideModal} />)
+  const onChangeUserColor = () =>
+    showModal(<ColorPicker hidePickerModal={hideModal} setUserColor={setUserColor} />)
 
   return (
     <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
@@ -19,7 +21,10 @@ export const ProfileColor = () => {
       </Text>
       <RectButton
         onPress={onChangeUserColor}
-        style={styles.colorBtn}
+        style={[
+          styles.colorBtn,
+          { backgroundColor: userColor !== 'transparent' ? userColor : theme.colors.primary },
+        ]}
         rippleColor={theme.colors.rippleColor}
       />
     </Box>
@@ -31,7 +36,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginLeft: theme.spacing.m,
     height: 44,
     width: 44,
-    backgroundColor: theme.colors.errorRed,
     borderRadius: theme.borderRadii.full,
   },
 }))
