@@ -140,6 +140,13 @@ export const textVariants = {
     color: 'black',
     textAlign: 'center',
   },
+  boldWhite24: {  
+      fontFamily: 'Nunito-Bold',
+      fontSize: 24,
+      color: 'black',
+      textAlign: 'center',
+  
+  },
   bold20: {
     fontFamily: 'Nunito-Bold',
     fontSize: 20,
