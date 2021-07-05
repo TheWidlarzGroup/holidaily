@@ -1,9 +1,7 @@
 import React, { FC, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
-
 import { CustomModal } from 'components/CustomModal'
-import { theme } from 'utils/theme/index'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { colors } from 'utils/theme/colors'
 import { Confetti } from 'components/Confetti'
 import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
@@ -21,6 +19,7 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
   showModal,
   isConfirmed,
 }) => {
+  const styles = useStyles()
   useEffect(() => {
     if (!isConfirmed || !showModal) return
     showModal()
@@ -52,10 +51,10 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
     </>
   )
 }
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     flex: 1,
     paddingHorizontal: theme.spacing.l,
     justifyContent: 'center',
   },
-})
+}))
