@@ -6686,6 +6686,11 @@ react-native-animatable@1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-bubble-select@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-bubble-select/-/react-native-bubble-select-0.6.0.tgz#801507df205a4b3199dcee24b4d0f8aed595618c"
+  integrity sha512-Yc6Etpl6qtjKDi32OyTjCmktt0PvKIyKClSdzWBcM6b/Wn7hhJrfLt/0acBHQ5JIc853psjY8elhh/kcMWJ3mQ==
+
 react-native-calendars@^1.1263.0:
   version "1.1263.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1263.0.tgz#f69f1696629fd9b7c0222ecd1e5a6647041616e3"
