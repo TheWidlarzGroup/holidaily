@@ -10,7 +10,7 @@ type MateHolidayDetailProps = {
 
 export const MateHolidayDetail = (props: MateHolidayDetailProps) => {
   const { date, type } = props
-  const { t, i18n } = useTranslation('dashboard')
+  const { t } = useTranslation('dashboard')
   const header = type === 'start' ? 'lastDayAtWork' : 'backAtWork'
   const dateTobedisplay =
     type === 'start' ? setDateToBeDisplayed(date, false) : setDateToBeDisplayed(date, true)
@@ -22,10 +22,10 @@ export const MateHolidayDetail = (props: MateHolidayDetailProps) => {
         {t(header).toUpperCase()}
       </Text>
       <Text variant="bold20" color={color}>
-        {displayDayShort(dateTobedisplay, i18n.language)}
+        {displayDayShort(dateTobedisplay)}
       </Text>
       <Text variant="regularGrey16" color={color}>
-        {displayWeekday(dateTobedisplay, i18n.language)}
+        {displayWeekday(dateTobedisplay)}
       </Text>
     </Box>
   )

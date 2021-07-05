@@ -8,7 +8,7 @@ import IconSickLeave from 'assets/icons/icon-sick-leave.svg'
 
 export const MateHoliday = (props: Required<HolidayDetails> & HolidayDetailsOptional) => {
   const { isOnHoliday, dayStart, dayEnd, sickLeave, description } = props
-  const { t, i18n } = useTranslation('dashboard')
+  const { t } = useTranslation('dashboard')
 
   const header = isOnHoliday ? 'outOfWorkNow' : 'outOfWorkSoon'
   const colorHeader = isOnHoliday ? 'tertiary' : 'headerGrey'
@@ -22,7 +22,7 @@ export const MateHoliday = (props: Required<HolidayDetails> & HolidayDetailsOpti
         {description || t('coupleDaysOff')}
       </Text>
       <Text variant="regularGrey16" color={color} marginTop="s" marginBottom="xs">
-        {displayDatesRange(dayStart, dayEnd, i18n.language)}
+        {displayDatesRange(dayStart, dayEnd)}
       </Text>
       {sickLeave && (
         <Box flexDirection="row" alignItems="center">
