@@ -28,7 +28,6 @@
     "react-hook-form": "^6.15.5",
     "react-i18next": "^11.8.12",
     "react-native": "0.63.4",
-    "react-native-bubble-select": "^0.6.0",
     "react-native-calendars": "^1.1263.0",
     "react-native-confirmation-code-field": "^7.0.1",
     "react-native-dotenv": "^2.5.5",
