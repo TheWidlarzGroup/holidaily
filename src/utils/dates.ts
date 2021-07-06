@@ -16,6 +16,13 @@ export const parseISO = (date: DateOrISO) => (date instanceof Date ? date : FNSP
 export const formatFromISO = (date: DateOrISO, dateFormat: string) =>
   format(parseISO(date), dateFormat, { locale: mapLanguageToLocale() })
 
+export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc')
+
+export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
+
+export const getMonthName = (monthNumber: number): string =>
+  formatFromISO(setMonth(new Date(), monthNumber), 'LLLL')
+
 export const isWeekend = (date: DateOrISO): boolean => {
   const parsedDate = parseISO(date)
   return getDay(parsedDate) === 6 || getDay(parsedDate) === 0
@@ -24,15 +31,12 @@ export const isWeekend = (date: DateOrISO): boolean => {
 const getWeekDaysFromSunday = (): string[] => {
   const today = new Date()
   const weekDays = new Array(7)
-  for (let i = 0; i < weekDays.length; i++) weekDays[i] = formatFromISO(addDays(today, i), 'cccc')
+  for (let i = 0; i < weekDays.length; i++) weekDays[i] = getDayName(addDays(today, i))
   return weekDays
 }
 
 export const getShortWeekDays = (): string[] =>
   getWeekDaysFromSunday().map((day) => (day ? day.charAt(0) : ''))
-
-export const getMonthName = (monthNumber: number): string =>
-  formatFromISO(setMonth(new Date(), monthNumber), 'LLLL')
 
 export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
   const start = parseISO(startDate)
@@ -48,10 +52,6 @@ export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
 
   return dates
 }
-
-export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc')
-
-export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
 
 export const getFormattedPeriod = (dateA?: DateOrISO, dateB?: DateOrISO) => {
   if (!dateA || !dateB) return ''
