@@ -5,7 +5,6 @@ import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
 import ArrowLeft from 'assets/icons/arrow-left.svg'
 import ArrowRight from 'assets/icons/arrow-right.svg'
-import { useTranslation } from 'react-i18next'
 import { getShortWeekDays } from 'utils/dates'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
@@ -44,8 +43,7 @@ const BASE_CALENDAR_HEIGHT = 290
 
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
   const { markedDates, selectedDate, setSelectedDate, ...restProps } = props
-  const { i18n } = useTranslation()
-  LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
+  LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
   const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
 

@@ -1,16 +1,6 @@
-import {
-  addDays,
-  format,
-  getDay,
-  getMonth,
-  getYear,
-  parseISO as FNSParseISO,
-  subDays,
-} from 'date-fns'
+import { addDays, getDay, getMonth, getYear, subDays } from 'date-fns'
 import { MateHolidaysData } from 'types/holidaysDataTypes'
-import { mapLanguageToLocale } from './languageToLocaleMap'
-
-export type DateOrISO = Date | string
+import { DateOrISO, formatFromISO, parseISO } from './dates'
 
 export type ValidationOfDataToBeDisplayed = {
   isOnHoliday: boolean
@@ -25,10 +15,6 @@ export type ValidationOfDataToBeDisplayed = {
   dayToBeDisplayed: string
 }
 
-// DATE FUNCTIONS
-
-export const parseISO = (date: DateOrISO) => (date instanceof Date ? date : FNSParseISO(date))
-
 // COMPARE DATE FUNCTIONS
 export const isTimeIntervalLessThanWeek = (date: DateOrISO): boolean => {
   const formattedDate = parseISO(date)
@@ -37,9 +23,6 @@ export const isTimeIntervalLessThanWeek = (date: DateOrISO): boolean => {
 }
 
 // DISPLAY DATE FUNCTIONS
-
-export const formatFromISO = (date: DateOrISO, dateFormat: string) =>
-  format(parseISO(date), dateFormat, { locale: mapLanguageToLocale() })
 
 export const displayWeekday = (date: DateOrISO) => formatFromISO(date, 'cccc')
 
