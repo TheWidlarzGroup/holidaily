@@ -26,11 +26,11 @@ export const isTimeIntervalLessThanWeek = (date: DateOrISO): boolean => {
 
 export const displayWeekday = (date: DateOrISO) => formatFromISO(date, 'cccc')
 
-export const displayDayShort = (date: DateOrISO) => formatFromISO(date, 'd LLLL')
+export const displayDayShort = (date: DateOrISO) => formatFromISO(date, 'd MMMM')
 
-export const displayDayLong = (date: DateOrISO) => formatFromISO(date, 'd LLLL y')
+export const displayDayLong = (date: DateOrISO) => formatFromISO(date, 'd MMMM y')
 
-export const displayDDMonYYYY = (date: DateOrISO) => formatFromISO(date, 'dd LLL yyyy')
+export const displayDDMonYYYY = (date: DateOrISO) => formatFromISO(date, 'dd MMM y')
 
 export const displayDatesRange = (startDate: DateOrISO, endDate: DateOrISO) => {
   const startDateConverted = parseISO(startDate)

@@ -24,7 +24,7 @@ export const isWeekend = (date: DateOrISO): boolean => {
 const getWeekDaysFromSunday = (): string[] => {
   const today = new Date()
   const weekDays = new Array(7)
-  for (let i = 0; i < weekDays.length; i++) weekDays[i] = formatFromISO(addDays(today, i), 'day')
+  for (let i = 0; i < weekDays.length; i++) weekDays[i] = formatFromISO(addDays(today, i), 'cccc')
   return weekDays
 }
 
@@ -49,10 +49,9 @@ export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
   return dates
 }
 
-export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'EEEE')
+export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc')
 
-export const getDateWithMonthString = (date: DateOrISO): string =>
-  formatFromISO(date, 'dd LLLL yyyy')
+export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
 
 export const getFormattedPeriod = (dateA?: DateOrISO, dateB?: DateOrISO) => {
   if (!dateA || !dateB) return ''
