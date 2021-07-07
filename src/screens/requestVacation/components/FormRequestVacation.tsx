@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 
 import { Box } from 'utils/theme/index'
@@ -8,11 +8,13 @@ import { Additionals } from './Additionals'
 import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
+import { UploadPictureModal } from 'components/UploadPictureModal'
 
 type RequestDataTypes = {
   description: string
   sickTime: boolean
   message: string
+  photos: string[]
 }
 
 type FormRequestVacationProps = {
@@ -23,6 +25,7 @@ type FormRequestVacationProps = {
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
   message: string
+  photos: string[]
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
@@ -30,10 +33,15 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   nextStep,
   changeRequestData,
   message,
+  photos,
 }) => {
   const [sickTime, { toggle }] = useBooleanState(false)
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
+  const [
+    showAttachmentModal,
+    { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
+  ] = useBooleanState(false)
 
   const handleFormSubmit = () => {
     if (!date.start) return
@@ -58,6 +66,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           onPressMessage={toggleShowMessageInput}
           messageContent={showMessageInput ? '' : message}
           showMessageInput={showMessageInput}
+          showAttachmentModal={setShowAttachmentModalTrue}
+          attachments={photos}
         />
         <Box height={50} />
       </ScrollView>
@@ -68,6 +78,17 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           <CustomButton label={'next'} variant="primary" onPress={handleFormSubmit} />
         )}
       </Box>
+      <UploadPictureModal
+        isVisible={showAttachmentModal}
+        hideModal={setShowAttachmentModalFalse}
+        onUserCancelled={() => {
+          setShowAttachmentModalFalse
+        }}
+        setPhotoURI={(uri) => {
+          if (!uri) return
+          changeRequestData((oldData) => ({ ...oldData, photos: [...oldData.photos, uri] }))
+        }}
+      />
     </Box>
   )
 }
