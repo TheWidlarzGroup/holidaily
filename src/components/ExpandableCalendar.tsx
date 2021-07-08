@@ -21,7 +21,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { isIos } from 'utils/layout'
-import { DateTime } from 'luxon'
+import { addMonths, addWeeks } from 'date-fns'
+import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -33,8 +34,8 @@ type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
 type ExpandableCalendarProps = {
   markedDates: MarkedDatesMultiDots
-  selectedDate: DateTime
-  setSelectedDate: F1<DateTime>
+  selectedDate: Date
+  setSelectedDate: F1<Date>
   onDayPress: F1<DateObject>
 }
 
@@ -49,15 +50,15 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
     hidePicker()
-    if (event === ACTION_DATE_SET) setSelectedDate(DateTime.fromJSDate(newDate))
+    if (event === ACTION_DATE_SET) setSelectedDate(newDate)
   }
   useEffect(() => {
-    calendarRef?.current?.updateMonth(new XDate(selectedDate.toISODate()))
+    calendarRef?.current?.updateMonth(new XDate(selectedDate))
   }, [selectedDate])
   const handleAddMonth = (count: 1 | -1) => {
     if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
-      setSelectedDate(selectedDate.plus({ weeks: count }).startOf('week'))
-    else setSelectedDate(selectedDate.plus({ months: count }).startOf('month'))
+      setSelectedDate(startOfWeek(addWeeks(selectedDate, count)))
+    else setSelectedDate(startOfMonth(addMonths(selectedDate, count)))
   }
 
   const fullCalendarContainerRef = useAnimatedRef()
@@ -101,7 +102,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   return (
     <>
       <CalendarHeader
-        month={new XDate(selectedDate.toISODate())}
+        month={new XDate(selectedDate)}
         renderHeader={(date: Date) => (
           <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
         )}
@@ -127,7 +128,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                   <WeekCalendar
                     date={selectedDate}
                     markedDates={deepmerge(markedDates, {
-                      [selectedDate.toISODate()]: { selected: true },
+                      [selectedDate.toISOString()]: { selected: true },
                     })}
                     {...restProps}
                   />
@@ -144,7 +145,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 theme={calendarTheme}
                 dayComponent={CalendarDay}
                 markedDates={deepmerge(markedDates, {
-                  [selectedDate.toISODate()]: { selected: true },
+                  [selectedDate.toISOString()]: { selected: true },
                 })}
                 markingType="multi-dot"
                 disableMonthChange
@@ -165,10 +166,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           }}
           isVisible={isPickerVisible}
           onBackdropPress={hidePicker}>
-          <MonthPicker value={selectedDate.toJSDate()} onChange={handlePicker} />
+          <MonthPicker value={selectedDate} onChange={handlePicker} />
         </CustomModal>
       ) : (
-        isPickerVisible && <MonthPicker value={selectedDate.toJSDate()} onChange={handlePicker} />
+        isPickerVisible && <MonthPicker value={selectedDate} onChange={handlePicker} />
       )}
     </>
   )

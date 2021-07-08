@@ -1,6 +1,6 @@
-import { DateTime } from 'luxon'
 import { useEffect, useState } from 'react'
 import { MOCKED_DATA } from 'screens/calendar/MockedData'
+import { parseISO } from 'utils/dates'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from './components/DayInfo'
 
@@ -8,7 +8,7 @@ export const useCalendarData = () => {
   const [filterCategories, setFilterCategories] = useState<FilterCategory[]>(
     MOCKED_DATA.filterCategories
   )
-  const [selectedDate, setSelectedDate] = useState<DateTime>(DateTime.now())
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
 
   const toggleFilterItemSelection = (id: number) => {
@@ -21,8 +21,11 @@ export const useCalendarData = () => {
   }
   useEffect(() => {
     const currentMonth = MOCKED_DATA.months.find((month) => {
-      const thisMonth = DateTime.fromISO(month.date)
-      return thisMonth.month === selectedDate.month && thisMonth.year === selectedDate.year
+      const thisMonth = parseISO(month.date)
+      return (
+        thisMonth.getMonth() === selectedDate.getMonth() &&
+        thisMonth.getFullYear() === selectedDate.getFullYear()
+      )
     })
     if (currentMonth) {
       const newCurrentMonthDays = currentMonth.days.map((day) => {
@@ -37,7 +40,7 @@ export const useCalendarData = () => {
       })
       setCurrentMonthDays(newCurrentMonthDays)
     } else setCurrentMonthDays([])
-  }, [selectedDate.month, selectedDate.year, filterCategories])
+  }, [filterCategories, selectedDate])
 
   return {
     filterCategories,
