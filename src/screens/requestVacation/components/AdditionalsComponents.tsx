@@ -1,10 +1,10 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Box, Text } from 'utils/theme'
-import { Photo } from './Photo'
 import PaperclipIcon from 'assets/icons/paperclip.svg'
 import PaperclipOrangeIcon from 'assets/icons/paperclipOrange.svg'
 import AddCommentIcon from 'assets/icons/addComment.svg'
+import { Photo } from './Photo'
 
 type AdditionalsAttachmentIconProps = {
   showAttachmentModal: F0
@@ -46,8 +46,8 @@ export const AdditionalsAttachment = ({
   const getPadding = (index: number, side: 'right' | 'left') => {
     const n = index % 3
     const paddingSize = 2
-    if (n === 0) return side == 'left' ? 0 : 2 * paddingSize
-    if (n === 2) return side == 'left' ? 2 * paddingSize : 0
+    if (n === 0) return side === 'left' ? 0 : 2 * paddingSize
+    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
     if (n === 1) return paddingSize
   }
 

@@ -1,14 +1,14 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { ScrollView } from 'react-native'
 
 import { Box } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { UploadPictureModal } from 'components/UploadPictureModal'
 import { Additionals } from './Additionals'
 import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
-import { UploadPictureModal } from 'components/UploadPictureModal'
 
 type RequestDataTypes = {
   description: string
@@ -65,7 +65,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         <Additionals
           onPressMessage={toggleShowMessageInput}
           messageContent={showMessageInput ? '' : message}
-          showMessageInput={showMessageInput}
+          messageInputVisible={showMessageInput}
           showAttachmentModal={setShowAttachmentModalTrue}
           attachments={photos}
         />
@@ -86,9 +86,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
       <UploadPictureModal
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
-        onUserCancelled={() => {
-          setShowAttachmentModalFalse
-        }}
+        onUserCancelled={setShowAttachmentModalFalse}
         setPhotoURI={(uri) => {
           if (!uri) return
           changeRequestData((oldData) => ({ ...oldData, photos: [...oldData.photos, uri] }))

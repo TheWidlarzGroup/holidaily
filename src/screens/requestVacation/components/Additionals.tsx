@@ -1,7 +1,5 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme/index'
-import AddCommentIcon from 'assets/icons/addComment.svg'
-import { TouchableOpacity } from 'react-native'
 import { MessageIcon } from './MessageIcon'
 import {
   AdditionalsAttachment,
@@ -12,7 +10,7 @@ import {
 type AdditionalsProps = {
   onPressMessage: F0
   messageContent: string
-  showMessageInput: boolean
+  messageInputVisible: boolean
   showAttachmentModal: F0
   attachments: string[]
 }
@@ -20,7 +18,7 @@ type AdditionalsProps = {
 export const Additionals = ({
   onPressMessage,
   messageContent,
-  showMessageInput,
+  messageInputVisible,
   showAttachmentModal,
   attachments,
 }: AdditionalsProps) => {
@@ -49,7 +47,7 @@ export const Additionals = ({
         ) : (
           <AdditionalsAttachmentIcon showAttachmentModal={showAttachmentModal} />
         )}
-        {messageContent ? (
+        {messageContent || messageInputVisible ? (
           <MessageIcon messageContent={messageContent} onPressMessage={onPressMessage} />
         ) : (
           <AdditionalsMessageIcon onPress={onPressMessage} />
