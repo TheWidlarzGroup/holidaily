@@ -7,14 +7,14 @@ import {
   parseISO as FNSParseISO,
   setMonth,
 } from 'date-fns'
-import { mapLanguageToLocale } from './languageToLocaleMap'
+import { getCurrentLocale } from './locale'
 
 export type DateOrISO = Date | string
 
 export const parseISO = (date: DateOrISO) => (date instanceof Date ? date : FNSParseISO(date))
 
 export const formatFromISO = (date: DateOrISO, dateFormat: string) =>
-  format(parseISO(date), dateFormat, { locale: mapLanguageToLocale() })
+  format(parseISO(date), dateFormat, { locale: getCurrentLocale() })
 
 export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc')
 
@@ -45,9 +45,9 @@ export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
 
   let nextDate = start
 
-  for (let i = 0; compareAsc(nextDate, end) <= 0; i++) {
+  for (let i = 0; compareAsc(nextDate, end) < 0; i++) {
     nextDate = addDays(start, i)
-    dates.push(nextDate.toISOString())
+    dates.push(formatFromISO(nextDate, 'yyyy/MM/dd'))
   }
 
   return dates
@@ -59,8 +59,8 @@ export const getFormattedPeriod = (dateA?: DateOrISO, dateB?: DateOrISO) => {
   const parsedDateA = parseISO(dateA)
   const parsedDateB = parseISO(dateB)
 
-  const a = `${parsedDateA} ${getMonthName(getMonth(parsedDateA)).slice(0, 3)}`
-  const b = `${parsedDateB} ${getMonthName(getMonth(parsedDateB)).slice(0, 3)}`
+  const a = `${formatFromISO(parsedDateA, 'd')} ${getMonthName(getMonth(parsedDateA)).slice(0, 3)}`
+  const b = `${formatFromISO(parsedDateB, 'd')} ${getMonthName(getMonth(parsedDateB)).slice(0, 3)}`
 
   if (parsedDateA.toISOString() === parsedDateB.toISOString()) return a
 

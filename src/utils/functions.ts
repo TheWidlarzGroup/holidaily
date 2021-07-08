@@ -1,4 +1,4 @@
-import { addDays, getDay, getMonth, getYear, subDays } from 'date-fns'
+import { addDays, getDate, getMonth, getYear, subDays } from 'date-fns'
 import { MateHolidaysData } from 'types/holidaysDataTypes'
 import { DateOrISO, formatFromISO, parseISO } from './dates'
 
@@ -46,8 +46,8 @@ export const displayDatesRange = (startDate: DateOrISO, endDate: DateOrISO) => {
     return `${displayDayShort(startDate)} - ${displayDayLong(endDate)}`
   }
   // 3.if the same month but different day: 12-16 June 2021
-  if (getDay(startDateConverted) !== getDay(endDateConverted)) {
-    return `${getDay(startDateConverted)} - ${getDay(endDateConverted)}`
+  if (getDate(startDateConverted) !== getDate(endDateConverted)) {
+    return `${getDate(startDateConverted)} - ${displayDayLong(endDateConverted)}`
   }
   // 4.if the same day (one day off): 16 June 2021
   return displayDayLong(startDate)
