@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StatusBar, TouchableOpacity } from 'react-native'
 import { CustomModal } from 'components/CustomModal'
 import { mkUseStyles, Theme, Text, Box } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back-white.svg'
 import ArrowRight from 'assets/icons/arrow-right.svg'
+import { ChangesSavedModal } from 'components/ChangesSavedModal'
+import { useModalContext } from 'contexts/ModalProvider'
 import { COLORS } from '../helpers/mockedData'
 
 type ColorPickerProps = {
@@ -16,7 +19,9 @@ type ColorProps = {
 }
 
 export const ColorPicker = ({ hidePickerModal, setUserColor }: ColorPickerProps) => {
+  const { t } = useTranslation('userProfile')
   const styles = useStyles()
+  const { showModal, hideModal } = useModalContext()
   const [selectedColor, setSelectedColor] = useState('transparent')
   useEffect(() => {
     StatusBar.setBackgroundColor('rgba(0,0,0,0.85)')
@@ -27,6 +32,7 @@ export const ColorPicker = ({ hidePickerModal, setUserColor }: ColorPickerProps)
   const handleSubmitColor = () => {
     setUserColor(selectedColor)
     hidePickerModal()
+    showModal(<ChangesSavedModal isVisible content={t('newColorSaved')} hideModal={hideModal} />)
   }
 
   return (
