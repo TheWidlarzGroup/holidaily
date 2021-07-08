@@ -4,7 +4,6 @@ import { StatusBar, TouchableOpacity } from 'react-native'
 import { CustomModal } from 'components/CustomModal'
 import { mkUseStyles, Theme, Text, Box } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back-white.svg'
-import ArrowRight from 'assets/icons/arrow-right.svg'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { COLORS } from '../helpers/mockedData'
@@ -53,24 +52,31 @@ export const ColorPicker = ({ hidePickerModal, setUserColor }: ColorPickerProps)
       <Text variant="boldWhite24" marginTop="xxl">
         {'Pick your favourite color'}
       </Text>
-      <Box marginBottom="xxxl" marginTop="l" flexDirection="row" flexWrap="wrap">
+      <Box
+        marginBottom="xxxl"
+        marginTop="l"
+        flexDirection="row"
+        flexWrap="wrap"
+        alignItems="center"
+        justifyContent="center">
         {COLORS.map((color) => (
           <TouchableOpacity
             key={color.id}
             onPress={() => handleSelectColor(color)}
             style={{
               backgroundColor: color.color,
-              width: 20,
-              height: 20,
+              width: 56,
+              height: 56,
               marginHorizontal: 10,
-              borderRadius: 20,
+              marginVertical: 10,
+              borderRadius: 100,
             }}
           />
         ))}
       </Box>
       <TouchableOpacity onPress={handleSubmitColor}>
         <Box width={56} height={56} style={{ backgroundColor: selectedColor }} borderRadius="full">
-          {selectedColor !== 'transparent' && <ArrowRight style={styles.arrow} />}
+          {selectedColor !== 'transparent' && <IconBack style={styles.arrow} />}
         </Box>
       </TouchableOpacity>
     </CustomModal>
@@ -94,8 +100,9 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   arrow: {
     position: 'absolute',
-    top: 20,
-    left: 25,
+    top: 6,
+    left: 6,
     zIndex: theme.zIndices['5'],
+    transform: [{ rotate: '180deg' }],
   },
 }))
