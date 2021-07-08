@@ -65,17 +65,24 @@ export const AdditionalsAttachment = ({
             <Photo src={uri} />
           </Box>
         ))}
-      </Box>
-      <TouchableOpacity onPress={addMore}>
-        {displayAddMore && (
-          <Box flexDirection="row" alignSelf="flex-end" alignItems="center">
-            <PaperclipOrangeIcon width={14} height={14} color={'red'} />
-            <Text variant="boldOrange15" fontSize={12} marginLeft="s">
-              Add more
-            </Text>
+        {photos.length % 3 !== 0 && displayAddMore && (
+          <Box flexDirection="row" justifyContent="flex-end" flex={1}>
+            <AddMore onPress={addMore} />
           </Box>
         )}
-      </TouchableOpacity>
+      </Box>
+      {photos.length % 3 === 0 && displayAddMore && <AddMore onPress={addMore} />}
     </Box>
   )
 }
+
+export const AddMore = ({ onPress }: { onPress: F0 }) => (
+  <TouchableOpacity onPress={onPress}>
+    <Box flexDirection="row" alignSelf="flex-end" alignItems="center" marginTop="s">
+      <PaperclipOrangeIcon width={14} height={14} color={'red'} />
+      <Text variant="boldOrange15" fontSize={12} marginLeft="s">
+        Add more
+      </Text>
+    </Box>
+  </TouchableOpacity>
+)
