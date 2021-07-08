@@ -56,6 +56,7 @@ export const AdditionalsAttachment = ({
       <Box flexDirection="row" flexWrap="wrap">
         {photos.map((uri, uriIndex) => (
           <Box
+            key={uriIndex}
             paddingTop="s"
             style={{
               paddingLeft: getPadding(uriIndex, 'left'),

@@ -75,7 +75,12 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         {showMessageInput ? (
           <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={message} autofocus />
         ) : (
-          <CustomButton label={'next'} variant="primary" onPress={handleFormSubmit} />
+          <CustomButton
+            label={'next'}
+            variant="primary"
+            onPress={handleFormSubmit}
+            marginTop={20}
+          />
         )}
       </Box>
       <UploadPictureModal

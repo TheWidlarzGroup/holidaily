@@ -31,6 +31,13 @@ export const SummaryRequestVacation = ({
   photos = [],
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
+  const getPadding = (index: number, side: 'right' | 'left') => {
+    const n = index % 3
+    const paddingSize = 2
+    if (n === 0) return side == 'left' ? 0 : 2 * paddingSize
+    if (n === 2) return side == 'left' ? 2 * paddingSize : 0
+    if (n === 1) return paddingSize
+  }
 
   return (
     <ScrollView style={{ height: 300 }}>
@@ -63,9 +70,16 @@ export const SummaryRequestVacation = ({
           )}
           {!!photos.length && (
             <Box flexDirection="row" flexWrap="wrap">
-              {photos.map((uri) => (
-                <Box marginRight="s" marginTop="s">
-                  <Photo src={uri} size={85} marginBottom="m" />
+              {photos.map((uri, uriIndex) => (
+                <Box
+                  key={uriIndex}
+                  paddingTop="s"
+                  style={{
+                    paddingLeft: getPadding(uriIndex, 'left'),
+                    paddingRight: getPadding(uriIndex, 'right'),
+                    width: '33.33%',
+                  }}>
+                  <Photo src={uri} />
                 </Box>
               ))}
             </Box>
