@@ -65,7 +65,7 @@ export const SummaryRequestVacation = ({
             <Box flexDirection="row" flexWrap="wrap">
               {photos.map((uri) => (
                 <Box marginRight="s" marginTop="s">
-                  <Photo src={uri} size={90} marginBottom="m" />
+                  <Photo src={uri} size={85} marginBottom="m" />
                 </Box>
               ))}
             </Box>

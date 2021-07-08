@@ -41,7 +41,11 @@ export const Additionals = ({
 
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
         {attachments.length ? (
-          <AdditionalsAttachment photos={attachments} />
+          <AdditionalsAttachment
+            photos={attachments}
+            addMore={showAttachmentModal}
+            displayAddMore={attachments.length < 9}
+          />
         ) : (
           <AdditionalsAttachmentIcon showAttachmentModal={showAttachmentModal} />
         )}

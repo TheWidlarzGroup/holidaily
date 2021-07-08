@@ -1,29 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 
-const sizes = { xs: 24, s: 44, m: 62, l: 112 }
-
 type PhotoProps = React.ComponentProps<typeof Box> & {
   src?: string
-  size?: keyof typeof sizes | number
 }
 
-export const Photo = ({ size = 'm', src, ...containerProps }: PhotoProps) => {
-  const chosenSize = typeof size === 'number' ? size : sizes[size]
-  const width = chosenSize
-  const height = chosenSize
+export const Photo = ({ src, ...containerProps }: PhotoProps) => {
+  const [size, setSize] = useState(0)
 
   return (
     <Box
       overflow="hidden"
       borderRadius="m"
-      alignItems="center"
-      justifyContent="center"
-      width={width}
-      height={height}
+      alignItems="stretch"
+      flex={1}
+      onLayout={(evt) => {
+        setSize(evt.nativeEvent.layout.width)
+      }}
       {...containerProps}>
-      <FastImage style={{ minWidth: width, minHeight: height }} source={{ uri: src }} />
+      <FastImage style={{ height: size, width: size }} source={{ uri: src }} resizeMode="cover" />
     </Box>
   )
 }
