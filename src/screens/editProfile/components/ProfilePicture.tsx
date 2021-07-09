@@ -25,34 +25,40 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   const [photoURI, setPhotoURI] = useState<string | null | undefined>()
 
   const showUploadPictureModal = () => {
-    showModal(
-      <UploadPictureModal
-        isVisible
-        hideModal={hideModal}
-        onUserCancelled={() => {
-          setIsEditedFalse()
-          hideModal()
-        }}
-        setPhotoURI={setPhotoURI}
-      />
-    )
+    hideModal()
+    setTimeout(() => {
+      showModal(
+        <UploadPictureModal
+          isVisible
+          hideModal={hideModal}
+          onUserCancelled={() => {
+            setIsEditedFalse()
+            hideModal()
+          }}
+          setPhotoURI={setPhotoURI}
+        />
+      )
+    }, 250)
   }
   const showDeleteConfirmationModal = () => {
-    showModal(
-      <ConfirmationModal
-        isVisible
-        hideModal={hideModal}
-        onAccept={() => {
-          hideModal()
-          handleDeletePicture()
-        }}
-        onDecline={() => {
-          hideModal()
-          setIsEditedFalse()
-        }}
-        content={t('deletePictureMessage')}
-      />
-    )
+    hideModal()
+    setTimeout(() => {
+      showModal(
+        <ConfirmationModal
+          isVisible
+          hideModal={hideModal}
+          onAccept={() => {
+            hideModal()
+            handleDeletePicture()
+          }}
+          onDecline={() => {
+            hideModal()
+            setIsEditedFalse()
+          }}
+          content={t('deletePictureMessage')}
+        />
+      )
+    }, 250)
   }
   const showEditPictureModal = () => {
     showModal(
