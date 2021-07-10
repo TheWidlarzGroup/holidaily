@@ -17,7 +17,7 @@ type SummaryRequestVacationProps = {
   startDate?: Date
   endDate?: Date
   message?: string
-  photos?: string[]
+  photos?: { id: string; uri: string }[]
 }
 
 export const SummaryRequestVacation = ({
@@ -69,16 +69,16 @@ export const SummaryRequestVacation = ({
           )}
           {!!photos.length && (
             <Box flexDirection="row" flexWrap="wrap">
-              {photos.map((uri, uriIndex) => (
+              {photos.map(({ uri, id }, uriIndex) => (
                 <Box
-                  key={uriIndex}
+                  key={id}
                   paddingTop="s"
                   style={{
                     paddingLeft: getPadding(uriIndex, 'left'),
                     paddingRight: getPadding(uriIndex, 'right'),
                     width: '33.33%',
                   }}>
-                  <Photo src={uri} />
+                  <Photo src={uri} onClose={() => {}} displayClose />
                 </Box>
               ))}
             </Box>

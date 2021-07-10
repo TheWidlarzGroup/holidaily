@@ -16,7 +16,7 @@ export type RequestDataTypes = {
   description: string
   sickTime: boolean
   message: string
-  photos: string[]
+  photos: { id: string; uri: string }[]
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
@@ -29,7 +29,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [description, setDescription] = useState('')
   const [sickTime, setSickTime] = useState(false)
   const [message, setMessage] = useState('')
-  const [photos, setPhotos] = useState<string[]>([])
+  const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
@@ -60,6 +60,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setPhotos([])
   }
 
+  const removePhoto = (removeId: string) => setPhotos((o) => o.filter(({ id }) => id !== removeId))
+
   useEffect(() => {
     const { params } = route
     if (params?.start) setStartDate(new Date(params.start))
@@ -79,6 +81,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           date={{ start: startDate, end: endDate }}
           message={message}
           photos={photos}
+          removePhoto={removePhoto}
         />
       )}
       {step === 1 && (

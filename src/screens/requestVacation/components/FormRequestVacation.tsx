@@ -14,7 +14,7 @@ type RequestDataTypes = {
   description: string
   sickTime: boolean
   message: string
-  photos: string[]
+  photos: { id: string; uri: string }[]
 }
 
 type FormRequestVacationProps = {
@@ -25,7 +25,8 @@ type FormRequestVacationProps = {
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
   message: string
-  photos: string[]
+  photos: { id: string; uri: string }[]
+  removePhoto: F1<string>
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
@@ -34,6 +35,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   changeRequestData,
   message,
   photos,
+  removePhoto,
 }) => {
   const [sickTime, { toggle }] = useBooleanState(false)
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
@@ -68,6 +70,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           messageInputVisible={showMessageInput}
           showAttachmentModal={setShowAttachmentModalTrue}
           attachments={photos}
+          removePhoto={removePhoto}
         />
         <Box height={50} />
       </ScrollView>
@@ -89,7 +92,10 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         onUserCancelled={setShowAttachmentModalFalse}
         setPhotoURI={(uri) => {
           if (!uri) return
-          changeRequestData((oldData) => ({ ...oldData, photos: [...oldData.photos, uri] }))
+          changeRequestData((oldData) => ({
+            ...oldData,
+            photos: [...oldData.photos, { uri, id: new Date().toString() }],
+          }))
         }}
       />
     </Box>

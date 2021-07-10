@@ -12,7 +12,8 @@ type AdditionalsProps = {
   messageContent: string
   messageInputVisible: boolean
   showAttachmentModal: F0
-  attachments: string[]
+  attachments: { id: string; uri: string }[]
+  removePhoto: F1<string>
 }
 
 export const Additionals = ({
@@ -21,6 +22,7 @@ export const Additionals = ({
   messageInputVisible,
   showAttachmentModal,
   attachments,
+  removePhoto,
 }: AdditionalsProps) => {
   const getFlexDirection = () => {
     if (!messageContent && !attachments.length) return 'row'
@@ -43,13 +45,15 @@ export const Additionals = ({
             photos={attachments}
             addMore={showAttachmentModal}
             displayAddMore={attachments.length < 9}
+            removePhoto={removePhoto}
           />
         ) : (
           <AdditionalsAttachmentIcon showAttachmentModal={showAttachmentModal} />
         )}
-        {messageContent || messageInputVisible ? (
+        {!messageInputVisible && !!messageContent && (
           <MessageIcon messageContent={messageContent} onPressMessage={onPressMessage} />
-        ) : (
+        )}
+        {!messageInputVisible && !messageContent && (
           <AdditionalsMessageIcon onPress={onPressMessage} />
         )}
       </Box>

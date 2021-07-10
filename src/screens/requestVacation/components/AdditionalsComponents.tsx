@@ -15,7 +15,8 @@ type AdditionalsMessageIconProps = {
 }
 
 type AdditionalsAttachmentProps = {
-  photos: string[]
+  photos: { id: string; uri: string }[]
+  removePhoto: F1<string>
   addMore: F0
   displayAddMore: boolean
 }
@@ -42,6 +43,7 @@ export const AdditionalsAttachment = ({
   photos,
   addMore,
   displayAddMore,
+  removePhoto,
 }: AdditionalsAttachmentProps) => {
   const getPadding = (index: number, side: 'right' | 'left') => {
     const n = index % 3
@@ -54,16 +56,16 @@ export const AdditionalsAttachment = ({
   return (
     <Box alignSelf="stretch">
       <Box flexDirection="row" flexWrap="wrap">
-        {photos.map((uri, uriIndex) => (
+        {photos.map(({ uri, id }, uriIndex) => (
           <Box
-            key={uriIndex}
+            key={id}
             paddingTop="s"
             style={{
               paddingLeft: getPadding(uriIndex, 'left'),
               paddingRight: getPadding(uriIndex, 'right'),
               width: '33.33%',
             }}>
-            <Photo src={uri} />
+            <Photo src={uri} onClose={() => removePhoto(id)} displayClose />
           </Box>
         ))}
         {photos.length % 3 !== 0 && displayAddMore && (
