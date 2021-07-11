@@ -29,14 +29,12 @@ export const isWeekend = (date: DateOrISO): boolean => {
 }
 
 const getWeekDaysFromSunday = (): string[] => {
-  const today = new Date()
-  const weekDays = new Array(7)
-  for (let i = 0; i < weekDays.length; i++) weekDays[i] = getDayName(addDays(today, i))
-  return weekDays
+  const locale = getCurrentLocale()
+  return [0, 1, 2, 3, 4, 5, 6].map((i) => locale.localize?.day(i))
 }
 
 export const getShortWeekDays = (): string[] =>
-  getWeekDaysFromSunday().map((day) => (day ? day.charAt(0) : ''))
+  getWeekDaysFromSunday().map((day) => (day ? day.charAt(0).toLocaleUpperCase() : ''))
 
 export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
   const start = parseISO(startDate)
