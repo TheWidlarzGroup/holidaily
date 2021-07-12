@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { DateTime } from 'luxon'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import { NewDayComponentProps } from './CalendarTypes'
@@ -10,7 +9,7 @@ type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'sta
 
 export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
   const styles = useStyles()
-  const day = DateTime.fromISO(date.dateString)
+  const day = date.dateString
   const textColor = () => {
     const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
     if (isDisabled && marking?.period) return 'white'

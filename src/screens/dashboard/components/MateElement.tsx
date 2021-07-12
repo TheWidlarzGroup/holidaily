@@ -11,7 +11,7 @@ import { Avatar } from 'components/Avatar'
 type MateElementProps = RequiredMateHolidaysData
 
 export const MateElement = (props: MateElementProps) => {
-  const { t, i18n } = useTranslation('dashboard')
+  const { t } = useTranslation('dashboard')
   const { firstName, lastName, holidays, photo } = props
   const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
@@ -47,10 +47,10 @@ export const MateElement = (props: MateElementProps) => {
           {t(version.text).toUpperCase()}
         </Text>
         <Text variant="bold20" color={version.color}>
-          {displayDayShort(dateToBeDisplayed, i18n.language)}
+          {displayDayShort(dateToBeDisplayed)}
         </Text>
         <Text variant="regular15" color={version.color}>
-          {displayWeekday(dateToBeDisplayed, i18n.language)}
+          {displayWeekday(dateToBeDisplayed)}
         </Text>
       </Box>
     </BaseOpacity>

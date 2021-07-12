@@ -7,8 +7,9 @@ import { Reaction } from 'screens/feed/types'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MessageInput } from 'components/MessageInput'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { Modal, TextInput } from 'react-native'
+import EmojiPicker from '@jake7/react-native-emoji-keyboard'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -54,6 +55,7 @@ type FooterBarContentProps = {
 
 const FooterBarContent = (props: FooterBarContentProps) => {
   const { reactions, onCommentBtnPress } = props
+  const [isPickerOpen, { setTrue: openPicker, setFalse: closePicker }] = useBooleanState(false)
   const { t } = useTranslation('feed')
   return (
     <Box flexDirection="row" padding="s" justifyContent="space-between" alignItems="flex-start">
@@ -63,7 +65,18 @@ const FooterBarContent = (props: FooterBarContentProps) => {
         justifyContent="flex-start"
         flexGrow={1}
         flexShrink={1}>
-        <ReactionPickerBtn onPress={() => {}} />
+        <ReactionPickerBtn
+          onPress={() => {
+            openPicker()
+          }}
+        />
+        <EmojiPicker
+          onEmojiSelected={(e) => console.log('Selected emoji:', e)}
+          open={isPickerOpen}
+          onClose={() => {
+            closePicker()
+          }}
+        />
         {reactions &&
           reactions.map(({ type, users }) => (
             <ReactionBubble key={type} emoji={type} quantity={users.length} selected={false} />

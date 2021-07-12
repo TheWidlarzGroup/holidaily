@@ -5,16 +5,18 @@ import {
   getDayName,
   getFormattedPeriod,
 } from 'utils/dates'
-import { DateTime } from 'luxon'
+import { parseISO } from 'date-fns'
+import { setCurrentLocale } from 'utils/locale'
+import '../../../i18n.js'
 
 describe('checksIfItsWeekend', () => {
-  const monday = DateTime.fromISO('2021-06-07')
-  const tuesday = DateTime.fromISO('2021-06-08')
-  const wednesday = DateTime.fromISO('2021-06-09')
-  const thursday = DateTime.fromISO('2021-06-10')
-  const friday = DateTime.fromISO('2021-06-11')
-  const saturday = DateTime.fromISO('2021-06-12')
-  const sunday = DateTime.fromISO('2021-06-13')
+  const monday = parseISO('2021-06-07')
+  const tuesday = parseISO('2021-06-08')
+  const wednesday = parseISO('2021-06-09')
+  const thursday = parseISO('2021-06-10')
+  const friday = parseISO('2021-06-11')
+  const saturday = parseISO('2021-06-12')
+  const sunday = parseISO('2021-06-13')
   it('correctly determining the weekend', () => {
     expect(isWeekend(monday)).toBe(false)
     expect(isWeekend(tuesday)).toBe(false)
@@ -27,43 +29,49 @@ describe('checksIfItsWeekend', () => {
 })
 
 describe('getsMonthName', () => {
-  it('get proper month name from number', () => {
-    expect(getMonthName(1, 'en')).toBe('January')
-    expect(getMonthName(1, 'pl')).toBe('styczeń')
+  it('get proper month name from number', async () => {
+    await setCurrentLocale('en')
+    expect(getMonthName(1)).toBe('February')
+
+    await setCurrentLocale('pl')
+    expect(getMonthName(1)).toBe('luty')
   })
 })
 
 describe('getDatesBeetween', () => {
   it('returns the correct dates', () => {
     const dates = getDatesBetween('2021-06-19', '2021-06-22')
-    const expected = ['2021-06-19', '2021-06-20', '2021-06-21', '2021-06-22']
+    const expected = ['2021/06/19', '2021/06/20', '2021/06/21', '2021/06/22']
     expect(dates).toMatchObject(expected)
   })
 
   it('works on months change', () => {
     const dates = getDatesBetween('2021-06-29', '2021-07-02')
-    const expected = ['2021-06-29', '2021-06-30', '2021-07-01', '2021-07-02']
+    const expected = ['2021/06/29', '2021/06/30', '2021/07/01', '2021/07/02']
     expect(dates).toMatchObject(expected)
   })
 })
 
-describe('getDayNameFromISOString', () => {
-  it('returns correct week day name', () => {
-    expect(getDayName('2021-06-21', 'pl')).toBe('poniedziałek')
-  })
-})
-
 describe('getStringDateFromISOString', () => {
-  it('returns correct date', () => {
-    expect(getDayName('2021-06-21', 'pl')).toBe('poniedziałek')
+  it('returns correct day name', async () => {
+    const parsedDate = parseISO('2021-06-21')
+
+    await setCurrentLocale('pl')
+    expect(getDayName(parsedDate)).toBe('poniedziałek')
   })
 })
 
 describe('getFormattedPeriod', () => {
-  it('', () => {
+  it('should return valid date period', async () => {
     const dateA = new Date('2021-06-29')
     const dateB = new Date('2021-07-02')
-    const result = getFormattedPeriod(dateA, dateB, 'en')
-    expect(result).toBe('29 Jun - 2 Jul')
+
+    await setCurrentLocale('en')
+    const englishResult = getFormattedPeriod(dateA, dateB)
+    expect(englishResult).toBe('29 Jun - 2 Jul')
+
+    await setCurrentLocale('pl')
+    const polishResult = getFormattedPeriod(dateA, dateB)
+    expect(polishResult).toBe('29 cze - 2 lip')
   })
 })
