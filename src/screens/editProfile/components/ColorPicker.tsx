@@ -10,7 +10,7 @@ import { COLORS } from '../helpers/mockedData'
 
 type ColorPickerProps = {
   hidePickerModal: F0
-  setUserColor: React.Dispatch<React.SetStateAction<string>>
+  setUserColor: F1<string>
 }
 type ColorProps = {
   id: number

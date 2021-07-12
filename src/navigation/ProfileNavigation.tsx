@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { EditProfile } from 'screens/editProfile/EditProfile'
 import { ChangePassword } from 'screens/editProfile/components/ChangePassword'
 import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
+import { ColorPickerContainer } from 'screens/editProfile/components/ColorPickerContainer'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { UserDetailsProvider } from 'screens/editProfile/helpers/UserDetailsContext'
 import { UserProfileRoutes } from './types'
@@ -16,6 +17,7 @@ export const ProfileNavigation = () => (
       <ProfileStack.Navigator headerMode="none" initialRouteName="EditProfile">
         <ProfileStack.Screen name="EditProfile" component={EditProfile} />
         <ProfileStack.Screen name="ChangePassword" component={ChangePassword} />
+        <ProfileStack.Screen name="ColorPicker" component={ColorPickerContainer} />
         <ProfileStack.Screen name="SubscribeTeam" component={SubscribeNewTeam} />
         <ProfileStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
       </ProfileStack.Navigator>

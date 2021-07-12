@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import { useModalContext } from 'contexts/ModalProvider'
+// import { useModalContext } from 'contexts/ModalProvider'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { Box, Text, mkUseStyles, Theme, theme } from 'utils/theme'
-import { ColorPicker } from './ColorPicker'
+import { useNavigation } from '@react-navigation/native'
 
 export const ProfileColor = () => {
   const styles = useStyles()
-  const [userColor, setUserColor] = useState('transparent')
-  const { showModal, hideModal } = useModalContext()
+  const [userColor] = useState('transparent')
+  // const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('userProfile')
+  const navigation = useNavigation()
 
   const onChangeUserColor = () =>
-    showModal(<ColorPicker hidePickerModal={hideModal} setUserColor={setUserColor} />)
+    // showModal(<ColorPicker hidePickerModal={hideModal} setUserColor={setUserColor} />)
+    navigation.navigate('ColorPicker')
 
   return (
     <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
