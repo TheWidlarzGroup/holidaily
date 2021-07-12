@@ -140,7 +140,8 @@
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
     "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły",
     "selected": "Zaznaczono: ",
-    "subscribe": "Subskrybuj"
+    "subscribe": "Subskrybuj",
+    "newColorSaved": "Nowy kolor zapisany!"
   },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
