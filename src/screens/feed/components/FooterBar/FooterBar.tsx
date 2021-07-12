@@ -58,24 +58,18 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   const [isPickerOpen, { setTrue: openPicker, setFalse: closePicker }] = useBooleanState(false)
   const { t } = useTranslation('feed')
   return (
-    <Box flexDirection="row" padding="s" justifyContent="space-between" alignItems="flex-start">
+    <Box flexDirection="row" padding="s" justifyContent="space-between" alignItems="center">
       <Box
         flexDirection="row"
         flexWrap="wrap"
         justifyContent="flex-start"
         flexGrow={1}
         flexShrink={1}>
-        <ReactionPickerBtn
-          onPress={() => {
-            openPicker()
-          }}
-        />
+        <ReactionPickerBtn onPress={openPicker} />
         <EmojiPicker
           onEmojiSelected={(e) => console.log('Selected emoji:', e)}
           open={isPickerOpen}
-          onClose={() => {
-            closePicker()
-          }}
+          onClose={closePicker}
         />
         {reactions &&
           reactions.map(({ type, users }) => (
@@ -84,7 +78,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
       </Box>
       <Bubble padding="s" onPress={onCommentBtnPress}>
         <IconComment />
-        <Text variant="captionText" padding="xs">
+        <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
           {t('postCommentBtn')}
         </Text>
       </Bubble>
