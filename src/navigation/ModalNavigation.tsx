@@ -5,6 +5,7 @@ import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
+import { CreatePost } from 'screens/createPost/CreatePost'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
 
@@ -33,6 +34,7 @@ export const ModalNavigation = () => {
             cardStyleInterpolator: undefined,
           }}
         />
+        <AppStack.Screen name="CreatePost" component={CreatePost} />
       </AppStack.Navigator>
     </Box>
   )

@@ -159,7 +159,14 @@
     "postCommentBtn": "Skomentuj",
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
-    "createPostLabel": "Wyślij pozdrowienia..."
+    "createPostLabel": "Co tam?"
+  },
+  "createPost": {
+    "title": "Stwórz Post",
+    "clearPost": "Wyczyść",
+    "inputPlaceholder": "Co tam?",
+    "sendPost": "Wyślij",
+    "postSent": "Wiadomość wysłana!"
   },
   "settings": {
     "name": "Ustawienia ",
@@ -170,7 +177,7 @@
     "biometric": "Odblokuj odciskiem palca",
     "changed": "został zmieniony!"
   },
-  "loader":{
+  "loader": {
     "wait": "Jeszcze chwilkę..."
   }
 }
