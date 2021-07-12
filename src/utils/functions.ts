@@ -1,5 +1,6 @@
-import { DateTime } from 'luxon'
+import { addDays, getDate, getMonth, getYear, subDays } from 'date-fns'
 import { MateHolidaysData } from 'types/holidaysDataTypes'
+import { DateOrISO, formatFromISO, parseISO } from './dates'
 
 export type ValidationOfDataToBeDisplayed = {
   isOnHoliday: boolean
@@ -14,56 +15,48 @@ export type ValidationOfDataToBeDisplayed = {
   dayToBeDisplayed: string
 }
 
-// DATE FUNCTIONS
-
-export const isTimeIntervalLessThanWeek = (date: DateTime): boolean => {
-  const today = DateTime.now()
-  return date < today.plus({ days: 7 }) && date > today.minus({ days: 7 })
+// COMPARE DATE FUNCTIONS
+export const isTimeIntervalLessThanWeek = (date: DateOrISO): boolean => {
+  const formattedDate = parseISO(date)
+  const today = Date.now()
+  return formattedDate < addDays(today, 7) && formattedDate > subDays(today, 7)
 }
 
-export const displayWeekday = (date: DateTime, language: string) =>
-  date.setLocale(language).toFormat('cccc')
+// DISPLAY DATE FUNCTIONS
 
-export const displayDayShort = (date: DateTime, language: string) =>
-  date.setLocale(language).toFormat('d LLLL')
+export const displayWeekday = (date: DateOrISO) => formatFromISO(date, 'cccc')
 
-export const displayDayLong = (date: DateTime, language: string) =>
-  date.setLocale(language).toFormat('d LLLL y')
+export const displayDayShort = (date: DateOrISO) => formatFromISO(date, 'd MMMM')
 
-export const displayDatesRange = (startDate: string, endDate: string, language: string) => {
-  const startDateConverted = DateTime.fromISO(startDate)
-  const endDateConverted = DateTime.fromISO(endDate)
+export const displayDayLong = (date: DateOrISO) => formatFromISO(date, 'd MMMM y')
+
+export const displayDDMonYYYY = (date: DateOrISO) => formatFromISO(date, 'dd MMM y')
+
+export const displayDatesRange = (startDate: DateOrISO, endDate: DateOrISO) => {
+  const startDateConverted = parseISO(startDate)
+  const endDateConverted = parseISO(endDate)
 
   // 1.if different year: 20 December 2020 - 7 January2021
-  if (startDateConverted.get('year') !== endDateConverted.get('year')) {
-    return `${displayDayLong(startDateConverted, language)} - ${displayDayLong(
-      endDateConverted,
-      language
-    )}`
+  if (getYear(startDateConverted) !== getYear(endDateConverted)) {
+    return `${displayDayLong(startDate)} - ${displayDayLong(endDate)}`
   }
 
   // 2.if the same year but different month: 20 May -16 June 2021
-  if (startDateConverted.get('month') !== endDateConverted.get('month')) {
-    return `${displayDayShort(startDateConverted, language)} - ${displayDayLong(
-      endDateConverted,
-      language
-    )}`
+  if (getMonth(startDateConverted) !== getMonth(endDateConverted)) {
+    return `${displayDayShort(startDate)} - ${displayDayLong(endDate)}`
   }
   // 3.if the same month but different day: 12-16 June 2021
-  if (startDateConverted.get('day') !== endDateConverted.get('day')) {
-    return `${startDateConverted.get('day')} - ${displayDayLong(endDateConverted, language)}`
+  if (getDate(startDateConverted) !== getDate(endDateConverted)) {
+    return `${getDate(startDateConverted)} - ${displayDayLong(endDateConverted)}`
   }
   // 4.if the same day (one day off): 16 June 2021
-  return displayDayLong(startDateConverted, language)
+  return displayDayLong(startDate)
 }
 
-export const setDateToBeDisplayed = (date: string, currentlyOnHoliday: boolean) => {
-  const convertedDate = DateTime.fromISO(date)
-  return currentlyOnHoliday ? convertedDate.plus({ days: 1 }) : convertedDate.minus({ days: 1 })
+export const setDateToBeDisplayed = (date: DateOrISO, currentlyOnHoliday: boolean) => {
+  const parsedDate = parseISO(date)
+  return currentlyOnHoliday ? addDays(parsedDate, 1) : subDays(parsedDate, 1)
 }
-
-export const displayDDMonYYYY = (date: DateTime, language: string) =>
-  date.setLocale(language).toFormat('dd LLL yyyy')
 
 // SUM FUNCTIONS
 

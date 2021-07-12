@@ -1,12 +1,10 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
 
 export const Carousel = () => {
-  const { i18n } = useTranslation('dashboard')
-  const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed(i18n.language)
+  const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed()
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
