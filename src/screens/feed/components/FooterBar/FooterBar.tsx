@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
@@ -8,7 +8,7 @@ import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MessageInput } from 'components/MessageInput'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { Modal } from 'react-native'
+import { Modal, TextInput } from 'react-native'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -31,13 +31,21 @@ type CreateCommentModalProps = {
   onBlur: F0
 }
 
-const CreateCommentModal = (props: CreateCommentModalProps) => (
-  <Modal transparent animationType="slide">
-    <Box flex={1} justifyContent="flex-end">
-      <MessageInput onSubmitEditing={() => {}} onBlur={props.onBlur} defaultValue="" autofocus />
-    </Box>
-  </Modal>
-)
+const CreateCommentModal = (props: CreateCommentModalProps) => {
+  const inputRef = useRef<TextInput>(null)
+  return (
+    <Modal transparent animationType="slide" onShow={() => inputRef.current?.focus()}>
+      <Box flex={1} justifyContent="flex-end">
+        <MessageInput
+          ref={inputRef}
+          onSubmitEditing={() => {}}
+          onBlur={props.onBlur}
+          defaultValue=""
+        />
+      </Box>
+    </Modal>
+  )
+}
 
 type FooterBarContentProps = {
   reactions: Reaction[]
@@ -63,7 +71,9 @@ const FooterBarContent = (props: FooterBarContentProps) => {
       </Box>
       <Bubble padding="s" onPress={onCommentBtnPress}>
         <IconComment />
-        <Text padding="xs">{t('postCommentBtn')}</Text>
+        <Text variant="captionText" padding="xs">
+          {t('postCommentBtn')}
+        </Text>
       </Bubble>
     </Box>
   )

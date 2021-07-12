@@ -9,6 +9,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { themeBase } from 'utils/theme/themeBase'
+import { useCombinedRefs } from 'hooks/useCombinedRefs'
 
 type MessageInputProps = {
   onSubmitEditing: F1<string>
@@ -18,17 +19,14 @@ type MessageInputProps = {
   autofocus?: boolean
 }
 
-export const MessageInput = ({
-  onSubmitEditing,
-  onBlur,
-  defaultValue = '',
-  maxLength = 300,
-  autofocus = false,
-}: MessageInputProps) => {
+// eslint-disable-next-line react/display-name
+export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
+  const { onSubmitEditing, onBlur, defaultValue = '', maxLength = 300, autofocus = false } = props
   const [messageContent, setMessageContent] = useState('')
   const [error, setError] = useState('')
 
   const inputRef = useRef<TextInput>(null)
+  const combinedInputRef = useCombinedRefs([ref, inputRef])
 
   const styles = useStyles()
   const colors = useColors()
@@ -71,14 +69,14 @@ export const MessageInput = ({
   }, [messageContent, maxLength])
 
   useEffect(() => {
-    if (autofocus) inputRef.current?.focus()
-  }, [autofocus])
+    if (autofocus) combinedInputRef.current?.focus()
+  }, [autofocus, combinedInputRef])
 
   return (
     <Box style={styles.container}>
       <Animated.View style={[styles.inputBox, errorBorderStyle]}>
         <TextInput
-          ref={inputRef}
+          ref={combinedInputRef}
           underlineColorAndroid={themeBase.colors.transparent}
           style={styles.input}
           placeholder="Write your message..."
@@ -99,7 +97,7 @@ export const MessageInput = ({
       <Animated.Text style={[styles.error, errorMessageStyle]}>{error}</Animated.Text>
     </Box>
   )
-}
+})
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
