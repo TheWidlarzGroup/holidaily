@@ -140,7 +140,8 @@
     "newTeamConfirmation": "New team subscribed!",
     "subscribeMoreTeams": "Subscribe more teams",
     "selected": "Selected: ",
-    "subscribe": "Subscribe"
+    "subscribe": "Subscribe",
+    "newColorSaved": "New color saved!"
   },
   "dashboard": {
     "welcome": "How's your team doing?",
