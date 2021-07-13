@@ -67,6 +67,7 @@ const CheckmarkLoading = ({ callback }: { callback: () => void }) => {
         <>
           <AnimatedPath
             animatedProps={elipseProps}
+            // @ts-ignore:
             onLayout={() => setElipseLength(elipseRef.current.getTotalLength())}
             ref={elipseRef}
             d={big}
@@ -77,6 +78,7 @@ const CheckmarkLoading = ({ callback }: { callback: () => void }) => {
           <AnimatedPath animatedProps={smallElipseProps} d={small} fill="black" />
           <AnimatedPath
             animatedProps={checkmarkProps}
+            // @ts-ignore:
             onLayout={() => setCheckmarkLength(checkmarkRef.current.getTotalLength())}
             ref={checkmarkRef}
             d={checkmark}
