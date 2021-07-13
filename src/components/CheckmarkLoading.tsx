@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Animated, {
+  cancelAnimation,
   Easing,
   interpolate,
   runOnJS,
   useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
+  withRepeat,
   withSequence,
   withTiming,
 } from 'react-native-reanimated'
@@ -22,7 +24,7 @@ const checkmark = 'M88 130L110.559 152.647L163 100'
 const vWidth = 55
 const vHeight = 55
 
-const CheckmarkLoading = ({ callback }: { callback: () => void }) => {
+const CheckmarkLoading = ({ callback, loading }: { callback: () => void; loading: boolean }) => {
   const progress = useSharedValue(1)
   const progress2 = useSharedValue(0)
   const progress3 = useSharedValue(0)
@@ -32,20 +34,36 @@ const CheckmarkLoading = ({ callback }: { callback: () => void }) => {
   const checkmarkRef = useRef<any>(null)
 
   useEffect(() => {
-    progress.value = withSequence(
-      withTiming(0.75, { duration: 1000 }),
-      withTiming(1, { duration: 500 })
-    )
-    progress2.value = withTiming(1, { duration: 1500, easing: Easing.ease }, () => {
-      progress3.value = withTiming(1, { duration: 500 }, () => runOnJS(callback)())
-    })
-  }, [callback, progress, progress2, progress3])
+    if (loading) {
+      progress.value = withRepeat(
+        withSequence(withTiming(0.75, { duration: 1000 }), withTiming(1, { duration: 500 })),
+        -1,
+        false
+      )
+      progress2.value = withRepeat(
+        withTiming(2, { duration: 1500, easing: Easing.linear }),
+        -1,
+        false
+      )
+    } else {
+      cancelAnimation(progress)
+      cancelAnimation(progress2)
+      cancelAnimation(progress3)
+      progress.value = withSequence(
+        withTiming(0.75, { duration: 1000 }),
+        withTiming(1, { duration: 500 })
+      )
+      progress2.value = withTiming(2, { duration: 1500, easing: Easing.linear }, () => {
+        progress3.value = withTiming(1, { duration: 500 }, () => runOnJS(callback)())
+      })
+    }
+  }, [callback, loading, progress, progress2, progress3])
 
   const elipseProps = useAnimatedProps(() => ({
     strokeDashoffset: elipseLength - progress.value * elipseLength,
   }))
   const smallElipseProps = useAnimatedProps(() => ({
-    opacity: 1 - progress2.value * progress2.value,
+    opacity: 1 - progress3.value,
   }))
   const checkmarkProps = useAnimatedProps(() => ({
     opacity: progress2.value,
@@ -54,7 +72,7 @@ const CheckmarkLoading = ({ callback }: { callback: () => void }) => {
   const rotation = useAnimatedStyle(
     () => ({
       transform: [
-        { rotate: `${interpolate(progress2.value, [0, 1], [0, 420])}deg` },
+        { rotate: `${interpolate(progress2.value, [0, 1], [0, 360])}deg` },
         { rotateZ: '180deg' },
         { rotateY: '180deg' },
       ],
@@ -85,7 +103,7 @@ const CheckmarkLoading = ({ callback }: { callback: () => void }) => {
             stroke="black"
             strokeWidth={10}
             origin={125}
-            rotation={-120}
+            rotation={180}
             scaleX={-1}
             strokeDasharray={checkmarkLength}
           />

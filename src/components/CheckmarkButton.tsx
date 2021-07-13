@@ -16,12 +16,15 @@ import { CustomButton, CustomButtonProps } from './CustomButton'
 
 interface CheckmarkButtonProps extends RectButtonProperties, FlexStyle {
   onFinish: () => void
+  loading: boolean
 }
 
 export const CheckmarkButton = ({
   label,
   onPress,
   onFinish,
+  loading,
+  ...props
 }: CustomButtonProps & CheckmarkButtonProps) => {
   const [text, setText] = useState(label)
   const [isCircle, { setTrue: setCircle }] = useBooleanState(false)
@@ -53,9 +56,9 @@ export const CheckmarkButton = ({
       }}>
       <Animated.View style={[containerStyle, { justifyContent: 'center', alignItems: 'center' }]}>
         {isCircle ? (
-          <CheckmarkLoading callback={() => onFinish()} />
+          <CheckmarkLoading callback={() => onFinish()} loading={loading} />
         ) : (
-          <CustomButton label={text} onPress={handlePress} />
+          <CustomButton label={text} onPress={handlePress} {...props} />
         )}
       </Animated.View>
     </Box>
