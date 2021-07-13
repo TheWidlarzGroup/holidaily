@@ -12,7 +12,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@jake7/react-native-emoji-keyboard": "0.1.1-beta.1",
+    "@jake7/react-native-emoji-keyboard": "^0.1.1-beta.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.10",
     "@react-navigation/drawer": "^5.12.5",
