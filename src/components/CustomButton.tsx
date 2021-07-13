@@ -10,7 +10,7 @@ import IconApple from 'assets/icons/icon-apple.svg'
 type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
 type CustomButtonIcons = 'google' | 'apple'
 
-interface CustomButtonProps extends RectButtonProperties, FlexStyle {
+export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   label: string
   variant?: CustomButtonVariants
   icon?: CustomButtonIcons
