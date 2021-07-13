@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import { useModalContext } from 'contexts/ModalProvider'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
 import { Box, Text, mkUseStyles, Theme, theme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
+import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
 export const ProfileColor = () => {
   const styles = useStyles()
-  const [userColor] = useState('transparent')
+  const { userColor } = useUserDetailsContext()
   // const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const navigation = useNavigation()
@@ -25,7 +26,7 @@ export const ProfileColor = () => {
         onPress={onChangeUserColor}
         style={[
           styles.colorBtn,
-          { backgroundColor: userColor !== 'transparent' ? userColor : theme.colors.primary },
+          { backgroundColor: userColor !== '' ? userColor : theme.colors.primary },
         ]}
         rippleColor={theme.colors.rippleColor}
       />

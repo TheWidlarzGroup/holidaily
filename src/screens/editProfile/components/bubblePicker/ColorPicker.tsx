@@ -6,7 +6,7 @@ import { mkUseStyles, Theme, Text, Box } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back-white.svg'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { useModalContext } from 'contexts/ModalProvider'
-import { COLORS } from '../helpers/mockedData'
+import { COLORS } from '../../helpers/mockedData'
 
 type ColorPickerProps = {
   hidePickerModal: F0
