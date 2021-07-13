@@ -4,7 +4,7 @@ import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 
 import { Reaction } from 'screens/feed/types'
-import { Box, Text } from 'utils/theme'
+import { BaseOpacity, Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MessageInput } from 'components/MessageInput'
 import { Modal, TextInput } from 'react-native'
@@ -33,16 +33,24 @@ type CreateCommentModalProps = {
 }
 
 const CreateCommentModal = (props: CreateCommentModalProps) => {
+  const { onBlur } = props
   const inputRef = useRef<TextInput>(null)
   return (
-    <Modal transparent animationType="slide" onShow={() => inputRef.current?.focus()}>
+    <Modal
+      transparent
+      animationType="slide"
+      onShow={() => inputRef.current?.focus()}
+      onRequestClose={onBlur}>
       <Box flex={1} justifyContent="flex-end">
-        <MessageInput
-          ref={inputRef}
-          onSubmitEditing={() => {}}
-          onBlur={props.onBlur}
-          defaultValue=""
-        />
+        <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onBlur} />
+        <Box
+          paddingTop="xm"
+          paddingBottom="xs"
+          bg="disabled"
+          borderTopLeftRadius="m"
+          borderTopRightRadius="m">
+          <MessageInput ref={inputRef} onSubmitEditing={onBlur} />
+        </Box>
       </Box>
     </Modal>
   )

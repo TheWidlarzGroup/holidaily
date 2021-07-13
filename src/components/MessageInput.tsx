@@ -14,7 +14,7 @@ import { useCombinedRefs } from 'hooks/useCombinedRefs'
 type MessageInputProps = {
   onSubmitEditing: F1<string>
   onBlur?: F0
-  defaultValue: string
+  defaultValue?: string
   maxLength?: number
   autofocus?: boolean
 }
@@ -120,6 +120,8 @@ const useStyles = mkUseStyles((theme) => ({
     fontSize: 16,
     color: 'black',
     flex: 1,
+    // paddingVertical: theme.spacing.s,
+    // paddingHorizontal: 0,
     padding: 0,
     borderColor: theme.colors.transparent,
   },
