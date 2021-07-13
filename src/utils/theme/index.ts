@@ -3,6 +3,7 @@ import { createText, createBox, useTheme as useReTheme, RNStyle } from '@shopify
 import { TouchableOpacityProps, TouchableOpacity } from 'react-native'
 import { textVariants } from './textVariants'
 import { ThemeBase, themeBase } from './themeBase'
+import { darkThemeBase } from './darkThemeBase'
 
 export const theme = {
   ...themeBase,
@@ -10,12 +11,7 @@ export const theme = {
 }
 
 export type Theme = typeof theme
-export const darkTheme: Theme = {
-  ...theme,
-  colors: {
-    ...theme.colors,
-  },
-}
+export const darkTheme: Theme = { ...darkThemeBase, textVariants }
 
 export const useTheme = () => useReTheme<Theme>()
 export const Box = createBox<Theme>()
