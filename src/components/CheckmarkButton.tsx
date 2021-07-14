@@ -20,7 +20,7 @@ type CheckmarkButtonProps = {
 export const CheckmarkButton = ({
   label,
   onFinish = () => {},
-  variant,
+  variant = 'secondary',
   ...props
 }: CustomButtonProps & CheckmarkButtonProps) => {
   const [checkmarkColor, setCheckmarkColor] = useState('white')
