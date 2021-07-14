@@ -9,22 +9,19 @@ import Animated, {
 import Svg, { Color, Path, PathProps } from 'react-native-svg'
 
 type LayoutTypes = {
-  onLayout?: (event: LayoutChangeEvent) => void
+  onLayout?: F1<LayoutChangeEvent>
 }
 const AnimatedPath: ComponentClass<Animated.AnimateProps<PathProps> & LayoutTypes, any> =
   Animated.createAnimatedComponent(Path)
 
-const Checkmark = ({
-  start,
-  color,
-  onFinish,
-  width = 8,
-}: {
+type CheckmarkProps = {
   start: boolean
   color: Color
   onFinish: () => void
   width?: number
-}) => {
+}
+
+const Checkmark = ({ start, color, onFinish, width = 8 }: CheckmarkProps) => {
   const progress = useSharedValue(0)
   const [checkmarkLength, setCheckmarkLength] = useState(0)
   const checkmarkRef = useRef<typeof AnimatedPath | any>(null)

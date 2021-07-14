@@ -1,5 +1,6 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import React, { useState, useEffect } from 'react'
+import { LayoutChangeEvent } from 'react-native'
 
 import Animated, {
   Easing,
@@ -65,16 +66,15 @@ export const CheckmarkButton = ({
     }),
     [containerWidth, opacity]
   )
+  const measureWidth = ({
+    nativeEvent: {
+      layout: { width },
+    },
+  }: LayoutChangeEvent) => {
+    containerWidth.value = width
+  }
   return (
-    <Box
-      alignItems="center"
-      onLayout={({
-        nativeEvent: {
-          layout: { width },
-        },
-      }) => {
-        containerWidth.value = width
-      }}>
+    <Box alignItems="center" onLayout={measureWidth}>
       <Animated.View style={containerStyle}>
         <CustomButton label={label} onPress={handlePress} variant={variant} {...props}>
           {!isContentVisible && (
