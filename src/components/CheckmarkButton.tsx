@@ -1,8 +1,6 @@
 import { useBooleanState } from 'hooks/useBooleanState'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-import { FlexStyle } from 'react-native'
-import { RectButtonProperties } from 'react-native-gesture-handler'
 import Animated, {
   Easing,
   runOnJS,
@@ -11,36 +9,59 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { Box } from 'utils/theme'
-import CheckmarkLoading from './CheckmarkLoading'
+import { colors } from 'utils/theme/colors'
+import Checkmark from './Checkmark'
 import { CustomButton, CustomButtonProps } from './CustomButton'
 
-interface CheckmarkButtonProps extends RectButtonProperties, FlexStyle {
-  onFinish: () => void
-  loading: boolean
+type CheckmarkButtonProps = {
+  onFinish?: F0
 }
 
 export const CheckmarkButton = ({
   label,
-  onPress,
-  onFinish,
-  loading,
+  onFinish = () => {},
+  variant,
   ...props
 }: CustomButtonProps & CheckmarkButtonProps) => {
-  const [text, setText] = useState(label)
+  const [checkmarkColor, setCheckmarkColor] = useState('white')
+  const [isContentVisible, { setFalse: hideContent }] = useBooleanState(true)
   const [isCircle, { setTrue: setCircle }] = useBooleanState(false)
   const containerWidth = useSharedValue(0)
   const opacity = useSharedValue(1)
+
+  useEffect(() => {
+    switch (variant) {
+      case 'secondary':
+        setCheckmarkColor(colors.black)
+        break
+      case 'blackBgButton':
+        setCheckmarkColor(colors.white)
+        break
+      case 'primary':
+        setCheckmarkColor(colors.white)
+        break
+      default:
+        setCheckmarkColor(colors.black)
+        break
+    }
+  }, [variant])
+
   const handlePress = () => {
-    if (onPress) onPress()
-    containerWidth.value = withTiming(85, { duration: 250, easing: Easing.linear }, () =>
-      runOnJS(setCircle)()
+    hideContent()
+    containerWidth.value = withTiming(
+      variant === 'secondary' ? 84 : 80,
+      { duration: 250, easing: Easing.linear },
+      () => {
+        runOnJS(setCircle)()
+      }
     )
-    setText(' ')
   }
   const containerStyle = useAnimatedStyle(
     () => ({
       width: containerWidth.value,
       opacity: opacity.value,
+      justifyContent: 'center',
+      alignItems: 'center',
     }),
     [containerWidth, opacity]
   )
@@ -54,12 +75,12 @@ export const CheckmarkButton = ({
       }) => {
         containerWidth.value = width
       }}>
-      <Animated.View style={[containerStyle, { justifyContent: 'center', alignItems: 'center' }]}>
-        {isCircle ? (
-          <CheckmarkLoading callback={() => onFinish()} loading={loading} />
-        ) : (
-          <CustomButton label={text} onPress={handlePress} {...props} />
-        )}
+      <Animated.View style={containerStyle}>
+        <CustomButton label={label} onPress={handlePress} variant={variant} {...props}>
+          {!isContentVisible && (
+            <Checkmark onFinish={onFinish} start={isCircle} color={checkmarkColor} />
+          )}
+        </CustomButton>
       </Animated.View>
     </Box>
   )
