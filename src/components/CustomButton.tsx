@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
 import { Text, Box, mkUseStyles, Theme } from 'utils/theme/index'
@@ -10,13 +10,14 @@ import IconApple from 'assets/icons/icon-apple.svg'
 type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
 type CustomButtonIcons = 'google' | 'apple'
 
-interface CustomButtonProps extends RectButtonProperties, FlexStyle {
+export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   label: string
   variant?: CustomButtonVariants
   icon?: CustomButtonIcons
   disabled?: boolean
   loading?: boolean
   onPress?: F0
+  children?: ReactNode
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
@@ -26,6 +27,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   disabled = false,
   loading = false,
   onPress,
+  children,
   ...rest
 }) => {
   const styles = useStyles()
@@ -76,13 +78,15 @@ export const CustomButton: FC<CustomButtonProps> = ({
         {loading ? (
           <ActivityIndicator size="small" color={textColor} />
         ) : (
-          <>
-            {icon === 'google' && <IconGoogle style={styles.icon} />}
-            {icon === 'apple' && <IconApple style={styles.icon} />}
-            <Text variant="buttonText1" style={{ color: textColor }}>
-              {label}
-            </Text>
-          </>
+          children || (
+            <>
+              {icon === 'google' && <IconGoogle style={styles.icon} />}
+              {icon === 'apple' && <IconApple style={styles.icon} />}
+              <Text variant="buttonText1" style={{ color: textColor }}>
+                {label}
+              </Text>
+            </>
+          )
         )}
       </Box>
     </RectButton>
