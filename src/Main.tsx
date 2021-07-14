@@ -4,13 +4,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
 
 import { UserContextProvider } from 'contexts/UserProvider'
-import { useAppColorScheme } from 'hooks/useAppColorScheme'
+import { useInitColorScheme } from 'hooks/useAppColorScheme'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 
 export const Main = () => {
   // FIXME: read from user preferences
-  const [colorScheme] = useAppColorScheme()
+  const [colorScheme] = useInitColorScheme()
 
   return (
     <ThemeProvider theme={colorScheme === 'dark' ? darkTheme : theme}>
