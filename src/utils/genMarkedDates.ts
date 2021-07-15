@@ -19,7 +19,7 @@ export const genMarkedDates = (start?: string, end?: string) => {
     }
   })
 
-  obj[dates[0]].startingDay = true
-  obj[dates[dates.length - 1]].endingDay = true
+  if (obj?.[dates?.[0]]) obj[dates[0]].startingDay = true
+  if (obj?.[dates?.[dates?.length - 1]]) obj[dates[dates.length - 1]].endingDay = true
   return obj
 }
