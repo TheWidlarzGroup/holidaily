@@ -4,7 +4,8 @@ import {
   advanceAnimationByTime,
 } from 'react-native-reanimated/src/reanimated2/jestUtils'
 import { act } from 'react-test-renderer'
-import { render, fireEvent } from '../../../jest/util'
+import { fireEvent } from '@testing-library/react-native'
+import { render } from '../../../jest/util'
 import { CheckmarkButton } from '../CheckmarkButton'
 
 test('Button fire callback after animation finished', () => {
