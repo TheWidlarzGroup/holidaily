@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
@@ -21,13 +20,11 @@ export const useLogin = () => {
   const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, LoginTypes>(
     loginMutation,
     {
-      onSuccess: async (data: UserTypes) => {
-        const { token, user } = data.loginUser
+      onSuccess: (data: UserTypes) => {
+        const { user } = data.loginUser
 
         if (user.confirmed) {
           updateUser({ ...user, isConfirmed: user.confirmed })
-
-          await SecureStorage.setItem('token', token)
         } else {
           const errorMessage = 'Please confirm your account'
 
