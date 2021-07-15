@@ -26,28 +26,30 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   )
 
   return (
-    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
-      <TeamHeader title={params.groupName} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Box paddingHorizontal="m" paddingBottom="xxl">
-          {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
-          {matesWithPlannedHolidays.length > 0 && (
-            <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
-          )}
-          {matesWithNoPlannedHolidays.length > 0 && (
-            <>
-              <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
-                {t('othersTeamMembers').toUpperCase()}
-              </Text>
-              <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
-                {matesWithNoPlannedHolidays.map((mate) => (
-                  <OtherMateElement key={mate.id} {...mate} />
-                ))}
-              </Box>
-            </>
-          )}
-        </Box>
-      </ScrollView>
-    </SafeAreaWrapper>
+    <Box flex={1} bg="white">
+      <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
+        <TeamHeader title={params.groupName} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Box paddingHorizontal="m" paddingBottom="xxl">
+            {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
+            {matesWithPlannedHolidays.length > 0 && (
+              <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
+            )}
+            {matesWithNoPlannedHolidays.length > 0 && (
+              <>
+                <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
+                  {t('othersTeamMembers').toUpperCase()}
+                </Text>
+                <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
+                  {matesWithNoPlannedHolidays.map((mate) => (
+                    <OtherMateElement key={mate.id} {...mate} />
+                  ))}
+                </Box>
+              </>
+            )}
+          </Box>
+        </ScrollView>
+      </SafeAreaWrapper>
+    </Box>
   )
 }

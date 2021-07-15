@@ -17,7 +17,7 @@ export const DashboardTeamMember: FC<DashboardTeamMemberProps> = ({ route }) => 
   const { goBack } = useNavigation()
 
   return (
-    <SafeAreaWrapper isDefaultBgColor>
+    <SafeAreaWrapper>
       <Box
         marginTop="m"
         padding="m"

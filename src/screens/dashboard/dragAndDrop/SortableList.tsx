@@ -20,7 +20,9 @@ export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
-  const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
+  const scrollStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: scrollY.value }],
+  }))
   const positions = useSharedValue<Positions>(
     // if positions object from database => { [child.props.groupId]: child.props.order }
     Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
@@ -45,6 +47,7 @@ export const SortableList = ({ children }: SortableListProps) => {
         ref={scrollView}
         contentContainerStyle={{
           height: Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET,
+          backgroundColor: 'transparent',
         }}
         showsVerticalScrollIndicator={false}
         bounces={false}

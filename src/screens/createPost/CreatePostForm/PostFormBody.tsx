@@ -1,7 +1,7 @@
 import React from 'react'
 import { useUserContext } from 'hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
-import { Box, mkUseStyles } from 'utils/theme'
+import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
 import { Gallery } from 'components/Gallery/Gallery'
@@ -38,11 +38,11 @@ export const PostBody = (props: PostBodyProps) => {
   )
 }
 
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme: Theme) => ({
   textInput: {
     flexGrow: 1,
-    padding: themeBase.spacing.m,
-    paddingBottom: themeBase.spacing.l,
-    borderColor: themeBase.colors.transparent,
+    padding: theme.spacing.m,
+    paddingBottom: theme.spacing.l,
+    borderColor: theme.colors.transparent,
   },
 }))

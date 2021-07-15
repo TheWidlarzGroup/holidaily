@@ -31,7 +31,9 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
     <SafeAreaWrapper edges={['bottom']}>
       <Animated.View style={[style, { flex: 1 }]}>
         <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
-          <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
+          <Tab.Navigator
+            sceneContainerStyle={styles.containerStyle}
+            tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
             <Tab.Screen
               name="DashboardNavigation"
               options={{ unmountOnBlur: true }}
@@ -49,8 +51,11 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
+  containerStyle: {
+    backgroundColor: theme.colors.transparent,
+  },
   safeAreaTop: {
     flex: 1,
-    backgroundColor: theme.colors.bottomTabBgColor,
+    backgroundColor: theme.colors.transparent,
   },
 }))

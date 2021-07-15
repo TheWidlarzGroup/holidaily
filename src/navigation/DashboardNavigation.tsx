@@ -8,7 +8,14 @@ import { DashboardRoutes } from './types'
 const DashboardStack = createStackNavigator<DashboardRoutes>()
 
 export const DashboardNavigation = () => (
-  <DashboardStack.Navigator headerMode="none" initialRouteName="Dashboard">
+  <DashboardStack.Navigator
+    headerMode="none"
+    initialRouteName="Dashboard"
+    screenOptions={{
+      cardStyle: {
+        backgroundColor: 'transparent',
+      },
+    }}>
     <DashboardStack.Screen name="Dashboard" component={Dashboard} />
     <DashboardStack.Screen name="DashboardTeam" component={DashboardTeam} />
     <DashboardStack.Screen name="DashboardTeamMember" component={DashboardTeamMember} />

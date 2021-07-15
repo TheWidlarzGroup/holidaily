@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Animated from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { theme } from 'utils/theme'
+import { mkUseStyles, Theme, theme } from 'utils/theme'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { Budget } from 'screens/budget/Budget'
@@ -17,6 +17,7 @@ const Drawer = createDrawerNavigator<DrawerRoutes>()
 export const DrawerNavigator = () => {
   const { t } = useTranslation('navigation')
   const { width } = useDimensions()
+  const styles = useStyles()
   let screenStyles = {}
   let drawerStyles = {}
   return (
@@ -47,7 +48,7 @@ export const DrawerNavigator = () => {
           shadowRadius: 10,
           elevation: screenShadowAndroid,
           borderWidth: 0,
-          backgroundColor: '#0000',
+          ...styles.cardStyles,
         }
         const drawerScale = Animated.interpolateNode(props.progress, {
           inputRange: [0, 1],
@@ -64,6 +65,7 @@ export const DrawerNavigator = () => {
         drawerStyles = {
           transform: [{ scale: drawerScale }, { translateX: drawerTranslate }],
           opacity: drawerOpacity,
+          ...styles.drawerStyles,
         }
         return <CustomDrawerContent {...props} style={drawerStyles} />
       }}
@@ -95,3 +97,12 @@ export const DrawerNavigator = () => {
     </Drawer.Navigator>
   )
 }
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  drawerStyles: {
+    backgroundColor: theme.colors.mainBackground,
+  },
+  cardStyles: {
+    backgroundColor: theme.colors.mainBackground,
+  },
+}))

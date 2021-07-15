@@ -32,7 +32,7 @@ export const colors = {
   errorRed: palette.red,
   disabled: palette.gray,
   disabledText: palette.grayLight,
-  mainBackground: palette.orangeLight,
+  mainBackground: palette.lightGrey,
   bottomTabBgColor: palette.grayLight,
   modalBackground: palette.grayModal,
   blackBtnRippleColor: palette.veryLightGray,

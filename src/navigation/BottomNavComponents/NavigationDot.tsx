@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
-import { theme } from 'utils/theme'
+import { mkUseStyles, Theme } from 'utils/theme'
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -19,6 +18,7 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex })
   const dotWidth = useSharedValue(5)
   const dotHeight = useSharedValue(5)
   const translateX = useSharedValue(startingPos)
+  const styles = useStyles()
 
   const progressStyle = useAnimatedStyle(() => ({
     transform: [
@@ -52,14 +52,14 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex })
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   dotContainer: {
     height: 5,
     marginBottom: 5,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
   },
   dot: {
     borderRadius: 2.5,
     backgroundColor: theme.colors.black,
   },
-})
+}))
