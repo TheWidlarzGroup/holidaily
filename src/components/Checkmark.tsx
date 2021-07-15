@@ -11,6 +11,7 @@ import Svg, { Color, Path, PathProps } from 'react-native-svg'
 type LayoutTypes = {
   onLayout?: F1<LayoutChangeEvent>
 }
+// eslint-disable-next-line
 const AnimatedPath: ComponentClass<Animated.AnimateProps<PathProps> & LayoutTypes, any> =
   Animated.createAnimatedComponent(Path)
 
@@ -24,6 +25,7 @@ type CheckmarkProps = {
 const Checkmark = ({ start, color, onFinish, width = 8 }: CheckmarkProps) => {
   const progress = useSharedValue(0)
   const [checkmarkLength, setCheckmarkLength] = useState(0)
+  // eslint-disable-next-line
   const checkmarkRef = useRef<typeof AnimatedPath | any>(null)
 
   useEffect(() => {
