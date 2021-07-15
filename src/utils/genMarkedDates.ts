@@ -18,7 +18,7 @@ export const genMarkedDates = (start?: string, end?: string) => {
       period: true,
     }
   })
-  console.log(obj[dates[0]])
+
   if (obj?.[dates?.[0]]) obj[dates[0]].startingDay = true
   if (obj?.[dates?.[dates?.length - 1]]) obj[dates[dates.length - 1]].endingDay = true
   return obj
