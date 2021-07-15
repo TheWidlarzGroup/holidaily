@@ -10,9 +10,6 @@ target 'Holidayly' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-  pod 'RNSecureStorage', :path => '../node_modules/react-native-secure-storage'
-
-
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
