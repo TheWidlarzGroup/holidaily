@@ -43,9 +43,10 @@ export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
 
   let nextDate = start
 
+  if (compareAsc(nextDate, end) === 0) dates.push(formatFromISO(nextDate, 'yyyy-MM-dd'))
   for (let i = 0; compareAsc(nextDate, end) < 0; i++) {
     nextDate = addDays(start, i)
-    dates.push(formatFromISO(nextDate, 'yyyy/MM/dd'))
+    dates.push(formatFromISO(nextDate, 'yyyy-MM-dd'))
   }
 
   return dates
