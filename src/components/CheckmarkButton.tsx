@@ -75,7 +75,7 @@ export const CheckmarkButton = ({
   }
   return (
     <Box alignItems="center" onLayout={measureWidth}>
-      <Animated.View style={containerStyle}>
+      <Animated.View style={containerStyle} testID="buttonContainer">
         <CustomButton label={label} onPress={handlePress} variant={variant} {...props}>
           {!isContentVisible && (
             <Checkmark onFinish={onFinish} start={isCircle} color={checkmarkColor} />
