@@ -7,6 +7,7 @@ import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
@@ -31,6 +32,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
+  useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
