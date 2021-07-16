@@ -104,7 +104,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       paddingHorizontal="m"
       justifyContent="center"
       alignItems="center"
-      marginTop="xxxl"
+      marginTop="xxl"
       marginBottom="xl">
       <RectButton
         onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
