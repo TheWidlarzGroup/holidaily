@@ -17,7 +17,7 @@ import IconBack from 'assets/icons/icon-back.svg'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 
 export const ChangePassword = () => {
-  const { control, handleSubmit, errors, watch, reset } = useForm()
+  const { control, handleSubmit, errors, watch, reset: resetForm } = useForm()
   const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('changePassword')
   const styles = useStyles()
@@ -39,7 +39,7 @@ export const ChangePassword = () => {
         <ChangesSavedModal isVisible hideModal={hideModal} content={t('newPasswordSaved')} />
       )
       setUserDidNotEditedPassword()
-      reset()
+      resetForm()
     }
   }
   const handleGoBack = () => {
@@ -72,8 +72,10 @@ export const ChangePassword = () => {
   }, [newPassword, confNewPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
   useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
-    return () => StatusBar.setBackgroundColor('white')
+    StatusBar.setBarStyle('light-content')
+    return () => {
+      StatusBar.setBarStyle('dark-content')
+    }
   }, [])
 
   return (
