@@ -1,5 +1,6 @@
 import React from 'react'
-import { ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import { ScrollView, SafeAreaView } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -16,7 +17,7 @@ import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
 export const EditProfile = () => {
-  const { goBack } = useNavigation()
+  const { navigate } = useNavigation()
   const { user } = useUserContext()
   const { firstName, lastName, role } = user
   const styles = useStyles()
@@ -41,14 +42,18 @@ export const EditProfile = () => {
     setEditedFalse()
     // TODO: function updating user data from const {firstName, lastName, role} = getValues()
   }
+  const handleGoBack = () => {
+    console.log('pressed')
+    navigate('Dashboard')
+  }
 
   return (
     <ModalProvider>
       <SafeAreaView style={styles.mainView}>
         <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
-          <TouchableOpacity onPress={goBack} style={styles.backBtn}>
+          <RectButton onPress={handleGoBack} style={styles.backBtn} activeOpacity={0.5}>
             <IconBack />
-          </TouchableOpacity>
+          </RectButton>
           <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
@@ -81,7 +86,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   backBtn: {
     position: 'absolute',
-    left: 0,
-    top: 65,
+    top: 20,
   },
 }))
