@@ -1,3 +1,4 @@
+import { useLanguage } from 'hooks/useLanguage'
 import React, { useState } from 'react'
 import { FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -8,6 +9,7 @@ import { MOCK_POSTS } from './MOCK_POSTS'
 
 export const Feed = () => {
   const [posts] = useState(MOCK_POSTS)
+  const [language] = useLanguage()
 
   return (
     <SafeAreaView>
@@ -17,6 +19,7 @@ export const Feed = () => {
           data={posts}
           renderItem={({ item }) => <FeedPost post={item} />}
           keyExtractor={({ meta }) => meta.id}
+          extraData={language}
         />
       </Box>
     </SafeAreaView>
