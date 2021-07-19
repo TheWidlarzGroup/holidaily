@@ -31,7 +31,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
 })
 EventsList.displayName = 'EventsList'
 
-const getItemLayout = (data: DayInfoProps[] | null | undefined, index: number) => {
+export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: number) => {
   if (!data)
     return {
       length: ITEM_HEIGHT,
@@ -41,8 +41,8 @@ const getItemLayout = (data: DayInfoProps[] | null | undefined, index: number) =
   let prevEventsCount = 0
   let prevWeekendsCount = 0
   for (let i = 0; i < index; i++) {
-    prevEventsCount += data[i].events?.length ? data[i].events?.length || 0 : 0
-    prevWeekendsCount += data[i].weekend ? 1 : 0
+    prevEventsCount += data[i]?.events?.length ? data[i].events?.length || 0 : 0
+    prevWeekendsCount += data[i]?.weekend ? 1 : 0
   }
   return {
     length: ITEM_HEIGHT,
