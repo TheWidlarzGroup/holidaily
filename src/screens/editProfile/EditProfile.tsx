@@ -1,11 +1,10 @@
 import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { mkUseStyles, Theme } from 'utils/theme'
+import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import IconBack from 'assets/icons/icon-back.svg'
@@ -51,9 +50,9 @@ export const EditProfile = () => {
     <ModalProvider>
       <SafeAreaView style={styles.mainView}>
         <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
-          <RectButton onPress={handleGoBack} style={styles.backBtn} activeOpacity={0.5}>
+          <BaseOpacity onPress={handleGoBack} style={styles.backBtn} activeOpacity={0.5}>
             <IconBack />
-          </RectButton>
+          </BaseOpacity>
           <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
