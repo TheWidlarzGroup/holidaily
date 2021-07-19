@@ -12,7 +12,7 @@ type SectionHeaderProps = {
 }
 
 export const SectionHeader = ({ text, onMore, onSearch, onFilter }: SectionHeaderProps) => (
-  <Box alignItems="center" flexDirection="row" marginHorizontal="s">
+  <Box alignItems="center" flexDirection="row" marginHorizontal="s" marginBottom="l">
     <Box flex={1} marginLeft="xxxl">
       <Text variant="boldBlack18" textAlign="center">
         {text}

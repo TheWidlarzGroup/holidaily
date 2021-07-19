@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native'
 
 import { Box, Text } from 'utils/theme'
 import { Request } from './components/Request'
@@ -14,13 +14,20 @@ export const Requests = () => {
     console.log('handleFilter')
   }
   return (
-    <Box marginTop="xxxl">
+    <Box marginTop="xxl" flex={1}>
       <SectionHeader text="Requests" onSearch={handleSearch} onFilter={handleFilter} />
       <FlatList
         data={MOCKED_REQUESTS}
         keyExtractor={({ key }) => key.toString()}
         renderItem={({ item }) => (
-          <Request title={item.title} date={item.startDate} duration="1 day" status={item.status} />
+          <TouchableOpacity activeOpacity={1}>
+            <Request
+              title={item.title}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              status={item.status}
+            />
+          </TouchableOpacity>
         )}
       />
       {/* <Request title="Day off" date="2 April 2021" duration="1 day" status="Now" />
