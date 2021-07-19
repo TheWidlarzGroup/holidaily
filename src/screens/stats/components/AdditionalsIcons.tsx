@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import IconMessage from 'assets/icons/icon-message-small.svg'
 import IconAttachment from 'assets/icons/icon-attachment-small.svg'
 import IconPill from 'assets/icons/icon-pill-small.svg'

@@ -1,11 +1,9 @@
 import React from 'react'
 
-import { Box, Text } from 'utils/theme'
-
 import IconDots from 'assets/icons/icon-dots.svg'
 import IconSearch from 'assets/icons/icon-search.svg'
 import IconFilter from 'assets/icons/icon-filter.svg'
-import { Pressable, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 type IconTypes = 'dots' | 'search' | 'filter'
 type SectionHeaderProps = {

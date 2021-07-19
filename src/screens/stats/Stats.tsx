@@ -7,7 +7,7 @@ import { MOCKED_STATS } from './MockedData'
 
 export const Stats = () => {
   const handleMore = () => {
-    console.log('more')
+    console.log('handleMore')
   }
   return (
     <Box>
