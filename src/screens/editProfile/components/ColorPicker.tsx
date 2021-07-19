@@ -23,8 +23,10 @@ export const ColorPicker = ({ hidePickerModal, setUserColor }: ColorPickerProps)
   const { showModal, hideModal } = useModalContext()
   const [selectedColor, setSelectedColor] = useState('transparent')
   useEffect(() => {
-    StatusBar.setBackgroundColor('rgba(0,0,0,0.85)')
-    return () => StatusBar.setBackgroundColor('white')
+    StatusBar.setBarStyle('light-content')
+    return () => {
+      StatusBar.setBarStyle('dark-content')
+    }
   }, [])
 
   const handleSelectColor = (item: ColorProps) => setSelectedColor(item.color)

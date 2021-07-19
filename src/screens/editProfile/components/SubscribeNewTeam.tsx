@@ -91,8 +91,10 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   }, [filterAlreadySubmittedSubscriptions])
 
   useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
-    return () => StatusBar.setBackgroundColor('white')
+    StatusBar.setBarStyle('light-content')
+    return () => {
+      StatusBar.setBarStyle('dark-content')
+    }
   }, [])
 
   const handleGoBack = () => {
@@ -236,7 +238,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginRight: theme.spacing.xm,
     paddingHorizontal: theme.spacing.ml,
     paddingVertical: theme.spacing.xm,
-    borderRadius: theme.borderRadii.xxl,
+    borderRadius: theme.borderRadii.l,
   },
   subscribedTeam: {
     backgroundColor: theme.colors.black,
@@ -244,7 +246,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginRight: theme.spacing.xm,
     paddingHorizontal: theme.spacing.ml,
     paddingVertical: theme.spacing.xm,
-    borderRadius: theme.borderRadii.xxl,
+    borderRadius: theme.borderRadii.l,
   },
   dropSearchBtn: {
     position: 'absolute',
