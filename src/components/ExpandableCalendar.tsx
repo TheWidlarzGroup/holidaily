@@ -23,6 +23,7 @@ import Animated, {
 import { isIos } from 'utils/layout'
 import { addMonths, addWeeks } from 'date-fns'
 import { startOfMonth, startOfWeek } from 'date-fns/esm'
+import { useLanguage } from 'hooks/useLanguage'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -52,6 +53,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     hidePicker()
     if (event === ACTION_DATE_SET) setSelectedDate(newDate)
   }
+
+  useLanguage()
   useEffect(() => {
     calendarRef?.current?.updateMonth(new XDate(selectedDate))
   }, [selectedDate])
