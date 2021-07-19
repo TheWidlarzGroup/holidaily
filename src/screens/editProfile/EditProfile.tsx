@@ -42,7 +42,6 @@ export const EditProfile = () => {
     // TODO: function updating user data from const {firstName, lastName, role} = getValues()
   }
   const handleGoBack = () => {
-    console.log('pressed')
     navigate('Dashboard')
   }
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StatusBar, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
@@ -69,13 +69,6 @@ export const ChangePassword = () => {
       setArePasswordsEqual()
     }
   }, [newPassword, confNewPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
-
-  useEffect(() => {
-    StatusBar.setBarStyle('dark-content')
-    return () => {
-      StatusBar.setBarStyle('dark-content')
-    }
-  }, [])
 
   return (
     <SafeAreaWrapper>
