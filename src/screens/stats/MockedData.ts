@@ -1,4 +1,4 @@
-import { Additional } from './components/Request'
+import { Additional } from './components/AdditionalsIcons'
 import { StatusTypes } from './components/Status'
 
 type RequestProps = {
@@ -22,6 +22,7 @@ export const MOCKED_REQUESTS: RequestProps[] = [
     startDate: '2021-07-01',
     endDate: '2021-07-12',
     status: 'Now',
+    additionals: ['attachment', 'comment', 'sick'],
   },
   {
     key: 2,
