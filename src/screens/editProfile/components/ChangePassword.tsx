@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { StatusBar, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { RectButton } from 'react-native-gesture-handler'
 import { useForm } from 'react-hook-form'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -12,12 +11,12 @@ import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { passwordRegex } from 'utils/regex'
-import { Box, Text, theme, mkUseStyles, Theme } from 'utils/theme'
+import { Box, Text, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 
 export const ChangePassword = () => {
-  const { control, handleSubmit, errors, watch, reset } = useForm()
+  const { control, handleSubmit, errors, watch, reset: resetForm } = useForm()
   const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('changePassword')
   const styles = useStyles()
@@ -39,7 +38,7 @@ export const ChangePassword = () => {
         <ChangesSavedModal isVisible hideModal={hideModal} content={t('newPasswordSaved')} />
       )
       setUserDidNotEditedPassword()
-      reset()
+      resetForm()
     }
   }
   const handleGoBack = () => {
@@ -71,11 +70,6 @@ export const ChangePassword = () => {
     }
   }, [newPassword, confNewPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
-  useEffect(() => {
-    StatusBar.setBackgroundColor(theme.colors.modalBackdrop)
-    return () => StatusBar.setBackgroundColor('white')
-  }, [])
-
   return (
     <SafeAreaWrapper>
       <Box flex={1} backgroundColor="modalBackdrop">
@@ -105,13 +99,12 @@ export const ChangePassword = () => {
             isError={!!errors.currPassword}
             onFocus={setUserEditedPassword}
           />
-          <RectButton
-            rippleColor={theme.colors.rippleColor}
-            activeOpacity={0.2}
+          <BaseOpacity
+            activeOpacity={0.5}
             onPress={navigateToForgotPassword}
             style={styles.forgottenPasswordBtn}>
             <Text variant="labelGrey">{t('forgotPasswordMessage')}</Text>
-          </RectButton>
+          </BaseOpacity>
           <FormInput
             control={control}
             errors={errors}
