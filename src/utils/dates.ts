@@ -4,7 +4,6 @@ import {
   differenceInBusinessDays,
   format,
   getDay,
-  getMonth,
   isSameMonth,
   isSameYear,
   parseISO as FNSParseISO,
