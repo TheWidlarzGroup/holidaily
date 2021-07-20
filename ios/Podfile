@@ -11,9 +11,7 @@ target 'Holidayly' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-  pod 'RNSecureStorage', :path => '../node_modules/react-native-secure-storage'
 
 
   # Enables Flipper.
