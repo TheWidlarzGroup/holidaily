@@ -7397,11 +7397,6 @@ react-native-fast-image@^8.3.4:
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.4.tgz#79edca177e30311b19d59ff335625bcbe22650d7"
   integrity sha512-LpzAdjUphihUpVEBn5fEv5AILe55rHav0YiZroPZ1rumKDhAl4u2cG01ku2Pb7l8sayjTsNu7FuURAlXUUDsow==
 
-react-native-geolocation-service@^5.3.0-beta.1:
-  version "5.3.0-beta.1"
-  resolved "https://registry.yarnpkg.com/react-native-geolocation-service/-/react-native-geolocation-service-5.3.0-beta.1.tgz#91b78e8f87caa0fd4fd1a2384bb48a6309ec715a"
-  integrity sha512-VfocBBSrUfXAdMikWYy8IY9ndzzn0uOM15ncs7DUMQvCpnayC92PJtRSZrSGKEuUubUkcXRqvZIMowZDMwHGVA==
-
 react-native-gesture-handler@^1.10.3:
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz#942bbf2963bbf49fa79593600ee9d7b5dab3cfc0"
