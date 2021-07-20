@@ -85,7 +85,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginRight: theme.spacing.s,
     marginBottom: theme.spacing.m,
     backgroundColor: theme.colors.black,
-    borderRadius: 100,
+    borderRadius: theme.spacing.l,
     justifyContent: 'center',
     alignItems: 'center',
   },

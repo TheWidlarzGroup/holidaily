@@ -159,7 +159,14 @@
     "postCommentBtn": "Comment",
     "comments": "Comments",
     "noComments": "No comments yet",
-    "createPostLabel": "Send greetings..."
+    "createPostLabel": "What's up?"
+  },
+  "createPost": {
+    "title": "Create Post",
+    "clearPost": "Clear",
+    "inputPlaceholder": "What's up?",
+    "sendPost": "Post",
+    "postSent": "Post published!"
   },
   "settings": {
     "name": "Settings",
@@ -170,7 +177,7 @@
     "biometric": "Biometric passcode",
     "changed": "has been changed!"
   },
-  "loader":{
+  "loader": {
     "wait": "Wait a second..."
   }
 }

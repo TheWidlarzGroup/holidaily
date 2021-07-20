@@ -12,7 +12,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@jake7/react-native-emoji-keyboard": "0.1.1-beta.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-firebase/app": "^12.1.0",
+    "@react-native-firebase/crashlytics": "^12.1.0",
     "@react-navigation/bottom-tabs": "^5.11.10",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.3",
@@ -40,7 +43,6 @@
     "react-native-reanimated": "^2.0.1",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.18.1",
-    "react-native-secure-storage": "^0.1.2",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-query": "^3.13.4",
@@ -50,6 +52,8 @@
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
+    "@testing-library/jest-native": "^4.0.1",
+    "@testing-library/react-native": "^7.2.0",
     "@twgdev/prettier-config": "^1.0.2",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.14.25",
@@ -91,6 +95,12 @@
       "jsx",
       "json",
       "node"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest-setup.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
     ]
   }
 }

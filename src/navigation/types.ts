@@ -145,6 +145,7 @@ export type ModalRoutes = {
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
+  CreatePost: undefined
 }
 
 export type DashboardRoutes = {
