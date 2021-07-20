@@ -22,6 +22,7 @@
     "@types/react-native-dotenv": "^0.2.0",
     "date-fns": "^2.22.1",
     "deepmerge": "^4.2.2",
+    "expo-location": "^12.1.2",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "i18next": "^20.1.0",

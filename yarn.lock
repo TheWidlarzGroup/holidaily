@@ -4118,6 +4118,14 @@ expo-image-loader@~2.2.0:
   resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-2.2.0.tgz#b5d49ec65e576c033823050b223ef462c5ec5711"
   integrity sha512-kTs/lW8LUXYFQ5t8wkdJs0A41zd7dIB8uRRC0a9L0EurSGUvQWiVTbHQoLo/GYWL7nM85OaPAe2qkHfcz5KeyA==
 
+expo-location@^12.1.2:
+  version "12.1.2"
+  resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-12.1.2.tgz#66641a087f1aa4231c9e49ea9d520438d3e35f33"
+  integrity sha512-6P/JR8xkw7UjifiDhyvgYtGZ1iKSLjmAcb0Ksirh3jA3Sao7dbz5ykPu44+UnUZ/SLVqaScJoyMkGclFrtzu8Q==
+  dependencies:
+    "@expo/config-plugins" "^3.0.0"
+    expo-modules-core "~0.2.0"
+
 expo-modules-autolinking@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-0.0.3.tgz#45ba8cb1798f9339347ae35e96e9cc70eafb3727"
