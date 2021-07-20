@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
 import { SliderItem } from './SliderItem'
 
@@ -22,7 +22,9 @@ export const CategoriesSlider = ({
       horizontal
       data={filterCategories}
       renderItem={({ item }) => (
-        <SliderItem {...item} toggleItemSelection={() => toggleFilterItemSelection(item.id)} />
+        <TouchableOpacity activeOpacity={1}>
+          <SliderItem {...item} toggleItemSelection={() => toggleFilterItemSelection(item.id)} />
+        </TouchableOpacity>
       )}
       ListHeaderComponent={() => <Box width={8} />}
       ListFooterComponent={() => <Box width={8} />}
