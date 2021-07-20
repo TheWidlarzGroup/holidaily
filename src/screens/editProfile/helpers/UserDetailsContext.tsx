@@ -23,7 +23,7 @@ export const useUserDetailsContext = () => useContext(UserDetailsContext)
 
 export const UserDetailsProvider = ({ children }: ContextProviderProps) => {
   const [userTeams, setUserTeams] = useState<TeamsType[]>([])
-  const [userColor, setUserColor] = useState('')
+  const [userColor, setUserColor] = useState('orange')
 
   return (
     <UserDetailsContext.Provider value={{ userTeams, setUserTeams, userColor, setUserColor }}>
