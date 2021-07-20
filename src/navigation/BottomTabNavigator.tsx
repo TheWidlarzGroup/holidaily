@@ -7,7 +7,7 @@ import { mkUseStyles, Theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Feed } from 'screens/feed/Feed'
-import { Chat } from 'screens/chat/Chat'
+import { StatsAndRequests } from 'screens/stats/StatsAndRequests'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
@@ -39,7 +39,7 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
             />
             <Tab.Screen name="Calendar" component={Calendar} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
-            <Tab.Screen name="Stats" component={Chat} />
+            <Tab.Screen name="Stats" component={StatsAndRequests} />
             <Tab.Screen name="Feed" component={Feed} />
           </Tab.Navigator>
         </SafeAreaView>

@@ -4,6 +4,7 @@ import {
   getDatesBetween,
   getDayName,
   getFormattedPeriod,
+  getNumberOfWorkingDaysBetween,
 } from 'utils/dates'
 import { parseISO } from 'date-fns'
 import { setCurrentLocale } from 'utils/locale'
@@ -41,13 +42,13 @@ describe('getsMonthName', () => {
 describe('getDatesBeetween', () => {
   it('returns the correct dates', () => {
     const dates = getDatesBetween('2021-06-19', '2021-06-22')
-    const expected = ['2021/06/19', '2021/06/20', '2021/06/21', '2021/06/22']
+    const expected = ['2021-06-19', '2021-06-20', '2021-06-21', '2021-06-22']
     expect(dates).toMatchObject(expected)
   })
 
   it('works on months change', () => {
     const dates = getDatesBetween('2021-06-29', '2021-07-02')
-    const expected = ['2021/06/29', '2021/06/30', '2021/07/01', '2021/07/02']
+    const expected = ['2021-06-29', '2021-06-30', '2021-07-01', '2021-07-02']
     expect(dates).toMatchObject(expected)
   })
 })
@@ -73,5 +74,15 @@ describe('getFormattedPeriod', () => {
     await setCurrentLocale('pl')
     const polishResult = getFormattedPeriod(dateA, dateB)
     expect(polishResult).toBe('29 cze - 2 lip')
+  })
+})
+
+describe('getWorkingDaysBetween', () => {
+  it('should return valid number of working days between passed dates', () => {
+    const dateA = new Date('2021-07-01')
+    const dateB = new Date('2021-07-12')
+
+    const result = getNumberOfWorkingDaysBetween(dateA, dateB)
+    expect(result).toBe(8)
   })
 })

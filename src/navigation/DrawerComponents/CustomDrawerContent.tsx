@@ -8,13 +8,12 @@ import { useUserContext } from 'hooks/useUserContext'
 import { emptyUser } from 'contexts/UserProvider'
 import { getDrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
-import { MOCK_DATA } from 'navigation/DrawerComponents/MockData'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { t } = useTranslation('navigation')
-  const { updateUser } = useUserContext()
+  const { updateUser, user } = useUserContext()
 
   const handleLogout = () => {
     updateUser(emptyUser)
@@ -22,11 +21,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
   return (
     <SafeAreaWrapper>
       <Animated.View style={[style, { flex: 1 }]}>
-        <DrawerHeader
-          firstName={MOCK_DATA.firstName}
-          lastName={MOCK_DATA.lastName}
-          job={MOCK_DATA.job}
-        />
+        <DrawerHeader firstName={user.firstName} lastName={user.lastName} job={user.role} />
         <Box flex={1} marginTop="xxl" alignItems="flex-start">
           {props.state.routes.map(
             ({ name, key }) =>
