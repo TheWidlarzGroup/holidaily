@@ -14,13 +14,13 @@ const ProfileStack = createStackNavigator<UserProfileRoutes>()
 export const ProfileNavigation = () => (
   <ModalProvider>
     <UserDetailsProvider>
-      <ProfileStack.Navigator headerMode="none" initialRouteName="EditProfile">
+      <ProfileStack.Navigator headerMode="none" initialRouteName="EditProfile" mode="modal">
         <ProfileStack.Screen name="EditProfile" component={EditProfile} />
         <ProfileStack.Screen name="ChangePassword" component={ChangePassword} />
         <ProfileStack.Screen
           name="ColorPicker"
           component={BubbleContainer}
-          options={{ cardStyle: { opacity: 0.8 } }}
+          options={{ cardStyle: { opacity: 0.95 } }}
         />
         <ProfileStack.Screen name="SubscribeTeam" component={SubscribeNewTeam} />
         <ProfileStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
