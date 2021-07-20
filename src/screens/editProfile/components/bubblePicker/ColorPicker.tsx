@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StatusBar, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { CustomModal } from 'components/CustomModal'
 import { mkUseStyles, Theme, Text, Box } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back-white.svg'
@@ -21,11 +21,7 @@ export const ColorPicker = ({ hidePickerModal, setUserColor }: ColorPickerProps)
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   const { showModal, hideModal } = useModalContext()
-  const [selectedColor, setSelectedColor] = useState('transparent')
-  useEffect(() => {
-    StatusBar.setBackgroundColor('rgba(0,0,0,0.85)')
-    return () => StatusBar.setBackgroundColor('white')
-  }, [])
+  const [selectedColor, setSelectedColor] = useState('')
 
   const handleSelectColor = (item: ColorProps) => setSelectedColor(item.color)
   const handleSubmitColor = () => {
@@ -76,7 +72,7 @@ export const ColorPicker = ({ hidePickerModal, setUserColor }: ColorPickerProps)
       </Box>
       <TouchableOpacity onPress={handleSubmitColor}>
         <Box width={56} height={56} style={{ backgroundColor: selectedColor }} borderRadius="full">
-          {selectedColor !== 'transparent' && <IconBack style={styles.arrow} />}
+          {selectedColor !== '' && <IconBack style={styles.arrow} />}
         </Box>
       </TouchableOpacity>
     </CustomModal>
