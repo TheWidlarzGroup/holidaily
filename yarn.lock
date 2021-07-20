@@ -6904,6 +6904,11 @@ react-native-screens@^2.18.1:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.18.1.tgz#47b9991c6f762d00d0ed3233e5283d523e859885"
   integrity sha512-r5WZLpmx2hHjC1RgMdPq5YpSU9tEhBpUaZ5M1SUtNIONyiLqQVxabhRCINdebIk4depJiIl7yw2Q85zJyeX6fw==
 
+react-native-siri-shortcut@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-siri-shortcut/-/react-native-siri-shortcut-2.0.1.tgz#4567ecc24d88d658067989d13469ff0ccb8aae94"
+  integrity sha512-jjFHbxjiwyXCQjsWUhkW6YxtkxfFbs0STz/0/K9elPO+KBGT7KICO74acY/GrpBOktrT3fNDisP8E63Tg+01og==
+
 react-native-svg-transformer@^0.14.3:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/react-native-svg-transformer/-/react-native-svg-transformer-0.14.3.tgz#43c8e176f5a11f16f39b87a64018e0ac090ffbdb"
