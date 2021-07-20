@@ -179,5 +179,9 @@
   },
   "loader": {
     "wait": "Wait a second..."
+  },
+  "stats": {
+    "day": "day",
+    "days": "days"
   }
 }
