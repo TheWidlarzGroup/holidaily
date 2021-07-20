@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSUserActivityTypes</key>
-	<array>
-		<string>com.holidaily.AddRequest</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -68,5 +64,9 @@
 	<string>Access to take photo/capture video</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Access to capture Microphone</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.holidaily.AddRequest</string>
+	</array>
 </dict>
 </plist>
