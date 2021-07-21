@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, useWindowDimensions } from 'react-native'
+import React, { useEffect } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -9,73 +10,46 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated'
-import IconBack from 'assets/icons/icon-back-white.svg'
 import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
 import { useNavigation } from '@react-navigation/native'
-import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { useModalContext } from 'contexts/ModalProvider'
 
 type BubbleProps = {
-  id: number | string
   color: string
   diameter: number
   position: { x: number; y: number }
-  setSelection: F1<number | string>
-  selection: number | string
-  prevSelection: number | string | undefined
+  dropArea: number
+  setDropColor: F1<string>
+  animateDropArea: F0
 }
 
 export const Bubble = ({
-  id,
   color,
   diameter,
   position,
-  prevSelection,
-  selection,
-  setSelection,
+  dropArea,
+  setDropColor,
+  animateDropArea,
 }: BubbleProps) => {
   const navigation = useNavigation()
   const { height, width } = useWindowDimensions()
-  const { showModal, hideModal } = useModalContext()
   const { setUserColor } = useUserDetailsContext()
-
-  const [showArrow, setShowArrow] = useState(false)
-
-  const centerX = width / 2 - diameter / 2
-  const centerY = height / 2 - diameter / 2
 
   const initialX = position.x
   const initialY = position.y
   const translateX = useSharedValue(initialX)
   const translateY = useSharedValue(initialY)
   const bubbleSize = useSharedValue(0)
+  const draggedBubbleScale = useSharedValue(1)
+  const BubbleOpacity = useSharedValue(1)
 
-  const randomFromRange = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1) + min)
-
-  useEffect(() => {
-    if (selection !== id) {
-      setShowArrow(false)
-    }
-  }, [id, selection, showArrow])
-
-  useEffect(() => {
-    if (prevSelection === id) {
-      translateX.value = withTiming(randomFromRange(diameter, width - diameter), { duration: 500 })
-      translateY.value = withTiming(randomFromRange(95, height - diameter), { duration: 500 })
-    }
-  }, [diameter, height, id, prevSelection, translateX, translateY, width])
+  const randomDelay = Math.floor(Math.random() * 600)
 
   const handleSelection = () => {
-    if (showArrow && translateX.value === centerX && translateY.value === centerY) {
-      setUserColor(color)
-      showModal(<ChangesSavedModal isVisible content={'New color saved'} hideModal={hideModal} />)
-      navigation.goBack()
-    }
-    translateX.value = withTiming(centerX, { duration: 200 })
-    translateY.value = withTiming(centerY, { duration: 200 })
-    setShowArrow(true)
-    setSelection(id)
+    setUserColor(color)
+    setDropColor(color)
+    BubbleOpacity.value = 0
+    animateDropArea()
+    setTimeout(() => navigation.goBack(), 1500)
   }
 
   const gestureHandler = useAnimatedGestureHandler<
@@ -92,20 +66,27 @@ export const Bubble = ({
     onActive: (event, ctx) => {
       translateX.value = ctx.offsetX + event.translationX
       translateY.value = ctx.offsetY + event.translationY
+      if (translateY.value > dropArea) {
+        draggedBubbleScale.value = withTiming(1.2, { duration: 200 })
+      } else {
+        draggedBubbleScale.value = withTiming(1, { duration: 200 })
+      }
     },
     onEnd: ({ velocityX, velocityY }) => {
       translateX.value = withDecay({ velocity: velocityX, clamp: [0, width - diameter] })
-      translateY.value = withDecay({ velocity: velocityY, clamp: [90, height - diameter] })
+      translateY.value = withDecay({ velocity: velocityY, clamp: [130, height - diameter] })
+      if (translateY.value > dropArea && draggedBubbleScale.value > 1) {
+        runOnJS(handleSelection)()
+      }
     },
   })
+
   // eslint-disable-next-line arrow-body-style
   const ViewStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
     }
   })
-  const randomDelay = Math.floor(Math.random() * 600)
-
   // eslint-disable-next-line arrow-body-style
   const BubbleStyle = useAnimatedStyle(() => {
     return {
@@ -122,6 +103,8 @@ export const Bubble = ({
         })
       ),
       borderRadius: withDelay(randomDelay, withTiming(bubbleSize.value, { duration: 600 })),
+      transform: [{ scale: draggedBubbleScale.value }],
+      opacity: BubbleOpacity.value,
     }
   })
 
@@ -132,19 +115,14 @@ export const Bubble = ({
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={ViewStyle}>
-        <TouchableOpacity onPress={handleSelection} activeOpacity={0.8}>
-          <Animated.View
-            style={[
-              BubbleStyle,
-              {
-                backgroundColor: color,
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-            ]}>
-            {showArrow && <IconBack style={{ transform: [{ rotate: '180deg' }] }} />}
-          </Animated.View>
-        </TouchableOpacity>
+        <Animated.View
+          style={[
+            BubbleStyle,
+            {
+              backgroundColor: color,
+            },
+          ]}
+        />
       </Animated.View>
     </PanGestureHandler>
   )
