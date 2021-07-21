@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
 
@@ -9,14 +9,15 @@ export const Carousel = () => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {companyHolidaysData.map((item) => (
-        <CarouselElement
-          key={item.id}
-          isOnHoliday={item.isOnHoliday}
-          firstName={item.user.firstName}
-          lastName={item.user.lastName}
-          photo={item.user.photo}
-          dayToBeDisplayed={item.dayToBeDisplayed}
-        />
+        <TouchableOpacity key={item.id} activeOpacity={1}>
+          <CarouselElement
+            isOnHoliday={item.isOnHoliday}
+            firstName={item.user.firstName}
+            lastName={item.user.lastName}
+            photo={item.user.photo}
+            dayToBeDisplayed={item.dayToBeDisplayed}
+          />
+        </TouchableOpacity>
       ))}
     </ScrollView>
   )

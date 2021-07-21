@@ -1,6 +1,6 @@
 import React from 'react'
 import { DayInfo, DayInfoProps } from 'screens/calendar/components/DayInfo'
-import { FlatList } from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 
@@ -17,7 +17,9 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
       <FlatList
         data={days}
         renderItem={({ item }) => (
-          <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
+          <TouchableOpacity activeOpacity={1}>
+            <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
+          </TouchableOpacity>
         )}
         extraData={[days, language]}
         keyExtractor={(item) => item.date}
