@@ -141,6 +141,7 @@ export type ModalRoutes = {
   RequestVacation?: {
     start: string
     end: string
+    action: string
   }
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>

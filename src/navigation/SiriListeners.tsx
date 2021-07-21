@@ -7,8 +7,7 @@ export const SiriListeners = () => {
   useEffect(() => {
     SiriShortcutsEvent.addListener('SiriShortcutListener', ({ activityType, userInfo }) => {
       if (activityType === 'com.holidaily.AddRequest') {
-        console.log(userInfo)
-        navigation.navigate('RequestVacation')
+        navigation.navigate('RequestVacation', userInfo)
       }
     })
     return () => {

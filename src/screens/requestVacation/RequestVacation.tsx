@@ -15,7 +15,6 @@ import { RequestSent } from './components/RequestSent'
 
 export type RequestDataTypes = {
   description: string
-  sickTime: boolean
   message: string
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
@@ -27,7 +26,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const [description, setDescription] = useState('')
-  const [sickTime, setSickTime] = useState(false)
+  const [sickTime, { setTrue: setSickTime, setFalse: unsetSickTime, toggle: toggleSickTime }] =
+    useBooleanState(false)
   const [message, setMessage] = useState('')
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
@@ -42,9 +42,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, sickTime, message })
+    const newData = callback({ description, message })
     setDescription(newData.description)
-    setSickTime(newData.sickTime)
     setMessage(newData.message)
   }
 
@@ -54,7 +53,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setStartDate(undefined)
     setEndDate(undefined)
     setDescription('')
-    setSickTime(false)
+    unsetSickTime()
     setMessage('')
   }
 
@@ -62,7 +61,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     const { params } = route
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
-  }, [route, route.params])
+    if (params?.action === 'sickday') setSickTime()
+  }, [route, route.params, setSickTime])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,6 +73,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
       {step === 0 && (
         <FormRequestVacation
           nextStep={() => setStep(1)}
+          sickTime={sickTime}
+          toggleSickTime={toggleSickTime}
           changeRequestData={changeRequestData}
           date={{ start: startDate, end: endDate }}
           message={message}
