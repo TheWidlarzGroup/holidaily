@@ -209,7 +209,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     position: 'absolute',
     width: 1000,
     borderRadius: 500,
-    opacity: 0.75,
     shadowColor: shadow.md.shadowColor,
     shadowRadius: shadow.md.shadowRadius,
     shadowOpacity: shadow.md.shadowOpacity,
