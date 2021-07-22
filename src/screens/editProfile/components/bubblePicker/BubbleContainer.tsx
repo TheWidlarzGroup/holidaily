@@ -156,11 +156,12 @@ export const BubbleContainer = () => {
           {
             backgroundColor: dropColor,
             left: width / 2 - 500,
-            zIndex: dropColor === '#F3F3F3' ? 0 : 1,
+            zIndex: dropColor === '#F3F3F3' ? 0 : 3,
           },
         ]}></Animated.View>
       {animateCheckmark && (
         <Box
+          style={styles.scaleCheckmark}
           position="absolute"
           top={checkmarkCenter.y}
           left={checkmarkCenter.x}
@@ -198,7 +199,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     position: 'absolute',
     left: 0,
     top: 65,
-    zIndex: theme.zIndices['5'],
+    zIndex: theme.zIndices['2'],
   },
   mainContainer: {
     flex: 1,
@@ -213,5 +214,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowRadius: shadow.md.shadowRadius,
     shadowOpacity: shadow.md.shadowOpacity,
     shadowOffset: shadow.md.shadowOffset,
+  },
+  scaleCheckmark: {
+    transform: [{ scale: 2 }],
   },
 }))
