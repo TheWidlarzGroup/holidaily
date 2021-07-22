@@ -40,69 +40,67 @@ export const SignupEmail = () => {
 
   return (
     <SafeAreaWrapper>
-      <KeyboardAwareScrollView>
-        <Box padding="l" justifyContent="center" marginTop="l">
+      <KeyboardAwareScrollView style={styles.formContainer}>
+        <Box justifyContent="center" paddingVertical="xxxl">
           <Text variant="title1">{t('signupEmailTitle')}</Text>
         </Box>
-        <Box style={styles.formContainer}>
-          <Box>
-            <FormInput
-              control={control}
-              isError={!!errors.nameSurname}
-              errors={errors}
-              name="nameSurname"
-              inputLabel={t('nameSurname')}
-              validationPattern={minTwoWordsRegex}
-              errorMessage={t('nameSurnameErrMsg')}
-              onSubmitEditing={() => onSubmitEditing(0)}
-              blurOnSubmit={false}
-            />
-          </Box>
-          <Box>
-            <FormInput
-              control={control}
-              isError={!!errors.companyName}
-              errors={errors}
-              name="companyName"
-              inputLabel={t('companyName')}
-              validationPattern={minOneSignRegex}
-              errorMessage={t('nameSurnameErrMsg')}
-              onSubmitEditing={() => onSubmitEditing(1)}
-              blurOnSubmit={false}
-              ref={inputsRefs[0]}
-            />
-          </Box>
-          <Box>
-            <FormInput
-              control={control}
-              isError={!!errors.email}
-              errors={errors}
-              name="email"
-              inputLabel={t('email')}
-              validationPattern={emailRegex}
-              errorMessage={t('invalidEmailErr')}
-              onSubmitEditing={() => onSubmitEditing(2)}
-              keyboardType="email-address"
-              autoCompleteType="email"
-              autoCapitalize="none"
-              blurOnSubmit={false}
-              ref={inputsRefs[1]}
-            />
-          </Box>
-          <Box>
-            <FormInput
-              control={control}
-              isError={!!errors.password}
-              errors={errors}
-              name="password"
-              inputLabel={t('password')}
-              validationPattern={passwordRegex}
-              errorMessage={t('nameSurnameErrMsg')}
-              ref={inputsRefs[2]}
-              signupPasswordHint={t('passwordHint')}
-              isPasswordIconVisible
-            />
-          </Box>
+        <Box>
+          <FormInput
+            control={control}
+            isError={!!errors.nameSurname}
+            errors={errors}
+            name="nameSurname"
+            inputLabel={t('nameSurname')}
+            validationPattern={minTwoWordsRegex}
+            errorMessage={t('nameSurnameErrMsg')}
+            onSubmitEditing={() => onSubmitEditing(0)}
+            blurOnSubmit={false}
+          />
+        </Box>
+        <Box>
+          <FormInput
+            control={control}
+            isError={!!errors.companyName}
+            errors={errors}
+            name="companyName"
+            inputLabel={t('companyName')}
+            validationPattern={minOneSignRegex}
+            errorMessage={t('nameSurnameErrMsg')}
+            onSubmitEditing={() => onSubmitEditing(1)}
+            blurOnSubmit={false}
+            ref={inputsRefs[0]}
+          />
+        </Box>
+        <Box>
+          <FormInput
+            control={control}
+            isError={!!errors.email}
+            errors={errors}
+            name="email"
+            inputLabel={t('email')}
+            validationPattern={emailRegex}
+            errorMessage={t('invalidEmailErr')}
+            onSubmitEditing={() => onSubmitEditing(2)}
+            keyboardType="email-address"
+            autoCompleteType="email"
+            autoCapitalize="none"
+            blurOnSubmit={false}
+            ref={inputsRefs[1]}
+          />
+        </Box>
+        <Box>
+          <FormInput
+            control={control}
+            isError={!!errors.password}
+            errors={errors}
+            name="password"
+            inputLabel={t('password')}
+            validationPattern={passwordRegex}
+            errorMessage={t('nameSurnameErrMsg')}
+            ref={inputsRefs[2]}
+            signupPasswordHint={t('passwordHint')}
+            isPasswordIconVisible
+          />
         </Box>
       </KeyboardAwareScrollView>
       <Box
@@ -136,7 +134,5 @@ export const SignupEmail = () => {
 const useStyles = mkUseStyles((theme: Theme) => ({
   formContainer: {
     marginHorizontal: theme.spacing.l,
-    marginTop: theme.spacing.l,
-    flexGrow: 1,
   },
 }))
