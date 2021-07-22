@@ -45,6 +45,7 @@
     "react-native-screens": "^2.18.1",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
+    "react-native-unimodules": "^0.14.6",
     "react-query": "^3.13.4",
     "xdate": "^0.8.2"
   },
