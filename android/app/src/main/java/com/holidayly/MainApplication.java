@@ -23,6 +23,7 @@ import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 
 public class MainApplication extends Application implements ReactApplication {
+  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
@@ -40,12 +41,12 @@ public class MainApplication extends Application implements ReactApplication {
         // Packages that cannot be autolinked yet can be added manually here, for example:
         // packages.add(new MyReactNativePackage());
         packages.add(new SoftInputModePackage());
-
+         
         // Add unimodules
         List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
           new ModuleRegistryAdapter(mModuleRegistryProvider)
         );
-        
+        packages.addAll(unimodules);
         return packages;
       }
 

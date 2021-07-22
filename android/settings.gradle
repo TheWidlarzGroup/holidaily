@@ -1,7 +1,5 @@
 rootProject.name = 'Holidayly'
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'; includeUnimodulesProjects()
-include ':react-native-secure-storage'
-project(':react-native-secure-storage').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-secure-storage/android')
 
 include ':react-native-svg'
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
