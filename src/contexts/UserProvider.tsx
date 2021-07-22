@@ -1,5 +1,6 @@
 import React, { ReactNode, useState, memo, FC, useEffect } from 'react'
 import { USER_DATA } from 'utils/mocks/userMocks'
+import { getItemAsync } from 'expo-secure-store'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
 type ProviderProps = {
@@ -17,6 +18,14 @@ export const emptyUser = {
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState<UserData>(emptyUser)
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
+    ;(async () => {
+      const token = await getItemAsync('token')
+      if (token !== null) updateUser(USER_DATA)
+    })()
+  }, [])
 
   useEffect(() => {
     // Comment: Mocking user data, remove when BE ready

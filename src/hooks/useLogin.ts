@@ -4,6 +4,7 @@ import { useMutation } from 'react-query'
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
+import { setItemAsync } from 'expo-secure-store'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
@@ -20,11 +21,12 @@ export const useLogin = () => {
   const { mutate: handleLoginUser, isLoading } = useMutation<UserTypes, ErrorTypes, LoginTypes>(
     loginMutation,
     {
-      onSuccess: (data: UserTypes) => {
-        const { user } = data.loginUser
+      onSuccess: async (data: UserTypes) => {
+        const { token, user } = data.loginUser
 
         if (user.confirmed) {
           updateUser({ ...user, isConfirmed: user.confirmed })
+          await setItemAsync('token', token)
         } else {
           const errorMessage = 'Please confirm your account'
 
