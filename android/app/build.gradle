@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: 'com.google.gms.google-services' // google firebase and crashlytics
 apply plugin: 'com.google.firebase.crashlytics'
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 import com.android.build.OutputFile
 
@@ -202,6 +203,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    addUnimodulesDependencies()
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
