@@ -11,7 +11,6 @@ import { SickTime } from './SickTime'
 
 type RequestDataTypes = {
   description: string
-  sickTime: boolean
   message: string
 }
 
@@ -20,6 +19,8 @@ type FormRequestVacationProps = {
     start?: Date
     end?: Date
   }
+  sickTime: boolean
+  toggleSickTime: F0
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
   message: string
@@ -27,11 +28,12 @@ type FormRequestVacationProps = {
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   date,
+  sickTime,
+  toggleSickTime,
   nextStep,
   changeRequestData,
   message,
 }) => {
-  const [sickTime, { toggle }] = useBooleanState(false)
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
 
@@ -53,7 +55,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     <Box flex={1}>
       <ScrollView style={{ padding: 20 }}>
         <Details onDescriptionChange={handleDescriptionChange} date={date} />
-        <SickTime sickTime={sickTime} toggle={toggle} />
+        <SickTime sickTime={sickTime} toggle={toggleSickTime} />
         <Additionals
           onPressMessage={toggleShowMessageInput}
           messageContent={showMessageInput ? '' : message}

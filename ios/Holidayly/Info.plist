@@ -62,6 +62,10 @@
 	<string>Access to take photo/capture video</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Access to capture Microphone</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.holidaily.AddRequest</string>
+	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
