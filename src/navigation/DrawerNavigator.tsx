@@ -8,6 +8,7 @@ import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { Budget } from 'screens/budget/Budget'
 import { DrawerRoutes } from 'navigation/types'
+import { useSiriListeners } from 'hooks/useSiriListeners'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -19,6 +20,7 @@ export const DrawerNavigator = () => {
   const { width } = useDimensions()
   let screenStyles = {}
   let drawerStyles = {}
+  useSiriListeners()
   return (
     <Drawer.Navigator
       initialRouteName="Home"
