@@ -1,39 +1,128 @@
-import { useCallback } from 'react'
-import Geo, { GeoPosition } from 'react-native-geolocation-service'
+/* eslint-disable no-continue */
+import { useCallback, useMemo } from 'react'
+import {
+  geocodeAsync,
+  getCurrentPositionAsync,
+  getForegroundPermissionsAsync,
+  getLastKnownPositionAsync,
+  LocationAccuracy,
+  LocationGeocodedAddress,
+  LocationGeocodedLocation,
+  LocationLastKnownOptions,
+  LocationObject,
+  LocationOptions,
+  reverseGeocodeAsync,
+} from 'expo-location'
 
-type Maybe<T> = T | null
-
-type UseLocationReturnType = [() => Promise<Maybe<GeoPosition>>]
-
-export const useLocation = (options?: Geo.GeoOptions): UseLocationReturnType => {
-  const requestLocation = useCallback(async (): Promise<Maybe<GeoPosition>> => {
-    const permissionStatus = await Geo.requestAuthorization('whenInUse')
-    if (permissionStatus !== 'granted') return null
-    return new Promise((resolve) => {
-      Geo.getCurrentPosition(
-        (position) => {
-          console.log(position)
-          resolve(position)
-        },
-        (error) => {
-          console.log(error)
-          return resolve(null)
-        },
-        {
-          ...defaultOptions,
-          ...options,
-        }
-      )
-    })
-  }, [options])
-
-  return [requestLocation]
+export type UseLocationProps = {
+  lastKnownLocationOptions?: LocationLastKnownOptions
+  currentKnownLocationOptions?: LocationOptions
+}
+export type CompoundLocation = {
+  position: Maybe<LocationGeocodedLocation>
+  addresses: LocationGeocodedAddress[]
 }
 
-const defaultOptions: Partial<Geo.GeoOptions> = {
-  timeout: 1000,
-  accuracy: {
-    ios: 'hundredMeters',
-    android: 'balanced',
-  },
+const cachedLocations: Map<string, Maybe<LocationGeocodedAddress[]>> = new Map()
+
+export const useLocation = (options?: UseLocationProps) => {
+  const lastLocationOptions = useMemo(
+    () => ({
+      ...defaultLastLocationOptions,
+      ...(options?.lastKnownLocationOptions || {}),
+    }),
+    [options]
+  )
+
+  const currentLocationOptions = useMemo(
+    () => ({
+      ...defaultCurrentLocationOptions,
+      ...(options?.currentKnownLocationOptions || {}),
+    }),
+    [options]
+  )
+
+  const requestPosition = useCallback(async () => {
+    const locationPermission = await getForegroundPermissionsAsync()
+    if (!locationPermission.granted) {
+      // TODO: Error handling
+      if (__DEV__) console.log(locationPermission)
+      return null
+    }
+
+    const lastLocation = await getLastKnownPositionAsync(lastLocationOptions)
+    if (lastLocation) return lastLocation
+
+    const currentLocation = await getCurrentPositionAsync(currentLocationOptions)
+    return currentLocation
+  }, [lastLocationOptions, currentLocationOptions])
+
+  const requestLocation = useCallback(async (): Promise<Maybe<CompoundLocation>> => {
+    const dynamicPosition = await requestPosition()
+    if (!dynamicPosition) return null
+
+    const position = makeGeocodedPosition(dynamicPosition)
+
+    const locationKey = makeLocationKey(position)
+    const addressesFromCache = cachedLocations.get(locationKey)
+    if (addressesFromCache) return { position, addresses: addressesFromCache }
+
+    const addresses = await reverseGeocodeAsync(position)
+    cachedLocations.set(locationKey, addresses)
+
+    return { position, addresses }
+  }, [requestPosition])
+
+  const requestAddresses = useCallback(async (query: string): Promise<CompoundLocation[]> => {
+    const positions = await geocodeAsync(query)
+
+    const combinedAddresses = []
+
+    for (const position of positions) {
+      if (!position) continue
+
+      const locationKey = makeLocationKey(position)
+      const addressesFromCache = cachedLocations.get(locationKey)
+
+      if (addressesFromCache) {
+        combinedAddresses.push({ position, addresses: addressesFromCache })
+        continue
+      }
+
+      const addresses = await reverseGeocodeAsync(position)
+      if (addresses) {
+        cachedLocations.set(locationKey, addresses)
+        combinedAddresses.push({ position, addresses })
+      }
+    }
+
+    return combinedAddresses
+  }, [])
+
+  return { requestLocation, requestPosition, requestAddresses }
+}
+
+const defaultLastLocationOptions: LocationLastKnownOptions = {
+  maxAge: 1000 * 60 * 2,
+  requiredAccuracy: 50,
+}
+
+const defaultCurrentLocationOptions: LocationOptions = {
+  accuracy: LocationAccuracy.Balanced,
+}
+
+const makeGeocodedPosition = (location: LocationObject) => {
+  const { latitude, longitude, altitude, accuracy } = location.coords
+  return { latitude, longitude, altitude: altitude || undefined, accuracy: accuracy || undefined }
+}
+
+// TODO: Proper key for caching
+const makeLocationKey = (location: LocationGeocodedLocation) => {
+  const key = Object.entries(location).reduce((result, prop) => result + propToKey(prop), '')
+  return key
+}
+
+const propToKey = ([key, val]: [string?, number?]) => {
+  if (key === undefined || val === undefined) return ''
+  return `[${key}:${val}]`
 }
