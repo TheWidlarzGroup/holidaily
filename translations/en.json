@@ -159,7 +159,11 @@
     "postCommentBtn": "Comment",
     "comments": "Comments",
     "noComments": "No comments yet",
-    "createPostLabel": "What's up?"
+    "createPostLabel": "What's up?",
+    "locations": "Locations",
+    "locationsAccessText": "Want to find nearby places? Turn on location access.",
+    "locationsAccessPromptText": "Use my location",
+    "locationsSearch": "Search..."
   },
   "createPost": {
     "title": "Create Post",
