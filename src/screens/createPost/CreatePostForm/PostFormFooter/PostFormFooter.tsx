@@ -14,12 +14,18 @@ import {
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
+  onLocationPress: F0
   onImagesPick: F1<Asset[]>
   onCTAPress: F0
   disabledCTA: boolean
 }
 
-export const PostFooter = ({ onCTAPress, onImagesPick, disabledCTA }: PostFooterProps) => {
+export const PostFooter = ({
+  onLocationPress,
+  onCTAPress,
+  onImagesPick,
+  disabledCTA,
+}: PostFooterProps) => {
   const { t } = useTranslation('createPost')
 
   const imagePickCallback = useCallback(
@@ -60,40 +66,40 @@ export const PostFooter = ({ onCTAPress, onImagesPick, disabledCTA }: PostFooter
     )
   }
 
-  const handleLocationPress = () => {}
-
   return (
-    <Box bg="rippleColor" borderTopLeftRadius="l" borderTopRightRadius="l">
-      <Box
-        flexDirection="row"
-        justifyContent="space-evenly"
-        alignItems="center"
-        paddingVertical="m">
-        <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
-          <IconCamera />
-        </FooterButton>
-        <FooterButton onPress={handleGalleryPress}>
-          <IconGallery />
-        </FooterButton>
-        <FooterButton onPress={handleLocationPress}>
-          <IconLocation />
-        </FooterButton>
+    <>
+      <Box bg="rippleColor" borderTopLeftRadius="l" borderTopRightRadius="l">
+        <Box
+          flexDirection="row"
+          justifyContent="space-evenly"
+          alignItems="center"
+          paddingVertical="m">
+          <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
+            <IconCamera />
+          </FooterButton>
+          <FooterButton onPress={handleGalleryPress}>
+            <IconGallery />
+          </FooterButton>
+          <FooterButton onPress={onLocationPress}>
+            <IconLocation />
+          </FooterButton>
+        </Box>
+        <Box
+          justifyContent="center"
+          alignItems="stretch"
+          paddingTop="xs"
+          paddingBottom="l"
+          paddingHorizontal="xxxl">
+          <BaseOpacity
+            paddingVertical="m"
+            borderRadius="xxl"
+            bg={disabledCTA ? 'headerGrey' : 'primary'}
+            onPress={onCTAPress}
+            disabled={disabledCTA}>
+            <Text variant="buttonText1">{t('sendPost')}</Text>
+          </BaseOpacity>
+        </Box>
       </Box>
-      <Box
-        justifyContent="center"
-        alignItems="stretch"
-        paddingTop="xs"
-        paddingBottom="l"
-        paddingHorizontal="xxxl">
-        <BaseOpacity
-          paddingVertical="m"
-          borderRadius="xxl"
-          bg={disabledCTA ? 'headerGrey' : 'primary'}
-          onPress={onCTAPress}
-          disabled={disabledCTA}>
-          <Text variant="buttonText1">{t('sendPost')}</Text>
-        </BaseOpacity>
-      </Box>
-    </Box>
+    </>
   )
 }
