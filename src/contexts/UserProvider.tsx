@@ -20,11 +20,11 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState<UserData>(emptyUser)
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-extra-semi
-    ;(async () => {
+    const func = async () => {
       const token = await getItemAsync('token')
       if (token !== null) updateUser(USER_DATA)
-    })()
+    }
+    func()
   }, [])
 
   useEffect(() => {
