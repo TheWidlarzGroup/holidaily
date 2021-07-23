@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { SiriShortcutsEvent, suggestShortcuts } from 'react-native-siri-shortcut'
 import { sickday } from 'utils/siriShortcuts'
 
-export const SiriListeners = () => {
+export const useSiriListeners = () => {
   const navigation = useNavigation()
 
   useEffect(() => {
@@ -20,5 +20,4 @@ export const SiriListeners = () => {
       SiriShortcutsEvent.removeListener('SiriShortcutListener', () => {})
     }
   }, [navigation])
-  return null
 }
