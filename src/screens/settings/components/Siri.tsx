@@ -12,7 +12,7 @@ export const Siri = () => (
       buttonStyle={SiriButtonStyles.whiteOutline}
       onPress={() => {
         presentShortcut(sickday, ({ status }) => {
-          console.log(`Shortcut "${sickday.title}" was ${status}`)
+          console.log(__DEV__ && `Shortcut "${sickday.title}" was ${status}`)
         })
       }}
     />
