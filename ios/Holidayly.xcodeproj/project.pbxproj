@@ -10,7 +10,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		23E3F38826A705240027ED7A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23E3F38726A705240027ED7A /* GoogleService-Info.plist */; };
+		2313E96C26A855F5005E8220 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2313E96B26A855F5005E8220 /* GoogleService-Info.plist */; };
+		23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7794E26A74159009C34A4 /* BridgeHeader.swift */; };
 		3329CA07BB50C2707E6A7BE6 /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1BDF2A512AF4E7CDC7D85C /* libPods-Holidayly.a */; };
 		78737D9F879D4E579FC97C40 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2012E5C6E95D496DB1E18D2A /* Nunito-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -30,7 +31,10 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Holidayly/main.m; sourceTree = "<group>"; };
 		2012E5C6E95D496DB1E18D2A /* Nunito-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Regular.ttf"; path = "../src/assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		20AF024B9A08EFE7A5AEE3FD /* libPods-Holidayly-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Holidayly-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		23E3F38726A705240027ED7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2313E96B26A855F5005E8220 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		23E7794C26A73E7A009C34A4 /* Holidayly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Holidayly.entitlements; path = Holidayly/Holidayly.entitlements; sourceTree = "<group>"; };
+		23E7794D26A74158009C34A4 /* Holidayly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Holidayly-Bridging-Header.h"; sourceTree = "<group>"; };
+		23E7794E26A74159009C34A4 /* BridgeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeHeader.swift; sourceTree = "<group>"; };
 		27130B5C88840837BBCF99CD /* Pods-Holidayly-HolidaylyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly-HolidaylyTests.debug.xcconfig"; path = "Target Support Files/Pods-Holidayly-HolidaylyTests/Pods-Holidayly-HolidaylyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2B1BDF2A512AF4E7CDC7D85C /* libPods-Holidayly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Holidayly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59560BFC276B7478018DB8B9 /* Pods-Holidayly-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Holidayly-tvOSTests/Pods-Holidayly-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 		13B07FAE1A68108700A75B9A /* Holidayly */ = {
 			isa = PBXGroup;
 			children = (
+				2313E96B26A855F5005E8220 /* GoogleService-Info.plist */,
+				23E7794C26A73E7A009C34A4 /* Holidayly.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -86,6 +92,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				23E7794E26A74159009C34A4 /* BridgeHeader.swift */,
+				23E7794D26A74158009C34A4 /* Holidayly-Bridging-Header.h */,
 			);
 			name = Holidayly;
 			sourceTree = "<group>";
@@ -128,7 +136,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				23E3F38726A705240027ED7A /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Holidayly */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HolidaylyTests */,
@@ -196,7 +203,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 23QAX5XY7P;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -225,7 +232,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				23E3F38826A705240027ED7A /* GoogleService-Info.plist in Resources */,
+				2313E96C26A855F5005E8220 /* GoogleService-Info.plist in Resources */,
 				C9802163B524495DAD789F05 /* Nunito-Bold.ttf in Resources */,
 				78737D9F879D4E579FC97C40 /* Nunito-Regular.ttf in Resources */,
 			);
@@ -359,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -373,6 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Holidayly/Holidayly.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 23QAX5XY7P;
 				ENABLE_BITCODE = NO;
@@ -387,6 +396,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.holidaily;
 				PRODUCT_NAME = Holidayly;
+				SWIFT_OBJC_BRIDGING_HEADER = "Holidayly-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -399,6 +409,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Holidayly/Holidayly.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -415,6 +426,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.holidaily;
 				PRODUCT_NAME = Holidayly;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Holidayly-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

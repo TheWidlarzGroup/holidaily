@@ -25,8 +25,6 @@ import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
-  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
-
   private final ReactNativeHost mReactNativeHost =
     new ReactNativeHost(this) {
       @Override

@@ -10,6 +10,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { Language } from './components/Language'
 import { DarkModeSwitch } from './components/DarkModeSwitch'
 import { BiometricPasscode } from './components/BiometricPasscode'
+import { Siri } from './components/Siri'
 
 export const Settings = () => {
   const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
@@ -33,6 +34,7 @@ export const Settings = () => {
         <DarkModeSwitch />
         <BiometricPasscode />
         <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
+        <Siri />
       </Box>
       <LoadingModal show={loading} />
     </SafeAreaWrapper>
