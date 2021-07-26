@@ -1,3 +1,4 @@
+import { CompoundLocation } from 'hooks/useLocation'
 import { UserData as DefaultUserData } from 'types/holidaysDataTypes'
 
 type UserData = DefaultUserData & { pictureUrl: string | null }
@@ -11,6 +12,7 @@ export type PostMetaData = {
   id: string
   author: UserData
   timestamp: Timestamp
+  location?: CompoundLocation
 }
 
 export type Reaction = {
