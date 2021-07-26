@@ -8,6 +8,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
+import { SupportedLanguageKeys } from 'utils/locale'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -15,16 +16,16 @@ type LanguageProps = {
 }
 
 export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => {
+  const { i18n, t } = useTranslation('settings')
+
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
   const [changeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
     useBooleanState(false)
-  const [selectedLng, setSelectedLng] = useState<'en' | 'pl'>('pl')
+  const [selectedLng, setSelectedLng] = useState(i18n.language as SupportedLanguageKeys)
 
   const styles = useStyles()
 
-  const { i18n, t } = useTranslation('settings')
-
-  const changeLanguage = (lng: 'pl' | 'en') => {
+  const changeLanguage = (lng: SupportedLanguageKeys) => {
     if (lng === selectedLng) return
     hideChangeAlert()
     setLoadingTrue()
