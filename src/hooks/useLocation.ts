@@ -11,7 +11,11 @@ import {
   LocationLastKnownOptions,
   LocationObject,
   LocationOptions,
+  requestForegroundPermissionsAsync,
   reverseGeocodeAsync,
+  PermissionStatus,
+  hasServicesEnabledAsync,
+  enableNetworkProviderAsync,
 } from 'expo-location'
 
 export type UseLocationProps = {
@@ -42,20 +46,29 @@ export const useLocation = (options?: UseLocationProps) => {
     [options]
   )
 
+  const requestForegroundPermission = useCallback(async () => {
+    const isLocationEnabled = await hasServicesEnabledAsync()
+    if (!isLocationEnabled) await enableNetworkProviderAsync().catch((err) => console.log(err))
+
+    const permission = await getForegroundPermissionsAsync()
+    if (__DEV__) console.log(permission)
+
+    if (permission.status !== PermissionStatus.GRANTED && permission.canAskAgain)
+      return requestForegroundPermissionsAsync()
+
+    return permission
+  }, [])
+
   const requestPosition = useCallback(async () => {
-    const locationPermission = await getForegroundPermissionsAsync()
-    if (!locationPermission.granted) {
-      // TODO: Error handling
-      if (__DEV__) console.log(locationPermission)
-      return null
-    }
+    const permission = await requestForegroundPermission()
+    if (permission.status !== PermissionStatus.GRANTED) return null
 
     const lastLocation = await getLastKnownPositionAsync(lastLocationOptions)
     if (lastLocation) return lastLocation
 
     const currentLocation = await getCurrentPositionAsync(currentLocationOptions)
     return currentLocation
-  }, [lastLocationOptions, currentLocationOptions])
+  }, [requestForegroundPermission, lastLocationOptions, currentLocationOptions])
 
   const requestLocation = useCallback(async (): Promise<Maybe<CompoundLocation>> => {
     const dynamicPosition = await requestPosition()
@@ -108,7 +121,7 @@ const defaultLastLocationOptions: LocationLastKnownOptions = {
 }
 
 const defaultCurrentLocationOptions: LocationOptions = {
-  accuracy: LocationAccuracy.Balanced,
+  accuracy: LocationAccuracy.High,
 }
 
 const makeGeocodedPosition = (location: LocationObject) => {
