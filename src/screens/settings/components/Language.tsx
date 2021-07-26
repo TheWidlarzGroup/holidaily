@@ -8,7 +8,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
-import { SupportedLanguageKeys } from 'utils/locale'
+import { SupportedLanguageKeys, locales } from 'utils/locale'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -81,18 +81,16 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           </TouchableOpacity>
         </Box>
         <Animated.View style={[styles.options, animatedOptions]}>
-          <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('en')}>
-            <Text variant="body1" marginVertical="s" textAlign="left">
-              {t('english')}
-            </Text>
-            <RadioInput checked={selectedLng === 'en'} onPress={() => {}} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('pl')}>
-            <Text variant="body1" textAlign="left">
-              {t('polish')}
-            </Text>
-            <RadioInput checked={selectedLng === 'pl'} onPress={() => {}} />
-          </TouchableOpacity>
+          {Object.keys(locales).map((language) => (
+            <TouchableOpacity
+              style={styles.lng}
+              onPress={() => changeLanguage(language as SupportedLanguageKeys)}>
+              <Text variant="body1" marginVertical="s" textAlign="left">
+                {t(language)}
+              </Text>
+              <RadioInput checked={selectedLng === language} onPress={() => {}} />
+            </TouchableOpacity>
+          ))}
         </Animated.View>
       </Box>
       <Alert show={changeAlertVisible}>
