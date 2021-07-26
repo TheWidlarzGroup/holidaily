@@ -7,6 +7,7 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
+import { isIos } from 'utils/layout'
 import { Language } from './components/Language'
 import { DarkModeSwitch } from './components/DarkModeSwitch'
 import { BiometricPasscode } from './components/BiometricPasscode'
@@ -34,7 +35,7 @@ export const Settings = () => {
         <DarkModeSwitch />
         <BiometricPasscode />
         <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
-        <Siri />
+        {isIos && <Siri />}
       </Box>
       <LoadingModal show={loading} />
     </SafeAreaWrapper>
