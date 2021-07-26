@@ -1,6 +1,6 @@
 import { RadioInput } from 'components/RadioInput'
 import { useBooleanState } from 'hooks/useBooleanState'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
@@ -32,20 +32,20 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
     setSelectedLng(lng)
   }
 
-  const lngChangedAlert = useCallback(() => {
-    showChangeAlert()
-    setTimeout(hideChangeAlert, 4 * 1000)
-  }, [showChangeAlert, hideChangeAlert])
-
   useEffect(() => {
     if (selectedLng === i18n.language) return
-    i18n.changeLanguage(selectedLng).then(() =>
-      setTimeout(() => {
-        setLoadingFalse()
-        lngChangedAlert()
-      }, 1000)
-    )
-  }, [selectedLng, i18n, lngChangedAlert, setLoadingFalse])
+    i18n.changeLanguage(selectedLng).then(() => {
+      setLoadingFalse()
+      showChangeAlert()
+    })
+  }, [selectedLng, i18n, setLoadingFalse, showChangeAlert])
+
+  useEffect(() => {
+    if (changeAlertVisible === false) return
+    const timeout = setTimeout(hideChangeAlert, 4000)
+
+    return () => clearInterval(timeout)
+  }, [hideChangeAlert, changeAlertVisible])
 
   const heightProgress = useDerivedValue(
     () => (opened ? withTiming(70, { duration: 200 }) : withTiming(0, { duration: 200 })),
@@ -93,13 +93,15 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           ))}
         </Animated.View>
       </Box>
-      <Alert show={changeAlertVisible}>
-        <CheckCircle style={styles.icon} />
-        <Text variant="regular15">
-          <Text variant="bold15">{t('language')} </Text>
-          {t('changed')}
-        </Text>
-      </Alert>
+      {changeAlertVisible && (
+        <Alert show={changeAlertVisible} onPress={hideChangeAlert}>
+          <CheckCircle style={styles.icon} />
+          <Text variant="regular15">
+            <Text variant="bold15">{t('language')} </Text>
+            {t('changed')}
+          </Text>
+        </Alert>
+      )}
     </>
   )
 }

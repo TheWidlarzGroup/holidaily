@@ -1,16 +1,15 @@
-import { useBooleanState } from 'hooks/useBooleanState'
-import React, { useEffect, FC } from 'react'
+import React, { FC } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
-import { mkUseStyles } from 'utils/theme'
+import { BaseOpacity, mkUseStyles } from 'utils/theme'
 
 type AlertProps = {
   show: boolean
   style?: StyleProp<ViewStyle>
+  onPress?: F0
 }
 
-export const Alert: FC<AlertProps> = ({ show, style, children }) => {
-  const [hidden, { setTrue: setHiddenTrue, setFalse: setHiddenFalse }] = useBooleanState(!show)
+export const Alert: FC<AlertProps> = ({ show, style, onPress, children }) => {
   const styles = useStyles()
   const progress = useDerivedValue(() => (show ? 0 : 1), [show])
 
@@ -22,13 +21,15 @@ export const Alert: FC<AlertProps> = ({ show, style, children }) => {
       },
     ],
   }))
-  useEffect(() => {
-    if (show) setHiddenFalse()
-    else setTimeout(setHiddenTrue, 1000)
-  }, [show, setHiddenFalse, setHiddenTrue])
 
-  if (!show && hidden) return null
-  return <Animated.View style={[styles.container, style, animatedStyles]}>{children}</Animated.View>
+  if (!show) return null
+  return (
+    <Animated.View style={[styles.container, style, animatedStyles]}>
+      <BaseOpacity style={styles.button} onPress={onPress}>
+        {children}
+      </BaseOpacity>
+    </Animated.View>
+  )
 }
 
 const useStyles = mkUseStyles((theme) => ({
@@ -40,8 +41,6 @@ const useStyles = mkUseStyles((theme) => ({
     top: -50,
     height: 84,
     borderRadius: theme.borderRadii.m,
-    flexDirection: 'row',
-    alignItems: 'center',
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
@@ -50,5 +49,14 @@ const useStyles = mkUseStyles((theme) => ({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  button: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 }))
