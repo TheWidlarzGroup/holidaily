@@ -1308,11 +1308,6 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jake7/react-native-emoji-keyboard@0.1.1-beta.1":
-  version "0.1.1-beta.1"
-  resolved "https://registry.yarnpkg.com/@jake7/react-native-emoji-keyboard/-/react-native-emoji-keyboard-0.1.1-beta.1.tgz#9ad3b0d9819cbcbc3ce47372810189de67fe47a6"
-  integrity sha512-ve05eQj9sD4hJXCKIOcbb+IgP6AP6IY+hBrs0Ia422FwsKRHMRoyiRwX1DS31/1prZtnrrQiuaI74IBShLNjig==
-
 "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -8075,6 +8070,11 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-emoji-keyboard@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/rn-emoji-keyboard/-/rn-emoji-keyboard-0.2.2.tgz#7bf1d3b5de9360b898e7737ef8cc58171d86e06b"
+  integrity sha512-JH1rn3zTksGVZzkFjytSlrTFi26eCbawwoQW+ALrwKVNnyWYmrwTzszb+0uqbG9pCoVOsmZtBV6pf1T7h3Enjg==
 
 rsvp@^4.8.4:
   version "4.8.5"
