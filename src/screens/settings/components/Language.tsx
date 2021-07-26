@@ -83,6 +83,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
         <Animated.View style={[styles.options, animatedOptions]}>
           {Object.keys(locales).map((language) => (
             <TouchableOpacity
+              key={language}
               style={styles.lng}
               onPress={() => changeLanguage(language as SupportedLanguageKeys)}>
               <Text variant="body1" marginVertical="s" textAlign="left">
