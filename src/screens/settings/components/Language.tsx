@@ -94,15 +94,13 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           ))}
         </Animated.View>
       </Box>
-      {changeAlertVisible && (
-        <Alert show={changeAlertVisible} onPress={hideChangeAlert}>
-          <CheckCircle style={styles.icon} />
-          <Text variant="regular15">
-            <Text variant="bold15">{t('language')} </Text>
-            {t('changed')}
-          </Text>
-        </Alert>
-      )}
+      <Alert show={changeAlertVisible} onPress={hideChangeAlert}>
+        <CheckCircle style={styles.icon} />
+        <Text variant="regular15">
+          <Text variant="bold15">{t('language')} </Text>
+          {t('changed')}
+        </Text>
+      </Alert>
     </>
   )
 }

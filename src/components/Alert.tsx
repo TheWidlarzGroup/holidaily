@@ -14,15 +14,14 @@ export const Alert: FC<AlertProps> = ({ show, style, onPress, children }) => {
   const progress = useDerivedValue(() => (show ? 0 : 1), [show])
 
   const animatedStyles = useAnimatedStyle(() => ({
-    opacity: withTiming(1 - progress.value, { duration: 300 }),
+    opacity: withTiming(1 - progress.value),
     transform: [
       {
-        translateY: withTiming(-(progress.value * 200), { duration: 300 }),
+        translateY: withTiming(-(progress.value * 200)),
       },
     ],
   }))
 
-  if (!show) return null
   return (
     <Animated.View style={[styles.container, style, animatedStyles]}>
       <BaseOpacity style={styles.button} onPress={onPress}>
