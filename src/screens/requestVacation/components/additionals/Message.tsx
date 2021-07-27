@@ -3,18 +3,18 @@ import { Box, mkUseStyles, Text } from 'utils/theme/index'
 import AddCommentIcon from 'assets/icons/addComment.svg'
 import { TouchableOpacity } from 'react-native'
 
-type MessageIconProps = {
+type MessageProps = {
   onPressMessage: F0
   messageContent: string
 }
 
-export const MessageIcon = ({ onPressMessage, messageContent }: MessageIconProps) => {
+export const Message = ({ onPressMessage, messageContent }: MessageProps) => {
   const styles = useStyles()
 
   return (
     <TouchableOpacity onPress={onPressMessage}>
-      <Box position="relative" style={{ padding: 25 }}>
-        <Box
+      <Box position="relative" style={styles.container}>
+        {/*<Box
           backgroundColor="lightGrey"
           padding="xm"
           margin="s"
@@ -24,8 +24,8 @@ export const MessageIcon = ({ onPressMessage, messageContent }: MessageIconProps
           <TouchableOpacity onPress={onPressMessage}>
             <AddCommentIcon width={22} height={22} />
           </TouchableOpacity>
-        </Box>
-        <Box padding="l" backgroundColor="lightGrey" borderRadius="mplus">
+        </Box>*/}
+        <Box padding="m" backgroundColor="lightGrey" borderRadius="mplus">
           <Text variant="regularGrey16" color="black">
             {messageContent}
           </Text>
@@ -38,7 +38,7 @@ export const MessageIcon = ({ onPressMessage, messageContent }: MessageIconProps
 const useStyles = mkUseStyles((theme) => ({
   container: {
     position: 'relative',
-    backgoundColor: 'lightgreen',
+    paddingHorizontal: 10,
   },
   cornerAddComment: {
     position: 'absolute',

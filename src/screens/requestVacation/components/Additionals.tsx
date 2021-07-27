@@ -1,11 +1,9 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme/index'
-import { MessageIcon } from './MessageIcon'
-import {
-  AdditionalsAttachment,
-  AdditionalsAttachmentIcon,
-  AdditionalsMessageIcon,
-} from './AdditionalsComponents'
+import { AttachmentIcon } from './additionals/AttachmentIcon'
+import { Attachments } from './additionals/Attachments'
+import { Message } from './additionals/Message'
+import { MessageIcon } from './additionals/MessageIcon'
 
 type AdditionalsProps = {
   onPressMessage: F0
@@ -41,21 +39,22 @@ export const Additionals = ({
 
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
         {attachments.length ? (
-          <AdditionalsAttachment
+          <Attachments
             photos={attachments}
             addMore={showAttachmentModal}
             displayAddMore={attachments.length < 9}
             removePhoto={removePhoto}
           />
         ) : (
-          <AdditionalsAttachmentIcon showAttachmentModal={showAttachmentModal} />
+          <AttachmentIcon showAttachmentModal={showAttachmentModal} />
         )}
-        {!messageInputVisible && !!messageContent && (
-          <MessageIcon messageContent={messageContent} onPressMessage={onPressMessage} />
-        )}
-        {!messageInputVisible && !messageContent && (
-          <AdditionalsMessageIcon onPress={onPressMessage} />
-        )}
+
+        {!messageInputVisible &&
+          (messageContent ? (
+            <Message messageContent={messageContent} onPressMessage={onPressMessage} />
+          ) : (
+            <MessageIcon onPress={onPressMessage} />
+          ))}
       </Box>
     </Box>
   )
