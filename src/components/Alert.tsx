@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, ViewStyle, StyleSheet } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { BaseOpacity, mkUseStyles } from 'utils/theme'
 
@@ -24,7 +24,11 @@ export const Alert: FC<AlertProps> = ({ show, style, onPress, children }) => {
 
   return (
     <Animated.View style={[styles.container, style, animatedStyles]}>
-      <BaseOpacity style={styles.button} onPress={onPress}>
+      <BaseOpacity
+        flexDirection="row"
+        alignItems="center"
+        {...StyleSheet.absoluteFillObject}
+        onPress={onPress}>
         {children}
       </BaseOpacity>
     </Animated.View>
@@ -48,14 +52,5 @@ const useStyles = mkUseStyles((theme) => ({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  button: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 }))
