@@ -49,5 +49,6 @@ export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: At
 const useStyles = mkUseStyles((theme) => ({
   container: {
     paddingHorizontal: 10,
+    marginTop: 30,
   },
 }))

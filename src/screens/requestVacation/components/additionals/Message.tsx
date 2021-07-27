@@ -12,7 +12,7 @@ export const Message = ({ onPressMessage, messageContent }: MessageProps) => {
   const styles = useStyles()
 
   return (
-    <TouchableOpacity onPress={onPressMessage} style={{ overflow: 'visible' }}>
+    <TouchableOpacity onPress={onPressMessage} style={{ marginTop: 35 }}>
       <Box position="relative" style={styles.container}>
         <Box backgroundColor="lightGrey" borderRadius="l" style={styles.cornerAddComment}>
           <TouchableOpacity onPress={onPressMessage}>
@@ -37,13 +37,13 @@ const useStyles = mkUseStyles((theme) => ({
   },
   cornerAddComment: {
     position: 'absolute',
-    top: -10,
-    left: -3,
+    top: -17,
+    left: -13,
     background: theme.colors.grey,
     zIndex: 4,
     borderWidth: 3,
     borderColor: theme.colors.disabledText,
-    padding: 7,
+    padding: 8,
     margin: 0,
   },
 }))
