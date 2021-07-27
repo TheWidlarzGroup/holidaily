@@ -75,7 +75,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   return (
     <Box flex={1}>
       <ScrollView>
-        <Box style={{ margin: 20 }}>
+        <Box style={{ margin: 20 }} paddingBottom="xxxl">
           <Details onDescriptionChange={handleDescriptionChange} date={date} />
           <SickTime sickTime={sickTime} toggle={toggleSickTime} />
           <Additionals
@@ -86,7 +86,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             attachments={photos}
             removePhoto={askRemovePhoto}
           />
-          <Box height={50} />
         </Box>
       </ScrollView>
       <Box marginBottom={showMessageInput ? 0 : 'l'}>

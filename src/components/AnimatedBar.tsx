@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import { Box } from 'utils/theme/index'
+import { Box, mkUseStyles } from 'utils/theme/index'
 
 type AnimatedBarProps = {
   margin: number
@@ -21,7 +21,7 @@ export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide }) => {
   return (
     <Box flex={1} style={{ [marginSide]: margin }}>
       <Animated.View style={progressStyle}>
-        <Box backgroundColor="tertiary" height={4} style={{ borderRadius: 20 }} />
+        <Box backgroundColor="tertiary" height={4} borderRadius="full" />
       </Animated.View>
     </Box>
   )
