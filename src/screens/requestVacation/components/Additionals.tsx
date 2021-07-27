@@ -37,7 +37,11 @@ export const Additionals = ({
         Add an attachment or write a message
       </Text>
 
-      <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
+      <Box
+        flexDirection={getFlexDirection()}
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        style={{ overflow: 'visible' }}>
         {attachments.length ? (
           <Attachments
             photos={attachments}
