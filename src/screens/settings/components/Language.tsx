@@ -44,7 +44,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
     if (changeAlertVisible === false) return
     const timeout = setTimeout(hideChangeAlert, 4000)
 
-    return () => clearInterval(timeout)
+    return () => clearTimeout(timeout)
   }, [hideChangeAlert, changeAlertVisible])
 
   const heightProgress = useDerivedValue(
