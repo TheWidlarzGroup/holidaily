@@ -23,8 +23,8 @@ export const Additionals = ({
   removePhoto,
 }: AdditionalsProps) => {
   const getFlexDirection = () => {
+    if (messageContent) return 'column-reverse'
     if (!messageContent && !attachments.length) return 'row'
-    if (messageContent && !attachments.length) return 'column-reverse'
     return 'column'
   }
 
