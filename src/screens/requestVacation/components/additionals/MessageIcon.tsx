@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import AddCommentIcon from 'assets/icons/addComment.svg'
 
 type MessageIconProps = {

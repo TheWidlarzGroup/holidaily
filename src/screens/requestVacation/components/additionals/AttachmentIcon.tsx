@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Box, Text } from 'utils/theme'
+import { Box } from 'utils/theme'
 import PaperclipIcon from 'assets/icons/paperclip.svg'
 
 type AttachmentIconProps = {

@@ -5,11 +5,11 @@ import { Box } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadPictureModal } from 'components/UploadPictureModal'
+import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Additionals } from './Additionals'
 import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
-import { ConfirmationModal } from 'components/ConfirmationModal'
 
 type RequestDataTypes = {
   description: string

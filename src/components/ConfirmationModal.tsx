@@ -40,7 +40,7 @@ export const ConfirmationModal = ({
       <Box justifyContent="center" alignItems="center" paddingHorizontal="m">
         {header !== null && (
           <Text variant="boldBlackCenter20" marginBottom="l">
-            {header ? header : t('areYouSure')}
+            {header || t('areYouSure')}
           </Text>
         )}
         {content !== null && (
