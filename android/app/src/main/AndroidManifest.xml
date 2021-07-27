@@ -2,6 +2,13 @@
   package="com.holidayly">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Added permissions -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Optional permissions -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
       android:name=".MainApplication"
@@ -25,7 +32,7 @@
           android:label="@string/app_name"
           android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
           android:launchMode="singleTask"
-          android:windowSoftInputMode="adjustResize"
+          android:windowSoftInputMode="adjustPan"
           android:exported="true"
         >
         <intent-filter>

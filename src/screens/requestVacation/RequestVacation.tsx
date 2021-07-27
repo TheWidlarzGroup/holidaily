@@ -7,6 +7,7 @@ import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { RequestVacationBar } from 'components/RequestVacationBar'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
@@ -14,7 +15,6 @@ import { RequestSent } from './components/RequestSent'
 
 export type RequestDataTypes = {
   description: string
-  sickTime: boolean
   message: string
   photos: { id: string; uri: string }[]
 }
@@ -27,12 +27,14 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
   const [description, setDescription] = useState('')
-  const [sickTime, setSickTime] = useState(false)
+  const [sickTime, { setTrue: setSickTime, setFalse: unsetSickTime, toggle: toggleSickTime }] =
+    useBooleanState(false)
   const [message, setMessage] = useState('')
   const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
+  useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -42,9 +44,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, sickTime, message, photos })
+    const newData = callback({ description, message, photos })
     setDescription(newData.description)
-    setSickTime(newData.sickTime)
     setMessage(newData.message)
     setPhotos(newData.photos)
   }
@@ -55,7 +56,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setStartDate(undefined)
     setEndDate(undefined)
     setDescription('')
-    setSickTime(false)
+    unsetSickTime()
     setMessage('')
     setPhotos([])
   }
@@ -66,7 +67,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     const { params } = route
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
-  }, [route, route.params])
+    if (params?.action === 'sickday') setSickTime()
+  }, [route, route.params, setSickTime])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -77,6 +79,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
       {step === 0 && (
         <FormRequestVacation
           nextStep={() => setStep(1)}
+          sickTime={sickTime}
+          toggleSickTime={toggleSickTime}
           changeRequestData={changeRequestData}
           date={{ start: startDate, end: endDate }}
           message={message}

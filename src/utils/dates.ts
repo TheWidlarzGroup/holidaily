@@ -1,43 +1,97 @@
-import { DateTime } from 'luxon'
+import {
+  addDays,
+  compareAsc,
+  differenceInBusinessDays,
+  format,
+  getDay,
+  isSameMonth,
+  isSameYear,
+  parseISO as FNSParseISO,
+  setMonth,
+} from 'date-fns'
+import { getCurrentLocale } from './locale'
 
-export const isWeekend = (date: DateTime): boolean => date.weekday === 6 || date.weekday === 7
+export type DateOrISO = Date | string
 
-const getWeekDaysFromSunday = (language: string): string[] => {
-  const date = DateTime.now().setLocale(language)
-  const weekDays = new Array(7)
-  for (let i = 0; i < weekDays.length; i++)
-    weekDays[i] = date.set({ weekday: i }).get('weekdayLong')
-  return weekDays
+export const parseISO = (date: DateOrISO) => (date instanceof Date ? date : FNSParseISO(date))
+
+export const formatFromISO = (date: DateOrISO, dateFormat: string) =>
+  format(parseISO(date), dateFormat, { locale: getCurrentLocale() })
+
+export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc')
+
+export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
+
+export const getMonthName = (monthNumber: number): string =>
+  formatFromISO(setMonth(new Date(), monthNumber), 'LLLL')
+
+export const isWeekend = (date: DateOrISO): boolean => {
+  const parsedDate = parseISO(date)
+  return getDay(parsedDate) === 6 || getDay(parsedDate) === 0
 }
 
-export const getShortWeekDays = (language: string): string[] =>
-  getWeekDaysFromSunday(language).map((day) => (day ? day.charAt(0) : ''))
+const getWeekDaysFromSunday = (): string[] => {
+  const locale = getCurrentLocale()
+  return [0, 1, 2, 3, 4, 5, 6].map((i) => locale.localize?.day(i))
+}
 
-export const getMonthName = (monthNumber: number, language: string): string =>
-  DateTime.now().setLocale(language).set({ month: monthNumber }).monthLong
+export const getShortWeekDays = (): string[] =>
+  getWeekDaysFromSunday().map((day) => (day ? day.charAt(0).toLocaleUpperCase() : ''))
 
-export const getDatesBetween = (ISOStringStart: string, ISOStringEnd: string) => {
-  const start = DateTime.fromISO(ISOStringStart)
-  const end = DateTime.fromISO(ISOStringEnd)
+export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
+  const start = parseISO(startDate)
+  const end = parseISO(endDate)
   const dates: string[] = []
 
-  for (let i = 0; start.plus({ days: i }).toISODate() <= end.toISODate(); i++) {
-    dates.push(start.plus({ days: i }).toISODate())
+  let nextDate = start
+
+  if (compareAsc(nextDate, end) === 0) dates.push(formatFromISO(nextDate, 'yyyy-MM-dd'))
+  for (let i = 0; compareAsc(nextDate, end) < 0; i++) {
+    nextDate = addDays(start, i)
+    dates.push(formatFromISO(nextDate, 'yyyy-MM-dd'))
   }
 
   return dates
 }
 
-export const getDayName = (ISOString: string, language: string): string =>
-  DateTime.fromISO(ISOString).setLocale(language).weekdayLong
-
-export const getDateWithMonthString = (ISOString: string, language: string): string =>
-  DateTime.fromISO(ISOString).setLocale(language).toFormat('dd LLLL yyyy')
-
-export const getFormattedPeriod = (dateA?: Date, dateB?: Date, language?: string) => {
+export const getFormattedPeriod = (
+  dateA?: DateOrISO,
+  dateB?: DateOrISO,
+  format: 'short' | 'long' = 'short'
+) => {
   if (!dateA || !dateB) return ''
-  const a = `${dateA.getDate()} ${getMonthName(dateA.getMonth() + 1, language || '').slice(0, 3)}`
-  const b = `${dateB.getDate()} ${getMonthName(dateB.getMonth() + 1, language || '').slice(0, 3)}`
-  if (dateA.toISOString() === dateB.toISOString()) return a
+
+  const parsedDateA = parseISO(dateA)
+  const parsedDateB = parseISO(dateB)
+
+  let a
+  let b
+  if (format === 'short') {
+    a = formatFromISO(parsedDateA, 'd MMM')
+    b = formatFromISO(parsedDateB, 'd MMM')
+  } else if (format === 'long' && isSameMonth(parsedDateA, parsedDateB)) {
+    a = formatFromISO(parsedDateA, 'd')
+    b = formatFromISO(parsedDateB, 'd MMMM yyyy')
+  } else if (
+    format === 'long' &&
+    !isSameMonth(parsedDateA, parsedDateB) &&
+    isSameYear(parsedDateA, parsedDateB)
+  ) {
+    a = formatFromISO(parsedDateA, 'd MMMM')
+    b = formatFromISO(parsedDateB, 'd MMMM yyyy')
+  } else {
+    a = formatFromISO(parsedDateA, 'd MMMM yyyy')
+    b = formatFromISO(parsedDateB, 'd MMMM yyyy')
+  }
+
+  if (parsedDateA.toISOString() === parsedDateB.toISOString()) return b
+
   return `${a} - ${b}`
+}
+
+export const getNumberOfWorkingDaysBetween = (dateA: DateOrISO, dateB: DateOrISO) => {
+  const startDate = parseISO(dateA)
+  const endDate = parseISO(dateB)
+
+  return differenceInBusinessDays(endDate, startDate) + 1
 }

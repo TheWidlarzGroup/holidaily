@@ -4,7 +4,6 @@ import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { theme as appTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
-import { useTranslation } from 'react-i18next'
 import { genMarkedDates } from 'utils/genMarkedDates'
 import { MarkingType } from './CalendarComponents/CalendarTypes'
 import { NewCalendarList } from './CalendarComponents/NewCalendar'
@@ -42,9 +41,7 @@ export const CalendarList = ({
     if (clickedDate < selectedPeriodStart) setSelectedPeriodStart(clickedDate)
     if (clickedDate > selectedPeriodEnd) setSelectedPeriodEnd(clickedDate)
   }
-
-  const { i18n } = useTranslation()
-  LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays(i18n.language)
+  LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
 
   const theme = {
     textDayFontFamily: appTheme.fontFamily.nunitoRegular,
