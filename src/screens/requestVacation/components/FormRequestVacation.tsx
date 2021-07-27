@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { ScrollView } from 'react-native'
 
 import { Box } from 'utils/theme/index'
@@ -9,6 +9,7 @@ import { Additionals } from './Additionals'
 import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
+import { ConfirmationModal } from 'components/ConfirmationModal'
 
 type RequestDataTypes = {
   description: string
@@ -46,6 +47,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     showAttachmentModal,
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
+  const [photosToRemove, setPhotosToRemove] = useState<string[]>([])
 
   const handleFormSubmit = () => {
     if (!date.start) return
@@ -61,6 +63,15 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     hideMessageInput()
   }
 
+  const askRemovePhoto = (id: string) => {
+    setPhotosToRemove((prev) => [...prev, id])
+  }
+
+  const clearPhotosToRemove = () => {
+    photosToRemove.forEach(removePhoto)
+    setPhotosToRemove([])
+  }
+
   return (
     <Box flex={1}>
       <ScrollView>
@@ -73,7 +84,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             messageInputVisible={showMessageInput}
             showAttachmentModal={setShowAttachmentModalTrue}
             attachments={photos}
-            removePhoto={removePhoto}
+            removePhoto={askRemovePhoto}
           />
           <Box height={50} />
         </Box>
@@ -90,6 +101,14 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           />
         )}
       </Box>
+      <ConfirmationModal
+        onAccept={clearPhotosToRemove}
+        onDecline={() => setPhotosToRemove([])}
+        hideModal={() => setPhotosToRemove([])}
+        isVisible={!!photosToRemove.length}
+        header={null}
+        content={'Delete attachment?'}
+      />
       <UploadPictureModal
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
