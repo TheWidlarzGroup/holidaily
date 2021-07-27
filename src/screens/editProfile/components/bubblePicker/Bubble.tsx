@@ -40,14 +40,14 @@ export const Bubble = ({
   const translateY = useSharedValue(initialY)
   const bubbleSize = useSharedValue(0)
   const draggedBubbleScale = useSharedValue(1)
-  const BubbleOpacity = useSharedValue(1)
+  const bubbleOpacity = useSharedValue(1)
 
   const randomDelay = Math.floor(Math.random() * 600)
 
   const handleSelection = () => {
     setUserColor(color)
     setDropColor(color)
-    BubbleOpacity.value = 0
+    bubbleOpacity.value = 0
     animateDropArea()
     setTimeout(() => navigation.goBack(), 1500)
   }
@@ -81,36 +81,31 @@ export const Bubble = ({
     },
   })
 
-  // eslint-disable-next-line arrow-body-style
-  const ViewStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
-    }
-  })
-  // eslint-disable-next-line arrow-body-style
-  const BubbleStyle = useAnimatedStyle(() => {
-    return {
-      width: withDelay(
-        randomDelay,
-        withTiming(bubbleSize.value, {
-          duration: 600,
-        })
-      ),
-      height: withDelay(
-        randomDelay,
-        withTiming(bubbleSize.value, {
-          duration: 600,
-        })
-      ),
-      borderRadius: withDelay(randomDelay, withTiming(bubbleSize.value, { duration: 600 })),
-      transform: [{ scale: draggedBubbleScale.value }],
-      opacity: BubbleOpacity.value,
-    }
-  })
+  const ViewStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
+  }))
+
+  const BubbleStyle = useAnimatedStyle(() => ({
+    width: withDelay(
+      randomDelay,
+      withTiming(bubbleSize.value, {
+        duration: 600,
+      })
+    ),
+    height: withDelay(
+      randomDelay,
+      withTiming(bubbleSize.value, {
+        duration: 600,
+      })
+    ),
+    borderRadius: withDelay(randomDelay, withTiming(bubbleSize.value, { duration: 600 })),
+    transform: [{ scale: draggedBubbleScale.value }],
+    opacity: bubbleOpacity.value,
+  }))
 
   useEffect(() => {
     bubbleSize.value = diameter
-  })
+  }, [bubbleSize, diameter])
 
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>

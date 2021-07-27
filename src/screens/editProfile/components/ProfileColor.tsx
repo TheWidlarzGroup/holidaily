@@ -19,10 +19,7 @@ export const ProfileColor = () => {
       </Text>
       <BaseOpacity
         onPress={onChangeUserColor}
-        style={[
-          styles.colorBtn,
-          { backgroundColor: userColor !== '' ? userColor : theme.colors.primary },
-        ]}
+        style={[styles.colorBtn, { backgroundColor: userColor || theme.colors.primary }]}
       />
     </Box>
   )
