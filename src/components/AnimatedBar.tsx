@@ -21,7 +21,7 @@ export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide }) => {
   return (
     <Box flex={1} style={{ [marginSide]: margin }}>
       <Animated.View style={progressStyle}>
-        <Box backgroundColor="tertiary" height={4} />
+        <Box backgroundColor="tertiary" height={4} style={{ borderRadius: 20 }} />
       </Animated.View>
     </Box>
   )
