@@ -78,7 +78,7 @@ export const SummaryRequestVacation = ({
                     paddingRight: getPadding(uriIndex, 'right'),
                     width: '33.33%',
                   }}>
-                  <Photo src={uri} onClose={() => {}} displayClose />
+                  <Photo src={uri} onClose={() => {}} />
                 </Box>
               ))}
             </Box>

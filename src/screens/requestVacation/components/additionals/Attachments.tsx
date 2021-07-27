@@ -12,9 +12,10 @@ type AttachmentProps = {
 
 export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: AttachmentProps) => {
   const styles = useStyles()
-  const getPadding = (index: number, side: 'right' | 'left') => {
+  const getPadding = (index: number, side: 'right' | 'left' | 'top') => {
     const n = index % 3
     const paddingSize = 4
+    if (side === 'top') return 3 * paddingSize
     if (n === 0) return side === 'left' ? 0 : 2 * paddingSize
     if (n === 1) return paddingSize
     if (n === 2) return side === 'left' ? 2 * paddingSize : 0
@@ -26,8 +27,8 @@ export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: At
         {photos.map(({ uri, id }, uriIndex) => (
           <Box
             key={id}
-            paddingTop="s"
             style={{
+              paddingTop: getPadding(0, 'top'),
               paddingLeft: getPadding(uriIndex, 'left'),
               paddingRight: getPadding(uriIndex, 'right'),
               width: '33.33%',
@@ -49,6 +50,6 @@ export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: At
 const useStyles = mkUseStyles((theme) => ({
   container: {
     paddingHorizontal: 10,
-    marginTop: 30,
+    marginTop: 20,
   },
 }))
