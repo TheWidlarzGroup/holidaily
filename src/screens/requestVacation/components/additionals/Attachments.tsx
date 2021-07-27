@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'utils/theme'
+import { Box, mkUseStyles } from 'utils/theme'
 import { Photo } from '../Photo'
 import { AddMore } from './AddMore'
 
@@ -11,16 +11,17 @@ type AttachmentProps = {
 }
 
 export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: AttachmentProps) => {
+  const styles = useStyles()
   const getPadding = (index: number, side: 'right' | 'left') => {
     const n = index % 3
-    const paddingSize = 2
+    const paddingSize = 4
     if (n === 0) return side === 'left' ? 0 : 2 * paddingSize
-    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
     if (n === 1) return paddingSize
+    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
   }
 
   return (
-    <Box alignSelf="stretch">
+    <Box alignSelf="stretch" style={styles.container}>
       <Box flexDirection="row" flexWrap="wrap">
         {photos.map(({ uri, id }, uriIndex) => (
           <Box
@@ -44,3 +45,9 @@ export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: At
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    paddingHorizontal: 10,
+  },
+}))
