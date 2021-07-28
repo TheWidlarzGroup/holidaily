@@ -10,6 +10,7 @@ import { MessageInput } from 'components/MessageInput'
 import { Modal, TextInput } from 'react-native'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -41,7 +42,7 @@ const CreateCommentModal = (props: CreateCommentModalProps) => {
       animationType="slide"
       onShow={() => inputRef.current?.focus()}
       onRequestClose={onBlur}>
-      <Box flex={1} justifyContent="flex-end">
+      <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}>
         <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onBlur} />
         <Box
           paddingTop="xm"
@@ -49,9 +50,9 @@ const CreateCommentModal = (props: CreateCommentModalProps) => {
           bg="disabled"
           borderTopLeftRadius="m"
           borderTopRightRadius="m">
-          <MessageInput ref={inputRef} onSubmitEditing={onBlur} />
+          <MessageInput ref={inputRef} onSubmitEditing={onBlur} onBlur={onBlur} />
         </Box>
-      </Box>
+      </KeyboardAwareScrollView>
     </Modal>
   )
 }
