@@ -42,6 +42,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-modal": "^11.7.0",
     "react-native-month-year-picker": "^1.6.4",
+    "react-native-onesignal": "^4.2.0",
     "react-native-reanimated": "^2.0.1",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.18.1",
