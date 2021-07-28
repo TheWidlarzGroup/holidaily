@@ -15,7 +15,7 @@ export const USER_DATA: UserDetails = {
   teams: ['Smartsoft', 'Akademia'],
 }
 type ColorProps = {
-  id: number | string
+  id: number
   color: string
 }
 export const COLORS: ColorProps[] = [
