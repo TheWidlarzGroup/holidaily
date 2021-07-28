@@ -1,6 +1,6 @@
 import { RadioInput } from 'components/RadioInput'
 import { useBooleanState } from 'hooks/useBooleanState'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
@@ -8,6 +8,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
+import { SupportedLanguageKeys, locales } from 'utils/locale'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -15,36 +16,36 @@ type LanguageProps = {
 }
 
 export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => {
+  const { i18n, t } = useTranslation('settings')
+
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
   const [changeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
     useBooleanState(false)
-  const [selectedLng, setSelectedLng] = useState<'en' | 'pl'>('pl')
+  const [selectedLng, setSelectedLng] = useState(i18n.language as SupportedLanguageKeys)
 
   const styles = useStyles()
 
-  const { i18n, t } = useTranslation('settings')
-
-  const changeLanguage = (lng: 'pl' | 'en') => {
+  const changeLanguage = (lng: SupportedLanguageKeys) => {
     if (lng === selectedLng) return
     hideChangeAlert()
     setLoadingTrue()
     setSelectedLng(lng)
   }
 
-  const lngChangedAlert = useCallback(() => {
-    showChangeAlert()
-    setTimeout(hideChangeAlert, 4 * 1000)
-  }, [showChangeAlert, hideChangeAlert])
-
   useEffect(() => {
     if (selectedLng === i18n.language) return
-    i18n.changeLanguage(selectedLng).then(() =>
-      setTimeout(() => {
-        setLoadingFalse()
-        lngChangedAlert()
-      }, 1000)
-    )
-  }, [selectedLng, i18n, lngChangedAlert, setLoadingFalse])
+    i18n.changeLanguage(selectedLng).then(() => {
+      setLoadingFalse()
+      showChangeAlert()
+    })
+  }, [selectedLng, i18n, setLoadingFalse, showChangeAlert])
+
+  useEffect(() => {
+    if (changeAlertVisible === false) return
+    const timeout = setTimeout(hideChangeAlert, 4000)
+
+    return () => clearTimeout(timeout)
+  }, [hideChangeAlert, changeAlertVisible])
 
   const heightProgress = useDerivedValue(
     () => (opened ? withTiming(70, { duration: 200 }) : withTiming(0, { duration: 200 })),
@@ -80,21 +81,20 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           </TouchableOpacity>
         </Box>
         <Animated.View style={[styles.options, animatedOptions]}>
-          <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('en')}>
-            <Text variant="body1" marginVertical="s" textAlign="left">
-              {t('english')}
-            </Text>
-            <RadioInput checked={selectedLng === 'en'} onPress={() => {}} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.lng} onPress={() => changeLanguage('pl')}>
-            <Text variant="body1" textAlign="left">
-              {t('polish')}
-            </Text>
-            <RadioInput checked={selectedLng === 'pl'} onPress={() => {}} />
-          </TouchableOpacity>
+          {Object.keys(locales).map((language) => (
+            <TouchableOpacity
+              key={language}
+              style={styles.lng}
+              onPress={() => changeLanguage(language as SupportedLanguageKeys)}>
+              <Text variant="body1" marginVertical="s" textAlign="left">
+                {t(language)}
+              </Text>
+              <RadioInput checked={selectedLng === language} onPress={() => {}} />
+            </TouchableOpacity>
+          ))}
         </Animated.View>
       </Box>
-      <Alert show={changeAlertVisible}>
+      <Alert show={changeAlertVisible} onPress={hideChangeAlert}>
         <CheckCircle style={styles.icon} />
         <Text variant="regular15">
           <Text variant="bold15">{t('language')} </Text>
