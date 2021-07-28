@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { Box, Text, mkUseStyles, Theme, theme } from 'utils/theme'
-import IconBack from 'assets/icons/icon-back-white.svg'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { shadow } from 'utils/theme/shadows'
-import Checkmark from 'components/Checkmark'
+import { randomFromRange } from 'utils/randomFromRange'
+import IconBack from 'assets/icons/icon-back-white.svg'
 import { Bubble } from './Bubble'
+import { CheckMark } from './Checkmark'
 import { COLORS } from '../../helpers/mockedData'
+import { CONSTANTS as C } from './BubbleHelper'
 
 export type Position = {
   x: number
@@ -23,43 +25,35 @@ type BubbleProps = {
 export const BubbleContainer = () => {
   const styles = useStyles()
   const { goBack } = useNavigation()
-  const [dropColor, setDropColor] = useState('#F3F3F3')
+  const [dropColor, setDropColor] = useState(theme.colors.disabledText)
   const [animateCheckmark, setAnimateCheckmark] = useState(false)
   const { width, height } = useWindowDimensions()
-  const diameter = 56
-  const checkmarkBoxSize = 30
-  const checkmarkCenter = {
-    x: width / 2 - checkmarkBoxSize / 2,
-    y: height / 2 - checkmarkBoxSize / 2,
-  }
-  const dropTop = useSharedValue(height - 175)
-  const dropHeight = useSharedValue(1000)
-
-  const randomFromRange = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1) + min)
+  const dropTop = useSharedValue(height - C.DROP_AREA_OFFSET_BOTTOM)
+  const dropHeight = useSharedValue(C.DROP_AREA_INIT_HEIGHT)
 
   const initBubbles = COLORS.map((color) => ({
     ...color,
     position: {
-      x: randomFromRange(diameter, width - diameter),
-      y: randomFromRange(130, height - 250),
+      x: randomFromRange(C.BUBBLE_SIZE, width - C.BUBBLE_SIZE),
+      y: randomFromRange(C.BUBBLES_OFFSET_TOP, height - C.BUBBLES_OFFSET_BOTTOM),
     },
   }))
   const [bubbles] = useState<BubbleProps[]>(initBubbles)
 
   const animateDropArea = () => {
-    dropTop.value = withTiming(-50, { duration: 400 })
-    dropHeight.value = withTiming(1.5 * height, { duration: 400 })
-    setTimeout(() => setAnimateCheckmark(true), 200)
+    dropTop.value = withTiming(-50, C.ANIMATION_CONFIG_MEDIUM)
+    dropHeight.value = withTiming(1.5 * height, C.ANIMATION_CONFIG_MEDIUM)
+    setTimeout(() => setAnimateCheckmark(true), C.CHECKMARK_ANIMATION_DELAY)
   }
 
-  const AnimatedDrop = useAnimatedStyle(() => ({
+  const animatedDrop = useAnimatedStyle(() => ({
     top: dropTop.value,
     height: dropHeight.value,
   }))
 
   return (
     <View style={styles.mainContainer}>
+      {animateCheckmark && <CheckMark animateCheckmark={animateCheckmark} />}
       <TouchableOpacity onPress={goBack} style={styles.backBtn} activeOpacity={0.2}>
         <IconBack />
       </TouchableOpacity>
@@ -71,39 +65,19 @@ export const BubbleContainer = () => {
       <Animated.View
         style={[
           styles.dropArea,
-          AnimatedDrop,
+          animatedDrop,
           {
             backgroundColor: dropColor,
             left: width / 2 - 500,
             zIndex: dropColor === '#F3F3F3' ? 0 : 3,
           },
-        ]}></Animated.View>
-      {animateCheckmark && (
-        <Box
-          style={styles.scaleCheckmark}
-          position="absolute"
-          top={checkmarkCenter.y}
-          left={checkmarkCenter.x}
-          width={checkmarkBoxSize}
-          height={checkmarkBoxSize}
-          alignItems="center"
-          justifyContent="center"
-          backgroundColor="transparent"
-          zIndex="10">
-          <Checkmark
-            width={10}
-            start={animateCheckmark}
-            color={theme.colors.white}
-            onFinish={() => {}}
-          />
-        </Box>
-      )}
-
+        ]}
+      />
       {bubbles.map((bubble) => (
         <Box position="absolute" key={bubble.id}>
           <Bubble
             {...bubble}
-            diameter={diameter}
+            diameter={C.BUBBLE_SIZE}
             dropArea={dropTop.value}
             setDropColor={setDropColor}
             animateDropArea={animateDropArea}

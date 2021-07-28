@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
@@ -11,12 +12,17 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
-import { useNavigation } from '@react-navigation/native'
+import { CONSTANTS as C } from './BubbleHelper'
+
+type Position = {
+  x: number
+  y: number
+}
 
 type BubbleProps = {
   color: string
   diameter: number
-  position: { x: number; y: number }
+  position: Position
   dropArea: number
   setDropColor: F1<string>
   animateDropArea: F0
@@ -38,7 +44,7 @@ export const Bubble = ({
   const initialY = position.y
   const translateX = useSharedValue(initialX)
   const translateY = useSharedValue(initialY)
-  const bubbleSize = useSharedValue(0)
+  const bubbleSize = useSharedValue(C.BUBBLE_SIZE_INIT)
   const draggedBubbleScale = useSharedValue(1)
   const bubbleOpacity = useSharedValue(1)
 
@@ -49,7 +55,7 @@ export const Bubble = ({
     setDropColor(color)
     bubbleOpacity.value = 0
     animateDropArea()
-    setTimeout(() => navigation.goBack(), 1500)
+    setTimeout(() => navigation.goBack(), C.ANIMATION_END_DELAY)
   }
 
   const gestureHandler = useAnimatedGestureHandler<
@@ -67,38 +73,34 @@ export const Bubble = ({
       translateX.value = ctx.offsetX + event.translationX
       translateY.value = ctx.offsetY + event.translationY
       if (translateY.value > dropArea) {
-        draggedBubbleScale.value = withTiming(1.2, { duration: 200 })
+        draggedBubbleScale.value = withTiming(1.2, C.ANIMATION_CONFIG_FAST)
       } else {
-        draggedBubbleScale.value = withTiming(1, { duration: 200 })
+        draggedBubbleScale.value = withTiming(1, C.ANIMATION_CONFIG_FAST)
       }
     },
     onEnd: ({ velocityX, velocityY }) => {
-      translateX.value = withDecay({ velocity: velocityX, clamp: [0, width - diameter] })
-      translateY.value = withDecay({ velocity: velocityY, clamp: [130, height - diameter] })
+      translateX.value = withDecay({
+        velocity: velocityX,
+        clamp: [C.BUBBLES_OFFSET_LEFT, width - C.BUBBLE_SIZE],
+      })
+      translateY.value = withDecay({
+        velocity: velocityY,
+        clamp: [C.BUBBLES_OFFSET_TOP, height - C.BUBBLE_SIZE],
+      })
       if (translateY.value > dropArea && draggedBubbleScale.value > 1) {
         runOnJS(handleSelection)()
       }
     },
   })
 
-  const ViewStyle = useAnimatedStyle(() => ({
+  const viewStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
   }))
 
   const BubbleStyle = useAnimatedStyle(() => ({
-    width: withDelay(
-      randomDelay,
-      withTiming(bubbleSize.value, {
-        duration: 600,
-      })
-    ),
-    height: withDelay(
-      randomDelay,
-      withTiming(bubbleSize.value, {
-        duration: 600,
-      })
-    ),
-    borderRadius: withDelay(randomDelay, withTiming(bubbleSize.value, { duration: 600 })),
+    width: withDelay(randomDelay, withTiming(bubbleSize.value, C.ANIMATION_CONFIG_LONG)),
+    height: withDelay(randomDelay, withTiming(bubbleSize.value, C.ANIMATION_CONFIG_LONG)),
+    borderRadius: withDelay(randomDelay, withTiming(bubbleSize.value, C.ANIMATION_CONFIG_LONG)),
     transform: [{ scale: draggedBubbleScale.value }],
     opacity: bubbleOpacity.value,
   }))
@@ -109,7 +111,7 @@ export const Bubble = ({
 
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
-      <Animated.View style={ViewStyle}>
+      <Animated.View style={viewStyle}>
         <Animated.View
           style={[
             BubbleStyle,
