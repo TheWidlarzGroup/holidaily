@@ -1,31 +1,25 @@
 import React from 'react'
 import { Box, mkUseStyles, Text } from 'utils/theme/index'
-import AddCommentIcon from 'assets/icons/addComment.svg'
+import CommentIcon from 'assets/icons/icon-message.svg'
 import { TouchableOpacity } from 'react-native'
 
-type MessageIconProps = {
+type MessageProps = {
   onPressMessage: F0
   messageContent: string
 }
 
-export const MessageIcon = ({ onPressMessage, messageContent }: MessageIconProps) => {
+export const Message = ({ onPressMessage, messageContent }: MessageProps) => {
   const styles = useStyles()
 
   return (
-    <TouchableOpacity onPress={onPressMessage}>
-      <Box position="relative" style={{ padding: 25 }}>
-        <Box
-          backgroundColor="lightGrey"
-          padding="xm"
-          margin="s"
-          marginLeft={0}
-          borderRadius="l"
-          style={styles.cornerAddComment}>
+    <TouchableOpacity onPress={onPressMessage} style={{ marginTop: 35 }}>
+      <Box position="relative" style={styles.container}>
+        <Box backgroundColor="lightGrey" borderRadius="l" style={styles.cornerAddComment}>
           <TouchableOpacity onPress={onPressMessage}>
-            <AddCommentIcon width={22} height={22} />
+            <CommentIcon width={18} height={18} />
           </TouchableOpacity>
         </Box>
-        <Box padding="l" backgroundColor="lightGrey" borderRadius="mplus">
+        <Box padding="m" backgroundColor="lightGrey" borderRadius="mplus">
           <Text variant="regularGrey16" color="black">
             {messageContent}
           </Text>
@@ -38,16 +32,18 @@ export const MessageIcon = ({ onPressMessage, messageContent }: MessageIconProps
 const useStyles = mkUseStyles((theme) => ({
   container: {
     position: 'relative',
-    backgoundColor: 'lightgreen',
+    overflow: 'visible',
+    paddingHorizontal: 10,
   },
   cornerAddComment: {
     position: 'absolute',
-    top: 0,
-    left: 0,
+    top: -17,
+    left: -13,
     background: theme.colors.grey,
     zIndex: 4,
-    borderBottomWidth: 2,
-    borderRightWidth: 2,
+    borderWidth: 3,
     borderColor: theme.colors.disabledText,
+    padding: 8,
+    margin: 0,
   },
 }))
