@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import SecureStorage from 'react-native-secure-storage'
 import { useMutation } from 'react-query'
 
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { UserTypes, ErrorTypes, LoginTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
+import { setItemAsync } from 'expo-secure-store'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
@@ -26,8 +26,7 @@ export const useLogin = () => {
 
         if (user.confirmed) {
           updateUser({ ...user, isConfirmed: user.confirmed })
-
-          await SecureStorage.setItem('token', token)
+          await setItemAsync('token', token)
         } else {
           const errorMessage = 'Please confirm your account'
 

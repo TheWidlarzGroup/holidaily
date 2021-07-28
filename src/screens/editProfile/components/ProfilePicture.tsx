@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { RectButton } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { UploadPictureModal } from 'components/UploadPictureModal'
 import { EditPictureModal } from 'components/EditPictureModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
-import { Box, theme } from 'utils/theme'
+import { Box, BaseOpacity } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from '../../../contexts/ModalProvider'
@@ -104,14 +103,13 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       paddingHorizontal="m"
       justifyContent="center"
       alignItems="center"
-      marginTop="xxxl"
+      marginTop="xxl"
       marginBottom="xl">
-      <RectButton
+      <BaseOpacity
         onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
-        activeOpacity={0.2}
-        rippleColor={theme.colors.rippleColor}>
+        activeOpacity={0.5}>
         <Avatar src={userProfilePicture} size="l" marginBottom="m" />
-      </RectButton>
+      </BaseOpacity>
       <TextLink
         text={userProfilePicture ? t('editPhoto') : t('addPhoto')}
         variant="boldOrange15"

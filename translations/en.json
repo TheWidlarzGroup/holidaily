@@ -172,12 +172,16 @@
     "name": "Settings",
     "darkmode": "Dark mode",
     "language": "Language",
-    "english": "English",
-    "polish": "Polish",
+    "en": "English",
+    "pl": "Polish",
     "biometric": "Biometric passcode",
     "changed": "has been changed!"
   },
   "loader": {
     "wait": "Wait a second..."
+  },
+  "stats": {
+    "day": "day",
+    "days": "days"
   }
 }

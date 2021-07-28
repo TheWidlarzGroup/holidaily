@@ -166,4 +166,13 @@ export const textVariants = {
     fontSize: 12,
     color: 'white',
   },
+  boldOrange20: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 20,
+    color: 'tertiary',
+  },
+  bold16: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 16,
+  },
 }
