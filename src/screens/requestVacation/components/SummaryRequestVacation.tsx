@@ -20,6 +20,8 @@ type SummaryRequestVacationProps = {
   photos?: { id: string; uri: string }[]
 }
 
+type Side = 'left' | 'right'
+
 export const SummaryRequestVacation = ({
   description,
   sickTime,
@@ -30,12 +32,12 @@ export const SummaryRequestVacation = ({
   photos = [],
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
-  const getPadding = (index: number, side: 'right' | 'left') => {
+  const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2
     if (n === 0) return side === 'left' ? 0 : 2 * paddingSize
-    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
     if (n === 1) return paddingSize
+    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
   }
 
   return (
@@ -62,7 +64,7 @@ export const SummaryRequestVacation = ({
               <Text variant="body1">Sick time off</Text>
             </Box>
           )}
-          {!!message && (
+          {message && (
             <Text variant="regular15" paddingTop="m">
               {message}
             </Text>
@@ -88,10 +90,10 @@ export const SummaryRequestVacation = ({
         </Box>
 
         <CustomButton
-          label={'Send request'}
+          label="Send request"
           variant="primary"
           onPress={onNextPressed}
-          marginTop={20}
+          style={styles.button}
         />
       </Box>
     </ScrollView>
@@ -108,5 +110,8 @@ const useStyles = mkUseStyles(() => ({
     position: 'absolute',
     bottom: 0,
     left: -30,
+  },
+  button: {
+    marginTop: 20,
   },
 }))

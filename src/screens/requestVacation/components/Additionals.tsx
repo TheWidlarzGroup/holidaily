@@ -1,4 +1,5 @@
 import React from 'react'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { Box, Text } from 'utils/theme/index'
 import { AttachmentIcon } from './additionals/AttachmentIcon'
 import { Attachments } from './additionals/Attachments'
@@ -10,7 +11,7 @@ type AdditionalsProps = {
   messageContent: string
   messageInputVisible: boolean
   showAttachmentModal: F0
-  attachments: { id: string; uri: string }[]
+  attachments: AttachmentType[]
   removePhoto: F1<string>
 }
 
@@ -24,7 +25,7 @@ export const Additionals = ({
 }: AdditionalsProps) => {
   const getFlexDirection = () => {
     if (messageContent) return 'column-reverse'
-    if (!messageContent && !attachments.length) return 'row'
+    if (!attachments.length) return 'row'
     return 'column'
   }
 

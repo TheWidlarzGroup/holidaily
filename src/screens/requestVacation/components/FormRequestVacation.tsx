@@ -6,6 +6,7 @@ import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadPictureModal } from 'components/UploadPictureModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { Additionals } from './Additionals'
 import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
@@ -14,7 +15,7 @@ import { SickTime } from './SickTime'
 type RequestDataTypes = {
   description: string
   message: string
-  photos: { id: string; uri: string }[]
+  photos: AttachmentType[]
 }
 
 type FormRequestVacationProps = {
@@ -27,7 +28,7 @@ type FormRequestVacationProps = {
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
   message: string
-  photos: { id: string; uri: string }[]
+  photos: AttachmentType[]
   removePhoto: F1<string>
 }
 
@@ -72,10 +73,12 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     setPhotosToRemove([])
   }
 
+  const cancelRemovingPhoto = () => setPhotosToRemove([])
+
   return (
     <Box flex={1}>
       <ScrollView>
-        <Box style={{ margin: 20 }} paddingBottom="xxxl">
+        <Box margin="ml" paddingBottom="xxxl">
           <Details onDescriptionChange={handleDescriptionChange} date={date} />
           <SickTime sickTime={sickTime} toggle={toggleSickTime} />
           <Additionals
@@ -92,21 +95,16 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         {showMessageInput ? (
           <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={message} autofocus />
         ) : (
-          <CustomButton
-            label={'next'}
-            variant="primary"
-            onPress={handleFormSubmit}
-            marginTop={20}
-          />
+          <CustomButton label="next" variant="primary" onPress={handleFormSubmit} marginTop={20} />
         )}
       </Box>
       <ConfirmationModal
         onAccept={clearPhotosToRemove}
-        onDecline={() => setPhotosToRemove([])}
-        hideModal={() => setPhotosToRemove([])}
+        onDecline={cancelRemovingPhoto}
+        hideModal={cancelRemovingPhoto}
         isVisible={!!photosToRemove.length}
         header={null}
-        content={'Delete attachment?'}
+        content="Delete attachment?"
       />
       <UploadPictureModal
         isVisible={showAttachmentModal}

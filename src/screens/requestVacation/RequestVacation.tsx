@@ -8,6 +8,7 @@ import { RequestVacationBar } from 'components/RequestVacationBar'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
@@ -16,7 +17,7 @@ import { RequestSent } from './components/RequestSent'
 export type RequestDataTypes = {
   description: string
   message: string
-  photos: { id: string; uri: string }[]
+  photos: AttachmentType[]
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
@@ -61,7 +62,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setPhotos([])
   }
 
-  const removePhoto = (removeId: string) => setPhotos((o) => o.filter(({ id }) => id !== removeId))
+  const removePhoto = (id: string) => setPhotos(photos.filter((p) => p.id !== id))
 
   useEffect(() => {
     const { params } = route

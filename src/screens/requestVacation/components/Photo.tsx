@@ -6,11 +6,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type PhotoProps = React.ComponentProps<typeof Box> & {
   onClose: F0
-  displayClose?: boolean
+  displayClose?: true
   src?: string
 }
 
-export const Photo = ({ src, onClose, displayClose = false, ...containerProps }: PhotoProps) => {
+export const Photo = ({ src, onClose, displayClose, ...containerProps }: PhotoProps) => {
   const [size, setSize] = useState(0)
   const styles = useStyles()
 

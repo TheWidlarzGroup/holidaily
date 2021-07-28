@@ -1,18 +1,21 @@
 import React from 'react'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { Box, mkUseStyles } from 'utils/theme'
 import { Photo } from '../Photo'
 import { AddMore } from './AddMore'
 
 type AttachmentProps = {
-  photos: { id: string; uri: string }[]
+  photos: AttachmentType[]
   removePhoto: F1<string>
   addMore: F0
-  displayAddMore: boolean
+  displayAddMore?: boolean
 }
+
+type Side = 'right' | 'left' | 'top'
 
 export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: AttachmentProps) => {
   const styles = useStyles()
-  const getPadding = (index: number, side: 'right' | 'left' | 'top') => {
+  const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 4
     if (side === 'top') return 3 * paddingSize

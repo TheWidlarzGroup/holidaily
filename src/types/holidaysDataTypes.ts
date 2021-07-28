@@ -58,6 +58,11 @@ export type GalleryItemData = {
   type: 'image' | 'video'
 }
 
+export type AttachmentType = {
+  id: string
+  uri: string
+}
+
 export type UserTeamsSubscriptions = {
   userTeams: TeamsType[]
   setUserTeams: Dispatch<SetStateAction<TeamsType[]>>
