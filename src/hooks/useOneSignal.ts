@@ -15,18 +15,19 @@ export const useOneSignal = () => {
 
     // Method for handling notifications received while app in foreground
     OneSignal.setNotificationWillShowInForegroundHandler((notificationReceivedEvent) => {
-      console.log('OneSignal: notification will show in foreground:', notificationReceivedEvent)
+      if (__DEV__)
+        console.log('OneSignal: notification will show in foreground:', notificationReceivedEvent)
       const notification = notificationReceivedEvent.getNotification()
-      console.log('notification: ', notification)
+      if (__DEV__) console.log('notification: ', notification)
       const data = notification.additionalData
-      console.log('additionalData: ', data)
+      if (__DEV__) console.log('additionalData: ', data)
       // Complete with null means don't show a notification.
       notificationReceivedEvent.complete(notification)
     })
 
     // Method for handling notifications opened
     OneSignal.setNotificationOpenedHandler((notification) => {
-      console.log('OneSignal: notification opened:', notification)
+      if (__DEV__) console.log('OneSignal: notification opened:', notification)
     })
   }, [])
 }
