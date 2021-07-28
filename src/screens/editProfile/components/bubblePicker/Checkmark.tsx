@@ -1,3 +1,4 @@
+import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import Checkmark from 'components/Checkmark'
 import { Box, mkUseStyles, theme } from 'utils/theme'
