@@ -11,9 +11,9 @@ import Animated, {
 import { themeBase } from 'utils/theme/themeBase'
 import { useCombinedRefs } from 'hooks/useCombinedRefs'
 
-type MessageInputProps = {
+export type MessageInputProps = {
   onSubmitEditing: F1<string>
-  onBlur?: F0
+  onBlur?: F1<string>
   defaultValue?: string
   maxLength?: number
   autofocus?: boolean
@@ -60,7 +60,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   }
 
   const handleBlur = () => {
-    onBlur?.()
+    onBlur?.(messageContent)
   }
 
   useEffect(() => {
