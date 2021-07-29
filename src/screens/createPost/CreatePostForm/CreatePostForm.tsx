@@ -2,7 +2,6 @@ import React from 'react'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useKeyboard } from 'hooks/useKeyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
@@ -16,7 +15,6 @@ type CreatePostFormProps = {
 
 export const CreatePostForm = (props: CreatePostFormProps) => {
   const [state, dispatch] = usePostFormReducer()
-  const [keyboardOpened] = useKeyboard()
   const [locationPickerOpened, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
     useBooleanState(false)
 
@@ -34,16 +32,13 @@ export const CreatePostForm = (props: CreatePostFormProps) => {
           onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
           data={galleryImages}
         />
-        {!keyboardOpened && (
-          <PostFooter
-            onLocationPress={openLocationPicker}
-            disabledCTA={sendDisabled}
-            onCTAPress={() => props.onSend(state)}
-            onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
-          />
-        )}
       </ScrollView>
-
+      <PostFooter
+        onLocationPress={openLocationPicker}
+        disabledCTA={sendDisabled}
+        onCTAPress={() => props.onSend(state)}
+        onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
+      />
       <ModalLocationPicker
         visible={locationPickerOpened}
         onLocationChange={(locationPayload) => {

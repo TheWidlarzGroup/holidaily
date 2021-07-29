@@ -49,6 +49,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     flexGrow: 1,
     paddingBottom: theme.spacing.l,
     borderColor: theme.colors.transparent,
+    width: '100%',
     fontSize: theme.fontSize.base,
     fontFamily: theme.fontFamily.nunitoRegular,
   },
