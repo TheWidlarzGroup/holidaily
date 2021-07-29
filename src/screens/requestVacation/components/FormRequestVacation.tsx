@@ -7,8 +7,8 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadPictureModal } from 'components/UploadPictureModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { MessageInputModal } from 'components/MessageInputModal'
 import { Additionals } from './Additionals'
-import { MessageInput } from '../../../components/MessageInput'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
 
@@ -93,7 +93,13 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
       </ScrollView>
       <Box marginBottom={showMessageInput ? 0 : 'l'}>
         {showMessageInput ? (
-          <MessageInput onSubmitEditing={handleMessageSubmit} defaultValue={message} autofocus />
+          <MessageInputModal
+            visible={showMessageInput}
+            onSubmitEditing={handleMessageSubmit}
+            onRequestClose={hideMessageInput}
+            defaultValue={message}
+            autofocus
+          />
         ) : (
           <CustomButton label="next" variant="primary" onPress={handleFormSubmit} marginTop={20} />
         )}
