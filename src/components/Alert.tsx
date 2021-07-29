@@ -1,34 +1,38 @@
-import { useBooleanState } from 'hooks/useBooleanState'
-import React, { useEffect, FC } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import React, { FC } from 'react'
+import { StyleProp, ViewStyle, StyleSheet } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
-import { mkUseStyles } from 'utils/theme'
+import { BaseOpacity, mkUseStyles } from 'utils/theme'
 
 type AlertProps = {
   show: boolean
   style?: StyleProp<ViewStyle>
+  onPress?: F0
 }
 
-export const Alert: FC<AlertProps> = ({ show, style, children }) => {
-  const [hidden, { setTrue: setHiddenTrue, setFalse: setHiddenFalse }] = useBooleanState(!show)
+export const Alert: FC<AlertProps> = ({ show, style, onPress, children }) => {
   const styles = useStyles()
   const progress = useDerivedValue(() => (show ? 0 : 1), [show])
 
   const animatedStyles = useAnimatedStyle(() => ({
-    opacity: withTiming(1 - progress.value, { duration: 300 }),
+    opacity: withTiming(1 - progress.value),
     transform: [
       {
-        translateY: withTiming(-(progress.value * 200), { duration: 300 }),
+        translateY: withTiming(-(progress.value * 200)),
       },
     ],
   }))
-  useEffect(() => {
-    if (show) setHiddenFalse()
-    else setTimeout(setHiddenTrue, 1000)
-  }, [show, setHiddenFalse, setHiddenTrue])
 
-  if (!show && hidden) return null
-  return <Animated.View style={[styles.container, style, animatedStyles]}>{children}</Animated.View>
+  return (
+    <Animated.View style={[styles.container, style, animatedStyles]}>
+      <BaseOpacity
+        flexDirection="row"
+        alignItems="center"
+        {...StyleSheet.absoluteFillObject}
+        onPress={onPress}>
+        {children}
+      </BaseOpacity>
+    </Animated.View>
+  )
 }
 
 const useStyles = mkUseStyles((theme) => ({
@@ -40,8 +44,6 @@ const useStyles = mkUseStyles((theme) => ({
     top: -50,
     height: 84,
     borderRadius: theme.borderRadii.m,
-    flexDirection: 'row',
-    alignItems: 'center',
     shadowColor: 'black',
     shadowOffset: {
       width: 0,

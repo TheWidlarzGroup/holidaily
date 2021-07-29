@@ -12,7 +12,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@jake7/react-native-emoji-keyboard": "0.1.1-beta.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^12.1.0",
     "@react-native-firebase/crashlytics": "^12.1.0",
@@ -43,6 +42,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-modal": "^11.7.0",
     "react-native-month-year-picker": "^1.6.4",
+    "react-native-onesignal": "^4.2.0",
     "react-native-reanimated": "^2.0.1",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.18.1",
@@ -51,6 +51,7 @@
     "react-native-svg-transformer": "^0.14.3",
     "react-native-unimodules": "^0.14.6",
     "react-query": "^3.13.4",
+    "rn-emoji-keyboard": "^0.2.2",
     "xdate": "^0.8.2"
   },
   "devDependencies": {

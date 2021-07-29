@@ -10,7 +10,8 @@ type ConfirmationModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   onAccept: F0
   onDecline: F0
-  content: string
+  content?: string | null
+  header?: string | null
 }
 export const ConfirmationModal = ({
   isVisible,
@@ -18,6 +19,7 @@ export const ConfirmationModal = ({
   onAccept,
   onDecline,
   content,
+  header,
 }: ConfirmationModalProps) => {
   const styles = useStyles()
   const { t } = useTranslation('confirmationModal')
@@ -36,12 +38,16 @@ export const ConfirmationModal = ({
       style={styles.modal}
       hideModalContentWhileAnimating>
       <Box justifyContent="center" alignItems="center" paddingHorizontal="m">
-        <Text variant="boldBlackCenter20" marginBottom="l">
-          {t('areYouSure')}
-        </Text>
-        <Text variant="body1" marginBottom="xxl">
-          {content}
-        </Text>
+        {header !== null && (
+          <Text variant="boldBlackCenter20" marginBottom="l">
+            {header || t('areYouSure')}
+          </Text>
+        )}
+        {content !== null && (
+          <Text variant="body1" marginBottom="xxl">
+            {content}
+          </Text>
+        )}
         <Box marginBottom="xm">
           <TouchableOpacity onPress={onDecline} activeOpacity={1}>
             <CustomButton label={t('no')} variant="secondary" width={221} height={53} />

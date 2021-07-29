@@ -8,6 +8,7 @@ import { RequestVacationBar } from 'components/RequestVacationBar'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
@@ -16,6 +17,7 @@ import { RequestSent } from './components/RequestSent'
 export type RequestDataTypes = {
   description: string
   message: string
+  photos: AttachmentType[]
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
@@ -29,6 +31,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [sickTime, { setTrue: setSickTime, setFalse: unsetSickTime, toggle: toggleSickTime }] =
     useBooleanState(false)
   const [message, setMessage] = useState('')
+  const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
@@ -42,9 +45,10 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, message })
+    const newData = callback({ description, message, photos })
     setDescription(newData.description)
     setMessage(newData.message)
+    setPhotos(newData.photos)
   }
 
   const reset = () => {
@@ -55,7 +59,10 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setDescription('')
     unsetSickTime()
     setMessage('')
+    setPhotos([])
   }
+
+  const removePhoto = (id: string) => setPhotos(photos.filter((p) => p.id !== id))
 
   useEffect(() => {
     const { params } = route
@@ -78,6 +85,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           changeRequestData={changeRequestData}
           date={{ start: startDate, end: endDate }}
           message={message}
+          photos={photos}
+          removePhoto={removePhoto}
         />
       )}
       {step === 1 && (
@@ -88,6 +97,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           endDate={endDate}
           message={message}
           onNextPressed={showSentModal}
+          photos={photos}
         />
       )}
 

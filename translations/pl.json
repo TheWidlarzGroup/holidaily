@@ -176,8 +176,8 @@
     "name": "Ustawienia ",
     "darkmode": "Ciemny motyw",
     "language": "Język",
-    "english": "Angielski",
-    "polish": "Polski",
+    "en": "Angielski",
+    "pl": "Polski",
     "biometric": "Odblokuj odciskiem palca",
     "changed": "został zmieniony!"
   },
