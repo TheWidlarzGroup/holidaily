@@ -1,16 +1,14 @@
-import React, { useRef } from 'react'
+import React from 'react'
 
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 
 import { Reaction } from 'screens/feed/types'
-import { BaseOpacity, Box, Text } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { MessageInput } from 'components/MessageInput'
-import { Modal, TextInput } from 'react-native'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { MessageInputModal } from 'components/MessageInputModal'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -24,36 +22,13 @@ export const FooterBar = ({ reactions }: FooterBarProps) => {
   return (
     <>
       <FooterBarContent onCommentBtnPress={showMessageInput} reactions={reactions} />
-      {messageInputOpened && <CreateCommentModal onBlur={hideMessageInput} />}
+      <MessageInputModal
+        visible={messageInputOpened}
+        onSubmitEditing={hideMessageInput}
+        onRequestClose={hideMessageInput}
+        autofocus
+      />
     </>
-  )
-}
-
-type CreateCommentModalProps = {
-  onBlur: F0
-}
-
-const CreateCommentModal = (props: CreateCommentModalProps) => {
-  const { onBlur } = props
-  const inputRef = useRef<TextInput>(null)
-  return (
-    <Modal
-      transparent
-      animationType="slide"
-      onShow={() => inputRef.current?.focus()}
-      onRequestClose={onBlur}>
-      <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}>
-        <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onBlur} />
-        <Box
-          paddingTop="xm"
-          paddingBottom="xs"
-          bg="disabled"
-          borderTopLeftRadius="m"
-          borderTopRightRadius="m">
-          <MessageInput ref={inputRef} onSubmitEditing={onBlur} onBlur={onBlur} />
-        </Box>
-      </KeyboardAwareScrollView>
-    </Modal>
   )
 }
 
