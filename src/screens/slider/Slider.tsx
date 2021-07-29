@@ -94,7 +94,7 @@ export const Slider: FC = () => {
           />
         ))}
       </Animated.ScrollView>
-      <Box flex={0.15} alignItems="center" justifyContent="center" alignSelf="center">
+      <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="s">
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <Box maxWidth={300} marginBottom="xl">
