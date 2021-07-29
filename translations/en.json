@@ -163,7 +163,9 @@
     "locations": "Locations",
     "locationsAccessText": "Want to find nearby places? Turn on location access.",
     "locationsAccessPromptText": "Use my location",
-    "locationsSearch": "Search..."
+    "locationsSearch": "Search...",
+    "locationNotFound": "Not found",
+    "loading": "Searching..."
   },
   "createPost": {
     "title": "Create Post",
