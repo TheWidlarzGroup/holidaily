@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { ModalProps, Modal } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
@@ -7,25 +7,28 @@ import IconArrowLeft from 'assets/icons/arrow-left.svg'
 import IconGeolocation from 'assets/icons/icon-geolocation.svg'
 import { useTranslation } from 'react-i18next'
 import { CompoundLocation, useLocation } from 'hooks/useLocation'
+import { useSearch } from 'hooks/useSearch'
 import { SearchBar } from './SearchBar'
+import { ModalLocationList } from './ModalLocationList'
 
 export type ModalLocationPickerProps = ModalProps & {
   onLocationChange: F1<CompoundLocation>
 }
 
 export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
-  const [locations, setLocations] = useState<CompoundLocation[]>([])
   const { t } = useTranslation('feed')
   const styles = useStyles()
   const { requestLocation, requestAddresses } = useLocation()
-
-  const handleQueryLocation = useCallback(
-    async (query: string) => {
-      const foundLocations = await requestAddresses(query)
-      setLocations(foundLocations)
-    },
-    [requestAddresses]
-  )
+  const {
+    query,
+    setQuery,
+    loading,
+    data: locations,
+    clearSearch,
+  } = useSearch({
+    onQueryChange: requestAddresses,
+    delay: 500,
+  })
 
   const handleLocationAccess = async () => {
     const location = await requestLocation()
@@ -50,30 +53,17 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
             <IconArrowLeft />
           </BaseOpacity>
         </Box>
-        {/* TODO: SearchBar */}
+        {/* SearchBar */}
         <Box paddingHorizontal="l" paddingTop="m">
-          <SearchBar
-            onQueryChange={handleQueryLocation}
-            onClear={() => setLocations([])}
-            delay={500}
+          <SearchBar query={query} onQueryChange={setQuery} onClear={clearSearch} />
+          <ModalLocationList
+            locations={locations}
+            onLocationPress={props.onLocationChange}
+            loading={loading}
           />
-          <Box paddingHorizontal="xs">
-            {locations.map((location) =>
-              location.addresses.map((address) => (
-                <BaseOpacity paddingVertical="m" key={address.name}>
-                  <Text variant="regular15">
-                    {address.name}, {address.city}
-                  </Text>
-                  <Text variant="labelGrey">
-                    {address.region}, {address.country}
-                  </Text>
-                </BaseOpacity>
-              ))
-            )}
-          </Box>
         </Box>
-        {/* Location Prompt Text */}
-        {locations.length === 0 && (
+        {/* Location Prompt */}
+        {(!locations || !locations.length) && (
           <Box marginTop="xxxl" paddingHorizontal="l" alignItems="center">
             <Text variant="lightGreyBold">{t('locationsAccessText')}</Text>
             <BaseOpacity flexDirection="row" padding="m" onPress={handleLocationAccess}>
