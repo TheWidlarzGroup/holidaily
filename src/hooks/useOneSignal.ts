@@ -9,9 +9,9 @@ export const useOneSignal = () => {
     // END OneSignal Init Code
 
     // Prompt for push on iOS
-    // OneSignal.promptForPushNotificationsWithUserResponse((response) => {
-    //   console.log('Prompt response:', response)
-    // })
+    OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+      console.log('Prompt response:', response)
+    })
 
     // Method for handling notifications received while app in foreground
     OneSignal.setNotificationWillShowInForegroundHandler((notificationReceivedEvent) => {
