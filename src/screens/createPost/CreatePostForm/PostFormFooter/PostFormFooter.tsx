@@ -14,12 +14,18 @@ import {
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
+  onLocationPress: F0
   onImagesPick: F1<Asset[]>
   onCTAPress: F0
   disabledCTA: boolean
 }
 
-export const PostFooter = ({ onCTAPress, onImagesPick, disabledCTA }: PostFooterProps) => {
+export const PostFooter = ({
+  onLocationPress,
+  onCTAPress,
+  onImagesPick,
+  disabledCTA,
+}: PostFooterProps) => {
   const { t } = useTranslation('createPost')
 
   const imagePickCallback = useCallback(
@@ -60,10 +66,15 @@ export const PostFooter = ({ onCTAPress, onImagesPick, disabledCTA }: PostFooter
     )
   }
 
-  const handleLocationPress = () => {}
-
   return (
-    <Box bg="rippleColor" borderTopLeftRadius="l" borderTopRightRadius="l">
+    <Box
+      bg="disabled"
+      borderTopLeftRadius="l"
+      borderTopRightRadius="l"
+      position="relative"
+      left={0}
+      right={0}
+      bottom={0}>
       <Box
         flexDirection="row"
         justifyContent="space-evenly"
@@ -75,7 +86,7 @@ export const PostFooter = ({ onCTAPress, onImagesPick, disabledCTA }: PostFooter
         <FooterButton onPress={handleGalleryPress}>
           <IconGallery />
         </FooterButton>
-        <FooterButton onPress={handleLocationPress}>
+        <FooterButton onPress={onLocationPress}>
           <IconLocation />
         </FooterButton>
       </Box>
