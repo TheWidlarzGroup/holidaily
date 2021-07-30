@@ -183,5 +183,9 @@
   "stats": {
     "day": "dzień",
     "days": "dni"
+  },
+  "messageInput": {
+    "placeholder": "Napisz swoją wiadomość...",
+    "maxCharacters": "Limit {{maxLength}} znaków"
   }
 }

@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { themeBase } from 'utils/theme/themeBase'
 import { useCombinedRefs } from 'hooks/useCombinedRefs'
+import { useTranslation } from 'react-i18next'
 
 export type MessageInputProps = {
   onSubmitEditing: F1<string>
@@ -19,11 +20,12 @@ export type MessageInputProps = {
   autofocus?: boolean
 }
 
-// eslint-disable-next-line react/display-name
 export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
   const { onSubmitEditing, onBlur, defaultValue = '', maxLength = 300, autofocus = false } = props
-  const [messageContent, setMessageContent] = useState('')
+  const [messageContent, setMessageContent] = useState(defaultValue)
   const [error, setError] = useState('')
+
+  const { t } = useTranslation('messageInput')
 
   const inputRef = useRef<TextInput>(null)
   const combinedInputRef = useCombinedRefs([ref, inputRef])
@@ -64,9 +66,9 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   }
 
   useEffect(() => {
-    if (messageContent.length > maxLength) setError(`Max. ${maxLength} characters `)
+    if (messageContent.length > maxLength) setError(t('maxCharacters', { maxLength }))
     else setError('')
-  }, [messageContent, maxLength])
+  }, [messageContent, maxLength, t])
 
   useEffect(() => {
     if (autofocus) combinedInputRef.current?.focus()
@@ -79,7 +81,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           ref={combinedInputRef}
           underlineColorAndroid={themeBase.colors.transparent}
           style={styles.input}
-          placeholder="Write your message..."
+          placeholder={t('placeholder')}
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={handleSubmit}
           onBlur={handleBlur}
@@ -98,6 +100,8 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     </Box>
   )
 })
+
+MessageInput.displayName = 'MessageInput'
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
@@ -120,8 +124,6 @@ const useStyles = mkUseStyles((theme) => ({
     fontSize: 16,
     color: 'black',
     flex: 1,
-    // paddingVertical: theme.spacing.s,
-    // paddingHorizontal: 0,
     padding: 0,
     borderColor: theme.colors.transparent,
   },

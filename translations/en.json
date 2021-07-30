@@ -183,5 +183,9 @@
   "stats": {
     "day": "day",
     "days": "days"
+  },
+  "messageInput": {
+    "placeholder": "Write your message...",
+    "maxCharacters": "Max {{maxLength}} characters"
   }
 }
