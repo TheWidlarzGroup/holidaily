@@ -69,7 +69,7 @@ export const BubbleContainer = () => {
           {
             backgroundColor: dropColor,
             left: width / 2 - 500,
-            zIndex: dropColor === '#F3F3F3' ? 0 : 3,
+            zIndex: dropColor === theme.colors.disabledText ? 0 : 3,
           },
         ]}
       />
