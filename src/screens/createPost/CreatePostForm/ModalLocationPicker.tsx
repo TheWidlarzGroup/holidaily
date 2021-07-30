@@ -39,7 +39,6 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
   return (
     <Modal hardwareAccelerated {...props}>
       <SafeAreaView style={styles.areaStyles}>
-        {/* Header */}
         <Box padding="l" alignItems="center" flexDirection="row">
           <Box flexGrow={1}>
             <Text variant="body1Bold">{t('locations')}</Text>
@@ -53,7 +52,6 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
             <IconArrowLeft />
           </BaseOpacity>
         </Box>
-        {/* SearchBar */}
         <Box paddingHorizontal="l" paddingTop="m">
           <SearchBar query={query} onQueryChange={setQuery} onClear={clearSearch} />
           <ModalLocationList
@@ -62,7 +60,6 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
             loading={loading}
           />
         </Box>
-        {/* Location Prompt */}
         {(!locations || !locations.length) && (
           <Box marginTop="xxxl" paddingHorizontal="l" alignItems="center">
             <Text variant="lightGreyBold">{t('locationsAccessText')}</Text>
@@ -81,7 +78,6 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
 
 const useStyles = mkUseStyles(() => ({
   areaStyles: {
-    // backgroundColor: theme.colors.mainBackground,
     flexGrow: 1,
   },
 }))

@@ -18,6 +18,7 @@ type PostBodyProps = {
 }
 
 export const PostBody = (props: PostBodyProps) => {
+  const { location, onTextChange, text, data } = props
   const { user } = useUserContext()
   const { t } = useTranslation('createPost')
 
@@ -28,18 +29,18 @@ export const PostBody = (props: PostBodyProps) => {
       <Box flexDirection="row">
         <Avatar src={user.photo} size="s" padding="l" />
         <Box marginLeft="m" alignItems="flex-start" flexShrink={1} flexGrow={1}>
-          {props.location?.addresses && <LocationInfo location={props.location} />}
+          {location?.addresses && <LocationInfo location={location} />}
           <TextInput
             multiline
             underlineColorAndroid="transparent"
             style={styles.textInput}
             placeholder={t('inputPlaceholder')}
-            onChangeText={props.onTextChange}
-            value={props.text}
+            onChangeText={onTextChange}
+            value={text}
           />
         </Box>
       </Box>
-      <Gallery data={props.data} />
+      <Gallery data={data} />
     </Box>
   )
 }
