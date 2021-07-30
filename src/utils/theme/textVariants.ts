@@ -175,4 +175,9 @@ export const textVariants = {
     fontFamily: 'Nunito-Bold',
     fontSize: 16,
   },
+  regularNeutralGrey10: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 10,
+    color: 'headerGrey',
+  },
 }

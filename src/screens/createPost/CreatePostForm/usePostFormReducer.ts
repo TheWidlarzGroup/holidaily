@@ -1,15 +1,21 @@
+import { CompoundLocation } from 'hooks/useLocation'
 import { useReducer } from 'react'
 import { Asset } from 'react-native-image-picker'
 
 export type PostState = {
   readonly text: string
   readonly images: Asset[]
+  readonly location: Maybe<CompoundLocation>
 }
 
 export type PostAction =
   | {
       type: 'updateText'
       payload: { text: string }
+    }
+  | {
+      type: 'setLocation'
+      payload: Maybe<CompoundLocation>
     }
   | {
       type: 'addImages'
@@ -23,12 +29,15 @@ export type PostAction =
       type: 'reset'
     }
 
-const initState: PostState = { text: '', images: [] }
+const initState: PostState = { text: '', images: [], location: null }
 
 const reducer = (state: PostState, action: PostAction): PostState => {
   switch (action.type) {
     case 'updateText': {
       return { ...state, text: action.payload.text }
+    }
+    case 'setLocation': {
+      return { ...state, location: action.payload }
     }
     case 'addImages': {
       const { images } = action.payload

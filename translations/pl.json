@@ -159,7 +159,13 @@
     "postCommentBtn": "Skomentuj",
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
-    "createPostLabel": "Co tam?"
+    "createPostLabel": "Co tam?",
+    "locations": "Lokalizacja",
+    "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
+    "locationsAccessPromptText": "Uzyj mojej lokalizacji",
+    "locationsSearch": "Wyszukaj...",
+    "locationNotFound": "Nie znaleziono",
+    "loading": "Szukam..."
   },
   "createPost": {
     "title": "Stwórz Post",
