@@ -32,9 +32,11 @@ export const SliderContent: FC<SliderContentProps> = ({
   })
 
   return (
-    <Animated.View style={[styles.container]}>
-      <Animated.Image style={[styles.image, style]} source={image} />
-      <Box flex={0.3} maxWidth="80%" justifyContent="center" alignItems="center">
+    <Animated.View style={styles.container}>
+      <Animated.View style={[styles.imageContainer, style]}>
+        <Animated.Image style={styles.image} source={image} />
+      </Animated.View>
+      <Box maxWidth="80%" justifyContent="center" alignItems="center">
         <Text variant="title1">{title}</Text>
         <Text variant="body1">{text}</Text>
       </Box>
@@ -46,12 +48,16 @@ const styles = StyleSheet.create({
   container: {
     width,
     alignItems: 'center',
+    justifyContent: 'space-around',
   },
-  image: {
-    flex: 1,
+  imageContainer: {
     marginTop: 20,
     width: '90%',
     maxWidth: 400,
     borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    aspectRatio: 1,
   },
+  image: { resizeMode: 'center' },
 })
