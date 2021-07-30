@@ -27,6 +27,7 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
         rotation.value = withSpring(setRotationValue(opened))
         onPress()
       }}
+      activeOpacity={0.7}
       padding="s">
       {quantity > 0 && (
         <Box flexDirection="row" alignItems="center">
