@@ -10,11 +10,11 @@ type CommentProps = {
 }
 
 export const Comment = ({ comment, hideAvatar }: CommentProps) => (
-  <Box flexDirection="row" padding="xs" alignItems="flex-end">
+  <Box flexDirection="row" padding="xs" alignItems="flex-start">
     <Box marginRight="s" paddingRight={hideAvatar ? 'xl' : 0} paddingLeft={hideAvatar ? 'xs' : 0}>
       {!hideAvatar && <Avatar size="s" src={comment.meta.author.pictureUrl} />}
     </Box>
-    <Bubble padding="s">
+    <Bubble padding="xm" flexShrink={1}>
       <Text>{comment.text}</Text>
     </Bubble>
   </Box>

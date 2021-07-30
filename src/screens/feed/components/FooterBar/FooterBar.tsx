@@ -8,6 +8,7 @@ import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { MessageInputModal } from 'components/MessageInputModal'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -16,36 +17,54 @@ type FooterBarProps = {
 }
 
 export const FooterBar = ({ reactions }: FooterBarProps) => {
+  const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
+    useBooleanState(false)
+  return (
+    <>
+      <FooterBarContent onCommentBtnPress={showMessageInput} reactions={reactions} />
+      <MessageInputModal
+        visible={messageInputOpened}
+        onSubmitEditing={hideMessageInput}
+        onRequestClose={hideMessageInput}
+        autofocus
+      />
+    </>
+  )
+}
+
+type FooterBarContentProps = {
+  reactions: Reaction[]
+  onCommentBtnPress: F0
+}
+
+const FooterBarContent = (props: FooterBarContentProps) => {
+  const { reactions, onCommentBtnPress } = props
   const [isPickerOpen, { setTrue: openPicker, setFalse: closePicker }] = useBooleanState(false)
   const { t } = useTranslation('feed')
   return (
-    <Box flexDirection="row" padding="s" justifyContent="space-between" alignItems="flex-start">
+    <Box flexDirection="row" padding="s" justifyContent="space-between" alignItems="center">
       <Box
         flexDirection="row"
         flexWrap="wrap"
         justifyContent="flex-start"
         flexGrow={1}
         flexShrink={1}>
-        <ReactionPickerBtn
-          onPress={() => {
-            openPicker()
-          }}
-        />
+        <ReactionPickerBtn onPress={openPicker} />
         <EmojiPicker
           onEmojiSelected={(e) => console.log('Selected emoji:', e)}
           open={isPickerOpen}
-          onClose={() => {
-            closePicker()
-          }}
+          onClose={closePicker}
         />
         {reactions &&
           reactions.map(({ type, users }) => (
             <ReactionBubble key={type} emoji={type} quantity={users.length} selected={false} />
           ))}
       </Box>
-      <Bubble padding="s">
+      <Bubble padding="s" onPress={onCommentBtnPress}>
         <IconComment />
-        <Text padding="xs">{t('postCommentBtn')}</Text>
+        <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
+          {t('postCommentBtn')}
+        </Text>
       </Bubble>
     </Box>
   )

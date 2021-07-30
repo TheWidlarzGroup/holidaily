@@ -8,24 +8,27 @@ import Animated, {
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { themeBase } from 'utils/theme/themeBase'
+import { useCombinedRefs } from 'hooks/useCombinedRefs'
+import { useTranslation } from 'react-i18next'
 
-type MessageInputProps = {
+export type MessageInputProps = {
   onSubmitEditing: F1<string>
-  defaultValue: string
+  onBlur?: F1<string>
+  defaultValue?: string
   maxLength?: number
   autofocus?: boolean
 }
 
-export const MessageInput = ({
-  onSubmitEditing,
-  defaultValue = '',
-  maxLength = 300,
-  autofocus = false,
-}: MessageInputProps) => {
-  const [messageContent, setMessageContent] = useState('')
+export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
+  const { onSubmitEditing, onBlur, defaultValue = '', maxLength = 300, autofocus = false } = props
+  const [messageContent, setMessageContent] = useState(defaultValue)
   const [error, setError] = useState('')
 
+  const { t } = useTranslation('messageInput')
+
   const inputRef = useRef<TextInput>(null)
+  const combinedInputRef = useCombinedRefs([ref, inputRef])
 
   const styles = useStyles()
   const colors = useColors()
@@ -58,24 +61,30 @@ export const MessageInput = ({
     onSubmitEditing(messageContent)
   }
 
-  useEffect(() => {
-    if (messageContent.length > maxLength) setError(`Max. ${maxLength} characters `)
-    else setError('')
-  }, [messageContent, maxLength])
+  const handleBlur = () => {
+    onBlur?.(messageContent)
+  }
 
   useEffect(() => {
-    if (autofocus) inputRef.current?.focus()
-  }, [autofocus])
+    if (messageContent.length > maxLength) setError(t('maxCharacters', { maxLength }))
+    else setError('')
+  }, [messageContent, maxLength, t])
+
+  useEffect(() => {
+    if (autofocus) combinedInputRef.current?.focus()
+  }, [autofocus, combinedInputRef])
 
   return (
     <Box style={styles.container}>
       <Animated.View style={[styles.inputBox, errorBorderStyle]}>
         <TextInput
-          ref={inputRef}
+          ref={combinedInputRef}
+          underlineColorAndroid={themeBase.colors.transparent}
           style={styles.input}
-          placeholder="Write your message..."
+          placeholder={t('placeholder')}
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={handleSubmit}
+          onBlur={handleBlur}
           blurOnSubmit
           multiline
           defaultValue={defaultValue}
@@ -90,7 +99,9 @@ export const MessageInput = ({
       <Animated.Text style={[styles.error, errorMessageStyle]}>{error}</Animated.Text>
     </Box>
   )
-}
+})
+
+MessageInput.displayName = 'MessageInput'
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
@@ -114,6 +125,7 @@ const useStyles = mkUseStyles((theme) => ({
     color: 'black',
     flex: 1,
     padding: 0,
+    borderColor: theme.colors.transparent,
   },
   sendArrow: {
     backgroundColor: 'black',
