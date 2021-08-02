@@ -5,19 +5,17 @@ import { useTranslation } from 'react-i18next'
 
 import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
-import { emptyUser } from 'contexts/UserProvider'
 import { getDrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
+import { useLogin } from 'hooks/useLogin'
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { t } = useTranslation('navigation')
-  const { updateUser, user } = useUserContext()
+  const { user } = useUserContext()
+  const { handleLogout } = useLogin()
 
-  const handleLogout = () => {
-    updateUser(emptyUser)
-  }
   return (
     <SafeAreaWrapper>
       <Animated.View style={[style, { flex: 1 }]}>
