@@ -48,6 +48,12 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
   const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
+  const fullCalendarContainerRef = useAnimatedRef()
+  const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
+  const containerHeight = useSharedValue(fullCalendarHeight.value)
+  const opacity = useDerivedValue(() =>
+    containerHeight.value >= fullCalendarHeight.value - 60 ? withTiming(1) : withTiming(0)
+  )
 
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
     hidePicker()
@@ -58,19 +64,13 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   useEffect(() => {
     calendarRef?.current?.updateMonth(new XDate(selectedDate))
   }, [selectedDate])
+
   const handleAddMonth = (count: 1 | -1) => {
     if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
-      setSelectedDate(startOfWeek(addWeeks(selectedDate, count)))
+      setSelectedDate(startOfWeek(addWeeks(selectedDate, count), { weekStartsOn: 1 }))
     else setSelectedDate(startOfMonth(addMonths(selectedDate, count)))
   }
 
-  const fullCalendarContainerRef = useAnimatedRef()
-  const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
-  const containerHeight = useSharedValue(fullCalendarHeight.value)
-  const opacity = useDerivedValue(() =>
-    containerHeight.value >= fullCalendarHeight.value ? withTiming(1) : withTiming(0)
-  )
-  const isWeekVisible = useDerivedValue(() => containerHeight.value < fullCalendarHeight.value)
   const gestureHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     {
@@ -87,7 +87,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     onEnd: (event) => {
       if (event.translationY > 100) {
         containerHeight.value = withSpring(fullCalendarHeight.value, { overshootClamping: true })
-      } else if (event.translationY < -100) {
+      } else if (event.translationY < -60) {
         containerHeight.value = withSpring(WEEK_CALENDAR_HEIGHT, { overshootClamping: true })
       } else {
         containerHeight.value =
@@ -106,7 +106,6 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   }))
   const fullOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    display: opacity.value === 0 ? 'none' : 'flex',
   }))
   return (
     <>
@@ -133,20 +132,31 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                   left: 0,
                   right: 0,
                 }}>
-                {isWeekVisible && (
-                  <WeekCalendar
-                    date={selectedDate}
-                    markedDates={deepmerge(markedDates, {
-                      [selectedDate.toISOString()]: { selected: true },
-                    })}
-                    {...restProps}
-                  />
-                )}
+                <WeekCalendar
+                  date={selectedDate}
+                  markedDates={deepmerge(markedDates, {
+                    [getISODateString(selectedDate)]: { selected: true },
+                  })}
+                  {...restProps}
+                />
               </Box>
             </Box>
           </Animated.View>
-          <Animated.View style={fullOpacity}>
-            <Box ref={fullCalendarContainerRef}>
+          <Animated.View
+            style={[
+              fullOpacity,
+              { position: 'absolute', top: -7, left: 0, right: 0, overflow: 'hidden' },
+            ]}>
+            <Box
+              ref={fullCalendarContainerRef}
+              onLayout={({ nativeEvent: { layout } }) => {
+                fullCalendarHeight.value = layout.height
+                if (containerHeight.value > WEEK_CALENDAR_HEIGHT * 4) {
+                  containerHeight.value = withSpring(layout.height, {
+                    overshootClamping: true,
+                  })
+                }
+              }}>
               <NewCalendar
                 hideDayNames
                 hideExtraDays
