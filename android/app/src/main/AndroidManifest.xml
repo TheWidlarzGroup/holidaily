@@ -82,7 +82,7 @@
             <data
               android:scheme="https"
               android:host="holidaily.danielgrychtol.com"
-              android:pathPrefix="/stats"
+              android:pathPrefix="/requests"
             />
         </intent-filter>
         <intent-filter android:autoVerify="true">

@@ -7,7 +7,7 @@ const config = {
       screens: {
         Home: {
           screens: {
-            Stats: '/stats',
+            Stats: '/requests',
             DashboardNavigation: {
               screens: {
                 Dashboard: '/dashboard',
