@@ -1,6 +1,6 @@
 import React from 'react'
 import { FeedPost as FeedPostType } from 'screens/feed/types'
-import { Box } from 'utils/theme'
+import { BaseOpacity } from 'utils/theme'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'
 import { FeedPostHeader } from './FeedPostHeader'
@@ -10,9 +10,15 @@ type FeedPostProps = {
 }
 
 export const FeedPost = ({ post }: FeedPostProps) => (
-  <Box bg="white" borderTopLeftRadius="l" borderTopRightRadius="l" marginTop="s" paddingTop="s">
+  <BaseOpacity
+    activeOpacity={1}
+    bg="white"
+    borderTopLeftRadius="l"
+    borderTopRightRadius="l"
+    marginTop="s"
+    paddingTop="s">
     <FeedPostHeader {...post} />
     <FeedPostBody {...post} />
     <FeedPostFooter {...post} />
-  </Box>
+  </BaseOpacity>
 )
