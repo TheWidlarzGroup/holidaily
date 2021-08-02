@@ -21,8 +21,9 @@ export const Calendar = () => {
   } = useCalendarData()
 
   const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
-    if (currentMonthDays.length > 0)
+    if (currentMonthDays.length > 0 && currentMonthDays.length > day - 1) {
       flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
+    }
     setTimeout(() => setSelectedDate(parseISO(dateString)))
   }
 
