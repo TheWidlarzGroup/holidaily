@@ -106,6 +106,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   }))
   const fullOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
+    display: containerHeight.value === WEEK_CALENDAR_HEIGHT ? 'none' : 'flex',
   }))
   return (
     <>
