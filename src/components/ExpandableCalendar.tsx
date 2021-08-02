@@ -5,7 +5,7 @@ import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
 import ArrowLeft from 'assets/icons/arrow-left.svg'
 import ArrowRight from 'assets/icons/arrow-right.svg'
-import { getShortWeekDays } from 'utils/dates'
+import { getISODateString, getShortWeekDays } from 'utils/dates'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
@@ -85,10 +85,16 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
       containerHeight.value = newHeight > WEEK_CALENDAR_HEIGHT ? newHeight : WEEK_CALENDAR_HEIGHT
     },
     onEnd: (event) => {
-      containerHeight.value =
-        event.translationY > 100
-          ? withSpring(fullCalendarHeight.value, { overshootClamping: true })
-          : withSpring(WEEK_CALENDAR_HEIGHT, { overshootClamping: true })
+      if (event.translationY > 100) {
+        containerHeight.value = withSpring(fullCalendarHeight.value, { overshootClamping: true })
+      } else if (event.translationY < -100) {
+        containerHeight.value = withSpring(WEEK_CALENDAR_HEIGHT, { overshootClamping: true })
+      } else {
+        containerHeight.value =
+          containerHeight.value > WEEK_CALENDAR_HEIGHT * 4
+            ? withSpring(fullCalendarHeight.value, { overshootClamping: true })
+            : withSpring(WEEK_CALENDAR_HEIGHT, { overshootClamping: true })
+      }
     },
   })
 
@@ -148,7 +154,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 theme={calendarTheme}
                 dayComponent={CalendarDay}
                 markedDates={deepmerge(markedDates, {
-                  [selectedDate.toISOString()]: { selected: true },
+                  [getISODateString(selectedDate)]: { selected: true },
                 })}
                 markingType="multi-dot"
                 disableMonthChange
