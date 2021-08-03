@@ -28,7 +28,9 @@ export const MessageInputModal = (props: MessageInputModalProps) => {
 
   return (
     <Modal transparent animationType="slide" {...props} onShow={handleShow}>
-      <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
+        keyboardShouldPersistTaps="handled">
         <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onRequestClose} />
         <Box
           paddingTop="xm"
