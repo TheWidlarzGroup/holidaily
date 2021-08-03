@@ -3,6 +3,7 @@ import { Box } from 'utils/theme'
 import { DateObject, MultiDotMarking } from 'react-native-calendars'
 import { addDays, isToday, startOfWeek } from 'date-fns/esm'
 import { isSameDay } from 'date-fns'
+import { getISODateString } from 'utils/dates'
 import { CalendarDay } from './CalendarDay'
 
 type WeekCalendarProps = {
@@ -16,14 +17,14 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
   useEffect(() => {
     const newWeek = []
     for (let i = 0; i < 7; i++) {
-      newWeek.push(addDays(startOfWeek(currentDate), i))
+      newWeek.push(addDays(startOfWeek(currentDate, { weekStartsOn: 1 }), i))
     }
     setWeek(newWeek)
   }, [currentDate])
 
   const getDateObject = (date: Date) => ({
-    dateString: date.toISOString(),
-    day: date.getDay(),
+    dateString: getISODateString(date),
+    day: date.getDate(),
     month: date.getMonth(),
     year: date.getFullYear(),
     timestamp: date.getTime(),
@@ -38,7 +39,7 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
   const getMarking = (date: Date) => {
     const isSelected = isSameDay(date, currentDate)
     const marking =
-      date.toISOString() in markedDates ? markedDates[date.toISOString()] : { dots: [] }
+      getISODateString(date) in markedDates ? markedDates[getISODateString(date)] : { dots: [] }
 
     return {
       selected: isSelected,
