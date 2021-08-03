@@ -3,16 +3,22 @@
         "apps": [],
         "details": [
             {
-                "appIDs": [ "x.app.holidaily" ],
+                "appIDs": [ "23QAX5XY7P.com.holidaily" ],
                 "components": [
                     {
                         "/": "/confirm/*",
                     },
                     {
                         "/": "/password_reset/*",
+                    },
+                    {
+                        "/": "/requests/*",
+                    },
+                    {
+                        "/": "/teams/*",
                     }
                 ],
-                "paths": [ "/confirm/*", "/password_reset/*" ]
+                "paths": [ "/confirm/*", "/password_reset/*", "/requests/*", "/teams/*" ]
             }
         ]
     } 

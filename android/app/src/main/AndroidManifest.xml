@@ -39,6 +39,12 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="holidaily" />
+        </intent-filter>
         <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -49,7 +55,6 @@
               android:pathPrefix="/confirm"
             />
         </intent-filter>
-
         <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -60,6 +65,46 @@
               android:pathPrefix="/password_reset"
             />
         </intent-filter>
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+              android:scheme="https"
+              android:host="holidaily.danielgrychtol.com"
+              android:pathPrefix="/request_vacation"
+            />
+        </intent-filter>
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+              android:scheme="https"
+              android:host="holidaily.danielgrychtol.com"
+              android:pathPrefix="/requests"
+            />
+        </intent-filter>
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+              android:scheme="https"
+              android:host="holidaily.danielgrychtol.com"
+              android:pathPrefix="/dashboard"
+            />
+        </intent-filter>
+        <!-- <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data
+              android:scheme="https"
+              android:host="holidaily.danielgrychtol.com"
+              android:pathPrefix="/team"
+            />
+        </intent-filter> -->
 
         
       </activity>
