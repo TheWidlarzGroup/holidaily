@@ -66,7 +66,8 @@
   },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
-    "nameSurname": "Name and surname",
+    "name": "Name",
+    "surname": "Surname",
     "nameSurnameErrMsg": "Incorrect input",
     "companyName": "Company name",
     "email": "E-mail Address",
