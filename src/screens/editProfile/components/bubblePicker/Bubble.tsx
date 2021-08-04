@@ -12,7 +12,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
-import { CONSTANTS as C } from './BubbleHelper'
+import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 type Position = {
   x: number

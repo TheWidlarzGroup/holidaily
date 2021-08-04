@@ -2,7 +2,7 @@ import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import Checkmark from 'components/Checkmark'
 import { Box, mkUseStyles, theme } from 'utils/theme'
-import { CONSTANTS as C } from './BubbleHelper'
+import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 type CheckMarkProps = {
   animateCheckmark: boolean
