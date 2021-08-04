@@ -1,4 +1,4 @@
-export const CONSTANTS = {
+export const BUBBLE_CONSTANTS = {
   BUBBLE_SIZE_INIT: 0,
   BUBBLE_SIZE: 56,
   CHECKMARK_BOX_SIZE: 30,
