@@ -160,6 +160,7 @@ export type UserProfileRoutes = {
   ChangePassword: undefined
   Recovery: undefined
   SubscribeTeam: UserTeamsSubscriptions
+  ColorPicker: undefined
 }
 
 export type ForgotPasswordRoutes = {
