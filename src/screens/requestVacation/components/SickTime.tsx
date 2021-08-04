@@ -1,5 +1,6 @@
 import { Checkbox } from 'components/Checkbox'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 
 type SickTimeProps = {
@@ -7,16 +8,19 @@ type SickTimeProps = {
   toggle: F0
 }
 
-export const SickTime = ({ sickTime, toggle }: SickTimeProps) => (
-  <Box marginTop="s">
-    <Text variant="boldBlack18" textAlign="left">
-      Sick time off
-    </Text>
-    <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-      <Text variant="body1" textAlign="left">
-        I'm not feeling well
+export const SickTime = ({ sickTime, toggle }: SickTimeProps) => {
+  const { t } = useTranslation('requestVacation')
+  return (
+    <Box marginTop="s">
+      <Text variant="boldBlack18" textAlign="left">
+        {t('sickTimeTitle')}
       </Text>
-      <Checkbox checked={sickTime} onPress={toggle} />
+      <Box flexDirection="row" justifyContent="space-between" alignItems="center">
+        <Text variant="body1" textAlign="left">
+          {t('sickTimeLabel')}
+        </Text>
+        <Checkbox checked={sickTime} onPress={toggle} />
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
