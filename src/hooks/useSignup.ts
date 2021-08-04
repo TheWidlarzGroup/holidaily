@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { ErrorTypes } from 'types/useLoginTypes'
-import { SignupTypes, HandleSignupTypes, CreateUserTypes } from 'types/useSignupTypes'
+import { SignupTypes, CreateUserTypes } from 'types/useSignupTypes'
 import { signupMutation } from 'graphqlActions/mutations/signupMutation'
 import { useTranslation, TFunction } from 'react-i18next'
 import { useLogin } from './useLogin'
@@ -41,8 +41,7 @@ export const useSignup = () => {
     },
   })
 
-  const handleSignup = ({ email, nameSurname, password }: HandleSignupTypes) => {
-    const [firstName, lastName] = nameSurname.split(' ')
+  const handleSignup = ({ email, firstName, lastName, password }: SignupTypes) => {
     setUserPassword(password)
     handleSignupUser({ email, firstName, lastName, password })
   }
