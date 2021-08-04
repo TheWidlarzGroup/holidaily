@@ -9,7 +9,7 @@ import IconBack from 'assets/icons/icon-back-white.svg'
 import { Bubble } from './Bubble'
 import { CheckMark } from './Checkmark'
 import { COLORS } from '../../helpers/mockedData'
-import { CONSTANTS as C } from './BubbleHelper'
+import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 export type Position = {
   x: number
