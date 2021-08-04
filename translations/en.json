@@ -193,5 +193,18 @@
   "messageInput": {
     "placeholder": "Write your message...",
     "maxCharacters": "Max {{maxLength}} characters"
+  },
+  "requestVacation": {
+    "title": "Take time off",
+    "detailsTitle": "Details",
+    "detailsDate": "Date",
+    "detailsDescription": "Description (optional)",
+    "detailsDescriptionError": "Incorrect description",
+    "sickTimeTitle": "Sick Time off",
+    "sickTimeLabel": "I'm not feeling well",
+    "additionalsTitle": "Additionals",
+    "additionalsLabel": "Add an attachment or write message",
+    "attachmentDeleteMessage": "Delete attachment?",
+    "CTA": "Next"
   }
 }
