@@ -4,9 +4,11 @@ import { useNavigation } from '@react-navigation/native'
 
 import { Box, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/backArrow.svg'
+import { useTranslation } from 'react-i18next'
 
 export const HeaderRequestVacation = () => {
   const navigation = useNavigation()
+  const { t } = useTranslation('requestVacation')
 
   return (
     <Box
@@ -22,7 +24,7 @@ export const HeaderRequestVacation = () => {
       </Box>
       <Box flex={1} marginRight="l">
         <Text variant="modalHeader" textAlign="center">
-          Take time off
+          {t('title')}
         </Text>
       </Box>
     </Box>
