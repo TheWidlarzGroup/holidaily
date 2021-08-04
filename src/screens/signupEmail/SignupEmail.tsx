@@ -45,7 +45,7 @@ export const SignupEmail = () => {
 
   return (
     <SafeAreaWrapper>
-      <KeyboardAwareScrollView style={styles.formContainer}>
+      <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
         <Box justifyContent="center" paddingVertical="xxxl">
           <Text variant="title1">{t('signupEmailTitle')}</Text>
         </Box>
@@ -121,6 +121,7 @@ export const SignupEmail = () => {
             isPasswordIconVisible
           />
         </Box>
+        <Box height={177} />
       </KeyboardAwareScrollView>
       <Box
         position="absolute"
