@@ -5,12 +5,6 @@ export type SignupTypes = {
   password: string
 }
 
-export type HandleSignupTypes = {
-  email: string
-  nameSurname: string
-  password: string
-}
-
 export type CreateUserTypes = {
   createUser: {
     email: string
