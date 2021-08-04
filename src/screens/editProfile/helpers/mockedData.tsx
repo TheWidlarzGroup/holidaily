@@ -14,35 +14,81 @@ export const USER_DATA: UserDetails = {
   },
   teams: ['Smartsoft', 'Akademia'],
 }
-
 type ColorProps = {
   id: number
   color: string
 }
-
 export const COLORS: ColorProps[] = [
   {
+    color: 'red',
     id: 1,
-    color: '#FFB051',
   },
   {
+    color: 'blue',
     id: 2,
-    color: '#FF8B3F',
   },
   {
+    color: 'pink',
     id: 3,
-    color: '#B9B9B9',
   },
   {
+    color: 'orange',
     id: 4,
-    color: '#80ED99',
   },
   {
+    color: 'grey',
     id: 5,
-    color: '#B137EB',
   },
   {
+    color: 'green',
     id: 6,
-    color: '#000000',
+  },
+  {
+    color: 'red',
+    id: 7,
+  },
+  {
+    color: 'blue',
+    id: 8,
+  },
+  {
+    color: 'pink',
+    id: 9,
+  },
+  {
+    color: 'orange',
+    id: 10,
+  },
+  {
+    color: 'grey',
+    id: 11,
+  },
+  {
+    color: 'green',
+    id: 12,
+  },
+  {
+    color: 'red',
+    id: 13,
+  },
+  {
+    color: 'blue',
+    id: 14,
+  },
+  {
+    color: 'pink',
+    id: 15,
+  },
+  {
+    color: 'orange',
+    id: 16,
+  },
+  {
+    color: 'grey',
+    id: 17,
+  },
+  {
+    color: 'green',
+    id: 18,
   },
 ]
