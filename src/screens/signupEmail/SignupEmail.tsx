@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useFocusEffect } from '@react-navigation/native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
+import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
 import { shadow } from 'utils/theme/shadows'
 import { minOneSignRegex, emailRegex, passwordRegex, minOneWordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
@@ -15,9 +15,12 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 
+const BOTTOM_TAB_HEIGHT = 146
+
 export const SignupEmail = () => {
   const { handleSignup, isLoading, signupErrorMessage, isSuccess } = useSignup()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
+  const [bottomTabHeight, setBottomTabHeight] = useState(BOTTOM_TAB_HEIGHT)
   const { control, handleSubmit, errors } = useForm()
   const { t } = useTranslation('signupEmail')
   const inputsRefs = [
@@ -121,7 +124,7 @@ export const SignupEmail = () => {
             isPasswordIconVisible
           />
         </Box>
-        <Box height={177} />
+        <Box height={bottomTabHeight + theme.spacing.lplus} />
       </KeyboardAwareScrollView>
       <Box
         position="absolute"
@@ -129,9 +132,12 @@ export const SignupEmail = () => {
         left={0}
         bottom={0}
         backgroundColor="white"
-        height={157}
+        paddingBottom="l"
         alignItems="center"
-        style={shadow.xs}>
+        style={shadow.xs}
+        onLayout={({ nativeEvent }) => {
+          setBottomTabHeight(nativeEvent.layout.height)
+        }}>
         <Box marginHorizontal="xxl" marginTop="m">
           <CustomButton
             variant="primary"
