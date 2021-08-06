@@ -82,10 +82,10 @@ export const SignupEmail = () => {
         <Box>
           <FormInput
             control={control}
-            isError={!!errors.companyName}
+            isError={!!errors.organizationName}
             errors={errors}
-            name="companyName"
-            inputLabel={t('companyName')}
+            name="organizationName"
+            inputLabel={t('organizationName')}
             validationPattern={minOneSignRegex}
             errorMessage={t('nameSurnameErrMsg')}
             onSubmitEditing={() => onSubmitEditing(2)}
