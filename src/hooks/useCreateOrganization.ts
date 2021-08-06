@@ -17,7 +17,7 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
   return translate('default')
 }
 
-export const useSignup = () => {
+export const useCreateOrganization = () => {
   const [userPassword, setUserPassword] = useState('')
   const { t } = useTranslation('mutationsErrors')
   const { handleLoginUser } = useLogin()
