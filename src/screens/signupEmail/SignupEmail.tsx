@@ -9,7 +9,7 @@ import { shadow } from 'utils/theme/shadows'
 import { minOneSignRegex, emailRegex, passwordRegex, minOneWordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
-import { useSignup } from 'hooks/useSignup'
+import { useCreateOrganization } from 'hooks/useCreateOrganization'
 import { createAlert } from 'utils/createAlert'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -18,7 +18,7 @@ import { PendingAccountConfirmationModal } from './components/PendingAccountConf
 const BOTTOM_TAB_HEIGHT = 146
 
 export const SignupEmail = () => {
-  const { handleSignup, isLoading, signupErrorMessage, isSuccess } = useSignup()
+  const { handleSignup, isLoading, signupErrorMessage, isSuccess } = useCreateOrganization()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const [bottomTabHeight, setBottomTabHeight] = useState(BOTTOM_TAB_HEIGHT)
   const { control, handleSubmit, errors } = useForm()
@@ -82,10 +82,10 @@ export const SignupEmail = () => {
         <Box>
           <FormInput
             control={control}
-            isError={!!errors.companyName}
+            isError={!!errors.organizationName}
             errors={errors}
-            name="companyName"
-            inputLabel={t('companyName')}
+            name="organizationName"
+            inputLabel={t('organizationName')}
             validationPattern={minOneSignRegex}
             errorMessage={t('nameSurnameErrMsg')}
             onSubmitEditing={() => onSubmitEditing(2)}

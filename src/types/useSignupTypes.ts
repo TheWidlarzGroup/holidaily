@@ -2,11 +2,12 @@ export type SignupTypes = {
   email: string
   firstName: string
   lastName: string
+  organizationName: string
   password: string
 }
 
 export type CreateUserTypes = {
-  createUser: {
+  createOrganization: {
     email: string
   }
 }

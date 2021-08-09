@@ -69,7 +69,7 @@
     "name": "Imię",
     "surname": "Nazwisko",
     "nameSurnameErrMsg": "Nieprawidłowe dane",
-    "companyName": "Nazwa firmy",
+    "organizationName": "Nazwa firmy",
     "email": "Adres e-mail",
     "invalidEmailErrMsg": "Nieprawidłowy e-mail, prosze spróbowac ponownie",
     "password": "Hasło",
