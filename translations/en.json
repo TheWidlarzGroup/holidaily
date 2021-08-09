@@ -69,7 +69,7 @@
     "name": "Name",
     "surname": "Surname",
     "nameSurnameErrMsg": "Incorrect input",
-    "companyName": "Company name",
+    "organizationName": "Organization name",
     "email": "E-mail Address",
     "invalidEmailErr": "Invalid e-mail, please try again",
     "password": "Password",
