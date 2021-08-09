@@ -1,5 +1,5 @@
 export type UserTypes = {
-  confirmed: boolean | null
+  confirmed: boolean
   firstName: string
   lastName: string
   email: string
