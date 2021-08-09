@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { ErrorTypes } from 'types/useLoginTypes'
-import { SignupTypes, CreateUserTypes } from 'types/useSignupTypes'
+import { CreateOrganizationTypes, CreateOrganizationDataTypes } from 'types/useSignupTypes'
 import { createOrganizationMutation } from 'graphqlActions/mutations/createOrganizationMutation'
 import { useTranslation, TFunction } from 'react-i18next'
 import { useLogin } from './useLogin'
@@ -27,21 +27,24 @@ export const useCreateOrganization = () => {
     mutate: handleSignupUser,
     isLoading,
     isSuccess,
-  } = useMutation<CreateUserTypes, ErrorTypes, SignupTypes>(createOrganizationMutation, {
-    onSuccess: (data: CreateUserTypes) => {
-      const { email } = data.createOrganization
+  } = useMutation<CreateOrganizationDataTypes, ErrorTypes, CreateOrganizationTypes>(
+    createOrganizationMutation,
+    {
+      onSuccess: (data: CreateOrganizationDataTypes) => {
+        const { email } = data.createOrganization
 
-      handleLoginUser({ email, password: userPassword })
-    },
+        handleLoginUser({ email, password: userPassword })
+      },
 
-    onError: (error: ErrorTypes) => {
-      const errorMessage = customErrorMessage(t, error.message)
+      onError: (error: ErrorTypes) => {
+        const errorMessage = customErrorMessage(t, error.message)
 
-      setSignupErrorMessage(errorMessage)
-    },
-  })
+        setSignupErrorMessage(errorMessage)
+      },
+    }
+  )
 
-  const handleSignup = (data: SignupTypes) => {
+  const handleSignup = (data: CreateOrganizationTypes) => {
     setUserPassword(data.password)
     handleSignupUser(data)
   }

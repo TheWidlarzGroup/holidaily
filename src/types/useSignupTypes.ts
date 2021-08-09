@@ -1,4 +1,17 @@
-export type SignupTypes = {
+export type SignupWithCodeTypes = {
+  code: string
+  firstName: string
+  lastName: string
+  password: string
+}
+
+export type SignupWithCodeDataTypes = {
+  createUser: {
+    email: string
+  }
+}
+
+export type CreateOrganizationTypes = {
   email: string
   firstName: string
   lastName: string
@@ -6,7 +19,7 @@ export type SignupTypes = {
   password: string
 }
 
-export type CreateUserTypes = {
+export type CreateOrganizationDataTypes = {
   createOrganization: {
     email: string
   }
