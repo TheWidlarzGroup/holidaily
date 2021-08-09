@@ -123,6 +123,7 @@ export type DrawerRoutes = {
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
+  InviteMembers: undefined
 }
 
 export type AuthRoutes = {
