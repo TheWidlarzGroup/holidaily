@@ -1,17 +1,14 @@
+import { UserTypes } from './useUserTypes'
+
 export type LoginTypes = {
   email: string
   password: string
 }
 
-export type UserTypes = {
+export type LoginUserTypes = {
   loginUser: {
     token: string
-    user: {
-      confirmed: boolean | null
-      firstName: string
-      lastName: string
-      email: string
-    }
+    user: UserTypes
   }
 }
 
