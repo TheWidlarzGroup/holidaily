@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, memo, FC, useEffect } from 'react'
 import { getItemAsync } from 'expo-secure-store'
-import { useUser } from 'hooks/useUser'
+import { useUserData } from 'hooks/useUserData'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
 type ProviderProps = {
@@ -18,7 +18,7 @@ export const emptyUser = {
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState<UserData>(emptyUser)
-  const { user: fetchedUser, isLoading, error } = useUser()
+  const { user: fetchedUser, isLoading, error } = useUserData()
 
   useEffect(() => {
     const func = async () => {

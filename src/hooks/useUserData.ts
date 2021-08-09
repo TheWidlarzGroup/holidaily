@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { UserQueryTypes, UserTypes } from 'types/useUserTypes'
 import { emptyUser } from 'contexts/UserProvider'
 
-export const useUser = () => {
+export const useUserData = () => {
   const [user, setUser] = useState<UserTypes>({ ...emptyUser, confirmed: false })
   const { isLoading, error } = useQuery('fetch-user', userQuery, {
     onSuccess: (data: UserQueryTypes) => {
