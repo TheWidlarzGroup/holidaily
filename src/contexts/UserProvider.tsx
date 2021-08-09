@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, memo, FC, useEffect } from 'react'
-import { USER_DATA } from 'utils/mocks/userMocks'
 import { getItemAsync } from 'expo-secure-store'
+import { useUser } from 'hooks/useUser'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
 type ProviderProps = {
@@ -8,7 +8,7 @@ type ProviderProps = {
 }
 
 export const emptyUser = {
-  firstName: 'Joe',
+  firstName: '',
   lastName: '',
   email: '',
   isConfirmed: false,
@@ -18,20 +18,22 @@ export const emptyUser = {
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState<UserData>(emptyUser)
+  const { user: fetchedUser, isLoading, error } = useUser()
 
   useEffect(() => {
     const func = async () => {
       const token = await getItemAsync('token')
-      if (token !== null) updateUser(USER_DATA)
+      if (token !== null && !isLoading) {
+        updateUser({
+          ...fetchedUser,
+          isConfirmed: fetchedUser.confirmed,
+        } as UserData)
+      } else if (error) {
+        updateUser(emptyUser)
+      }
     }
     func()
-  }, [])
-
-  useEffect(() => {
-    // Comment: Mocking user data, remove when BE ready
-    if (!user.isConfirmed) return
-    updateUser(USER_DATA)
-  }, [user.isConfirmed])
+  }, [error, fetchedUser, isLoading])
 
   const updateUser = (newData: Partial<UserData>) => {
     setUser((usr) => ({ ...usr, ...newData }))
