@@ -1,4 +1,7 @@
-export type CreateInvitationTypes = { email: string; token: string }
+export const roles = ['MANAGER', 'DEVELOPER', 'USER', 'GUEST', 'ACCOUNTANT']
+export type RoleTypes = typeof roles[number]
+
+export type CreateInvitationTypes = { email: string; role: RoleTypes }
 
 export type InvitationTypes = {
   createInvitation: {
