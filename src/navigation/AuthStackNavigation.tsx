@@ -5,6 +5,7 @@ import { Login } from 'screens/login/Login'
 import { SignupEmail } from 'screens/signupEmail/SignupEmail'
 import { ConfirmedAccount } from 'screens/confirmedAccount/ConfirmedAccount'
 import { Signup } from 'screens/signup/Signup'
+import { SignupWithCode } from 'screens/signupWithCode/SignupWithCode'
 import { AuthRoutes } from './types'
 import { ForgotPasswordNavigation } from './ForgotPasswordNavigation'
 
@@ -17,6 +18,7 @@ export const AuthStackNavigation = () => (
     <AppStack.Screen name="Signup" component={Signup} />
     <AppStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
     <AppStack.Screen name="SignupEmail" component={SignupEmail} />
+    <AppStack.Screen name="SignupWithCode" component={SignupWithCode} />
     <AppStack.Screen name="ConfirmedAccount" component={ConfirmedAccount} />
   </AppStack.Navigator>
 )

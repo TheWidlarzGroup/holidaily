@@ -1,5 +1,5 @@
 import request, { gql } from 'graphql-request'
-import { SignupTypes } from 'types/useSignupTypes'
+import { CreateOrganizationTypes } from 'types/useSignupTypes'
 import { GRAPHQL_ENDPOINT } from '@env'
 
 export const createOrganizationMutation = ({
@@ -8,7 +8,7 @@ export const createOrganizationMutation = ({
   lastName,
   password,
   organizationName,
-}: SignupTypes) =>
+}: CreateOrganizationTypes) =>
   request(
     GRAPHQL_ENDPOINT,
     gql`

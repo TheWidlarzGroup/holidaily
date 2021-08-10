@@ -19,11 +19,22 @@ type CustomInputTypes = {
   inputLabel: string
   isError: boolean
   isPasswordIconVisible?: boolean
+  disabled?: boolean
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
   (
-    { inputLabel, onChange, onBlur, onFocus, value, isError, isPasswordIconVisible, ...props },
+    {
+      inputLabel,
+      onChange,
+      onBlur,
+      onFocus,
+      value,
+      isError,
+      isPasswordIconVisible,
+      disabled = false,
+      ...props
+    },
     ref
   ) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
@@ -62,12 +73,14 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
         <Box flexDirection="row">
           <Animated.View style={[styles.input, progressStyle]}>
             <TextInput
+              style={[disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
               onBlur={handleOnBlur}
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}
               ref={ref}
+              editable={!disabled}
               {...props}
             />
           </Animated.View>
@@ -104,5 +117,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: colors.black,
+  },
+  disabled: {
+    color: colors.greyDark,
   },
 })
