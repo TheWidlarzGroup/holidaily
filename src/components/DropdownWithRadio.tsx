@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
-import { capitalizeFirstLetterOnly } from 'utils/role'
+import { capitalize } from 'utils/role'
 
 type DropdownWithRadioProps = {
   label: string
@@ -70,7 +70,7 @@ export const DropdownWithRadio = ({
               style={styles.option}
               onPress={() => changeSelectedOption(option)}>
               <Text variant="body1" marginVertical="s" textAlign="left">
-                {capitalizeFirstLetterOnly(option)}
+                {capitalize(option)}
               </Text>
               <RadioInput checked={selectedOption === option} onPress={() => {}} />
             </TouchableOpacity>
