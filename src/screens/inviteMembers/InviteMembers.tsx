@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 import { Box } from 'utils/theme'
@@ -8,14 +8,16 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { FormInput } from 'components/FormInput'
 import { useForm } from 'react-hook-form'
 import { useCreateInvitation } from 'hooks/useCreateInvitation'
-import { emailRegex } from 'utils/regex'
+import { emailRegex, minOneWordRegex } from 'utils/regex'
 import { CustomButton } from 'components/CustomButton'
-import { getItemAsync } from 'expo-secure-store'
+import { DropdownWithRadio } from 'components/DropdownWithRadio'
+import { CreateInvitationTypes, roles, RoleTypes } from 'types/useCreateInvitationTypes'
 
 export const InviteMembers: FC = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
-  const { control, handleSubmit, errors, reset } = useForm()
-  const { createInvitation, isLoading } = useCreateInvitation()
+  const { control, handleSubmit, errors, reset, setValue } = useForm()
+  const { createInvitation, isLoading, isSuccess } = useCreateInvitation()
+  const [selectedRole, setSelectedRole] = React.useState('USER')
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
@@ -26,10 +28,23 @@ export const InviteMembers: FC = () => {
     })
   }, [navigation])
 
-  const onCreateInvitation = handleSubmit(async (data: { email: string }) => {
-    const token = await getItemAsync('token')
-    if (token !== null) createInvitation({ ...data, token })
-    reset()
+  const handleSelectRole = useCallback(
+    (role: RoleTypes) => {
+      setSelectedRole(role)
+      setValue('role', role)
+    },
+    [setValue]
+  )
+
+  useEffect(() => {
+    if (isSuccess) {
+      reset()
+      handleSelectRole('USER')
+    }
+  }, [handleSelectRole, isSuccess, reset])
+
+  const onCreateInvitation = handleSubmit((data: CreateInvitationTypes) => {
+    createInvitation(data)
   })
 
   return (
@@ -48,6 +63,25 @@ export const InviteMembers: FC = () => {
           autoCompleteType="email"
           autoCapitalize="none"
           blurOnSubmit={false}
+        />
+        <Box style={{ display: 'none' }}>
+          <FormInput
+            control={control}
+            isError={!!errors.role}
+            errors={errors}
+            name="role"
+            inputLabel="Role"
+            validationPattern={minOneWordRegex}
+            errorMessage="Incorrect role"
+            autoCapitalize="none"
+            blurOnSubmit={false}
+          />
+        </Box>
+        <DropdownWithRadio
+          label="Role"
+          options={roles}
+          selectedOption={selectedRole}
+          setSelectedOption={handleSelectRole}
         />
       </Box>
       <CustomButton

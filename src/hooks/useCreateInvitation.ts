@@ -8,7 +8,11 @@ import { createAlert } from 'utils/createAlert'
 export const useCreateInvitation = () => {
   const { t } = useTranslation('mutationsErrors')
 
-  const { mutate: createInvitation, isLoading } = useMutation<
+  const {
+    mutate: createInvitation,
+    isLoading,
+    isSuccess,
+  } = useMutation<
     InvitationTypes,
     {
       message: string
@@ -26,5 +30,5 @@ export const useCreateInvitation = () => {
     },
   })
 
-  return { createInvitation, isLoading }
+  return { createInvitation, isLoading, isSuccess }
 }
