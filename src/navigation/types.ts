@@ -131,6 +131,7 @@ export type AuthRoutes = {
   Login: undefined
   Signup: undefined
   SignupEmail: undefined
+  SignupWithCode: { code: string }
   ForgotPassword: undefined
   RecoveryCode: undefined
   NewPassword: undefined

@@ -15,11 +15,12 @@ type FormInputTypes = {
   inputLabel: string
   validationPattern: RegExp
   errorMessage: string
+  isError: boolean
   signupPasswordHint?: string
   isPasswordIconVisible?: boolean
   passwordsAreEqual?: boolean
   screenName?: string
-  isError: boolean
+  disabled?: boolean
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(

@@ -2,22 +2,19 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { ErrorTypes } from 'types/useLoginTypes'
-import { CreateOrganizationTypes, CreateOrganizationDataTypes } from 'types/useSignupTypes'
-import { createOrganizationMutation } from 'graphqlActions/mutations/createOrganizationMutation'
+import { SignupWithCodeTypes, SignupWithCodeDataTypes } from 'types/useSignupTypes'
 import { useTranslation, TFunction } from 'react-i18next'
+import { signupWithCodeMutation } from 'graphqlActions/mutations/signupWithCodeMutation'
 import { useLogin } from './useLogin'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
     return translate('invalidCredentials')
   }
-  if (errorMessage?.startsWith('email: has already been taken')) {
-    return translate('emailAlreadyTaken')
-  }
   return translate('default')
 }
 
-export const useCreateOrganization = () => {
+export const useSignupWithCode = () => {
   const [userPassword, setUserPassword] = useState('')
   const { t } = useTranslation('mutationsErrors')
   const { handleLoginUser } = useLogin()
@@ -27,11 +24,11 @@ export const useCreateOrganization = () => {
     mutate: handleSignupUser,
     isLoading,
     isSuccess,
-  } = useMutation<CreateOrganizationDataTypes, ErrorTypes, CreateOrganizationTypes>(
-    createOrganizationMutation,
+  } = useMutation<SignupWithCodeDataTypes, ErrorTypes, SignupWithCodeTypes>(
+    signupWithCodeMutation,
     {
-      onSuccess: (data: CreateOrganizationDataTypes) => {
-        const { email } = data.createOrganization
+      onSuccess: (data: SignupWithCodeDataTypes) => {
+        const { email } = data.createUser
 
         handleLoginUser({ email, password: userPassword })
       },
@@ -44,7 +41,7 @@ export const useCreateOrganization = () => {
     }
   )
 
-  const handleSignup = (data: CreateOrganizationTypes) => {
+  const handleSignup = (data: SignupWithCodeTypes) => {
     setUserPassword(data.password)
     handleSignupUser(data)
   }
