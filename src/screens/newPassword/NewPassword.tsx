@@ -41,20 +41,20 @@ export const NewPassword: FC = () => {
   return (
     <Container>
       <RecoveryPasswordBar currentScreen="NewPassword" />
-      <Box flex={0.3} justifyContent="center">
+      <Box justifyContent="center" marginTop="xxl">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
           {t('enterNewPassword')}
         </Text>
       </Box>
-      <Box marginHorizontal="l" marginTop="l">
+      <Box marginHorizontal="l" marginTop="xl" flex={1}>
         <Box marginBottom="m">
           <FormInput
             control={control}
             isError={!!errors.password || !arePasswordsEqual}
             errors={errors}
             name="password"
-            inputLabel={t('password:password')}
+            inputLabel={t('password:newPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('password:incorrectPassword')}
             screenName="NewPassword"
@@ -80,7 +80,7 @@ export const NewPassword: FC = () => {
           />
         </Box>
       </Box>
-      <Box flex={0.4} justifyContent="center" marginHorizontal="xxl">
+      <Box justifyContent="center" marginHorizontal="xxl">
         <CustomButton
           label={t('updateButton')}
           variant="primary"

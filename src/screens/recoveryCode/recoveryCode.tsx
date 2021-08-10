@@ -10,6 +10,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { useUserContext } from 'hooks/useUserContext'
 import { useValidatePasswordResetCode } from 'hooks/useValidatePasswordResetCode'
+import Clipboard from '@react-native-clipboard/clipboard'
 import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 type RouteProps = {
@@ -40,13 +41,15 @@ export const RecoveryCode: FC = () => {
   useEffect(() => {
     setCopiedCode('')
     if (!copiedCode && recoveryCode.length === 6) {
-      handleValidatePasswordResetCode({ code: recoveryCode, email: 'user.email' })
+      handleValidatePasswordResetCode({ code: recoveryCode, email: user.email })
     }
   }, [recoveryCode, copiedCode, user.email, handleValidatePasswordResetCode])
 
-  const onValidatePasswordResetCode = () => {
-    setRecoveryCode(copiedCode)
-    handleValidatePasswordResetCode({ code: copiedCode, email: user.email })
+  const onCodePaste = async () => {
+    const text = await Clipboard.getString()
+    if (text) {
+      setRecoveryCode(text)
+    }
   }
 
   useEffect(() => {
@@ -58,21 +61,21 @@ export const RecoveryCode: FC = () => {
   return (
     <Container>
       <RecoveryPasswordBar currentScreen="RecoveryCode" />
-      <Box flex={0.2} justifyContent="center">
+      <Box justifyContent="center" marginTop="xxl">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
           {t('recoveryCodeSubTitle')}
         </Text>
       </Box>
-      <Box flex={0.2} marginHorizontal="xl">
+      <Box marginHorizontal="xl" flex={1}>
         <RecoveryCodeInput cellCount={6} setValue={setRecoveryCode} value={recoveryCode} />
       </Box>
-      <Box flex={0.5} justifyContent="flex-end" marginHorizontal="xxl">
+      <Box justifyContent="flex-end" marginHorizontal="xxl">
         <CustomButton label={t('resendCode')} variant="secondary" marginBottom={theme.spacing.m} />
         <CustomButton
           label={t('paste')}
           variant="primary"
-          onPress={onValidatePasswordResetCode}
+          onPress={onCodePaste}
           loading={isLoading}
         />
       </Box>
