@@ -49,35 +49,33 @@ export const DropdownWithRadio = ({
   }))
 
   return (
-    <>
-      <Box style={styles.container}>
-        <Box style={styles.header}>
-          <Text variant="body1Bold" textAlign="left">
-            {label}
-          </Text>
-          <TouchableOpacity
-            onPress={changeOpened}
-            hitSlop={{ top: 20, bottom: 20, left: 300, right: 20 }}>
-            <Animated.View style={animatedArrow}>
-              <ArrowDown />
-            </Animated.View>
-          </TouchableOpacity>
-        </Box>
-        <Animated.View style={[styles.options, animatedOptions]}>
-          {options.map((option) => (
-            <TouchableOpacity
-              key={option}
-              style={styles.option}
-              onPress={() => changeSelectedOption(option)}>
-              <Text variant="body1" marginVertical="s" textAlign="left">
-                {capitalize(option)}
-              </Text>
-              <RadioInput checked={selectedOption === option} onPress={() => {}} />
-            </TouchableOpacity>
-          ))}
-        </Animated.View>
+    <Box style={styles.container}>
+      <Box style={styles.header}>
+        <Text variant="body1Bold" textAlign="left">
+          {label}
+        </Text>
+        <TouchableOpacity
+          onPress={changeOpened}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+          <Animated.View style={animatedArrow}>
+            <ArrowDown />
+          </Animated.View>
+        </TouchableOpacity>
       </Box>
-    </>
+      <Animated.View style={[styles.options, animatedOptions]}>
+        {options.map((option) => (
+          <TouchableOpacity
+            key={option}
+            style={styles.option}
+            onPress={() => changeSelectedOption(option)}>
+            <Text variant="body1" marginVertical="s" textAlign="left">
+              {capitalize(option)}
+            </Text>
+            <RadioInput checked={selectedOption === option} onPress={() => {}} />
+          </TouchableOpacity>
+        ))}
+      </Animated.View>
+    </Box>
   )
 }
 
