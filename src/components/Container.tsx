@@ -7,7 +7,11 @@ export const Container: FC = ({ children }) => {
   const styles = useStyles()
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView style={styles.keyboardAvoiding}>{children}</KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+        style={styles.keyboardAvoiding}
+        contentContainerStyle={styles.keyboardAvoiding}>
+        {children}
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   )
 }
