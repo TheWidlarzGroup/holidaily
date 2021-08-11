@@ -16,6 +16,7 @@ import { useSignupWithCode } from 'hooks/useSignupWithCode'
 import { useInvitationCodeData } from 'hooks/useInvitationCodeData'
 import { StackScreenProps } from '@react-navigation/stack'
 import { AuthRoutes } from 'navigation/types'
+import { useBackgroundEffect } from 'hooks/useBackgroundEffect'
 import { PendingAccountConfirmationModal } from '../signupEmail/components/PendingAccountConfirmationModal'
 
 const BOTTOM_TAB_HEIGHT = 146
@@ -30,6 +31,7 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
   const { t } = useTranslation('signupEmail')
   const { data, setCode } = useInvitationCodeData()
   const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null)]
+  useBackgroundEffect(hideModal)
 
   const styles = useStyles()
 

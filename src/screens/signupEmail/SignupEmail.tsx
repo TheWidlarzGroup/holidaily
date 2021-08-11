@@ -13,6 +13,7 @@ import { useCreateOrganization } from 'hooks/useCreateOrganization'
 import { createAlert } from 'utils/createAlert'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useBackgroundEffect } from 'hooks/useBackgroundEffect'
 import { PendingAccountConfirmationModal } from './components/PendingAccountConfirmationModal'
 
 const BOTTOM_TAB_HEIGHT = 146
@@ -29,6 +30,7 @@ export const SignupEmail = () => {
     useRef<TextInput>(null),
     useRef<TextInput>(null),
   ]
+  useBackgroundEffect(hideModal)
 
   const styles = useStyles()
 
