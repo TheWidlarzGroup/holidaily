@@ -8,6 +8,7 @@ import { UploadPictureModal } from 'components/UploadPictureModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { MessageInputModal } from 'components/MessageInputModal'
+import { useTranslation } from 'react-i18next'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -49,6 +50,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
   const [photosToRemove, setPhotosToRemove] = useState<string[]>([])
+  const { t } = useTranslation('slider')
 
   const handleFormSubmit = () => {
     if (!date.start) return
@@ -101,7 +103,12 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             autofocus
           />
         ) : (
-          <CustomButton label="next" variant="primary" onPress={handleFormSubmit} marginTop={20} />
+          <CustomButton
+            label={t('next')}
+            variant="primary"
+            onPress={handleFormSubmit}
+            marginTop={20}
+          />
         )}
       </Box>
       <ConfirmationModal
