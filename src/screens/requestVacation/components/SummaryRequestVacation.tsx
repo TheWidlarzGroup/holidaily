@@ -41,13 +41,8 @@ export const SummaryRequestVacation = ({
   }
 
   return (
-    <ScrollView style={{ height: 300 }}>
-      <Box
-        flexDirection="column"
-        justifyContent="space-between"
-        flex={1}
-        padding="l"
-        paddingTop="xl">
+    <Box flex={1} padding="l" paddingTop="xl">
+      <ScrollView style={{ flex: 1 }}>
         <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
           <BackgroundPlant1 style={styles.plant1} />
           <BackgroundPlant2 style={styles.plant2} height={90} />
@@ -64,7 +59,7 @@ export const SummaryRequestVacation = ({
               <Text variant="body1">Sick time off</Text>
             </Box>
           )}
-          {message && (
+          {!!message && (
             <Text variant="regular15" paddingTop="m">
               {message}
             </Text>
@@ -88,15 +83,14 @@ export const SummaryRequestVacation = ({
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays />
         </Box>
-
-        <CustomButton
-          label="Send request"
-          variant="primary"
-          onPress={onNextPressed}
-          style={styles.button}
-        />
-      </Box>
-    </ScrollView>
+      </ScrollView>
+      <CustomButton
+        label="Send request"
+        variant="primary"
+        onPress={onNextPressed}
+        style={styles.button}
+      />
+    </Box>
   )
 }
 
