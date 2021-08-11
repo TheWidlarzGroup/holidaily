@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles, Text } from 'utils/theme/index'
-import { getFormattedPeriod } from 'utils/dates'
+import { getFormattedPeriod, getISODateString } from 'utils/dates'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import PillIcon from 'assets/icons/pill.svg'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useRequestHolidays } from 'hooks/useRequestHolidays'
 import { SummaryDays } from './SummaryDays'
 import { Photo } from './Photo'
 
@@ -32,6 +33,7 @@ export const SummaryRequestVacation = ({
   photos = [],
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
+  const { handleRequestHolidays, isLoading, isSuccess } = useRequestHolidays()
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2
@@ -39,6 +41,23 @@ export const SummaryRequestVacation = ({
     if (n === 1) return paddingSize
     if (n === 2) return side === 'left' ? 2 * paddingSize : 0
   }
+
+  const handleSend = () => {
+    if (startDate && endDate) {
+      handleRequestHolidays({
+        startDate: getISODateString(startDate),
+        endDate: getISODateString(endDate),
+        description,
+        sickTime,
+        message,
+      })
+    }
+  }
+  useEffect(() => {
+    if (isSuccess) {
+      onNextPressed()
+    }
+  }, [isSuccess, onNextPressed])
 
   return (
     <Box flex={1} padding="l" paddingTop="xl">
@@ -87,8 +106,9 @@ export const SummaryRequestVacation = ({
       <CustomButton
         label="Send request"
         variant="primary"
-        onPress={onNextPressed}
+        onPress={handleSend}
         style={styles.button}
+        loading={isLoading}
       />
     </Box>
   )
