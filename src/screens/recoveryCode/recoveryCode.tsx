@@ -12,6 +12,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useValidatePasswordResetCode } from 'hooks/useValidatePasswordResetCode'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { AuthNavigationType } from 'navigation/types'
+import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
 import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 type RouteProps = {
@@ -29,6 +30,8 @@ export const RecoveryCode: FC = () => {
     validatePasswordResetCodeErrorMessage,
     isSuccess,
   } = useValidatePasswordResetCode()
+  const { handleInitializePasswordReset, isLoading: isLoadingResend } = useInitializePasswordReset()
+
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const [recoveryCode, setRecoveryCode] = useState('')
   const [copiedCode, setCopiedCode] = useState('')
@@ -58,6 +61,10 @@ export const RecoveryCode: FC = () => {
     }
   }
 
+  const handleResendCode = () => {
+    handleInitializePasswordReset({ email: user.email })
+  }
+
   useEffect(() => {
     if (validatePasswordResetCodeErrorMessage) {
       showModal()
@@ -83,7 +90,13 @@ export const RecoveryCode: FC = () => {
         <RecoveryCodeInput cellCount={6} setValue={setRecoveryCode} value={recoveryCode} />
       </Box>
       <Box justifyContent="flex-end" marginHorizontal="xxl">
-        <CustomButton label={t('resendCode')} variant="secondary" marginBottom={theme.spacing.m} />
+        <CustomButton
+          label={t('resendCode')}
+          variant="secondary"
+          marginBottom={theme.spacing.m}
+          onPress={handleResendCode}
+          loading={isLoadingResend}
+        />
         <CustomButton
           label={t('paste')}
           variant="primary"
