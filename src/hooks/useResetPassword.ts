@@ -20,9 +20,6 @@ export const useResetPassword = () => {
     isLoading,
     isSuccess,
   } = useMutation<ResetPasswordDataTypes, ErrorTypes, ResetPasswordTypes>(resetPasswordMutation, {
-    onSuccess: (data: ResetPasswordDataTypes) => {
-      console.log(data)
-    },
     onError: (error: ErrorTypes) => {
       setErrorMessage(customErrorMessage(t, error.message))
     },
