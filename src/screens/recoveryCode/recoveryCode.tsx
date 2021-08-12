@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
@@ -10,6 +10,9 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { useUserContext } from 'hooks/useUserContext'
 import { useValidatePasswordResetCode } from 'hooks/useValidatePasswordResetCode'
+import Clipboard from '@react-native-clipboard/clipboard'
+import { AuthNavigationType } from 'navigation/types'
+import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
 import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 type RouteProps = {
@@ -21,14 +24,21 @@ type RouteProps = {
 }
 
 export const RecoveryCode: FC = () => {
-  const { handleValidatePasswordResetCode, isLoading, validatePasswordResetCodeErrorMessage } =
-    useValidatePasswordResetCode()
+  const {
+    handleValidatePasswordResetCode,
+    isLoading,
+    validatePasswordResetCodeErrorMessage,
+    isSuccess,
+  } = useValidatePasswordResetCode()
+  const { handleInitializePasswordReset, isLoading: isLoadingResend } = useInitializePasswordReset()
+
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const [recoveryCode, setRecoveryCode] = useState('')
   const [copiedCode, setCopiedCode] = useState('')
   const { t } = useTranslation('recoveryCode')
   const { params } = useRoute<RouteProps>()
   const { user } = useUserContext()
+  const navigation = useNavigation<AuthNavigationType<'RecoveryCode'>>()
 
   useEffect(() => {
     if (params) {
@@ -40,13 +50,19 @@ export const RecoveryCode: FC = () => {
   useEffect(() => {
     setCopiedCode('')
     if (!copiedCode && recoveryCode.length === 6) {
-      handleValidatePasswordResetCode({ code: recoveryCode, email: 'user.email' })
+      handleValidatePasswordResetCode({ code: recoveryCode, email: user.email })
     }
   }, [recoveryCode, copiedCode, user.email, handleValidatePasswordResetCode])
 
-  const onValidatePasswordResetCode = () => {
-    setRecoveryCode(copiedCode)
-    handleValidatePasswordResetCode({ code: copiedCode, email: user.email })
+  const onCodePaste = async () => {
+    const text = await Clipboard.getString()
+    if (text) {
+      setRecoveryCode(text)
+    }
+  }
+
+  const handleResendCode = () => {
+    handleInitializePasswordReset({ email: user.email })
   }
 
   useEffect(() => {
@@ -55,24 +71,36 @@ export const RecoveryCode: FC = () => {
     }
   }, [validatePasswordResetCodeErrorMessage, showModal])
 
+  useEffect(() => {
+    if (isSuccess) {
+      navigation.navigate('NewPassword', { code: recoveryCode, email: user.email })
+    }
+  }, [isSuccess, navigation, recoveryCode, user.email])
+
   return (
     <Container>
       <RecoveryPasswordBar currentScreen="RecoveryCode" />
-      <Box flex={0.2} justifyContent="center">
+      <Box justifyContent="center" marginTop="xxl">
         <Text variant="title1">{t('recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
           {t('recoveryCodeSubTitle')}
         </Text>
       </Box>
-      <Box flex={0.2} marginHorizontal="xl">
+      <Box marginHorizontal="xl" flex={1}>
         <RecoveryCodeInput cellCount={6} setValue={setRecoveryCode} value={recoveryCode} />
       </Box>
-      <Box flex={0.5} justifyContent="flex-end" marginHorizontal="xxl">
-        <CustomButton label={t('resendCode')} variant="secondary" marginBottom={theme.spacing.m} />
+      <Box justifyContent="flex-end" marginHorizontal="xxl">
+        <CustomButton
+          label={t('resendCode')}
+          variant="secondary"
+          marginBottom={theme.spacing.m}
+          onPress={handleResendCode}
+          loading={isLoadingResend}
+        />
         <CustomButton
           label={t('paste')}
           variant="primary"
-          onPress={onValidatePasswordResetCode}
+          onPress={onCodePaste}
           loading={isLoading}
         />
       </Box>
