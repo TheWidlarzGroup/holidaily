@@ -9,22 +9,32 @@ import { Status, StatusTypes } from './Status'
 
 type RequestProps = {
   item: {
-    title: string
-    startDate: string
-    endDate: string
+    description: string
+    range: string[]
     status: StatusTypes
-    additionals?: Additional[]
+    sickTime?: boolean
+    message?: string
   }
 }
 
 export const Request = ({
-  item: { title, startDate, endDate, status, additionals },
+  item: { description, range, status, sickTime, message },
 }: RequestProps) => {
   const { t } = useTranslation(['stats'])
+  const [additionals, setAdditionals] = useState<Additional[]>([])
   const [daysBetween, setDaysBetween] = useState(1)
+
   useEffect(() => {
-    setDaysBetween(getNumberOfWorkingDaysBetween(startDate, endDate))
-  }, [startDate, endDate])
+    setDaysBetween(getNumberOfWorkingDaysBetween(range[0], range[range.length - 1]))
+  }, [range])
+
+  useEffect(() => {
+    const tempAdditionals: Additional[] = []
+    if (sickTime) tempAdditionals.push('sick')
+    if (message) tempAdditionals.push('comment')
+    setAdditionals(tempAdditionals)
+  }, [sickTime, message])
+
   return (
     <Box
       marginHorizontal="s"
@@ -35,13 +45,15 @@ export const Request = ({
       paddingVertical="xm"
       flexDirection="row"
       justifyContent="space-between"
-      borderWidth={status === 'Now' ? 2 : 0}
+      borderWidth={status === 'NOW' ? 2 : 0}
       borderColor="tertiary">
       <Box>
         <Text variant="bold16" marginBottom="s">
-          {title}
+          {description}
         </Text>
-        <Text variant="captionText">{getFormattedPeriod(startDate, endDate, 'long')}</Text>
+        <Text variant="captionText">
+          {getFormattedPeriod(range[0], range[range.length - 1], 'long')}
+        </Text>
         <Text variant="captionText" color="headerGrey">
           {daysBetween} {daysBetween > 1 ? t('days') : t('day')}
         </Text>
