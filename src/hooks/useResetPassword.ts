@@ -1,16 +1,9 @@
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 
-import { useTranslation, TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { ErrorTypes, ResetPasswordDataTypes, ResetPasswordTypes } from 'types/useResetPasswordTypes'
 import { resetPasswordMutation } from 'graphqlActions/mutations/resetPasswordMutation'
-
-const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
-  if (errorMessage?.startsWith('invalid_code')) {
-    return translate('invalidCredentials')
-  }
-  return translate('default')
-}
 
 export const useResetPassword = () => {
   const [errorMessage, setErrorMessage] = useState('')
@@ -20,8 +13,8 @@ export const useResetPassword = () => {
     isLoading,
     isSuccess,
   } = useMutation<ResetPasswordDataTypes, ErrorTypes, ResetPasswordTypes>(resetPasswordMutation, {
-    onError: (error: ErrorTypes) => {
-      setErrorMessage(customErrorMessage(t, error.message))
+    onError: () => {
+      setErrorMessage(t('default'))
     },
   })
 
