@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles, Text } from 'utils/theme/index'
-import { getFormattedPeriod } from 'utils/dates'
+import { getFormattedPeriod, getISODateString } from 'utils/dates'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import PillIcon from 'assets/icons/pill.svg'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useRequestHolidays } from 'hooks/useRequestHolidays'
 import { SummaryDays } from './SummaryDays'
 import { Photo } from './Photo'
 
@@ -32,6 +33,7 @@ export const SummaryRequestVacation = ({
   photos = [],
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
+  const { handleRequestHolidays, isLoading, isSuccess } = useRequestHolidays()
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2
@@ -40,14 +42,26 @@ export const SummaryRequestVacation = ({
     if (n === 2) return side === 'left' ? 2 * paddingSize : 0
   }
 
+  const handleSend = () => {
+    if (startDate && endDate) {
+      handleRequestHolidays({
+        startDate: getISODateString(startDate),
+        endDate: getISODateString(endDate),
+        description,
+        sickTime,
+        message,
+      })
+    }
+  }
+  useEffect(() => {
+    if (isSuccess) {
+      onNextPressed()
+    }
+  }, [isSuccess, onNextPressed])
+
   return (
-    <ScrollView style={{ height: 300 }}>
-      <Box
-        flexDirection="column"
-        justifyContent="space-between"
-        flex={1}
-        padding="l"
-        paddingTop="xl">
+    <Box flex={1} padding="l" paddingTop="xl">
+      <ScrollView style={{ flex: 1 }}>
         <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
           <BackgroundPlant1 style={styles.plant1} />
           <BackgroundPlant2 style={styles.plant2} height={90} />
@@ -64,7 +78,7 @@ export const SummaryRequestVacation = ({
               <Text variant="body1">Sick time off</Text>
             </Box>
           )}
-          {message && (
+          {!!message && (
             <Text variant="regular15" paddingTop="m">
               {message}
             </Text>
@@ -88,15 +102,15 @@ export const SummaryRequestVacation = ({
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays />
         </Box>
-
-        <CustomButton
-          label="Send request"
-          variant="primary"
-          onPress={onNextPressed}
-          style={styles.button}
-        />
-      </Box>
-    </ScrollView>
+      </ScrollView>
+      <CustomButton
+        label="Send request"
+        variant="primary"
+        onPress={handleSend}
+        style={styles.button}
+        loading={isLoading}
+      />
+    </Box>
   )
 }
 
