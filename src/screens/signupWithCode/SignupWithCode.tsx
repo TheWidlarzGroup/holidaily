@@ -6,7 +6,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
 import { shadow } from 'utils/theme/shadows'
-import { minOneSignRegex, emailRegex, passwordRegex, minOneWordRegex } from 'utils/regex'
+import { passwordRegex, minOneWordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { createAlert } from 'utils/createAlert'
@@ -30,7 +30,7 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
   const { control, handleSubmit, errors, setValue } = useForm()
   const { t } = useTranslation('signupEmail')
   const { data, setCode } = useInvitationCodeData()
-  const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null)]
+  const inputsRefs = [useRef<TextInput>(null), useRef<TextInput>(null), useRef<TextInput>(null)]
   useBackgroundEffect(hideModal)
 
   const styles = useStyles()
@@ -47,8 +47,6 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
 
   useEffect(() => {
     setValue('code', data.code)
-    setValue('email', data.email)
-    setValue('organizationName', data.organizationName)
   }, [setValue, data])
 
   useEffect(() => {
@@ -64,8 +62,15 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
   return (
     <SafeAreaWrapper>
       <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
-        <Box justifyContent="center" paddingVertical="xxxl">
-          <Text variant="title1">Join to organization</Text>
+        <Box justifyContent="center" marginTop="xxxl" marginBottom="xxl">
+          <Text variant="title1">{t('signupWithCodeTitle')}</Text>
+          <Text variant="bold16" textAlign="center" marginTop="xm">
+            {data.email}
+          </Text>
+          <Text variant="body1" textAlign="center" marginTop="l">
+            {t('signupWithCodeSubheader')}
+            {data.organizationName}!
+          </Text>
         </Box>
         <Box style={{ display: 'none' }}>
           <FormInput
@@ -76,32 +81,7 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
             inputLabel={'Code'}
             validationPattern={minOneWordRegex}
             errorMessage={t('nameSurnameErrMsg')}
-            onSubmitEditing={() => onSubmitEditing(0)}
             blurOnSubmit={false}
-            disabled
-          />
-        </Box>
-        <Box>
-          <FormInput
-            control={control}
-            isError={!!errors.organizationName}
-            errors={errors}
-            name="organizationName"
-            inputLabel={t('organizationName')}
-            validationPattern={minOneSignRegex}
-            errorMessage={t('nameSurnameErrMsg')}
-            disabled
-          />
-        </Box>
-        <Box>
-          <FormInput
-            control={control}
-            isError={!!errors.email}
-            errors={errors}
-            name="email"
-            inputLabel={t('email')}
-            validationPattern={emailRegex}
-            errorMessage={t('invalidEmailErr')}
             disabled
           />
         </Box>
@@ -135,18 +115,36 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
         <Box>
           <FormInput
             control={control}
+            isError={!!errors.role}
+            errors={errors}
+            name="role"
+            inputLabel={t('role')}
+            validationPattern={minOneWordRegex}
+            errorMessage={t('nameSurnameErrMsg')}
+            onSubmitEditing={() => onSubmitEditing(2)}
+            blurOnSubmit={false}
+            ref={inputsRefs[1]}
+          />
+        </Box>
+        <Box>
+          <FormInput
+            control={control}
             isError={!!errors.password}
             errors={errors}
             name="password"
             inputLabel={t('password')}
             validationPattern={passwordRegex}
             errorMessage={t('nameSurnameErrMsg')}
-            ref={inputsRefs[1]}
+            ref={inputsRefs[2]}
             signupPasswordHint={t('passwordHint')}
             isPasswordIconVisible
           />
         </Box>
-        <Box height={bottomTabHeight + theme.spacing.lplus} />
+        <Text variant="lightGreyRegular" textAlign="center" marginTop="l">
+          {t('privacyPolicyNormal')}
+          <Text variant="primaryBold12">{t('privacyPolicyAccent')}</Text>
+        </Text>
+        <Box height={bottomTabHeight + theme.spacing.l} />
       </KeyboardAwareScrollView>
       <Box
         position="absolute"
@@ -167,11 +165,6 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
             onPress={handleSubmit(handleSignup)}
             loading={isLoading}
           />
-        </Box>
-        <Box marginTop="l">
-          <Text variant="lightGreyBold" textAlign="center">
-            {t('privacyPolicy')}
-          </Text>
         </Box>
       </Box>
       <PendingAccountConfirmationModal isVisible={isModalVisible} hideModal={hideModal} />
