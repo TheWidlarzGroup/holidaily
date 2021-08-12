@@ -10,15 +10,25 @@ import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
+import { useResetPassword } from 'hooks/useResetPassword'
+import { useRoute } from '@react-navigation/native'
 import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 
+type NewPasswordRouteProps = {
+  key: string
+  name: string
+  params: { code: string; email: string }
+}
+
 export const NewPassword: FC = () => {
+  const { handleResetPassword, isLoading, isSuccess } = useResetPassword()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const [arePasswordsEqual, { setFalse: setPasswordsAreNotEqual, setTrue: setArePasswordsEqual }] =
     useBooleanState(true)
   const { t } = useTranslation(['recoveryCode', 'password'])
   const { control, handleSubmit, errors, watch } = useForm()
   const passwordConfirmationRef = useRef<TextInput>(null)
+  const { params } = useRoute<NewPasswordRouteProps>()
 
   const { password, confirmPassword } = watch(['password', 'confirmPassword'])
 
@@ -32,7 +42,21 @@ export const NewPassword: FC = () => {
     }
   }, [password, confirmPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
-  const handleUpdatePassword = () => arePasswordsEqual && showModal()
+  const handleUpdatePassword = () => {
+    if (arePasswordsEqual) {
+      handleResetPassword({
+        code: params.code,
+        email: params.email,
+        newPassword: password,
+        newPasswordConfirmation: confirmPassword,
+      })
+    }
+  }
+  useEffect(() => {
+    if (isSuccess) {
+      showModal()
+    }
+  }, [isSuccess, showModal])
 
   const onSubmitEditing = () => {
     passwordConfirmationRef?.current?.focus()
@@ -62,6 +86,7 @@ export const NewPassword: FC = () => {
             onSubmitEditing={onSubmitEditing}
             blurOnSubmit={false}
             isPasswordIconVisible
+            textContentType={'oneTimeCode'}
           />
         </Box>
         <Box>
@@ -77,6 +102,7 @@ export const NewPassword: FC = () => {
             passwordsAreEqual={arePasswordsEqual}
             ref={passwordConfirmationRef}
             isPasswordIconVisible
+            textContentType={'oneTimeCode'}
           />
         </Box>
       </Box>
@@ -85,6 +111,7 @@ export const NewPassword: FC = () => {
           label={t('updateButton')}
           variant="primary"
           onPress={handleSubmit(handleUpdatePassword)}
+          loading={isLoading}
         />
       </Box>
       <PasswordUpdatedModal isVisible={isModalVisible} hideModal={hideModal} />
