@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { Box, Text, theme } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
@@ -11,6 +11,7 @@ import { Container } from 'components/Container'
 import { useUserContext } from 'hooks/useUserContext'
 import { useValidatePasswordResetCode } from 'hooks/useValidatePasswordResetCode'
 import Clipboard from '@react-native-clipboard/clipboard'
+import { AuthNavigationType } from 'navigation/types'
 import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 type RouteProps = {
@@ -22,14 +23,19 @@ type RouteProps = {
 }
 
 export const RecoveryCode: FC = () => {
-  const { handleValidatePasswordResetCode, isLoading, validatePasswordResetCodeErrorMessage } =
-    useValidatePasswordResetCode()
+  const {
+    handleValidatePasswordResetCode,
+    isLoading,
+    validatePasswordResetCodeErrorMessage,
+    isSuccess,
+  } = useValidatePasswordResetCode()
   const [isModalVisible, { setFalse: hideModal, setTrue: showModal }] = useBooleanState(false)
   const [recoveryCode, setRecoveryCode] = useState('')
   const [copiedCode, setCopiedCode] = useState('')
   const { t } = useTranslation('recoveryCode')
   const { params } = useRoute<RouteProps>()
   const { user } = useUserContext()
+  const navigation = useNavigation<AuthNavigationType<'RecoveryCode'>>()
 
   useEffect(() => {
     if (params) {
@@ -57,6 +63,12 @@ export const RecoveryCode: FC = () => {
       showModal()
     }
   }, [validatePasswordResetCodeErrorMessage, showModal])
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigation.navigate('NewPassword', { code: recoveryCode, email: user.email })
+    }
+  }, [isSuccess, navigation, recoveryCode, user.email])
 
   return (
     <Container>
