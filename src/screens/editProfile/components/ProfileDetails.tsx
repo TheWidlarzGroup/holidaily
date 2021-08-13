@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 
 type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
-  errors: DeepMap<{ firstName: string; lastName: string; role: string }, FieldError>
+  errors: DeepMap<{ firstName: string; lastName: string; occupation: string }, FieldError>
   control: Control<FieldValues>
 }
 
@@ -114,10 +114,10 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           onBlur={onSubmitEditing}
           onFocus={() => setIconInvisible(2)}
           control={control}
-          isError={!!errors.role}
+          isError={!!errors.occupation}
           errors={errors}
-          name="role"
-          inputLabel={t('userRole')}
+          name="occupation"
+          inputLabel={t('userOccupation')}
           validationPattern={minOneSignRegex}
           errorMessage={t('editDetailsErrMsg')}
           onSubmitEditing={onSubmitEditing}

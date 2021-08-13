@@ -18,13 +18,13 @@ import { SaveChangesButton } from './components/SaveChangesButton'
 export const EditProfile = () => {
   const { navigate } = useNavigation()
   const { user } = useUserContext()
-  const { firstName, lastName, role } = user
+  const { firstName, lastName, occupation } = user
   const styles = useStyles()
   const { errors, control } = useForm({
     defaultValues: {
       firstName,
       lastName,
-      role,
+      occupation,
     },
   })
   const { t } = useTranslation('userProfile')
@@ -39,7 +39,7 @@ export const EditProfile = () => {
   const handleEditDetailsSubmit = () => {
     showChangesSavedModal()
     setEditedFalse()
-    // TODO: function updating user data from const {firstName, lastName, role} = getValues()
+    // TODO: function updating user data from const {firstName, lastName, occupation} = getValues()
   }
   const handleGoBack = () => {
     navigate('Dashboard')
