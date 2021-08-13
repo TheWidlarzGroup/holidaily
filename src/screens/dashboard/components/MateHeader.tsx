@@ -5,7 +5,7 @@ import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 import { Avatar } from 'components/Avatar'
 
 export const MateHeader = (props: RequiredMateHolidaysData) => {
-  const { firstName, lastName, holidays, role, photo } = props
+  const { firstName, lastName, holidays, occupation, photo } = props
 
   return (
     <Box alignItems="center" borderBottomColor="black" borderBottomWidth={2} paddingBottom="l">
@@ -16,9 +16,9 @@ export const MateHeader = (props: RequiredMateHolidaysData) => {
       <Text variant="bold20" color="black" marginTop="m">
         {firstName} {lastName}
       </Text>
-      {role && (
+      {occupation && (
         <Text variant="regularGrey16" color="headerGrey">
-          {role}
+          {occupation}
         </Text>
       )}
     </Box>

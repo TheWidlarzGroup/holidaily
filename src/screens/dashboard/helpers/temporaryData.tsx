@@ -9,7 +9,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Peter',
       lastName: 'Kansas',
       photo: undefined,
-      role: 'Software Developer',
+      occupation: 'Software Developer',
     },
   },
   {
@@ -22,7 +22,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Tom',
       lastName: 'Waist',
       photo: undefined,
-      role: 'Software Developer',
+      occupation: 'Software Developer',
     },
   },
   {
@@ -35,7 +35,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Kamila',
       lastName: 'Wysokogórska',
       photo: undefined,
-      role: 'Software Developer',
+      occupation: 'Software Developer',
     },
   },
   {
@@ -48,7 +48,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Ola',
       lastName: 'Nowak',
       photo: undefined,
-      role: 'Software Developer',
+      occupation: 'Software Developer',
     },
   },
   {
@@ -61,7 +61,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Ludwik',
       lastName: 'Chodak',
       photo: undefined,
-      role: 'Software Developer',
+      occupation: 'Software Developer',
     },
   },
   {
@@ -74,7 +74,7 @@ export const COMPANY_DAYS_OFF = [
       firstName: 'Paweł',
       lastName: 'Ogonek',
       photo: undefined,
-      role: 'Software Developer',
+      occupation: 'Software Developer',
     },
   },
 ]
@@ -89,7 +89,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Paweł',
         lastName: 'Ogonek',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -104,7 +104,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Peter',
         lastName: 'Kansas',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: true,
@@ -119,7 +119,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Peter',
         lastName: 'Kansas',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: true,
@@ -134,7 +134,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Tom',
         lastName: 'Waist',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 2,
           isOnHoliday: false,
@@ -149,7 +149,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Kamila',
         lastName: 'Wysokogórska',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -164,7 +164,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -179,7 +179,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Kamila',
         lastName: 'Wysokogórska-Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -194,7 +194,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -209,7 +209,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -230,7 +230,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Tom',
         lastName: 'Waist',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 2,
           isOnHoliday: true,
@@ -245,7 +245,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Kamila',
         lastName: 'Wysokogórska',
         photo: undefined,
-        role: 'Office Manager',
+        occupation: 'Office Manager',
         holidays: {
           id: 3,
           isOnHoliday: false,
@@ -260,7 +260,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 4,
           isOnHoliday: false,
@@ -281,7 +281,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Tom',
         lastName: 'Waist',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 1,
           isOnHoliday: false,
@@ -296,7 +296,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Kamila',
         lastName: 'Wysokogórska',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 3,
           isOnHoliday: false,
@@ -311,7 +311,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 4,
           isOnHoliday: false,
@@ -332,7 +332,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Tom',
         lastName: 'Waist',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 2,
           isOnHoliday: true,
@@ -347,7 +347,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Kamila',
         lastName: 'Wysokogórska',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 3,
           isOnHoliday: true,
@@ -362,7 +362,7 @@ export const USER_GROUPS_DAYS_OFF = [
         firstName: 'Ola',
         lastName: 'Nowak',
         photo: undefined,
-        role: 'Software Engineer',
+        occupation: 'Software Engineer',
         holidays: {
           id: 4,
           isOnHoliday: false,
