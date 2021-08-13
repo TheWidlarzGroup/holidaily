@@ -120,7 +120,9 @@
     "panel": "Panel",
     "chat": "Chat",
     "editProfile": "Edit profile",
-    "budget": "Holiday budget"
+    "budget": "Holiday budget",
+    "inviteMember": "Invite member",
+    "adminPanel": "Admin Panel"
   },
   "userProfile": {
     "addPhoto": "Add profile picture",
