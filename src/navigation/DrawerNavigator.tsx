@@ -13,6 +13,7 @@ import { InviteMembers } from 'screens/inviteMembers/InviteMembers'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
+import { AdminPanelNavigation } from './AdminPanelNavigation'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
@@ -98,7 +99,12 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="InviteMembers"
         component={InviteMembers}
-        options={{ title: 'Invite Members', swipeEnabled: false }}
+        options={{ title: t('inviteMember'), swipeEnabled: false }}
+      />
+      <Drawer.Screen
+        name="AdminPanel"
+        component={AdminPanelNavigation}
+        options={{ title: t('adminPanel'), swipeEnabled: false }}
       />
     </Drawer.Navigator>
   )
