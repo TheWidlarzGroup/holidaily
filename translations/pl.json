@@ -66,8 +66,11 @@
   },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
+    "signupWithCodeTitle": "Miło Cię poznać!",
+    "signupWithCodeSubheader": "Stwórz konto\ni dołącz do ",
     "name": "Imię",
     "surname": "Nazwisko",
+    "role": "Rola",
     "nameSurnameErrMsg": "Nieprawidłowe dane",
     "organizationName": "Nazwa firmy",
     "email": "Adres e-mail",
@@ -76,7 +79,10 @@
     "passwordConfirmation": "Potwierdzenie hasła",
     "passwordHint": "Użyj wielkiej litery, cyfry i znaku specjalnego.",
     "signUpBtn": "Zarejestruj się",
-    "privacyPolicy": "Klikajac zarejestruj się, wyrażasz zgodę na warunki użytkowania i politykę prywatności."
+    "privacyPolicy": "Tworząc konto, wyrażasz zgodę na warunki użytkowania i politykę prywatności",
+    "privacyPolicyNormal": "Tworząc konto, wyrażasz zgodę na ",
+    "privacyPolicyAccent": "warunki użytkowania i politykę prywatności"
+
   },
   "errorModals": {
     "errorTitle": "Coś poszło nie tak :(",

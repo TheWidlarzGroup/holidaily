@@ -66,6 +66,11 @@ export const textVariants = {
     fontSize: 12,
     color: 'grey',
   },
+  primaryBold12: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'primary',
+  },
   regularGrey16: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
