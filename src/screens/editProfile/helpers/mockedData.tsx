@@ -5,7 +5,7 @@ export const USER_DATA: UserDetails = {
   id: '1',
   firstName: 'Kamila',
   lastName: 'Wysokogórska',
-  role: 'Software Developer',
+  occupation: 'Software Developer',
   holidays: {
     id: 1,
     isOnHoliday: false,
