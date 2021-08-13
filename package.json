@@ -1,6 +1,6 @@
 {
   "name": "Holidayly",
-  "version": "0.0.1",
+  "version": "1.0.13",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -9,7 +9,9 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --config .prettierrc --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "ios:beta": "fastlane ios beta",
+    "android:beta": "fastlane android beta"
   },
   "dependencies": {
     "@react-native-clipboard/clipboard": "^1.8.4",

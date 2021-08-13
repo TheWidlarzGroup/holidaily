@@ -56,9 +56,16 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+fastlane/.env.default
+
+android/app/holidaily-fastlane.json
+
+*.zip
+*.hprof
 
 # Bundle artifact
 *.jsbundle
 
 # CocoaPods
 /ios/Pods/
+
