@@ -115,10 +115,10 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
         <Box>
           <FormInput
             control={control}
-            isError={!!errors.role}
+            isError={!!errors.occupation}
             errors={errors}
-            name="role"
-            inputLabel={t('role')}
+            name="occupation"
+            inputLabel={t('occupation')}
             validationPattern={minOneWordRegex}
             errorMessage={t('nameSurnameErrMsg')}
             onSubmitEditing={() => onSubmitEditing(2)}
