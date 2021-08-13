@@ -13,6 +13,7 @@ export const emptyUser = {
   email: '',
   isConfirmed: false,
   role: '',
+  occupation: '',
   photo: null,
 }
 
