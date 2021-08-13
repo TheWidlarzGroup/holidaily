@@ -13,7 +13,7 @@ export type UserData = {
   firstName: string
   lastName: string
   photo?: string | null
-  role?: string
+  occupation?: string
 }
 export type HolidayDetails = {
   id: number
@@ -36,7 +36,7 @@ export type UserDetails = {
   id: string
   firstName: string
   lastName: string
-  role?: string
+  occupation?: string
   password?: string
   holidays?: {
     id: number
