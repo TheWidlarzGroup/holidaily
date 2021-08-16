@@ -123,6 +123,7 @@ export type DrawerRoutes = {
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
+  InviteMembers: undefined
 }
 
 export type AuthRoutes = {
@@ -130,9 +131,10 @@ export type AuthRoutes = {
   Login: undefined
   Signup: undefined
   SignupEmail: undefined
+  SignupWithCode: { code: string }
   ForgotPassword: undefined
   RecoveryCode: undefined
-  NewPassword: undefined
+  NewPassword: { code: string; email: string }
   ConfirmedAccount: undefined
   Recovery: undefined
 }

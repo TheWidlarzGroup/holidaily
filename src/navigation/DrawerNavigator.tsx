@@ -9,6 +9,7 @@ import { Settings } from 'screens/settings/Settings'
 import { Budget } from 'screens/budget/Budget'
 import { DrawerRoutes } from 'navigation/types'
 import { useSiriListeners } from 'hooks/useSiriListeners'
+import { InviteMembers } from 'screens/inviteMembers/InviteMembers'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -93,6 +94,11 @@ export const DrawerNavigator = () => {
         name="About"
         component={About}
         options={{ title: t('about'), swipeEnabled: false }}
+      />
+      <Drawer.Screen
+        name="InviteMembers"
+        component={InviteMembers}
+        options={{ title: 'Invite Members', swipeEnabled: false }}
       />
     </Drawer.Navigator>
   )

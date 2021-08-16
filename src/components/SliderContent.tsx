@@ -34,7 +34,7 @@ export const SliderContent: FC<SliderContentProps> = ({
   return (
     <Animated.View style={styles.container}>
       <Animated.View style={[styles.imageContainer, style]}>
-        <Animated.Image style={styles.image} source={image} />
+        <Animated.Image style={styles.image} source={image} resizeMode="contain" />
       </Animated.View>
       <Box maxWidth="80%" justifyContent="center" alignItems="center">
         <Text variant="title1">{title}</Text>
@@ -59,5 +59,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     aspectRatio: 1,
   },
-  image: { resizeMode: 'center' },
+  image: {
+    width: '90%',
+    maxWidth: 400,
+  },
 })

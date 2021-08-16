@@ -4,8 +4,9 @@ import { PalmTreeIcon } from 'assets/icons/PalmTreeIcon'
 import { CheckmarkIcon } from 'assets/icons/CheckmarkIcon'
 import { ClockIcon } from 'assets/icons/ClockIcon'
 import { QuestionIcon } from 'assets/icons/QuestionIcon'
+import { capitalize } from 'utils/role'
 
-export type StatusTypes = 'Now' | 'Approved' | 'Pending' | 'Past'
+export type StatusTypes = 'NOW' | 'APPROVED' | 'PENDING' | 'PAST'
 type StatusProps = {
   status: StatusTypes
 }
@@ -13,13 +14,13 @@ type StatusProps = {
 export const Status = ({ status }: StatusProps) => {
   const getColor = () => {
     switch (status) {
-      case 'Now':
+      case 'NOW':
         return theme.colors.black
-      case 'Approved':
+      case 'APPROVED':
         return theme.colors.tertiary
-      case 'Pending':
+      case 'PENDING':
         return theme.colors.special
-      case 'Past':
+      case 'PAST':
         return theme.colors.grey
       default:
         return theme.colors.black
@@ -27,12 +28,12 @@ export const Status = ({ status }: StatusProps) => {
   }
   return (
     <Box flexDirection="row" justifyContent="center" alignItems="center">
-      {status === 'Now' && <PalmTreeIcon fill={getColor()} />}
-      {status === 'Approved' && <CheckmarkIcon fill={getColor()} />}
-      {status === 'Pending' && <ClockIcon fill={getColor()} />}
-      {status === 'Past' && <QuestionIcon fill={getColor()} />}
+      {status === 'NOW' && <PalmTreeIcon fill={getColor()} />}
+      {status === 'APPROVED' && <CheckmarkIcon fill={getColor()} />}
+      {status === 'PENDING' && <QuestionIcon fill={getColor()} />}
+      {status === 'PAST' && <ClockIcon fill={getColor()} />}
       <Text variant="captionText" marginLeft="s" style={{ color: getColor() }}>
-        {status}
+        {capitalize(status)}
       </Text>
     </Box>
   )

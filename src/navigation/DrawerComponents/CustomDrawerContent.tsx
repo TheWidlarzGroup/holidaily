@@ -10,11 +10,18 @@ import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
 import { useLogin } from 'hooks/useLogin'
+import { DrawerRoutes } from 'navigation/types'
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { t } = useTranslation('navigation')
   const { user } = useUserContext()
   const { handleLogout } = useLogin()
+
+  const isHidden = (name: keyof DrawerRoutes) => {
+    if (name === 'Home') return false
+    if (name === 'InviteMembers' && user.role !== 'ADMIN' && user.role !== 'MANAGER') return false
+    return true
+  }
 
   return (
     <SafeAreaWrapper>
@@ -23,7 +30,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
         <Box flex={1} marginTop="xxl" alignItems="flex-start">
           {props.state.routes.map(
             ({ name, key }) =>
-              name !== 'Home' && (
+              isHidden(name as keyof DrawerRoutes) && (
                 <DrawerItem
                   icon={getDrawerIcon(name as Tab)}
                   text={props.descriptors[key].options.title}

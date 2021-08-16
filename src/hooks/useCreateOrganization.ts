@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { ErrorTypes } from 'types/useLoginTypes'
-import { SignupTypes, HandleSignupTypes, CreateUserTypes } from 'types/useSignupTypes'
-import { signupMutation } from 'graphqlActions/mutations/signupMutation'
+import { CreateOrganizationTypes, CreateOrganizationDataTypes } from 'types/useSignupTypes'
+import { createOrganizationMutation } from 'graphqlActions/mutations/createOrganizationMutation'
 import { useTranslation, TFunction } from 'react-i18next'
 import { useLogin } from './useLogin'
 
@@ -17,7 +17,7 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
   return translate('default')
 }
 
-export const useSignup = () => {
+export const useCreateOrganization = () => {
   const [userPassword, setUserPassword] = useState('')
   const { t } = useTranslation('mutationsErrors')
   const { handleLoginUser } = useLogin()
@@ -27,24 +27,26 @@ export const useSignup = () => {
     mutate: handleSignupUser,
     isLoading,
     isSuccess,
-  } = useMutation<CreateUserTypes, ErrorTypes, SignupTypes>(signupMutation, {
-    onSuccess: (data: CreateUserTypes) => {
-      const { email } = data.createUser
+  } = useMutation<CreateOrganizationDataTypes, ErrorTypes, CreateOrganizationTypes>(
+    createOrganizationMutation,
+    {
+      onSuccess: (data: CreateOrganizationDataTypes) => {
+        const { email } = data.createOrganization
 
-      handleLoginUser({ email, password: userPassword })
-    },
+        handleLoginUser({ email, password: userPassword })
+      },
 
-    onError: (error: ErrorTypes) => {
-      const errorMessage = customErrorMessage(t, error.message)
+      onError: (error: ErrorTypes) => {
+        const errorMessage = customErrorMessage(t, error.message)
 
-      setSignupErrorMessage(errorMessage)
-    },
-  })
+        setSignupErrorMessage(errorMessage)
+      },
+    }
+  )
 
-  const handleSignup = ({ email, nameSurname, password }: HandleSignupTypes) => {
-    const [firstName, lastName] = nameSurname.split(' ')
-    setUserPassword(password)
-    handleSignupUser({ email, firstName, lastName, password })
+  const handleSignup = (data: CreateOrganizationTypes) => {
+    setUserPassword(data.password)
+    handleSignupUser(data)
   }
 
   return { handleSignup, isLoading, signupErrorMessage, isSuccess }

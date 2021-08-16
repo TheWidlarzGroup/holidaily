@@ -10,10 +10,12 @@ export const loginMutation = ({ email, password }: LoginTypes) =>
       loginUser(email: "${email}", password: "${password}") {
         token
         user{
+          email
           confirmed
           firstName
           lastName
-          email
+          occupation
+          role
         }
       }
     }

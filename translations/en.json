@@ -66,16 +66,22 @@
   },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
-    "nameSurname": "Name and surname",
+    "signupWithCodeTitle": "Nice to meet you!",
+    "signupWithCodeSubheader": "Create an account\nand join ",
+    "name": "Name",
+    "surname": "Surname",
+    "role": "Role",
     "nameSurnameErrMsg": "Incorrect input",
-    "companyName": "Company name",
+    "organizationName": "Organization name",
     "email": "E-mail Address",
     "invalidEmailErr": "Invalid e-mail, please try again",
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",
     "passwordHint": "Use a capital letter, number and special character.",
     "signUpBtn": "Sign up",
-    "privacyPolicy": "By clicking sign up you are agreeing to the terms of use and acknowledging the privacy policy close."
+    "privacyPolicy": "By creating an Account, I accept the Terms and Conditions & Privacy Policy",
+    "privacyPolicyNormal": "By creating an Account, I accept the ",
+    "privacyPolicyAccent": "Terms and Conditions & Privacy Policy"
   },
   "errorModals": {
     "errorTitle": "Something's wrong :(",

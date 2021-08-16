@@ -1,18 +1,27 @@
-export type SignupTypes = {
-  email: string
+export type SignupWithCodeTypes = {
+  code: string
   firstName: string
   lastName: string
   password: string
+  role?: string
 }
 
-export type HandleSignupTypes = {
+export type SignupWithCodeDataTypes = {
+  createUser: {
+    email: string
+  }
+}
+
+export type CreateOrganizationTypes = {
   email: string
-  nameSurname: string
+  firstName: string
+  lastName: string
+  organizationName: string
   password: string
 }
 
-export type CreateUserTypes = {
-  createUser: {
+export type CreateOrganizationDataTypes = {
+  createOrganization: {
     email: string
   }
 }

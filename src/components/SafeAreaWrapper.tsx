@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { colors } from 'utils/theme/colors'
 import { theme } from 'utils/theme'
 
@@ -18,17 +18,15 @@ export const SafeAreaWrapper: FC<WrapperProps> = ({
   edges,
   children,
 }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} accessible={false}>
-    <SafeAreaView
-      edges={edges || ['top', 'right', 'bottom', 'left']}
-      style={[
-        styles.container,
-        !isDefaultBgColor && styles.containerBackground,
-        isTabNavigation && { paddingBottom: theme.spacing.xxxl },
-      ]}>
-      {children}
-    </SafeAreaView>
-  </TouchableWithoutFeedback>
+  <SafeAreaView
+    edges={edges || ['top', 'right', 'bottom', 'left']}
+    style={[
+      styles.container,
+      !isDefaultBgColor && styles.containerBackground,
+      isTabNavigation && { paddingBottom: theme.spacing.xxxl },
+    ]}>
+    {children}
+  </SafeAreaView>
 )
 
 const styles = StyleSheet.create({
