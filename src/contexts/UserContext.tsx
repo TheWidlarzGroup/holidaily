@@ -11,7 +11,7 @@ export type UserData = {
 }
 
 export type ContextProps = {
-  user: UserData
+  user: UserData | null
   updateUser: (newData: Partial<UserData>) => void
 }
 
