@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.000541">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="01: install_dependencies" time="2.084501">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: Switch to ios build lane" time="0.001911">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: cocoapods" time="19.186396">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: Switch to ios connect_to_app_store lane" time="0.00036">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: app_store_connect_api_key" time="0.005673">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: Switch to ios update_version lane" time="0.000246">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: increment_build_number" time="2.437797">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: increment_version_number" time="0.900216">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: gym" time="392.232447">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: upload_to_testflight" time="117.327599">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
