@@ -50,7 +50,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
   const [photosToRemove, setPhotosToRemove] = useState<string[]>([])
-  const { t } = useTranslation('slider')
 
   const { t } = useTranslation('requestVacation')
 
