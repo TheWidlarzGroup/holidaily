@@ -3,7 +3,7 @@ export type SignupWithCodeTypes = {
   firstName: string
   lastName: string
   password: string
-  role?: string
+  occupation?: string
 }
 
 export type SignupWithCodeDataTypes = {

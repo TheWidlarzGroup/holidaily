@@ -26,7 +26,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
   return (
     <SafeAreaWrapper>
       <Animated.View style={[style, { flex: 1 }]}>
-        <DrawerHeader firstName={user.firstName} lastName={user.lastName} job={user.role} />
+        <DrawerHeader firstName={user.firstName} lastName={user.lastName} job={user.occupation} />
         <Box flex={1} marginTop="xxl" alignItems="flex-start">
           {props.state.routes.map(
             ({ name, key }) =>

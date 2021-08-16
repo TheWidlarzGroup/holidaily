@@ -5,7 +5,7 @@ import { Avatar } from 'components/Avatar'
 type DrawerHeaderProps = {
   firstName: string
   lastName: string
-  job: string
+  job: string | null
   image?: string
 }
 
@@ -15,6 +15,6 @@ export const DrawerHeader = ({ firstName, lastName, job, image }: DrawerHeaderPr
     <Text marginTop="m" variant="boldBlack18">
       {firstName} {lastName}
     </Text>
-    <Text variant="regularGrey16">{job}</Text>
+    {!!job && <Text variant="regularGrey16">{job}</Text>}
   </Box>
 )

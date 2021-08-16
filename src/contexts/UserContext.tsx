@@ -6,6 +6,7 @@ export type UserData = {
   email: string
   isConfirmed: boolean
   role: string
+  occupation: string | null
   photo?: string | null
 }
 
