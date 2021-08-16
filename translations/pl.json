@@ -217,6 +217,8 @@
     "ptoTaken1": "Bierzesz",
     "ptoTaken2": "dni wolnego",
     "ptoLeft1": "Pozostanie",
-    "ptoLeft2": "dni wolnego"
+    "ptoLeft2": "dni wolnego",
+    "pickedPTO": "{{days}} dni wolnego",
+    "select": "Wybierz"
   }
 }

@@ -217,6 +217,8 @@
     "ptoTaken1": "You are taking",
     "ptoTaken2": "days of PTO",
     "ptoLeft1": "You will have",
-    "ptoLeft2": "days of PTO left"
+    "ptoLeft2": "days of PTO left",
+    "pickedPTO": "{{days}} days of PTO",
+    "select": "Select"
   }
 }

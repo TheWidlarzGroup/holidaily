@@ -3,8 +3,9 @@ import { ModalProps } from 'react-native-modal'
 
 import { Text, mkUseStyles } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
-import { getFormattedPeriod } from 'utils/dates'
+import { calculatePTO, getFormattedPeriod } from 'utils/dates'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
+import { useTranslation } from 'react-i18next'
 
 type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   onSubmit: F0
@@ -19,6 +20,8 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
   periodStart,
 }) => {
   const styles = useStyles()
+
+  const { t } = useTranslation('requestVacation')
 
   const progress = useDerivedValue(() => (isVisible ? 1 : 0), [isVisible])
 
@@ -39,9 +42,9 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
         {getFormattedPeriod(new Date(periodStart), new Date(periodEnd))}
       </Text>
       <Text variant="body1" marginTop="xs" marginBottom="l">
-        ({'n'} days of PTO)
+        {t('pickedPTO', { days: calculatePTO(periodStart, periodEnd) })}
       </Text>
-      <CustomButton label="Select" variant="primary" onPress={onSubmit} />
+      <CustomButton label={t('select')} variant="primary" onPress={onSubmit} />
     </Animated.View>
   )
 }

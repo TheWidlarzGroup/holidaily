@@ -96,3 +96,8 @@ export const getNumberOfWorkingDaysBetween = (dateA: DateOrISO, dateB: DateOrISO
 
   return differenceInBusinessDays(endDate, startDate) + 1
 }
+
+export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
+  console.warn('calculatePTO not implemented yet')
+  return '-'
+}
