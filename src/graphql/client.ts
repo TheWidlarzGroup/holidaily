@@ -1,12 +1,10 @@
 import { GraphQLClient } from 'graphql-request'
 import { GRAPHQL_ENDPOINT } from '@env'
-import { getItemAsync } from 'expo-secure-store'
 
-const getToken = async () => getItemAsync('token')
+export const authorizedClient = new GraphQLClient(GRAPHQL_ENDPOINT)
 
-export const client = new GraphQLClient(GRAPHQL_ENDPOINT)
-getToken().then((token) => {
+export const authorizeClient = (token: string) => {
   if (token) {
-    client.setHeader('Authorization', `Bearer ${token}`)
+    authorizedClient.setHeader('Authorization', `Bearer ${token}`)
   }
-})
+}

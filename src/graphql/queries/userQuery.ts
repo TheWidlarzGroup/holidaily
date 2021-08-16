@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request'
-import { client } from 'graphqlActions/client'
+import { authorizedClient } from 'graphqlActions/client'
 
 export const userQuery = () =>
-  client.request(
+  authorizedClient.request(
     gql`
       query {
         user {

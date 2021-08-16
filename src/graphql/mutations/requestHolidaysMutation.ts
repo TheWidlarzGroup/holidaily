@@ -1,5 +1,5 @@
 import { gql } from 'graphql-request'
-import { client } from 'graphqlActions/client'
+import { authorizedClient } from 'graphqlActions/client'
 import { RequestHolidaysTypes } from 'types/useRequestHolidaysTypes'
 
 export const requestHolidaysMutation = ({
@@ -9,7 +9,7 @@ export const requestHolidaysMutation = ({
   sickTime,
   message,
 }: RequestHolidaysTypes) =>
-  client.request(
+  authorizedClient.request(
     gql`
       mutation {
         requestHolidays(
