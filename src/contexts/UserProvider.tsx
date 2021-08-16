@@ -1,6 +1,7 @@
 import React, { ReactNode, useState, memo, FC, useEffect } from 'react'
 import { getItemAsync } from 'expo-secure-store'
 import { useUserData } from 'hooks/useUserData'
+import SplashScreen from 'react-native-splash-screen'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
 type ProviderProps = {
@@ -39,6 +40,10 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const updateUser = (newData: Partial<UserData>) => {
     setUser((usr) => ({ ...usr, ...newData }))
   }
+
+  useEffect(() => {
+    if (user.email !== '') SplashScreen.hide()
+  }, [user])
 
   const value: ContextProps = { user, updateUser }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

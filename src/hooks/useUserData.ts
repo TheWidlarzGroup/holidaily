@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { UserQueryTypes, UserTypes } from 'types/useUserTypes'
 import { getItemAsync } from 'expo-secure-store'
 import { authorizeClient } from 'graphqlActions/client'
+import SplashScreen from 'react-native-splash-screen'
 
 export const useUserData = () => {
   const [token, setToken] = useState('')
@@ -22,6 +23,8 @@ export const useUserData = () => {
       if (token !== null) {
         authorizeClient(token)
         setToken(token)
+      } else {
+        SplashScreen.hide()
       }
     }
     func()
