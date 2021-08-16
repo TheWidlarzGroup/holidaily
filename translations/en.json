@@ -213,6 +213,10 @@
     "attachmentDeleteMessage": "Delete attachment?",
     "CTA": "Next",
     "timeOffDescriptionPlaceholder": "Time Off",
-    "sendRequest": "Send Request"
+    "sendRequest": "Send Request",
+    "ptoTaken1": "You are taking",
+    "ptoTaken2": "days of PTO",
+    "ptoLeft1": "You will have",
+    "ptoLeft2": "days of PTO left"
   }
 }
