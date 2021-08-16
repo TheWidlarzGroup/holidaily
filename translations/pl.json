@@ -82,7 +82,6 @@
     "privacyPolicy": "Tworząc konto, wyrażasz zgodę na warunki użytkowania i politykę prywatności",
     "privacyPolicyNormal": "Tworząc konto, wyrażasz zgodę na ",
     "privacyPolicyAccent": "warunki użytkowania i politykę prywatności"
-
   },
   "errorModals": {
     "errorTitle": "Coś poszło nie tak :(",
@@ -212,6 +211,8 @@
     "additionalsTitle": "Dodatki",
     "additionalsLabel": "Dodaj załącznik lub wiadomość",
     "attachmentDeleteMessage": "Usunąć załącznik?",
-    "CTA": "Dalej"
+    "CTA": "Dalej",
+    "timeOffDescriptionPlaceholder": "Czas wolny",
+    "sendRequest": "Wyślij Podanie"
   }
 }
