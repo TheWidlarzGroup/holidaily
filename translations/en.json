@@ -201,5 +201,26 @@
   "messageInput": {
     "placeholder": "Write your message...",
     "maxCharacters": "Max {{maxLength}} characters"
+  },
+  "requestVacation": {
+    "title": "Take time off",
+    "detailsTitle": "Details",
+    "detailsDate": "Date",
+    "detailsDescription": "Description (optional)",
+    "detailsDescriptionError": "Incorrect description",
+    "sickTimeTitle": "Sick Time off",
+    "sickTimeLabel": "I'm not feeling well",
+    "additionalsTitle": "Additionals",
+    "additionalsLabel": "Add an attachment or write message",
+    "attachmentDeleteMessage": "Delete attachment?",
+    "CTA": "Next",
+    "timeOffDescriptionPlaceholder": "Time Off",
+    "sendRequest": "Send Request",
+    "ptoTaken1": "You are taking",
+    "ptoTaken2": "days of PTO",
+    "ptoLeft1": "You will have",
+    "ptoLeft2": "days of PTO left",
+    "pickedPTO": "{{days}} days of PTO",
+    "select": "Select"
   }
 }

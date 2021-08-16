@@ -50,7 +50,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
   const [photosToRemove, setPhotosToRemove] = useState<string[]>([])
-  const { t } = useTranslation('slider')
+
+  const { t } = useTranslation('requestVacation')
 
   const handleFormSubmit = () => {
     if (!date.start) return
@@ -104,7 +105,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           />
         ) : (
           <CustomButton
-            label={t('next')}
+            label={t('CTA')}
             variant="primary"
             onPress={handleFormSubmit}
             marginTop={20}
@@ -117,7 +118,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         hideModal={cancelRemovingPhoto}
         isVisible={!!photosToRemove.length}
         header={null}
-        content="Delete attachment?"
+        content={t('attachmentDeleteMessage')}
       />
       <UploadPictureModal
         isVisible={showAttachmentModal}

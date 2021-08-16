@@ -6,6 +6,7 @@ import { ModalNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 type DetailsProps = {
   date: {
@@ -19,15 +20,16 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const { control, register, errors } = useForm()
   const styles = useStyles()
+  const { t } = useTranslation('requestVacation')
 
   return (
     <Box>
       <Text variant="boldBlack18" textAlign="left">
-        Details
+        {t('detailsTitle')}
       </Text>
       <Box marginTop="m">
         <InputButton
-          inputLabel="Date"
+          inputLabel={t('detailsDate')}
           onClick={() => navigation.navigate('RequestVacationCalendar')}
           value={getFormattedPeriod(date.start, date.end)}
         />
@@ -38,9 +40,9 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
           isError={!errors}
           errors={errors}
           name="description"
-          inputLabel="Description (optional)"
+          inputLabel={t('detailsDescription')}
           validationPattern={/$/}
-          errorMessage="Incorrect description"
+          errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
           autoCompleteType="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}

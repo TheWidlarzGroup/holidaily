@@ -83,7 +83,6 @@
     "privacyPolicy": "Tworząc konto, wyrażasz zgodę na warunki użytkowania i politykę prywatności",
     "privacyPolicyNormal": "Tworząc konto, wyrażasz zgodę na ",
     "privacyPolicyAccent": "warunki użytkowania i politykę prywatności"
-
   },
   "errorModals": {
     "errorTitle": "Coś poszło nie tak :(",
@@ -202,5 +201,26 @@
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
     "maxCharacters": "Limit {{maxLength}} znaków"
+  },
+  "requestVacation": {
+    "title": "Weź wolne",
+    "detailsTitle": "Szczegóły",
+    "detailsDate": "Okres",
+    "detailsDescription": "Opis (opcjonalnie)",
+    "detailsDescriptionError": "Nieprawidłowy opis",
+    "sickTimeTitle": "Chorobowe",
+    "sickTimeLabel": "Nie czuje się za dobrze",
+    "additionalsTitle": "Dodatki",
+    "additionalsLabel": "Dodaj załącznik lub wiadomość",
+    "attachmentDeleteMessage": "Usunąć załącznik?",
+    "CTA": "Dalej",
+    "timeOffDescriptionPlaceholder": "Czas wolny",
+    "sendRequest": "Wyślij Podanie",
+    "ptoTaken1": "Bierzesz",
+    "ptoTaken2": "dni wolnego",
+    "ptoLeft1": "Pozostanie",
+    "ptoLeft2": "dni wolnego",
+    "pickedPTO": "{{days}} dni wolnego",
+    "select": "Wybierz"
   }
 }

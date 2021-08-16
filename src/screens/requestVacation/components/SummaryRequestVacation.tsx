@@ -8,6 +8,7 @@ import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useRequestHolidays } from 'hooks/useRequestHolidays'
+import { useTranslation } from 'react-i18next'
 import { SummaryDays } from './SummaryDays'
 import { Photo } from './Photo'
 
@@ -34,6 +35,9 @@ export const SummaryRequestVacation = ({
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
   const { handleRequestHolidays, isLoading, isSuccess } = useRequestHolidays()
+
+  const { t } = useTranslation('requestVacation')
+
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2
@@ -66,7 +70,7 @@ export const SummaryRequestVacation = ({
           <BackgroundPlant1 style={styles.plant1} />
           <BackgroundPlant2 style={styles.plant2} height={90} />
           <Box paddingLeft="s">
-            <Text variant="heading4">{description || 'Time off'}</Text>
+            <Text variant="heading4">{description || t('timeOffDescriptionPlaceholder')}</Text>
           </Box>
           <Box flexDirection="row" alignItems="center">
             <CalendarIcon />
@@ -75,7 +79,7 @@ export const SummaryRequestVacation = ({
           {sickTime && (
             <Box flexDirection="row" alignItems="center">
               <PillIcon />
-              <Text variant="body1">Sick time off</Text>
+              <Text variant="body1">{t('sickTimeTitle')}</Text>
             </Box>
           )}
           {!!message && (
@@ -104,7 +108,7 @@ export const SummaryRequestVacation = ({
         </Box>
       </ScrollView>
       <CustomButton
-        label="Send request"
+        label={t('sendRequest')}
         variant="primary"
         onPress={handleSend}
         style={styles.button}

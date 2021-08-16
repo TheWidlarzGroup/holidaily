@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { Box, Text } from 'utils/theme/index'
 import { AttachmentIcon } from './additionals/AttachmentIcon'
@@ -23,6 +24,8 @@ export const Additionals = ({
   attachments,
   removePhoto,
 }: AdditionalsProps) => {
+  const { t } = useTranslation('requestVacation')
+
   const getFlexDirection = () => {
     if (messageContent) return 'column-reverse'
     if (!attachments.length) return 'row'
@@ -32,10 +35,10 @@ export const Additionals = ({
   return (
     <Box>
       <Text variant="boldBlack18" textAlign="left" marginTop="l">
-        Additionals
+        {t('additionalsTitle')}
       </Text>
       <Text variant="body1" textAlign="left">
-        Add an attachment or write a message
+        {t('additionalsLabel')}
       </Text>
 
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
