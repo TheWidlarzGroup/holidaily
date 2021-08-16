@@ -4,6 +4,7 @@ import { userQuery } from 'graphqlActions/queries/userQuery'
 import { useEffect, useState } from 'react'
 import { UserQueryTypes, UserTypes } from 'types/useUserTypes'
 import { getItemAsync } from 'expo-secure-store'
+import { authorizeClient } from 'graphqlActions/client'
 
 export const useUserData = () => {
   const [token, setToken] = useState('')
@@ -19,6 +20,7 @@ export const useUserData = () => {
     const func = async () => {
       const token = await getItemAsync('token')
       if (token !== null) {
+        authorizeClient(token)
         setToken(token)
       }
     }

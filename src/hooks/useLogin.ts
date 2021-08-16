@@ -6,6 +6,7 @@ import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
 import { deleteItemAsync, setItemAsync } from 'expo-secure-store'
 import { emptyUser } from 'contexts/UserProvider'
+import { authorizeClient, authorizedClient } from 'graphqlActions/client'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
@@ -30,6 +31,7 @@ export const useLogin = () => {
       if (user.confirmed) {
         updateUser({ ...user, isConfirmed: user.confirmed })
         await setItemAsync('token', token)
+        authorizeClient(token)
       } else {
         const errorMessage = 'Please confirm your account'
 
@@ -46,6 +48,7 @@ export const useLogin = () => {
   const handleLogout = async () => {
     await deleteItemAsync('token')
     updateUser(emptyUser)
+    authorizedClient.setHeader('Authorization', '')
   }
 
   return { handleLoginUser, isLoading, loginErrorMessage, handleLogout }
