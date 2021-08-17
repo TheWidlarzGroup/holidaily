@@ -12,7 +12,8 @@ export type UserData = {
 
 export type ContextProps = {
   user: UserData | null
-  updateUser: (newData: Partial<UserData> | null) => void
+  updateUser: (newData: Partial<UserData>) => void
+  handleLogout: () => void
 }
 
 export const UserContext = createContext<ContextProps | null>(null)

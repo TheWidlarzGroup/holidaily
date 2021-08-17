@@ -9,13 +9,11 @@ import { getDrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
-import { useLogin } from 'hooks/useLogin'
 import { DrawerRoutes } from 'navigation/types'
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { t } = useTranslation('navigation')
-  const { user } = useUserContext()
-  const { handleLogout } = useLogin()
+  const { user, handleLogout } = useUserContext()
 
   if (!user) return null
 

@@ -4,8 +4,8 @@ import { useMutation } from 'react-query'
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
-import { deleteItemAsync, setItemAsync } from 'expo-secure-store'
-import { authorizeClient, authorizedClient } from 'graphqlActions/client'
+import { setItemAsync } from 'expo-secure-store'
+import { authorizeClient } from 'graphqlActions/client'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
@@ -44,11 +44,5 @@ export const useLogin = () => {
     },
   })
 
-  const handleLogout = async () => {
-    await deleteItemAsync('token')
-    authorizedClient.setHeader('Authorization', '')
-    updateUser(null)
-  }
-
-  return { handleLoginUser, isLoading, loginErrorMessage, handleLogout }
+  return { handleLoginUser, isLoading, loginErrorMessage }
 }
