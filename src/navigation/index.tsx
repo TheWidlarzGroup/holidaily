@@ -9,7 +9,7 @@ import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { ModalNavigation } from './ModalNavigation'
 
-type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'LoginRequired'
+type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
 
 export const AppNavigation = () => {
   const { user } = useUserContext()
@@ -20,7 +20,9 @@ export const AppNavigation = () => {
     const checkLoginStatus = async () => {
       if (user) return setLoginStatus('LoggedIn')
       const authToken = await getItemAsync('token')
-      if (!authToken) return setLoginStatus('LoginRequired')
+      const isAnotherVisit = await getItemAsync('hideSlider')
+      if (!authToken && !isAnotherVisit) return setLoginStatus('FirstVisit')
+      if (!authToken) return setLoginStatus('AnotherVisit')
       authorizeClient(authToken)
       fetchUser()
     }
@@ -35,7 +37,8 @@ export const AppNavigation = () => {
     <NavigationContainer linking={linking}>
       {loginStatus === 'BeforeCheck' && null}
       {loginStatus === 'LoggedIn' && <ModalNavigation />}
-      {loginStatus === 'LoginRequired' && <AuthStackNavigation />}
+      {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
+      {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Signup" />}
     </NavigationContainer>
   )
 }
