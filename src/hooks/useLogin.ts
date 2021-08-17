@@ -30,6 +30,7 @@ export const useLogin = () => {
       if (user.confirmed) {
         updateUser({ ...user, isConfirmed: user.confirmed })
         await setItemAsync('token', token)
+        await setItemAsync('hideSlider', 'true')
         authorizeClient(token)
       } else {
         const errorMessage = 'Please confirm your account'
