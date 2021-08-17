@@ -17,18 +17,16 @@ export const AppNavigation = () => {
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
 
   useEffect(() => {
-    const func = async () => {
+    const checkLoginStatus = async () => {
+      if (user) return setLoginStatus('LoggedIn')
       const authToken = await getItemAsync('token')
       if (!authToken) return setLoginStatus('LoginRequired')
       authorizeClient(authToken)
       fetchUser()
     }
-    func()
+    checkLoginStatus()
   }, [fetchUser, user])
 
-  useEffect(() => {
-    if (user) return setLoginStatus('LoggedIn')
-  }, [user])
   useEffect(() => {
     if (loginStatus !== 'BeforeCheck') SplashScreen.hide()
   }, [loginStatus])
