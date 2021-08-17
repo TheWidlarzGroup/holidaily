@@ -3,9 +3,9 @@ import { Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 
 type DrawerHeaderProps = {
-  firstName: string
-  lastName: string
-  job: string | null
+  firstName?: string
+  lastName?: string
+  job?: string
   image?: string
 }
 

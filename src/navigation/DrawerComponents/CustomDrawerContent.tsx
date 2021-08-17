@@ -19,14 +19,18 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
 
   const isHidden = (name: keyof DrawerRoutes) => {
     if (name === 'Home') return false
-    if (name === 'InviteMembers' && user.role !== 'ADMIN' && user.role !== 'MANAGER') return false
+    if (name === 'InviteMembers' && user?.role !== 'ADMIN' && user?.role !== 'MANAGER') return false
     return true
   }
 
   return (
     <SafeAreaWrapper>
       <Animated.View style={[style, { flex: 1 }]}>
-        <DrawerHeader firstName={user.firstName} lastName={user.lastName} job={user.occupation} />
+        <DrawerHeader
+          firstName={user?.firstName}
+          lastName={user?.lastName}
+          job={user?.occupation}
+        />
         <Box flex={1} marginTop="xxl" alignItems="flex-start">
           {props.state.routes.map(
             ({ name, key }) =>

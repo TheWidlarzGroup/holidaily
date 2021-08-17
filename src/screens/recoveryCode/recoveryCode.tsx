@@ -50,9 +50,9 @@ export const RecoveryCode: FC = () => {
   useEffect(() => {
     setCopiedCode('')
     if (!copiedCode && recoveryCode.length === 6) {
-      handleValidatePasswordResetCode({ code: recoveryCode, email: user.email })
+      handleValidatePasswordResetCode({ code: recoveryCode, email: user?.email ? user.email : '' })
     }
-  }, [recoveryCode, copiedCode, user.email, handleValidatePasswordResetCode])
+  }, [recoveryCode, copiedCode, user?.email, handleValidatePasswordResetCode])
 
   const onCodePaste = async () => {
     const text = await Clipboard.getString()
@@ -62,7 +62,7 @@ export const RecoveryCode: FC = () => {
   }
 
   const handleResendCode = () => {
-    handleInitializePasswordReset({ email: user.email })
+    handleInitializePasswordReset({ email: user?.email ? user.email : '' })
   }
 
   useEffect(() => {
@@ -73,9 +73,12 @@ export const RecoveryCode: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigation.navigate('NewPassword', { code: recoveryCode, email: user.email })
+      navigation.navigate('NewPassword', {
+        code: recoveryCode,
+        email: user?.email ? user.email : '',
+      })
     }
-  }, [isSuccess, navigation, recoveryCode, user.email])
+  }, [isSuccess, navigation, recoveryCode, user?.email])
 
   return (
     <Container>

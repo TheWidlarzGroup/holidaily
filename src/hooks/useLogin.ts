@@ -5,7 +5,6 @@ import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
 import { deleteItemAsync, setItemAsync } from 'expo-secure-store'
-import { emptyUser } from 'contexts/UserProvider'
 import { authorizeClient, authorizedClient } from 'graphqlActions/client'
 import { useUserContext } from './useUserContext'
 
@@ -47,8 +46,8 @@ export const useLogin = () => {
 
   const handleLogout = async () => {
     await deleteItemAsync('token')
-    updateUser(emptyUser)
     authorizedClient.setHeader('Authorization', '')
+    updateUser(null)
   }
 
   return { handleLoginUser, isLoading, loginErrorMessage, handleLogout }
