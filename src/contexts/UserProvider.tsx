@@ -16,9 +16,9 @@ export const emptyUser = {
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
-  const [user, setUser] = useState<UserData>(null)
+  const [user, setUser] = useState<UserData | null>(null)
 
-  const updateUser = useCallback((newData: Partial<UserData>) => {
+  const updateUser = useCallback((newData: Partial<UserData> | null) => {
     setUser((usr) => {
       if (usr) return { ...usr, ...newData }
       return { ...emptyUser, ...newData }

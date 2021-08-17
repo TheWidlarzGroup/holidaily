@@ -8,11 +8,11 @@ export type UserData = {
   role: string
   occupation: string
   photo?: string | null
-} | null
+}
 
 export type ContextProps = {
-  user: UserData
-  updateUser: (newData: Partial<UserData>) => void
+  user: UserData | null
+  updateUser: (newData: Partial<UserData> | null) => void
 }
 
 export const UserContext = createContext<ContextProps | null>(null)

@@ -29,7 +29,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
         <DrawerHeader
           firstName={user?.firstName}
           lastName={user?.lastName}
-          job={user?.occupation}
+          occupation={user?.occupation}
         />
         <Box flex={1} marginTop="xxl" alignItems="flex-start">
           {props.state.routes.map(
