@@ -3,7 +3,7 @@ import { Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { UserData } from 'contexts/UserContext'
 
-type DrawerHeaderProps = Partial<Pick<UserData, 'firstName' | 'lastName' | 'occupation' | 'photo'>>
+type DrawerHeaderProps = Pick<UserData, 'firstName' | 'lastName' | 'occupation' | 'photo'>
 
 export const DrawerHeader = ({ firstName, lastName, occupation, photo }: DrawerHeaderProps) => (
   <Box margin="m">
