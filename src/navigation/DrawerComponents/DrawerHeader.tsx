@@ -1,20 +1,16 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
+import { UserData } from 'contexts/UserContext'
 
-type DrawerHeaderProps = {
-  firstName: string
-  lastName: string
-  job: string | null
-  image?: string
-}
+type DrawerHeaderProps = Pick<UserData, 'firstName' | 'lastName' | 'occupation' | 'photo'>
 
-export const DrawerHeader = ({ firstName, lastName, job, image }: DrawerHeaderProps) => (
+export const DrawerHeader = ({ firstName, lastName, occupation, photo }: DrawerHeaderProps) => (
   <Box margin="m">
-    <Avatar src={image} size="s" />
+    <Avatar src={photo} size="s" />
     <Text marginTop="m" variant="boldBlack18">
       {firstName} {lastName}
     </Text>
-    {!!job && <Text variant="regularGrey16">{job}</Text>}
+    {!!occupation && <Text variant="regularGrey16">{occupation}</Text>}
   </Box>
 )

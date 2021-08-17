@@ -6,13 +6,14 @@ export type UserData = {
   email: string
   isConfirmed: boolean
   role: string
-  occupation: string | null
+  occupation: string
   photo?: string | null
 }
 
 export type ContextProps = {
-  user: UserData
+  user: UserData | null
   updateUser: (newData: Partial<UserData>) => void
+  handleLogout: () => void
 }
 
 export const UserContext = createContext<ContextProps | null>(null)

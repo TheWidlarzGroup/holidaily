@@ -1,6 +1,6 @@
-import React, { ReactNode, useState, memo, FC, useEffect } from 'react'
-import { getItemAsync } from 'expo-secure-store'
-import { useUserData } from 'hooks/useUserData'
+import { deleteItemAsync } from 'expo-secure-store'
+import { authorizedClient } from 'graphqlActions/client'
+import React, { ReactNode, useState, memo, FC, useCallback } from 'react'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
 type ProviderProps = {
@@ -18,29 +18,22 @@ export const emptyUser = {
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
-  const [user, setUser] = useState<UserData>(emptyUser)
-  const { user: fetchedUser, isLoading, error } = useUserData()
+  const [user, setUser] = useState<UserData | null>(null)
 
-  useEffect(() => {
-    const func = async () => {
-      const token = await getItemAsync('token')
-      if (token !== null && !isLoading) {
-        updateUser({
-          ...fetchedUser,
-          isConfirmed: fetchedUser.confirmed,
-        } as UserData)
-      } else if (error) {
-        updateUser(emptyUser)
-      }
-    }
-    func()
-  }, [error, fetchedUser, isLoading])
+  const updateUser = useCallback((newData: Partial<UserData> | null) => {
+    setUser((usr) => {
+      if (usr) return { ...usr, ...newData }
+      return { ...emptyUser, ...newData }
+    })
+  }, [])
 
-  const updateUser = (newData: Partial<UserData>) => {
-    setUser((usr) => ({ ...usr, ...newData }))
+  const handleLogout = async () => {
+    await deleteItemAsync('token')
+    authorizedClient.setHeader('Authorization', '')
+    setUser(null)
   }
 
-  const value: ContextProps = { user, updateUser }
+  const value: ContextProps = { user, updateUser, handleLogout }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 })
 

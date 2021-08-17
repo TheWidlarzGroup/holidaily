@@ -19,7 +19,6 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const { user } = useUserContext()
-  const { photo: userPhoto } = user
   const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
   const [photoURI, setPhotoURI] = useState<string | null | undefined>()
 
@@ -95,9 +94,9 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
     if (photoURI) {
       setUserProfilePicture(photoURI)
     } else {
-      setUserProfilePicture(userPhoto)
+      setUserProfilePicture(user?.photo)
     }
-  }, [userPhoto, photoURI])
+  }, [photoURI, user?.photo])
   return (
     <Box
       paddingHorizontal="m"

@@ -3,7 +3,7 @@ export type UserTypes = {
   firstName: string
   lastName: string
   email: string
-  occupation: string | null
+  occupation: string
   role: string
 }
 export type UserQueryTypes = {
