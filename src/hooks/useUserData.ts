@@ -1,34 +1,19 @@
 import { useQuery } from 'react-query'
 
 import { userQuery } from 'graphqlActions/queries/userQuery'
-import { useEffect, useState } from 'react'
-import { UserQueryTypes, UserTypes } from 'types/useUserTypes'
-import { getItemAsync } from 'expo-secure-store'
-import { authorizeClient } from 'graphqlActions/client'
-import SplashScreen from 'react-native-splash-screen'
+import { UserQueryTypes } from 'types/useUserTypes'
+import { useBooleanState } from './useBooleanState'
+import { useUserContext } from './useUserContext'
 
 export const useUserData = () => {
-  const [token, setToken] = useState('')
-  const [user, setUser] = useState<Partial<UserTypes>>({ confirmed: false })
+  const [isEnabled, { setTrue: fetchUser }] = useBooleanState(false)
+  const { updateUser } = useUserContext()
   const { isLoading, error } = useQuery('fetch-user', userQuery, {
     onSuccess: (data: UserQueryTypes) => {
-      setUser(data.user)
+      updateUser(data.user)
     },
-    enabled: token.length > 0,
+    enabled: isEnabled,
   })
 
-  useEffect(() => {
-    const func = async () => {
-      const token = await getItemAsync('token')
-      if (token !== null) {
-        authorizeClient(token)
-        setToken(token)
-      } else {
-        SplashScreen.hide()
-      }
-    }
-    func()
-  }, [token])
-
-  return { user, isLoading, error, setToken }
+  return { isLoading, error, fetchUser }
 }
