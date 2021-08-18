@@ -7,7 +7,7 @@ import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { FormInput } from 'components/FormInput'
 import { useForm } from 'react-hook-form'
-import { useCreateInvitation } from 'hooks/useCreateInvitation'
+import { useCreateInvitations } from 'hooks/useCreateInvitations'
 import { emailRegex, minOneWordRegex } from 'utils/regex'
 import { CustomButton } from 'components/CustomButton'
 import { DropdownWithRadio } from 'components/DropdownWithRadio'
@@ -16,7 +16,7 @@ import { CreateInvitationTypes, roles, RoleTypes } from 'types/useCreateInvitati
 export const InviteMembers: FC = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
   const { control, handleSubmit, errors, reset, setValue } = useForm()
-  const { createInvitation, isLoading, isSuccess } = useCreateInvitation()
+  const { createInvitations, isLoading, isSuccess } = useCreateInvitations()
   const [selectedRole, setSelectedRole] = React.useState('USER')
 
   const handleGoBack = useCallback(() => {
@@ -44,7 +44,7 @@ export const InviteMembers: FC = () => {
   }, [handleSelectRole, isSuccess, reset])
 
   const onCreateInvitation = handleSubmit((data: CreateInvitationTypes) => {
-    createInvitation(data)
+    createInvitations([data])
   })
 
   return (

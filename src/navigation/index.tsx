@@ -7,7 +7,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { authorizeClient } from 'graphqlActions/client'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
-import { ModalNavigation } from './ModalNavigation'
+import { AppStackNavigation } from './AppStackNavigation'
 
 type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
 
@@ -36,7 +36,7 @@ export const AppNavigation = () => {
   return (
     <NavigationContainer linking={linking}>
       {loginStatus === 'BeforeCheck' && null}
-      {loginStatus === 'LoggedIn' && <ModalNavigation />}
+      {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
       {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Signup" />}
     </NavigationContainer>
