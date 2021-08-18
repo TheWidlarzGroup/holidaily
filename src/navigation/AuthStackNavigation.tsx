@@ -11,8 +11,12 @@ import { ForgotPasswordNavigation } from './ForgotPasswordNavigation'
 
 const AppStack = createStackNavigator<AuthRoutes>()
 
-export const AuthStackNavigation = () => (
-  <AppStack.Navigator headerMode="none" initialRouteName="Slider">
+type AuthStackNavigationProps = {
+  initialRoute?: keyof AuthRoutes
+}
+
+export const AuthStackNavigation = ({ initialRoute = 'Slider' }: AuthStackNavigationProps) => (
+  <AppStack.Navigator headerMode="none" initialRouteName={initialRoute}>
     <AppStack.Screen name="Slider" component={Slider} />
     <AppStack.Screen name="Login" component={Login} />
     <AppStack.Screen name="Signup" component={Signup} />
