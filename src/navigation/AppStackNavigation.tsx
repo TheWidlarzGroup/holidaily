@@ -11,7 +11,7 @@ import { ModalRoutes } from './types'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
-export const ModalNavigation = () => {
+export const AppStackNavigation = () => {
   const styles = useStyle()
   return (
     <Box flex={1} backgroundColor="black">
