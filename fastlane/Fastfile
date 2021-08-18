@@ -60,6 +60,11 @@ end
 platform :android do
    # Android Lanes   
 
+   desc "Bump version in package"
+   private_lane :bump_version_package do
+      sh("npm", "version", "patch", "--no-git-tag-version")
+   end
+
    desc "Bump build version"
    private_lane :bump_build_version do
    
@@ -75,6 +80,7 @@ platform :android do
 
    desc "Android build and release to beta"
    lane :beta do
+      bump_version_package
       bump_build_version
       gradle(task: "clean", project_dir: "./android/")
       gradle(task: "bundle", build_type: "Release", project_dir: "./android/")
