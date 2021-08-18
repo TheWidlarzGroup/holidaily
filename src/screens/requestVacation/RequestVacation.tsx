@@ -68,7 +68,13 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     const { params } = route
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
-    if (params?.action === 'sickday') setSickTime()
+    if (params?.action === 'sickday') {
+      setSickTime()
+      const tomorow = new Date()
+      tomorow.setDate(tomorow.getDate() + 1)
+      setStartDate(tomorow)
+      setEndDate(tomorow)
+    }
   }, [route, route.params, setSickTime])
 
   return (
