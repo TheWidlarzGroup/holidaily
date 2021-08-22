@@ -10,7 +10,7 @@ import { useLogin } from 'hooks/useLogin'
 import { CustomButton } from 'components/CustomButton'
 import { createAlert } from 'utils/createAlert'
 import { TextLink } from 'components/TextLink'
-import { emailRegex, passwordRegex } from 'utils/regex'
+import { emailRegex } from 'utils/regex'
 import { shadow } from 'utils/theme/shadows'
 import { LoginTypes } from 'types/useLoginTypes'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -70,7 +70,7 @@ export const Login: FC = () => {
             errors={errors}
             name="password"
             inputLabel="Password"
-            validationPattern={passwordRegex}
+            validationPattern={/[\s\S]*/}
             errorMessage="Incorrect Password, please try again"
             ref={passwordRef}
             isPasswordIconVisible

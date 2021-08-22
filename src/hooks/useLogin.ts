@@ -7,6 +7,7 @@ import { useTranslation, TFunction } from 'react-i18next'
 import { setItemAsync } from 'expo-secure-store'
 import { authorizeClient } from 'graphqlActions/client'
 import { useUserContext } from './useUserContext'
+import { GRAPHQL_ENDPOINT } from '@env'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
@@ -42,6 +43,10 @@ export const useLogin = () => {
       const errorMessage = customErrorMessage(t, error.message)
 
       setLoginErrorMessage(errorMessage)
+    },
+    onMutate: (data) => {
+      console.log(GRAPHQL_ENDPOINT)
+      console.log(data)
     },
   })
 

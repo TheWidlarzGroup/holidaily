@@ -4,7 +4,8 @@ import { GRAPHQL_ENDPOINT } from '@env'
 
 export const loginMutation = ({ email, password }: LoginTypes) =>
   request(
-    GRAPHQL_ENDPOINT,
+    //GRAPHQL_ENDPOINT,
+    'http://192.168.0.11:4000/api/graphiql',
     gql`
     mutation{
       loginUser(email: "${email}", password: "${password}") {
