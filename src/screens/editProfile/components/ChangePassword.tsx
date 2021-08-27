@@ -5,17 +5,26 @@ import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useChangePassword } from 'hooks/useChangePassword'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { ConfirmationModal } from 'components/ConfirmationModal'
 import { FormInput } from 'components/FormInput'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
+import { LoadingModal } from 'components/LoadingModal'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { passwordRegex } from 'utils/regex'
 import { Box, Text, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
-import { ConfirmationModal } from 'components/ConfirmationModal'
+
+type FormValuesTypes = {
+  currPassword: string
+  newPassword: string
+  confNewPassword: string
+}
 
 export const ChangePassword = () => {
+  const { handleChangePassword, isSuccess, isLoading } = useChangePassword()
   const { control, handleSubmit, errors, watch, reset: resetForm } = useForm()
   const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('changePassword')
@@ -26,21 +35,32 @@ export const ChangePassword = () => {
     useBooleanState(true)
   const [
     userEditedPassword,
-    { setTrue: setUserEditedPassword, setFalse: setUserDidNotEditedPassword },
+    { setTrue: setUserEditedPassword, setFalse: setUserDidNotEditPassword },
   ] = useBooleanState(false)
   const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
 
-  const handleChangePassword = () => {
-    // const { currPassword, newPassword, confNewPassword } = getValues()
-    // TODO: check if current password matches and update new password
+  const onChangePassword = ({ currPassword, newPassword, confNewPassword }: FormValuesTypes) => {
     if (arePasswordsEqual) {
-      showModal(
-        <ChangesSavedModal isVisible hideModal={hideModal} content={t('newPasswordSaved')} />
-      )
-      setUserDidNotEditedPassword()
-      resetForm()
+      handleChangePassword({
+        newPassword,
+        newPasswordConfirmation: confNewPassword,
+        password: currPassword,
+      })
     }
   }
+  console.log({ isLoading })
+
+  useEffect(() => {
+    if (isSuccess) {
+      showModal(
+        <ChangesSavedModal isVisible hideModal={hideModal} content={'New password saved!'} />
+      )
+      setUserDidNotEditPassword()
+      resetForm()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
   const handleGoBack = () => {
     if (userEditedPassword) {
       showModal(
@@ -135,10 +155,11 @@ export const ChangePassword = () => {
             <CustomButton
               label={'Save'}
               variant="primary"
-              onPress={handleSubmit(handleChangePassword)}
+              onPress={handleSubmit(onChangePassword)}
               width={221}
               height={53}
             />
+            <LoadingModal show={isLoading} />
           </Box>
         </Box>
       </Box>
