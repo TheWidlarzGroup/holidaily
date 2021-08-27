@@ -95,7 +95,8 @@
     "invalidCredentials": "Nieprawidłowy email lub hasło, proszę spróbuj ponownie",
     "alreadyConfirmed": "Konto jest już potwierdzony, możesz się zalogować",
     "invalidToken": "Twój token jest nieprawidłowy",
-    "emailAlreadyTaken": "Ten email jest już zajęty"
+    "emailAlreadyTaken": "Ten email jest już zajęty",
+    "invalidCredentialsPassword": "Nieprawidłowe hasło. Spróbuj ponownie."
   },
   "updatePasswordModal": {
     "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
@@ -149,7 +150,8 @@
     "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły",
     "selected": "Zaznaczono: ",
     "subscribe": "Subskrybuj",
-    "newColorSaved": "Nowy kolor zapisany!"
+    "newColorSaved": "Nowy kolor zapisany!",
+    "fieldRequired": "To pole jest wymagane."
   },
   "dashboard": {
     "welcome": "Co słychać w Twoim zespole?",
