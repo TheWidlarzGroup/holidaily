@@ -6,6 +6,7 @@ export const userQuery = () =>
     gql`
       query {
         user {
+          id
           email
           confirmed
           firstName

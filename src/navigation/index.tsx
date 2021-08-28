@@ -8,6 +8,7 @@ import { authorizeClient } from 'graphqlActions/client'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
+import { useOneSignalExternalUserId } from 'hooks/useOneSignalExternalUserId'
 
 type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
 

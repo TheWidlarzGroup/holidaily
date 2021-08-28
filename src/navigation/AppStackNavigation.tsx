@@ -8,10 +8,12 @@ import { GalleryScreen } from 'screens/gallery/GalleryScreen'
 import { CreatePost } from 'screens/createPost/CreatePost'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
+import { useOneSignalExternalUserId } from 'hooks/useOneSignalExternalUserId'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
 export const AppStackNavigation = () => {
+  useOneSignalExternalUserId()
   const styles = useStyle()
   return (
     <Box flex={1} backgroundColor="black">

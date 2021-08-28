@@ -2,7 +2,7 @@ import { UserData } from 'contexts/UserContext'
 import { useEffect } from 'react'
 import OneSignal from 'react-native-onesignal'
 
-export const useOneSignal = (user: Pick<UserData, 'id'> | null) => {
+export const useOneSignal = () => {
   useEffect(() => {
     // OneSignal Init Code
     OneSignal.setLogLevel(6, 0)
@@ -31,17 +31,4 @@ export const useOneSignal = (user: Pick<UserData, 'id'> | null) => {
       if (__DEV__) console.log('OneSignal: notification opened:', notification)
     })
   }, [])
-
-  useEffect(() => {
-    console.log('change')
-    console.log(user?.id)
-    if (!user) return
-
-    let externalUserId = user.id ? user.id : ''
-    let externalUserIdAuthHash = '565cf52672e15e9cfa6931ed9502d87c4c923e6dfb022b51047a616ea8f92ee5'
-
-    OneSignal.setExternalUserId(externalUserId, externalUserIdAuthHash, (results) => {
-      console.log(results)
-    })
-  }, [user?.id])
 }
