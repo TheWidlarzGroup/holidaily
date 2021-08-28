@@ -7,6 +7,7 @@ const queryClient = new QueryClient()
 
 export const App = () => {
   useOneSignal()
+
   return (
     <QueryClientProvider client={queryClient}>
       <Main />

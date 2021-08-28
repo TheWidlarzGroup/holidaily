@@ -6,7 +6,6 @@ import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
 import { setItemAsync } from 'expo-secure-store'
 import { authorizeClient } from 'graphqlActions/client'
-import { GRAPHQL_ENDPOINT } from '@env'
 import { useUserContext } from './useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
@@ -43,10 +42,6 @@ export const useLogin = () => {
       const errorMessage = customErrorMessage(t, error.message)
 
       setLoginErrorMessage(errorMessage)
-    },
-    onMutate: (data) => {
-      console.log(GRAPHQL_ENDPOINT)
-      console.log(data)
     },
   })
 
