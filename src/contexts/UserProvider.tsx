@@ -1,6 +1,5 @@
 import { deleteItemAsync } from 'expo-secure-store'
 import { authorizedClient } from 'graphqlActions/client'
-import { useOneSignal } from 'hooks/useOneSignal'
 import React, { ReactNode, useState, memo, FC, useCallback } from 'react'
 import { ContextProps, UserContext, UserData } from './UserContext'
 

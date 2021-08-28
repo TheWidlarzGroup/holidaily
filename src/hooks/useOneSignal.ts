@@ -1,4 +1,3 @@
-import { UserData } from 'contexts/UserContext'
 import { useEffect } from 'react'
 import OneSignal from 'react-native-onesignal'
 

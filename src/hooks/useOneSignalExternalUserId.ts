@@ -7,7 +7,7 @@ export const useOneSignalExternalUserId = () => {
   const { data, mutate } = useUserIdAuthHash()
   const { user } = useUserContext()
 
-  const handleRes = (res: object) => {
+  const handleRes = (res: unknown) => {
     console.log(res)
   }
 
@@ -25,5 +25,5 @@ export const useOneSignalExternalUserId = () => {
   useEffect(() => {
     if (!user?.id) logout()
     else subscribe(user.id)
-  }, [user, user?.id])
+  }, [user, user?.id, logout, subscribe])
 }

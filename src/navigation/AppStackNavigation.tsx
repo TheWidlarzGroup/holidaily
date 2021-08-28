@@ -6,9 +6,9 @@ import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
 import { CreatePost } from 'screens/createPost/CreatePost'
+import { useOneSignalExternalUserId } from 'hooks/useOneSignalExternalUserId'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
-import { useOneSignalExternalUserId } from 'hooks/useOneSignalExternalUserId'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
