@@ -12,16 +12,11 @@ import { FormInput } from 'components/FormInput'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
 import { LoadingModal } from 'components/LoadingModal'
+import { ChangePasswordTypes } from 'types/useChangePasswordTypes'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { passwordRegex } from 'utils/regex'
 import { Box, Text, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
-
-type FormValuesTypes = {
-  currPassword: string
-  newPassword: string
-  confNewPassword: string
-}
 
 export const ChangePassword = () => {
   const { handleChangePassword, isSuccess, isLoading } = useChangePassword()
@@ -37,18 +32,13 @@ export const ChangePassword = () => {
     userEditedPassword,
     { setTrue: setUserEditedPassword, setFalse: setUserDidNotEditPassword },
   ] = useBooleanState(false)
-  const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
+  const { newPassword, newPasswordConfirmation } = watch(['newPassword', 'newPasswordConfirmation'])
 
-  const onChangePassword = ({ currPassword, newPassword, confNewPassword }: FormValuesTypes) => {
+  const onChangePassword = (values: ChangePasswordTypes) => {
     if (arePasswordsEqual) {
-      handleChangePassword({
-        newPassword,
-        newPasswordConfirmation: confNewPassword,
-        password: currPassword,
-      })
+      handleChangePassword(values)
     }
   }
-  console.log({ isLoading })
 
   useEffect(() => {
     if (isSuccess) {
@@ -81,14 +71,14 @@ export const ChangePassword = () => {
   }
 
   useEffect(() => {
-    const passwordsAreEqual = checkIfPasswordsMatch(newPassword, confNewPassword)
+    const passwordsAreEqual = checkIfPasswordsMatch(newPassword, newPasswordConfirmation)
 
     if (!passwordsAreEqual) {
       setPasswordsAreNotEqual()
     } else {
       setArePasswordsEqual()
     }
-  }, [newPassword, confNewPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
+  }, [newPassword, newPasswordConfirmation, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
   return (
     <SafeAreaWrapper>
@@ -111,12 +101,12 @@ export const ChangePassword = () => {
             control={control}
             errors={errors}
             screenName="ChangePassword"
-            name={'currPassword'}
+            name={'password'}
             inputLabel={t('currPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
-            isError={!!errors.currPassword}
+            isError={!!errors.password}
             onFocus={setUserEditedPassword}
           />
           <BaseOpacity
@@ -142,13 +132,13 @@ export const ChangePassword = () => {
             control={control}
             errors={errors}
             screenName="ChangePassword"
-            name={'confNewPassword'}
+            name={'newPasswordConfirmation'}
             inputLabel={t('confirmNewPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
             passwordsAreEqual={arePasswordsEqual}
-            isError={!!errors.confNewPassword || !arePasswordsEqual}
+            isError={!!errors.newPasswordConfirmation || !arePasswordsEqual}
             onFocus={setUserEditedPassword}
           />
           <Box position="absolute" bottom={16} alignSelf="center">
