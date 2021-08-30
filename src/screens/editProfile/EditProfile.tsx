@@ -7,22 +7,20 @@ import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import { useUserData } from 'hooks/useUserData'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useUpdateUser } from 'hooks/useUpdateUser'
 import IconBack from 'assets/icons/icon-back.svg'
 import { LoadingModal } from 'components/LoadingModal'
 import { ModalProvider } from '../../contexts/ModalProvider'
+import { UserData } from '../../contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
-type EditDetailsTypes = {
-  firstName: string
-  lastName: string
-  occupation: string
-}
+type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
@@ -38,11 +36,13 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
+  const { fetchUser } = useUserData()
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
   const handleEditDetailsSubmit = (data: EditDetailsTypes) => {
     handleUpdateUser(data)
+    fetchUser()
   }
 
   useEffect(() => {
