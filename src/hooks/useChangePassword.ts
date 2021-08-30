@@ -18,13 +18,10 @@ export const useChangePassword = () => {
     changePasswordMutation,
     {
       onError: (e) => {
-        switch (true) {
-          case e.message.includes('invalid_credentials'):
-            createAlert(t('invalidCredentialsPassword'), '')
-            break
-          default:
-            createAlert(t('default'), '')
-            break
+        if (e.message.includes('invalid_credentials')) {
+          createAlert(t('invalidCredentialsPassword'), '')
+        } else {
+          createAlert(t('default'), '')
         }
       },
     }
