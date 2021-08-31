@@ -110,7 +110,8 @@
   "confirmationModal": {
     "areYouSure": "Jesteś pewny/a?",
     "yes": "Tak",
-    "no": "Nie"
+    "no": "Nie",
+    "changesSaved": "Zmiany zapisane!"
   },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
@@ -222,5 +223,20 @@
     "ptoLeft2": "dni wolnego",
     "pickedPTO": "{{days}} dni wolnego",
     "select": "Wybierz"
-  }
+  },
+  "adminPanel": {
+    "employees": "Pracownicy",
+    "invite": "Zaproś",
+    "pendingEmployees": "Oczekujące",
+    "joinedEmployees": "Dołączyli",
+    "formerEmployees": "Byli",
+    "joinedDate": "Dołączył(a)",
+    "sentDate": "Wysłano",
+    "changePermission": "Zmień uprawnienia",
+    "noFormer": "Brak byłych pracowników.",
+    "noJoined": "Brak połączonych pracowników.",
+    "noPending": "Brak oczekujących pracowników.",
+    "historyNotErased": "Historia użytkownika nie zostanie usunięta."
+  
+    }
 }
