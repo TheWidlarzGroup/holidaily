@@ -7,6 +7,7 @@ import { theme } from 'utils/theme'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { Budget } from 'screens/budget/Budget'
+import { Employees } from 'screens/employees/Employees'
 import { DrawerRoutes } from 'navigation/types'
 import { useSiriListeners } from 'hooks/useSiriListeners'
 import { InviteMembers } from 'screens/inviteMembers/InviteMembers'
@@ -79,6 +80,11 @@ export const DrawerNavigator = () => {
         name="ProfileNavigation"
         component={ProfileNavigation}
         options={{ title: t('editProfile'), swipeEnabled: true }}
+      />
+      <Drawer.Screen
+        name="Employees"
+        component={Employees}
+        options={{ title: 'Employees', swipeEnabled: false }}
       />
       <Drawer.Screen
         name="HolidayBudget"

@@ -124,6 +124,7 @@ export type DrawerRoutes = {
   About: undefined
   Settings: undefined
   InviteMembers: undefined
+  Employees: undefined
 }
 
 export type AuthRoutes = {
