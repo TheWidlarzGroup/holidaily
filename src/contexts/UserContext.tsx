@@ -8,6 +8,7 @@ export type UserData = {
   role: string
   occupation: string
   photo?: string | null
+  id?: string
 }
 
 export type ContextProps = {
