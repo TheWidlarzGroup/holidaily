@@ -1,11 +1,8 @@
 import { createAlert } from 'utils/createAlert'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import {
-  ErrorTypes,
-  ChangePasswordDataTypes,
-  ChangePasswordTypes,
-} from 'types/useChangePasswordTypes'
+import { ChangePasswordDataTypes, ChangePasswordTypes } from 'types/useChangePasswordTypes'
+import { ErrorTypes } from 'types/useErrorTypes'
 import { changePasswordMutation } from 'graphqlActions/mutations/changePasswordMutation'
 
 export const useChangePassword = () => {

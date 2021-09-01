@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { useMutation } from 'react-query'
 import { createAlert } from 'utils/createAlert'
-import { UpdateUserTypes, UpdateUserDataTypes, ErrorTypes } from 'types/useUpdateUserTypes'
+import { UpdateUserTypes, UpdateUserDataTypes } from 'types/useUpdateUserTypes'
+import { ErrorTypes } from 'types/useErrorTypes'
 import { updateUserMutation } from 'graphqlActions/mutations/updateUserMutation'
 
 export const useUpdateUser = () => {

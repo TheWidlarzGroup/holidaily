@@ -1,22 +1,10 @@
-export type UpdateUserTypes = {
-  firstName: string
-  lastName: string
-  occupation: string
-  //   color: string
-}
+import { UserData } from 'contexts/UserContext'
+
+export type UpdateUserTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
+
+type UpdateUserPayload = Pick<UserData, 'firstName' | 'lastName' | 'occupation' | 'id'>
 
 export type UpdateUserDataTypes = {
-  updateUser: {
-    id: string
-    firstName: string
-    lastName: string
-    occupation: string
-    // color: string
-  }
+  updateUser: UpdateUserPayload
 }
-
-export type ErrorTypes = {
-  message: string
-}
-
 // TODO: add color when BE ready

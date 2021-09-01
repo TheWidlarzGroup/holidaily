@@ -9,7 +9,3 @@ export type ChangePasswordDataTypes = {
     id: string
   }
 }
-
-export type ErrorTypes = {
-  message: string
-}
