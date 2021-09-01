@@ -12,11 +12,16 @@ export type Tab =
   | 'HolidayBudget'
   | 'About'
   | 'Logout'
-  | 'Employees'
+  | 'AdminPanelEmployeesNavigation'
 
 const dimensions = {
   width: 40,
   height: 40,
+}
+const smallDimensions = {
+  width: 20,
+  height: 20,
+  marginHorizontal: 10,
 }
 
 export const getDrawerIcon = (tab: Tab) => {
@@ -36,8 +41,8 @@ export const getDrawerIcon = (tab: Tab) => {
     case 'Logout': {
       return <LogoutIcon {...dimensions} />
     }
-    case 'Employees': {
-      return <EmployeesIcon />
+    case 'AdminPanelEmployeesNavigation': {
+      return <EmployeesIcon {...smallDimensions} />
     }
     default:
       break
