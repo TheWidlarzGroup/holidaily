@@ -10,26 +10,25 @@ import { RadioInput } from 'components/RadioInput'
 import { CustomButton } from 'components/CustomButton'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { roles } from 'types/useCreateInvitationTypes'
+import { UserTypes } from 'types/useUserTypes'
 // TODO: get roles from BE ??
 
-type RoleMenuProps = {
-  role: string
+type Props = {
   onSelectRole: F1<string>
   onCancel: F0
-  userId: string
-}
+} & Pick<UserTypes, 'id' | 'email' | 'lastName' | 'firstName' | 'role'>
 
-export const RoleMenu = ({ role, onSelectRole, onCancel, userId }: RoleMenuProps) => {
+export const RoleMenu = (p: Props) => {
   const styles = useStyles()
   const { handleChangeRole, isSuccess } = useChangeRole()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
-  const [selectedRole, setSelectedRole] = useState(role)
+  const [selectedRole, setSelectedRole] = useState(p.role)
 
   const onAcceptSelectRole = () => {
-    handleChangeRole({ userId, role: selectedRole })
+    handleChangeRole({ userId: p.id, role: selectedRole })
     hideModal()
-    onSelectRole(capitalize(selectedRole))
+    p.onSelectRole(capitalize(selectedRole))
     if (isSuccess)
       setTimeout(
         () =>
@@ -38,7 +37,7 @@ export const RoleMenu = ({ role, onSelectRole, onCancel, userId }: RoleMenuProps
           ),
         0
       )
-    onCancel()
+    p.onCancel()
   }
 
   const handleSelectRole = () => {
@@ -48,7 +47,9 @@ export const RoleMenu = ({ role, onSelectRole, onCancel, userId }: RoleMenuProps
         hideModal={hideModal}
         onAccept={onAcceptSelectRole}
         onDecline={hideModal}
-        content={'Do you want to change USERNAME permission?'}
+        content={`Do you want to change ${
+          p.firstName && p.lastName ? `${p.firstName} ${p.lastName}` : p.email
+        } permission?`}
       />
     )
   }
@@ -68,7 +69,7 @@ export const RoleMenu = ({ role, onSelectRole, onCancel, userId }: RoleMenuProps
         </TouchableOpacity>
       ))}
       <Box marginBottom="xm" alignSelf="center">
-        <TouchableOpacity onPress={onCancel} activeOpacity={1}>
+        <TouchableOpacity onPress={p.onCancel} activeOpacity={1}>
           <CustomButton label={'Cancel'} variant="secondary" width={221} height={53} />
         </TouchableOpacity>
       </Box>

@@ -50,13 +50,13 @@ export const Employees = () => {
         <FilterBox />
         <Box>
           {/* TODO: implement pending & former when BE ready */}
-          <Box marginHorizontal="s" marginBottom="s">
+          <Box marginHorizontal="m" marginBottom="s">
             <Text variant="lightGreyRegular">{t('joinedEmployees').toUpperCase()}</Text>
             {employeesNoAdmin.length > 0 ? (
               <FlatList
                 data={employeesNoAdmin}
                 keyExtractor={({ id }) => id}
-                renderItem={({ item }) => <EmployeeBox joined={item.confirmed} {...item} />}
+                renderItem={({ item }) => <EmployeeBox {...item} />}
                 bounces={false}
               />
             ) : (
@@ -65,7 +65,7 @@ export const Employees = () => {
               </Text>
             )}
           </Box>
-          <Box marginHorizontal="s" marginBottom="s">
+          <Box marginHorizontal="m" marginBottom="s">
             <Text variant="lightGreyRegular">{t('formerEmployees').toUpperCase()}</Text>
             <Text variant="regularGrey16" marginTop="xm">
               {t('noFormer')}

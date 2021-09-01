@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, Text, theme, mkUseStyles } from 'utils/theme'
 import { capitalize } from 'utils/role'
 import { useRemoveFromOrganization } from 'hooks/useRemoveFromOrganization'
+import { UserTypes } from 'types/useUserTypes'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
@@ -11,36 +12,20 @@ import { Avatar } from 'components/Avatar'
 import { RoleMenu } from './RoleMenu'
 import { EmployeeBoxButtons } from './EmployeeBoxButtons'
 
-type EmployeeBoxProps = {
+type Props = {
   color?: string
   picture?: string
-  joined: boolean
-  firstName?: string
-  lastName?: string
-  email: string
-  occupation?: string
-  role: string
   id: string
-}
+} & Pick<UserTypes, 'firstName' | 'lastName' | 'email' | 'role' | 'occupation' | 'confirmed'>
 
-export const EmployeeBox = ({
-  color,
-  picture,
-  joined = false,
-  firstName,
-  lastName,
-  email,
-  occupation,
-  role,
-  id,
-}: EmployeeBoxProps) => {
+export const EmployeeBox = (p: Props) => {
   const styles = useStyles()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
   const { handleRemoveFromOrganization, isSuccess: isSuccessRemoveFromOrganization } =
     useRemoveFromOrganization()
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false)
-  const [userRole, setUserRole] = useState(role)
+  const [userRole, setUserRole] = useState(p.role)
 
   const onCancelInvitation = () => {
     showModal(
@@ -63,7 +48,7 @@ export const EmployeeBox = ({
           )
         }}
         onDecline={hideModal}
-        content={`Do you want to cancel ${firstName} ${lastName} invitation?`}
+        content={`Do you want to cancel ${p.firstName} ${p.lastName} invitation?`}
       />
     )
   }
@@ -72,36 +57,38 @@ export const EmployeeBox = ({
 
   const onChangeRole = () => setIsRoleMenuOpen(!isRoleMenuOpen)
 
+  const handleAcceptRemoveEmployee = () => {
+    handleRemoveFromOrganization({ userId: p.id })
+    hideModal()
+    if (isSuccessRemoveFromOrganization)
+      setTimeout(
+        () =>
+          showModal(
+            <ChangesSavedModal
+              isVisible
+              hideModal={hideModal}
+              content={`${p.firstName} ${p.lastName} deleted!`}
+            />
+          ),
+        0
+      )
+  }
+
   const onRemoveEmployee = () => {
     showModal(
       <ConfirmationModal
         isVisible
         hideModal={hideModal}
-        onAccept={() => {
-          handleRemoveFromOrganization({ userId: id })
-          hideModal()
-          if (isSuccessRemoveFromOrganization)
-            setTimeout(
-              () =>
-                showModal(
-                  <ChangesSavedModal
-                    isVisible
-                    hideModal={hideModal}
-                    content={`${firstName} ${lastName} deleted!`}
-                  />
-                ),
-              0
-            )
-        }}
+        onAccept={handleAcceptRemoveEmployee}
         onDecline={hideModal}
-        header={`Do you want to delete ${firstName} ${lastName}?`}
+        header={`Do you want to delete ${p.firstName} ${p.lastName}?`}
         content={t('historyNotErased')}
       />
     )
   }
 
   const heightProgress = useDerivedValue(
-    () => (isRoleMenuOpen ? withTiming(430, { duration: 200 }) : withTiming(90, { duration: 200 })),
+    () => (isRoleMenuOpen ? withTiming(430, { duration: 400 }) : withTiming(90, { duration: 400 })),
     [isRoleMenuOpen]
   )
   const animatedOptions = useAnimatedStyle(() => ({
@@ -114,28 +101,32 @@ export const EmployeeBox = ({
         <Box
           height={90}
           width={16}
-          style={{ backgroundColor: color || theme.colors.bottomBarIcons }}
+          style={{ backgroundColor: p.color || theme.colors.bottomBarIcons }}
         />
         <Box backgroundColor={'bottomBarIcons'} width={40} height={90} justifyContent="center">
-          <Avatar src={picture} size="xs" />
+          <Avatar src={p.picture} size="xs" />
         </Box>
 
-        <Box margin="xm" justifyContent="flex-start">
-          <Text variant="bold16">{firstName && lastName ? `${firstName} ${lastName}` : email}</Text>
-          <Text variant="lightGreyRegular">{occupation}</Text>
+        <Box margin="xm" justifyContent="flex-start" flex={1}>
+          <Box>
+            <Text numberOfLines={1} variant="bold16">
+              {p.firstName && p.lastName ? `${p.firstName} ${p.lastName}` : p.email}
+            </Text>
+          </Box>
+          <Text variant="lightGreyRegular">{p.occupation}</Text>
           <Box
             backgroundColor="primary"
             alignSelf="flex-start"
             borderRadius="m"
             paddingHorizontal="s">
             <Text variant="regularWhite12" color="white">
-              {capitalize(userRole)}
+              {capitalize(p.role)}
             </Text>
           </Box>
           <Text variant="lightGreyBold10">Joined 20/03/2021</Text>
         </Box>
         <EmployeeBoxButtons
-          joined={joined}
+          confirmed={p.confirmed}
           onOpenHistory={onOpenHistory}
           onChangeRole={onChangeRole}
           onRemoveEmployee={onRemoveEmployee}
@@ -143,7 +134,15 @@ export const EmployeeBox = ({
         />
       </Box>
       {isRoleMenuOpen && (
-        <RoleMenu role={userRole} onSelectRole={setUserRole} onCancel={onChangeRole} userId={id} />
+        <RoleMenu
+          role={userRole}
+          onSelectRole={setUserRole}
+          onCancel={onChangeRole}
+          id={p.id}
+          firstName={p.firstName}
+          lastName={p.lastName}
+          email={p.email}
+        />
       )}
     </Animated.View>
   )

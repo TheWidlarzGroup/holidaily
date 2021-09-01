@@ -5,46 +5,40 @@ import KeyIcon from 'assets/icons/icon-key.svg'
 import MailIcon from 'assets/icons/icon-mail.svg'
 import HistoryIcon from 'assets/icons/icon-history.svg'
 import AvatarIcon from 'assets/icons/icon-avatar-minus.svg'
+import { UserTypes } from 'types/useUserTypes'
 
-type EmployeeBoxButtonsProps = {
-  joined: boolean
+type Props = {
   onOpenHistory?: F0
   onChangeRole: F0
   onRemoveEmployee?: F0
   onCancelInvitation?: F0
-}
+} & Pick<UserTypes, 'confirmed'>
 
-export const EmployeeBoxButtons = ({
-  joined,
-  onOpenHistory,
-  onChangeRole,
-  onRemoveEmployee,
-  onCancelInvitation,
-}: EmployeeBoxButtonsProps) => (
+export const EmployeeBoxButtons = (p: Props) => (
   <Box
     marginRight="l"
     alignItems="flex-start"
     justifyContent="flex-end"
     flexDirection="row"
     style={{ marginLeft: 'auto', marginTop: 35 }}>
-    {joined ? (
+    {p.confirmed ? (
       <>
-        <TouchableOpacity onPress={onOpenHistory}>
+        <TouchableOpacity onPress={p.onOpenHistory}>
           <HistoryIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onChangeRole} style={{ marginHorizontal: 23 }}>
+        <TouchableOpacity onPress={p.onChangeRole} style={{ marginHorizontal: 23 }}>
           <KeyIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onRemoveEmployee}>
+        <TouchableOpacity onPress={p.onRemoveEmployee}>
           <AvatarIcon />
         </TouchableOpacity>
       </>
     ) : (
       <>
-        <TouchableOpacity onPress={onChangeRole} style={{ marginHorizontal: 23 }}>
+        <TouchableOpacity onPress={p.onChangeRole} style={{ marginHorizontal: 23 }}>
           <KeyIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onCancelInvitation}>
+        <TouchableOpacity onPress={p.onCancelInvitation}>
           <MailIcon />
         </TouchableOpacity>
       </>
