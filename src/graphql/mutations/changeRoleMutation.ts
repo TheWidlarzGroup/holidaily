@@ -7,7 +7,7 @@ export const changeRoleMutation = ({ userId, role }: ChangeRoleTypes) =>
     gql`
       mutation {
         changeRole(
-          role: "${role}",
+          role: ${role},
           userId: "${userId}",
         ) {
           id
