@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
-import { ScrollView } from 'react-native'
+import { FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
+import { useFetchEmployees } from 'hooks/useFetchEmployees'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { CustomButton } from 'components/CustomButton'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
@@ -14,6 +15,8 @@ import { EmployeeBox } from './components/EmployeeBox'
 export const Employees = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
   const { t } = useTranslation('adminPanel')
+  const { employees } = useFetchEmployees()
+  const employeesNoAdmin = employees.filter(({ role }) => role.toUpperCase() !== 'ADMIN')
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
@@ -25,7 +28,7 @@ export const Employees = () => {
   }, [navigation])
 
   const navigateToInviteMembers = () => {
-    navigation.navigate('DrawerNavigator', {
+    navigation.navigate('AdminPanelEmployeesNavigation', {
       screen: 'InviteMembers',
     })
   }
@@ -45,16 +48,22 @@ export const Employees = () => {
           onPress={navigateToInviteMembers}
         />
         <FilterBox />
-        <ScrollView bounces={false}>
-          <Box marginHorizontal="s" marginBottom="s">
-            <Text variant="lightGreyRegular">{t('pendingEmployees').toUpperCase()}</Text>
-            <EmployeeBox />
-          </Box>
+        <Box>
+          {/* TODO: implement pending & former when BE ready */}
           <Box marginHorizontal="s" marginBottom="s">
             <Text variant="lightGreyRegular">{t('joinedEmployees').toUpperCase()}</Text>
-            <EmployeeBox />
-            <EmployeeBox />
-            <EmployeeBox />
+            {employeesNoAdmin.length > 0 ? (
+              <FlatList
+                data={employeesNoAdmin}
+                keyExtractor={({ id }) => id}
+                renderItem={({ item }) => <EmployeeBox joined={item.confirmed} {...item} />}
+                bounces={false}
+              />
+            ) : (
+              <Text variant="regularGrey16" marginTop="xm">
+                {t('noJoined')}
+              </Text>
+            )}
           </Box>
           <Box marginHorizontal="s" marginBottom="s">
             <Text variant="lightGreyRegular">{t('formerEmployees').toUpperCase()}</Text>
@@ -62,7 +71,7 @@ export const Employees = () => {
               {t('noFormer')}
             </Text>
           </Box>
-        </ScrollView>
+        </Box>
       </SafeAreaWrapper>
     </ModalProvider>
   )

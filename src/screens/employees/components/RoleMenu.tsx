@@ -4,39 +4,51 @@ import { useTranslation } from 'react-i18next'
 import { Text, Box, mkUseStyles } from 'utils/theme'
 import { capitalize } from 'utils/role'
 import { useModalContext } from 'contexts/ModalProvider'
+import { useChangeRole } from 'hooks/useChangeRole'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { RadioInput } from 'components/RadioInput'
 import { CustomButton } from 'components/CustomButton'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { roles } from 'types/useCreateInvitationTypes'
+// TODO: get roles from BE ??
 
 type RoleMenuProps = {
   role: string
   onSelectRole: F1<string>
   onCancel: F0
+  userId: string
 }
 
-export const RoleMenu = ({ role, onSelectRole, onCancel }: RoleMenuProps) => {
+export const RoleMenu = ({ role, onSelectRole, onCancel, userId }: RoleMenuProps) => {
   const styles = useStyles()
-  const { t } = useTranslation(['adminPanel', 'confirmationModal'])
+  const { handleChangeRole, isSuccess } = useChangeRole()
+  const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
   const [selectedRole, setSelectedRole] = useState(role)
+
+  const onAcceptSelectRole = () => {
+    handleChangeRole({ userId, role: selectedRole })
+    hideModal()
+    onSelectRole(capitalize(selectedRole))
+    if (isSuccess)
+      setTimeout(
+        () =>
+          showModal(
+            <ChangesSavedModal isVisible hideModal={hideModal} content={'Permission changed!'} />
+          ),
+        0
+      )
+    onCancel()
+  }
 
   const handleSelectRole = () => {
     showModal(
       <ConfirmationModal
         isVisible
         hideModal={hideModal}
-        onAccept={() => {
-          onSelectRole(selectedRole)
-          onCancel()
-          hideModal()
-          showModal(
-            <ChangesSavedModal isVisible hideModal={hideModal} content={t('changesSaved')} />
-          )
-        }}
+        onAccept={onAcceptSelectRole}
         onDecline={hideModal}
-        content={'Do you want to change permission?'}
+        content={'Do you want to change USERNAME permission?'}
       />
     )
   }

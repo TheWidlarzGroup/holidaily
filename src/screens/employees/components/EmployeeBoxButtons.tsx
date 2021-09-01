@@ -11,6 +11,7 @@ type EmployeeBoxButtonsProps = {
   onOpenHistory?: F0
   onChangeRole: F0
   onRemoveEmployee?: F0
+  onCancelInvitation?: F0
 }
 
 export const EmployeeBoxButtons = ({
@@ -18,6 +19,7 @@ export const EmployeeBoxButtons = ({
   onOpenHistory,
   onChangeRole,
   onRemoveEmployee,
+  onCancelInvitation,
 }: EmployeeBoxButtonsProps) => (
   <Box
     marginRight="l"
@@ -42,7 +44,7 @@ export const EmployeeBoxButtons = ({
         <TouchableOpacity onPress={onChangeRole} style={{ marginHorizontal: 23 }}>
           <KeyIcon />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={onCancelInvitation}>
           <MailIcon />
         </TouchableOpacity>
       </>

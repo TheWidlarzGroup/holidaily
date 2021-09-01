@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme, mkUseStyles } from 'utils/theme'
+import { capitalize } from 'utils/role'
+import { useRemoveFromOrganization } from 'hooks/useRemoveFromOrganization'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'
+import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { Avatar } from 'components/Avatar'
 import { RoleMenu } from './RoleMenu'
 import { EmployeeBoxButtons } from './EmployeeBoxButtons'
@@ -11,27 +14,87 @@ import { EmployeeBoxButtons } from './EmployeeBoxButtons'
 type EmployeeBoxProps = {
   color?: string
   picture?: string
-  joined?: boolean
+  joined: boolean
+  firstName?: string
+  lastName?: string
+  email: string
+  occupation?: string
+  role: string
+  id: string
 }
 
-export const EmployeeBox = ({ color, picture, joined = true }: EmployeeBoxProps) => {
+export const EmployeeBox = ({
+  color,
+  picture,
+  joined = false,
+  firstName,
+  lastName,
+  email,
+  occupation,
+  role,
+  id,
+}: EmployeeBoxProps) => {
   const styles = useStyles()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
-
+  const { handleRemoveFromOrganization, isSuccess: isSuccessRemoveFromOrganization } =
+    useRemoveFromOrganization()
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false)
-  const [role, setRole] = useState('Manager')
+  const [userRole, setUserRole] = useState(role)
+
+  const onCancelInvitation = () => {
+    showModal(
+      <ConfirmationModal
+        isVisible
+        hideModal={hideModal}
+        onAccept={() => {
+          // TODO API call to cancel user's invitation when endpoint ready
+          hideModal()
+          setTimeout(
+            () =>
+              showModal(
+                <ChangesSavedModal
+                  isVisible
+                  hideModal={hideModal}
+                  content={'Invitation cancelled!'}
+                />
+              ),
+            0
+          )
+        }}
+        onDecline={hideModal}
+        content={`Do you want to cancel ${firstName} ${lastName} invitation?`}
+      />
+    )
+  }
 
   const onOpenHistory = () => {}
+
   const onChangeRole = () => setIsRoleMenuOpen(!isRoleMenuOpen)
+
   const onRemoveEmployee = () => {
     showModal(
       <ConfirmationModal
         isVisible
         hideModal={hideModal}
-        onAccept={() => {}}
+        onAccept={() => {
+          handleRemoveFromOrganization({ userId: id })
+          hideModal()
+          if (isSuccessRemoveFromOrganization)
+            setTimeout(
+              () =>
+                showModal(
+                  <ChangesSavedModal
+                    isVisible
+                    hideModal={hideModal}
+                    content={`${firstName} ${lastName} deleted!`}
+                  />
+                ),
+              0
+            )
+        }}
         onDecline={hideModal}
-        header={'Do you want to delete Peter Kansas?'}
+        header={`Do you want to delete ${firstName} ${lastName}?`}
         content={t('historyNotErased')}
       />
     )
@@ -58,15 +121,15 @@ export const EmployeeBox = ({ color, picture, joined = true }: EmployeeBoxProps)
         </Box>
 
         <Box margin="xm" justifyContent="flex-start">
-          <Text variant="bold16">Peter Kansas</Text>
-          <Text variant="lightGreyRegular">UX Designer</Text>
+          <Text variant="bold16">{firstName && lastName ? `${firstName} ${lastName}` : email}</Text>
+          <Text variant="lightGreyRegular">{occupation}</Text>
           <Box
             backgroundColor="primary"
             alignSelf="flex-start"
             borderRadius="m"
             paddingHorizontal="s">
             <Text variant="regularWhite12" color="white">
-              {role}
+              {capitalize(userRole)}
             </Text>
           </Box>
           <Text variant="lightGreyBold10">Joined 20/03/2021</Text>
@@ -76,9 +139,12 @@ export const EmployeeBox = ({ color, picture, joined = true }: EmployeeBoxProps)
           onOpenHistory={onOpenHistory}
           onChangeRole={onChangeRole}
           onRemoveEmployee={onRemoveEmployee}
+          onCancelInvitation={onCancelInvitation}
         />
       </Box>
-      {isRoleMenuOpen && <RoleMenu role={role} onSelectRole={setRole} onCancel={onChangeRole} />}
+      {isRoleMenuOpen && (
+        <RoleMenu role={userRole} onSelectRole={setUserRole} onCancel={onChangeRole} userId={id} />
+      )}
     </Animated.View>
   )
 }
