@@ -1,13 +1,5 @@
-export type EmployeeTypes = {
-  confirmed: boolean
-  email: string
-  firstName: string
-  id: string
-  lastName: string
-  occupation: string
-  organization: string
-  role: string
-}
+import { UserTypes } from './useUserTypes'
+
 export type FetchEmployeesQueryTypes = {
-  users: EmployeeTypes[]
+  users: UserTypes[]
 }
