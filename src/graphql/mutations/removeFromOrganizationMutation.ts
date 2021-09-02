@@ -10,12 +10,6 @@ export const removeFromOrganizationMutation = ({ userId }: RemoveFromOrganizatio
           userId: "${userId}",
         ) {
           id
-          confirmed
-          email
-          firstName
-          lastName
-          occupation
-          role
         }
       }
     `

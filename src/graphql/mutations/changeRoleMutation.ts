@@ -11,12 +11,6 @@ export const changeRoleMutation = ({ userId, role }: ChangeRoleTypes) =>
           userId: "${userId}",
         ) {
           id
-          confirmed
-          email
-          firstName
-          lastName
-          occupation
-          role
         }
       }
     `
