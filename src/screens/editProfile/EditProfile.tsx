@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
@@ -7,19 +7,28 @@ import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import { useUserData } from 'hooks/useUserData'
+import { useModalContext } from 'contexts/ModalProvider'
+import { useUpdateUser } from 'hooks/useUpdateUser'
 import IconBack from 'assets/icons/icon-back.svg'
+import { LoadingModal } from 'components/LoadingModal'
 import { ModalProvider } from '../../contexts/ModalProvider'
+import { UserData } from '../../contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
+type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
+
 export const EditProfile = () => {
+  const { showModal, hideModal } = useModalContext()
+  const { handleUpdateUser, isSuccess, isLoading } = useUpdateUser()
   const { navigate } = useNavigation()
   const { user } = useUserContext()
   const styles = useStyles()
-  const { errors, control } = useForm({
+  const { errors, control, handleSubmit } = useForm({
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
@@ -27,28 +36,31 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
+  const { fetchUser } = useUserData()
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
-  const [
-    isChangesSavedModalVisible,
-    { setTrue: showChangesSavedModal, setFalse: hideChangesSavedModal },
-  ] = useBooleanState(false)
+  const handleEditDetailsSubmit = (data: EditDetailsTypes) => {
+    handleUpdateUser(data)
+    fetchUser()
+  }
 
-  const handleEditDetailsSubmit = () => {
-    showChangesSavedModal()
-    setEditedFalse()
-    // TODO: function updating user data from const {firstName, lastName, occupation} = getValues()
-  }
-  const handleGoBack = () => {
-    navigate('Dashboard')
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+      setEditedFalse()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   return (
     <ModalProvider>
       <SafeAreaView style={styles.mainView}>
         <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
-          <BaseOpacity onPress={handleGoBack} style={styles.backBtn} activeOpacity={0.5}>
+          <BaseOpacity
+            onPress={() => navigate('Dashboard')}
+            style={styles.backBtn}
+            activeOpacity={0.5}>
             <IconBack />
           </BaseOpacity>
           <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
@@ -56,13 +68,9 @@ export const EditProfile = () => {
           <TeamSubscriptions />
           <ProfileColor />
         </ScrollView>
-        {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleEditDetailsSubmit} />}
-        {isChangesSavedModalVisible && (
-          <ChangesSavedModal
-            isVisible={isChangesSavedModalVisible}
-            hideModal={hideChangesSavedModal}
-            content={t('changesSaved')}
-          />
+        <LoadingModal show={isLoading} />
+        {isEdited && (
+          <SaveChangesButton handleEditDetailsSubmit={handleSubmit(handleEditDetailsSubmit)} />
         )}
       </SafeAreaView>
     </ModalProvider>

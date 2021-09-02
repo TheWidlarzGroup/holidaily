@@ -95,7 +95,8 @@
     "invalidCredentials": "Incorrect email or password, please try again",
     "alreadyConfirmed": "Account is already confirmed, you can now log in",
     "invalidToken": "Your token is invalid",
-    "emailAlreadyTaken": "Email has already been taken"
+    "emailAlreadyTaken": "Email has already been taken",
+    "invalidCredentialsPassword": "Incorrect current password. Please try again."
   },
   "updatePasswordModal": {
     "passwordUpdated": "Your password has been updated!",
@@ -150,7 +151,8 @@
     "subscribeMoreTeams": "Subscribe more teams",
     "selected": "Selected: ",
     "subscribe": "Subscribe",
-    "newColorSaved": "New color saved!"
+    "newColorSaved": "New color saved!",
+    "fieldRequired": "This field is reqiuired."
   },
   "dashboard": {
     "welcome": "How's your team doing?",

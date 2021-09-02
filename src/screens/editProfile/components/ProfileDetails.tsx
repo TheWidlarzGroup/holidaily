@@ -32,7 +32,6 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   }
   const onFocusInput = (index: number) => {
     if (index === 3) {
-      // TODO: open update password modal
       return
     }
     inputsRefs[index]?.current?.focus()
@@ -53,7 +52,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           name="firstName"
           inputLabel={t('userFirstName')}
           validationPattern={minOneSignRegex}
-          errorMessage={t('editDetailsErrMsg')}
+          errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
         />
@@ -86,7 +85,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           name="lastName"
           inputLabel={t('userLastName')}
           validationPattern={minOneSignRegex}
-          errorMessage={t('editDetailsErrMsg')}
+          errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[1]}
         />
@@ -119,7 +118,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           name="occupation"
           inputLabel={t('userOccupation')}
           validationPattern={minOneSignRegex}
-          errorMessage={t('editDetailsErrMsg')}
+          errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[2]}
         />

@@ -5,17 +5,21 @@ import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useChangePassword } from 'hooks/useChangePassword'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { ConfirmationModal } from 'components/ConfirmationModal'
 import { FormInput } from 'components/FormInput'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
+import { LoadingModal } from 'components/LoadingModal'
+import { ChangePasswordTypes } from 'types/useChangePasswordTypes'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { passwordRegex } from 'utils/regex'
 import { Box, Text, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
-import { ConfirmationModal } from 'components/ConfirmationModal'
 
 export const ChangePassword = () => {
+  const { handleChangePassword, isSuccess, isLoading } = useChangePassword()
   const { control, handleSubmit, errors, watch, reset: resetForm } = useForm()
   const { showModal, hideModal } = useModalContext()
   const { t } = useTranslation('changePassword')
@@ -26,21 +30,27 @@ export const ChangePassword = () => {
     useBooleanState(true)
   const [
     userEditedPassword,
-    { setTrue: setUserEditedPassword, setFalse: setUserDidNotEditedPassword },
+    { setTrue: setUserEditedPassword, setFalse: setUserDidNotEditPassword },
   ] = useBooleanState(false)
-  const { newPassword, confNewPassword } = watch(['newPassword', 'confNewPassword'])
+  const { newPassword, newPasswordConfirmation } = watch(['newPassword', 'newPasswordConfirmation'])
 
-  const handleChangePassword = () => {
-    // const { currPassword, newPassword, confNewPassword } = getValues()
-    // TODO: check if current password matches and update new password
+  const onChangePassword = (values: ChangePasswordTypes) => {
     if (arePasswordsEqual) {
-      showModal(
-        <ChangesSavedModal isVisible hideModal={hideModal} content={t('newPasswordSaved')} />
-      )
-      setUserDidNotEditedPassword()
-      resetForm()
+      handleChangePassword(values)
     }
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      showModal(
+        <ChangesSavedModal isVisible hideModal={hideModal} content={'New password saved!'} />
+      )
+      setUserDidNotEditPassword()
+      resetForm()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
+
   const handleGoBack = () => {
     if (userEditedPassword) {
       showModal(
@@ -61,14 +71,14 @@ export const ChangePassword = () => {
   }
 
   useEffect(() => {
-    const passwordsAreEqual = checkIfPasswordsMatch(newPassword, confNewPassword)
+    const passwordsAreEqual = checkIfPasswordsMatch(newPassword, newPasswordConfirmation)
 
     if (!passwordsAreEqual) {
       setPasswordsAreNotEqual()
     } else {
       setArePasswordsEqual()
     }
-  }, [newPassword, confNewPassword, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
+  }, [newPassword, newPasswordConfirmation, setArePasswordsEqual, setPasswordsAreNotEqual, watch])
 
   return (
     <SafeAreaWrapper>
@@ -91,12 +101,12 @@ export const ChangePassword = () => {
             control={control}
             errors={errors}
             screenName="ChangePassword"
-            name={'currPassword'}
+            name={'password'}
             inputLabel={t('currPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
-            isError={!!errors.currPassword}
+            isError={!!errors.password}
             onFocus={setUserEditedPassword}
           />
           <BaseOpacity
@@ -122,23 +132,24 @@ export const ChangePassword = () => {
             control={control}
             errors={errors}
             screenName="ChangePassword"
-            name={'confNewPassword'}
+            name={'newPasswordConfirmation'}
             inputLabel={t('confirmNewPassword')}
             validationPattern={passwordRegex}
             errorMessage={t('incorrectPassword')}
             isPasswordIconVisible
             passwordsAreEqual={arePasswordsEqual}
-            isError={!!errors.confNewPassword || !arePasswordsEqual}
+            isError={!!errors.newPasswordConfirmation || !arePasswordsEqual}
             onFocus={setUserEditedPassword}
           />
           <Box position="absolute" bottom={16} alignSelf="center">
             <CustomButton
               label={'Save'}
               variant="primary"
-              onPress={handleSubmit(handleChangePassword)}
+              onPress={handleSubmit(onChangePassword)}
               width={221}
               height={53}
             />
+            <LoadingModal show={isLoading} />
           </Box>
         </Box>
       </Box>
