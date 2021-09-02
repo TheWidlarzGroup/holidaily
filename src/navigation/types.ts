@@ -107,6 +107,7 @@ export type AppRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   ForgotPasswordNavigation: NestedNavigatorParams<ForgotPasswordRoutes>
+  AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -123,7 +124,7 @@ export type DrawerRoutes = {
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
-  InviteMembers: undefined
+  AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
 }
 
 export type AuthRoutes = {
@@ -169,4 +170,9 @@ export type ForgotPasswordRoutes = {
   ForgotPassword: undefined
   RecoveryCode: undefined
   NewPassword: undefined
+}
+
+export type AdminPanelEmployeesRoutes = {
+  Employees: undefined
+  InviteMembers: undefined
 }

@@ -81,6 +81,12 @@ export const textVariants = {
     fontSize: 12,
     color: 'grey',
   },
+  lightGreyBold10: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 10,
+    color: 'grey',
+    lineHeight: 18,
+  },
   alreadyRegistered: {
     fontFamily: 'Nunito-Bold',
     fontSize: 16,

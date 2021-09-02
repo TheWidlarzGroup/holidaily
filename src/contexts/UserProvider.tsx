@@ -15,6 +15,7 @@ export const emptyUser = {
   role: '',
   occupation: '',
   photo: null,
+  id: '',
 }
 
 export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {

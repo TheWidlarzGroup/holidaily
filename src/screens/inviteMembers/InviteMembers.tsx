@@ -20,12 +20,7 @@ export const InviteMembers: FC = () => {
   const [selectedRole, setSelectedRole] = React.useState('USER')
 
   const handleGoBack = useCallback(() => {
-    navigation.navigate('Home', {
-      screen: 'DashboardNavigation',
-      params: {
-        screen: 'Dashboard',
-      },
-    })
+    navigation.goBack()
   }, [navigation])
 
   const handleSelectRole = useCallback(

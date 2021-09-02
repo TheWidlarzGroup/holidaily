@@ -4,12 +4,24 @@ import SettingsIcon from 'assets/icons/icon-settings.svg'
 import EditIcon from 'assets/icons/icon-edit.svg'
 import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
+import EmployeesIcon from 'assets/icons/icon-employees.svg'
 
-export type Tab = 'ProfileNavigation' | 'Settings' | 'HolidayBudget' | 'About' | 'Logout'
+export type Tab =
+  | 'ProfileNavigation'
+  | 'Settings'
+  | 'HolidayBudget'
+  | 'About'
+  | 'Logout'
+  | 'AdminPanelEmployeesNavigation'
 
 const dimensions = {
   width: 40,
   height: 40,
+}
+const smallDimensions = {
+  width: 20,
+  height: 20,
+  marginHorizontal: 10,
 }
 
 export const getDrawerIcon = (tab: Tab) => {
@@ -28,6 +40,9 @@ export const getDrawerIcon = (tab: Tab) => {
     }
     case 'Logout': {
       return <LogoutIcon {...dimensions} />
+    }
+    case 'AdminPanelEmployeesNavigation': {
+      return <EmployeesIcon {...smallDimensions} />
     }
     default:
       break

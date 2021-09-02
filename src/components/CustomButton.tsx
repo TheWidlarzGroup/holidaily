@@ -6,9 +6,10 @@ import { colors } from 'utils/theme/colors'
 
 import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
+import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
 
 type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
-type CustomButtonIcons = 'google' | 'apple'
+type CustomButtonIcons = 'google' | 'apple' | 'plus'
 
 export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   label: string
@@ -82,6 +83,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
             <>
               {icon === 'google' && <IconGoogle style={styles.icon} />}
               {icon === 'apple' && <IconApple style={styles.icon} />}
+              {icon === 'plus' && <IconPlusSmall style={styles.icon} />}
               <Text variant="buttonText1" style={{ color: textColor }}>
                 {label}
               </Text>

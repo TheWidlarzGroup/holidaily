@@ -1,11 +1,9 @@
+import { UserData } from 'contexts/UserContext'
+
 export type UserTypes = {
   confirmed: boolean
-  firstName: string
-  lastName: string
-  email: string
-  occupation: string
-  role: string
-}
+} & Omit<UserData, 'isConfirmed'>
+
 export type UserQueryTypes = {
   user: UserTypes
 }
