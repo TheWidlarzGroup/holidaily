@@ -125,6 +125,7 @@ export type DrawerRoutes = {
   About: undefined
   Settings: undefined
   AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
+  AdminPanelRequestsNavigation: NestedNavigatorParams<AdminPanelRequestsRoutes>
 }
 
 export type AuthRoutes = {
@@ -175,4 +176,8 @@ export type ForgotPasswordRoutes = {
 export type AdminPanelEmployeesRoutes = {
   Employees: undefined
   InviteMembers: undefined
+}
+
+export type AdminPanelRequestsRoutes = {
+  Requests: undefined
 }

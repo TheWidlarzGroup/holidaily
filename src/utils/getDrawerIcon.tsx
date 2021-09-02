@@ -5,6 +5,7 @@ import EditIcon from 'assets/icons/icon-edit.svg'
 import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
 import EmployeesIcon from 'assets/icons/icon-employees.svg'
+import RequestsIcon from 'assets/icons/icon-envelope-small.svg'
 
 export type Tab =
   | 'ProfileNavigation'
@@ -13,6 +14,7 @@ export type Tab =
   | 'About'
   | 'Logout'
   | 'AdminPanelEmployeesNavigation'
+  | 'AdminPanelRequestsNavigation'
 
 const dimensions = {
   width: 40,
@@ -43,6 +45,9 @@ export const getDrawerIcon = (tab: Tab) => {
     }
     case 'AdminPanelEmployeesNavigation': {
       return <EmployeesIcon {...smallDimensions} />
+    }
+    case 'AdminPanelRequestsNavigation': {
+      return <RequestsIcon {...smallDimensions} />
     }
     default:
       break

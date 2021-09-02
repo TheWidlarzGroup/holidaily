@@ -13,6 +13,7 @@ import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
 import { AdminPanelEmployeesNavigation } from './AdminPanelEmployeesNavigation'
+import { AdminPanelRequestsNavigation } from './AdminPanelRequestsNavigation'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
@@ -84,6 +85,11 @@ export const DrawerNavigator = () => {
         name="AdminPanelEmployeesNavigation"
         component={AdminPanelEmployeesNavigation}
         options={{ title: 'Employees', swipeEnabled: false }}
+      />
+      <Drawer.Screen
+        name="AdminPanelRequestsNavigation"
+        component={AdminPanelRequestsNavigation}
+        options={{ title: 'Requests', swipeEnabled: false }}
       />
       <Drawer.Screen
         name="HolidayBudget"
