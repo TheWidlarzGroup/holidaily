@@ -7,8 +7,8 @@ export type UserData = {
   isConfirmed: boolean
   role: string
   occupation: string
+  id: string
   photo?: string | null
-  id?: string
 }
 
 export type ContextProps = {

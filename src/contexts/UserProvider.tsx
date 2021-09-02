@@ -14,6 +14,7 @@ export const emptyUser = {
   isConfirmed: false,
   role: '',
   occupation: '',
+  id: '',
   photo: null,
 }
 
