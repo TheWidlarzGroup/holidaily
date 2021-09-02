@@ -7,14 +7,14 @@ import HistoryIcon from 'assets/icons/icon-history.svg'
 import AvatarIcon from 'assets/icons/icon-avatar-minus.svg'
 import { UserTypes } from 'types/useUserTypes'
 
-type Props = {
+type EmployeeBoxButtonsProps = {
   onOpenHistory?: F0
   onChangeRole: F0
   onRemoveEmployee?: F0
   onCancelInvitation?: F0
 } & Pick<UserTypes, 'confirmed'>
 
-export const EmployeeBoxButtons = (p: Props) => (
+export const EmployeeBoxButtons = (p: EmployeeBoxButtonsProps) => (
   <Box
     marginRight="l"
     alignItems="flex-start"

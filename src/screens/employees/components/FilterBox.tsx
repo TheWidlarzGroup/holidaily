@@ -2,12 +2,12 @@ import React from 'react'
 import { Box } from 'utils/theme'
 import { HeaderIcon } from 'screens/stats/components/HeaderIcon'
 
-type Props = {
-  onSearch?: F0
-  onFilter?: F0
+type FilterBoxProps = {
+  onSearch: F0
+  onFilter: F0
 }
 
-export const FilterBox = (p: Props) => (
+export const FilterBox = (p: FilterBoxProps) => (
   <Box
     alignItems="center"
     flexDirection="row"

@@ -12,13 +12,13 @@ import { Avatar } from 'components/Avatar'
 import { RoleMenu } from './RoleMenu'
 import { EmployeeBoxButtons } from './EmployeeBoxButtons'
 
-type Props = {
+type EmployeeBoxProps = {
   color?: string
   picture?: string
   id: string
 } & Pick<UserTypes, 'firstName' | 'lastName' | 'email' | 'role' | 'occupation' | 'confirmed'>
 
-export const EmployeeBox = (p: Props) => {
+export const EmployeeBox = (p: EmployeeBoxProps) => {
   const styles = useStyles()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()

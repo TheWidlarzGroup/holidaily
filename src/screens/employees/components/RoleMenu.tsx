@@ -13,12 +13,12 @@ import { roles } from 'types/useCreateInvitationTypes'
 import { UserTypes } from 'types/useUserTypes'
 // TODO: get roles from BE ??
 
-type Props = {
+type RoleMenuProps = {
   onSelectRole: F1<string>
   onCancel: F0
 } & Pick<UserTypes, 'id' | 'email' | 'lastName' | 'firstName' | 'role'>
 
-export const RoleMenu = (p: Props) => {
+export const RoleMenu = (p: RoleMenuProps) => {
   const styles = useStyles()
   const { handleChangeRole, isSuccess } = useChangeRole()
   const { t } = useTranslation('adminPanel')

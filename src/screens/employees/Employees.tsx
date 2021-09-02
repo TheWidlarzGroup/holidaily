@@ -34,6 +34,8 @@ export const Employees = () => {
   }
 
   const renderItem = useCallback(({ item }) => <EmployeeBox {...item} />, [])
+  const onSearch = () => {}
+  const onFilter = () => {}
 
   return (
     <ModalProvider>
@@ -49,7 +51,7 @@ export const Employees = () => {
           marginBottom={10}
           onPress={navigateToInviteMembers}
         />
-        <FilterBox />
+        <FilterBox onSearch={onSearch} onFilter={onFilter} />
         <Box>
           {/* TODO: implement pending & former when BE ready */}
           <Box marginHorizontal="m" marginBottom="s">
