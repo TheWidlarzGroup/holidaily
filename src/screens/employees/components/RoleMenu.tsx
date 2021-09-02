@@ -33,7 +33,7 @@ export const RoleMenu = (p: Props) => {
       setTimeout(
         () =>
           showModal(
-            <ChangesSavedModal isVisible hideModal={hideModal} content={'Permission changed!'} />
+            <ChangesSavedModal isVisible hideModal={hideModal} content={t('permissionChanged')} />
           ),
         0
       )
@@ -47,9 +47,7 @@ export const RoleMenu = (p: Props) => {
         hideModal={hideModal}
         onAccept={onAcceptSelectRole}
         onDecline={hideModal}
-        content={`Do you want to change ${
-          p.firstName && p.lastName ? `${p.firstName} ${p.lastName}` : p.email
-        } permission?`}
+        content={t('permissionRequest', { name: p.firstName ? p.firstName : p.email })}
       />
     )
   }
@@ -70,12 +68,12 @@ export const RoleMenu = (p: Props) => {
       ))}
       <Box marginBottom="xm" alignSelf="center">
         <TouchableOpacity onPress={p.onCancel} activeOpacity={1}>
-          <CustomButton label={'Cancel'} variant="secondary" width={221} height={53} />
+          <CustomButton label={t('cancel')} variant="secondary" width={221} height={53} />
         </TouchableOpacity>
       </Box>
       <Box alignSelf="center">
         <TouchableOpacity onPress={handleSelectRole} activeOpacity={1}>
-          <CustomButton label={'Save'} variant="primary" width={221} height={53} />
+          <CustomButton label={t('save')} variant="primary" width={221} height={53} />
         </TouchableOpacity>
       </Box>
     </Box>

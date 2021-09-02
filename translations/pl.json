@@ -227,16 +227,24 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
+    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
     "formerEmployees": "Byli",
     "joinedDate": "Dołączył(a)",
     "sentDate": "Wysłano",
     "changePermission": "Zmień uprawnienia",
+    "permissionChanged": "Uprawnienia zmienione!",
+    "permissionRequest": "Chcesz zmienić uprawnienia {{name}}?",
     "noFormer": "Brak byłych pracowników.",
     "noJoined": "Brak połączonych pracowników.",
     "noPending": "Brak oczekujących pracowników.",
-    "historyNotErased": "Historia użytkownika nie zostanie usunięta."
+    "historyNotErased": "Historia użytkownika nie zostanie usunięta.",
+    "removedFromOrganization": "{{name}} usunięty/a!",
+    "removeFromOrganization": "Chcesz usunąć {{name}}?",
+    "save": "Zapisz",
+    "cancel": "Anuluj"
   
     }
 }

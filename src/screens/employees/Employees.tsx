@@ -33,6 +33,8 @@ export const Employees = () => {
     })
   }
 
+  const renderItem = useCallback(({ item }) => <EmployeeBox {...item} />, [])
+
   return (
     <ModalProvider>
       <SafeAreaWrapper>
@@ -56,7 +58,7 @@ export const Employees = () => {
               <FlatList
                 data={employeesNoAdmin}
                 keyExtractor={({ id }) => id}
-                renderItem={({ item }) => <EmployeeBox {...item} />}
+                renderItem={renderItem}
                 bounces={false}
               />
             ) : (

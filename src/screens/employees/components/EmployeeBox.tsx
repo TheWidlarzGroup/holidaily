@@ -26,6 +26,7 @@ export const EmployeeBox = (p: Props) => {
     useRemoveFromOrganization()
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false)
   const [userRole, setUserRole] = useState(p.role)
+  const userNameToDisplay = p.firstName && p.lastName ? `${p.firstName} ${p.lastName}` : p.email
 
   const onCancelInvitation = () => {
     showModal(
@@ -41,14 +42,16 @@ export const EmployeeBox = (p: Props) => {
                 <ChangesSavedModal
                   isVisible
                   hideModal={hideModal}
-                  content={'Invitation cancelled!'}
+                  content={t('invitationCancelled')}
                 />
               ),
             0
           )
         }}
         onDecline={hideModal}
-        content={`Do you want to cancel ${p.firstName} ${p.lastName} invitation?`}
+        content={t('invitationCancelRequest', {
+          name: userNameToDisplay,
+        })}
       />
     )
   }
@@ -67,7 +70,9 @@ export const EmployeeBox = (p: Props) => {
             <ChangesSavedModal
               isVisible
               hideModal={hideModal}
-              content={`${p.firstName} ${p.lastName} deleted!`}
+              content={t('removedFromOrganization', {
+                name: userNameToDisplay,
+              })}
             />
           ),
         0
@@ -81,7 +86,9 @@ export const EmployeeBox = (p: Props) => {
         hideModal={hideModal}
         onAccept={handleAcceptRemoveEmployee}
         onDecline={hideModal}
-        header={`Do you want to delete ${p.firstName} ${p.lastName}?`}
+        header={t('removeFromOrganization', {
+          name: userNameToDisplay,
+        })}
         content={t('historyNotErased')}
       />
     )
@@ -110,7 +117,7 @@ export const EmployeeBox = (p: Props) => {
         <Box margin="xm" justifyContent="flex-start" flex={1}>
           <Box>
             <Text numberOfLines={1} variant="bold16">
-              {p.firstName && p.lastName ? `${p.firstName} ${p.lastName}` : p.email}
+              {userNameToDisplay}
             </Text>
           </Box>
           <Text variant="lightGreyRegular">{p.occupation}</Text>

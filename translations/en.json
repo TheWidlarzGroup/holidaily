@@ -226,17 +226,25 @@
   },
   "adminPanel": {
     "employees": "Employees",
-  "invite": "Invite",
-  "pendingEmployees": "Pending",
-  "joinedEmployees": "Joined",
-  "formerEmployees": "Former",
-  "joinedDate": "Joined",
-  "sentDate": "Sent",
-  "changePermission": "Change permission",
-  "noFormer": "There are no former users.",
-  "noJoined": "There are no joined users.",
-  "noPending": "There are no pending users.",
-  "historyNotErased": "User's record history won't be erased."
+    "invite": "Invite",
+    "invitationCancelled": "Invitation cancelled!", 
+    "invitationCancelRequest": "Do tou want to cancel {{name}} invitation?",
+    "pendingEmployees": "Pending",
+    "joinedEmployees": "Joined",
+    "formerEmployees": "Former",
+    "joinedDate": "Joined",
+    "sentDate": "Sent",
+    "changePermission": "Change permission",
+    "permissionChanged": "Permission changed!",
+    "permissionRequest": "Do you want to change {{name}} permission?",
+    "noFormer": "There are no former users.",
+    "noJoined": "There are no joined users.",
+    "noPending": "There are no pending users.",
+    "historyNotErased": "User's record history won't be erased.",
+    "removedFromOrganization": "{{name}} deleted!",
+    "removeFromOrganization": "Do you want to delete {{name}}?",
+    "save": "Save",
+    "cancel": "Cancel"
 
   }
 }
