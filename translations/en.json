@@ -229,6 +229,7 @@
   "adminPanel": {
     "employees": "Employees",
     "invite": "Invite",
+    "requests": "Requests",
     "invitationCancelled": "Invitation cancelled!", 
     "invitationCancelRequest": "Do tou want to cancel {{name}} invitation?",
     "pendingEmployees": "Pending",
@@ -246,7 +247,13 @@
     "removedFromOrganization": "{{name}} deleted!",
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
-    "cancel": "Cancel"
-
+    "cancel": "Cancel",
+    "changeBlockedMessage": "You can't change this action anymore.",
+    "changeBlockedLaterMessage": "This action cannot be changed later.",
+    "sickTimeOff": "Sick time off",
+    "approveRequestQuestion": "Approve request?",
+    "requestDeclined": "Request declined.",
+    "requestApproved": "Request approved",
+    "declineRequestQuestion": "Decline request?"
   }
 }

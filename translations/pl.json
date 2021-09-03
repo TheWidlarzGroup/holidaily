@@ -229,6 +229,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
+    "requests": "Wnioski",
     "invitationCancelled": "Zaproszenie usunięte!", 
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
@@ -246,7 +247,13 @@
     "removedFromOrganization": "{{name}} usunięty/a!",
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
-    "cancel": "Anuluj"
-  
+    "cancel": "Anuluj",
+    "changeBlockedMessage": "Ta akcja nie moze być zmieniona.",
+    "changeBlockedLaterMessage": "Ta akcja nie moze być poźniej zmieniona.",
+    "sickTimeOff": "Chorobowe",
+    "approveRequestQuestion": "Zaakceptuj?",
+    "requestDeclined": "Wniosek odrzucony.",
+    "requestApproved": "Wniosek zaakceptowany.",
+    "declineRequestQuestion": "Odrzuć wniosek?"
     }
 }
