@@ -9,7 +9,7 @@ import { ModalProvider } from 'contexts/ModalProvider'
 import { CustomButton } from 'components/CustomButton'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { FilterBox } from './components/FilterBox'
+import { FilterBox } from '../../components/FilterBox'
 import { EmployeeBox } from './components/EmployeeBox'
 
 export const Employees = () => {
