@@ -5,6 +5,7 @@ export const palette = {
   orangeDark: '#E86E1F',
   specialBlue: '#5C95FF',
   grey: '#878787',
+  green: '#B4E33D',
   greyNeutral: '#B9B9B9',
   lightGrey: '#E1E1E1',
   mediumLightGrey: '#D4D4D4',
@@ -44,5 +45,6 @@ export const colors = {
   rippleColor: palette.rippleColor,
   greyDark: palette.greyDark,
   modalBackdrop: palette.mediumGrey,
+  successGreen: palette.green,
   transparent: palette.transparent,
 }
