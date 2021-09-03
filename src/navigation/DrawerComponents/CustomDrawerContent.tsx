@@ -21,8 +21,10 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
     const isHome = name === 'Home'
     const isAdminPanelEmployees =
       name === 'AdminPanelEmployeesNavigation' && user.role !== 'ADMIN' && user.role !== 'MANAGER'
+    const isAdminPanelRequests =
+      name === 'AdminPanelRequestsNavigation' && user.role !== 'ADMIN' && user.role !== 'MANAGER'
 
-    if (isHome || isAdminPanelEmployees) return false
+    if (isHome || isAdminPanelEmployees || isAdminPanelRequests) return false
     return true
   }
 

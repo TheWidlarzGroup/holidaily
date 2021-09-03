@@ -7,6 +7,7 @@ import {
   GalleryItemData,
   UserTeamsSubscriptions,
 } from 'types/holidaysDataTypes'
+import { OrganizationRequestTypes } from 'types/useOrganizationRequestsTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -78,6 +79,18 @@ export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = 
 }
 
 // for useNavigation hook
+export type AdminPanelRequestsNavigationType<RouteName extends keyof AdminPanelRequestsRoutes> =
+  CompositeNavigationProp<
+    StackNavigationProp<AdminPanelRequestsRoutes, RouteName>,
+    StackNavigationProp<AppRoutes, 'AdminPanelRequestsNavigation'>
+  >
+
+export type AdminPanelRequestsNavigationProps<RouteName extends keyof AdminPanelRequestsRoutes> = {
+  navigation: StackNavigationProp<AdminPanelRequestsRoutes, RouteName>
+  route: RouteProp<AdminPanelRequestsRoutes, RouteName>
+}
+
+// for useNavigation hook
 export type UserProfileType<RouteName extends keyof UserProfileRoutes> = CompositeNavigationProp<
   StackNavigationProp<UserProfileRoutes, RouteName>,
   StackNavigationProp<AppRoutes, 'ProfileNavigation'>
@@ -108,6 +121,7 @@ export type AppRoutes = {
   ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   ForgotPasswordNavigation: NestedNavigatorParams<ForgotPasswordRoutes>
   AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
+  AdminPanelRequestsNavigation: NestedNavigatorParams<AdminPanelRequestsRoutes>
 }
 
 export type BottomTabRoutes = {
@@ -180,4 +194,5 @@ export type AdminPanelEmployeesRoutes = {
 
 export type AdminPanelRequestsRoutes = {
   Requests: undefined
+  RequestView: { request: OrganizationRequestTypes }
 }
