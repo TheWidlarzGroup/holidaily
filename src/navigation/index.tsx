@@ -19,12 +19,16 @@ export const AppNavigation = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       if (user) return setLoginStatus('LoggedIn')
+
       const authToken = await getItemAsync('token')
+      if (authToken) {
+        authorizeClient(authToken)
+        fetchUser()
+      }
+
       const isAnotherVisit = await getItemAsync('hideSlider')
-      if (!authToken && !isAnotherVisit) return setLoginStatus('FirstVisit')
-      if (!authToken) return setLoginStatus('AnotherVisit')
-      authorizeClient(authToken)
-      fetchUser()
+      if (isAnotherVisit) return setLoginStatus('AnotherVisit')
+      return setLoginStatus('FirstVisit')
     }
     checkLoginStatus()
   }, [fetchUser, user])
