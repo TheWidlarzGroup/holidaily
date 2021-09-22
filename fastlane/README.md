@@ -1,10 +1,5 @@
-BEFORE ALL!
-
-Copy your google-service-key.json to the ./android/app/ folder and rename it to the "holidaily-fastlane.json"
-And create .env.default file in the fastlane/ folder.
-
-# fastlane documentation
-
+fastlane documentation
+================
 # Installation
 
 Make sure you have the latest version of the Xcode command line tools installed:
