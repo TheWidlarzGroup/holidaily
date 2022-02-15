@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { Box, Text } from 'utils/theme'
-import BackArrowIcon from 'assets/icons/arrow-left.svg'
+import BackArrowIcon from 'assets/icons/icon-arrow-back-big.svg'
 import { TouchableOpacity } from 'react-native'
 
 type DrawerBackArrowProps = {
@@ -12,7 +12,7 @@ type DrawerBackArrowProps = {
 export const DrawerBackArrow: FC<DrawerBackArrowProps> = ({ goBack, title = '' }) => (
   <Box flexDirection="row" alignItems="center" paddingHorizontal="xl" paddingVertical="m">
     <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-      <BackArrowIcon width={8} />
+      <BackArrowIcon />
     </TouchableOpacity>
     <Box flex={1}>
       <Text variant="boldBlackCenter20">{title}</Text>
