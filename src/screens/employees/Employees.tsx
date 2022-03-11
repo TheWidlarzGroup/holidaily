@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
@@ -25,6 +25,7 @@ export const Employees = () => {
         screen: 'Dashboard',
       },
     })
+    navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
 
   const navigateToInviteMembers = () => {
