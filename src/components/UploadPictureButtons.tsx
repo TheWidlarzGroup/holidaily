@@ -2,10 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Box, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 
-import Smartphone from 'assets/icons/icon-smartphone.svg'
 import Gallery from 'assets/icons/icon-gallery.svg'
 
-type Action = 'gallery' | 'camera'
+type Action = 'gallery'
 type UploadPictureButtonsProps = {
   onUploadImage: F1<Action>
 }
@@ -15,17 +14,7 @@ export const UploadPictureButtons = ({ onUploadImage }: UploadPictureButtonsProp
   const styles = useStyles()
 
   return (
-    <Box padding="lplus">
-      <BaseOpacity
-        onPress={() => onUploadImage('camera')}
-        activeOpacity={0.2}
-        style={styles.cameraBtn}>
-        <Smartphone />
-        <Box flexGrow={1} marginLeft="m">
-          <Text variant="boldBlack18">{t('openCamera')}</Text>
-        </Box>
-      </BaseOpacity>
-      <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
+    <Box padding="lplus" paddingTop="m">
       <BaseOpacity
         onPress={() => onUploadImage('gallery')}
         style={styles.galleryBtn}
