@@ -4,7 +4,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { useUserData } from 'hooks/useUserData'
 import { getItemAsync } from 'expo-secure-store'
 import SplashScreen from 'react-native-splash-screen'
+import { Splash } from 'screens/splash/Splash'
 import { authorizeClient } from 'graphqlActions/client'
+import { sleep } from 'utils/sleep'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -18,6 +20,8 @@ export const AppNavigation = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
+      SplashScreen.hide()
+      await sleep(3500)
       if (user) return setLoginStatus('LoggedIn')
 
       const authToken = await getItemAsync('token')
@@ -25,7 +29,6 @@ export const AppNavigation = () => {
         authorizeClient(authToken)
         fetchUser()
       }
-
       const isAnotherVisit = await getItemAsync('hideSlider')
       if (isAnotherVisit) return setLoginStatus('AnotherVisit')
       return setLoginStatus('FirstVisit')
@@ -33,13 +36,9 @@ export const AppNavigation = () => {
     checkLoginStatus()
   }, [fetchUser, user])
 
-  useEffect(() => {
-    if (loginStatus !== 'BeforeCheck') SplashScreen.hide()
-  }, [loginStatus])
-
   return (
     <NavigationContainer linking={linking}>
-      {loginStatus === 'BeforeCheck' && null}
+      {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
       {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Signup" />}
