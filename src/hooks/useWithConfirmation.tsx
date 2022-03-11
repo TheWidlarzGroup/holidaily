@@ -1,15 +1,7 @@
 import React from 'react'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'
-
-type Props = {
-  onAccept: F0
-  onDecline?: F0
-  content?: string | null
-  header?: string | null
-  acceptBtnText?: string
-  declineBtnText?: string
-}
+import { ConfirmationModalProps } from 'types/confirmationModalProps'
 
 export const useWithConfirmation = ({
   onAccept,
@@ -18,7 +10,7 @@ export const useWithConfirmation = ({
   header,
   acceptBtnText,
   declineBtnText,
-}: Props) => {
+}: Omit<ConfirmationModalProps, 'hideModal'>) => {
   const { hideModal, showModal } = useModalContext()
 
   return () =>
