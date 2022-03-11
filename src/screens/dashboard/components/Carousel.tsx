@@ -26,7 +26,7 @@ export const Carousel = () => {
           <TouchableOpacity
             key={item.id}
             activeOpacity={1}
-            onPress={() => navigate('DashboardTeamMember', { ...userItem })}>
+            onPress={() => navigate('DashboardTeamMember', userItem)}>
             <CarouselElement
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}
