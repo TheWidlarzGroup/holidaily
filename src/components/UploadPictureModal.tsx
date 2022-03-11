@@ -3,7 +3,6 @@ import { ModalProps } from 'react-native-modal'
 import {
   ImageLibraryOptions,
   launchImageLibrary,
-  launchCamera,
   ImagePickerResponse,
 } from 'react-native-image-picker'
 import { CustomModal } from 'components/CustomModal'
@@ -16,7 +15,7 @@ type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
 }
-type PhotoSelectionChoice = 'gallery' | 'camera'
+type PhotoSelectionChoice = 'gallery'
 
 export const UploadPictureModal = ({
   isVisible,
@@ -47,10 +46,6 @@ export const UploadPictureModal = ({
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
       }, 250)
-    } else {
-      setTimeout(() => {
-        launchCamera(options, (response) => onHandleResponse(response))
-      }, 250)
     }
   }
   useEffect(() => {
@@ -78,7 +73,7 @@ export const UploadPictureModal = ({
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     flex: 1,
-    height: 175,
+    height: 130,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,
