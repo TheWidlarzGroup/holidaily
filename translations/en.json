@@ -155,7 +155,7 @@
     "fieldRequired": "This field is reqiuired."
   },
   "dashboard": {
-    "welcome": "How's your team doing?",
+    "welcome": "Hello {{name}}!",
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
@@ -229,7 +229,7 @@
   "adminPanel": {
     "employees": "Employees",
     "invite": "Invite",
-    "invitationCancelled": "Invitation cancelled!", 
+    "invitationCancelled": "Invitation cancelled!",
     "invitationCancelRequest": "Do tou want to cancel {{name}} invitation?",
     "pendingEmployees": "Pending",
     "joinedEmployees": "Joined",
@@ -247,6 +247,5 @@
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
     "cancel": "Cancel"
-
   }
 }

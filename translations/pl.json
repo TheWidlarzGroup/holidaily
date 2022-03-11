@@ -155,7 +155,7 @@
     "fieldRequired": "To pole jest wymagane."
   },
   "dashboard": {
-    "welcome": "Co słychać w Twoim zespole?",
+    "welcome": "Cześć {{name}}!",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
@@ -229,7 +229,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
-    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelled": "Zaproszenie usunięte!",
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
@@ -247,6 +247,5 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  
-    }
+  }
 }
