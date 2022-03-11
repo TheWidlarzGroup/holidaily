@@ -12,6 +12,8 @@ type ConfirmationModalProps = Pick<ModalProps, 'isVisible'> & {
   onDecline: F0
   content?: string | null
   header?: string | null
+  declineLabel?: string
+  acceptLabel?: string
 }
 export const ConfirmationModal = ({
   isVisible,
@@ -20,6 +22,8 @@ export const ConfirmationModal = ({
   onDecline,
   content,
   header,
+  declineLabel,
+  acceptLabel,
 }: ConfirmationModalProps) => {
   const styles = useStyles()
   const { t } = useTranslation('confirmationModal')
@@ -50,12 +54,22 @@ export const ConfirmationModal = ({
         )}
         <Box marginBottom="xm">
           <TouchableOpacity onPress={onDecline} activeOpacity={1}>
-            <CustomButton label={t('no')} variant="secondary" width={221} height={53} />
+            <CustomButton
+              label={declineLabel ?? t('no')}
+              variant="secondary"
+              width={221}
+              height={53}
+            />
           </TouchableOpacity>
         </Box>
         <Box>
           <TouchableOpacity onPress={onAccept} activeOpacity={1}>
-            <CustomButton label={t('yes')} variant="blackBgButton" width={221} height={53} />
+            <CustomButton
+              label={acceptLabel ?? t('yes')}
+              variant="blackBgButton"
+              width={221}
+              height={53}
+            />
           </TouchableOpacity>
         </Box>
       </Box>
