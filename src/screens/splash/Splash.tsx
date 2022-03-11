@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,10 +8,10 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated'
-
-import { colors } from 'utils/theme/colors'
+import { mkUseStyles, Theme } from 'utils/theme/index'
 
 export const Splash = () => {
+  const styles = useStyles()
   const scale = useSharedValue(0)
   const rotate = useSharedValue(0)
 
@@ -40,12 +40,12 @@ export const Splash = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.mainBackground,
+    backgroundColor: theme.colors.mainBackground,
   },
   imageContainer: {
     width: '100%',
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   image: {
     width: 130,
   },
-})
+}))
