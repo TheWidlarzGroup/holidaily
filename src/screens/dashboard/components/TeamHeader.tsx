@@ -23,7 +23,7 @@ export const TeamHeader = (props: TeamHeaderProps) => {
         <IconBack />
       </TouchableOpacity>
       <Text variant="header">{title}</Text>
-      <Box paddingRight={'xl'}></Box>
+      <Box paddingRight='xl' />
     </Box>
   )
 }
