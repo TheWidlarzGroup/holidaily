@@ -14,7 +14,7 @@ export const UploadPictureButtons = ({ onUploadImage }: UploadPictureButtonsProp
   const styles = useStyles()
 
   return (
-    <Box padding="lplus" paddingTop={'m'}>
+    <Box padding="lplus" paddingTop="m">
       <BaseOpacity
         onPress={() => onUploadImage('gallery')}
         style={styles.galleryBtn}
