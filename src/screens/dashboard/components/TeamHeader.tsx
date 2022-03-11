@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import IconBack from 'assets/icons/icon-back.svg'
-import IconDots from 'assets/icons/icon-dots.svg'
 import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -24,9 +23,7 @@ export const TeamHeader = (props: TeamHeaderProps) => {
         <IconBack />
       </TouchableOpacity>
       <Text variant="header">{title}</Text>
-      <TouchableOpacity>
-        <IconDots />
-      </TouchableOpacity>
+      <Box paddingRight={'xl'}></Box>
     </Box>
   )
 }
