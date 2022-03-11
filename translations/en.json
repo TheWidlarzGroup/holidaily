@@ -156,6 +156,7 @@
   },
   "dashboard": {
     "welcome": "Hello {{name}}!",
+    "today": "Today is {{date}}",
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
