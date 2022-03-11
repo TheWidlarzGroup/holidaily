@@ -8,22 +8,17 @@ import { useUserContext } from 'hooks/useUserContext'
 import { ModalProvider } from 'contexts/ModalProvider'
 
 function ActualLogout() {
-  const { t: navigationTFunc } = useTranslation('navigation')
-  const { t: modalTFunc } = useTranslation('confirmLogoutModal')
+  const { t } = useTranslation(['confirmLogoutModal', 'navigation'])
   const { handleLogout } = useUserContext()
   const onPress = useWithConfirmation({
     onAccept: handleLogout,
-    header: modalTFunc('areYouSure'),
-    acceptBtnText: modalTFunc('yes'),
-    declineBtnText: modalTFunc('no'),
+    header: t('areYouSure'),
+    acceptBtnText: t('yes'),
+    declineBtnText: t('no'),
   })
   return (
     <Box marginBottom="xxl" alignItems="flex-start">
-      <DrawerItem
-        text={navigationTFunc('logout')}
-        icon={getDrawerIcon('Logout')}
-        onPress={onPress}
-      />
+      <DrawerItem text={t('navigation:logout')} icon={getDrawerIcon('Logout')} onPress={onPress} />
     </Box>
   )
 }
