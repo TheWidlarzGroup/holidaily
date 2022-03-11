@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerNavigationType } from 'navigation/types'
 import { Box } from 'utils/theme'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -24,6 +24,7 @@ export const Settings = () => {
         screen: 'Dashboard',
       },
     })
+    navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
 
   const { t } = useTranslation('settings')
