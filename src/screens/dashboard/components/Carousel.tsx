@@ -3,24 +3,21 @@ import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
 import { useNavigation } from '@react-navigation/native'
-import { DashboardNavigationType } from 'navigation/types'
-import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
-
-type MateElementProps = RequiredMateHolidaysData
 
 export const Carousel = () => {
   const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed()
-
-  const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
-  const navigateToMateDetails = (props: MateElementProps) =>
-    navigation.navigate('DashboardTeamMember', { ...props })
+  const { navigate } = useNavigation()
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {companyHolidaysData.map((item) => {
         const { dayEnd, dayStart, id, isOnHoliday, user } = item
+        const { firstName, lastName, occupation, photo } = user
         const userItem = {
-          ...user,
+          firstName,
+          lastName,
+          occupation,
+          photo,
           id: id.toString(),
           holidays: { id, dayEnd, dayStart, isOnHoliday },
         }
@@ -29,7 +26,7 @@ export const Carousel = () => {
           <TouchableOpacity
             key={item.id}
             activeOpacity={1}
-            onPress={() => navigateToMateDetails(userItem)}>
+            onPress={() => navigate('DashboardTeamMember', { ...userItem })}>
             <CarouselElement
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}
