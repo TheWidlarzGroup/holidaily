@@ -229,7 +229,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
-    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelled": "Zaproszenie usunięte!",
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
@@ -247,6 +247,16 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  
-    }
+  },
+  "budget": {
+    "budget": "Budżet wakacyjny",
+    "have": "Mam",
+    "took": "Wziąłem/am",
+    "sent": "Wysłałem/am",
+    "of": "Z {{number}}",
+    "left": "Zostało mi {{number}} dni niewykorzystanego urlopu",
+    "sickDays": "{{number}} dni urlopu chorobowego",
+    "requests": "{{number}} zapytań",
+    "requestsStatus": "{{accepted}} zaakceptowanych, {{pending}} oczekujących"
+  }
 }
