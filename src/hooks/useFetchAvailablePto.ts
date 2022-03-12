@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { useState } from 'react'
-import { availablePtoQuery } from 'graphqlActions/queries/ptoQuery'
+import { availablePtoQuery } from 'graphqlActions/queries/availablePtoQuery'
 import { FetchAvailablePtoQueryTypes } from 'types/useFetchAvailablePtoTypes'
 
 export const useFetchAvailablePto = () => {
