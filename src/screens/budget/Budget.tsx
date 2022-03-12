@@ -5,7 +5,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import AvailablePto from './AvailablePto'
+import AvailablePto from './components/AvailablePto'
 
 export const Budget: FC = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
