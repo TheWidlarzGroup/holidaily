@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
@@ -20,6 +20,7 @@ export const Budget: FC = () => {
         screen: 'Dashboard',
       },
     })
+    navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
 
   return (

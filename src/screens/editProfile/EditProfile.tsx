@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
@@ -25,7 +25,7 @@ type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
   const { handleUpdateUser, isSuccess, isLoading } = useUpdateUser()
-  const { navigate } = useNavigation()
+  const navigation = useNavigation()
   const { user } = useUserContext()
   const styles = useStyles()
   const { errors, control, handleSubmit } = useForm({
@@ -58,7 +58,10 @@ export const EditProfile = () => {
       <SafeAreaView style={styles.mainView}>
         <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
           <BaseOpacity
-            onPress={() => navigate('Dashboard')}
+            onPress={() => {
+              navigation.navigate('Dashboard')
+              navigation.dispatch(DrawerActions.openDrawer())
+            }}
             style={styles.backBtn}
             activeOpacity={0.5}>
             <IconBack />
