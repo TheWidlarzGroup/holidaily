@@ -158,6 +158,11 @@ export type DashboardRoutes = {
   DashboardTeamMember: RequiredMateHolidaysData
 }
 
+export type BudgetRoutes = {
+  Budget: undefined
+  PtoPolicy: undefined
+}
+
 export type UserProfileRoutes = {
   EditProfile: undefined
   ChangePassword: undefined
