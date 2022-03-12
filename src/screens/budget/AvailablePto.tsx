@@ -1,14 +1,27 @@
-import React from 'react'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
+import React, { useCallback } from 'react'
+import { BaseOpacity, Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
+import { useNavigation } from '@react-navigation/native'
 
 export default function AvailablePto() {
   const { t } = useTranslation('budget')
+  const theme = useTheme()
   const styles = useStyles()
+  const navigation = useNavigation()
+
+  const onInfoPress = useCallback(() => {
+    navigation.navigate('PtoPolicy', {
+      screen: 'BudgetNavigation',
+    })
+  }, [navigation])
+
   return (
     <>
-      <Info style={[styles.infoIcon]} />
+      <BaseOpacity style={[styles.infoPressable]} onPress={onInfoPress}>
+        <Info color={theme.colors.headerGrey} />
+      </BaseOpacity>
+
       <Text marginTop="xxm" variant="captionText" lineHeight={14}>
         {t('have')}
       </Text>
@@ -41,10 +54,9 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     height: theme.spacing.xs,
     backgroundColor: theme.colors.headerGrey,
   },
-  infoIcon: {
+  infoPressable: {
     position: 'absolute',
     right: 0,
-    color: theme.colors.headerGrey,
   },
 }))
 
