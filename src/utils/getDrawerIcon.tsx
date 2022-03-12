@@ -5,6 +5,7 @@ import EditIcon from 'assets/icons/icon-edit.svg'
 import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
 import EmployeesIcon from 'assets/icons/icon-employees.svg'
+import { theme } from './theme'
 
 export type Tab =
   | 'ProfileNavigation'
@@ -36,7 +37,7 @@ export const getDrawerIcon = (tab: Tab) => {
       return <BudgetIcon {...dimensions} />
     }
     case 'About': {
-      return <AboutIcon {...dimensions} />
+      return <AboutIcon {...dimensions} color={theme.colors.black} />
     }
     case 'Logout': {
       return <LogoutIcon {...dimensions} />
