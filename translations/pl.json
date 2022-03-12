@@ -257,6 +257,11 @@
     "left": "Zostało mi {{number}} dni niewykorzystanego urlopu",
     "sickDays": "{{number}} dni urlopu chorobowego",
     "requests": "{{number}} zapytań",
-    "requestsStatus": "{{accepted}} zaakceptowanych, {{pending}} oczekujących"
+    "requestsStatus": "{{accepted}} zaakceptowanych, {{pending}} oczekujących",
+    "policyHeader": "Polityka dni urlopowych",
+    "policyOne": "Liczba dni urlopu zależy od indywidualnych ustaleń, ale zwykle jest to <b>21 jeden dni<b/> rocznie",
+    "policyTwo": "Liczba zwiększa się po przepracowaniu <b>pełnego miesiąca.</b> ",
+    "policyTwoExample": "Jeśli zacząłeś/aś pracę 1 sierpnia 2021, to 2 września 2021 będzie ci przysługiwać 1,75 dni wolnego, 2 października 2021 będzie to 3,5 dnia itd.",
+    "policyThree": "O 1-2 dni urlopu powinieneś zapytać na <b>2 tygodnie</b> przed, a dłuższe wakacje (3 lub więcej dni) planować <b>z dwumiesięcznym wyprzedzeniem.</b>"
   }
 }
