@@ -13,10 +13,12 @@ export const DashboardHeader: FC = () => {
   const { t } = useTranslation('dashboard')
   const navigation = useNavigation()
   const { user } = useUserContext()
-  const date = [
-    formatDate(new Date(), 'dayNumeralLongMonthNoYear', getCurrentLocale()),
-    `(${getDayName(new Date())})`,
-  ].join(' ')
+  const date = `${formatDate(
+    new Date(),
+    'dayNumeralLongMonthNoYear',
+    getCurrentLocale()
+  )} (${getDayName(new Date())})`
+
   return (
     <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
