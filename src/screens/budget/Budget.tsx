@@ -49,7 +49,7 @@ export const Budget = () => {
             <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
               {t('requests', { number: '7' })}
             </Text>
-            <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+            <Text marginVertical="xxm" variant="captionText" lineHeight={14}>
               {t('requestsStatus', { accepted: '6', pending: '1' })}
             </Text>
           </Box>
