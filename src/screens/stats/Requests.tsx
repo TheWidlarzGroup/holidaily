@@ -9,7 +9,7 @@ import { SectionHeader } from './components/SectionHeader'
 
 export const Requests = () => {
   const { requests } = useUserRequests()
-  const { t } = useTranslation('score')
+  const { t } = useTranslation('stats')
   const handleSearch = () => {
     console.log('handleSearch')
   }

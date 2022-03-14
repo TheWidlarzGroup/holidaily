@@ -199,7 +199,10 @@
   },
   "stats": {
     "day": "day",
-    "days": "days"
+    "days": "days",
+    "acceptedRequestsHeader": "ACCEPTED",
+    "pendingRequestsHeader": "PENDING",
+    "pastRequestsHeader": "PAST"
   },
   "messageInput": {
     "placeholder": "Write your message...",
@@ -247,10 +250,5 @@
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
     "cancel": "Cancel"
-  },
-  "score": {
-    "acceptedRequestsHeader": "ACCEPTED",
-    "pendingRequestsHeader": "PENDING",
-    "pastRequestsHeader": "PAST"
   }
 }

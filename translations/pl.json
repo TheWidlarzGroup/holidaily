@@ -199,7 +199,10 @@
   },
   "stats": {
     "day": "dzień",
-    "days": "dni"
+    "days": "dni",
+    "acceptedRequestsHeader": "ZATWIERDZONE",
+    "pendingRequestsHeader": "OCZEKUJĄCE",
+    "pastRequestsHeader": "WYKORZYSTANE"
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
@@ -247,10 +250,5 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  },
-  "score": {
-    "acceptedRequestsHeader": "ZATWIERDZONE",
-    "pendingRequestsHeader": "OCZEKUJĄCE",
-    "pastRequestsHeader": "WYKORZYSTANE"
   }
 }
