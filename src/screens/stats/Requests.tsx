@@ -1,5 +1,5 @@
 import { useUserRequests } from 'hooks/useUserRequests'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, TouchableOpacity } from 'react-native'
 
@@ -17,20 +17,20 @@ export const Requests = () => {
     console.log('handleFilter')
   }
 
-  const pendingRequests = requests.filter((req) => req.status === 'PENDING')
-  const approvedRequests = requests.filter((req) => req.status === 'APPROVED')
-  const pastRequests = requests.filter((req) => req.status === 'PAST')
-  const currentRequests = requests.filter((req) => req.status === 'NOW')
+  const { pendingRequests, approvedRequests, pastRequests } = useMemo(
+    () => ({
+      pendingRequests: requests.filter((req) => req.status === 'PENDING'),
+      approvedRequests: requests.filter((req) => req.status === 'APPROVED'),
+      pastRequests: requests.filter((req) => req.status === 'PAST'),
+    }),
+    [requests]
+  )
 
   return (
     <Box marginTop="xxl" flex={1}>
       <SectionHeader text="Requests" onSearch={handleSearch} onFilter={handleFilter} />
       <SectionList
         sections={[
-          {
-            title: 'NOW',
-            data: currentRequests,
-          },
           {
             title: t('pendingRequestsHeader'),
             data: pendingRequests,
