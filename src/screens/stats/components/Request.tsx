@@ -7,14 +7,14 @@ import { Box, Text, Theme, useTheme } from 'utils/theme'
 import SpinnerIcon from 'assets/icons/icon-spinner.svg'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
+import { RequestTypes } from 'types/useUserRequestsTypes'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
-import { StatusTypes } from './Status'
 
 type RequestProps = {
   item: {
     description: string
     range: string[]
-    status: StatusTypes
+    status: RequestTypes['status']
     sickTime?: boolean
     message?: string
   }
@@ -77,7 +77,7 @@ export const Request = ({
   )
 }
 
-const StatusIcon = ({ status }: { status: StatusTypes }) => {
+const StatusIcon = ({ status }: { status: RequestTypes['status'] }) => {
   const [statusColor, setStatusColor] = useState<keyof Theme['colors']>('primary')
   const theme = useTheme()
   useEffect(() => {
@@ -93,7 +93,7 @@ const StatusIcon = ({ status }: { status: StatusTypes }) => {
   )
 }
 
-const getIcon = (status: StatusTypes) => {
+const getIcon = (status: RequestTypes['status']) => {
   switch (status) {
     case 'APPROVED':
       return CheckIcon
