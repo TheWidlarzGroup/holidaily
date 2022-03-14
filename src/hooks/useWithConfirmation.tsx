@@ -6,10 +6,7 @@ import { ConfirmationModalProps } from 'types/confirmationModalProps'
 export const useWithConfirmation = ({
   onAccept,
   onDecline,
-  content,
-  header,
-  acceptBtnText,
-  declineBtnText,
+  ...p
 }: Omit<ConfirmationModalProps, 'hideModal' | 'onDecline'> & { onDecline?: F0 }) => {
   const { hideModal, showModal } = useModalContext()
 
@@ -26,10 +23,7 @@ export const useWithConfirmation = ({
           hideModal()
           onDecline?.()
         }}
-        header={header}
-        content={content}
-        declineBtnText={declineBtnText}
-        acceptBtnText={acceptBtnText}
+       { ...p } 
       />
     )
 }
