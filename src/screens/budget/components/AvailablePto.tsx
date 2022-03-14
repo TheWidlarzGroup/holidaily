@@ -3,7 +3,7 @@ import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
 
-export const AvailablePto = () => {
+export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   const { t } = useTranslation('budget')
   const theme = useTheme()
   const styles = useStyles()
@@ -14,14 +14,14 @@ export const AvailablePto = () => {
         {t('have')}
       </Text>
       <Text marginVertical="xxm" variant="bold24" color="tertiary">
-        {t('left', { number: '14' })}
+        {t('left', { number: availablePto })}
       </Text>
       <Text marginBottom="xm" variant="lightGreyRegular">
         {t('of', { number: String(PTO_LIMIT) })}
       </Text>
       <Box
         style={[styles.progressTranslation]}
-        width={`${(14 / PTO_LIMIT) * 100}%`}
+        width={`${(availablePto / PTO_LIMIT) * 100}%`}
         height={theme.spacing.xs}
         backgroundColor="tertiary"
         zIndex="2"

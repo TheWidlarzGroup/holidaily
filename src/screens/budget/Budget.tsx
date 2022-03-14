@@ -14,7 +14,7 @@ export const Budget = () => {
   const { t } = useTranslation('budget')
   const styles = useStyles()
 
-  const { isLoading } = useFetchAvailablePto()
+  const { isLoading, availablePto } = useFetchAvailablePto()
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
@@ -31,7 +31,7 @@ export const Budget = () => {
       <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
       <Box paddingHorizontal="m" paddingTop="xxl">
         <Box style={[styles.section]} marginBottom="l2plus">
-          <AvailablePto />
+          <AvailablePto availablePto={availablePto} />
         </Box>
         <Box flexDirection="row">
           <Box style={styles.section} flex={1} marginRight="m">
