@@ -3,9 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import { getFormattedPeriod, getNumberOfWorkingDaysBetween } from 'utils/dates'
 
-import { Box, Text } from 'utils/theme'
+import { Box, Text, Theme, useTheme } from 'utils/theme'
+import SpinnerIcon from 'assets/icons/icon-spinner.svg'
+import CheckIcon from 'assets/icons/icon-check.svg'
+import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
-import { Status, StatusTypes } from './Status'
+import { StatusTypes } from './Status'
 
 type RequestProps = {
   item: {
@@ -41,27 +44,64 @@ export const Request = ({
       marginTop="s"
       backgroundColor="white"
       borderRadius="lmin"
-      paddingHorizontal="m"
-      paddingVertical="xm"
       flexDirection="row"
       justifyContent="space-between"
       borderWidth={status === 'NOW' ? 2 : 0}
-      borderColor="tertiary">
+      borderColor="tertiary"
+      overflow="hidden">
       <Box>
-        <Text variant="bold16" marginBottom="s">
-          {description}
-        </Text>
-        <Text variant="captionText">
-          {getFormattedPeriod(range[0], range[range.length - 1], 'long')}
-        </Text>
-        <Text variant="captionText" color="headerGrey">
-          {daysBetween} {daysBetween > 1 ? t('days') : t('day')}
-        </Text>
+        <Box flexDirection="row">
+          <StatusIcon status={status} />
+          <Box paddingHorizontal="m" paddingVertical="xm">
+            <Text variant="bold16" marginBottom="s">
+              {description}
+            </Text>
+            <Text variant="captionText">
+              {getFormattedPeriod(range[0], range[range.length - 1], 'long')}
+            </Text>
+            <Text variant="captionText" color="headerGrey">
+              {daysBetween} {daysBetween > 1 ? t('days') : t('day')}
+            </Text>
+          </Box>
+        </Box>
       </Box>
-      <Box alignItems="flex-end" justifyContent="space-between">
-        <Status status={status} />
+      <Box
+        alignSelf="flex-end"
+        alignItems="flex-end"
+        justifyContent="space-between"
+        paddingHorizontal="m"
+        paddingVertical="xm">
         <AdditionalsIcons additionals={additionals} />
       </Box>
     </Box>
   )
+}
+
+const StatusIcon = ({ status }: { status: StatusTypes }) => {
+  const [statusColor, setStatusColor] = useState<keyof Theme['colors']>('primary')
+  const theme = useTheme()
+  useEffect(() => {
+    if (status === 'APPROVED') setStatusColor('approvedGreen')
+    if (status === 'PENDING') setStatusColor('primary')
+    if (status === 'PAST') setStatusColor('headerGrey')
+  }, [status])
+  const Icon = getIcon(status)
+  return (
+    <Box width={50} backgroundColor={statusColor} justifyContent="center" alignItems="center">
+      {Icon && <Icon color={theme.colors.white} />}
+    </Box>
+  )
+}
+
+const getIcon = (status: StatusTypes) => {
+  switch (status) {
+    case 'APPROVED':
+      return CheckIcon
+    case 'PENDING':
+      return SpinnerIcon
+    case 'PAST':
+      return ClockIcon
+    default:
+      return null
+  }
 }
