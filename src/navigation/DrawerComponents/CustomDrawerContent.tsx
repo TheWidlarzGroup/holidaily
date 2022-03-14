@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
-import { getDrawerIcon, Tab } from 'utils/getDrawerIcon'
+import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
@@ -39,7 +39,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
             ({ name, key }) =>
               isHidden(name as keyof DrawerRoutes) && (
                 <DrawerItem
-                  icon={getDrawerIcon(name as Tab)}
+                  icon={DrawerIcon(name as Tab)}
                   text={props.descriptors[key].options.title}
                   onPress={() => {
                     props.navigation.navigate(name)
@@ -50,7 +50,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
           )}
         </Box>
         <Box marginBottom="xxl" alignItems="flex-start">
-          <DrawerItem text={t('logout')} icon={getDrawerIcon('Logout')} onPress={handleLogout} />
+          <DrawerItem text={t('logout')} icon={DrawerIcon('Logout')} onPress={handleLogout} />
         </Box>
       </Animated.View>
     </SafeAreaWrapper>

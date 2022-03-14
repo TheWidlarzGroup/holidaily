@@ -1,13 +1,13 @@
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import AvailablePto from './components/AvailablePto'
+import { AvailablePto } from './components/AvailablePto'
 
-export const Budget: FC = () => {
+export const Budget = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
   const { t } = useTranslation('budget')
   const styles = useStyles()

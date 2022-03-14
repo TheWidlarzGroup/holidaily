@@ -1,10 +1,11 @@
 import React from 'react'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
+import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
 
-export default function AvailablePto() {
+export const AvailablePto = () => {
   const { t } = useTranslation('budget')
+  const theme = useTheme()
   const styles = useStyles()
   return (
     <>
@@ -18,28 +19,24 @@ export default function AvailablePto() {
       <Text marginBottom="xm" variant="lightGreyRegular">
         {t('of', { number: String(PTO_LIMIT) })}
       </Text>
-      <Box style={[styles.progress]} />
-      <Box style={[styles.progressBar]} />
+      <Box
+        style={[styles.progressTranslation]}
+        width={`${(14 / PTO_LIMIT) * 100}%`}
+        height={theme.spacing.xs}
+        backgroundColor="tertiary"
+        zIndex="2"
+      />
+      <Box width="100%" height={theme.spacing.xs} backgroundColor="headerGrey" />
     </>
   )
 }
 const useStyles = mkUseStyles((theme: Theme) => ({
-  progress: {
-    width: `${(14 / PTO_LIMIT) * 100}%`,
-    borderRadius: theme.borderRadii.s,
-    height: theme.spacing.xs,
-    backgroundColor: theme.colors.tertiary,
-    zIndex: theme.zIndices['2'],
+  progressTranslation: {
     transform: [
       {
         translateY: 4,
       },
     ],
-  },
-  progressBar: {
-    width: '100%',
-    height: theme.spacing.xs,
-    backgroundColor: theme.colors.headerGrey,
   },
   infoIcon: {
     position: 'absolute',
