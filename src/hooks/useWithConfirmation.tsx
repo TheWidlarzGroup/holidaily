@@ -23,7 +23,7 @@ export const useWithConfirmation = ({
           hideModal()
           onDecline?.()
         }}
-       { ...p } 
+        {...p}
       />
     )
 }
