@@ -229,7 +229,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
-    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelled": "Zaproszenie usunięte!",
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
@@ -247,6 +247,10 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  
-    }
+  },
+  "score": {
+    "acceptedRequestsHeader": "ZATWIERDZONE",
+    "pendingRequestsHeader": "OCZEKUJĄCE",
+    "pastRequestsHeader": "WYKORZYSTANE"
+  }
 }
