@@ -21,7 +21,7 @@ const Icon = ({ name }: { name: Additional }) => {
 }
 
 export const AdditionalsIcons = ({ additionals }: { additionals?: Additional[] }) => (
-  <Box flexDirection="row">
+  <Box flexDirection="row" alignItems="flex-end">
     {additionals?.map((item) => (
       <Icon name={item} key={item} />
     ))}
