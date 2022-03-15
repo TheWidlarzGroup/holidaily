@@ -1,34 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Theme, useTheme } from 'utils/theme'
+import React from 'react'
+import { Box, useTheme } from 'utils/theme'
 import SpinnerIcon from 'assets/icons/icon-spinner.svg'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
-import { RequestTypes } from 'types/useUserRequestsTypes'
+import CrossIcon from 'assets/icons/icon-close.svg'
+import { RequestStatus } from 'types/useUserRequestsTypes'
 
-export const StatusIcon = ({ status }: { status: RequestTypes['status'] }) => {
-  const [statusColor, setStatusColor] = useState<keyof Theme['colors']>('primary')
+export const StatusIcon = ({ status }: { status: RequestStatus }) => {
   const theme = useTheme()
-  useEffect(() => {
-    if (status === 'APPROVED') setStatusColor('approvedGreen')
-    if (status === 'PENDING') setStatusColor('primary')
-    if (status === 'PAST') setStatusColor('headerGrey')
-  }, [status])
-  const Icon = getIcon(status)
-  return (
-    <Box width={50} backgroundColor={statusColor} justifyContent="center" alignItems="center">
-      {Icon && <Icon color={theme.colors.white} />}
-    </Box>
-  )
-}
 
-const getIcon = (status: RequestTypes['status']) => {
+  const commonIconProps = {
+    width: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+
   switch (status) {
     case 'APPROVED':
-      return CheckIcon
+      return (
+        <Box backgroundColor="approvedGreen" {...commonIconProps}>
+          <CheckIcon color={theme.colors.white} />
+        </Box>
+      )
     case 'PENDING':
-      return SpinnerIcon
+      return (
+        <Box backgroundColor="primary" {...commonIconProps}>
+          <SpinnerIcon color={theme.colors.white} />
+        </Box>
+      )
+
     case 'PAST':
-      return ClockIcon
+      return (
+        <Box backgroundColor="headerGrey" {...commonIconProps}>
+          <ClockIcon color={theme.colors.white} />
+        </Box>
+      )
+
+    case 'CANCELLED':
+      return (
+        <Box backgroundColor="errorRed" {...commonIconProps}>
+          <CrossIcon color={theme.colors.white} />
+        </Box>
+      )
+
     default:
       return null
   }

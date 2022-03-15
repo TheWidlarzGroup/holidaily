@@ -2,7 +2,6 @@ import { useUserRequests } from 'hooks/useUserRequests'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, TouchableOpacity } from 'react-native'
-
 import { Box, Text } from 'utils/theme'
 import { Request } from './components/Request'
 import { SectionHeader } from './components/SectionHeader'
@@ -17,18 +16,19 @@ export const Requests = () => {
     console.log('handleFilter')
   }
 
-  const { pendingRequests, approvedRequests, pastRequests } = useMemo(
+  const { pendingRequests, approvedRequests, pastRequests, declinedRequests } = useMemo(
     () => ({
       pendingRequests: requests.filter((req) => req.status === 'PENDING'),
       approvedRequests: requests.filter((req) => req.status === 'APPROVED'),
       pastRequests: requests.filter((req) => req.status === 'PAST'),
+      declinedRequests: requests.filter((req) => req.status === 'CANCELLED'),
     }),
     [requests]
   )
 
   return (
     <Box marginTop="xxl" flex={1}>
-      <SectionHeader text="Requests" onSearch={handleSearch} onFilter={handleFilter} />
+      <SectionHeader text={t('requests')} onSearch={handleSearch} onFilter={handleFilter} />
       <SectionList
         sections={[
           {
@@ -42,6 +42,10 @@ export const Requests = () => {
           {
             title: t('pastRequestsHeader'),
             data: pastRequests,
+          },
+          {
+            title: t('declinedRequestsHeader'),
+            data: declinedRequests,
           },
         ]}
         keyExtractor={({ id }) => id}
