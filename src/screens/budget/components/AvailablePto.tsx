@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { BaseOpacity, Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
 import { useNavigation } from '@react-navigation/native'
