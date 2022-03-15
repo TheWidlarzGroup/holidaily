@@ -2,13 +2,13 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Trans, useTranslation } from 'react-i18next'
 
-export default function PolicySection({
+export const PolicySection = ({
   textKey,
   subtitleKey,
 }: {
   textKey: string
   subtitleKey?: string
-}) {
+}) => {
   const { t } = useTranslation('budget')
   return (
     <Box marginVertical="m">
