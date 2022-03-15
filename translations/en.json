@@ -205,7 +205,12 @@
   },
   "stats": {
     "day": "day",
-    "days": "days"
+    "days": "days",
+    "requests": "Requests",
+    "acceptedRequestsHeader": "ACCEPTED",
+    "pendingRequestsHeader": "PENDING",
+    "pastRequestsHeader": "PAST",
+    "declinedRequestsHeader": "DECLINED"
   },
   "messageInput": {
     "placeholder": "Write your message...",

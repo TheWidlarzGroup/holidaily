@@ -205,7 +205,12 @@
   },
   "stats": {
     "day": "dzień",
-    "days": "dni"
+    "days": "dni",
+    "requests": "ŻĄDANIA URLOPU",
+    "acceptedRequestsHeader": "ZATWIERDZONE",
+    "pendingRequestsHeader": "OCZEKUJĄCE",
+    "pastRequestsHeader": "WYKORZYSTANE",
+    "declinedRequestsHeader": "ODRZUCONE"
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
