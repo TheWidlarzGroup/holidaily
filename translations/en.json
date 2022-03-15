@@ -200,9 +200,11 @@
   "stats": {
     "day": "day",
     "days": "days",
+    "requests": "Requests",
     "acceptedRequestsHeader": "ACCEPTED",
     "pendingRequestsHeader": "PENDING",
-    "pastRequestsHeader": "PAST"
+    "pastRequestsHeader": "PAST",
+    "declinedRequestsHeader": "DECLINED"
   },
   "messageInput": {
     "placeholder": "Write your message...",
