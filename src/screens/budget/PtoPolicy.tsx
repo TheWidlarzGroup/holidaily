@@ -17,6 +17,8 @@ import Policies from './Policies'
 
 const Background = require('assets/policy_modal_background.png')
 
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 export const PtoPolicy = () => {
   const { height } = useDimensions()
   const { goBack } = useNavigation()
@@ -66,7 +68,13 @@ export const PtoPolicy = () => {
             closeModal()
           } else translateY.value = withTiming(0)
         }}>
-        <Animated.View style={[styles.container, animatedTranslation]}>
+        <AnimatedBox
+          flex={1}
+          borderTopLeftRadius="m"
+          borderTopRightRadius="m"
+          backgroundColor="white"
+          overflow="hidden"
+          style={[animatedTranslation]}>
           <Box flexDirection="row" alignItems="center" paddingHorizontal="s">
             <BaseOpacity onPress={closeModal}>
               <CloseIcon width={50} height={50} />
@@ -77,7 +85,7 @@ export const PtoPolicy = () => {
           </Box>
           <Policies />
           <FastImage style={[styles.background]} source={Background} />
-        </Animated.View>
+        </AnimatedBox>
       </PanGestureHandler>
     </SafeAreaView>
   )
@@ -86,13 +94,6 @@ export const PtoPolicy = () => {
 const useStyles = mkUseStyles((theme: Theme) => ({
   safeArea: {
     flex: 1,
-  },
-  container: {
-    flex: 1,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    backgroundColor: theme.colors.white,
-    overflow: 'hidden',
   },
   background: {
     flex: 1,
