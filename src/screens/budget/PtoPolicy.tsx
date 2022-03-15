@@ -5,7 +5,7 @@ import { Box, Text, mkUseStyles, BaseOpacity, Theme } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import PolicySection from './components/PolicySection'
+import { PolicySection } from './components/PolicySection'
 
 const Background = require('assets/policy_modal_background.png')
 
