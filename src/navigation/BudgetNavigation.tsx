@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import { Budget } from 'screens/budget/Budget'
 import { PtoPolicy } from 'screens/budget/PtoPolicy'
 import { BudgetRoutes } from './types'

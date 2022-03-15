@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import { Box, Text, mkUseStyles, BaseOpacity, Theme } from 'utils/theme'
@@ -22,11 +22,11 @@ export const PtoPolicy = () => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('budget')
   const styles = useStyles()
-  const swipeValue = useSharedValue(height)
+  const translateY = useSharedValue(height)
   const isCloseTriggered = useRef(false)
   useEffect(() => {
-    swipeValue.value = withTiming(0)
-  }, [swipeValue])
+    translateY.value = withTiming(0)
+  }, [translateY])
 
   const gestureHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
@@ -36,23 +36,23 @@ export const PtoPolicy = () => {
     }
   >({
     onStart: (_, ctx) => {
-      ctx.offsetY = swipeValue.value
+      ctx.offsetY = translateY.value
     },
     onActive: (event, ctx) => {
-      if (ctx.offsetY + event.translationY < 0) swipeValue.value = 0
-      else swipeValue.value = ctx.offsetY + event.translationY
+      if (ctx.offsetY + event.translationY < 0) translateY.value = 0
+      else translateY.value = ctx.offsetY + event.translationY
     },
   })
 
   const animatedTranslation = useAnimatedStyle(() => ({
-    transform: [{ translateY: swipeValue.value }],
+    transform: [{ translateY: translateY.value }],
   }))
 
   const closeModal = () => {
     // closeModal is fired twice on BaseOpacity press
     if (!isCloseTriggered.current) {
       isCloseTriggered.current = true
-      swipeValue.value = withTiming(height)
+      translateY.value = withTiming(height)
       goBack()
     }
   }
@@ -62,9 +62,9 @@ export const PtoPolicy = () => {
       <PanGestureHandler
         onGestureEvent={gestureHandler}
         onEnded={() => {
-          if (swipeValue.value > 140) {
+          if (translateY.value > 140) {
             closeModal()
-          } else swipeValue.value = withTiming(0)
+          } else translateY.value = withTiming(0)
         }}>
         <Animated.View style={[styles.container, animatedTranslation]}>
           <Box flexDirection="row" alignItems="center" paddingHorizontal="s">
