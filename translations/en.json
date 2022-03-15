@@ -184,7 +184,10 @@
     "backAtWork": "Back at work",
     "lastDayAtWork": "Last day at work",
     "sickLeave": "Sick time off",
-    "coupleDaysOff": "A couple days off"
+    "coupleDaysOff": "A couple days off",
+    "hello": "Hello",
+    "todayIs": "Today is",
+    "day": "2nd April (Friday)"
   },
   "feed": {
     "postCommentBtn": "Comment",

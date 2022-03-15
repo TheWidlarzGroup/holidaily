@@ -184,7 +184,10 @@
     "backAtWork": "Powrót",
     "lastDayAtWork": "Ostatni dzień w pracy",
     "SickLeave": "Chorobowe",
-    "coupleDaysOff": "Kilka dni wolnego"
+    "coupleDaysOff": "Kilka dni wolnego",
+    "hello": "Cześć",
+    "todayIs": "Dziś jest",
+    "day": "2 Kwietnia (Piątek)"
   },
   "feed": {
     "postCommentBtn": "Skomentuj",

@@ -2,17 +2,23 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
-import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
+import { useUserContext } from 'hooks/useUserContext'
 
-export const TeamsModal = () => {
+type Params = { route: { params: { firstName: string } } }
+
+export const TeamsModal = ({ route }: Params) => {
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   const { t } = useTranslation('welcome')
-  const navigation = useNavigation()
+
+  const { updateUser } = useUserContext()
+  const { firstName } = route.params
+
+  const handleOnSubmit = () => updateUser({ firstName })
 
   return (
     <SafeAreaWrapper isDefaultBgColor isDarkBgColor>
@@ -31,11 +37,7 @@ export const TeamsModal = () => {
           marginTop="xs"
           marginBottom="l">
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('DashboardNavigation', {
-                screen: 'Dashboard',
-              })
-            }
+            onPress={handleOnSubmit}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
             <IconClose height={15} width={15} />
           </TouchableOpacity>
@@ -57,11 +59,7 @@ export const TeamsModal = () => {
           </Box>
         </Box>
         <Box maxWidth={250} alignSelf="center" marginBottom="l">
-          <CustomButton
-            variant="primary"
-            label={t('thanksButton')}
-            onPress={() => navigation.navigate('DashboardNavigation')}
-          />
+          <CustomButton variant="primary" label={t('thanksButton')} onPress={handleOnSubmit} />
         </Box>
       </Box>
     </SafeAreaWrapper>

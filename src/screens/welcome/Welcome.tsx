@@ -7,7 +7,6 @@ import { minOneWordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
-import { useUserContext } from 'hooks/useUserContext'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 
@@ -17,11 +16,9 @@ export const Welcome = () => {
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
   const { navigate } = useNavigation()
-  const { updateUser } = useUserContext()
 
   const onSubmit = (data: { firstName: string }) => {
-    updateUser({ firstName: data.firstName })
-    navigate('TeamsModal')
+    navigate('TeamsModal', { firstName: data.firstName })
   }
 
   return (
@@ -63,7 +60,6 @@ export const Welcome = () => {
             variant="primary"
             label={t('seeDemoButton')}
             onPress={handleSubmit(onSubmit)}
-            // loading={isLoading}
             disabled={!(nameInput?.length > 1)}
           />
         </Box>
