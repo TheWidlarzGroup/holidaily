@@ -134,6 +134,11 @@
     "no": "No",
     "changesSaved": "Changes saved"
   },
+  "confirmLogoutModal": {
+    "areYouSure": "Log out?",
+    "yes": "Log out",
+    "no": "Cancel"
+  },
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
@@ -175,7 +180,8 @@
     "fieldRequired": "This field is reqiuired."
   },
   "dashboard": {
-    "welcome": "How's your team doing?",
+    "welcome": "Hello {{name}}!",
+    "today": "Today is {{date}}",
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
@@ -184,10 +190,7 @@
     "backAtWork": "Back at work",
     "lastDayAtWork": "Last day at work",
     "sickLeave": "Sick time off",
-    "coupleDaysOff": "A couple days off",
-    "hello": "Hello",
-    "todayIs": "Today is",
-    "day": "2nd April (Friday)"
+    "coupleDaysOff": "A couple days off"
   },
   "feed": {
     "postCommentBtn": "Comment",
@@ -222,7 +225,12 @@
   },
   "stats": {
     "day": "day",
-    "days": "days"
+    "days": "days",
+    "requests": "Requests",
+    "acceptedRequestsHeader": "ACCEPTED",
+    "pendingRequestsHeader": "PENDING",
+    "pastRequestsHeader": "PAST",
+    "declinedRequestsHeader": "DECLINED"
   },
   "messageInput": {
     "placeholder": "Write your message...",
@@ -270,5 +278,16 @@
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "budget": {
+    "budget": "Holiday budget",
+    "have": "I have",
+    "took": "I took",
+    "sent": "I sent",
+    "of": "Out of {{number}}",
+    "left": "{{number}} Days of PTO left",
+    "sickDays": "{{number}} sick days off",
+    "requests": "{{number}} requests",
+    "requestsStatus": "{{accepted}} accepted, {{pending}} pending"
   }
 }

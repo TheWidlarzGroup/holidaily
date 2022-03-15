@@ -162,6 +162,10 @@ export const textVariants = {
     fontSize: 20,
     lineHeight: 27,
   },
+  bold24: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 24,
+  },
   regular15: {
     fontFamily: 'Nunito-Regular',
     fontSize: 15,
