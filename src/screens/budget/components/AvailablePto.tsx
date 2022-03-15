@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
 import { useNavigation } from '@react-navigation/native'
 
-export default function AvailablePto() {
+export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   const { t } = useTranslation('budget')
   const theme = useTheme()
   const styles = useStyles()
@@ -26,33 +26,29 @@ export default function AvailablePto() {
         {t('have')}
       </Text>
       <Text marginVertical="xxm" variant="bold24" color="tertiary">
-        {t('left', { number: '14' })}
+        {t('left', { number: availablePto })}
       </Text>
       <Text marginBottom="xm" variant="lightGreyRegular">
         {t('of', { number: String(PTO_LIMIT) })}
       </Text>
-      <Box style={[styles.progress]} />
-      <Box style={[styles.progressBar]} />
+      <Box
+        style={[styles.progressTranslation]}
+        width={`${(availablePto / PTO_LIMIT) * 100}%`}
+        height={theme.spacing.xs}
+        backgroundColor="tertiary"
+        zIndex="2"
+      />
+      <Box width="100%" height={theme.spacing.xs} backgroundColor="headerGrey" />
     </>
   )
 }
-const useStyles = mkUseStyles((theme: Theme) => ({
-  progress: {
-    width: `${(14 / PTO_LIMIT) * 100}%`,
-    borderRadius: theme.borderRadii.s,
-    height: theme.spacing.xs,
-    backgroundColor: theme.colors.tertiary,
-    zIndex: theme.zIndices['2'],
+const useStyles = mkUseStyles(() => ({
+  progressTranslation: {
     transform: [
       {
         translateY: 4,
       },
     ],
-  },
-  progressBar: {
-    width: '100%',
-    height: theme.spacing.xs,
-    backgroundColor: theme.colors.headerGrey,
   },
   infoPressable: {
     position: 'absolute',
