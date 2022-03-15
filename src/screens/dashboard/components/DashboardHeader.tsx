@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import IconProfile from 'assets/icons/icon-profile.svg'
-import IconBell from 'assets/icons/icon-bell.svg'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
+import { NotificationsBell } from './NotificationsBell'
 
 export const DashboardHeader: FC = () => {
   const { t } = useTranslation('dashboard')
@@ -26,9 +26,7 @@ export const DashboardHeader: FC = () => {
           {t('welcome')}
         </Text>
       </Box>
-      <BaseOpacity padding="m">
-        <IconBell />
-      </BaseOpacity>
+      <NotificationsBell unseenCount={2} />
     </Box>
   )
 }
