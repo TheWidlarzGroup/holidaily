@@ -16,7 +16,7 @@ export default function PolicySection({
         <Trans
           ns="budget"
           i18nKey={textKey}
-          components={{ b: <Text variant={'bold16'} lineHeight={20} /> }}
+          components={{ b: <Text variant="bold16" lineHeight={20} /> }}
         />
       </Text>
       {!!subtitleKey && (
