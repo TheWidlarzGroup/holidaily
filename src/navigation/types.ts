@@ -154,6 +154,7 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
+  DashboardNotifications: undefined
   DashboardTeam: ValidationOfGroupDayOff
   DashboardTeamMember: RequiredMateHolidaysData
 }
