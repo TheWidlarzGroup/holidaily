@@ -2,49 +2,37 @@ import React from 'react'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
-import IconBack from 'assets/icons/icon-back2.svg'
 import { TouchableOpacity } from 'react-native'
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import FastImage from 'react-native-fast-image'
 
-type Params = { route: { params: { isFromWelcomeScreen?: true } } }
-
-export const About = ({ route }: Params) => {
-  const isFromWelcomeScreen = route?.params
-  const navigation = useNavigation()
+export const WelcomeAbout = () => {
   const { t } = useTranslation('welcome')
   const styles = useStyles()
   const manImgSrc = require('assets/Splash_screen.png')
   const waveImgSrc = require('assets/Wave.png')
 
-  const handleGoBack = () => {
-    navigation.goBack()
-    if (!isFromWelcomeScreen) {
-      navigation.dispatch(DrawerActions.openDrawer())
-    }
-  }
+  const { goBack } = useNavigation()
 
-  const welcomeScreenStyles = isFromWelcomeScreen
-    ? { marginTop: 'm', borderTopLeftRadius: 'l', borderTopRightRadius: 'l' }
-    : null
   return (
-    <SafeAreaWrapper isDefaultBgColor isDarkBgColor={!!isFromWelcomeScreen}>
-      <Box backgroundColor="white" paddingTop="m" flexGrow={1} {...welcomeScreenStyles}>
+    <SafeAreaWrapper isDefaultBgColor>
+      <Box
+        marginTop="m"
+        paddingTop="m"
+        backgroundColor="white"
+        flexGrow={1}
+        borderTopLeftRadius="l"
+        borderTopRightRadius="l">
         <Box
           justifyContent="space-between"
           alignItems="center"
           flexDirection="row"
           paddingBottom="xxl"
+          paddingTop="s"
           paddingHorizontal="m">
-          <TouchableOpacity
-            onPress={handleGoBack}
-            hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-            {isFromWelcomeScreen ? (
-              <IconClose height={15} width={15} />
-            ) : (
-              <IconBack height={18} width={18} />
-            )}
+          <TouchableOpacity onPress={goBack}>
+            <IconClose height={15} width={15} />
           </TouchableOpacity>
           <Box>
             <Text variant="boldBlackCenter20">{t('about')}</Text>

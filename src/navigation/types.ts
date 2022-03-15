@@ -129,6 +129,8 @@ export type DrawerRoutes = {
 
 export type AuthRoutes = {
   Slider: undefined
+  Welcome: undefined
+  About: undefined
   Login: undefined
   Signup: undefined
   SignupEmail: undefined

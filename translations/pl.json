@@ -64,6 +64,19 @@
     "loginForgotPassword": "Zapomniałes hasła?",
     "loginButton": "Zaloguj się"
   },
+  "welcome": {
+    "welcomeTitle": "Miło cię widzieć!",
+    "welcomeSubtitle": "Przejdź przez demo i poznaj lepiej Holidaily.",
+    "yourName": "Twoje imię",
+    "whyAskForName": "Pytamy cię o imię ponieważ bla bla bla",
+    "seeDemoButton": "Zobacz demo",
+    "about": "O aplikacji",
+    "appDescritption1": "Holiday to aplikacja do rezerwacji urlopów zarówno dla pracodawców, jak i pracowników.",
+    "appDescritption2": "Ułatwia przepływ informacji o harmonogramach urlopów w firmie, dzięki czemu proces jest znacznie szybszy i łatwiejszy dla wszystkich pracowników!",
+    "firstNameErrMsg": "Dodaj swoje imię",
+    "companyName": "Jesteś teraz członkiem:",
+    "yourTeams": "Twoje zespoły"
+  },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
     "signupWithCodeTitle": "Miło Cię poznać!",
@@ -229,7 +242,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
-    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelled": "Zaproszenie usunięte!",
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
@@ -247,6 +260,5 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  
-    }
+  }
 }

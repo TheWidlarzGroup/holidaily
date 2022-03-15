@@ -48,8 +48,8 @@ export const Slider: FC = () => {
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
 
-  const navigateToSignup = () => {
-    navigation.navigate('Signup')
+  const navigateToWelcomeScreen = () => {
+    navigation.navigate('Welcome')
   }
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -58,14 +58,14 @@ export const Slider: FC = () => {
     },
     onEndDrag: () => {
       if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-        runOnJS(navigateToSignup)()
+        runOnJS(navigateToWelcomeScreen)()
       }
     },
   })
 
   const handlePressButton = () => {
     if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-      navigateToSignup()
+      navigateToWelcomeScreen()
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }

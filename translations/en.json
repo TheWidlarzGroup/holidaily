@@ -64,6 +64,19 @@
     "loginForgotPassword": "Forgot your password?",
     "loginButton": "Log in"
   },
+  "welcome": {
+    "welcomeTitle": "Nice to meet you!",
+    "welcomeSubtitle": "Take a demo tour and get to know Holidaily better.",
+    "yourName": "Your name",
+    "whyAskForName": "We ask for your name because bla bla bla",
+    "seeDemoButton": "See demo",
+    "about": "About",
+    "appDescritption1": "Holidaily is an app for booking time off for both employers and employees.",
+    "appDescritption2": "It simplifies the information flow about vacation schedules within the company, making the process a lot quicker and easier for everyone!",
+    "firstNameErrMsg": "Please enter your name",
+    "companyName": "You’re now a member of:",
+    "yourTeams": "Your teams"
+  },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
     "signupWithCodeTitle": "Nice to meet you!",
@@ -229,7 +242,7 @@
   "adminPanel": {
     "employees": "Employees",
     "invite": "Invite",
-    "invitationCancelled": "Invitation cancelled!", 
+    "invitationCancelled": "Invitation cancelled!",
     "invitationCancelRequest": "Do tou want to cancel {{name}} invitation?",
     "pendingEmployees": "Pending",
     "joinedEmployees": "Joined",
@@ -247,6 +260,5 @@
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
     "cancel": "Cancel"
-
   }
 }
