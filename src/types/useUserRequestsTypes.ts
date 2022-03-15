@@ -1,4 +1,4 @@
-import { StatusTypes } from 'screens/stats/components/Status'
+export type RequestStatus = 'CANCELLED' | 'APPROVED' | 'PENDING' | 'PAST'
 
 export type RequestTypes = {
   description: string
@@ -6,7 +6,7 @@ export type RequestTypes = {
   message: string
   range: string[]
   sickTime: boolean
-  status: StatusTypes
+  status: RequestStatus
 }
 export type RequestsQueryTypes = {
   requests: RequestTypes[]

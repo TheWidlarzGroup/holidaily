@@ -114,6 +114,11 @@
     "no": "No",
     "changesSaved": "Changes saved"
   },
+  "confirmLogoutModal": {
+    "areYouSure": "Log out?",
+    "yes": "Log out",
+    "no": "Cancel"
+  },
   "inputErrors": {
     "requiredField": "This field is required",
     "passwordMatch": "Password must match"
@@ -155,7 +160,8 @@
     "fieldRequired": "This field is reqiuired."
   },
   "dashboard": {
-    "welcome": "How's your team doing?",
+    "welcome": "Hello {{name}}!",
+    "today": "Today is {{date}}",
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
@@ -199,7 +205,12 @@
   },
   "stats": {
     "day": "day",
-    "days": "days"
+    "days": "days",
+    "requests": "Requests",
+    "acceptedRequestsHeader": "ACCEPTED",
+    "pendingRequestsHeader": "PENDING",
+    "pastRequestsHeader": "PAST",
+    "declinedRequestsHeader": "DECLINED"
   },
   "messageInput": {
     "placeholder": "Write your message...",
@@ -254,5 +265,16 @@
     "like": "<b>{{author}}</b> liked your <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> commented your <b>Holifeed</b> post",
     "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"
+  },
+  "budget": {
+    "budget": "Holiday budget",
+    "have": "I have",
+    "took": "I took",
+    "sent": "I sent",
+    "of": "Out of {{number}}",
+    "left": "{{number}} Days of PTO left",
+    "sickDays": "{{number}} sick days off",
+    "requests": "{{number}} requests",
+    "requestsStatus": "{{accepted}} accepted, {{pending}} pending"
   }
 }

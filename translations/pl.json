@@ -114,6 +114,11 @@
     "no": "Nie",
     "changesSaved": "Zmiany zapisane!"
   },
+  "confirmLogoutModal": {
+    "areYouSure": "Chcesz się wylogować?",
+    "yes": "Wyloguj",
+    "no": "Anuluj"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
@@ -155,7 +160,8 @@
     "fieldRequired": "To pole jest wymagane."
   },
   "dashboard": {
-    "welcome": "Co słychać w Twoim zespole?",
+    "welcome": "Cześć {{name}}!",
+    "today": "Dziś mamy {{date}}",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
@@ -199,7 +205,12 @@
   },
   "stats": {
     "day": "dzień",
-    "days": "dni"
+    "days": "dni",
+    "requests": "ŻĄDANIA URLOPU",
+    "acceptedRequestsHeader": "ZATWIERDZONE",
+    "pendingRequestsHeader": "OCZEKUJĄCE",
+    "pastRequestsHeader": "WYKORZYSTANE",
+    "declinedRequestsHeader": "ODRZUCONE"
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
@@ -254,5 +265,16 @@
     "like": "<b>{{author}}</b> polubił twój <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> skomentował twój <b>Holifeed</b> post",
     "dayOff": "<b>{{author}}</b> <b>ma jutro wolne</b> i wraca <b>{{endDate}}</b>"
+  },
+  "budget": {
+    "budget": "Budżet wakacyjny",
+    "have": "Mam",
+    "took": "Wziąłem/am",
+    "sent": "Wysłałem/am",
+    "of": "Z {{number}}",
+    "left": "Zostało mi {{number}} dni niewykorzystanego urlopu",
+    "sickDays": "{{number}} dni urlopu chorobowego",
+    "requests": "{{number}} zapytań",
+    "requestsStatus": "{{accepted}} zaakceptowanych, {{pending}} oczekujących"
   }
 }

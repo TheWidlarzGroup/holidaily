@@ -3,12 +3,21 @@ import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
+import { useUserContext } from 'hooks/useUserContext'
+import { getDayName } from 'utils/dates'
+import { formatDate } from 'utils/formatDate'
+import { getCurrentLocale } from 'utils/locale'
 import { NotificationsBell } from './NotificationsBell'
 
 export const DashboardHeader: FC = () => {
   const { t } = useTranslation('dashboard')
-
   const navigation = useNavigation()
+  const { user } = useUserContext()
+  const date = `${formatDate(
+    new Date(),
+    'dayNumeralLongMonthNoYear',
+    getCurrentLocale()
+  )} (${getDayName(new Date())})`
 
   return (
     <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
@@ -22,9 +31,14 @@ export const DashboardHeader: FC = () => {
           borderBottomRightRadius="lplus">
           <IconProfile width={50} height={50} />
         </BaseOpacity>
-        <Text variant="boldBlack18" paddingLeft="xm">
-          {t('welcome')}
-        </Text>
+        <Box alignItems="center" flex={1}>
+          <Text variant="boldBlack18">{t('welcome', { name: user?.firstName })}</Text>
+          <Text variant="lightGreyRegular" lineHeight={14}>
+            {t('today', {
+              date,
+            })}
+          </Text>
+        </Box>
       </Box>
       <NotificationsBell unseenCount={2} />
     </Box>
