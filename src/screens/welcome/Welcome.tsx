@@ -6,6 +6,8 @@ import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
 import { minOneWordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
+import { useNavigation } from '@react-navigation/native'
+import { useUserContext } from 'hooks/useUserContext'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 
@@ -14,6 +16,13 @@ export const Welcome = () => {
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
+  const { navigate } = useNavigation()
+  const { updateUser } = useUserContext()
+
+  const onSubmit = (data: { firstName: string }) => {
+    updateUser({ firstName: data.firstName })
+    navigate('TeamsModal')
+  }
 
   return (
     <SafeAreaWrapper>
@@ -22,10 +31,10 @@ export const Welcome = () => {
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>
-        <Box justifyContent="center" marginTop="m">
-          <Text variant="body1">{t('welcomeSubtitle')}</Text>
+        <Box justifyContent="center" marginTop="s">
+          <Text variant="body1Bold">{t('welcomeSubtitle')}</Text>
         </Box>
-        <Box marginTop="m">
+        <Box marginTop="xl">
           <FormInput
             control={control}
             isError={!!errors.firstName}
@@ -53,9 +62,9 @@ export const Welcome = () => {
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}
-            // onPress={handleSubmit(handleSignup)}
+            onPress={handleSubmit(onSubmit)}
             // loading={isLoading}
-            disabled={!!nameInput}
+            disabled={!(nameInput?.length > 1)}
           />
         </Box>
       </Box>

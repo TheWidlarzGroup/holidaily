@@ -15,6 +15,7 @@ export const About = ({ route }: Params) => {
   const navigation = useNavigation()
   const { t } = useTranslation('welcome')
   const styles = useStyles()
+
   const manImgSrc = require('assets/Splash_screen.png')
   const waveImgSrc = require('assets/Wave.png')
 
@@ -53,11 +54,19 @@ export const About = ({ route }: Params) => {
         </Box>
         <Box justifyContent="space-between" flex={1}>
           <Box paddingHorizontal="m" paddingBottom="xxxl">
-            <Text variant="body1" textAlign="left">
-              {t('appDescritption1')}
+            <Text textAlign="left">
+              <Text variant="body1Bold" color="primary">
+                {t('aboutDesc1Part1')}
+              </Text>
+              <Text variant="body1">{t('aboutDesc1Part2')}</Text>
+              <Text variant="body1Bold">{t('aboutDesc1Part3')}</Text>
+              <Text variant="body1">{t('aboutDesc1Part4')}</Text>
+              <Text variant="body1Bold">{t('aboutDesc1Part5')}</Text>
             </Text>
-            <Text variant="body1" textAlign="left" marginTop="m">
-              {t('appDescritption2')}
+            <Text textAlign="left" marginTop="l">
+              <Text variant="body1Bold">{t('aboutDesc2Part1')}</Text>
+              <Text variant="body1">{t('aboutDesc2Part2')}</Text>
+              <Text variant="body1Bold">{t('aboutDesc2Part3')}</Text>
             </Text>
           </Box>
           <Box flex={1} alignItems="center" justifyContent="center">

@@ -131,6 +131,7 @@ export type AuthRoutes = {
   Slider: undefined
   Welcome: undefined
   About: undefined
+  TeamsModal: undefined
   Login: undefined
   Signup: undefined
   SignupEmail: undefined
