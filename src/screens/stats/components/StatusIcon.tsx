@@ -22,7 +22,6 @@ export const StatusIcon = ({ status }: { status: RequestStatus }) => {
           <SpinnerIcon color={theme.colors.white} />
         </Box>
       )
-
     case 'PAST':
       return (
         <Box backgroundColor="headerGrey" {...commonIconProps}>
