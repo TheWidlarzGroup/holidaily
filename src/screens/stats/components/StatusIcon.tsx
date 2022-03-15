@@ -28,14 +28,12 @@ export const StatusIcon = ({ status }: { status: RequestStatus }) => {
           <ClockIcon color={theme.colors.white} />
         </Box>
       )
-
     case 'CANCELLED':
       return (
         <Box backgroundColor="errorRed" {...commonIconProps}>
           <CrossIcon color={theme.colors.white} />
         </Box>
       )
-
     default:
       return null
   }
