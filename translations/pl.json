@@ -229,7 +229,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
-    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelled": "Zaproszenie usunięte!",
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
@@ -247,6 +247,12 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  
-    }
+  },
+  "notifications": {
+    "header": "Powiadomienia",
+    "markAllAsSeen": "Oznacz wszystkie jako przeczytane",
+    "like": "<b>{{author}}</b> polubił twój <b>Holifeed</b> post",
+    "comment": "<b>{{author}}</b> skomentował twój <b>Holifeed</b> post",
+    "dayOff": "<b>{{author}}</b> <b>ma jutro wolne</b> i wraca <b>{{endDate}}</b>"
+  }
 }
