@@ -4,7 +4,7 @@ import { useTranslation, Trans } from 'react-i18next'
 
 export default function Policies() {
   const styles = useStyles()
-  const { t } = useTranslation()
+  const { t } = useTranslation('budget')
   return (
     <Box style={[styles.policiesContainer]}>
       <Box style={[styles.policySection]}>
