@@ -9,12 +9,6 @@ import { RequestStatus } from 'types/useUserRequestsTypes'
 export const StatusIcon = ({ status }: { status: RequestStatus }) => {
   const theme = useTheme()
 
-  const commonIconProps = {
-    width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-
   switch (status) {
     case 'APPROVED':
       return (
@@ -46,4 +40,9 @@ export const StatusIcon = ({ status }: { status: RequestStatus }) => {
     default:
       return null
   }
+}
+const commonIconProps = {
+  width: 50,
+  justifyContent: 'center',
+  alignItems: 'center',
 }
