@@ -4,17 +4,9 @@ import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
 import { CustomModal } from 'components/CustomModal'
 import { theme, mkUseStyles, Theme, Text, Box } from 'utils/theme'
+import { ConfirmationModalProps } from 'types/confirmationModalProps'
 import { CustomButton } from './CustomButton'
 
-type ConfirmationModalProps = Pick<ModalProps, 'isVisible'> & {
-  hideModal: F0
-  onAccept: F0
-  onDecline: F0
-  content?: string | null
-  header?: string | null
-  declineBtnText?: string
-  acceptBtnText?: string
-}
 export const ConfirmationModal = ({
   isVisible,
   hideModal,
@@ -24,7 +16,7 @@ export const ConfirmationModal = ({
   header,
   declineBtnText,
   acceptBtnText,
-}: ConfirmationModalProps) => {
+}: ConfirmationModalProps & Pick<ModalProps, 'isVisible'>) => {
   const styles = useStyles()
   const { t } = useTranslation('confirmationModal')
 
