@@ -114,6 +114,11 @@
     "no": "Nie",
     "changesSaved": "Zmiany zapisane!"
   },
+  "confirmLogoutModal": {
+    "areYouSure": "Chcesz się wylogować?",
+    "yes": "Wyloguj",
+    "no": "Anuluj"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
@@ -155,7 +160,8 @@
     "fieldRequired": "To pole jest wymagane."
   },
   "dashboard": {
-    "welcome": "Co słychać w Twoim zespole?",
+    "welcome": "Cześć {{name}}!",
+    "today": "Dziś mamy {{date}}",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
@@ -252,5 +258,16 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
+  },
+  "budget": {
+    "budget": "Budżet wakacyjny",
+    "have": "Mam",
+    "took": "Wziąłem/am",
+    "sent": "Wysłałem/am",
+    "of": "Z {{number}}",
+    "left": "Zostało mi {{number}} dni niewykorzystanego urlopu",
+    "sickDays": "{{number}} dni urlopu chorobowego",
+    "requests": "{{number}} zapytań",
+    "requestsStatus": "{{accepted}} zaakceptowanych, {{pending}} oczekujących"
   }
 }
