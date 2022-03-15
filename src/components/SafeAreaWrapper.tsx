@@ -9,6 +9,7 @@ type EdgesTypes = 'top' | 'bottom' | 'left' | 'right'
 
 type WrapperProps = {
   isDefaultBgColor?: boolean
+  isDarkBgColor?: boolean
   isTabNavigation?: boolean
   edges?: EdgesTypes[]
 }
@@ -17,12 +18,14 @@ export const SafeAreaWrapper: FC<WrapperProps> = ({
   isTabNavigation,
   edges,
   children,
+  isDarkBgColor,
 }) => (
   <SafeAreaView
     edges={edges || ['top', 'right', 'bottom', 'left']}
     style={[
       styles.container,
       !isDefaultBgColor && styles.containerBackground,
+      isDarkBgColor && styles.darkContainerBackground,
       isTabNavigation && { paddingBottom: theme.spacing.xxxl },
     ]}>
     {children}
@@ -35,5 +38,8 @@ const styles = StyleSheet.create({
   },
   containerBackground: {
     backgroundColor: colors.white,
+  },
+  darkContainerBackground: {
+    backgroundColor: colors.grey,
   },
 })

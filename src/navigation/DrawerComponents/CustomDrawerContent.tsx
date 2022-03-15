@@ -1,19 +1,17 @@
 import React from 'react'
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import Animated from 'react-native-reanimated'
-import { useTranslation } from 'react-i18next'
-
 import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
-import { getDrawerIcon, Tab } from 'utils/getDrawerIcon'
+import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
 import { DrawerRoutes } from 'navigation/types'
+import { Logout } from './Logout'
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
-  const { t } = useTranslation('navigation')
-  const { user, handleLogout } = useUserContext()
+  const { user } = useUserContext()
 
   if (!user) return null
 
@@ -39,7 +37,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
             ({ name, key }) =>
               isHidden(name as keyof DrawerRoutes) && (
                 <DrawerItem
-                  icon={getDrawerIcon(name as Tab)}
+                  icon={DrawerIcon(name as Tab)}
                   text={props.descriptors[key].options.title}
                   onPress={() => {
                     props.navigation.navigate(name)
@@ -49,9 +47,8 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
               )
           )}
         </Box>
-        <Box marginBottom="xxl" alignItems="flex-start">
-          <DrawerItem text={t('logout')} icon={getDrawerIcon('Logout')} onPress={handleLogout} />
-        </Box>
+
+        <Logout />
       </Animated.View>
     </SafeAreaWrapper>
   )
