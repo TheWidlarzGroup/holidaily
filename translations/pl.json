@@ -160,7 +160,8 @@
     "fieldRequired": "To pole jest wymagane."
   },
   "dashboard": {
-    "welcome": "Co słychać w Twoim zespole?",
+    "welcome": "Cześć {{name}}!",
+    "today": "Dziś mamy {{date}}",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
