@@ -5,11 +5,13 @@ export const themeBase = createTheme({
   spacing: {
     xs: 4,
     s: 8,
+    xxm: 10,
     xm: 12,
     m: 16,
     ml: 20,
     l: 24,
     lplus: 30,
+    l2plus: 36,
     xl: 40,
     xxl: 50,
     xxxl: 75,

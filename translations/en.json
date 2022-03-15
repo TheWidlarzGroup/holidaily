@@ -253,5 +253,16 @@
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "budget": {
+    "budget": "Holiday budget",
+    "have": "I have",
+    "took": "I took",
+    "sent": "I sent",
+    "of": "Out of {{number}}",
+    "left": "{{number}} Days of PTO left",
+    "sickDays": "{{number}} sick days off",
+    "requests": "{{number}} requests",
+    "requestsStatus": "{{accepted}} accepted, {{pending}} pending"
   }
 }

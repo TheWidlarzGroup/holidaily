@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'utils/theme'
-import { getDrawerIcon } from 'utils/getDrawerIcon'
+import { DrawerIcon } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { useTranslation } from 'react-i18next'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
@@ -18,7 +18,7 @@ function ActualLogout() {
   })
   return (
     <Box marginBottom="xxl" alignItems="flex-start">
-      <DrawerItem text={t('navigation:logout')} icon={getDrawerIcon('Logout')} onPress={onPress} />
+      <DrawerItem text={t('navigation:logout')} icon={DrawerIcon('Logout')} onPress={onPress} />
     </Box>
   )
 }

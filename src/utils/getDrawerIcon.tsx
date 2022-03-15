@@ -5,6 +5,7 @@ import EditIcon from 'assets/icons/icon-edit.svg'
 import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
 import EmployeesIcon from 'assets/icons/icon-employees.svg'
+import { useTheme } from './theme'
 
 export type Tab =
   | 'ProfileNavigation'
@@ -24,7 +25,8 @@ const smallDimensions = {
   marginHorizontal: 10,
 }
 
-export const getDrawerIcon = (tab: Tab) => {
+export const DrawerIcon = (tab: Tab) => {
+  const theme = useTheme()
   switch (tab) {
     case 'ProfileNavigation': {
       return <EditIcon {...dimensions} />
@@ -36,7 +38,7 @@ export const getDrawerIcon = (tab: Tab) => {
       return <BudgetIcon {...dimensions} />
     }
     case 'About': {
-      return <AboutIcon {...dimensions} />
+      return <AboutIcon {...dimensions} color={theme.colors.black} />
     }
     case 'Logout': {
       return <LogoutIcon {...dimensions} />
