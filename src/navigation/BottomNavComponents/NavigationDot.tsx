@@ -12,10 +12,24 @@ import Animated, {
 type NavigationDotProps = {
   width: number
   activeTabIndex: number
+  isSmallScreen: boolean
+  windowWidth: number
 }
 
-export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex }) => {
-  const startingPos = (width - 5) / 2
+export const NavigationDot: FC<NavigationDotProps> = ({
+  width,
+  activeTabIndex,
+  isSmallScreen,
+  windowWidth,
+}) => {
+  let tabWidth = width
+  const minPlusIconWidth = 80
+
+  if (isSmallScreen) {
+    tabWidth = (windowWidth - minPlusIconWidth) / 4
+  }
+
+  const startingPos = (tabWidth - 5) / 2
   const dotWidth = useSharedValue(5)
   const dotHeight = useSharedValue(5)
   const translateX = useSharedValue(startingPos)
@@ -31,10 +45,19 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex })
   }))
 
   useEffect(() => {
-    translateX.value = withTiming(startingPos + activeTabIndex * width, { duration: 600 })
+    if (activeTabIndex > 2 && isSmallScreen) {
+      translateX.value = withTiming(
+        startingPos + minPlusIconWidth + (activeTabIndex - 1) * tabWidth,
+        {
+          duration: 600,
+        }
+      )
+    } else {
+      translateX.value = withTiming(startingPos + activeTabIndex * tabWidth, { duration: 600 })
+    }
 
     dotWidth.value = withSequence(
-      withTiming(width, { duration: 300 }),
+      withTiming(tabWidth, { duration: 300 }),
       withTiming(5, { duration: 300 })
     )
 
