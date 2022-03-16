@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useModalContext } from 'contexts/ModalProvider'
-import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
+import { BaseOpacity, Box, Text, mkUseStyles, Theme, useTheme } from 'utils/theme'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 import IconAdd from 'assets/icons/icon-add.svg'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
@@ -14,6 +14,7 @@ export const TeamSubscriptions = () => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
+  const theme = useTheme()
   const { navigate } = useNavigation()
   const { userTeams, setUserTeams } = useUserDetailsContext()
   const [teams, setTeams] = useState<TeamsType[]>([])
@@ -65,7 +66,7 @@ export const TeamSubscriptions = () => {
         width={44}
         borderRadius="full"
         backgroundColor="lightGrey">
-        <IconAdd />
+        <IconAdd color={theme.colors.headerGrey} />
       </BaseOpacity>
       <Box flexDirection="row" marginRight="xl" flexWrap="wrap">
         {teams.map(({ teamName, id }) => (

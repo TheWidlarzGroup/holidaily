@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Box, BaseOpacity } from 'utils/theme'
+import { Text, Box, BaseOpacity, useTheme } from 'utils/theme'
 
-import EditIcon from 'assets/icons/icon-edit-black.svg'
+import EditIcon from 'assets/icons/icon-edit.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
 
 type EditPictureModalButtonsProps = {
@@ -15,7 +15,7 @@ export const EditPictureModalButtons = ({
   onDeleteImage,
 }: EditPictureModalButtonsProps) => {
   const { t } = useTranslation('uploadPictureModal')
-
+  const theme = useTheme()
   return (
     <Box padding="lplus">
       <BaseOpacity
@@ -24,7 +24,7 @@ export const EditPictureModalButtons = ({
         flexDirection="row"
         alignItems="center"
         justifyContent="flex-start">
-        <EditIcon />
+        <EditIcon color={theme.colors.black} />
         <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('changePicture')}</Text>
         </Box>
