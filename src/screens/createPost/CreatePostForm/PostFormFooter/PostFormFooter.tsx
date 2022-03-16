@@ -12,6 +12,9 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker'
 import { FooterButton } from './FooterButton'
+import { useKeyboard } from 'hooks/useKeyboard'
+import { useState } from 'react'
+import { useMemo } from 'react'
 
 type PostFooterProps = {
   onLocationPress: F0
@@ -27,7 +30,12 @@ export const PostFooter = ({
   disabledCTA,
 }: PostFooterProps) => {
   const { t } = useTranslation('createPost')
-
+  const [, keyboardEvent] = useKeyboard()
+  const [submitBtnHeight, setSubmitBtnHeight] = useState(0)
+  const keyboardOffset = useMemo(() => {
+    if (keyboardEvent && keyboardEvent !== true) return keyboardEvent.endCoordinates.height
+    return 0
+  }, [keyboardEvent])
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
       if (res.didCancel) return console.log('cancelled')
@@ -67,19 +75,19 @@ export const PostFooter = ({
   }
 
   return (
-    <Box
-      bg="disabled"
-      borderTopLeftRadius="l"
-      borderTopRightRadius="l"
-      position="relative"
-      left={0}
-      right={0}
-      bottom={0}>
+    <>
       <Box
+        backgroundColor="disabled"
+        borderTopLeftRadius="l"
+        borderTopRightRadius="l"
         flexDirection="row"
         justifyContent="space-evenly"
         alignItems="center"
-        paddingVertical="m">
+        paddingVertical="m"
+        style={{
+          marginBottom:
+            keyboardOffset - submitBtnHeight > 0 ? keyboardOffset - submitBtnHeight / 2 : 0,
+        }}>
         <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
           <IconCamera />
         </FooterButton>
@@ -91,6 +99,10 @@ export const PostFooter = ({
         </FooterButton>
       </Box>
       <Box
+        onLayout={({ nativeEvent: e }) => {
+          setSubmitBtnHeight(e.layout.height)
+        }}
+        backgroundColor="disabled"
         justifyContent="center"
         alignItems="stretch"
         paddingTop="xs"
@@ -105,6 +117,6 @@ export const PostFooter = ({
           <Text variant="buttonText1">{t('sendPost')}</Text>
         </BaseOpacity>
       </Box>
-    </Box>
+    </>
   )
 }
