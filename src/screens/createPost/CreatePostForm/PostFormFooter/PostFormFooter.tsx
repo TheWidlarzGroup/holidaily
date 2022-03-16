@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 
@@ -11,10 +11,8 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker'
-import { FooterButton } from './FooterButton'
 import { useKeyboard } from 'hooks/useKeyboard'
-import { useState } from 'react'
-import { useMemo } from 'react'
+import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
   onLocationPress: F0
