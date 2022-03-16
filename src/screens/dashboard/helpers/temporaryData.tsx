@@ -82,7 +82,7 @@ export const COMPANY_DAYS_OFF = [
 export const USER_GROUPS_DAYS_OFF = [
   {
     groupId: 1,
-    groupName: 'Akademia',
+    groupName: 'Smartsoft',
     users: [
       {
         id: 'user6',
@@ -223,7 +223,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 2,
-    groupName: 'SmartSoft',
+    groupName: 'FileCode',
     users: [
       {
         id: 'user2',
@@ -274,7 +274,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 3,
-    groupName: 'Devs',
+    groupName: 'Softlab',
     users: [
       {
         id: 'user2',
@@ -325,7 +325,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 4,
-    groupName: 'Company',
+    groupName: 'Open Byte',
     users: [
       {
         id: 'user2',
@@ -376,7 +376,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 5,
-    groupName: 'aaaaa',
+    groupName: 'Spaceware',
     users: [
       {
         id: 'user2',
@@ -415,7 +415,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 6,
-    groupName: 'sssss',
+    groupName: 'Webrain',
     users: [
       {
         id: 'user2',
@@ -443,7 +443,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 7,
-    groupName: 'ddddddd',
+    groupName: 'Pharmic',
     users: [
       {
         id: 'user2',
@@ -471,7 +471,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 8,
-    groupName: 'ffffffff',
+    groupName: 'NMedical',
     users: [
       {
         id: 'user2',
@@ -499,7 +499,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 9,
-    groupName: 'xxxxxxx',
+    groupName: 'Encrypto',
     users: [
       {
         id: 'user2',
@@ -527,7 +527,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 10,
-    groupName: 'zzzzzz',
+    groupName: 'Akademia',
     users: [
       {
         id: 'user2',

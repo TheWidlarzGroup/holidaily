@@ -14,6 +14,8 @@ import Animated, {
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Policies from './Policies'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { PolicySection } from './components/PolicySection'
 
 const Background = require('assets/policy_modal_background.png')
 
@@ -83,7 +85,11 @@ export const PtoPolicy = () => {
               <Text variant="boldBlackCenter20">{t('policyHeader')}</Text>
             </Box>
           </Box>
-          <Policies />
+          <PolicySection textKey="policyOne" />
+
+          <PolicySection textKey="policyTwo" subtitleKey="policyTwoExample" />
+
+          <PolicySection textKey="policyThree" />
           <FastImage style={[styles.background]} source={Background} />
         </AnimatedBox>
       </PanGestureHandler>

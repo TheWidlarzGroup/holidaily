@@ -6,6 +6,9 @@ import { SignupEmail } from 'screens/signupEmail/SignupEmail'
 import { ConfirmedAccount } from 'screens/confirmedAccount/ConfirmedAccount'
 import { Signup } from 'screens/signup/Signup'
 import { SignupWithCode } from 'screens/signupWithCode/SignupWithCode'
+import { Welcome } from 'screens/welcome/Welcome'
+import { About } from 'screens/about/About'
+import { TeamsModal } from 'screens/welcome/components/TeamsModal'
 import { AuthRoutes } from './types'
 import { ForgotPasswordNavigation } from './ForgotPasswordNavigation'
 
@@ -18,6 +21,9 @@ type AuthStackNavigationProps = {
 export const AuthStackNavigation = ({ initialRoute = 'Slider' }: AuthStackNavigationProps) => (
   <AppStack.Navigator headerMode="none" initialRouteName={initialRoute}>
     <AppStack.Screen name="Slider" component={Slider} />
+    <AppStack.Screen name="Welcome" component={Welcome} />
+    <AppStack.Screen name="About" component={About} />
+    <AppStack.Screen name="TeamsModal" component={TeamsModal} />
     <AppStack.Screen name="Login" component={Login} />
     <AppStack.Screen name="Signup" component={Signup} />
     <AppStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
