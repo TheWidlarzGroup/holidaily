@@ -39,8 +39,8 @@ export const PtoPolicy = () => {
       ctx.offsetY = translateY.value
     },
     onActive: (event, ctx) => {
-      if (ctx.offsetY + event.translationY < 0) translateY.value = 0
-      else translateY.value = ctx.offsetY + event.translationY
+      if (ctx.offsetY + event.translationY < 0) return
+      translateY.value = ctx.offsetY + event.translationY
     },
   })
 
