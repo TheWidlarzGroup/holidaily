@@ -13,18 +13,17 @@ type TabsHandlerProps = {
     name: string
   }[]
   tabWidth: number
-  isSmallScreen: boolean
   activeTabIndex: number
+  minPlusIconWidth: number
 }
 
 export const TabsHandler: FC<TabsHandlerProps> = ({
   tabs,
   tabWidth,
   activeTabIndex,
-  isSmallScreen,
+  minPlusIconWidth,
 }) => {
   const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
-  const minPlusIconWidth = 80
 
   return (
     <Box flexDirection="row" flex={1}>
@@ -42,7 +41,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
               key="logo"
               width={tabWidth}
               backgroundColor="transparent"
-              minWidth={isSmallScreen ? minPlusIconWidth : undefined}>
+              minWidth={minPlusIconWidth}>
               <AddButton onPress={onPress} />
             </Box>
           )
@@ -53,7 +52,6 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
             {...{ key }}
             height={45}
             width={tabWidth}
-            flex={isSmallScreen ? 1 : undefined}
             marginTop="lplus"
             alignItems="center"
             flexDirection="column"

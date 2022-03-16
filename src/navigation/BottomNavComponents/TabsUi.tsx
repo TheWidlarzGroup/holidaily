@@ -14,19 +14,25 @@ type TabsUiProps = {
 const { width: windowWidth } = Dimensions.get('window')
 
 export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
-  const tabWidth = useMemo(() => windowWidth / tabs.length, [tabs.length])
   const isSmallScreen = windowWidth < 400
+  const minPlusIconWidth = 80
+  const tabWidth = useMemo(() => {
+    if (isSmallScreen) {
+      return (windowWidth - minPlusIconWidth) / (tabs.length - 1)
+    }
+    return windowWidth / tabs.length
+  }, [isSmallScreen, tabs.length])
 
   return (
     <Box>
       <Box width={windowWidth} position="absolute" bottom={-5} backgroundColor="transparent">
         <Box>
-          <TabsHandler {...{ tabs, tabWidth, isSmallScreen }} activeTabIndex={state.index} />
+          <TabsHandler {...{ tabs, tabWidth, minPlusIconWidth }} activeTabIndex={state.index} />
           <NavigationDot
             width={tabWidth}
             activeTabIndex={state.index}
             isSmallScreen={isSmallScreen}
-            windowWidth={windowWidth}
+            minPlusIconWidth={minPlusIconWidth}
           />
         </Box>
       </Box>
