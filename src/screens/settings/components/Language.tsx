@@ -85,7 +85,10 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
             <TouchableOpacity
               key={language}
               style={styles.lng}
-              onPress={() => changeLanguage(language as SupportedLanguageKeys)}>
+              onPress={() => {
+                changeLanguage(language as SupportedLanguageKeys)
+                changeOpened()
+              }}>
               <Text variant="body1" marginVertical="s" textAlign="left">
                 {t(language)}
               </Text>
