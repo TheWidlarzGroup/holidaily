@@ -11,6 +11,35 @@ import { NotificationsList } from './components/NotificationsList'
 
 const photo = require('assets/User_Picture_Placeholder.png')
 
+export const Notifications = () => {
+  const { goBack } = useNavigation()
+  const { t } = useTranslation('notifications')
+  return (
+    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
+      <Box
+        paddingVertical="lplus"
+        backgroundColor="disabledText"
+        borderBottomRightRadius="lmin"
+        borderBottomLeftRadius="lmin"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between">
+        <TouchableOpacity onPress={goBack}>
+          <IconBack />
+        </TouchableOpacity>
+        <Text variant="header">{t('header')}</Text>
+        <Box paddingRight="xl" />
+      </Box>
+      <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm">
+        <Text variant="bold15" color="greyDark">
+          {t('markAllAsSeen')}
+        </Text>
+        <NotificationsList data={notifications} />
+      </Box>
+    </SafeAreaWrapper>
+  )
+}
+
 const notifications: Notification[] = [
   {
     id: '0',
@@ -50,32 +79,3 @@ const notifications: Notification[] = [
     },
   },
 ]
-
-export const Notifications = () => {
-  const { goBack } = useNavigation()
-  const { t } = useTranslation('notifications')
-  return (
-    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
-      <Box
-        paddingVertical="lplus"
-        backgroundColor="disabledText"
-        borderBottomRightRadius="lmin"
-        borderBottomLeftRadius="lmin"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between">
-        <TouchableOpacity onPress={goBack}>
-          <IconBack />
-        </TouchableOpacity>
-        <Text variant="header">{t('header')}</Text>
-        <Box paddingRight="xl" />
-      </Box>
-      <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm">
-        <Text variant="bold15" color="greyDark">
-          {t('markAllAsSeen')}
-        </Text>
-        <NotificationsList data={notifications} />
-      </Box>
-    </SafeAreaWrapper>
-  )
-}
