@@ -288,6 +288,11 @@
     "left": "{{number}} Days of PTO left",
     "sickDays": "{{number}} sick days off",
     "requests": "{{number}} requests",
-    "requestsStatus": "{{accepted}} accepted, {{pending}} pending"
+    "requestsStatus": "{{accepted}} accepted, {{pending}} pending",
+    "policyHeader": "PTO days policy",
+    "policyOne": "Number of PTO days depends on individual arrangements, but usually it is <b>21 PTO days per year.</b>",
+    "policyTwo": "It increases after working a <b>full month.</b>",
+    "policyTwoExample": "If you started work on August 1, 2021, on September 2, 2021 you will have 1.75 days off. On October 2, 2021 it will be 3.5 days and so on. ",
+    "policyThree": "You should ask for 1-2 days off about <b>2 weeks</b> before, and try to plan longer holidays (3 days or more) <b>2 months<b/> in advance."
   }
 }
