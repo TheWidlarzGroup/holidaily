@@ -20,7 +20,7 @@ export const TeamSection = (props: TeamSectionProps) => {
   return (
     <Box>
       <Text variant="lightGreyRegular" color={version.color} marginTop="l">
-        {t(version.text).toUpperCase()}
+        {t(version.text as 'outOfWorkNow' | 'outOfWorkSoon').toUpperCase()}
       </Text>
       {matesArray.map((mate) => (
         <MateElement key={mate.id} {...mate} />

@@ -8,7 +8,7 @@ type SignupLoginBoxProps = {
 }
 
 export const SignupLoginBox = (p: SignupLoginBoxProps) => {
-  const { t } = useTranslation(['signup'])
+  const { t } = useTranslation(['signup', 'login'])
 
   return (
     <Box
@@ -18,7 +18,7 @@ export const SignupLoginBox = (p: SignupLoginBoxProps) => {
       justifyContent="center"
       alignItems="center">
       <Text variant="body1" paddingRight="xm">
-        {t('alreadyHaveAccount')}
+        {t('signup:alreadyHaveAccount')}
       </Text>
       <TextLink text={t('login:loginButton')} action={p.onPress} variant="alreadyRegistered" />
     </Box>

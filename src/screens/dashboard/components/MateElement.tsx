@@ -44,7 +44,7 @@ export const MateElement = (props: MateElementProps) => {
           {firstName} {lastName}
         </Text>
         <Text variant="lightGreyRegular" color="headerGrey">
-          {t(version.text).toUpperCase()}
+          {t(version.text as 'backAtWork' | 'lastDayAtWork').toUpperCase()}
         </Text>
         <Text variant="bold20" color={version.color}>
           {displayDayShort(dateToBeDisplayed)}
