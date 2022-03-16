@@ -7,17 +7,19 @@ import { TouchableOpacity } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import FastImage from 'react-native-fast-image'
+import { AuthRoutes } from 'navigation/types'
+import { StackScreenProps } from '@react-navigation/stack'
 
-type Params = { route: { params: { isFromWelcomeScreen?: true } } }
+const manImgSrc = require('assets/Splash_screen.png')
+const waveImgSrc = require('assets/Wave.png')
 
-export const About = ({ route }: Params) => {
+type AboutTypes = StackScreenProps<AuthRoutes, 'About'>
+
+export const About = ({ route }: AboutTypes) => {
   const isFromWelcomeScreen = route?.params
   const navigation = useNavigation()
   const { t } = useTranslation('welcome')
   const styles = useStyles()
-
-  const manImgSrc = require('assets/Splash_screen.png')
-  const waveImgSrc = require('assets/Wave.png')
 
   const handleGoBack = () => {
     navigation.goBack()

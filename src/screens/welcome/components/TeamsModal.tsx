@@ -8,10 +8,12 @@ import { CustomButton } from 'components/CustomButton'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/useUserContext'
+import { StackScreenProps } from '@react-navigation/stack'
+import { AuthRoutes } from 'navigation/types'
 
-type Params = { route: { params: { firstName: string } } }
+type TeamsModalTypes = StackScreenProps<AuthRoutes, 'TeamsModal'>
 
-export const TeamsModal = ({ route }: Params) => {
+export const TeamsModal = ({ route }: TeamsModalTypes) => {
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   const { t } = useTranslation('welcome')
 

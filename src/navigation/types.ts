@@ -130,8 +130,8 @@ export type DrawerRoutes = {
 export type AuthRoutes = {
   Slider: undefined
   Welcome: undefined
-  About: undefined
-  TeamsModal: undefined
+  About: { isFromWelcomeScreen?: true }
+  TeamsModal: { firstName: string }
   Login: undefined
   Signup: undefined
   SignupEmail: undefined
