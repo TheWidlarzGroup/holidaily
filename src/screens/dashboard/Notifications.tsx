@@ -67,7 +67,7 @@ export const Notifications = () => {
         <TouchableOpacity onPress={goBack}>
           <IconBack />
         </TouchableOpacity>
-        <Text variant="header">{'title'}</Text>
+        <Text variant="header">{t('header')}</Text>
         <Box paddingRight="xl" />
       </Box>
       <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm">
