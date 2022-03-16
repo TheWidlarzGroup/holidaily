@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CloseIcon from 'assets/icons/icon-close.svg'
-import { Box, Text, mkUseStyles, BaseOpacity, Theme } from 'utils/theme'
+import { Box, Text, mkUseStyles, BaseOpacity, Theme, useTheme } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { useTranslation } from 'react-i18next'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
@@ -13,8 +13,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Policies from './Policies'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { PolicySection } from './components/PolicySection'
 
 const Background = require('assets/policy_modal_background.png')
@@ -25,6 +23,7 @@ export const PtoPolicy = () => {
   const { height } = useDimensions()
   const { goBack } = useNavigation()
   const { t } = useTranslation('budget')
+  const theme = useTheme()
   const styles = useStyles()
   const translateY = useSharedValue(height)
   const isCloseTriggered = useRef(false)
@@ -79,17 +78,19 @@ export const PtoPolicy = () => {
           style={[animatedTranslation]}>
           <Box flexDirection="row" alignItems="center" paddingHorizontal="s">
             <BaseOpacity onPress={closeModal}>
-              <CloseIcon width={50} height={50} />
+              <CloseIcon width={50} height={50} color={theme.colors.black} />
             </BaseOpacity>
             <Box flex={1}>
               <Text variant="boldBlackCenter20">{t('policyHeader')}</Text>
             </Box>
           </Box>
-          <PolicySection textKey="policyOne" />
+          <Box padding="l" marginTop="l">
+            <PolicySection textKey="policyOne" />
 
-          <PolicySection textKey="policyTwo" subtitleKey="policyTwoExample" />
+            <PolicySection textKey="policyTwo" subtitleKey="policyTwoExample" />
 
-          <PolicySection textKey="policyThree" />
+            <PolicySection textKey="policyThree" />
+          </Box>
           <FastImage style={[styles.background]} source={Background} />
         </AnimatedBox>
       </PanGestureHandler>

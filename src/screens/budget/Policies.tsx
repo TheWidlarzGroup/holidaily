@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, mkUseStyles, Theme } from 'utils/theme'
 import { useTranslation, Trans } from 'react-i18next'
 
-export default function Policies() {
+export const Policies = () => {
   const styles = useStyles()
   const { t } = useTranslation('budget')
   return (
