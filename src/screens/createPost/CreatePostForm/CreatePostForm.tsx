@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -6,21 +6,27 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
-import { PostFooter } from './PostFormFooter/PostFormFooter'
 import { ModalLocationPicker } from './ModalLocationPicker'
+import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
   onSend: F1<PostState>
+  photosAsset?: Asset
 }
 
-export const CreatePostForm = (props: CreatePostFormProps) => {
+export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => {
   const [state, dispatch] = usePostFormReducer()
   const [locationPickerOpened, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
     useBooleanState(false)
 
   const galleryImages = state.images.map(assetToGalleryItem)
-
   const sendDisabled = isSendDisabled(state)
+
+  useEffect(() => {
+    if (photosAsset) {
+      dispatch({ type: 'addImages', payload: { images: [photosAsset] } })
+    }
+  }, [dispatch, photosAsset])
 
   return (
     <>
@@ -33,10 +39,10 @@ export const CreatePostForm = (props: CreatePostFormProps) => {
           data={galleryImages}
         />
       </ScrollView>
-      <PostFooter
+      <PostFormFooter
         onLocationPress={openLocationPicker}
         disabledCTA={sendDisabled}
-        onCTAPress={() => props.onSend(state)}
+        onCTAPress={() => onSend(state)}
         onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
       />
       <ModalLocationPicker

@@ -152,7 +152,7 @@ export type ModalRoutes = {
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
-  CreatePost: undefined
+  CreatePost: { photo: { id: string; uri: string } }
 }
 
 export type DashboardRoutes = {

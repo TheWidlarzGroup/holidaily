@@ -20,7 +20,7 @@ type PostFooterProps = {
   disabledCTA: boolean
 }
 
-export const PostFooter = ({
+export const PostFormFooter = ({
   onLocationPress,
   onCTAPress,
   onImagesPick,

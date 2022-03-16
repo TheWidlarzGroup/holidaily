@@ -124,6 +124,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
         onUserCancelled={setShowAttachmentModalFalse}
+        hideCamera
         setPhotoURI={(uri) => {
           if (!uri) return
           changeRequestData((oldData) => ({
