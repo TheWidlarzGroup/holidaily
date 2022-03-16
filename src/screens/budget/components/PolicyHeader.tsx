@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, BaseOpacity } from 'utils/theme'
-import { useTheme } from 'utils/theme'
+import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
 import CloseIcon from 'assets/icons/icon-close.svg'
 
 export const PolicyHeader = ({ closeModal }: { closeModal: F0 }) => {
