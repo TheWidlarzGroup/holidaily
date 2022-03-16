@@ -64,6 +64,26 @@
     "loginForgotPassword": "Zapomniałes hasła?",
     "loginButton": "Zaloguj się"
   },
+  "welcome": {
+    "welcomeTitle": "Miło cię widzieć!",
+    "welcomeSubtitle": "Przejdź przez demo i poznaj lepiej Holidaily.",
+    "yourName": "Twoje imię",
+    "whyAskForName": "Twoje imię i nazwisko wyświetlimy w kilku miejscach w aplikacji, dzięki czemu będziesz mógł odnieść prawdziwe wrażenie korzystania z Holidaily.",
+    "seeDemoButton": "Zobacz demo",
+    "firstNameErrMsg": "Dodaj swoje imię",
+    "about": "O aplikacji",
+    "aboutDesc1Part1": "Holidaily ",
+    "aboutDesc1Part2": "to aplikacja do ",
+    "aboutDesc1Part3": "rezerwacji urlopów ",
+    "aboutDesc1Part4": "zarówno dla ",
+    "aboutDesc1Part5": "pracodawców, jak i pracowników.",
+    "aboutDesc2Part1": "Ułatwia wymianę informacji ",
+    "aboutDesc2Part2": "o harmonogramach urlopów w firmie, dzięki czemu proces jest ",
+    "aboutDesc2Part3": "znacznie szybszy i łatwiejszy dla wszystkich pracowników!",
+    "memberOf": "Jesteś teraz członkiem:",
+    "yourTeams": "Twoje zespoły:",
+    "thanksButton": "Ok, dzięki!"
+  },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
     "signupWithCodeTitle": "Miło Cię poznać!",

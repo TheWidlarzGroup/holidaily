@@ -20,9 +20,9 @@ export const AppNavigation = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
+      if (user) return setLoginStatus('LoggedIn')
       SplashScreen.hide()
       await sleep(3500)
-      if (user) return setLoginStatus('LoggedIn')
 
       const authToken = await getItemAsync('token')
       if (authToken) {
@@ -41,7 +41,7 @@ export const AppNavigation = () => {
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
-      {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Signup" />}
+      {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Welcome" />}
     </NavigationContainer>
   )
 }
