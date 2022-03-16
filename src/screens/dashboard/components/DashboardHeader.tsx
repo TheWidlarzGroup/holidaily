@@ -39,8 +39,8 @@ export const DashboardHeader: FC = () => {
             })}
           </Text>
         </Box>
+        <NotificationsBell unseenCount={2} />
       </Box>
-      <NotificationsBell unseenCount={2} />
     </Box>
   )
 }

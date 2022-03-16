@@ -8,6 +8,7 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
   return (
     <BaseOpacity
       padding="m"
+      alignItems="center"
       height={45}
       width={45}
       onPress={() => {
@@ -20,7 +21,7 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
           position="absolute"
           width={19}
           height={19}
-          left={24}
+          left={20}
           top={8}
           zIndex="2"
           backgroundColor="errorRed"
