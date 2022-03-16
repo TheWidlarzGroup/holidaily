@@ -261,7 +261,11 @@
   },
   "notifications": {
     "header": "Notifications",
+    "new": "new",
+    "seen": "SEEN",
+    "unseen": "UNSEEN",
     "markAllAsSeen": "Mark all as seen",
+    "markSeen": "Seen",
     "like": "<b>{{author}}</b> liked your <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> commented your <b>Holifeed</b> post",
     "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"

@@ -261,6 +261,10 @@
   },
   "notifications": {
     "header": "Powiadomienia",
+    "new": "nowe",
+    "seen": "PRZECZYTANE",
+    "unseen": "NIEPRZECZYTANE",
+    "markSeen": "Odczytane",
     "markAllAsSeen": "Oznacz wszystkie jako przeczytane",
     "like": "<b>{{author}}</b> polubił twój <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> skomentował twój <b>Holifeed</b> post",
