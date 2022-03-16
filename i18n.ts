@@ -3,22 +3,25 @@ import { initReactI18next } from 'react-i18next'
 import { NativeModules } from 'react-native'
 import { isAndroid, isIos } from './src/utils/layout'
 import { locales } from './src/utils/locale'
-import { formatDate } from './src/utils/formatDate'
+import { DateFormat, formatDate } from './src/utils/formatDate'
+import en from './translations/en.json'
+import pl from './translations/pl.json'
 
 let locale = ''
+
+export type LANGUAGES = typeof resources
+
+export type NAMESPACES = keyof typeof en | 'default'
 
 if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
 else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
 
-const plTranslation = require('./translations/pl.json')
-const enTranslation = require('./translations/en.json')
-
 const resources = {
   pl: {
-    ...plTranslation,
+    ...pl,
   },
   en: {
-    ...enTranslation,
+    ...en,
   },
 }
 
@@ -29,8 +32,9 @@ i18next.use(initReactI18next).init({
   keySeparator: false,
   debug: __DEV__,
   interpolation: {
-    format: (value, format, language) => {
-      if (value instanceof Date) return formatDate(value, format, locales[language])
+    format: (value: Date, format, language) => {
+      if (value instanceof Date)
+        return formatDate(value, format as DateFormat, locales[language as keyof LANGUAGES])
       return value
     },
     escapeValue: false,
