@@ -9,6 +9,7 @@ import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
 import { SupportedLanguageKeys, locales } from 'utils/locale'
+import { setItemAsync } from 'expo-secure-store'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -30,6 +31,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
     hideChangeAlert()
     setLoadingTrue()
     setSelectedLng(lng)
+    setItemAsync('language', lng)
   }
 
   useEffect(() => {
