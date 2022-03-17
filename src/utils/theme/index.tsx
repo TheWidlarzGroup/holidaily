@@ -21,24 +21,24 @@ export const TextPlus = ({
   fontSize,
   letterSpacing,
   children,
+  weight,
   ...p
 }: Omit<React.ComponentProps<typeof Text>, 'fontSize' | 'letterSpacing'> & {
   letterSpacing?: `${number}%`
   fontSize?: keyof Theme['fontSize']
+  weight?: 'regular' | 'bold'
 }) => {
-  if (letterSpacing) {
-    const spacing = (themeBase.fontSize[fontSize ?? 'base'] * +letterSpacing.slice(0, -1)) / 100
-    return (
-      <Text {...p} fontSize={themeBase.fontSize[fontSize ?? 'base']} letterSpacing={spacing}>
-        {children}
-      </Text>
-    )
-  }
-  return (
-    <Text {...p} fontSize={themeBase.fontSize[fontSize ?? 'base']}>
-      {children}
-    </Text>
-  )
+  const textProps: typeof p & {
+    fontSize?: number
+    letterSpacing?: number
+    weight?: 'regular' | 'bold'
+  } = p
+  textProps.fontSize = themeBase.fontSize[fontSize ?? 'base']
+  if (letterSpacing)
+    textProps.letterSpacing = (textProps.fontSize * +letterSpacing.slice(0, -1)) / 100
+  if (weight === 'regular') textProps.fontFamily = 'Nunito-Regular'
+  if (weight === 'bold') textProps.fontFamily = 'Nunito-Bold'
+  return <Text {...textProps}>{children}</Text>
 }
 
 export const useTheme = () => useReTheme<Theme>()
