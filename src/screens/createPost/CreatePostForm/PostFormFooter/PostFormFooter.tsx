@@ -99,7 +99,7 @@ export const PostFooter = ({
         <BaseOpacity
           paddingVertical="m"
           borderRadius="xxl"
-          bg="primary"
+          bg="tertiary"
           onPress={onCTAPress}
           disabled={disabledCTA}>
           <Text opacity={disabledCTA ? 0.4 : 1} variant="buttonText1">
