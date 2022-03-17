@@ -7,6 +7,7 @@ import { Box, theme } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
+import { MIN_PLUS_ICON_WIDTH } from 'navigation/BottomTabNavigator'
 
 type TabsHandlerProps = {
   tabs: {
@@ -14,15 +15,9 @@ type TabsHandlerProps = {
   }[]
   tabWidth: number
   activeTabIndex: number
-  minPlusIconWidth: number
 }
 
-export const TabsHandler: FC<TabsHandlerProps> = ({
-  tabs,
-  tabWidth,
-  activeTabIndex,
-  minPlusIconWidth,
-}) => {
+export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
   const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
 
   return (
@@ -41,7 +36,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
               key="logo"
               width={tabWidth}
               backgroundColor="transparent"
-              minWidth={minPlusIconWidth}>
+              minWidth={MIN_PLUS_ICON_WIDTH}>
               <AddButton onPress={onPress} />
             </Box>
           )

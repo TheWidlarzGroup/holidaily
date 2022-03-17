@@ -25,6 +25,8 @@ const tabs = [
   { name: 'Feed' },
 ]
 
+export const MIN_PLUS_ICON_WIDTH = 80
+
 export const BottomTabNavigator = ({ style }: ViewProps) => {
   const styles = useStyles()
   return (
