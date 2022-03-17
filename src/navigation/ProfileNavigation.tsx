@@ -4,7 +4,7 @@ import { EditProfile } from 'screens/editProfile/EditProfile'
 import { ChangePassword } from 'screens/editProfile/components/ChangePassword'
 import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
 import { BubbleContainer } from 'screens/editProfile/components/bubblePicker/BubbleContainer'
-import { ModalProvider } from 'contexts/ModalProvider'
+
 import { UserDetailsProvider } from 'screens/editProfile/helpers/UserDetailsContext'
 import { UserProfileRoutes } from './types'
 import { ForgotPasswordNavigation } from './ForgotPasswordNavigation'
