@@ -41,7 +41,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
           <Box
             {...{ key }}
             width={tabWidth}
-            height={45}
+            height={44}
             marginTop="lplus"
             alignItems="center"
             flexDirection="column"
