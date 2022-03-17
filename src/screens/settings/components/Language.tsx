@@ -9,7 +9,7 @@ import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
 import { SupportedLanguageKeys, locales } from 'utils/locale'
-import { LANGUAGES } from '../../../../i18n'
+import { keys } from '../../../utils/manipulation'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -82,13 +82,13 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           </TouchableOpacity>
         </Box>
         <Animated.View style={[styles.options, animatedOptions]}>
-          {Object.keys(locales).map((language) => (
+          {keys(locales).map((language) => (
             <TouchableOpacity
               key={language}
               style={styles.lng}
-              onPress={() => changeLanguage(language as keyof LANGUAGES)}>
+              onPress={() => changeLanguage(language)}>
               <Text variant="body1" marginVertical="s" textAlign="left">
-                {t(language as keyof LANGUAGES)}
+                {t(language)}
               </Text>
               <RadioInput checked={selectedLng === language} onPress={() => {}} />
             </TouchableOpacity>
