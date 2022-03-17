@@ -16,7 +16,11 @@ export const MateElement = (props: MateElementProps) => {
   const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
-  const version = {
+  const version: {
+    color: 'tertiary' | 'greyDark'
+    text: 'backAtWork' | 'lastDayAtWork'
+    borderColor: 'tertiary' | 'disabledText'
+  } = {
     color: holidays.isOnHoliday ? 'tertiary' : 'greyDark',
     text: holidays.isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
     borderColor: holidays.isOnHoliday ? 'tertiary' : 'disabledText',
@@ -44,7 +48,7 @@ export const MateElement = (props: MateElementProps) => {
           {firstName} {lastName}
         </Text>
         <Text variant="lightGreyRegular" color="headerGrey">
-          {t(version.text as 'backAtWork' | 'lastDayAtWork').toUpperCase()}
+          {t(version.text).toUpperCase()}
         </Text>
         <Text variant="bold20" color={version.color}>
           {displayDayShort(dateToBeDisplayed)}

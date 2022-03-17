@@ -8,8 +8,8 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
-import { SupportedLanguageKeys, locales } from 'utils/locale'
-import { LANGUAGES } from '../../../../i18n'
+import { locales } from 'utils/locale'
+import { Languages } from '../../../../i18n'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -22,11 +22,11 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
   const [changeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
     useBooleanState(false)
-  const [selectedLng, setSelectedLng] = useState(i18n.language as SupportedLanguageKeys)
+  const [selectedLng, setSelectedLng] = useState(i18n.language as keyof Languages)
 
   const styles = useStyles()
 
-  const changeLanguage = (lng: SupportedLanguageKeys) => {
+  const changeLanguage = (lng: keyof Languages) => {
     if (lng === selectedLng) return
     hideChangeAlert()
     setLoadingTrue()
@@ -86,9 +86,9 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
             <TouchableOpacity
               key={language}
               style={styles.lng}
-              onPress={() => changeLanguage(language as keyof LANGUAGES)}>
+              onPress={() => changeLanguage(language as keyof Languages)}>
               <Text variant="body1" marginVertical="s" textAlign="left">
-                {t(language as keyof LANGUAGES)}
+                {t(language as keyof Languages)}
               </Text>
               <RadioInput checked={selectedLng === language} onPress={() => {}} />
             </TouchableOpacity>

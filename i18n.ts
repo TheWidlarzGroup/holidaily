@@ -7,35 +7,29 @@ import { DateFormat, formatDate } from './src/utils/formatDate'
 import en from './translations/en.json'
 import pl from './translations/pl.json'
 
-let locale = ''
+let locale: 'en' | 'pl' = 'en'
 
-export type LANGUAGES = typeof resources
+export type Languages = typeof resources
 
-export type NAMESPACES = keyof typeof en | 'default'
-
-if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
-else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
+if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier as keyof Languages
+else if (isIos)
+  locale = (NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en') as keyof Languages
 
 const resources = {
-  pl: {
-    ...pl,
-  },
-  en: {
-    ...en,
-  },
+  pl,
+  en,
 }
 
 i18next.use(initReactI18next).init({
   resources,
   compatibilityJSON: 'v3',
-  lng: locale.slice(0, 2),
-  fallbackLng: 'en',
+  lng: locale,
   keySeparator: false,
   debug: __DEV__,
   interpolation: {
     format: (value: Date, format, language) => {
       if (value instanceof Date)
-        return formatDate(value, format as DateFormat, locales[language as keyof LANGUAGES])
+        return formatDate(value, format as DateFormat, locales[language as keyof Languages])
       return value
     },
     escapeValue: false,

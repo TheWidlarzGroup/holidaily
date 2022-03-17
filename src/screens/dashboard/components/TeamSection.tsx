@@ -13,14 +13,14 @@ export const TeamSection = (props: TeamSectionProps) => {
   const { isOutOfOffice, matesArray } = props
   const { t } = useTranslation('dashboard')
 
-  const version = {
+  const version: { color: 'tertiary' | 'headerGrey'; text: 'outOfWorkNow' | 'outOfWorkSoon' } = {
     color: isOutOfOffice === true ? 'tertiary' : 'headerGrey',
     text: isOutOfOffice === true ? 'outOfWorkNow' : 'outOfWorkSoon',
   }
   return (
     <Box>
       <Text variant="lightGreyRegular" color={version.color} marginTop="l">
-        {t(version.text as 'outOfWorkNow' | 'outOfWorkSoon').toUpperCase()}
+        {t(version.text).toUpperCase()}
       </Text>
       {matesArray.map((mate) => (
         <MateElement key={mate.id} {...mate} />
