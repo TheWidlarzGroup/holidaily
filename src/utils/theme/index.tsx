@@ -23,7 +23,7 @@ export const TextPlus = ({
   children,
   weight,
   ...p
-}: Omit<React.ComponentProps<typeof Text>, 'fontSize' | 'letterSpacing'> & {
+}: Omit<React.ComponentProps<typeof Text>, 'fontSize' | 'letterSpacing' | 'fontWeight'> & {
   letterSpacing?: `${number}%`
   fontSize?: keyof Theme['fontSize']
   weight?: 'regular' | 'bold'
