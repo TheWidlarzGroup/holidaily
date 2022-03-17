@@ -15,9 +15,19 @@ export const ReactionBubble = ({ selected, emoji, quantity, ...props }: Reaction
   const [toggled, { toggle }] = useBooleanState(selected ?? false)
 
   return (
-    <Bubble margin="xs" onPress={toggle} {...props} bg={toggled ? 'primary' : 'rippleColor'}>
+    <Bubble
+      margin="xs"
+      onPress={toggle}
+      {...props}
+      borderColor="black"
+      borderWidth={toggled ? 1.5 : 0}
+      height={42}>
       <Text padding="s">{emoji}</Text>
-      {!!quantity && <Text paddingEnd="m">{quantity}</Text>}
+      {!!quantity && (
+        <Text paddingEnd="m" variant="primaryBold12" color="black">
+          {quantity}
+        </Text>
+      )}
     </Bubble>
   )
 }

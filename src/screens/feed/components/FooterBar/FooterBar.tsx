@@ -47,9 +47,9 @@ const FooterBarContent = (props: FooterBarContentProps) => {
         flexDirection="row"
         flexWrap="wrap"
         justifyContent="flex-start"
+        alignItems="center"
         flexGrow={1}
         flexShrink={1}>
-        <ReactionPickerBtn onPress={openPicker} />
         <EmojiPicker
           onEmojiSelected={(e) => console.log('Selected emoji:', e)}
           open={isPickerOpen}
@@ -59,8 +59,9 @@ const FooterBarContent = (props: FooterBarContentProps) => {
           reactions.map(({ type, users }) => (
             <ReactionBubble key={type} emoji={type} quantity={users.length} selected={false} />
           ))}
+        <ReactionPickerBtn onPress={openPicker} />
       </Box>
-      <Bubble padding="s" onPress={onCommentBtnPress}>
+      <Bubble padding="s" onPress={onCommentBtnPress} height={42}>
         <IconComment />
         <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
           {t('postCommentBtn')}
@@ -71,7 +72,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
 }
 
 export const ReactionPickerBtn = (props: BubbleProps) => (
-  <Bubble {...props}>
+  <Bubble {...props} width={42} height={42}>
     <IconReaction />
   </Bubble>
 )

@@ -17,7 +17,7 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
 
   return (
     <BaseOpacity onPress={handlePress} activeOpacity={0.4}>
-      <Text {...textProps} numberOfLines={numOfLines}>
+      <Text {...textProps} numberOfLines={numOfLines} variant="regular16Holifeed">
         {text}
       </Text>
     </BaseOpacity>

@@ -31,7 +31,7 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
       padding="s">
       {quantity > 0 && (
         <Box flexDirection="row" alignItems="center">
-          <Text>
+          <Text variant="captionText">
             {quantity} {t('comments')}
           </Text>
           <Animated.View style={[rotationStyles]}>
