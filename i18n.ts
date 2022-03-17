@@ -11,9 +11,8 @@ let locale: 'en' | 'pl' = 'en'
 
 export type Languages = typeof resources
 
-if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier as keyof Languages
-else if (isIos)
-  locale = (NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en') as keyof Languages
+if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
+else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
 
 const resources = {
   pl,
