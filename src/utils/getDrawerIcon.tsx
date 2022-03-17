@@ -29,7 +29,7 @@ export const DrawerIcon = (tab: Tab) => {
   const theme = useTheme()
   switch (tab) {
     case 'ProfileNavigation': {
-      return <EditIcon {...dimensions} />
+      return <EditIcon {...dimensions} color={theme.colors.black} />
     }
     case 'Settings': {
       return <SettingsIcon {...dimensions} />
