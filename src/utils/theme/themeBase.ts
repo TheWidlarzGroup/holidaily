@@ -80,12 +80,12 @@ export const themeBase = createTheme({
     widest: '0.1em',
   },
   lineHeight: {
-    none: '1rem',
-    tight: '1.25rem',
-    snug: '1.375rem',
-    normal: '1.5rem',
-    relaxed: '1.625rem',
-    loose: '2rem',
+    s: 14,
+    m: 18,
+    mplus: 20,
+    l: 24,
+    xl: 27,
+    xxl: 33,
   },
 })
 
