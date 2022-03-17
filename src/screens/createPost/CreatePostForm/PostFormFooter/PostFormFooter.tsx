@@ -12,6 +12,7 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker'
 import { useKeyboard } from 'hooks/useKeyboard'
+import { isIos } from 'utils/layout'
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
@@ -28,12 +29,17 @@ export const PostFooter = ({
   disabledCTA,
 }: PostFooterProps) => {
   const { t } = useTranslation('createPost')
-  const [, keyboardEvent] = useKeyboard()
+  const [keyboardOpen, keyboardEvent] = useKeyboard()
   const [submitBtnHeight, setSubmitBtnHeight] = useState(0)
-  const keyboardOffset = useMemo(() => {
-    if (keyboardEvent && keyboardEvent !== true) return keyboardEvent.endCoordinates.height
+  const iconsMarginBottom = useMemo(() => {
+    if (!keyboardOpen) return 0
+    if (keyboardEvent && keyboardEvent !== true) {
+      return isIos
+        ? keyboardEvent.endCoordinates.height - submitBtnHeight
+        : keyboardEvent.endCoordinates.height - submitBtnHeight / 2
+    }
     return 0
-  }, [keyboardEvent])
+  }, [keyboardOpen, keyboardEvent, submitBtnHeight])
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
       if (res.didCancel) return console.log('cancelled')
@@ -71,7 +77,6 @@ export const PostFooter = ({
       imagePickCallback
     )
   }
-
   return (
     <>
       <Box
@@ -83,8 +88,7 @@ export const PostFooter = ({
         alignItems="center"
         paddingVertical="m"
         style={{
-          marginBottom:
-            keyboardOffset - submitBtnHeight > 0 ? keyboardOffset - submitBtnHeight / 2 : 0,
+          marginBottom: iconsMarginBottom,
         }}>
         <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
           <IconCamera />
