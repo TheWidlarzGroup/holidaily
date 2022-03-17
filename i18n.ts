@@ -26,6 +26,7 @@ i18next.use(initReactI18next).init({
   keySeparator: false,
   debug: __DEV__,
   interpolation: {
+    // TODO: get rid of type assertions
     format: (value: Date, format, language) => {
       if (value instanceof Date)
         return formatDate(value, format as DateFormat, locales[language as keyof Languages])
