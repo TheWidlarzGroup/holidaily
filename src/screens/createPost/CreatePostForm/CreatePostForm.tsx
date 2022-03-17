@@ -3,11 +3,13 @@ import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { KeyboardAvoidingView } from 'react-native'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
 import { PostFooter } from './PostFormFooter/PostFormFooter'
 import { ModalLocationPicker } from './ModalLocationPicker'
+import { Submit } from './PostFormFooter/Submit'
 
 type CreatePostFormProps = {
   onSend: F1<PostState>
@@ -21,24 +23,24 @@ export const CreatePostForm = (props: CreatePostFormProps) => {
   const galleryImages = state.images.map(assetToGalleryItem)
 
   const sendDisabled = isSendDisabled(state)
-
   return (
     <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
         <PostHeader />
-        <PostBody
-          text={state.text}
-          location={state.location}
-          onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
-          data={galleryImages}
+        <ScrollView>
+          <PostBody
+            text={state.text}
+            location={state.location}
+            onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
+            data={galleryImages}
+          />
+        </ScrollView>
+        <PostFooter
+          onLocationPress={openLocationPicker}
+          onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
         />
-      </ScrollView>
-      <PostFooter
-        onLocationPress={openLocationPicker}
-        disabledCTA={sendDisabled}
-        onCTAPress={() => props.onSend(state)}
-        onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
-      />
+      </KeyboardAvoidingView>
+      <Submit disabledCTA={sendDisabled} onCTAPress={() => props.onSend(state)} />
       <ModalLocationPicker
         visible={locationPickerOpened}
         onLocationChange={(locationPayload) => {
