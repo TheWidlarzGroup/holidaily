@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 
@@ -12,7 +12,6 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker'
 import { useKeyboard } from 'hooks/useKeyboard'
-import { isIos } from 'utils/layout'
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
@@ -29,17 +28,11 @@ export const PostFooter = ({
   disabledCTA,
 }: PostFooterProps) => {
   const { t } = useTranslation('createPost')
-  const [keyboardOpen, keyboardEvent] = useKeyboard()
-  const [submitBtnHeight, setSubmitBtnHeight] = useState(0)
-  const iconsMarginBottom = useMemo(() => {
-    if (!keyboardOpen) return 0
-    if (keyboardEvent && keyboardEvent !== true) {
-      return isIos
-        ? keyboardEvent.endCoordinates.height - submitBtnHeight
-        : keyboardEvent.endCoordinates.height - submitBtnHeight / 2
-    }
+  const [keyboardShown, keyboardEvent] = useKeyboard()
+  const keyboardOffset = useMemo(() => {
+    if (keyboardEvent && keyboardEvent !== true) return keyboardEvent.endCoordinates.height
     return 0
-  }, [keyboardOpen, keyboardEvent, submitBtnHeight])
+  }, [keyboardEvent])
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
       if (res.didCancel) return console.log('cancelled')
@@ -48,7 +41,6 @@ export const PostFooter = ({
     },
     [onImagesPick]
   )
-
   const handleCameraPress = () => {
     launchCamera(
       {
@@ -77,6 +69,7 @@ export const PostFooter = ({
       imagePickCallback
     )
   }
+
   return (
     <>
       <Box
@@ -87,8 +80,11 @@ export const PostFooter = ({
         justifyContent="space-evenly"
         alignItems="center"
         paddingVertical="m"
+        width="100%"
         style={{
-          marginBottom: iconsMarginBottom,
+          position: keyboardShown ? 'absolute' : 'relative',
+          bottom: 0,
+          marginBottom: keyboardShown ? keyboardOffset : 0,
         }}>
         <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
           <IconCamera />
@@ -101,9 +97,6 @@ export const PostFooter = ({
         </FooterButton>
       </Box>
       <Box
-        onLayout={({ nativeEvent: e }) => {
-          setSubmitBtnHeight(e.layout.height)
-        }}
         backgroundColor="disabled"
         justifyContent="center"
         alignItems="stretch"
