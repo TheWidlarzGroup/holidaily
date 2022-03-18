@@ -80,7 +80,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <Box paddingBottom="m">
-        <HeaderRequestVacation />
+        <HeaderRequestVacation step={step} setStep={setStep} />
         <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
       </Box>
       {step === 0 && (

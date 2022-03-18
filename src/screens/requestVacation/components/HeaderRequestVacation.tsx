@@ -6,9 +6,14 @@ import { Box, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/backArrow.svg'
 import { useTranslation } from 'react-i18next'
 
-export const HeaderRequestVacation = () => {
-  const navigation = useNavigation()
+export const HeaderRequestVacation = ({ step, setStep }: { step: number; setStep: F1<number> }) => {
+  const { goBack } = useNavigation()
   const { t } = useTranslation('requestVacation')
+
+  const onStepBack = () => {
+    if (step) setStep(step - 1)
+    else goBack()
+  }
 
   return (
     <Box
@@ -18,7 +23,7 @@ export const HeaderRequestVacation = () => {
       paddingVertical="m"
       paddingTop={0}>
       <Box alignItems="center" justifyContent="center" flexDirection="row">
-        <Pressable onPress={navigation.goBack}>
+        <Pressable onPress={onStepBack}>
           <BackArrowIcon width={30} height={20} />
         </Pressable>
       </Box>
