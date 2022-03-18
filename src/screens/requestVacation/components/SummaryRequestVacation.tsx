@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles, Text } from 'utils/theme/index'
-import { getFormattedPeriod, getISODateString } from 'utils/dates'
+import { getFormattedPeriod, getISODateString, calculatePTO } from 'utils/dates'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import PillIcon from 'assets/icons/pill.svg'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
@@ -16,8 +16,8 @@ type SummaryRequestVacationProps = {
   description: string
   sickTime: boolean
   onNextPressed: F0
-  startDate?: Date
-  endDate?: Date
+  startDate: Date
+  endDate: Date
   message?: string
   photos?: { id: string; uri: string }[]
 }
@@ -104,7 +104,7 @@ export const SummaryRequestVacation = ({
             </Box>
           )}
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-          <SummaryDays />
+          <SummaryDays ptoTaken={calculatePTO(startDate, endDate)} />
         </Box>
       </ScrollView>
       <CustomButton
