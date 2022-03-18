@@ -16,8 +16,8 @@ type SummaryRequestVacationProps = {
   description: string
   sickTime: boolean
   onNextPressed: F0
-  startDate: Date
-  endDate: Date
+  startDate?: Date
+  endDate?: Date
   message?: string
   photos?: { id: string; uri: string }[]
 }
@@ -104,7 +104,7 @@ export const SummaryRequestVacation = ({
             </Box>
           )}
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-          <SummaryDays ptoTaken={calculatePTO(startDate, endDate)} />
+          <SummaryDays ptoTaken={startDate && endDate ? calculatePTO(startDate, endDate) : 0} />
         </Box>
       </ScrollView>
       <CustomButton
