@@ -8,16 +8,16 @@ import Smartphone from 'assets/icons/icon-smartphone.svg'
 type Action = 'gallery' | 'camera'
 type UploadPictureButtonsProps = {
   onUploadImage: F1<Action>
-  hideCamera?: true
+  showCamera: boolean
 }
 
-export const UploadPictureButtons = ({ onUploadImage, hideCamera }: UploadPictureButtonsProps) => {
+export const UploadPictureButtons = ({ onUploadImage, showCamera }: UploadPictureButtonsProps) => {
   const { t } = useTranslation('uploadPictureModal')
   const styles = useStyles()
 
   return (
-    <Box padding="lplus" paddingTop={hideCamera ? 'xm' : 'lplus'}>
-      {!hideCamera && (
+    <Box padding="lplus" paddingTop={showCamera ? 'lplus' : 'xm'}>
+      {showCamera && (
         <>
           <BaseOpacity
             onPress={() => onUploadImage('camera')}

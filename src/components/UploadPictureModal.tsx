@@ -15,7 +15,7 @@ type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideEditPictureModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
-  hideCamera?: true
+  showCamera: boolean
 }
 type PhotoSelectionChoice = 'gallery' | 'camera'
 
@@ -25,7 +25,7 @@ export const UploadPictureModal = ({
   onUserCancelled,
   setPhotoURI,
   hideEditPictureModal,
-  hideCamera,
+  showCamera,
 }: UploadPictureModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
@@ -70,9 +70,9 @@ export const UploadPictureModal = ({
       animationInTiming={300}
       animationOutTiming={300}
       swipeDirection="down"
-      style={hideCamera ? styles.modal : { ...styles.modal, ...styles.longModal }}
+      style={showCamera ? { ...styles.modal, ...styles.longModal } : styles.modal}
       hideModalContentWhileAnimating>
-      <UploadPictureButtons onUploadImage={onUploadImage} hideCamera={hideCamera} />
+      <UploadPictureButtons onUploadImage={onUploadImage} showCamera={showCamera} />
     </CustomModal>
   )
 }

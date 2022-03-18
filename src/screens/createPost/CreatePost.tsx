@@ -4,9 +4,7 @@ import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { CreatePostResult } from './CreatePostResult/CreatePostResult'
 import { CreatePostStatus } from './types'
 
-type CreatePostScreenProps = ModalNavigationProps<'CreatePost'>
-
-export const CreatePost = ({ route }: CreatePostScreenProps) => {
+export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
   const [status, setStatus] = useState<CreatePostStatus>('draft')
   const photo = route.params?.photo
 
