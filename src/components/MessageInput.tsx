@@ -17,7 +17,7 @@ import { generateUUID } from 'utils/generateUUID'
 
 export type MessageInputProps = {
   onSubmitEditing: F1<string>
-  handleSubmitComment: (comment: Comment) => void
+  handleSubmitComment?: (comment: Comment) => void
   onBlur?: F1<string>
   defaultValue?: string
   maxLength?: number
@@ -85,7 +85,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
       reactions: [],
       text: messageContent,
     }
-    props.handleSubmitComment(message)
+    props.handleSubmitComment?.(message)
   }
 
   const handleBlur = () => {
