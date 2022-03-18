@@ -42,7 +42,7 @@ export const SelectPeriodModal: FC<SelectPeriodModalProps> = ({
         {getFormattedPeriod(new Date(periodStart), new Date(periodEnd))}
       </Text>
       <Text variant="body1" marginTop="xs" marginBottom="l">
-        {t('pickedPTO', { days: calculatePTO(periodStart, periodEnd) })}
+        {t('pickedPTO', { days: String(calculatePTO(periodStart, periodEnd)) })}
       </Text>
       <CustomButton label={t('select')} variant="primary" onPress={onSubmit} />
     </Animated.View>
