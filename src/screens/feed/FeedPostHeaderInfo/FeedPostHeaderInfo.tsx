@@ -13,10 +13,10 @@ export const FeedPostHeaderInfo = ({ meta }: FeedPostHeaderInfoProps) => {
 
   return (
     <Box flexGrow={1} alignItems="stretch" padding="xs" paddingTop={0}>
-      <Text variant="regularNeutralGrey10" textAlign="right" marginVertical="-xs">
+      <Text variant="regularNeutralGrey10" textAlign="right" marginTop="-xs">
         {formattedDate}
       </Text>
-      <Text variant="boldBlack18">{author.lastName}</Text>
+      <Text variant="label1">{author.lastName}</Text>
       <Text variant="captionText">{author.firstName}</Text>
     </Box>
   )

@@ -1,11 +1,13 @@
 import React, { useCallback, useRef } from 'react'
 import { Modal, ModalProps, NativeSyntheticEvent, TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Comment } from 'screens/feed/types'
 import { BaseOpacity, Box } from 'utils/theme'
 import { MessageInput, MessageInputProps } from './MessageInput'
 
 type MessageInputModalProps = MessageInputProps &
   ModalProps & {
+    handleSubmitComment: (comment: Comment) => void
     requestCloseOnBlur?: true
   }
 

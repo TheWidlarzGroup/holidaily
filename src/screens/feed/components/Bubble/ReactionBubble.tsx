@@ -1,31 +1,31 @@
 import React from 'react'
 
-import { useBooleanState } from 'hooks/useBooleanState'
 import { Text } from 'utils/theme'
+import { useUserContext } from 'hooks/useUserContext'
+import { Reaction } from 'screens/feed/types'
 import { Bubble } from './Bubble'
 
 type ReactionBubbleProps = {
-  emoji: string
-  selectable?: boolean
-  selected?: boolean
-  quantity?: number
+  reaction: Reaction
+  handlePressReaction: (emoji: string) => void
 }
 
-export const ReactionBubble = ({ selected, emoji, quantity, ...props }: ReactionBubbleProps) => {
-  const [toggled, { toggle }] = useBooleanState(selected ?? false)
+export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubbleProps) => {
+  const { user } = useUserContext()
+
+  const checkIfUserAddedReaction = reaction.users.includes(user?.id || '')
 
   return (
     <Bubble
       margin="xs"
-      onPress={toggle}
-      {...props}
+      onPress={() => handlePressReaction(reaction.type)}
       borderColor="black"
-      borderWidth={toggled ? 1.5 : 0}
+      borderWidth={checkIfUserAddedReaction ? 1.5 : 0}
       height={42}>
-      <Text padding="s">{emoji}</Text>
-      {!!quantity && (
+      <Text padding="s">{reaction.type}</Text>
+      {!!reaction.users.length && (
         <Text paddingEnd="m" variant="primaryBold12" color="black">
-          {quantity}
+          {reaction.users.length}
         </Text>
       )}
     </Bubble>
