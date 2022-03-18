@@ -24,21 +24,20 @@ const resources = {
 }
 
 const initI18 = async () => {
-  await getItemAsync('language').then((lang) => {
-    i18next.use(initReactI18next).init({
-      resources,
-      lng: lang || locale.slice(0, 2),
-      fallbackLng: 'en',
-      keySeparator: false,
-      debug: __DEV__,
-      interpolation: {
-        format: (value, format, language) => {
-          if (value instanceof Date) return formatDate(value, format, locales[language])
-          return value
-        },
-        escapeValue: false,
+  const lang = await getItemAsync('language')
+  i18next.use(initReactI18next).init({
+    resources,
+    lng: lang || locale.slice(0, 2),
+    fallbackLng: 'en',
+    keySeparator: false,
+    debug: __DEV__,
+    interpolation: {
+      format: (value, format, language) => {
+        if (value instanceof Date) return formatDate(value, format, locales[language])
+        return value
       },
-    })
+      escapeValue: false,
+    },
   })
 }
 
