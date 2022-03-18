@@ -14,6 +14,7 @@ export const RequestVacationBar: FC<RequestVacationBarTypes> = ({ currentScreen 
     <Box flexDirection="row" paddingHorizontal="m">
       <AnimatedBar marginSide="marginRight" margin={theme.spacing.s} />
       <AnimatedBar
+        disableInitialAnimation
         reverseAnimation={currentScreen === initialScreen}
         marginSide="marginLeft"
         margin={theme.spacing.s}
