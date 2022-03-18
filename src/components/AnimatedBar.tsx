@@ -4,10 +4,11 @@ import { Box } from 'utils/theme/index'
 
 type AnimatedBarProps = {
   margin: number
-  marginSide: string
+  marginSide: 'margin' | `margin${'Left' | 'Right' | 'Top' | 'Bottom' | 'Horizontal' | 'Vertical'}`
+  reverseAnimation?: boolean
 }
-export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide }) => {
-  const barWidth = useSharedValue(0)
+export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide, reverseAnimation }) => {
+  const barWidth = useSharedValue(reverseAnimation ? 100 : 0)
 
   const progressStyle = useAnimatedStyle(() => ({
     width: withTiming(`${barWidth.value}%`, {
@@ -16,13 +17,19 @@ export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide }) => {
   }))
 
   useEffect(() => {
-    barWidth.value = 100
+    barWidth.value = reverseAnimation ? 0 : 100
   })
   return (
     <Box flex={1} style={{ [marginSide]: margin }}>
       <Animated.View style={progressStyle}>
         <Box backgroundColor="tertiary" height={4} borderRadius="full" />
       </Animated.View>
+      <Box
+        backgroundColor="lightGrey"
+        zIndex="-1"
+        height={4}
+        style={[{ transform: [{ translateY: -4 }] }]}
+      />
     </Box>
   )
 }
