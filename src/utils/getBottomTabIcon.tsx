@@ -1,8 +1,8 @@
-import { CalendarIcon } from 'assets/icons/CalendarIcon'
-import { HomeIcon } from 'assets/icons/HomeIcon'
-import { StatsIcon } from 'assets/icons/StatsIcon'
-import { PasteIcon } from 'assets/icons/PasteIcon'
+import StatsIcon from 'assets/icons/icon-stats.svg'
+import PasteIcon from 'assets/icons/icon-feed.svg'
 import React from 'react'
+import HomeIcon from 'assets/icons/icon-home.svg'
+import CalendarIcon from 'assets/icons/icon-calendar.svg'
 
 export const getBottomTabIcon = (
   tab: string,
@@ -12,16 +12,16 @@ export const getBottomTabIcon = (
 ) => {
   switch (tab) {
     case 'DashboardNavigation': {
-      return <HomeIcon fill={routeName === 'DashboardNavigation' ? fillActive : fillInactive} />
+      return <HomeIcon color={routeName === 'DashboardNavigation' ? fillActive : fillInactive} />
     }
     case 'Calendar': {
-      return <CalendarIcon fill={routeName === 'Calendar' ? fillActive : fillInactive} />
+      return <CalendarIcon color={routeName === 'Calendar' ? fillActive : fillInactive} />
     }
     case 'Stats': {
-      return <StatsIcon fill={routeName === 'Stats' ? fillActive : fillInactive} />
+      return <StatsIcon color={routeName === 'Stats' ? fillActive : fillInactive} />
     }
     case 'Feed': {
-      return <PasteIcon fill={routeName === 'Feed' ? fillActive : fillInactive} />
+      return <PasteIcon color={routeName === 'Feed' ? fillActive : fillInactive} />
     }
     default:
       break

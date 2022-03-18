@@ -99,10 +99,12 @@ export const PostFooter = ({
         <BaseOpacity
           paddingVertical="m"
           borderRadius="xxl"
-          bg={disabledCTA ? 'headerGrey' : 'primary'}
+          bg="tertiary"
           onPress={onCTAPress}
           disabled={disabledCTA}>
-          <Text variant="buttonText1">{t('sendPost')}</Text>
+          <Text opacity={disabledCTA ? 0.4 : 1} variant="buttonText1">
+            {t('sendPost')}
+          </Text>
         </BaseOpacity>
       </Box>
     </Box>
