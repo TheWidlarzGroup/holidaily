@@ -8,12 +8,14 @@ import { DateFormat, formatDate } from './src/utils/formatDate'
 import en from './translations/en.json'
 import pl from './translations/pl.json'
 
-let locale: 'en' | 'pl' = 'en'
+let locale: 'en' | 'pl' | `en_${string}` = 'en'
 
 export type Languages = typeof resources
 
 if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
 else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
+
+if (/en_*/.test(locale)) locale = 'en'
 
 const resources = {
   pl,
