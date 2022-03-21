@@ -84,7 +84,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           </TouchableOpacity>
         </Box>
         <Animated.View style={[styles.options, animatedOptions]}>
-          {keys(locales).map((language) => (
+          {keys<{ pl: Locale; en: Locale }>(locales).map((language) => (
             <TouchableOpacity
               key={language}
               style={styles.lng}
