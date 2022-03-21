@@ -16,7 +16,11 @@ export const MateElement = (props: MateElementProps) => {
   const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
   const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
 
-  const version = {
+  const version: {
+    color: 'tertiary' | 'greyDark'
+    text: 'backAtWork' | 'lastDayAtWork'
+    borderColor: 'tertiary' | 'disabledText'
+  } = {
     color: holidays.isOnHoliday ? 'tertiary' : 'greyDark',
     text: holidays.isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
     borderColor: holidays.isOnHoliday ? 'tertiary' : 'disabledText',
