@@ -41,7 +41,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
           <Box
             {...{ key }}
             width={tabWidth}
-            height={45}
+            height={44}
             marginTop="lplus"
             alignItems="center"
             flexDirection="column"
@@ -64,8 +64,6 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
 
 const styles = StyleSheet.create({
   button: {
-    paddingTop: theme.spacing.xm,
-    paddingBottom: theme.spacing.s,
     paddingHorizontal: theme.spacing.m,
   },
 })

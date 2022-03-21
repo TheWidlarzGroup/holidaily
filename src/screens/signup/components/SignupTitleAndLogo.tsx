@@ -6,7 +6,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 const logoSrc = require('assets/Logo.png')
 
 export const SignupTitleAndLogo = () => {
-  const { t } = useTranslation(['signup'])
+  const { t } = useTranslation('signup')
   const styles = useStyles()
 
   return (

@@ -4,39 +4,37 @@ import { NativeModules } from 'react-native'
 import { getItemAsync } from 'expo-secure-store'
 import { isAndroid, isIos } from './src/utils/layout'
 import { locales } from './src/utils/locale'
-import { formatDate } from './src/utils/formatDate'
+import { DateFormat, formatDate } from './src/utils/formatDate'
+import en from './translations/en.json'
+import pl from './translations/pl.json'
 
-let locale = ''
+let locale: 'en' | 'pl' = 'en'
+
+export type Languages = typeof resources
 
 if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
 else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
 
-const plTranslation = require('./translations/pl.json')
-const enTranslation = require('./translations/en.json')
-
 const resources = {
-  pl: {
-    ...plTranslation,
-  },
-  en: {
-    ...enTranslation,
-  },
+  pl,
+  en,
 }
 
 const initI18 = async () => {
   const lang = await getItemAsync('language')
   i18next.use(initReactI18next).init({
     resources,
-    lng: lang || locale.slice(0, 2),
-    fallbackLng: 'en',
+    compatibilityJSON: 'v3',
+    lng: lang || locale,
     keySeparator: false,
     debug: __DEV__,
     interpolation: {
-      format: (value, format, language) => {
-        if (value instanceof Date) return formatDate(value, format, locales[language])
+      // TODO: get rid of type assertions
+      format: (value: Date, format, language) => {
+        if (value instanceof Date)
+          return formatDate(value, format as DateFormat, locales[language as keyof Languages])
         return value
       },
-      escapeValue: false,
     },
   })
 }

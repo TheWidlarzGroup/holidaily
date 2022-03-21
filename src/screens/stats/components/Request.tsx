@@ -13,7 +13,7 @@ export const Request = ({
 }: {
   item: RequestTypes
 }) => {
-  const { t } = useTranslation(['stats'])
+  const { t } = useTranslation('stats')
   const [additionals, setAdditionals] = useState<Additional[]>([])
   const [daysBetween, setDaysBetween] = useState(1)
 
