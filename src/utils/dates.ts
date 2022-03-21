@@ -9,6 +9,7 @@ import {
   parseISO as FNSParseISO,
   setMonth,
 } from 'date-fns'
+import { getHolidaysInYear } from 'poland-public-holidays'
 import { getCurrentLocale } from './locale'
 
 export type DateOrISO = Date | string
@@ -97,8 +98,26 @@ export const getNumberOfWorkingDaysBetween = (dateA: DateOrISO, dateB: DateOrISO
   return differenceInBusinessDays(endDate, startDate) + 1
 }
 
+// TODO: add tests for calculatePTO
 export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
-  console.log(start, end)
-  console.warn('calculatePTO not implemented yet')
-  return '-'
+  const startDate = parseISO(start)
+  const endDate = parseISO(end)
+  const daysDiff = Math.floor((endDate.getTime() - startDate.getTime()) / DAY_IN_MS)
+  const holidays = getHolidaysInYear(startDate.getFullYear())
+  let workdaysDiff = 0
+  for (let i = 0; i < daysDiff; i++) {
+    const date = new Date(startDate.getTime() + i * DAY_IN_MS)
+    const isNotWeekend = !(date.getDay() === 6) && !(date.getDay() === 0)
+
+    if (isNotWeekend) {
+      let isNotHoliday = true
+      for (const holiday of holidays) {
+        if (holiday.date === date) isNotHoliday = false
+      }
+      if (isNotHoliday) workdaysDiff++
+    }
+  }
+  return workdaysDiff
 }
+
+const DAY_IN_MS = 1000 * 60 * 60 * 24
