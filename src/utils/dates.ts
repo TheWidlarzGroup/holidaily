@@ -107,13 +107,15 @@ export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
   let workdaysDiff = 0
   for (let i = 0; i < daysDiff; i++) {
     const date = new Date(startDate.getTime() + i * DAY_IN_MS)
-    // eslint-disable-next-line no-continue
-    if (date.getDay() === 6 || date.getDay() === 0) continue
-    for (const holiday of holidays) {
-      // eslint-disable-next-line no-continue
-      if (holiday.date === date) continue
+    const isNotWeekend = !(date.getDay() === 6) && !(date.getDay() === 0)
+
+    if (isNotWeekend) {
+      let isNotHoliday = true
+      for (const holiday of holidays) {
+        if (holiday.date === date) isNotHoliday = false
+      }
+      if (isNotHoliday) workdaysDiff++
     }
-    workdaysDiff++
   }
   return workdaysDiff
 }
