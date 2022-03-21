@@ -123,7 +123,7 @@
     "loginButton": "Log in"
   },
   "uploadPictureModal": {
-    "openCamera": "Take a selfie",
+    "openCamera": "Take a photo",
     "openGallery": "Choose from gallery",
     "changePicture": "Change profile picture",
     "deletePicture": "Delete profile picture"
@@ -200,7 +200,7 @@
     "locations": "Locations",
     "locationsAccessText": "Want to find nearby places? Turn on location access.",
     "locationsAccessPromptText": "Use my location",
-    "locationsSearch": "Search...",
+    "locationsSearch": "Search",
     "locationNotFound": "Not found",
     "loading": "Searching..."
   },

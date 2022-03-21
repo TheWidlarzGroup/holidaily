@@ -200,7 +200,7 @@
     "locations": "Lokalizacja",
     "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
     "locationsAccessPromptText": "Uzyj mojej lokalizacji",
-    "locationsSearch": "Wyszukaj...",
+    "locationsSearch": "Wyszukaj",
     "locationNotFound": "Nie znaleziono",
     "loading": "Szukam..."
   },

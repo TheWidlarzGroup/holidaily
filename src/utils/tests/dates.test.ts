@@ -8,7 +8,7 @@ import {
 } from 'utils/dates'
 import { parseISO } from 'date-fns'
 import { setCurrentLocale } from 'utils/locale'
-import '../../../i18n.js'
+import '../../../i18n.ts'
 
 describe('checksIfItsWeekend', () => {
   const monday = parseISO('2021-06-07')
