@@ -13,7 +13,7 @@ export const TeamSection = (props: TeamSectionProps) => {
   const { isOutOfOffice, matesArray } = props
   const { t } = useTranslation('dashboard')
 
-  const version = {
+  const version: { color: 'tertiary' | 'headerGrey'; text: 'outOfWorkNow' | 'outOfWorkSoon' } = {
     color: isOutOfOffice === true ? 'tertiary' : 'headerGrey',
     text: isOutOfOffice === true ? 'outOfWorkNow' : 'outOfWorkSoon',
   }

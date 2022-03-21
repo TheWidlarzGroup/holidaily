@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, ScrollView } from 'react-native'
+import { StyleSheet, Dimensions, ScrollView, ImageSourcePropType } from 'react-native'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -17,7 +17,11 @@ import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
 
-const SLIDER_DATA = [
+const SLIDER_DATA: {
+  title: `slider${1 | 2 | 3 | 4}Title`
+  text: `slider${1 | 2 | 3 | 4}SubTitle`
+  image: ImageSourcePropType
+}[] = [
   {
     title: 'slider1Title',
     text: 'slider1SubTitle',
@@ -48,8 +52,8 @@ export const Slider: FC = () => {
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
 
-  const navigateToSignup = () => {
-    navigation.navigate('Signup')
+  const navigateToWelcomeScreen = () => {
+    navigation.navigate('Welcome')
   }
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -58,14 +62,14 @@ export const Slider: FC = () => {
     },
     onEndDrag: () => {
       if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-        runOnJS(navigateToSignup)()
+        runOnJS(navigateToWelcomeScreen)()
       }
     },
   })
 
   const handlePressButton = () => {
     if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-      navigateToSignup()
+      navigateToWelcomeScreen()
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }

@@ -64,6 +64,26 @@
     "loginForgotPassword": "Zapomniałes hasła?",
     "loginButton": "Zaloguj się"
   },
+  "welcome": {
+    "welcomeTitle": "Miło cię widzieć!",
+    "welcomeSubtitle": "Przejdź przez demo i poznaj lepiej Holidaily.",
+    "yourName": "Twoje imię",
+    "whyAskForName": "Twoje imię i nazwisko wyświetlimy w kilku miejscach w aplikacji, dzięki czemu będziesz mógł odnieść prawdziwe wrażenie korzystania z Holidaily.",
+    "seeDemoButton": "Zobacz demo",
+    "firstNameErrMsg": "Dodaj swoje imię",
+    "about": "O aplikacji",
+    "aboutDesc1Part1": "Holidaily ",
+    "aboutDesc1Part2": "to aplikacja do ",
+    "aboutDesc1Part3": "rezerwacji urlopów ",
+    "aboutDesc1Part4": "zarówno dla ",
+    "aboutDesc1Part5": "pracodawców, jak i pracowników.",
+    "aboutDesc2Part1": "Ułatwia wymianę informacji ",
+    "aboutDesc2Part2": "o harmonogramach urlopów w firmie, dzięki czemu proces jest ",
+    "aboutDesc2Part3": "znacznie szybszy i łatwiejszy dla wszystkich pracowników!",
+    "memberOf": "Jesteś teraz członkiem:",
+    "yourTeams": "Twoje zespoły:",
+    "thanksButton": "Ok, dzięki!"
+  },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
     "signupWithCodeTitle": "Miło Cię poznać!",
@@ -114,6 +134,11 @@
     "no": "Nie",
     "changesSaved": "Zmiany zapisane!"
   },
+  "confirmLogoutModal": {
+    "areYouSure": "Chcesz się wylogować?",
+    "yes": "Wyloguj",
+    "no": "Anuluj"
+  },
   "inputErrors": {
     "requiredField": "To pole jest wymagane",
     "passwordMatch": "Hasła muszą być identyczne"
@@ -155,7 +180,8 @@
     "fieldRequired": "To pole jest wymagane."
   },
   "dashboard": {
-    "welcome": "Co słychać w Twoim zespole?",
+    "welcome": "Cześć {{name}}!",
+    "today": "Dziś mamy {{date}}",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
@@ -174,7 +200,7 @@
     "locations": "Lokalizacja",
     "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
     "locationsAccessPromptText": "Uzyj mojej lokalizacji",
-    "locationsSearch": "Wyszukaj...",
+    "locationsSearch": "Wyszukaj",
     "locationNotFound": "Nie znaleziono",
     "loading": "Szukam..."
   },
@@ -199,7 +225,12 @@
   },
   "stats": {
     "day": "dzień",
-    "days": "dni"
+    "days": "dni",
+    "requests": "ŻĄDANIA URLOPU",
+    "acceptedRequestsHeader": "ZATWIERDZONE",
+    "pendingRequestsHeader": "OCZEKUJĄCE",
+    "pastRequestsHeader": "WYKORZYSTANE",
+    "declinedRequestsHeader": "ODRZUCONE"
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
@@ -229,7 +260,7 @@
   "adminPanel": {
     "employees": "Pracownicy",
     "invite": "Zaproś",
-    "invitationCancelled": "Zaproszenie usunięte!", 
+    "invitationCancelled": "Zaproszenie usunięte!",
     "invitationCancelRequest": "Chcesz usunąć zaproszenie dla {{name}}?",
     "pendingEmployees": "Oczekujące",
     "joinedEmployees": "Dołączyli",
@@ -247,6 +278,21 @@
     "removeFromOrganization": "Chcesz usunąć {{name}}?",
     "save": "Zapisz",
     "cancel": "Anuluj"
-  
-    }
+  },
+  "budget": {
+    "budget": "Budżet wakacyjny",
+    "have": "Mam",
+    "took": "Wziąłem/am",
+    "sent": "Wysłałem/am",
+    "of": "Z {{number}}",
+    "left": "{{number}} dni urlopu",
+    "sickDays": "{{number}} dni urlopu chorobowego",
+    "requests": "{{number}} zapytań",
+    "requestsStatus": "{{accepted}} zaakceptowanych, {{pending}} oczekujących",
+    "policyHeader": "Polityka dni urlopowych",
+    "policyOne": "Liczba dni urlopu zależy od indywidualnych ustaleń, ale zwykle jest to <b>21 jeden dni<b/> rocznie",
+    "policyTwo": "Liczba zwiększa się po przepracowaniu <b>pełnego miesiąca.</b> ",
+    "policyTwoExample": "Jeśli zacząłeś/aś pracę 1 sierpnia 2021, to 2 września 2021 będzie ci przysługiwać 1,75 dni wolnego, 2 października 2021 będzie to 3,5 dnia itd.",
+    "policyThree": "O 1-2 dni urlopu powinieneś zapytać na <b>2 tygodnie</b> przed, a dłuższe wakacje (3 lub więcej dni) planować <b>z dwumiesięcznym wyprzedzeniem.</b>"
+  }
 }

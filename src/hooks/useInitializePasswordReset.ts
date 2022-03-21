@@ -13,7 +13,7 @@ import { AuthNavigationType } from 'navigation/types'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
-    return translate('invalid_credentials')
+    return translate('invalidCredentials')
   }
   return translate('default')
 }

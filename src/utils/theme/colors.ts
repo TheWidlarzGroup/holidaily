@@ -20,6 +20,7 @@ export const palette = {
   grayTabIcons: '#D5D5D5',
   rippleColor: '#00000008',
   transparent: 'transparent',
+  greenLight: '#B4E33D',
 }
 
 export const colors = {
@@ -45,4 +46,5 @@ export const colors = {
   greyDark: palette.greyDark,
   modalBackdrop: palette.mediumGrey,
   transparent: palette.transparent,
+  approvedGreen: palette.greenLight,
 }

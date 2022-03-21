@@ -64,6 +64,26 @@
     "loginForgotPassword": "Forgot your password?",
     "loginButton": "Log in"
   },
+  "welcome": {
+    "welcomeTitle": "Nice to meet you!",
+    "welcomeSubtitle": "Take a demo tour and get to know Holidaily better.",
+    "yourName": "Your name",
+    "whyAskForName": "We will display your name in several places in the app, so that you can get almost the real impression of using Holidaily.",
+    "seeDemoButton": "See demo",
+    "firstNameErrMsg": "Please enter your name",
+    "about": "About",
+    "aboutDesc1Part1": "Holidaily ",
+    "aboutDesc1Part2": "is an app for ",
+    "aboutDesc1Part3": "booking time off ",
+    "aboutDesc1Part4": "for both ",
+    "aboutDesc1Part5": "employers and employees.",
+    "aboutDesc2Part1": "It simplifies the information flow ",
+    "aboutDesc2Part2": "about vacation schedules within the company, making the process ",
+    "aboutDesc2Part3": "a lot quicker and easier for everyone!",
+    "memberOf": "You’re now a member of:",
+    "yourTeams": "Your teams:",
+    "thanksButton": "Ok, thanks!"
+  },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
     "signupWithCodeTitle": "Nice to meet you!",
@@ -103,7 +123,7 @@
     "loginButton": "Log in"
   },
   "uploadPictureModal": {
-    "openCamera": "Take a selfie",
+    "openCamera": "Take a photo",
     "openGallery": "Choose from gallery",
     "changePicture": "Change profile picture",
     "deletePicture": "Delete profile picture"
@@ -113,6 +133,11 @@
     "yes": "Yes",
     "no": "No",
     "changesSaved": "Changes saved"
+  },
+  "confirmLogoutModal": {
+    "areYouSure": "Log out?",
+    "yes": "Log out",
+    "no": "Cancel"
   },
   "inputErrors": {
     "requiredField": "This field is required",
@@ -155,7 +180,8 @@
     "fieldRequired": "This field is reqiuired."
   },
   "dashboard": {
-    "welcome": "How's your team doing?",
+    "welcome": "Hello {{name}}!",
+    "today": "Today is {{date}}",
     "teamsList": "Your teams",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
@@ -174,7 +200,7 @@
     "locations": "Locations",
     "locationsAccessText": "Want to find nearby places? Turn on location access.",
     "locationsAccessPromptText": "Use my location",
-    "locationsSearch": "Search...",
+    "locationsSearch": "Search",
     "locationNotFound": "Not found",
     "loading": "Searching..."
   },
@@ -199,7 +225,12 @@
   },
   "stats": {
     "day": "day",
-    "days": "days"
+    "days": "days",
+    "requests": "Requests",
+    "acceptedRequestsHeader": "ACCEPTED",
+    "pendingRequestsHeader": "PENDING",
+    "pastRequestsHeader": "PAST",
+    "declinedRequestsHeader": "DECLINED"
   },
   "messageInput": {
     "placeholder": "Write your message...",
@@ -229,7 +260,7 @@
   "adminPanel": {
     "employees": "Employees",
     "invite": "Invite",
-    "invitationCancelled": "Invitation cancelled!", 
+    "invitationCancelled": "Invitation cancelled!",
     "invitationCancelRequest": "Do tou want to cancel {{name}} invitation?",
     "pendingEmployees": "Pending",
     "joinedEmployees": "Joined",
@@ -247,6 +278,21 @@
     "removeFromOrganization": "Do you want to delete {{name}}?",
     "save": "Save",
     "cancel": "Cancel"
-
+  },
+  "budget": {
+    "budget": "Holiday budget",
+    "have": "I have",
+    "took": "I took",
+    "sent": "I sent",
+    "of": "Out of {{number}}",
+    "left": "{{number}} Days of PTO left",
+    "sickDays": "{{number}} sick days off",
+    "requests": "{{number}} requests",
+    "requestsStatus": "{{accepted}} accepted, {{pending}} pending",
+    "policyHeader": "PTO days policy",
+    "policyOne": "Number of PTO days depends on individual arrangements, but usually it is <b>21 PTO days per year.</b>",
+    "policyTwo": "It increases after working a <b>full month.</b>",
+    "policyTwoExample": "If you started work on August 1, 2021, on September 2, 2021 you will have 1.75 days off. On October 2, 2021 it will be 3.5 days and so on. ",
+    "policyThree": "You should ask for 1-2 days off about <b>2 weeks</b> before, and try to plan longer holidays (3 days or more) <b>2 months<b/> in advance."
   }
 }

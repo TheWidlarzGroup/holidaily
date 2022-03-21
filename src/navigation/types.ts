@@ -129,6 +129,9 @@ export type DrawerRoutes = {
 
 export type AuthRoutes = {
   Slider: undefined
+  Welcome: undefined
+  About: { isFromWelcomeScreen?: true }
+  TeamsModal: { firstName: string }
   Login: undefined
   Signup: undefined
   SignupEmail: undefined
@@ -149,13 +152,18 @@ export type ModalRoutes = {
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
-  CreatePost: undefined
+  CreatePost: { photo: { id: string; uri: string } }
 }
 
 export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: ValidationOfGroupDayOff
   DashboardTeamMember: RequiredMateHolidaysData
+}
+
+export type BudgetRoutes = {
+  Budget: undefined
+  PtoPolicy: undefined
 }
 
 export type UserProfileRoutes = {
