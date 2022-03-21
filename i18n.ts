@@ -26,6 +26,7 @@ const initI18 = async () => {
     resources,
     compatibilityJSON: 'v3',
     lng: lang || locale,
+    fallbackLng: ['en', 'pl'],
     keySeparator: false,
     debug: __DEV__,
     interpolation: {
@@ -38,5 +39,4 @@ const initI18 = async () => {
     },
   })
 }
-
 initI18()
