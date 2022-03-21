@@ -3,12 +3,11 @@ import { Box } from 'utils/theme/index'
 import { Photo } from '../Photo'
 
 type Side = 'left' | 'right'
-
-export const SummaryRequestVacationPhotos = ({
-  photos,
-}: {
+type SummaryRequestVacationPhotosProps = {
   photos?: { id: string; uri: string }[]
-}) => {
+}
+
+export const SummaryRequestVacationPhotos = ({ photos }: SummaryRequestVacationPhotosProps) => {
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2

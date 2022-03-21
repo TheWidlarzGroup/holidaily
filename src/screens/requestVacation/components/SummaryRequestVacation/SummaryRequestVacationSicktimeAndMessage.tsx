@@ -3,13 +3,15 @@ import { Box, Text } from 'utils/theme/index'
 import PillIcon from 'assets/icons/pill.svg'
 import { useTranslation } from 'react-i18next'
 
+type SummaryRequestVacationSicktimeAndMessageProps = {
+  sickTime: boolean
+  message?: string
+}
+
 export const SummaryRequestVacationSicktimeAndMessage = ({
   sickTime,
   message,
-}: {
-  sickTime: boolean
-  message?: string
-}) => {
+}: SummaryRequestVacationSicktimeAndMessageProps) => {
   const { t } = useTranslation('requestVacation')
   return (
     <>

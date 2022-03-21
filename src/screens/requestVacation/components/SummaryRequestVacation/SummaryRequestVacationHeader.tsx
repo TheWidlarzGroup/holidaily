@@ -6,15 +6,17 @@ import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { useTranslation } from 'react-i18next'
 
+type SummaryRequestVacationHeaderProps = {
+  description?: string
+  startDate?: Date
+  endDate?: Date
+}
+
 export const SummaryRequestVacationHeader = ({
   description,
   startDate,
   endDate,
-}: {
-  description?: string
-  startDate?: Date
-  endDate?: Date
-}) => {
+}: SummaryRequestVacationHeaderProps) => {
   const styles = useStyles()
   const { t } = useTranslation('requestVacation')
   return (
