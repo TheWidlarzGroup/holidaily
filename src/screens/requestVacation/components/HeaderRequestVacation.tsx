@@ -11,8 +11,7 @@ export const HeaderRequestVacation = ({ step, setStep }: { step: number; setStep
   const { t } = useTranslation('requestVacation')
 
   const onStepBack = () => {
-    if (step) setStep(step - 1)
-    else goBack()
+    step ? setStep(step-1) : goBack()
   }
 
   return (
