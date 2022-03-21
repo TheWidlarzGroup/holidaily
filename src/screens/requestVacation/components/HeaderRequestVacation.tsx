@@ -10,9 +10,7 @@ export const HeaderRequestVacation = ({ step, setStep }: { step: number; setStep
   const { goBack } = useNavigation()
   const { t } = useTranslation('requestVacation')
 
-  const onStepBack = () => {
-    step ? setStep(step-1) : goBack()
-  }
+  const onStepBack = () => (step ? setStep(step - 1) : goBack())
 
   return (
     <Box
