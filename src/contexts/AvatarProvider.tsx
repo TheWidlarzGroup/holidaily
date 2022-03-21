@@ -16,11 +16,11 @@ export const AvatarProvider = ({ children }: ProviderProps) => {
   const [avatarUri, setAvatarUri] = useState<string | null | undefined>(null)
 
   useEffect(() => {
-    const tryToLoadImage = async () => {
+    const loadImageIfPossible = async () => {
       const profilePic = await getItemAsync(PROFILE_PIC_STORE_KEY)
       if (profilePic && profilePic.length) setAvatarUri(profilePic)
     }
-    tryToLoadImage()
+    loadImageIfPossible()
   }, [])
 
   const updateAvatarUri = async (uri: string | null | undefined) => {
@@ -38,9 +38,9 @@ export const useAvatarContext = () => {
     return context
   }
 
-  throw Error('Use this hook in AvatarContextProvider scope')
+  throw Error('Use this hook in AvatarProvider scope')
 }
 
-AvatarProvider.displayName = 'AvatarContextProvider'
+AvatarProvider.displayName = 'AvatarProvider'
 
 const PROFILE_PIC_STORE_KEY = 'profile-pic'
