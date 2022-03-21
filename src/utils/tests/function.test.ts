@@ -11,7 +11,7 @@ import { TEAM_MATES_AKADEMIA, TEAM_MATES_DEV } from 'utils/mocks/userMocks'
 
 import { parseISO, subDays } from 'date-fns'
 import { setCurrentLocale } from 'utils/locale'
-import '../../../i18n.js'
+import '../../../i18n.ts'
 
 describe('isTimeIntervalLessThanWeek', () => {
   const inputDayFalse = subDays(new Date(), 100)

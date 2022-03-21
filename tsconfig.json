@@ -18,6 +18,7 @@
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"]
-    }
+    },
+    "resolveJsonModule": true
   }
 }
