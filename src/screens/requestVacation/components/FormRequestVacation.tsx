@@ -109,6 +109,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             variant="primary"
             onPress={handleFormSubmit}
             marginTop={20}
+            maxWidth={250}
+            alignSelf="center"
           />
         )}
       </Box>
