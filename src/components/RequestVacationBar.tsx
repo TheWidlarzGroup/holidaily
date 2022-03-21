@@ -1,13 +1,12 @@
-import React, { FC, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Box, theme } from 'utils/theme/index'
 import { AnimatedBar } from './AnimatedBar'
 
-type RequestVacationBarTypes = {
+type RequestVacationBarProps = {
   currentScreen: 'Form' | 'Summary'
-  reverseBarAnimation?: boolean
 }
 
-export const RequestVacationBar: FC<RequestVacationBarTypes> = ({ currentScreen }) => {
+export const RequestVacationBar = ({ currentScreen }: RequestVacationBarProps) => {
   const { current: initialScreen } = useRef(currentScreen)
 
   return (
