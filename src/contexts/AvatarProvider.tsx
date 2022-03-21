@@ -1,4 +1,5 @@
-import React, { ReactNode, useState, createContext, useContext } from 'react'
+import React, { ReactNode, useState, createContext, useContext, useEffect } from 'react'
+import { getItemAsync, setItemAsync } from 'expo-secure-store'
 
 type ProviderProps = {
   children: ReactNode
@@ -13,7 +14,19 @@ const AvatarContext = createContext<ContextProps | null>(null)
 
 export const AvatarProvider = ({ children }: ProviderProps) => {
   const [avatarUri, setAvatarUri] = useState<string | null | undefined>(null)
-  const updateAvatarUri = (uri: string | null | undefined) => setAvatarUri(uri)
+
+  useEffect(() => {
+    const tryToLoadImage = async () => {
+      const profilePic = await getItemAsync(PROFILE_PIC_STORE_KEY)
+      if (profilePic && profilePic.length) setAvatarUri(profilePic)
+    }
+    tryToLoadImage()
+  }, [])
+
+  const updateAvatarUri = async (uri: string | null | undefined) => {
+    setAvatarUri(uri)
+    await setItemAsync(PROFILE_PIC_STORE_KEY, uri ?? '')
+  }
   const value: ContextProps = { avatarUri, updateAvatarUri }
   return <AvatarContext.Provider value={value}>{children}</AvatarContext.Provider>
 }
@@ -29,3 +42,5 @@ export const useAvatarContext = () => {
 }
 
 AvatarProvider.displayName = 'AvatarContextProvider'
+
+const PROFILE_PIC_STORE_KEY = 'profile-pic'
