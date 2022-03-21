@@ -17,7 +17,7 @@ import { generateUUID } from 'utils/generateUUID'
 
 export type MessageInputProps = {
   onSubmitEditing: F1<string>
-  handleSubmitComment?: (comment: Comment) => void
+  handleSubmitComment?: F1<Comment>
   onBlur?: F1<string>
   defaultValue?: string
   maxLength?: number

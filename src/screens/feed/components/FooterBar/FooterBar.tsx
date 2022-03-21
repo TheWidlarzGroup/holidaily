@@ -29,27 +29,22 @@ export const FooterBar = ({ reactions, comments }: FooterBarProps) => {
   }
 
   const handlePressReaction = (emoji: string) => {
-    const getReactionIndex = reactions.findIndex((reaction) => reaction.type === emoji)
-    const usersAddedReaction = reactions[getReactionIndex].users
-    const checkIfUserAddedReaction = usersAddedReaction.includes(user?.id || '')
-    if (checkIfUserAddedReaction) {
-      const index = usersAddedReaction.indexOf(user?.id || '')
-      if (index !== -1) {
-        usersAddedReaction.splice(index, 1)
-      }
-    } else {
+    const reactionIndex = reactions.findIndex((reaction) => reaction.type === emoji)
+    const usersAddedReaction = reactions[reactionIndex].users
+    const index = usersAddedReaction.indexOf(user?.id || '')
+
+    if (index === -1) {
       usersAddedReaction.push(user?.id || '')
+    } else {
+      usersAddedReaction.splice(index, 1)
     }
   }
 
   const handleAddReaction = (emoji: EmojiType) => {
     const newReaction = { type: emoji.emoji, users: [user?.id || ''] }
     const isEmojiPresent = reactions.some((reaction) => reaction.type === emoji.emoji)
-    if (isEmojiPresent) {
-      handlePressReaction(emoji.emoji)
-    } else {
-      reactions.push(newReaction)
-    }
+    if (isEmojiPresent) handlePressReaction(emoji.emoji)
+    else reactions.push(newReaction)
   }
 
   return (
@@ -74,8 +69,8 @@ export const FooterBar = ({ reactions, comments }: FooterBarProps) => {
 type FooterBarContentProps = {
   reactions: Reaction[]
   onCommentBtnPress: F0
-  handlePressReaction: (emoji: string) => void
-  handleAddReaction: (emoji: EmojiType) => void
+  handlePressReaction: F1<string>
+  handleAddReaction: F1<EmojiType>
 }
 
 const FooterBarContent = (props: FooterBarContentProps) => {
