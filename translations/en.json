@@ -8,7 +8,8 @@
     "slider3SubTitle": "Are you planning vacations or some personal time? Simply request it.",
     "slider4Title": "Get notified",
     "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
-    "next": "Next"
+    "next": "Next",
+    "skip": "Skip"
   },
   "forgotPassword": {
     "email": "E-mail Address",
