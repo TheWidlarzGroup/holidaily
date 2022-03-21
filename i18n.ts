@@ -8,7 +8,7 @@ import { DateFormat, formatDate } from './src/utils/formatDate'
 import en from './translations/en.json'
 import pl from './translations/pl.json'
 
-let locale: 'en' | 'pl' | `en_${string}` = 'en'
+let locale = 'en'
 
 export type Languages = typeof resources
 
