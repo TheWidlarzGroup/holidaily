@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Box, theme } from 'utils/theme/index'
+import { Box } from 'utils/theme/index'
 import { AnimatedBar } from './AnimatedBar'
 
 type RequestVacationBarProps = {
@@ -11,12 +11,11 @@ export const RequestVacationBar = ({ currentScreen }: RequestVacationBarProps) =
 
   return (
     <Box flexDirection="row" paddingHorizontal="m">
-      <AnimatedBar marginSide="marginRight" margin={theme.spacing.s} />
+      <AnimatedBar marginRight="s" />
       <AnimatedBar
         disableInitialAnimation
         reverseAnimation={currentScreen === initialScreen}
-        marginSide="marginLeft"
-        margin={theme.spacing.s}
+        marginLeft="s"
       />
     </Box>
   )
