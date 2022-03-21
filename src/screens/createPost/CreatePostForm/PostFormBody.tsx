@@ -1,5 +1,4 @@
 import React from 'react'
-import { useUserContext } from 'hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
@@ -9,6 +8,7 @@ import { GalleryItemData } from 'types/holidaysDataTypes'
 
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
+import { useAvatarContext } from 'contexts/AvatarProvider'
 
 type PostBodyProps = {
   text: string
@@ -19,7 +19,7 @@ type PostBodyProps = {
 
 export const PostBody = (props: PostBodyProps) => {
   const { location, onTextChange, text, data } = props
-  const { user } = useUserContext()
+  const { avatarUri } = useAvatarContext()
   const { t } = useTranslation('createPost')
 
   const styles = useStyles()
@@ -27,7 +27,7 @@ export const PostBody = (props: PostBodyProps) => {
   return (
     <Box flexGrow={1} padding="s">
       <Box flexDirection="row">
-        <Avatar src={user?.photo} size="s" padding="l" />
+        <Avatar src={avatarUri} size="s" padding="l" />
         <Box marginLeft="m" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           {location?.addresses && <LocationInfo location={location} />}
           <TextInput

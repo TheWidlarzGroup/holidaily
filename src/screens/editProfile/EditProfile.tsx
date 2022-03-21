@@ -23,7 +23,7 @@ type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
-  const { handleUpdateUser, isSuccess, isLoading } = useUpdateUser()
+  // const { handleUpdateUser, isSuccess, isLoading } = useUpdateUser()
   const navigation = useNavigation()
   const { user } = useUserContext()
   const styles = useStyles()
@@ -39,18 +39,22 @@ export const EditProfile = () => {
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
-  const handleEditDetailsSubmit = (data: EditDetailsTypes) => {
-    handleUpdateUser(data)
-    fetchUser()
+  // const handleEditDetailsSubmit = (data: EditDetailsTypes) => {
+  //   handleUpdateUser(data)
+  //   fetchUser()
+  // }
+  const onSubmit = () => {
+    showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+    setEditedFalse()
   }
 
-  useEffect(() => {
-    if (isSuccess) {
-      showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
-      setEditedFalse()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess])
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+  //     setEditedFalse()
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isSuccess])
 
   return (
     <SafeAreaView style={styles.mainView}>
@@ -69,10 +73,8 @@ export const EditProfile = () => {
         <TeamSubscriptions />
         <ProfileColor />
       </ScrollView>
-      <LoadingModal show={isLoading} />
-      {isEdited && (
-        <SaveChangesButton handleEditDetailsSubmit={handleSubmit(handleEditDetailsSubmit)} />
-      )}
+      {/* <LoadingModal show={isLoading} /> */}
+      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
     </SafeAreaView>
   )
 }
