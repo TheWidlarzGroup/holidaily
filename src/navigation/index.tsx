@@ -39,9 +39,9 @@ export const AppNavigation = () => {
   return (
     <NavigationContainer linking={linking}>
       {loginStatus === 'BeforeCheck' && <Splash />}
-      {loginStatus === 'LoggedIn' && <AuthStackNavigation />}
+      {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
-      {loginStatus === 'AnotherVisit' && <AuthStackNavigation />}
+      {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Welcome" />}
     </NavigationContainer>
   )
 }
