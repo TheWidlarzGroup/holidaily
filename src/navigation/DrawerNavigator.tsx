@@ -83,7 +83,7 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="AdminPanelEmployeesNavigation"
         component={AdminPanelEmployeesNavigation}
-        options={{ title: 'Employees', swipeEnabled: false }}
+        options={{ title: t('employees'), swipeEnabled: false }}
       />
       <Drawer.Screen
         name="HolidayBudget"

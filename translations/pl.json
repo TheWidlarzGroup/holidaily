@@ -148,12 +148,13 @@
     "home": "Strona Główna",
     "about": "O nas",
     "settings": "Ustawienia",
+    "employees": "Pracownicy",
     "dashboard": "Tablica",
     "calendar": "Kalendarz",
     "panel": "Panel",
     "chat": "Czat",
     "editProfile": "Edytuj profil",
-    "budget": "Budżet wakacyjny"
+    "budget": "Budżet urlopowy"
   },
   "userProfile": {
     "addPhoto": "Dodaj zdjęcie profilowe",
@@ -173,7 +174,7 @@
     "quitMessage": "If you quit now, your changes won't be saved",
     "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
-    "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły",
+    "subscribeMoreTeams": "Subskrybuj zespoły",
     "selected": "Zaznaczono: ",
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
@@ -196,7 +197,7 @@
     "postCommentBtn": "Skomentuj",
     "comments": "Komentarze",
     "noComments": "Brak komentarzy",
-    "createPostLabel": "Co tam?",
+    "createPostLabel": "Co słychać?",
     "locations": "Lokalizacja",
     "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
     "locationsAccessPromptText": "Uzyj mojej lokalizacji",
@@ -207,7 +208,7 @@
   "createPost": {
     "title": "Stwórz Post",
     "clearPost": "Wyczyść",
-    "inputPlaceholder": "Co tam?",
+    "inputPlaceholder": "Co słychać?",
     "sendPost": "Wyślij",
     "postSent": "Wiadomość wysłana!"
   },
@@ -239,11 +240,11 @@
   "requestVacation": {
     "title": "Weź wolne",
     "detailsTitle": "Szczegóły",
-    "detailsDate": "Okres",
+    "detailsDate": "Termin",
     "detailsDescription": "Opis (opcjonalnie)",
     "detailsDescriptionError": "Nieprawidłowy opis",
     "sickTimeTitle": "Chorobowe",
-    "sickTimeLabel": "Nie czuje się za dobrze",
+    "sickTimeLabel": "Nie czuje się najlepiej",
     "additionalsTitle": "Dodatki",
     "additionalsLabel": "Dodaj załącznik lub wiadomość",
     "attachmentDeleteMessage": "Usunąć załącznik?",

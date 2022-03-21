@@ -73,6 +73,8 @@ export const SummaryRequestVacation = ({
         onPress={handleSend}
         style={styles.button}
         loading={isLoading}
+        maxWidth={250}
+        alignSelf="center"
       />
     </Box>
   )

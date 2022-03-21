@@ -26,7 +26,7 @@ export const FeedHeader = () => {
         <Avatar size="s" />
       </Box>
       <BaseOpacity flexGrow={1} onPress={() => navigate('CreatePost')} justifyContent="center">
-        <Text>{t('createPostLabel')}</Text>
+        <Text variant="labelGreyLight">{t('createPostLabel')}</Text>
       </BaseOpacity>
       <BaseOpacity onPress={setShowAttachmentModalTrue} justifyContent="center">
         <IconGallery />
