@@ -11,9 +11,9 @@ export const Logout = () => {
   const { handleLogout } = useUserContext()
   const onPress = useWithConfirmation({
     onAccept: handleLogout,
-    header: t('areYouSure'),
-    acceptBtnText: t('yes'),
-    declineBtnText: t('no'),
+    header: t('confirmLogoutModal:areYouSure'),
+    acceptBtnText: t('confirmLogoutModal:yes'),
+    declineBtnText: t('confirmLogoutModal:no'),
   })
   return (
     <Box marginBottom="xxl" alignItems="flex-start">

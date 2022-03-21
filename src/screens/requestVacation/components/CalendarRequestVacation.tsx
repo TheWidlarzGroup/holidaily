@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 
 import { Box, mkUseStyles } from 'utils/theme'
 import { CalendarHeader } from './CalendarHeader'
-import { DaysOfWeek } from './DaysOfWeek'
 import { SelectPeriodModal } from './SelectPeriodModal'
 
 export const CalendarRequestVacation = () => {
@@ -29,7 +28,6 @@ export const CalendarRequestVacation = () => {
 
   return (
     <Box backgroundColor="white" borderRadius="m" flex={1} alignItems="center">
-      <DaysOfWeek />
       <CalendarList
         selectable
         style={styles.calendar}
