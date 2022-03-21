@@ -132,7 +132,7 @@ export const SignupWithCode = ({ route }: SignupWithCodeTypes) => {
             isError={!!errors.password}
             errors={errors}
             name="password"
-            inputLabel={t('password')}
+            inputLabel={t('password2')}
             validationPattern={passwordRegex}
             errorMessage={t('nameSurnameErrMsg')}
             ref={inputsRefs[2]}

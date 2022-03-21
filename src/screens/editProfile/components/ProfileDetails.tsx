@@ -55,6 +55,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
+          labelTextVariant="labelGrey"
+          inputTextVariant="bold"
         />
         {iconInvisible !== 0 && (
           <Box
@@ -88,6 +90,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[1]}
+          labelTextVariant="labelGrey"
+          inputTextVariant="bold"
         />
         {iconInvisible !== 1 && (
           <Box
@@ -121,6 +125,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[2]}
+          labelTextVariant="labelGrey"
+          inputTextVariant="bold"
         />
         {iconInvisible !== 2 && (
           <Box
@@ -143,10 +149,11 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
       </Box>
       <Box marginBottom="l">
         <InputButton
-          inputLabel={'Password'}
+          inputLabel={t('userPassword')}
           value={'••••••••'}
           onClick={navigateToChangePassword}
           showEditIcon
+          labelTextVariant="labelGrey"
         />
       </Box>
     </Box>
