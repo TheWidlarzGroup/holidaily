@@ -1,28 +1,44 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { Box } from 'utils/theme/index'
 
 type AnimatedBarProps = {
-  margin: number
-  marginSide: string
-}
-export const AnimatedBar: FC<AnimatedBarProps> = ({ margin, marginSide }) => {
-  const barWidth = useSharedValue(0)
-
-  const progressStyle = useAnimatedStyle(() => ({
-    width: withTiming(`${barWidth.value}%`, {
-      duration: 1000,
-    }),
+  reverseAnimation?: boolean
+  disableInitialAnimation?: boolean
+} & React.ComponentProps<typeof Box>
+export const AnimatedBar: FC<AnimatedBarProps> = ({
+  reverseAnimation,
+  disableInitialAnimation,
+  ...p
+}) => {
+  const barWidth = useSharedValue(reverseAnimation ? 100 : 0)
+  const isFirstRender = useRef(true)
+  const animatedProgressStyle = useAnimatedStyle(() => ({
+    width: `${barWidth.value}%`,
   }))
 
   useEffect(() => {
-    barWidth.value = 100
-  })
+    if (isFirstRender.current && disableInitialAnimation) {
+      barWidth.value = reverseAnimation ? 0 : 100
+    } else {
+      barWidth.value = withTiming(reverseAnimation ? 0 : 100, {
+        duration: 1000,
+      })
+    }
+
+    isFirstRender.current = false
+  }, [barWidth, reverseAnimation, disableInitialAnimation])
   return (
-    <Box flex={1} style={{ [marginSide]: margin }}>
-      <Animated.View style={progressStyle}>
+    <Box flex={1} {...p}>
+      <Animated.View style={animatedProgressStyle}>
         <Box backgroundColor="tertiary" height={4} borderRadius="full" />
       </Animated.View>
+      <Box
+        backgroundColor="lightGrey"
+        zIndex="-1"
+        height={4}
+        style={[{ transform: [{ translateY: -4 }] }]}
+      />
     </Box>
   )
 }
