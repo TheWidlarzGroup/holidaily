@@ -18,7 +18,7 @@ type PostFooterProps = {
   onImagesPick: F1<Asset[]>
 }
 
-export const PostFooter = ({ onLocationPress, onImagesPick }: PostFooterProps) => {
+export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProps) => {
   const [keyboardShown] = useKeyboard()
 
   const imagePickCallback = useCallback(

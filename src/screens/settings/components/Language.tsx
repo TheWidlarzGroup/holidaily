@@ -11,7 +11,7 @@ import CheckCircle from 'assets/icons/checkCircle.svg'
 import { locales } from 'utils/locale'
 
 import { setItemAsync } from 'expo-secure-store'
-import { keys } from '../../../utils/manipulation'
+import { keys } from 'utils/manipulation'
 import { Languages } from '../../../../i18n'
 
 type LanguageProps = {

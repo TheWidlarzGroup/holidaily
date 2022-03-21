@@ -4,6 +4,7 @@ import {
   ImageLibraryOptions,
   launchImageLibrary,
   ImagePickerResponse,
+  launchCamera,
 } from 'react-native-image-picker'
 import { CustomModal } from 'components/CustomModal'
 import { UploadPictureButtons } from 'components/UploadPictureButtons'
@@ -14,8 +15,9 @@ type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideEditPictureModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
+  showCamera: boolean
 }
-type PhotoSelectionChoice = 'gallery'
+type PhotoSelectionChoice = 'gallery' | 'camera'
 
 export const UploadPictureModal = ({
   isVisible,
@@ -23,6 +25,7 @@ export const UploadPictureModal = ({
   onUserCancelled,
   setPhotoURI,
   hideEditPictureModal,
+  showCamera,
 }: UploadPictureModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
@@ -46,6 +49,10 @@ export const UploadPictureModal = ({
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
       }, 250)
+    } else {
+      setTimeout(() => {
+        launchCamera(options, (response) => onHandleResponse(response))
+      }, 250)
     }
   }
   useEffect(() => {
@@ -63,9 +70,9 @@ export const UploadPictureModal = ({
       animationInTiming={300}
       animationOutTiming={300}
       swipeDirection="down"
-      style={styles.modal}
+      style={showCamera ? { ...styles.modal, ...styles.longModal } : styles.modal}
       hideModalContentWhileAnimating>
-      <UploadPictureButtons onUploadImage={onUploadImage} />
+      <UploadPictureButtons onUploadImage={onUploadImage} showCamera={showCamera} />
     </CustomModal>
   )
 }
@@ -86,5 +93,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
+  },
+  longModal: {
+    height: 175,
   },
 }))
