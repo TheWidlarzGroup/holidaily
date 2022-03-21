@@ -255,7 +255,13 @@
     "ptoLeft1": "You will have",
     "ptoLeft2": "days of PTO left",
     "pickedPTO": "{{days}} days of PTO",
-    "select": "Select"
+    "select": "Select",
+    "sent": "Request sent!",
+    "waitForApproval": "Now wait for the request approval, and do not pack your suitcase yet!",
+    "findRequests": "You will find all requests at the bottom of the screen.",
+    "seeRequest": "See request",
+    "addAnother": "Add another request",
+    "ok": "Ok, cool!"
   },
   "adminPanel": {
     "employees": "Employees",
