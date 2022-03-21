@@ -98,7 +98,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
       {step === 1 && (
         <SummaryRequestVacation
           description={description}
-          sickTime={sickTime}
+          isSick={sickTime}
           startDate={startDate}
           endDate={endDate}
           message={message}

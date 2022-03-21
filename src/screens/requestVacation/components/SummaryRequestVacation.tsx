@@ -7,12 +7,12 @@ import { useRequestHolidays } from 'hooks/useRequestHolidays'
 import { useTranslation } from 'react-i18next'
 import { SummaryDays } from './SummaryRequestVacation/SummaryDays'
 import { SummaryRequestVacationHeader } from './SummaryRequestVacation/SummaryRequestVacationHeader'
-import { SummaryRequestVacationSicktimeAndMessage } from './SummaryRequestVacation/SummaryRequestVacationSicktimeAndMessage'
+import { SicktimeAndMessage } from './SummaryRequestVacation/SicktimeAndMessage'
 import { SummaryRequestVacationPhotos } from './SummaryRequestVacation/SummaryRequestVacationPhotos'
 
 type SummaryRequestVacationProps = {
   description: string
-  sickTime: boolean
+  isSick: boolean
   onNextPressed: F0
   startDate?: Date
   endDate?: Date
@@ -22,7 +22,7 @@ type SummaryRequestVacationProps = {
 
 export const SummaryRequestVacation = ({
   description,
-  sickTime,
+  isSick,
   onNextPressed,
   endDate,
   startDate,
@@ -40,7 +40,7 @@ export const SummaryRequestVacation = ({
         startDate: getISODateString(startDate),
         endDate: getISODateString(endDate),
         description,
-        sickTime,
+        sickTime: isSick,
         message,
       })
     }
@@ -61,7 +61,7 @@ export const SummaryRequestVacation = ({
             endDate={endDate}
             description={description}
           />
-          <SummaryRequestVacationSicktimeAndMessage sickTime={sickTime} message={message} />
+          <SicktimeAndMessage isSick={isSick} message={message} />
           <SummaryRequestVacationPhotos photos={photos} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays ptoTaken={ptoTaken} />
