@@ -4,7 +4,7 @@ import { Box } from 'utils/theme/index'
 
 type AnimatedBarProps = {
   margin: number
-  marginSide: 'margin' | `margin${'Left' | 'Right' | 'Top' | 'Bottom' | 'Horizontal' | 'Vertical'}`
+  marginSide: keyof React.ComponentProps<typeof Box> & `margin${string}`
   reverseAnimation?: boolean
   disableInitialAnimation?: boolean
 }
