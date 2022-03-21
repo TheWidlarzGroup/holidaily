@@ -3,10 +3,12 @@ import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { KeyboardAvoidingView } from 'react-native'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
 import { ModalLocationPicker } from './ModalLocationPicker'
+import { Submit } from './PostFormFooter/Submit'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
@@ -30,21 +32,22 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
 
   return (
     <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
         <PostHeader />
-        <PostBody
-          text={state.text}
-          location={state.location}
-          onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
-          data={galleryImages}
+        <ScrollView>
+          <PostBody
+            text={state.text}
+            location={state.location}
+            onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
+            data={galleryImages}
+          />
+        </ScrollView>
+        <PostFormFooter
+          onLocationPress={openLocationPicker}
+          onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
         />
-      </ScrollView>
-      <PostFormFooter
-        onLocationPress={openLocationPicker}
-        disabledCTA={sendDisabled}
-        onCTAPress={() => onSend(state)}
-        onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
-      />
+      </KeyboardAvoidingView>
+      <Submit disabledCTA={sendDisabled} onCTAPress={() => onSend(state)} />
       <ModalLocationPicker
         visible={locationPickerOpened}
         onLocationChange={(locationPayload) => {

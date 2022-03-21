@@ -66,9 +66,9 @@ export const NewPassword: FC = () => {
     <Container>
       <RecoveryPasswordBar currentScreen="NewPassword" />
       <Box justifyContent="center" marginTop="xxl">
-        <Text variant="title1">{t('recoveryCodeTitle')}</Text>
+        <Text variant="title1">{t('recoveryCode:recoveryCodeTitle')}</Text>
         <Text variant="body1" marginTop="s" marginHorizontal="l">
-          {t('enterNewPassword')}
+          {t('recoveryCode:enterNewPassword')}
         </Text>
       </Box>
       <Box marginHorizontal="l" marginTop="xl" flex={1}>
@@ -108,7 +108,7 @@ export const NewPassword: FC = () => {
       </Box>
       <Box justifyContent="center" marginHorizontal="xxl">
         <CustomButton
-          label={t('updateButton')}
+          label={t('recoveryCode:updateButton')}
           variant="primary"
           onPress={handleSubmit(handleUpdatePassword)}
           loading={isLoading}

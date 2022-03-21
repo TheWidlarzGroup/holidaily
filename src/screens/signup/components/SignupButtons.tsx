@@ -10,7 +10,7 @@ type SignupButtonsProps = {
 }
 
 export const SignupButtons = (p: SignupButtonsProps) => {
-  const { t } = useTranslation(['signup'])
+  const { t } = useTranslation('signup')
 
   return (
     <Box flex={1} alignItems="center" justifyContent="center">

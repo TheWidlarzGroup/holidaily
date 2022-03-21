@@ -12,7 +12,6 @@ import { useModalContext } from 'contexts/ModalProvider'
 import { useUpdateUser } from 'hooks/useUpdateUser'
 import IconBack from 'assets/icons/icon-back.svg'
 import { LoadingModal } from 'components/LoadingModal'
-import { ModalProvider } from '../../contexts/ModalProvider'
 import { UserData } from '../../contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -54,29 +53,27 @@ export const EditProfile = () => {
   }, [isSuccess])
 
   return (
-    <ModalProvider>
-      <SafeAreaView style={styles.mainView}>
-        <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
-          <BaseOpacity
-            onPress={() => {
-              navigation.navigate('Dashboard')
-              navigation.dispatch(DrawerActions.openDrawer())
-            }}
-            style={styles.backBtn}
-            activeOpacity={0.5}>
-            <IconBack />
-          </BaseOpacity>
-          <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
-          <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
-          <TeamSubscriptions />
-          <ProfileColor />
-        </ScrollView>
-        <LoadingModal show={isLoading} />
-        {isEdited && (
-          <SaveChangesButton handleEditDetailsSubmit={handleSubmit(handleEditDetailsSubmit)} />
-        )}
-      </SafeAreaView>
-    </ModalProvider>
+    <SafeAreaView style={styles.mainView}>
+      <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+        <BaseOpacity
+          onPress={() => {
+            navigation.navigate('Dashboard')
+            navigation.dispatch(DrawerActions.openDrawer())
+          }}
+          style={styles.backBtn}
+          activeOpacity={0.5}>
+          <IconBack />
+        </BaseOpacity>
+        <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
+        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+        <TeamSubscriptions />
+        <ProfileColor />
+      </ScrollView>
+      <LoadingModal show={isLoading} />
+      {isEdited && (
+        <SaveChangesButton handleEditDetailsSubmit={handleSubmit(handleEditDetailsSubmit)} />
+      )}
+    </SafeAreaView>
   )
 }
 

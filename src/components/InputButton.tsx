@@ -3,8 +3,8 @@ import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
-import EditIcon from 'assets/icons/icon-edit-grey.svg'
-import { Text, Box, mkUseStyles } from 'utils/theme/index'
+import EditIcon from 'assets/icons/icon-edit.svg'
+import { Text, Box, mkUseStyles, useTheme } from 'utils/theme/index'
 
 type ButtonInputTypes = {
   inputLabel: string
@@ -22,7 +22,7 @@ export const InputButton = ({
   showEditIcon = false,
 }: ButtonInputTypes) => {
   const styles = useStyles()
-
+  const theme = useTheme()
   const errorOpacity = useSharedValue(0)
   const progressStyle = useAnimatedStyle(() => ({
     borderWidth: withTiming(errorOpacity.value, {
@@ -52,7 +52,7 @@ export const InputButton = ({
               borderColor={showEditIcon ? 'white' : 'disabledText'}
               padding={showEditIcon ? 'xs' : 'm'}>
               {showEditIcon ? (
-                <EditIcon />
+                <EditIcon color={theme.colors.headerGrey} />
               ) : (
                 <BackArrowIcon width={16} height={16} style={styles.icon} />
               )}

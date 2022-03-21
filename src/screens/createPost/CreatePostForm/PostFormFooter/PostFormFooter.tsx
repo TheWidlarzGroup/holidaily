@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
-import { Box, Text, BaseOpacity } from 'utils/theme'
-import { useTranslation } from 'react-i18next'
+import { Box } from 'utils/theme'
 
 import IconCamera from 'assets/icons/icon-camera.svg'
 import IconGallery from 'assets/icons/icon-gallery-2.svg'
@@ -11,22 +10,16 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker'
+import { useKeyboard } from 'hooks/useKeyboard'
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
   onLocationPress: F0
   onImagesPick: F1<Asset[]>
-  onCTAPress: F0
-  disabledCTA: boolean
 }
 
-export const PostFormFooter = ({
-  onLocationPress,
-  onCTAPress,
-  onImagesPick,
-  disabledCTA,
-}: PostFooterProps) => {
-  const { t } = useTranslation('createPost')
+export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProps) => {
+  const [keyboardShown] = useKeyboard()
 
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
@@ -36,7 +29,6 @@ export const PostFormFooter = ({
     },
     [onImagesPick]
   )
-
   const handleCameraPress = () => {
     launchCamera(
       {
@@ -68,43 +60,25 @@ export const PostFormFooter = ({
 
   return (
     <Box
-      bg="disabled"
+      backgroundColor="disabled"
       borderTopLeftRadius="l"
       borderTopRightRadius="l"
-      position="relative"
-      left={0}
-      right={0}
-      bottom={0}>
-      <Box
-        flexDirection="row"
-        justifyContent="space-evenly"
-        alignItems="center"
-        paddingVertical="m">
-        <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
-          <IconCamera />
-        </FooterButton>
-        <FooterButton onPress={handleGalleryPress}>
-          <IconGallery />
-        </FooterButton>
-        <FooterButton onPress={onLocationPress}>
-          <IconLocation />
-        </FooterButton>
-      </Box>
-      <Box
-        justifyContent="center"
-        alignItems="stretch"
-        paddingTop="xs"
-        paddingBottom="l"
-        paddingHorizontal="xxxl">
-        <BaseOpacity
-          paddingVertical="m"
-          borderRadius="xxl"
-          bg={disabledCTA ? 'headerGrey' : 'primary'}
-          onPress={onCTAPress}
-          disabled={disabledCTA}>
-          <Text variant="buttonText1">{t('sendPost')}</Text>
-        </BaseOpacity>
-      </Box>
+      flexDirection="row"
+      justifyContent="space-evenly"
+      alignItems="center"
+      paddingVertical="m"
+      style={{
+        paddingBottom: keyboardShown ? 40 : 0,
+      }}>
+      <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
+        <IconCamera />
+      </FooterButton>
+      <FooterButton onPress={handleGalleryPress}>
+        <IconGallery />
+      </FooterButton>
+      <FooterButton onPress={onLocationPress}>
+        <IconLocation />
+      </FooterButton>
     </Box>
   )
 }
