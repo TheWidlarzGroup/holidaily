@@ -21,12 +21,13 @@ export const AnimatedBar: FC<AnimatedBarProps> = ({
   }))
 
   useEffect(() => {
-    if (isFirstRender.current && disableInitialAnimation)
+    if (isFirstRender.current && disableInitialAnimation) {
       barWidth.value = reverseAnimation ? 0 : 100
-    else
+    } else {
       barWidth.value = withTiming(reverseAnimation ? 0 : 100, {
         duration: 1000,
       })
+    }
 
     isFirstRender.current = false
   }, [barWidth, reverseAnimation, disableInitialAnimation])
