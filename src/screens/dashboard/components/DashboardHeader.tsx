@@ -27,9 +27,7 @@ export const DashboardHeader = () => {
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
         <Box opacity={isDrawerOpen ? 0 : 1}>
           <BaseOpacity
-            onPress={() => {
-              navigation.dispatch(DrawerActions.openDrawer())
-            }}
+            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             bg="white"
             padding="xs"
             paddingLeft="m"
