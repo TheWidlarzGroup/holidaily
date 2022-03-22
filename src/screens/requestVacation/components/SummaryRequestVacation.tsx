@@ -32,8 +32,8 @@ export const SummaryRequestVacation = ({
   const styles = useStyles()
   const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
   const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
-
   const { t } = useTranslation('requestVacation')
+  const ptoTaken = startDate && endDate ? calculatePTO(startDate, endDate) : 0
 
   const handleSend = () => {
     if (startDate && endDate) {
@@ -48,12 +48,15 @@ export const SummaryRequestVacation = ({
         markSuccess()
       }, 800)
     }
+
+    return () => clearTimeout(timeout)
+  }, [isLoading, markSuccess, stopLoading])
+
+  useEffect(() => {
     if (isSuccess) {
       onNextPressed()
     }
-    return () => clearTimeout(timeout)
-  }, [isSuccess, onNextPressed, isLoading, markSuccess, stopLoading])
-  const ptoTaken = startDate && endDate ? calculatePTO(startDate, endDate) : 0
+  }, [isSuccess, onNextPressed])
 
   return (
     <Box flex={1} padding="l" paddingTop="xl">
