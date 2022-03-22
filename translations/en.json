@@ -124,9 +124,10 @@
     "passwordUpdated": "Your password has been updated!",
     "loginButton": "Log in"
   },
-  "uploadPictureModal": {
+  "uploadAttachmentModal": {
     "openCamera": "Take a photo",
     "openGallery": "Choose from gallery",
+    "chooseFile": "Choose file",
     "changePicture": "Change profile picture",
     "deletePicture": "Delete profile picture"
   },

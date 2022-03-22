@@ -17,7 +17,7 @@ type SummaryRequestVacationProps = {
   startDate?: Date
   endDate?: Date
   message?: string
-  photos?: { id: string; uri: string }[]
+  attachments?: { id: string; uri: string }[]
 }
 
 export const SummaryRequestVacation = ({

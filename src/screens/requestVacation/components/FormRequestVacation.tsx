@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native'
 import { Box } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { UploadPictureModal } from 'components/UploadPictureModal'
+import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { MessageInputModal } from 'components/MessageInputModal'
@@ -125,7 +125,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         header={null}
         content={t('attachmentDeleteMessage')}
       />
-      <UploadPictureModal
+      <UploadAttachmentModal
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
         onUserCancelled={setShowAttachmentModalFalse}

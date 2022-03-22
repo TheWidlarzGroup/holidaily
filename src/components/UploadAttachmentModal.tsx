@@ -12,12 +12,12 @@ import {
   types as documentTypes,
 } from 'react-native-document-picker'
 import { CustomModal } from 'components/CustomModal'
-import { UploadPictureButtons } from 'components/UploadPictureButtons'
+import { UploadAttachmentButtons } from 'components/UploadAttachmentButtons'
 import { theme, mkUseStyles, Theme } from 'utils/theme'
 
-type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
+type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
-  hideEditPictureModal?: F0
+  hideEditAttachmentModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
   showCamera?: boolean
@@ -31,7 +31,10 @@ type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   )
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
 
-export const UploadPictureModal = ({ hideEditPictureModal, ...p }: UploadPictureModalProps) => {
+export const UploadAttachmentModal = ({
+  hideEditAttachmentModal,
+  ...p
+}: UploadAttachmentModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
 
@@ -45,7 +48,7 @@ export const UploadPictureModal = ({ hideEditPictureModal, ...p }: UploadPicture
     }
   }
 
-  const onUploadImage = async (action: PhotoSelectionChoice) => {
+  const onUpload = async (action: PhotoSelectionChoice) => {
     p.hideModal()
 
     if (p.allowFiles && action === 'file') {
@@ -76,8 +79,8 @@ export const UploadPictureModal = ({ hideEditPictureModal, ...p }: UploadPicture
     }
   }
   useEffect(() => {
-    hideEditPictureModal?.()
-  }, [hideEditPictureModal])
+    hideEditAttachmentModal?.()
+  }, [hideEditAttachmentModal])
 
   return (
     <CustomModal
@@ -92,8 +95,8 @@ export const UploadPictureModal = ({ hideEditPictureModal, ...p }: UploadPicture
       swipeDirection="down"
       style={p.showCamera ? { ...styles.modal, ...styles.longModal } : styles.modal}
       hideModalContentWhileAnimating>
-      <UploadPictureButtons
-        onUploadImage={onUploadImage}
+      <UploadAttachmentButtons
+        onUpload={onUpload}
         allowFiles={p.allowFiles}
         showCamera={p.showCamera}
       />
