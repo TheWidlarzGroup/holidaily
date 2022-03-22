@@ -13,7 +13,14 @@ import {
 } from 'react-native-document-picker'
 import { CustomModal } from 'components/CustomModal'
 import { UploadAttachmentButtons } from 'components/UploadAttachmentButtons'
-import { theme, mkUseStyles, Theme } from 'utils/theme'
+import { mkUseStyles, Theme, useTheme } from 'utils/theme'
+
+type UploadFilesProps =
+  | {
+      allowFiles: true
+      setFile: F1<{ uri: string; name: string } | undefined>
+    }
+  | { allowFiles?: false }
 
 type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
@@ -21,14 +28,7 @@ type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
   showCamera?: boolean
-  allowFiles?: boolean
-} & (
-    | {
-        allowFiles: true
-        setFile: F1<{ uri: string; name: string } | undefined>
-      }
-    | { allowFiles?: false }
-  )
+} & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
 
 export const UploadAttachmentModal = ({
@@ -37,6 +37,7 @@ export const UploadAttachmentModal = ({
 }: UploadAttachmentModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
+  const theme = useTheme()
 
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
