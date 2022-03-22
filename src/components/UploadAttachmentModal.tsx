@@ -93,7 +93,7 @@ export const UploadAttachmentModal = ({
       animationInTiming={300}
       animationOutTiming={300}
       swipeDirection="down"
-      style={p.showCamera ? { ...styles.modal, ...styles.longModal } : styles.modal}
+      style={styles.modal}
       hideModalContentWhileAnimating>
       <UploadAttachmentButtons
         onUpload={onUpload}
@@ -107,7 +107,7 @@ export const UploadAttachmentModal = ({
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     flex: 1,
-    height: 130,
+    minHeight: 130,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,
@@ -120,8 +120,5 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
-  },
-  longModal: {
-    height: 175,
   },
 }))

@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Box, mkUseStyles, BaseOpacity } from 'utils/theme'
+import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme'
 import Gallery from 'assets/icons/icon-gallery.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
+import FileIcon from 'assets/icons/icon-file.svg'
 
 type Action = 'gallery' | 'camera' | 'file'
 type UploadAttachmentButtonsProps = {
@@ -18,6 +19,7 @@ export const UploadAttachmentButtons = ({
 }: UploadAttachmentButtonsProps) => {
   const { t } = useTranslation('uploadAttachmentModal')
   const styles = useStyles()
+  const theme = useTheme()
 
   return (
     <Box padding="lplus" paddingTop={showCamera ? 'lplus' : 'xm'}>
@@ -32,21 +34,7 @@ export const UploadAttachmentButtons = ({
           <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
         </>
       )}
-      {allowFiles && (
-        <>
-          <BaseOpacity
-            onPress={() => onUpload('file')}
-            activeOpacity={0.2}
-            style={styles.btn}
-            marginTop="m">
-            <Smartphone />
-            <Box flexGrow={1} marginLeft="m">
-              <Text variant="boldBlack18">{t('chooseFile')}</Text>
-            </Box>
-          </BaseOpacity>
-          <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
-        </>
-      )}
+
       <BaseOpacity
         onPress={() => onUpload('gallery')}
         style={styles.btn}
@@ -57,6 +45,21 @@ export const UploadAttachmentButtons = ({
           <Text variant="boldBlack18">{t('openGallery')}</Text>
         </Box>
       </BaseOpacity>
+      {allowFiles && (
+        <>
+          <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
+          <BaseOpacity
+            onPress={() => onUpload('file')}
+            activeOpacity={0.2}
+            style={styles.btn}
+            marginTop="m">
+            <FileIcon color={theme.colors.black} />
+            <Box flexGrow={1} marginLeft="m">
+              <Text variant="boldBlack18">{t('chooseFile')}</Text>
+            </Box>
+          </BaseOpacity>
+        </>
+      )}
     </Box>
   )
 }
