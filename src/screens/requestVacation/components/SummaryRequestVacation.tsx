@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles } from 'utils/theme/index'
-import { getISODateString, calculatePTO } from 'utils/dates'
+import { calculatePTO } from 'utils/dates'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useRequestHolidays } from 'hooks/useRequestHolidays'
 import { useTranslation } from 'react-i18next'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { SummaryDays } from './SummaryRequestVacation/SummaryDays'
 import { SummaryRequestVacationHeader } from './SummaryRequestVacation/SummaryRequestVacationHeader'
 import { SicktimeAndMessage } from './SummaryRequestVacation/SicktimeAndMessage'
@@ -30,27 +30,33 @@ export const SummaryRequestVacation = ({
   photos = [],
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
-  const { handleRequestHolidays, isLoading, isSuccess } = useRequestHolidays()
-
+  const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
+  const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
   const { t } = useTranslation('requestVacation')
+  const ptoTaken = startDate && endDate ? calculatePTO(startDate, endDate) : 0
 
   const handleSend = () => {
     if (startDate && endDate) {
-      handleRequestHolidays({
-        startDate: getISODateString(startDate),
-        endDate: getISODateString(endDate),
-        description,
-        sickTime: isSick,
-        message,
-      })
+      startLoading()
     }
   }
+  useEffect(() => {
+    let timeout: number | undefined
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        stopLoading()
+        markSuccess()
+      }, 800)
+    }
+
+    return () => clearTimeout(timeout)
+  }, [isLoading, markSuccess, stopLoading])
+
   useEffect(() => {
     if (isSuccess) {
       onNextPressed()
     }
   }, [isSuccess, onNextPressed])
-  const ptoTaken = startDate && endDate ? calculatePTO(startDate, endDate) : 0
 
   return (
     <Box flex={1} padding="l" paddingTop="xl">
