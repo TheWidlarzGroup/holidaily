@@ -41,7 +41,7 @@ export const UploadAttachmentButtons = ({
             marginTop="m">
             <Smartphone />
             <Box flexGrow={1} marginLeft="m">
-              <Text variant="boldBlack18">upload file</Text>
+              <Text variant="boldBlack18">{t('chooseFile')}</Text>
             </Box>
           </BaseOpacity>
           <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
