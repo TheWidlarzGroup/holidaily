@@ -1,6 +1,12 @@
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, ScrollView, ImageSourcePropType } from 'react-native'
+import {
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  ImageSourcePropType,
+  TouchableOpacity,
+} from 'react-native'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -11,7 +17,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationType } from 'navigation/types'
 import { colors } from 'utils/theme/colors'
-import { Box } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
@@ -77,6 +83,18 @@ export const Slider: FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Box
+        justifyContent="center"
+        alignItems="flex-end"
+        width={'100%'}
+        height={50}
+        paddingHorizontal="m">
+        <TouchableOpacity
+          onPress={navigateToWelcomeScreen}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+          <Text variant="boldBlack18">{t('skip')}</Text>
+        </TouchableOpacity>
+      </Box>
       <Animated.ScrollView
         ref={aref}
         onScroll={scrollHandler}
@@ -98,10 +116,10 @@ export const Slider: FC = () => {
           />
         ))}
       </Animated.ScrollView>
-      <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="s">
+      <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="m">
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
-      <Box maxWidth={300} marginBottom="xl">
+      <Box maxWidth={250} marginBottom="lplus">
         <CustomButton variant="blackBgButton" label={t('next')} onPress={handlePressButton} />
       </Box>
     </SafeAreaView>
