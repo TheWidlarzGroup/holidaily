@@ -1,6 +1,5 @@
 import React, { forwardRef, useEffect, useState } from 'react'
 import {
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   TextInputProps,
@@ -11,15 +10,18 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
-import { Text, Box, theme } from 'utils/theme/index'
+import { Text, Box, mkUseStyles } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { textVariants } from 'utils/theme/textVariants'
 
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
   isPasswordIconVisible?: boolean
   disabled?: boolean
+  labelTextVariant?: keyof typeof textVariants
+  inputTextVariant?: 'bold'
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
@@ -32,6 +34,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       value,
       isError,
       isPasswordIconVisible,
+      labelTextVariant,
+      inputTextVariant,
       disabled = false,
       ...props
     },
@@ -39,6 +43,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
   ) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
     const [isFocused, setIsFocused] = useState(false)
+
+    const styles = useStyles()
 
     const errorOpacity = useSharedValue(0)
     const borderColor = useSharedValue('black')
@@ -65,15 +71,16 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       onFocus?.(e)
       setIsFocused(true)
     }
+
     return (
       <>
-        <Text variant="label1" marginLeft="m" marginBottom="xs">
+        <Text variant={labelTextVariant || 'label1'} marginLeft="m" marginBottom="xs">
           {inputLabel}
         </Text>
         <Box flexDirection="row">
           <Animated.View style={[styles.input, progressStyle]}>
             <TextInput
-              style={[disabled && styles.disabled]}
+              style={[disabled && styles.disabled, inputTextVariant === 'bold' && styles.boldText]}
               secureTextEntry={isPasswordInput}
               onBlur={handleOnBlur}
               onChange={onChange}
@@ -99,7 +106,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
 CustomInput.displayName = 'CustomInput'
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme) => ({
   input: {
     flex: 1,
     height: 50,
@@ -121,4 +128,5 @@ const styles = StyleSheet.create({
   disabled: {
     color: colors.greyDark,
   },
-})
+  boldText: { fontFamily: 'Nunito-Bold', fontSize: 16, color: 'black' },
+}))

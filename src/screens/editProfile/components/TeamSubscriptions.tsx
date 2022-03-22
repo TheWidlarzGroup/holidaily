@@ -32,7 +32,11 @@ export const TeamSubscriptions = () => {
 
   const showChangesSavedModal = (teamName: string) =>
     showModal(
-      <ChangesSavedModal isVisible hideModal={hideModal} content={`${teamName} unsubscribed!`} />
+      <ChangesSavedModal
+        isVisible
+        hideModal={hideModal}
+        content={t('unsubscribed', { teamName })}
+      />
     )
   const onUnsubscribeTeam = (teamName: string) => {
     showModal(
@@ -45,14 +49,14 @@ export const TeamSubscriptions = () => {
           showChangesSavedModal(teamName)
         }}
         onDecline={hideModal}
-        content={`If you unsubscribe ${teamName} Team you will no longer see its members.`}
+        content={t('ifYouUnsubscribe', { teamName })}
       />
     )
   }
 
   return (
     <Box paddingHorizontal="m" position="relative">
-      <Text variant="label1" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
+      <Text variant="labelGrey" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
         {t('userSubscriptions')}
       </Text>
       <BaseOpacity

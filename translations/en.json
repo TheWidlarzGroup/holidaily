@@ -33,7 +33,8 @@
     "newPasswordSaved": "New password saved!",
     "exitMessage": "If you quit now, your changes won't be saved.",
     "incorrectPassword": "Wrong password, please try again",
-    "forgotPasswordMessage": "Forgot your password?"
+    "forgotPasswordMessage": "Forgot your password?",
+    "save": "Save"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Password Recovery",
@@ -179,7 +180,9 @@
     "selected": "Selected: ",
     "subscribe": "Subscribe",
     "newColorSaved": "New color saved!",
-    "fieldRequired": "This field is reqiuired."
+    "fieldRequired": "This field is reqiuired.",
+    "ifYouUnsubscribe": "If you unsubscribe {{teamName}} Team you will no longer see its members.",
+    "unsubscribed": "{{teamName}} unsubscribed"
   },
   "dashboard": {
     "welcome": "Hello {{name}}!",

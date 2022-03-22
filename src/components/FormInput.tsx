@@ -6,6 +6,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Text } from 'utils/theme/index'
 import { generateInputErrors } from 'utils/generateInputErrors'
 import { useTranslation } from 'react-i18next'
+import { textVariants } from 'utils/theme/textVariants'
 import { CustomInput } from './CustomInput'
 
 type FormInputTypes = {
@@ -21,6 +22,8 @@ type FormInputTypes = {
   passwordsAreEqual?: boolean
   screenName?: string
   disabled?: boolean
+  labelTextVariant?: keyof typeof textVariants
+  inputTextVariant?: 'bold'
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(

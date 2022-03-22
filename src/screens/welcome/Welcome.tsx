@@ -40,7 +40,7 @@ export const Welcome = () => {
             inputLabel={t('yourName')}
             validationPattern={minOneWordRegex}
             errorMessage={t('firstNameErrMsg')}
-            blurOnSubmit={false}
+            blurOnSubmit
           />
         </Box>
         <Box paddingLeft="m">

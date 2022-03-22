@@ -33,7 +33,8 @@
     "newPasswordSaved": "Nowe hasło zapisane!",
     "exitMessage": "Jeśli wyjdziesz, twoje zmiany nie zostaną zapisane.",
     "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie",
-    "forgotPasswordMessage": "Zapomniałeś hasła?"
+    "forgotPasswordMessage": "Zapomniałeś hasła?",
+    "save": "Zapisz"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Odzyskiwanie hasła",
@@ -179,7 +180,9 @@
     "selected": "Zaznaczono: ",
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
-    "fieldRequired": "To pole jest wymagane."
+    "fieldRequired": "To pole jest wymagane.",
+    "ifYouUnsubscribe": "Jeśli wypiszesz się z subskrypcji zespołu {{teamName}}, nie będziesz widział jego członków.",
+    "unsubscribed": "Usunięto subskrypcję {{teamName}}"
   },
   "dashboard": {
     "welcome": "Cześć {{name}}!",
