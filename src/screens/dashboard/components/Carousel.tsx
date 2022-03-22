@@ -2,11 +2,14 @@ import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
-import { useNavigation } from '@react-navigation/native'
+import { MateHolidaysData } from 'types/holidaysDataTypes'
 
-export const Carousel = () => {
+type CarouselProps = {
+  openUserModal: F1<MateHolidaysData>
+}
+
+export const Carousel = ({ openUserModal }: CarouselProps) => {
   const companyHolidaysData: ValidationOfDataToBeDisplayed[] = dataToBeDisplayed()
-  const { navigate } = useNavigation()
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -23,10 +26,7 @@ export const Carousel = () => {
         }
 
         return (
-          <TouchableOpacity
-            key={item.id}
-            activeOpacity={1}
-            onPress={() => navigate('DashboardTeamMember', userItem)}>
+          <TouchableOpacity key={item.id} activeOpacity={1} onPress={() => openUserModal(userItem)}>
             <CarouselElement
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}

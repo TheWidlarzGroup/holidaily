@@ -6,27 +6,29 @@ import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
 import { minOneWordRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
-import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { About } from 'screens/about/About'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
+import { TeamsModal } from './components/TeamsModal'
 
 export const Welcome = () => {
   const styles = useStyles()
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
-  const { navigate } = useNavigation()
-
-  const onSubmit = (data: { firstName: string }) => {
-    navigate('TeamsModal', { firstName: data.firstName })
-  }
 
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
+
+  const submitModalRef = useRef<BottomSheetModal>(null)
+  const openSubmitModal = useCallback(() => submitModalRef.current?.present(), [])
+
+  const onSubmit = () => {
+    openSubmitModal()
+  }
 
   return (
     <SafeAreaWrapper>
@@ -71,9 +73,14 @@ export const Welcome = () => {
           />
         </Box>
       </Box>
-      <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
-        <About isFromWelcomeScreen closeModal={closeModal} />
-      </BottomSheetModalComponent>
+      <BottomSheetModalProvider>
+        <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
+          <About isFromWelcomeScreen closeModal={closeModal} />
+        </BottomSheetModalComponent>
+        <BottomSheetModalComponent snapPoints={['90%']} modalRef={submitModalRef}>
+          <TeamsModal firstName={nameInput} />
+        </BottomSheetModalComponent>
+      </BottomSheetModalProvider>
     </SafeAreaWrapper>
   )
 }

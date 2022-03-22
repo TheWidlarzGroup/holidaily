@@ -8,36 +8,18 @@ import { CustomButton } from 'components/CustomButton'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/useUserContext'
-import { StackScreenProps } from '@react-navigation/stack'
-import { AuthRoutes } from 'navigation/types'
 
-type TeamsModalTypes = StackScreenProps<AuthRoutes, 'TeamsModal'>
-
-export const TeamsModal = ({ route }: TeamsModalTypes) => {
+export const TeamsModal = ({ firstName }: { firstName: string }) => {
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
   const { t } = useTranslation('welcome')
 
   const { updateUser } = useUserContext()
-  const { firstName } = route.params
-
   const handleOnSubmit = () => updateUser({ firstName })
 
   return (
-    <SafeAreaWrapper isDefaultBgColor isDarkBgColor>
-      <Box
-        backgroundColor="white"
-        marginTop="m"
-        paddingTop="m"
-        flexGrow={1}
-        borderTopLeftRadius="l"
-        borderTopRightRadius="l"
-        paddingHorizontal="m">
-        <Box
-          alignItems="center"
-          flexDirection="row"
-          marginLeft="xs"
-          marginTop="xs"
-          marginBottom="l">
+    <SafeAreaWrapper isDefaultBgColor>
+      <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m">
+        <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
           <TouchableOpacity
             onPress={handleOnSubmit}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
@@ -46,11 +28,11 @@ export const TeamsModal = ({ route }: TeamsModalTypes) => {
         </Box>
         <Box flex={1}>
           <Text variant="body1">{t('memberOf')}</Text>
-          <Text textAlign="center" variant="boldOrange20" marginTop="xm">
+          <Text textAlign="center" variant="boldOrange20" marginTop="s">
             Supercompany
           </Text>
           <Box>
-            <Text textAlign="left" variant="body1" marginTop="xl" marginBottom="s">
+            <Text textAlign="left" variant="body1" marginTop="l" marginBottom="s">
               {t('yourTeams')}
             </Text>
             {teamsList.map((team) => (

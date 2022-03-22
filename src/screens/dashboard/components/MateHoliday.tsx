@@ -6,7 +6,7 @@ import { displayDatesRange } from 'utils/functions'
 
 import IconSickLeave from 'assets/icons/icon-sick-leave.svg'
 
-export const MateHoliday = (props: Required<HolidayDetails> & HolidayDetailsOptional) => {
+export const MateHoliday = (props: HolidayDetails & HolidayDetailsOptional) => {
   const { isOnHoliday, dayStart, dayEnd, sickLeave, description } = props
   const { t } = useTranslation('dashboard')
 
@@ -22,7 +22,7 @@ export const MateHoliday = (props: Required<HolidayDetails> & HolidayDetailsOpti
         {description || t('coupleDaysOff')}
       </Text>
       <Text variant="regularGrey16" color={color} marginTop="s" marginBottom="xs">
-        {displayDatesRange(dayStart, dayEnd)}
+        {dayStart && dayEnd && displayDatesRange(dayStart, dayEnd)}
       </Text>
       {sickLeave && (
         <Box flexDirection="row" alignItems="center">

@@ -19,16 +19,15 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
   const styles = useStyles()
 
   const handleGoBack = () => {
-    closeModal()
     if (!isFromWelcomeScreen) {
       navigation.goBack()
       navigation.dispatch(DrawerActions.openDrawer())
-    }
+    } else closeModal()
   }
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
-      <Box backgroundColor="white" flexGrow={1}>
+      <Box backgroundColor="white" paddingTop={isFromWelcomeScreen ? 0 : 'm'} flexGrow={1}>
         <Box
           justifyContent="space-between"
           alignItems="center"
