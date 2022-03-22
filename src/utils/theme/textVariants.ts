@@ -150,6 +150,12 @@ export const textVariants = {
     fontFamily: 'Nunito-Regular',
     fontSize: 15,
   },
+  regular16Holifeed: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
+    color: 'black',
+    lineHeight: 20,
+  },
   header: {
     fontFamily: 'Nunito-Bold',
     fontSize: 24,

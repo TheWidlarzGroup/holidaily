@@ -56,7 +56,7 @@
     "react-native-svg-transformer": "^0.14.3",
     "react-native-unimodules": "^0.14.6",
     "react-query": "^3.13.4",
-    "rn-emoji-keyboard": "^0.2.2",
+    "rn-emoji-keyboard": "^0.7.0",
     "xdate": "^0.8.2"
   },
   "devDependencies": {
