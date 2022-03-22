@@ -12,8 +12,8 @@ type AdditionalsProps = {
   messageContent: string
   messageInputVisible: boolean
   showAttachmentModal: F0
-  attachments: AttachmentType[]
-  removePhoto: F1<string>
+  attachments: (AttachmentType | (AttachmentType & { name: string }))[]
+  removeAttachment: F1<string>
 }
 
 export const Additionals = ({
@@ -22,7 +22,7 @@ export const Additionals = ({
   messageInputVisible,
   showAttachmentModal,
   attachments,
-  removePhoto,
+  removeAttachment,
 }: AdditionalsProps) => {
   const { t } = useTranslation('requestVacation')
 
@@ -44,10 +44,10 @@ export const Additionals = ({
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
         {attachments.length ? (
           <Attachments
-            photos={attachments}
+            attachments={attachments}
             addMore={showAttachmentModal}
             displayAddMore={attachments.length < 9}
-            removePhoto={removePhoto}
+            removeAttachment={removeAttachment}
           />
         ) : (
           <AttachmentIcon showAttachmentModal={showAttachmentModal} />

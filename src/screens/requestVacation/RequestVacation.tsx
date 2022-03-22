@@ -18,6 +18,7 @@ export type RequestDataTypes = {
   description: string
   message: string
   photos: AttachmentType[]
+  files: (AttachmentType & { name: string })[]
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
@@ -32,6 +33,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     useBooleanState(false)
   const [message, setMessage] = useState('')
   const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
+  const [files, setFiles] = useState<{ id: string; name: string; uri: string }[]>([])
   const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
@@ -45,10 +47,11 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, message, photos })
+    const newData = callback({ description, message, photos, files })
     setDescription(newData.description)
     setMessage(newData.message)
     setPhotos(newData.photos)
+    setFiles(newData.files)
   }
 
   const reset = () => {
@@ -62,7 +65,10 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setPhotos([])
   }
 
-  const removePhoto = (id: string) => setPhotos(photos.filter((p) => p.id !== id))
+  const removeAttachment = (id: string) => {
+    setPhotos((old) => old.filter((p) => p.id !== id))
+    setFiles((old) => old.filter((f) => f.id !== id))
+  }
 
   useEffect(() => {
     const { params } = route
@@ -92,7 +98,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           date={{ start: startDate, end: endDate }}
           message={message}
           photos={photos}
-          removePhoto={removePhoto}
+          files={files}
+          removeAttachment={removeAttachment}
         />
       )}
       {step === 1 && (
@@ -103,7 +110,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           endDate={endDate}
           message={message}
           onNextPressed={showSentModal}
-          photos={photos}
+          attachments={[...photos, ...files]}
         />
       )}
 

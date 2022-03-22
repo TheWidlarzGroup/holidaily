@@ -5,13 +5,18 @@ import { Text, Box, mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import Gallery from 'assets/icons/icon-gallery.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 
-type Action = 'gallery' | 'camera'
+type Action = 'gallery' | 'camera' | 'file'
 type UploadPictureButtonsProps = {
   onUploadImage: F1<Action>
-  showCamera: boolean
+  showCamera?: boolean
+  allowFiles?: boolean
 }
 
-export const UploadPictureButtons = ({ onUploadImage, showCamera }: UploadPictureButtonsProps) => {
+export const UploadPictureButtons = ({
+  onUploadImage,
+  showCamera,
+  allowFiles,
+}: UploadPictureButtonsProps) => {
   const { t } = useTranslation('uploadPictureModal')
   const styles = useStyles()
 
@@ -26,6 +31,20 @@ export const UploadPictureButtons = ({ onUploadImage, showCamera }: UploadPictur
             <Smartphone />
             <Box flexGrow={1} marginLeft="m">
               <Text variant="boldBlack18">{t('openCamera')}</Text>
+            </Box>
+          </BaseOpacity>
+          <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
+        </>
+      )}
+      {allowFiles && (
+        <>
+          <BaseOpacity
+            onPress={() => onUploadImage('file')}
+            activeOpacity={0.2}
+            style={styles.cameraBtn}>
+            <Smartphone />
+            <Box flexGrow={1} marginLeft="m">
+              <Text variant="boldBlack18">upload file</Text>
             </Box>
           </BaseOpacity>
           <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />

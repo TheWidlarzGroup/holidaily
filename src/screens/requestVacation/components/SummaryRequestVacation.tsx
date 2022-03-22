@@ -27,7 +27,7 @@ export const SummaryRequestVacation = ({
   endDate,
   startDate,
   message,
-  photos = [],
+  attachments = [],
 }: SummaryRequestVacationProps) => {
   const styles = useStyles()
   const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
@@ -68,7 +68,7 @@ export const SummaryRequestVacation = ({
             description={description}
           />
           <SicktimeAndMessage isSick={isSick} message={message} />
-          <SummaryRequestVacationPhotos photos={photos} />
+          <SummaryRequestVacationPhotos attachments={attachments} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays ptoTaken={ptoTaken} />
         </Box>

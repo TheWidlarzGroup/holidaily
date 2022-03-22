@@ -17,6 +17,7 @@ type RequestDataTypes = {
   description: string
   message: string
   photos: AttachmentType[]
+  files: (AttachmentType & { name: string })[]
 }
 
 type FormRequestVacationProps = {
@@ -30,7 +31,8 @@ type FormRequestVacationProps = {
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
   message: string
   photos: AttachmentType[]
-  removePhoto: F1<string>
+  files: (AttachmentType & { name: string })[]
+  removeAttachment: F1<string>
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
@@ -41,7 +43,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   changeRequestData,
   message,
   photos,
-  removePhoto,
+  files,
+  removeAttachment,
 }) => {
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -49,7 +52,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     showAttachmentModal,
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
-  const [photosToRemove, setPhotosToRemove] = useState<string[]>([])
+  const [attachmentsToRemove, setAttachmentsToRemove] = useState<string[]>([])
 
   const { t } = useTranslation('requestVacation')
 
@@ -68,15 +71,15 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   }
 
   const askRemovePhoto = (id: string) => {
-    setPhotosToRemove((prev) => [...prev, id])
+    setAttachmentsToRemove((prev) => [...prev, id])
   }
 
   const clearPhotosToRemove = () => {
-    photosToRemove.forEach(removePhoto)
-    setPhotosToRemove([])
+    attachmentsToRemove.forEach(removeAttachment)
+    setAttachmentsToRemove([])
   }
 
-  const cancelRemovingPhoto = () => setPhotosToRemove([])
+  const cancelRemovingPhoto = () => setAttachmentsToRemove([])
 
   return (
     <Box flex={1}>
@@ -89,8 +92,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             messageContent={showMessageInput ? '' : message}
             messageInputVisible={showMessageInput}
             showAttachmentModal={setShowAttachmentModalTrue}
-            attachments={photos}
-            removePhoto={askRemovePhoto}
+            attachments={[...photos, ...files]}
+            removeAttachment={askRemovePhoto}
           />
         </Box>
       </ScrollView>
@@ -118,7 +121,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         onAccept={clearPhotosToRemove}
         onDecline={cancelRemovingPhoto}
         hideModal={cancelRemovingPhoto}
-        isVisible={!!photosToRemove.length}
+        isVisible={!!attachmentsToRemove.length}
         header={null}
         content={t('attachmentDeleteMessage')}
       />
@@ -126,7 +129,18 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
         onUserCancelled={setShowAttachmentModalFalse}
-        showCamera={false}
+        showCamera
+        allowFiles
+        setFile={(file) => {
+          if (!file) return
+          changeRequestData((oldData) => ({
+            ...oldData,
+            files: [
+              ...oldData.files,
+              { uri: file.uri, name: file.name, id: new Date().toString() },
+            ],
+          }))
+        }}
         setPhotoURI={(uri) => {
           if (!uri) return
           changeRequestData((oldData) => ({
