@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -8,6 +8,9 @@ import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { About } from 'screens/about/About'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 
 export const Welcome = () => {
@@ -21,10 +24,14 @@ export const Welcome = () => {
     navigate('TeamsModal', { firstName: data.firstName })
   }
 
+  const modalRef = useRef<BottomSheetModal>(null)
+  const openModal = useCallback(() => modalRef.current?.present(), [])
+  const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
+
   return (
     <SafeAreaWrapper>
       <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
-        <WelcomeTopBar />
+        <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>
@@ -64,6 +71,9 @@ export const Welcome = () => {
           />
         </Box>
       </Box>
+      <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
+        <About isFromWelcomeScreen closeModal={closeModal} />
+      </BottomSheetModalComponent>
     </SafeAreaWrapper>
   )
 }

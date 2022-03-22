@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
 import AboutIcon from 'assets/icons/icon-info2.svg'
 
-export const WelcomeTopBar = () => {
+export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
   const { navigate } = useNavigation()
 
   return (
@@ -19,7 +19,7 @@ export const WelcomeTopBar = () => {
       </Box>
       <Box>
         <TouchableOpacity
-          onPress={() => navigate('About', { isFromWelcomeScreen: true })}
+          onPress={openModal}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <AboutIcon height={21} width={21} />
         </TouchableOpacity>
