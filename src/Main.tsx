@@ -4,9 +4,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
 import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
+import axios from 'axios'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
-import axios from 'axios'
+
 //@ts-ignore
 import { initBackendMocks } from './mirage/server'
 
