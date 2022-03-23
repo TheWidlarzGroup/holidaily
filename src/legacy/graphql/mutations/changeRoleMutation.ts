@@ -2,7 +2,7 @@
 // import { authorizedClient } from 'legacy/client'
 // import { ChangeRoleTypes } from 'types/useChangeRoleTypes'
 
-export const changeRoleMutation = (_props: any /* { userId , role }: ChangeRoleTypes */) =>
+export const changeRoleMutation = (/* { userId , role }: ChangeRoleTypes */) =>
   // authorizedClient.request(
   //   gql`
   //     mutation {
