@@ -2,12 +2,14 @@ import { createContext } from 'react'
 
 export type UserData = {
   firstName: string
-  lastName: string
-  email: string
+  lastName?: string
+  email?: string
   isConfirmed: boolean
-  role: string
-  occupation: string
+  // role: string
+  occupation?: string
   id: string
+  color?: string
+  language: 'pl' | 'en'
   photo?: string | null
 }
 

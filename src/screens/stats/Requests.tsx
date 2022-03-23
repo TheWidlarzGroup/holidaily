@@ -1,4 +1,4 @@
-import { useUserRequests } from 'hooks/useUserRequests'
+//import { useUserRequests } from 'hooks/useUserRequests'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -7,15 +7,15 @@ import { Request } from './components/Request'
 import { SectionHeader } from './components/SectionHeader'
 
 export const Requests = () => {
-  const { requests } = useUserRequests()
+  const requests: any = [] // useUserRequests().requests
   const { t } = useTranslation('stats')
 
   const { pendingRequests, approvedRequests, pastRequests, declinedRequests } = useMemo(
     () => ({
-      pendingRequests: requests.filter((req) => req.status === 'PENDING'),
-      approvedRequests: requests.filter((req) => req.status === 'APPROVED'),
-      pastRequests: requests.filter((req) => req.status === 'PAST'),
-      declinedRequests: requests.filter((req) => req.status === 'CANCELLED'),
+      pendingRequests: requests.filter((req: any) => req.status === 'PENDING'),
+      approvedRequests: requests.filter((req: any) => req.status === 'APPROVED'),
+      pastRequests: requests.filter((req: any) => req.status === 'PAST'),
+      declinedRequests: requests.filter((req: any) => req.status === 'CANCELLED'),
     }),
     [requests]
   )

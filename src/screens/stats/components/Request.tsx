@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { getFormattedPeriod, getNumberOfWorkingDaysBetween } from 'utils/dates'
-
 import { Box, Text } from 'utils/theme'
-import { RequestTypes } from 'types/useUserRequestsTypes'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
 import { StatusIcon } from './StatusIcon'
+// import { RequestTypes } from 'types/useUserRequestsTypes'
 
 export const Request = ({
   item: { description, range, status, sickTime, message },
 }: {
-  item: RequestTypes
+  item: any // RequestTypes
 }) => {
   const { t } = useTranslation('stats')
   const [additionals, setAdditionals] = useState<Additional[]>([])

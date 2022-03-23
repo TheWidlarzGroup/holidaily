@@ -2,7 +2,7 @@ import { UserTypes } from './useUserTypes'
 
 export type ChangeRoleTypes = {
   userId: string
-} & Pick<UserTypes, 'role'>
+} & UserTypes
 
 export type ChangeRoleDataTypes = {
   user: UserTypes
