@@ -1,24 +1,13 @@
-import { createServer, Model, Factory } from 'miragejs'
+import { createServer } from 'miragejs'
+import { userFactory } from './factories/userFactory'
+import { Models } from './models'
 import { userRoutes } from './routes/user'
 
 export const initBackendMocks = () =>
   createServer({
-    models: {
-      movie: Model,
-      user: Model,
-      organization: Model,
-    },
+    models: Models,
     factories: {
-      user: Factory.extend({
-        confirmed: true,
-        email: `test-user-${Math.round(Math.random() * 1000)}@gmail.com`,
-        firstName: `user-name${Math.round(Math.random() * 1000)}`,
-        lastName: `user-lastname${Math.round(Math.random() * 1000)}`,
-        occupation: 'dev',
-        color: '#fff',
-        language: 'pl',
-        photo: null,
-      }),
+      user: userFactory,
     },
     routes() {
       this.namespace = 'api'

@@ -1,5 +1,5 @@
 import { deleteItemAsync } from 'expo-secure-store'
-import { authorizedClient } from 'legacy/client'
+// import { authorizedClient } from 'legacy/client'
 import React, { ReactNode, useState, memo, FC, useCallback } from 'react'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
@@ -31,7 +31,7 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
 
   const handleLogout = async () => {
     await deleteItemAsync('token')
-    authorizedClient.setHeader('Authorization', '')
+    // authorizedClient.setHeader('Authorization', '')
     setUser(null)
   }
 
