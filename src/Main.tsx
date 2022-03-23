@@ -7,9 +7,7 @@ import { ModalProvider } from 'contexts/ModalProvider'
 import axios from 'axios'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
-
-//@ts-ignore
-import { initBackendMocks } from './mirage/server'
+import { initBackendMocks } from './mock-api/server'
 
 initBackendMocks()
 
@@ -18,8 +16,9 @@ export const Main = () => {
   const darkMode = false
   useEffect(() => {
     const test = async () => {
-      const data = await axios.get('/api/users')
-      console.log(data.data)
+      const { data } = await axios.get('/api/user')
+      const { id } = data.users[0]
+      console.log((await axios.get(`/api/user/${id}`)).data)
     }
 
     test()

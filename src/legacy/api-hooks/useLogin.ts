@@ -6,7 +6,7 @@ import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
 import { setItemAsync } from 'expo-secure-store'
 import { authorizeClient } from 'legacy/client'
-import { useUserContext } from './useUserContext'
+import { useUserContext } from 'hooks/useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {

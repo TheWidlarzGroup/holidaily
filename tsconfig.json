@@ -17,7 +17,8 @@
       "navigation/*": ["navigation/*"],
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "legacy/*": ["./legacy/*"]
     },
     "resolveJsonModule": true
   }

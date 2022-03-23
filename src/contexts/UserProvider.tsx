@@ -22,6 +22,7 @@ export const UserContextProvider: FC<ProviderProps> = memo(({ children }) => {
   const [user, setUser] = useState<UserData | null>(null)
 
   const updateUser = useCallback((newData: Partial<UserData> | null) => {
+    // @ts-ignore
     setUser((usr) => {
       if (usr) return { ...usr, ...newData }
       return { ...emptyUser, ...newData }

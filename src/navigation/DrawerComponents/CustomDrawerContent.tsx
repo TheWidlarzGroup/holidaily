@@ -17,10 +17,10 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
 
   const isHidden = (name: keyof DrawerRoutes) => {
     const isHome = name === 'Home'
-    const isAdminPanelEmployees =
-      name === 'AdminPanelEmployeesNavigation' && user.role !== 'ADMIN' && user.role !== 'MANAGER'
+    // const isAdminPanelEmployees =
+    //   name === 'AdminPanelEmployeesNavigation' && user.role !== 'ADMIN' && user.role !== 'MANAGER'
 
-    if (isHome || isAdminPanelEmployees) return false
+    if (isHome /* || isAdminPanelEmployees */) return false
     return true
   }
 

@@ -4,7 +4,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { useFetchEmployees } from 'hooks/useFetchEmployees'
+import { useFetchEmployees } from 'legacy/api-hooks/useFetchEmployees'
 import { CustomButton } from 'components/CustomButton'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -15,7 +15,7 @@ export const Employees = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
   const { t } = useTranslation('adminPanel')
   const { employees } = useFetchEmployees()
-  const employeesNoAdmin = employees.filter(({ role }) => role.toUpperCase() !== 'ADMIN')
+  const employeesNoAdmin = employees // employees.filter(({ role }) => role.toUpperCase() !== 'ADMIN')
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {

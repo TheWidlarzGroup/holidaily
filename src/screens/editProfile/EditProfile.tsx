@@ -7,9 +7,9 @@ import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
-import { useUserData } from 'hooks/useUserData'
+// import { useUserData } from 'hooks/useUserData'
 import { useModalContext } from 'contexts/ModalProvider'
-import { useUpdateUser } from 'hooks/useUpdateUser'
+// import { useUpdateUser } from 'hooks/useUpdateUser'
 import IconBack from 'assets/icons/icon-back.svg'
 import { LoadingModal } from 'components/LoadingModal'
 import { UserData } from '../../contexts/UserContext'
@@ -23,7 +23,11 @@ type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
-  const { handleUpdateUser, isSuccess, isLoading } = useUpdateUser()
+  const { handleUpdateUser, isSuccess, isLoading } = {
+    handleUpdateUser: () => {},
+    isSuccess: false,
+    isLoading: true,
+  } // useUpdateUser()
   const navigation = useNavigation()
   const { user } = useUserContext()
   const styles = useStyles()
@@ -35,11 +39,12 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
-  const { fetchUser } = useUserData()
+  const { fetchUser } = { fetchUser: () => {} } // useUserData()
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
   const handleEditDetailsSubmit = (data: EditDetailsTypes) => {
+    // @ts-ignore
     handleUpdateUser(data)
     fetchUser()
   }

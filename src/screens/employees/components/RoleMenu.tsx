@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { Text, Box, mkUseStyles } from 'utils/theme'
 import { capitalize } from 'utils/role'
 import { useModalContext } from 'contexts/ModalProvider'
-import { useChangeRole } from 'hooks/useChangeRole'
+// import { useChangeRole } from 'legacy/api-hooks/useChangeRole'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { RadioInput } from 'components/RadioInput'
 import { CustomButton } from 'components/CustomButton'
-import { ChangesSavedModal } from 'components/ChangesSavedModal'
+// import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { roles } from 'types/useCreateInvitationTypes'
 import { UserTypes } from 'types/useUserTypes'
 // TODO: get roles from BE ??
@@ -16,27 +16,28 @@ import { UserTypes } from 'types/useUserTypes'
 type RoleMenuProps = {
   onSelectRole: F1<string>
   onCancel: F0
-} & Pick<UserTypes, 'id' | 'email' | 'lastName' | 'firstName' | 'role'>
+} & Pick<UserTypes, 'id' | 'email' | 'lastName' | 'firstName' /* | 'role' */> & { role: any }
 
 export const RoleMenu = (p: RoleMenuProps) => {
+  p.role = 'ADMIN'
   const styles = useStyles()
-  const { handleChangeRole, isSuccess } = useChangeRole()
+  // const { handleChangeRole, isSuccess } = useChangeRole()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
   const [selectedRole, setSelectedRole] = useState(p.role)
 
   const onAcceptSelectRole = () => {
-    handleChangeRole({ userId: p.id, role: selectedRole })
+    // handleChangeRole({ userId: p.id, role: selectedRole })
     hideModal()
     p.onSelectRole(capitalize(selectedRole))
-    if (isSuccess)
-      setTimeout(
-        () =>
-          showModal(
-            <ChangesSavedModal isVisible hideModal={hideModal} content={t('permissionChanged')} />
-          ),
-        0
-      )
+    // if (isSuccess)
+    //   setTimeout(
+    //     () =>
+    //       showModal(
+    //         <ChangesSavedModal isVisible hideModal={hideModal} content={t('permissionChanged')} />
+    //       ),
+    //     0
+    //   )
     p.onCancel()
   }
 

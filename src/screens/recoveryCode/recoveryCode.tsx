@@ -12,7 +12,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useValidatePasswordResetCode } from 'legacy/api-hooks/useValidatePasswordResetCode'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { AuthNavigationType } from 'navigation/types'
-import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
+import { useInitializePasswordReset } from 'legacy/api-hooks/useInitializePasswordReset'
 import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 type RouteProps = {

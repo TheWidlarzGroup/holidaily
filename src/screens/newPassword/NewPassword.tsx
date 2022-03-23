@@ -10,7 +10,7 @@ import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 import { checkIfPasswordsMatch } from 'utils/checkIfPasswordsMatch'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
-import { useResetPassword } from 'hooks/useResetPassword'
+import { useResetPassword } from 'legacy/api-hooks/useResetPassword'
 import { useRoute } from '@react-navigation/native'
 import { PasswordUpdatedModal } from './components/PasswordUpdatedModal'
 

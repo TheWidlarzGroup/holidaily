@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useUserContext } from 'hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
-import { useUserData } from 'hooks/useUserData'
+import { useUserData } from 'legacy/api-hooks/useUserData'
 import { getItemAsync } from 'expo-secure-store'
 import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'

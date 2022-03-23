@@ -3,7 +3,7 @@ import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-n
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme, mkUseStyles } from 'utils/theme'
 import { capitalize } from 'utils/role'
-import { useRemoveFromOrganization } from 'hooks/useRemoveFromOrganization'
+import { useRemoveFromOrganization } from 'legacy/api-hooks/useRemoveFromOrganization'
 import { UserTypes } from 'types/useUserTypes'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'
@@ -16,9 +16,13 @@ type EmployeeBoxProps = {
   color?: string
   picture?: string
   id: string
-} & Pick<UserTypes, 'firstName' | 'lastName' | 'email' | 'role' | 'occupation' | 'confirmed'>
+} & Pick<
+  UserTypes,
+  'firstName' | 'lastName' | 'email' | /* 'role' | */ 'occupation' | 'confirmed'
+> & { role: any }
 
 export const EmployeeBox = (p: EmployeeBoxProps) => {
+  p.role = 'ADMIN'
   const styles = useStyles()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
