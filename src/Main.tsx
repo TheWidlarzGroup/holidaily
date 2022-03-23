@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
-import { StatusBar } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+// import { StatusBar } from 'react-native'
+// import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
-import { UserContextProvider } from 'contexts/UserProvider'
-import { ModalProvider } from 'contexts/ModalProvider'
+// import { UserContextProvider } from 'contexts/UserProvider'
+// import { ModalProvider } from 'contexts/ModalProvider'
 import axios from 'axios'
 import { darkTheme, theme } from './utils/theme'
-import { AppNavigation } from './navigation'
+// import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
 
 initBackendMocks()
@@ -26,14 +26,14 @@ export const Main = () => {
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
-      <UserContextProvider>
+      {/* <UserContextProvider>
         <SafeAreaProvider>
           <ModalProvider>
             <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
             <AppNavigation />
           </ModalProvider>
         </SafeAreaProvider>
-      </UserContextProvider>
+      </UserContextProvider> */}
     </ThemeProvider>
   )
 }
