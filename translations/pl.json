@@ -8,7 +8,8 @@
     "slider3SubTitle": "Planujesz wakacje lub czas dla siebie ? Po prostu o nie poproś.",
     "slider4Title": "Otrzymuj powiadomienia",
     "slider4SubTitle": "Dostaniesz powiadomienie kiedy wniosek zostanie zaakceptowany lub odrzucony",
-    "next": "Dalej"
+    "next": "Dalej",
+    "skip": "Pomiń"
   },
   "forgotPassword": {
     "email": "Adres e-mail",
@@ -32,7 +33,8 @@
     "newPasswordSaved": "Nowe hasło zapisane!",
     "exitMessage": "Jeśli wyjdziesz, twoje zmiany nie zostaną zapisane.",
     "incorrectPassword": "Nieprawidłowe hasło, spróbuj ponownie",
-    "forgotPasswordMessage": "Zapomniałeś hasła?"
+    "forgotPasswordMessage": "Zapomniałeś hasła?",
+    "save": "Zapisz"
   },
   "recoveryCode": {
     "recoveryCodeTitle": "Odzyskiwanie hasła",
@@ -144,16 +146,17 @@
     "passwordMatch": "Hasła muszą być identyczne"
   },
   "navigation": {
-    "logout": "Wyloguj się",
+    "logout": "Wyloguj",
     "home": "Strona Główna",
     "about": "O nas",
     "settings": "Ustawienia",
+    "employees": "Pracownicy",
     "dashboard": "Tablica",
     "calendar": "Kalendarz",
     "panel": "Panel",
     "chat": "Czat",
     "editProfile": "Edytuj profil",
-    "budget": "Budżet wakacyjny"
+    "budget": "Budżet urlopowy"
   },
   "userProfile": {
     "addPhoto": "Dodaj zdjęcie profilowe",
@@ -170,18 +173,20 @@
     "changesSaved": "Zmiany zostały zapisane",
     "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
     "pictureDeletedMessage": "Zdjęcie profilowe usunięte!",
-    "quitMessage": "If you quit now, your changes won't be saved",
+    "quitMessage": "Jeśli wyjdziesz zmiany nie zostaną zapisane.",
     "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
-    "subscribeMoreTeams": "Zasubskrybuj kolejne zespoły",
+    "subscribeMoreTeams": "Subskrybuj zespoły",
     "selected": "Zaznaczono: ",
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
-    "fieldRequired": "To pole jest wymagane."
+    "fieldRequired": "To pole jest wymagane.",
+    "ifYouUnsubscribe": "Jeśli wypiszesz się z subskrypcji zespołu {{teamName}}, nie będziesz widział jego członków.",
+    "unsubscribed": "Usunięto subskrypcję {{teamName}}"
   },
   "dashboard": {
     "welcome": "Cześć {{name}}!",
-    "today": "Dziś mamy {{date}}",
+    "today": "Dzisiaj jest {{date}}",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
@@ -194,9 +199,9 @@
   },
   "feed": {
     "postCommentBtn": "Skomentuj",
-    "comments": "Komentarze",
+    "comments": "komentarze",
     "noComments": "Brak komentarzy",
-    "createPostLabel": "Co tam?",
+    "createPostLabel": "Co słychać?",
     "locations": "Lokalizacja",
     "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
     "locationsAccessPromptText": "Uzyj mojej lokalizacji",
@@ -205,10 +210,10 @@
     "loading": "Szukam..."
   },
   "createPost": {
-    "title": "Stwórz Post",
+    "title": "Utwórz Post",
     "clearPost": "Wyczyść",
-    "inputPlaceholder": "Co tam?",
-    "sendPost": "Wyślij",
+    "inputPlaceholder": "Co słychać?",
+    "sendPost": "Opublikuj",
     "postSent": "Wiadomość wysłana!"
   },
   "settings": {
@@ -239,23 +244,29 @@
   "requestVacation": {
     "title": "Weź wolne",
     "detailsTitle": "Szczegóły",
-    "detailsDate": "Okres",
+    "detailsDate": "Termin",
     "detailsDescription": "Opis (opcjonalnie)",
     "detailsDescriptionError": "Nieprawidłowy opis",
     "sickTimeTitle": "Chorobowe",
-    "sickTimeLabel": "Nie czuje się za dobrze",
+    "sickTimeLabel": "Nie czuje się najlepiej",
     "additionalsTitle": "Dodatki",
     "additionalsLabel": "Dodaj załącznik lub wiadomość",
     "attachmentDeleteMessage": "Usunąć załącznik?",
     "CTA": "Dalej",
     "timeOffDescriptionPlaceholder": "Czas wolny",
-    "sendRequest": "Wyślij Podanie",
+    "sendRequest": "Wyślij",
     "ptoTaken1": "Bierzesz",
     "ptoTaken2": "dni wolnego",
     "ptoLeft1": "Pozostanie",
     "ptoLeft2": "dni wolnego",
     "pickedPTO": "{{days}} dni wolnego",
-    "select": "Wybierz"
+    "select": "Wybierz",
+    "sent": "Poproszono o wolne!",
+    "waitForApproval": "Ale nie pakuj się jeszcze, poczekaj na zatwierdzenie urlopu!",
+    "findRequests": "Swoje prośby o wolne znajdziesz na dole ekranu",
+    "seeRequest": "Zobacz podanie",
+    "addAnother": "Poproś o kolejne wolne",
+    "ok": "W porządku"
   },
   "adminPanel": {
     "employees": "Pracownicy",

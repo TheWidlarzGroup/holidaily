@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, useCallback } from 'react'
-import { StatusBar, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import { TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { RectButton } from 'react-native-gesture-handler'
@@ -89,13 +89,6 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   useEffect(() => {
     if (TEAMS) filterAlreadySubmittedSubscriptions()
   }, [filterAlreadySubmittedSubscriptions])
-
-  useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    return () => {
-      StatusBar.setBarStyle('dark-content')
-    }
-  }, [])
 
   const handleGoBack = () => {
     if (subscribedTeams.length > 0 || searchedItems.length > 0) {
@@ -190,17 +183,16 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
               ))}
             </Box>
           </ScrollView>
-          {subscribedTeams.length > 0 && (
-            <Box position="absolute" bottom={16} alignSelf="center">
-              <CustomButton
-                label={t('subscribe')}
-                variant="primary"
-                onPress={submitSubscriptions}
-                width={221}
-                height={53}
-              />
-            </Box>
-          )}
+          <Box position="absolute" bottom={16} alignSelf="center">
+            <CustomButton
+              label={t('subscribe')}
+              variant="primary"
+              onPress={submitSubscriptions}
+              width={221}
+              height={53}
+              disabled={!subscribedTeams.length}
+            />
+          </Box>
         </Box>
       </Box>
     </SafeAreaWrapper>

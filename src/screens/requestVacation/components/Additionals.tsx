@@ -37,7 +37,7 @@ export const Additionals = ({
       <Text variant="boldBlack18" textAlign="left" marginTop="l">
         {t('additionalsTitle')}
       </Text>
-      <Text variant="body1" textAlign="left">
+      <Text variant="regular15Calendar" color="grey" textAlign="left">
         {t('additionalsLabel')}
       </Text>
 

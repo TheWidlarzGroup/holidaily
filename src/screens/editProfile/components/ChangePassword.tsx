@@ -143,7 +143,7 @@ export const ChangePassword = () => {
           />
           <Box position="absolute" bottom={16} alignSelf="center">
             <CustomButton
-              label={'Save'}
+              label={t('save')}
               variant="primary"
               onPress={handleSubmit(onChangePassword)}
               width={221}

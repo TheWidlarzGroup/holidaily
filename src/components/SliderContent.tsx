@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, Dimensions, ImageSourcePropType } from 'react-native'
 import Animated, { useAnimatedStyle, interpolate, Extrapolate } from 'react-native-reanimated'
-import { Box, Text } from 'utils/theme/index'
+import { Box, Text, theme } from 'utils/theme/index'
 
 const { width } = Dimensions.get('window')
 
@@ -51,16 +51,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   imageContainer: {
-    marginTop: 20,
-    width: '90%',
-    maxWidth: 400,
-    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
     aspectRatio: 1,
+    width: '100%',
+    backgroundColor: theme.colors.secondary,
   },
   image: {
-    width: '90%',
-    maxWidth: 400,
+    width: '75%',
+    maxWidth: 300,
   },
 })

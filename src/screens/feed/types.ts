@@ -16,11 +16,9 @@ export type PostMetaData = {
 }
 
 export type Reaction = {
-  type: ReactionType
+  type: string
   users: string[]
 }
-
-export type ReactionType = '😋' | '😎' | '😍' | '😀'
 
 export type Comment = {
   meta: PostMetaData

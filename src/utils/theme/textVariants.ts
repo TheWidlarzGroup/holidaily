@@ -34,6 +34,11 @@ export const textVariants = {
     fontSize: 15,
     color: 'labelLightGrey',
   },
+  labelGreyLight: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    color: 'headerGrey',
+  },
   remind1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
@@ -144,6 +149,12 @@ export const textVariants = {
   regular15Calendar: {
     fontFamily: 'Nunito-Regular',
     fontSize: 15,
+  },
+  regular16Holifeed: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
+    color: 'black',
+    lineHeight: 20,
   },
   header: {
     fontFamily: 'Nunito-Bold',

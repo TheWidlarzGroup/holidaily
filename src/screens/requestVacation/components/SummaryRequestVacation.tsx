@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles } from 'utils/theme/index'
-import { getISODateString, calculatePTO } from 'utils/dates'
+import { calculatePTO } from 'utils/dates'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useRequestHolidays } from 'hooks/useRequestHolidays'
 import { useTranslation } from 'react-i18next'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { SummaryDays } from './SummaryRequestVacation/SummaryDays'
 import { SummaryRequestVacationHeader } from './SummaryRequestVacation/SummaryRequestVacationHeader'
 import { SicktimeAndMessage } from './SummaryRequestVacation/SicktimeAndMessage'
@@ -18,62 +18,65 @@ type SummaryRequestVacationProps = {
   endDate?: Date
   message?: string
   photos?: { id: string; uri: string }[]
+  hideNext?: boolean
 }
 
-export const SummaryRequestVacation = ({
-  description,
-  isSick,
-  onNextPressed,
-  endDate,
-  startDate,
-  message,
-  photos = [],
-}: SummaryRequestVacationProps) => {
+export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVacationProps) => {
   const styles = useStyles()
-  const { handleRequestHolidays, isLoading, isSuccess } = useRequestHolidays()
-
+  const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
+  const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
   const { t } = useTranslation('requestVacation')
+  const ptoTaken = p.startDate && p.endDate ? calculatePTO(p.startDate, p.endDate) : 0
 
   const handleSend = () => {
-    if (startDate && endDate) {
-      handleRequestHolidays({
-        startDate: getISODateString(startDate),
-        endDate: getISODateString(endDate),
-        description,
-        sickTime: isSick,
-        message,
-      })
+    if (p.startDate && p.endDate) {
+      startLoading()
     }
   }
+  useEffect(() => {
+    let timeout: number | undefined
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        stopLoading()
+        markSuccess()
+      }, 800)
+    }
+
+    return () => clearTimeout(timeout)
+  }, [isLoading, markSuccess, stopLoading])
+
   useEffect(() => {
     if (isSuccess) {
       onNextPressed()
     }
   }, [isSuccess, onNextPressed])
-  const ptoTaken = startDate && endDate ? calculatePTO(startDate, endDate) : 0
 
   return (
     <Box flex={1} padding="l" paddingTop="xl">
       <ScrollView style={{ flex: 1 }}>
         <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
           <SummaryRequestVacationHeader
-            startDate={startDate}
-            endDate={endDate}
-            description={description}
+            startDate={p.startDate}
+            endDate={p.endDate}
+            description={p.description}
           />
-          <SicktimeAndMessage isSick={isSick} message={message} />
-          <SummaryRequestVacationPhotos photos={photos} />
+          <SicktimeAndMessage isSick={p.isSick} message={p.message} />
+          <SummaryRequestVacationPhotos photos={p.photos} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays ptoTaken={ptoTaken} />
         </Box>
       </ScrollView>
-      <CustomButton
-        label={t('sendRequest')}
-        variant="primary"
-        onPress={handleSend}
-        style={styles.button}
-        loading={isLoading}
-      />
+      {!p.hideNext && (
+        <CustomButton
+          label={t('sendRequest')}
+          variant="primary"
+          onPress={handleSend}
+          style={styles.button}
+          loading={isLoading}
+          maxWidth={250}
+          alignSelf="center"
+        />
+      )}
     </Box>
   )
 }

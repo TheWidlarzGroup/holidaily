@@ -8,12 +8,14 @@ import { DateFormat, formatDate } from './src/utils/formatDate'
 import en from './translations/en.json'
 import pl from './translations/pl.json'
 
-let locale: 'en' | 'pl' = 'en'
+let locale = 'en'
 
 export type Languages = typeof resources
 
 if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
 else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
+
+if (/en_*/.test(locale)) locale = 'en'
 
 const resources = {
   pl,
@@ -26,6 +28,7 @@ const initI18 = async () => {
     resources,
     compatibilityJSON: 'v3',
     lng: lang || locale,
+    fallbackLng: ['en', 'pl'],
     keySeparator: false,
     debug: __DEV__,
     interpolation: {
@@ -38,5 +41,4 @@ const initI18 = async () => {
     },
   })
 }
-
 initI18()
