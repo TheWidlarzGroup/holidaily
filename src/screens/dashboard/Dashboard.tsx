@@ -41,7 +41,6 @@ export const Dashboard = () => {
     setUser(user)
     openModal()
   }
-  console.log(user)
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>
