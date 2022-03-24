@@ -1,4 +1,4 @@
-export const roles = ['MANAGER', 'USER', 'GUEST']
+export const roles = ['Manager', 'User', 'Guest', 'Admin']
 export type RoleTypes = typeof roles[number]
 
 export type CreateInvitationTypes = { email: string; role: RoleTypes }

@@ -9,5 +9,5 @@ export const userFactory = Factory.extend({
   color: '#fff',
   language: 'pl',
   photo: null,
-  role: 'ADMIN',
+  role: 'Admin',
 })
