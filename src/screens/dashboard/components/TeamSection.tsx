@@ -2,15 +2,16 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MateElement } from 'screens/dashboard/components/MateElement'
-import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import { MateHolidaysData, RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 
 type TeamSectionProps = {
   matesArray: RequiredMateHolidaysData[]
   isOutOfOffice: boolean
+  openUserModal: F1<MateHolidaysData>
 }
 
 export const TeamSection = (props: TeamSectionProps) => {
-  const { isOutOfOffice, matesArray } = props
+  const { isOutOfOffice, matesArray, openUserModal } = props
   const { t } = useTranslation('dashboard')
 
   const version: { color: 'tertiary' | 'headerGrey'; text: 'outOfWorkNow' | 'outOfWorkSoon' } = {
@@ -23,7 +24,7 @@ export const TeamSection = (props: TeamSectionProps) => {
         {t(version.text).toUpperCase()}
       </Text>
       {matesArray.map((mate) => (
-        <MateElement key={mate.id} {...mate} />
+        <MateElement key={mate.id} userData={mate} openUserModal={openUserModal} />
       ))}
     </Box>
   )

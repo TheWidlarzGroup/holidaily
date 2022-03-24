@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
-import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import { MateHolidaysData } from 'types/holidaysDataTypes'
 import { Avatar } from 'components/Avatar'
 
-export const MateHeader = (props: RequiredMateHolidaysData) => {
+export const MateHeader = (props: MateHolidaysData) => {
   const { firstName, lastName, holidays, occupation, photo } = props
 
   return (

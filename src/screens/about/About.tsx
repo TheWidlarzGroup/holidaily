@@ -7,33 +7,27 @@ import { TouchableOpacity } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import FastImage from 'react-native-fast-image'
-import { AuthRoutes } from 'navigation/types'
-import { StackScreenProps } from '@react-navigation/stack'
 
 const manImgSrc = require('assets/Splash_screen.png')
 const waveImgSrc = require('assets/Wave.png')
 
-type AboutTypes = StackScreenProps<AuthRoutes, 'About'>
+type AboutTypes = { isFromWelcomeScreen?: true; closeModal: F0 }
 
-export const About = ({ route }: AboutTypes) => {
-  const isFromWelcomeScreen = route?.params
+export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
   const navigation = useNavigation()
   const { t } = useTranslation('welcome')
   const styles = useStyles()
 
   const handleGoBack = () => {
-    navigation.goBack()
     if (!isFromWelcomeScreen) {
+      navigation.goBack()
       navigation.dispatch(DrawerActions.openDrawer())
-    }
+    } else closeModal()
   }
 
-  const welcomeScreenStyles = isFromWelcomeScreen
-    ? { marginTop: 'm', borderTopLeftRadius: 'l', borderTopRightRadius: 'l' }
-    : null
   return (
-    <SafeAreaWrapper isDefaultBgColor isDarkBgColor={!!isFromWelcomeScreen}>
-      <Box backgroundColor="white" paddingTop="m" flexGrow={1} {...welcomeScreenStyles}>
+    <SafeAreaWrapper isDefaultBgColor>
+      <Box backgroundColor="white" paddingTop={isFromWelcomeScreen ? 0 : 'm'} flexGrow={1}>
         <Box
           justifyContent="space-between"
           alignItems="center"

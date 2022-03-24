@@ -10,13 +10,15 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
+import { MateHolidaysData } from 'types/holidaysDataTypes'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 type SortableListProps = {
   children: ReactElement<{ groupId: number }>[]
+  openUserModal: F1<MateHolidaysData>
 }
 
-export const SortableList = ({ children }: SortableListProps) => {
+export const SortableList = ({ children, openUserModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
@@ -51,7 +53,7 @@ export const SortableList = ({ children }: SortableListProps) => {
         scrollEventThrottle={16}
         onScroll={onScroll}>
         <Box height={NESTED_ELEM_OFFSET}>
-          <Carousel />
+          <Carousel openUserModal={openUserModal} />
           <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
             {t('teamsList').toUpperCase()}
           </Text>
