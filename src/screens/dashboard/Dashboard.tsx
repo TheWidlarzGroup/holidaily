@@ -15,16 +15,33 @@ import { DashboardTeamMember } from './DashboardTeamMember'
 export const Dashboard = () => {
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
 
-  const [user, setUser] = useState<MateHolidaysData>({} as MateHolidaysData)
+  const emptyMateUser = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    photo: '',
+    occupation: undefined,
+    holidays: {
+      id: 1,
+      isOnHoliday: false,
+      dayStart: '',
+      dayEnd: '',
+      sickLeave: false,
+      description: undefined,
+    },
+  }
+
+  const [user, setUser] = useState<MateHolidaysData>(emptyMateUser)
 
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
 
   const openUserModal = (user: MateHolidaysData) => {
-    openModal()
     setUser(user)
+    openModal()
   }
+  console.log(user)
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>

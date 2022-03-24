@@ -14,7 +14,7 @@
     "android:beta": "fastlane android beta"
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "4",
+    "@gorhom/bottom-sheet": "^4",
     "@react-native-clipboard/clipboard": "^1.8.4",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^12.1.0",
