@@ -12,24 +12,24 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
+const emptyMateUser = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  photo: '',
+  occupation: undefined,
+  holidays: {
+    id: 1,
+    isOnHoliday: false,
+    dayStart: '',
+    dayEnd: '',
+    sickLeave: false,
+    description: undefined,
+  },
+}
+
 export const Dashboard = () => {
   const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
-
-  const emptyMateUser = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    photo: '',
-    occupation: undefined,
-    holidays: {
-      id: 1,
-      isOnHoliday: false,
-      dayStart: '',
-      dayEnd: '',
-      sickLeave: false,
-      description: undefined,
-    },
-  }
 
   const [user, setUser] = useState<MateHolidaysData>(emptyMateUser)
 
