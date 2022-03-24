@@ -44,7 +44,10 @@ export const Attachments = ({
             }}>
             {'name' in attachment ? (
               <Box alignItems="center" justifyContent="center">
-                <BaseOpacity alignSelf="flex-end" onPress={() => removeAttachment(attachment.id)}>
+                <BaseOpacity
+                  alignSelf="flex-end"
+                  onPress={() => removeAttachment(attachment.id)}
+                  hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
                   <Cross width={18} height={18} />
                 </BaseOpacity>
                 <Text>{attachment.name}</Text>
