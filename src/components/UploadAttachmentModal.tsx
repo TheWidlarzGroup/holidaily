@@ -20,14 +20,14 @@ type UploadFilesProps =
       allowFiles: true
       setFile: F1<{ uri: string; name: string } | undefined>
     }
-  | { allowFiles?: false }
+  | { allowFiles?: never }
 
 type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
-  showCamera?: boolean
+  showCamera?: true
 } & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
 
