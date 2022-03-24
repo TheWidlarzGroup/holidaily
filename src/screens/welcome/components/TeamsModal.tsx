@@ -10,6 +10,7 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/useUserContext'
 import { StackScreenProps } from '@react-navigation/stack'
 import { AuthRoutes } from 'navigation/types'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type TeamsModalTypes = StackScreenProps<AuthRoutes, 'TeamsModal'>
 
@@ -20,7 +21,10 @@ export const TeamsModal = ({ route }: TeamsModalTypes) => {
   const { updateUser } = useUserContext()
   const { firstName } = route.params
 
-  const handleOnSubmit = () => updateUser({ firstName })
+  const handleOnSubmit = async () => {
+    await AsyncStorage.setItem('firstName', firstName)
+    updateUser({ firstName })
+  }
 
   return (
     <SafeAreaWrapper isDefaultBgColor isDarkBgColor>
