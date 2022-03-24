@@ -5,7 +5,7 @@ import { ErrorTypes } from 'types/useLoginTypes'
 import { SignupWithCodeTypes, SignupWithCodeDataTypes } from 'types/useSignupTypes'
 import { useTranslation, TFunction } from 'react-i18next'
 import { signupWithCodeMutation } from 'graphqlActions/mutations/signupWithCodeMutation'
-import { useLogin } from './useLogin'
+import { useLogin } from 'hooks/legacy-api-hooks/useLogin'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {

@@ -9,10 +9,10 @@ import { RecoveryPasswordBar } from 'components/RecoveryPasswordBar'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Container } from 'components/Container'
 import { useUserContext } from 'hooks/useUserContext'
-import { useValidatePasswordResetCode } from 'hooks/useValidatePasswordResetCode'
+import { useValidatePasswordResetCode } from 'hooks/legacy-api-hooks/useValidatePasswordResetCode'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { AuthNavigationType } from 'navigation/types'
-import { useInitializePasswordReset } from 'hooks/useInitializePasswordReset'
+import { useInitializePasswordReset } from 'hooks/legacy-api-hooks/useInitializePasswordReset'
 import { ForgotPasswordErrorModal } from '../forgotPassword/components/ForgotPasswordErrorModal'
 
 type RouteProps = {

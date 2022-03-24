@@ -5,7 +5,7 @@ import { AuthNavigationType } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
 
 import { useBooleanState } from 'hooks/useBooleanState'
-import { useConfirmAccount } from 'hooks/useConfirmAccount'
+import { useConfirmAccount } from 'hooks/legacy-api-hooks/useConfirmAccount'
 import { colors } from 'utils/theme/colors'
 import { createAlert } from 'utils/createAlert'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'

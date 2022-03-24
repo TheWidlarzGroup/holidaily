@@ -2,8 +2,8 @@ import { useQuery } from 'react-query'
 
 import { userQuery } from 'graphqlActions/queries/userQuery'
 import { UserQueryTypes } from 'types/useUserTypes'
-import { useBooleanState } from './useBooleanState'
-import { useUserContext } from './useUserContext'
+import { useBooleanState } from '../useBooleanState'
+import { useUserContext } from '../useUserContext'
 
 export const useUserData = () => {
   const [isEnabled, { setTrue: fetchUser }] = useBooleanState(false)
