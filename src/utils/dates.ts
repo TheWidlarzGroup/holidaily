@@ -102,17 +102,18 @@ export const getNumberOfWorkingDaysBetween = (dateA: DateOrISO, dateB: DateOrISO
 export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
   const startDate = parseISO(start)
   const endDate = parseISO(end)
+  startDate.setHours(0, 0, 0, 0)
+  endDate.setHours(23, 59, 59, 999)
   const daysDiff = Math.floor((endDate.getTime() - startDate.getTime()) / DAY_IN_MS)
   const holidays = getHolidaysInYear(startDate.getFullYear())
   let workdaysDiff = 0
-  for (let i = 0; i < daysDiff; i++) {
+  for (let i = 0; i <= daysDiff; i++) {
     const date = new Date(startDate.getTime() + i * DAY_IN_MS)
     const isNotWeekend = !(date.getDay() === 6) && !(date.getDay() === 0)
-
     if (isNotWeekend) {
       let isNotHoliday = true
       for (const holiday of holidays) {
-        if (holiday.date === date) isNotHoliday = false
+        if (holiday.date.toDateString() === date.toDateString()) isNotHoliday = false
       }
       if (isNotHoliday) workdaysDiff++
     }

@@ -12,6 +12,7 @@ import { useModalContext } from 'contexts/ModalProvider'
 import { useUpdateUser } from 'hooks/useUpdateUser'
 import IconBack from 'assets/icons/icon-back.svg'
 import { LoadingModal } from 'components/LoadingModal'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UserData } from '../../contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -39,7 +40,8 @@ export const EditProfile = () => {
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
-  const handleEditDetailsSubmit = (data: EditDetailsTypes) => {
+  const handleEditDetailsSubmit = async (data: EditDetailsTypes) => {
+    await AsyncStorage.setItem('firstName', data.firstName)
     handleUpdateUser(data)
     fetchUser()
   }
