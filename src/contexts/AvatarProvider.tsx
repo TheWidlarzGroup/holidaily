@@ -33,11 +33,7 @@ export const AvatarProvider = ({ children }: ProviderProps) => {
 
 export const useAvatarContext = () => {
   const context = useContext(AvatarContext)
-
-  if (context) {
-    return context
-  }
-
+  if (context) return context
   throw Error('Use this hook in AvatarProvider scope')
 }
 
