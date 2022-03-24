@@ -7,7 +7,7 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, BaseOpacity } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
-import { useAvatarContext } from 'contexts/AvatarProvider'
+import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from '../../../contexts/ModalProvider'
 
 type ProfilePictureProps = {
@@ -18,7 +18,7 @@ type ProfilePictureProps = {
 export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
-  const { avatarUri, updateAvatarUri } = useAvatarContext()
+  const { updateUser, user } = useUserContext()
 
   const showUploadPictureModal = () => {
     hideModal()
@@ -32,7 +32,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
             setIsEditedFalse()
             hideModal()
           }}
-          setPhotoURI={updateAvatarUri}
+          setPhotoURI={(newPhoto) => updateUser({ photo: newPhoto })}
         />
       )
     }, 250)
@@ -75,7 +75,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   }
   const handleDeletePicture = () => {
     setIsEditedFalse()
-    updateAvatarUri(null)
+    updateUser({ photo: null })
     showModal(
       <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
     )
@@ -97,14 +97,14 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       marginTop="xxl"
       marginBottom="xl">
       <BaseOpacity
-        onPress={avatarUri ? onChangeProfilePicture : onAddProfilePicture}
+        onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.5}>
-        <Avatar src={avatarUri} size="l" marginBottom="m" />
+        <Avatar src={user?.photo} size="l" marginBottom="m" />
       </BaseOpacity>
       <TextLink
-        text={avatarUri ? t('editPhoto') : t('addPhoto')}
+        text={user?.photo ? t('editPhoto') : t('addPhoto')}
         variant="boldOrange15"
-        action={avatarUri ? onChangeProfilePicture : onAddProfilePicture}
+        action={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
       />
     </Box>
   )

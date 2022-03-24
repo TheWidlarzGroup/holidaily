@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadPictureModal } from 'components/UploadPictureModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { useAvatarContext } from 'contexts/AvatarProvider'
+import { useUserContext } from 'hooks/useUserContext'
 
 export const FeedHeader = () => {
   const { navigate } = useNavigation()
@@ -16,7 +16,7 @@ export const FeedHeader = () => {
     showAttachmentModal,
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
-  const { avatarUri } = useAvatarContext()
+  const { user } = useUserContext()
   const changeDataRequest = (modalPhoto: AttachmentType) => {
     navigate('CreatePost', { photo: modalPhoto })
   }
@@ -24,7 +24,7 @@ export const FeedHeader = () => {
   return (
     <Box flexDirection="row" alignItems="stretch" padding="m" bg="white" borderRadius="l">
       <Box marginRight="m">
-        <Avatar src={avatarUri} size="s" />
+        <Avatar src={user?.photo} size="s" />
       </Box>
       <BaseOpacity flexGrow={1} onPress={() => navigate('CreatePost')} justifyContent="center">
         <Text>{t('createPostLabel')}</Text>

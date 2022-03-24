@@ -2,15 +2,15 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { UserData } from 'contexts/UserContext'
-import { useAvatarContext } from 'contexts/AvatarProvider'
+import { useUserContext } from 'hooks/useUserContext'
 
 type DrawerHeaderProps = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
 
 export const DrawerHeader = ({ firstName, lastName, occupation }: DrawerHeaderProps) => {
-  const { avatarUri } = useAvatarContext()
+  const { user } = useUserContext()
   return (
     <Box margin="m">
-      <Avatar src={avatarUri} size="s" />
+      <Avatar src={user?.photo} size="s" />
       <Text marginTop="m" variant="boldBlack18">
         {firstName} {lastName}
       </Text>

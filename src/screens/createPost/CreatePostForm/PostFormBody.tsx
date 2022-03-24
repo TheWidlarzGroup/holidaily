@@ -5,10 +5,9 @@ import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
 import { Gallery } from 'components/Gallery/Gallery'
 import { GalleryItemData } from 'types/holidaysDataTypes'
-
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
-import { useAvatarContext } from 'contexts/AvatarProvider'
+import { useUserContext } from 'hooks/useUserContext'
 
 type PostBodyProps = {
   text: string
@@ -19,7 +18,7 @@ type PostBodyProps = {
 
 export const PostBody = (props: PostBodyProps) => {
   const { location, onTextChange, text, data } = props
-  const { avatarUri } = useAvatarContext()
+  const { user } = useUserContext()
   const { t } = useTranslation('createPost')
 
   const styles = useStyles()
@@ -27,7 +26,7 @@ export const PostBody = (props: PostBodyProps) => {
   return (
     <Box flexGrow={1} padding="s">
       <Box flexDirection="row">
-        <Avatar src={avatarUri} size="s" padding="l" />
+        <Avatar src={user?.photo} size="s" padding="l" />
         <Box marginLeft="m" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           {location?.addresses && <LocationInfo location={location} />}
           <TextInput
