@@ -24,7 +24,12 @@ export const UploadAttachmentButtons = ({
     <Box padding="lplus" paddingTop={showCamera ? 'lplus' : 'xm'}>
       {showCamera && (
         <>
-          <BaseOpacity onPress={() => onUpload('camera')} activeOpacity={0.2} style={styles.btn}>
+          <BaseOpacity
+            onPress={() => onUpload('camera')}
+            activeOpacity={0.2}
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center">
             <Smartphone />
             <Box flexGrow={1} marginLeft="m">
               <Text variant="boldBlack18">{t('openCamera')}</Text>
