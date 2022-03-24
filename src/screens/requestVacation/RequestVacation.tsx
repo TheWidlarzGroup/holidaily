@@ -34,6 +34,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     useBooleanState(false)
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
+  const [isSent, { setTrue: markAsSent, setFalse: markAsNotSent }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -48,6 +49,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback(requestData)
     setRequestData((oldData) => ({ ...oldData, ...newData }))
+    markAsNotSent()
   }
 
   const reset = () => {
@@ -69,6 +71,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
   useEffect(() => {
     const { params } = route
+    markAsNotSent()
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
     if (params?.action === 'sickday') {
@@ -78,7 +81,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, setSickTime])
+  }, [route, route.params, setSickTime, markAsNotSent])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -108,12 +111,16 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           message={requestData.message}
           onNextPressed={showSentModal}
           attachments={[...requestData.photos, ...requestData.files]}
+          hideNext={isSent}
         />
       )}
 
       <RequestSent
         isVisible={isSentModalVisible}
-        onPressSee={() => {}}
+        onPressSee={() => {
+          hideSentModal()
+          markAsSent()
+        }}
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()

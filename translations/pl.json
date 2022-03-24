@@ -147,7 +147,7 @@
     "passwordMatch": "Hasła muszą być identyczne"
   },
   "navigation": {
-    "logout": "Wyloguj się",
+    "logout": "Wyloguj",
     "home": "Strona Główna",
     "about": "O nas",
     "settings": "Ustawienia",
@@ -174,7 +174,7 @@
     "changesSaved": "Zmiany zostały zapisane",
     "deletePictureMessage": "Chcesz usunąć zdjęcie profilowe?",
     "pictureDeletedMessage": "Zdjęcie profilowe usunięte!",
-    "quitMessage": "If you quit now, your changes won't be saved",
+    "quitMessage": "Jeśli wyjdziesz zmiany nie zostaną zapisane.",
     "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
     "subscribeMoreTeams": "Subskrybuj zespoły",
@@ -187,7 +187,7 @@
   },
   "dashboard": {
     "welcome": "Cześć {{name}}!",
-    "today": "Dziś mamy {{date}}",
+    "today": "Dzisiaj jest {{date}}",
     "teamsList": "Twoje zespoły",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
@@ -211,10 +211,10 @@
     "loading": "Szukam..."
   },
   "createPost": {
-    "title": "Stwórz Post",
+    "title": "Utwórz Post",
     "clearPost": "Wyczyść",
     "inputPlaceholder": "Co słychać?",
-    "sendPost": "Wyślij",
+    "sendPost": "Opublikuj",
     "postSent": "Wiadomość wysłana!"
   },
   "settings": {
@@ -255,7 +255,7 @@
     "attachmentDeleteMessage": "Usunąć załącznik?",
     "CTA": "Dalej",
     "timeOffDescriptionPlaceholder": "Czas wolny",
-    "sendRequest": "Wyślij Podanie",
+    "sendRequest": "Wyślij",
     "ptoTaken1": "Bierzesz",
     "ptoTaken2": "dni wolnego",
     "ptoLeft1": "Pozostanie",
