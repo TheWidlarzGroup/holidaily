@@ -32,7 +32,9 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     useBooleanState(false)
   const [message, setMessage] = useState('')
   const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
-  const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
+  const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
+    useBooleanState(false)
+  const [isSent, { setTrue: markAsSent, setFalse: markAsNotSent }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -49,6 +51,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setDescription(newData.description)
     setMessage(newData.message)
     setPhotos(newData.photos)
+    markAsNotSent()
   }
 
   const reset = () => {
@@ -66,6 +69,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
   useEffect(() => {
     const { params } = route
+    markAsNotSent()
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
     if (params?.action === 'sickday') {
@@ -75,7 +79,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, route.params, setSickTime])
+  }, [route, route.params, setSickTime, markAsNotSent])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -104,12 +108,16 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           message={message}
           onNextPressed={showSentModal}
           photos={photos}
+          hideNext={isSent}
         />
       )}
 
       <RequestSent
-        isVisible={sentModal}
-        onPressSee={() => {}}
+        isVisible={isSentModalVisible}
+        onPressSee={() => {
+          hideSentModal()
+          markAsSent()
+        }}
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
