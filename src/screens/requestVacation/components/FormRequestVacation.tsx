@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import { ScrollView } from 'react-native'
-
 import { Box } from 'utils/theme/index'
 import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -79,6 +78,14 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     setAttachmentsToRemove([])
   }
 
+  const onFileUpload = (file?: { uri: string; name: string }) => {
+    if (!file) return
+    changeRequestData((oldData) => ({
+      ...oldData,
+      files: [...oldData.files, { uri: file.uri, name: file.name, id: new Date().toString() }],
+    }))
+  }
+
   const cancelRemovingPhoto = () => setAttachmentsToRemove([])
 
   return (
@@ -131,16 +138,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         onUserCancelled={setShowAttachmentModalFalse}
         showCamera
         allowFiles
-        setFile={(file) => {
-          if (!file) return
-          changeRequestData((oldData) => ({
-            ...oldData,
-            files: [
-              ...oldData.files,
-              { uri: file.uri, name: file.name, id: new Date().toString() },
-            ],
-          }))
-        }}
+        setFile={onFileUpload}
         setPhotoURI={(uri) => {
           if (!uri) return
           changeRequestData((oldData) => ({

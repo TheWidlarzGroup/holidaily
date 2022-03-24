@@ -1,15 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme'
+import { Text, Box, BaseOpacity, useTheme } from 'utils/theme'
 import Gallery from 'assets/icons/icon-gallery.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import FileIcon from 'assets/icons/icon-file.svg'
 
-type Action = 'gallery' | 'camera' | 'file'
+type UploadAttachmentAction = 'gallery' | 'camera' | 'file'
 type UploadAttachmentButtonsProps = {
-  onUpload: F1<Action>
-  showCamera?: boolean
-  allowFiles?: boolean
+  onUpload: F1<UploadAttachmentAction>
+  showCamera?: true
+  allowFiles?: true
 }
 
 export const UploadAttachmentButtons = ({
@@ -18,7 +18,6 @@ export const UploadAttachmentButtons = ({
   allowFiles,
 }: UploadAttachmentButtonsProps) => {
   const { t } = useTranslation('uploadAttachmentModal')
-  const styles = useStyles()
   const theme = useTheme()
 
   return (
@@ -37,7 +36,9 @@ export const UploadAttachmentButtons = ({
 
       <BaseOpacity
         onPress={() => onUpload('gallery')}
-        style={styles.btn}
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
         marginTop="m"
         activeOpacity={0.2}>
         <Gallery />
@@ -51,7 +52,9 @@ export const UploadAttachmentButtons = ({
           <BaseOpacity
             onPress={() => onUpload('file')}
             activeOpacity={0.2}
-            style={styles.btn}
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
             marginTop="m">
             <FileIcon color={theme.colors.black} />
             <Box flexGrow={1} marginLeft="m">
@@ -63,11 +66,3 @@ export const UploadAttachmentButtons = ({
     </Box>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  btn: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-}))
