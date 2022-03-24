@@ -10,6 +10,7 @@ export type ContextProps = {
   updateAvatarUri: F1<string | null | undefined>
 }
 
+const PROFILE_PIC_STORE_KEY = 'profile-pic'
 const AvatarContext = createContext<ContextProps | null>(null)
 
 export const AvatarProvider = ({ children }: ProviderProps) => {
@@ -42,5 +43,3 @@ export const useAvatarContext = () => {
 }
 
 AvatarProvider.displayName = 'AvatarProvider'
-
-const PROFILE_PIC_STORE_KEY = 'profile-pic'
