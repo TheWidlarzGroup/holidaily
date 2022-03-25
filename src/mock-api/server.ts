@@ -18,7 +18,8 @@ export const initBackendMocks = () =>
     seeds(server) {
       server.create('user', { firstName: 'Adam', occupation: 'UX designer' })
       server.create('user')
-      server.create('user')
+      const userDzony = server.create('user', { firstName: 'Dzony', id: 'dzony' })
+
       server.create('dayOffRequest', {
         id: '0',
         description: 'test',
@@ -26,7 +27,8 @@ export const initBackendMocks = () =>
         range: [new Date(), new Date(Date.now() + 24 * 3600 * 1000)],
         sickTime: false,
         status: 'PENDING',
-        user: server.create('user', { id: 'dzony' }),
+        user: userDzony,
       })
+      console.log('DZONY: ', userDzony)
     },
   })

@@ -1,17 +1,21 @@
-import { Model } from 'miragejs'
+import { belongsTo, hasMany, Model } from 'miragejs'
 import { DayOffRequest } from './DayOffRequest'
 import { Organization } from './Organization'
 import { User } from './User'
 
 export type Schema = {
-  users: User[]
-  organizations: Organization[]
-  dayOffRequests: DayOffRequest[]
+  user: User[]
+  organization: Organization[]
+  dayOffRequest: DayOffRequest[]
 }
 
 export const Models = {
-  user: Model,
-  dayOffRequest: Model,
+  user: Model.extend({
+    dayOffRequest: hasMany(),
+  }),
+  dayOffRequest: Model.extend({
+    user: belongsTo(),
+  }),
   organization: Model,
 }
 export * from './User'

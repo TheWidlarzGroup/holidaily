@@ -4,8 +4,9 @@ export type DayOffRequest = {
   description: string
   id: string
   message: string
-  range: Date[]
-  sickTime: boolean
+  startDate: Date
+  endDate: Date
+  isSickTime: boolean
   status: 'ACCEPTED' | 'CANCELLED' | 'PENDING' | 'REJECTED'
   user: User
 }
