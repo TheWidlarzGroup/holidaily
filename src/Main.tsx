@@ -5,7 +5,7 @@ import { ThemeProvider } from '@shopify/restyle'
 import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
@@ -23,13 +23,7 @@ export const Main = () => {
           data: { user },
         } = await axios.get('api/users/dzony')
         axios.defaults.headers.common.userId = user.id
-        const { data } = await axios.post('api/request', {
-          description: 'wakajki',
-          startDate: new Date(),
-          endDate: new Date(Date.now() + 48 * 3600 * 1000),
-          message: 'wiadomosc',
-          isSickTime: true,
-        })
+        const { data } = await axios.get('api/requests/dzony')
         console.log(data)
       } catch (error) {
         console.error(error.response.headers)

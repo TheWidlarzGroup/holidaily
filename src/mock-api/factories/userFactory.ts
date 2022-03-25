@@ -10,4 +10,8 @@ export const userFactory = Factory.extend({
   language: 'pl',
   photo: null,
   role: 'Admin',
+  // @ts-ignore
+  afterCreate(user, server) {
+    server.createList('dayOffRequest', 10, { user })
+  },
 })

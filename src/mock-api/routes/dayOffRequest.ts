@@ -8,7 +8,7 @@ export function dayOffRoutes(context: Server<ModelsSchema>) {
 }
 function fetchUserRequests(schema: Schema<ModelsSchema>, req: Request) {
   // @ts-ignore
-  return schema.findBy('dayOffRequest', (a) => a.userId === req.params.userId)
+  return schema.where('dayOffRequest', (a) => a.userId === req.params.userId)
 }
 
 function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {

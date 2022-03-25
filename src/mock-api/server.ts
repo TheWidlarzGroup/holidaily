@@ -1,4 +1,5 @@
 import { createServer } from 'miragejs'
+import { requestFactory } from './factories/requestFactory'
 import { userFactory } from './factories/userFactory'
 import { Models } from './models'
 import { dayOffRoutes } from './routes/dayOffRequest'
@@ -9,6 +10,7 @@ export const initBackendMocks = () =>
     models: Models,
     factories: {
       user: userFactory,
+      dayOffRequest: requestFactory,
     },
     routes() {
       this.namespace = 'api'
@@ -19,16 +21,5 @@ export const initBackendMocks = () =>
       server.create('user', { firstName: 'Adam', occupation: 'UX designer' })
       server.create('user')
       const userDzony = server.create('user', { firstName: 'Dzony', id: 'dzony' })
-
-      server.create('dayOffRequest', {
-        id: '0',
-        description: 'test',
-        message: 'string',
-        range: [new Date(), new Date(Date.now() + 24 * 3600 * 1000)],
-        sickTime: false,
-        status: 'PENDING',
-        user: userDzony,
-      })
-      console.log('DZONY: ', userDzony)
     },
   })
