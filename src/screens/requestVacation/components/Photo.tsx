@@ -30,7 +30,9 @@ export const Photo = ({ src, onClose, displayClose, ...containerProps }: PhotoPr
       />
       {displayClose && (
         <Box style={styles.cross}>
-          <TouchableOpacity onPress={onClose}>
+          <TouchableOpacity
+            onPress={onClose}
+            hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
             <Cross width={18} height={18} />
           </TouchableOpacity>
         </Box>

@@ -5,7 +5,7 @@ import IconGallery from 'assets/icons/icon-gallery-2.svg'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { UploadPictureModal } from 'components/UploadPictureModal'
+import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 
 export const FeedHeader = () => {
@@ -31,7 +31,7 @@ export const FeedHeader = () => {
       <BaseOpacity onPress={setShowAttachmentModalTrue} justifyContent="center">
         <IconGallery />
       </BaseOpacity>
-      <UploadPictureModal
+      <UploadAttachmentModal
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
         onUserCancelled={setShowAttachmentModalFalse}

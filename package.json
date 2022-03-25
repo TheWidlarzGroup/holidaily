@@ -43,6 +43,7 @@
     "react-native-calendars": "^1.1263.0",
     "react-native-confetti-cannon": "^1.5.2",
     "react-native-confirmation-code-field": "^7.0.1",
+    "react-native-document-picker": "^8.0.0",
     "react-native-dotenv": "^2.5.5",
     "react-native-fast-image": "^8.3.4",
     "react-native-gesture-handler": "^1.10.3",

@@ -17,7 +17,7 @@ type SummaryRequestVacationProps = {
   startDate?: Date
   endDate?: Date
   message?: string
-  photos?: { id: string; uri: string }[]
+  attachments?: { id: string; uri: string }[]
   hideNext?: boolean
 }
 
@@ -61,7 +61,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
             description={p.description}
           />
           <SicktimeAndMessage isSick={p.isSick} message={p.message} />
-          <SummaryRequestVacationPhotos photos={p.photos} />
+          <SummaryRequestVacationPhotos attachments={p.attachments} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays ptoTaken={ptoTaken} />
         </Box>

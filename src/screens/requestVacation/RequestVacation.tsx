@@ -18,7 +18,9 @@ export type RequestDataTypes = {
   description: string
   message: string
   photos: AttachmentType[]
+  files: (AttachmentType & { name: string })[]
 }
+
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
 type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
@@ -27,11 +29,9 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [step, setStep] = useState(0)
   const [startDate, setStartDate] = useState<Date>()
   const [endDate, setEndDate] = useState<Date>()
-  const [description, setDescription] = useState('')
+  const [requestData, setRequestData] = useState<RequestDataTypes>(emptyRequest)
   const [sickTime, { setTrue: setSickTime, setFalse: unsetSickTime, toggle: toggleSickTime }] =
     useBooleanState(false)
-  const [message, setMessage] = useState('')
-  const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
   const [isSent, { setTrue: markAsSent, setFalse: markAsNotSent }] = useBooleanState(false)
@@ -47,10 +47,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, message, photos })
-    setDescription(newData.description)
-    setMessage(newData.message)
-    setPhotos(newData.photos)
+    const newData = callback(requestData)
+    setRequestData((oldData) => ({ ...oldData, ...newData }))
     markAsNotSent()
   }
 
@@ -59,13 +57,17 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setStep(0)
     setStartDate(undefined)
     setEndDate(undefined)
-    setDescription('')
+    setRequestData(emptyRequest)
     unsetSickTime()
-    setMessage('')
-    setPhotos([])
   }
 
-  const removePhoto = (id: string) => setPhotos(photos.filter((p) => p.id !== id))
+  const removeAttachment = (id: string) => {
+    setRequestData((old) => ({
+      ...old,
+      photos: old.photos.filter((p) => p.id !== id),
+      files: old.files.filter((f) => f.id !== id),
+    }))
+  }
 
   useEffect(() => {
     const { params } = route
@@ -94,20 +96,21 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           toggleSickTime={toggleSickTime}
           changeRequestData={changeRequestData}
           date={{ start: startDate, end: endDate }}
-          message={message}
-          photos={photos}
-          removePhoto={removePhoto}
+          message={requestData.message}
+          photos={requestData.photos}
+          files={requestData.files}
+          removeAttachment={removeAttachment}
         />
       )}
       {step === 1 && (
         <SummaryRequestVacation
-          description={description}
+          description={requestData.description}
           isSick={sickTime}
           startDate={startDate}
           endDate={endDate}
-          message={message}
+          message={requestData.message}
           onNextPressed={showSentModal}
-          photos={photos}
+          attachments={[...requestData.photos, ...requestData.files]}
           hideNext={isSent}
         />
       )}
@@ -133,3 +136,10 @@ const useStyles = mkUseStyles(() => ({
     flex: 1,
   },
 }))
+
+const emptyRequest = {
+  description: '',
+  message: '',
+  photos: [],
+  files: [],
+}
