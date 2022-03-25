@@ -10,7 +10,8 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
 import IconBack from 'assets/icons/icon-back.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { UserData } from '../../contexts/UserContext'
+import { keys } from 'utils/manipulation'
+import { UserData } from 'contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -35,8 +36,11 @@ export const EditProfile = () => {
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
-  const onSubmit = async (data: EditDetailsTypes) => {
-    await AsyncStorage.setItem('firstName', data.firstName)
+  const onSubmit = (data: EditDetailsTypes) => {
+    keys(data).forEach(async (field) => {
+      await AsyncStorage.setItem(field, data[field])
+    })
+
     showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
     setEditedFalse()
   }

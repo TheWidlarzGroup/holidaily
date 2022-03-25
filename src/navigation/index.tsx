@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'
 import { authorizeClient } from 'graphqlActions/client'
 import { sleep } from 'utils/sleep'
+import { UserData } from 'contexts/UserContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
@@ -22,11 +23,16 @@ export const AppNavigation = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       const userName = await AsyncStorage.getItem('firstName')
+      const userLastName = await AsyncStorage.getItem('lastName')
+      const userOcuppation = await AsyncStorage.getItem('occupation')
       SplashScreen.hide()
       await sleep(3500)
 
       if (userName) {
-        updateUser({ firstName: userName })
+        const userData: Partial<UserData> = { firstName: userName }
+        if (userLastName) userData.lastName = userLastName
+        if (userOcuppation) userData.occupation = userOcuppation
+        updateUser(userData)
         return setLoginStatus('LoggedIn')
       }
 
