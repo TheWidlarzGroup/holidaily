@@ -15,6 +15,7 @@ export const Feed = () => {
     <SafeAreaView>
       <Box marginHorizontal="s">
         <FlatList
+          keyboardShouldPersistTaps="handled"
           ListHeaderComponent={<FeedHeader />}
           data={posts}
           renderItem={({ item }) => <FeedPost post={item} />}
