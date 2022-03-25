@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
@@ -8,8 +8,6 @@ import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { FormRequestVacation } from './components/FormRequestVacation'
-import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import { useRequestVacationContext } from './contexts/RequestVacationContext'
@@ -92,7 +90,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
         removeAttachment={removeAttachment}
         showSentModal={showSentModal}
       />
-
       <RequestSent
         isVisible={isSentModalVisible}
         onPressSee={() => {
