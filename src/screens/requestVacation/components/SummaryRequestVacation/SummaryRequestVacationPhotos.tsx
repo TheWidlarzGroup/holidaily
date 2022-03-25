@@ -1,13 +1,15 @@
 import React from 'react'
-import { Box } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { Photo } from '../Photo'
 
 type Side = 'left' | 'right'
 type SummaryRequestVacationPhotosProps = {
-  photos?: { id: string; uri: string }[]
+  attachments?: { id: string; uri: string; name?: string }[]
 }
 
-export const SummaryRequestVacationPhotos = ({ photos }: SummaryRequestVacationPhotosProps) => {
+export const SummaryRequestVacationPhotos = ({
+  attachments,
+}: SummaryRequestVacationPhotosProps) => {
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2
@@ -17,18 +19,22 @@ export const SummaryRequestVacationPhotos = ({ photos }: SummaryRequestVacationP
   }
   return (
     <>
-      {!!photos?.length && (
+      {!!attachments?.length && (
         <Box flexDirection="row" flexWrap="wrap">
-          {photos.map(({ uri, id }, uriIndex) => (
+          {attachments.map((attachment, uriIndex) => (
             <Box
-              key={id}
+              key={attachment.id}
               paddingTop="s"
               style={{
                 paddingLeft: getPadding(uriIndex, 'left'),
                 paddingRight: getPadding(uriIndex, 'right'),
                 width: '33.33%',
               }}>
-              <Photo src={uri} onClose={() => {}} />
+              {'name' in attachment ? (
+                <Text>{attachment.name}</Text>
+              ) : (
+                <Photo src={attachment.uri} onClose={() => {}} />
+              )}
             </Box>
           ))}
         </Box>

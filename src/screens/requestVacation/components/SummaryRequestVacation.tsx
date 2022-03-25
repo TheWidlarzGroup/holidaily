@@ -17,26 +17,19 @@ type SummaryRequestVacationProps = {
   startDate?: Date
   endDate?: Date
   message?: string
-  photos?: { id: string; uri: string }[]
+  attachments?: { id: string; uri: string }[]
+  hideNext?: boolean
 }
 
-export const SummaryRequestVacation = ({
-  description,
-  isSick,
-  onNextPressed,
-  endDate,
-  startDate,
-  message,
-  photos = [],
-}: SummaryRequestVacationProps) => {
+export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVacationProps) => {
   const styles = useStyles()
   const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
   const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
   const { t } = useTranslation('requestVacation')
-  const ptoTaken = startDate && endDate ? calculatePTO(startDate, endDate) : 0
+  const ptoTaken = p.startDate && p.endDate ? calculatePTO(p.startDate, p.endDate) : 0
 
   const handleSend = () => {
-    if (startDate && endDate) {
+    if (p.startDate && p.endDate) {
       startLoading()
     }
   }
@@ -63,25 +56,27 @@ export const SummaryRequestVacation = ({
       <ScrollView style={{ flex: 1 }}>
         <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
           <SummaryRequestVacationHeader
-            startDate={startDate}
-            endDate={endDate}
-            description={description}
+            startDate={p.startDate}
+            endDate={p.endDate}
+            description={p.description}
           />
-          <SicktimeAndMessage isSick={isSick} message={message} />
-          <SummaryRequestVacationPhotos photos={photos} />
+          <SicktimeAndMessage isSick={p.isSick} message={p.message} />
+          <SummaryRequestVacationPhotos attachments={p.attachments} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
           <SummaryDays ptoTaken={ptoTaken} />
         </Box>
       </ScrollView>
-      <CustomButton
-        label={t('sendRequest')}
-        variant="primary"
-        onPress={handleSend}
-        style={styles.button}
-        loading={isLoading}
-        maxWidth={250}
-        alignSelf="center"
-      />
+      {!p.hideNext && (
+        <CustomButton
+          label={t('sendRequest')}
+          variant="primary"
+          onPress={handleSend}
+          style={styles.button}
+          loading={isLoading}
+          maxWidth={250}
+          alignSelf="center"
+        />
+      )}
     </Box>
   )
 }

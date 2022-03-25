@@ -14,6 +14,7 @@
     "android:beta": "fastlane android beta"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4",
     "@react-native-async-storage/async-storage": "^1.17.0",
     "@react-native-clipboard/clipboard": "^1.8.4",
     "@react-native-community/masked-view": "^0.1.10",
@@ -25,6 +26,7 @@
     "@react-navigation/stack": "^5.14.3",
     "@shopify/restyle": "^1.4.0",
     "@types/react-native-dotenv": "^0.2.0",
+    "axios": "^0.26.1",
     "date-fns": "^2.22.1",
     "deepmerge": "^4.2.2",
     "expo-location": "^12.1.2",
@@ -32,6 +34,7 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "i18next": "^21.6.14",
+    "miragejs": "^0.1.43",
     "poland-public-holidays": "^3.1.0",
     "react": "16.13.1",
     "react-hook-form": "^6.15.5",
@@ -40,6 +43,7 @@
     "react-native-calendars": "^1.1263.0",
     "react-native-confetti-cannon": "^1.5.2",
     "react-native-confirmation-code-field": "^7.0.1",
+    "react-native-document-picker": "^8.0.0",
     "react-native-dotenv": "^2.5.5",
     "react-native-fast-image": "^8.3.4",
     "react-native-gesture-handler": "^1.10.3",

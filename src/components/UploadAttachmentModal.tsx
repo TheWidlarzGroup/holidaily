@@ -6,42 +6,65 @@ import {
   ImagePickerResponse,
   launchCamera,
 } from 'react-native-image-picker'
+import {
+  DocumentPickerOptions,
+  pickSingle as pickDocument,
+  types as documentTypes,
+} from 'react-native-document-picker'
 import { CustomModal } from 'components/CustomModal'
-import { UploadPictureButtons } from 'components/UploadPictureButtons'
-import { theme, mkUseStyles, Theme } from 'utils/theme'
+import { UploadAttachmentButtons } from 'components/UploadAttachmentButtons'
+import { mkUseStyles, Theme, useTheme } from 'utils/theme'
 
-type UploadPictureModalProps = Pick<ModalProps, 'isVisible'> & {
+type UploadFilesProps =
+  | {
+      allowFiles: true
+      setFile: F1<{ uri: string; name: string } | undefined>
+    }
+  | { allowFiles?: never }
+
+type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
-  hideEditPictureModal?: F0
+  hideEditAttachmentModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | undefined>
-  showCamera: boolean
-}
-type PhotoSelectionChoice = 'gallery' | 'camera'
+  showCamera?: true
+} & UploadFilesProps
+type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
 
-export const UploadPictureModal = ({
-  isVisible,
-  hideModal,
-  onUserCancelled,
-  setPhotoURI,
-  hideEditPictureModal,
-  showCamera,
-}: UploadPictureModalProps) => {
+export const UploadAttachmentModal = ({
+  hideEditAttachmentModal,
+  ...p
+}: UploadAttachmentModalProps) => {
   // TODO: IOS setup required
   const styles = useStyles()
+  const theme = useTheme()
 
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
-      onUserCancelled()
+      p.onUserCancelled()
     }
     if (response.assets) {
       const photo = response.assets[0]
-      setPhotoURI(photo.uri)
+      p.setPhotoURI(photo.uri)
     }
   }
 
-  const onUploadImage = (action: PhotoSelectionChoice) => {
-    hideModal()
+  const onUpload = async (action: PhotoSelectionChoice) => {
+    p.hideModal()
+
+    if (p.allowFiles && action === 'file') {
+      const { doc, docx, pdf, plainText, ppt, pptx } = documentTypes
+      const options: DocumentPickerOptions<'android' | 'ios'> = {
+        type: [doc, docx, pdf, plainText, ppt, pptx],
+      }
+      try {
+        const { uri, name } = await pickDocument(options)
+
+        p.setFile({ uri, name })
+      } catch (error) {
+        p.setFile(undefined)
+      }
+    }
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
     }
@@ -49,20 +72,21 @@ export const UploadPictureModal = ({
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
       }, 250)
-    } else {
+    }
+    if (action === 'camera') {
       setTimeout(() => {
         launchCamera(options, (response) => onHandleResponse(response))
       }, 250)
     }
   }
   useEffect(() => {
-    hideEditPictureModal?.()
-  }, [hideEditPictureModal])
+    hideEditAttachmentModal?.()
+  }, [hideEditAttachmentModal])
 
   return (
     <CustomModal
-      isVisible={isVisible}
-      onBackdropPress={hideModal}
+      isVisible={p.isVisible}
+      onBackdropPress={p.hideModal}
       backdropColor={theme.colors.white}
       backdropOpacity={0.5}
       animationIn="slideInUp"
@@ -70,9 +94,13 @@ export const UploadPictureModal = ({
       animationInTiming={300}
       animationOutTiming={300}
       swipeDirection="down"
-      style={showCamera ? { ...styles.modal, ...styles.longModal } : styles.modal}
+      style={styles.modal}
       hideModalContentWhileAnimating>
-      <UploadPictureButtons onUploadImage={onUploadImage} showCamera={showCamera} />
+      <UploadAttachmentButtons
+        onUpload={onUpload}
+        allowFiles={p.allowFiles}
+        showCamera={p.showCamera}
+      />
     </CustomModal>
   )
 }
@@ -80,7 +108,7 @@ export const UploadPictureModal = ({
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     flex: 1,
-    height: 130,
+    minHeight: 130,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,
@@ -93,8 +121,5 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
-  },
-  longModal: {
-    height: 175,
   },
 }))

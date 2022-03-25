@@ -98,7 +98,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   }, [messageContent, maxLength, t])
 
   useEffect(() => {
-    if (autofocus) combinedInputRef.current?.focus()
+    if (autofocus) setTimeout(() => combinedInputRef.current?.focus(), 50)
   }, [autofocus, combinedInputRef])
 
   return (
