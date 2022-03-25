@@ -6,6 +6,7 @@ import {
   RequiredMateHolidaysData,
   GalleryItemData,
   UserTeamsSubscriptions,
+  MateHolidaysData,
 } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
@@ -157,7 +158,7 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
-  DashboardTeam: ValidationOfGroupDayOff
+  DashboardTeam: ValidationOfGroupDayOff & { openUserModal: F1<MateHolidaysData> }
   DashboardTeamMember: RequiredMateHolidaysData
 }
 

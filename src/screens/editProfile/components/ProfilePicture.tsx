@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { UploadPictureModal } from 'components/UploadPictureModal'
+import { useUserContext } from 'hooks/useUserContext'
+import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { EditPictureModal } from 'components/EditPictureModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, BaseOpacity } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
-import { useUserContext } from 'hooks/useUserContext'
-import { useModalContext } from '../../../contexts/ModalProvider'
+import { useModalContext } from 'contexts/ModalProvider'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
@@ -20,11 +20,11 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   const { t } = useTranslation('userProfile')
   const { updateUser, user } = useUserContext()
 
-  const showUploadPictureModal = () => {
+  const showUploadAttachmentModal = () => {
     hideModal()
     setTimeout(() => {
       showModal(
-        <UploadPictureModal
+        <UploadAttachmentModal
           isVisible
           showCamera
           hideModal={hideModal}
@@ -61,7 +61,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
     showModal(
       <EditPictureModal
         showUploadModal={() => {
-          showUploadPictureModal()
+          showUploadAttachmentModal()
           setIsEditedTrue()
         }}
         isVisible
@@ -86,7 +86,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   }
   const onAddProfilePicture = () => {
     setIsEditedTrue()
-    showUploadPictureModal()
+    showUploadAttachmentModal()
   }
 
   return (

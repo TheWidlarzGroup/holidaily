@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
 import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import axios from 'axios'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
@@ -26,12 +27,14 @@ export const Main = () => {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
       <SafeAreaProvider>
-        <ModalProvider>
-          <UserContextProvider>
-            <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
-            <AppNavigation />
-          </UserContextProvider>
-        </ModalProvider>
+        <BottomSheetModalProvider>
+          <ModalProvider>
+            <UserContextProvider>
+              <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+              <AppNavigation />
+            </UserContextProvider>
+          </ModalProvider>
+        </BottomSheetModalProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   )

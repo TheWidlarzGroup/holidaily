@@ -30,9 +30,19 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
       <TeamHeader title={params.groupName} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Box paddingHorizontal="m" paddingBottom="xxl">
-          {matesOnHoliday.length > 0 && <TeamSection matesArray={matesOnHoliday} isOutOfOffice />}
+          {matesOnHoliday.length > 0 && (
+            <TeamSection
+              openUserModal={params.openUserModal}
+              matesArray={matesOnHoliday}
+              isOutOfOffice
+            />
+          )}
           {matesWithPlannedHolidays.length > 0 && (
-            <TeamSection matesArray={matesWithPlannedHolidays} isOutOfOffice={false} />
+            <TeamSection
+              openUserModal={params.openUserModal}
+              matesArray={matesWithPlannedHolidays}
+              isOutOfOffice={false}
+            />
           )}
           {matesWithNoPlannedHolidays.length > 0 && (
             <>

@@ -1267,6 +1267,23 @@
     xmlbuilder "^14.0.0"
     xmldom "~0.5.0"
 
+"@gorhom/bottom-sheet@^4":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@gorhom/bottom-sheet/-/bottom-sheet-4.1.5.tgz#35341d45799de28082c380db6639537b04fa0b26"
+  integrity sha512-3F5P8jK3NXwT2lGwkAdkdLwDVHaRvMZalUTXjK6Ogf0Tki6idffJ3TNlQZlg8k6+OnXAx0+i80f4XaI+J4GFrA==
+  dependencies:
+    "@gorhom/portal" "^1.0.11"
+    invariant "^2.2.4"
+    nanoid "^3.1.20"
+    react-native-redash "^16.1.1"
+
+"@gorhom/portal@^1.0.11":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@gorhom/portal/-/portal-1.0.12.tgz#1c0deabb3f9057c736352a88bae9ca891a100346"
+  integrity sha512-JOYe85RUwiksgdMbhLWDCLpH3kgFFz+LCu1lnxOMMBQSfAKtL5kkTKVrhtmQ3Lq3lJM2paGnLc4wJrlVuaC5Jw==
+  dependencies:
+    nanoid "^3.1.23"
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.npmjs.org/@hapi/address/-/address-2.1.4.tgz"
@@ -2259,6 +2276,11 @@ abort-controller@^3.0.0:
   integrity sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==
   dependencies:
     event-target-shim "^5.0.0"
+
+abs-svg-path@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/abs-svg-path/-/abs-svg-path-0.1.1.tgz#df601c8e8d2ba10d4a76d625e236a9a39c2723bf"
+  integrity sha1-32Acjo0roQ1KdtYl4japo5wnI78=
 
 absolute-path@^0.0.0:
   version "0.0.0"
@@ -6973,6 +6995,11 @@ nanoid@^3.1.15:
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.1.23.tgz"
   integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
 
+nanoid@^3.1.20, nanoid@^3.1.23:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.1.tgz#6347a18cac88af88f58af0b3594b723d5e99bb35"
+  integrity sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://registry.npmjs.org/nanomatch/-/nanomatch-1.2.13.tgz"
@@ -7075,6 +7102,13 @@ normalize-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
+
+normalize-svg-path@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/normalize-svg-path/-/normalize-svg-path-1.1.0.tgz#0e614eca23c39f0cffe821d6be6cd17e569a766c"
+  integrity sha512-r9KHKG2UUeB5LoTouwDzBy2VxXlHsiM6fyLQvnJa0S5hrhzqElH/CH7TUGhT1fVvIYBIKf3OpY4YJ4CK+iaqHg==
+  dependencies:
+    svg-arc-to-cubic-bezier "^3.0.0"
 
 npm-run-path@^2.0.0:
   version "2.0.2"
@@ -7401,6 +7435,11 @@ parse-node-version@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/parse-node-version/-/parse-node-version-1.0.1.tgz"
   integrity sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==
+
+parse-svg-path@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/parse-svg-path/-/parse-svg-path-0.1.2.tgz#7a7ec0d1eb06fa5325c7d3e009b859a09b5d49eb"
+  integrity sha1-en7A0esG+lMlx9PgCbhZoJtdSes=
 
 parse5@5.1.0:
   version "5.1.0"
@@ -7794,6 +7833,13 @@ react-native-confirmation-code-field@^7.0.1:
   resolved "https://registry.npmjs.org/react-native-confirmation-code-field/-/react-native-confirmation-code-field-7.1.0.tgz"
   integrity sha512-cGE36gnyQR9inqQwHghPhBiMj8PZOmW4n/bUtv+xnDxf4/gTv7ga6v3DSCREfQXRyeCmHZ7iRzj7diJzAgvxFg==
 
+react-native-document-picker@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-8.0.0.tgz#f760f89049cda668be8b1cfb31a484af19716f35"
+  integrity sha512-4O1FNOJHzfZ7BBFOJhNoeCKHSjthFtZyMEWJsAxX1ORdShGSa6miLvTHtQjpCDMNWSoPU1C7fXLNNPrv8GAarQ==
+  dependencies:
+    invariant "^2.2.4"
+
 react-native-dotenv@^2.5.5:
   version "2.5.5"
   resolved "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-2.5.5.tgz"
@@ -7867,6 +7913,15 @@ react-native-reanimated@^2.0.1:
     fbjs "^3.0.0"
     mockdate "^3.0.2"
     string-hash-64 "^1.0.3"
+
+react-native-redash@^16.1.1:
+  version "16.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-redash/-/react-native-redash-16.2.3.tgz#ee63e100c60f83275116e57d4e8bc79f26349db9"
+  integrity sha512-vSjHA6/mBY3IpDYPish3DlG06PKNLkb/b89hw7nsDM3yxAJ7Db+yMnEL3pp2YsoYblDc3s+0+wBRlvxay4X4vQ==
+  dependencies:
+    abs-svg-path "^0.1.1"
+    normalize-svg-path "^1.0.1"
+    parse-svg-path "^0.1.2"
 
 react-native-safe-area-context@^3.1.9:
   version "3.2.0"
@@ -8993,6 +9048,11 @@ supports-hyperlinks@^2.0.0:
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
+
+svg-arc-to-cubic-bezier@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/svg-arc-to-cubic-bezier/-/svg-arc-to-cubic-bezier-3.2.0.tgz#390c450035ae1c4a0104d90650304c3bc814abe6"
+  integrity sha512-djbJ/vZKZO+gPoSDThGNpKDO+o+bAeA4XQKovvkNCqnIS2t+S4qnLAGQhyyrulhCFRl1WWzAp0wUDV8PpTVU3g==
 
 svg-parser@^2.0.0:
   version "2.0.4"

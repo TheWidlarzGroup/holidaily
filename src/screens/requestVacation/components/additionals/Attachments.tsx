@@ -1,19 +1,25 @@
 import React from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { Box, mkUseStyles } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
+import Cross from 'assets/icons/circle-cross.svg'
 import { Photo } from '../Photo'
 import { AddMore } from './AddMore'
 
 type AttachmentProps = {
-  photos: AttachmentType[]
-  removePhoto: F1<string>
+  attachments: (AttachmentType | (AttachmentType & { name: string }))[]
+  removeAttachment: F1<string>
   addMore: F0
   displayAddMore?: boolean
 }
 
 type Side = 'right' | 'left' | 'top'
 
-export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: AttachmentProps) => {
+export const Attachments = ({
+  attachments,
+  addMore,
+  displayAddMore,
+  removeAttachment,
+}: AttachmentProps) => {
   const styles = useStyles()
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
@@ -27,25 +33,41 @@ export const Attachments = ({ photos, addMore, displayAddMore, removePhoto }: At
   return (
     <Box alignSelf="stretch" style={styles.container}>
       <Box flexDirection="row" flexWrap="wrap">
-        {photos.map(({ uri, id }, uriIndex) => (
+        {attachments.map((attachment, uriIndex) => (
           <Box
-            key={id}
+            key={attachment.id}
             style={{
               paddingTop: getPadding(0, 'top'),
               paddingLeft: getPadding(uriIndex, 'left'),
               paddingRight: getPadding(uriIndex, 'right'),
               width: '33.33%',
             }}>
-            <Photo src={uri} onClose={() => removePhoto(id)} displayClose />
+            {'name' in attachment ? (
+              <Box alignItems="center" justifyContent="center">
+                <BaseOpacity
+                  alignSelf="flex-end"
+                  onPress={() => removeAttachment(attachment.id)}
+                  hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
+                  <Cross width={18} height={18} />
+                </BaseOpacity>
+                <Text>{attachment.name}</Text>
+              </Box>
+            ) : (
+              <Photo
+                src={attachment.uri}
+                onClose={() => removeAttachment(attachment.id)}
+                displayClose
+              />
+            )}
           </Box>
         ))}
-        {photos.length % 3 !== 0 && displayAddMore && (
+        {attachments.length % 3 !== 0 && displayAddMore && (
           <Box flexDirection="row" justifyContent="flex-end" flex={1}>
             <AddMore onPress={addMore} />
           </Box>
         )}
       </Box>
-      {photos.length % 3 === 0 && displayAddMore && <AddMore onPress={addMore} />}
+      {attachments.length % 3 === 0 && displayAddMore && <AddMore onPress={addMore} />}
     </Box>
   )
 }
