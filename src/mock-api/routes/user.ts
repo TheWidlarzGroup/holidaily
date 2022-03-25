@@ -17,5 +17,5 @@ function fetchUserDataById(schema: Schema<ModelsSchema>, req: Request) {
 
 type ModelsSchema = {
   users: User[]
-  organizations: Organization[]
+  organization: Organization
 }
