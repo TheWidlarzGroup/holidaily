@@ -12,6 +12,8 @@ import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
+import { useRequestVacationContext } from './contexts/RequestVacationContext'
+import { RequestVacationSteps } from './components/RequestVacationSteps'
 
 export type RequestDataTypes = {
   description: string
@@ -25,15 +27,17 @@ type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestD
 type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
 
 export const RequestVacation = ({ route }: RequestVacationProps) => {
-  const [step, setStep] = useState(0)
-  const [startDate, setStartDate] = useState<Date>()
-  const [endDate, setEndDate] = useState<Date>()
-  const [requestData, setRequestData] = useState<RequestDataTypes>(emptyRequest)
-  const [sickTime, { setTrue: setSickTime, setFalse: unsetSickTime, toggle: toggleSickTime }] =
-    useBooleanState(false)
+  const {
+    requestData,
+    setRequestData,
+    setStep,
+    setStartDate,
+    setEndDate,
+    cancelSickTime,
+    markSickTime,
+  } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const [isSent, { setTrue: markAsSent, setFalse: markAsNotSent }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -48,7 +52,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback(requestData)
     setRequestData((oldData) => ({ ...oldData, ...newData }))
-    markAsNotSent()
   }
 
   const reset = () => {
@@ -57,7 +60,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setStartDate(undefined)
     setEndDate(undefined)
     setRequestData(emptyRequest)
-    unsetSickTime()
+    cancelSickTime()
   }
 
   const removeAttachment = (id: string) => {
@@ -70,46 +73,25 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
   useEffect(() => {
     const { params } = route
-    markAsNotSent()
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
     if (params?.action === 'sickday') {
-      setSickTime()
+      markSickTime()
       const tomorow = new Date()
       tomorow.setDate(tomorow.getDate() + 1)
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, route.params, setSickTime, markAsNotSent])
+  }, [route, route.params, markSickTime, setEndDate, setStartDate])
 
   return (
     <SafeAreaView style={styles.container}>
-      <RequestVacationHeader step={step} setStep={setStep} />
-      {step === 0 && (
-        <FormRequestVacation
-          nextStep={() => setStep(1)}
-          sickTime={sickTime}
-          toggleSickTime={toggleSickTime}
-          changeRequestData={changeRequestData}
-          date={{ start: startDate, end: endDate }}
-          message={requestData.message}
-          photos={requestData.photos}
-          files={requestData.files}
-          removeAttachment={removeAttachment}
-        />
-      )}
-      {step === 1 && (
-        <SummaryRequestVacation
-          description={requestData.description}
-          isSick={sickTime}
-          startDate={startDate}
-          endDate={endDate}
-          message={requestData.message}
-          onNextPressed={showSentModal}
-          attachments={[...requestData.photos, ...requestData.files]}
-          hideNext={isSent}
-        />
-      )}
+      <RequestVacationHeader />
+      <RequestVacationSteps
+        changeRequestData={changeRequestData}
+        removeAttachment={removeAttachment}
+        showSentModal={showSentModal}
+      />
 
       <RequestSent
         isVisible={isSentModalVisible}

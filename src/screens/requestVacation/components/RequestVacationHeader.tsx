@@ -3,17 +3,18 @@ import { Box } from 'utils/theme'
 import { RequestVacationBar } from 'components/RequestVacationBar'
 import { ModalHeader } from 'components/ModalHeader'
 import { RequestVacationHeaderText } from './RequestVacationHeaderText'
+import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 
-type HeaderProps = { step: number; setStep: F1<number> } | { isSent: true }
-
-export const RequestVacationHeader = (p: HeaderProps) =>
-  'isSent' in p ? (
+export const RequestVacationHeader = ({ isSent }: { isSent?: true }) => {
+  const { step, setStep } = useRequestVacationContext()
+  return isSent ? (
     <ModalHeader>
       <RequestVacationHeaderText isSent />
     </ModalHeader>
   ) : (
     <Box paddingBottom="m">
-      <RequestVacationHeaderText step={p.step} setStep={p.setStep} />
-      <RequestVacationBar currentScreen={p.step ? 'Summary' : 'Form'} />
+      <RequestVacationHeaderText step={step} setStep={setStep} />
+      <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
     </Box>
   )
+}
