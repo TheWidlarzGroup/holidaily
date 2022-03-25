@@ -18,8 +18,6 @@ export const initBackendMocks = () =>
       dayOffRoutes(this)
     },
     seeds(server) {
-      server.create('user', { firstName: 'Adam', occupation: 'UX designer' })
-      server.create('user')
-      const userDzony = server.create('user', { firstName: 'Dzony', id: 'dzony' })
+      server.createList('user', 50)
     },
   })
