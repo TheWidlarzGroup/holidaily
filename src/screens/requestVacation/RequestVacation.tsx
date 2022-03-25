@@ -4,15 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
-import { RequestVacationBar } from 'components/RequestVacationBar'
-import { Box, mkUseStyles } from 'utils/theme'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
-import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 import { RequestSent } from './components/RequestSent'
+import { RequestVacationHeader } from './components/RequestVacationHeader'
 
 export type RequestDataTypes = {
   description: string
@@ -85,10 +84,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Box paddingBottom="m">
-        <HeaderRequestVacation step={step} setStep={setStep} />
-        <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
-      </Box>
+      <RequestVacationHeader step={step} setStep={setStep} />
       {step === 0 && (
         <FormRequestVacation
           nextStep={() => setStep(1)}
@@ -119,7 +115,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          markAsSent()
+          navigation.navigate('SeeRequest')
         }}
         onPressAnother={reset}
         onPressOk={() => {
@@ -131,9 +127,11 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   )
 }
 
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.white,
+    paddingTop: 0,
   },
 }))
 
