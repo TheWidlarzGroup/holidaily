@@ -6,8 +6,8 @@ export const userFactory = Factory.extend({
   firstName: `user-name${Math.round(Math.random() * 1000)}`,
   lastName: `user-lastname${Math.round(Math.random() * 1000)}`,
   occupation: 'dev',
-  color: '#fff',
-  language: 'pl',
+  color: '#FF8B3F',
+  language: 'en',
   photo: null,
   role: 'Admin',
   // @ts-ignore

@@ -27,6 +27,16 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     'photo',
     'userColor',
   ]
+  const defaultValues = {
+    confirmed: true,
+    email: '',
+    lastName: '',
+    occupation: '',
+    color: '#FF8B3F',
+    language: 'en',
+    photo: null,
+    role: 'Admin',
+  }
   const body = JSON.parse(req.requestBody)
   const payload: Partial<User> = {}
 
@@ -42,5 +52,5 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     if (body[field] !== undefined) payload[field] = body[field]
   })
   if (errors.length) return new Response(400, { errors: String(errors) })
-  return schema.create('user', payload)
+  return schema.create('user', { ...defaultValues, ...payload })
 }

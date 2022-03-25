@@ -21,9 +21,10 @@ export const Main = () => {
       try {
         const {
           data: { user },
-        } = await axios.get('api/users/dzony')
+        } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
         axios.defaults.headers.common.userId = user.id
-        const { data } = await axios.get('api/requests/dzony')
+        console.log(user)
+        const { data } = await axios.get(`api/requests/${user.id}`)
         console.log(data)
       } catch (error) {
         console.error(error.response.headers)
