@@ -3,44 +3,48 @@ import { DayOffRequest } from 'mock-api/models'
 
 const DAY_IN_MS = 24 * 3600 * 1000
 
-export const requestFactory = Factory.extend({
-  description: `description-${Math.round(Math.random() * 1000)}`,
-  message: `message-${Math.round(Math.random() * 1000)}`,
-  isSickTime: !!(randomInt() % 2),
-  ...genRandomRequest(),
-})
+export const requestFactory = Factory.extend(genRandomDayOffRequest())
 
-function genRandomRequest(): Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'> {
+export function genRandomDayOffRequest(): Partial<DayOffRequest> {
+  let request: Partial<DayOffRequest>
   const statusSeed = randomInt() % 4
   const futureDate = new Date(Date.now() + DAY_IN_MS * dateRangeSeed())
   const pastDate = new Date(Date.now() - DAY_IN_MS * dateRangeSeed() - 1)
   switch (statusSeed) {
     case 0:
-      return {
+      request = {
         status: 'accepted',
         startDate: futureDate,
         endDate: new Date(futureDate.getTime() + DAY_IN_MS * dateRangeSeed()),
       }
+      break
     case 1:
-      return {
+      request = {
         status: 'pending',
         startDate: futureDate,
         endDate: new Date(futureDate.getTime() + DAY_IN_MS * dateRangeSeed()),
       }
+      break
     case 2:
-      return {
+      request = {
         status: 'cancelled',
         startDate: futureDate,
         endDate: new Date(futureDate.getTime() + DAY_IN_MS * dateRangeSeed()),
       }
+      break
     case 3:
     default:
-      return {
+      request = {
         status: 'past',
         startDate: pastDate,
         endDate: new Date(pastDate.getTime() + DAY_IN_MS * dateRangeSeed()),
       }
+      break
   }
+  request.description = `description-${Math.round(Math.random() * 1000)}`
+  request.message = `message-${Math.round(Math.random() * 1000)}`
+  request.isSickTime = !!(randomInt() % 2)
+  return request
 }
 
 function randomInt(max = 10, min = 0) {

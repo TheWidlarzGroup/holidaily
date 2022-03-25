@@ -1,5 +1,6 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { genRandomDayOffRequest } from '../factories/requestFactory'
 import { Schema as ModelsSchema, User } from '../models'
 
 export function userRoutes(context: Server<ModelsSchema>) {
@@ -52,5 +53,12 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     if (body[field] !== undefined) payload[field] = body[field]
   })
   if (errors.length) return new Response(400, { errors: String(errors) })
-  return schema.create('user', { ...defaultValues, ...payload })
+  const response = schema.create('user', { ...defaultValues, ...payload })
+  for (let i = 0; i < 10; i++) {
+    schema.create('dayOffRequest', {
+      ...genRandomDayOffRequest(),
+      user: schema.find('user', response.id),
+    })
+  }
+  return response
 }
