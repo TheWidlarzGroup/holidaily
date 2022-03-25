@@ -126,9 +126,10 @@
     "passwordUpdated": "Twoje hasło zostało zaktualizowane!",
     "loginButton": "Zaloguj się"
   },
-  "uploadPictureModal": {
+  "uploadAttachmentModal": {
     "openCamera": "Zrób zdjęcie",
     "openGallery": "Wybierz z galerii",
+    "chooseFile": "Prześlij plik",
     "changePicture": "Zmień zdjęcie profilowe",
     "deletePicture": "Usuń zdjęcie profilowe"
   },

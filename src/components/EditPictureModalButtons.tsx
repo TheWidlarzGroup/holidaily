@@ -14,7 +14,7 @@ export const EditPictureModalButtons = ({
   onChangeImage,
   onDeleteImage,
 }: EditPictureModalButtonsProps) => {
-  const { t } = useTranslation('uploadPictureModal')
+  const { t } = useTranslation('uploadAttachmentModal')
   const theme = useTheme()
   return (
     <Box padding="lplus">
