@@ -19,13 +19,13 @@ export const Main = () => {
   useEffect(() => {
     const checkIfMockWorks = async () => {
       try {
-        const {
-          data: { user },
-        } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
-        axios.defaults.headers.common.userId = user.id
-        console.log(user)
-        const { data } = await axios.get(`api/requests/${user.id}`)
-        console.log(data)
+        // const {
+        //   data: { user },
+        // } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
+        // axios.defaults.headers.common.userId = user.id
+        // console.log(user)
+        const { data } = await axios.get('api/organization')
+        console.log(data, data.teams)
       } catch (error) {
         console.error(error.response.headers)
       }

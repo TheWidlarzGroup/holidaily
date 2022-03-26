@@ -6,13 +6,13 @@ export type Team = {
   users: TeamUser[]
 }
 
-type TeamUser = {
+export type TeamUser = {
   id: Pick<User, 'id'>
   name: Pick<User, 'firstName'>
   requests: TeamUserRequest[]
 }
 
-type TeamUserRequest = {
+export type TeamUserRequest = {
   id: string
   status: 'CANCELLED' | 'APPROVED' | 'PENDING' | 'PAST'
   startDate: string // '06/05/2020',
