@@ -7,8 +7,8 @@ export const PolicyHeader = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('budget')
   const theme = useTheme()
   return (
-    <Box flexDirection="row" alignItems="center" paddingHorizontal="s">
-      <BaseOpacity onPress={closeModal}>
+    <Box flexDirection="row" alignItems="center" paddingHorizontal="s" paddingTop="m">
+      <BaseOpacity onPress={closeModal} position="absolute">
         <CloseIcon width={50} height={50} color={theme.colors.black} />
       </BaseOpacity>
       <Box flex={1}>
