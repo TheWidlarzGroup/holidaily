@@ -1,21 +1,58 @@
-import { Request, Server } from 'miragejs'
-import { Organization } from 'mock-api/models/Organization'
-import { User } from 'mock-api/models/User'
+import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { initPayloadService } from '../utils/payloadService'
+import { genRandomDayOffRequest } from '../factories/requestFactory'
+import { Schema as ModelsSchema, User } from '../models'
 
 export function userRoutes(context: Server<ModelsSchema>) {
-  return [context.get('/users'), fetchAllUsers, context.get('/user/:id'), fetchUserDataById]
+  context.get('/users', fetchAllUsers)
+  context.get('/users/:id', fetchUserDataById)
+  context.post('/users', createTempUser)
 }
 
 function fetchAllUsers(schema: Schema<ModelsSchema>) {
-  return schema.all('users')
+  return schema.all('user')
 }
 
 function fetchUserDataById(schema: Schema<ModelsSchema>, req: Request) {
-  return schema.find('users', req.params.id)
+  return schema.find('user', req.params.id)
 }
 
-type ModelsSchema = {
-  users: User[]
-  organizations: Organization[]
+function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
+  const mandatoryFields: readonly (keyof User)[] = ['firstName']
+  const optionalFields: readonly (keyof User)[] = [
+    'email',
+    'language',
+    'lastName',
+    'occupation',
+    'organization',
+    'photo',
+    'userColor',
+  ]
+  const defaultValues = {
+    confirmed: true,
+    email: '',
+    lastName: '',
+    occupation: '',
+    color: '#FF8B3F',
+    language: 'en',
+    photo: null,
+    role: 'Admin',
+  }
+  const body = JSON.parse(req.requestBody)
+  const { httpError, ...payload } = initPayloadService()
+  console.log('USERRR', payload.body)
+  payload.validate(mandatoryFields, body)
+  payload.fill(optionalFields, body)
+
+  if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
+  const response = schema.create('user', { ...defaultValues, ...payload.body })
+  for (let i = 0; i < 10; i++) {
+    if (!response.id) break
+    schema.create('dayOffRequest', {
+      ...genRandomDayOffRequest(),
+      user: schema.find('user', response.id),
+    })
+  }
+  return response
 }

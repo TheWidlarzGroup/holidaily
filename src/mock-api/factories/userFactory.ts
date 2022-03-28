@@ -6,8 +6,12 @@ export const userFactory = Factory.extend({
   firstName: `user-name${Math.round(Math.random() * 1000)}`,
   lastName: `user-lastname${Math.round(Math.random() * 1000)}`,
   occupation: 'dev',
-  color: '#fff',
-  language: 'pl',
+  color: '#FF8B3F',
+  language: 'en',
   photo: null,
   role: 'Admin',
+  // @ts-expect-error type of after create doesn't math the actual implementation, see https://github.com/miragejs/miragejs/pull/1019
+  afterCreate(user, server) {
+    server.createList('dayOffRequest', 10, { user })
+  },
 })
