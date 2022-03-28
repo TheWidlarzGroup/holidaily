@@ -10,7 +10,7 @@ export const userFactory = Factory.extend({
   language: 'en',
   photo: null,
   role: 'Admin',
-  // @ts-expect-error type of after create doesn't math the actual implementation, see https://github.com/miragejs/miragejs/pull/1019
+  // @ts-ignore
   afterCreate(user, server) {
     server.createList('dayOffRequest', 10, { user })
   },
