@@ -7,7 +7,7 @@ import {
 } from 'types/useRemoveFromOrganizationTypes'
 import { removeFromOrganizationMutation } from 'graphqlActions/mutations/removeFromOrganizationMutation'
 import { ErrorTypes } from 'types/useErrorTypes'
-import { queryClient } from '../../App'
+import { queryClient } from '../../../App'
 
 export const useRemoveFromOrganization = () => {
   const { t } = useTranslation('mutationsErrors')

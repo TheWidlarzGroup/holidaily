@@ -1,4 +1,4 @@
-import { useUserRequests } from 'hooks/useUserRequests'
+import { useUserRequests } from 'hooks/legacy-api-hooks/useUserRequests'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, TouchableOpacity } from 'react-native'
