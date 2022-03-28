@@ -1,14 +1,13 @@
 import React from 'react'
-import { useUserContext } from 'hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
 import { Gallery } from 'components/Gallery/Gallery'
 import { GalleryItemData } from 'types/holidaysDataTypes'
-
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
+import { useUserContext } from 'hooks/useUserContext'
 
 type PostBodyProps = {
   text: string

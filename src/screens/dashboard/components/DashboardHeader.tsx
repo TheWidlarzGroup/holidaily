@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import IconProfile from 'assets/icons/icon-profile.svg'
 import IconBell from 'assets/icons/icon-bell.svg'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
 import { useIsDrawerOpen } from '@react-navigation/drawer'
@@ -9,6 +8,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { getDayName } from 'utils/dates'
 import { formatDate } from 'utils/formatDate'
 import { getCurrentLocale } from 'utils/locale'
+import { Avatar } from 'components/Avatar'
 
 export const DashboardHeader = () => {
   const { t } = useTranslation('dashboard')
@@ -25,7 +25,7 @@ export const DashboardHeader = () => {
   return (
     <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
-        <Box opacity={isDrawerOpen ? 0 : 1}>
+        <Box opacity={isDrawerOpen ? 0 : 1} position="absolute">
           <BaseOpacity
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             bg="white"
@@ -33,7 +33,7 @@ export const DashboardHeader = () => {
             paddingLeft="m"
             borderTopRightRadius="lplus"
             borderBottomRightRadius="lplus">
-            <IconProfile width={50} height={50} />
+            <Avatar src={user?.photo} />
           </BaseOpacity>
         </Box>
 

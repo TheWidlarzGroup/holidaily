@@ -3,7 +3,7 @@ import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-n
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme, mkUseStyles } from 'utils/theme'
 import { capitalize } from 'utils/role'
-import { useRemoveFromOrganization } from 'hooks/useRemoveFromOrganization'
+import { useRemoveFromOrganization } from 'hooks/legacy-api-hooks/useRemoveFromOrganization'
 import { UserTypes } from 'types/useUserTypes'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'

@@ -35,16 +35,16 @@ export const Main = () => {
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
-      <UserContextProvider>
-        <SafeAreaProvider>
-          <BottomSheetModalProvider>
-            <ModalProvider>
+      <SafeAreaProvider>
+        <BottomSheetModalProvider>
+          <ModalProvider>
+            <UserContextProvider>
               <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
               <AppNavigation />
-            </ModalProvider>
-          </BottomSheetModalProvider>
-        </SafeAreaProvider>
-      </UserContextProvider>
+            </UserContextProvider>
+          </ModalProvider>
+        </BottomSheetModalProvider>
+      </SafeAreaProvider>
     </ThemeProvider>
   )
 }
