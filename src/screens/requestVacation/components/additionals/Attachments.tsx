@@ -2,7 +2,7 @@ import React from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import Cross from 'assets/icons/circle-cross.svg'
-import { Photo } from '../Photo'
+import { Photo } from '../../../../components/RequestDetails/Photo'
 import { AddMore } from './AddMore'
 
 type AttachmentProps = {

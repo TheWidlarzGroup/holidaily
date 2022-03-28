@@ -13,32 +13,32 @@ import { initBackendMocks } from './mock-api/server'
 initBackendMocks()
 
 export const Main = () => {
-  // FIXME: read from user preferences
+  // // FIXME: read from user preferences
   const darkMode = false
 
-  useEffect(() => {
-    const checkIfMockWorks = async () => {
-      try {
-        const {
-          data: { user },
-        } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
-        axios.defaults.headers.common.userId = user.id
-        // console.log(user)
-        // const { data } = await axios.get(`api/requests/${user.id}`)
-        await axios.post('api/request', {
-          isSickTime: true,
-          description: 'test',
-          message: 'tsest',
-          endDate: new Date(),
-          startDate: new Date(),
-        })
-        // console.log(data)
-      } catch (error) {
-        console.error(error.response.headers)
-      }
-    }
-    checkIfMockWorks()
-  }, [])
+  // useEffect(() => {
+  //   const checkIfMockWorks = async () => {
+  //     try {
+  //       const {
+  //         data: { user },
+  //       } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
+  //       axios.defaults.headers.common.userId = user.id
+  //       // console.log(user)
+  //       // const { data } = await axios.get(`api/requests/${user.id}`)
+  //       await axios.post('api/request', {
+  //         isSickTime: true,
+  //         description: 'test',
+  //         message: 'tsest',
+  //         endDate: new Date(),
+  //         startDate: new Date(),
+  //       })
+  //       // console.log(data)
+  //     } catch (error) {
+  //       console.error(error.response.headers)
+  //     }
+  //   }
+  //   checkIfMockWorks()
+  // }, [])
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>

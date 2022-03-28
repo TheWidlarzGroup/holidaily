@@ -9,6 +9,7 @@ import { SummaryDays } from './SummaryRequestVacation/SummaryDays'
 import { SummaryRequestVacationHeader } from './SummaryRequestVacation/SummaryRequestVacationHeader'
 import { SicktimeAndMessage } from './SummaryRequestVacation/SicktimeAndMessage'
 import { SummaryRequestVacationPhotos } from './SummaryRequestVacation/SummaryRequestVacationPhotos'
+import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 
 type SummaryRequestVacationProps = {
   description: string
@@ -26,8 +27,6 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
   const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
   const { t } = useTranslation('requestVacation')
-  const ptoTaken = p.startDate && p.endDate ? calculatePTO(p.startDate, p.endDate) : 0
-
   const handleSend = () => {
     if (p.startDate && p.endDate) {
       startLoading()
@@ -53,19 +52,15 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
 
   return (
     <Box flex={1} padding="l" paddingTop="xl">
-      <ScrollView style={{ flex: 1 }}>
-        <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
-          <SummaryRequestVacationHeader
-            startDate={p.startDate}
-            endDate={p.endDate}
-            description={p.description}
-          />
-          <SicktimeAndMessage isSick={p.isSick} message={p.message} />
-          <SummaryRequestVacationPhotos attachments={p.attachments} />
-          <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-          <SummaryDays ptoTaken={ptoTaken} />
-        </Box>
-      </ScrollView>
+      <RequestDetails
+        description={p.description}
+        message={p.message ?? ''}
+        attachments={p.attachments}
+        startDate={p.startDate ?? new Date()}
+        endDate={p.endDate ?? new Date()}
+        isSickTime={p.isSick}
+        status={'pending'}
+      />
       {!p.hideNext && (
         <CustomButton
           label={t('sendRequest')}

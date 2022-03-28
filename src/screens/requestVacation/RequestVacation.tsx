@@ -13,6 +13,8 @@ import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 import { RequestSent } from './components/RequestSent'
+import { useModalContext } from 'contexts/ModalProvider'
+import { SeeRequestModal } from 'components/RequestDetails/SeeRequestModal'
 
 export type RequestDataTypes = {
   description: string
@@ -35,6 +37,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
   const [isSent, { setTrue: markAsSent, setFalse: markAsNotSent }] = useBooleanState(false)
+  const { showModal } = useModalContext()
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -119,7 +122,17 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          markAsSent()
+          showModal(
+            <SeeRequestModal
+              description={requestData.description}
+              message={requestData.message ?? ''}
+              attachments={[...requestData.photos, ...requestData.files]}
+              startDate={startDate ?? new Date()}
+              endDate={endDate ?? new Date()}
+              isSickTime={sickTime}
+              status={'pending'}
+            />
+          )
         }}
         onPressAnother={reset}
         onPressOk={() => {
