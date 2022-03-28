@@ -16,6 +16,7 @@ export type Schema = {
 export const Models = {
   user: Model.extend({
     dayOffRequest: hasMany(),
+    // teamUser: belongsTo(),
   }),
   dayOffRequest: Model.extend({
     user: belongsTo(),
@@ -25,16 +26,18 @@ export const Models = {
   }),
   team: Model.extend({
     organization: belongsTo(),
-    users: hasMany(),
+    teamUsers: hasMany(),
   }),
   teamUser: Model.extend({
-    team: belongsTo(),
-    // requests: hasMany(),
+    requests: hasMany(),
+    // team: belongsTo(),
+    name: belongsTo('user'),
+    // user: belongsTo(),
+    // id: belongsTo('user'),
   }),
-  TeamUserRequest: Model,
-  // .extend({
-  //   teamUser: belongsTo(),
-  // }),
+  request: Model.extend({
+    teamUser: belongsTo(),
+  }),
 }
 export * from './User'
 export * from './Organization'

@@ -3,7 +3,7 @@ import { User } from './User'
 export type Team = {
   id: string
   name: string
-  users: TeamUser[]
+  teamUsers: TeamUser[]
 }
 
 export type TeamUser = {

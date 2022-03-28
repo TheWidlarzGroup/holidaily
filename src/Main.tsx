@@ -25,7 +25,7 @@ export const Main = () => {
         // axios.defaults.headers.common.userId = user.id
         // console.log(user)
         const { data } = await axios.get('api/organization')
-        console.log(data, data.teams)
+        console.log(data.organizations[0].teams[0].teamUsers[0])
       } catch (error) {
         console.error(error.response.headers)
       }
