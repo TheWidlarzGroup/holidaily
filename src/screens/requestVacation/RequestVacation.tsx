@@ -10,7 +10,10 @@ import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
-import { useRequestVacationContext } from './contexts/RequestVacationContext'
+import {
+  RequestVacationProvider,
+  useRequestVacationContext,
+} from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 
 export type RequestDataTypes = {
@@ -24,7 +27,7 @@ type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestD
 
 type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
 
-export const RequestVacation = ({ route }: RequestVacationProps) => {
+const RequestVacation = ({ route }: RequestVacationProps) => {
   const {
     requestData,
     setRequestData,
@@ -105,7 +108,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     </SafeAreaView>
   )
 }
-
 const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     flex: 1,
@@ -120,3 +122,10 @@ const emptyRequest = {
   photos: [],
   files: [],
 }
+const WrappedRequestVacation = (p: RequestVacationProps) => (
+  <RequestVacationProvider>
+    <RequestVacation {...p} />
+  </RequestVacationProvider>
+)
+
+export { WrappedRequestVacation as RequestVacation }
