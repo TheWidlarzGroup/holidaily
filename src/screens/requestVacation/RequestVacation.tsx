@@ -97,7 +97,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          navigation.navigate('SeeRequest')
         }}
         onPressAnother={reset}
         onPressOk={() => {
