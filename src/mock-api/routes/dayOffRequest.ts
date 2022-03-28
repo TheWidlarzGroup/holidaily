@@ -1,5 +1,6 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { initPayloadService } from '../utils/payloadService'
 import { DayOffRequest, Schema as ModelsSchema } from '../models'
 
 export function dayOffRoutes(context: Server<ModelsSchema>) {
@@ -24,19 +25,12 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   const user = schema.find('user', userId)
   if (!user) return new Response(401)
   const body = JSON.parse(req.requestBody)
-  const payload: Partial<CreateDayOffRequestBody> = {}
 
-  const errors: string[] = []
-  fields.forEach((field) => {
-    if (!body[field]) {
-      errors.push(`Field ${field} is mandatory`)
-    } else {
-      payload[field] = body[field]
-    }
-  })
-  if (errors.length) return new Response(400, { errors: String(errors) })
+  const { httpError, ...payload } = initPayloadService()
+  payload.validate(fields, body)
+  if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
   return schema.create('dayOffRequest', {
-    ...payload,
+    ...payload.body,
     status: 'PENDING',
     user,
   })

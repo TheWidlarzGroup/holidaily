@@ -18,6 +18,7 @@ export const Models = {
   }),
   organization: Model,
 }
+export * from './HttpError'
 export * from './User'
 export * from './Organization'
 export * from './Team'
