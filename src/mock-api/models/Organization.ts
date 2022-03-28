@@ -1,4 +1,10 @@
-import { Team } from './Team'
+import { User } from './User'
+
+export type Team = {
+  id: string
+  name: string
+  users: User[]
+}
 
 export type Organization = {
   id: string

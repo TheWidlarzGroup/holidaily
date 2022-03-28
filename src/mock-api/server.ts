@@ -1,8 +1,6 @@
 import { createServer, RestSerializer } from 'miragejs'
-import { organizationFactory } from './factories/organizationFactory'
-import { requestFactory } from './factories/requestFactory'
-import { teamFactory } from './factories/teamFactory'
-import { userFactory } from './factories/userFactory'
+import { genRandomDayOffRequest } from './factories/requestFactory'
+import { usersList } from './factories/userFactory'
 import { Models } from './models'
 import { dayOffRoutes } from './routes/dayOffRequest'
 import { organizationRoute } from './routes/organization'
@@ -13,16 +11,11 @@ export const initBackendMocks = () =>
   createServer({
     serializers: {
       organization: RestSerializer.extend({ include: ['teams'], embed: true }),
-      team: RestSerializer.extend({ include: ['teamUsers'], embed: true }),
-      teamUser: RestSerializer.extend({ include: ['requests'], embed: true }),
+      team: RestSerializer.extend({ include: ['users'], embed: true }),
+      user: RestSerializer.extend({ include: ['dayOffRequest'], embed: true }),
     },
     models: Models,
-    factories: {
-      // user: userFactory,
-      // dayOffRequest: requestFactory,
-      // team: teamFactory,
-      // organization: organizationFactory,
-    },
+    factories: {},
     routes() {
       this.namespace = 'api'
       userRoutes(this)
@@ -31,92 +24,47 @@ export const initBackendMocks = () =>
       teamRoutes(this)
     },
     seeds(server) {
-      const user1 = server.create('user', {
-        firstName: 'Paweł',
-        lastName: 'Ogonek',
-        photo: undefined,
-        occupation: 'Software Engineer',
-        dayOffRequest: [],
-      })
-      const user2 = server.create('user', {
-        firstName: 'Peter',
-        lastName: 'Kansas',
-        photo: undefined,
-        occupation: 'Software Engineer',
-        dayOffRequest: [],
-      })
-      const user3 = server.create('user', {
-        firstName: 'Tom',
-        lastName: 'Waist',
-        photo: undefined,
-        occupation: 'Software Engineer',
-        dayOffRequest: [],
-      })
-      const user4 = server.create('user', {
-        firstName: 'Kamila',
-        lastName: 'Wysokogórska',
-        photo: undefined,
-        occupation: 'Software Engineer',
-        dayOffRequest: [],
-      })
-      const user5 = server.create('user', {
-        firstName: 'Ola',
-        lastName: 'Nowak',
-        photo: undefined,
-        occupation: 'Software Engineer',
-        dayOffRequest: [],
-      })
-      const user6 = server.create('user', {
-        firstName: 'Kamila',
-        lastName: 'Wysokogórska-Nowak',
-        photo: undefined,
-        occupation: 'Software Engineer',
-        dayOffRequest: [],
-      })
-      const teamUserRequest1 = server.create('request', {
-        id: '1',
-        status: 'CANCELLED',
-        startDate: '06/05/2020',
-        endDate: '10/05/2000',
-        count: 2,
-        createdAt: '10/05/2000',
-      })
-      const teamUser1 = server.create('teamUser', { requests: [teamUserRequest1] })
+      const users = usersList.map((user) =>
+        server.create('user', {
+          ...user,
+          dayOffRequest: [server.create('dayOffRequest', genRandomDayOffRequest())],
+        })
+      )
       const team1 = server.create('team', {
         name: 'SmartSoft',
-        teamUsers: [teamUser1],
+        users: users.splice(0, 4),
       })
       const team2 = server.create('team', {
         name: 'FileCode',
-        teamUsers: [teamUser1],
+        users: users.splice(4, 8),
       })
       const team3 = server.create('team', {
         name: 'Softlab',
-        teamUsers: [teamUser1],
+        users: users.splice(8, 12),
       })
       const team4 = server.create('team', {
         name: 'Open Byte',
-        teamUsers: [teamUser1],
+        users: users.splice(12, 16),
       })
       const team5 = server.create('team', {
         name: 'Spaceware',
-        teamUsers: [teamUser1],
+        users: users.splice(20, 24),
       })
       const team6 = server.create('team', {
         name: 'Webrain',
-        teamUsers: [teamUser1],
+        users: users.splice(24, 28),
       })
       const team7 = server.create('team', {
         name: 'Pharmic',
-        teamUsers: [teamUser1],
+        users: users.splice(28, 32),
       })
       const team8 = server.create('team', {
         name: 'NMedical',
-        teamUsers: [teamUser1],
+        users: users.splice(32, 36),
       })
       const team9 = server.create('team', {
         name: 'Encrypto',
-        teamUsers: [teamUser1],
+        users: users.splice(36, 40),
       })
       server.create('organization', {
         name: 'Supercompany',
