@@ -25,9 +25,16 @@ export const Models = {
   }),
   team: Model.extend({
     organization: belongsTo(),
+    users: hasMany(),
   }),
-  teamUser: Model,
+  teamUser: Model.extend({
+    team: belongsTo(),
+    // requests: hasMany(),
+  }),
   TeamUserRequest: Model,
+  // .extend({
+  //   teamUser: belongsTo(),
+  // }),
 }
 export * from './User'
 export * from './Organization'
