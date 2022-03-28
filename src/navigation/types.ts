@@ -150,7 +150,6 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
-  SeeRequest: undefined
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
