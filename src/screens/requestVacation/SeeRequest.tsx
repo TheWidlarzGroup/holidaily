@@ -1,5 +1,4 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box } from 'utils/theme'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 
