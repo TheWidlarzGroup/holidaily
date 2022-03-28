@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
@@ -8,7 +8,7 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, BaseOpacity } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
-import { useModalContext } from '../../../contexts/ModalProvider'
+import { useModalContext } from 'contexts/ModalProvider'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
@@ -18,9 +18,7 @@ type ProfilePictureProps = {
 export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
-  const { user } = useUserContext()
-  const [userProfilePicture, setUserProfilePicture] = useState<string | undefined | null>('')
-  const [photoURI, setPhotoURI] = useState<string | null | undefined>()
+  const { updateUser, user } = useUserContext()
 
   const showUploadAttachmentModal = () => {
     hideModal()
@@ -34,7 +32,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
             setIsEditedFalse()
             hideModal()
           }}
-          setPhotoURI={setPhotoURI}
+          setPhotoURI={(newPhoto) => updateUser({ photo: newPhoto })}
         />
       )
     }, 250)
@@ -77,7 +75,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   }
   const handleDeletePicture = () => {
     setIsEditedFalse()
-    setPhotoURI(null)
+    updateUser({ photo: null })
     showModal(
       <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
     )
@@ -91,13 +89,6 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
     showUploadAttachmentModal()
   }
 
-  useEffect(() => {
-    if (photoURI) {
-      setUserProfilePicture(photoURI)
-    } else {
-      setUserProfilePicture(user?.photo)
-    }
-  }, [photoURI, user?.photo])
   return (
     <Box
       paddingHorizontal="m"
@@ -106,14 +97,14 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       marginTop="xxl"
       marginBottom="xl">
       <BaseOpacity
-        onPress={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
+        onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.5}>
-        <Avatar src={userProfilePicture} size="l" marginBottom="m" />
+        <Avatar src={user?.photo} size="l" marginBottom="m" />
       </BaseOpacity>
       <TextLink
-        text={userProfilePicture ? t('editPhoto') : t('addPhoto')}
+        text={user?.photo ? t('editPhoto') : t('addPhoto')}
         variant="boldOrange15"
-        action={userProfilePicture ? onChangeProfilePicture : onAddProfilePicture}
+        action={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
       />
     </Box>
   )

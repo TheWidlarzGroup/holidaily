@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ScrollView, SafeAreaView } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
@@ -7,13 +7,11 @@ import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
-import { useUserData } from 'hooks/useUserData'
 import { useModalContext } from 'contexts/ModalProvider'
-import { useUpdateUser } from 'hooks/useUpdateUser'
 import IconBack from 'assets/icons/icon-back.svg'
-import { LoadingModal } from 'components/LoadingModal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { UserData } from '../../contexts/UserContext'
+import { keys } from 'utils/manipulation'
+import { UserData } from 'contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -24,7 +22,6 @@ type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
-  const { handleUpdateUser, isSuccess, isLoading } = useUpdateUser()
   const navigation = useNavigation()
   const { user } = useUserContext()
   const styles = useStyles()
@@ -36,23 +33,17 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
-  const { fetchUser } = useUserData()
 
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
-  const handleEditDetailsSubmit = async (data: EditDetailsTypes) => {
-    await AsyncStorage.setItem('firstName', data.firstName)
-    handleUpdateUser(data)
-    fetchUser()
-  }
+  const onSubmit = (data: EditDetailsTypes) => {
+    keys(data).forEach(async (field) => {
+      await AsyncStorage.setItem(field, data[field])
+    })
 
-  useEffect(() => {
-    if (isSuccess) {
-      showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
-      setEditedFalse()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess])
+    showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+    setEditedFalse()
+  }
 
   return (
     <SafeAreaView style={styles.mainView}>
@@ -71,10 +62,7 @@ export const EditProfile = () => {
         <TeamSubscriptions />
         <ProfileColor />
       </ScrollView>
-      <LoadingModal show={isLoading} />
-      {isEdited && (
-        <SaveChangesButton handleEditDetailsSubmit={handleSubmit(handleEditDetailsSubmit)} />
-      )}
+      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
     </SafeAreaView>
   )
 }

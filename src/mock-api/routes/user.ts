@@ -1,5 +1,6 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { initPayloadService } from '../utils/payloadService'
 import { genRandomDayOffRequest } from '../factories/requestFactory'
 import { Schema as ModelsSchema, User } from '../models'
 
@@ -39,22 +40,15 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     role: 'Admin',
   }
   const body = JSON.parse(req.requestBody)
-  const payload: Partial<User> = {}
+  const { httpError, ...payload } = initPayloadService()
+  console.log('USERRR', payload.body)
+  payload.validate(mandatoryFields, body)
+  payload.fill(optionalFields, body)
 
-  const errors: string[] = []
-  mandatoryFields.forEach((field) => {
-    if (!body[field]) {
-      errors.push(`Field ${field} is mandatory`)
-    } else {
-      payload[field] = body[field]
-    }
-  })
-  optionalFields.forEach((field) => {
-    if (body[field] !== undefined) payload[field] = body[field]
-  })
-  if (errors.length) return new Response(400, { errors: String(errors) })
-  const response = schema.create('user', { ...defaultValues, ...payload })
+  if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
+  const response = schema.create('user', { ...defaultValues, ...payload.body })
   for (let i = 0; i < 10; i++) {
+    if (!response.id) break
     schema.create('dayOffRequest', {
       ...genRandomDayOffRequest(),
       user: schema.find('user', response.id),

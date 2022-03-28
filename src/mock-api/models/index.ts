@@ -24,5 +24,6 @@ export const Models = {
     users: hasMany(),
   }),
 }
+export * from './HttpError'
 export * from './User'
 export * from './Organization'

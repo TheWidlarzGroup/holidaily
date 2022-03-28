@@ -5,7 +5,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import { useFetchAvailablePto } from 'hooks/useFetchAvailablePto'
+import { useFetchAvailablePto } from 'hooks/legacy-api-hooks/useFetchAvailablePto'
 import { LoadingModal } from 'components/LoadingModal'
 import { AvailablePto } from './components/AvailablePto'
 
