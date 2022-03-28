@@ -24,7 +24,7 @@ export const Main = () => {
         } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
         axios.defaults.headers.common.userId = user.id
         // console.log(user)
-        const { data } = await axios.get(`api/requests/${user.id}`)
+        // const { data } = await axios.get(`api/requests/${user.id}`)
         await axios.post('api/request', {
           isSickTime: true,
           description: 'test',
