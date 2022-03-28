@@ -17,7 +17,8 @@
       "navigation/*": ["navigation/*"],
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "reactQuery/*": ["react-query/*"]
     },
     "resolveJsonModule": true
   }

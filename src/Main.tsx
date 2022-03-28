@@ -6,49 +6,60 @@ import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import axios from 'axios'
+import { QueryClientProvider } from 'react-query'
+import { queryClient } from './react-query/queryClient'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
+import { useFetchUserData } from './react-query/queries/useFetchUserData'
 
 initBackendMocks()
-
+const userId = '1'
 export const Main = () => {
   // FIXME: read from user preferences
   const darkMode = false
 
+  const { data, isLoading, isSuccess } = useFetchUserData(userId)
   useEffect(() => {
-    const checkIfMockWorks = async () => {
-      try {
-        const {
-          data: { user },
-        } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
-        axios.defaults.headers.common.userId = user.id
-        // console.log(user)
-        // const { data } = await axios.get(`api/requests/${user.id}`)
-        await axios.post('api/request', {
-          isSickTime: true,
-          description: 'test',
-          message: 'tsest',
-          endDate: new Date(),
-          startDate: new Date(),
-        })
-        // console.log(data)
-      } catch (error) {
-        console.error(error.response.headers)
-      }
-    }
-    checkIfMockWorks()
-  }, [])
+    // const checkIfMockWorks = async () => {
+    // if (isSuccess) console.log(data)
+    //   try {
+    //     const {
+    //       data: { user },
+    //     } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
+    //     axios.defaults.headers.common.userId = user.id
+
+    //     // console.log(user)
+    //     // const { data } = await axios.get(`api/requests/${user.id}`)
+    //     await axios.post('api/request', {
+    //       isSickTime: true,
+    //       description: 'test',
+    //       message: 'tsest',
+    //       endDate: new Date(),
+    //       startDate: new Date(),
+    //     })
+    //     // console.log(data)
+    //   } catch (error) {
+    //     console.error(error.response.headers)
+    //   }
+    // }
+    // checkIfMockWorks()
+    if (isLoading) console.log('loading')
+    else if (isSuccess) console.log(data)
+    else console.log('cos dziwnego')
+  }, [isSuccess, data, isLoading])
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <ModalProvider>
-            <UserContextProvider>
-              <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
-              <AppNavigation />
-            </UserContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <UserContextProvider>
+                <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+                <AppNavigation />
+              </UserContextProvider>
+            </QueryClientProvider>
           </ModalProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>
