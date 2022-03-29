@@ -313,6 +313,7 @@
     "pending": "Oczekujące",
     "cancelled": "Odrzucone",
     "past": "Wykorzystane",
-    "accepted": "Zatwierdzone"
+    "accepted": "Zatwierdzone",
+    "yourRequest": "Twoje podanie"
   }
 }

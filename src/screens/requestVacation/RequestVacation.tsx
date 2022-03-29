@@ -44,7 +44,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const { showModal } = useModalContext()
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -104,17 +103,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          showModal(
-            <SeeRequestModal
-              description={requestData.description}
-              message={requestData.message ?? ''}
-              attachments={[...requestData.photos, ...requestData.files]}
-              startDate={startDate ?? new Date()}
-              endDate={endDate ?? new Date()}
-              isSickTime={sickTime}
-              status={'pending'}
-            />
-          )
+          console.log(endDate?.getFullYear(), startDate?.getFullYear())
+          navigation.navigate('SeeRequest', {
+            ...requestData,
+            endDate: endDate ?? new Date(),
+            startDate: startDate ?? new Date(),
+            isSickTime: sickTime,
+            // TODO: get from backend
+            status: 'pending',
+          })
         }}
         onPressAnother={reset}
         onPressOk={() => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
 import { calculatePTO } from 'utils/dates'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
@@ -10,6 +10,7 @@ import { RequestDetailsHeader } from './RequestDetailsHeader'
 import { RequestSicktimeAndMessage } from './RequestSicktimeAndMessage'
 import { RequestAttachments } from './RequestAttachments'
 import { TakenPtoSummary } from './TakenPtoSummary'
+import { CircleStatusIcon } from './CircleStatusIcon'
 
 type RequestDetailsProps = {
   attachments?: { id: string; uri: string }[]
@@ -21,16 +22,11 @@ export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDe
   const { t } = useTranslation('seeRequest')
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Box
-        backgroundColor="primary"
-        borderRadius="m"
-        paddingBottom="xxxxl"
-        borderTopLeftRadius={p.showStatus ? 0 : 'm'}
-        borderTopRightRadius={p.showStatus ? 0 : 'm'}>
+      <Box backgroundColor="primary" borderRadius="m" paddingBottom="xxxxl" overflow="hidden">
         <BackgroundPlant1 style={styles.plant1} />
         <BackgroundPlant2 style={styles.plant2} height={90} />
-        {p.showStatus && (
-          <Box>
+        {!!p.showStatus && (
+          <Box bg="primary">
             <Box
               position="absolute"
               height="100%"
@@ -40,9 +36,11 @@ export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDe
               alignItems="center"
               justifyContent="center"
             />
-            <Box padding="m" flexDirection="row">
-              <Box height={24} width={24} borderRadius="full" bg="errorRed"></Box>
-              <Text>{t(p.status)}</Text>
+            <Box padding="m" flexDirection="row" alignItems="center">
+              <CircleStatusIcon status={p.status} />
+              <Text fontFamily="Nunito-Bold" fontSize={16} lineHeight={20}>
+                {t(p.status)}
+              </Text>
             </Box>
           </Box>
         )}
@@ -61,6 +59,7 @@ export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDe
     </ScrollView>
   )
 }
+
 const useStyles = mkUseStyles(() => ({
   plant1: {
     position: 'absolute',

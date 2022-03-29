@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 type HeaderProps = { step: number; setStep: F1<number> }
 
-export const HeaderRequestVacation = ({ step, setStep }: HeaderProps) => {
+export const RequestVacationHeaderText = ({ step, setStep }: HeaderProps) => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('requestVacation')
 
@@ -18,12 +18,7 @@ export const HeaderRequestVacation = ({ step, setStep }: HeaderProps) => {
   }
 
   return (
-    <Box
-      flexDirection="row"
-      alignItems="center"
-      paddingHorizontal="l"
-      paddingVertical="m"
-      paddingTop={'isSent' in p ? 'm' : 0}>
+    <Box flexDirection="row" alignItems="center" paddingHorizontal="l" paddingVertical="m">
       <Box alignItems="center" justifyContent="center" flexDirection="row">
         <Pressable onPress={onStepBack}>
           <BackArrowIcon width={30} height={20} />

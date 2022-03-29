@@ -313,6 +313,7 @@
     "pending": "Pending",
     "cancelled": "Declined",
     "past": "Past",
-    "accepted": "Accepted"
+    "accepted": "Accepted",
+    "yourRequest": "Your request"
   }
 }

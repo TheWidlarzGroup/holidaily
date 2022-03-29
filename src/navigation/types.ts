@@ -8,6 +8,7 @@ import {
   UserTeamsSubscriptions,
   MateHolidaysData,
 } from 'types/holidaysDataTypes'
+import { DayOffRequest } from 'mock-api/models'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -150,6 +151,8 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
+  SeeRequest: Omit<DayOffRequest, 'id' | 'user'>
+
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }

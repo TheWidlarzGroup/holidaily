@@ -3,6 +3,7 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
+import { SeeRequestModal } from 'components/RequestDetails/SeeRequestModal'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
 import { CreatePost } from 'screens/createPost/CreatePost'
 import { DrawerNavigator } from './DrawerNavigator'
@@ -24,6 +25,11 @@ export const AppStackNavigation = () => {
           animationEnabled: true,
         }}>
         <AppStack.Screen name="RequestVacation" component={RequestVacation} />
+        <AppStack.Screen
+          name="SeeRequest"
+          component={SeeRequestModal}
+          options={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
+        />
         <AppStack.Screen name="RequestVacationCalendar" component={CalendarRequestVacation} />
         <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
         <AppStack.Screen
