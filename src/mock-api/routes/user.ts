@@ -50,7 +50,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   const response = schema.create('user', { ...defaultValues, ...payload.body })
   for (let i = 0; i < 10; i++) {
     if (!response.id) break
-    schema.create('dayOffRequest', {
+    schema.create('request', {
       ...genRandomDayOffRequest(),
       user: schema.find('user', response.id),
     })

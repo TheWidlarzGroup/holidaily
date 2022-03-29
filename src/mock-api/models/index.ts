@@ -4,15 +4,15 @@ import { Organization, Team, DayOffRequest, User } from './mirageTypes'
 export type Schema = {
   user: User[]
   organization: Organization
-  dayOffRequest: DayOffRequest[]
+  request: DayOffRequest[]
   team: Team[]
 }
 
 export const Models = {
   user: Model.extend({
-    dayOffRequest: hasMany(),
+    requests: hasMany(),
   }),
-  dayOffRequest: Model.extend({
+  request: Model.extend({
     user: belongsTo(),
   }),
   organization: Model.extend({

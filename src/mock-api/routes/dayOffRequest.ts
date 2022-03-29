@@ -9,7 +9,7 @@ export function dayOffRoutes(context: Server<ModelsSchema>) {
 }
 function fetchUserRequests(schema: Schema<ModelsSchema>, req: Request) {
   // @ts-ignore
-  return schema.where('dayOffRequest', (a) => a.userId === req.params.userId)
+  return schema.where('request', (a) => a.userId === req.params.userId)
 }
 
 function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
@@ -29,7 +29,7 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   const { httpError, ...payload } = initPayloadService()
   payload.validate(fields, body)
   if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
-  return schema.create('dayOffRequest', {
+  return schema.create('request', {
     ...payload.body,
     status: 'PENDING',
     user,

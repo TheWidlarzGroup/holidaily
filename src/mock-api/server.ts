@@ -12,7 +12,7 @@ export const initBackendMocks = () =>
     serializers: {
       organization: RestSerializer.extend({ include: ['teams'], embed: true }),
       team: RestSerializer.extend({ include: ['users'], embed: true }),
-      user: RestSerializer.extend({ include: ['dayOffRequest'], embed: true }),
+      user: RestSerializer.extend({ include: ['requests'], embed: true }),
     },
     models: Models,
     factories: {},
@@ -26,7 +26,7 @@ export const initBackendMocks = () =>
     seeds(server) {
       const users = usersList.map((user) => {
         const userRecord = server.create('user', { ...user })
-        server.create('dayOffRequest', { ...genRandomDayOffRequest(), user: userRecord })
+        server.create('request', { ...genRandomDayOffRequest(), user: userRecord })
         return userRecord
       })
       const team1 = server.create('team', {
