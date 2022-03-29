@@ -1,8 +1,11 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { Box } from 'utils/theme'
+import { useTranslation } from 'react-i18next'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
 import { calculatePTO } from 'utils/dates'
+import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
+import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { RequestDetailsHeader } from './RequestDetailsHeader'
 import { RequestSicktimeAndMessage } from './RequestSicktimeAndMessage'
 import { RequestAttachments } from './RequestAttachments'
@@ -13,24 +16,63 @@ type RequestDetailsProps = {
   showStatus?: true
 }
 
-export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDetailsProps) => (
-  <ScrollView style={{ flex: 1 }}>
-    <Box
-      backgroundColor="primary"
-      borderRadius="m"
-      padding="m"
-      paddingBottom="xxxxl"
-      borderTopLeftRadius={p.showStatus ? 0 : 'm'}
-      borderTopRightRadius={p.showStatus ? 0 : 'm'}>
-      <RequestDetailsHeader
-        startDate={p.startDate}
-        endDate={p.endDate}
-        description={p.description}
-      />
-      <RequestSicktimeAndMessage isSick={p.isSickTime} message={p.message} />
-      <RequestAttachments attachments={p.attachments} />
-      <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-      <TakenPtoSummary ptoTaken={calculatePTO(p.startDate, p.endDate)} />
-    </Box>
-  </ScrollView>
-)
+export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDetailsProps) => {
+  const styles = useStyles()
+  const { t } = useTranslation('seeRequest')
+  return (
+    <ScrollView style={{ flex: 1 }}>
+      <Box
+        backgroundColor="primary"
+        borderRadius="m"
+        paddingBottom="xxxxl"
+        borderTopLeftRadius={p.showStatus ? 0 : 'm'}
+        borderTopRightRadius={p.showStatus ? 0 : 'm'}>
+        <BackgroundPlant1 style={styles.plant1} />
+        <BackgroundPlant2 style={styles.plant2} height={90} />
+        {p.showStatus && (
+          <Box>
+            <Box
+              position="absolute"
+              height="100%"
+              width="100%"
+              bg="white"
+              opacity={0.3}
+              alignItems="center"
+              justifyContent="center"
+            />
+            <Box padding="m" flexDirection="row">
+              <Box height={24} width={24} borderRadius="full" bg="errorRed"></Box>
+              <Text>{t(p.status)}</Text>
+            </Box>
+          </Box>
+        )}
+        <Box padding="m">
+          <RequestDetailsHeader
+            startDate={p.startDate}
+            endDate={p.endDate}
+            description={p.description}
+          />
+          <RequestSicktimeAndMessage isSick={p.isSickTime} message={p.message} />
+          <RequestAttachments attachments={p.attachments} />
+          <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
+          <TakenPtoSummary ptoTaken={calculatePTO(p.startDate, p.endDate)} />
+        </Box>
+      </Box>
+    </ScrollView>
+  )
+}
+const useStyles = mkUseStyles(() => ({
+  plant1: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  plant2: {
+    position: 'absolute',
+    bottom: 0,
+    left: -30,
+  },
+  button: {
+    marginTop: 20,
+  },
+}))

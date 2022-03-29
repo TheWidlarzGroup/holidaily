@@ -21,8 +21,6 @@ export const RequestDetailsHeader = ({
   const { t } = useTranslation('requestVacation')
   return (
     <>
-      <BackgroundPlant1 style={styles.plant1} />
-      <BackgroundPlant2 style={styles.plant2} height={90} />
       <Box paddingLeft="s">
         <Text variant="heading4">{description || t('timeOffDescriptionPlaceholder')}</Text>
       </Box>

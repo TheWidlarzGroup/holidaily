@@ -9,12 +9,12 @@ import { Box, mkUseStyles } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { useModalContext } from 'contexts/ModalProvider'
+import { SeeRequestModal } from 'components/RequestDetails/SeeRequestModal'
 import { FormRequestVacation } from './components/FormRequestVacation'
 import { SummaryRequestVacation } from './components/SummaryRequestVacation'
 import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 import { RequestSent } from './components/RequestSent'
-import { useModalContext } from 'contexts/ModalProvider'
-import { SeeRequestModal } from 'components/RequestDetails/SeeRequestModal'
 
 export type RequestDataTypes = {
   description: string
@@ -36,7 +36,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     useBooleanState(false)
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const [isSent, { setTrue: markAsSent, setFalse: markAsNotSent }] = useBooleanState(false)
   const { showModal } = useModalContext()
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
@@ -52,7 +51,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback(requestData)
     setRequestData((oldData) => ({ ...oldData, ...newData }))
-    markAsNotSent()
   }
 
   const reset = () => {
@@ -74,7 +72,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
 
   useEffect(() => {
     const { params } = route
-    markAsNotSent()
+
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
     if (params?.action === 'sickday') {
@@ -84,7 +82,7 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, route.params, setSickTime, markAsNotSent])
+  }, [route, route.params, setSickTime])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -114,7 +112,6 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
           message={requestData.message}
           onNextPressed={showSentModal}
           attachments={[...requestData.photos, ...requestData.files]}
-          hideNext={isSent}
         />
       )}
 

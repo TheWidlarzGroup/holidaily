@@ -21,7 +21,7 @@ export const SeeRequestModal = (
         <Text> Request</Text>
       </ModalHeader>
       <Box padding="m" flex={1}>
-        <RequestDetails {...p} />
+        <RequestDetails {...p} showStatus />
       </Box>
     </Modal>
   )
