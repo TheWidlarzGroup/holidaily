@@ -1,3 +1,4 @@
+import { getHolidaysInYear } from 'poland-public-holidays'
 import { getDatesBetween } from './dates'
 
 type MarkedDateType = {
@@ -12,10 +13,12 @@ export const genMarkedDates = (start?: string, end?: string) => {
   if (!start || !end) return {}
   const obj: { [key: string]: MarkedDateType } = {}
   const dates = getDatesBetween(start, end)
-
+  const holidays = getHolidaysInYear(new Date(start)).map((holiday) => holiday.date)
+  const isHoliday = (date: Date) =>
+    !holidays.some((holiday) => holiday.toDateString() === date.toDateString())
   dates.forEach((date) => {
     obj[date] = {
-      period: true,
+      period: isHoliday(new Date(date)),
     }
   })
 
