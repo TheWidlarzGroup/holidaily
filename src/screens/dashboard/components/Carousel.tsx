@@ -26,12 +26,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
         }
 
         return (
-          <TouchableOpacity
-            key={item.id}
-            activeOpacity={1}
-            onPress={() =>
-              console.log('please implement openUserModal(userItem) in Carousel component')
-            }>
+          <TouchableOpacity key={item.id} activeOpacity={1} onPress={() => openUserModal(userItem)}>
             <CarouselElement
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}

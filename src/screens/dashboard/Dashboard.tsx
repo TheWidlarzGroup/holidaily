@@ -31,7 +31,7 @@ export const Dashboard = () => {
 
   const { data } = useGetOrganization()
   if (!data) return null
-  console.log(data.teams[0].users[0])
+  // console.log(data.teams[0].users[0])
 
   return (
     <>
