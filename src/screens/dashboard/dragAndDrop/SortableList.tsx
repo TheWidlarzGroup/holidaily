@@ -14,7 +14,7 @@ import { MateHolidaysData } from 'types/holidaysDataTypes'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 type SortableListProps = {
-  children: ReactElement<{ groupId: number }>[]
+  children: ReactElement<{ id: number }>[]
   openUserModal: F1<MateHolidaysData>
 }
 
@@ -25,7 +25,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
   const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
   const positions = useSharedValue<Positions>(
     // if positions object from database => { [child.props.groupId]: child.props.order }
-    Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
+    Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
   )
   useFocusEffect(React.useCallback(() => () => setDraggedElement(null), []))
 
@@ -62,13 +62,13 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
         {children.map((child) => (
           <Item
             scrollView={scrollView}
-            onLongPress={() => onLongPress(child.props.groupId)}
+            onLongPress={() => onLongPress(child?.props?.id)}
             stopDragging={() => setDraggedElement(null)}
             draggedElement={draggedElement}
             scrollY={scrollY}
-            key={child.props.groupId}
+            key={child?.props?.id}
             positions={positions}
-            id={child.props.groupId}>
+            id={child?.props?.id}>
             {child}
           </Item>
         ))}

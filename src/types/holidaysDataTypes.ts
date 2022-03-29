@@ -31,6 +31,7 @@ export type ValidationOfGroupDayOff = {
   groupName: string
   users: MateHolidaysData[]
 }
+
 export type UserDetails = {
   isConfirmed: boolean
   id: string

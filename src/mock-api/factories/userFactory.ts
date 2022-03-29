@@ -97,8 +97,8 @@ export const usersList = [
     occupation: 'Software Engineer',
   },
   {
-    firstName: '',
-    lastName: '',
+    firstName: 'Jimmie',
+    lastName: 'Williams',
     photo: undefined,
     occupation: 'Software Engineer',
   },

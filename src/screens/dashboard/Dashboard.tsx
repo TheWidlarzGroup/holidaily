@@ -2,15 +2,16 @@ import React, { useCallback, useRef, useState } from 'react'
 
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
-import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
-import { ValidationOfGroupDayOff, MateHolidaysData } from 'types/holidaysDataTypes'
+import { MateHolidaysData } from 'types/holidaysDataTypes'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
 import { DashboardNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { Team } from 'mock-api/models/Organization'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { DashboardTeamMember } from './DashboardTeamMember'
+import { useGetOrganization } from '../../reactQuery/queries/useOrganizationQuery'
 
 const emptyMateUser = {
   id: '',
@@ -29,8 +30,6 @@ const emptyMateUser = {
 }
 
 export const Dashboard = () => {
-  const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
-
   const [user, setUser] = useState<MateHolidaysData>(emptyMateUser)
 
   const modalRef = useRef<BottomSheetModal>(null)
@@ -43,18 +42,21 @@ export const Dashboard = () => {
   }
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
-  const navigateToTeamDetails = (team: ValidationOfGroupDayOff) =>
+  const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal })
+
+  const { data } = useGetOrganization()
+  if (!data) return null
 
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
         <SortableList openUserModal={openUserModal}>
-          {teamsList.map((team) => (
+          {data.teams.map((team: Team) => (
             <TeamElement
               {...team}
-              key={team.groupId}
+              key={team.id}
               navigateToTeamScreen={() => navigateToTeamDetails(team)}
             />
           ))}

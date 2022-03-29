@@ -35,6 +35,7 @@ module.exports = {
           screens: './src/screens',
           types: './src/types',
           utils: './src/utils',
+          reactQuery: './src/reactQuery',
         },
       },
     ],

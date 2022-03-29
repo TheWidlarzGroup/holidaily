@@ -6,15 +6,21 @@ import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import axios from 'axios'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryKeys } from 'reactQuery/QueryKeys'
+import { getOrganization } from 'reactQuery/queries/useOrganizationQuery'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
 
 initBackendMocks()
+export const queryClient = new QueryClient()
 
 export const Main = () => {
   // FIXME: read from user preferences
   const darkMode = false
+
+  queryClient.prefetchQuery(QueryKeys.ORGANIZATION, getOrganization)
 
   useEffect(() => {
     const checkIfMockWorks = async () => {
@@ -32,7 +38,8 @@ export const Main = () => {
           endDate: new Date(),
           startDate: new Date(),
         })
-        // console.log(data)
+        // const { data } = await axios.get('api/organization')
+        // console.log(data.organizations[0].teams[0].users[0])
       } catch (error) {
         console.error(error.response.headers)
       }
@@ -45,10 +52,12 @@ export const Main = () => {
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <ModalProvider>
-            <UserContextProvider>
-              <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
-              <AppNavigation />
-            </UserContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <UserContextProvider>
+                <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+                <AppNavigation />
+              </UserContextProvider>
+            </QueryClientProvider>
           </ModalProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>
