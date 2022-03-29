@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
 import { calculatePTO } from 'utils/dates'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'

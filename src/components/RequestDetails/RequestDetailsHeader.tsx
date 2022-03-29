@@ -1,9 +1,7 @@
 import React from 'react'
-import { Box, mkUseStyles, Text } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { getFormattedPeriod } from 'utils/dates'
 import CalendarIcon from 'assets/icons/calendar.svg'
-import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
-import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
 import { useTranslation } from 'react-i18next'
 
 type RequestDetailsHeaderProps = {
@@ -17,7 +15,6 @@ export const RequestDetailsHeader = ({
   startDate,
   endDate,
 }: RequestDetailsHeaderProps) => {
-  const styles = useStyles()
   const { t } = useTranslation('requestVacation')
   return (
     <>
@@ -31,19 +28,3 @@ export const RequestDetailsHeader = ({
     </>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  plant1: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  plant2: {
-    position: 'absolute',
-    bottom: 0,
-    left: -30,
-  },
-  button: {
-    marginTop: 20,
-  },
-}))

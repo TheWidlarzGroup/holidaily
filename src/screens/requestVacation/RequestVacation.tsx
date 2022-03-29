@@ -8,8 +8,6 @@ import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { useModalContext } from 'contexts/ModalProvider'
-import { SeeRequestModal } from 'components/RequestDetails/SeeRequestModal'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {

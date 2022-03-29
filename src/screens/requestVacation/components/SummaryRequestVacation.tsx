@@ -1,14 +1,8 @@
 import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles } from 'utils/theme/index'
-import { calculatePTO } from 'utils/dates'
-import { ScrollView } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { SummaryDays } from './SummaryRequestVacation/SummaryDays'
-import { SummaryRequestVacationHeader } from './SummaryRequestVacation/SummaryRequestVacationHeader'
-import { SicktimeAndMessage } from './SummaryRequestVacation/SicktimeAndMessage'
-import { SummaryRequestVacationPhotos } from './SummaryRequestVacation/SummaryRequestVacationPhotos'
 import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 
 type SummaryRequestVacationProps = {
