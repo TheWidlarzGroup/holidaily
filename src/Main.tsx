@@ -5,24 +5,21 @@ import { ThemeProvider } from '@shopify/restyle'
 import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import axios from 'axios'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from './react-query/queryClient'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
-import { useFetchUserData } from './react-query/queries/useFetchUserData'
+import { useCreateTempUser } from './react-query/mutations/useCreateTempUser'
 
 initBackendMocks()
-const userId = '1'
 export const Main = () => {
   // FIXME: read from user preferences
   const darkMode = false
 
-  const { data, isLoading, isSuccess } = useFetchUserData(userId)
+  const { mutate: createTempUser, data, isLoading, isSuccess, isIdle } = useCreateTempUser()
   useEffect(() => {
     // const checkIfMockWorks = async () => {
-    // if (isSuccess) console.log(data)
     //   try {
     //     const {
     //       data: { user },
@@ -44,10 +41,11 @@ export const Main = () => {
     //   }
     // }
     // checkIfMockWorks()
-    if (isLoading) console.log('loading')
-    else if (isSuccess) console.log(data)
-    else console.log('cos dziwnego')
-  }, [isSuccess, data, isLoading])
+    if (isIdle) createTempUser({ firstName: 'dzony' })
+    else if (isLoading) console.log('loading')
+    else if (isSuccess) console.log('success ', data)
+    else console.log('something went wrong')
+  }, [isSuccess, data, isLoading, isIdle, createTempUser])
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
