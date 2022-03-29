@@ -11,7 +11,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const TeamsModal = ({ firstName }: { firstName: string }) => {
-  const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF
+  const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
   const { t } = useTranslation('welcome')
 
   const { updateUser } = useUserContext()

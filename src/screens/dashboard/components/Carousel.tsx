@@ -1,11 +1,11 @@
+import { User } from 'mock-api/models/mirageTypes'
 import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { dataToBeDisplayed, ValidationOfDataToBeDisplayed } from 'screens/dashboard/helpers/helper'
-import { MateHolidaysData } from 'types/holidaysDataTypes'
 
 type CarouselProps = {
-  openUserModal: F1<MateHolidaysData>
+  openUserModal: F1<User>
 }
 
 export const Carousel = ({ openUserModal }: CarouselProps) => {
@@ -14,7 +14,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {companyHolidaysData.map((item) => {
-        const { dayEnd, dayStart, id, isOnHoliday, user } = item
+        const { endDate, startDate, id, isOnHoliday, user } = item
         const { firstName, lastName, occupation, photo } = user
         const userItem = {
           firstName,
@@ -22,11 +22,16 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
           occupation,
           photo,
           id: id.toString(),
-          holidays: { id, dayEnd, dayStart, isOnHoliday },
+          requests: { id, endDate, startDate, isOnHoliday },
         }
 
         return (
-          <TouchableOpacity key={item.id} activeOpacity={1} onPress={() => openUserModal(userItem)}>
+          <TouchableOpacity
+            key={item.id}
+            activeOpacity={1}
+            onPress={() =>
+              console.log('please implement openUserModal(userItem) in Carousel component')
+            }>
             <CarouselElement
               isOnHoliday={item.isOnHoliday}
               firstName={item.user.firstName}

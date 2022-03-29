@@ -25,7 +25,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     'language',
     'lastName',
     'occupation',
-    'organization',
+    'teams',
     'photo',
     'userColor',
   ]
@@ -38,6 +38,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     language: 'en',
     photo: null,
     role: 'Admin',
+    teams: [],
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()

@@ -3,7 +3,7 @@ import { Box, Text, BaseOpacity } from 'utils/theme'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
 import { SIZE_W, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
-import { Team } from 'mock-api/models/Organization'
+import { Team } from 'mock-api/models/mirageTypes'
 
 type TeamElementProps = Team & {
   navigateToTeamScreen: F0

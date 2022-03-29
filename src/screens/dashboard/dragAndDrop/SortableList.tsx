@@ -10,12 +10,12 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
-import { MateHolidaysData } from 'types/holidaysDataTypes'
+import { User } from 'mock-api/models/mirageTypes'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 type SortableListProps = {
   children: ReactElement<{ id: number }>[]
-  openUserModal: F1<MateHolidaysData>
+  openUserModal: F1<User>
 }
 
 export const SortableList = ({ children, openUserModal }: SortableListProps) => {

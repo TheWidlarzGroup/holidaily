@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
-import { HolidayDetails, HolidayDetailsOptional } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { displayDatesRange } from 'utils/functions'
 
 import IconSickLeave from 'assets/icons/icon-sick-leave.svg'
+import { User } from 'mock-api/models/mirageTypes'
 
-export const MateHoliday = (props: HolidayDetails & HolidayDetailsOptional) => {
-  const { isOnHoliday, dayStart, dayEnd, sickLeave, description } = props
+export const MateHoliday = (props: User) => {
+  const { isOnHoliday, startDate, endDate, isSickTime, description } = props.requests[0]
   const { t } = useTranslation('dashboard')
 
   const header = isOnHoliday ? 'outOfWorkNow' : 'outOfWorkSoon'
@@ -22,9 +22,9 @@ export const MateHoliday = (props: HolidayDetails & HolidayDetailsOptional) => {
         {description || t('coupleDaysOff')}
       </Text>
       <Text variant="regularGrey16" color={color} marginTop="s" marginBottom="xs">
-        {dayStart && dayEnd && displayDatesRange(dayStart, dayEnd)}
+        {startDate && endDate && displayDatesRange(startDate, endDate)}
       </Text>
-      {sickLeave && (
+      {isSickTime && (
         <Box flexDirection="row" alignItems="center">
           <IconSickLeave />
           <Text variant="inputErrorMessage" paddingLeft="xs" color={color}>

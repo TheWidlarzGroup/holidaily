@@ -4,8 +4,8 @@ import { TeamsType } from 'utils/mocks/teamsMocks'
 export type ValidationOfCompanyDayOff = {
   id: number
   isOnHoliday: boolean
-  dayStart: string
-  dayEnd: string
+  startDate: string
+  endDate: string
   user: UserData
 }
 export type UserData = {
@@ -18,11 +18,11 @@ export type UserData = {
 export type HolidayDetails = {
   id: number
   isOnHoliday: boolean
-  dayStart?: string
-  dayEnd?: string
+  startDate?: string
+  endDate?: string
 }
 export type HolidayDetailsOptional = {
-  sickLeave?: boolean
+  isSickTime?: boolean
   description?: string
 }
 
@@ -42,8 +42,8 @@ export type UserDetails = {
   holidays?: {
     id: number
     isOnHoliday: boolean
-    dayStart: string
-    dayEnd: string
+    startDate: string
+    endDate: string
   }
   teams?: string[]
   photo?: string | null

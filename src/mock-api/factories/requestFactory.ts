@@ -44,6 +44,7 @@ export function genRandomDayOffRequest(): Partial<DayOffRequest> {
   request.description = `description-${Math.round(Math.random() * 1000)}`
   request.message = `message-${Math.round(Math.random() * 1000)}`
   request.isSickTime = !!(randomInt() % 2)
+  request.isOnHoliday = true
   return request
 }
 

@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import { Organization } from 'mock-api/models/Organization'
+import { Organization } from 'mock-api/models/mirageTypes'
 import { QueryKeys } from '../QueryKeys'
 import { API } from '../API'
 
