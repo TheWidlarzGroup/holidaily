@@ -6,14 +6,14 @@ import { Box, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/backArrow.svg'
 import { useTranslation } from 'react-i18next'
 
-type HeaderProps = { step: number; setStep: F1<number> } | { isSent: true }
+type HeaderProps = { step: number; setStep: F1<number> }
 
-export const RequestVacationHeaderText = (p: HeaderProps) => {
+export const HeaderRequestVacation = ({ step, setStep }: HeaderProps) => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('requestVacation')
 
   const onStepBack = () => {
-    if ('step' in p && p.step > 0) p.setStep(p.step - 1)
+    if (step > 0) setStep(step - 1)
     else goBack()
   }
 
