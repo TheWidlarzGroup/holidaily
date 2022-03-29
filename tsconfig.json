@@ -18,7 +18,7 @@
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
-      "reactQuery/*": ["react-query/*"]
+      "dataAccess/*": ["data-access/*"]
     },
     "resolveJsonModule": true
   }

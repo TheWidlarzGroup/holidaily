@@ -6,11 +6,11 @@ import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { QueryClientProvider } from 'react-query'
-import { queryClient } from './react-query/queryClient'
+import { queryClient } from './data-access/queryClient'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
-import { useCreateTempUser } from './react-query/mutations/useCreateTempUser'
+import { useCreateTempUser } from './data-access/mutations/useCreateTempUser'
 
 initBackendMocks()
 export const Main = () => {
