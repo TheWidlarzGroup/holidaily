@@ -23,7 +23,7 @@ export const Main = () => {
           data: { user },
         } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
         axios.defaults.headers.common.userId = user.id
-        // console.log(user)
+        console.log(user)
         // const { data } = await axios.get(`api/requests/${user.id}`)
         await axios.post('api/request', {
           isSickTime: true,
@@ -32,9 +32,11 @@ export const Main = () => {
           endDate: new Date(),
           startDate: new Date(),
         })
-        // console.log(data)
+        const { data } = await axios.get('/api/available-pto')
+        console.log(data)
       } catch (error) {
-        console.error(error.response.headers)
+        if (error.response) console.error(error.response.headers, error.response.data)
+        else console.error(error)
       }
     }
     checkIfMockWorks()
