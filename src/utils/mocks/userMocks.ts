@@ -1,3 +1,5 @@
+import { User } from 'mock-api/models/mirageTypes'
+
 export const USER_DATA = {
   id: '',
   firstName: 'Paweł',
@@ -13,7 +15,7 @@ export const USER_DATA = {
   teams: [],
 }
 
-export const TEAM_MATES_AKADEMIA = [
+export const TEAM_MATES_AKADEMIA: User[] = [
   {
     id: '',
     firstName: 'Paweł',
@@ -25,12 +27,73 @@ export const TEAM_MATES_AKADEMIA = [
     userColor: '',
     language: 'pl',
     role: 'Admin',
-    requests: [],
     teams: [],
+    requests: [
+      {
+        description: '',
+        id: '',
+        message: '',
+        startDate: '',
+        endDate: '',
+        isSickTime: true,
+        status: 'accepted',
+        isOnHoliday: true,
+      },
+    ],
+  },
+  {
+    id: '',
+    firstName: 'Paweł',
+    lastName: 'Ogonek',
+    photo: null,
+    email: '',
+    confirmed: true,
+    occupation: '',
+    userColor: '',
+    language: 'pl',
+    role: 'Admin',
+    teams: [],
+    requests: [
+      {
+        description: '',
+        id: '',
+        message: '',
+        startDate: '',
+        endDate: '',
+        isSickTime: true,
+        status: 'accepted',
+        isOnHoliday: true,
+      },
+    ],
+  },
+  {
+    id: '',
+    firstName: 'Paweł',
+    lastName: 'Ogonek',
+    photo: null,
+    email: '',
+    confirmed: true,
+    occupation: '',
+    userColor: '',
+    language: 'pl',
+    role: 'Admin',
+    teams: [],
+    requests: [
+      {
+        description: '',
+        id: '',
+        message: '',
+        startDate: '',
+        endDate: '',
+        isSickTime: true,
+        status: 'accepted',
+        isOnHoliday: true,
+      },
+    ],
   },
 ]
 
-export const TEAM_MATES_DEV = [
+export const TEAM_MATES_DEV: User[] = [
   {
     id: '',
     firstName: 'Paweł',

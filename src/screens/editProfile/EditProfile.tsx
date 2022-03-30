@@ -10,15 +10,15 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
 import IconBack from 'assets/icons/icon-back.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { User } from 'mock-api/models/mirageTypes'
 import { keys } from 'utils/manipulation'
-import { UserData } from 'contexts/UserContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
-type EditDetailsTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
+type EditDetailsTypes = Pick<User, 'firstName' | 'lastName' | 'occupation'>
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()

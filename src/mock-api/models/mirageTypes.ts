@@ -9,7 +9,7 @@ export type User = {
   userColor: string
   language: 'pl' | 'en'
   photo: string | null
-  role: 'Admin'
+  role: string
   requests: DayOffRequest[]
 }
 

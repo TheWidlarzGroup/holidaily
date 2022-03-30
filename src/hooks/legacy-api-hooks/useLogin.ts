@@ -6,7 +6,6 @@ import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
 import { setItemAsync } from 'expo-secure-store'
 import { authorizeClient } from 'graphqlActions/client'
-import { useUserContext } from '../useUserContext'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
@@ -18,7 +17,7 @@ const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessag
 export const useLogin = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState('')
   const { t } = useTranslation('mutationsErrors')
-  const { updateUser } = useUserContext()
+  // const { updateUser } = useUserContext()
   const { mutate: handleLoginUser, isLoading } = useMutation<
     LoginUserTypes,
     ErrorTypes,
@@ -28,7 +27,7 @@ export const useLogin = () => {
       const { token, user } = data.loginUser
 
       if (user.confirmed) {
-        updateUser({ ...user, isConfirmed: user.confirmed })
+        // updateUser({ ...user, isConfirmed: user.confirmed })
         await setItemAsync('token', token)
         await setItemAsync('hideSlider', 'true')
         authorizeClient(token)

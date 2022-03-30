@@ -25,7 +25,7 @@ export const initBackendMocks = () =>
     },
     seeds(server) {
       const users = usersList.map((user) => {
-        const userRecord = server.create('user', { ...user })
+        const userRecord = server.create('user', user)
         server.create('request', { ...genRandomDayOffRequest(), user: userRecord })
         return userRecord
       })

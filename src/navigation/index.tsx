@@ -7,8 +7,8 @@ import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'
 import { authorizeClient } from 'graphqlActions/client'
 import { sleep } from 'utils/sleep'
-import { UserData } from 'contexts/UserContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { User } from 'mock-api/models/mirageTypes'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -29,7 +29,7 @@ export const AppNavigation = () => {
       await sleep(3500)
 
       if (userName) {
-        const userData: Partial<UserData> = { firstName: userName }
+        const userData: Partial<User> = { firstName: userName }
         if (userLastName) userData.lastName = userLastName
         if (userOcuppation) userData.occupation = userOcuppation
         updateUser(userData)
