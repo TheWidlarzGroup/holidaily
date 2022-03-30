@@ -15,7 +15,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   if (!data) return null
 
-  const allSortedUsers = getClosestHolidayRequests(data.teams)
+  const usersWithHoliday = getClosestHolidayRequests(data.teams)
 
   const displayDay = (user: User) => {
     if (user.requests[0].isOnHoliday) {
@@ -29,7 +29,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {allSortedUsers.slice(0, 12).map((user) => (
+      {usersWithHoliday.slice(0, 12).map((user) => (
         <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
           <CarouselElement
             isOnHoliday={user.requests[0].isOnHoliday}
