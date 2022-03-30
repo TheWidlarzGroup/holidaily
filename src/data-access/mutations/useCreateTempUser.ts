@@ -6,14 +6,14 @@ import { queryClient } from '../queryClient'
 import { QueryKeys } from '../QueryKeys'
 
 export type PostTempUserBody = Pick<User, 'firstName'> & Partial<User>
-export type PostTemUserSuccess = { user: User }
+export type PostTempUserSuccess = { user: User }
 
-const postUser = async (body: PostTempUserBody): Promise<PostTemUserSuccess> => {
-  const { data } = await axios.post<PostTemUserSuccess>(API.POST.createTempUser, body)
+const postUser = async (body: PostTempUserBody): Promise<PostTempUserSuccess> => {
+  const { data } = await axios.post<PostTempUserSuccess>(API.POST.createTempUser, body)
   return data
 }
 export const useCreateTempUser = () =>
-  useMutation<PostTemUserSuccess, AxiosError<{ errors: string[] }>, PostTempUserBody>(postUser, {
+  useMutation<PostTempUserSuccess, AxiosError<{ errors: string[] }>, PostTempUserBody>(postUser, {
     onSuccess: (payload) => {
       queryClient.setQueryData([QueryKeys.USER], () => ({ ...payload }))
       axios.defaults.headers.common.userId = payload.user.id
