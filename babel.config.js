@@ -35,6 +35,8 @@ module.exports = {
           screens: './src/screens',
           types: './src/types',
           utils: './src/utils',
+          dataAccess: './src/data-access',
+          mockApi: './src/mock-api',
         },
       },
     ],
