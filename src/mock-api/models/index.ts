@@ -13,12 +13,13 @@ export type Schema = {
 export const Models = {
   user: Model.extend({
     dayOffRequest: hasMany(),
+    notificationsCaused: hasMany('notification'),
   }),
   dayOffRequest: Model.extend({
     user: belongsTo(),
   }),
   notification: Model.extend({
-    user: belongsTo(),
+    source: belongsTo('user'),
   }),
   organization: Model,
 }

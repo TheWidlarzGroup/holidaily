@@ -5,8 +5,7 @@ export type Notification = {
   createdAt: string
   source: User
   wasSeenByHolder: boolean
-  // better name would be holder instead of user, but there's less overhead in mirage if we name relationship props the same as models
-  user: User
+  holderId: string
 } & (
   | {
       type: 'like' | 'comment'
