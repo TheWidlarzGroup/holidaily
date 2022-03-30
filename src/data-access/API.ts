@@ -5,6 +5,6 @@ export const API = {
   },
 
   POST: {
-    createTempUser: 'api/users',
+    createTempUser: '/api/users',
   },
 }

@@ -18,7 +18,8 @@
       "screens/*": ["screens/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
-      "dataAccess/*": ["data-access/*"]
+      "dataAccess/*": ["data-access/*"],
+      "mockApi/*": ["mock-api/*"]
     },
     "resolveJsonModule": true
   }
