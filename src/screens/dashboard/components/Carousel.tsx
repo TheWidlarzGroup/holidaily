@@ -38,7 +38,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   const displayDay = (user: User) => {
     if (user.requests[0].isOnHoliday) {
-      return format(new Date(user.requests[0].endDate), 'dd MMMM')
+      return format(new Date(user.requests[0].startDate), 'dd MMMM')
     }
     if (!user.requests[0].isOnHoliday) {
       return format(new Date(user.requests[0].startDate), 'dd MMMM ')
@@ -48,21 +48,20 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {allSortedUsers.length > 0 &&
-        allSortedUsers.map((user) => {
-          displayDay(user)
-          return (
-            <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
-              <CarouselElement
-                isOnHoliday={user.requests[0].isOnHoliday}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                photo={user.photo}
-                dayToBeDisplayed={displayDay(user)}
-              />
-            </TouchableOpacity>
-          )
-        })}
+      {allSortedUsers.map((user) => {
+        displayDay(user)
+        return (
+          <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
+            <CarouselElement
+              isOnHoliday={user.requests[0].isOnHoliday}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              photo={user.photo}
+              dayToBeDisplayed={displayDay(user)}
+            />
+          </TouchableOpacity>
+        )
+      })}
     </ScrollView>
   )
 }
