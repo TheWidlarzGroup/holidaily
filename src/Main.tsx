@@ -23,13 +23,13 @@ export const Main = () => {
           data: { user },
         } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
         axios.defaults.headers.common.userId = user.id
-        console.log(user)
-        // const { data } = await axios.get(`api/requests/${user.id}`)
+        const endDate = new Date()
+        endDate.setMonth(6)
         await axios.post('api/request', {
           isSickTime: true,
           description: 'test',
           message: 'tsest',
-          endDate: new Date(),
+          endDate,
           startDate: new Date(),
         })
         const { data } = await axios.get('/api/available-pto')

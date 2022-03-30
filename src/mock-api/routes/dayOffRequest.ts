@@ -22,8 +22,7 @@ function fetchAvailablePto(schema: Schema<ModelsSchema>, req: Request) {
   } catch (error) {
     return new Response(401)
   }
-  console.log('PTO', user.availablePto)
-  return new Response(200, {}, { availablePto: '24' })
+  return new Response(200, {}, { availablePto: user.availablePto })
 }
 
 function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
@@ -46,15 +45,12 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   const payload = initPayloadService()
   const { httpError } = payload
   payload.validate(fields, body)
-  console.log('REWTREW', payload.body)
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
-  if (
-    !user.availablePto ||
+  const notEnoughPto =
     user.availablePto -
       calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate)) <
-      0
-  )
-    return new Response(403, {}, { errors: String(['Not enough available PTO']) })
+    0
+  if (notEnoughPto) return new Response(403, {}, { errors: String(['Not enough available PTO']) })
   return schema.create('dayOffRequest', {
     ...payload.body,
     status: 'PENDING',
