@@ -2,6 +2,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { User } from 'mockApi/models'
+import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -27,7 +28,7 @@ export const emptyUser: User = {
 const PROFILE_PIC_STORE_KEY = 'profile-pic'
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
-
+  const { reset: clearUserCache } = useCreateTempUser()
   useEffect(() => {
     const loadImageIfPossible = async () => {
       const profilePic = await AsyncStorage.getItem(PROFILE_PIC_STORE_KEY)
@@ -39,22 +40,20 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     loadImageIfPossible()
   }, [])
 
-  const updateUser = useCallback(
-    (newData: Partial<User> | null) => {
-      if (newData?.photo && newData.photo !== user?.photo) {
-        AsyncStorage.setItem(PROFILE_PIC_STORE_KEY, newData.photo)
-      }
-      setUser((usr) => {
-        if (usr) return { ...usr, ...newData }
-        return { ...emptyUser, ...newData }
-      })
-    },
-    [user?.photo]
-  )
+  const updateUser = useCallback((newData: Partial<User> | null) => {
+    if (newData?.photo) {
+      AsyncStorage.setItem(PROFILE_PIC_STORE_KEY, newData.photo)
+    }
+    setUser((usr) => {
+      if (usr) return { ...usr, ...newData }
+      return { ...emptyUser, ...newData }
+    })
+  }, [])
 
   const handleLogout = async () => {
     await AsyncStorage.multiRemove(['firstName', 'lastName', 'occupation', PROFILE_PIC_STORE_KEY])
     delete axios.defaults.headers.common.userId
+    clearUserCache()
     setUser(null)
   }
 
