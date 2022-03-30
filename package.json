@@ -31,6 +31,7 @@
     "deepmerge": "^4.2.2",
     "expo-location": "^12.1.2",
     "expo-secure-store": "^10.2.0",
+    "faker": "^6.6.6",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "i18next": "^21.6.14",
