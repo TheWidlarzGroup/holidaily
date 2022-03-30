@@ -3,6 +3,7 @@ export type User = {
   email: string
   firstName: string
   id: string
+  color: string
   lastName: string
   occupation: string
   organization: any
@@ -10,4 +11,5 @@ export type User = {
   language: 'pl' | 'en'
   photo: string | null
   role: 'Admin'
+  availablePto: number
 }

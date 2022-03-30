@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
@@ -10,42 +10,11 @@ import { queryClient } from './data-access/queryClient'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
-import { useCreateTempUser } from './data-access/mutations/useCreateTempUser'
 
 initBackendMocks()
 export const Main = () => {
   // FIXME: read from user preferences
   const darkMode = false
-
-  const { mutate: createTempUser, data, isLoading, isSuccess, isIdle } = useCreateTempUser()
-  useEffect(() => {
-    // const checkIfMockWorks = async () => {
-    //   try {
-    //     const {
-    //       data: { user },
-    //     } = await axios.post('api/users', { firstName: 'John', lastName: 'Doe' })
-    //     axios.defaults.headers.common.userId = user.id
-
-    //     // console.log(user)
-    //     // const { data } = await axios.get(`api/requests/${user.id}`)
-    //     await axios.post('api/request', {
-    //       isSickTime: true,
-    //       description: 'test',
-    //       message: 'tsest',
-    //       endDate: new Date(),
-    //       startDate: new Date(),
-    //     })
-    //     // console.log(data)
-    //   } catch (error) {
-    //     console.error(error.response.headers)
-    //   }
-    // }
-    // checkIfMockWorks()
-    if (isIdle) createTempUser({ firstName: 'dzony' })
-    else if (isLoading) console.log('loading')
-    else if (isSuccess) console.log('success ', data)
-    else console.log('something went wrong')
-  }, [isSuccess, data, isLoading, isIdle, createTempUser])
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
