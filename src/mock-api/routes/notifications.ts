@@ -15,6 +15,5 @@ function fetchNotifications(schema: Schema<ModelsSchema>, req: Request) {
     return new Response(401)
   }
   // @ts-ignore
-  // console.log(schema.where('notification', (a) => a.holderId === user.id))
   return schema.where('notification', (a) => a.holderId === user.id)
 }
