@@ -24,12 +24,13 @@ export const initBackendMocks = () =>
       teamRoutes(this)
     },
     seeds(server) {
-      const users = usersList.map((user) =>
-        server.create('user', {
+      const users = usersList.map((user) => {
+        const userRecord = server.create('user', {
           ...user,
-          requests: [server.create('request', genRandomDayOffRequest())],
         })
-      )
+        server.create('request', { ...genRandomDayOffRequest(), user: userRecord })
+        return userRecord
+      })
       const team1 = server.create('team', {
         name: 'SmartSoft',
         users: [users[1], users[2], users[3], users[4], users[29], users[39], users[19]],

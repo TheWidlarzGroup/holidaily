@@ -11,7 +11,7 @@ export const userFactory = Factory.extend({
   language: 'en',
   photo: null,
   role: 'Admin',
-  teams: [],
+  availablePto: Math.round(Math.random() * 24),
   // @ts-ignore
   afterCreate(user, server) {
     server.createList('request', 10, { user })

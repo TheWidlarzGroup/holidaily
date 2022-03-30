@@ -10,6 +10,7 @@ export type User = {
   language: 'pl' | 'en'
   photo: string | null
   role: string
+  availablePto: number
   requests: DayOffRequest[]
 }
 

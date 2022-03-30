@@ -29,16 +29,16 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     'photo',
     'userColor',
   ]
-  const defaultValues = {
+  const defaultValues: Partial<User> = {
     confirmed: true,
     email: '',
     lastName: '',
     occupation: '',
-    color: '#FF8B3F',
     language: 'en',
     photo: null,
     role: 'Admin',
     teams: [],
+    availablePto: 24,
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()
@@ -46,7 +46,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   payload.validate(mandatoryFields, body)
   payload.fill(optionalFields, body)
 
-  if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
+  if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
   const response = schema.create('user', { ...defaultValues, ...payload.body })
   for (let i = 0; i < 10; i++) {
     if (!response.id) break

@@ -27,6 +27,7 @@ export const TEAM_MATES_AKADEMIA: User[] = [
     userColor: '',
     language: 'pl',
     role: 'Admin',
+    availablePto: 20,
     teams: [],
     requests: [
       {
@@ -52,6 +53,7 @@ export const TEAM_MATES_AKADEMIA: User[] = [
     userColor: '',
     language: 'pl',
     role: 'Admin',
+    availablePto: 20,
     teams: [],
     requests: [
       {
@@ -77,6 +79,7 @@ export const TEAM_MATES_AKADEMIA: User[] = [
     userColor: '',
     language: 'pl',
     role: 'Admin',
+    availablePto: 20,
     teams: [],
     requests: [
       {
@@ -105,6 +108,7 @@ export const TEAM_MATES_DEV: User[] = [
     userColor: '',
     language: 'pl',
     role: 'Admin',
+    availablePto: 20,
     requests: [],
     teams: [],
   },

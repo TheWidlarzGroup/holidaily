@@ -2,8 +2,8 @@ import format from 'date-fns/format'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
-import { useGetOrganization } from 'reactQuery/queries/useOrganizationQuery'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
+import { useGetOrganization } from '../../../data-access/queries/useOrganizationQuery'
 
 type CarouselProps = {
   openUserModal: F1<User>
@@ -48,20 +48,17 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {allSortedUsers.map((user) => {
-        displayDay(user)
-        return (
-          <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
-            <CarouselElement
-              isOnHoliday={user.requests[0].isOnHoliday}
-              firstName={user.firstName}
-              lastName={user.lastName}
-              photo={user.photo}
-              dayToBeDisplayed={displayDay(user)}
-            />
-          </TouchableOpacity>
-        )
-      })}
+      {allSortedUsers.map((user) => (
+        <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
+          <CarouselElement
+            isOnHoliday={user.requests[0].isOnHoliday}
+            firstName={user.firstName}
+            lastName={user.lastName}
+            photo={user.photo}
+            dayToBeDisplayed={displayDay(user)}
+          />
+        </TouchableOpacity>
+      ))}
     </ScrollView>
   )
 }

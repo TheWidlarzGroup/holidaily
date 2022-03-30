@@ -11,7 +11,7 @@ import { Team, User } from 'mock-api/models/mirageTypes'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
 import { DashboardTeamMember } from './DashboardTeamMember'
-import { useGetOrganization } from '../../reactQuery/queries/useOrganizationQuery'
+import { useGetOrganization } from '../../data-access/queries/useOrganizationQuery'
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User>(emptyUser)
@@ -31,7 +31,6 @@ export const Dashboard = () => {
 
   const { data } = useGetOrganization()
   if (!data) return null
-  // console.log(data.teams[0].users[0])
 
   return (
     <>

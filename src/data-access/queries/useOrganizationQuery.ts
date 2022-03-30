@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { Organization } from 'mock-api/models/mirageTypes'
-import { QueryKeys } from '../QueryKeys'
-import { API } from '../API'
+import { QueryKeys } from 'dataAccess/QueryKeys'
+import { API } from 'dataAccess/API'
 
 export const getOrganization = async () => {
   const response = await axios.get(API.GET.getOrganization)

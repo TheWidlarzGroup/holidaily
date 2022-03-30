@@ -20,6 +20,7 @@ export const emptyUser: User = {
   userColor: '',
   language: 'en',
   role: 'Admin',
+  availablePto: 20,
   requests: [],
   teams: [],
 }

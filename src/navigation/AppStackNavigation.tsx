@@ -1,6 +1,5 @@
 import React from 'react'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
-
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'

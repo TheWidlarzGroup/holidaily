@@ -1,15 +1,28 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { calculatePTO } from 'utils/dates'
 import { initPayloadService } from '../utils/payloadService'
 import { DayOffRequest, Schema as ModelsSchema } from '../models'
+import { requireAuth } from '../utils/requireAuth'
 
 export function dayOffRoutes(context: Server<ModelsSchema>) {
   context.get('/requests/:userId', fetchUserRequests)
+  context.get('/available-pto', fetchAvailablePto)
   context.post('/request', createDayOffRequest)
 }
 function fetchUserRequests(schema: Schema<ModelsSchema>, req: Request) {
   // @ts-ignore
   return schema.where('request', (a) => a.userId === req.params.userId)
+}
+
+function fetchAvailablePto(schema: Schema<ModelsSchema>, req: Request) {
+  let user
+  try {
+    user = requireAuth(schema, req)
+  } catch (error) {
+    return new Response(401)
+  }
+  return new Response(200, {}, { availablePto: user.availablePto })
 }
 
 function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
@@ -20,15 +33,26 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
     'message',
     'startDate',
   ]
-  const { userId } = req.requestHeaders
-  if (!userId) return new Response(401)
-  const user = schema.find('user', userId)
-  if (!user) return new Response(401)
+  let user
+  try {
+    user = requireAuth(schema, req)
+  } catch (error) {
+    return new Response(401)
+  }
+
   const body = JSON.parse(req.requestBody)
 
-  const { httpError, ...payload } = initPayloadService()
+  const payload = initPayloadService()
+  const { httpError } = payload
   payload.validate(fields, body)
-  if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
+  if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
+  const userPtoAfterRequest =
+    user.availablePto -
+    calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate))
+  if (userPtoAfterRequest < 0)
+    return new Response(403, {}, { errors: String(['Not enough available PTO']) })
+  // @ts-ignore
+  user.update({ availablePto: userPtoAfterRequest })
   return schema.create('request', {
     ...payload.body,
     status: 'PENDING',
