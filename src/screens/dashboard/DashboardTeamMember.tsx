@@ -7,9 +7,9 @@ import { MateHoliday } from 'screens/dashboard/components/MateHoliday'
 import { MateHolidayDetail } from 'screens/dashboard/components/MateHolidayDetail'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { MateHolidaysData } from 'types/holidaysDataTypes'
+import { User } from 'mock-api/models/mirageTypes'
 
-type MemberProps = { user: MateHolidaysData; closeModal: F0 }
+type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
   <SafeAreaWrapper isDefaultBgColor>
@@ -21,10 +21,10 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
           <IconBack height={18} width={18} />
         </TouchableOpacity>
         <MateHeader {...user} />
-        <MateHoliday {...user?.holidays} />
+        <MateHoliday {...user} />
         <Box flexDirection="row">
-          <MateHolidayDetail type="start" date={user?.holidays.dayStart || ''} />
-          <MateHolidayDetail type="end" date={user?.holidays.dayEnd || ''} />
+          <MateHolidayDetail type="start" date={user?.requests[0].startDate || ''} />
+          <MateHolidayDetail type="end" date={user?.requests[0].endDate || ''} />
         </Box>
       </ScrollView>
     </Box>

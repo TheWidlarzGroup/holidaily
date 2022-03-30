@@ -9,8 +9,8 @@ export const USER_DATA: UserDetails = {
   holidays: {
     id: 1,
     isOnHoliday: false,
-    dayStart: '21-10-2021',
-    dayEnd: '29-10-2021',
+    startDate: '21-10-2021',
+    endDate: '29-10-2021',
   },
   teams: ['Smartsoft', 'Akademia'],
 }
