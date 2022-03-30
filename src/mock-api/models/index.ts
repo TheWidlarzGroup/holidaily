@@ -7,6 +7,7 @@ export type Schema = {
   user: User[]
   organization: Organization[]
   dayOffRequest: DayOffRequest[]
+  notification: Notification[]
 }
 
 export const Models = {
@@ -14,6 +15,9 @@ export const Models = {
     dayOffRequest: hasMany(),
   }),
   dayOffRequest: Model.extend({
+    user: belongsTo(),
+  }),
+  notification: Model.extend({
     user: belongsTo(),
   }),
   organization: Model,

@@ -4,6 +4,7 @@ import { userFactory } from './factories/userFactory'
 import { Models } from './models'
 import { dayOffRoutes } from './routes/dayOffRequest'
 import { userRoutes } from './routes/user'
+import { notificationSources } from './seeds/notificationSources'
 
 export const initBackendMocks = () =>
   createServer({
@@ -19,5 +20,6 @@ export const initBackendMocks = () =>
     },
     seeds(server) {
       server.createList('user', 50)
+      notificationSources(server)
     },
   })
