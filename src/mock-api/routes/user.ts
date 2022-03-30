@@ -43,10 +43,8 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()
-  console.log('USERRR', payload.body)
   payload.validate(mandatoryFields, body)
   payload.fill(optionalFields, body)
-  console.log('boddyy', payload.body)
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
   const response = schema.create('user', { ...defaultValues, ...payload.body })
   const user = schema.find('user', response.id)
