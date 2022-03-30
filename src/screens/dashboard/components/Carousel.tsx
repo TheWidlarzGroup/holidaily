@@ -16,6 +16,10 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   const getClosestHolidayRequests = (teams: Team[]) => {
     teams.forEach((team) => allSortedUsers.push(...team.users))
+    allSortedUsers = allSortedUsers.filter(
+      (user, index, arr) =>
+        arr.findIndex((usr) => usr.id === user.id && usr.id === user.id) === index
+    )
     allSortedUsers = allSortedUsers.filter((user) => user.requests.length > 0)
 
     const sortByDate = (a: User, b: User) => {
@@ -28,13 +32,13 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   if (!data) return null
 
-  if (data?.teams) {
+  if (data.teams) {
     getClosestHolidayRequests(data.teams)
   }
 
   const displayDay = (user: User) => {
     if (user.requests[0].isOnHoliday) {
-      return format(new Date(user.requests[0].startDate), 'dd MMMM')
+      return format(new Date(user.requests[0].endDate), 'dd MMMM')
     }
     if (!user.requests[0].isOnHoliday) {
       return format(new Date(user.requests[0].startDate), 'dd MMMM ')
@@ -44,20 +48,21 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      {allSortedUsers.slice(0, 12).map((user) => {
-        displayDay(user)
-        return (
-          <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
-            <CarouselElement
-              isOnHoliday={user.requests[0].isOnHoliday}
-              firstName={user.firstName}
-              lastName={user.lastName}
-              photo={user.photo}
-              dayToBeDisplayed={displayDay(user)}
-            />
-          </TouchableOpacity>
-        )
-      })}
+      {allSortedUsers.length > 0 &&
+        allSortedUsers.map((user) => {
+          displayDay(user)
+          return (
+            <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openUserModal(user)}>
+              <CarouselElement
+                isOnHoliday={user.requests[0].isOnHoliday}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                photo={user.photo}
+                dayToBeDisplayed={displayDay(user)}
+              />
+            </TouchableOpacity>
+          )
+        })}
     </ScrollView>
   )
 }

@@ -49,7 +49,7 @@ export const usersList = [
   },
   {
     firstName: 'Basia',
-    lastName: 'Wysokogórska-Nowak',
+    lastName: 'Kowalska',
     photo: 'https://randomuser.me/api/portraits/women/2.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
