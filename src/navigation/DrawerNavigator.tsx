@@ -11,7 +11,7 @@ import { useSiriListeners } from 'hooks/useSiriListeners'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
-import { AdminPanelEmployeesNavigation } from './AdminPanelEmployeesNavigation'
+// import { AdminPanelEmployeesNavigation } from './AdminPanelEmployeesNavigation'
 import { BudgetNavigation } from './BudgetNavigation'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
