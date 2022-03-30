@@ -11,7 +11,7 @@ import { Team, User } from 'mock-api/models/mirageTypes'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
 import { DashboardTeamMember } from './DashboardTeamMember'
-import { useGetOrganization } from '../../data-access/queries/useOrganizationQuery'
+import { useGetOrganization } from '../../data-access/queries/useOrganizationData'
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User>(emptyUser)

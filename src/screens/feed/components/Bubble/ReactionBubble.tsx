@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Text } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
-import { Reaction } from 'screens/feed/types'
+import { Reaction } from 'mock-api/models/miragePostTypes'
 import { Bubble } from './Bubble'
 
 type ReactionBubbleProps = {

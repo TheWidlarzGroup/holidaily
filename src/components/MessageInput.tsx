@@ -12,7 +12,7 @@ import { themeBase } from 'utils/theme/themeBase'
 import { useCombinedRefs } from 'hooks/useCombinedRefs'
 import { useUserContext } from 'hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
-import { Comment } from 'screens/feed/types'
+import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 
 export type MessageInputProps = {
@@ -70,8 +70,8 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         id: generateUUID(),
         author: {
           id: user?.id || '',
-          firstName: user?.firstName || '',
-          lastName: user?.lastName || '',
+          occupation: user?.occupation || '',
+          name: `${user?.firstName} ${user?.lastName}` || '',
           pictureUrl:
             user?.photo ||
             'https://images.unsplash.com/photo-1623790679437-72cbde564d59?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',

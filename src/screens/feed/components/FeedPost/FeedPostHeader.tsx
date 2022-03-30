@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost } from 'screens/feed/types'
+import { FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { FeedPostHeaderInfo } from 'screens/feed/FeedPostHeaderInfo/FeedPostHeaderInfo'

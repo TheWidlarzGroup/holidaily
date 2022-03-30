@@ -2,7 +2,7 @@ import React from 'react'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Box } from 'utils/theme'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Comment as CommentType, FeedPost } from '../../types'
+import { Comment as CommentType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
 

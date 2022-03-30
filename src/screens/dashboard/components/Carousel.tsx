@@ -4,7 +4,7 @@ import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getClosestHolidayRequests } from 'utils/closestHolidayRequests'
-import { useGetOrganization } from '../../../data-access/queries/useOrganizationQuery'
+import { useGetOrganization } from '../../../data-access/queries/useOrganizationData'
 
 type CarouselProps = {
   openUserModal: F1<User>
@@ -22,7 +22,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
       return format(new Date(user.requests[0].endDate), 'dd MMMM')
     }
     if (!user.requests[0].isOnHoliday) {
-      return format(new Date(user.requests[0].startDate), 'dd MMMM ')
+      return format(new Date(user.requests[0].startDate), 'dd MMMM')
     }
     return ''
   }

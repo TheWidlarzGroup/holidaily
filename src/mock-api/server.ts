@@ -4,7 +4,7 @@ import { usersList } from './factories/userFactory'
 import { Models } from './models'
 import { dayOffRoutes } from './routes/dayOffRequest'
 import { organizationRoute } from './routes/organization'
-import { teamRoutes } from './routes/team'
+import { postsRoute } from './routes/post'
 import { userRoutes } from './routes/user'
 
 export const initBackendMocks = () =>
@@ -21,7 +21,7 @@ export const initBackendMocks = () =>
       userRoutes(this)
       dayOffRoutes(this)
       organizationRoute(this)
-      teamRoutes(this)
+      postsRoute(this)
     },
     seeds(server) {
       const users = usersList.map((user) => {

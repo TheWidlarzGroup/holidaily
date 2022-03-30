@@ -1,3 +1,4 @@
+import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useLanguage } from 'hooks/useLanguage'
 import React, { useState } from 'react'
 import { FlatList } from 'react-native'
@@ -10,6 +11,8 @@ import { MOCK_POSTS } from './MOCK_POSTS'
 export const Feed = () => {
   const [posts] = useState(MOCK_POSTS)
   const [language] = useLanguage()
+  const { data } = useGetPostsData()
+  console.log('FEED: ', data)
 
   return (
     <SafeAreaView>

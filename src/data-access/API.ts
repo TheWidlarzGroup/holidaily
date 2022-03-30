@@ -3,6 +3,7 @@ export const API = {
     allUsers: '/api/users',
     user: (id: string) => `api/users/${id}`,
     getOrganization: '/api/organization',
+    getPosts: '/api/posts',
   },
 
   POST: {
