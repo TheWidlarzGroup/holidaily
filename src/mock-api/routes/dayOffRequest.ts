@@ -46,11 +46,13 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   const { httpError } = payload
   payload.validate(fields, body)
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
-  const notEnoughPto =
+  const userPtoAfterRequest =
     user.availablePto -
-      calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate)) <
-    0
-  if (notEnoughPto) return new Response(403, {}, { errors: String(['Not enough available PTO']) })
+    calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate))
+  if (userPtoAfterRequest < 0)
+    return new Response(403, {}, { errors: String(['Not enough available PTO']) })
+  // @ts-ignore
+  user.update({ availablePto: userPtoAfterRequest })
   return schema.create('dayOffRequest', {
     ...payload.body,
     status: 'PENDING',
