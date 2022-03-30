@@ -1,6 +1,5 @@
-import { deleteItemAsync } from 'expo-secure-store'
+import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { authorizedClient } from 'graphqlActions/client'
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { ContextProps, UserContext, UserData } from './UserContext'
 
@@ -47,8 +46,8 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   )
 
   const handleLogout = async () => {
-    await deleteItemAsync('token')
-    authorizedClient.setHeader('Authorization', '')
+    await AsyncStorage.multiRemove(['firstName', 'lastName', 'occupation', PROFILE_PIC_STORE_KEY])
+    delete axios.defaults.headers.common.userId
     setUser(null)
   }
 
