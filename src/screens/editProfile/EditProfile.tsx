@@ -53,6 +53,7 @@ export const EditProfile = () => {
             navigation.navigate('Dashboard')
             navigation.dispatch(DrawerActions.openDrawer())
           }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
           style={styles.backBtn}
           activeOpacity={0.5}>
           <IconBack height={18} width={18} />
