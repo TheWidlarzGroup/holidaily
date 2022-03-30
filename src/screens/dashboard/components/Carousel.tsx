@@ -38,7 +38,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
 
   const displayDay = (user: User) => {
     if (user.requests[0].isOnHoliday) {
-      return format(new Date(user.requests[0].startDate), 'dd MMMM')
+      return format(new Date(user.requests[0].endDate), 'dd MMMM')
     }
     if (!user.requests[0].isOnHoliday) {
       return format(new Date(user.requests[0].startDate), 'dd MMMM ')
