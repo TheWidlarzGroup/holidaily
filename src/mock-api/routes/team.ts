@@ -7,6 +7,5 @@ export function teamRoutes(context: Server<ModelsSchema>) {
 }
 function fetchTeam(schema: Schema<ModelsSchema>, req: Request) {
   // @ts-ignore
-  // return schema.team.find(req.params.id)
   return schema.all('team', req.params.id)
 }

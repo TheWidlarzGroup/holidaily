@@ -4,6 +4,7 @@ import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
 import { SIZE_W, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
 import { Team } from 'mock-api/models/mirageTypes'
+import { qtyOnHolidayNow } from 'utils/functions'
 
 type TeamElementProps = Team & {
   navigateToTeamScreen: F0
@@ -26,7 +27,7 @@ export const TeamElement = (props: TeamElementProps) => {
           <Box flexDirection="row" alignItems="center">
             <IconPalm width={16} height={16} />
             <Text variant="label1" marginLeft="s">
-              {/* {qtyOnHolidayNow(users)} */}
+              {qtyOnHolidayNow(users)}
             </Text>
           </Box>
         </Box>

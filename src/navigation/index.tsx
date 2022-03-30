@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 import { useUserContext } from 'hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
-import { useUserData } from 'hooks/legacy-api-hooks/useUserData'
-import { getItemAsync } from 'expo-secure-store'
 import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'
-import { authorizeClient } from 'graphqlActions/client'
 import { sleep } from 'utils/sleep'
+import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { User } from 'mock-api/models/mirageTypes'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -16,37 +13,31 @@ import { AppStackNavigation } from './AppStackNavigation'
 type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
 
 export const AppNavigation = () => {
-  const { user, updateUser } = useUserContext()
-  const { fetchUser } = useUserData()
+  const { updateUser } = useUserContext()
+  const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const userName = await AsyncStorage.getItem('firstName')
-      const userLastName = await AsyncStorage.getItem('lastName')
-      const userOcuppation = await AsyncStorage.getItem('occupation')
-      SplashScreen.hide()
-      await sleep(3500)
-
-      if (userName) {
-        const userData: Partial<User> = { firstName: userName }
-        if (userLastName) userData.lastName = userLastName
-        if (userOcuppation) userData.occupation = userOcuppation
-        updateUser(userData)
-        return setLoginStatus('LoggedIn')
-      }
-
-      const authToken = await getItemAsync('token')
-      if (authToken) {
-        authorizeClient(authToken)
-        fetchUser()
-      }
-      const isAnotherVisit = await getItemAsync('hideSlider')
-      if (isAnotherVisit) return setLoginStatus('AnotherVisit')
-      return setLoginStatus('FirstVisit')
+      const [firstName, lastName, occupation] = await Promise.all([
+        AsyncStorage.getItem('firstName'),
+        AsyncStorage.getItem('lastName'),
+        AsyncStorage.getItem('occupation'),
+        sleep(3500),
+      ])
+      if (isTempUserCreated) return setLoginStatus('LoggedIn')
+      if (firstName) {
+        const userData: PostTempUserBody = { firstName }
+        if (lastName) userData.lastName = lastName
+        if (occupation) userData.occupation = occupation
+        createTempUser(userData, { onSuccess: (data) => updateUser(data.user) })
+      } else return setLoginStatus('FirstVisit')
     }
     checkLoginStatus()
-  }, [fetchUser, updateUser, user])
+  }, [updateUser, isTempUserCreated, createTempUser])
 
   return (
     <NavigationContainer linking={linking}>
