@@ -31,6 +31,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const { reset: clearUserCache } = useCreateTempUser()
 
   const updateUser = useCallback((newData: Partial<User> | null) => {
+    // checking if newData.photo !== user.photo makes updateUser dependend on user and changing its reference in unexpected way
     if (newData?.photo) {
       AsyncStorage.setItem(PROFILE_PIC_STORE_KEY, newData.photo)
     }
