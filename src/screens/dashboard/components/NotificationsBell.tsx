@@ -9,6 +9,8 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
     <BaseOpacity
       padding="m"
       alignItems="center"
+      position="absolute"
+      right={16}
       height={45}
       width={45}
       onPress={() => {
