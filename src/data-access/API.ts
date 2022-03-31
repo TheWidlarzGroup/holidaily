@@ -9,4 +9,8 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
   },
+
+  PATCH: {
+    markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
+  },
 }

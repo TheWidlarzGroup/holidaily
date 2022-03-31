@@ -39,7 +39,7 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
         item.wasSeenByHolder ? (
           <Notification {...item} />
         ) : (
-          <SwipeableNotification>
+          <SwipeableNotification notificationId={item.id}>
             <Notification {...item} />
           </SwipeableNotification>
         )

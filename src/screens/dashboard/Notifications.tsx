@@ -13,6 +13,7 @@ export const Notifications = () => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
+  console.log(data)
   return (
     <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
       <Box

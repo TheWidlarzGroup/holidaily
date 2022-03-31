@@ -3,17 +3,33 @@ import { useTranslation } from 'react-i18next'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import CheckIcon from 'assets/icons/icon-check.svg'
+import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
-export const SwipeableNotification = ({ children }: { children: React.ReactElement }) => {
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+export const SwipeableNotification = ({
+  children,
+  notificationId,
+}: React.PropsWithChildren<{ notificationId: string }>) => {
+  const opacity = useSharedValue(1)
   const { t } = useTranslation('notifications')
   const theme = useTheme()
+  const { mutate } = useMarkNotificationAsSeen()
+  const markAsSeen = () => {
+    opacity.value = withTiming(0)
+    mutate(notificationId)
+  }
+  const animatedOpacity = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }))
   const LeftActions = () => (
-    <Box
+    <AnimatedBox
+      style={animatedOpacity}
       backgroundColor="primary"
       marginBottom="m"
       borderBottomLeftRadius="lmin"
       borderTopLeftRadius="lmin"
-      width="40%">
+      width="100%">
       <BaseOpacity
         width="100%"
         height="100%"
@@ -37,11 +53,11 @@ export const SwipeableNotification = ({ children }: { children: React.ReactEleme
         left={20}
         zIndex="-1"
       />
-    </Box>
+    </AnimatedBox>
   )
 
   return (
-    <Swipeable renderLeftActions={LeftActions} leftThreshold={80}>
+    <Swipeable renderLeftActions={LeftActions} onSwipeableOpen={markAsSeen} leftThreshold={80}>
       {children}
     </Swipeable>
   )
