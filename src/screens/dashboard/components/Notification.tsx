@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { NotificationContent } from './NotificationContent'
@@ -11,7 +11,6 @@ export const Notification = ({
   ...p
 }: NotificationModel) => {
   const endDate = type === 'dayOff' ? (p as { endDate: string }).endDate : undefined
-  // const styles = useStyles()
   console.log(author)
   return (
     <Box
@@ -44,6 +43,3 @@ export const Notification = ({
     </Box>
   )
 }
-// const useStyles = mkUseStyles((theme: Theme) => ({
-//   avatar: { width: 56, borderLeftWidth: 16 },
-// }))
