@@ -17,7 +17,7 @@ export const FeedPostHeaderInfo = ({ meta }: FeedPostHeaderInfoProps) => {
         {formattedDate}
       </Text>
       <Text variant="label1">{author.name}</Text>
-      {/* <Text variant="captionText">{author.firstName}</Text> */}
+      <Text variant="captionText">{author.occupation}</Text>
     </Box>
   )
 }

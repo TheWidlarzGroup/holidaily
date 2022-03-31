@@ -1,4 +1,5 @@
 import { createServer, RestSerializer } from 'miragejs'
+import { posts } from './factories/posts'
 import { genRandomDayOffRequest } from './factories/requestFactory'
 import { usersList } from './factories/userFactory'
 import { Models } from './models'
@@ -72,5 +73,6 @@ export const initBackendMocks = () =>
         maxPtoDays: 30,
         teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
       })
+      posts.map((post) => server.create('post', post))
     },
   })

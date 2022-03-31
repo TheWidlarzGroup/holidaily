@@ -1,6 +1,6 @@
 import { FeedPost } from 'mockApi/models/miragePostTypes'
 
-export const MOCK_POSTS: FeedPost[] = [
+export const posts: FeedPost[] = [
   {
     meta: {
       id: '1',

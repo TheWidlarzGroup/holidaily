@@ -26,5 +26,7 @@ export const Models = {
   }),
   post: Model,
 }
+
 export * from './HttpError'
 export * from './mirageTypes'
+export * from './miragePostTypes'

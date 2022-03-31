@@ -6,7 +6,7 @@ import { FeedPost } from 'mockApi/models/miragePostTypes'
 
 export const getPostsData = async () => {
   const response = await axios.get(API.GET.getPosts)
-  return response.data
+  return response.data.posts
 }
 
 export const useGetPostsData = () => useQuery<FeedPost[]>(QueryKeys.POSTS, getPostsData)
