@@ -12,8 +12,6 @@ export function genRandomDayOffRequest(): Partial<DayOffRequest> {
   const statusSeed = randomInt() % 4
   const futureDate = new Date(Date.now() + DAY_IN_MS * dateRangeSeed())
   const pastDate = new Date(Date.now() - DAY_IN_MS * dateRangeSeed() - 1)
-  const after = isAfter(Date.now(), pastDate)
-  const before = isBefore(Date.now(), futureDate)
 
   switch (statusSeed) {
     case 0:
@@ -49,7 +47,6 @@ export function genRandomDayOffRequest(): Partial<DayOffRequest> {
   request.description = `description-${Math.round(Math.random() * 1000)}`
   request.message = `message-${Math.round(Math.random() * 1000)}`
   request.isSickTime = !!(randomInt() % 2)
-  request.isOnHoliday = after && before
   return request
 }
 

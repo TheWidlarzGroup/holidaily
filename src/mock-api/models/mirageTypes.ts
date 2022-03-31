@@ -12,6 +12,7 @@ export type User = {
   role: string
   availablePto: number
   requests: DayOffRequest[]
+  isOnHoliday: boolean
 }
 
 export type DayOffRequest = {
@@ -22,7 +23,6 @@ export type DayOffRequest = {
   endDate: string
   isSickTime: boolean
   status: 'accepted' | 'cancelled' | 'pending' | 'past'
-  isOnHoliday: boolean
 }
 
 export type Team = {
