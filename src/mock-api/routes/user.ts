@@ -61,7 +61,6 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   const Tom = schema.find('user', 'source-tom')
   schema.create('notification', {
     createdAt: faker.date.recent(0),
-    // "source: June" causes mirage to respond with 500 error
     source: June,
     wasSeenByHolder: false,
     holderId: user.id,
