@@ -2,7 +2,8 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Trans, useTranslation } from 'react-i18next'
 import { Notification } from 'mockApi/models'
-
+import { formatDate } from 'utils/formatDate'
+import { getCurrentLocale } from 'utils/locale'
 export const NotificationContent = ({
   type,
   firstName,
@@ -26,7 +27,9 @@ export const NotificationContent = ({
             i18nKey={type}
             values={{
               author: `${firstName} ${lastName}`,
-              endDate,
+              endDate: endDate
+                ? formatDate(endDate, 'dayNumeralLongMonthNoYear', getCurrentLocale())
+                : undefined,
             }}
             components={{ b: <Text variant={'bold16'} lineHeight={20} /> }}
           />
