@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Trans, useTranslation } from 'react-i18next'
+import { Notification } from 'mockApi/models'
 
 export const NotificationContent = ({
   type,
@@ -9,10 +10,10 @@ export const NotificationContent = ({
   endDate,
   isSeen,
 }: {
-  type: string
+  type: Notification['type']
   firstName: string
   lastName: string
-  endDate: string | undefined
+  endDate: Date | undefined
   isSeen: boolean
 }) => {
   const { t } = useTranslation('notifications')

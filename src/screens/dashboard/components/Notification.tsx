@@ -10,7 +10,7 @@ export const Notification = ({
   type,
   ...p
 }: NotificationModel) => {
-  const endDate = type === 'dayOff' ? (p as { endDate: string }).endDate : undefined
+  const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
   console.log(author)
   return (
     <Box
