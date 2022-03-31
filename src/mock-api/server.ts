@@ -1,11 +1,13 @@
 import { createServer, RestSerializer } from 'miragejs'
-import { genRandomDayOffRequest } from './factories/requestFactory'
-import { usersList } from './factories/userFactory'
+import { requestFactory, genRandomDayOffRequest } from './factories/requestFactory'
+import { userFactory, usersList } from './factories/userFactory'
 import { Models } from './models'
 import { dayOffRoutes } from './routes/dayOffRequest'
+import { notificationRoutes } from './routes/notifications'
 import { organizationRoute } from './routes/organization'
 import { teamRoutes } from './routes/team'
 import { userRoutes } from './routes/user'
+import { notificationSources } from './seeds/notificationSources'
 
 export const initBackendMocks = () =>
   createServer({
@@ -13,17 +15,24 @@ export const initBackendMocks = () =>
       organization: RestSerializer.extend({ include: ['teams'], embed: true }),
       team: RestSerializer.extend({ include: ['users'], embed: true }),
       user: RestSerializer.extend({ include: ['requests'], embed: true }),
+      notification: RestSerializer.extend({ include: ['source'], embed: true }),
     },
     models: Models,
-    factories: {},
+
+    factories: {
+      userFactory,
+      requestFactory,
+    },
     routes() {
       this.namespace = 'api'
       userRoutes(this)
       dayOffRoutes(this)
       organizationRoute(this)
       teamRoutes(this)
+      notificationRoutes(this)
     },
     seeds(server) {
+      notificationSources(server)
       const users = usersList.map((user) => {
         const userRecord = server.create('user', {
           ...user,
