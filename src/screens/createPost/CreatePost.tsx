@@ -1,3 +1,4 @@
+import { useAddPost } from 'dataAccess/mutations/useAddPost'
 import { useUserContext } from 'hooks/useUserContext'
 import { FeedPost, FeedPostDataType } from 'mockApi/models/miragePostTypes'
 import { ModalNavigationProps } from 'navigation/types'
@@ -18,6 +19,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
   const [status, setStatus] = useState<CreatePostStatus>('draft')
   const photo = route.params?.photo
   const { user } = useUserContext()
+  const { mutate } = useAddPost()
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content')
@@ -55,8 +57,9 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
       text: data.text,
       reactions: [],
       comments: [],
-      data: data.images.length === 0 ? [] : addAttachments(data.images),
+      data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
+    mutate(feedPost)
 
     if (!data) return setStatus('failure')
     setStatus('success')

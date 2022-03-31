@@ -73,6 +73,7 @@ export const initBackendMocks = () =>
         maxPtoDays: 30,
         teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
       })
+      // @ts-ignore
       posts.map((post) => server.create('post', post))
     },
   })

@@ -19,7 +19,7 @@ export const Feed = () => {
         <FlatList
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={<FeedHeader />}
-          data={data}
+          data={data.reverse()}
           renderItem={({ item }) => <FeedPost post={item} />}
           keyExtractor={({ meta }) => meta.id}
           extraData={language}

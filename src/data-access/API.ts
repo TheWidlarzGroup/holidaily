@@ -8,5 +8,6 @@ export const API = {
 
   POST: {
     createTempUser: '/api/users',
+    addPost: '/api/addpost',
   },
 }
