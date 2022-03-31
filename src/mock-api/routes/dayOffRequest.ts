@@ -12,7 +12,7 @@ export function dayOffRoutes(context: Server<ModelsSchema>) {
 }
 function fetchUserRequests(schema: Schema<ModelsSchema>, req: Request) {
   // @ts-ignore
-  return schema.where('dayOffRequest', (a) => a.userId === req.params.userId)
+  return schema.where('request', (a) => a.userId === req.params.userId)
 }
 
 function fetchAvailablePto(schema: Schema<ModelsSchema>, req: Request) {
@@ -53,7 +53,7 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
     return new Response(403, {}, { errors: String(['Not enough available PTO']) })
   // @ts-ignore
   user.update({ availablePto: userPtoAfterRequest })
-  return schema.create('dayOffRequest', {
+  return schema.create('request', {
     ...payload.body,
     status: 'PENDING',
     user,

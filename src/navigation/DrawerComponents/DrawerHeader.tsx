@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
-import { UserData } from 'contexts/UserContext'
 import { useUserContext } from 'hooks/useUserContext'
+import { User } from 'mock-api/models/mirageTypes'
 
-type DrawerHeaderProps = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
+type DrawerHeaderProps = Pick<User, 'firstName' | 'lastName' | 'occupation'>
 
 export const DrawerHeader = ({ firstName, lastName, occupation }: DrawerHeaderProps) => {
   const { user } = useUserContext()

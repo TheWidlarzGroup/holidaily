@@ -26,7 +26,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     'language',
     'lastName',
     'occupation',
-    'organization',
+    'teams',
     'photo',
     'userColor',
   ]
@@ -35,10 +35,10 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     email: '',
     lastName: '',
     occupation: '',
-    color: '#FF8B3F',
     language: 'en',
     photo: null,
     role: 'Admin',
+    teams: [],
     availablePto: 24,
   }
   const body = JSON.parse(req.requestBody)
@@ -51,7 +51,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   if (!user) return new Response(400)
   for (let i = 0; i < 10; i++) {
     if (!response.id) break
-    schema.create('dayOffRequest', {
+    schema.create('request', {
       ...genRandomDayOffRequest(),
       user,
     })

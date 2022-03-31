@@ -1,8 +1,8 @@
-import { UserData } from 'contexts/UserContext'
+import { User } from 'mock-api/models/mirageTypes'
 
-export type UpdateUserTypes = Pick<UserData, 'firstName' | 'lastName' | 'occupation'>
+export type UpdateUserTypes = Pick<User, 'firstName' | 'lastName' | 'occupation'>
 
-type UpdateUserPayload = Pick<UserData, 'firstName' | 'lastName' | 'occupation' | 'id'>
+type UpdateUserPayload = Pick<User, 'firstName' | 'lastName' | 'occupation' | 'id'>
 
 export type UpdateUserDataTypes = {
   updateUser: UpdateUserPayload

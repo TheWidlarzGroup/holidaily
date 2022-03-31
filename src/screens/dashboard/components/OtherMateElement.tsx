@@ -1,11 +1,9 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
-import { MateHolidaysData } from 'types/holidaysDataTypes'
 import { Avatar } from 'components/Avatar'
+import { User } from 'mock-api/models/mirageTypes'
 
-type OtherMateElementProps = MateHolidaysData
-
-export const OtherMateElement = (props: OtherMateElementProps) => {
+export const OtherMateElement = (props: User) => {
   const { firstName, lastName, photo } = props
 
   return (

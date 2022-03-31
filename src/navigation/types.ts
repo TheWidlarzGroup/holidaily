@@ -1,13 +1,8 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import {
-  ValidationOfGroupDayOff,
-  RequiredMateHolidaysData,
-  GalleryItemData,
-  UserTeamsSubscriptions,
-  MateHolidaysData,
-} from 'types/holidaysDataTypes'
+import { GalleryItemData, UserTeamsSubscriptions } from 'types/holidaysDataTypes'
+import { Team, User } from 'mock-api/models/mirageTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -158,8 +153,8 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
-  DashboardTeam: ValidationOfGroupDayOff & { openUserModal: F1<MateHolidaysData> }
-  DashboardTeamMember: RequiredMateHolidaysData
+  DashboardTeam: Team & { openUserModal: F1<User> }
+  DashboardTeamMember: User
 }
 
 export type BudgetRoutes = {
