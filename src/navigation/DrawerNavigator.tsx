@@ -6,13 +6,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { theme } from 'utils/theme'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
-import { Budget } from 'screens/budget/Budget'
 import { DrawerRoutes } from 'navigation/types'
 import { useSiriListeners } from 'hooks/useSiriListeners'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
-import { AdminPanelEmployeesNavigation } from './AdminPanelEmployeesNavigation'
+// import { AdminPanelEmployeesNavigation } from './AdminPanelEmployeesNavigation'
+import { BudgetNavigation } from './BudgetNavigation'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
@@ -80,14 +80,14 @@ export const DrawerNavigator = () => {
         component={ProfileNavigation}
         options={{ title: t('editProfile'), swipeEnabled: true }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="AdminPanelEmployeesNavigation"
         component={AdminPanelEmployeesNavigation}
-        options={{ title: 'Employees', swipeEnabled: false }}
-      />
+        options={{ title: t('employees'), swipeEnabled: false }}
+      /> */}
       <Drawer.Screen
         name="HolidayBudget"
-        component={Budget}
+        component={BudgetNavigation}
         options={{ title: t('budget'), swipeEnabled: false }}
       />
       <Drawer.Screen

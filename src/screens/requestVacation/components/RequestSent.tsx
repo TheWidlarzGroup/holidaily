@@ -5,6 +5,7 @@ import { mkUseStyles, Theme, Box, Text } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
 import Animated, { useAnimatedStyle, useDerivedValue, withSpring } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
+import { useTranslation } from 'react-i18next'
 
 type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
   onPressSee: F0
@@ -19,7 +20,7 @@ export const RequestSent = ({
   onPressOk,
 }: RequestSentProps) => {
   const styles = useStyles()
-
+  const { t } = useTranslation('requestVacation')
   const { height } = useDimensions()
   const progress = useDerivedValue(() => (isVisible ? 1 : 0), [isVisible])
 
@@ -43,21 +44,21 @@ export const RequestSent = ({
         paddingBottom="xl"
         justifyContent="flex-end">
         <Text variant="heading4" marginBottom="xxl">
-          Request sent!
+          {t('sent')}
         </Text>
         <Text variant="body1" marginBottom="l">
-          Now wait for the request approval, and do not pack your suitcase yet!
+          {t('waitForApproval')}
         </Text>
-        <Text variant="body1">You will find all requests at the bottom of the screen.</Text>
+        <Text variant="body1">{t('findRequests')}</Text>
         <Box marginTop="xl">
           <Box style={styles.button}>
-            <CustomButton label="See request" onPress={onPressSee} />
+            <CustomButton label={t('seeRequest')} onPress={onPressSee} />
           </Box>
           <Box style={styles.button}>
-            <CustomButton label="Add another request" onPress={onPressAnother} />
+            <CustomButton label={t('addAnother')} onPress={onPressAnother} />
           </Box>
           <Box style={styles.button}>
-            <CustomButton label="Ok, cool!" variant="blackBgButton" onPress={onPressOk} />
+            <CustomButton label={t('ok')} variant="blackBgButton" onPress={onPressOk} />
           </Box>
         </Box>
       </Box>

@@ -10,10 +10,14 @@ import Animated, {
 } from 'react-native-reanimated'
 import { themeBase } from 'utils/theme/themeBase'
 import { useCombinedRefs } from 'hooks/useCombinedRefs'
+import { useUserContext } from 'hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
+import { Comment } from 'screens/feed/types'
+import { generateUUID } from 'utils/generateUUID'
 
 export type MessageInputProps = {
   onSubmitEditing: F1<string>
+  handleSubmitComment?: F1<Comment>
   onBlur?: F1<string>
   defaultValue?: string
   maxLength?: number
@@ -29,6 +33,8 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
 
   const inputRef = useRef<TextInput>(null)
   const combinedInputRef = useCombinedRefs([ref, inputRef])
+
+  const { user } = useUserContext()
 
   const styles = useStyles()
   const colors = useColors()
@@ -59,6 +65,27 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   const handleSubmit = () => {
     if (error) return
     onSubmitEditing(messageContent)
+    const message = {
+      meta: {
+        id: generateUUID(),
+        author: {
+          id: user?.id || '',
+          firstName: user?.firstName || '',
+          lastName: user?.lastName || '',
+          pictureUrl:
+            user?.photo ||
+            'https://images.unsplash.com/photo-1623790679437-72cbde564d59?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        timestamp: {
+          createdAt: new Date(),
+          editedAt: new Date(),
+        },
+      },
+      comments: [],
+      reactions: [],
+      text: messageContent,
+    }
+    props.handleSubmitComment?.(message)
   }
 
   const handleBlur = () => {
@@ -71,7 +98,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   }, [messageContent, maxLength, t])
 
   useEffect(() => {
-    if (autofocus) combinedInputRef.current?.focus()
+    if (autofocus) setTimeout(() => combinedInputRef.current?.focus(), 50)
   }, [autofocus, combinedInputRef])
 
   return (

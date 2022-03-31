@@ -8,7 +8,11 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { Alert } from 'components/Alert'
 import CheckCircle from 'assets/icons/checkCircle.svg'
-import { SupportedLanguageKeys, locales } from 'utils/locale'
+import { locales } from 'utils/locale'
+
+import { setItemAsync } from 'expo-secure-store'
+import { keys } from 'utils/manipulation'
+import { Languages } from '../../../../i18n'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -21,15 +25,16 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
   const [changeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
     useBooleanState(false)
-  const [selectedLng, setSelectedLng] = useState(i18n.language as SupportedLanguageKeys)
+  const [selectedLng, setSelectedLng] = useState(i18n.language as keyof Languages)
 
   const styles = useStyles()
 
-  const changeLanguage = (lng: SupportedLanguageKeys) => {
+  const changeLanguage = (lng: keyof Languages) => {
     if (lng === selectedLng) return
     hideChangeAlert()
     setLoadingTrue()
     setSelectedLng(lng)
+    setItemAsync('language', lng)
   }
 
   useEffect(() => {
@@ -81,11 +86,14 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
           </TouchableOpacity>
         </Box>
         <Animated.View style={[styles.options, animatedOptions]}>
-          {Object.keys(locales).map((language) => (
+          {keys(locales).map((language) => (
             <TouchableOpacity
               key={language}
               style={styles.lng}
-              onPress={() => changeLanguage(language as SupportedLanguageKeys)}>
+              onPress={() => {
+                changeLanguage(language)
+                changeOpened()
+              }}>
               <Text variant="body1" marginVertical="s" textAlign="left">
                 {t(language)}
               </Text>

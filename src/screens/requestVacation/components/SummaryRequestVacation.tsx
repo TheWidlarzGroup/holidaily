@@ -1,62 +1,50 @@
 import React, { useEffect } from 'react'
 import { CustomButton } from 'components/CustomButton'
-import { Box, mkUseStyles, Text } from 'utils/theme/index'
-import { getFormattedPeriod, getISODateString } from 'utils/dates'
-import CalendarIcon from 'assets/icons/calendar.svg'
-import PillIcon from 'assets/icons/pill.svg'
-import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
-import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
+import { Box, mkUseStyles } from 'utils/theme/index'
+import { calculatePTO } from 'utils/dates'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useRequestHolidays } from 'hooks/useRequestHolidays'
 import { useTranslation } from 'react-i18next'
-import { SummaryDays } from './SummaryDays'
-import { Photo } from './Photo'
+import { useBooleanState } from 'hooks/useBooleanState'
+import { SummaryDays } from './SummaryRequestVacation/SummaryDays'
+import { SummaryRequestVacationHeader } from './SummaryRequestVacation/SummaryRequestVacationHeader'
+import { SicktimeAndMessage } from './SummaryRequestVacation/SicktimeAndMessage'
+import { SummaryRequestVacationPhotos } from './SummaryRequestVacation/SummaryRequestVacationPhotos'
 
 type SummaryRequestVacationProps = {
   description: string
-  sickTime: boolean
+  isSick: boolean
   onNextPressed: F0
   startDate?: Date
   endDate?: Date
   message?: string
-  photos?: { id: string; uri: string }[]
+  attachments?: { id: string; uri: string }[]
+  hideNext?: boolean
 }
 
-type Side = 'left' | 'right'
-
-export const SummaryRequestVacation = ({
-  description,
-  sickTime,
-  onNextPressed,
-  endDate,
-  startDate,
-  message,
-  photos = [],
-}: SummaryRequestVacationProps) => {
+export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVacationProps) => {
   const styles = useStyles()
-  const { handleRequestHolidays, isLoading, isSuccess } = useRequestHolidays()
-
+  const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
+  const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
   const { t } = useTranslation('requestVacation')
-
-  const getPadding = (index: number, side: Side) => {
-    const n = index % 3
-    const paddingSize = 2
-    if (n === 0) return side === 'left' ? 0 : 2 * paddingSize
-    if (n === 1) return paddingSize
-    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
-  }
+  const ptoTaken = p.startDate && p.endDate ? calculatePTO(p.startDate, p.endDate) : 0
 
   const handleSend = () => {
-    if (startDate && endDate) {
-      handleRequestHolidays({
-        startDate: getISODateString(startDate),
-        endDate: getISODateString(endDate),
-        description,
-        sickTime,
-        message,
-      })
+    if (p.startDate && p.endDate) {
+      startLoading()
     }
   }
+  useEffect(() => {
+    let timeout: number | undefined
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        stopLoading()
+        markSuccess()
+      }, 800)
+    }
+
+    return () => clearTimeout(timeout)
+  }, [isLoading, markSuccess, stopLoading])
+
   useEffect(() => {
     if (isSuccess) {
       onNextPressed()
@@ -67,68 +55,33 @@ export const SummaryRequestVacation = ({
     <Box flex={1} padding="l" paddingTop="xl">
       <ScrollView style={{ flex: 1 }}>
         <Box backgroundColor="primary" borderRadius="m" padding="m" paddingBottom="xxxxl">
-          <BackgroundPlant1 style={styles.plant1} />
-          <BackgroundPlant2 style={styles.plant2} height={90} />
-          <Box paddingLeft="s">
-            <Text variant="heading4">{description || t('timeOffDescriptionPlaceholder')}</Text>
-          </Box>
-          <Box flexDirection="row" alignItems="center">
-            <CalendarIcon />
-            <Text variant="body1Bold">{getFormattedPeriod(startDate, endDate)}</Text>
-          </Box>
-          {sickTime && (
-            <Box flexDirection="row" alignItems="center">
-              <PillIcon />
-              <Text variant="body1">{t('sickTimeTitle')}</Text>
-            </Box>
-          )}
-          {!!message && (
-            <Text variant="regular15" paddingTop="m">
-              {message}
-            </Text>
-          )}
-          {!!photos.length && (
-            <Box flexDirection="row" flexWrap="wrap">
-              {photos.map(({ uri, id }, uriIndex) => (
-                <Box
-                  key={id}
-                  paddingTop="s"
-                  style={{
-                    paddingLeft: getPadding(uriIndex, 'left'),
-                    paddingRight: getPadding(uriIndex, 'right'),
-                    width: '33.33%',
-                  }}>
-                  <Photo src={uri} onClose={() => {}} />
-                </Box>
-              ))}
-            </Box>
-          )}
+          <SummaryRequestVacationHeader
+            startDate={p.startDate}
+            endDate={p.endDate}
+            description={p.description}
+          />
+          <SicktimeAndMessage isSick={p.isSick} message={p.message} />
+          <SummaryRequestVacationPhotos attachments={p.attachments} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-          <SummaryDays />
+          <SummaryDays ptoTaken={ptoTaken} />
         </Box>
       </ScrollView>
-      <CustomButton
-        label={t('sendRequest')}
-        variant="primary"
-        onPress={handleSend}
-        style={styles.button}
-        loading={isLoading}
-      />
+      {!p.hideNext && (
+        <CustomButton
+          label={t('sendRequest')}
+          variant="primary"
+          onPress={handleSend}
+          style={styles.button}
+          loading={isLoading}
+          maxWidth={250}
+          alignSelf="center"
+        />
+      )}
     </Box>
   )
 }
 
 const useStyles = mkUseStyles(() => ({
-  plant1: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  plant2: {
-    position: 'absolute',
-    bottom: 0,
-    left: -30,
-  },
   button: {
     marginTop: 20,
   },

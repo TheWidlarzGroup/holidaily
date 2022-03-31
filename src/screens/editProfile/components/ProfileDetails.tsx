@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { FormInput } from 'components/FormInput'
-import IconEdit from 'assets/icons/icon-edit-grey.svg'
-import { Box, BaseOpacity } from 'utils/theme/'
+import IconEdit from 'assets/icons/icon-edit.svg'
+import { Box, BaseOpacity, useTheme } from 'utils/theme/'
 import { minOneSignRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
 import { InputButton } from 'components/InputButton'
@@ -17,7 +17,7 @@ type UserData = {
 
 export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const { t } = useTranslation('userProfile')
-
+  const theme = useTheme()
   const inputsRefs = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
@@ -55,6 +55,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
+          labelTextVariant="labelGrey"
+          inputTextVariant="bold"
         />
         {iconInvisible !== 0 && (
           <Box
@@ -70,7 +72,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
             justifyContent="center"
             alignItems="center">
             <BaseOpacity onPress={() => onFocusInput(0)} activeOpacity={0.2}>
-              <IconEdit />
+              <IconEdit color={theme.colors.headerGrey} />
             </BaseOpacity>
           </Box>
         )}
@@ -88,6 +90,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[1]}
+          labelTextVariant="labelGrey"
+          inputTextVariant="bold"
         />
         {iconInvisible !== 1 && (
           <Box
@@ -103,7 +107,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
             justifyContent="center"
             alignItems="center">
             <BaseOpacity onPress={() => onFocusInput(1)} activeOpacity={0.2}>
-              <IconEdit />
+              <IconEdit color={theme.colors.headerGrey} />
             </BaseOpacity>
           </Box>
         )}
@@ -121,6 +125,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errorMessage={t('fieldRequired')}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[2]}
+          labelTextVariant="labelGrey"
+          inputTextVariant="bold"
         />
         {iconInvisible !== 2 && (
           <Box
@@ -136,17 +142,18 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
             justifyContent="center"
             alignItems="center">
             <BaseOpacity onPress={() => onFocusInput(2)} activeOpacity={0.2}>
-              <IconEdit />
+              <IconEdit color={theme.colors.headerGrey} />
             </BaseOpacity>
           </Box>
         )}
       </Box>
       <Box marginBottom="l">
         <InputButton
-          inputLabel={'Password'}
+          inputLabel={t('userPassword')}
           value={'••••••••'}
           onClick={navigateToChangePassword}
           showEditIcon
+          labelTextVariant="labelGrey"
         />
       </Box>
     </Box>

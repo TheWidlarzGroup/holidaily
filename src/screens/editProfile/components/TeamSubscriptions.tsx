@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useModalContext } from 'contexts/ModalProvider'
-import { BaseOpacity, Box, Text, mkUseStyles, Theme } from 'utils/theme'
+import { BaseOpacity, Box, Text, mkUseStyles, Theme, useTheme } from 'utils/theme'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 import IconAdd from 'assets/icons/icon-add.svg'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
@@ -14,6 +14,7 @@ export const TeamSubscriptions = () => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
+  const theme = useTheme()
   const { navigate } = useNavigation()
   const { userTeams, setUserTeams } = useUserDetailsContext()
   const [teams, setTeams] = useState<TeamsType[]>([])
@@ -31,7 +32,11 @@ export const TeamSubscriptions = () => {
 
   const showChangesSavedModal = (teamName: string) =>
     showModal(
-      <ChangesSavedModal isVisible hideModal={hideModal} content={`${teamName} unsubscribed!`} />
+      <ChangesSavedModal
+        isVisible
+        hideModal={hideModal}
+        content={t('unsubscribed', { teamName })}
+      />
     )
   const onUnsubscribeTeam = (teamName: string) => {
     showModal(
@@ -44,14 +49,14 @@ export const TeamSubscriptions = () => {
           showChangesSavedModal(teamName)
         }}
         onDecline={hideModal}
-        content={`If you unsubscribe ${teamName} Team you will no longer see its members.`}
+        content={t('ifYouUnsubscribe', { teamName })}
       />
     )
   }
 
   return (
     <Box paddingHorizontal="m" position="relative">
-      <Text variant="label1" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
+      <Text variant="labelGrey" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
         {t('userSubscriptions')}
       </Text>
       <BaseOpacity
@@ -65,7 +70,7 @@ export const TeamSubscriptions = () => {
         width={44}
         borderRadius="full"
         backgroundColor="lightGrey">
-        <IconAdd />
+        <IconAdd color={theme.colors.headerGrey} />
       </BaseOpacity>
       <Box flexDirection="row" marginRight="xl" flexWrap="wrap">
         {teams.map(({ teamName, id }) => (

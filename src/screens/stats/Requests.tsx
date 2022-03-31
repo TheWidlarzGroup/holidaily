@@ -1,4 +1,4 @@
-import { useUserRequests } from 'hooks/useUserRequests'
+import { useUserRequests } from 'hooks/legacy-api-hooks/useUserRequests'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -9,12 +9,6 @@ import { SectionHeader } from './components/SectionHeader'
 export const Requests = () => {
   const { requests } = useUserRequests()
   const { t } = useTranslation('stats')
-  const handleSearch = () => {
-    console.log('handleSearch')
-  }
-  const handleFilter = () => {
-    console.log('handleFilter')
-  }
 
   const { pendingRequests, approvedRequests, pastRequests, declinedRequests } = useMemo(
     () => ({
@@ -28,7 +22,7 @@ export const Requests = () => {
 
   return (
     <Box marginTop="xxl" flex={1}>
-      <SectionHeader text={t('requests')} onSearch={handleSearch} onFilter={handleFilter} />
+      <SectionHeader text={t('requests')} />
       <SectionList
         sections={[
           {

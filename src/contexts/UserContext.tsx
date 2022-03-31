@@ -1,19 +1,9 @@
+import { User } from 'mock-api/models/mirageTypes'
 import { createContext } from 'react'
 
-export type UserData = {
-  firstName: string
-  lastName: string
-  email: string
-  isConfirmed: boolean
-  role: string
-  occupation: string
-  id: string
-  photo?: string | null
-}
-
 export type ContextProps = {
-  user: UserData | null
-  updateUser: (newData: Partial<UserData>) => void
+  user: User | null
+  updateUser: (newData: Partial<User>) => void
   handleLogout: () => void
 }
 

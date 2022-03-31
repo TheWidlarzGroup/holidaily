@@ -10,20 +10,22 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
+import { User } from 'mock-api/models/mirageTypes'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 type SortableListProps = {
-  children: ReactElement<{ groupId: number }>[]
+  children: ReactElement<{ id: number }>[]
+  openUserModal: F1<User>
 }
 
-export const SortableList = ({ children }: SortableListProps) => {
+export const SortableList = ({ children, openUserModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
   const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
   const positions = useSharedValue<Positions>(
     // if positions object from database => { [child.props.groupId]: child.props.order }
-    Object.assign({}, ...children.map((child, index) => ({ [child.props.groupId]: index })))
+    Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
   )
   useFocusEffect(React.useCallback(() => () => setDraggedElement(null), []))
 
@@ -51,7 +53,7 @@ export const SortableList = ({ children }: SortableListProps) => {
         scrollEventThrottle={16}
         onScroll={onScroll}>
         <Box height={NESTED_ELEM_OFFSET}>
-          <Carousel />
+          <Carousel openUserModal={openUserModal} />
           <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
             {t('teamsList').toUpperCase()}
           </Text>
@@ -60,13 +62,13 @@ export const SortableList = ({ children }: SortableListProps) => {
         {children.map((child) => (
           <Item
             scrollView={scrollView}
-            onLongPress={() => onLongPress(child.props.groupId)}
+            onLongPress={() => onLongPress(child?.props?.id)}
             stopDragging={() => setDraggedElement(null)}
             draggedElement={draggedElement}
             scrollY={scrollY}
-            key={child.props.groupId}
+            key={child?.props?.id}
             positions={positions}
-            id={child.props.groupId}>
+            id={child?.props?.id}>
             {child}
           </Item>
         ))}

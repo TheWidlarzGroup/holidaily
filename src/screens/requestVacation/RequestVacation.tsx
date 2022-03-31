@@ -1,38 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
-import { RequestVacationBar } from 'components/RequestVacationBar'
-import { Box, mkUseStyles } from 'utils/theme'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { FormRequestVacation } from './components/FormRequestVacation'
-import { SummaryRequestVacation } from './components/SummaryRequestVacation'
-import { HeaderRequestVacation } from './components/HeaderRequestVacation'
 import { RequestSent } from './components/RequestSent'
+import { RequestVacationHeader } from './components/RequestVacationHeader'
+import {
+  RequestVacationProvider,
+  useRequestVacationContext,
+} from './contexts/RequestVacationContext'
+import { RequestVacationSteps } from './components/RequestVacationSteps'
 
 export type RequestDataTypes = {
   description: string
   message: string
   photos: AttachmentType[]
+  files: (AttachmentType & { name: string })[]
 }
+
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
 
 type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
 
-export const RequestVacation = ({ route }: RequestVacationProps) => {
-  const [step, setStep] = useState(0)
-  const [startDate, setStartDate] = useState<Date>()
-  const [endDate, setEndDate] = useState<Date>()
-  const [description, setDescription] = useState('')
-  const [sickTime, { setTrue: setSickTime, setFalse: unsetSickTime, toggle: toggleSickTime }] =
+const RequestVacation = ({ route }: RequestVacationProps) => {
+  const {
+    requestData,
+    setRequestData,
+    setStep,
+    setStartDate,
+    setEndDate,
+    cancelSickTime,
+    markSickTime,
+  } = useRequestVacationContext()
+  const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const [message, setMessage] = useState('')
-  const [photos, setPhotos] = useState<{ id: string; uri: string }[]>([])
-  const [sentModal, { setTrue: showSentModal, setFalse: hideSentModal }] = useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -45,10 +51,8 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback({ description, message, photos })
-    setDescription(newData.description)
-    setMessage(newData.message)
-    setPhotos(newData.photos)
+    const newData = callback(requestData)
+    setRequestData((oldData) => ({ ...oldData, ...newData }))
   }
 
   const reset = () => {
@@ -56,60 +60,44 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     setStep(0)
     setStartDate(undefined)
     setEndDate(undefined)
-    setDescription('')
-    unsetSickTime()
-    setMessage('')
-    setPhotos([])
+    setRequestData(emptyRequest)
+    cancelSickTime()
   }
 
-  const removePhoto = (id: string) => setPhotos(photos.filter((p) => p.id !== id))
+  const removeAttachment = (id: string) => {
+    setRequestData((old) => ({
+      ...old,
+      photos: old.photos.filter((p) => p.id !== id),
+      files: old.files.filter((f) => f.id !== id),
+    }))
+  }
 
   useEffect(() => {
     const { params } = route
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
     if (params?.action === 'sickday') {
-      setSickTime()
+      markSickTime()
       const tomorow = new Date()
       tomorow.setDate(tomorow.getDate() + 1)
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, route.params, setSickTime])
+  }, [route, route.params, markSickTime, setEndDate, setStartDate])
 
   return (
     <SafeAreaView style={styles.container}>
-      <Box paddingBottom="m">
-        <HeaderRequestVacation />
-        <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
-      </Box>
-      {step === 0 && (
-        <FormRequestVacation
-          nextStep={() => setStep(1)}
-          sickTime={sickTime}
-          toggleSickTime={toggleSickTime}
-          changeRequestData={changeRequestData}
-          date={{ start: startDate, end: endDate }}
-          message={message}
-          photos={photos}
-          removePhoto={removePhoto}
-        />
-      )}
-      {step === 1 && (
-        <SummaryRequestVacation
-          description={description}
-          sickTime={sickTime}
-          startDate={startDate}
-          endDate={endDate}
-          message={message}
-          onNextPressed={showSentModal}
-          photos={photos}
-        />
-      )}
-
+      <RequestVacationHeader />
+      <RequestVacationSteps
+        changeRequestData={changeRequestData}
+        removeAttachment={removeAttachment}
+        showSentModal={showSentModal}
+      />
       <RequestSent
-        isVisible={sentModal}
-        onPressSee={() => {}}
+        isVisible={isSentModalVisible}
+        onPressSee={() => {
+          hideSentModal()
+        }}
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
@@ -119,9 +107,24 @@ export const RequestVacation = ({ route }: RequestVacationProps) => {
     </SafeAreaView>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.white,
+    paddingTop: 0,
   },
 }))
+
+const emptyRequest = {
+  description: '',
+  message: '',
+  photos: [],
+  files: [],
+}
+const WrappedRequestVacation = (p: RequestVacationProps) => (
+  <RequestVacationProvider>
+    <RequestVacation {...p} />
+  </RequestVacationProvider>
+)
+
+export { WrappedRequestVacation as RequestVacation }

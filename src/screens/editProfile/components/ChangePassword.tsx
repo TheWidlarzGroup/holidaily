@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { useChangePassword } from 'hooks/useChangePassword'
+import { useChangePassword } from 'hooks/legacy-api-hooks/useChangePassword'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { FormInput } from 'components/FormInput'
@@ -143,7 +143,7 @@ export const ChangePassword = () => {
           />
           <Box position="absolute" bottom={16} alignSelf="center">
             <CustomButton
-              label={'Save'}
+              label={t('save')}
               variant="primary"
               onPress={handleSubmit(onChangePassword)}
               width={221}

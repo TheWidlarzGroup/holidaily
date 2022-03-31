@@ -15,7 +15,7 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => (
       {!hideAvatar && <Avatar size="s" src={comment.meta.author.pictureUrl} />}
     </Box>
     <Bubble padding="xm" flexShrink={1}>
-      <Text>{comment.text}</Text>
+      <Text variant="captionText">{comment.text}</Text>
     </Bubble>
   </Box>
 )

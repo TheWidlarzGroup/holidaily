@@ -4,8 +4,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { useFetchEmployees } from 'hooks/useFetchEmployees'
-import { ModalProvider } from 'contexts/ModalProvider'
+import { useFetchEmployees } from 'hooks/legacy-api-hooks/useFetchEmployees'
 import { CustomButton } from 'components/CustomButton'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -39,45 +38,43 @@ export const Employees = () => {
   const onFilter = () => {}
 
   return (
-    <ModalProvider>
-      <SafeAreaWrapper>
-        <DrawerBackArrow goBack={handleGoBack} title={t('employees')} />
-        <CustomButton
-          label={t('invite')}
-          variant="primary"
-          width={120}
-          height={47}
-          icon={'plus'}
-          marginLeft={'auto'}
-          marginBottom={10}
-          onPress={navigateToInviteMembers}
-        />
-        <FilterBox onSearch={onSearch} onFilter={onFilter} />
-        <Box>
-          {/* TODO: implement pending & former when BE ready */}
-          <Box marginHorizontal="m" marginBottom="s">
-            <Text variant="lightGreyRegular">{t('joinedEmployees').toUpperCase()}</Text>
-            {employeesNoAdmin.length > 0 ? (
-              <FlatList
-                data={employeesNoAdmin}
-                keyExtractor={({ id }) => id}
-                renderItem={renderItem}
-                bounces={false}
-              />
-            ) : (
-              <Text variant="regularGrey16" marginTop="xm">
-                {t('noJoined')}
-              </Text>
-            )}
-          </Box>
-          <Box marginHorizontal="m" marginBottom="s">
-            <Text variant="lightGreyRegular">{t('formerEmployees').toUpperCase()}</Text>
+    <SafeAreaWrapper>
+      <DrawerBackArrow goBack={handleGoBack} title={t('employees')} />
+      <CustomButton
+        label={t('invite')}
+        variant="primary"
+        width={120}
+        height={47}
+        icon={'plus'}
+        marginLeft={'auto'}
+        marginBottom={10}
+        onPress={navigateToInviteMembers}
+      />
+      <FilterBox onSearch={onSearch} onFilter={onFilter} />
+      <Box>
+        {/* TODO: implement pending & former when BE ready */}
+        <Box marginHorizontal="m" marginBottom="s">
+          <Text variant="lightGreyRegular">{t('joinedEmployees').toUpperCase()}</Text>
+          {employeesNoAdmin.length > 0 ? (
+            <FlatList
+              data={employeesNoAdmin}
+              keyExtractor={({ id }) => id}
+              renderItem={renderItem}
+              bounces={false}
+            />
+          ) : (
             <Text variant="regularGrey16" marginTop="xm">
-              {t('noFormer')}
+              {t('noJoined')}
             </Text>
-          </Box>
+          )}
         </Box>
-      </SafeAreaWrapper>
-    </ModalProvider>
+        <Box marginHorizontal="m" marginBottom="s">
+          <Text variant="lightGreyRegular">{t('formerEmployees').toUpperCase()}</Text>
+          <Text variant="regularGrey16" marginTop="xm">
+            {t('noFormer')}
+          </Text>
+        </Box>
+      </Box>
+    </SafeAreaWrapper>
   )
 }

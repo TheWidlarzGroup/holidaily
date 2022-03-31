@@ -2,8 +2,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 1,
     isOnHoliday: true,
-    dayStart: '2021-06-01',
-    dayEnd: '2021-06-13',
+    startDate: '2021-06-01',
+    endDate: '2021-06-13',
     user: {
       id: 'user1',
       firstName: 'Peter',
@@ -15,8 +15,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 2,
     isOnHoliday: true,
-    dayStart: '2021-06-10',
-    dayEnd: '2021-07-10',
+    startDate: '2021-06-10',
+    endDate: '2021-07-10',
     user: {
       id: 'user2',
       firstName: 'Tom',
@@ -28,8 +28,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 3,
     isOnHoliday: false,
-    dayStart: '2021-06-16',
-    dayEnd: '2021-06-20',
+    startDate: '2021-06-16',
+    endDate: '2021-06-20',
     user: {
       id: 'user3',
       firstName: 'Kamila',
@@ -41,8 +41,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 4,
     isOnHoliday: false,
-    dayStart: '2021-06-28',
-    dayEnd: '2021-06-29',
+    startDate: '2021-06-28',
+    endDate: '2021-06-29',
     user: {
       id: 'user4',
       firstName: 'Ola',
@@ -54,8 +54,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 5,
     isOnHoliday: false,
-    dayStart: '2021-07-16',
-    dayEnd: '2021-07-22',
+    startDate: '2021-07-16',
+    endDate: '2021-07-22',
     user: {
       id: 'user5',
       firstName: 'Ludwik',
@@ -67,8 +67,8 @@ export const COMPANY_DAYS_OFF = [
   {
     id: 6,
     isOnHoliday: false,
-    dayStart: '2021-07-22',
-    dayEnd: '2021-07-24',
+    startDate: '2021-07-22',
+    endDate: '2021-07-24',
     user: {
       id: 'user6',
       firstName: 'Paweł',
@@ -82,7 +82,7 @@ export const COMPANY_DAYS_OFF = [
 export const USER_GROUPS_DAYS_OFF = [
   {
     groupId: 1,
-    groupName: 'Akademia',
+    groupName: 'Smartsoft',
     users: [
       {
         id: 'user6',
@@ -93,9 +93,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -108,9 +108,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: true,
-          dayStart: '2021-06-14',
-          dayEnd: '2021-06-14',
-          sickLeave: true,
+          startDate: '2021-06-14',
+          endDate: '2021-06-14',
+          isSickTime: true,
           description: 'Terrible headache',
         },
       },
@@ -123,9 +123,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: true,
-          dayStart: '2021-06-14',
-          dayEnd: '2021-06-14',
-          sickLeave: true,
+          startDate: '2021-06-14',
+          endDate: '2021-06-14',
+          isSickTime: true,
           description: 'Terrible headache',
         },
       },
@@ -138,9 +138,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: false,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
-          sickLeave: false,
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
+          isSickTime: false,
           description: 'Portugal',
         },
       },
@@ -153,9 +153,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -168,9 +168,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -183,9 +183,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -198,9 +198,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -213,9 +213,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -223,7 +223,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 2,
-    groupName: 'SmartSoft',
+    groupName: 'FileCode',
     users: [
       {
         id: 'user2',
@@ -234,9 +234,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
-          sickLeave: true,
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
+          isSickTime: true,
           description: 'Broken arm',
         },
       },
@@ -249,9 +249,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
-          sickLeave: false,
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
+          isSickTime: false,
           description: 'Mountain trip',
         },
       },
@@ -264,9 +264,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 4,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
-          sickLeave: false,
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -274,7 +274,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 3,
-    groupName: 'Devs',
+    groupName: 'Softlab',
     users: [
       {
         id: 'user2',
@@ -285,9 +285,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 1,
           isOnHoliday: false,
-          dayStart: '',
-          dayEnd: '',
-          sickLeave: false,
+          startDate: '',
+          endDate: '',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -300,9 +300,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
-          sickLeave: false,
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
+          isSickTime: false,
           description: 'Kayaking',
         },
       },
@@ -315,9 +315,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 4,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-30',
-          sickLeave: false,
+          startDate: '2021-06-10',
+          endDate: '2021-06-30',
+          isSickTime: false,
           description: 'Indonesia',
         },
       },
@@ -325,7 +325,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 4,
-    groupName: 'Company',
+    groupName: 'Open Byte',
     users: [
       {
         id: 'user2',
@@ -336,9 +336,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
-          sickLeave: false,
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -351,9 +351,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
-          sickLeave: false,
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -366,9 +366,9 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 4,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
-          sickLeave: false,
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
+          isSickTime: false,
           description: undefined,
         },
       },
@@ -376,7 +376,7 @@ export const USER_GROUPS_DAYS_OFF = [
   },
   {
     groupId: 5,
-    groupName: 'aaaaa',
+    groupName: 'Spaceware',
     users: [
       {
         id: 'user2',
@@ -385,8 +385,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
         },
       },
       {
@@ -396,8 +396,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
       {
@@ -407,15 +407,15 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 4,
           isOnHoliday: false,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
     ],
   },
   {
     groupId: 6,
-    groupName: 'sssss',
+    groupName: 'Webrain',
     users: [
       {
         id: 'user2',
@@ -424,8 +424,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
         },
       },
       {
@@ -435,15 +435,15 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
     ],
   },
   {
     groupId: 7,
-    groupName: 'ddddddd',
+    groupName: 'Pharmic',
     users: [
       {
         id: 'user2',
@@ -452,8 +452,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
         },
       },
       {
@@ -463,15 +463,15 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
     ],
   },
   {
     groupId: 8,
-    groupName: 'ffffffff',
+    groupName: 'NMedical',
     users: [
       {
         id: 'user2',
@@ -480,8 +480,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
         },
       },
       {
@@ -491,15 +491,15 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
     ],
   },
   {
     groupId: 9,
-    groupName: 'xxxxxxx',
+    groupName: 'Encrypto',
     users: [
       {
         id: 'user2',
@@ -508,8 +508,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
         },
       },
       {
@@ -519,15 +519,15 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
     ],
   },
   {
     groupId: 10,
-    groupName: 'zzzzzz',
+    groupName: 'Akademia',
     users: [
       {
         id: 'user2',
@@ -536,8 +536,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 2,
           isOnHoliday: true,
-          dayStart: '2021-06-04',
-          dayEnd: '2021-06-10',
+          startDate: '2021-06-04',
+          endDate: '2021-06-10',
         },
       },
       {
@@ -547,8 +547,8 @@ export const USER_GROUPS_DAYS_OFF = [
         holidays: {
           id: 3,
           isOnHoliday: true,
-          dayStart: '2021-06-10',
-          dayEnd: '2021-06-15',
+          startDate: '2021-06-10',
+          endDate: '2021-06-15',
         },
       },
     ],

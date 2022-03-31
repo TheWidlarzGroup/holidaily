@@ -4,13 +4,11 @@ import { Box } from 'utils/theme'
 import { CommentBox } from '../CommentBox/CommentBox'
 import { FooterBar } from '../FooterBar/FooterBar'
 
-// TODO: Comment Section
-
 type FeedPostFooterProps = Pick<FeedPost, 'meta' | 'comments' | 'reactions'>
 
-export const FeedPostFooter = ({ reactions, comments }: FeedPostFooterProps) => (
+export const FeedPostFooter = (props: FeedPostFooterProps) => (
   <Box>
-    <FooterBar reactions={reactions} />
-    <CommentBox comments={comments} />
+    <FooterBar {...props} />
+    <CommentBox comments={props.comments} />
   </Box>
 )

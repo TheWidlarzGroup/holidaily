@@ -3,8 +3,9 @@ import { TouchableOpacity } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
-import EditIcon from 'assets/icons/icon-edit-grey.svg'
-import { Text, Box, mkUseStyles } from 'utils/theme/index'
+import EditIcon from 'assets/icons/icon-edit.svg'
+import { Text, Box, mkUseStyles, useTheme } from 'utils/theme/index'
+import { textVariants } from 'utils/theme/textVariants'
 
 type ButtonInputTypes = {
   inputLabel: string
@@ -12,6 +13,7 @@ type ButtonInputTypes = {
   onClick: F0
   isError?: boolean
   showEditIcon?: boolean
+  labelTextVariant?: keyof typeof textVariants
 }
 
 export const InputButton = ({
@@ -20,9 +22,10 @@ export const InputButton = ({
   isError = false,
   onClick,
   showEditIcon = false,
+  labelTextVariant,
 }: ButtonInputTypes) => {
   const styles = useStyles()
-
+  const theme = useTheme()
   const errorOpacity = useSharedValue(0)
   const progressStyle = useAnimatedStyle(() => ({
     borderWidth: withTiming(errorOpacity.value, {
@@ -36,7 +39,7 @@ export const InputButton = ({
 
   return (
     <>
-      <Text variant="label1" marginLeft="m" marginBottom="xs">
+      <Text variant={labelTextVariant || 'label1'} marginLeft="m" marginBottom="xs">
         {inputLabel}
       </Text>
       <TouchableOpacity onPress={onClick} activeOpacity={0.2}>
@@ -52,7 +55,7 @@ export const InputButton = ({
               borderColor={showEditIcon ? 'white' : 'disabledText'}
               padding={showEditIcon ? 'xs' : 'm'}>
               {showEditIcon ? (
-                <EditIcon />
+                <EditIcon color={theme.colors.headerGrey} />
               ) : (
                 <BackArrowIcon width={16} height={16} style={styles.icon} />
               )}

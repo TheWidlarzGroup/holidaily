@@ -69,7 +69,6 @@ export const CalendarList = ({
       firstDay={1}
       hideExtraDays
       hideArrows
-      hideDayNames
       theme={theme}
       dayComponent={CalendarDay}
       markingType={'period'}

@@ -7,6 +7,7 @@ import { Box, theme } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
+import { MIN_PLUS_ICON_WIDTH } from 'navigation/BottomTabNavigator'
 
 type TabsHandlerProps = {
   tabs: {
@@ -20,7 +21,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
   const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
 
   return (
-    <Box flexDirection="row">
+    <Box flexDirection="row" flex={1}>
       {tabs.map((tab, key: number) => {
         const onPress = () => {
           if (tab.name === 'RequestModal') {
@@ -31,7 +32,11 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
         }
         if (tab.name === 'RequestModal') {
           return (
-            <Box key="logo" width={tabWidth} backgroundColor="transparent">
+            <Box
+              key="logo"
+              width={tabWidth}
+              backgroundColor="transparent"
+              minWidth={MIN_PLUS_ICON_WIDTH}>
               <AddButton onPress={onPress} />
             </Box>
           )
@@ -40,8 +45,8 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
         return (
           <Box
             {...{ key }}
-            width={tabWidth}
             height={45}
+            width={tabWidth}
             marginTop="lplus"
             alignItems="center"
             flexDirection="column"
@@ -64,8 +69,6 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
 
 const styles = StyleSheet.create({
   button: {
-    paddingTop: theme.spacing.xm,
-    paddingBottom: theme.spacing.s,
     paddingHorizontal: theme.spacing.m,
   },
 })

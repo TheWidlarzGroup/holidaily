@@ -1,12 +1,8 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import {
-  ValidationOfGroupDayOff,
-  RequiredMateHolidaysData,
-  GalleryItemData,
-  UserTeamsSubscriptions,
-} from 'types/holidaysDataTypes'
+import { GalleryItemData, UserTeamsSubscriptions } from 'types/holidaysDataTypes'
+import { Team, User } from 'mock-api/models/mirageTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -129,6 +125,9 @@ export type DrawerRoutes = {
 
 export type AuthRoutes = {
   Slider: undefined
+  Welcome: undefined
+  About: { isFromWelcomeScreen?: true }
+  TeamsModal: { firstName: string }
   Login: undefined
   Signup: undefined
   SignupEmail: undefined
@@ -149,14 +148,19 @@ export type ModalRoutes = {
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
-  CreatePost: undefined
+  CreatePost: { photo: { id: string; uri: string } }
 }
 
 export type DashboardRoutes = {
   Dashboard: undefined
+  DashboardTeam: Team & { openUserModal: F1<User> }
+  DashboardTeamMember: User
   DashboardNotifications: undefined
-  DashboardTeam: ValidationOfGroupDayOff
-  DashboardTeamMember: RequiredMateHolidaysData
+}
+
+export type BudgetRoutes = {
+  Budget: undefined
+  PtoPolicy: undefined
 }
 
 export type UserProfileRoutes = {

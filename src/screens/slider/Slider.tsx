@@ -1,6 +1,12 @@
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Dimensions, ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  ImageSourcePropType,
+  TouchableOpacity,
+} from 'react-native'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -11,13 +17,17 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationType } from 'navigation/types'
 import { colors } from 'utils/theme/colors'
-import { Box } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
 
-const SLIDER_DATA = [
+const SLIDER_DATA: {
+  title: `slider${1 | 2 | 3 | 4}Title`
+  text: `slider${1 | 2 | 3 | 4}SubTitle`
+  image: ImageSourcePropType
+}[] = [
   {
     title: 'slider1Title',
     text: 'slider1SubTitle',
@@ -48,8 +58,8 @@ export const Slider: FC = () => {
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
 
-  const navigateToSignup = () => {
-    navigation.navigate('Signup')
+  const navigateToWelcomeScreen = () => {
+    navigation.navigate('Welcome')
   }
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -58,14 +68,14 @@ export const Slider: FC = () => {
     },
     onEndDrag: () => {
       if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-        runOnJS(navigateToSignup)()
+        runOnJS(navigateToWelcomeScreen)()
       }
     },
   })
 
   const handlePressButton = () => {
     if (Math.floor(translateX.value) >= Math.floor((SLIDER_DATA.length - 1) * width)) {
-      navigateToSignup()
+      navigateToWelcomeScreen()
     } else {
       aref.current?.scrollTo({ x: translateX.value + width, animated: true })
     }
@@ -73,6 +83,18 @@ export const Slider: FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Box
+        justifyContent="center"
+        alignItems="flex-end"
+        width={'100%'}
+        height={50}
+        paddingHorizontal="m">
+        <TouchableOpacity
+          onPress={navigateToWelcomeScreen}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+          <Text variant="boldBlack18">{t('skip')}</Text>
+        </TouchableOpacity>
+      </Box>
       <Animated.ScrollView
         ref={aref}
         onScroll={scrollHandler}
@@ -94,10 +116,10 @@ export const Slider: FC = () => {
           />
         ))}
       </Animated.ScrollView>
-      <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="s">
+      <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="m">
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
-      <Box maxWidth={300} marginBottom="xl">
+      <Box maxWidth={250} marginBottom="lplus">
         <CustomButton variant="blackBgButton" label={t('next')} onPress={handlePressButton} />
       </Box>
     </SafeAreaView>

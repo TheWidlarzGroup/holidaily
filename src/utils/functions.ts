@@ -1,12 +1,12 @@
 import { addDays, getDate, getMonth, getYear, subDays } from 'date-fns'
-import { MateHolidaysData } from 'types/holidaysDataTypes'
+import { User } from 'mock-api/models/mirageTypes'
 import { DateOrISO, formatFromISO, parseISO } from './dates'
 
 export type ValidationOfDataToBeDisplayed = {
   isOnHoliday: boolean
   id: number
-  dayStart: string
-  dayEnd: string
+  startDate: string
+  endDate: string
   user: {
     id: string
     firstName: string
@@ -61,9 +61,9 @@ export const setDateToBeDisplayed = (date: DateOrISO, currentlyOnHoliday: boolea
 // SUM FUNCTIONS
 
 // function to count how many people are on holidays in team
-export const qtyOnHolidayNow = (users: MateHolidaysData[]): number =>
+export const qtyOnHolidayNow = (users: User[]): number =>
   users.reduce(
     (acc, curr) =>
-      !curr.holidays || (curr.holidays && !curr.holidays.isOnHoliday) ? acc : acc + 1,
+      !curr.requests[0] || (curr.requests[0] && !curr.requests[0].isOnHoliday) ? acc : acc + 1,
     0
   )

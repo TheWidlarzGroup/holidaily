@@ -2,18 +2,19 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MateElement } from 'screens/dashboard/components/MateElement'
-import { RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import { User } from 'mock-api/models/mirageTypes'
 
 type TeamSectionProps = {
-  matesArray: RequiredMateHolidaysData[]
+  matesArray: User[]
   isOutOfOffice: boolean
+  openUserModal: F1<User>
 }
 
 export const TeamSection = (props: TeamSectionProps) => {
-  const { isOutOfOffice, matesArray } = props
+  const { isOutOfOffice, matesArray, openUserModal } = props
   const { t } = useTranslation('dashboard')
 
-  const version = {
+  const version: { color: 'tertiary' | 'headerGrey'; text: 'outOfWorkNow' | 'outOfWorkSoon' } = {
     color: isOutOfOffice === true ? 'tertiary' : 'headerGrey',
     text: isOutOfOffice === true ? 'outOfWorkNow' : 'outOfWorkSoon',
   }
@@ -23,7 +24,7 @@ export const TeamSection = (props: TeamSectionProps) => {
         {t(version.text).toUpperCase()}
       </Text>
       {matesArray.map((mate) => (
-        <MateElement key={mate.id} {...mate} />
+        <MateElement key={mate.id} userData={mate} openUserModal={openUserModal} />
       ))}
     </Box>
   )

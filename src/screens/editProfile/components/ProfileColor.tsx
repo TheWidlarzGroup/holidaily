@@ -14,7 +14,7 @@ export const ProfileColor = () => {
 
   return (
     <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
-      <Text variant="label1" marginLeft="m">
+      <Text variant="labelGrey" marginLeft="m">
         {t('userColor')}
       </Text>
       <BaseOpacity
