@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react'
 import { Text } from 'utils/theme'
 import { SectionList } from 'react-native'
-import * as T from 'types/useFetchNotificationsTypes'
+import { Notification as NotificationModel } from 'mockApi/models'
 import { Notification } from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
-export const NotificationsList = ({ data }: { data: T.Notification[] }) => {
+export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
   const { seenNotifications, unseenNotifications } = useMemo(
     () => ({
-      seenNotifications: data.filter((n) => n.isSeen),
-      unseenNotifications: data.filter((n) => !n.isSeen),
+      seenNotifications: data.filter((n) => n.wasSeenByHolder),
+      unseenNotifications: data.filter((n) => !n.wasSeenByHolder),
     }),
     [data]
   )
@@ -36,7 +36,7 @@ export const NotificationsList = ({ data }: { data: T.Notification[] }) => {
         ) : null
       }
       renderItem={({ item }) =>
-        item.isSeen ? (
+        item.wasSeenByHolder ? (
           <Notification {...item} />
         ) : (
           <SwipeableNotification>

@@ -6,7 +6,7 @@ export type User = {
   confirmed: boolean
   occupation: string
   teams: Team[]
-  userColor: string
+  color: string
   language: 'pl' | 'en'
   photo: string | null
   role: string
