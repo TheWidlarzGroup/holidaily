@@ -1,9 +1,9 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { faker } from '@faker-js/faker'
 import { initPayloadService } from '../utils/payloadService'
 import { genRandomDayOffRequest } from '../factories/requestFactory'
 import { Schema as ModelsSchema, User } from '../models'
-import { faker } from '@faker-js/faker'
 
 export function userRoutes(context: Server<ModelsSchema>) {
   context.get('/users', fetchAllUsers)
