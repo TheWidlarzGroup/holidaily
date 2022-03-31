@@ -1,5 +1,6 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
+import { Notification } from 'mockApi/models'
 import { API } from '../API'
 import { queryClient } from '../queryClient'
 import { QueryKeys } from '../QueryKeys'
@@ -17,7 +18,7 @@ export const useMarkNotificationAsSeen = () =>
         console.log('DATA ', data.notifications)
         console.log('payload', payload)
         const previousNotifications = data.notifications.filter(
-          (n) => n.id !== payload.notification.id
+          (n: Notification) => n.id !== payload.notification.id
         )
         return { notifications: [payload.notification, ...previousNotifications] }
       })
