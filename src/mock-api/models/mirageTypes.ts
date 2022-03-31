@@ -37,3 +37,16 @@ export type Organization = {
   maxPtoDays: number
   teams: Team[]
 }
+
+export type Notification = {
+  id: string
+  createdAt: string
+  source: User
+  wasSeenByHolder: boolean
+  holderId: string
+} & (
+  | {
+      type: 'like' | 'comment'
+    }
+  | { type: 'dayOff'; endDate: string }
+)
