@@ -25,21 +25,10 @@ export const emptyUser: User = {
   teams: [],
 }
 
-const PROFILE_PIC_STORE_KEY = 'profile-pic'
+export const PROFILE_PIC_STORE_KEY = 'profile-pic'
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
   const { reset: clearUserCache } = useCreateTempUser()
-
-  // useEffect(() => {
-  //   const loadImageIfPossible = async () => {
-  //     const profilePic = await AsyncStorage.getItem(PROFILE_PIC_STORE_KEY)
-  //     if (profilePic?.length)
-  //       setUser((old) =>
-  //         old ? { ...old, photo: profilePic } : { ...emptyUser, photo: profilePic }
-  //       )
-  //   }
-  //   loadImageIfPossible()
-  // }, [])
 
   const updateUser = useCallback((newData: Partial<User> | null) => {
     if (newData?.photo) {
