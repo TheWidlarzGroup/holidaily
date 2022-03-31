@@ -38,22 +38,29 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     photo: null,
     role: 'Admin',
     teams: [],
-    availablePto: 24,
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()
-  console.log('USERRR', payload.body)
   payload.validate(mandatoryFields, body)
   payload.fill(optionalFields, body)
 
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
   const response = schema.create('user', { ...defaultValues, ...payload.body })
+  if (!response.id) return response
   for (let i = 0; i < 10; i++) {
-    if (!response.id) break
     schema.create('request', {
       ...genRandomDayOffRequest(),
       user: schema.find('user', response.id),
     })
   }
+  let availablePto = schema.findBy('organization', { name: 'Supercompany' })?.maxPtoDays ?? 24
+  // @ts-ignore
+  const userRequests = schema.where('request', { userId: response.id }).models
+  if (userRequests)
+    // @ts-ignore
+    availablePto = userRequests.filter((req) => req.status !== 'cancelled').length
+  if (availablePto < 0) availablePto = 0
+  // @ts-ignore
+  response.update({ availablePto, requests: userRequests })
   return response
 }

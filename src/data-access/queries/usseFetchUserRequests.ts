@@ -9,4 +9,4 @@ const fetchUserRequests = async () => {
   return res.data
 }
 
-export const useFetchUserData = () => useQuery([QueryKeys.USER_REQUESTS], fetchUserRequests)
+export const useFetchUserRequests = () => useQuery([QueryKeys.USER_REQUESTS], fetchUserRequests)
