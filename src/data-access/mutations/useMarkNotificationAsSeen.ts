@@ -15,8 +15,8 @@ export const useMarkNotificationAsSeen = () =>
   useMutation<MarkSeenResponse, AxiosError<{ errors: string[] }>, string>(markNotificationAsSeen, {
     onSuccess: (payload) => {
       queryClient.setQueryData([QueryKeys.NOTIFICATIONS], (data: any) => {
-        console.log('DATA ', data.notifications)
-        console.log('payload', payload)
+        if (!data?.notifications || !(data.notifications instanceof Array))
+          return { notifications: [payload.notification] }
         const previousNotifications = data.notifications.filter(
           (n: Notification) => n.id !== payload.notification.id
         )

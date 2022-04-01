@@ -7,9 +7,9 @@ import { useIsDrawerOpen } from '@react-navigation/drawer'
 import { useUserContext } from 'hooks/useUserContext'
 import { getDayName } from 'utils/dates'
 import { formatDate } from 'utils/formatDate'
+import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { getCurrentLocale } from 'utils/locale'
 import { NotificationsBell } from './NotificationsBell'
-import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 
 export const DashboardHeader = () => {
   const { t } = useTranslation('dashboard')

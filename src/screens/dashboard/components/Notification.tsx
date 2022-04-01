@@ -11,7 +11,6 @@ export const Notification = ({
   ...p
 }: NotificationModel) => {
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
-  console.log(author)
   return (
     <Box
       backgroundColor="lightGrey"
