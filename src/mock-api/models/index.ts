@@ -8,14 +8,19 @@ export type Schema = {
   request: DayOffRequest[]
   team: Team[]
   post: FeedPost[]
+  notification: Notification[]
 }
 
 export const Models = {
   user: Model.extend({
     requests: hasMany(),
+    notificationsCaused: hasMany('notification'),
   }),
   request: Model.extend({
     user: belongsTo(),
+  }),
+  notification: Model.extend({
+    source: belongsTo('user'),
   }),
   organization: Model.extend({
     teams: hasMany(),
