@@ -9,4 +9,7 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
   },
+  PUT: {
+    editUser: '/api/users',
+  },
 }

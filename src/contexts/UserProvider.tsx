@@ -3,6 +3,7 @@ import React, { ReactNode, useState, useCallback } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
+import { StorageKeys } from 'consts/storageKeys'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -25,7 +26,6 @@ export const emptyUser: User = {
   teams: [],
 }
 
-export const PROFILE_PIC_STORE_KEY = 'profile-pic'
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
   const { reset: clearUserCache } = useCreateTempUser()
@@ -33,7 +33,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const updateUser = useCallback((newData: Partial<User> | null) => {
     // checking if newData.photo !== user.photo makes updateUser dependend on user and changing its reference in unexpected way
     if (newData?.photo) {
-      AsyncStorage.setItem(PROFILE_PIC_STORE_KEY, newData.photo)
+      AsyncStorage.setItem(StorageKeys.PROFILE_PIC, newData.photo)
     }
     setUser((usr) => {
       if (usr) return { ...usr, ...newData }
@@ -42,7 +42,13 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   }, [])
 
   const handleLogout = async () => {
-    await AsyncStorage.multiRemove(['firstName', 'lastName', 'occupation', PROFILE_PIC_STORE_KEY])
+    await AsyncStorage.multiRemove([
+      StorageKeys.FIRST_NAME,
+      StorageKeys.LAST_NAME,
+      StorageKeys.OCCUPATION,
+      StorageKeys.PROFILE_PIC,
+      StorageKeys.USER_COLOR,
+    ])
     delete axios.defaults.headers.common.userId
     clearUserCache()
     setUser(null)

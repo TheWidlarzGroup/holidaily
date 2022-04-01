@@ -10,6 +10,7 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
+import { StorageKeys } from 'consts/storageKeys'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
 
@@ -19,7 +20,7 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
   const { updateUser } = useUserContext()
 
   const handleOnSubmit = async () => {
-    await AsyncStorage.setItem('firstName', firstName)
+    await AsyncStorage.setItem(StorageKeys.FIRST_NAME, firstName)
     createTempUser({ firstName }, { onSuccess: (data) => updateUser(data.user) })
   }
 

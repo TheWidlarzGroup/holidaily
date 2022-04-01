@@ -12,6 +12,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
+import { useEditUser } from 'dataAccess/mutations/useEditUser'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StorageKeys } from 'consts/storageKeys'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 type Position = {
@@ -49,13 +52,21 @@ export const Bubble = ({
   const bubbleOpacity = useSharedValue(1)
 
   const randomDelay = Math.floor(Math.random() * 600)
-
+  const { mutate } = useEditUser()
   const handleSelection = () => {
     setUserColor(color)
     setDropColor(color)
     bubbleOpacity.value = 0
     animateDropArea()
     setTimeout(() => navigation.goBack(), C.ANIMATION_END_DELAY)
+    mutate(
+      { userColor: color },
+      {
+        onSuccess: ({ user }) => {
+          AsyncStorage.setItem(StorageKeys.USER_COLOR, user.userColor)
+        },
+      }
+    )
   }
 
   const gestureHandler = useAnimatedGestureHandler<

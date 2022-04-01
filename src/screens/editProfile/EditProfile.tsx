@@ -12,6 +12,7 @@ import IconBack from 'assets/icons/icon-back2.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { User } from 'mock-api/models/mirageTypes'
 import { keys } from 'utils/manipulation'
+import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -33,12 +34,18 @@ export const EditProfile = () => {
     },
   })
   const { t } = useTranslation('userProfile')
-
+  const { mutate } = useEditUser()
+  const { updateUser } = useUserContext()
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
 
   const onSubmit = (data: EditDetailsTypes) => {
-    keys(data).forEach(async (field) => {
-      await AsyncStorage.setItem(field, data[field])
+    mutate(data, {
+      onSuccess: ({ user }) => {
+        keys(user).forEach(async (field) => {
+          await AsyncStorage.setItem(field, String(user[field]))
+        })
+        updateUser(user)
+      },
     })
 
     showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)

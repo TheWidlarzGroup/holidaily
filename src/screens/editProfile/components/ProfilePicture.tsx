@@ -9,6 +9,9 @@ import { Box, BaseOpacity } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
+import { useEditUser } from 'dataAccess/mutations/useEditUser'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { keys } from 'utils/manipulation'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
@@ -19,6 +22,20 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const { updateUser, user } = useUserContext()
+  const { mutate } = useEditUser()
+
+  const onChangePhoto = (newPhoto: string | undefined) =>
+    mutate(
+      { photo: newPhoto },
+      {
+        onSuccess: ({ user }) => {
+          keys(user).forEach(async (field) => {
+            await AsyncStorage.setItem(field, String(user[field]))
+          })
+          updateUser(user)
+        },
+      }
+    )
 
   const showUploadAttachmentModal = () => {
     hideModal()
@@ -32,7 +49,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
             setIsEditedFalse()
             hideModal()
           }}
-          setPhotoURI={(newPhoto) => updateUser({ photo: newPhoto })}
+          setPhotoURI={onChangePhoto}
         />
       )
     }, 250)

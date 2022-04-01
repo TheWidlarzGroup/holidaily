@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'
 import { sleep } from 'utils/sleep'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { PROFILE_PIC_STORE_KEY } from 'contexts/UserProvider'
+import { StorageKeys } from 'consts/storageKeys'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
@@ -22,10 +22,11 @@ export const AppNavigation = () => {
   const init = useCallback(
     async () =>
       Promise.all([
-        AsyncStorage.getItem('firstName'),
-        AsyncStorage.getItem('lastName'),
-        AsyncStorage.getItem('occupation'),
-        AsyncStorage.getItem(PROFILE_PIC_STORE_KEY),
+        AsyncStorage.getItem(StorageKeys.FIRST_NAME),
+        AsyncStorage.getItem(StorageKeys.LAST_NAME),
+        AsyncStorage.getItem(StorageKeys.OCCUPATION),
+        AsyncStorage.getItem(StorageKeys.PROFILE_PIC),
+        AsyncStorage.getItem(StorageKeys.USER_COLOR),
       ]),
     []
   )
@@ -41,7 +42,7 @@ export const AppNavigation = () => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const [firstName, lastName, occupation, photo] = await init()
+      const [firstName, lastName, occupation, photo, userColor] = await init()
       if (isFirstRender.current) {
         isFirstRender.current = false
         await sleep(3500)
@@ -52,6 +53,7 @@ export const AppNavigation = () => {
         if (lastName) userData.lastName = lastName
         if (occupation) userData.occupation = occupation
         if (photo) userData.photo = photo
+        if (userColor) userData.userColor = userColor
         createTempUser(userData, { onSuccess: (data) => updateUser(data.user) })
       } else return setLoginStatus('FirstVisit')
     }
