@@ -25,7 +25,7 @@ export const Notification = ({
       {author.photo && (
         <FastImage
           source={{ uri: author.photo }}
-          style={{ borderColor: author.color, width: 56, borderLeftWidth: 16 }}
+          style={{ borderColor: author.userColor, width: 56, borderLeftWidth: 16 }}
         />
       )}
       <Box flex={1}>
