@@ -19,7 +19,8 @@
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
       "dataAccess/*": ["data-access/*"],
-      "mockApi/*": ["mock-api/*"]
+      "mockApi/*": ["mock-api/*"],
+      "consts/*": ["consts/*"]
     },
     "resolveJsonModule": true
   }
