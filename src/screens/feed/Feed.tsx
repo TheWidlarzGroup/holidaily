@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box } from 'utils/theme'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
+// import { posts as miragePosts } from 'mockApi/factories/posts'
 
 export const Feed = () => {
   const [language] = useLanguage()
@@ -19,9 +20,9 @@ export const Feed = () => {
         <FlatList
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={<FeedHeader />}
-          data={data.reverse()}
+          data={data}
           renderItem={({ item }) => <FeedPost post={item} />}
-          keyExtractor={({ meta }) => meta.id}
+          keyExtractor={({ meta }) => meta.timestamp.createdAt.toString()}
           extraData={language}
         />
       </Box>

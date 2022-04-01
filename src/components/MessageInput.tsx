@@ -78,7 +78,6 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         },
         timestamp: {
           createdAt: new Date(),
-          editedAt: new Date(),
         },
       },
       comments: [],

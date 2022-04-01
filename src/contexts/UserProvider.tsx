@@ -1,7 +1,7 @@
 import { deleteItemAsync } from 'expo-secure-store'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { authorizedClient } from 'graphqlActions/client'
-import React, { ReactNode, useState, useCallback } from 'react'
+import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import { ContextProps, UserContext } from './UserContext'
 
@@ -29,16 +29,16 @@ const PROFILE_PIC_STORE_KEY = 'profile-pic'
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
 
-  // useEffect(() => {
-  //   const loadImageIfPossible = async () => {
-  //     const profilePic = await AsyncStorage.getItem(PROFILE_PIC_STORE_KEY)
-  //     if (profilePic?.length)
-  //       setUser((old) =>
-  //         old ? { ...old, photo: profilePic } : { ...emptyUser, photo: profilePic }
-  //       )
-  //   }
-  //   loadImageIfPossible()
-  // }, [])
+  useEffect(() => {
+    const loadImageIfPossible = async () => {
+      const profilePic = await AsyncStorage.getItem(PROFILE_PIC_STORE_KEY)
+      if (profilePic?.length)
+        setUser((old) =>
+          old ? { ...old, photo: profilePic } : { ...emptyUser, photo: profilePic }
+        )
+    }
+    loadImageIfPossible()
+  }, [])
 
   const updateUser = useCallback(
     (newData: Partial<User> | null) => {

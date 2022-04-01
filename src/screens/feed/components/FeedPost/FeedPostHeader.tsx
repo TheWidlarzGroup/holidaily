@@ -10,9 +10,9 @@ type FeedPostHeaderProps = Pick<FeedPost, 'meta'>
 export const FeedPostHeader = ({ meta }: FeedPostHeaderProps) => (
   <Box paddingHorizontal="xm" paddingTop="s" alignItems="flex-start">
     <Box flexDirection="row" paddingBottom="s">
-      <Avatar src={meta.author.pictureUrl} marginRight="s" />
+      <Avatar src={meta?.author.pictureUrl} marginRight="s" />
       <FeedPostHeaderInfo meta={meta} />
     </Box>
-    <LocationInfo location={meta.location} />
+    <LocationInfo location={meta?.location} />
   </Box>
 )

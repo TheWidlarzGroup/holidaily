@@ -19,7 +19,7 @@ export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
       <Box padding="s">
         <ExpandingText text={text} />
       </Box>
-      {data.length > 0 ? <Gallery data={data} onItemPress={handleGalleryItemPress} /> : null}
+      {data?.length > 0 ? <Gallery data={data} onItemPress={handleGalleryItemPress} /> : null}
     </Box>
   )
 }
