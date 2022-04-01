@@ -5,7 +5,7 @@ import { QueryKeys } from '../QueryKeys'
 import { API } from '../API'
 
 const fetchUser = async (id: string) => {
-  const res = await axios.get<User>(API.GET.user(id))
+  const res = await axios.get<{ user: User }>(API.GET.user(id))
   return res.data
 }
 

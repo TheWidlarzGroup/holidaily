@@ -1,21 +1,35 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import { useFetchAvailablePto } from 'hooks/legacy-api-hooks/useFetchAvailablePto'
 import { LoadingModal } from 'components/LoadingModal'
+import { useFetchUserData } from 'dataAccess/queries/useFetchUserData'
+import { useUserContext } from 'hooks/useUserContext'
 import { AvailablePto } from './components/AvailablePto'
 
 export const Budget = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
   const { t } = useTranslation('budget')
   const styles = useStyles()
+  const { user } = useUserContext()
 
-  const { isLoading, availablePto } = useFetchAvailablePto()
-
+  const { isLoading, data: responseData, isSuccess } = useFetchUserData(user?.id ?? '')
+  if (isSuccess && !responseData) console.error('ERROR REACT QUERY USER CACHE IN INVALID STATE')
+  const [sentRequestsCount, sickDaysCount, accepted, pending]: number[] = useMemo(() => {
+    console.log(responseData)
+    if (!responseData) return [0, 0, 0, 0]
+    const {
+      user: { requests },
+    } = responseData
+    const sentRequestsCount = requests.length
+    const sickDaysCount = requests.filter((req) => req.status === 'past' && req.isSickTime).length
+    const accepted = requests.filter((req) => req.status === 'accepted').length
+    const pending = requests.filter((req) => req.status === 'pending').length
+    return [sentRequestsCount, sickDaysCount, accepted, pending]
+  }, [responseData])
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
       screen: 'DashboardNavigation',
@@ -31,7 +45,7 @@ export const Budget = () => {
       <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
       <Box paddingHorizontal="m" paddingTop="xxl">
         <Box style={[styles.section]} marginBottom="l2plus">
-          <AvailablePto availablePto={availablePto} />
+          <AvailablePto availablePto={responseData?.user?.availablePto ?? 0} />
         </Box>
         <Box flexDirection="row">
           <Box style={styles.section} flex={1} marginRight="m">
@@ -39,7 +53,7 @@ export const Budget = () => {
               {t('took')}
             </Text>
             <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
-              {t('sickDays', { number: '5' })}
+              {t('sickDays', { number: sickDaysCount })}
             </Text>
           </Box>
           <Box style={styles.section} flex={1}>
@@ -47,10 +61,10 @@ export const Budget = () => {
               {t('sent')}
             </Text>
             <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
-              {t('requests', { number: '7' })}
+              {t('requests', { number: sentRequestsCount })}
             </Text>
             <Text marginVertical="xxm" variant="captionText" lineHeight={14}>
-              {t('requestsStatus', { accepted: '6', pending: '1' })}
+              {t('requestsStatus', { accepted, pending })}
             </Text>
           </Box>
         </Box>

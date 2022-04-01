@@ -3,4 +3,5 @@ export enum QueryKeys {
   ALL_USERS = 'ALL_USERS',
   ORGANIZATION = 'ORGANIZATION',
   POSTS = 'POSTS',
+  USER_REQUESTS = 'USER_REQUESTS',
 }
