@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
@@ -13,19 +13,11 @@ import { emptyUser } from 'contexts/UserProvider'
 import { useTeamsContext } from 'hooks/usePostsContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { DashboardTeamMember } from './DashboardTeamMember'
-import { useGetOrganization } from '../../data-access/queries/useOrganizationData'
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User>(emptyUser)
 
-  const { data } = useGetOrganization()
-  const { teams, updateTeams } = useTeamsContext()
-
-  useEffect(() => {
-    if (data) {
-      updateTeams(data.teams)
-    }
-  }, [data, updateTeams])
+  const { teams } = useTeamsContext()
 
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
@@ -50,7 +42,7 @@ export const Dashboard = () => {
           {teams?.map((team: Team) => (
             <TeamElement
               {...team}
-              key={team.id}
+              key={team.name}
               navigateToTeamScreen={() => navigateToTeamDetails(team)}
             />
           ))}

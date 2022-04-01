@@ -16,7 +16,10 @@ const addPost = async (body: FeedPost): Promise<Post> => {
 export const useAddPost = () =>
   useMutation<Post, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
     onSuccess: (payload) => {
-      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => [payload.post, ...data])
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (data?.length) return [payload.post, ...data]
+        return [payload.post]
+      })
     },
     onError: (err) => {
       console.log('Error while adding post: ', err.message)

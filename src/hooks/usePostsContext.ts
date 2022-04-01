@@ -8,5 +8,5 @@ export const useTeamsContext = () => {
     return context
   }
 
-  throw Error('Use this hook in PostsProvider scope')
+  throw Error('Use this hook in TeamsProvider scope')
 }
