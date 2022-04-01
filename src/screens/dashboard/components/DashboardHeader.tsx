@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { Avatar } from 'components/Avatar'
@@ -9,6 +9,7 @@ import { getDayName } from 'utils/dates'
 import { formatDate } from 'utils/formatDate'
 import { getCurrentLocale } from 'utils/locale'
 import { NotificationsBell } from './NotificationsBell'
+import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 
 export const DashboardHeader = () => {
   const { t } = useTranslation('dashboard')
@@ -21,7 +22,11 @@ export const DashboardHeader = () => {
   )} (${getDayName(new Date())})`
 
   const isDrawerOpen = useIsDrawerOpen()
-
+  const { data } = useFetchNotifications()
+  const unseenCount = useMemo(() => {
+    if (!data) return 0
+    return data.notifications.filter((n) => !n.wasSeenByHolder).length
+  }, [data])
   return (
     <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
@@ -45,7 +50,7 @@ export const DashboardHeader = () => {
             })}
           </Text>
         </Box>
-        <NotificationsBell unseenCount={2} />
+        <NotificationsBell unseenCount={unseenCount} />
       </Box>
     </Box>
   )
