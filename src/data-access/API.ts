@@ -4,6 +4,7 @@ export const API = {
     user: (id: string) => `api/users/${id}`,
     getOrganization: '/api/organization',
     notifications: '/api/notifications',
+    userRequests: '/api/requests',
   },
 
   POST: {
