@@ -4,6 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Notification } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
 import { getCurrentLocale } from 'utils/locale'
+
 export const NotificationContent = ({
   type,
   firstName,
