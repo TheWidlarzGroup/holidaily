@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { PostsContext } from 'contexts/PostsContext'
+import { TeamsContext } from 'contexts/TeamsContext'
 
-export const usePostsContext = () => {
-  const context = useContext(PostsContext)
+export const useTeamsContext = () => {
+  const context = useContext(TeamsContext)
 
   if (context) {
     return context
