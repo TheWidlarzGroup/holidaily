@@ -8,11 +8,27 @@ export const getClosestHolidayRequests = (teams: Team[]) => {
     (user, index, arr) => arr.findIndex((usr) => usr.id === user.id) === index
   )
   allSortedUsers = allSortedUsers.filter((user) => user.requests.length > 0)
+  allSortedUsers = allSortedUsers.filter(
+    (user) => user.requests[0].endDate > new Date().toISOString()
+  )
 
-  const sortByDate = (a: User, b: User) => {
+  const sortByStartDate = (a: User, b: User) => {
     if (a.requests[0].startDate < b.requests[0].startDate) return -1
     if (a.requests[0].startDate > b.requests[0].startDate) return 1
     return 0
   }
-  return allSortedUsers.sort(sortByDate)
+  const sortByEndDate = (a: User, b: User) => {
+    if (a.requests[0].endDate < b.requests[0].endDate) return -1
+    if (a.requests[0].endDate > b.requests[0].endDate) return 1
+    return 0
+  }
+
+  const sortUsers = (users: User[]) => {
+    const usersWithHoliday = users.filter((user) => user.isOnHoliday)
+    const usersWithoutHoliday = users.filter((user) => !user.isOnHoliday)
+    usersWithHoliday.sort(sortByEndDate)
+    usersWithoutHoliday.sort(sortByStartDate)
+    return usersWithHoliday.concat(usersWithoutHoliday)
+  }
+  return sortUsers(allSortedUsers)
 }

@@ -20,8 +20,8 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <IconBack height={18} width={18} />
         </TouchableOpacity>
-        <MateHeader {...user} />
-        <MateHoliday {...user} />
+        <MateHeader user={user} />
+        <MateHoliday user={user} />
         <Box flexDirection="row">
           <MateHolidayDetail type="start" date={user?.requests[0].startDate || ''} />
           <MateHolidayDetail type="end" date={user?.requests[0].endDate || ''} />

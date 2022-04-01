@@ -19,7 +19,6 @@ function fetchOrganization(schema: Schema<ModelsSchema>) {
         const isTodayBeforeEnd = isBefore(Date.now(), new Date(req.endDate))
         return isTodayAfterStart && isTodayBeforeEnd
       })
-      console.log('holiday', isOnHoliday)
       user.update({
         isOnHoliday,
       })

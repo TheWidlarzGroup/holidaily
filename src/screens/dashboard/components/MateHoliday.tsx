@@ -6,8 +6,9 @@ import { displayDatesRange } from 'utils/functions'
 import IconSickLeave from 'assets/icons/icon-sick-leave.svg'
 import { User } from 'mock-api/models/mirageTypes'
 
-export const MateHoliday = (props: User) => {
-  const { isOnHoliday, startDate, endDate, isSickTime, description } = props.requests[0]
+export const MateHoliday = ({ user }: { user: User }) => {
+  const { startDate, endDate, isSickTime, description } = user.requests[0]
+  const { isOnHoliday } = user
   const { t } = useTranslation('dashboard')
 
   const header = isOnHoliday ? 'outOfWorkNow' : 'outOfWorkSoon'

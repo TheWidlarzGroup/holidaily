@@ -28,6 +28,7 @@ export const TEAM_MATES_AKADEMIA: User[] = [
     language: 'pl',
     role: 'Admin',
     availablePto: 20,
+    isOnHoliday: true,
     teams: [],
     requests: [
       {
@@ -38,7 +39,6 @@ export const TEAM_MATES_AKADEMIA: User[] = [
         endDate: '',
         isSickTime: true,
         status: 'accepted',
-        isOnHoliday: true,
       },
     ],
   },
@@ -54,6 +54,7 @@ export const TEAM_MATES_AKADEMIA: User[] = [
     language: 'pl',
     role: 'Admin',
     availablePto: 20,
+    isOnHoliday: true,
     teams: [],
     requests: [
       {
@@ -64,7 +65,6 @@ export const TEAM_MATES_AKADEMIA: User[] = [
         endDate: '',
         isSickTime: true,
         status: 'accepted',
-        isOnHoliday: true,
       },
     ],
   },
@@ -80,6 +80,7 @@ export const TEAM_MATES_AKADEMIA: User[] = [
     language: 'pl',
     role: 'Admin',
     availablePto: 20,
+    isOnHoliday: true,
     teams: [],
     requests: [
       {
@@ -90,7 +91,6 @@ export const TEAM_MATES_AKADEMIA: User[] = [
         endDate: '',
         isSickTime: true,
         status: 'accepted',
-        isOnHoliday: true,
       },
     ],
   },
@@ -108,6 +108,7 @@ export const TEAM_MATES_DEV: User[] = [
     userColor: '',
     language: 'pl',
     role: 'Admin',
+    isOnHoliday: true,
     availablePto: 20,
     requests: [],
     teams: [],
