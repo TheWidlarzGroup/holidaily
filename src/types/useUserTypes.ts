@@ -1,8 +1,8 @@
-import { UserData } from 'contexts/UserContext'
+import { User } from 'mock-api/models/mirageTypes'
 
 export type UserTypes = {
   confirmed: boolean
-} & Omit<UserData, 'isConfirmed'>
+} & Omit<User, 'confirmed'>
 
 export type UserQueryTypes = {
   user: UserTypes

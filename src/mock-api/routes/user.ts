@@ -1,5 +1,6 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { faker } from '@faker-js/faker'
 import { initPayloadService } from '../utils/payloadService'
 import { genRandomDayOffRequest } from '../factories/requestFactory'
 import { Schema as ModelsSchema, User } from '../models'
@@ -25,34 +26,89 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     'language',
     'lastName',
     'occupation',
-    'organization',
+    'teams',
     'photo',
     'userColor',
   ]
-  const defaultValues = {
+  const defaultValues: Partial<User> = {
     confirmed: true,
     email: '',
     lastName: '',
     occupation: '',
-    color: '#FF8B3F',
     language: 'en',
     photo: null,
     role: 'Admin',
+    teams: [],
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()
-  console.log('USERRR', payload.body)
   payload.validate(mandatoryFields, body)
   payload.fill(optionalFields, body)
-
-  if (httpError) return new Response(httpError.status, { errors: String(httpError.errors) })
-  const response = schema.create('user', { ...defaultValues, ...payload.body })
+  if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
+  const user = schema.create('user', { ...defaultValues, ...payload.body })
+  if (!user.id) return new Response(400)
   for (let i = 0; i < 10; i++) {
-    if (!response.id) break
-    schema.create('dayOffRequest', {
+    schema.create('request', {
       ...genRandomDayOffRequest(),
-      user: schema.find('user', response.id),
+      user,
     })
   }
-  return response
+  let availablePto = schema.findBy('organization', { name: 'Supercompany' })?.maxPtoDays ?? 24
+  // @ts-ignore
+  const userRequests = schema.where('request', { userId: user.id }).models
+  if (userRequests)
+    // @ts-ignore
+    availablePto = userRequests.filter((req) => req.status !== 'cancelled').length
+  if (availablePto < 0) availablePto = 0
+  // @ts-ignore
+  user.update({ availablePto, requests: userRequests })
+
+  const June = schema.find('user', 'source-june')
+  const Peter = schema.find('user', 'source-peter')
+  const Tom = schema.find('user', 'source-tom')
+  schema.create('notification', {
+    createdAt: faker.date.recent(0),
+    source: June,
+    wasSeenByHolder: false,
+    holderId: user.id,
+    type: 'like',
+  })
+  schema.create('notification', {
+    createdAt: faker.date.recent(0),
+    source: Peter,
+    wasSeenByHolder: false,
+    holderId: user.id,
+    type: 'comment',
+  })
+  schema.create('notification', {
+    createdAt: faker.date.between(
+      new Date(Date.now() - 3 * DAY_IN_MS),
+      new Date(Date.now() - 7 * DAY_IN_MS)
+    ),
+    source: Peter,
+    wasSeenByHolder: true,
+    holderId: user.id,
+    type: 'dayOff',
+    endDate: faker.date.between(
+      new Date(Date.now() + 3 * DAY_IN_MS),
+      new Date(Date.now() + 14 * DAY_IN_MS)
+    ),
+  })
+  schema.create('notification', {
+    createdAt: faker.date.between(
+      new Date(Date.now() - 3 * DAY_IN_MS),
+      new Date(Date.now() - 7 * DAY_IN_MS)
+    ),
+    source: Tom,
+    wasSeenByHolder: true,
+    holderId: user.id,
+    type: 'dayOff',
+    endDate: faker.date.between(
+      new Date(Date.now() + 3 * DAY_IN_MS),
+      new Date(Date.now() + 14 * DAY_IN_MS)
+    ),
+  })
+  return user
 }
+
+const DAY_IN_MS = 24 * 3600 * 1000

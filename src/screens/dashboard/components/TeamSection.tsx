@@ -2,12 +2,12 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { MateElement } from 'screens/dashboard/components/MateElement'
-import { MateHolidaysData, RequiredMateHolidaysData } from 'types/holidaysDataTypes'
+import { User } from 'mock-api/models/mirageTypes'
 
 type TeamSectionProps = {
-  matesArray: RequiredMateHolidaysData[]
+  matesArray: User[]
   isOutOfOffice: boolean
-  openUserModal: F1<MateHolidaysData>
+  openUserModal: F1<User>
 }
 
 export const TeamSection = (props: TeamSectionProps) => {

@@ -1,30 +1,30 @@
 import React from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { MateHolidaysData, RequiredMateHolidaysData } from 'types/holidaysDataTypes'
 import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/functions'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { Avatar } from 'components/Avatar'
+import { User } from 'mock-api/models/mirageTypes'
 
 type MateElementProps = {
-  userData: RequiredMateHolidaysData
-  openUserModal: F1<MateHolidaysData>
+  userData: User
+  openUserModal: F1<User>
 }
 
 export const MateElement = (props: MateElementProps) => {
   const { t } = useTranslation('dashboard')
-  const { firstName, lastName, holidays, photo } = props.userData
-  const date = holidays.isOnHoliday ? holidays.dayEnd : holidays.dayStart
-  const dateToBeDisplayed = setDateToBeDisplayed(date, holidays.isOnHoliday)
+  const { firstName, lastName, requests, photo } = props.userData
+  const date = requests[0].isOnHoliday ? requests[0].endDate : requests[0].startDate
+  const dateToBeDisplayed = setDateToBeDisplayed(date, requests[0].isOnHoliday)
 
   const version: {
     color: 'tertiary' | 'greyDark'
     text: 'backAtWork' | 'lastDayAtWork'
     borderColor: 'tertiary' | 'disabledText'
   } = {
-    color: holidays.isOnHoliday ? 'tertiary' : 'greyDark',
-    text: holidays.isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
-    borderColor: holidays.isOnHoliday ? 'tertiary' : 'disabledText',
+    color: requests[0].isOnHoliday ? 'tertiary' : 'greyDark',
+    text: requests[0].isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
+    borderColor: requests[0].isOnHoliday ? 'tertiary' : 'disabledText',
   }
 
   const handleOnPress = () => props.openUserModal(props.userData)
@@ -41,7 +41,7 @@ export const MateElement = (props: MateElementProps) => {
       onPress={handleOnPress}>
       <Box margin="m">
         <Avatar src={photo} />
-        {holidays.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
+        {requests[0].isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">
         <Text variant="alreadyRegistered" color="black" lineHeight={20}>
