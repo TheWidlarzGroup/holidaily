@@ -1,6 +1,7 @@
 import { CompoundLocation } from 'hooks/useLocation'
+import { User } from './mirageTypes'
 
-type UserData = { id: string; name: string; occupation: string; pictureUrl: string | null }
+type UserData = Pick<User, 'id' | 'occupation'> & { pictureUrl: User['photo']; name: string }
 
 export type Timestamp = {
   createdAt: Date

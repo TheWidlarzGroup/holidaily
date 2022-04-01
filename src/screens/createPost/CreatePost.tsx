@@ -10,7 +10,7 @@ import { PostState } from './CreatePostForm/usePostFormReducer'
 import { CreatePostResult } from './CreatePostResult/CreatePostResult'
 import { CreatePostStatus } from './types'
 
-type Attachment = {
+type PostAttachment = {
   src: string
   type: FeedPostDataType
 }
@@ -28,18 +28,18 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
     }
   }, [])
 
-  const addAttachments = (attachments: Asset[]) =>
+  const addAttachments = (attachments: Asset[]): PostAttachment[] =>
     attachments.map((item) => {
       if (item.type === 'image/jpeg') {
         return {
-          src: item.uri,
+          src: item.uri || '',
           type: 'image',
-        } as Attachment
+        }
       }
       return {
-        src: item.uri,
+        src: item.uri || '',
         type: 'video',
-      } as Attachment
+      }
     })
 
   const handleOnSend = (data: PostState) => {

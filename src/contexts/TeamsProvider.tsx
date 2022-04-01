@@ -1,6 +1,8 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { Team } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
+import { QueryKeys } from 'dataAccess/QueryKeys'
+import { queryClient } from 'dataAccess/queryClient'
 import { ContextProps, TeamsContext } from './TeamsContext'
 
 type ProviderProps = {
@@ -13,6 +15,10 @@ export const TeamsContextProvider = ({ children }: ProviderProps) => {
 
   const updateTeams = useCallback((newData: Team[]) => {
     setTeams((prev) => (prev ? [...prev, ...newData] : newData))
+  }, [])
+
+  useEffect(() => {
+    queryClient.prefetchQuery(QueryKeys.ORGANIZATION, useGetOrganization)
   }, [])
 
   useEffect(() => {
