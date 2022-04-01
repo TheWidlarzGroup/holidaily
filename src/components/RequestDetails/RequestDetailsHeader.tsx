@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 
 type RequestDetailsHeaderProps = {
   description?: string
-  startDate?: Date
-  endDate?: Date
+  startDate?: Date | string
+  endDate?: Date | string
 }
 
 export const RequestDetailsHeader = ({
@@ -15,6 +15,8 @@ export const RequestDetailsHeader = ({
   startDate,
   endDate,
 }: RequestDetailsHeaderProps) => {
+  if (typeof startDate === 'string') startDate = new Date(startDate)
+  if (typeof endDate === 'string') endDate = new Date(endDate)
   const { t } = useTranslation('requestVacation')
   return (
     <>

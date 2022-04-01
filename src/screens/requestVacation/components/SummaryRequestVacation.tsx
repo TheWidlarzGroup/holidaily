@@ -50,8 +50,8 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         description={p.description}
         message={p.message ?? ''}
         attachments={p.attachments}
-        startDate={p.startDate ?? new Date()}
-        endDate={p.endDate ?? new Date()}
+        startDate={(p.startDate ?? new Date()).toISOString()}
+        endDate={(p.endDate ?? new Date()).toISOString()}
         isSickTime={p.isSick}
         status={'pending'}
       />

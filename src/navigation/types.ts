@@ -146,7 +146,7 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
-  SeeRequest: Omit<DayOffRequest, 'id' | 'user'>
+  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
 
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>

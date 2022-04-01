@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
-export const SeeRequestModal = ({ route: { params: p } }: ModalNavigationProps<'SeeRequest'>) => {
+export const SeeRequest = ({ route: { params: p } }: ModalNavigationProps<'SeeRequest'>) => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('seeRequest')
   return (

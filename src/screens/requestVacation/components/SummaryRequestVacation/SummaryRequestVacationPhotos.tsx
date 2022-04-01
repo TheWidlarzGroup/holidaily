@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme/index'
-import { Photo } from '../../../../components/RequestDetails/Photo'
+import { Photo } from 'components/RequestDetails/Photo'
 
 type Side = 'left' | 'right'
 type SummaryRequestVacationPhotosProps = {

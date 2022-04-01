@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
 import { calculatePTO } from 'utils/dates'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
@@ -17,7 +17,9 @@ type RequestDetailsProps = {
   showStatus?: true
 }
 
-export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDetailsProps) => {
+export const RequestDetails = (
+  p: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'> & RequestDetailsProps
+) => {
   const styles = useStyles()
   const { t } = useTranslation('seeRequest')
   return (
@@ -35,6 +37,7 @@ export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDe
               opacity={0.3}
               alignItems="center"
               justifyContent="center"
+              zIndex="-1"
             />
             <Box padding="m" flexDirection="row" alignItems="center">
               <CircleStatusIcon status={p.status} />
@@ -60,16 +63,18 @@ export const RequestDetails = (p: Omit<DayOffRequest, 'id' | 'user'> & RequestDe
   )
 }
 
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme: Theme) => ({
   plant1: {
     position: 'absolute',
     top: 0,
     right: 0,
+    zIndex: theme.zIndices['10'],
   },
   plant2: {
     position: 'absolute',
     bottom: 0,
     left: -30,
+    zIndex: theme.zIndices['10'],
   },
   button: {
     marginTop: 20,

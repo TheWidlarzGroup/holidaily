@@ -101,11 +101,10 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          console.log(endDate?.getFullYear(), startDate?.getFullYear())
           navigation.navigate('SeeRequest', {
             ...requestData,
-            endDate: endDate ?? new Date(),
-            startDate: startDate ?? new Date(),
+            endDate: (endDate ?? new Date()).toISOString(),
+            startDate: (startDate ?? new Date()).toISOString(),
             isSickTime: sickTime,
             // TODO: get from backend
             status: 'pending',
