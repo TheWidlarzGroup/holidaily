@@ -1,3 +1,4 @@
+import { LoadingModal } from 'components/LoadingModal'
 import format from 'date-fns/format'
 import { User } from 'mock-api/models/mirageTypes'
 import React from 'react'
@@ -13,9 +14,11 @@ type CarouselProps = {
 export const Carousel = ({ openUserModal }: CarouselProps) => {
   const { data } = useGetOrganization()
 
-  if (!data) return null
+  if (!data) return <LoadingModal show />
 
   const usersWithHoliday = getClosestHolidayRequests(data.teams)
+
+  // if (!usersWithHoliday || usersWithHoliday.length < 1) return <LoadingModal show />
 
   const displayDay = (user: User) => {
     if (user.requests[0].isOnHoliday) {

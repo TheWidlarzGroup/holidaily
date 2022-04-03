@@ -3,7 +3,7 @@ import React from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 
-import { Reaction, Comment } from 'mock-api/models/miragePostTypes'
+import { Reaction, Comment, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
@@ -11,21 +11,25 @@ import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/useUserContext'
+import { useAddComment } from 'dataAccess/mutations/useAddLikeComment'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
-type FooterBarProps = {
-  reactions: Reaction[]
-  comments: Comment[]
+type Post = {
+  post: FeedPost
 }
 
-export const FooterBar = ({ reactions, comments }: FooterBarProps) => {
+export const FooterBar = ({ post }: Post) => {
+  const { reactions, id } = post
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
   const { user } = useUserContext()
+  const { mutate } = useAddComment()
 
   const handleSubmitComment = (comment: Comment) => {
-    comments.push(comment)
+    if (comment.text?.length < 1) return console.log('too short msg')
+    const payload = { postId: id || '', comment }
+    mutate(payload)
   }
 
   const handlePressReaction = (emoji: string) => {
@@ -94,7 +98,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
         />
         {reactions &&
           reactions.map((item) => {
-            if (item.users.length === 0) return
+            if (item.users?.length === 0) return
             return (
               <ReactionBubble
                 key={item.type}

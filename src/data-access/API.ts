@@ -1,3 +1,5 @@
+import { AddComment } from 'mockApi/models/miragePostTypes'
+
 export const API = {
   GET: {
     allUsers: '/api/users',
@@ -10,5 +12,9 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
     addPost: '/api/addpost',
+    addCommentToPost: (comment: AddComment) => `/api/posts/${comment.postId}`,
+  },
+  PUT: {
+    // addReactionToPost: (id: string) => `/api/posts/${id}`,
   },
 }
