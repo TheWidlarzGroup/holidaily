@@ -8,6 +8,7 @@ export const API = {
     notifications: '/api/notifications',
     getPosts: '/api/posts',
     userRequests: '/api/requests',
+    userStats: '/api/stats',
   },
 
   POST: {
