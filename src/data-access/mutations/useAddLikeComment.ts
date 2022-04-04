@@ -16,9 +16,14 @@ const addComment = async (comment: AddComment): Promise<PostSuccess> => {
 export const useAddComment = () =>
   useMutation<PostSuccess, AxiosError<{ errors: string[] }>, AddComment>(addComment, {
     onSuccess: (payload) => {
-      console.log('MUTATION PAYLOAD:', payload)
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
-        if (data?.length) return [payload.post, ...data]
+        if (!data) throw new Error('No posts found!')
+        const allPosts = data
+        const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
+        if (postIndex !== -1 && allPosts) {
+          allPosts[postIndex] = payload.post
+        }
+        if (allPosts?.length) return [...allPosts]
         return [payload.post]
       })
     },
