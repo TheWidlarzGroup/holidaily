@@ -14,7 +14,7 @@ import { initBackendMocks } from './mock-api/server'
 
 initBackendMocks()
 export const Main = () => {
-  // FIXME: read from user preferences
+  // // FIXME: read from user preferences
   const darkMode = false
 
   return (
