@@ -1,15 +1,13 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme/index'
-import { Photo } from 'components/RequestDetails/Photo'
+import { Photo } from './Photo'
 
 type Side = 'left' | 'right'
-type SummaryRequestVacationPhotosProps = {
+type RequestAttachmentsProps = {
   attachments?: { id: string; uri: string; name?: string }[]
 }
 
-export const SummaryRequestVacationPhotos = ({
-  attachments,
-}: SummaryRequestVacationPhotosProps) => {
+export const RequestAttachments = ({ attachments }: RequestAttachmentsProps) => {
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2

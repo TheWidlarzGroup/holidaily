@@ -6,6 +6,7 @@ import { requireAuth } from 'mockApi/utils/requireAuth'
 // maybe in a real application these would come via web socket?
 export function notificationRoutes(context: Server<ModelsSchema>) {
   context.get('/notifications', fetchNotifications)
+  context.patch('/notifications/seen/:id', markNotificationAsSeen)
 }
 function fetchNotifications(schema: Schema<ModelsSchema>, req: Request) {
   let user: User | undefined
@@ -16,4 +17,20 @@ function fetchNotifications(schema: Schema<ModelsSchema>, req: Request) {
   }
   // @ts-ignore
   return schema.where('notification', (a) => a.holderId === user.id)
+}
+
+function markNotificationAsSeen(schema: Schema<ModelsSchema>, req: Request) {
+  let user: User | undefined
+  try {
+    user = requireAuth(schema, req)
+  } catch (error) {
+    return new Response(401)
+  }
+  const notification = schema.find('notification', req.params.id)
+  // @ts-ignore
+  if (notification.holderId !== user.id) return new Response(403)
+  if (!notification) return new Response(404)
+  // @ts-ignore
+  notification.update({ wasSeenByHolder: true })
+  return notification
 }

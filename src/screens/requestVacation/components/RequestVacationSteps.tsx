@@ -26,6 +26,7 @@ export const RequestVacationSteps = ({
 }: StepsProps) => {
   const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData } =
     useRequestVacationContext()
+
   if (step === 0)
     return (
       <FormRequestVacation

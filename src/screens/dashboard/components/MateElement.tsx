@@ -11,23 +11,23 @@ type MateElementProps = {
   openUserModal: F1<User>
 }
 
-export const MateElement = (props: MateElementProps) => {
+export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
   const { t } = useTranslation('dashboard')
-  const { firstName, lastName, requests, photo } = props.userData
-  const date = requests[0].isOnHoliday ? requests[0].endDate : requests[0].startDate
-  const dateToBeDisplayed = setDateToBeDisplayed(date, requests[0].isOnHoliday)
+  const { firstName, lastName, requests, photo } = userData
+  const date = userData.isOnHoliday ? requests[0].endDate : requests[0].startDate
+  const dateToBeDisplayed = setDateToBeDisplayed(date, userData.isOnHoliday)
 
   const version: {
     color: 'tertiary' | 'greyDark'
     text: 'backAtWork' | 'lastDayAtWork'
     borderColor: 'tertiary' | 'disabledText'
   } = {
-    color: requests[0].isOnHoliday ? 'tertiary' : 'greyDark',
-    text: requests[0].isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
-    borderColor: requests[0].isOnHoliday ? 'tertiary' : 'disabledText',
+    color: userData.isOnHoliday ? 'tertiary' : 'greyDark',
+    text: userData.isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
+    borderColor: userData.isOnHoliday ? 'tertiary' : 'disabledText',
   }
 
-  const handleOnPress = () => props.openUserModal(props.userData)
+  const handleOnPress = () => openUserModal(userData)
 
   return (
     <BaseOpacity
@@ -41,7 +41,7 @@ export const MateElement = (props: MateElementProps) => {
       onPress={handleOnPress}>
       <Box margin="m">
         <Avatar src={photo} />
-        {requests[0].isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
+        {userData.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">
         <Text variant="alreadyRegistered" color="black" lineHeight={20}>

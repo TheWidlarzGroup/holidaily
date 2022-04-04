@@ -27,7 +27,7 @@ export const FooterBar = ({ post }: Post) => {
   const { mutate: addComment } = useAddComment()
   const { mutate: addReaction } = useAddReaction()
 
-  if (!user?.id) return
+  if (!user?.id) return null
 
   const handleSubmitComment = (comment: Comment) => {
     if (comment.text?.length < 1) return

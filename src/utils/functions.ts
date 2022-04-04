@@ -63,7 +63,6 @@ export const setDateToBeDisplayed = (date: DateOrISO, currentlyOnHoliday: boolea
 // function to count how many people are on holidays in team
 export const qtyOnHolidayNow = (users: User[]): number =>
   users.reduce(
-    (acc, curr) =>
-      !curr.requests[0] || (curr.requests[0] && !curr.requests[0].isOnHoliday) ? acc : acc + 1,
+    (acc, curr) => (!curr.requests[0] || (curr.requests[0] && !curr.isOnHoliday) ? acc : acc + 1),
     0
   )

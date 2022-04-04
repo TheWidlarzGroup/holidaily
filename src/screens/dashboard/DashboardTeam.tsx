@@ -14,12 +14,12 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
 
-  const matesOnHoliday = params && params?.users?.filter((mate) => mate.requests[0].isOnHoliday)
+  const matesOnHoliday = params && params?.users?.filter((mate) => mate.isOnHoliday)
   const matesWithPlannedHolidays = params?.users?.filter(
-    (mate) => !mate.requests[0].isOnHoliday && mate.requests[0].startDate
+    (mate) => !mate.isOnHoliday && mate.requests[0].startDate
   )
   const matesWithNoPlannedHolidays = params?.users?.filter(
-    (mate) => !mate.requests[0].isOnHoliday && !mate.requests[0].startDate
+    (mate) => !mate.isOnHoliday && !mate.requests[0].startDate
   )
 
   return (

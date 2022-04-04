@@ -4,8 +4,8 @@ import { AttachmentType } from 'types/holidaysDataTypes'
 
 export type RequestVacationData = {
   step: number
-  startDate: Date | undefined
-  endDate: Date | undefined
+  startDate?: Date
+  endDate?: Date
   requestData: {
     description: string
     message: string

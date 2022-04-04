@@ -5,6 +5,7 @@ export const API = {
     allUsers: '/api/users',
     user: (id: string) => `api/users/${id}`,
     getOrganization: '/api/organization',
+    notifications: '/api/notifications',
     getPosts: '/api/posts',
     userRequests: '/api/requests',
   },
@@ -15,9 +16,10 @@ export const API = {
     addCommentToPost: (comment: AddComment) => `/api/posts/${comment.postId}`,
   },
   PUT: {
+    editUser: '/api/users',
     addReactionToPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
   },
-  DELETE: {
-    deleteReactionFromPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
+  PATCH: {
+    markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
   },
 }

@@ -293,6 +293,17 @@
     "save": "Save",
     "cancel": "Cancel"
   },
+  "notifications": {
+    "header": "Notifications",
+    "new": "new",
+    "seen": "SEEN",
+    "unseen": "UNSEEN",
+    "markAllAsSeen": "Mark all as seen",
+    "markSeen": "Seen",
+    "like": "<b>{{author}}</b> liked your <b>Holifeed</b> post",
+    "comment": "<b>{{author}}</b> commented your <b>Holifeed</b> post",
+    "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"
+  },
   "budget": {
     "budget": "Holiday budget",
     "have": "I have",
@@ -308,5 +319,12 @@
     "policyTwo": "It increases after working a <b>full month.</b>",
     "policyTwoExample": "If you started work on August 1, 2021, on September 2, 2021 you will have 1.75 days off. On October 2, 2021 it will be 3.5 days and so on. ",
     "policyThree": "You should ask for 1-2 days off about <b>2 weeks</b> before, and try to plan longer holidays (3 days or more) <b>2 months<b/> in advance."
+  },
+  "seeRequest": {
+    "pending": "Pending",
+    "cancelled": "Declined",
+    "past": "Past",
+    "accepted": "Accepted",
+    "yourRequest": "Your request"
   }
 }

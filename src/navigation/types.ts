@@ -2,6 +2,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { GalleryItemData, UserTeamsSubscriptions } from 'types/holidaysDataTypes'
+import { DayOffRequest } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
 
 type NestedNavigatorParams<ParamList> = {
@@ -145,6 +146,8 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
+  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
+
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
@@ -155,6 +158,7 @@ export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: Team & { openUserModal: F1<User> }
   DashboardTeamMember: User
+  DashboardNotifications: undefined
 }
 
 export type BudgetRoutes = {

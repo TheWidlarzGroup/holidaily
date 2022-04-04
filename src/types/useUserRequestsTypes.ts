@@ -1,4 +1,4 @@
-export type RequestStatus = 'CANCELLED' | 'APPROVED' | 'PENDING' | 'PAST'
+import { DayOffRequest } from 'mock-api/models'
 
 export type RequestTypes = {
   description: string
@@ -6,7 +6,7 @@ export type RequestTypes = {
   message: string
   range: string[]
   sickTime: boolean
-  status: RequestStatus
+  status: DayOffRequest['status']
 }
 export type RequestsQueryTypes = {
   requests: RequestTypes[]

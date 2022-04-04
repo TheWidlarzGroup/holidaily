@@ -30,6 +30,9 @@ type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const {
     requestData,
+    startDate,
+    endDate,
+    sickTime,
     setRequestData,
     setStep,
     setStartDate,
@@ -74,6 +77,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
 
   useEffect(() => {
     const { params } = route
+
     if (params?.start) setStartDate(new Date(params.start))
     if (params?.end) setEndDate(new Date(params.end))
     if (params?.action === 'sickday') {
@@ -97,6 +101,14 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
+          navigation.navigate('SeeRequest', {
+            ...requestData,
+            endDate: (endDate ?? new Date()).toISOString(),
+            startDate: (startDate ?? new Date()).toISOString(),
+            isSickTime: sickTime,
+            // TODO: get from backend
+            status: 'pending',
+          })
         }}
         onPressAnother={reset}
         onPressOk={() => {

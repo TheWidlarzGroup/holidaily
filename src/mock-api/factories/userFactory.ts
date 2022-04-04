@@ -8,7 +8,7 @@ export const userFactory = Factory.extend({
   lastName: faker.name.lastName(),
   occupation: faker.name.jobTitle(),
   requests: [],
-  color: '#FF8B3F',
+  userColor: '#FF8B3F',
   language: 'en',
   photo: null,
   role: 'Admin',

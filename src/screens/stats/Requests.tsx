@@ -1,4 +1,4 @@
-import { useUserRequests } from 'hooks/legacy-api-hooks/useUserRequests'
+import { useUserContext } from 'hooks/useUserContext'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, TouchableOpacity } from 'react-native'
@@ -7,15 +7,15 @@ import { Request } from './components/Request'
 import { SectionHeader } from './components/SectionHeader'
 
 export const Requests = () => {
-  const { requests } = useUserRequests()
   const { t } = useTranslation('stats')
-
-  const { pendingRequests, approvedRequests, pastRequests, declinedRequests } = useMemo(
+  const { user } = useUserContext()
+  const requests = useMemo(() => user?.requests ?? [], [user])
+  const { pendingRequests, approvedRequests, pastRequests, rejectedRequests } = useMemo(
     () => ({
-      pendingRequests: requests.filter((req) => req.status === 'PENDING'),
-      approvedRequests: requests.filter((req) => req.status === 'APPROVED'),
-      pastRequests: requests.filter((req) => req.status === 'PAST'),
-      declinedRequests: requests.filter((req) => req.status === 'CANCELLED'),
+      pendingRequests: requests.filter((req) => req.status === 'pending'),
+      approvedRequests: requests.filter((req) => req.status === 'accepted'),
+      pastRequests: requests.filter((req) => req.status === 'past'),
+      rejectedRequests: requests.filter((req) => req.status === 'cancelled'),
     }),
     [requests]
   )
@@ -39,7 +39,7 @@ export const Requests = () => {
           },
           {
             title: t('declinedRequestsHeader'),
-            data: declinedRequests,
+            data: rejectedRequests,
           },
         ]}
         keyExtractor={({ id }) => id}
@@ -52,7 +52,7 @@ export const Requests = () => {
         }
         renderItem={({ item }) => (
           <TouchableOpacity activeOpacity={1}>
-            <Request item={item} />
+            <Request {...item} />
           </TouchableOpacity>
         )}
       />

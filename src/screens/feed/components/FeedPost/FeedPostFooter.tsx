@@ -4,7 +4,6 @@ import { Box } from 'utils/theme'
 import { CommentBox } from '../CommentBox/CommentBox'
 import { FooterBar } from '../FooterBar/FooterBar'
 
-// type FeedPostFooterProps = Pick<FeedPost, 'meta' | 'comments' | 'reactions'>
 type Post = { post: FeedPost }
 
 export const FeedPostFooter = ({ post }: Post) => (

@@ -6,8 +6,8 @@ import IconEdit from 'assets/icons/icon-edit.svg'
 import { Box, BaseOpacity, useTheme } from 'utils/theme/'
 import { minOneSignRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
-import { InputButton } from 'components/InputButton'
-import { useNavigation } from '@react-navigation/native'
+// import { InputButton } from 'components/InputButton'
+// import { useNavigation } from '@react-navigation/native'
 
 type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
@@ -37,8 +37,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
     inputsRefs[index]?.current?.focus()
     setIconInvisible(index)
   }
-  const navigation = useNavigation()
-  const navigateToChangePassword = () => navigation.navigate('ChangePassword')
+  // const navigation = useNavigation()
+  // const navigateToChangePassword = () => navigation.navigate('ChangePassword')
 
   return (
     <Box paddingHorizontal="m">
@@ -147,7 +147,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           </Box>
         )}
       </Box>
-      <Box marginBottom="l">
+      {/* <Box marginBottom="l">
         <InputButton
           inputLabel={t('userPassword')}
           value={'••••••••'}
@@ -155,7 +155,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           showEditIcon
           labelTextVariant="labelGrey"
         />
-      </Box>
+      </Box> */}
     </Box>
   )
 }

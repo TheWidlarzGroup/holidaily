@@ -1,6 +1,7 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { faker } from '@faker-js/faker'
+import { requireAuth } from 'mockApi/utils/requireAuth'
 import { initPayloadService } from '../utils/payloadService'
 import { genRandomDayOffRequest } from '../factories/requestFactory'
 import { Schema as ModelsSchema, User } from '../models'
@@ -9,6 +10,7 @@ export function userRoutes(context: Server<ModelsSchema>) {
   context.get('/users', fetchAllUsers)
   context.get('/users/:id', fetchUserDataById)
   context.post('/users', createTempUser)
+  context.put('/users', editUser)
 }
 
 function fetchAllUsers(schema: Schema<ModelsSchema>) {
@@ -17,6 +19,35 @@ function fetchAllUsers(schema: Schema<ModelsSchema>) {
 
 function fetchUserDataById(schema: Schema<ModelsSchema>, req: Request) {
   return schema.find('user', req.params.id)
+}
+
+function editUser(schema: Schema<ModelsSchema>, req: Request) {
+  let user: User | undefined
+  try {
+    user = requireAuth(schema, req)
+  } catch (error) {
+    return new Response(401)
+  }
+
+  const optionalFields: readonly (keyof User)[] = [
+    'firstName',
+    'email',
+    'language',
+    'lastName',
+    'occupation',
+    'teams',
+    'photo',
+    'userColor',
+  ]
+
+  const userRecord = schema.find('user', user.id)
+  if (!userRecord) return new Response(400)
+  const { httpError, ...payload } = initPayloadService()
+  if (httpError) return new Response(httpError.status, {}, { errors: httpError.errors })
+  payload.fill(optionalFields, JSON.parse(req.requestBody))
+  // @ts-ignore
+  userRecord.update(payload.body)
+  return userRecord
 }
 
 function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
