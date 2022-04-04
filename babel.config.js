@@ -37,6 +37,7 @@ module.exports = {
           utils: './src/utils',
           dataAccess: './src/data-access',
           mockApi: './src/mock-api',
+          consts: './src/consts',
         },
       },
     ],

@@ -2,11 +2,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, mkUseStyles, Theme, theme, BaseOpacity } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
-import { useUserDetailsContext } from '../helpers/UserDetailsContext'
+import { useUserContext } from 'hooks/useUserContext'
 
 export const ProfileColor = () => {
   const styles = useStyles()
-  const { userColor } = useUserDetailsContext()
+  const { user } = useUserContext()
   const { t } = useTranslation('userProfile')
   const navigation = useNavigation()
 
@@ -19,7 +19,7 @@ export const ProfileColor = () => {
       </Text>
       <BaseOpacity
         onPress={onChangeUserColor}
-        style={[styles.colorBtn, { backgroundColor: userColor || theme.colors.primary }]}
+        style={[styles.colorBtn, { backgroundColor: user?.userColor || theme.colors.primary }]}
       />
     </Box>
   )
