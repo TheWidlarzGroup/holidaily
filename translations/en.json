@@ -232,6 +232,9 @@
     "wait": "Wait a second..."
   },
   "stats": {
+    "availablePto": "days of PTO",
+    "takenPto": "days of PTO used",
+    "sickdaysTaken": "sick days taken",
     "day": "day",
     "days": "days",
     "requests": "Requests",
