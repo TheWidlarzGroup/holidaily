@@ -11,11 +11,7 @@ import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/useUserContext'
-import {
-  useAddComment,
-  useAddReaction,
-  useDeleteReaction,
-} from 'dataAccess/mutations/useAddReactionsComment'
+import { useAddComment, useAddReaction } from 'dataAccess/mutations/useAddReactionsComment'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -30,7 +26,6 @@ export const FooterBar = ({ post }: Post) => {
   const { user } = useUserContext()
   const { mutate: addComment } = useAddComment()
   const { mutate: addReaction } = useAddReaction()
-  const { mutate: deleteReaction } = useDeleteReaction()
 
   if (!user?.id) return
 
@@ -42,18 +37,20 @@ export const FooterBar = ({ post }: Post) => {
 
   const handlePressReaction = (emoji: string) => {
     const reactionIndex = reactions.findIndex((reaction) => reaction.type === emoji)
-    const usersAddedReaction = reactions[reactionIndex].users
+    let usersAddedReaction = reactions[reactionIndex].users
     const index = usersAddedReaction.indexOf(user.id)
 
     if (index === -1) {
-      // usersAddedReaction.push(user.id)
       addReaction({
         postId: id || '',
         reaction: { type: emoji, users: [...usersAddedReaction, user.id] },
       })
     } else {
-      // usersAddedReaction.splice(index, 1)
-      // deleteReaction()
+      usersAddedReaction = usersAddedReaction.filter((usr) => usr !== user.id)
+      addReaction({
+        postId: id || '',
+        reaction: { type: emoji, users: [...usersAddedReaction] },
+      })
     }
   }
 

@@ -54,26 +54,3 @@ export const useAddReaction = () =>
       console.log('Error while adding reaction: ', err.message)
     },
   })
-
-const deleteReaction = async (reaction: AddReaction): Promise<SubmitSuccess> => {
-  const { data } = await axios.delete(API.DELETE.deleteReactionFromPost(reaction), reaction)
-  return data
-}
-export const useDeleteReaction = () =>
-  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, AddReaction>(deleteReaction, {
-    onSuccess: (payload) => {
-      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
-        if (!data) throw new Error('No posts found!')
-        const allPosts = data
-        const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
-        if (postIndex !== -1 && allPosts) {
-          allPosts[postIndex] = payload.post
-        }
-        if (allPosts?.length) return [...allPosts]
-        return [payload.post]
-      })
-    },
-    onError: (err) => {
-      console.log('Error while adding reaction: ', err.message)
-    },
-  })

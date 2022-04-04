@@ -8,7 +8,6 @@ export function postsRoute(context: Server<ModelsSchema>) {
   context.post('/addpost', addPost)
   context.post('/posts/:postId', addComment)
   context.put('/posts/:postId', addReaction)
-  context.delete('/posts/:postId', deleteReaction)
 }
 function fetchPosts(schema: Schema<ModelsSchema>) {
   return schema.all('post')
@@ -43,18 +42,18 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   if (filterReactions.length > 0) {
     const singleReaction = schema.find('reaction', filterReactions[0].id)
     // @ts-ignore
-    singleReaction?.update({ users: [...singleReaction?.users, user.id.toString()] })
+    if (singleReaction?.users?.includes(user.id.toString())) {
+      // @ts-ignore
+      const filteredUsersReaction = singleReaction?.users.filter((usr) => usr !== user.id)
+      // @ts-ignore
+      singleReaction?.update({ users: [...filteredUsersReaction] })
+    } else {
+      // @ts-ignore
+      singleReaction?.update({ users: [...singleReaction?.users, user.id.toString()] })
+    }
+    // @ts-ignore
   } else if (filterReactions.length <= 0) {
     schema.create('reaction', { ...body.reaction, post: getPost })
   }
-  return getPost
-}
-
-function deleteReaction(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req.requestBody)
-  const getPost = schema.find('post', body.postId)
-  // @ts-ignore
-  if (!getPost) return new Response(404)
-  schema.create('reaction', { ...body.reaction, post: getPost })
   return getPost
 }
