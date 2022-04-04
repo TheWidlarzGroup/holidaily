@@ -101,13 +101,16 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          navigation.navigate('SeeRequest', {
-            ...requestData,
-            endDate: (endDate ?? new Date()).toISOString(),
-            startDate: (startDate ?? new Date()).toISOString(),
-            isSickTime: sickTime,
-            // TODO: get from backend
-            status: 'pending',
+          navigation.navigate('DashboardNavigation', {
+            screen: 'SeeRequest',
+            params: {
+              ...requestData,
+              endDate: (endDate ?? new Date()).toISOString(),
+              startDate: (startDate ?? new Date()).toISOString(),
+              isSickTime: sickTime,
+              // TODO: get from backend
+              status: 'pending',
+            },
           })
         }}
         onPressAnother={reset}
