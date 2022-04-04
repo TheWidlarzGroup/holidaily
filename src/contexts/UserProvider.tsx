@@ -21,6 +21,7 @@ export const emptyUser: User = {
   language: 'en',
   role: 'Admin',
   availablePto: 20,
+  isOnHoliday: false,
   requests: [],
   teams: [],
 }
