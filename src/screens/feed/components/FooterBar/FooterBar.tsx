@@ -11,7 +11,11 @@ import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/useUserContext'
-import { useAddComment } from 'dataAccess/mutations/useAddLikeComment'
+import {
+  useAddComment,
+  useAddReaction,
+  useDeleteReaction,
+} from 'dataAccess/mutations/useAddReactionsComment'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
@@ -24,31 +28,40 @@ export const FooterBar = ({ post }: Post) => {
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
   const { user } = useUserContext()
-  const { mutate } = useAddComment()
+  const { mutate: addComment } = useAddComment()
+  const { mutate: addReaction } = useAddReaction()
+  const { mutate: deleteReaction } = useDeleteReaction()
+
+  if (!user?.id) return
 
   const handleSubmitComment = (comment: Comment) => {
-    if (comment.text?.length < 1) return console.log('too short msg')
+    if (comment.text?.length < 1) return
     const payload = { postId: id || '', comment }
-    mutate(payload)
+    addComment(payload)
   }
 
   const handlePressReaction = (emoji: string) => {
     const reactionIndex = reactions.findIndex((reaction) => reaction.type === emoji)
     const usersAddedReaction = reactions[reactionIndex].users
-    const index = usersAddedReaction.indexOf(user?.id || '')
+    const index = usersAddedReaction.indexOf(user.id)
 
     if (index === -1) {
-      usersAddedReaction.push(user?.id || '')
+      // usersAddedReaction.push(user.id)
+      addReaction({
+        postId: id || '',
+        reaction: { type: emoji, users: [...usersAddedReaction, user.id] },
+      })
     } else {
-      usersAddedReaction.splice(index, 1)
+      // usersAddedReaction.splice(index, 1)
+      // deleteReaction()
     }
   }
 
   const handleAddReaction = (emoji: EmojiType) => {
-    const newReaction = { type: emoji.emoji, users: [user?.id || ''] }
+    const newReaction = { type: emoji.emoji, users: [user.id] }
     const isEmojiPresent = reactions.some((reaction) => reaction.type === emoji.emoji)
     if (isEmojiPresent) handlePressReaction(emoji.emoji)
-    else reactions.push(newReaction)
+    else addReaction({ postId: id || '', reaction: newReaction })
   }
 
   return (

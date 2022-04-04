@@ -28,6 +28,10 @@ export type AddComment = {
   postId: string
   comment: Comment
 }
+export type AddReaction = {
+  postId: string
+  reaction: Reaction
+}
 
 export type FeedPost = {
   id?: string
