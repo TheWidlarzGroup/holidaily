@@ -9,9 +9,8 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
 import IconBack from 'assets/icons/icon-back2.svg'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import LocalStorage, { StorageKeys } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
-import { keys } from 'utils/manipulation'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -20,6 +19,14 @@ import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
 type EditDetailsTypes = Pick<User, 'firstName' | 'lastName' | 'occupation'>
+
+const fieldsToStoreLocally: readonly (keyof User & StorageKeys)[] = [
+  'firstName',
+  'lastName',
+  'occupation',
+  'photo',
+  'userColor',
+]
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
@@ -41,9 +48,7 @@ export const EditProfile = () => {
   const onSubmit = (data: EditDetailsTypes) => {
     mutate(data, {
       onSuccess: ({ user }) => {
-        keys(user).forEach(async (field) => {
-          await AsyncStorage.setItem(field, String(user[field]))
-        })
+        fieldsToStoreLocally.forEach((field) => LocalStorage.setItem(field, String(user[field])))
         updateUser(user)
       },
     })

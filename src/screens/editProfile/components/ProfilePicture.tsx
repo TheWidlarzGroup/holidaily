@@ -10,13 +10,21 @@ import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { keys } from 'utils/manipulation'
+import LocalStorage, { StorageKeys } from 'utils/localStorage'
+import { User } from 'mockApi/models'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
   setIsEditedFalse: F0
 }
+
+const fieldsToStoreLocally: readonly (keyof User & StorageKeys)[] = [
+  'firstName',
+  'lastName',
+  'occupation',
+  'photo',
+  'userColor',
+]
 
 export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
@@ -29,9 +37,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       { photo: newPhoto },
       {
         onSuccess: ({ user }) => {
-          keys(user).forEach(async (field) => {
-            await AsyncStorage.setItem(field, String(user[field]))
-          })
+          fieldsToStoreLocally.forEach((field) => LocalStorage.setItem(field, String(user[field])))
           updateUser(user)
         },
       }

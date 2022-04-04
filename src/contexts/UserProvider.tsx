@@ -1,9 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { ReactNode, useState, useCallback } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
-import { StorageKeys } from 'consts/storageKeys'
+import LocalStorage from 'utils/localStorage'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -33,7 +32,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const updateUser = useCallback((newData: Partial<User> | null) => {
     // checking if newData.photo !== user.photo makes updateUser dependend on user and changing its reference in unexpected way
     if (newData?.photo) {
-      AsyncStorage.setItem(StorageKeys.PROFILE_PIC, newData.photo)
+      LocalStorage.setItem('photo', newData.photo)
     }
     setUser((usr) => {
       if (usr) return { ...usr, ...newData }
@@ -42,13 +41,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   }, [])
 
   const handleLogout = async () => {
-    await AsyncStorage.multiRemove([
-      StorageKeys.FIRST_NAME,
-      StorageKeys.LAST_NAME,
-      StorageKeys.OCCUPATION,
-      StorageKeys.PROFILE_PIC,
-      StorageKeys.USER_COLOR,
-    ])
+    await LocalStorage.removeMany(['firstName', 'lastName', 'occupation', 'photo', 'userColor'])
     delete axios.defaults.headers.common.userId
     clearUserCache()
     setUser(null)

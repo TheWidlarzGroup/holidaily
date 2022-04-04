@@ -13,8 +13,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StorageKeys } from 'consts/storageKeys'
+import LocalStorage from 'utils/localStorage'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 type Position = {
@@ -63,7 +62,7 @@ export const Bubble = ({
       { userColor: color },
       {
         onSuccess: ({ user }) => {
-          AsyncStorage.setItem(StorageKeys.USER_COLOR, user.userColor)
+          LocalStorage.setItem('userColor', user.userColor)
         },
       }
     )

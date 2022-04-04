@@ -4,8 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'
 import { sleep } from 'utils/sleep'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StorageKeys } from 'consts/storageKeys'
+import LocalStorage from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
@@ -22,11 +21,11 @@ export const AppNavigation = () => {
   const init = useCallback(
     async () =>
       Promise.all([
-        AsyncStorage.getItem(StorageKeys.FIRST_NAME),
-        AsyncStorage.getItem(StorageKeys.LAST_NAME),
-        AsyncStorage.getItem(StorageKeys.OCCUPATION),
-        AsyncStorage.getItem(StorageKeys.PROFILE_PIC),
-        AsyncStorage.getItem(StorageKeys.USER_COLOR),
+        LocalStorage.getItem('firstName'),
+        LocalStorage.getItem('lastName'),
+        LocalStorage.getItem('occupation'),
+        LocalStorage.getItem('photo'),
+        LocalStorage.getItem('userColor'),
       ]),
     []
   )
