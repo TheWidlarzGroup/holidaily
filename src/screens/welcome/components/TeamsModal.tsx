@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
-import LocalStorage from 'utils/localStorage'
+import { setItem } from 'utils/localStorage'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
 
@@ -19,7 +19,7 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
   const { updateUser } = useUserContext()
 
   const handleOnSubmit = async () => {
-    await LocalStorage.setItem('firstName', firstName)
+    await setItem('firstName', firstName)
     createTempUser({ firstName }, { onSuccess: (data) => updateUser(data.user) })
   }
 

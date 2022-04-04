@@ -10,7 +10,7 @@ import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
-import LocalStorage, { StorageKeys } from 'utils/localStorage'
+import { StorageKeys, setItem } from 'utils/localStorage'
 import { User } from 'mockApi/models'
 
 type ProfilePictureProps = {
@@ -37,7 +37,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       { photo: newPhoto },
       {
         onSuccess: ({ user }) => {
-          fieldsToStoreLocally.forEach((field) => LocalStorage.setItem(field, String(user[field])))
+          fieldsToStoreLocally.forEach((field) => setItem(field, String(user[field])))
           updateUser(user)
         },
       }

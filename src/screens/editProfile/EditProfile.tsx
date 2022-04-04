@@ -9,7 +9,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
 import IconBack from 'assets/icons/icon-back2.svg'
-import LocalStorage, { StorageKeys } from 'utils/localStorage'
+import { StorageKeys, setItem } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { ProfilePicture } from './components/ProfilePicture'
@@ -48,7 +48,7 @@ export const EditProfile = () => {
   const onSubmit = (data: EditDetailsTypes) => {
     mutate(data, {
       onSuccess: ({ user }) => {
-        fieldsToStoreLocally.forEach((field) => LocalStorage.setItem(field, String(user[field])))
+        fieldsToStoreLocally.forEach((field) => setItem(field, String(user[field])))
         updateUser(user)
       },
     })

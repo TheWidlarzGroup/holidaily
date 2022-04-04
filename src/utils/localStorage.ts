@@ -21,6 +21,3 @@ export const setItem = async (key: StorageKeys, value: string, cb?: Callback) =>
   AsyncStorage.setItem(key, value, cb)
 export const removeMany = async (keys: StorageKeys[], cb?: MultiCallback) =>
   AsyncStorage.multiRemove(keys, cb)
-
-const LocalStorage = { getItem, removeItem, setItem, removeMany }
-export default LocalStorage
