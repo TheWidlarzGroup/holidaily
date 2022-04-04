@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Animated from 'react-native-reanimated'
 import { ViewProps } from 'react-native'
@@ -9,6 +9,9 @@ import { Calendar } from 'screens/calendar/Calendar'
 import { Feed } from 'screens/feed/Feed'
 import { StatsAndRequests } from 'screens/stats/StatsAndRequests'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { queryClient } from 'dataAccess/queryClient'
+import { QueryKeys } from 'dataAccess/QueryKeys'
+import { useFetchUserStats } from 'dataAccess/queries/useFetchUserStats'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 
@@ -29,6 +32,11 @@ export const MIN_PLUS_ICON_WIDTH = 80
 
 export const BottomTabNavigator = ({ style }: ViewProps) => {
   const styles = useStyles()
+
+  useEffect(() => {
+    queryClient.prefetchQuery(QueryKeys.USER_STATS, useFetchUserStats)
+  }, [])
+
   return (
     <SafeAreaWrapper edges={['bottom']}>
       <Animated.View style={[style, { flex: 1 }]}>

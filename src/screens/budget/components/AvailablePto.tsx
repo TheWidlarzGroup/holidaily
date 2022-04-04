@@ -3,9 +3,12 @@ import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
 import { useNavigation } from '@react-navigation/native'
+import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 
 export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   const { t } = useTranslation('budget')
+  const { data: organization } = useGetOrganization()
+  const PTO_LIMIT = organization?.maxPtoDays ?? 26
   const theme = useTheme()
   const styles = useStyles()
   const navigation = useNavigation()
@@ -55,6 +58,3 @@ const useStyles = mkUseStyles(() => ({
     right: 0,
   },
 }))
-
-// TODO:This should come from the backend as an internal company policy
-const PTO_LIMIT = 26

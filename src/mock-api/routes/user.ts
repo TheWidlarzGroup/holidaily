@@ -2,9 +2,12 @@ import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { faker } from '@faker-js/faker'
 import { requireAuth } from 'mockApi/utils/requireAuth'
+import { calculatePTO } from 'utils/dates'
 import { initPayloadService } from '../utils/payloadService'
 import { genRandomDayOffRequest } from '../factories/requestFactory'
-import { Schema as ModelsSchema, User } from '../models'
+import { DayOffRequest, Schema as ModelsSchema, User } from '../models'
+
+const DAY_IN_MS = 24 * 3600 * 1000
 
 export function userRoutes(context: Server<ModelsSchema>) {
   context.get('/users', fetchAllUsers)
@@ -73,8 +76,10 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()
+
   payload.validate(mandatoryFields, body)
   payload.fill(optionalFields, body)
+
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
   const user = schema.create('user', { ...defaultValues, ...payload.body })
   if (!user.id) return new Response(400)
@@ -84,13 +89,10 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
       user,
     })
   }
-  let availablePto = schema.findBy('organization', { name: 'Supercompany' })?.maxPtoDays ?? 24
   // @ts-ignore
   const userRequests = schema.where('request', { userId: user.id }).models
-  if (userRequests)
-    // @ts-ignore
-    availablePto = userRequests.filter((req) => req.status !== 'cancelled').length
-  if (availablePto < 0) availablePto = 0
+  const availablePto = countAvailablePto(schema, userRequests)
+
   // @ts-ignore
   user.update({ availablePto, requests: userRequests })
 
@@ -142,4 +144,22 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   return user
 }
 
-const DAY_IN_MS = 24 * 3600 * 1000
+const countAvailablePto = (
+  schema: Schema<ModelsSchema>,
+  userRequests: ReturnType<typeof schema.where>
+) => {
+  let availablePto = schema.findBy('organization', { name: 'Supercompany' })?.maxPtoDays ?? 24
+  if (userRequests) {
+    const ptoRequests = userRequests.filter(
+      // @ts-ignore
+      (req: DayOffRequest) => req.status !== 'cancelled' && !req.isSickTime
+    )
+    // @ts-ignore
+    ptoRequests.forEach((req: DayOffRequest) => {
+      if (req.status !== 'cancelled' && !req.isSickTime)
+        availablePto -= calculatePTO(req.startDate, req.endDate)
+    })
+    if (availablePto < 0) availablePto = 0
+  }
+  return availablePto
+}
