@@ -55,7 +55,7 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   user.update({ availablePto: userPtoAfterRequest })
   return schema.create('request', {
     ...payload.body,
-    status: 'PENDING',
+    status: 'pending',
     user,
   })
 }

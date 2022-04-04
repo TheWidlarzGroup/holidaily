@@ -11,6 +11,7 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
     addPost: '/api/addpost',
+    createDayOff: '/api/request',
   },
 
   PATCH: {
