@@ -4,7 +4,7 @@ import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getClosestHolidayRequests } from 'utils/closestHolidayRequests'
-import { useGetOrganization } from '../../../data-access/queries/useOrganizationData'
+import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 
 type CarouselProps = {
   openUserModal: F1<User>
