@@ -3,6 +3,7 @@ import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { DayOffRequest, Schema as ModelsSchema, User } from 'mockApi/models'
 import { requireAuth } from 'mockApi/utils/requireAuth'
+import { calculatePTO } from 'utils/dates'
 
 export function statsRoutes(context: Server<ModelsSchema>) {
   context.get('/stats', fetchStats)
@@ -16,11 +17,17 @@ const fetchStats = (schema: Schema<ModelsSchema>, req: Request) => {
     return new Response(401)
   }
   const requests = schema.where('request', (a) => a.userId === user.id)
-  const ptoTaken = requests.filter((req: DayOffRequest) => {
+
+  const PTOrequests = requests.filter((req: DayOffRequest) => {
     const wasAccepted = req.status === 'accepted' || req.status === 'past'
     const isNotSicktime = !req.isSickTime
     return wasAccepted && isNotSicktime
-  }).length
+  }).models
+  let ptoTaken = 0
+  console.log('reqs', PTOrequests)
+  PTOrequests.forEach((req: DayOffRequest) => {
+    ptoTaken += calculatePTO(req.startDate, req.endDate)
+  })
   const sickdaysTaken = requests.filter(
     (req: DayOffRequest) => req.isSickTime && req.status === 'past'
   ).length

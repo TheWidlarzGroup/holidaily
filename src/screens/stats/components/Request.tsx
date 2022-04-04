@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getFormattedPeriod, getNumberOfWorkingDaysBetween } from 'utils/dates'
+import { calculatePTO, getFormattedPeriod } from 'utils/dates'
 import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
@@ -12,7 +12,7 @@ export const Request = (p: DayOffRequest) => {
   const [daysBetween, setDaysBetween] = useState(1)
 
   useEffect(() => {
-    setDaysBetween(getNumberOfWorkingDaysBetween(p.startDate, p.endDate))
+    setDaysBetween(calculatePTO(p.startDate, p.endDate))
   }, [p.startDate, p.endDate])
 
   useEffect(() => {
