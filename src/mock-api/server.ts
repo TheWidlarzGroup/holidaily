@@ -1,11 +1,12 @@
 import { createServer, RestSerializer } from 'miragejs'
+import { posts } from './factories/posts'
 import { requestFactory, genRandomDayOffRequest } from './factories/requestFactory'
 import { userFactory, usersList } from './factories/userFactory'
 import { Models } from './models'
 import { dayOffRoutes } from './routes/dayOffRequest'
 import { notificationRoutes } from './routes/notifications'
 import { organizationRoute } from './routes/organization'
-import { teamRoutes } from './routes/team'
+import { postsRoute } from './routes/post'
 import { userRoutes } from './routes/user'
 import { notificationSources } from './seeds/notificationSources'
 
@@ -28,7 +29,7 @@ export const initBackendMocks = () =>
       userRoutes(this)
       dayOffRoutes(this)
       organizationRoute(this)
-      teamRoutes(this)
+      postsRoute(this)
       notificationRoutes(this)
     },
     seeds(server) {
@@ -81,5 +82,7 @@ export const initBackendMocks = () =>
         maxPtoDays: 30,
         teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
       })
+      // @ts-ignore
+      posts.map((post) => server.create('post', post))
     },
   })

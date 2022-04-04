@@ -1,4 +1,5 @@
 import { belongsTo, hasMany, Model } from 'miragejs'
+import { FeedPost } from './miragePostTypes'
 import { Organization, Team, DayOffRequest, User } from './mirageTypes'
 
 export type Schema = {
@@ -6,6 +7,7 @@ export type Schema = {
   organization: Organization
   request: DayOffRequest[]
   team: Team[]
+  post: FeedPost[]
   notification: Notification[]
 }
 
@@ -27,6 +29,9 @@ export const Models = {
     organization: belongsTo(),
     users: hasMany(),
   }),
+  post: Model,
 }
+
 export * from './HttpError'
 export * from './mirageTypes'
+export * from './miragePostTypes'

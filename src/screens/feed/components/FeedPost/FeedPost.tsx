@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost as FeedPostType } from 'screens/feed/types'
+import { FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import { BaseOpacity } from 'utils/theme'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'

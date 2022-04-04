@@ -3,7 +3,7 @@ import React from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 
-import { Reaction, Comment } from 'screens/feed/types'
+import { Reaction, Comment } from 'mock-api/models/miragePostTypes'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
