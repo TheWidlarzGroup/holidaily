@@ -55,7 +55,7 @@ function randomInt(max = 10, min = 0) {
 
 function genStartDate(endDate: Date) {
   const date = faker.date.between(
-    biggerOfTwo(Date.now(), endDate.getTime() - 14 * DAY_IN_MS),
+    biggerOfTwo(Date.now(), endDate.getTime() - 7 * DAY_IN_MS),
     endDate
   )
   // don't start on weekends
@@ -66,7 +66,7 @@ function genStartDate(endDate: Date) {
 function genEndDate(startDate: Date) {
   const date = faker.date.between(
     startDate,
-    smallerOfTwo(Date.now() - DAY_IN_MS, startDate.getTime() + 14 * DAY_IN_MS)
+    smallerOfTwo(Date.now() - DAY_IN_MS, startDate.getTime() + 7 * DAY_IN_MS)
   )
   // don't end on weekend
   if (date.getDay() === 0 || date.getDate() === 6) date.setTime(date.getTime() + 2 * DAY_IN_MS)
