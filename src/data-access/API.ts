@@ -4,11 +4,13 @@ export const API = {
     user: (id: string) => `api/users/${id}`,
     getOrganization: '/api/organization',
     notifications: '/api/notifications',
+    getPosts: '/api/posts',
     userRequests: '/api/requests',
   },
 
   POST: {
     createTempUser: '/api/users',
+    addPost: '/api/addpost',
   },
 
   PATCH: {

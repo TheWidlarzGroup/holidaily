@@ -28,6 +28,7 @@ export const emptyUser: User = {
 export const PROFILE_PIC_STORE_KEY = 'profile-pic'
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
+
   const { reset: clearUserCache } = useCreateTempUser()
 
   const updateUser = useCallback((newData: Partial<User> | null) => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost } from 'screens/feed/types'
+import { FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { ExpandingText } from 'components/ExpandingText'
 import { Gallery } from 'components/Gallery/Gallery'
@@ -19,7 +19,7 @@ export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
       <Box padding="s">
         <ExpandingText text={text} />
       </Box>
-      {data.length > 0 ? <Gallery data={data} onItemPress={handleGalleryItemPress} /> : null}
+      {data?.length > 0 ? <Gallery data={data} onItemPress={handleGalleryItemPress} /> : null}
     </Box>
   )
 }

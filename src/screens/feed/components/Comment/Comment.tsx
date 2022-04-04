@@ -1,8 +1,8 @@
 import { Avatar } from 'components/Avatar'
 import React from 'react'
 import { Box, Text } from 'utils/theme'
+import { Comment as CommentType } from 'mock-api/models/miragePostTypes'
 import { Bubble } from '../Bubble/Bubble'
-import { Comment as CommentType } from '../../types'
 
 type CommentProps = {
   hideAvatar?: boolean

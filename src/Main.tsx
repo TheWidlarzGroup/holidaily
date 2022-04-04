@@ -6,6 +6,7 @@ import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { QueryClientProvider } from 'react-query'
+import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from './data-access/queryClient'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
@@ -21,12 +22,14 @@ export const Main = () => {
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <ModalProvider>
-            <QueryClientProvider client={queryClient}>
-              <UserContextProvider>
-                <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
-                <AppNavigation />
-              </UserContextProvider>
-            </QueryClientProvider>
+            <TeamsContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <UserContextProvider>
+                  <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+                  <AppNavigation />
+                </UserContextProvider>
+              </QueryClientProvider>
+            </TeamsContextProvider>
           </ModalProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>
