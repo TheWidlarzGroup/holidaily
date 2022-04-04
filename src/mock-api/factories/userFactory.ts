@@ -72,7 +72,7 @@ export const usersList = [
   {
     firstName: 'Ted',
     lastName: 'Rose',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/men/10.jpg',
     occupation: 'Software Engineer',
     requests: [],
   },
@@ -100,7 +100,7 @@ export const usersList = [
   {
     firstName: 'Brent',
     lastName: 'Morris',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/men/11.jpg',
     occupation: 'QA Tester',
     requests: [],
   },
@@ -121,7 +121,7 @@ export const usersList = [
   {
     firstName: 'Frances',
     lastName: 'Hawkins',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/men/15.jpg',
     occupation: 'QA Tester',
     requests: [],
   },
@@ -156,7 +156,7 @@ export const usersList = [
   {
     firstName: 'Heather',
     lastName: 'Vargas',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/women/15.jpg',
     occupation: 'QA Tester',
     requests: [],
   },
@@ -170,7 +170,7 @@ export const usersList = [
   {
     firstName: 'Elmer',
     lastName: 'Gonzalez',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/men/17.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
   },
@@ -219,7 +219,7 @@ export const usersList = [
   {
     firstName: 'Alyssa',
     lastName: 'Richardson',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/women/24.jpg',
     occupation: 'Software Engineer',
     requests: [],
   },
@@ -261,7 +261,7 @@ export const usersList = [
   {
     firstName: 'Kev',
     lastName: 'Allen',
-    photo: null,
+    photo: 'https://randomuser.me/api/portraits/men/30.jpg',
     occupation: 'Software Engineer',
     requests: [],
   },
