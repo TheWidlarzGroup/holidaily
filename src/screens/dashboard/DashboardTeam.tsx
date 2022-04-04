@@ -7,6 +7,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
+import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
 
 type DashboardTeamProps = DashboardNavigationProps<'DashboardTeam'>
 
@@ -14,10 +15,20 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
 
-  const matesOnHoliday = params && params?.users?.filter((mate) => mate.isOnHoliday)
-  const matesWithPlannedHolidays = params?.users?.filter(
+  let matesOnHoliday = params && params?.users?.filter((mate) => mate.isOnHoliday)
+  matesOnHoliday = matesOnHoliday.filter(
+    (user) => user.requests[0].endDate > new Date().toISOString()
+  )
+  matesOnHoliday.sort(sortByEndDate)
+
+  let matesWithPlannedHolidays = params?.users?.filter(
     (mate) => !mate.isOnHoliday && mate.requests[0].startDate
   )
+  matesWithPlannedHolidays = matesWithPlannedHolidays.filter(
+    (user) => user.requests[0].endDate > new Date().toISOString()
+  )
+  matesWithPlannedHolidays.sort(sortByStartDate)
+
   const matesWithNoPlannedHolidays = params?.users?.filter(
     (mate) => !mate.isOnHoliday && !mate.requests[0].startDate
   )

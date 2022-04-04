@@ -9,6 +9,7 @@ export const ModalHeader = ({
   noPadding?: true
 }) => (
   <Box
+    paddingTop="l"
     paddingBottom={noPadding ? undefined : 'lplus'}
     bg="disabledText"
     flexDirection="row"
