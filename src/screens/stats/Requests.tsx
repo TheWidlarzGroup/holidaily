@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/useUserContext'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +9,7 @@ import { SectionHeader } from './components/SectionHeader'
 
 export const Requests = () => {
   const { t } = useTranslation('stats')
+  const navigation = useNavigation()
   const { user } = useUserContext()
   const requests = useMemo(() => user?.requests ?? [], [user])
   const { pendingRequests, approvedRequests, pastRequests, rejectedRequests } = useMemo(
@@ -51,7 +53,9 @@ export const Requests = () => {
           ) : null
         }
         renderItem={({ item }) => (
-          <TouchableOpacity activeOpacity={1}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => navigation.navigate('SeeRequest', { ...item })}>
             <Request {...item} />
           </TouchableOpacity>
         )}
