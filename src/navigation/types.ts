@@ -158,6 +158,7 @@ export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: Team & { openUserModal: F1<User> }
   DashboardTeamMember: User
+  DashboardNotifications: undefined
 }
 
 export type BudgetRoutes = {

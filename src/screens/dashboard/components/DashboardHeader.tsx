@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import IconBell from 'assets/icons/icon-bell.svg'
+import { Avatar } from 'components/Avatar'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
 import { useIsDrawerOpen } from '@react-navigation/drawer'
 import { useUserContext } from 'hooks/useUserContext'
 import { getDayName } from 'utils/dates'
 import { formatDate } from 'utils/formatDate'
+import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { getCurrentLocale } from 'utils/locale'
-import { Avatar } from 'components/Avatar'
+import { NotificationsBell } from './NotificationsBell'
 
 export const DashboardHeader = () => {
   const { t } = useTranslation('dashboard')
@@ -21,7 +22,11 @@ export const DashboardHeader = () => {
   )} (${getDayName(new Date())})`
 
   const isDrawerOpen = useIsDrawerOpen()
-
+  const { data } = useFetchNotifications()
+  const unseenCount = useMemo(() => {
+    if (!data) return 0
+    return data.notifications.filter((n) => !n.wasSeenByHolder).length
+  }, [data])
   return (
     <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
@@ -45,10 +50,8 @@ export const DashboardHeader = () => {
             })}
           </Text>
         </Box>
+        <NotificationsBell unseenCount={unseenCount} />
       </Box>
-      <BaseOpacity padding="m">
-        <IconBell />
-      </BaseOpacity>
     </Box>
   )
 }
