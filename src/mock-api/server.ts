@@ -7,6 +7,7 @@ import { dayOffRoutes } from './routes/dayOffRequest'
 import { notificationRoutes } from './routes/notifications'
 import { organizationRoute } from './routes/organization'
 import { postsRoute } from './routes/post'
+import { statsRoutes } from './routes/stats'
 import { userRoutes } from './routes/user'
 import { notificationSources } from './seeds/notificationSources'
 
@@ -31,6 +32,7 @@ export const initBackendMocks = () =>
       organizationRoute(this)
       postsRoute(this)
       notificationRoutes(this)
+      statsRoutes(this)
     },
     seeds(server) {
       notificationSources(server)
