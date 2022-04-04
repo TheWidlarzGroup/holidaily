@@ -5,19 +5,15 @@ import { Notification } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
 import { getCurrentLocale } from 'utils/locale'
 
-export const NotificationContent = ({
-  type,
-  firstName,
-  lastName,
-  endDate,
-  isSeen,
-}: {
+type NotificationContentProps = {
   type: Notification['type']
   firstName: string
   lastName: string
   endDate: Date | undefined
   isSeen: boolean
-}) => {
+}
+
+export const NotificationContent = (p: NotificationContentProps) => {
   const { t } = useTranslation('notifications')
   return (
     <Box flexDirection={'row'} justifyContent="space-between">
@@ -26,18 +22,18 @@ export const NotificationContent = ({
           {/* @ts-ignore   trans component causes "Type instantiation is excessively deep and possibly infinite." in pipeline, but not in VSCode */}
           <Trans
             ns="notifications"
-            i18nKey={type}
+            i18nKey={p.type}
             values={{
-              author: `${firstName} ${lastName}`,
-              endDate: endDate
-                ? formatDate(endDate, 'dayNumeralLongMonthNoYear', getCurrentLocale())
+              author: `${p.firstName} ${p.lastName}`,
+              endDate: p.endDate
+                ? formatDate(p.endDate, 'dayNumeralLongMonthNoYear', getCurrentLocale())
                 : undefined,
             }}
             components={{ b: <Text variant={'bold16'} lineHeight={20} /> }}
           />
         </Text>
       </Box>
-      {!isSeen && (
+      {!p.isSeen && (
         <Box
           backgroundColor="black"
           borderTopRightRadius="lmin"

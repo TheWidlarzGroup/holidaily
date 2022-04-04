@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
@@ -12,8 +12,6 @@ export const SwipeableNotification = ({
   notificationId,
 }: React.PropsWithChildren<{ notificationId: string }>) => {
   const opacity = useSharedValue(1)
-  const { t } = useTranslation('notifications')
-  const theme = useTheme()
   const { mutate } = useMarkNotificationAsSeen()
   const markAsSeen = () => {
     opacity.value = withTiming(0)
@@ -22,14 +20,33 @@ export const SwipeableNotification = ({
   const animatedOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }))
-  const LeftActions = () => (
-    <AnimatedBox
-      style={animatedOpacity}
-      backgroundColor="primary"
-      marginBottom="m"
-      borderBottomLeftRadius="lmin"
-      borderTopLeftRadius="lmin"
-      width="100%">
+  const LeftActions = useCallback(
+    () => (
+      <AnimatedBox
+        style={animatedOpacity}
+        backgroundColor="primary"
+        marginBottom="m"
+        borderBottomLeftRadius="lmin"
+        borderTopLeftRadius="lmin"
+        width="100%">
+        <SwipeBar />
+      </AnimatedBox>
+    ),
+    [animatedOpacity]
+  )
+
+  return (
+    <Swipeable renderLeftActions={LeftActions} onSwipeableOpen={markAsSeen} leftThreshold={80}>
+      {children}
+    </Swipeable>
+  )
+}
+
+const SwipeBar = () => {
+  const { t } = useTranslation('notifications')
+  const theme = useTheme()
+  return (
+    <>
       <BaseOpacity
         width="100%"
         height="100%"
@@ -53,12 +70,6 @@ export const SwipeableNotification = ({
         left={20}
         zIndex="-1"
       />
-    </AnimatedBox>
-  )
-
-  return (
-    <Swipeable renderLeftActions={LeftActions} onSwipeableOpen={markAsSeen} leftThreshold={80}>
-      {children}
-    </Swipeable>
+    </>
   )
 }

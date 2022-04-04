@@ -13,20 +13,20 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
     }),
     [data]
   )
-
+  const sections = [
+    {
+      title: 'unseen',
+      data: unseenNotifications,
+    },
+    {
+      title: 'seen',
+      data: seenNotifications,
+    },
+  ]
   return (
     <SectionList
       style={{ width: '100%' }}
-      sections={[
-        {
-          title: 'unseen',
-          data: unseenNotifications,
-        },
-        {
-          title: 'seen',
-          data: seenNotifications,
-        },
-      ]}
+      sections={sections}
       keyExtractor={({ id }) => id}
       renderSectionHeader={({ section: { title, data } }) =>
         data.length ? (
