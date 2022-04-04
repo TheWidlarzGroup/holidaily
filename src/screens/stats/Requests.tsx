@@ -12,12 +12,12 @@ export const Requests = () => {
   const navigation = useNavigation()
   const { user } = useUserContext()
   const requests = useMemo(() => user?.requests ?? [], [user])
-  const { pendingRequests, approvedRequests, pastRequests, rejectedRequests } = useMemo(
+  const { pendingRequests, approvedRequests, pastRequests, declinedRequests } = useMemo(
     () => ({
       pendingRequests: requests.filter((req) => req.status === 'pending'),
       approvedRequests: requests.filter((req) => req.status === 'accepted'),
       pastRequests: requests.filter((req) => req.status === 'past'),
-      rejectedRequests: requests.filter((req) => req.status === 'cancelled'),
+      declinedRequests: requests.filter((req) => req.status === 'cancelled'),
     }),
     [requests]
   )
@@ -41,7 +41,7 @@ export const Requests = () => {
           },
           {
             title: t('declinedRequestsHeader'),
-            data: rejectedRequests,
+            data: declinedRequests,
           },
         ]}
         keyExtractor={({ id }) => id}
