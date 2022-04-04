@@ -10,11 +10,14 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
+import { useTeamsContext } from 'hooks/usePostsContext'
+import { LoadingModal } from 'components/LoadingModal'
 import { DashboardTeamMember } from './DashboardTeamMember'
-import { useGetOrganization } from '../../data-access/queries/useOrganizationQuery'
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User>(emptyUser)
+
+  const { teams } = useTeamsContext()
 
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
@@ -29,18 +32,17 @@ export const Dashboard = () => {
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal })
 
-  const { data } = useGetOrganization()
-  if (!data) return null
+  if (!teams) return <LoadingModal show />
 
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
         <SortableList openUserModal={openUserModal}>
-          {data.teams.map((team: Team) => (
+          {teams?.map((team: Team) => (
             <TeamElement
               {...team}
-              key={team.id}
+              key={team.name}
               navigateToTeamScreen={() => navigateToTeamDetails(team)}
             />
           ))}

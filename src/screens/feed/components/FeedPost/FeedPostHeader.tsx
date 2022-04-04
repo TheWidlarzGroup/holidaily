@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost } from 'screens/feed/types'
+import { FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { FeedPostHeaderInfo } from 'screens/feed/FeedPostHeaderInfo/FeedPostHeaderInfo'
@@ -10,9 +10,9 @@ type FeedPostHeaderProps = Pick<FeedPost, 'meta'>
 export const FeedPostHeader = ({ meta }: FeedPostHeaderProps) => (
   <Box paddingHorizontal="xm" paddingTop="s" alignItems="flex-start">
     <Box flexDirection="row" paddingBottom="s">
-      <Avatar src={meta.author.pictureUrl} marginRight="s" />
+      <Avatar src={meta?.author.pictureUrl} marginRight="s" />
       <FeedPostHeaderInfo meta={meta} />
     </Box>
-    <LocationInfo location={meta.location} />
+    <LocationInfo location={meta?.location} />
   </Box>
 )

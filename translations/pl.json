@@ -308,5 +308,12 @@
     "policyTwo": "Liczba zwiększa się po przepracowaniu <b>pełnego miesiąca.</b> ",
     "policyTwoExample": "Jeśli zacząłeś/aś pracę 1 sierpnia 2021, to 2 września 2021 będzie ci przysługiwać 1,75 dni wolnego, 2 października 2021 będzie to 3,5 dnia itd.",
     "policyThree": "O 1-2 dni urlopu powinieneś zapytać na <b>2 tygodnie</b> przed, a dłuższe wakacje (3 lub więcej dni) planować <b>z dwumiesięcznym wyprzedzeniem.</b>"
+  },
+  "seeRequest": {
+    "pending": "Oczekujące",
+    "cancelled": "Odrzucone",
+    "past": "Wykorzystane",
+    "accepted": "Zatwierdzone",
+    "yourRequest": "Twoje podanie"
   }
 }

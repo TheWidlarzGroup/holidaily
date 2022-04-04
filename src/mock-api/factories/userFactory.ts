@@ -1,11 +1,12 @@
 import { Factory } from 'miragejs'
+import { faker } from '@faker-js/faker'
 
 export const userFactory = Factory.extend({
   confirmed: true,
-  email: `test-user-${Math.round(Math.random() * 1000)}@gmail.com`,
-  firstName: `user-name${Math.round(Math.random() * 1000)}`,
-  lastName: `user-lastname${Math.round(Math.random() * 1000)}`,
-  occupation: 'dev',
+  email: faker.internet.email(),
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
+  occupation: faker.name.jobTitle(),
   requests: [],
   color: '#FF8B3F',
   language: 'en',

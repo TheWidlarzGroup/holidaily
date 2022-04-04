@@ -15,10 +15,11 @@ import { Loader } from './Loader'
 
 type LoadingModalProps = {
   show: boolean
+  showText?: true
   style?: StyleProp<ViewStyle>
 }
 
-export const LoadingModal = ({ show, style }: LoadingModalProps) => {
+export const LoadingModal = ({ show, showText, style }: LoadingModalProps) => {
   const loaderProgress = useSharedValue<number>(0)
   const [hidden, { setTrue: setHiddenTrue, setFalse: setHiddenFalse }] = useBooleanState(!show)
   const styles = useStyles()
@@ -54,9 +55,11 @@ export const LoadingModal = ({ show, style }: LoadingModalProps) => {
         backLayerColor={colors.lightGrey}
         strokeWidth={4}
       />
-      <Text variant="boldOrange15" marginTop="l">
-        {t('wait')}
-      </Text>
+      {showText && (
+        <Text variant="boldOrange15" marginTop="l">
+          {t('wait')}
+        </Text>
+      )}
     </Animated.View>
   )
 }

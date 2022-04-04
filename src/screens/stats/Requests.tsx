@@ -12,10 +12,10 @@ export const Requests = () => {
 
   const { pendingRequests, approvedRequests, pastRequests, declinedRequests } = useMemo(
     () => ({
-      pendingRequests: requests.filter((req) => req.status === 'PENDING'),
-      approvedRequests: requests.filter((req) => req.status === 'APPROVED'),
-      pastRequests: requests.filter((req) => req.status === 'PAST'),
-      declinedRequests: requests.filter((req) => req.status === 'CANCELLED'),
+      pendingRequests: requests.filter((req) => req.status === 'pending'),
+      approvedRequests: requests.filter((req) => req.status === 'accepted'),
+      pastRequests: requests.filter((req) => req.status === 'past'),
+      declinedRequests: requests.filter((req) => req.status === 'cancelled'),
     }),
     [requests]
   )

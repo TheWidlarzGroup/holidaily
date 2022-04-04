@@ -6,24 +6,19 @@ import { Box, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/backArrow.svg'
 import { useTranslation } from 'react-i18next'
 
-type HeaderProps = { step: number; setStep: F1<number> } | { isSent: true }
+type HeaderProps = { step: number; setStep: F1<number> }
 
-export const RequestVacationHeaderText = (p: HeaderProps) => {
+export const RequestVacationHeaderText = ({ step, setStep }: HeaderProps) => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('requestVacation')
 
   const onStepBack = () => {
-    if ('step' in p && p.step > 0) p.setStep(p.step - 1)
+    if (step > 0) setStep(step - 1)
     else goBack()
   }
 
   return (
-    <Box
-      flexDirection="row"
-      alignItems="center"
-      paddingHorizontal="l"
-      paddingVertical="m"
-      paddingTop={'isSent' in p ? 'm' : 0}>
+    <Box flexDirection="row" alignItems="center" paddingHorizontal="l" paddingVertical="m">
       <Box alignItems="center" justifyContent="center" flexDirection="row">
         <Pressable onPress={onStepBack}>
           <BackArrowIcon width={30} height={20} />

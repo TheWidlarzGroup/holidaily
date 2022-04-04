@@ -1,14 +1,13 @@
 import { CompoundLocation } from 'hooks/useLocation'
-import { UserData as DefaultUserData } from 'types/holidaysDataTypes'
+import { User } from './mirageTypes'
 
-type UserData = DefaultUserData & { pictureUrl: string | null }
+type UserData = Pick<User, 'id' | 'occupation'> & { pictureUrl: User['photo']; name: string }
 
 export type Timestamp = {
   createdAt: Date
-  editedAt: Date
 }
 
-export type PostMetaData = {
+export type MetaData = {
   id: string
   author: UserData
   timestamp: Timestamp
@@ -21,14 +20,12 @@ export type Reaction = {
 }
 
 export type Comment = {
-  meta: PostMetaData
-  comments: Comment[]
+  meta: MetaData
   text: string
-  reactions: Reaction[]
 }
 
 export type FeedPost = {
-  meta: PostMetaData
+  meta: MetaData
   comments: Comment[]
   data: FeedPostData[]
   text: string

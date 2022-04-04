@@ -8,7 +8,7 @@ import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
-import IconBack from 'assets/icons/icon-back.svg'
+import IconBack from 'assets/icons/icon-back2.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { User } from 'mock-api/models/mirageTypes'
 import { keys } from 'utils/manipulation'
@@ -53,9 +53,10 @@ export const EditProfile = () => {
             navigation.navigate('Dashboard')
             navigation.dispatch(DrawerActions.openDrawer())
           }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
           style={styles.backBtn}
           activeOpacity={0.5}>
-          <IconBack />
+          <IconBack height={18} width={18} />
         </BaseOpacity>
         <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
         <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
@@ -81,6 +82,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   backBtn: {
     position: 'absolute',
-    top: 20,
+    top: 45,
+    left: 16,
   },
 }))
