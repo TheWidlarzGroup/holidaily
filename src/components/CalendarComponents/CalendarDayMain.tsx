@@ -4,11 +4,28 @@ import { BorderlessButton } from 'react-native-gesture-handler'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import { NewDayComponentProps } from './CalendarTypes'
+import { ViewStyle } from 'react-native'
 
-type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
+type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'> & {
+  styles: MarkingStyles
+}
 
-export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
-  const styles = useStyles()
+export type MarkingStyles = {
+  selectedDay: ViewStyle
+  dayInPeriod: ViewStyle
+  periodEndDay: ViewStyle
+  periodStartDay: ViewStyle
+  disabledDay: ViewStyle
+}
+
+export const CalendarDayMain = ({
+  date,
+  state,
+  marking,
+  onPress,
+  styles,
+}: CalendarDayMainProps) => {
+  // const styles = useStyles()
   const day = date.dateString
   const textColor = () => {
     const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
@@ -30,11 +47,11 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
   return (
     <Box
       style={[
-        marking?.selected && styles.selected,
-        marking?.period && styles.selectedPeriod,
-        marking?.endingDay && styles.end,
-        marking?.startingDay && styles.start,
-        marking?.period && isWeekend(day) && styles.selectedDisabled,
+        marking?.selected && styles.selectedDay,
+        marking?.period && styles.dayInPeriod,
+        marking?.endingDay && styles.periodEndDay,
+        marking?.startingDay && styles.periodStartDay,
+        marking?.period && isWeekend(day) && styles.disabledDay,
       ]}>
       <Animated.View style={containerStyles}>
         <BorderlessButton
@@ -80,5 +97,8 @@ const useStyles = mkUseStyles((theme) => ({
   },
   selectedPeriod: {
     backgroundColor: theme.colors.tertiary,
+  },
+  invalidPeriod: {
+    backgroundColor: theme.colors.errorRed,
   },
 }))

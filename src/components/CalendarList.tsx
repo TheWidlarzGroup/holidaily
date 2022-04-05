@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
-import { theme as appTheme } from 'utils/theme'
+import { useTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { genMarkedDates } from 'utils/genMarkedDates'
-import { MarkingType } from './CalendarComponents/CalendarTypes'
+import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { MarkingType, NewCalendarBaseProps } from './CalendarComponents/CalendarTypes'
 import { NewCalendarList } from './CalendarComponents/NewCalendar'
 
 type CustomCalendarProps = {
@@ -13,6 +14,7 @@ type CustomCalendarProps = {
   onSelectedPeriodChange?: F2<string | undefined, string | undefined>
   selectable?: boolean
   onHeaderPressed?: F0
+  isInvalid?: boolean
 }
 
 export const CalendarList = ({
@@ -20,11 +22,13 @@ export const CalendarList = ({
   onSelectedPeriodChange,
   selectable = false,
   markedDates,
+  isInvalid,
   ...props
 }: CustomCalendarProps & RNCalendarProps) => {
   const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
   const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
-
+  const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
+  const appTheme = useTheme()
   useEffect(() => {
     if (!onSelectedPeriodChange) return
     onSelectedPeriodChange(selectedPeriodStart, selectedPeriodEnd)
@@ -43,7 +47,7 @@ export const CalendarList = ({
   }
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
 
-  const theme = {
+  const theme: NewCalendarBaseProps['theme'] = {
     textDayFontFamily: appTheme.fontFamily.nunitoRegular,
     textDayFontSize: appTheme.fontSize.xs,
     textSectionTitleColor: appTheme.colors.grey,
@@ -70,7 +74,12 @@ export const CalendarList = ({
       hideExtraDays
       hideArrows
       theme={theme}
-      dayComponent={CalendarDay}
+      dayComponent={useCallback(
+        (props) => (
+          <CalendarDay {...props} styles={isInvalid ? invalidPeriodStyles : validPeriodStyles} />
+        ),
+        [isInvalid, invalidPeriodStyles, validPeriodStyles]
+      )}
       markingType={'period'}
       onDayPress={handleClick}
       renderHeader={(date: Date) => <CalendarHeader date={date} />}
