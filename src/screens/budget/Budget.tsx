@@ -5,8 +5,6 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import { LoadingModal } from 'components/LoadingModal'
-import { useFetchUserData } from 'dataAccess/queries/useFetchUserData'
 import { useUserContext } from 'hooks/useUserContext'
 import { AvailablePto } from './components/AvailablePto'
 
@@ -15,21 +13,15 @@ export const Budget = () => {
   const { t } = useTranslation('budget')
   const styles = useStyles()
   const { user } = useUserContext()
-
-  const { isLoading, data: responseData, isSuccess } = useFetchUserData(user?.id ?? '')
-  if (isSuccess && !responseData) console.error('ERROR REACT QUERY USER CACHE IN INVALID STATE')
   const [sentRequestsCount, sickDaysCount, accepted, pending]: number[] = useMemo(() => {
-    console.log(responseData)
-    if (!responseData) return [0, 0, 0, 0]
-    const {
-      user: { requests },
-    } = responseData
+    if (!user) return [0, 0, 0, 0]
+    const { requests } = user
     const sentRequestsCount = requests.length
     const sickDaysCount = requests.filter((req) => req.status === 'past' && req.isSickTime).length
     const accepted = requests.filter((req) => req.status === 'accepted').length
     const pending = requests.filter((req) => req.status === 'pending').length
     return [sentRequestsCount, sickDaysCount, accepted, pending]
-  }, [responseData])
+  }, [user])
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
       screen: 'DashboardNavigation',
@@ -45,7 +37,7 @@ export const Budget = () => {
       <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
       <Box paddingHorizontal="m" paddingTop="xxl">
         <Box style={[styles.section]} marginBottom="l2plus">
-          <AvailablePto availablePto={responseData?.user?.availablePto ?? 0} />
+          <AvailablePto availablePto={user?.availablePto ?? 0} />
         </Box>
         <Box flexDirection="row">
           <Box style={styles.section} flex={1} marginRight="m">
@@ -69,7 +61,6 @@ export const Budget = () => {
           </Box>
         </Box>
       </Box>
-      <LoadingModal show={isLoading} />
     </SafeAreaWrapper>
   )
 }

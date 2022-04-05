@@ -13,7 +13,7 @@ type ReactionBubbleProps = {
 export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubbleProps) => {
   const { user } = useUserContext()
 
-  const hasUserAddedReaction = reaction.users.includes(user?.id || '')
+  const hasUserAddedReaction = reaction.users?.includes(user?.id || '')
 
   return (
     <Bubble
@@ -25,7 +25,7 @@ export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubble
       <Text padding="s">{reaction.type}</Text>
       {reaction.users?.length > 0 && (
         <Text paddingEnd="m" variant="primaryBold12" color="black">
-          {reaction.users.length}
+          {reaction.users?.length}
         </Text>
       )}
     </Bubble>

@@ -19,6 +19,7 @@ export const useCreateTempUser = () =>
       axios.defaults.headers.common.userId = payload.user.id
     },
     onError: (err) => {
-      console.log('Error while posting user: ', err.message)
+      console.error('Error while posting user: ', err.message)
+      if (err.isAxiosError) console.error(err.response?.data)
     },
   })

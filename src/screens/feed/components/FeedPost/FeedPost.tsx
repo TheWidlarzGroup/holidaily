@@ -19,6 +19,6 @@ export const FeedPost = ({ post }: FeedPostProps) => (
     paddingTop="s">
     <FeedPostHeader {...post} />
     <FeedPostBody {...post} />
-    <FeedPostFooter {...post} />
+    <FeedPostFooter post={post} />
   </BaseOpacity>
 )

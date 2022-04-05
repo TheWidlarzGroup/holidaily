@@ -65,23 +65,19 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   const handleSubmit = () => {
     if (error) return
     onSubmitEditing(messageContent)
-    const message = {
+    const message: Comment = {
       meta: {
         id: generateUUID(),
         author: {
           id: user?.id || '',
           occupation: user?.occupation || '',
           name: `${user?.firstName} ${user?.lastName}` || '',
-          pictureUrl:
-            user?.photo ||
-            'https://images.unsplash.com/photo-1623790679437-72cbde564d59?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+          pictureUrl: user?.photo || null,
         },
         timestamp: {
           createdAt: new Date(),
         },
       },
-      comments: [],
-      reactions: [],
       text: messageContent,
     }
     props.handleSubmitComment?.(message)

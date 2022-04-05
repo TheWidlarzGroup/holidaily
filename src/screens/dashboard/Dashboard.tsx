@@ -32,7 +32,7 @@ export const Dashboard = () => {
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal })
 
-  if (!teams) return <LoadingModal show />
+  if (!teams || teams.length < 1) return <LoadingModal show />
 
   return (
     <>
