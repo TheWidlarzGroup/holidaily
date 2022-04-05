@@ -2,10 +2,12 @@ import React, { useMemo } from 'react'
 import { Text } from 'utils/theme'
 import { SectionList } from 'react-native'
 import { Notification as NotificationModel } from 'mockApi/models'
+import { useTranslation } from 'react-i18next'
 import { Notification } from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
 export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
+  const { t } = useTranslation('notifications')
   const { seenNotifications, unseenNotifications } = useMemo(
     () => ({
       seenNotifications: data.filter((n) => n.wasSeenByHolder),
@@ -15,11 +17,11 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
   )
   const sections = [
     {
-      title: 'unseen',
+      title: t('unseen'),
       data: unseenNotifications,
     },
     {
-      title: 'seen',
+      title: t('seen'),
       data: seenNotifications,
     },
   ]
