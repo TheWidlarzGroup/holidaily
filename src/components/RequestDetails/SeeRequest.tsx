@@ -10,7 +10,7 @@ import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
 export const SeeRequest = ({ route: { params: p } }: DashboardNavigationProps<'SeeRequest'>) => {
-  const { navigate, reset, setParams } = useNavigation()
+  const { reset } = useNavigation()
   const { t } = useTranslation('seeRequest')
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
