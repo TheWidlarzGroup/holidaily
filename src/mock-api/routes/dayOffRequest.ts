@@ -26,26 +26,29 @@ function fetchAvailablePto(schema: Schema<ModelsSchema>, req: Request) {
 }
 
 function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
-  const fields: readonly (keyof CreateDayOffRequestBody)[] = [
-    'description',
-    'endDate',
-    'isSickTime',
-    'message',
-    'startDate',
-  ]
   let user
   try {
     user = requireAuth(schema, req)
   } catch (error) {
     return new Response(401)
   }
-
+  const mandatoryFields: readonly (keyof CreateDayOffRequestBody)[] = [
+    'description',
+    'endDate',
+    'isSickTime',
+    'message',
+    'startDate',
+  ]
+  const optionalFields: readonly (keyof CreateDayOffRequestBody)[] = ['attachments']
   const body = JSON.parse(req.requestBody)
 
   const payload = initPayloadService()
   const { httpError } = payload
-  payload.validate(fields, body)
+  payload.validate(mandatoryFields, body)
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
+
+  payload.fill(optionalFields, body)
+
   const userPtoAfterRequest =
     user.availablePto -
     calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate))
