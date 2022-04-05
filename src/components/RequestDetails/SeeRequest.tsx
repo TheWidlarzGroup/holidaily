@@ -10,7 +10,7 @@ import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
 export const SeeRequest = ({ route: { params: p } }: DashboardNavigationProps<'SeeRequest'>) => {
-  const { navigate } = useNavigation()
+  const { navigate, reset, setParams } = useNavigation()
   const { t } = useTranslation('seeRequest')
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
@@ -25,9 +25,13 @@ export const SeeRequest = ({ route: { params: p } }: DashboardNavigationProps<'S
           }}>
           <BaseOpacity
             onPress={() => {
-              // reset params
-              navigate('DashboardNavigation', { screen: 'Dashboard', params: undefined })
-              navigate('Stats')
+              reset({
+                index: 1,
+                routes: [
+                  { name: 'DashboardNavigation', params: { screen: 'Dashboard' } },
+                  { name: 'Stats' },
+                ],
+              })
             }}>
             <IconBack width={64} height={64} />
           </BaseOpacity>
