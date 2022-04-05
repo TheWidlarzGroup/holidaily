@@ -100,6 +100,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   const Peter = schema.find('user', 'source-peter')
   const Tom = schema.find('user', 'source-tom')
   schema.create('notification', {
+    id: 'june-like',
     createdAt: faker.date.recent(0),
     source: June,
     wasSeenByHolder: false,
@@ -107,6 +108,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     type: 'like',
   })
   schema.create('notification', {
+    id: 'peter-comment',
     createdAt: faker.date.recent(0),
     source: Peter,
     wasSeenByHolder: false,
@@ -114,6 +116,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     type: 'comment',
   })
   schema.create('notification', {
+    id: 'peter-dayoff',
     createdAt: faker.date.between(
       new Date(Date.now() - 3 * DAY_IN_MS),
       new Date(Date.now() - 7 * DAY_IN_MS)
@@ -128,6 +131,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     ),
   })
   schema.create('notification', {
+    id: 'tom-dayoff',
     createdAt: faker.date.between(
       new Date(Date.now() - 3 * DAY_IN_MS),
       new Date(Date.now() - 7 * DAY_IN_MS)
