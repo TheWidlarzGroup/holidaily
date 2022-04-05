@@ -41,13 +41,16 @@ export const CalendarRequestVacation = ({
         renderHeader={(date: Date) => <CalendarHeader date={date} />}
         onSelectedPeriodChange={handleSelectionChange}
         markedDates={{}}
-        isInvalid={availablePto - ptoTaken < 0}
+        isInvalid={availablePto < ptoTaken}
       />
+
       <SelectPeriodModal
         isVisible={!!selectedPeriodStart}
         onSubmit={handleSubmit}
         periodStart={selectedPeriodStart}
         periodEnd={selectedPeriodEnd}
+        ptoTaken={ptoTaken}
+        availablePto={availablePto}
       />
     </Box>
   )

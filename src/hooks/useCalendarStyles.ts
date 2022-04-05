@@ -27,7 +27,7 @@ const useValidPeriodStyles = mkUseStyles((theme) => ({
 
 const useInvalidPeriodStyles = mkUseStyles((theme) => ({
   disabledDay: {
-    backgroundColor: '#FFBBB1',
+    backgroundColor: theme.colors.specialRed,
   },
   dayInPeriod: {
     backgroundColor: theme.colors.errorRed,
