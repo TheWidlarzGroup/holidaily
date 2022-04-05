@@ -14,7 +14,6 @@ const fetchNotifications = async () => {
   const seenNotificationsIds = JSON.parse((await getItem('seenNotificationsIds')) ?? '[]')
   if (seenNotificationsIds instanceof Array) {
     seenNotificationsIds.forEach(async (id) => {
-      console.log(id)
       await axios.patch(API.PATCH.markNotificationAsSeen(id))
     })
   }
