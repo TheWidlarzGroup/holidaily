@@ -31,6 +31,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         description: p.description,
         isSickTime: p.isSick,
         message: p.message ?? '',
+        attachments: p.attachments,
       },
       { onSuccess: onNextPressed }
     )
