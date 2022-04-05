@@ -2,7 +2,7 @@ import React from 'react'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { TouchableOpacity } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import IconBack from 'assets/icons/icon-back.svg'
+import IconBack from 'assets/icons/icon-back2.svg'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
@@ -29,12 +29,13 @@ export const Notifications = () => {
         borderBottomLeftRadius="lmin"
         flexDirection="row"
         alignItems="center"
-        justifyContent="space-between">
-        <TouchableOpacity onPress={goBack}>
-          <IconBack />
+        justifyContent="space-between"
+        paddingLeft="m">
+        <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+          <IconBack height={18} width={18} />
         </TouchableOpacity>
         <Text variant="header">{t('header')}</Text>
-        <Box paddingRight="xl" />
+        <Box paddingRight="l" />
       </Box>
       <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm">
         <BaseOpacity onPress={markAllAsSeen}>

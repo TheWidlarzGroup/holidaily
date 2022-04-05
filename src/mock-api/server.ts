@@ -91,10 +91,14 @@ export const initBackendMocks = () =>
       const comments = commentsMock.map((comment) => server.create('comment', comment))
       server.create('post', {
         ...postsMock[0],
-        comments: [comments[0], comments[1]],
-        reactions: [reactions[0], reactions[1]],
+        comments: [comments[0]],
+        reactions: [reactions[0], reactions[1], reactions[2]],
       })
-      server.create('post', { ...postsMock[1], comments: [comments[2]], reactions: [reactions[2]] })
-      server.create('post', { ...postsMock[2], reactions: [reactions[3]] })
+      server.create('post', { ...postsMock[1], comments: [comments[1]], reactions: [reactions[3]] })
+      server.create('post', {
+        ...postsMock[2],
+        comments: [comments[2]],
+        reactions: [reactions[4], reactions[5], reactions[6]],
+      })
     },
   })

@@ -6,23 +6,23 @@ export const postsMock: FeedPost[] = [
       id: '1',
       author: {
         id: '1',
-        occupation: 'Software Engineer',
-        name: 'Ramon Wheeler',
-        pictureUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
+        occupation: 'Project Manager',
+        name: 'Lena Morrison',
+        pictureUrl: 'https://randomuser.me/api/portraits/women/35.jpg',
       },
       timestamp: {
         createdAt: new Date(),
       },
     },
-    text: 'Lorem ipsum dolor.',
+    text: 'Hope it will make you hungry guys! :D Greetings from Porto!',
     data: [
       {
         type: 'image',
-        src: 'https://images.unsplash.com/photo-1617731653770-a62c51cf8696?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        src: 'https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80',
       },
       {
         type: 'image',
-        src: 'https://images.unsplash.com/photo-1623764802787-eea7b530c90a?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        src: 'https://images.unsplash.com/photo-1562250883-5b8fa0be26ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
       },
     ],
     reactions: [],
@@ -41,8 +41,13 @@ export const postsMock: FeedPost[] = [
         createdAt: new Date(2022, 3, 10),
       },
     },
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum illo architecto maxime inventore ex non exercitationem soluta. Aperiam accusamus iure sed velit, asperiores sapiente soluta consequatur, rerum debitis eligendi odit adipisci quaerat! Illo laudantium repellendus ducimus molestiae similique modi voluptatibus voluptates cupiditate, esse quis mollitia dolore doloremque officiis excepturi quia? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta optio non praesentium consequuntur saepe magnam eum cumque excepturi nobis reprehenderit. Dicta optio non praesentium consequuntur saepe magnam eum cumque excepturi nobis reprehenderit.',
-    data: [],
+    text: 'Having fun in Venice',
+    data: [
+      {
+        type: 'image',
+        src: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+      },
+    ],
     reactions: [],
     comments: [],
   },
@@ -52,18 +57,18 @@ export const postsMock: FeedPost[] = [
       author: {
         id: '1',
         occupation: 'Software Engineer',
-        name: 'Bessie Garcia',
-        pictureUrl: 'https://randomuser.me/api/portraits/women/6.jpg',
+        name: 'Ramon Wheeler',
+        pictureUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
       },
       timestamp: {
         createdAt: new Date(2022, 2, 28),
       },
     },
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta optio non praesentium consequuntur saepe magnam eum cumque excepturi nobis reprehenderit. Dicta optio non praesentium consequuntur saepe magnam eum cumque excepturi nobis reprehenderit.',
+    text: 'Chill :)',
     data: [
       {
         type: 'image',
-        src: 'https://images.unsplash.com/photo-1617731653770-a62c51cf8696?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        src: 'https://images.unsplash.com/photo-1533929702053-9986939ea193?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80',
       },
     ],
     reactions: [],
@@ -72,6 +77,21 @@ export const postsMock: FeedPost[] = [
 ]
 
 export const commentsMock: Comment[] = [
+  {
+    meta: {
+      id: '2',
+      author: {
+        id: '1',
+        occupation: 'QA Tester',
+        name: 'Brent Morris',
+        pictureUrl: 'https://randomuser.me/api/portraits/men/11.jpg',
+      },
+      timestamp: {
+        createdAt: new Date(),
+      },
+    },
+    text: 'Cool',
+  },
   {
     meta: {
       id: '1',
@@ -85,22 +105,7 @@ export const commentsMock: Comment[] = [
         createdAt: new Date(),
       },
     },
-    text: 'Awesome!!',
-  },
-  {
-    meta: {
-      id: '2',
-      author: {
-        id: '1',
-        occupation: 'QA Tester',
-        name: 'Brent Morris',
-        pictureUrl: null,
-      },
-      timestamp: {
-        createdAt: new Date(),
-      },
-    },
-    text: 'Cool',
+    text: 'Venice is awesome!!',
   },
   {
     meta: {
@@ -109,31 +114,43 @@ export const commentsMock: Comment[] = [
         id: '1',
         occupation: 'QA Tester',
         name: 'Frances Hawkins',
-        pictureUrl: null,
+        pictureUrl: 'https://randomuser.me/api/portraits/men/15.jpg',
       },
       timestamp: {
-        createdAt: new Date(2022, 2, 28),
+        createdAt: new Date(),
       },
     },
-    text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi earum illo, incidunt aperiam adipisci vel.',
+    text: 'Nice flowers',
   },
 ]
 
 export const reactionsMock: Reaction[] = [
   {
     type: '😍',
-    users: ['99', '98', '97', '96'],
+    users: ['1', '2', '3', '4'],
   },
   {
-    type: '😀',
-    users: ['99', '98', '97'],
+    type: '😙',
+    users: ['1'],
+  },
+  {
+    type: '🥂',
+    users: ['1', '2', '3'],
+  },
+  {
+    type: '😲',
+    users: ['1', '2', '3'],
   },
   {
     type: '😍',
-    users: ['99'],
+    users: ['1', '2'],
   },
   {
-    type: '😀',
-    users: ['99', '98', '97', '96'],
+    type: '🌿',
+    users: ['1', '2'],
+  },
+  {
+    type: '🎵',
+    users: ['1'],
   },
 ]

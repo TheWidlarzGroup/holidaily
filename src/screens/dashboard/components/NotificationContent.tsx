@@ -40,8 +40,12 @@ export const NotificationContent = (p: NotificationContentProps) => {
           borderBottomLeftRadius="lmin"
           paddingVertical="xs"
           paddingHorizontal="m"
-          height={32}>
-          <Text variant="boldWhite12">{t('new')}</Text>
+          height={32}
+          justifyContent="center"
+          alignItems="center">
+          <Text variant="boldWhite12" paddingBottom="xs">
+            {t('new')}
+          </Text>
         </Box>
       )}
     </Box>
