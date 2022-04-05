@@ -1,5 +1,5 @@
 import { createServer, RestSerializer } from 'miragejs'
-import { posts } from './factories/posts'
+import { commentsMock, postsMock, reactionsMock } from './factories/posts'
 import { requestFactory, genRandomDayOffRequest } from './factories/requestFactory'
 import { userFactory, usersList } from './factories/userFactory'
 import { Models } from './models'
@@ -18,6 +18,7 @@ export const initBackendMocks = () =>
       team: RestSerializer.extend({ include: ['users'], embed: true }),
       user: RestSerializer.extend({ include: ['requests'], embed: true }),
       notification: RestSerializer.extend({ include: ['source'], embed: true }),
+      post: RestSerializer.extend({ include: ['comments', 'reactions'], embed: true }),
     },
     models: Models,
 
@@ -85,6 +86,19 @@ export const initBackendMocks = () =>
         teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
       })
       // @ts-ignore
-      posts.map((post) => server.create('post', post))
+      const reactions = reactionsMock.map((reaction) => server.create('reaction', reaction))
+      // @ts-ignore
+      const comments = commentsMock.map((comment) => server.create('comment', comment))
+      server.create('post', {
+        ...postsMock[0],
+        comments: [comments[0]],
+        reactions: [reactions[0], reactions[1], reactions[2]],
+      })
+      server.create('post', { ...postsMock[1], comments: [comments[1]], reactions: [reactions[3]] })
+      server.create('post', {
+        ...postsMock[2],
+        comments: [comments[2]],
+        reactions: [reactions[4], reactions[5], reactions[6]],
+      })
     },
   })

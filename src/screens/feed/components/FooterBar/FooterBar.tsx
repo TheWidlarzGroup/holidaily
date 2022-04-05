@@ -3,7 +3,7 @@ import React from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 
-import { Reaction, Comment } from 'mock-api/models/miragePostTypes'
+import { Reaction, Comment, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
@@ -11,40 +11,54 @@ import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/useUserContext'
+import { useAddComment, useAddReaction } from 'dataAccess/mutations/useAddReactionsComment'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 
-type FooterBarProps = {
-  reactions: Reaction[]
-  comments: Comment[]
+type Post = {
+  post: FeedPost
 }
 
-export const FooterBar = ({ reactions, comments }: FooterBarProps) => {
+export const FooterBar = ({ post }: Post) => {
+  const { reactions, id } = post
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
   const { user } = useUserContext()
+  const { mutate: addComment } = useAddComment()
+  const { mutate: addReaction } = useAddReaction()
+
+  if (!user?.id) return null
 
   const handleSubmitComment = (comment: Comment) => {
-    comments.push(comment)
+    if (comment.text?.length < 1) return
+    const payload = { postId: id || '', comment }
+    addComment(payload)
   }
 
   const handlePressReaction = (emoji: string) => {
     const reactionIndex = reactions.findIndex((reaction) => reaction.type === emoji)
-    const usersAddedReaction = reactions[reactionIndex].users
-    const index = usersAddedReaction.indexOf(user?.id || '')
+    let usersAddedReaction = reactions[reactionIndex].users
+    const index = usersAddedReaction.indexOf(user.id)
 
     if (index === -1) {
-      usersAddedReaction.push(user?.id || '')
+      addReaction({
+        postId: id || '',
+        reaction: { type: emoji, users: [...usersAddedReaction, user.id] },
+      })
     } else {
-      usersAddedReaction.splice(index, 1)
+      usersAddedReaction = usersAddedReaction.filter((usr) => usr !== user.id)
+      addReaction({
+        postId: id || '',
+        reaction: { type: emoji, users: [...usersAddedReaction] },
+      })
     }
   }
 
   const handleAddReaction = (emoji: EmojiType) => {
-    const newReaction = { type: emoji.emoji, users: [user?.id || ''] }
+    const newReaction = { type: emoji.emoji, users: [user.id] }
     const isEmojiPresent = reactions.some((reaction) => reaction.type === emoji.emoji)
     if (isEmojiPresent) handlePressReaction(emoji.emoji)
-    else reactions.push(newReaction)
+    else addReaction({ postId: id || '', reaction: newReaction })
   }
 
   return (
@@ -94,7 +108,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
         />
         {reactions &&
           reactions.map((item) => {
-            if (item.users.length === 0) return
+            if (item.users?.length === 0) return
             return (
               <ReactionBubble
                 key={item.type}

@@ -1,3 +1,4 @@
+import { LoadingModal } from 'components/LoadingModal'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useLanguage } from 'hooks/useLanguage'
 import React from 'react'
@@ -6,13 +7,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Box } from 'utils/theme'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
-// import { posts as miragePosts } from 'mockApi/factories/posts'
 
 export const Feed = () => {
   const [language] = useLanguage()
   const { data } = useGetPostsData()
 
-  if (!data) return null
+  if (!data) return <LoadingModal show />
 
   return (
     <SafeAreaView>
@@ -24,6 +24,7 @@ export const Feed = () => {
           renderItem={({ item }) => <FeedPost post={item} />}
           keyExtractor={({ meta }) => meta.timestamp.createdAt.toString()}
           extraData={language}
+          contentContainerStyle={{ paddingBottom: 70 }}
         />
       </Box>
     </SafeAreaView>
