@@ -1,4 +1,5 @@
 import React from 'react'
+import { Linking } from 'react-native'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
 import ShieldCheckIcon from 'assets/icons/icon-shield-check.svg'
@@ -16,7 +17,13 @@ export const AboutLinks = () => {
   const { showModal, hideModal } = useModalContext()
   return (
     <Box paddingHorizontal="m">
-      <BaseOpacity flexDirection="row" alignItems="center" marginBottom="s">
+      <BaseOpacity
+        flexDirection="row"
+        alignItems="center"
+        marginBottom="s"
+        onPress={async () => {
+          await Linking.openURL('https://thewidlarzgroup.com')
+        }}>
         <StarIcon color={theme.colors.black} />
         <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24}>
           {t('rateApp')}
