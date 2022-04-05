@@ -147,7 +147,7 @@ export type ModalRoutes = {
     action?: string
   }
 
-  RequestVacationCalendar: undefined
+  RequestVacationCalendar: { isSickTime?: boolean }
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
   CreatePost: { photo: { id: string; uri: string } }
