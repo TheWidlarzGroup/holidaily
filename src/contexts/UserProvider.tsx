@@ -3,6 +3,8 @@ import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { setItem, removeMany } from 'utils/localStorage'
+import { queryClient } from 'dataAccess/queryClient'
+import { QueryKeys } from 'dataAccess/QueryKeys'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -43,10 +45,20 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   }, [])
 
   const handleLogout = async () => {
-    await removeMany(['firstName', 'lastName', 'occupation', 'photo', 'userColor'])
+    await removeMany([
+      'firstName',
+      'lastName',
+      'occupation',
+      'photo',
+      'userColor',
+      'seenNotificationsIds',
+    ])
     delete axios.defaults.headers.common.userId
-    clearUserCache()
     setUser(null)
+    clearUserCache()
+    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
+    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
+    queryClient.invalidateQueries(QueryKeys.USER_STATS)
   }
 
   const value: ContextProps = { user, updateUser, handleLogout }
