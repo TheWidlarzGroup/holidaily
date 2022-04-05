@@ -1,3 +1,5 @@
+import { AddComment, AddReaction } from 'mockApi/models/miragePostTypes'
+
 export const API = {
   GET: {
     allUsers: '/api/users',
@@ -12,12 +14,13 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
     addPost: '/api/addpost',
-  },
-
-  PATCH: {
-    markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
+    addCommentToPost: (comment: AddComment) => `/api/posts/${comment.postId}`,
   },
   PUT: {
     editUser: '/api/users',
+    addReactionToPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
+  },
+  PATCH: {
+    markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
   },
 }

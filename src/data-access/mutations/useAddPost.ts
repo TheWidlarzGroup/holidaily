@@ -5,16 +5,16 @@ import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { API } from '../API'
 
-type Post = {
+type PostSuccess = {
   post: FeedPost
 }
 
-const addPost = async (body: FeedPost): Promise<Post> => {
-  const { data } = await axios.post<Post>(API.POST.addPost, body)
+const addPost = async (body: FeedPost): Promise<PostSuccess> => {
+  const { data } = await axios.post<PostSuccess>(API.POST.addPost, body)
   return data
 }
 export const useAddPost = () =>
-  useMutation<Post, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
+  useMutation<PostSuccess, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (data?.length) return [payload.post, ...data]

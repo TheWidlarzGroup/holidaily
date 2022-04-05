@@ -1,21 +1,22 @@
+import { LoadingModal } from 'components/LoadingModal'
 import format from 'date-fns/format'
+import { useTeamsContext } from 'hooks/usePostsContext'
 import { User } from 'mock-api/models/mirageTypes'
 import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getClosestHolidayRequests } from 'utils/closestHolidayRequests'
-import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 
 type CarouselProps = {
   openUserModal: F1<User>
 }
 
 export const Carousel = ({ openUserModal }: CarouselProps) => {
-  const { data } = useGetOrganization()
+  const { teams } = useTeamsContext()
 
-  if (!data) return null
+  if (!teams) return <LoadingModal show />
 
-  const usersWithHoliday = getClosestHolidayRequests(data.teams)
+  const usersWithHoliday = getClosestHolidayRequests(teams)
 
   const displayDay = (user: User) => {
     if (user.isOnHoliday) {

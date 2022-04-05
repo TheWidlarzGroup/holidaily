@@ -1,7 +1,7 @@
 import { CompoundLocation } from 'hooks/useLocation'
 import { User } from './mirageTypes'
 
-type UserData = Pick<User, 'id' | 'occupation'> & { pictureUrl: User['photo']; name: string }
+type UserData = { id: string; name: string; occupation: string; pictureUrl: User['photo'] }
 
 export type Timestamp = {
   createdAt: Date
@@ -24,7 +24,17 @@ export type Comment = {
   text: string
 }
 
+export type AddComment = {
+  postId: string
+  comment: Comment
+}
+export type AddReaction = {
+  postId: string
+  reaction: Reaction
+}
+
 export type FeedPost = {
+  id?: string
   meta: MetaData
   comments: Comment[]
   data: FeedPostData[]
