@@ -1,4 +1,4 @@
-import { useTeamsContext } from 'hooks/usePostsContext'
+import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
 import { parseISO } from 'utils/dates'
 import { useGetRangeDates } from 'hooks/useGetRangeDates'
@@ -11,8 +11,6 @@ export const useCalendarData = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
   const { allMonths } = useGetRangeDates('2022-02-01', '2022-06-15')
-
-  console.log(allMonths)
 
   useEffect(() => {
     if (teams?.length === 0 || !teams) return

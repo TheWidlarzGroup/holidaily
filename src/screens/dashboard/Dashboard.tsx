@@ -10,7 +10,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
-import { useTeamsContext } from 'hooks/usePostsContext'
+import { useTeamsContext } from 'hooks/useTeamsContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
