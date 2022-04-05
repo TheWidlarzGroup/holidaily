@@ -1,13 +1,15 @@
+import { DayOffRequest } from 'mockApi/models'
 import React from 'react'
 import { Box, Text } from 'utils/theme/index'
 import { Photo } from './Photo'
 
 type Side = 'left' | 'right'
-type RequestAttachmentsProps = {
-  attachments?: { id: string; uri: string; name?: string }[]
-}
 
-export const RequestAttachments = ({ attachments }: RequestAttachmentsProps) => {
+export const RequestAttachments = ({
+  attachments,
+}: {
+  attachments: DayOffRequest['attachments']
+}) => {
   const getPadding = (index: number, side: Side) => {
     const n = index % 3
     const paddingSize = 2
