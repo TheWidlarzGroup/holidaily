@@ -146,7 +146,6 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
-  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
 
   RequestVacationCalendar: undefined
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
@@ -156,6 +155,7 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
+  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
   DashboardTeam: Team & { openUserModal: F1<User> }
   DashboardTeamMember: User
   DashboardNotifications: undefined

@@ -55,7 +55,9 @@ export const Requests = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() => navigation.navigate('SeeRequest', { ...item })}>
+            onPress={() =>
+              navigation.navigate('DashboardNavigation', { screen: 'SeeRequest', params: item })
+            }>
             <Request {...item} />
           </TouchableOpacity>
         )}
