@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles } from 'utils/theme/index'
 import { useTranslation } from 'react-i18next'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { RequestDetails } from 'components/RequestDetails/RequestDetails'
+import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
 
 type SummaryRequestVacationProps = {
   description: string
@@ -18,31 +18,24 @@ type SummaryRequestVacationProps = {
 
 export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVacationProps) => {
   const styles = useStyles()
-  const [isLoading, { setTrue: startLoading, setFalse: stopLoading }] = useBooleanState(false)
-  const [isSuccess, { setTrue: markSuccess }] = useBooleanState(false)
   const { t } = useTranslation('requestVacation')
-  const handleSend = () => {
-    if (p.startDate && p.endDate) {
-      startLoading()
-    }
+
+  const { mutate, isLoading } = useCreateDayOffRequest()
+  const onSubmit = () => {
+    if (!p.startDate || !p.endDate) return
+
+    mutate(
+      {
+        startDate: p.startDate.toISOString(),
+        endDate: p.endDate.toISOString(),
+        description: p.description,
+        isSickTime: p.isSick,
+        message: p.message ?? '',
+        attachments: p.attachments,
+      },
+      { onSuccess: onNextPressed }
+    )
   }
-  useEffect(() => {
-    let timeout: number | undefined
-    if (isLoading) {
-      timeout = setTimeout(() => {
-        stopLoading()
-        markSuccess()
-      }, 800)
-    }
-
-    return () => clearTimeout(timeout)
-  }, [isLoading, markSuccess, stopLoading])
-
-  useEffect(() => {
-    if (isSuccess) {
-      onNextPressed()
-    }
-  }, [isSuccess, onNextPressed])
 
   return (
     <Box flex={1} padding="l" paddingTop="xl">
@@ -59,7 +52,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         <CustomButton
           label={t('sendRequest')}
           variant="primary"
-          onPress={handleSend}
+          onPress={onSubmit}
           style={styles.button}
           loading={isLoading}
           maxWidth={250}

@@ -15,6 +15,12 @@ export type User = {
   isOnHoliday: boolean
 }
 
+type Attachment = {
+  id: string
+  uri: string
+  name?: string
+}
+
 export type DayOffRequest = {
   description: string
   id: string
@@ -23,6 +29,8 @@ export type DayOffRequest = {
   endDate: string
   isSickTime: boolean
   status: 'accepted' | 'cancelled' | 'pending' | 'past'
+  // array of attachments URLs
+  attachments?: Attachment[]
 }
 
 export type Team = {

@@ -10,17 +10,17 @@ export const API = {
     userRequests: '/api/requests',
     userStats: '/api/stats',
   },
-
   POST: {
     createTempUser: '/api/users',
     addPost: '/api/addpost',
+    createDayOff: '/api/request',
     addCommentToPost: (comment: AddComment) => `/api/posts/${comment.postId}`,
+  },
+  PATCH: {
+    markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
   },
   PUT: {
     editUser: '/api/users',
     addReactionToPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
-  },
-  PATCH: {
-    markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
   },
 }

@@ -13,7 +13,7 @@ import { TakenPtoSummary } from './TakenPtoSummary'
 import { CircleStatusIcon } from './CircleStatusIcon'
 
 type RequestDetailsProps = {
-  attachments?: { id: string; uri: string }[]
+  attachments?: DayOffRequest['attachments']
   showStatus?: true
 }
 
