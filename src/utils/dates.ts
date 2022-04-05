@@ -23,6 +23,7 @@ export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc
 
 export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
 export const getISODateString = (date: DateOrISO): string => formatFromISO(date, 'yyyy-MM-dd')
+export const getISOMonthYearString = (date: DateOrISO): string => formatFromISO(date, 'yyyy-MM')
 
 export const getMonthName = (monthNumber: number): string =>
   formatFromISO(setMonth(new Date(), monthNumber), 'LLLL')
