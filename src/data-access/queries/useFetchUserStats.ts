@@ -13,4 +13,10 @@ const fetchUserStats = async () => {
   return res.data
 }
 
-export const useFetchUserStats = () => useQuery([QueryKeys.USER_STATS], fetchUserStats)
+export const useFetchUserStats = () =>
+  useQuery([QueryKeys.USER_STATS], fetchUserStats, {
+    onError: (err: any) => {
+      console.error(err)
+      if (err?.response) console.error(err.response.data)
+    },
+  })
