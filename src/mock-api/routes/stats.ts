@@ -24,7 +24,6 @@ const fetchStats = (schema: Schema<ModelsSchema>, req: Request) => {
     return wasAccepted && isNotSicktime
   }).models
   let ptoTaken = 0
-  console.log('reqs', PTOrequests)
   PTOrequests.forEach((req: DayOffRequest) => {
     ptoTaken += calculatePTO(req.startDate, req.endDate)
   })
