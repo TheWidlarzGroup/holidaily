@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   onSubmit: F0
+  onClear: F0
   periodStart: string
   periodEnd: string
   ptoTaken: number
@@ -49,7 +50,7 @@ export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
           <Text variant="body1" marginTop="xs" marginBottom="l">
             {t('availablePto', { availablePto: getDurationInDays(p.availablePto) })}
           </Text>
-          <CustomButton label={t('clear')} variant="danger" onPress={() => {}} />
+          <CustomButton label={t('clear')} variant="danger" onPress={p.onClear} />
         </>
       ) : (
         <>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { useTheme } from 'utils/theme'
@@ -11,7 +11,10 @@ import { NewCalendarList } from './CalendarComponents/NewCalendar'
 
 type CustomCalendarProps = {
   markedDates: MarkingType | Record<string, never>
-  onSelectedPeriodChange?: F2<string | undefined, string | undefined>
+  periodStart: string | undefined
+  periodEnd: string | undefined
+  selectPeriodStart: F1<string>
+  selectPeriodEnd: F1<string>
   selectable?: boolean
   onHeaderPressed?: F0
   isInvalid?: boolean
@@ -19,31 +22,23 @@ type CustomCalendarProps = {
 
 export const CalendarList = ({
   theme: themeProp,
-  onSelectedPeriodChange,
   selectable = false,
   markedDates,
-  isInvalid,
-  ...props
+  ...p
 }: CustomCalendarProps & RNCalendarProps) => {
-  const [selectedPeriodStart, setSelectedPeriodStart] = useState<string | undefined>()
-  const [selectedPeriodEnd, setSelectedPeriodEnd] = useState<string | undefined>()
   const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
   const appTheme = useTheme()
-  useEffect(() => {
-    if (!onSelectedPeriodChange) return
-    onSelectedPeriodChange(selectedPeriodStart, selectedPeriodEnd)
-  }, [onSelectedPeriodChange, selectedPeriodStart, selectedPeriodEnd])
 
   const handleClick = ({ dateString: clickedDate }: DateObject) => {
     if (!selectable) return
-    if (!selectedPeriodStart || !selectedPeriodEnd || selectedPeriodStart !== selectedPeriodEnd) {
-      setSelectedPeriodStart(clickedDate)
-      setSelectedPeriodEnd(clickedDate)
+    if (!p.periodStart || !p.periodEnd || p.periodStart !== p.periodEnd) {
+      p.selectPeriodStart(clickedDate)
+      p.selectPeriodEnd(clickedDate)
       return
     }
 
-    if (clickedDate < selectedPeriodStart) setSelectedPeriodStart(clickedDate)
-    if (clickedDate > selectedPeriodEnd) setSelectedPeriodEnd(clickedDate)
+    if (clickedDate < p.periodStart) p.selectPeriodStart(clickedDate)
+    if (clickedDate > p.periodEnd) p.selectPeriodEnd(clickedDate)
   }
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
 
@@ -76,9 +71,9 @@ export const CalendarList = ({
       theme={theme}
       dayComponent={useCallback(
         (props) => (
-          <CalendarDay {...props} styles={isInvalid ? invalidPeriodStyles : validPeriodStyles} />
+          <CalendarDay {...props} styles={p.isInvalid ? invalidPeriodStyles : validPeriodStyles} />
         ),
-        [isInvalid, invalidPeriodStyles, validPeriodStyles]
+        [p.isInvalid, invalidPeriodStyles, validPeriodStyles]
       )}
       markingType={'period'}
       onDayPress={handleClick}
@@ -90,10 +85,10 @@ export const CalendarList = ({
       )}
       markedDates={{
         ...markedDates,
-        ...genMarkedDates(selectedPeriodStart, selectedPeriodEnd),
+        ...genMarkedDates(p.periodStart, p.periodEnd),
       }}
       calendarHeight={410}
-      {...props}
+      {...p}
     />
   )
 }
