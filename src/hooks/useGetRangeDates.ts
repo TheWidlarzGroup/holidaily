@@ -5,7 +5,7 @@ import { DayInfoProps } from 'screens/calendar/components/DayInfo'
 import { getISODateString, getISOMonthYearString } from 'utils/dates'
 import { generateUUID } from 'utils/generateUUID'
 
-type MonthType = {
+export type MonthType = {
   date: string
   days: DayInfoProps[]
 }
@@ -15,32 +15,55 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
 
   const getAllDaysOfHolidayRequests = () => {
     const allRequests: DayOffEvent[] = []
-    teams?.forEach((team) => {
-      team.users.forEach((user) => {
-        user.requests.forEach((request) => {
+    if (!teams?.length) return
+    for (let i = 0; i < teams?.length; i++) {
+      for (let j = 0; j < teams?.[i]?.users?.length; j++) {
+        for (let k = 0; k < teams?.[i]?.users?.[j]?.requests?.length; k++) {
           const dates = eachDayOfInterval({
-            start: new Date(request.startDate),
-            end: new Date(request.endDate),
+            start: new Date(teams?.[i]?.users?.[j]?.requests?.[k]?.startDate),
+            end: new Date(teams?.[i]?.users?.[j]?.requests?.[k]?.endDate),
           })
-          dates.forEach((date) => {
+          for (let l = 0; l < dates.length; l++) {
             const req = {
               id: generateUUID(),
-              person: `${user.firstName} ${user.lastName}`,
-              reason: request.description,
-              position: user.occupation,
-              color: user.userColor,
+              person: `${teams?.[i]?.users?.[j]?.firstName} ${teams?.[i]?.users?.[j]?.lastName}`,
+              reason: teams?.[i]?.users?.[j]?.requests?.[k].description,
+              position: teams?.[i]?.users?.[j]?.occupation,
+              color: teams?.[i]?.users?.[j]?.userColor,
               categoryId: 1,
-              date: getISODateString(date),
+              date: getISODateString(dates?.[l]),
             }
             allRequests.push(req)
-          })
-        })
-      })
-    })
-    return { allRequests }
+          }
+        }
+      }
+    }
+    // teams?.forEach((team) => {
+    //   team.users.forEach((user) => {
+    //     user.requests.forEach((request) => {
+    //       const dates = eachDayOfInterval({
+    //         start: new Date(request.startDate),
+    //         end: new Date(request.endDate),
+    //       })
+    //       dates.forEach((date) => {
+    //         const req = {
+    //           id: generateUUID(),
+    //           person: `${user.firstName} ${user.lastName}`,
+    //           reason: request.description,
+    //           position: user.occupation,
+    //           color: user.userColor,
+    //           categoryId: 1,
+    //           date: getISODateString(date),
+    //         }
+    //         allRequests.push(req)
+    //       })
+    //     })
+    //   })
+    // })
+    return allRequests
   }
 
-  const { allRequests } = getAllDaysOfHolidayRequests()
+  // const { allRequests } = getAllDaysOfHolidayRequests()
 
   const datesList = eachDayOfInterval({ start: new Date(startDate), end: new Date(endDate) })
   const allMonths: MonthType[] = []
@@ -58,25 +81,29 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       }
       daysInMonth = []
     }
-    const requests = allRequests.filter((req) => req.date === getISODateString(date))
+    const requests = getAllDaysOfHolidayRequests()?.filter(
+      (req: DayOffEvent) => req.date === getISODateString(date)
+    )
 
-    if (requests.length === 0) return
+    if (requests?.length === 0) return
 
     const dayOfWeek = format(date, 'e')
     monthDate = getISOMonthYearString(date)
     if (dayOfWeek === '7') {
-      return daysInMonth.push({
-        date: getISODateString(date),
-        weekend: 1,
-        events: requests,
-      })
+      return
+      // daysInMonth.push({
+      //   date: getISODateString(date),
+      //   weekend: 1,
+      //   events: requests,
+      // })
     }
     if (dayOfWeek === '1') {
-      return daysInMonth.push({
-        date: getISODateString(date),
-        weekend: 2,
-        events: requests,
-      })
+      return
+      //  daysInMonth.push({
+      //   date: getISODateString(date),
+      //   weekend: 2,
+      //   events: requests,
+      // })
     }
     return daysInMonth.push({
       date: getISODateString(date),

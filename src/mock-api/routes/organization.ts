@@ -10,7 +10,6 @@ export function organizationRoute(context: Server<ModelsSchema>) {
 function fetchOrganization(schema: Schema<ModelsSchema>) {
   const response = schema.all('organization')
   response.models[0].teamIds.forEach((id: string) => {
-    console.log('IDDD', id)
     const team = schema.find('team', id)
     if (!team) return response
     team.userIds.forEach((id) => {

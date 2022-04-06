@@ -1,7 +1,7 @@
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
 import { parseISO } from 'utils/dates'
-import { useGetRangeDates } from 'hooks/useGetRangeDates'
+import { useRequestsContext } from 'hooks/useRequestsContext'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from './components/DayInfo'
 
@@ -10,7 +10,7 @@ export const useCalendarData = () => {
   const [filterCategories, setFilterCategories] = useState<FilterCategory[] | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
-  const { allMonths } = useGetRangeDates('2022-02-01', '2022-06-15')
+  const { requests } = useRequestsContext()
 
   useEffect(() => {
     if (teams?.length === 0 || !teams) return
@@ -33,7 +33,8 @@ export const useCalendarData = () => {
     })
   }
   useEffect(() => {
-    const currentMonth = allMonths.find((month) => {
+    if (!requests || requests.length === 0) return
+    const currentMonth = requests.find((month) => {
       const thisMonth = parseISO(month.date)
       return (
         thisMonth.getMonth() === selectedDate.getMonth() &&
@@ -53,7 +54,7 @@ export const useCalendarData = () => {
       })
       setCurrentMonthDays(newCurrentMonthDays)
     } else setCurrentMonthDays([])
-  }, [filterCategories, selectedDate])
+  }, [filterCategories, selectedDate, requests])
 
   return {
     filterCategories,

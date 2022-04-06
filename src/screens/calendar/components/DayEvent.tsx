@@ -3,12 +3,13 @@ import { Box, Text } from 'utils/theme'
 import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
 
 export type DayOffEvent = {
-  id: number
+  id: string
   person: string
   reason: string
   position: string
   color: string
   categoryId: number
+  date?: string
 }
 
 type DayEventProps = { event: DayOffEvent }
