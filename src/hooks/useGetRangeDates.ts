@@ -63,8 +63,6 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
     return allRequests
   }
 
-  // const { allRequests } = getAllDaysOfHolidayRequests()
-
   const datesList = eachDayOfInterval({ start: new Date(startDate), end: new Date(endDate) })
   const allMonths: MonthType[] = []
   let daysInMonth: DayInfoProps[] = []
@@ -89,22 +87,8 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
 
     const dayOfWeek = format(date, 'e')
     monthDate = getISOMonthYearString(date)
-    if (dayOfWeek === '7') {
-      return
-      // daysInMonth.push({
-      //   date: getISODateString(date),
-      //   weekend: 1,
-      //   events: requests,
-      // })
-    }
-    if (dayOfWeek === '1') {
-      return
-      //  daysInMonth.push({
-      //   date: getISODateString(date),
-      //   weekend: 2,
-      //   events: requests,
-      // })
-    }
+    if (dayOfWeek === '7') return
+    if (dayOfWeek === '1') return
     return daysInMonth.push({
       date: getISODateString(date),
       events: requests,
