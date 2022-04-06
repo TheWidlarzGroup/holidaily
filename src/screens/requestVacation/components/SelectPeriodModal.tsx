@@ -2,7 +2,7 @@ import React from 'react'
 import { ModalProps } from 'react-native-modal'
 import { Text, Box } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
-import { getFormattedPeriod } from 'utils/dates'
+import { getDurationInDays, getFormattedPeriod } from 'utils/dates'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 
@@ -45,11 +45,11 @@ export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
       style={animatedModalStyles}>
       {isInvalid ? (
         <>
-          <Text variant="boldBlackCenter18">Ooops!</Text>
+          <Text variant="boldBlackCenter18">{t('error')}</Text>
           <Text variant="body1" marginTop="xs" marginBottom="l">
-            {p.availablePto} days left
+            {t('availablePto', { availablePto: getDurationInDays(p.availablePto) })}
           </Text>
-          <CustomButton label="Clear selection" variant="danger" onPress={p.onSubmit} />
+          <CustomButton label={t('clear')} variant="danger" onPress={() => {}} />
         </>
       ) : (
         <>
@@ -57,7 +57,7 @@ export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
             {getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd))}
           </Text>
           <Text variant="body1" marginTop="xs" marginBottom="l">
-            {t('pickedPTO', { days: String(p.ptoTaken) })}
+            {t('pickedPTO', { days: getDurationInDays(p.ptoTaken) })}
           </Text>
           <CustomButton label={t('select')} variant="primary" onPress={p.onSubmit} />
         </>
