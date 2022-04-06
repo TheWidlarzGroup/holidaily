@@ -82,7 +82,12 @@ export const CalendarList = ({
       )}
       markingType={'period'}
       onDayPress={handleClick}
-      renderHeader={(date: Date) => <CalendarHeader date={date} />}
+      renderHeader={useCallback(
+        (date: Date) => (
+          <CalendarHeader date={date} />
+        ),
+        []
+      )}
       markedDates={{
         ...markedDates,
         ...genMarkedDates(selectedPeriodStart, selectedPeriodEnd),
