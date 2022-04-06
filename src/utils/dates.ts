@@ -3,6 +3,7 @@ import {
   compareAsc,
   differenceInBusinessDays,
   format,
+  formatDuration,
   getDay,
   isSameMonth,
   isSameYear,
@@ -120,5 +121,8 @@ export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
   }
   return workdaysDiff
 }
+
+export const getDurationInDays = (days: number) =>
+  formatDuration({ days }, { locale: getCurrentLocale(), zero: true })
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24
