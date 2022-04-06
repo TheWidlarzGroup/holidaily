@@ -5,6 +5,7 @@ import { addDays, isToday, startOfWeek } from 'date-fns/esm'
 import { isSameDay } from 'date-fns'
 import { getISODateString } from 'utils/dates'
 import { CalendarDay } from './CalendarDay'
+import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 
 type WeekCalendarProps = {
   date: Date
@@ -21,6 +22,8 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
     }
     setWeek(newWeek)
   }, [currentDate])
+
+  const { validPeriodStyles } = useCalendarPeriodStyles()
 
   const getDateObject = (date: Date) => ({
     dateString: getISODateString(date),
@@ -56,6 +59,7 @@ export const WeekCalendar = ({ date: currentDate, onDayPress, markedDates }: Wee
             date={getDateObject(day)}
             state={getState(day)}
             onPress={onDayPress}
+            styles={validPeriodStyles}
           />
         </Box>
       ))}
