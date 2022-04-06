@@ -13,6 +13,7 @@ type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   periodStart: string
   periodEnd: string
   ptoTaken: number
+  isInvalid: boolean
   availablePto: number
 }
 
@@ -30,7 +31,6 @@ export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
 
   if (!p.isVisible) return null
 
-  const isInvalid = p.availablePto < p.ptoTaken
   return (
     <AnimatedBox
       flex={1}
@@ -42,9 +42,9 @@ export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
       borderTopRightRadius="lmin"
       paddingHorizontal="xxl"
       paddingVertical="xl"
-      backgroundColor={isInvalid ? 'specialRed' : 'primary'}
+      backgroundColor={p.isInvalid ? 'specialRed' : 'primary'}
       style={animatedModalStyles}>
-      {isInvalid ? (
+      {p.isInvalid ? (
         <>
           <Text variant="boldBlackCenter18">{t('error')}</Text>
           <Text variant="body1" marginTop="xs" marginBottom="l">

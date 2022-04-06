@@ -18,9 +18,10 @@ export const CalendarRequestVacation = ({
   const { user } = useUserContext()
   const availablePto = useMemo(() => user?.availablePto ?? 0, [user])
   const ptoTaken = useMemo(() => {
-    if (isSickTime || !periodEnd || !periodStart) return 0
+    if (!periodEnd || !periodStart) return 0
     return calculatePTO(periodStart, periodEnd)
-  }, [periodStart, periodEnd, isSickTime])
+  }, [periodStart, periodEnd])
+  const isInvalid = isSickTime ? false : availablePto < ptoTaken
   const navigation = useNavigation<ModalNavigationType<'RequestVacationCalendar'>>()
   const onClear = () => {
     selectPeriodStart('')
@@ -48,7 +49,7 @@ export const CalendarRequestVacation = ({
           []
         )}
         markedDates={{}}
-        isInvalid={availablePto < ptoTaken}
+        isInvalid={isInvalid}
       />
       <SelectPeriodModal
         isVisible={!!periodStart}
@@ -58,6 +59,7 @@ export const CalendarRequestVacation = ({
         periodEnd={periodEnd}
         ptoTaken={ptoTaken}
         availablePto={availablePto}
+        isInvalid={isInvalid}
       />
     </Box>
   )
