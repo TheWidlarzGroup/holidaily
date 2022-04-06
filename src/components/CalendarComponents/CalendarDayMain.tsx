@@ -18,6 +18,8 @@ export type MarkingStyles = {
   disabledDay: ViewStyle
 }
 
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 export const CalendarDayMain = ({
   date,
   state,
@@ -35,13 +37,7 @@ export const CalendarDayMain = ({
   }
 
   const containerStyles = useAnimatedStyle(() => ({
-    borderRadius: 15,
     backgroundColor: withTiming(marking?.selected && !marking?.period ? '#000000ff' : '#00000000'),
-    width: 30,
-    height: 30,
-    margin: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
   }))
   return (
     <Box
@@ -52,7 +48,14 @@ export const CalendarDayMain = ({
         marking?.startingDay && styles.periodStartDay,
         marking?.period && isWeekend(day) && styles.disabledDay,
       ]}>
-      <Animated.View style={containerStyles}>
+      <AnimatedBox
+        borderRadius="lmin"
+        width={30}
+        height={30}
+        margin="s"
+        justifyContent="center"
+        alignItems="center"
+        style={containerStyles}>
         <BorderlessButton
           onPress={() => onPress(date)}
           enabled={!isWeekend(day)}
@@ -71,7 +74,7 @@ export const CalendarDayMain = ({
             </Text>
           </Box>
         </BorderlessButton>
-      </Animated.View>
+      </AnimatedBox>
     </Box>
   )
 }
