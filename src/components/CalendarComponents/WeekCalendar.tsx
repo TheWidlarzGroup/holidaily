@@ -4,8 +4,8 @@ import { DateObject, MultiDotMarking } from 'react-native-calendars'
 import { addDays, isToday, startOfWeek } from 'date-fns/esm'
 import { isSameDay } from 'date-fns'
 import { getISODateString } from 'utils/dates'
-import { CalendarDay } from './CalendarDay'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { CalendarDay } from './CalendarDay'
 
 type WeekCalendarProps = {
   date: Date
