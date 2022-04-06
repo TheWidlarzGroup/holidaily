@@ -26,6 +26,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/1.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Tom',
@@ -33,6 +34,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/2.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Kamila',
@@ -40,6 +42,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/1.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Ola',
@@ -47,6 +50,7 @@ export const usersList = [
     photo: null,
     occupation: 'Project Manager',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Basia',
@@ -54,6 +58,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/2.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Roberta',
@@ -61,6 +66,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/3.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Ramon',
@@ -68,6 +74,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/3.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Ted',
@@ -75,6 +82,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/10.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Pedro',
@@ -82,6 +90,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/4.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Dolores',
@@ -89,6 +98,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/5.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Bessie',
@@ -96,6 +106,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/6.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Brent',
@@ -103,6 +114,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/11.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Melanie',
@@ -110,6 +122,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/8.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Jimmie',
@@ -117,6 +130,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/9.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Frances',
@@ -124,6 +138,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/15.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Stacey',
@@ -131,6 +146,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/11.jpg',
     occupation: 'Project Manager',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Leslie',
@@ -138,6 +154,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/12.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Eddie',
@@ -145,6 +162,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/13.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Darren',
@@ -152,6 +170,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/14.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Heather',
@@ -159,6 +178,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/15.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Kathryn',
@@ -166,6 +186,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/16.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Elmer',
@@ -173,6 +194,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/17.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Riley',
@@ -180,6 +202,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/18.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Deann',
@@ -187,6 +210,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/19.jpg',
     occupation: 'Project Manager',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Grace',
@@ -194,6 +218,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/20.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Darlene',
@@ -201,6 +226,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/21.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Anita',
@@ -208,6 +234,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/22.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Yvonne',
@@ -215,6 +242,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/23.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Alyssa',
@@ -222,6 +250,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/24.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Terri',
@@ -229,6 +258,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/25.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Marvin',
@@ -236,6 +266,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/26.jpg',
     occupation: 'Project Manager',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Jared',
@@ -243,6 +274,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/27.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Ray',
@@ -250,6 +282,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/28.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Everett',
@@ -257,6 +290,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/29.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Kev',
@@ -264,6 +298,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/30.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Hailey',
@@ -271,6 +306,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/31.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Dale',
@@ -278,6 +314,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/32.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Joe',
@@ -285,6 +322,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/33.jpg',
     occupation: 'Software Engineer',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Levi',
@@ -292,6 +330,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/34.jpg',
     occupation: 'QA Tester',
     requests: [],
+    userColor: faker.internet.color(),
   },
   {
     firstName: 'Lena',
@@ -299,5 +338,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/35.jpg',
     occupation: 'Project Manager',
     requests: [],
+    userColor: faker.internet.color(),
   },
 ]

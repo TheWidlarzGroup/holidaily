@@ -1,5 +1,6 @@
 import { eachDayOfInterval, format } from 'date-fns'
 import { useTeamsContext } from 'hooks/useTeamsContext'
+import { DayOffEvent } from 'screens/calendar/components/DayEvent'
 import { DayInfoProps } from 'screens/calendar/components/DayInfo'
 import { getISODateString, getISOMonthYearString } from 'utils/dates'
 import { generateUUID } from 'utils/generateUUID'
@@ -13,7 +14,7 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
   const { teams } = useTeamsContext()
 
   const getAllDaysOfHolidayRequests = () => {
-    const allRequests = []
+    const allRequests: DayOffEvent[] = []
     teams?.forEach((team) => {
       team.users.forEach((user) => {
         user.requests.forEach((request) => {
@@ -58,27 +59,30 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       daysInMonth = []
     }
     const requests = allRequests.filter((req) => req.date === getISODateString(date))
-    console.log(requests)
+
+    if (requests.length === 0) return
+
     const dayOfWeek = format(date, 'e')
     monthDate = getISOMonthYearString(date)
-    if (dayOfWeek === '6') {
-      return daysInMonth.push({
-        date: getISODateString(date),
-        weekend: 1,
-        events: requests.length > 0 ? requests : undefined,
-      })
-    }
     if (dayOfWeek === '7') {
       return daysInMonth.push({
         date: getISODateString(date),
+        weekend: 1,
+        events: requests,
+      })
+    }
+    if (dayOfWeek === '1') {
+      return daysInMonth.push({
+        date: getISODateString(date),
         weekend: 2,
-        events: requests.length > 0 ? requests : undefined,
+        events: requests,
       })
     }
     return daysInMonth.push({
       date: getISODateString(date),
-      events: requests.length > 0 ? requests : undefined,
+      events: requests,
     })
   })
+
   return { allMonths }
 }
