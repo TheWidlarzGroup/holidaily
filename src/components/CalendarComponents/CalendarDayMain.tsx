@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
-import { NewDayComponentProps } from './CalendarTypes'
 import { ViewStyle } from 'react-native'
+import { NewDayComponentProps } from './CalendarTypes'
 
 type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'> & {
   styles: MarkingStyles
@@ -25,7 +25,6 @@ export const CalendarDayMain = ({
   onPress,
   styles,
 }: CalendarDayMainProps) => {
-  // const styles = useStyles()
   const day = date.dateString
   const textColor = () => {
     const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
@@ -76,29 +75,3 @@ export const CalendarDayMain = ({
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  selected: {
-    borderBottomRightRadius: theme.borderRadii.full,
-    borderTopRightRadius: theme.borderRadii.full,
-    borderBottomLeftRadius: theme.borderRadii.full,
-    borderTopLeftRadius: theme.borderRadii.full,
-  },
-  selectedDisabled: {
-    backgroundColor: '#ffc59e',
-  },
-  end: {
-    borderBottomRightRadius: theme.borderRadii.full,
-    borderTopRightRadius: theme.borderRadii.full,
-  },
-  start: {
-    borderBottomLeftRadius: theme.borderRadii.full,
-    borderTopLeftRadius: theme.borderRadii.full,
-  },
-  selectedPeriod: {
-    backgroundColor: theme.colors.tertiary,
-  },
-  invalidPeriod: {
-    backgroundColor: theme.colors.errorRed,
-  },
-}))
