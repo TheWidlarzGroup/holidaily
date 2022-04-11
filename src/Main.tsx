@@ -7,14 +7,14 @@ import { ModalProvider } from 'contexts/ModalProvider'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
-import { queryClient } from './data-access/queryClient'
+import { queryClient } from 'dataAccess/queryClient'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
 
 initBackendMocks()
 export const Main = () => {
-  // // FIXME: read from user preferences
+  // FIXME: read from user preferences
   const darkMode = false
 
   return (
