@@ -54,7 +54,7 @@ export const useCalendarData = () => {
       })
       setCurrentMonthDays(newCurrentMonthDays)
     } else setCurrentMonthDays([])
-  }, [filterCategories, selectedDate, requests])
+  }, [])
 
   return {
     filterCategories,
