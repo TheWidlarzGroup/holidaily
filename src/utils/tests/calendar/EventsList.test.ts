@@ -7,7 +7,7 @@ describe('EventsList getItemLayout', () => {
   const EVENT_HEIGHT = 46
 
   const event: DayOffEvent = {
-    id: 1,
+    id: '1',
     person: 'Joe',
     reason: 'Not much',
     position: 'Manager',

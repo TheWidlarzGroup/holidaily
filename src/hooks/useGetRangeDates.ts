@@ -32,34 +32,29 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
               color: teams?.[i]?.users?.[j]?.userColor,
               categoryId: 1,
               date: getISODateString(dates?.[l]),
+              monthYear: getISOMonthYearString(dates?.[l]),
             }
             allRequests.push(req)
           }
         }
       }
     }
-    // teams?.forEach((team) => {
-    //   team.users.forEach((user) => {
-    //     user.requests.forEach((request) => {
-    //       const dates = eachDayOfInterval({
-    //         start: new Date(request.startDate),
-    //         end: new Date(request.endDate),
-    //       })
-    //       dates.forEach((date) => {
-    //         const req = {
-    //           id: generateUUID(),
-    //           person: `${user.firstName} ${user.lastName}`,
-    //           reason: request.description,
-    //           position: user.occupation,
-    //           color: user.userColor,
-    //           categoryId: 1,
-    //           date: getISODateString(date),
-    //         }
-    //         allRequests.push(req)
-    //       })
-    //     })
-    //   })
-    // })
+
+    function groupBy(objectArray, property: string) {
+      return objectArray.reduce((acc, obj) => {
+        const key = obj[property]
+        if (!acc[key]) {
+          acc[key] = []
+        }
+        acc[key].push(obj)
+        return acc
+      }, {})
+    }
+    const grouped = groupBy(allRequests, 'monthYear')
+    // for (const [key, value] of Object.entries(grouped)) {
+    //   console.log(`${key}: ${value}`)
+    // }
+
     return allRequests
   }
 
@@ -79,9 +74,11 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       }
       daysInMonth = []
     }
+
     const requests = getAllDaysOfHolidayRequests()?.filter(
       (req: DayOffEvent) => req.date === getISODateString(date)
     )
+    // const requests = getAllDaysOfHolidayRequests()
 
     if (requests?.length === 0) return
 

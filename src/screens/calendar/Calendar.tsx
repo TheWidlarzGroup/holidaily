@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -8,8 +7,8 @@ import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { parseISO } from 'utils/dates'
-import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { CategoriesSlider } from './components/CategoriesSlider'
+import { RequestsContextProvider } from 'contexts/RequestsProvider'
 
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
