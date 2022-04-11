@@ -51,9 +51,6 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       }, {})
     }
     const grouped = groupBy(allRequests, 'monthYear')
-    // for (const [key, value] of Object.entries(grouped)) {
-    //   console.log(`${key}: ${value}`)
-    // }
 
     return allRequests
   }
@@ -74,11 +71,9 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       }
       daysInMonth = []
     }
-
     const requests = getAllDaysOfHolidayRequests()?.filter(
       (req: DayOffEvent) => req.date === getISODateString(date)
     )
-    // const requests = getAllDaysOfHolidayRequests()
 
     if (requests?.length === 0) return
 

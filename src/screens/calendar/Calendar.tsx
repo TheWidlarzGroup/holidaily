@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -7,8 +8,8 @@ import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { parseISO } from 'utils/dates'
-import { CategoriesSlider } from './components/CategoriesSlider'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
+import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
@@ -20,9 +21,6 @@ const CalendarToWrap = () => {
     currentMonthDays,
   } = useCalendarData()
 
-  console.log('elo')
-
-  
   const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
     if (currentMonthDays.length > 0 && currentMonthDays.length > day - 1) {
       flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
