@@ -4,6 +4,7 @@ import { BorderlessButton } from 'react-native-gesture-handler'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import { ViewStyle } from 'react-native'
+import { isHoliday } from 'poland-public-holidays'
 import { NewDayComponentProps } from './CalendarTypes'
 
 type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'> & {
@@ -28,6 +29,7 @@ export const CalendarDayMain = ({
   styles,
 }: CalendarDayMainProps) => {
   const day = date.dateString
+  const isNotAWorkingDay = isWeekend(day) || isHoliday(day)
   const textColor = () => {
     const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
     if (isDisabled && marking?.period) return 'white'
@@ -46,7 +48,7 @@ export const CalendarDayMain = ({
         marking?.period && styles.dayInPeriod,
         marking?.endingDay && styles.periodEndDay,
         marking?.startingDay && styles.periodStartDay,
-        marking?.period && isWeekend(day) && styles.disabledDay,
+        marking?.period && isNotAWorkingDay && styles.disabledDay,
       ]}>
       <AnimatedBox
         borderRadius="lmin"
@@ -58,7 +60,7 @@ export const CalendarDayMain = ({
         style={containerStyles}>
         <BorderlessButton
           onPress={() => onPress(date)}
-          enabled={!isWeekend(day)}
+          enabled={!isNotAWorkingDay}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Box
             borderRadius="l"
@@ -69,7 +71,7 @@ export const CalendarDayMain = ({
             height={28}
             justifyContent="center"
             alignItems="center">
-            <Text color={textColor()} variant={isWeekend(day) ? 'regular15Calendar' : 'bold15'}>
+            <Text color={textColor()} variant={isNotAWorkingDay ? 'regular15Calendar' : 'bold15'}>
               {date.day}
             </Text>
           </Box>

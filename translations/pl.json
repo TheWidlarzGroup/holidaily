@@ -332,5 +332,9 @@
     "past": "Wykorzystane",
     "accepted": "Zatwierdzone",
     "yourRequest": "Twoje podanie"
+  },
+  "about": {
+    "rateApp": "Oceń aplikację",
+    "privacyPolicy": "Polityka prywatności"
   }
 }

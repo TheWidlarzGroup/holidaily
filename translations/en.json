@@ -332,5 +332,9 @@
     "past": "Past",
     "accepted": "Accepted",
     "yourRequest": "Your request"
+  },
+  "about": {
+    "rateApp": "Rate app",
+    "privacyPolicy": "Privacy policy"
   }
 }

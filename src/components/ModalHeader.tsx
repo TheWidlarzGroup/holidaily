@@ -15,7 +15,8 @@ export const ModalHeader = ({
     flexDirection="row"
     alignItems="center"
     justifyContent="space-between"
-    borderBottomEndRadius="lmin">
+    borderBottomLeftRadius="lmin"
+    borderBottomRightRadius="lmin">
     {children}
   </Box>
 )
