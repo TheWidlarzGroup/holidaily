@@ -19,7 +19,7 @@ export const Main = () => {
   const darkMode = false
 
   useEffect(() => {
-    dbService.initialize()
+    dbService().initialize()
   }, [])
 
   return (

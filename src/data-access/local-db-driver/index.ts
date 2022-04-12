@@ -54,5 +54,9 @@ const initDbService = () => {
     updateOneById,
   }
 }
-export const dbService = initDbService()
+let dbServiceInstance: DbService | null = null
+export const dbService = () => {
+  if (!dbServiceInstance) dbServiceInstance = initDbService()
+  return dbServiceInstance
+}
 export type DbService = ReturnType<typeof initDbService>
