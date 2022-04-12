@@ -7,7 +7,7 @@ type ProviderProps = {
 }
 
 export const RequestsContextProvider = ({ children }: ProviderProps) => {
-  const [range, setRange] = useState({ start: '2022-04-01', end: '2022-04-30' })
+  const [range, setRange] = useState({ start: '2022-04-01', end: '2022-09-30' })
   const { allMonths } = useGetRangeDates(range.start, range.end)
   const [requests, setRequests] = useState<MonthType[] | undefined>(allMonths)
 

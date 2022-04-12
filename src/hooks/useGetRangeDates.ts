@@ -40,7 +40,7 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       }
     }
 
-    function groupBy(objectArray, property: string) {
+    function groupArrayByKey(objectArray, property: string) {
       return objectArray.reduce((acc, obj) => {
         const key = obj[property]
         if (!acc[key]) {
@@ -50,9 +50,9 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
         return acc
       }, {})
     }
-    const grouped = groupBy(allRequests, 'monthYear')
+    const grouped = groupArrayByKey(allRequests, 'monthYear')
 
-    return allRequests
+    return { allRequests, grouped }
   }
 
   const datesList = eachDayOfInterval({ start: new Date(startDate), end: new Date(endDate) })
@@ -71,9 +71,25 @@ export const useGetRangeDates = (startDate: string, endDate: string) => {
       }
       daysInMonth = []
     }
-    const requests = getAllDaysOfHolidayRequests()?.filter(
+    const requests = getAllDaysOfHolidayRequests()?.allRequests?.filter(
       (req: DayOffEvent) => req.date === getISODateString(date)
     )
+    const groupedMonths = getAllDaysOfHolidayRequests()?.grouped
+
+    // const getRequestsInSingleDay = () => {
+    //   for (let i = 0; i < datesList?.length; i++) {
+    //     if (!groupedMonths || groupedMonths.length === 0) return
+    //     // eslint-disable-next-line @typescript-eslint/no-for-in-array
+    //     for (let key in groupedMonths) {
+    //       console.log(key)
+    //       // if (groupedMonths[key] === getISODateString(datesList[i])) {
+    //       //   console.log('jest')
+    //       // }
+    //     }
+    //   }
+    // }
+
+    // getRequestsInSingleDay()
 
     if (requests?.length === 0) return
 

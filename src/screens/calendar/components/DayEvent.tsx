@@ -10,6 +10,7 @@ export type DayOffEvent = {
   color: string
   categoryId: number
   date?: string
+  monthYear?: string
 }
 
 type DayEventProps = { event: DayOffEvent }
