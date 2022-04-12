@@ -6,7 +6,7 @@ export const AboutDescription = () => {
   const { t } = useTranslation('welcome')
   // TODO: replace with Trans component
   return (
-     <Box paddingHorizontal="m" paddingBottom="xxxl">
+    <Box paddingHorizontal="m" paddingBottom="xxxl">
       <Text textAlign="left" variant="body1">
         <Text variant="body1Bold" color="primary">
           {t('aboutDesc1Part1')}
