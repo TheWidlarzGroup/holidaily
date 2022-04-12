@@ -9,7 +9,7 @@ import { AboutLinks } from './components/AboutLinks'
 type AboutTypes = { isFromWelcomeScreen?: true; closeModal: F0 }
 
 export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => (
-  <SafeAreaWrapper isDefaultBgColor>
+  <SafeAreaWrapper>
     <Box backgroundColor="white" paddingTop={isFromWelcomeScreen ? 0 : 'm'} flexGrow={1}>
       <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
       <Box justifyContent="space-between" flex={1}>
