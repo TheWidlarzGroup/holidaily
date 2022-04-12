@@ -15,7 +15,9 @@ import {
   useRequestVacationContext,
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
+import { BadStateController } from './components/BadStateController'
 
+let rerender = 0
 export type RequestDataTypes = {
   description: string
   message: string
@@ -88,7 +90,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       setEndDate(tomorow)
     }
   }, [route, route.params, markSickTime, setEndDate, setStartDate])
-
+  console.log('rerender', rerender++)
   return (
     <SafeAreaView style={styles.container}>
       <RequestVacationHeader />
@@ -119,6 +121,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
           navigation.navigate('Home')
         }}
       />
+      <BadStateController />
     </SafeAreaView>
   )
 }
