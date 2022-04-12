@@ -15,31 +15,22 @@ export const SeeRequest = ({ route: { params: p } }: DashboardNavigationProps<'S
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <ModalHeader noPadding>
-        <SafeAreaView
-          edges={['top']}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flex: 1,
+        <BaseOpacity
+          onPress={() => {
+            reset({
+              index: 1,
+              routes: [
+                { name: 'DashboardNavigation', params: { screen: 'Dashboard' } },
+                { name: 'Stats' },
+              ],
+            })
           }}>
-          <BaseOpacity
-            onPress={() => {
-              reset({
-                index: 1,
-                routes: [
-                  { name: 'DashboardNavigation', params: { screen: 'Dashboard' } },
-                  { name: 'Stats' },
-                ],
-              })
-            }}>
-            <IconBack width={64} height={64} />
-          </BaseOpacity>
-          <Text style={{ transform: [{ translateX: -16 }] }} variant="header">
-            {t('yourRequest')}
-          </Text>
-          <Box paddingRight="xl" />
-        </SafeAreaView>
+          <IconBack width={64} height={64} />
+        </BaseOpacity>
+        <Text style={{ transform: [{ translateX: -16 }] }} variant="header">
+          {t('yourRequest')}
+        </Text>
+        <Box paddingRight="xl" />
       </ModalHeader>
       <Box padding="m" flex={1}>
         <RequestDetails {...p} showStatus />
