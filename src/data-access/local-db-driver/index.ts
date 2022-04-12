@@ -3,8 +3,6 @@ import { keys } from 'utils/manipulation'
 import { Schemas } from './Schemas'
 import type { Models } from './Schemas'
 
-// const initDbClient = async () => Realm.open({ path: 'mirage-state', schema: Schemas })
-
 const initDbService = () => {
   let client: Realm
   const initialize = async () => {
