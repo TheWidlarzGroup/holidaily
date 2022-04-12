@@ -3,6 +3,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import { isHoliday } from 'poland-public-holidays'
 import { NewDayComponentProps } from './CalendarTypes'
 
 type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
@@ -10,6 +11,7 @@ type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'sta
 export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
   const styles = useStyles()
   const day = date.dateString
+  const isNotAWorkingDay = isWeekend(day) || isHoliday(day)
   const textColor = () => {
     const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
     if (isDisabled && marking?.period) return 'white'
@@ -34,12 +36,12 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
         marking?.period && styles.selectedPeriod,
         marking?.endingDay && styles.end,
         marking?.startingDay && styles.start,
-        marking?.period && isWeekend(day) && styles.selectedDisabled,
+        marking?.period && isNotAWorkingDay && styles.selectedDisabled,
       ]}>
       <Animated.View style={containerStyles}>
         <BorderlessButton
           onPress={() => onPress(date)}
-          enabled={!isWeekend(day)}
+          enabled={!isNotAWorkingDay}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Box
             borderRadius="l"
@@ -50,7 +52,7 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
             height={28}
             justifyContent="center"
             alignItems="center">
-            <Text color={textColor()} variant={isWeekend(day) ? 'regular15Calendar' : 'bold15'}>
+            <Text color={textColor()} variant={isNotAWorkingDay ? 'regular15Calendar' : 'bold15'}>
               {date.day}
             </Text>
           </Box>
