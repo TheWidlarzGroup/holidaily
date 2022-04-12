@@ -275,7 +275,8 @@
     "ok": "W porządku",
     "error": "Ojej! Brakuje ci dni urlopu",
     "clear": "Wyczyść",
-    "availablePto": "Masz do wykorzystania tylko {{availablePto}} urlopu"
+    "availablePto": "Masz do wykorzystania tylko {{availablePto}} urlopu",
+    "changeDays": "Zmień termin"
   },
   "adminPanel": {
     "employees": "Pracownicy",
