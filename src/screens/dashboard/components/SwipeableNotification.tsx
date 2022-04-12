@@ -52,8 +52,7 @@ const SwipeBar = () => {
         height="100%"
         flexDirection="row"
         alignItems="center"
-        paddingHorizontal="l"
-        onPress={() => console.log('mark as seen')}>
+        paddingHorizontal="l">
         <Box marginRight="s">
           <CheckIcon color={theme.colors.white} />
         </Box>
