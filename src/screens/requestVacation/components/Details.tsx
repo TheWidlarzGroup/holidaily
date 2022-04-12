@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 
 type DetailsProps = {
   date: {
@@ -19,6 +20,7 @@ type DetailsProps = {
 export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const { control, register, errors } = useForm()
+  const { sickTime } = useRequestVacationContext()
   const styles = useStyles()
   const { t } = useTranslation('requestVacation')
 
@@ -30,7 +32,7 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
       <Box marginTop="m">
         <InputButton
           inputLabel={t('detailsDate')}
-          onClick={() => navigation.navigate('RequestVacationCalendar')}
+          onClick={() => navigation.navigate('RequestVacationCalendar', { isSickTime: sickTime })}
           value={getFormattedPeriod(date.start, date.end)}
         />
       </Box>

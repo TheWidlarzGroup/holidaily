@@ -265,14 +265,17 @@
     "ptoTaken2": "dni wolnego",
     "ptoLeft1": "Pozostanie",
     "ptoLeft2": "dni wolnego",
-    "pickedPTO": "{{days}} dni wolnego",
+    "pickedPTO": "{{days}} wolnego",
     "select": "Wybierz",
     "sent": "Poproszono o wolne!",
     "waitForApproval": "Ale nie pakuj się jeszcze, poczekaj na zatwierdzenie urlopu!",
     "findRequests": "Swoje prośby o wolne znajdziesz na dole ekranu",
     "seeRequest": "Zobacz podanie",
     "addAnother": "Poproś o kolejne wolne",
-    "ok": "W porządku"
+    "ok": "W porządku",
+    "error": "Ojej! Brakuje ci dni urlopu",
+    "clear": "Wyczyść",
+    "availablePto": "Masz do wykorzystania tylko {{availablePto}} urlopu"
   },
   "adminPanel": {
     "employees": "Pracownicy",

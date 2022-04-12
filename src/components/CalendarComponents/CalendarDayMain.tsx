@@ -1,15 +1,34 @@
 import React from 'react'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import { ViewStyle } from 'react-native'
 import { isHoliday } from 'poland-public-holidays'
 import { NewDayComponentProps } from './CalendarTypes'
 
-type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'>
+type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'> &
+  MarkingStyles
 
-export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMainProps) => {
-  const styles = useStyles()
+export type MarkingStyles = {
+  styles: {
+    selectedDay: ViewStyle
+    dayInPeriod: ViewStyle
+    periodEndDay: ViewStyle
+    periodStartDay: ViewStyle
+    disabledDay: ViewStyle
+  }
+}
+
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
+export const CalendarDayMain = ({
+  date,
+  state,
+  marking,
+  onPress,
+  styles,
+}: CalendarDayMainProps) => {
   const day = date.dateString
   const isNotAWorkingDay = isWeekend(day) || isHoliday(day)
   const textColor = () => {
@@ -21,24 +40,25 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
   }
 
   const containerStyles = useAnimatedStyle(() => ({
-    borderRadius: 15,
     backgroundColor: withTiming(marking?.selected && !marking?.period ? '#000000ff' : '#00000000'),
-    width: 30,
-    height: 30,
-    margin: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
   }))
   return (
     <Box
       style={[
-        marking?.selected && styles.selected,
-        marking?.period && styles.selectedPeriod,
-        marking?.endingDay && styles.end,
-        marking?.startingDay && styles.start,
-        marking?.period && isNotAWorkingDay && styles.selectedDisabled,
+        marking?.selected && styles.selectedDay,
+        marking?.period && styles.dayInPeriod,
+        marking?.endingDay && styles.periodEndDay,
+        marking?.startingDay && styles.periodStartDay,
+        marking?.period && isNotAWorkingDay && styles.disabledDay,
       ]}>
-      <Animated.View style={containerStyles}>
+      <AnimatedBox
+        borderRadius="lmin"
+        width={30}
+        height={30}
+        margin="s"
+        justifyContent="center"
+        alignItems="center"
+        style={containerStyles}>
         <BorderlessButton
           onPress={() => onPress(date)}
           enabled={!isNotAWorkingDay}
@@ -57,30 +77,7 @@ export const CalendarDayMain = ({ date, state, marking, onPress }: CalendarDayMa
             </Text>
           </Box>
         </BorderlessButton>
-      </Animated.View>
+      </AnimatedBox>
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  selected: {
-    borderBottomRightRadius: theme.borderRadii.full,
-    borderTopRightRadius: theme.borderRadii.full,
-    borderBottomLeftRadius: theme.borderRadii.full,
-    borderTopLeftRadius: theme.borderRadii.full,
-  },
-  selectedDisabled: {
-    backgroundColor: '#ffc59e',
-  },
-  end: {
-    borderBottomRightRadius: theme.borderRadii.full,
-    borderTopRightRadius: theme.borderRadii.full,
-  },
-  start: {
-    borderBottomLeftRadius: theme.borderRadii.full,
-    borderTopLeftRadius: theme.borderRadii.full,
-  },
-  selectedPeriod: {
-    backgroundColor: theme.colors.tertiary,
-  },
-}))
