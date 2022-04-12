@@ -36,10 +36,7 @@ const useInvalidPeriodStyles = mkUseStyles((theme) => ({
 
 const useCommonPeriodStyles = mkUseStyles((theme) => ({
   selectedDay: {
-    borderBottomRightRadius: theme.borderRadii.full,
-    borderTopRightRadius: theme.borderRadii.full,
-    borderBottomLeftRadius: theme.borderRadii.full,
-    borderTopLeftRadius: theme.borderRadii.full,
+    borderRadius: theme.borderRadii.full,
   },
 
   periodEndDay: {

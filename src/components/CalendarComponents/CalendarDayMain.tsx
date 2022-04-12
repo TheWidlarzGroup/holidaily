@@ -7,16 +7,17 @@ import { ViewStyle } from 'react-native'
 import { isHoliday } from 'poland-public-holidays'
 import { NewDayComponentProps } from './CalendarTypes'
 
-type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'> & {
-  styles: MarkingStyles
-}
+type CalendarDayMainProps = Pick<NewDayComponentProps, 'marking' | 'date' | 'state' | 'onPress'> &
+  MarkingStyles
 
 export type MarkingStyles = {
-  selectedDay: ViewStyle
-  dayInPeriod: ViewStyle
-  periodEndDay: ViewStyle
-  periodStartDay: ViewStyle
-  disabledDay: ViewStyle
+  styles: {
+    selectedDay: ViewStyle
+    dayInPeriod: ViewStyle
+    periodEndDay: ViewStyle
+    periodStartDay: ViewStyle
+    disabledDay: ViewStyle
+  }
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
