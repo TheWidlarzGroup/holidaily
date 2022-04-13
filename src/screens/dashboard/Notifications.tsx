@@ -21,7 +21,7 @@ export const Notifications = () => {
   }
 
   return (
-    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <Box
         paddingVertical="lplus"
         backgroundColor="disabledText"

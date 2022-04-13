@@ -6,12 +6,13 @@ import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue,
-  useAnimatedStyle,
 } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { User } from 'mock-api/models/mirageTypes'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
+
+const SCROLL_VIEW_BOTTOM_PADDING = 75
 
 type SortableListProps = {
   children: ReactElement<{ id: number }>[]
@@ -22,7 +23,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
-  const scrollStyle = useAnimatedStyle(() => ({ transform: [{ translateY: scrollY.value }] }))
+
   const positions = useSharedValue<Positions>(
     // if positions object from database => { [child.props.groupId]: child.props.order }
     Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
@@ -41,12 +42,14 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
   })
 
   return (
-    <Box paddingBottom={'xxxl'}>
-      <Animated.View style={scrollStyle} />
+    <Box paddingBottom="xxxl">
       <Animated.ScrollView
         ref={scrollView}
         contentContainerStyle={{
-          height: Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET,
+          height:
+            Math.ceil(children.length / COL) * SIZE_H +
+            NESTED_ELEM_OFFSET +
+            SCROLL_VIEW_BOTTOM_PADDING,
         }}
         showsVerticalScrollIndicator={false}
         bounces={false}
