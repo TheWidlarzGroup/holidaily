@@ -11,3 +11,10 @@ const fetchUser = async (id: string) => {
 
 export const useFetchUserData = (userId: string) =>
   useQuery([QueryKeys.USER], () => fetchUser(userId))
+
+const fetchAllUsers = async () => {
+  const res = await axios.get(API.GET.allUsers)
+  return res.data
+}
+
+export const useFetchAllUsers = () => useQuery<User[]>([QueryKeys.ALL_USERS], () => fetchAllUsers())

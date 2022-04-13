@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import { eachDayOfInterval } from 'date-fns'
+import { eachDayOfInterval, format } from 'date-fns'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useMemo } from 'react'
 import { DayOffEvent } from 'screens/calendar/components/DayEvent'
@@ -43,6 +43,8 @@ export const useGetHolidayRequests = () => {
             monthYear: getISOMonthYearString(date),
             photo: user.photo,
           }
+          const dayOfWeek = format(new Date(request.date), 'e')
+          if (dayOfWeek === '7' || dayOfWeek === '1') return
           allRequests.push(request)
         })
       })

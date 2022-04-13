@@ -43,6 +43,7 @@ export const useCalendarData = () => {
     })
     if (currentMonth) {
       const newCurrentMonthDays = currentMonth.days.map((day) => {
+
         if (day.weekend || !day.events) return day
         return {
           ...day,
