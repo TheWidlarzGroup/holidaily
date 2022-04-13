@@ -1,11 +1,9 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
-
-import { mkUseStyles, Theme, Box, Text } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
-import Animated, { useAnimatedStyle, useDerivedValue, withSpring } from 'react-native-reanimated'
-import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { useTranslation } from 'react-i18next'
+import { BottomModal } from 'components/BottomModal'
 
 type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
   onPressSee: F0
@@ -19,24 +17,9 @@ export const RequestSent = ({
   onPressAnother,
   onPressOk,
 }: RequestSentProps) => {
-  const styles = useStyles()
   const { t } = useTranslation('requestVacation')
-  const { height } = useDimensions()
-  const progress = useDerivedValue(() => (isVisible ? 1 : 0), [isVisible])
-
-  const animatedModalStyles = useAnimatedStyle(() => {
-    const v = progress.value
-    const h = height
-    return {
-      transform: [{ translateY: withSpring((1 - v) * h, { overshootClamping: true }) }],
-      opacity: withSpring(v, { overshootClamping: true }),
-    }
-  }, [])
-
-  if (!isVisible) return null
-
   return (
-    <Animated.View style={[styles.modal, animatedModalStyles]}>
+    <BottomModal isVisible={isVisible} coverScreen>
       <Box
         alignItems="center"
         paddingHorizontal="xxl"
@@ -51,39 +34,17 @@ export const RequestSent = ({
         </Text>
         <Text variant="body1">{t('findRequests')}</Text>
         <Box marginTop="xl">
-          <Box style={styles.button}>
+          <Box marginVertical="xs">
             <CustomButton label={t('seeRequest')} onPress={onPressSee} />
           </Box>
-          <Box style={styles.button}>
+          <Box marginVertical="xs">
             <CustomButton label={t('addAnother')} onPress={onPressAnother} />
           </Box>
-          <Box style={styles.button}>
+          <Box marginVertical="xs">
             <CustomButton label={t('ok')} variant="blackBgButton" onPress={onPressOk} />
           </Box>
         </Box>
       </Box>
-    </Animated.View>
+    </BottomModal>
   )
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  modal: {
-    flex: 1,
-    backgroundColor: theme.colors.primary,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    top: -5,
-    borderTopLeftRadius: theme.borderRadii.lmin,
-    borderTopRightRadius: theme.borderRadii.lmin,
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
-    elevation: 20,
-  },
-  button: {
-    marginVertical: 5,
-  },
-}))

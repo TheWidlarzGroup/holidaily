@@ -12,6 +12,8 @@ export const App = () => {
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
     'Setting a timer for a long period of time',
+    // to fix EventEmitter.removeListener we will have to bump lots of packages, this might be a breaking change
+    'EventEmitter.removeListener',
   ])
 
   return (
