@@ -23,6 +23,20 @@ export const useGetHolidayRequests = () => {
   useEffect(() => {
     const allRequests: DayOffEvent[] = []
 
+    if (!teams?.length) return
+
+    const getUserTeamId = (personName: string) => {
+      let teamId = 0
+      for (let i = 0; i < teams?.length; i++) {
+        for (let j = 0; j < teams[i]?.users?.length; j++) {
+          if (`${teams[i]?.users[j].firstName} ${teams[i]?.users[j].lastName}` === personName) {
+            return (teamId = +teams[i].id)
+          }
+        }
+      }
+      return teamId
+    }
+
     if (!allUsers?.length) return
 
     allUsers.forEach((user) => {
@@ -38,7 +52,7 @@ export const useGetHolidayRequests = () => {
             reason: req.description,
             position: user.occupation,
             color: user.userColor,
-            categoryId: 1,
+            categoryId: getUserTeamId(`${user.firstName} ${user.lastName}`),
             date: getISODateString(date),
             monthYear: getISOMonthYearString(date),
             photo: user.photo,

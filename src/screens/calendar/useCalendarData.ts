@@ -14,11 +14,9 @@ export const useCalendarData = () => {
 
   useEffect(() => {
     if (teams?.length === 0 || !teams) return
-    const teamsData = teams.map((team, i) => {
-      if (i === 0 || i === 1) {
-        return { id: +team.id, title: team.name, isSelected: true }
-      }
-      return { id: +team.id, title: team.name, isSelected: false }
+    // eslint-disable-next-line arrow-body-style
+    const teamsData = teams.map((team) => {
+      return { id: +team.id, title: team.name, isSelected: true }
     })
     setFilterCategories(teamsData)
   }, [teams])
@@ -43,7 +41,6 @@ export const useCalendarData = () => {
     })
     if (currentMonth) {
       const newCurrentMonthDays = currentMonth.days.map((day) => {
-
         if (day.weekend || !day.events) return day
         return {
           ...day,
