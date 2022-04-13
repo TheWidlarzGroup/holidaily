@@ -3,7 +3,6 @@ import { BaseOpacity, Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back.svg'
 import { useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
 import { ModalHeader } from '../ModalHeader'
@@ -15,31 +14,22 @@ export const SeeRequest = ({ route: { params: p } }: DashboardNavigationProps<'S
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <ModalHeader noPadding>
-        <SafeAreaView
-          edges={['top']}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flex: 1,
+        <BaseOpacity
+          onPress={() => {
+            reset({
+              index: 1,
+              routes: [
+                { name: 'DashboardNavigation', params: { screen: 'Dashboard' } },
+                { name: 'Stats' },
+              ],
+            })
           }}>
-          <BaseOpacity
-            onPress={() => {
-              reset({
-                index: 1,
-                routes: [
-                  { name: 'DashboardNavigation', params: { screen: 'Dashboard' } },
-                  { name: 'Stats' },
-                ],
-              })
-            }}>
-            <IconBack width={64} height={64} />
-          </BaseOpacity>
-          <Text style={{ transform: [{ translateX: -16 }] }} variant="header">
-            {t('yourRequest')}
-          </Text>
-          <Box paddingRight="xl" />
-        </SafeAreaView>
+          <IconBack width={64} height={64} />
+        </BaseOpacity>
+        <Text style={{ transform: [{ translateX: -16 }] }} variant="header">
+          {t('yourRequest')}
+        </Text>
+        <Box paddingRight="xl" />
       </ModalHeader>
       <Box padding="m" flex={1}>
         <RequestDetails {...p} showStatus />

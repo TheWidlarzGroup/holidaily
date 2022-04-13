@@ -1,11 +1,11 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
-
-import { mkUseStyles, Theme, Box, Text } from 'utils/theme'
-import { CustomButton } from 'components/CustomButton'
+import { mkUseStyles, Theme, Box } from 'utils/theme'
 import Animated, { useAnimatedStyle, useDerivedValue, withSpring } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
-import { useTranslation } from 'react-i18next'
+import { RequestSentButtons } from './RequestSent/RequestSentButtons'
+import { RequestSentInfo } from './RequestSent/RequestSentInfo'
+import { RequestSentImage } from './RequestSent/RequestSentImage'
 
 type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
   onPressSee: F0
@@ -13,14 +13,8 @@ type RequestSentProps = Pick<ModalProps, 'isVisible'> & {
   onPressOk: F0
 }
 
-export const RequestSent = ({
-  isVisible,
-  onPressSee,
-  onPressAnother,
-  onPressOk,
-}: RequestSentProps) => {
+export const RequestSent = ({ isVisible, ...buttonPressHandlers }: RequestSentProps) => {
   const styles = useStyles()
-  const { t } = useTranslation('requestVacation')
   const { height } = useDimensions()
   const progress = useDerivedValue(() => (isVisible ? 1 : 0), [isVisible])
 
@@ -43,24 +37,9 @@ export const RequestSent = ({
         flex={1}
         paddingBottom="xl"
         justifyContent="flex-end">
-        <Text variant="heading4" marginBottom="xxl">
-          {t('sent')}
-        </Text>
-        <Text variant="body1" marginBottom="l">
-          {t('waitForApproval')}
-        </Text>
-        <Text variant="body1">{t('findRequests')}</Text>
-        <Box marginTop="xl">
-          <Box style={styles.button}>
-            <CustomButton label={t('seeRequest')} onPress={onPressSee} />
-          </Box>
-          <Box style={styles.button}>
-            <CustomButton label={t('addAnother')} onPress={onPressAnother} />
-          </Box>
-          <Box style={styles.button}>
-            <CustomButton label={t('ok')} variant="blackBgButton" onPress={onPressOk} />
-          </Box>
-        </Box>
+        <RequestSentImage />
+        <RequestSentInfo />
+        <RequestSentButtons {...buttonPressHandlers} />
       </Box>
     </Animated.View>
   )
@@ -82,8 +61,5 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
-  },
-  button: {
-    marginVertical: 5,
   },
 }))
