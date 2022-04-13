@@ -9,17 +9,13 @@ type ButtonPressHandlers = {
   onPressOk: F0
 }
 
-export const RequestSentButtons = ({
-  onPressSee,
-  onPressAnother,
-  onPressOk,
-}: ButtonPressHandlers) => {
+export const RequestSentButtons = (p: ButtonPressHandlers) => {
   const { t } = useTranslation('requestVacation')
   return (
     <Box marginTop="xl">
-      <Button label={t('seeRequest')} onPress={onPressSee} />
-      <Button label={t('addAnother')} onPress={onPressAnother} />
-      <Button label={t('ok')} isSpecial onPress={onPressOk} />
+      <RequestSentButton label={t('seeRequest')} onPress={p.onPressSee} />
+      <RequestSentButton label={t('addAnother')} onPress={p.onPressAnother} />
+      <RequestSentButton label={t('ok')} isSpecial onPress={p.onPressOk} />
     </Box>
   )
 }
@@ -28,7 +24,7 @@ type ButtonProps = {
   onPress: F0
   isSpecial?: true
 }
-const Button = ({ label, onPress, isSpecial }: ButtonProps) => (
+const RequestSentButton = ({ label, onPress, isSpecial }: ButtonProps) => (
   <Box marginVertical="xs">
     <CustomButton
       label={label}
