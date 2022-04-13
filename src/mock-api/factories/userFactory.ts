@@ -1,7 +1,5 @@
 import { Factory } from 'miragejs'
 import { faker } from '@faker-js/faker'
-import { DayOffRequest } from 'mockApi/models'
-import { genRandomDayOffRequest } from './requestFactory'
 
 export const userFactory = Factory.extend({
   confirmed: true,
