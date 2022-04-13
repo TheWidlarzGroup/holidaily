@@ -19,6 +19,7 @@
 		78737D9F879D4E579FC97C40 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2012E5C6E95D496DB1E18D2A /* Nunito-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C9802163B524495DAD789F05 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6A8EF2419904A28B00070D1 /* Nunito-Bold.ttf */; };
+		CEED94D62806A1DF00638D39 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -314,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEED94D62806A1DF00638D39 /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				2313E96C26A855F5005E8220 /* GoogleService-Info.plist in Resources */,

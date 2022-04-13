@@ -7,16 +7,11 @@ type ProviderProps = {
 }
 
 export const RequestsContextProvider = ({ children }: ProviderProps) => {
-  const [range, setRange] = useState({ start: '2022-04-01', end: '2022-09-30' })
-  const { allMonths } = useGetRangeDates(range.start, range.end)
+  const { allMonths } = useGetRangeDates()
   const [requests, setRequests] = useState<MonthType[] | undefined>(allMonths)
 
   const updateRequests = useCallback((newData: MonthType[]) => {
     setRequests((prev) => (prev ? [...prev, ...newData] : newData))
-  }, [])
-
-  const updateRange = useCallback((newRange: typeof range) => {
-    setRange(newRange)
   }, [])
 
   useEffect(() => {
@@ -25,6 +20,6 @@ export const RequestsContextProvider = ({ children }: ProviderProps) => {
     }
   }, [allMonths])
 
-  const value: ContextProps = { requests, updateRequests, updateRange }
+  const value: ContextProps = { requests, updateRequests }
   return <RequestsContext.Provider value={value}>{children}</RequestsContext.Provider>
 }

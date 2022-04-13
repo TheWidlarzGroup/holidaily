@@ -11,7 +11,6 @@ export const useCalendarData = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
   const { requests } = useRequestsContext()
-  // const requests = []
 
   useEffect(() => {
     if (teams?.length === 0 || !teams) return
