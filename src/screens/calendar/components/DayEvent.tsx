@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import UserIconPlaceholder from 'assets/icons/icon-profile.svg'
+import { Avatar } from 'components/Avatar'
 
 export type DayOffEvent = {
   id: string
@@ -9,7 +10,8 @@ export type DayOffEvent = {
   position: string
   color: string
   categoryId: number
-  date?: string
+  photo: string | null
+  date: string
   monthYear?: string
 }
 
@@ -17,7 +19,12 @@ type DayEventProps = { event: DayOffEvent }
 
 export const DayEvent = ({ event }: DayEventProps) => (
   <Box paddingVertical="s" flexDirection="row" alignItems="center" key={event.person}>
-    <UserIconPlaceholder width={24} height={24} />
+    {event.photo ? (
+      <Avatar src={event?.photo} size="s" />
+    ) : (
+      <UserIconPlaceholder width={24} height={24} />
+    )}
+
     <Box
       marginHorizontal="s"
       width={3}

@@ -13,6 +13,8 @@ describe('EventsList getItemLayout', () => {
     position: 'Manager',
     color: 'red',
     categoryId: 1,
+    photo: null,
+    date: '',
   }
 
   it('returns index * ITEM_HEIGHT as offset with no days provided', () => {

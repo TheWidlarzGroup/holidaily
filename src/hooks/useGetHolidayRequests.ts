@@ -41,6 +41,7 @@ export const useGetHolidayRequests = () => {
             categoryId: 1,
             date: getISODateString(date),
             monthYear: getISOMonthYearString(date),
+            photo: user.photo,
           }
           allRequests.push(request)
         })
