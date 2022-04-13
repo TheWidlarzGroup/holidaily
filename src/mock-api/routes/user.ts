@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker'
 import { requireAuth } from 'mockApi/utils/requireAuth'
 import { calculatePTO } from 'utils/dates'
 import { initPayloadService } from '../utils/payloadService'
-import { genRandomDayOffRequest } from '../factories/requestFactory'
+import { genManyRequests, genRandomDayOffRequest } from '../factories/requestFactory'
 import { DayOffRequest, Schema as ModelsSchema, User } from '../models'
 
 const DAY_IN_MS = 24 * 3600 * 1000
@@ -83,12 +83,8 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
   const user = schema.create('user', { ...defaultValues, ...payload.body })
   if (!user.id) return new Response(400)
-  for (let i = 0; i < 10; i++) {
-    schema.create('request', {
-      ...genRandomDayOffRequest(),
-      user,
-    })
-  }
+  const requests = genManyRequests(5)
+  requests.forEach((req) => schema.create('request', { ...req, user }))
   // @ts-ignore
   const userRequests = schema.where('request', { userId: user.id }).models
   const availablePto = countAvailablePto(schema, userRequests)
