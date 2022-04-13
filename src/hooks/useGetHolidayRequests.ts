@@ -15,38 +15,37 @@ export type MonthType = {
   days: DayInfoProps[]
 }
 
-export const useGetRangeDates = () => {
-  const { teams } = useTeamsContext()
+export const useGetHolidayRequests = () => {
+  const { teams, allUsers } = useTeamsContext()
 
   const allMonths: MonthType[] = useMemo(() => [], [])
 
   useEffect(() => {
     const allRequests: DayOffEvent[] = []
 
-    if (!teams?.length) return
-    for (let i = 0; i < teams?.length; i++) {
-      for (let j = 0; j < teams?.[i]?.users?.length; j++) {
-        for (let k = 0; k < teams?.[i]?.users?.[j]?.requests?.length; k++) {
-          const dates = eachDayOfInterval({
-            start: new Date(teams?.[i]?.users?.[j]?.requests?.[k]?.startDate),
-            end: new Date(teams?.[i]?.users?.[j]?.requests?.[k]?.endDate),
-          })
-          for (let l = 0; l < dates.length; l++) {
-            const request = {
-              id: generateUUID(),
-              person: `${teams?.[i]?.users?.[j]?.firstName} ${teams?.[i]?.users?.[j]?.lastName}`,
-              reason: teams?.[i]?.users?.[j]?.requests?.[k].description,
-              position: teams?.[i]?.users?.[j]?.occupation,
-              color: teams?.[i]?.users?.[j]?.userColor,
-              categoryId: 1,
-              date: getISODateString(dates?.[l]),
-              monthYear: getISOMonthYearString(dates?.[l]),
-            }
-            allRequests.push(request)
+    if (!allUsers?.length) return
+
+    allUsers.forEach((user) => {
+      user.requests.forEach((req) => {
+        const dates = eachDayOfInterval({
+          start: new Date(req.startDate),
+          end: new Date(req.endDate),
+        })
+        dates.forEach((date) => {
+          const request = {
+            id: generateUUID(),
+            person: `${user.firstName} ${user.lastName}`,
+            reason: req.description,
+            position: user.occupation,
+            color: user.userColor,
+            categoryId: 1,
+            date: getISODateString(date),
+            monthYear: getISOMonthYearString(date),
           }
-        }
-      }
-    }
+          allRequests.push(request)
+        })
+      })
+    })
 
     const groupedAllRequestsByMonth = groupArrayByKey(allRequests, 'monthYear')
 
@@ -62,9 +61,10 @@ export const useGetRangeDates = () => {
       daysOfMonth = daysOfMonth.sort(sortByRequestDate)
 
       const month = { date: key, days: daysOfMonth }
+
       allMonths.push(month)
     }
-  }, [allMonths, teams])
+  }, [allMonths, allUsers, teams])
 
   return { allMonths }
 }

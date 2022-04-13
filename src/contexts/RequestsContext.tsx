@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { MonthType } from 'hooks/useGetRangeDates'
+import { MonthType } from 'hooks/useGetHolidayRequests'
 
 export type ContextProps = {
   requests: MonthType[] | undefined

@@ -1,5 +1,5 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
-import { MonthType, useGetRangeDates } from 'hooks/useGetRangeDates'
+import { MonthType, useGetHolidayRequests } from 'hooks/useGetHolidayRequests'
 import { ContextProps, RequestsContext } from './RequestsContext'
 
 type ProviderProps = {
@@ -7,7 +7,7 @@ type ProviderProps = {
 }
 
 export const RequestsContextProvider = ({ children }: ProviderProps) => {
-  const { allMonths } = useGetRangeDates()
+  const { allMonths } = useGetHolidayRequests()
   const [requests, setRequests] = useState<MonthType[] | undefined>(allMonths)
 
   const updateRequests = useCallback((newData: MonthType[]) => {
