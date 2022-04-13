@@ -14,10 +14,7 @@ export const useCalendarData = () => {
 
   useEffect(() => {
     if (teams?.length === 0 || !teams) return
-    // eslint-disable-next-line arrow-body-style
-    const teamsData = teams.map((team) => {
-      return { id: +team.id, title: team.name, isSelected: true }
-    })
+    const teamsData = teams.map((team) => ({ id: +team.id, title: team.name, isSelected: true }))
     setFilterCategories(teamsData)
   }, [teams])
 

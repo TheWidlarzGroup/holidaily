@@ -17,10 +17,13 @@ export const TeamsContextProvider = ({ children }: ProviderProps) => {
   }, [])
 
   useEffect(() => {
-    let users: User[] = []
-    teams?.forEach((team) => users.push(...team.users))
-    users = users.filter((user, i, arr) => arr.findIndex((usr) => usr.id === user.id) === i)
-    setAllUsers(users)
+    const removeDuplicatesOfAllUsers = () => {
+      let users: User[] = []
+      teams?.forEach((team) => users.push(...team.users))
+      users = users.filter((user, i, arr) => arr.findIndex((usr) => usr.id === user.id) === i)
+      setAllUsers(users)
+    }
+    removeDuplicatesOfAllUsers()
   }, [teams])
 
   useEffect(() => {
