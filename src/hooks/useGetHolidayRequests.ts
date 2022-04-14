@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
 import { DayInfoProps } from 'screens/calendar/components/DayInfo'
