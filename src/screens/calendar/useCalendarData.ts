@@ -13,7 +13,7 @@ export const useCalendarData = () => {
   const { requests } = useRequestsContext()
 
   useEffect(() => {
-    if (teams?.length === 0 || !teams) return
+    if (!teams.length) return
     const teamsData = teams.map((team) => ({ id: +team.id, title: team.name, isSelected: true }))
     setFilterCategories(teamsData)
   }, [teams])
@@ -28,7 +28,7 @@ export const useCalendarData = () => {
     })
   }
   useEffect(() => {
-    if (!requests || requests.length === 0) return
+    if (!requests.length) return
     const currentMonth = requests.find((month) => {
       const thisMonth = parseISO(month.date)
       return (

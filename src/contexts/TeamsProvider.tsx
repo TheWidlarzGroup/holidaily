@@ -1,19 +1,19 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
-import { ContextProps, TeamsContext } from './TeamsContext'
+import { TeamsContextProps, TeamsContext } from './TeamsContext'
 
-type ProviderProps = {
+type TeamsProviderProps = {
   children: ReactNode
 }
 
-export const TeamsContextProvider = ({ children }: ProviderProps) => {
+export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const { data } = useGetOrganization()
-  const [teams, setTeams] = useState<Team[] | undefined>(data?.teams)
-  const [allUsers, setAllUsers] = useState<User[] | undefined>([])
+  const [teams, setTeams] = useState<Team[]>(data?.teams || [])
+  const [allUsers, setAllUsers] = useState<User[]>([])
 
   const updateTeams = useCallback((newData: Team[]) => {
-    setTeams((prev) => (prev ? [...prev, ...newData] : newData))
+    setTeams((prev) => [...prev, ...newData])
   }, [])
 
   useEffect(() => {
@@ -32,6 +32,6 @@ export const TeamsContextProvider = ({ children }: ProviderProps) => {
     }
   }, [data])
 
-  const value: ContextProps = { teams, updateTeams, allUsers }
+  const value: TeamsContextProps = { teams, updateTeams, allUsers }
   return <TeamsContext.Provider value={value}>{children}</TeamsContext.Provider>
 }
