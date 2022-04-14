@@ -1,10 +1,41 @@
 import faker from '@faker-js/faker'
 import { Factory } from 'miragejs'
 import { DayOffRequest } from 'mock-api/models'
+import { getRandomValue } from 'utils/getRandomValue'
 
 const DAY_IN_MS = 24 * 3600 * 1000
 
 export const requestFactory = Factory.extend(genRandomDayOffRequest())
+
+const descriptions = [
+  'Portugal',
+  'Italy',
+  'Spain',
+  'Greece',
+  'France',
+  'Croatia',
+  'Malta',
+  'Cyprus',
+  'Rome',
+  'Sicily',
+  'Sardegna',
+  'Corsica',
+  'Mallorca',
+  'New York',
+  'London',
+  'Edinburgh',
+  'Crete',
+  'Barcelona',
+  'Time off',
+  'Time off',
+  'Time off',
+  'Time off',
+  'Time off',
+  'Time off',
+  'RHCP concert',
+  'Freeride Kaunertal',
+  'Hiking the Tatras',
+]
 
 export function genRandomDayOffRequest(): Partial<DayOffRequest> {
   let request: Partial<DayOffRequest>
@@ -43,9 +74,11 @@ export function genRandomDayOffRequest(): Partial<DayOffRequest> {
       }
       break
   }
-  request.description = faker.random.words(3)
   request.message = faker.random.words(15)
   request.isSickTime = !!(randomInt() % 2)
+  request.description = request.isSickTime
+    ? 'Sick time off'
+    : getRandomValue(descriptions, faker.datatype.number({ min: 0, max: descriptions.length - 1 }))
   return request
 }
 
