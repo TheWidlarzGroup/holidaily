@@ -1,42 +1,66 @@
-import { Factory } from 'miragejs'
-import { faker } from '@faker-js/faker'
-import { getRandomValue } from 'utils/getRandomValue'
+import { Server } from 'miragejs'
+import { genRandomDayOffRequest } from 'mockApi/factories/requestFactory'
+import { Schema } from 'mockApi/models'
 
-const colors = [
-  '#FF88DC',
-  '#390099',
-  '#FFA756',
-  '#BE8FF2',
-  '#BE8FF2',
-  '#80ED99',
-  '#FEE610',
-  '#8E94A5',
-  '#FD8989',
-  '#8DF4E7',
-  '#91A6FF',
-]
+export const organizationSeed = (context: Server<Schema>) => {
+  const users = usersList.map((user) => {
+    const userRecord = context.create('user', {
+      ...user,
+    })
+    context.create('request', { ...genRandomDayOffRequest(), user: userRecord })
+    return userRecord
+  })
+  const team1 = context.create('team', {
+    name: 'SmartSoft',
+    users: users.slice(0, 6),
+  })
+  const team2 = context.create('team', {
+    name: 'FileCode',
+    users: users.slice(4, 10),
+  })
+  const team3 = context.create('team', {
+    name: 'Softlab',
+    users: users.slice(7, 13),
+  })
+  const team4 = context.create('team', {
+    name: 'Open Byte',
+    users: users.slice(11, 16),
+  })
+  const team5 = context.create('team', {
+    name: 'Spaceware',
+    users: users.slice(15, 22),
+  })
+  const team6 = context.create('team', {
+    name: 'Webrain',
+    users: users.slice(22, 27),
+  })
+  const team7 = context.create('team', {
+    name: 'Pharmic',
+    users: users.slice(27, 32),
+  })
+  const team8 = context.create('team', {
+    name: 'NMedical',
+    users: users.slice(30, 37),
+  })
+  const team9 = context.create('team', {
+    name: 'Encrypto',
+    users: users.slice(36, 40),
+  })
+  context.create('organization', {
+    name: 'Supercompany',
+    maxPtoDays: 30,
+    // @ts-ignore
+    teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
+  })
+}
 
-export const userFactory = Factory.extend({
-  confirmed: true,
-  email: faker.internet.email(),
-  firstName: faker.name.firstName(),
-  lastName: faker.name.lastName(),
-  occupation: faker.name.jobTitle(),
-  requests: [],
-  language: 'en',
-  userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
-  photo: null,
-  role: 'Admin',
-  availablePto: Math.round(Math.random() * 24),
-})
-export const usersList = [
+const usersList = [
   {
     firstName: 'Peter',
     lastName: 'Kansas',
     photo: 'https://randomuser.me/api/portraits/men/1.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Tom',
@@ -44,7 +68,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/2.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Kamila',
@@ -52,15 +75,13 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/1.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Ola',
     lastName: 'Nowak',
-    photo: 'https://randomuser.me/api/portraits/women/17.jpg',
+    photo: null,
     occupation: 'Project Manager',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Basia',
@@ -68,7 +89,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/2.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Roberta',
@@ -76,7 +96,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/3.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Ramon',
@@ -84,7 +103,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/3.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Ted',
@@ -92,7 +110,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/10.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Pedro',
@@ -100,7 +117,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/4.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Dolores',
@@ -108,7 +124,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/5.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Bessie',
@@ -116,7 +131,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/6.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Brent',
@@ -124,7 +138,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/11.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Melanie',
@@ -132,7 +145,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/8.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Jimmie',
@@ -140,7 +152,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/9.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Frances',
@@ -148,7 +159,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/15.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Stacey',
@@ -156,7 +166,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/11.jpg',
     occupation: 'Project Manager',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Leslie',
@@ -164,7 +173,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/12.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Eddie',
@@ -172,7 +180,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/13.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Darren',
@@ -180,7 +187,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/14.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Heather',
@@ -188,7 +194,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/15.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Kathryn',
@@ -196,7 +201,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/16.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Elmer',
@@ -204,7 +208,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/17.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Riley',
@@ -212,7 +215,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/18.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Deann',
@@ -220,7 +222,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/19.jpg',
     occupation: 'Project Manager',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Grace',
@@ -228,7 +229,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/20.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Darlene',
@@ -236,7 +236,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/21.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Anita',
@@ -244,7 +243,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/22.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Yvonne',
@@ -252,7 +250,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/23.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Alyssa',
@@ -260,7 +257,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/24.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Terri',
@@ -268,7 +264,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/25.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Marvin',
@@ -276,7 +271,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/26.jpg',
     occupation: 'Project Manager',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Jared',
@@ -284,7 +278,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/27.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Ray',
@@ -292,7 +285,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/28.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Everett',
@@ -300,7 +292,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/29.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Kev',
@@ -308,7 +299,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/30.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Hailey',
@@ -316,7 +306,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/31.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Dale',
@@ -324,7 +313,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/32.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Joe',
@@ -332,7 +320,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/33.jpg',
     occupation: 'Software Engineer',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Levi',
@@ -340,7 +327,6 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/men/34.jpg',
     occupation: 'QA Tester',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
   {
     firstName: 'Lena',
@@ -348,6 +334,5 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/35.jpg',
     occupation: 'Project Manager',
     requests: [],
-    userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },
 ]

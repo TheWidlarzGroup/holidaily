@@ -19,9 +19,9 @@ export const Notifications = () => {
     if (!data) return
     data.notifications.forEach((n) => mutate(n.id))
   }
-  console.log(data)
+
   return (
-    <SafeAreaWrapper isTabNavigation edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <Box
         paddingVertical="lplus"
         backgroundColor="disabledText"

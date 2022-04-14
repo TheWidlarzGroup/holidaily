@@ -8,7 +8,7 @@ import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton'
+type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger'
 type CustomButtonIcons = 'google' | 'apple' | 'plus'
 
 export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -53,6 +53,11 @@ export const CustomButton: FC<CustomButtonProps> = ({
       color = colors.white
       rippleColor = colors.disabled
       borderWidth = 0
+      break
+    case 'danger':
+      bgColor = colors.specialRed
+      color = colors.black
+      rippleColor = colors.disabled
       break
     default:
       break

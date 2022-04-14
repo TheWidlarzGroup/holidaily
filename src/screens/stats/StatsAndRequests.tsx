@@ -4,7 +4,7 @@ import { Stats } from './Stats'
 import { Requests } from './Requests'
 
 export const StatsAndRequests = () => (
-  <SafeAreaWrapper isDefaultBgColor isTabNavigation>
+  <SafeAreaWrapper isDefaultBgColor>
     <Stats />
     <Requests />
   </SafeAreaWrapper>

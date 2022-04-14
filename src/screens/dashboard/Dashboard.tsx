@@ -36,7 +36,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <SafeAreaWrapper isDefaultBgColor isTabNavigation edges={['left', 'right', 'bottom']}>
+      <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
         <SortableList openUserModal={openUserModal}>
           {teams?.map((team: Team) => (
