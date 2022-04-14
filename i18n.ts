@@ -24,6 +24,7 @@ const resources = {
 
 const initI18 = async () => {
   const lang = await getItemAsync('language')
+
   i18next.use(initReactI18next).init({
     resources,
     compatibilityJSON: 'v3',

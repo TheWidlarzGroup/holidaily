@@ -4,6 +4,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-na
 import { BaseOpacity, Box, Text } from 'utils/theme'
 
 import IconArrowUp from 'assets/icons/icon-arrow-up.svg'
+import { pluralizeWord } from 'utils/pluralizeWord'
 
 type CommentBoxBtnProps = {
   quantity: number
@@ -13,8 +14,6 @@ type CommentBoxBtnProps = {
 const setRotationValue = (cond: boolean) => (cond ? 180 : 0)
 
 export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps) => {
-  const { t } = useTranslation('feed')
-
   const rotation = useSharedValue(setRotationValue(opened))
 
   const rotationStyles = useAnimatedStyle(() => ({
@@ -31,9 +30,7 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
       padding="s">
       {quantity > 0 && (
         <Box flexDirection="row" alignItems="center">
-          <Text variant="captionText">
-            {quantity} {t('comments')}
-          </Text>
+          <Text variant="captionText">{pluralizeWord('comments', quantity)}</Text>
           <Animated.View style={[rotationStyles]}>
             <IconArrowUp />
           </Animated.View>
