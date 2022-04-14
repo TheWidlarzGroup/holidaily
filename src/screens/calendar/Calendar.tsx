@@ -28,7 +28,7 @@ export const Calendar = () => {
   }
 
   return (
-    <SafeAreaWrapper isDefaultBgColor isTabNavigation>
+    <SafeAreaWrapper isDefaultBgColor>
       <CategoriesSlider
         filterCategories={filterCategories}
         toggleFilterItemSelection={toggleFilterItemSelection}
