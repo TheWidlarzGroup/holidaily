@@ -125,4 +125,16 @@ export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
 export const getDurationInDays = (days: number) =>
   formatDuration({ days }, { locale: getCurrentLocale(), zero: true })
 
+export const isDateBetween = (
+  date: Date | number | string,
+  rangeStart: Date | number | string,
+  rangeEnd: Date | number | string
+) => {
+  if (!(date instanceof Date)) date = new Date(date)
+  if (!(rangeStart instanceof Date)) rangeStart = new Date(rangeStart)
+  if (!(rangeEnd instanceof Date)) rangeEnd = new Date(rangeEnd)
+
+  return date.getTime() > rangeStart.getTime() && date.getTime() < rangeEnd.getTime()
+}
+
 const DAY_IN_MS = 1000 * 60 * 60 * 24
