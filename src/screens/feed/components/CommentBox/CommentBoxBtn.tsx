@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 
