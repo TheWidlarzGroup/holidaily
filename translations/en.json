@@ -275,7 +275,8 @@
     "ok": "Ok, cool!",
     "error": "Ooops! You don’t that many PTO",
     "clear": "Clear selection",
-    "availablePto": "You have {{availablePto}} of PTO to use"
+    "availablePto": "You have {{availablePto}} of PTO to use",
+    "changeDays": "Change days"
   },
   "adminPanel": {
     "employees": "Employees",
