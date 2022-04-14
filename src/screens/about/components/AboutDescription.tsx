@@ -15,6 +15,7 @@ export const AboutDescription = () => (
       />
     </Text>
     <Text textAlign="left" marginTop="l" variant="body1">
+// @ts-ignore
       <Trans
         ns="welcome"
         i18nKey="aboutDesc2"
