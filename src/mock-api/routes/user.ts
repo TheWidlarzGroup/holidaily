@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker'
 import { requireAuth } from 'mockApi/utils/requireAuth'
 import { calculatePTO } from 'utils/dates'
 import { initPayloadService } from '../utils/payloadService'
-import { genManyRequests, genRandomDayOffRequest } from '../factories/requestFactory'
+import { genManyRequests } from '../factories/requestFactory'
 import { DayOffRequest, Schema as ModelsSchema, User } from '../models'
 
 const DAY_IN_MS = 24 * 3600 * 1000
