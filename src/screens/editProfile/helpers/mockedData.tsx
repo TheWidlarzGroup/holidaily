@@ -18,77 +18,54 @@ type ColorProps = {
   id: number
   color: string
 }
+
 export const COLORS: ColorProps[] = [
   {
-    color: 'red',
+    color: '#EE4A16',
     id: 1,
   },
   {
-    color: 'blue',
+    color: '#F47B23',
     id: 2,
   },
   {
-    color: 'pink',
+    color: '#57B687',
     id: 3,
   },
   {
-    color: 'orange',
+    color: '#FDC5F5',
     id: 4,
   },
   {
-    color: 'grey',
+    color: '#C1C4CA',
     id: 5,
   },
   {
-    color: 'green',
+    color: '#4E70FF',
     id: 6,
   },
   {
-    color: 'red',
+    color: '#EE4A16',
     id: 7,
   },
   {
-    color: 'blue',
+    color: '#F47B23',
     id: 8,
   },
   {
-    color: 'pink',
+    color: '#57B687',
     id: 9,
   },
   {
-    color: 'orange',
+    color: '#FDC5F5',
     id: 10,
   },
   {
-    color: 'grey',
+    color: '#C1C4CA',
     id: 11,
   },
   {
-    color: 'green',
+    color: '#4E70FF',
     id: 12,
-  },
-  {
-    color: 'red',
-    id: 13,
-  },
-  {
-    color: 'blue',
-    id: 14,
-  },
-  {
-    color: 'pink',
-    id: 15,
-  },
-  {
-    color: 'orange',
-    id: 16,
-  },
-  {
-    color: 'grey',
-    id: 17,
-  },
-  {
-    color: 'green',
-    id: 18,
   },
 ]

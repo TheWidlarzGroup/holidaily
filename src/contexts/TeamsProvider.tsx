@@ -1,25 +1,30 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
-import { Team } from 'mockApi/models/mirageTypes'
+import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
-import { QueryKeys } from 'dataAccess/QueryKeys'
-import { queryClient } from 'dataAccess/queryClient'
-import { ContextProps, TeamsContext } from './TeamsContext'
+import { TeamsContextProps, TeamsContext } from './TeamsContext'
 
-type ProviderProps = {
+type TeamsProviderProps = {
   children: ReactNode
 }
 
-export const TeamsContextProvider = ({ children }: ProviderProps) => {
+export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const { data } = useGetOrganization()
-  const [teams, setTeams] = useState<Team[] | undefined>(data?.teams)
+  const [teams, setTeams] = useState<Team[]>(data?.teams || [])
+  const [allUsers, setAllUsers] = useState<User[]>([])
 
   const updateTeams = useCallback((newData: Team[]) => {
-    setTeams((prev) => (prev ? [...prev, ...newData] : newData))
+    setTeams((prev) => [...prev, ...newData])
   }, [])
 
   useEffect(() => {
-    queryClient.prefetchQuery(QueryKeys.ORGANIZATION, useGetOrganization)
-  }, [])
+    const removeDuplicatesOfAllUsers = () => {
+      let users: User[] = []
+      teams?.forEach((team) => users.push(...team.users))
+      users = users.filter((user, i, arr) => arr.findIndex((usr) => usr.id === user.id) === i)
+      setAllUsers(users)
+    }
+    removeDuplicatesOfAllUsers()
+  }, [teams])
 
   useEffect(() => {
     if (data) {
@@ -27,6 +32,6 @@ export const TeamsContextProvider = ({ children }: ProviderProps) => {
     }
   }, [data])
 
-  const value: ContextProps = { teams, updateTeams }
+  const value: TeamsContextProps = { teams, updateTeams, allUsers }
   return <TeamsContext.Provider value={value}>{children}</TeamsContext.Provider>
 }

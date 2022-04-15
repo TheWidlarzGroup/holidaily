@@ -1,5 +1,7 @@
+import { Team } from 'mockApi/models/mirageTypes'
 import { DayOffEvent } from 'screens/calendar/components/DayEvent'
 import { getItemLayout } from 'screens/calendar/components/EventsList'
+import { getUserTeamId } from 'utils/getUserTeamId'
 
 describe('EventsList getItemLayout', () => {
   const ITEM_HEIGHT = 49.9 + 16
@@ -7,13 +9,40 @@ describe('EventsList getItemLayout', () => {
   const EVENT_HEIGHT = 46
 
   const event: DayOffEvent = {
-    id: 1,
+    id: '1',
     person: 'Joe',
     reason: 'Not much',
     position: 'Manager',
     color: 'red',
     categoryId: 1,
+    photo: null,
+    date: '',
   }
+
+  const teams: Team[] = [
+    {
+      id: '4',
+      name: 'SmartSoft',
+      users: [
+        {
+          id: '32',
+          firstName: 'Ben',
+          lastName: 'Ten',
+          email: '',
+          confirmed: true,
+          occupation: '',
+          teams: [],
+          userColor: '#000000',
+          language: 'pl',
+          photo: null,
+          role: '',
+          availablePto: 20,
+          requests: [],
+          isOnHoliday: false,
+        },
+      ],
+    },
+  ]
 
   it('returns index * ITEM_HEIGHT as offset with no days provided', () => {
     const index = 10
@@ -68,5 +97,10 @@ describe('EventsList getItemLayout', () => {
     const result = getItemLayout(days, days.length)
 
     expect(result.offset).toBe(expectedOffset)
+  })
+
+  it('should return team Id when correct team user is provided', () => {
+    const teamId = getUserTeamId('Ben Ten', teams)
+    expect(teamId).toBe(4)
   })
 })

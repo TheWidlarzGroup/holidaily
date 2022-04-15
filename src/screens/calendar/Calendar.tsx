@@ -8,9 +8,10 @@ import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { parseISO } from 'utils/dates'
+import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
-export const Calendar = () => {
+const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
   const {
     filterCategories,
@@ -30,7 +31,7 @@ export const Calendar = () => {
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <CategoriesSlider
-        filterCategories={filterCategories}
+        filterCategories={filterCategories || []}
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
       <Box
@@ -55,3 +56,9 @@ export const Calendar = () => {
     </SafeAreaWrapper>
   )
 }
+
+export const Calendar = () => (
+  <RequestsContextProvider>
+    <CalendarToWrap />
+  </RequestsContextProvider>
+)

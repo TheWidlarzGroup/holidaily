@@ -1,18 +1,26 @@
+import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
-import { MOCKED_DATA } from 'screens/calendar/MockedData'
 import { parseISO } from 'utils/dates'
+import { useRequestsContext } from 'hooks/useRequestsContext'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from './components/DayInfo'
 
 export const useCalendarData = () => {
-  const [filterCategories, setFilterCategories] = useState<FilterCategory[]>(
-    MOCKED_DATA.filterCategories
-  )
+  const { teams } = useTeamsContext()
+  const [filterCategories, setFilterCategories] = useState<FilterCategory[] | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
+  const { requests } = useRequestsContext()
+
+  useEffect(() => {
+    if (!teams.length) return
+    const teamsData = teams.map((team) => ({ id: +team.id, title: team.name, isSelected: true }))
+    setFilterCategories(teamsData)
+  }, [teams])
 
   const toggleFilterItemSelection = (id: number) => {
     setFilterCategories((prevState) => {
+      if (!prevState) return []
       const newState = [...prevState]
       const index = newState.findIndex((item) => item.id === id)
       newState[index].isSelected = !prevState[index].isSelected
@@ -20,7 +28,8 @@ export const useCalendarData = () => {
     })
   }
   useEffect(() => {
-    const currentMonth = MOCKED_DATA.months.find((month) => {
+    if (!requests.length) return
+    const currentMonth = requests.find((month) => {
       const thisMonth = parseISO(month.date)
       return (
         thisMonth.getMonth() === selectedDate.getMonth() &&
@@ -40,7 +49,7 @@ export const useCalendarData = () => {
       })
       setCurrentMonthDays(newCurrentMonthDays)
     } else setCurrentMonthDays([])
-  }, [filterCategories, selectedDate])
+  }, [filterCategories, requests, selectedDate])
 
   return {
     filterCategories,

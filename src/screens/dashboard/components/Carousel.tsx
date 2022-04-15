@@ -1,6 +1,6 @@
 import { LoadingModal } from 'components/LoadingModal'
 import format from 'date-fns/format'
-import { useTeamsContext } from 'hooks/usePostsContext'
+import { useTeamsContext } from 'hooks/useTeamsContext'
 import { User } from 'mock-api/models/mirageTypes'
 import React from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
