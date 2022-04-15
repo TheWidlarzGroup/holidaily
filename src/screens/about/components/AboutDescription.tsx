@@ -5,7 +5,7 @@ import { Box, Text } from 'utils/theme'
 export const AboutDescription = () => (
   <Box paddingHorizontal="m" paddingBottom="xxxl">
     <Text textAlign="left" variant="body1">
-// @ts-ignore
+      {/* @ts-ignore */}
       <Trans
         ns="welcome"
         i18nKey="aboutDesc1"
@@ -16,7 +16,7 @@ export const AboutDescription = () => (
       />
     </Text>
     <Text textAlign="left" marginTop="l" variant="body1">
-// @ts-ignore
+      {/* @ts-ignore */}
       <Trans
         ns="welcome"
         i18nKey="aboutDesc2"
