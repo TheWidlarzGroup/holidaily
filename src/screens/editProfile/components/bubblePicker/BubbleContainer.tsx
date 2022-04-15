@@ -1,63 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, useWindowDimensions, View } from 'react-native'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { TouchableOpacity, View } from 'react-native'
+import Animated from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { Box, Text, mkUseStyles, Theme, useTheme } from 'utils/theme'
 import { shadow } from 'utils/theme/shadows'
-import { randomFromRange } from 'utils/randomFromRange'
 import IconBack from 'assets/icons/icon-back-white.svg'
 import { UserProfileNavigationProps } from 'navigation/types'
+import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { Bubble } from './Bubble'
+import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
-import { COLORS } from '../../helpers/mockedData'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
-
-export type Position = {
-  x: number
-  y: number
-}
-
-type BubbleProps = {
-  position: Position
-  id: number | string
-  color: string
-}
 
 export const BubbleContainer = ({
   route: { params: p },
 }: UserProfileNavigationProps<'ColorPicker'>) => {
   const styles = useStyles()
   const theme = useTheme()
+  const { width } = useDimensions()
   const { goBack } = useNavigation()
   const [dropColor, setDropColor] = useState(theme.colors.disabledText)
-  const [animateCheckmark, setAnimateCheckmark] = useState(false)
-  const { width, height } = useWindowDimensions()
-  const dropTop = useSharedValue(height - C.DROP_AREA_OFFSET_BOTTOM)
-  const dropHeight = useSharedValue(C.DROP_AREA_INIT_HEIGHT)
+  const { animatedDrop, bubbles, animateCheckmark } = useBubbles()
 
   useEffect(() => {
     if (dropColor !== theme.colors.disabledText) p.onChange(dropColor)
   }, [dropColor, p, theme.colors.disabledText])
-
-  const initBubbles = COLORS.map((color) => ({
-    ...color,
-    position: {
-      x: randomFromRange(C.BUBBLE_SIZE, width - C.BUBBLE_SIZE),
-      y: randomFromRange(C.BUBBLES_OFFSET_TOP, height - C.BUBBLES_OFFSET_BOTTOM),
-    },
-  }))
-  const [bubbles] = useState<BubbleProps[]>(initBubbles)
-
-  const animateDropArea = () => {
-    dropTop.value = withTiming(-50, C.ANIMATION_CONFIG_MEDIUM)
-    dropHeight.value = withTiming(1.5 * height, C.ANIMATION_CONFIG_MEDIUM)
-    setTimeout(() => setAnimateCheckmark(true), C.CHECKMARK_ANIMATION_DELAY)
-  }
-
-  const animatedDrop = useAnimatedStyle(() => ({
-    top: dropTop.value,
-    height: dropHeight.value,
-  }))
 
   return (
     <View style={styles.mainContainer}>
@@ -83,13 +50,7 @@ export const BubbleContainer = ({
       />
       {bubbles.map((bubble) => (
         <Box position="absolute" key={bubble.id}>
-          <Bubble
-            {...bubble}
-            diameter={C.BUBBLE_SIZE}
-            dropArea={dropTop.value}
-            setDropColor={setDropColor}
-            animateDropArea={animateDropArea}
-          />
+          <Bubble {...bubble} diameter={C.BUBBLE_SIZE} setDropColor={setDropColor} />
         </Box>
       ))}
     </View>

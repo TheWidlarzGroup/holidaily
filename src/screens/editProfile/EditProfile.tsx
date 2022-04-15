@@ -4,7 +4,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { mkUseStyles, Theme, BaseOpacity } from 'utils/theme'
+import { mkUseStyles, Theme, BaseOpacity, useTheme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
@@ -12,6 +12,7 @@ import IconBack from 'assets/icons/icon-back2.svg'
 import { StorageKeys, setItem, removeItem } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
+import { LoadingModal } from 'components/LoadingModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -33,21 +34,24 @@ export const EditProfile = () => {
   const navigation = useNavigation()
   const { user } = useUserContext()
   const styles = useStyles()
+  const theme = useTheme()
   const { errors, control, handleSubmit } = useForm({
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
       occupation: user?.occupation,
-      color: user?.userColor,
+      userColor: user?.userColor ?? theme.colors.primary,
     },
   })
   const { t } = useTranslation('userProfile')
-  const { mutate } = useEditUser()
+  const { mutate, isLoading } = useEditUser()
   const { updateUser } = useUserContext()
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
   const onSubmit = (data: EditDetailsTypes) => {
+    setEditedFalse()
     mutate(data, {
       onSuccess: async ({ user }) => {
+        showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
         await Promise.all(
           fieldsToStoreLocally.map((field) =>
             user[field] ? setItem(field, String(user[field])) : removeItem(field)
@@ -56,9 +60,6 @@ export const EditProfile = () => {
         updateUser(user)
       },
     })
-
-    showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
-    setEditedFalse()
   }
 
   return (
@@ -77,8 +78,9 @@ export const EditProfile = () => {
         <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
         <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
         <TeamSubscriptions />
-        <ProfileColor control={control} name="color" setIsEdited={setEditedTrue} />
+        <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
       </ScrollView>
+      {isLoading && <LoadingModal show />}
       {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
     </SafeAreaView>
   )

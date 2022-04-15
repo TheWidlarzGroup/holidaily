@@ -12,6 +12,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
+import { useBubbles } from './useBubbles'
 
 type Position = {
   x: number
@@ -22,21 +23,13 @@ type BubbleProps = {
   color: string
   diameter: number
   position: Position
-  dropArea: number
   setDropColor: F1<string>
-  animateDropArea: F0
 }
 
-export const Bubble = ({
-  color,
-  diameter,
-  position,
-  dropArea,
-  setDropColor,
-  animateDropArea,
-}: BubbleProps) => {
+export const Bubble = ({ color, diameter, position, setDropColor }: BubbleProps) => {
   const navigation = useNavigation()
   const { height, width } = useWindowDimensions()
+  const { dropArea, animateDropArea } = useBubbles()
 
   const initialX = position.x
   const initialY = position.y
@@ -68,7 +61,7 @@ export const Bubble = ({
     onActive: (event, ctx) => {
       translateX.value = ctx.offsetX + event.translationX
       translateY.value = ctx.offsetY + event.translationY
-      if (translateY.value > dropArea) {
+      if (translateY.value > dropArea.value) {
         draggedBubbleScale.value = withTiming(1.2, C.ANIMATION_CONFIG_FAST)
       } else {
         draggedBubbleScale.value = withTiming(1, C.ANIMATION_CONFIG_FAST)
@@ -83,7 +76,7 @@ export const Bubble = ({
         velocity: velocityY,
         clamp: [C.BUBBLES_OFFSET_TOP, height - C.BUBBLE_SIZE],
       })
-      if (translateY.value > dropArea && draggedBubbleScale.value > 1) {
+      if (translateY.value > dropArea.value && draggedBubbleScale.value > 1) {
         runOnJS(handleSelection)()
       }
     },
