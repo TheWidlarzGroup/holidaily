@@ -7,11 +7,11 @@ import { shadow } from 'utils/theme/shadows'
 import IconBack from 'assets/icons/icon-back-white.svg'
 import { UserProfileNavigationProps } from 'navigation/types'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
+import { useTranslation } from 'react-i18next'
 import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
-import { useTranslation } from 'react-i18next'
 
 export const BubbleContainer = ({
   route: { params: p },
