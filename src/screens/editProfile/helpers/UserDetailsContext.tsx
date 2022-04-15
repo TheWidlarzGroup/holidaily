@@ -12,8 +12,6 @@ type ContextProviderProps = {
 const initialValues = {
   setUserTeams: () => {},
   userTeams: [],
-  setUserColor: () => {},
-  userColor: '',
 }
 
 export const UserDetailsContext = React.createContext<ContextValue>(initialValues)
