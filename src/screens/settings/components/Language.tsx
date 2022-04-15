@@ -3,37 +3,34 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import Animated from 'react-native-reanimated'
+import { BaseOpacity, Box, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
-import { Alert } from 'components/Alert'
-import CheckCircle from 'assets/icons/checkCircle.svg'
 import { locales } from 'utils/locale'
-
 import { setItemAsync } from 'expo-secure-store'
 import { keys } from 'utils/manipulation'
 import { Languages } from '../../../../i18n'
+import { useLangAnimations } from './useLangAnimation'
+import { LangChangeAlert } from './LangChangeAlert'
 
 type LanguageProps = {
   setLoadingTrue: F0
   setLoadingFalse: F0
 }
 
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => {
   const { i18n, t } = useTranslation('settings')
-
-  const [opened, { toggle: changeOpened }] = useBooleanState(false)
-  const [changeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
+  const { changeOpened, animatedArrow, animatedOptions } = useLangAnimations()
+  const [isChangeAlertVisible, { setTrue: showChangeAlert, setFalse: hideChangeAlert }] =
     useBooleanState(false)
-  const [selectedLng, setSelectedLng] = useState(i18n.language as keyof Languages)
-
-  const styles = useStyles()
-
+  const [selectedLng, selectLng] = useState(i18n.language as keyof Languages)
   const changeLanguage = (lng: keyof Languages) => {
     if (lng === selectedLng) return
     hideChangeAlert()
     setLoadingTrue()
-    setSelectedLng(lng)
+    selectLng(lng)
     setItemAsync('language', lng)
   }
 
@@ -45,35 +42,14 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
     })
   }, [selectedLng, i18n, setLoadingFalse, showChangeAlert])
 
-  useEffect(() => {
-    if (changeAlertVisible === false) return
-    const timeout = setTimeout(hideChangeAlert, 4000)
-
-    return () => clearTimeout(timeout)
-  }, [hideChangeAlert, changeAlertVisible])
-
-  const heightProgress = useDerivedValue(
-    () => (opened ? withTiming(70, { duration: 200 }) : withTiming(0, { duration: 200 })),
-    [opened]
-  )
-
-  const animatedOptions = useAnimatedStyle(() => ({
-    height: heightProgress.value,
-    opacity: heightProgress.value / 70,
-  }))
-
-  const animatedArrow = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotate: `${(heightProgress.value / 70) * 180}deg`,
-      },
-    ],
-  }))
-
   return (
     <>
-      <Box style={styles.container}>
-        <Box style={styles.header}>
+      <Box backgroundColor="disabledText" borderRadius="lplus" padding="ml" marginVertical="s">
+        <Box
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          marginRight="xs">
           <Text variant="body1Bold" textAlign="left">
             {t('language')}
           </Text>
@@ -85,58 +61,27 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
             </Animated.View>
           </TouchableOpacity>
         </Box>
-        <Animated.View style={[styles.options, animatedOptions]}>
+        <AnimatedBox overflow="hidden" style={animatedOptions}>
           {keys(locales).map((language) => (
-            <TouchableOpacity
+            <BaseOpacity
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+              paddingVertical="s"
               key={language}
-              style={styles.lng}
               onPress={() => {
                 changeLanguage(language)
                 changeOpened()
               }}>
-              <Text variant="body1" marginVertical="s" textAlign="left">
+              <Text variant="body1" textAlign="left">
                 {t(language)}
               </Text>
               <RadioInput checked={selectedLng === language} onPress={() => {}} />
-            </TouchableOpacity>
+            </BaseOpacity>
           ))}
-        </Animated.View>
+        </AnimatedBox>
       </Box>
-      <Alert show={changeAlertVisible} onPress={hideChangeAlert}>
-        <CheckCircle style={styles.icon} />
-        <Text variant="regular15">
-          <Text variant="bold15">{t('language')} </Text>
-          {t('changed')}
-        </Text>
-      </Alert>
+      <LangChangeAlert isVisible={isChangeAlertVisible} dismiss={hideChangeAlert} />
     </>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  container: {
-    backgroundColor: theme.colors.disabledText,
-    borderRadius: theme.borderRadii.lplus,
-    padding: theme.spacing.ml,
-    marginVertical: theme.spacing.s,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginRight: 3,
-  },
-  lng: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  options: {
-    overflow: 'hidden',
-  },
-  icon: {
-    width: 20,
-    height: 20,
-    marginHorizontal: theme.spacing.m,
-  },
-}))
