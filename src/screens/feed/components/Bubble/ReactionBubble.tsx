@@ -19,8 +19,8 @@ export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubble
     <Bubble
       margin="xs"
       onPress={() => handlePressReaction(reaction.type)}
-      borderColor="black"
-      borderWidth={hasUserAddedReaction ? 1.5 : 0}
+      borderColor={hasUserAddedReaction ? 'black' : 'transparent'}
+      borderWidth={1.2}
       height={42}>
       <Text padding="s">{reaction.type}</Text>
       {reaction.users?.length > 0 && (
