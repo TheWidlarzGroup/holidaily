@@ -18,7 +18,7 @@ type PorifileColorControllerProps = {
   setIsEdited: F0
 }
 
-const ProfileColor = (p: ProfileColorProps) => {
+const ProfileColorView = (p: ProfileColorProps) => {
   const styles = useStyles()
   const { user } = useUserContext()
   const { t } = useTranslation('userProfile')
@@ -48,12 +48,12 @@ const ProfileColor = (p: ProfileColorProps) => {
   )
 }
 
-const ControlledProfileColor = (p: PorifileColorControllerProps) => (
+export const ProfileColor = (p: PorifileColorControllerProps) => (
   <Controller
     control={p.control}
     name={p.name}
     render={({ onChange, value }) => (
-      <ProfileColor onChange={onChange} value={value} setIsEdited={p.setIsEdited} />
+      <ProfileColorView onChange={onChange} value={value} setIsEdited={p.setIsEdited} />
     )}
   />
 )
@@ -67,5 +67,3 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     borderRadius: theme.borderRadii.full,
   },
 }))
-
-export { ControlledProfileColor as ProfileColor }
