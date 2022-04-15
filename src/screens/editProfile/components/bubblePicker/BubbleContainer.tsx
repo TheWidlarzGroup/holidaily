@@ -22,7 +22,7 @@ export const BubbleContainer = ({
   const { width } = useDimensions()
   const { goBack } = useNavigation()
   const [dropColor, setDropColor] = useState(theme.colors.disabledText)
-  const { animatedDrop, bubbles, animateCheckmark } = useBubbles()
+  const { animatedDrop, bubbles, animateCheckmark, dropArea, animateDropArea } = useBubbles()
 
   useEffect(() => {
     if (dropColor !== theme.colors.disabledText) p.onChange(dropColor)
@@ -52,7 +52,13 @@ export const BubbleContainer = ({
       />
       {bubbles.map((bubble) => (
         <Box position="absolute" key={bubble.id}>
-          <Bubble {...bubble} diameter={C.BUBBLE_SIZE} setDropColor={setDropColor} />
+          <Bubble
+            {...bubble}
+            diameter={C.BUBBLE_SIZE}
+            setDropColor={setDropColor}
+            dropArea={dropArea.value}
+            animateDropArea={animateDropArea}
+          />
         </Box>
       ))}
     </View>
