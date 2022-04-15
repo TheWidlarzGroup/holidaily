@@ -5,7 +5,7 @@ import { Box, Text } from 'utils/theme'
 export const AboutDescription = () => (
   <Box paddingHorizontal="m" paddingBottom="xxxl">
     <Text textAlign="left" variant="body1">
-      {/* @ts-ignore */}
+      {/* @ts-ignore  Trans component causes error in pipeline but not in IDE: "Type instantiation is excessively deep and possibly infinite." */}
       <Trans
         ns="welcome"
         i18nKey="aboutDesc1"
