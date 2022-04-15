@@ -46,6 +46,8 @@ const BASE_CALENDAR_HEIGHT = 290
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
   const { markedDates, selectedDate, setSelectedDate, ...restProps } = props
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
+  const [language] = useLanguage()
+
   const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
   const fullCalendarContainerRef = useAnimatedRef()
@@ -60,7 +62,6 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     if (event === ACTION_DATE_SET) setSelectedDate(newDate)
   }
 
-  useLanguage()
   useEffect(() => {
     calendarRef?.current?.updateMonth(new XDate(selectedDate))
   }, [selectedDate])
@@ -186,10 +187,22 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           }}
           isVisible={isPickerVisible}
           onBackdropPress={hidePicker}>
-          <MonthPicker value={selectedDate} onChange={handlePicker} />
+          <MonthPicker
+            value={selectedDate}
+            onChange={handlePicker}
+            locale={language}
+            mode="short"
+          />
         </CustomModal>
       ) : (
-        isPickerVisible && <MonthPicker value={selectedDate} onChange={handlePicker} />
+        isPickerVisible && (
+          <MonthPicker
+            value={selectedDate}
+            onChange={handlePicker}
+            locale={language}
+            mode="short"
+          />
+        )
       )}
     </>
   )
