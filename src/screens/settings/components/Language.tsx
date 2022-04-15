@@ -10,7 +10,7 @@ import { locales } from 'utils/locale'
 import { setItemAsync } from 'expo-secure-store'
 import { keys } from 'utils/manipulation'
 import { Languages } from '../../../../i18n'
-import { useLangAnimations } from './useLangAnimation'
+import { useLangAnimations } from '../hooks/useLangAnimation'
 import { LangChangeAlert } from './LangChangeAlert'
 
 type LanguageProps = {
