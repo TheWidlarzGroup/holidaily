@@ -104,9 +104,7 @@ export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
   }
   request.message = faker.random.words(15)
   request.isSickTime = !!(randomInt() % 2)
-  request.description = request.isSickTime
-    ? 'Sick time off'
-    : getRandomValue(descriptions, faker.datatype.number({ min: 0, max: descriptions.length - 1 }))
+  request.description = request.isSickTime ? 'Sick time off' : getRandomValue(descriptions)
   return request
 }
 
