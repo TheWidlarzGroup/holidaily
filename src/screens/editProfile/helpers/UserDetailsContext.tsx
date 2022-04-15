@@ -4,8 +4,6 @@ import { TeamsType } from 'utils/mocks/teamsMocks'
 type ContextValue = {
   userTeams: TeamsType[]
   setUserTeams: React.Dispatch<React.SetStateAction<TeamsType[]>>
-  userColor: string
-  setUserColor: React.Dispatch<React.SetStateAction<string>>
 }
 type ContextProviderProps = {
   children: ReactNode
@@ -23,10 +21,9 @@ export const useUserDetailsContext = () => useContext(UserDetailsContext)
 
 export const UserDetailsProvider = ({ children }: ContextProviderProps) => {
   const [userTeams, setUserTeams] = useState<TeamsType[]>([])
-  const [userColor, setUserColor] = useState('orange')
 
   return (
-    <UserDetailsContext.Provider value={{ userTeams, setUserTeams, userColor, setUserColor }}>
+    <UserDetailsContext.Provider value={{ userTeams, setUserTeams }}>
       {children}
     </UserDetailsContext.Provider>
   )
