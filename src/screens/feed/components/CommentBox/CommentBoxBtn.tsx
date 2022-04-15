@@ -1,7 +1,6 @@
 import React from 'react'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { BaseOpacity, Box, Text } from 'utils/theme'
-
 import IconArrowUp from 'assets/icons/icon-arrow-up.svg'
 import { pluralizeWord } from 'utils/pluralizeWord'
 
