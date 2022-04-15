@@ -74,16 +74,8 @@
     "seeDemoButton": "See demo",
     "firstNameErrMsg": "Please enter your name",
     "about": "About",
-    "aboutDesc1Part1": "Holidaily ",
-    "aboutDesc1Part2": "is an app for ",
-    "aboutDesc1Part3": "booking time off ",
-    "aboutDesc1Part4": "for both ",
-    "aboutDesc1Part5": "employers ",
-    "aboutDesc1Part6": "and ",
-    "aboutDesc1Part7": "employees.",
-    "aboutDesc2Part1": "It simplifies the information flow ",
-    "aboutDesc2Part2": "about vacation schedules within the company, making the process ",
-    "aboutDesc2Part3": "a lot quicker and easier for everyone!",
+    "aboutDesc1": "<bp>Holidaily</bp> is an app for <b>booking time off</b> for both <b>employers</b> and <b>employees.</b>",
+    "aboutDesc2": "<b>It simplifies the information flow</b> about vacation schedules within the company, making the process <b>a lot quicker and easier for everyone!</b>",
     "memberOf": "You’re now a member of:",
     "yourTeams": "Your teams:",
     "thanksButton": "Ok, thanks!"
@@ -185,7 +177,8 @@
     "newColorSaved": "New color saved!",
     "fieldRequired": "This field is reqiuired.",
     "ifYouUnsubscribe": "If you unsubscribe {{teamName}} Team you will no longer see its members.",
-    "unsubscribed": "{{teamName}} unsubscribed"
+    "unsubscribed": "{{teamName}} unsubscribed",
+    "colorPicker": "Pick your favourite color and drop it in the grey area below"
   },
   "dashboard": {
     "welcome": "Hello {{name}}!",
@@ -202,7 +195,7 @@
   },
   "feed": {
     "postCommentBtn": "Comment",
-    "comments": "comments",
+    "comments": "{{quantity}} comments",
     "noComments": "No comments yet",
     "createPostLabel": "What's up?",
     "locations": "Locations",
@@ -265,14 +258,18 @@
     "ptoTaken2": "days of PTO",
     "ptoLeft1": "You will have",
     "ptoLeft2": "days of PTO left",
-    "pickedPTO": "{{days}} days of PTO",
+    "pickedPTO": "{{days}} of PTO",
     "select": "Select",
     "sent": "Request sent!",
     "waitForApproval": "Now wait for the request approval, and do not pack your suitcase yet!",
     "findRequests": "You will find all requests at the bottom of the screen.",
     "seeRequest": "See request",
     "addAnother": "Add another request",
-    "ok": "Ok, cool!"
+    "ok": "Ok, cool!",
+    "error": "Ooops! You don’t that many PTO",
+    "clear": "Clear selection",
+    "availablePto": "You have {{availablePto}} of PTO to use",
+    "changeDays": "Change days"
   },
   "adminPanel": {
     "employees": "Employees",
@@ -329,5 +326,9 @@
     "past": "Past",
     "accepted": "Accepted",
     "yourRequest": "Your request"
+  },
+  "about": {
+    "rateApp": "Rate app",
+    "privacyPolicy": "Privacy policy"
   }
 }

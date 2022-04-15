@@ -147,7 +147,7 @@ export type ModalRoutes = {
     action?: string
   }
 
-  RequestVacationCalendar: undefined
+  RequestVacationCalendar: { isSickTime?: boolean }
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
   CreatePost: { photo: { id: string; uri: string } }
@@ -171,7 +171,7 @@ export type UserProfileRoutes = {
   ChangePassword: undefined
   Recovery: undefined
   SubscribeTeam: UserTeamsSubscriptions
-  ColorPicker: undefined
+  ColorPicker: { onChange: F1<string>; value: string }
 }
 
 export type ForgotPasswordRoutes = {

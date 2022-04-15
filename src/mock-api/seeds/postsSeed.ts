@@ -1,6 +1,25 @@
-import { FeedPost, Comment, Reaction } from 'mockApi/models/miragePostTypes'
+import { Server } from 'miragejs'
+import { Comment, FeedPost, Reaction, Schema } from 'mockApi/models'
 
-export const postsMock: FeedPost[] = [
+export const postsSeed = (context: Server<Schema>) => {
+  // @ts-ignore
+  const reactions = reactionsMock.map((reaction) => context.create('reaction', reaction))
+  // @ts-ignore
+  const comments = commentsMock.map((comment) => context.create('comment', comment))
+  context.create('post', {
+    ...postsMock[0],
+    comments: [comments[0]],
+    reactions: [reactions[0], reactions[1], reactions[2]],
+  })
+  context.create('post', { ...postsMock[1], comments: [comments[1]], reactions: [reactions[3]] })
+  context.create('post', {
+    ...postsMock[2],
+    comments: [comments[2]],
+    reactions: [reactions[4], reactions[5], reactions[6]],
+  })
+}
+
+const postsMock: FeedPost[] = [
   {
     meta: {
       id: '1',
@@ -76,7 +95,7 @@ export const postsMock: FeedPost[] = [
   },
 ]
 
-export const commentsMock: Comment[] = [
+const commentsMock: Comment[] = [
   {
     meta: {
       id: '2',
@@ -124,7 +143,7 @@ export const commentsMock: Comment[] = [
   },
 ]
 
-export const reactionsMock: Reaction[] = [
+const reactionsMock: Reaction[] = [
   {
     type: '😍',
     users: ['1', '2', '3', '4'],

@@ -28,12 +28,7 @@ export const userFactory = Factory.extend({
   photo: null,
   role: 'Admin',
   availablePto: Math.round(Math.random() * 24),
-  // @ts-ignore
-  afterCreate(user, server) {
-    server.createList('request', 10, { user })
-  },
 })
-
 export const usersList = [
   {
     firstName: 'Peter',

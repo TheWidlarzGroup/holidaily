@@ -3,7 +3,7 @@ import axios from 'axios'
 import { QueryKeys } from '../QueryKeys'
 import { API } from '../API'
 
-type Stats = {
+export type Stats = {
   ptoTaken: `${number}`
   sickdaysTaken: `${number}`
 }
