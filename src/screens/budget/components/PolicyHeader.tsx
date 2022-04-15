@@ -8,7 +8,7 @@ export const PolicyHeader = ({ closeModal }: { closeModal: F0 }) => {
   const theme = useTheme()
   return (
     <Box flexDirection="row" alignItems="center" paddingHorizontal="s" paddingTop="m">
-      <BaseOpacity onPress={closeModal} position="absolute">
+      <BaseOpacity onPress={closeModal}>
         <CloseIcon width={50} height={50} color={theme.colors.black} />
       </BaseOpacity>
       <Box flex={1}>

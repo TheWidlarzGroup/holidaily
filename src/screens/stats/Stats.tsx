@@ -4,15 +4,13 @@ import { Box, Text } from 'utils/theme'
 import Character from 'assets/Character.svg'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
-import { useFetchUserStats } from 'dataAccess/queries/useFetchUserStats'
-import { LoadingModal } from 'components/LoadingModal'
+import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
 import { SectionHeader } from './components/SectionHeader'
 
-export const Stats = () => {
+export const Stats = ({ stats }: { stats: StatsType }) => {
   const { t } = useTranslation('stats')
   const { user } = useUserContext()
-  const { data: stats, isLoading } = useFetchUserStats()
-  if (isLoading || !stats) return <LoadingModal show />
+
   return (
     <Box>
       <SectionHeader text="Your score" />

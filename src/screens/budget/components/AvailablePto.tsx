@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
-import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
+import { Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import Info from 'assets/icons/icon-info.svg'
 import { useNavigation } from '@react-navigation/native'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   const { t } = useTranslation('budget')
@@ -20,20 +21,25 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   }, [navigation])
 
   return (
-    <>
-      <BaseOpacity style={[styles.infoPressable]} onPress={onInfoPress}>
-        <Info color={theme.colors.headerGrey} />
-      </BaseOpacity>
-
-      <Text marginTop="xxm" variant="captionText" lineHeight={14}>
-        {t('have')}
-      </Text>
-      <Text marginVertical="xxm" variant="bold24" color="tertiary">
-        {t('left', { number: availablePto })}
-      </Text>
-      <Text marginBottom="xm" variant="lightGreyRegular">
-        {t('of', { number: String(PTO_LIMIT) })}
-      </Text>
+    <Box>
+      <Box flexDirection="row-reverse" justifyContent="space-between">
+        <TouchableOpacity
+          style={{ transform: [{ translateX: 5 }, { translateY: -5 }] }}
+          onPress={onInfoPress}>
+          <Info color={theme.colors.headerGrey} />
+        </TouchableOpacity>
+        <Box>
+          <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+            {t('have')}
+          </Text>
+          <Text marginVertical="xxm" variant="bold24" color="tertiary">
+            {t('left', { number: availablePto })}
+          </Text>
+          <Text marginBottom="xm" variant="lightGreyRegular">
+            {t('of', { number: String(PTO_LIMIT) })}
+          </Text>
+        </Box>
+      </Box>
       <Box
         style={[styles.progressTranslation]}
         width={`${(availablePto / PTO_LIMIT) * 100}%`}
@@ -42,7 +48,7 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
         zIndex="2"
       />
       <Box width="100%" height={theme.spacing.xs} backgroundColor="headerGrey" />
-    </>
+    </Box>
   )
 }
 const useStyles = mkUseStyles(() => ({
@@ -55,6 +61,9 @@ const useStyles = mkUseStyles(() => ({
   },
   infoPressable: {
     position: 'absolute',
+    borderWidth: 3,
+    borderColor: 'transparent',
+
     right: 0,
   },
 }))
