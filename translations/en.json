@@ -185,7 +185,8 @@
     "newColorSaved": "New color saved!",
     "fieldRequired": "This field is reqiuired.",
     "ifYouUnsubscribe": "If you unsubscribe {{teamName}} Team you will no longer see its members.",
-    "unsubscribed": "{{teamName}} unsubscribed"
+    "unsubscribed": "{{teamName}} unsubscribed",
+    "colorPicker": "Pick your favourite color and drop it in the grey area below"
   },
   "dashboard": {
     "welcome": "Hello {{name}}!",

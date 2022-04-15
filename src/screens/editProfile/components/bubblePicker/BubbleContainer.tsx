@@ -11,12 +11,14 @@ import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
+import { useTranslation } from 'react-i18next'
 
 export const BubbleContainer = ({
   route: { params: p },
 }: UserProfileNavigationProps<'ColorPicker'>) => {
   const styles = useStyles()
   const theme = useTheme()
+  const { t } = useTranslation('userProfile')
   const { width } = useDimensions()
   const { goBack } = useNavigation()
   const [dropColor, setDropColor] = useState(theme.colors.disabledText)
@@ -34,7 +36,7 @@ export const BubbleContainer = ({
       </TouchableOpacity>
       <Box marginTop="xxxl" alignItems="center">
         <Text variant="buttonText1" marginHorizontal="xxl">
-          Pick your favourite color and drop it in the grey area below
+          {t('colorPicker')}
         </Text>
       </Box>
       <Animated.View
