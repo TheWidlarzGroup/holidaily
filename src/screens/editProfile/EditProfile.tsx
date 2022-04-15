@@ -40,7 +40,7 @@ export const EditProfile = () => {
       firstName: user?.firstName,
       lastName: user?.lastName,
       occupation: user?.occupation,
-      userColor: user?.userColor ?? theme.colors.primary,
+      userColor: user?.userColor || theme.colors.primary,
     },
   })
   const { t } = useTranslation('userProfile')
