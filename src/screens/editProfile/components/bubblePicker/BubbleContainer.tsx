@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
-import { Box, Text, mkUseStyles, Theme, theme } from 'utils/theme'
+import { Box, Text, mkUseStyles, Theme, useTheme } from 'utils/theme'
 import { shadow } from 'utils/theme/shadows'
 import { randomFromRange } from 'utils/randomFromRange'
 import IconBack from 'assets/icons/icon-back-white.svg'
+import { UserProfileNavigationProps } from 'navigation/types'
 import { Bubble } from './Bubble'
 import { CheckMark } from './Checkmark'
 import { COLORS } from '../../helpers/mockedData'
@@ -22,14 +23,21 @@ type BubbleProps = {
   color: string
 }
 
-export const BubbleContainer = () => {
+export const BubbleContainer = ({
+  route: { params: p },
+}: UserProfileNavigationProps<'ColorPicker'>) => {
   const styles = useStyles()
+  const theme = useTheme()
   const { goBack } = useNavigation()
   const [dropColor, setDropColor] = useState(theme.colors.disabledText)
   const [animateCheckmark, setAnimateCheckmark] = useState(false)
   const { width, height } = useWindowDimensions()
   const dropTop = useSharedValue(height - C.DROP_AREA_OFFSET_BOTTOM)
   const dropHeight = useSharedValue(C.DROP_AREA_INIT_HEIGHT)
+
+  useEffect(() => {
+    if (dropColor !== theme.colors.disabledText) p.onChange(dropColor)
+  }, [dropColor, p, theme.colors.disabledText])
 
   const initBubbles = COLORS.map((color) => ({
     ...color,

@@ -3,25 +3,48 @@ import { useTranslation } from 'react-i18next'
 import { Box, Text, mkUseStyles, Theme, theme, BaseOpacity } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/useUserContext'
+import { Control, Controller, FieldValues } from 'react-hook-form'
+import { UserProfileType } from 'navigation/types'
 
-export const ProfileColor = () => {
+type ProfileColorProps = {
+  control: Control<FieldValues>
+  setIsEdited: F0
+  name: string
+}
+
+export const ProfileColor = ({ control, name, setIsEdited }: ProfileColorProps) => {
   const styles = useStyles()
   const { user } = useUserContext()
   const { t } = useTranslation('userProfile')
-  const navigation = useNavigation()
-
-  const onChangeUserColor = () => navigation.navigate('ColorPicker')
+  const navigation = useNavigation<UserProfileType<'ColorPicker'>>()
 
   return (
-    <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
-      <Text variant="labelGrey" marginLeft="m">
-        {t('userColor')}
-      </Text>
-      <BaseOpacity
-        onPress={onChangeUserColor}
-        style={[styles.colorBtn, { backgroundColor: user?.userColor || theme.colors.primary }]}
-      />
-    </Box>
+    <Controller
+      control={control}
+      name={name}
+      render={({ onChange, value }) => (
+        <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
+          <Text variant="labelGrey" marginLeft="m">
+            {t('userColor')}
+          </Text>
+          <BaseOpacity
+            onPress={() =>
+              navigation.navigate('ColorPicker', {
+                onChange: (value) => {
+                  onChange(value)
+                  setIsEdited()
+                },
+                value,
+              })
+            }
+            style={[
+              styles.colorBtn,
+              { backgroundColor: value ?? user?.userColor ?? theme.colors.primary },
+            ]}
+          />
+        </Box>
+      )}
+    />
   )
 }
 const useStyles = mkUseStyles((theme: Theme) => ({

@@ -9,7 +9,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
 import IconBack from 'assets/icons/icon-back2.svg'
-import { StorageKeys, setItem } from 'utils/localStorage'
+import { StorageKeys, setItem, removeItem } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { ProfilePicture } from './components/ProfilePicture'
@@ -18,7 +18,7 @@ import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
-type EditDetailsTypes = Pick<User, 'firstName' | 'lastName' | 'occupation'>
+type EditDetailsTypes = Pick<User, typeof fieldsToStoreLocally[number]>
 
 const fieldsToStoreLocally: readonly (keyof User & StorageKeys)[] = [
   'firstName',
@@ -38,17 +38,21 @@ export const EditProfile = () => {
       firstName: user?.firstName,
       lastName: user?.lastName,
       occupation: user?.occupation,
+      color: user?.userColor,
     },
   })
   const { t } = useTranslation('userProfile')
   const { mutate } = useEditUser()
   const { updateUser } = useUserContext()
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
-
   const onSubmit = (data: EditDetailsTypes) => {
     mutate(data, {
-      onSuccess: ({ user }) => {
-        fieldsToStoreLocally.forEach((field) => setItem(field, String(user[field])))
+      onSuccess: async ({ user }) => {
+        await Promise.all(
+          fieldsToStoreLocally.map((field) =>
+            user[field] ? setItem(field, String(user[field])) : removeItem(field)
+          )
+        )
         updateUser(user)
       },
     })
@@ -73,7 +77,7 @@ export const EditProfile = () => {
         <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
         <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
         <TeamSubscriptions />
-        <ProfileColor />
+        <ProfileColor control={control} name="color" setIsEdited={setEditedTrue} />
       </ScrollView>
       {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
     </SafeAreaView>

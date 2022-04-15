@@ -171,7 +171,7 @@ export type UserProfileRoutes = {
   ChangePassword: undefined
   Recovery: undefined
   SubscribeTeam: UserTeamsSubscriptions
-  ColorPicker: undefined
+  ColorPicker: { onChange: F1<string>; value: string }
 }
 
 export type ForgotPasswordRoutes = {
