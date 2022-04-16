@@ -1,8 +1,6 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
-
 import { Reaction, Comment, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
@@ -14,6 +12,8 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useAddComment, useAddReaction } from 'dataAccess/mutations/useAddReactionsComment'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
+import { MoreBubble } from '../Bubble/MoreBubble'
+import { LessBubble } from '../Bubble/LessBubble'
 
 type Post = {
   post: FeedPost
@@ -90,10 +90,31 @@ type FooterBarContentProps = {
 const FooterBarContent = (props: FooterBarContentProps) => {
   const { reactions, onCommentBtnPress } = props
   const [isPickerOpen, { setTrue: openPicker, setFalse: closePicker }] = useBooleanState(false)
+  const [isShowMoreOpen, { setTrue: showMore, setFalse: showLess }] = useBooleanState(false)
   const { t } = useTranslation('feed')
+  const [footerWidth, setFooterWidth] = useState(0)
+
+  const COMMENT_EMOJI_BTNS_WIDTH = 146
+  const EMOJI_BTN_WIDTH = 74
+
+  const maxEmojisInFirstLine = +(
+    (footerWidth - COMMENT_EMOJI_BTNS_WIDTH) /
+    EMOJI_BTN_WIDTH
+  ).toFixed(0)
+  const maxEmojisInSecondLine = +(footerWidth / EMOJI_BTN_WIDTH).toFixed(0)
+  const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
+
+  let emojisCounter = 0
 
   return (
-    <Box flexDirection="row" padding="s" justifyContent="space-between" alignItems="center">
+    <Box
+      flexDirection="row"
+      padding="s"
+      justifyContent="space-between"
+      alignItems="center"
+      onLayout={({ nativeEvent }) => {
+        setFooterWidth(nativeEvent.layout.width - 16) // subtract margins
+      }}>
       <Box
         flexDirection="row"
         flexWrap="wrap"
@@ -101,14 +122,29 @@ const FooterBarContent = (props: FooterBarContentProps) => {
         alignItems="center"
         flexGrow={1}
         flexShrink={1}>
+        <Bubble
+          padding="s"
+          marginHorizontal="xs"
+          marginTop="xs"
+          onPress={onCommentBtnPress}
+          height={42}
+          alignSelf="flex-start">
+          <IconComment />
+          <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
+            {t('postCommentBtn')}
+          </Text>
+        </Bubble>
         <EmojiPicker
           onEmojiSelected={props.handleAddReaction}
           open={isPickerOpen}
           onClose={closePicker}
         />
+        <ReactionPickerBtn onPress={openPicker} />
         {reactions &&
-          reactions.map((item) => {
-            if (item.users?.length === 0) return
+          reactions.map((item, index) => {
+            emojisCounter = index
+            if (!item.users?.length) return
+            if (!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1) return
             return (
               <ReactionBubble
                 key={item.type}
@@ -117,19 +153,11 @@ const FooterBarContent = (props: FooterBarContentProps) => {
               />
             )
           })}
-        <ReactionPickerBtn onPress={openPicker} />
+        {!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1 && (
+          <MoreBubble count={emojisCounter - totalMaxNumberOfEmojis + 2} onPress={showMore} />
+        )}
+        {isShowMoreOpen && <LessBubble onPress={showLess} />}
       </Box>
-      <Bubble
-        padding="s"
-        marginTop="xs"
-        onPress={onCommentBtnPress}
-        height={42}
-        alignSelf="flex-start">
-        <IconComment />
-        <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
-          {t('postCommentBtn')}
-        </Text>
-      </Bubble>
     </Box>
   )
 }
