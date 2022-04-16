@@ -9,8 +9,6 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { isIos } from 'utils/layout'
 import { Language } from './components/Language'
-import { DarkModeSwitch } from './components/DarkModeSwitch'
-import { BiometricPasscode } from './components/BiometricPasscode'
 import { Siri } from './components/Siri'
 
 export const Settings = () => {
@@ -33,8 +31,8 @@ export const Settings = () => {
     <SafeAreaWrapper>
       <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
       <Box marginHorizontal="m" flex={1}>
-        <DarkModeSwitch />
-        <BiometricPasscode />
+        {/* <DarkModeSwitch /> */}
+        {/* <BiometricPasscode /> */}
         <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
         {isIos && <Siri />}
       </Box>
