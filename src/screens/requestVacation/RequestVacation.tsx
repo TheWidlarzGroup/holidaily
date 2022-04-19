@@ -101,15 +101,21 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         isVisible={isSentModalVisible}
         onPressSee={() => {
           hideSentModal()
-          navigation.navigate('DashboardNavigation', {
-            screen: 'SeeRequest',
+          navigation.navigate('DrawerNavigator', {
+            screen: 'Home',
             params: {
-              ...requestData,
-              endDate: (endDate ?? new Date()).toISOString(),
-              startDate: (startDate ?? new Date()).toISOString(),
-              isSickTime: sickTime,
-              // TODO: get from backend
-              status: 'pending',
+              screen: 'Stats',
+              params: {
+                screen: 'SeeRequest',
+                params: {
+                  ...requestData,
+                  endDate: (endDate ?? new Date()).toISOString(),
+                  startDate: (startDate ?? new Date()).toISOString(),
+                  isSickTime: sickTime,
+                  // TODO: get from backend
+                  status: 'pending',
+                },
+              },
             },
           })
         }}
