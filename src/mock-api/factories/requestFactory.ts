@@ -57,9 +57,8 @@ export const genManyRequests = (count: number) => {
   return requests
 }
 
-export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
-  let request: any
-  // let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'>
+export function genRandomDayOffRequest() {
+  let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'>
   const status = genReqStatus()
   const futureDate = faker.date.future()
   const pastDate = faker.date.past()
@@ -102,10 +101,13 @@ export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
       }
       break
   }
-  request.message = faker.random.words(15)
-  request.isSickTime = !!(randomInt() % 2)
-  request.description = request.isSickTime ? 'Sick time off' : getRandomValue(descriptions)
-  return request
+  const isSickTime = !!(randomInt() % 2)
+  return {
+    ...request,
+    message: faker.random.words(15),
+    isSickTime,
+    description: isSickTime ? 'Sick time off' : getRandomValue(descriptions),
+  }
 }
 
 function randomInt(max = 10, min = 0) {
