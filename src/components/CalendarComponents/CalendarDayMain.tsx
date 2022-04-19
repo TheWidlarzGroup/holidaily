@@ -45,7 +45,7 @@ export const CalendarDayMain = ({
   return (
     <Box
       style={[
-        marking?.selected && styles?.selectedDay,
+        marking?.selected && styles.selectedDay,
         marking?.period && styles.dayInPeriod,
         marking?.endingDay && styles.periodEndDay,
         marking?.startingDay && styles.periodStartDay,
