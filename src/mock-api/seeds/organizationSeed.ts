@@ -48,7 +48,7 @@ export const organizationSeed = (context: Server<Schema>) => {
   })
   context.create('organization', {
     name: 'Supercompany',
-    maxPtoDays: 30,
+    maxPtoDays: 21,
     // @ts-ignore
     teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
   })
