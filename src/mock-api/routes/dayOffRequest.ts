@@ -56,11 +56,12 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
     return new Response(403, {}, { errors: String(['Not enough available PTO']) })
   // @ts-ignore
   user.update({ availablePto: userPtoAfterRequest })
-  return schema.create('request', {
+  const request = schema.create('request', {
     ...payload.body,
     status: 'pending',
     user,
   })
+  return new Response(201, {}, { request, availablePto: userPtoAfterRequest })
 }
 
 type CreateDayOffRequestBody = Omit<DayOffRequest, 'status' | 'user'>
