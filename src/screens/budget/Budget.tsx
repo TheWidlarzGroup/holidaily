@@ -6,7 +6,9 @@ import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
+import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { AvailablePto } from './components/AvailablePto'
+import { queryClient } from '../../../App'
 
 export const Budget = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
@@ -31,7 +33,7 @@ export const Budget = () => {
     })
     navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
-
+  queryClient.prefetchQuery({ queryFn: useGetOrganization })
   return (
     <SafeAreaWrapper>
       <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
