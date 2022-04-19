@@ -112,7 +112,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
                   endDate: (endDate ?? new Date()).toISOString(),
                   startDate: (startDate ?? new Date()).toISOString(),
                   isSickTime: sickTime,
-                  // TODO: get from backend
                   status: 'pending',
                 },
               },
