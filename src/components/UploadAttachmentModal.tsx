@@ -85,6 +85,7 @@ export const UploadAttachmentModal = ({
 
   return (
     <CustomModal
+      onRequestClose={p.hideModal}
       isVisible={p.isVisible}
       onBackdropPress={p.hideModal}
       backdropColor={theme.colors.white}
