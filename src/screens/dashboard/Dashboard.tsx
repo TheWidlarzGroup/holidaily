@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
@@ -12,11 +12,13 @@ import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { LoadingModal } from 'components/LoadingModal'
-import { BackHandler } from 'react-native'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User>(emptyUser)
+  const [isModalOpen, { setTrue: setModalOpened, setFalse: setModalClosed }] =
+    useBooleanState(false)
 
   const { teams } = useTeamsContext()
 
@@ -24,20 +26,10 @@ export const Dashboard = () => {
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
 
-  useEffect(() => {
-    const backAction = () => {
-      modalRef.current?.close()
-      return true
-    }
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-
-    return () => backHandler.remove()
-  }, [])
-
   const openUserModal = (user: User) => {
     setUser(user)
     openModal()
+    setModalOpened()
   }
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
@@ -60,7 +52,11 @@ export const Dashboard = () => {
           ))}
         </SortableList>
       </SafeAreaWrapper>
-      <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
+      <BottomSheetModalComponent
+        snapPoints={['90%']}
+        modalRef={modalRef}
+        isOpen={isModalOpen}
+        closeModal={setModalClosed}>
         <DashboardTeamMember closeModal={closeModal} user={user} />
       </BottomSheetModalComponent>
     </>
