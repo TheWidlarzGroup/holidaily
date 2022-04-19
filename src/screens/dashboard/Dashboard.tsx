@@ -12,10 +12,13 @@ import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { LoadingModal } from 'components/LoadingModal'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
   const [user, setUser] = useState<User>(emptyUser)
+  const [isModalOpen, { setTrue: setModalOpened, setFalse: setModalClosed }] =
+    useBooleanState(false)
 
   const { teams } = useTeamsContext()
 
@@ -26,6 +29,7 @@ export const Dashboard = () => {
   const openUserModal = (user: User) => {
     setUser(user)
     openModal()
+    setModalOpened()
   }
 
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
@@ -48,7 +52,11 @@ export const Dashboard = () => {
           ))}
         </SortableList>
       </SafeAreaWrapper>
-      <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
+      <BottomSheetModalComponent
+        snapPoints={['90%']}
+        modalRef={modalRef}
+        isOpen={isModalOpen}
+        closeModal={setModalClosed}>
         <DashboardTeamMember closeModal={closeModal} user={user} />
       </BottomSheetModalComponent>
     </>
