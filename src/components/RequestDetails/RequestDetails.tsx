@@ -15,6 +15,7 @@ import { CircleStatusIcon } from './CircleStatusIcon'
 type RequestDetailsProps = {
   attachments?: DayOffRequest['attachments']
   showStatus?: true
+  wasSent?: true
 }
 
 export const RequestDetails = (
@@ -56,7 +57,7 @@ export const RequestDetails = (
           <RequestSicktimeAndMessage isSick={p.isSickTime} message={p.message} />
           <RequestAttachments attachments={p.attachments} />
           <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-          <TakenPtoSummary ptoTaken={calculatePTO(p.startDate, p.endDate)} />
+          <TakenPtoSummary ptoTaken={calculatePTO(p.startDate, p.endDate)} wasSent={p.wasSent} />
         </Box>
       </Box>
     </ScrollView>

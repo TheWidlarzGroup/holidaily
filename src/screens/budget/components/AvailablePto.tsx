@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   const { t } = useTranslation('budget')
   const { data: organization } = useGetOrganization()
-  const PTO_LIMIT = organization?.maxPtoDays ?? 26
+  const PTO_LIMIT = organization?.maxPtoDays ?? 21
   const theme = useTheme()
   const styles = useStyles()
   const navigation = useNavigation()
