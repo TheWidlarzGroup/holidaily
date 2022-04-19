@@ -23,7 +23,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'Se
         <Box paddingRight="xl" />
       </ModalHeader>
       <Box padding="m" flex={1}>
-        <RequestDetails {...p} showStatus />
+        <RequestDetails {...p} showStatus wasSent />
       </Box>
     </SafeAreaWrapper>
   )
