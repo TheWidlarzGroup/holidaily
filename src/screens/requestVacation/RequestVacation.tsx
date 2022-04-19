@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 
-import { DrawerNavigationType, ModalNavigationProps, RequestsNavigatorType } from 'navigation/types'
+import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
@@ -30,9 +30,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const navigation = useNavigation<
-    RequestsNavigatorType<'SeeRequest'> & DrawerNavigationType<'Home'>
-  >()
+  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
 
@@ -66,12 +64,21 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
   const onPressSee = () => {
     hideSentModal()
-    navigation.navigate('SeeRequest', {
-      ...ctx.requestData,
-      endDate: (ctx.endDate ?? new Date()).toISOString(),
-      startDate: (ctx.startDate ?? new Date()).toISOString(),
-      isSickTime: ctx.sickTime,
-      status: 'pending',
+    navigation.navigate('DrawerNavigator', {
+      screen: 'Home',
+      params: {
+        screen: 'Stats',
+        params: {
+          screen: 'SeeRequest',
+          params: {
+            ...ctx.requestData,
+            endDate: (ctx.endDate ?? new Date()).toISOString(),
+            startDate: (ctx.startDate ?? new Date()).toISOString(),
+            isSickTime: ctx.sickTime,
+            status: 'pending',
+          },
+        },
+      },
     })
   }
 
@@ -105,7 +112,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
           navigation.navigate('Home')
         }}
       />
-      <BadStateController />
+      {!isSentModalVisible && <BadStateController />}
     </SafeAreaView>
   )
 }
