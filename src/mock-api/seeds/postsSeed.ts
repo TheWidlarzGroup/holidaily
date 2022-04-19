@@ -19,7 +19,7 @@ export const postsSeed = (context: Server<Schema>) => {
   })
 }
 
-const postsMock: FeedPost[] = [
+export const postsMock: FeedPost[] = [
   {
     meta: {
       id: '1',
@@ -95,7 +95,7 @@ const postsMock: FeedPost[] = [
   },
 ]
 
-const commentsMock: Comment[] = [
+export const commentsMock: Comment[] = [
   {
     meta: {
       id: '2',
@@ -143,7 +143,7 @@ const commentsMock: Comment[] = [
   },
 ]
 
-const reactionsMock: Reaction[] = [
+export const reactionsMock: Reaction[] = [
   {
     type: '😍',
     users: ['1', '2', '3', '4'],
