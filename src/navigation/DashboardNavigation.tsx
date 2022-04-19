@@ -1,9 +1,8 @@
 import React from 'react'
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import { Dashboard } from 'screens/dashboard/Dashboard'
 import { DashboardTeam } from 'screens/dashboard/DashboardTeam'
 import { Notifications } from 'screens/dashboard/Notifications'
-import { SeeRequest } from 'components/RequestDetails/SeeRequest'
 import { DashboardRoutes } from './types'
 
 const DashboardStack = createStackNavigator<DashboardRoutes>()
@@ -13,10 +12,5 @@ export const DashboardNavigation = () => (
     <DashboardStack.Screen name="Dashboard" component={Dashboard} />
     <DashboardStack.Screen name="DashboardNotifications" component={Notifications} />
     <DashboardStack.Screen name="DashboardTeam" component={DashboardTeam} />
-    <DashboardStack.Screen
-      name="SeeRequest"
-      component={SeeRequest}
-      options={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
-    />
   </DashboardStack.Navigator>
 )
