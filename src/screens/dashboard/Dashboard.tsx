@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
@@ -12,6 +12,7 @@ import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { LoadingModal } from 'components/LoadingModal'
+import { BackHandler } from 'react-native'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
@@ -22,6 +23,17 @@ export const Dashboard = () => {
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
+
+  useEffect(() => {
+    const backAction = () => {
+      modalRef.current?.close()
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
+    return () => backHandler.remove()
+  }, [])
 
   const openUserModal = (user: User) => {
     setUser(user)
