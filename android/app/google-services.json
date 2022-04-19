@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:809306590385:android:7be24a6f254c2a2fafa690",
         "android_client_info": {
-          "package_name": "com.holidayly"
+          "package_name": "com.holidaily"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "809306590385-d0nqnef8mt1hns049l3a1i60r5o9i0f7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.holidayly",
+            "package_name": "com.holidaily",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
