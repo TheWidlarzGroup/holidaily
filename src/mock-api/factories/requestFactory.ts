@@ -6,8 +6,6 @@ import { getRandomValue } from 'utils/getRandomValue'
 
 const DAY_IN_MS = 24 * 3600 * 1000
 
-export const requestFactory = Factory.extend(genRandomDayOffRequest())
-
 const descriptions = [
   'Portugal',
   'Italy',
@@ -38,6 +36,8 @@ const descriptions = [
   'Hiking the Tatras',
 ]
 
+export const requestFactory = Factory.extend(genRandomDayOffRequest())
+
 export const genManyRequests = (count: number) => {
   const requests: Omit<DayOffRequest, 'id'>[] = []
   const drawnDayoffInAlreadyScehduledTime = (req: Omit<DayOffRequest, 'id'>) =>
@@ -58,8 +58,7 @@ export const genManyRequests = (count: number) => {
 }
 
 export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
-  let request: any
-  // let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'>
+  let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'>
   const status = genReqStatus()
   const futureDate = faker.date.future()
   const pastDate = faker.date.past()
@@ -102,10 +101,18 @@ export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
       }
       break
   }
-  request.message = faker.random.words(15)
-  request.isSickTime = !!(randomInt() % 2)
-  request.description = request.isSickTime ? 'Sick time off' : getRandomValue(descriptions)
-  return request
+  const isSickTime = !!(randomInt() % 2)
+  return {
+    ...request,
+    message: faker.random.words(15),
+    isSickTime,
+    description: isSickTime
+      ? 'Sick time off'
+      : getRandomValue(
+          descriptions,
+          faker.datatype.number({ min: 0, max: descriptions.length - 1 })
+        ),
+  }
 }
 
 function randomInt(max = 10, min = 0) {
