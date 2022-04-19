@@ -66,7 +66,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
   const onPressSee = () => {
     hideSentModal()
-    navigation.navigate<'SeeRequest'>('SeeRequest', {
+    navigation.navigate('SeeRequest', {
       ...ctx.requestData,
       endDate: (ctx.endDate ?? new Date()).toISOString(),
       startDate: (ctx.startDate ?? new Date()).toISOString(),
@@ -102,7 +102,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
-          navigation.navigate<'Home'>('Home')
+          navigation.navigate('Home')
         }}
       />
       <BadStateController />
