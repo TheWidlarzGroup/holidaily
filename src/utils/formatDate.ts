@@ -1,5 +1,6 @@
 /* eslint-disable no-fallthrough */
 import { formatDistance, isToday, format as formatFNS, Locale } from 'date-fns'
+import { getCurrentLocale } from './locale'
 
 export type DateFormat =
   | 'relativeToday'
@@ -9,7 +10,7 @@ export type DateFormat =
   | 'ago'
   | 'weekday'
 
-export function formatDate(date: Date, format: DateFormat, locale: Locale) {
+export function formatDate(date: Date, format: DateFormat, locale: Locale = getCurrentLocale()) {
   const internalFormat = (format: string) => formatFNS(date, format, { locale })
 
   let currentFormat = format
