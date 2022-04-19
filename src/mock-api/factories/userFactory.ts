@@ -241,7 +241,7 @@ export const usersList = [
   {
     firstName: 'Anita',
     lastName: 'Patterson',
-    photo: 'https://randomuser.me/api/portraits/men/22.jpg',
+    photo: 'https://randomuser.me/api/portraits/women/22.jpg',
     occupation: 'UI/UX Designer',
     requests: [],
     userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
