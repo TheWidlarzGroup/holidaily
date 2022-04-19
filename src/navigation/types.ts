@@ -96,6 +96,17 @@ export type ForgotPasswordProps<RouteName extends keyof ForgotPasswordRoutes> = 
   route: RouteProp<ForgotPasswordRoutes, RouteName>
 }
 
+// for useNavigation hook
+export type RequestsNavigatorType<RouteName extends keyof RequestsRoutes> = CompositeNavigationProp<
+  StackNavigationProp<RequestsRoutes, RouteName>,
+  StackNavigationProp<BottomTabRoutes, 'Stats'>
+>
+
+export type RequestsNavigationProps<RouteName extends keyof RequestsRoutes> = {
+  navigation: StackNavigationProp<RequestsRoutes, RouteName>
+  route: RouteProp<RequestsRoutes, RouteName>
+}
+
 export type AppRoutes = {
   AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
@@ -111,7 +122,7 @@ export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   Calendar: undefined
   RequestModal: undefined
-  Stats: undefined
+  Stats: NestedNavigatorParams<RequestsRoutes>
   Feed: undefined
 }
 
@@ -155,7 +166,6 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
-  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
   DashboardTeam: Team & { openUserModal: F1<User> }
   DashboardTeamMember: User
   DashboardNotifications: undefined
@@ -164,6 +174,11 @@ export type DashboardRoutes = {
 export type BudgetRoutes = {
   Budget: undefined
   PtoPolicy: undefined
+}
+
+export type RequestsRoutes = {
+  StatsAndRequests: undefined
+  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
 }
 
 export type UserProfileRoutes = {

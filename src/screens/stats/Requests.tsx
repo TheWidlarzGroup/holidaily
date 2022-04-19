@@ -55,11 +55,7 @@ export const Requests = () => {
         ListFooterComponent={<Box height={100} />}
         renderItem={useCallback(
           ({ item }) => (
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() =>
-                navigate('DashboardNavigation', { screen: 'SeeRequest', params: item })
-              }>
+            <TouchableOpacity activeOpacity={1} onPress={() => navigate('SeeRequest', item)}>
               <Request {...item} />
             </TouchableOpacity>
           ),

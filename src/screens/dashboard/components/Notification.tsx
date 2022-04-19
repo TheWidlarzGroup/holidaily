@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { Notification as NotificationModel } from 'mockApi/models'
+import { formatDate } from 'utils/formatDate'
 import { NotificationContent } from './NotificationContent'
 
 export const Notification = ({
@@ -36,7 +37,7 @@ export const Notification = ({
           isSeen={wasSeenByHolder}
         />
         <Box paddingBottom="s" paddingRight="s" alignSelf="flex-end">
-          <Text variant="lightGreyRegular">12 minutes ago</Text>
+          <Text variant="lightGreyRegular">{formatDate(new Date(p.createdAt), 'ago')}</Text>
         </Box>
       </Box>
     </Box>

@@ -28,6 +28,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
         windowSize={5}
         ref={flatListRef}
         onScrollToIndexFailed={() => {}}
+        contentContainerStyle={{ paddingBottom: 60 }}
       />
     </Box>
   )
