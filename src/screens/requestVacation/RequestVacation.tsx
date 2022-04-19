@@ -23,24 +23,11 @@ export type RequestDataTypes = {
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
 }
-
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
-
 type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
-  const {
-    requestData,
-    startDate,
-    endDate,
-    sickTime,
-    setRequestData,
-    setStep,
-    setStartDate,
-    setEndDate,
-    cancelSickTime,
-    markSickTime,
-  } = useRequestVacationContext()
+  const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
@@ -55,25 +42,44 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }, [])
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback(requestData)
-    setRequestData((oldData) => ({ ...oldData, ...newData }))
+    const newData = callback(ctx.requestData)
+    ctx.setRequestData((oldData) => ({ ...oldData, ...newData }))
   }
 
   const reset = () => {
     hideSentModal()
-    setStep(0)
+    ctx.setStep(0)
     setStartDate(undefined)
     setEndDate(undefined)
-    setRequestData(emptyRequest)
-    cancelSickTime()
+    ctx.setRequestData(emptyRequest)
+    ctx.cancelSickTime()
   }
 
   const removeAttachment = (id: string) => {
-    setRequestData((old) => ({
+    ctx.setRequestData((old) => ({
       ...old,
       photos: old.photos.filter((p) => p.id !== id),
       files: old.files.filter((f) => f.id !== id),
     }))
+  }
+  const onPressSee = () => {
+    hideSentModal()
+    navigation.navigate('DrawerNavigator', {
+      screen: 'Home',
+      params: {
+        screen: 'Stats',
+        params: {
+          screen: 'SeeRequest',
+          params: {
+            ...ctx.requestData,
+            endDate: (ctx.endDate ?? new Date()).toISOString(),
+            startDate: (ctx.startDate ?? new Date()).toISOString(),
+            isSickTime: ctx.sickTime,
+            status: 'pending',
+          },
+        },
+      },
+    })
   }
 
   useEffect(() => {
@@ -99,25 +105,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       />
       <RequestSent
         isVisible={isSentModalVisible}
-        onPressSee={() => {
-          hideSentModal()
-          navigation.navigate('DrawerNavigator', {
-            screen: 'Home',
-            params: {
-              screen: 'Stats',
-              params: {
-                screen: 'SeeRequest',
-                params: {
-                  ...requestData,
-                  endDate: (endDate ?? new Date()).toISOString(),
-                  startDate: (startDate ?? new Date()).toISOString(),
-                  isSickTime: sickTime,
-                  status: 'pending',
-                },
-              },
-            },
-          })
-        }}
+        onPressSee={onPressSee}
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
