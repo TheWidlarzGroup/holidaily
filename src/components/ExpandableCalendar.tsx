@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { Box } from 'utils/theme'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
@@ -24,11 +24,12 @@ import { isIos } from 'utils/layout'
 import { addMonths, addWeeks } from 'date-fns'
 import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
+import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
-import { CalendarRef } from './CalendarComponents/CalendarTypes'
+import { CalendarRef, NewDayComponentProps } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
@@ -56,7 +57,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const opacity = useDerivedValue(() =>
     containerHeight.value >= fullCalendarHeight.value - 60 ? withTiming(1) : withTiming(0)
   )
-
+  const { validPeriodStyles } = useCalendarPeriodStyles()
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
     hidePicker()
     if (event === ACTION_DATE_SET) setSelectedDate(newDate)
@@ -164,7 +165,14 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 hideExtraDays
                 firstDay={1}
                 theme={calendarTheme}
-                dayComponent={CalendarDay}
+                // FIXME: NewCalendar type in CalendarTypes differs from Calendar type defined in react-native-calendars, probably purposely,
+                // but NewCalendar component or the CalendarDay component don't have a type guard to let their props differ, and so runtime type-errors may occur
+                dayComponent={useCallback<F1<NewDayComponentProps>>(
+                  (props) => (
+                    <CalendarDay {...props} styles={validPeriodStyles} />
+                  ),
+                  [validPeriodStyles]
+                )}
                 markedDates={deepmerge(markedDates, {
                   [getISODateString(selectedDate)]: { selected: true },
                 })}
