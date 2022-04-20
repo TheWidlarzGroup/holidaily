@@ -97,11 +97,10 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   const COMMENT_EMOJI_BTNS_WIDTH = 146
   const EMOJI_BTN_WIDTH = 74
 
-  const maxEmojisInFirstLine = +(
-    (footerWidth - COMMENT_EMOJI_BTNS_WIDTH) /
-    EMOJI_BTN_WIDTH
-  ).toFixed(0)
-  const maxEmojisInSecondLine = +(footerWidth / EMOJI_BTN_WIDTH).toFixed(0)
+  const maxEmojisInFirstLine = Math.trunc(
+    +((footerWidth - COMMENT_EMOJI_BTNS_WIDTH) / EMOJI_BTN_WIDTH)
+  )
+  const maxEmojisInSecondLine = Math.trunc(+(footerWidth / EMOJI_BTN_WIDTH))
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
 
   let emojisCounter = 0
@@ -143,7 +142,6 @@ const FooterBarContent = (props: FooterBarContentProps) => {
         {reactions &&
           reactions.map((item, index) => {
             emojisCounter = index
-            if (!item.users?.length) return
             if (!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1) return
             return (
               <ReactionBubble
