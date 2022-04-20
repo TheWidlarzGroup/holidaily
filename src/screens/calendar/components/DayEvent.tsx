@@ -20,7 +20,7 @@ type DayEventProps = { event: DayOffEvent }
 export const DayEvent = ({ event }: DayEventProps) => (
   <Box paddingVertical="s" flexDirection="row" alignItems="center" key={event.person}>
     {event.photo ? (
-      <Avatar src={event?.photo} size="s" />
+      <Avatar src={event?.photo} size="m" />
     ) : (
       <UserIconPlaceholder width={24} height={24} />
     )}
