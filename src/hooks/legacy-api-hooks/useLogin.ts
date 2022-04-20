@@ -9,7 +9,6 @@
 // import { setItem } from 'utils/localStorage'
 // import { setItemAsync } from 'expo-secure-store'
 
-
 // const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
 //   if (errorMessage?.startsWith('invalid_credentials')) {
 //     return translate('invalidCredentials')
@@ -28,7 +27,6 @@
 //   >(loginMutation, {
 //     onSuccess: async (data: LoginUserTypes) => {
 //       const { token, user } = data.loginUser
-
 
 //      if (user.confirmed) {
 //        updateUser({ ...user, confirmed: user.confirmed })
