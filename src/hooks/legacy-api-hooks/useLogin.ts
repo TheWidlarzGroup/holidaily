@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useMutation } from 'react-query'
-
 import { loginMutation } from 'graphqlActions/mutations/loginMutation'
 import { ErrorTypes, LoginTypes, LoginUserTypes } from 'types/useLoginTypes'
 import { useTranslation, TFunction } from 'react-i18next'
-import { setItemAsync } from 'expo-secure-store'
 import { authorizeClient } from 'graphqlActions/client'
 import { useUserContext } from 'hooks/useUserContext'
+import { setItem } from 'utils/localStorage'
+// import { setItemAsync } from 'expo-secure-store'
 
 const customErrorMessage = (translate: TFunction<'mutationsErrors'>, errorMessage: string) => {
   if (errorMessage?.startsWith('invalid_credentials')) {
@@ -29,8 +29,9 @@ export const useLogin = () => {
 
       if (user.confirmed) {
         updateUser({ ...user, confirmed: user.confirmed })
-        await setItemAsync('token', token)
-        await setItemAsync('hideSlider', 'true')
+        // token is not used in demo
+        // await setItemAsync('token', token)
+        await setItem('hideSlider', 'true')
         authorizeClient(token)
       } else {
         const errorMessage = 'Please confirm your account'

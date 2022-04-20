@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import { NativeModules } from 'react-native'
-import { getItemAsync } from 'expo-secure-store'
+import { getItem } from 'utils/localStorage'
 import { isAndroid, isIos } from './src/utils/layout'
 import { locales } from './src/utils/locale'
 import { DateFormat, formatDate } from './src/utils/formatDate'
@@ -12,10 +12,11 @@ let locale = 'en'
 
 export type Languages = typeof resources
 
-if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier
+if (isAndroid) locale = NativeModules.I18nManager.localeIdentifier || 'en'
 else if (isIos) locale = NativeModules?.SettingsManager?.settings?.AppleLanguages[0] || 'en'
 
 if (/en_*/.test(locale)) locale = 'en'
+if (/pl_*/.test(locale)) locale = 'pl'
 
 const resources = {
   pl,
@@ -23,7 +24,8 @@ const resources = {
 }
 
 const initI18 = async () => {
-  const lang = await getItemAsync('language')
+  console.log('importando', locale)
+  const lang = await getItem('language')
   i18next.use(initReactI18next).init({
     resources,
     compatibilityJSON: 'v3',

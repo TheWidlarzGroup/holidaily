@@ -4645,11 +4645,6 @@ expo-modules-core@~0.2.0:
   resolved "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.2.0.tgz"
   integrity sha512-inpfZ5X/BaTtbj2wG9PA9AC0MN8VyId6KSRlVuEg7+ziurHBy/kKDFxpOddUokhwiln2uhoYPSStJjR/tKypdw==
 
-expo-secure-store@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.npmjs.org/expo-secure-store/-/expo-secure-store-10.2.0.tgz"
-  integrity sha512-yNahMY3qzEotAYdsE02ps4yGfDay2twasHfsI/7gJB9SrwXYFx5bJuCDk8uTo8jsm6psvDjO+9VMM2DSPHik2A==
-
 extend-shallow@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/extend-shallow/-/extend-shallow-2.0.1.tgz"
