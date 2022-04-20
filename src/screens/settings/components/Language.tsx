@@ -7,8 +7,8 @@ import Animated from 'react-native-reanimated'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { locales } from 'utils/locale'
-import { setItemAsync } from 'expo-secure-store'
 import { keys } from 'utils/manipulation'
+import { setItem } from 'utils/localStorage'
 import { Languages } from '../../../../i18n'
 import { useLangAnimations } from '../hooks/useLangAnimation'
 import { LangChangeAlert } from './LangChangeAlert'
@@ -31,7 +31,7 @@ export const Language = ({ setLoadingFalse, setLoadingTrue }: LanguageProps) => 
     hideChangeAlert()
     setLoadingTrue()
     selectLng(lng)
-    setItemAsync('language', lng)
+    setItem('language', lng)
   }
 
   useEffect(() => {
