@@ -9,7 +9,7 @@ export type StorageKeys =
   | 'userColor'
   | 'seenNotificationsIds'
   | 'language'
-  | 'hideSlider'
+
 type Callback = F1<Error | null | undefined>
 type MultiCallback = F1<readonly (Error | null)[] | null | undefined>
 
