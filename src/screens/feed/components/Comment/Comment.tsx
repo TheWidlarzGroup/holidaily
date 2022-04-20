@@ -14,7 +14,7 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => (
     <Box marginRight="s" paddingRight={hideAvatar ? 'xl' : 0} paddingLeft={hideAvatar ? 'xs' : 0}>
       {!hideAvatar && <Avatar size="s" src={comment.meta.author.pictureUrl} />}
     </Box>
-    <Bubble padding="xm" flexShrink={1}>
+    <Bubble padding="xm" flexShrink={1} activeOpacity={1}>
       <Text variant="captionText">{comment.text}</Text>
     </Bubble>
   </Box>
