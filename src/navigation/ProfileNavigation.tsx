@@ -1,7 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { EditProfile } from 'screens/editProfile/EditProfile'
-import { ChangePassword } from 'screens/editProfile/components/ChangePassword'
 import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
 import { BubbleContainer } from 'screens/editProfile/components/bubblePicker/BubbleContainer'
 
@@ -15,7 +14,7 @@ export const ProfileNavigation = () => (
   <UserDetailsProvider>
     <ProfileStack.Navigator headerMode="none" initialRouteName="EditProfile" mode="modal">
       <ProfileStack.Screen name="EditProfile" component={EditProfile} />
-      <ProfileStack.Screen name="ChangePassword" component={ChangePassword} />
+      {/* <ProfileStack.Screen name="ChangePassword" component={ChangePassword} /> */}
       <ProfileStack.Screen
         name="ColorPicker"
         component={BubbleContainer}

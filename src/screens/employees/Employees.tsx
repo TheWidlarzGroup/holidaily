@@ -1,21 +1,20 @@
 import React, { useCallback } from 'react'
-import { FlatList } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { useFetchEmployees } from 'hooks/legacy-api-hooks/useFetchEmployees'
+// import { useFetchEmployees } from 'hooks/legacy-api-hooks/useFetchEmployees'
 import { CustomButton } from 'components/CustomButton'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { FilterBox } from './components/FilterBox'
-import { EmployeeBox } from './components/EmployeeBox'
+// import { EmployeeBox } from './components/EmployeeBox'
 
 export const Employees = () => {
   const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
   const { t } = useTranslation('adminPanel')
-  const { employees } = useFetchEmployees()
-  const employeesNoAdmin = employees.filter(({ role }) => role.toUpperCase() !== 'ADMIN')
+  // const { employees } = useFetchEmployees()
+  // const employeesNoAdmin = employees.filter(({ role }) => role.toUpperCase() !== 'ADMIN')
 
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
@@ -33,7 +32,7 @@ export const Employees = () => {
     })
   }
 
-  const renderItem = useCallback(({ item }) => <EmployeeBox {...item} />, [])
+  // const renderItem = useCallback(({ item }) => <EmployeeBox {...item} />, [])
   const onSearch = () => {}
   const onFilter = () => {}
 
@@ -55,18 +54,18 @@ export const Employees = () => {
         {/* TODO: implement pending & former when BE ready */}
         <Box marginHorizontal="m" marginBottom="s">
           <Text variant="lightGreyRegular">{t('joinedEmployees').toUpperCase()}</Text>
-          {employeesNoAdmin.length > 0 ? (
+          {/* {employeesNoAdmin.length > 0 ? (
             <FlatList
               data={employeesNoAdmin}
               keyExtractor={({ id }) => id}
               renderItem={renderItem}
               bounces={false}
             />
-          ) : (
-            <Text variant="regularGrey16" marginTop="xm">
-              {t('noJoined')}
-            </Text>
-          )}
+          ) : ( */}
+          <Text variant="regularGrey16" marginTop="xm">
+            {t('noJoined')}
+          </Text>
+          {/* )} */}
         </Box>
         <Box marginHorizontal="m" marginBottom="s">
           <Text variant="lightGreyRegular">{t('formerEmployees').toUpperCase()}</Text>

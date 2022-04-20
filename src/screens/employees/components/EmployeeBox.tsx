@@ -3,13 +3,13 @@ import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-n
 import { useTranslation } from 'react-i18next'
 import { Box, Text, theme, mkUseStyles } from 'utils/theme'
 import { capitalize } from 'utils/role'
-import { useRemoveFromOrganization } from 'hooks/legacy-api-hooks/useRemoveFromOrganization'
+// import { useRemoveFromOrganization } from 'hooks/legacy-api-hooks/useRemoveFromOrganization'
 import { UserTypes } from 'types/useUserTypes'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { Avatar } from 'components/Avatar'
-import { RoleMenu } from './RoleMenu'
+// import { RoleMenu } from './RoleMenu'
 import { EmployeeBoxButtons } from './EmployeeBoxButtons'
 
 type EmployeeBoxProps = {
@@ -22,10 +22,10 @@ export const EmployeeBox = (p: EmployeeBoxProps) => {
   const styles = useStyles()
   const { t } = useTranslation('adminPanel')
   const { showModal, hideModal } = useModalContext()
-  const { handleRemoveFromOrganization, isSuccess: isSuccessRemoveFromOrganization } =
-    useRemoveFromOrganization()
+  // const { handleRemoveFromOrganization, isSuccess: isSuccessRemoveFromOrganization } =
+  //   useRemoveFromOrganization()
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false)
-  const [userRole, setUserRole] = useState(p.role)
+  // const [userRole, setUserRole] = useState(p.role)
   const userNameToDisplay = p.firstName && p.lastName ? `${p.firstName} ${p.lastName}` : p.email
 
   const onCancelInvitation = () => {
@@ -61,22 +61,22 @@ export const EmployeeBox = (p: EmployeeBoxProps) => {
   const onChangeRole = () => setIsRoleMenuOpen(!isRoleMenuOpen)
 
   const handleAcceptRemoveEmployee = () => {
-    handleRemoveFromOrganization({ userId: p.id })
+    // handleRemoveFromOrganization({ userId: p.id })
     hideModal()
-    if (isSuccessRemoveFromOrganization)
-      setTimeout(
-        () =>
-          showModal(
-            <ChangesSavedModal
-              isVisible
-              hideModal={hideModal}
-              content={t('removedFromOrganization', {
-                name: userNameToDisplay,
-              })}
-            />
-          ),
-        0
-      )
+    // if (isSuccessRemoveFromOrganization)
+    setTimeout(
+      () =>
+        showModal(
+          <ChangesSavedModal
+            isVisible
+            hideModal={hideModal}
+            content={t('removedFromOrganization', {
+              name: userNameToDisplay,
+            })}
+          />
+        ),
+      0
+    )
   }
 
   const onRemoveEmployee = () => {
@@ -140,7 +140,7 @@ export const EmployeeBox = (p: EmployeeBoxProps) => {
           onCancelInvitation={onCancelInvitation}
         />
       </Box>
-      {isRoleMenuOpen && (
+      {/* {isRoleMenuOpen && (
         <RoleMenu
           role={userRole}
           onSelectRole={setUserRole}
@@ -150,7 +150,7 @@ export const EmployeeBox = (p: EmployeeBoxProps) => {
           lastName={p.lastName}
           email={p.email}
         />
-      )}
+      )} */}
     </Animated.View>
   )
 }

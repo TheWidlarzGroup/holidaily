@@ -1,14 +1,14 @@
-import request, { gql } from 'graphql-request'
+// import request, { gql } from 'graphql-request'
 
-import { InitializePasswordResetArgumentsTypes } from 'types/useInitializePasswordResetTypes'
-import { GRAPHQL_ENDPOINT } from '@env'
+// import { InitializePasswordResetArgumentsTypes } from 'types/useInitializePasswordResetTypes'
+// import { GRAPHQL_ENDPOINT } from '@env'
 
-export const initializePasswordResetMutation = ({ email }: InitializePasswordResetArgumentsTypes) =>
-  request(
-    GRAPHQL_ENDPOINT,
-    gql`
-    mutation{
-      initializePasswordReset(email: "${email}") 
-    }
-  `
-  )
+// export const initializePasswordResetMutation = ({ email }: InitializePasswordResetArgumentsTypes) =>
+//   request(
+//     GRAPHQL_ENDPOINT,
+//     gql`
+//     mutation{
+//       initializePasswordReset(email: "${email}")
+//     }
+//   `
+//   )
