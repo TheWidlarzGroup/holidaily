@@ -88,6 +88,7 @@ const useStyles = mkUseStyles((theme) => ({
     borderColor: theme.colors.black,
   },
   button: {
+    backgroundColor: theme.colors.lightGrey,
     borderWidth: 4,
     borderStyle: 'solid',
     borderRadius: theme.borderRadii.xl,
