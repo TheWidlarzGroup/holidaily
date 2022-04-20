@@ -10,7 +10,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2313E96C26A855F5005E8220 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2313E96B26A855F5005E8220 /* GoogleService-Info.plist */; };
 		232E9F8D26B3F69A00949471 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E9F8C26B3F69A00949471 /* NotificationService.swift */; };
 		232E9F9126B3F69A00949471 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 232E9F8A26B3F69A00949471 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7794E26A74159009C34A4 /* BridgeHeader.swift */; };
@@ -59,7 +58,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Holidayly/main.m; sourceTree = "<group>"; };
 		2012E5C6E95D496DB1E18D2A /* Nunito-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Regular.ttf"; path = "../src/assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		20AF024B9A08EFE7A5AEE3FD /* libPods-Holidayly-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Holidayly-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2313E96B26A855F5005E8220 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		232E9F8A26B3F69A00949471 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		232E9F8C26B3F69A00949471 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		232E9F8E26B3F69A00949471 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 		13B07FAE1A68108700A75B9A /* Holidayly */ = {
 			isa = PBXGroup;
 			children = (
-				2313E96B26A855F5005E8220 /* GoogleService-Info.plist */,
 				23E7794C26A73E7A009C34A4 /* Holidayly.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -316,7 +313,6 @@
 				CEED94D62806A1DF00638D39 /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2313E96C26A855F5005E8220 /* GoogleService-Info.plist in Resources */,
 				C9802163B524495DAD789F05 /* Nunito-Bold.ttf in Resources */,
 				78737D9F879D4E579FC97C40 /* Nunito-Regular.ttf in Resources */,
 			);

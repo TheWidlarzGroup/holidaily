@@ -1,28 +1,28 @@
-import { gql } from 'graphql-request'
-import { authorizedClient } from 'graphqlActions/client'
-import { RequestHolidaysTypes } from 'types/useRequestHolidaysTypes'
+// import { gql } from 'graphql-request'
+// import { authorizedClient } from 'graphqlActions/client'
+// import { RequestHolidaysTypes } from 'types/useRequestHolidaysTypes'
 
-export const requestHolidaysMutation = ({
-  startDate,
-  endDate,
-  description,
-  sickTime,
-  message,
-}: RequestHolidaysTypes) =>
-  authorizedClient.request(
-    gql`
-      mutation {
-        requestHolidays(
-          startDate: "${startDate}",
-          endDate: "${endDate}",
-          description: "${description}",
-          sickTime: ${sickTime},
-          message: "${message}"
-        ) {
-          id
-          range
-          status
-        }
-      }
-    `
-  )
+// export const requestHolidaysMutation = ({
+//   startDate,
+//   endDate,
+//   description,
+//   sickTime,
+//   message,
+// }: RequestHolidaysTypes) =>
+//   authorizedClient.request(
+//     gql`
+//       mutation {
+//         requestHolidays(
+//           startDate: "${startDate}",
+//           endDate: "${endDate}",
+//           description: "${description}",
+//           sickTime: ${sickTime},
+//           message: "${message}"
+//         ) {
+//           id
+//           range
+//           status
+//         }
+//       }
+//     `
+//   )

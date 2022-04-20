@@ -4,7 +4,7 @@ import { CustomModal } from 'components/CustomModal'
 import { mkUseStyles, Theme } from 'utils/theme'
 import { colors } from 'utils/theme/colors'
 import { Confetti } from 'components/Confetti'
-import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
+// import { FirstRegisterDialogBox } from './FirstRegisterDialogBox'
 import { SecondRegisterDialogBox } from './SecondRegisterDialogBox'
 
 type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & {
@@ -39,14 +39,14 @@ export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> =
         backdropOpacity={0.8}
         style={styles.modal}
         hideModalContentWhileAnimating>
-        {!isConfirmed ? (
+        {/* {!isConfirmed ? (
           <FirstRegisterDialogBox />
-        ) : (
-          <>
-            <Confetti origin={{ x: -40, y: -10 }} />
-            <SecondRegisterDialogBox hideModal={hideModal} />
-          </>
-        )}
+        ) : ( */}
+        <>
+          <Confetti origin={{ x: -40, y: -10 }} />
+          <SecondRegisterDialogBox hideModal={hideModal} />
+        </>
+        {/* )} */}
       </CustomModal>
     </>
   )
