@@ -44,8 +44,13 @@ export const useAddReaction = () =>
         const allPosts = data
         const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
         if (postIndex !== -1 && allPosts) {
+          const filtered = payload.post.reactions.filter((reaction) => reaction.users.length > 0)
+
+          payload.post.reactions = filtered
+
           allPosts[postIndex] = payload.post
         }
+
         if (allPosts?.length) return [...allPosts]
         return [payload.post]
       })
