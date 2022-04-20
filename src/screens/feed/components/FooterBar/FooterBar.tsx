@@ -98,9 +98,9 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   const EMOJI_BTN_WIDTH = 74
 
   const maxEmojisInFirstLine = Math.trunc(
-    +((footerWidth - COMMENT_EMOJI_BTNS_WIDTH) / EMOJI_BTN_WIDTH)
+    (footerWidth - COMMENT_EMOJI_BTNS_WIDTH) / EMOJI_BTN_WIDTH
   )
-  const maxEmojisInSecondLine = Math.trunc(+(footerWidth / EMOJI_BTN_WIDTH))
+  const maxEmojisInSecondLine = Math.trunc(footerWidth / EMOJI_BTN_WIDTH)
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
 
   let emojisCounter = 0
