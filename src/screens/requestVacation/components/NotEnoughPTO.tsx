@@ -15,9 +15,9 @@ export const NotEnoughPTO = (p: NotEnoughPtoProps) => {
   const { t } = useTranslation('requestVacation')
   return (
     <>
-      <Box flexDirection="row" alignItems="flex-start">
+      <Box flex={1} flexDirection="row" alignItems="flex-start">
         <Box
-          margin="m"
+          marginRight="m"
           bg="errorRed"
           height={28}
           width={28}
@@ -27,7 +27,7 @@ export const NotEnoughPTO = (p: NotEnoughPtoProps) => {
           justifyContent="center">
           <ExlamationMark color="white" />
         </Box>
-        <Box>
+        <Box flex={1}>
           <Text fontSize={15} lineHeight={20}>
             {t('error')}
           </Text>
