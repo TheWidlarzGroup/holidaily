@@ -20,7 +20,7 @@ type DetailsProps = {
 export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const { control, register, errors } = useForm()
-  const { sickTime } = useRequestVacationContext()
+  const { sickTime, isPeriodInvalid } = useRequestVacationContext()
   const styles = useStyles()
   const { t } = useTranslation('requestVacation')
 
@@ -31,6 +31,7 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
       </Text>
       <Box marginTop="m">
         <InputButton
+          isError={isPeriodInvalid}
           inputLabel={t('detailsDate')}
           onClick={() => navigation.navigate('RequestVacationCalendar', { isSickTime: sickTime })}
           value={getFormattedPeriod(date.start, date.end)}

@@ -5,7 +5,7 @@ import { Box, Text } from 'utils/theme/index'
 
 type TakenPtoSummaryProps = {
   ptoTaken: number
-  wasSent?: true
+  wasSent?: boolean
 }
 
 export const TakenPtoSummary = ({ ptoTaken, wasSent }: TakenPtoSummaryProps) => {
