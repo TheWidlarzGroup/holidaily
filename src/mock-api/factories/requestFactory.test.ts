@@ -6,7 +6,7 @@ const isWeekend = (date: Date) => [0, 6].includes(date.getDay())
 describe('genDayOff', () => {
   it('should not throw invalid interval error', () => {
     // function output is random and hard to test, so the for loop.
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 1000; i++) {
       const request = genRandomDayOffRequest()
       expect(isWeekend(new Date(request.startDate))).toBe(false)
       expect(isWeekend(new Date(request.endDate))).toBe(false)
@@ -16,7 +16,7 @@ describe('genDayOff', () => {
     }
   })
   it('helpers should not generate instances of Invalid Date', () => {
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 1000; i++) {
       const { futureDate, pastDate } = drawDates()
       expect(() => genStartDate(futureDate).toISOString()).not.toThrow()
       expect(() => genEndDate(pastDate).toISOString()).not.toThrow()
@@ -35,7 +35,7 @@ describe('genDayOff', () => {
   })
 
   it('accepted, declined and cancelled requests should be happening in the future', () => {
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 1000; i++) {
       let request = genRandomDayOffRequest('accepted')
       let startTime = new Date(request.startDate).getTime()
       let endTime = new Date(request.endDate).getTime()
