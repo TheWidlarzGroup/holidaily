@@ -101,7 +101,6 @@ export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
       }
       break
   }
-
   const isSickTime = ['now', 'past'].includes(status) && !!(randomInt() % 2)
   return {
     ...request,
