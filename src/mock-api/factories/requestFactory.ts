@@ -126,10 +126,10 @@ export function drawDates() {
   const recentDate = faker.date.recent(7)
   const soonDate = faker.date.soon(7)
   // draw only working days
-  while (!isWorkingDay(futureDate) || futureDate.getTime() - Date.now() < 2 * DAY_IN_MS) {
+  while (!isWorkingDay(futureDate) || futureDate.getTime() - Date.now() < 14 * DAY_IN_MS) {
     futureDate = faker.date.future()
   }
-  while (!isWorkingDay(pastDate) || Date.now() - pastDate.getTime() < 2 * DAY_IN_MS) {
+  while (!isWorkingDay(pastDate) || Date.now() - pastDate.getTime() < 14 * DAY_IN_MS) {
     pastDate = faker.date.past()
   }
   while (!isWorkingDay(recentDate) || Date.now() - recentDate.getTime() < DAY_IN_MS) {
