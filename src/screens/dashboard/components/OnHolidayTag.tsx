@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 
 import IconPalm from 'assets/icons/icon-palm.svg'
 
@@ -10,7 +10,7 @@ type OnHolidayTagProps = {
 
 export const OnHolidayTag = (props: OnHolidayTagProps) => {
   const { variant, background } = props
-
+  const theme = useTheme()
   const size = variant === 'small' ? 36 : 51
   const styles = {
     width: size,
@@ -30,7 +30,7 @@ export const OnHolidayTag = (props: OnHolidayTagProps) => {
       position="absolute"
       justifyContent="center"
       style={{ ...styles }}>
-      <IconPalm width={iconWidth} height={iconHeight} />
+      <IconPalm color={theme.colors.black} width={iconWidth} height={iconHeight} />
     </Box>
   )
 }
