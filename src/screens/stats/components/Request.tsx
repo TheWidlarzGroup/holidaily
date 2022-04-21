@@ -7,7 +7,7 @@ import { Additional, AdditionalsIcons } from './AdditionalsIcons'
 import { StatusIcon } from './StatusIcon'
 
 export const Request = (p: DayOffRequest) => {
-  const { t } = useTranslation('stats')
+  const { t } = useTranslation(['stats', 'requestVacation'])
   const [additionals, setAdditionals] = useState<Additional[]>([])
   const [daysBetween, setDaysBetween] = useState(1)
 
@@ -37,11 +37,11 @@ export const Request = (p: DayOffRequest) => {
           <StatusIcon status={p.status} />
           <Box paddingHorizontal="m" paddingVertical="xm">
             <Text variant="bold16" marginBottom="s">
-              {p.description}
+              {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
             </Text>
             <Text variant="captionText">{getFormattedPeriod(p.startDate, p.endDate, 'long')}</Text>
             <Text variant="captionText" color="headerGrey">
-              {daysBetween} {daysBetween > 1 ? t('days') : t('day')}
+              {daysBetween} {daysBetween > 1 ? t('stats:days') : t('stats:day')}
             </Text>
           </Box>
         </Box>
