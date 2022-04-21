@@ -231,6 +231,7 @@
     "day": "dzień",
     "days": "dni",
     "requests": "ŻĄDANIA URLOPU",
+    "ongoingRequestsHeader": "W TRAKCIE",
     "acceptedRequestsHeader": "ZATWIERDZONE",
     "pendingRequestsHeader": "OCZEKUJĄCE",
     "pastRequestsHeader": "WYKORZYSTANE",
