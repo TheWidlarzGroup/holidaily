@@ -1,5 +1,5 @@
 import React from 'react'
-import { Linking } from 'react-native'
+import { Linking, ScrollView } from 'react-native'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
 import ShieldCheckIcon from 'assets/icons/icon-shield-check.svg'
@@ -10,6 +10,7 @@ import { ModalHeader } from 'components/ModalHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { PrivacyPolicyContent } from './PrivacyPolicyContent'
 
 export const AboutLinks = () => {
   const theme = useTheme()
@@ -77,6 +78,8 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
           <Text variant="header">{t('privacyPolicy')}</Text>
           <Box paddingRight="xl" />
         </ModalHeader>
+
+        <PrivacyPolicyContent />
       </SafeAreaView>
     </Modal>
   )
