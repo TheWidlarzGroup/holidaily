@@ -1,9 +1,9 @@
 import React from 'react'
-import { CustomButton } from 'components/CustomButton'
 import { Box, mkUseStyles } from 'utils/theme/index'
 import { useTranslation } from 'react-i18next'
 import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
+import { Submit } from 'components/Submit'
 
 type SummaryRequestVacationProps = {
   description: string
@@ -49,15 +49,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         status={'pending'}
       />
       {!p.hideNext && (
-        <CustomButton
-          label={t('sendRequest')}
-          variant="primary"
-          onPress={onSubmit}
-          style={styles.button}
-          loading={isLoading}
-          maxWidth={250}
-          alignSelf="center"
-        />
+        <Submit onCTAPress={onSubmit} disabledCTA={false} noBg text={t('sendRequest')} />
       )}
     </Box>
   )

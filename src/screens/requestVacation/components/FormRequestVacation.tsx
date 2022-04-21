@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react'
 import { ScrollView } from 'react-native'
 import { Box } from 'utils/theme/index'
-import { CustomButton } from 'components/CustomButton'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useTranslation } from 'react-i18next'
+import { Submit } from 'components/Submit'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -114,14 +114,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             autofocus
           />
         ) : (
-          <CustomButton
-            label={t('CTA')}
-            variant="primary"
-            onPress={handleFormSubmit}
-            marginTop={20}
-            maxWidth={250}
-            alignSelf="center"
-          />
+          <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
         )}
       </Box>
       <ConfirmationModal

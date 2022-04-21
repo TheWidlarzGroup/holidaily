@@ -8,7 +8,7 @@ import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
 import { ModalLocationPicker } from './ModalLocationPicker'
-import { Submit } from './PostFormFooter/Submit'
+import { Submit } from 'components/Submit'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
