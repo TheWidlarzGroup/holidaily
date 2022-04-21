@@ -7,9 +7,8 @@ import { useLanguage } from 'hooks/useLanguage'
 export type EventsListProps = {
   days: DayInfoProps[]
 }
-const ITEM_HEIGHT = 49.9 + 16
-const WEEKEND_HEIGHT = 50.5 + 5
-const EVENT_HEIGHT = 46
+const ITEM_HEIGHT = 72
+const EVENT_HEIGHT = 78
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => {
   const [language] = useLanguage()
   return (
@@ -43,18 +42,12 @@ export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: nu
       index,
     }
   let prevEventsCount = 0
-  let prevWeekendsCount = 0
   for (let i = 0; i < index; i++) {
     prevEventsCount += data[i]?.events?.length ? data[i].events?.length || 0 : 0
-    prevWeekendsCount += data[i]?.weekend ? 1 : 0
   }
   return {
     length: ITEM_HEIGHT,
-    offset:
-      index * ITEM_HEIGHT +
-      prevEventsCount * EVENT_HEIGHT -
-      prevWeekendsCount * ITEM_HEIGHT +
-      prevWeekendsCount * WEEKEND_HEIGHT,
+    offset: index * ITEM_HEIGHT + prevEventsCount * EVENT_HEIGHT,
     index,
   }
 }
