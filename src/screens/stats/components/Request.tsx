@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { calculatePTO, getFormattedPeriod } from 'utils/dates'
+import { calculatePTO, getFormattedPeriod, isDateBetween } from 'utils/dates'
 import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
@@ -34,7 +34,10 @@ export const Request = (p: DayOffRequest) => {
       overflow="hidden">
       <Box>
         <Box flexDirection="row">
-          <StatusIcon status={p.status} />
+          <StatusIcon
+            status={p.status}
+            isOngoing={p.status === 'accepted' && isDateBetween(new Date(), p.startDate, p.endDate)}
+          />
           <Box paddingHorizontal="m" paddingVertical="xm">
             <Text variant="bold16" marginBottom="s">
               {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
