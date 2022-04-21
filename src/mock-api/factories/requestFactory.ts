@@ -1,7 +1,7 @@
 import faker from '@faker-js/faker'
 import { Factory } from 'miragejs'
 import { DayOffRequest } from 'mock-api/models'
-import { isHoliday } from 'poland-public-holidays'
+import { isWorkingDay } from 'poland-public-holidays'
 import { isDateBetween } from 'utils/dates'
 import { getRandomValue } from 'utils/getRandomValue'
 
@@ -58,9 +58,10 @@ export const genManyRequests = (count: number) => {
   return requests
 }
 
-export function genRandomDayOffRequest(): Omit<DayOffRequest, 'id'> {
+export function genRandomDayOffRequest(
+  status: DayOffRequest['status'] | 'now' = genReqStatus()
+): Omit<DayOffRequest, 'id'> {
   let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'>
-  const status = genReqStatus()
   const { futureDate, pastDate, recentDate, soonDate } = drawDates()
 
   switch (status) {
@@ -119,23 +120,23 @@ function randomInt(max = 10, min = 0) {
   return Math.ceil(Math.random() * max - min) + min
 }
 
-function drawDates() {
+export function drawDates() {
   let futureDate = faker.date.future()
   let pastDate = faker.date.past()
   const recentDate = faker.date.recent(7)
   const soonDate = faker.date.soon(7)
   // draw only working days
-  while (!isWorkingDay(futureDate)) {
+  while (!isWorkingDay(futureDate) || futureDate.getTime() - Date.now() < 2 * DAY_IN_MS) {
     futureDate = faker.date.future()
   }
-  while (!isWorkingDay(pastDate)) {
-    pastDate = faker.date.future()
+  while (!isWorkingDay(pastDate) || Date.now() - pastDate.getTime() < 2 * DAY_IN_MS) {
+    pastDate = faker.date.past()
   }
-  while (!isWorkingDay(recentDate)) {
-    recentDate.setTime(recentDate.getTime() + DAY_IN_MS)
+  while (!isWorkingDay(recentDate) || Date.now() - recentDate.getTime() < DAY_IN_MS) {
+    recentDate.setTime(recentDate.getTime() - DAY_IN_MS)
   }
-  while (!isWorkingDay(soonDate)) {
-    soonDate.setTime(soonDate.getTime() - DAY_IN_MS)
+  while (!isWorkingDay(soonDate) || soonDate.getTime() - Date.now() < DAY_IN_MS) {
+    soonDate.setTime(soonDate.getTime() + DAY_IN_MS)
   }
   return { futureDate, pastDate, recentDate, soonDate }
 }
@@ -151,27 +152,38 @@ function genReqStatus(): DayOffRequest['status'] | 'now' {
   return 'now'
 }
 
-function genStartDate(endDate: Date) {
+export function genStartDate(endDate: Date) {
   const date = faker.date.between(
     biggerOfTwo(Date.now() + DAY_IN_MS, endDate.getTime() - 7 * DAY_IN_MS),
     endDate
   )
+
+  // vacation should last at least one day
+  while (endDate.getTime() - date.getTime() < DAY_IN_MS) {
+    date.setTime(date.getTime() - DAY_IN_MS)
+  }
   // don't start on weekends/holidays
   while (!isWorkingDay(date)) {
-    date.setTime(date.getTime() + DAY_IN_MS)
+    date.setTime(date.getTime() - DAY_IN_MS)
   }
+
   return date
 }
 
-function genEndDate(startDate: Date) {
+export function genEndDate(startDate: Date) {
   const date = faker.date.between(
     startDate,
     smallerOfTwo(Date.now() - DAY_IN_MS, startDate.getTime() + 7 * DAY_IN_MS)
   )
+  // vacation should last at least one day
+  while (date.getTime() - startDate.getTime() < DAY_IN_MS) {
+    date.setTime(date.getTime() + DAY_IN_MS)
+  }
   // don't end on weekend/holidays
   while (!isWorkingDay(date)) {
-    date.setTime(date.getTime() - DAY_IN_MS)
+    date.setTime(date.getTime() + DAY_IN_MS)
   }
+
   return date
 }
 
@@ -183,10 +195,4 @@ function biggerOfTwo(a: number, b: number) {
 function smallerOfTwo(a: number, b: number) {
   if (a - b < 0) return a
   return b
-}
-
-function isWorkingDay(date: Date) {
-  const weekDay = date.getDay()
-  if (weekDay === 0 || weekDay === 6) return true
-  return isHoliday(date)
 }
