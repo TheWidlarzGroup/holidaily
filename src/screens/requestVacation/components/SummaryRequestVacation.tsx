@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, mkUseStyles } from 'utils/theme/index'
+import { Box } from 'utils/theme/index'
 import { useTranslation } from 'react-i18next'
 import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
