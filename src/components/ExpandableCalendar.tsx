@@ -104,7 +104,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     minHeight: containerHeight.value,
   }))
   const weekOpacity = useAnimatedStyle(() => ({
-    opacity: 1 - opacity.value,
+    opacity: containerHeight.value < 200 ? 1 : 0,
   }))
   const fullOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,

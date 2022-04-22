@@ -21,10 +21,11 @@ const CalendarToWrap = () => {
     currentMonthDays,
   } = useCalendarData()
 
-  const handleDayPress = ({ dateString, day }: { dateString: string; day: number }) => {
-    if (currentMonthDays.length > 0 && currentMonthDays.length > day - 1) {
-      flatListRef.current?.scrollToIndex({ index: day - 1, animated: true })
-    }
+  const handleDayPress = ({ dateString }: { dateString: string }) => {
+    const dayEvents = currentMonthDays.find((a) => a.date === dateString)
+    if (!dayEvents) return
+    const index = currentMonthDays.indexOf(dayEvents)
+    flatListRef.current?.scrollToIndex({ index, animated: true })
     setTimeout(() => setSelectedDate(parseISO(dateString)))
   }
 

@@ -225,12 +225,14 @@
     "wait": "Jeszcze chwilkę..."
   },
   "stats": {
+    "score": "Twój wynik",
     "availablePto": "dni wolnego",
     "takenPto": "wykorzystanego urlopu",
     "sickdaysTaken": "wziętych dni urlopu chorobowego",
     "day": "dzień",
     "days": "dni",
     "requests": "ŻĄDANIA URLOPU",
+    "ongoingRequestsHeader": "W TRAKCIE",
     "acceptedRequestsHeader": "ZATWIERDZONE",
     "pendingRequestsHeader": "OCZEKUJĄCE",
     "pastRequestsHeader": "WYKORZYSTANE",
