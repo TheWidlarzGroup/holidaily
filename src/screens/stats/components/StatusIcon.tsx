@@ -4,11 +4,23 @@ import SpinnerIcon from 'assets/icons/icon-spinner.svg'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
 import CrossIcon from 'assets/icons/icon-close.svg'
+import PalmIcon from 'assets/icons/icon-palm.svg'
 import { DayOffRequest } from 'mock-api/models'
 
-export const StatusIcon = ({ status }: { status: DayOffRequest['status'] }) => {
+export const StatusIcon = ({
+  status,
+  isOngoing,
+}: {
+  status: DayOffRequest['status']
+  isOngoing?: boolean
+}) => {
   const theme = useTheme()
-
+  if (isOngoing)
+    return (
+      <Box backgroundColor="special" {...commonIconProps}>
+        <PalmIcon color={theme.colors.white} />
+      </Box>
+    )
   switch (status) {
     case 'accepted':
       return (

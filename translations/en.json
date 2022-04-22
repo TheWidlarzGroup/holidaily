@@ -232,6 +232,7 @@
     "day": "day",
     "days": "days",
     "requests": "Requests",
+    "ongoingRequestsHeader": "NOW",
     "acceptedRequestsHeader": "ACCEPTED",
     "pendingRequestsHeader": "PENDING",
     "pastRequestsHeader": "PAST",

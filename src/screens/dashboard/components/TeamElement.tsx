@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, BaseOpacity } from 'utils/theme'
+import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
 import { SIZE_W, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
@@ -12,7 +12,7 @@ type TeamElementProps = Team & {
 
 export const TeamElement = (props: TeamElementProps) => {
   const { id, name, users, navigateToTeamScreen } = props
-
+  const theme = useTheme()
   return (
     <Box key={id} width={SIZE_W} height={SIZE_H}>
       <BaseOpacity
@@ -25,7 +25,7 @@ export const TeamElement = (props: TeamElementProps) => {
         <Box flexDirection="row" justifyContent="space-between">
           <Text variant="label1">{name}</Text>
           <Box flexDirection="row" alignItems="center">
-            <IconPalm width={16} height={16} />
+            <IconPalm color={theme.colors.black} width={16} height={16} />
             <Text variant="label1" marginLeft="s">
               {qtyOnHolidayNow(users)}
             </Text>
