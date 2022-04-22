@@ -10,7 +10,11 @@ import { ModalHeader } from 'components/ModalHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { isAndroid } from 'utils/layout'
 import { PrivacyPolicyContent } from './PrivacyPolicyContent'
+
+const ANDROID_RATE_LINK = 'market://details?id=com.holidaily'
+const COMPANY_WEBSITE_LINK = 'https://thewidlarzgroup.com'
 
 export const AboutLinks = () => {
   const theme = useTheme()
@@ -23,7 +27,9 @@ export const AboutLinks = () => {
         alignItems="center"
         marginBottom="s"
         onPress={async () => {
-          await Linking.openURL('https://thewidlarzgroup.com')
+          if (isAndroid && (await Linking.canOpenURL(ANDROID_RATE_LINK)))
+            await Linking.openURL(ANDROID_RATE_LINK)
+          else await Linking.openURL(COMPANY_WEBSITE_LINK)
         }}>
         <StarIcon color={theme.colors.black} />
         <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24}>
