@@ -51,7 +51,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HolidaylyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HolidaylyTests.m; sourceTree = "<group>"; };
 		0ACCB18F02DBAE438C0081F4 /* Pods-Holidayly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly.release.xcconfig"; path = "Target Support Files/Pods-Holidayly/Pods-Holidayly.release.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Holidayly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Holidayly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Holidaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Holidaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Holidayly/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Holidayly/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Holidayly/Images.xcassets; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Holidayly.app */,
+				13B07F961A680F5B00A75B9A /* Holidaily.app */,
 				232E9F8A26B3F69A00949471 /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
@@ -227,9 +227,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* Holidayly */ = {
+		13B07F861A680F5B00A75B9A /* Holidaily */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Holidayly" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Holidaily" */;
 			buildPhases = (
 				70221E3BFB4BBBA2F453902F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -246,9 +246,9 @@
 			dependencies = (
 				232E9F9026B3F69A00949471 /* PBXTargetDependency */,
 			);
-			name = Holidayly;
+			name = Holidaily;
 			productName = Holidayly;
-			productReference = 13B07F961A680F5B00A75B9A /* Holidayly.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Holidaily.app */;
 			productType = "com.apple.product-type.application";
 		};
 		232E9F8926B3F69A00949471 /* OneSignalNotificationServiceExtension */ = {
@@ -289,7 +289,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Holidayly" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Holidaily" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -302,7 +302,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* Holidayly */,
+				13B07F861A680F5B00A75B9A /* Holidaily */,
 				232E9F8926B3F69A00949471 /* OneSignalNotificationServiceExtension */,
 			);
 		};
@@ -498,7 +498,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.holidaily;
-				PRODUCT_NAME = Holidayly;
+				PRODUCT_NAME = Holidaily;
 				SWIFT_OBJC_BRIDGING_HEADER = "Holidayly-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -528,7 +528,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.holidaily;
-				PRODUCT_NAME = Holidayly;
+				PRODUCT_NAME = Holidaily;
 				PROVISIONING_PROFILE_SPECIFIER = "Fastlane-holidaily";
 				SWIFT_OBJC_BRIDGING_HEADER = "Holidayly-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -717,7 +717,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Holidayly" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Holidaily" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -735,7 +735,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Holidayly" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Holidaily" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
