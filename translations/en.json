@@ -227,7 +227,7 @@
   "stats": {
     "score": "Your score",
     "availablePto": "days of PTO",
-    "takenPto": "days of PTO used",
+    "takenPto": " of PTO used",
     "sickdaysTaken": "sick days taken",
     "day": "day",
     "days": "days",

@@ -159,7 +159,7 @@ const countAvailablePto = (
       if (req.status !== 'cancelled' && !req.isSickTime)
         availablePto -= calculatePTO(req.startDate, req.endDate)
     })
-    if (availablePto < 0) availablePto = 0
+    if (availablePto < 7) availablePto = 7
   }
   return availablePto
 }
