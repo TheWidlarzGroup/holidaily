@@ -1,5 +1,4 @@
 import React from 'react'
-import { Linking } from 'react-native'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
 import ShieldCheckIcon from 'assets/icons/icon-shield-check.svg'
