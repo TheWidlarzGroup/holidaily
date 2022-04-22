@@ -31,7 +31,7 @@ export const Welcome = () => {
   }
 
   return (
-    <SafeAreaWrapper>
+    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
         <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">

@@ -8,7 +8,7 @@ const waveImgSrc = require('assets/Wave.png')
 export const AboutBackground = () => {
   const styles = useStyles()
   return (
-    <Box flex={1} alignItems="center" justifyContent="center">
+    <Box flex={1} alignItems="center" justifyContent="center" zIndex="-1">
       <FastImage style={styles.manImage} source={manImgSrc} resizeMode="contain" />
       <FastImage style={styles.waveImage} source={waveImgSrc} resizeMode="contain" />
     </Box>
