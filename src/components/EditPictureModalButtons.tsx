@@ -24,7 +24,9 @@ export const EditPictureModalButtons = ({
         flexDirection="row"
         alignItems="center"
         justifyContent="flex-start">
-        <EditIcon color={theme.colors.black} />
+        <Box marginHorizontal={'-s'}>
+          <EditIcon width={34} height={34} color={theme.colors.black} />
+        </Box>
         <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('changePicture')}</Text>
         </Box>
