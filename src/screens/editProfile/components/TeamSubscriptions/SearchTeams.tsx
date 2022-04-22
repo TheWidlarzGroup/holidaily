@@ -2,8 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
-import { TEAMS, TeamsType } from 'utils/mocks/teamsMocks'
+import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
+import { LoadingModal } from 'components/LoadingModal'
 import { SearchResults } from './SearchResults'
 import {
   filterNotSubmittedTeams,
@@ -26,13 +27,14 @@ export const SearchTeams = (p: SearchBarProps) => {
   const [masterData, setMasterData] = useState<ParsedTeamsType[]>([])
   const [filteredTeams, setFilteredTeams] = useState<ParsedTeamsType[]>([])
   const [searchedItems, setSearchedItems] = useState<ParsedTeamsType[]>([])
+  const { TEAMS, isLoading } = useTeamMocks()
   const { goBack } = useNavigation()
   const { t } = useTranslation('userProfile')
   const filterAlreadySubmittedSubscriptions = useCallback(() => {
     const teamsAvailableToSubscribe = filterNotSubmittedTeams(TEAMS, p.userTeams)
     setMasterData(teamsAvailableToSubscribe)
     setFilteredTeams(teamsAvailableToSubscribe)
-  }, [p.userTeams])
+  }, [p.userTeams, TEAMS])
 
   const searchFilter = (text: string) => {
     setSearchPhrase(text)
@@ -48,7 +50,7 @@ export const SearchTeams = (p: SearchBarProps) => {
 
   useEffect(() => {
     if (TEAMS) filterAlreadySubmittedSubscriptions()
-  }, [filterAlreadySubmittedSubscriptions])
+  }, [filterAlreadySubmittedSubscriptions, TEAMS])
 
   const toggleSelection = (id: number | string) => {
     masterData.forEach((team) => {
@@ -86,7 +88,7 @@ export const SearchTeams = (p: SearchBarProps) => {
       goBack()
     }
   }
-
+  if (isLoading) return <LoadingModal show />
   return (
     <>
       <SearchHeader handleGoBack={handleGoBack} />
