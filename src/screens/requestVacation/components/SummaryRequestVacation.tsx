@@ -17,7 +17,6 @@ type SummaryRequestVacationProps = {
 }
 
 export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVacationProps) => {
-  const styles = useStyles()
   const { t } = useTranslation('requestVacation')
 
   const { mutate, isLoading } = useCreateDayOffRequest()
@@ -49,14 +48,14 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         status={'pending'}
       />
       {!p.hideNext && (
-        <Submit onCTAPress={onSubmit} disabledCTA={false} noBg text={t('sendRequest')} />
+        <Submit
+          loading={isLoading}
+          onCTAPress={onSubmit}
+          disabledCTA={false}
+          noBg
+          text={t('sendRequest')}
+        />
       )}
     </Box>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  button: {
-    marginTop: 20,
-  },
-}))

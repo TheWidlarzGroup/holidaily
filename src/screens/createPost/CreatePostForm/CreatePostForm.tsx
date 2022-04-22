@@ -3,12 +3,12 @@ import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
 import { ModalLocationPicker } from './ModalLocationPicker'
-import { Submit } from 'components/Submit'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
