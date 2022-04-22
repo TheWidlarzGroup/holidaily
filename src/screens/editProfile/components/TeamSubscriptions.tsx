@@ -7,13 +7,16 @@ import { BaseOpacity, Box, Text, mkUseStyles, Theme, useTheme } from 'utils/them
 import { TeamsType } from 'utils/mocks/teamsMocks'
 import IconAdd from 'assets/icons/icon-add.svg'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { ConfirmationModal } from 'components/ConfirmationModal'
+import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
 
+type TeamProps = {
+  teamName: string
+  filterUnsubscribedTeams: F1<string>
+}
+
 export const TeamSubscriptions = () => {
-  const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
-  const styles = useStyles()
   const theme = useTheme()
   const { navigate } = useNavigation()
   const { userTeams, setUserTeams } = useUserDetailsContext()
@@ -28,30 +31,6 @@ export const TeamSubscriptions = () => {
   const filterUnsubscribedTeams = (teamName: string) => {
     const subscriptions = userTeams.filter((team) => team.teamName !== teamName)
     setUserTeams(subscriptions)
-  }
-
-  const showChangesSavedModal = (teamName: string) =>
-    showModal(
-      <ChangesSavedModal
-        isVisible
-        hideModal={hideModal}
-        content={t('unsubscribed', { teamName })}
-      />
-    )
-  const onUnsubscribeTeam = (teamName: string) => {
-    showModal(
-      <ConfirmationModal
-        isVisible
-        hideModal={hideModal}
-        onAccept={() => {
-          hideModal()
-          filterUnsubscribedTeams(teamName)
-          showChangesSavedModal(teamName)
-        }}
-        onDecline={hideModal}
-        content={t('ifYouUnsubscribe', { teamName })}
-      />
-    )
   }
 
   return (
@@ -74,14 +53,39 @@ export const TeamSubscriptions = () => {
       </BaseOpacity>
       <Box flexDirection="row" marginRight="xl" flexWrap="wrap">
         {teams.map(({ teamName, id }) => (
-          <RectButton onPress={() => onUnsubscribeTeam(teamName)} key={id} style={styles.team}>
-            <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm">
-              {teamName}
-            </Text>
-          </RectButton>
+          <Team teamName={teamName} key={id} filterUnsubscribedTeams={filterUnsubscribedTeams} />
         ))}
       </Box>
     </Box>
+  )
+}
+
+const Team = (p: TeamProps) => {
+  const { t } = useTranslation('userProfile')
+  const { hideModal, showModal } = useModalContext()
+  const showChangesSavedModal = (teamName: string) =>
+    showModal(
+      <ChangesSavedModal
+        isVisible
+        hideModal={hideModal}
+        content={t('unsubscribed', { teamName })}
+      />
+    )
+  const onUnsubscribeTeam = useWithConfirmation({
+    onAccept: () => {
+      p.filterUnsubscribedTeams(p.teamName)
+      showChangesSavedModal(p.teamName)
+    },
+    content: t('ifYouUnsubscribe', { teamName: p.teamName }),
+  })
+
+  const styles = useStyles()
+  return (
+    <RectButton onPress={onUnsubscribeTeam} style={styles.team}>
+      <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm">
+        {p.teamName}
+      </Text>
+    </RectButton>
   )
 }
 

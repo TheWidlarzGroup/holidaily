@@ -4,7 +4,7 @@ import { UserProfileNavigationProps } from 'navigation/types'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 import { useUserDetailsContext } from '../helpers/UserDetailsContext'
-import { SearchBar } from './TeamSubscriptions/SearchBar'
+import { SearchTeams } from './TeamSubscriptions/SearchTeams'
 import { SaveSubscriptions } from './TeamSubscriptions/SaveSubscriptions'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
@@ -26,15 +26,12 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           borderTopLeftRadius="lmin"
           padding="l"
           style={styles.shadow}>
-          <SearchBar
+          <SearchTeams
             setSubscribedTeams={setSubscribedTeams}
             subscribedTeams={subscribedTeams}
             userTeams={userTeams}
           />
-          <SaveSubscriptions
-            subscribedTeams={subscribedTeams}
-            disabled={!!subscribedTeams.length}
-          />
+          <SaveSubscriptions subscribedTeams={subscribedTeams} disabled={!subscribedTeams.length} />
         </Box>
       </Box>
     </SafeAreaWrapper>
