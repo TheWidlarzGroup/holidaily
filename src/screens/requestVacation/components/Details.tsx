@@ -15,9 +15,11 @@ type DetailsProps = {
     end?: Date
   }
   onDescriptionChange: F1<string>
+  hideNext: F0
+  showNext: F0
 }
 
-export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
+export const Details = ({ date, onDescriptionChange, hideNext, showNext }: DetailsProps) => {
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const { control, register, errors } = useForm()
   const { sickTime, isPeriodInvalid } = useRequestVacationContext()
@@ -47,6 +49,8 @@ export const Details = ({ date, onDescriptionChange }: DetailsProps) => {
           validationPattern={/$/}
           errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
+          onTouchStart={hideNext}
+          onBlur={showNext}
           autoCompleteType="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
           {...register('description', { required: false })}

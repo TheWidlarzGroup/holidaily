@@ -52,6 +52,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
   const [attachmentsToRemove, setAttachmentsToRemove] = useState<string[]>([])
+  const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
 
   const { t } = useTranslation('requestVacation')
 
@@ -92,7 +93,12 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     <Box flex={1}>
       <ScrollView>
         <Box margin="ml" paddingBottom="xxxl">
-          <Details onDescriptionChange={handleDescriptionChange} date={date} />
+          <Details
+            showNext={showNext}
+            hideNext={hideNext}
+            onDescriptionChange={handleDescriptionChange}
+            date={date}
+          />
           <SickTime sickTime={sickTime} toggle={toggleSickTime} />
           <Additionals
             onPressMessage={toggleShowMessageInput}
@@ -114,7 +120,9 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             autofocus
           />
         ) : (
-          <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
+          isNextVisible && (
+            <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
+          )
         )}
       </Box>
       <ConfirmationModal
