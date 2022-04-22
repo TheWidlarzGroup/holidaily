@@ -9,14 +9,14 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { isSmallScreen } from 'utils/deviceSizes'
-import { MIN_PLUS_ICON_WIDTH } from 'navigation/BottomTabNavigator'
 
 type NavigationDotProps = {
   width: number
   activeTabIndex: number
+  minIconWidth: number
 }
 
-export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex }) => {
+export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, minIconWidth }) => {
   const startingPos = (width - 5) / 2
   const dotWidth = useSharedValue(5)
   const dotHeight = useSharedValue(5)
@@ -34,12 +34,9 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex })
 
   useEffect(() => {
     if (isSmallScreen && activeTabIndex > 2) {
-      translateX.value = withTiming(
-        startingPos + MIN_PLUS_ICON_WIDTH + (activeTabIndex - 1) * width,
-        {
-          duration: 600,
-        }
-      )
+      translateX.value = withTiming(startingPos + minIconWidth + (activeTabIndex - 1) * width, {
+        duration: 600,
+      })
     } else {
       translateX.value = withTiming(startingPos + activeTabIndex * width, { duration: 600 })
     }

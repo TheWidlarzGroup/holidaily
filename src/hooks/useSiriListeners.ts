@@ -11,13 +11,16 @@ export const useSiriListeners = () => {
   }, [])
 
   useEffect(() => {
-    SiriShortcutsEvent.addListener('SiriShortcutListener', ({ activityType, userInfo }) => {
-      if (activityType === 'com.holidaily.AddRequest') {
-        navigation.navigate('RequestVacation', userInfo)
+    const listener = SiriShortcutsEvent.addListener(
+      'SiriShortcutListener',
+      ({ activityType, userInfo }) => {
+        if (activityType === 'com.holidaily.AddRequest') {
+          navigation.navigate('RequestVacation', userInfo)
+        }
       }
-    })
+    )
     return () => {
-      SiriShortcutsEvent.removeListener('SiriShortcutListener', () => {})
+      listener.remove()
     }
   }, [navigation])
 }

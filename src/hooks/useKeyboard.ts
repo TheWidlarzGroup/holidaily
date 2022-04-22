@@ -15,16 +15,16 @@ export const useKeyboard = () => {
   }, [])
 
   useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', onOpenKeyboard)
-    Keyboard.addListener('keyboardWillShow', onOpenKeyboard)
-    Keyboard.addListener('keyboardDidHide', onHideKeyboard)
-    Keyboard.addListener('keyboardWillHide', onHideKeyboard)
+    const listener1 = Keyboard.addListener('keyboardDidShow', onOpenKeyboard)
+    const listener2 = Keyboard.addListener('keyboardWillShow', onOpenKeyboard)
+    const listener3 = Keyboard.addListener('keyboardDidHide', onHideKeyboard)
+    const listener4 = Keyboard.addListener('keyboardWillHide', onHideKeyboard)
 
     return () => {
-      Keyboard.removeListener('keyboardDidShow', onOpenKeyboard)
-      Keyboard.removeListener('keyboardWillShow', onOpenKeyboard)
-      Keyboard.removeListener('keyboardDidHide', onHideKeyboard)
-      Keyboard.removeListener('keyboardWillHide', onHideKeyboard)
+      listener1.remove()
+      listener2.remove()
+      listener3.remove()
+      listener4.remove()
     }
   }, [onOpenKeyboard, onHideKeyboard])
 
