@@ -10,6 +10,7 @@ import { ModalHeader } from 'components/ModalHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { PrivacyPolicyContent } from './PrivacyPolicyContent'
 
 export const AboutLinks = () => {
   const theme = useTheme()
@@ -77,6 +78,8 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
           <Text variant="header">{t('privacyPolicy')}</Text>
           <Box paddingRight="xl" />
         </ModalHeader>
+
+        <PrivacyPolicyContent />
       </SafeAreaView>
     </Modal>
   )

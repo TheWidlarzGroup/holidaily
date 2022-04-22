@@ -13,7 +13,7 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
 
   return (
     <Box>
-      <SectionHeader text="Your score" />
+      <SectionHeader text={t('score')} />
       <Box
         marginLeft="s"
         marginTop="l"

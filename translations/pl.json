@@ -225,6 +225,7 @@
     "wait": "Jeszcze chwilkę..."
   },
   "stats": {
+    "score": "Twój wynik",
     "availablePto": "dni wolnego",
     "takenPto": "wykorzystanego urlopu",
     "sickdaysTaken": "wziętych dni urlopu chorobowego",
