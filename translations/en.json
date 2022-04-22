@@ -225,6 +225,7 @@
     "wait": "Wait a second..."
   },
   "stats": {
+    "score": "Your score",
     "availablePto": "days of PTO",
     "takenPto": "days of PTO used",
     "sickdaysTaken": "sick days taken",
