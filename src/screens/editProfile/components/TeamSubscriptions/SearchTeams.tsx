@@ -16,9 +16,9 @@ import { SearchBar } from './SearchBar'
 type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 
 type SearchBarProps = {
-  subscribedTeams: ParsedTeamsType[]
+  selectedTeams: ParsedTeamsType[]
   userTeams: ParsedTeamsType[]
-  setSubscribedTeams: F1<ParsedTeamsType[]>
+  setSelectedTeams: F1<ParsedTeamsType[]>
 }
 
 export const SearchTeams = (p: SearchBarProps) => {
@@ -59,20 +59,20 @@ export const SearchTeams = (p: SearchBarProps) => {
   }
 
   const addToSubscriptions = ({ teamName, id, isSelected }: ParsedTeamsType) => {
-    const subscriptions = [...p.subscribedTeams, { teamName, id, isSelected: !isSelected }]
+    const subscriptions = [...p.selectedTeams, { teamName, id, isSelected: !isSelected }]
     toggleSelection(id)
-    p.setSubscribedTeams(subscriptions)
+    p.setSelectedTeams(subscriptions)
   }
 
   const removeFromSubscriptions = (id: string | number) => {
-    const subscriptions = p.subscribedTeams.filter((item) => item.id !== id)
+    const subscriptions = p.selectedTeams.filter((item) => item.id !== id)
     toggleSelection(id)
-    p.setSubscribedTeams(subscriptions)
+    p.setSelectedTeams(subscriptions)
   }
 
   const quitWithoutSaving = useWithConfirmation({
     onAccept: () => {
-      p.setSubscribedTeams([])
+      p.setSelectedTeams([])
       setFilteredTeams(masterData)
       goBack()
     },
@@ -80,7 +80,7 @@ export const SearchTeams = (p: SearchBarProps) => {
   })
 
   const handleGoBack = () => {
-    if (p.subscribedTeams.length > 0 || searchedItems.length > 0) {
+    if (p.selectedTeams.length > 0 || searchedItems.length > 0) {
       quitWithoutSaving()
     } else {
       goBack()
@@ -91,7 +91,7 @@ export const SearchTeams = (p: SearchBarProps) => {
     <>
       <SearchHeader handleGoBack={handleGoBack} />
       <SearchBar searchFilter={searchFilter} searchPhrase={searchPhrase} />
-      <Text variant="lightGreyRegular">{`${t('selected')} ${p.subscribedTeams.length}`}</Text>
+      <Text variant="lightGreyRegular">{`${t('selected')} ${p.selectedTeams.length}`}</Text>
       <SearchResults
         filteredTeams={filteredTeams}
         searchedItems={searchedItems}

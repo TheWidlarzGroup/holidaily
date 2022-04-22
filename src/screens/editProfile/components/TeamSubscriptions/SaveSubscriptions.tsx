@@ -9,7 +9,7 @@ import { Box } from 'utils/theme'
 
 type SaveSubscriptionsProps = {
   disabled?: boolean
-  subscribedTeams: any[]
+  selectedTeams: any[]
 }
 
 export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
@@ -18,13 +18,11 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   const { goBack } = useNavigation()
   const { userTeams, setUserTeams } = useUserDetailsContext()
   const submitSubscriptions = () => {
-    setUserTeams([...p.subscribedTeams, ...userTeams])
+    setUserTeams([...p.selectedTeams, ...userTeams])
     showModal(
       <ChangesSavedModal
         isVisible
-        content={
-          p.subscribedTeams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation')
-        }
+        content={p.selectedTeams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation')}
         hideModal={hideModal}
       />
     )

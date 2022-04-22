@@ -12,9 +12,8 @@ type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 
 export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const styles = useStyles()
-  const [subscribedTeams, setSubscribedTeams] = useState<ParsedTeamsType[]>([])
+  const [selectedTeams, setSelectedTeams] = useState<ParsedTeamsType[]>([])
   const { userTeams } = useUserDetailsContext()
-
   return (
     <SafeAreaWrapper>
       <Box flex={1} backgroundColor="modalBackdrop">
@@ -27,11 +26,11 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           padding="l"
           style={styles.shadow}>
           <SearchTeams
-            setSubscribedTeams={setSubscribedTeams}
-            subscribedTeams={subscribedTeams}
+            setSelectedTeams={setSelectedTeams}
+            selectedTeams={selectedTeams}
             userTeams={userTeams}
           />
-          <SaveSubscriptions subscribedTeams={subscribedTeams} disabled={!subscribedTeams.length} />
+          <SaveSubscriptions selectedTeams={selectedTeams} disabled={!selectedTeams.length} />
         </Box>
       </Box>
     </SafeAreaWrapper>
