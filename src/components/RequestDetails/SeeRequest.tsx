@@ -13,7 +13,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'Se
   const { t } = useTranslation('seeRequest')
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
-      <ModalHeader noPadding>
+      <ModalHeader>
         <BaseOpacity onPress={() => navigate('StatsAndRequests')}>
           <IconBack width={64} height={64} />
         </BaseOpacity>

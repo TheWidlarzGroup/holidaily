@@ -1,16 +1,10 @@
 import React from 'react'
 import { Box } from 'utils/theme'
 
-export const ModalHeader = ({
-  children,
-  noPadding,
-}: {
-  children: React.ReactNode
-  noPadding?: true
-}) => (
+export const ModalHeader = ({ children }: { children: React.ReactNode }) => (
   <Box
-    paddingTop="l"
-    paddingBottom={noPadding ? undefined : 'lplus'}
+    paddingTop="m"
+    paddingBottom={'m'}
     bg="disabledText"
     flexDirection="row"
     alignItems="center"

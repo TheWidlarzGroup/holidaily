@@ -10,6 +10,7 @@ import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { setItem } from 'utils/localStorage'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
+import { isIos } from 'utils/layout'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
 
@@ -25,7 +26,7 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
-      <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m">
+      <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" marginTop={isIos ? '-l' : 0}>
         <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
           <TouchableOpacity
             onPress={handleOnSubmit}

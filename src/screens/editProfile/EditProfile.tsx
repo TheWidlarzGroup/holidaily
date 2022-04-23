@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, SafeAreaView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,8 @@ import IconBack from 'assets/icons/icon-back2.svg'
 import { StorageKeys, setItem, removeItem } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { isIos } from 'utils/layout'
 import { LoadingModal } from 'components/LoadingModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -63,8 +65,8 @@ export const EditProfile = () => {
   }
 
   return (
-    <SafeAreaView style={styles.mainView}>
-      <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+      <ScrollView style={{ marginBottom: isEdited ? 93 : 0, marginTop: isIos ? 20 : 0 }}>
         <BaseOpacity
           onPress={() => {
             navigation.navigate('Dashboard')
@@ -82,15 +84,11 @@ export const EditProfile = () => {
       </ScrollView>
       {isLoading && <LoadingModal show />}
       {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
-  mainView: {
-    backgroundColor: theme.colors.white,
-    flex: 1,
-  },
   shadow: {
     shadowOffset: { width: -2, height: 0 },
     shadowColor: theme.colors.black,

@@ -18,13 +18,13 @@ export const AboutBackground = () => {
 const useStyles = mkUseStyles(() => ({
   manImage: {
     height: '100%',
-    width: '70%',
+    width: '60%',
     zIndex: 10,
   },
   waveImage: {
     aspectRatio: 1,
     width: '100%',
     position: 'absolute',
-    bottom: -80,
+    bottom: -110,
   },
 }))

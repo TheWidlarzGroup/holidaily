@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
-import { mkUseStyles, Theme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
@@ -31,7 +30,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
-  const styles = useStyles()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
 
   useEffect(() => {
@@ -96,7 +94,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     }
   }, [route, route.params, markSickTime, setEndDate, setStartDate])
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
@@ -113,16 +111,9 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         }}
       />
       {!isSentModalVisible && <BadStateController />}
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
-const useStyles = mkUseStyles((theme: Theme) => ({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.white,
-    paddingTop: 0,
-  },
-}))
 
 const emptyRequest = {
   description: '',
