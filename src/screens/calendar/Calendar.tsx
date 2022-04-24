@@ -30,7 +30,7 @@ const CalendarToWrap = () => {
   }
 
   return (
-    <SafeAreaWrapper isDefaultBgColor>
+    <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <CategoriesSlider
         filterCategories={filterCategories || []}
         toggleFilterItemSelection={toggleFilterItemSelection}

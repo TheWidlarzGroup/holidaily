@@ -7,6 +7,7 @@ import { ModalHeader } from 'components/ModalHeader'
 type TeamHeaderProps = {
   title: string
 }
+
 export const TeamHeader = (props: TeamHeaderProps) => {
   const { title } = props
   const { goBack } = useNavigation()

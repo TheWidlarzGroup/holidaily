@@ -3,15 +3,15 @@ import { Trans } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 
 export const AboutDescription = () => (
-  <Box paddingHorizontal="m" paddingBottom="xxxl">
+  <Box paddingHorizontal="m" paddingBottom="lplus">
     <Text textAlign="left" variant="body1">
       {/* @ts-ignore  Trans component causes error in pipeline but not in IDE: "Type instantiation is excessively deep and possibly infinite." */}
       <Trans
         ns="welcome"
         i18nKey="aboutDesc1"
         components={{
-          b: <Text variant="body1Bold" />,
-          bp: <Text variant="body1Bold" color="primary" />,
+          b: <Text variant="body1Bold" textAlign="left" />,
+          bp: <Text variant="body1Bold" color="primary" textAlign="left" />,
         }}
       />
     </Text>
@@ -21,7 +21,7 @@ export const AboutDescription = () => (
         ns="welcome"
         i18nKey="aboutDesc2"
         components={{
-          b: <Text variant="body1Bold" />,
+          b: <Text variant="body1Bold" textAlign="left" />,
         }}
       />
     </Text>

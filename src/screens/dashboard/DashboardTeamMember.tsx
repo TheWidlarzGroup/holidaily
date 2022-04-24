@@ -8,12 +8,18 @@ import { MateHolidayDetail } from 'screens/dashboard/components/MateHolidayDetai
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { User } from 'mock-api/models/mirageTypes'
+import { isIos } from 'utils/layout'
 
 type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
   <SafeAreaWrapper isDefaultBgColor>
-    <Box padding="m" paddingTop="s" backgroundColor="white" flexGrow={1}>
+    <Box
+      padding="m"
+      paddingTop="s"
+      backgroundColor="white"
+      flexGrow={1}
+      marginTop={isIos ? '-l' : 0}>
       <ScrollView showsHorizontalScrollIndicator={false}>
         <TouchableOpacity
           onPress={closeModal}
