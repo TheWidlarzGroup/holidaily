@@ -16,7 +16,7 @@ export const Feed = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <Box marginHorizontal="s" marginTop={'m'}>
+      <Box marginHorizontal="s" marginTop="m">
         <FlatList
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={<FeedHeader />}
