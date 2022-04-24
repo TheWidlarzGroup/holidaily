@@ -71,12 +71,12 @@ export const UploadAttachmentModal = ({
     if (action === 'gallery') {
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
-      }, 250)
+      }, 300)
     }
     if (action === 'camera') {
       setTimeout(() => {
         launchCamera(options, (response) => onHandleResponse(response))
-      }, 250)
+      }, 300)
     }
   }
   useEffect(() => {
