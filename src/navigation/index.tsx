@@ -44,7 +44,7 @@ export const AppNavigation = () => {
       const [firstName, lastName, occupation, photo, userColor] = await init()
       if (isFirstRender.current) {
         isFirstRender.current = false
-        await sleep(3500)
+        await sleep(1500)
       }
       if (isTempUserCreated) return setLoginStatus('LoggedIn')
       if (firstName) {
