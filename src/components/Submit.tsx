@@ -1,7 +1,7 @@
 import React from 'react'
-import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { ActivityIndicator } from 'react-native'
+import { CustomButton } from './CustomButton'
 
 type SubmitProps = {
   onCTAPress: F0
@@ -21,21 +21,19 @@ export const Submit = (p: SubmitProps) => {
       alignItems="stretch"
       paddingHorizontal="xxxl"
       paddingBottom="l">
-      <BaseOpacity
-        paddingVertical="m"
-        borderRadius="xxl"
-        bg="tertiary"
-        minHeight={54}
+      <CustomButton
+        label={p.text ?? t('sendPost')}
+        disabled={p.disabledCTA}
+        variant="primary"
         onPress={p.onCTAPress}
-        disabled={p.disabledCTA}>
-        {p.loading ? (
-          <ActivityIndicator size="small" color={theme.colors.white} />
-        ) : (
-          <Text opacity={p.disabledCTA ? 0.4 : 1} variant="buttonText1">
-            {p.text ?? t('sendPost')}
-          </Text>
-        )}
-      </BaseOpacity>
+        paddingVertical={theme.spacing.xs}
+        width={260}
+        marginTop={10}
+        alignSelf="center"
+        customStyle={{
+          borderRadius: theme.borderRadii.full,
+        }}
+      />
     </Box>
   )
 }

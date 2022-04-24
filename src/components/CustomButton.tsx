@@ -19,6 +19,7 @@ export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   loading?: boolean
   onPress?: F0
   children?: ReactNode
+  customStyle?: RectButtonProperties['style']
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
@@ -29,6 +30,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   loading = false,
   onPress,
   children,
+  customStyle,
   ...rest
 }) => {
   const styles = useStyles()
@@ -63,15 +65,15 @@ export const CustomButton: FC<CustomButtonProps> = ({
       break
   }
 
-  const backgroundColor = disabled ? colors.disabled : bgColor
-  const textColor = disabled ? colors.disabledText : color
+  const backgroundColor = disabled && variant !== 'primary' ? colors.disabled : bgColor
+  const textColor = disabled && variant !== 'primary' ? colors.disabledText : color
 
   return (
     <RectButton
-      rippleColor={rippleColor}
+      rippleColor={disabled ? backgroundColor : rippleColor}
       onPress={disabled ? () => null : onPress}
       activeOpacity={disabled ? 0 : 0.2}
-      style={[styles.container, { backgroundColor }, rest]}>
+      style={[styles.container, { backgroundColor }, customStyle, rest]}>
       <Box
         paddingVertical="xm"
         width="100%"
@@ -89,7 +91,10 @@ export const CustomButton: FC<CustomButtonProps> = ({
               {icon === 'google' && <IconGoogle style={styles.icon} />}
               {icon === 'apple' && <IconApple style={styles.icon} />}
               {icon === 'plus' && <IconPlusSmall style={styles.icon} />}
-              <Text variant="buttonText1" style={{ color: textColor }}>
+              <Text
+                variant="buttonText1"
+                style={{ color: textColor }}
+                opacity={disabled && variant === 'primary' ? 0.4 : 1}>
                 {label}
               </Text>
             </>

@@ -68,7 +68,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProp
       alignItems="center"
       paddingVertical="m"
       style={{
-        paddingBottom: keyboardShown ? 40 : 0,
+        paddingBottom: keyboardShown ? 65 : 0,
       }}>
       <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
         <IconCamera />
