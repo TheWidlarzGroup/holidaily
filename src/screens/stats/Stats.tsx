@@ -1,10 +1,10 @@
 import React from 'react'
-
 import { Box, Text } from 'utils/theme'
 import Character from 'assets/Character.svg'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
+import { getDurationInDays } from 'utils/dates'
 import { SectionHeader } from './components/SectionHeader'
 
 export const Stats = ({ stats }: { stats: StatsType }) => {
@@ -33,7 +33,7 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
           <Box height={1} backgroundColor="black" marginVertical="m" />
           <Box flexDirection="row" alignItems="center">
             <Text variant="bold15" marginRight="s">
-              {stats.ptoTaken ?? 0}
+              {getDurationInDays(+stats.ptoTaken ?? 0)}
             </Text>
             <Text variant="captionText">{t('takenPto')}</Text>
           </Box>
