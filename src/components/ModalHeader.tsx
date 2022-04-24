@@ -4,7 +4,7 @@ import { Box } from 'utils/theme'
 export const ModalHeader = ({ children }: { children: React.ReactNode }) => (
   <Box
     paddingTop="m"
-    paddingBottom={'m'}
+    paddingBottom="m"
     bg="disabledText"
     flexDirection="row"
     alignItems="center"
