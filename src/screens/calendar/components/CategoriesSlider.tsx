@@ -17,7 +17,7 @@ export const CategoriesSlider = ({
   filterCategories,
   toggleFilterItemSelection,
 }: CategoriesSliderProps) => (
-  <Box paddingTop={'l'}>
+  <Box paddingTop="l">
     <FlatList
       horizontal
       data={filterCategories}
