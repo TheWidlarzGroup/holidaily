@@ -5,6 +5,7 @@ import { ModalNavigationProps } from 'navigation/types'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
 import { Asset } from 'react-native-image-picker'
+import { generateUUID } from 'utils/generateUUID'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { PostState } from './CreatePostForm/usePostFormReducer'
 import { CreatePostResult } from './CreatePostResult/CreatePostResult'
@@ -45,7 +46,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
   const handleOnSend = (data: PostState) => {
     const feedPost: FeedPost = {
       meta: {
-        id: '1',
+        id: generateUUID(),
         author: {
           id: user?.id || '',
           name: `${user?.firstName} ${user?.lastName}` || '',
