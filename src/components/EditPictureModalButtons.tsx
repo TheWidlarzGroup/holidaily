@@ -24,7 +24,7 @@ export const EditPictureModalButtons = ({
         flexDirection="row"
         alignItems="center"
         justifyContent="flex-start">
-        <Box marginHorizontal={'-s'}>
+        <Box marginHorizontal="-s">
           <EditIcon width={34} height={34} color={theme.colors.black} />
         </Box>
         <Box flexGrow={1} marginLeft="m">
