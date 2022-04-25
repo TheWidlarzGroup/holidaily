@@ -21,6 +21,7 @@ export const AppNavigation = () => {
   const isFirstRender = useRef(true)
   const idRef = useRef(user?.id)
   useEffect(() => {
+    // update teams if we get to dashboard through onboarding
     if (user && isTempUserCreated && !isOrgLoading && organization?.teams) {
       // if idRef contains user.id than we already have updated the user teams
       if (user.id === idRef.current) return
