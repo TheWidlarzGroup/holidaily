@@ -27,7 +27,6 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
         onSwipeRight={handleGoBack}
         style={[
           styles.container,
-          styles.containerMargin,
           !isFromWelcomeScreen && styles.containerPadding,
           isIos && isFromWelcomeScreen && styles.containerMargin,
         ]}>
@@ -48,7 +47,7 @@ const useStyles = mkUseStyles((theme) => ({
     flexGrow: 1,
   },
   containerPadding: {
-    paddingTop: 36,
+    paddingTop: 16,
   },
   containerMargin: {
     marginTop: -24,
