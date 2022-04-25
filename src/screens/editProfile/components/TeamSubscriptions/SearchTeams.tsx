@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
-import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
+import { ParsedTeamType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { LoadingModal } from 'components/LoadingModal'
 import { SearchResults } from './SearchResults'
@@ -14,19 +14,17 @@ import {
 import { SearchHeader } from './SearchHeader'
 import { SearchBar } from './SearchBar'
 
-type ParsedTeamsType = TeamsType & { isSelected?: boolean }
-
 type SearchBarProps = {
-  selectedTeams: ParsedTeamsType[]
-  userTeams: ParsedTeamsType[]
-  setSelectedTeams: F1<ParsedTeamsType[]>
+  selectedTeams: ParsedTeamType[]
+  userTeams: ParsedTeamType[]
+  setSelectedTeams: F1<ParsedTeamType[]>
 }
 
 export const SearchTeams = (p: SearchBarProps) => {
   const [searchPhrase, setSearchPhrase] = useState('')
-  const [masterData, setMasterData] = useState<ParsedTeamsType[]>([])
-  const [filteredTeams, setFilteredTeams] = useState<ParsedTeamsType[]>([])
-  const [searchedItems, setSearchedItems] = useState<ParsedTeamsType[]>([])
+  const [masterData, setMasterData] = useState<ParsedTeamType[]>([])
+  const [filteredTeams, setFilteredTeams] = useState<ParsedTeamType[]>([])
+  const [searchedItems, setSearchedItems] = useState<ParsedTeamType[]>([])
   const { TEAMS, isLoading } = useTeamMocks()
   const { goBack } = useNavigation()
   const { t } = useTranslation('userProfile')
@@ -60,7 +58,7 @@ export const SearchTeams = (p: SearchBarProps) => {
     })
   }
 
-  const addToSubscriptions = ({ teamName, id, isSelected }: ParsedTeamsType) => {
+  const addToSubscriptions = ({ teamName, id, isSelected }: ParsedTeamType) => {
     const subscriptions = [...p.selectedTeams, { teamName, id, isSelected: !isSelected }]
     toggleSelection(id)
     p.setSelectedTeams(subscriptions)
