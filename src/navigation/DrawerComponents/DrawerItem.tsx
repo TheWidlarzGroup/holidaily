@@ -1,6 +1,7 @@
 import React from 'react'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { Box, Text, theme } from 'utils/theme'
+import { isSmallScreen } from 'utils/deviceSizes'
 
 type DrawerItemProps = {
   onPress: () => void
@@ -17,7 +18,12 @@ export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
       rippleColor={theme.colors.rippleColor}>
       <Box margin="s" flexDirection="row" alignItems="center">
         {icon && <Box marginRight="m">{icon}</Box>}
-        <Text variant="boldBlack18" marginRight="m">
+        <Text
+          fontFamily="Nunito-Bold"
+          color="black"
+          textAlign="center"
+          fontSize={isSmallScreen ? 16 : 18}
+          marginRight="m">
           {text}
         </Text>
       </Box>

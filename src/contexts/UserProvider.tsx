@@ -59,6 +59,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
     queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
     queryClient.invalidateQueries(QueryKeys.USER_STATS)
+    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
   }
 
   const value: ContextProps = { user, updateUser, handleLogout }

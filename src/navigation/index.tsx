@@ -19,14 +19,17 @@ export const AppNavigation = () => {
   const { data: organization, isLoading: isOrgLoading } = useGetOrganization()
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
   const isFirstRender = useRef(true)
-
+  const idRef = useRef(user?.id)
   useEffect(() => {
-    if (isTempUserCreated && !isOrgLoading && organization?.teams) {
+    if (user && isTempUserCreated && !isOrgLoading && organization?.teams) {
+      // if idRef contains user.id than we already have updated the user teams
+      if (user.id === idRef.current) return
+      idRef.current = user.id
       updateUser({
         teams: organization.teams,
       })
     }
-  }, [isOrgLoading, organization, isTempUserCreated, updateUser])
+  }, [isOrgLoading, organization, isTempUserCreated, updateUser, user])
 
   const init = useCallback(
     async () =>

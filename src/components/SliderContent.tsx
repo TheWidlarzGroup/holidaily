@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { StyleSheet, Dimensions, ImageSourcePropType } from 'react-native'
 import Animated, { useAnimatedStyle, interpolate, Extrapolate } from 'react-native-reanimated'
 import { Box, Text, theme } from 'utils/theme/index'
+import { isSmallScreen } from 'utils/deviceSizes'
 
 const { width } = Dimensions.get('window')
 
@@ -53,12 +54,12 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    aspectRatio: 1,
+    aspectRatio: isSmallScreen ? 1.4 : 1,
     width: '100%',
     backgroundColor: theme.colors.secondary,
   },
   image: {
     width: '75%',
-    maxWidth: 300,
+    maxWidth: isSmallScreen ? 150 : 300,
   },
 })
