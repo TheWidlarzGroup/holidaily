@@ -14,6 +14,7 @@ import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { isIos } from 'utils/layout'
+import { useBackToDrawerOnBackPress } from 'hooks/useBackToDrawerOnBackPress'
 import { LoadingModal } from 'components/LoadingModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -63,6 +64,7 @@ export const EditProfile = () => {
       },
     })
   }
+  useBackToDrawerOnBackPress()
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>

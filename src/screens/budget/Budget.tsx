@@ -4,6 +4,7 @@ import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
+import { useBackToDrawerOnBackPress } from 'hooks/useBackToDrawerOnBackPress'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { AvailablePto } from './components/AvailablePto'
@@ -13,6 +14,7 @@ export const Budget = () => {
   const { t } = useTranslation('budget')
   const styles = useStyles()
   const { user } = useUserContext()
+
   const [sentRequestsCount, sickDaysCount, accepted, pending]: number[] = useMemo(() => {
     if (!user) return [0, 0, 0, 0]
     const { requests } = user
@@ -22,6 +24,7 @@ export const Budget = () => {
     const pending = requests.filter((req) => req.status === 'pending').length
     return [sentRequestsCount, sickDaysCount, accepted, pending]
   }, [user])
+
   const handleGoBack = useCallback(() => {
     navigation.navigate('Home', {
       screen: 'DashboardNavigation',
@@ -31,6 +34,8 @@ export const Budget = () => {
     })
     navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
+
+  useBackToDrawerOnBackPress()
 
   return (
     <SafeAreaWrapper>

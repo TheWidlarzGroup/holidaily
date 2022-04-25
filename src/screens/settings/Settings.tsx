@@ -6,6 +6,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useBackToDrawerOnBackPress } from 'hooks/useBackToDrawerOnBackPress'
 import { LoadingModal } from 'components/LoadingModal'
 import { isIos } from 'utils/layout'
 import { Language } from './components/Language'
@@ -26,6 +27,8 @@ export const Settings = () => {
   }, [navigation])
 
   const { t } = useTranslation('settings')
+
+  useBackToDrawerOnBackPress()
 
   return (
     <SafeAreaWrapper>
