@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import { Item } from 'screens/dashboard/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
@@ -21,16 +21,24 @@ type SortableListProps = {
 
 export const SortableList = ({ children, openUserModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
+
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
 
   const positions = useSharedValue<Positions>(
-    // if positions object from database => { [child.props.groupId]: child.props.order }
     Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
   )
   useFocusEffect(React.useCallback(() => () => setDraggedElement(null), []))
 
   const { t } = useTranslation('dashboard')
+
+  // maybe useAnimatedReaction from react-native-reanimated would be beneficial here?
+  useEffect(() => {
+    positions.value = Object.assign(
+      {},
+      ...children.map((child, index) => ({ [child.props.id]: index }))
+    )
+  }, [children, positions])
 
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)

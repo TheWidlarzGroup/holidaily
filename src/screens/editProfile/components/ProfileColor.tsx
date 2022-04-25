@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
+import { useTeamMocks } from 'utils/mocks/teamsMocks'
 
 type ProfileColorProps = {
   setIsEdited: F0
@@ -23,25 +24,35 @@ const ProfileColorView = (p: ProfileColorProps) => {
   const { user } = useUserContext()
   const { t } = useTranslation('userProfile')
   const navigation = useNavigation<UserProfileType<'ColorPicker'>>()
-
+  const { isLoading } = useTeamMocks()
+  const isTouchDisabled = isLoading || !user
+  const onPress = () => {
+    if (isTouchDisabled) return
+    navigation.navigate('ColorPicker', {
+      onChange: (value) => {
+        p.onChange(value)
+        p.setIsEdited()
+      },
+      value: p.value,
+    })
+  }
   return (
-    <Box paddingHorizontal="m" marginBottom="xl" marginTop="s">
+    <Box
+      pointerEvents={isTouchDisabled ? 'none' : undefined}
+      opacity={isTouchDisabled ? 0.4 : 1}
+      paddingHorizontal="m"
+      marginBottom="xl"
+      marginTop="s">
       <Text variant="labelGrey" marginLeft="m">
         {t('userColor')}
       </Text>
       <BaseOpacity
-        onPress={() =>
-          navigation.navigate('ColorPicker', {
-            onChange: (value) => {
-              p.onChange(value)
-              p.setIsEdited()
-            },
-            value: p.value,
-          })
-        }
+        onPress={onPress}
         style={[
           styles.colorBtn,
-          { backgroundColor: p.value || user?.userColor || theme.colors.primary },
+          {
+            backgroundColor: p.value || user?.userColor || theme.colors.primary,
+          },
         ]}
       />
     </Box>

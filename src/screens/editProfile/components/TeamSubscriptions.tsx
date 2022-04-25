@@ -4,11 +4,13 @@ import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useModalContext } from 'contexts/ModalProvider'
 import { BaseOpacity, Box, Text, mkUseStyles, Theme, useTheme } from 'utils/theme'
-import { TeamsType } from 'utils/mocks/teamsMocks'
+import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import IconAdd from 'assets/icons/icon-add.svg'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
-import { useUserDetailsContext } from '../helpers/UserDetailsContext'
+import { useUserContext } from 'hooks/useUserContext'
+import { LoadingModal } from 'components/LoadingModal'
+import { useBooleanState } from 'hooks/useBooleanState'
 
 type TeamProps = {
   teamName: string
@@ -19,27 +21,33 @@ export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
   const theme = useTheme()
   const { navigate } = useNavigation()
-  const { userTeams, setUserTeams } = useUserDetailsContext()
+  const [isProcessingData, { setTrue: showLoader, setFalse: hideLoader }] = useBooleanState(false)
+  const { user, updateUser } = useUserContext()
+  const { isLoading } = useTeamMocks()
   const [teams, setTeams] = useState<TeamsType[]>([])
-
   useEffect(() => {
-    setTeams(userTeams)
-  }, [userTeams])
+    if (user?.teams) {
+      showLoader()
+      setTeams(user.teams.map((t) => ({ teamName: t.name, id: t.id })))
+      hideLoader()
+    }
+  }, [user?.teams, hideLoader, showLoader])
 
   const onSubscribeTeam = () => navigate('SubscribeTeam')
 
   const filterUnsubscribedTeams = (teamName: string) => {
-    const subscriptions = userTeams.filter((team) => team.teamName !== teamName)
-    setUserTeams(subscriptions)
+    const subscriptions = (user?.teams ?? []).filter((team) => team.name !== teamName)
+    updateUser({ teams: subscriptions })
   }
-
+  if (isLoading || !user || isProcessingData)
+    return <LoadingModal style={{ position: 'absolute', top: 0 }} show />
   return (
     <Box paddingHorizontal="m" position="relative">
-      <Text variant="labelGrey" marginLeft="m" marginBottom={userTeams.length > 0 ? 'xm' : 'xxxl'}>
+      <Text variant="labelGrey" marginLeft="m" marginBottom={user.teams.length > 0 ? 'xm' : 'xxxl'}>
         {t('userSubscriptions')}
       </Text>
       <BaseOpacity
-        style={userTeams.length > 0 ? { right: 24 } : { left: 30 }}
+        style={user.teams.length > 0 ? { right: 24 } : { left: 30 }}
         onPress={onSubscribeTeam}
         justifyContent="center"
         alignItems="center"
