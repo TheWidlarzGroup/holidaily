@@ -10,7 +10,6 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
-// import { useTeamsContext } from 'hooks/useTeamsContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
@@ -20,7 +19,6 @@ export const Dashboard = () => {
   const [modalUser, setModalUser] = useState<User>(emptyUser)
   const [isModalOpen, { setTrue: setModalOpened, setFalse: setModalClosed }] =
     useBooleanState(false)
-
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
@@ -30,13 +28,10 @@ export const Dashboard = () => {
     openModal()
     setModalOpened()
   }
-
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal })
-
   if (!user?.teams) return <LoadingModal show />
-
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>

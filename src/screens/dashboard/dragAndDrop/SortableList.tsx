@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import { Item } from 'screens/dashboard/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
@@ -21,25 +21,19 @@ type SortableListProps = {
 
 export const SortableList = ({ children, openUserModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
-
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
-
-  const positions = useSharedValue<Positions>(
-    Object.assign({}, ...children.map((child, index) => ({ [child.props.id]: index })))
-  )
+  const assignPositions = useCallback(() => {
+    const positions: { [key: number]: number } = {}
+    children.forEach((child, idx) => (positions[child.props.id] = idx))
+    return positions
+  }, [children])
+  const positions = useSharedValue<Positions>(assignPositions())
   useFocusEffect(React.useCallback(() => () => setDraggedElement(null), []))
-
   const { t } = useTranslation('dashboard')
-
-  // maybe useAnimatedReaction from react-native-reanimated would be beneficial here?
   useEffect(() => {
-    positions.value = Object.assign(
-      {},
-      ...children.map((child, index) => ({ [child.props.id]: index }))
-    )
-  }, [children, positions])
-
+    positions.value = assignPositions()
+  }, [positions, assignPositions])
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)
   }
@@ -48,7 +42,6 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
       scrollY.value = event.contentOffset.y
     },
   })
-
   return (
     <Box paddingBottom="xxxl">
       <Animated.ScrollView
@@ -69,7 +62,6 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
             {t('teamsList').toUpperCase()}
           </Text>
         </Box>
-
         {children.map((child) => (
           <Item
             scrollView={scrollView}
