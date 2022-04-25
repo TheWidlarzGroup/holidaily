@@ -24,6 +24,9 @@ export const animationConfig = {
 export const getPosition = (order: number) => {
   'worklet'
 
+  // when demo user removes a team from his subscriptions, and than adds it back the getOrder is called with undefined as first argument.
+  // TODO: The hack in following line works for now, but the bug needs further investigation
+  if (Number.isNaN(order) || order === undefined) order = 0
   return {
     x: (order % COL) * SIZE_W,
     y: Math.floor(order / COL) * SIZE_H,
