@@ -30,7 +30,7 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
         <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
           <TouchableOpacity
             onPress={handleOnSubmit}
-            hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
             <IconClose height={15} width={15} />
           </TouchableOpacity>
         </Box>

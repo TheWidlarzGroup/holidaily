@@ -23,7 +23,7 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
       <ScrollView showsHorizontalScrollIndicator={false}>
         <TouchableOpacity
           onPress={closeModal}
-          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+          hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
           <IconBack height={18} width={18} />
         </TouchableOpacity>
         <MateHeader user={user} />
