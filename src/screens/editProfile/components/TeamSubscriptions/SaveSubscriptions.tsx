@@ -1,24 +1,32 @@
 import { useNavigation } from '@react-navigation/native'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
+import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
+import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
+import { useUserContext } from 'hooks/useUserContext'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
+import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { Box } from 'utils/theme'
 
 type SaveSubscriptionsProps = {
   disabled?: boolean
-  selectedTeams: any[]
+  selectedTeams: ParsedTeamType[]
 }
 
 export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   const { t } = useTranslation('userProfile')
   const { showModal, hideModal } = useModalContext()
   const { goBack } = useNavigation()
-  const { userTeams, setUserTeams } = useUserDetailsContext()
+  const { data: organization } = useGetOrganization()
+  const { user, updateUser } = useUserContext()
   const submitSubscriptions = () => {
-    setUserTeams([...p.selectedTeams, ...userTeams])
+    if (!organization || !user) return
+    const teams = organization.teams.filter((orgTeam) =>
+      p.selectedTeams.some((selectedTeam) => selectedTeam.teamName === orgTeam.name)
+    )
+    updateUser({ teams: [...teams, ...user.teams] })
     showModal(
       <ChangesSavedModal
         isVisible
@@ -28,6 +36,7 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
     )
     goBack()
   }
+  if (!user || !organization) return <LoadingModal show />
   return (
     <Box position="absolute" bottom={16} alignSelf="center">
       <CustomButton

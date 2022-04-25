@@ -24,7 +24,6 @@ const resources = {
 }
 
 const initI18 = async () => {
-  console.log('importando', locale)
   const lang = await getItem('language')
   i18next.use(initReactI18next).init({
     resources,

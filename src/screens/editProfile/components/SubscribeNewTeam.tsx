@@ -1,19 +1,25 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { UserProfileNavigationProps } from 'navigation/types'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
-import { TeamsType } from 'utils/mocks/teamsMocks'
-import { useUserDetailsContext } from '../helpers/UserDetailsContext'
+import { ParsedTeamType } from 'utils/mocks/teamsMocks'
+import { useUserContext } from 'hooks/useUserContext'
+import { LoadingModal } from 'components/LoadingModal'
 import { SearchTeams } from './TeamSubscriptions/SearchTeams'
 import { SaveSubscriptions } from './TeamSubscriptions/SaveSubscriptions'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
-type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 
 export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
   const styles = useStyles()
-  const [selectedTeams, setSelectedTeams] = useState<ParsedTeamsType[]>([])
-  const { userTeams } = useUserDetailsContext()
+  const [selectedTeams, setSelectedTeams] = useState<ParsedTeamType[]>([])
+  const { user } = useUserContext()
+  const teams = useMemo(() => {
+    if (!user?.teams) return []
+    return user.teams.map((t) => ({ teamName: t.name, id: t.id }))
+  }, [user?.teams])
+  if (!user) return <LoadingModal show />
+
   return (
     <SafeAreaWrapper>
       <Box flex={1} backgroundColor="modalBackdrop">
@@ -28,7 +34,7 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
           <SearchTeams
             setSelectedTeams={setSelectedTeams}
             selectedTeams={selectedTeams}
-            userTeams={userTeams}
+            userTeams={teams}
           />
           <SaveSubscriptions selectedTeams={selectedTeams} disabled={!selectedTeams.length} />
         </Box>

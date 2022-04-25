@@ -6,6 +6,7 @@ import { Splash } from 'screens/splash/Splash'
 import { sleep } from 'utils/sleep'
 import { getItem } from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
+import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -15,8 +16,17 @@ type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisi
 export const AppNavigation = () => {
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
+  const { data: organization, isLoading: isOrgLoading } = useGetOrganization()
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
   const isFirstRender = useRef(true)
+
+  useEffect(() => {
+    if (isTempUserCreated && !isOrgLoading && organization?.teams) {
+      updateUser({
+        teams: organization.teams,
+      })
+    }
+  }, [isOrgLoading, organization, isTempUserCreated, updateUser])
 
   const init = useCallback(
     async () =>

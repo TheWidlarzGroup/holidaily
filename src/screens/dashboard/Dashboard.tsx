@@ -10,40 +10,34 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { emptyUser } from 'contexts/UserProvider'
-import { useTeamsContext } from 'hooks/useTeamsContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useUserContext } from 'hooks/useUserContext'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
-  const [user, setUser] = useState<User>(emptyUser)
+  const [modalUser, setModalUser] = useState<User>(emptyUser)
   const [isModalOpen, { setTrue: setModalOpened, setFalse: setModalClosed }] =
     useBooleanState(false)
-
-  const { teams } = useTeamsContext()
-
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
-
+  const { user } = useUserContext()
   const openUserModal = (user: User) => {
-    setUser(user)
+    setModalUser(user)
     openModal()
     setModalOpened()
   }
-
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal })
-
-  if (!teams || teams.length < 1) return <LoadingModal show />
-
+  if (!user?.teams) return <LoadingModal show />
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
         <SortableList openUserModal={openUserModal}>
-          {teams?.map((team: Team) => (
+          {(user.teams ?? []).map((team: Team) => (
             <TeamElement
               {...team}
               key={team.name}
@@ -57,7 +51,7 @@ export const Dashboard = () => {
         modalRef={modalRef}
         isOpen={isModalOpen}
         closeModal={setModalClosed}>
-        <DashboardTeamMember closeModal={closeModal} user={user} />
+        <DashboardTeamMember closeModal={closeModal} user={modalUser} />
       </BottomSheetModalComponent>
     </>
   )
