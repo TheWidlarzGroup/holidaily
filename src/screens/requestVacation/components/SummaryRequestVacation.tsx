@@ -45,7 +45,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         startDate={(p.startDate ?? new Date()).toISOString()}
         endDate={(p.endDate ?? new Date()).toISOString()}
         isSickTime={p.isSick}
-        status={'pending'}
+        status="pending"
       />
       {!p.hideNext && (
         <Submit

@@ -75,7 +75,7 @@ export const CalendarList = ({
         ),
         [p.isInvalid, invalidPeriodStyles, validPeriodStyles]
       )}
-      markingType={'period'}
+      markingType="period"
       onDayPress={handleClick}
       renderHeader={useCallback(
         (date: Date) => (

@@ -47,7 +47,7 @@ const CalendarToWrap = () => {
         elevation={4}>
         <ExpandableCalendar
           markedDates={getMarkedDates(currentMonthDays)}
-          markingType={'multi-dot'}
+          markingType="multi-dot"
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           onDayPress={handleDayPress}

@@ -8,7 +8,7 @@ export const LessBubble = ({ onPress }: BubbleProps) => (
   <Bubble
     margin="xs"
     onPress={() => onPress()}
-    borderColor={'transparent'}
+    borderColor="transparent"
     borderWidth={1.2}
     height={42}>
     <Text padding="s" variant="primaryBold12" color="black">

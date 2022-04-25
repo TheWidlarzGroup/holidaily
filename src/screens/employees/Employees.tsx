@@ -44,8 +44,8 @@ export const Employees = () => {
         variant="primary"
         width={120}
         height={47}
-        icon={'plus'}
-        marginLeft={'auto'}
+        icon="plus"
+        marginLeft="auto"
         marginBottom={10}
         onPress={navigateToInviteMembers}
       />

@@ -110,7 +110,7 @@ export const EmployeeBox = (p: EmployeeBoxProps) => {
           width={16}
           style={{ backgroundColor: p.color || theme.colors.bottomBarIcons }}
         />
-        <Box backgroundColor={'bottomBarIcons'} width={40} height={90} justifyContent="center">
+        <Box backgroundColor="bottomBarIcons" width={40} height={90} justifyContent="center">
           <Avatar src={p.picture} size="xs" />
         </Box>
 

@@ -86,7 +86,7 @@ export const Slider: FC = () => {
       <Box
         justifyContent="center"
         alignItems="flex-end"
-        width={'100%'}
+        width="100%"
         height={50}
         paddingHorizontal="m">
         <TouchableOpacity

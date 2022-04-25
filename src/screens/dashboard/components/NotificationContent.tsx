@@ -16,7 +16,7 @@ type NotificationContentProps = {
 export const NotificationContent = (p: NotificationContentProps) => {
   const { t } = useTranslation('notifications')
   return (
-    <Box flexDirection={'row'} justifyContent="space-between">
+    <Box flexDirection="row" justifyContent="space-between">
       <Box flex={1} padding="m">
         <Text>
           {/* @ts-ignore   trans component causes "Type instantiation is excessively deep and possibly infinite." in pipeline, but not in VSCode */}
@@ -29,7 +29,7 @@ export const NotificationContent = (p: NotificationContentProps) => {
                 ? formatDate(p.endDate, 'dayNumeralLongMonthNoYear', getCurrentLocale())
                 : undefined,
             }}
-            components={{ b: <Text variant={'bold16'} lineHeight={20} /> }}
+            components={{ b: <Text variant="bold16" lineHeight={20} /> }}
           />
         </Text>
       </Box>
