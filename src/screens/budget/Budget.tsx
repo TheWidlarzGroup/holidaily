@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
+import GestureRecognizer from 'react-native-swipe-gestures'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
-import { useBackToDrawerOnBackPress } from 'hooks/useBackToDrawerOnBackPress'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { AvailablePto } from './components/AvailablePto'
@@ -26,46 +26,41 @@ export const Budget = () => {
   }, [user])
 
   const handleGoBack = useCallback(() => {
-    navigation.navigate('Home', {
-      screen: 'DashboardNavigation',
-      params: {
-        screen: 'Dashboard',
-      },
-    })
+    navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
 
-  useBackToDrawerOnBackPress()
-
   return (
     <SafeAreaWrapper>
-      <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
-      <Box paddingHorizontal="m" paddingTop="xxl">
-        <Box style={[styles.section]} marginBottom="l2plus">
-          <AvailablePto availablePto={user?.availablePto ?? 0} />
-        </Box>
-        <Box flexDirection="row">
-          <Box style={styles.section} flex={1} marginRight="m">
-            <Text marginTop="xxm" variant="captionText" lineHeight={14}>
-              {t('took')}
-            </Text>
-            <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
-              {t('sickDays', { number: sickDaysCount })}
-            </Text>
+      <GestureRecognizer onSwipeRight={handleGoBack}>
+        <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
+        <Box paddingHorizontal="m" paddingTop="xxl">
+          <Box style={[styles.section]} marginBottom="l2plus">
+            <AvailablePto availablePto={user?.availablePto ?? 0} />
           </Box>
-          <Box style={styles.section} flex={1}>
-            <Text marginTop="xxm" variant="captionText" lineHeight={14}>
-              {t('sent')}
-            </Text>
-            <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
-              {t('requests', { number: sentRequestsCount })}
-            </Text>
-            <Text marginVertical="xxm" variant="captionText" lineHeight={14}>
-              {t('requestsStatus', { accepted, pending })}
-            </Text>
+          <Box flexDirection="row">
+            <Box style={styles.section} flex={1} marginRight="m">
+              <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+                {t('took')}
+              </Text>
+              <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
+                {t('sickDays', { number: sickDaysCount })}
+              </Text>
+            </Box>
+            <Box style={styles.section} flex={1}>
+              <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+                {t('sent')}
+              </Text>
+              <Text variant="bold24" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
+                {t('requests', { number: sentRequestsCount })}
+              </Text>
+              <Text marginVertical="xxm" variant="captionText" lineHeight={14}>
+                {t('requestsStatus', { accepted, pending })}
+              </Text>
+            </Box>
           </Box>
         </Box>
-      </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

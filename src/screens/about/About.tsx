@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { Box } from 'utils/theme'
+import React, { useCallback } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { isIos } from 'utils/layout'
+import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { BackHandler } from 'react-native'
+import { DrawerNavigationType } from 'navigation/types'
+import { Box, mkUseStyles } from 'utils/theme'
 import { AboutDescription } from './components/AboutDescription'
 import { AboutBackground } from './components/AboutBackground'
 import { AboutHeader } from './components/AboutHeader'
@@ -12,35 +13,44 @@ import { AboutLinks } from './components/AboutLinks'
 type AboutTypes = { isFromWelcomeScreen?: true; closeModal: F0 }
 
 export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
-  const navigation = useNavigation()
-
-  useEffect(() => {
+  const styles = useStyles()
+  const navigation = useNavigation<DrawerNavigationType<'About'>>()
+  const handleGoBack = useCallback(() => {
     if (isFromWelcomeScreen) return
-    const backAction = () => {
-      navigation.goBack()
-      navigation.dispatch(DrawerActions.openDrawer())
-      return true
-    }
-
-    BackHandler.addEventListener('hardwareBackPress', backAction)
-
-    return () => BackHandler.removeEventListener('hardwareBackPress', backAction)
+    navigation.goBack()
+    navigation.dispatch(DrawerActions.openDrawer())
   }, [isFromWelcomeScreen, navigation])
 
   return (
     <SafeAreaWrapper isDefaultBgColor={isFromWelcomeScreen || false}>
-      <Box
-        backgroundColor="white"
-        paddingTop={isFromWelcomeScreen ? 0 : 'm'}
-        marginTop={isIos && isFromWelcomeScreen ? '-l' : 0}
-        flexGrow={1}>
+      <GestureRecognizer
+        onSwipeRight={handleGoBack}
+        style={[
+          styles.container,
+          styles.containerMargin,
+          !isFromWelcomeScreen && styles.containerPadding,
+          isIos && isFromWelcomeScreen && styles.containerMargin,
+        ]}>
         <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
         <Box justifyContent="space-between" flex={1}>
           <AboutDescription />
           <AboutLinks />
           <AboutBackground />
         </Box>
-      </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    backgroundColor: theme.colors.white,
+    flexGrow: 1,
+  },
+  containerPadding: {
+    paddingTop: 36,
+  },
+  containerMargin: {
+    marginTop: -24,
+  },
+}))

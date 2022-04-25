@@ -78,7 +78,7 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="ProfileNavigation"
         component={ProfileNavigation}
-        options={{ title: t('editProfile'), swipeEnabled: true }}
+        options={{ title: t('editProfile'), swipeEnabled: false }}
       />
       {/* <Drawer.Screen
         name="AdminPanelEmployeesNavigation"
@@ -88,17 +88,17 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="HolidayBudget"
         component={BudgetNavigation}
-        options={{ title: t('budget'), swipeEnabled: true }}
+        options={{ title: t('budget'), swipeEnabled: false }}
       />
       <Drawer.Screen
         name="Settings"
         component={Settings}
-        options={{ title: t('settings'), swipeEnabled: true }}
+        options={{ title: t('settings'), swipeEnabled: false }}
       />
       <Drawer.Screen
         name="About"
         component={About}
-        options={{ title: t('about'), swipeEnabled: true }}
+        options={{ title: t('about'), swipeEnabled: false }}
       />
     </Drawer.Navigator>
   )
