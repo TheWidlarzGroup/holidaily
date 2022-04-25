@@ -62,7 +62,7 @@ export const CalendarDayMain = ({
         <BorderlessButton
           onPress={() => onPress(date)}
           enabled={!isNotAWorkingDay}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+          hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}>
           <Box
             borderRadius="l"
             borderWidth={state === 'today' ? 2 : 0}

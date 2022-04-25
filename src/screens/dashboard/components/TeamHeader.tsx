@@ -16,12 +16,12 @@ export const TeamHeader = (props: TeamHeaderProps) => {
     <ModalHeader>
       <BaseOpacity
         onPress={goBack}
-        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
         paddingLeft="m">
         <IconBack height={18} width={18} />
       </BaseOpacity>
       <Text variant="header">{title}</Text>
-      <Box paddingRight="xl" />
+      <Box paddingRight="xl" paddingVertical="lplus" />
     </ModalHeader>
   )
 }
