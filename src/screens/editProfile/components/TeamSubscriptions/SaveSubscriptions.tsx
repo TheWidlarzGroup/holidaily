@@ -5,10 +5,8 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useUserContext } from 'hooks/useUserContext'
-// import { Team } from 'mockApi/models'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-// import { useUserDetailsContext } from 'screens/editProfile/helpers/UserDetailsContext'
 import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { Box } from 'utils/theme'
 
@@ -22,7 +20,6 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   const { showModal, hideModal } = useModalContext()
   const { goBack } = useNavigation()
   const { data: organization } = useGetOrganization()
-  // const { userTeams, setUserTeams } = useUserDetailsContext()
   const { user, updateUser } = useUserContext()
   const submitSubscriptions = () => {
     if (!organization || !user) return
