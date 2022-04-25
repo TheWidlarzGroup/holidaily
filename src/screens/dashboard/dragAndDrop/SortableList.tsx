@@ -24,7 +24,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
   const scrollView = useAnimatedRef<Animated.ScrollView>()
   const scrollY = useSharedValue(0)
   const assignPositions = useCallback(() => {
-    const positions: { [key: number]: number } = {}
+    const positions: { [key: string]: number } = {}
     children.forEach((child, idx) => (positions[child.props.id] = idx))
     return positions
   }, [children])
