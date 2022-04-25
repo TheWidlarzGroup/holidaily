@@ -103,7 +103,7 @@ export const Slider: FC = () => {
         pagingEnabled
         scrollEventThrottle={16}
         bounces={false}
-        decelerationRate="fast"
+        decelerationRate="normal"
         overScrollMode="never">
         {SLIDER_DATA.map((item, index) => (
           <SliderContent

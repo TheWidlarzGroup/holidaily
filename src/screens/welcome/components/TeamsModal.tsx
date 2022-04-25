@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
@@ -11,13 +11,29 @@ import { setItem } from 'utils/localStorage'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
 import { isIos } from 'utils/layout'
+import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
 
 export const TeamsModal = ({ firstName }: { firstName: string }) => {
   const { t } = useTranslation('welcome')
-  const { mutate: createTempUser } = useCreateTempUser()
-  const { updateUser } = useUserContext()
+  const { user, updateUser } = useUserContext()
+  const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
+  const { data: organization, isLoading: isOrgLoading } = useGetOrganization()
+
+  const idRef = useRef(user?.id)
+
+  useEffect(() => {
+    // update user teams if we get to dashboard through onboarding
+    if (user && isTempUserCreated && !isOrgLoading && organization?.teams) {
+      // if idRef contains user.id than we already have updated the user teams
+      if (user.id === idRef.current) return
+      idRef.current = user.id
+      updateUser({
+        teams: organization.teams,
+      })
+    }
+  }, [isOrgLoading, organization, isTempUserCreated, updateUser, user])
 
   const handleOnSubmit = async () => {
     await setItem('firstName', firstName)
