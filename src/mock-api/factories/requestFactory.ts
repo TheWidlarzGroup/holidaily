@@ -4,40 +4,9 @@ import { Factory } from 'miragejs'
 import { DayOffRequest } from 'mock-api/models'
 import { isWorkingDay } from 'poland-public-holidays'
 import { isDateBetween } from 'utils/dates'
-import { getRandomValue } from 'utils/getRandomValue'
 import { genRequestDetails } from './genRequestDetails'
 
 const DAY_IN_MS = 24 * 3600 * 1000
-
-const descriptions = [
-  'Portugal',
-  'Italy',
-  'Spain',
-  'Greece',
-  'France',
-  'Croatia',
-  'Malta',
-  'Cyprus',
-  'Rome',
-  'Sicily',
-  'Sardegna',
-  'Corsica',
-  'Mallorca',
-  'New York',
-  'London',
-  'Edinburgh',
-  'Crete',
-  'Barcelona',
-  'Time off',
-  'Time off',
-  'Time off',
-  'Time off',
-  'Time off',
-  'Time off',
-  'RHCP concert',
-  'Freeride Kaunertal',
-  'Hiking the Tatras',
-]
 
 export const requestFactory = Factory.extend(genRandomDayOffRequest())
 
