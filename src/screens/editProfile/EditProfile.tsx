@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { ScrollView } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
@@ -14,6 +14,7 @@ import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { isIos } from 'utils/layout'
+import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -64,26 +65,30 @@ export const EditProfile = () => {
     })
   }
 
+  const handleGoBack = useCallback(() => {
+    navigation.goBack()
+    navigation.dispatch(DrawerActions.openDrawer())
+  }, [navigation])
+
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
-      <ScrollView style={{ marginBottom: isEdited ? 93 : 0, marginTop: isIos ? 20 : 0 }}>
-        <BaseOpacity
-          onPress={() => {
-            navigation.navigate('Dashboard')
-            navigation.dispatch(DrawerActions.openDrawer())
-          }}
-          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-          style={styles.backBtn}
-          activeOpacity={0.5}>
-          <IconBack height={18} width={18} />
-        </BaseOpacity>
-        <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
-        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
-        <TeamSubscriptions />
-        <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
-      </ScrollView>
-      {isLoading && <LoadingModal show />}
-      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
+      <GestureRecognizer onSwipeRight={handleGoBack}>
+        <ScrollView style={{ marginBottom: isEdited ? 93 : 0, marginTop: isIos ? 20 : 0 }}>
+          <BaseOpacity
+            onPress={handleGoBack}
+            hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+            style={styles.backBtn}
+            activeOpacity={0.5}>
+            <IconBack height={18} width={18} />
+          </BaseOpacity>
+          <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
+          <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+          <TeamSubscriptions />
+          <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
+        </ScrollView>
+        {isLoading && <LoadingModal show />}
+        {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

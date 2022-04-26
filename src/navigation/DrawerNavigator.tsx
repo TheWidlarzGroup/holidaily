@@ -78,7 +78,7 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="ProfileNavigation"
         component={ProfileNavigation}
-        options={{ title: t('editProfile'), swipeEnabled: true }}
+        options={{ title: t('editProfile'), swipeEnabled: false }}
       />
       {/* <Drawer.Screen
         name="AdminPanelEmployeesNavigation"
