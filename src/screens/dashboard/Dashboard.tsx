@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'

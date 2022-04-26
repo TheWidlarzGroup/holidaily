@@ -10,14 +10,14 @@ import Animated, {
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-type SwipeableModalProps = {
+type SwipeableNavScreenProps = {
   onHide: F0
   children: React.ReactElement[]
 }
 
-export type SwipeableModalRef = { hide: F0 }
+export type SwipeableNavScreenRef = { hide: F0 }
 
-export const SwipeableModal = forwardRef<SwipeableModalRef, SwipeableModalProps>(
+export const SwipeableNavScreen = forwardRef<SwipeableNavScreenRef, SwipeableNavScreenProps>(
   ({ children, onHide }, ref) => {
     const { height } = useDimensions()
     const styles = useStyles()
