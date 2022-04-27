@@ -18,13 +18,12 @@ export const Dashboard = () => {
   const openModal = (user: User) => {
     setIsModalVisible(true)
     showModal(
-      <SwipeableModal isOpen={isModalVisible} hide={hideModal}>
+      <SwipeableModal isOpen={isModalVisible} onHide={hideModal}>
         <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={user} />
       </SwipeableModal>
     )
   }
   const { user } = useUserContext()
-  console.log('rerender')
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal: openModal })

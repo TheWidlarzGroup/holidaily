@@ -6,10 +6,10 @@ const USER_MODAL_ANIM_TIME = 300
 
 type SwipableModalProps = PropsWithChildren<{
   isOpen: boolean
-  hide: F0
+  onHide: F0
 }>
 
-export const SwipeableModal = ({ children, isOpen, hide }: SwipableModalProps) => {
+export const SwipeableModal = ({ children, isOpen, onHide }: SwipableModalProps) => {
   const [isFading, { setTrue: fadeOut }] = useBooleanState(false)
   return (
     <Modal
@@ -27,7 +27,7 @@ export const SwipeableModal = ({ children, isOpen, hide }: SwipableModalProps) =
       style={{ margin: 0, marginTop: 120 }}
       animationInTiming={USER_MODAL_ANIM_TIME}
       animationOutTiming={USER_MODAL_ANIM_TIME}
-      onModalHide={hide}
+      onModalHide={onHide}
       onSwipeComplete={fadeOut}
       onBackButtonPress={fadeOut}
       onBackdropPress={fadeOut}>
