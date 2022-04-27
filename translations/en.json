@@ -72,7 +72,7 @@
     "yourName": "Your name",
     "whyAskForName": "We will display your name in several places in the app, so that you can get almost the real impression of using Holidaily.",
     "seeDemoButton": "See demo",
-    "firstNameErrMsg": "Please enter your name",
+    "firstNameErrMsg": "Please enter your name. It should not be longer than {{max}}",
     "about": "About",
     "aboutDesc1": "<bp>Holidaily</bp> is an app for <b>booking time off</b> for both <b>employers</b> and <b>employees.</b>",
     "aboutDesc2": "<b>It simplifies the information flow</b> about vacation schedules within the company, making the process <b>a lot quicker and easier for everyone!</b>",
@@ -175,7 +175,7 @@
     "selected": "Selected: ",
     "subscribe": "Subscribe",
     "newColorSaved": "New color saved!",
-    "fieldRequired": "This field is reqiuired.",
+    "fieldRequired": "This field is required, and should contain between {{min}} and {{max}} characters.",
     "ifYouUnsubscribe": "If you unsubscribe {{teamName}} Team you will no longer see its members.",
     "unsubscribed": "{{teamName}} unsubscribed",
     "colorPicker": "Pick your favourite color and drop it in the grey area below"
@@ -271,7 +271,8 @@
     "error": "Ooops! You don’t that many PTO",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
-    "changeDays": "Change days"
+    "changeDays": "Change days",
+    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>"
   },
   "adminPanel": {
     "employees": "Employees",

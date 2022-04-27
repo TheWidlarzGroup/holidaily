@@ -60,6 +60,9 @@ export const EditProfile = () => {
             user[field] ? setItem(field, String(user[field])) : removeItem(field)
           )
         )
+        // @ts-expect-error user on the backend has teams as an empty array.
+        // Teams are a required prop of type User but we still want to delete theme before updating the context
+        delete user.teams
         updateUser(user)
       },
     })

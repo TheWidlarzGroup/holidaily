@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
-import { minOneWordRegex } from 'utils/regex'
+import { minMaxSignsRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -12,6 +12,10 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import { About } from 'screens/about/About'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { TeamsModal } from './components/TeamsModal'
+
+const MIN_SIGNS = 1
+const MAX_SIGNS = 20
+const validationPattern = minMaxSignsRegex(MIN_SIGNS, MAX_SIGNS)
 
 export const Welcome = () => {
   const styles = useStyles()
@@ -48,8 +52,8 @@ export const Welcome = () => {
             errors={errors}
             name="firstName"
             inputLabel={t('yourName')}
-            validationPattern={minOneWordRegex}
-            errorMessage={t('firstNameErrMsg')}
+            validationPattern={validationPattern}
+            errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
             blurOnSubmit
           />
         </Box>
@@ -70,7 +74,7 @@ export const Welcome = () => {
             variant="primary"
             label={t('seeDemoButton')}
             onPress={handleSubmit(onSubmit)}
-            disabled={!(nameInput?.length > 1)}
+            disabled={!(nameInput?.length >= MIN_SIGNS && nameInput?.length <= MAX_SIGNS)}
           />
         </Box>
       </Box>

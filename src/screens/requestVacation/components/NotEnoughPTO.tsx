@@ -1,5 +1,5 @@
 import { CustomButton } from 'components/CustomButton'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getDurationInDays } from 'utils/dates'
 import { Box, Text } from 'utils/theme'
@@ -9,6 +9,7 @@ type NotEnoughPtoProps = {
   availablePto: number
   onPress: F0
   origin?: 'calendar' | 'form'
+  customError?: ReactElement | null
 }
 
 export const NotEnoughPTO = (p: NotEnoughPtoProps) => {
@@ -28,12 +29,18 @@ export const NotEnoughPTO = (p: NotEnoughPtoProps) => {
           <ExlamationMark color="white" />
         </Box>
         <Box flex={1}>
-          <Text fontSize={15} lineHeight={20}>
-            {t('error')}
-          </Text>
-          <Text fontSize={14} fontFamily="Nunito-Bold" marginTop="m" marginBottom="l">
-            {t('availablePto', { availablePto: getDurationInDays(p.availablePto) })}
-          </Text>
+          {p.customError ? (
+            p.customError
+          ) : (
+            <>
+              <Text fontSize={15} lineHeight={20}>
+                {t('error')}
+              </Text>
+              <Text fontSize={14} fontFamily="Nunito-Bold" marginTop="m" marginBottom="l">
+                {t('availablePto', { availablePto: getDurationInDays(p.availablePto) })}
+              </Text>
+            </>
+          )}
         </Box>
       </Box>
       <CustomButton
