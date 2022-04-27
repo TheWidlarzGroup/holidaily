@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
@@ -8,26 +8,23 @@ import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { LoadingModal } from 'components/LoadingModal'
 import { useUserContext } from 'hooks/useUserContext'
-import { SwipeableModal, SwipeableModalRef } from 'components/SwipeableModal'
+import { SwipeableModal } from 'components/SwipeableModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
   const { showModal, hideModal } = useModalContext()
-  const modalRef = useRef<SwipeableModalRef>(null)
-  const openModal = (user: User) =>
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const openModal = (user: User) => {
+    setIsModalVisible(true)
     showModal(
-      <SwipeableModal unmount={hideModal} ref={modalRef}>
-        <DashboardTeamMember
-          closeModal={() => {
-            if (modalRef && modalRef.current) modalRef.current.hide()
-          }}
-          user={user}
-        />
+      <SwipeableModal isOpen={isModalVisible} hide={hideModal}>
+        <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={user} />
       </SwipeableModal>
     )
+  }
   const { user } = useUserContext()
-
+  console.log('rerender')
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal: openModal })
