@@ -1,5 +1,6 @@
 import { addDays, getDate, getMonth, getYear, subDays } from 'date-fns'
 import { User } from 'mock-api/models/mirageTypes'
+import { isWeekendOrHoliday } from 'poland-public-holidays'
 import { DateOrISO, formatFromISO, parseISO } from './dates'
 
 export type ValidationOfDataToBeDisplayed = {
@@ -51,6 +52,22 @@ export const displayDatesRange = (startDate: DateOrISO, endDate: DateOrISO) => {
   }
   // 4.if the same day (one day off): 16 June 2021
   return displayDayLong(startDate)
+}
+
+export const nextWorkday = (date: DateOrISO) => {
+  let parsedDate = parseISO(date)
+  do {
+    parsedDate = addDays(parsedDate, 1)
+  } while (isWeekendOrHoliday(parsedDate))
+  return parsedDate
+}
+
+export const prevWorkday = (date: DateOrISO) => {
+  let parsedDate = parseISO(date)
+  do {
+    parsedDate = subDays(parsedDate, 1)
+  } while (isWeekendOrHoliday(parsedDate))
+  return parsedDate
 }
 
 export const setDateToBeDisplayed = (date: DateOrISO, currentlyOnHoliday: boolean) => {
