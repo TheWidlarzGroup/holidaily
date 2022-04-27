@@ -3,6 +3,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { calculatePTO } from 'utils/dates'
+import { MAX_SICK_DAYS_COUNT } from '../components/MaxSickDays'
 
 export type RequestVacationData = {
   step: number
@@ -39,7 +40,8 @@ export const RequestVacationProvider = ({ children }: { children: React.ReactNod
   const [sickTime, { setTrue: markSickTime, setFalse: cancelSickTime, toggle: toggleSickTime }] =
     useBooleanState(false)
   const isPeriodInvalid = useMemo(() => {
-    if (sickTime || user?.availablePto === undefined || !startDate) return false
+    if (user?.availablePto === undefined || !startDate) return false
+    if (sickTime) return calculatePTO(startDate, endDate ?? startDate) > MAX_SICK_DAYS_COUNT
     return user.availablePto < calculatePTO(startDate, endDate ?? startDate)
   }, [startDate, endDate, sickTime, user?.availablePto])
   return (
