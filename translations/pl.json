@@ -72,7 +72,7 @@
     "yourName": "Twoje imię",
     "whyAskForName": "Twoje imię i nazwisko wyświetlimy w kilku miejscach w aplikacji, dzięki czemu będziesz mógł odnieść prawdziwe wrażenie korzystania z Holidaily.",
     "seeDemoButton": "Zobacz demo",
-    "firstNameErrMsg": "Dodaj swoje imię",
+    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno zawierać więcej niż {{max}} znaków",
     "about": "O aplikacji",
     "aboutDesc1": "<bp>Holidaily</bp> to aplikacja do <b>rezerwacji urlopów</b> zarówno dla <b>pracodawców</b>, jak i <b>pracowników</b>",
     "aboutDesc2": "<b>Ułatwia wymianę informacji</b> o harmonogramach urlopów w firmie, dzięki czemu proces jest <b>znacznie szybszy i łatwiejszy dla wszystkich pracowników!</b>",
@@ -175,7 +175,7 @@
     "selected": "Zaznaczono: ",
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
-    "fieldRequired": "To pole jest wymagane.",
+    "fieldRequired": "To pole jest wymagane i powinno zawierać od {{min}} do {{max}} znaków",
     "ifYouUnsubscribe": "Jeśli wypiszesz się z subskrypcji zespołu {{teamName}}, nie będziesz widział jego członków.",
     "unsubscribed": "Usunięto subskrypcję {{teamName}}",
     "colorPicker": "Wybierz swój ulubiony kolor\ni przeciągnij go do szarego pola na dole"

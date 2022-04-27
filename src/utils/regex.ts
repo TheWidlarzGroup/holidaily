@@ -3,3 +3,5 @@ export const minOneSignRegex = /.{1,}$/i
 export const minOneWordRegex = /^(\w+).+/i
 export const minTwoWordsRegex = /^(\w+\s).+/i
 export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+
+export const minMaxSignsRegex = (min: number, max: number) => new RegExp(`^.{${min},${max}}$`, 'i')
