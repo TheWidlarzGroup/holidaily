@@ -16,7 +16,9 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
   <SafeAreaWrapper isDefaultBgColor>
     <Box
       padding="m"
-      paddingTop="s"
+      paddingTop="xl"
+      borderTopLeftRadius="m"
+      borderTopRightRadius="m"
       backgroundColor="white"
       flexGrow={1}
       marginTop={isIos ? '-l' : 0}>
