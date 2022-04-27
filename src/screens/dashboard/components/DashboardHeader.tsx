@@ -41,8 +41,7 @@ export const DashboardHeader = () => {
             <Avatar size="s" src={user?.photo} />
           </BaseOpacity>
         </Box>
-
-        <Box alignItems="center" flex={1}>
+        <Box alignItems="center" flex={1} paddingRight="xxl" marginLeft="xxl2plus">
           <Text variant="boldBlack18" numberOfLines={1}>
             {t('welcome', { name: user?.firstName })}
           </Text>

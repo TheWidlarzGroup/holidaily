@@ -22,6 +22,7 @@ export const themeBase = createTheme({
     xl: 40,
     xxl: 50,
     xxlplus: 60,
+    xxl2plus: 70,
     xxxl: 75,
     xxxxl: 100,
   },

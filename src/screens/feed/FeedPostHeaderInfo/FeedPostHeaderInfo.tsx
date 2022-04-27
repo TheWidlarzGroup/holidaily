@@ -10,16 +10,12 @@ export const FeedPostHeaderInfo = ({ meta }: FeedPostHeaderInfoProps) => {
   const formattedDate = displayDDMonYYYY(meta?.timestamp?.createdAt)
 
   return (
-    <Box flexGrow={1} alignItems="stretch" padding="xs" paddingTop={0}>
+    <Box flexGrow={1} alignItems="stretch" padding="xs" paddingTop={0} flex={1}>
       <Text variant="regularNeutralGrey10" textAlign="right" marginTop="-xs">
         {formattedDate}
       </Text>
-      <Text variant="label1" numberOfLines={1}>
-        {meta?.author?.name}
-      </Text>
-      <Text variant="captionText" numberOfLines={1}>
-        {meta?.author?.occupation}
-      </Text>
+      <Text variant="label1">{meta?.author?.name}</Text>
+      <Text variant="captionText">{meta?.author?.occupation}</Text>
     </Box>
   )
 }
