@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { FormInput } from 'components/FormInput'
 import IconEdit from 'assets/icons/icon-edit.svg'
 import { Box, BaseOpacity, useTheme } from 'utils/theme/'
-import { minOneSignRegex } from 'utils/regex'
+import { minMaxSignsRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
 // import { InputButton } from 'components/InputButton'
 // import { useNavigation } from '@react-navigation/native'
@@ -14,7 +14,9 @@ type UserData = {
   errors: DeepMap<{ firstName: string; lastName: string; occupation: string }, FieldError>
   control: Control<FieldValues>
 }
-
+const MIN_SIGNS = 1
+const MAX_SIGNS = 20
+const validationPattern = minMaxSignsRegex(MIN_SIGNS, MAX_SIGNS)
 export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const { t } = useTranslation('userProfile')
   const theme = useTheme()
@@ -25,7 +27,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
     useRef<TextInput>(null),
   ]
   const [iconInvisible, setIconInvisible] = useState<number>(-1)
-
+  const errorMessage = t('fieldRequired', { min: MIN_SIGNS, max: MAX_SIGNS })
   const onSubmitEditing = () => {
     setIsEdited(true)
     setIconInvisible(-1)
@@ -51,8 +53,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errors={errors}
           name="firstName"
           inputLabel={t('userFirstName')}
-          validationPattern={minOneSignRegex}
-          errorMessage={t('fieldRequired')}
+          validationPattern={validationPattern}
+          errorMessage={errorMessage}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[0]}
           labelTextVariant="labelGrey"
@@ -86,8 +88,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errors={errors}
           name="lastName"
           inputLabel={t('userLastName')}
-          validationPattern={minOneSignRegex}
-          errorMessage={t('fieldRequired')}
+          validationPattern={validationPattern}
+          errorMessage={errorMessage}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[1]}
           labelTextVariant="labelGrey"
@@ -121,8 +123,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           errors={errors}
           name="occupation"
           inputLabel={t('userOccupation')}
-          validationPattern={minOneSignRegex}
-          errorMessage={t('fieldRequired')}
+          validationPattern={validationPattern}
+          errorMessage={errorMessage}
           onSubmitEditing={onSubmitEditing}
           ref={inputsRefs[2]}
           labelTextVariant="labelGrey"
