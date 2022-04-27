@@ -13,12 +13,13 @@ export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
   const handleGalleryItemPress = (index: number) => {
     navigate('Gallery', { data, index })
   }
-
   return (
     <Box>
-      <Box padding="s">
-        <ExpandingText text={text} />
-      </Box>
+      {text.length > 0 && (
+        <Box padding="s">
+          <ExpandingText text={text} />
+        </Box>
+      )}
       {data?.length > 0 ? <Gallery data={data} onItemPress={handleGalleryItemPress} /> : null}
     </Box>
   )
