@@ -271,7 +271,8 @@
     "error": "Ooops! You don’t that many PTO",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
-    "changeDays": "Change days"
+    "changeDays": "Change days",
+    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>"
   },
   "adminPanel": {
     "employees": "Employees",

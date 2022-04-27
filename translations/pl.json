@@ -271,7 +271,8 @@
     "error": "Ojej! Brakuje ci dni urlopu",
     "clear": "Wyczyść",
     "availablePto": "Masz do wykorzystania {{availablePto}} urlopu",
-    "changeDays": "Zmień termin"
+    "changeDays": "Zmień termin",
+    "maxSickdaysError": "Możesz wziąć maksymalnie <b>{{max}} dni chorobowego.</b> <b>Zmień liczbę dni w kalendarzu.</b>"
   },
   "adminPanel": {
     "employees": "Pracownicy",

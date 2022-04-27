@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { ModalProps } from 'react-native-modal'
 import { Text } from 'utils/theme'
 import { CustomButton } from 'components/CustomButton'
@@ -15,6 +15,7 @@ type SelectPeriodModalProps = Pick<ModalProps, 'isVisible'> & {
   ptoTaken: number
   isInvalid: boolean
   availablePto: number
+  customError?: ReactElement | null
 }
 
 export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
@@ -23,7 +24,11 @@ export const SelectPeriodModal = (p: SelectPeriodModalProps) => {
   return (
     <BottomModal isVisible={p.isVisible} isInvalid={p.isInvalid}>
       {p.isInvalid ? (
-        <NotEnoughPTO onPress={p.onClear} availablePto={p.availablePto} />
+        <NotEnoughPTO
+          onPress={p.onClear}
+          availablePto={p.availablePto}
+          customError={p.customError}
+        />
       ) : (
         <>
           <Text variant="boldBlackCenter18">

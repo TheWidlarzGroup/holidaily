@@ -3,6 +3,7 @@ import { BottomModal } from 'components/BottomModal'
 import { useUserContext } from 'hooks/useUserContext'
 import React from 'react'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
+import { MaxSickdays } from './MaxSickDays'
 import { NotEnoughPTO } from './NotEnoughPTO'
 
 export const BadStateController = () => {
@@ -17,6 +18,7 @@ export const BadStateController = () => {
           origin="form"
           onPress={() => navigation.navigate('RequestVacationCalendar', { isSickTime: sickTime })}
           availablePto={user.availablePto}
+          customError={sickTime ? <MaxSickdays /> : null}
         />
       </BottomModal>
     )
