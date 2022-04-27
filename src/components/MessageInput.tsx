@@ -16,6 +16,8 @@ import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 
 export type MessageInputProps = {
+  messageContent: string
+  setMessageContent: F1<string>
   onSubmitEditing: F1<string>
   handleSubmitComment?: F1<Comment>
   onBlur?: F1<string>
@@ -25,8 +27,15 @@ export type MessageInputProps = {
 }
 
 export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
-  const { onSubmitEditing, onBlur, defaultValue = '', maxLength = 300, autofocus = false } = props
-  const [messageContent, setMessageContent] = useState(defaultValue)
+  const {
+    onSubmitEditing,
+    onBlur,
+    defaultValue = '',
+    maxLength = 300,
+    autofocus = false,
+    messageContent,
+    setMessageContent,
+  } = props
   const [error, setError] = useState('')
 
   const { t } = useTranslation('messageInput')
@@ -111,6 +120,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           multiline
           defaultValue={defaultValue}
           onChange={(e) => setMessageContent(e.nativeEvent.text)}
+          value={messageContent.length > 0 ? messageContent : ''}
         />
         {!!messageContent && (
           <TouchableOpacity style={styles.sendArrow} onPress={handleSubmit}>

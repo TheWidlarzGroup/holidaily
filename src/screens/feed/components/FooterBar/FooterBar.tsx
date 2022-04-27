@@ -26,6 +26,7 @@ export const FooterBar = ({ post }: Post) => {
   const { user } = useUserContext()
   const { mutate: addComment } = useAddComment()
   const { mutate: addReaction } = useAddReaction()
+  const [messageContent, setMessageContent] = useState('')
 
   if (!user?.id) return null
 
@@ -33,6 +34,7 @@ export const FooterBar = ({ post }: Post) => {
     if (comment.text?.length < 1) return
     const payload = { postId: id || '', comment }
     addComment(payload)
+    setMessageContent('')
   }
 
   const handlePressReaction = (emoji: string) => {
@@ -70,6 +72,8 @@ export const FooterBar = ({ post }: Post) => {
         handleAddReaction={handleAddReaction}
       />
       <MessageInputModal
+        messageContent={messageContent}
+        setMessageContent={setMessageContent}
         visible={messageInputOpened}
         onSubmitEditing={hideMessageInput}
         onRequestClose={hideMessageInput}
