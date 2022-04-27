@@ -6,6 +6,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
 import { Box, mkUseStyles } from 'utils/theme'
 import { CalendarHeader } from './CalendarHeader'
+import { MaxSickdays, MAX_SICK_DAYS_COUNT } from './MaxSickDays'
 import { SelectPeriodModal } from './SelectPeriodModal'
 
 export const CalendarRequestVacation = ({
@@ -21,7 +22,7 @@ export const CalendarRequestVacation = ({
     if (!periodEnd || !periodStart) return 0
     return calculatePTO(periodStart, periodEnd)
   }, [periodStart, periodEnd])
-  const isInvalid = isSickTime ? false : availablePto < ptoTaken
+  const isInvalid = isSickTime ? ptoTaken > MAX_SICK_DAYS_COUNT : ptoTaken > availablePto
   const navigation = useNavigation<ModalNavigationType<'RequestVacationCalendar'>>()
   const onClear = () => {
     selectPeriodStart('')
@@ -60,6 +61,7 @@ export const CalendarRequestVacation = ({
         ptoTaken={ptoTaken}
         availablePto={availablePto}
         isInvalid={isInvalid}
+        customError={isSickTime ? <MaxSickdays /> : null}
       />
     </Box>
   )
