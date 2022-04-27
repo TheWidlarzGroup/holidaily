@@ -1,77 +1,59 @@
-import { RadioInput } from 'components/RadioInput'
-import { useBooleanState } from 'hooks/useBooleanState'
 import React, { useEffect } from 'react'
+import Animated from 'react-native-reanimated'
 import { TouchableOpacity } from 'react-native'
-import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
-import { Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
-import { capitalize } from 'utils/role'
+import { RadioInput } from 'components/RadioInput'
+import { Box, mkUseStyles, Text } from 'utils/theme'
+import { useDropdownAnimation } from 'hooks/useDropdownAnimation'
 
-type DropdownWithRadioProps = {
+type Props = {
   label: string
   options: string[]
   selectedOption: string
+  optionsLabels?: string[]
   setSelectedOption: F1<string>
 }
 
-export const DropdownWithRadio = ({
-  label,
-  options,
-  selectedOption,
-  setSelectedOption,
-}: DropdownWithRadioProps) => {
-  const [opened, { toggle: changeOpened }] = useBooleanState(false)
-  const height = 40 * options.length
+export const DropdownWithRadio = (props: Props) => {
+  const animation = useDropdownAnimation(props.options)
   const styles = useStyles()
 
   useEffect(() => {
-    setSelectedOption(selectedOption)
-  }, [selectedOption, setSelectedOption])
+    props.setSelectedOption(props.selectedOption)
+  }, [props])
 
   const changeSelectedOption = (option: string) => {
-    setSelectedOption(option)
+    props.setSelectedOption(option)
+    animation.changeOpened()
   }
 
-  const heightProgress = useDerivedValue(
-    () => (opened ? withTiming(height, { duration: 200 }) : withTiming(0, { duration: 200 })),
-    [opened]
-  )
-  const animatedOptions = useAnimatedStyle(() => ({
-    height: heightProgress.value,
-    opacity: heightProgress.value / height,
-  }))
-  const animatedArrow = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotate: `${(heightProgress.value / height) * 180}deg`,
-      },
-    ],
-  }))
+  const radioInputHandler = () => {}
+
+  const hitRange = 20
+  const hitSlop = { top: hitRange, bottom: hitRange, left: hitRange, right: hitRange }
 
   return (
     <Box style={styles.container}>
       <Box style={styles.header}>
         <Text variant="body1Bold" textAlign="left">
-          {label}
+          {props.label}
         </Text>
-        <TouchableOpacity
-          onPress={changeOpened}
-          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <Animated.View style={animatedArrow}>
+        <TouchableOpacity onPress={animation.changeOpened} hitSlop={hitSlop}>
+          <Animated.View style={animation.animatedArrow}>
             <ArrowDown />
           </Animated.View>
         </TouchableOpacity>
       </Box>
-      <Animated.View style={[styles.options, animatedOptions]}>
-        {options.map((option) => (
+      <Animated.View style={[styles.options, animation.animatedOptions]}>
+        {props.options.map((option, index) => (
           <TouchableOpacity
             key={option}
-            style={styles.option}
-            onPress={() => changeSelectedOption(option)}>
-            <Text variant="body1" marginVertical="s" textAlign="left">
-              {capitalize(option)}
+            onPress={() => changeSelectedOption(option)}
+            style={index === 0 ? [styles.option, styles.firstOption] : styles.option}>
+            <Text variant="body1" paddingVertical="s" paddingHorizontal="m" textAlign="left">
+              {props.optionsLabels ? props.optionsLabels[index] : option}
             </Text>
-            <RadioInput checked={selectedOption === option} onPress={() => {}} />
+            <RadioInput checked={props.selectedOption === option} onPress={radioInputHandler} />
           </TouchableOpacity>
         ))}
       </Animated.View>
@@ -83,26 +65,30 @@ const useStyles = mkUseStyles((theme) => ({
   container: {
     backgroundColor: theme.colors.disabledText,
     borderRadius: theme.borderRadii.lplus,
-    padding: theme.spacing.ml,
     marginVertical: theme.spacing.s,
+    padding: theme.spacing.ml,
   },
   header: {
+    marginRight: theme.spacing.xs,
+    marginLeft: theme.spacing.xxm,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginRight: 3,
+    justifyContent: 'space-between',
   },
   option: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  firstOption: {
+    marginTop: theme.spacing.s,
   },
   options: {
     overflow: 'hidden',
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: theme.spacing.ml,
+    height: theme.spacing.ml,
     marginHorizontal: theme.spacing.m,
   },
 }))
