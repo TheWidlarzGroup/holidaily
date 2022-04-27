@@ -53,6 +53,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   ] = useBooleanState(false)
   const [attachmentsToRemove, setAttachmentsToRemove] = useState<string[]>([])
   const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
+  const [messageContent, setMessageContent] = useState('')
 
   const { t } = useTranslation('requestVacation')
 
@@ -118,6 +119,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
             onRequestClose={hideMessageInput}
             defaultValue={message}
             autofocus
+            messageContent={messageContent}
+            setMessageContent={setMessageContent}
           />
         ) : (
           isNextVisible && (
