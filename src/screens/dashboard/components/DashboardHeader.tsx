@@ -43,7 +43,9 @@ export const DashboardHeader = () => {
         </Box>
 
         <Box alignItems="center" flex={1}>
-          <Text variant="boldBlack18">{t('welcome', { name: user?.firstName })}</Text>
+          <Text variant="boldBlack18" numberOfLines={1}>
+            {t('welcome', { name: user?.firstName })}
+          </Text>
           <Text variant="lightGreyRegular" lineHeight={14}>
             {t('today', {
               date,

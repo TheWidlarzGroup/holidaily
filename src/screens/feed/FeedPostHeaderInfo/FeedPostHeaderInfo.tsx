@@ -14,8 +14,12 @@ export const FeedPostHeaderInfo = ({ meta }: FeedPostHeaderInfoProps) => {
       <Text variant="regularNeutralGrey10" textAlign="right" marginTop="-xs">
         {formattedDate}
       </Text>
-      <Text variant="label1">{meta?.author?.name}</Text>
-      <Text variant="captionText">{meta?.author?.occupation}</Text>
+      <Text variant="label1" numberOfLines={1}>
+        {meta?.author?.name}
+      </Text>
+      <Text variant="captionText" numberOfLines={1}>
+        {meta?.author?.occupation}
+      </Text>
     </Box>
   )
 }
