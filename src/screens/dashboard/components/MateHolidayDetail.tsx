@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { displayDayShort, setDateToBeDisplayed, displayWeekday } from 'utils/functions'
+import { displayDayShort, displayWeekday, prevWorkday, nextWorkday } from 'utils/functions'
 
 type MateHolidayDetailProps = {
   type: 'start' | 'end'
@@ -12,8 +12,7 @@ export const MateHolidayDetail = (props: MateHolidayDetailProps) => {
   const { date, type } = props
   const { t } = useTranslation('dashboard')
   const header = type === 'start' ? 'lastDayAtWork' : 'backAtWork'
-  const dateTobedisplay =
-    type === 'start' ? setDateToBeDisplayed(date, false) : setDateToBeDisplayed(date, true)
+  const dateTobedisplay = type === 'start' ? prevWorkday(date) : nextWorkday(date)
   const color = type === 'start' ? 'greyDark' : 'black'
 
   return (
