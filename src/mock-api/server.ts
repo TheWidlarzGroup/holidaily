@@ -80,10 +80,18 @@ export const initBackendMocks = () =>
         name: 'Encrypto',
         users: users.slice(36, 40),
       })
+      const team10 = server.create('team', {
+        name: 'AgileSoft',
+        users: [...users.slice(4, 7), ...users.slice(18, 20)],
+      })
+      const team11 = server.create('team', {
+        name: 'WWWare',
+        users: [...users.slice(11, 13), ...users.slice(24, 32)],
+      })
       server.create('organization', {
         name: 'Supercompany',
         maxPtoDays: 21,
-        teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9],
+        teams: [team1, team2, team3, team4, team5, team6, team7, team8, team9, team10, team11],
       })
       // @ts-ignore
       const reactions = reactionsMock.map((reaction) => server.create('reaction', reaction))

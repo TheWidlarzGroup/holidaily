@@ -27,7 +27,7 @@ export const AppNavigation = () => {
       if (user.id === idRef.current) return
       idRef.current = user.id
       updateUser({
-        teams: organization.teams,
+        teams: organization.teams.slice(0, -2),
       })
     }
   }, [isOrgLoading, organization, isTempUserCreated, updateUser, user])

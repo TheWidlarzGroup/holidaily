@@ -30,7 +30,7 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
       if (user.id === idRef.current) return
       idRef.current = user.id
       updateUser({
-        teams: organization.teams,
+        teams: organization.teams.slice(-0, -2),
       })
     }
   }, [isOrgLoading, organization, isTempUserCreated, updateUser, user])
