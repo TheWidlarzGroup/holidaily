@@ -117,7 +117,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       paddingHorizontal="m"
       justifyContent="center"
       alignItems="center"
-      marginTop="xxl"
+      marginTop="-s"
       marginBottom="xl">
       <BaseOpacity
         onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}

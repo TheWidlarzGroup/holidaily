@@ -46,6 +46,7 @@ export const Welcome = () => {
         </Box>
         <Box marginTop="xl">
           <FormInput
+            maxLength={15}
             control={control}
             isError={!!errors.firstName}
             errors={errors}
