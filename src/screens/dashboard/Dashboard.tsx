@@ -9,19 +9,15 @@ import { Team, User } from 'mock-api/models/mirageTypes'
 import { LoadingModal } from 'components/LoadingModal'
 import { useUserContext } from 'hooks/useUserContext'
 import { SwipeableModal } from 'components/SwipeableModal'
-import { useModalContext } from 'contexts/ModalProvider'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
-  const { showModal, hideModal } = useModalContext()
   const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
+    setModalUser(user)
     setIsModalVisible(true)
-    showModal(
-      <SwipeableModal isOpen={isModalVisible} onHide={hideModal}>
-        <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={user} />
-      </SwipeableModal>
-    )
   }
   const { user } = useUserContext()
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
@@ -42,6 +38,11 @@ export const Dashboard = () => {
           ))}
         </SortableList>
       </SafeAreaWrapper>
+      {modalUser && (
+        <SwipeableModal isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
+          <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={modalUser} />
+        </SwipeableModal>
+      )}
     </>
   )
 }
