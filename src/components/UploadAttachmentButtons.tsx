@@ -7,17 +7,15 @@ import FileIcon from 'assets/icons/icon-file.svg'
 
 type UploadAttachmentAction = 'gallery' | 'camera' | 'file'
 type UploadAttachmentButtonsProps = {
+  onUpload: F1<UploadAttachmentAction>
   showCamera?: true
   allowFiles?: true
-  setAction: F1<UploadAttachmentAction | null>
-  hideModal: F0
 }
 
 export const UploadAttachmentButtons = ({
+  onUpload,
   showCamera,
   allowFiles,
-  setAction,
-  hideModal,
 }: UploadAttachmentButtonsProps) => {
   const { t } = useTranslation('uploadAttachmentModal')
   const theme = useTheme()
@@ -27,10 +25,7 @@ export const UploadAttachmentButtons = ({
       {showCamera && (
         <>
           <BaseOpacity
-            onPress={() => {
-              setAction('camera')
-              hideModal()
-            }}
+            onPress={() => onUpload('camera')}
             activeOpacity={0.2}
             flexDirection="row"
             justifyContent="center"
@@ -45,11 +40,7 @@ export const UploadAttachmentButtons = ({
       )}
 
       <BaseOpacity
-        onPress={() => {
-          console.log('gall')
-          setAction('gallery')
-          hideModal()
-        }}
+        onPress={() => onUpload('gallery')}
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
@@ -64,10 +55,7 @@ export const UploadAttachmentButtons = ({
         <>
           <Box height={1} backgroundColor="black" marginLeft="lplus" marginTop="m" />
           <BaseOpacity
-            onPress={() => {
-              setAction('file')
-              hideModal()
-            }}
+            onPress={() => onUpload('file')}
             activeOpacity={0.2}
             flexDirection="row"
             justifyContent="center"

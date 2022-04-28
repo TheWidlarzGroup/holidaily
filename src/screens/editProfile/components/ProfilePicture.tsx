@@ -45,20 +45,20 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
 
   const showUploadAttachmentModal = () => {
     hideModal()
-    // setTimeout(() => {
-    showModal(
-      <UploadAttachmentModal
-        isVisible
-        showCamera
-        hideModal={hideModal}
-        onUserCancelled={() => {
-          setIsEditedFalse()
-          hideModal()
-        }}
-        setPhotoURI={onChangePhoto}
-      />
-    )
-    // }, 250)
+    setTimeout(() => {
+      showModal(
+        <UploadAttachmentModal
+          isVisible
+          showCamera
+          hideModal={hideModal}
+          onUserCancelled={() => {
+            setIsEditedFalse()
+            hideModal()
+          }}
+          setPhotoURI={onChangePhoto}
+        />
+      )
+    }, 250)
   }
   const showDeleteConfirmationModal = () => {
     hideModal()
@@ -122,7 +122,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       <BaseOpacity
         onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.5}>
-        <Avatar src={user?.photo} size="m" marginBottom="m" />
+        <Avatar src={user?.photo} size="l" marginBottom="m" />
       </BaseOpacity>
       <TextLink
         text={user?.photo ? t('editPhoto') : t('addPhoto')}

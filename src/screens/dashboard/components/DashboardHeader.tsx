@@ -34,7 +34,7 @@ export const DashboardHeader = () => {
           <BaseOpacity
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             bg="white"
-            padding="s"
+            padding="xs"
             paddingLeft="m"
             borderTopRightRadius="lplus"
             borderBottomRightRadius="lplus">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 import {
   ImageLibraryOptions,
@@ -38,7 +38,6 @@ export const UploadAttachmentModal = ({
   // TODO: IOS setup required
   const styles = useStyles()
   const theme = useTheme()
-  const [action, setAction] = useState<PhotoSelectionChoice | null>(null)
 
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
@@ -50,22 +49,18 @@ export const UploadAttachmentModal = ({
     }
   }
 
-  useEffect(() => {
-    console.log(action)
-  }, [action])
+  const onUpload = async (action: PhotoSelectionChoice) => {
+    p.hideModal()
 
-  const onUpload = (action: PhotoSelectionChoice) => {
-    console.log('on upload')
     if (p.allowFiles && action === 'file') {
       const { doc, docx, pdf, plainText, ppt, pptx } = documentTypes
       const options: DocumentPickerOptions<'android' | 'ios'> = {
         type: [doc, docx, pdf, plainText, ppt, pptx],
       }
       try {
-        setTimeout(async () => {
-          const { uri, name } = await pickDocument(options)
-          p.setFile({ uri, name })
-        }, 40)
+        const { uri, name } = await pickDocument(options)
+
+        p.setFile({ uri, name })
       } catch (error) {
         p.setFile(undefined)
       }
@@ -73,30 +68,23 @@ export const UploadAttachmentModal = ({
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
     }
-    setTimeout(() => {
-      if (action === 'gallery') {
+    if (action === 'gallery') {
+      setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
-      }
-    }, 300)
-    if (action === 'camera') {
-      launchCamera(options, (response) => onHandleResponse(response))
+      }, 300)
     }
-    setAction(null)
+    if (action === 'camera') {
+      setTimeout(() => {
+        launchCamera(options, (response) => onHandleResponse(response))
+      }, 300)
+    }
   }
   useEffect(() => {
     hideEditAttachmentModal?.()
   }, [hideEditAttachmentModal])
 
-  const onHide = () => {
-    setTimeout(() => {
-      console.log('aaa')
-      return action && onUpload(action)
-    }, 300)
-  }
-
   return (
     <CustomModal
-      onModalHide={onHide}
       onRequestClose={p.hideModal}
       isVisible={p.isVisible}
       onBackdropPress={p.hideModal}
@@ -110,8 +98,7 @@ export const UploadAttachmentModal = ({
       style={styles.modal}
       hideModalContentWhileAnimating>
       <UploadAttachmentButtons
-        hideModal={p.hideModal}
-        setAction={setAction}
+        onUpload={onUpload}
         allowFiles={p.allowFiles}
         showCamera={p.showCamera}
       />
