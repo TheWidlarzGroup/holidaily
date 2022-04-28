@@ -1,11 +1,13 @@
 import { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { Option } from 'types/dropdownWithRadio'
 
-export const useDropdownAnimation = (options: string[]) => {
+const DURATION = 200
+
+export const useDropdownAnimation = (options: Option<string>[]) => {
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
 
   const HEIGHT = options.length * 40
-  const DURATION = 200
 
   const heightProgress = useDerivedValue(
     () =>

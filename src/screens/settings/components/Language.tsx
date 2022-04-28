@@ -5,14 +5,15 @@ import { setItem } from 'utils/localStorage'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { DropdownWithRadio } from 'components/DropdownWithRadio'
+import { Option } from 'types/dropdownWithRadio'
 import { LangChangeAlert } from './LangChangeAlert'
 
-type Props = {
+type LanguageProps = {
   setLoadingTrue: F0
   setLoadingFalse: F0
 }
 
-export const Language = (props: Props) => {
+export const Language = (props: LanguageProps) => {
   const { i18n, t } = useTranslation('settings')
   const [selectedLng, setSelectedLng] = useState(i18n.language)
 
@@ -35,15 +36,17 @@ export const Language = (props: Props) => {
     })
   }, [selectedLng, i18n, props, showChangeAlert])
 
-  const convertedLanguages = keys(locales).map((language) => t(language))
+  const languages: Option<string>[] = keys(locales).map((language) => ({
+    label: t(language),
+    value: language,
+  }))
 
   return (
     <>
       <DropdownWithRadio
         label={t('language')}
-        options={keys(locales)}
+        options={languages}
         selectedOption={selectedLng}
-        optionsLabels={convertedLanguages}
         setSelectedOption={changeLanguage}
       />
       <LangChangeAlert isVisible={isChangeAlertVisible} dismiss={hideChangeAlert} />

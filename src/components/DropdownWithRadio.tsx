@@ -3,34 +3,34 @@ import Animated from 'react-native-reanimated'
 import { TouchableOpacity } from 'react-native'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { RadioInput } from 'components/RadioInput'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import { useDropdownAnimation } from 'hooks/useDropdownAnimation'
+import { Option } from 'types/dropdownWithRadio'
 
-type Props = {
+type DropdownWithRadioProps = {
   label: string
-  options: string[]
+  options: Option<string>[]
   selectedOption: string
-  optionsLabels?: string[]
   setSelectedOption: F1<string>
 }
 
-export const DropdownWithRadio = (props: Props) => {
+const hitRange = 20
+const hitSlop = { top: hitRange, bottom: hitRange, left: hitRange, right: hitRange }
+
+export const DropdownWithRadio = (props: DropdownWithRadioProps) => {
   const animation = useDropdownAnimation(props.options)
   const styles = useStyles()
 
+  const { selectedOption, setSelectedOption } = props
+
   useEffect(() => {
-    props.setSelectedOption(props.selectedOption)
-  }, [props])
+    setSelectedOption(selectedOption)
+  }, [selectedOption, setSelectedOption])
 
   const changeSelectedOption = (option: string) => {
-    props.setSelectedOption(option)
+    setSelectedOption(option)
     animation.changeOpened()
   }
-
-  const radioInputHandler = () => {}
-
-  const hitRange = 20
-  const hitSlop = { top: hitRange, bottom: hitRange, left: hitRange, right: hitRange }
 
   return (
     <Box style={styles.container}>
@@ -46,15 +46,15 @@ export const DropdownWithRadio = (props: Props) => {
       </Box>
       <Animated.View style={[styles.options, animation.animatedOptions]}>
         {props.options.map((option, index) => (
-          <TouchableOpacity
-            key={option}
-            onPress={() => changeSelectedOption(option)}
+          <BaseOpacity
+            key={option.label}
+            onPress={() => changeSelectedOption(option.value)}
             style={index === 0 ? [styles.option, styles.firstOption] : styles.option}>
             <Text variant="body1" paddingVertical="s" paddingHorizontal="m" textAlign="left">
-              {props.optionsLabels ? props.optionsLabels[index] : option}
+              {option.label}
             </Text>
-            <RadioInput checked={props.selectedOption === option} onPress={radioInputHandler} />
-          </TouchableOpacity>
+            <RadioInput checked={props.selectedOption === option.value} onPress={() => {}} />
+          </BaseOpacity>
         ))}
       </Animated.View>
     </Box>
