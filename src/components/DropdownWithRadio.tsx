@@ -5,7 +5,6 @@ import ArrowDown from 'assets/icons/arrowDown.svg'
 import { RadioInput } from 'components/RadioInput'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import { useDropdownAnimation } from 'hooks/useDropdownAnimation'
-import { Option } from 'types/dropdownWithRadio'
 
 type DropdownWithRadioProps = {
   label: string

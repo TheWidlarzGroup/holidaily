@@ -5,7 +5,6 @@ import { setItem } from 'utils/localStorage'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { DropdownWithRadio } from 'components/DropdownWithRadio'
-import { Option } from 'types/dropdownWithRadio'
 import { LangChangeAlert } from './LangChangeAlert'
 
 type LanguageProps = {
