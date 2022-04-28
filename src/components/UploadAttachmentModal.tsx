@@ -49,7 +49,7 @@ export const UploadAttachmentModal = ({
     }
   }
 
-  const onUpload = async (action: PhotoSelectionChoice) => {
+  const onUpload = (action: PhotoSelectionChoice) => {
     p.hideModal()
 
     if (p.allowFiles && action === 'file') {
@@ -58,9 +58,10 @@ export const UploadAttachmentModal = ({
         type: [doc, docx, pdf, plainText, ppt, pptx],
       }
       try {
-        const { uri, name } = await pickDocument(options)
-
-        p.setFile({ uri, name })
+        setTimeout(async () => {
+          const { uri, name } = await pickDocument(options)
+          p.setFile({ uri, name })
+        }, 400)
       } catch (error) {
         p.setFile(undefined)
       }
@@ -69,14 +70,15 @@ export const UploadAttachmentModal = ({
       mediaType: 'photo',
     }
     if (action === 'gallery') {
+      console.log('gal')
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
-      }, 300)
+      }, 400)
     }
     if (action === 'camera') {
       setTimeout(() => {
         launchCamera(options, (response) => onHandleResponse(response))
-      }, 300)
+      }, 400)
     }
   }
   useEffect(() => {
