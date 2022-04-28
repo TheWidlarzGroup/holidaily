@@ -1,6 +1,5 @@
 import { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { Option } from 'types/dropdownWithRadio'
 
 const DURATION = 200
 

@@ -4,3 +4,4 @@ type F2<T1, T2, RT = void> = (a1: T1, a2: T2) => RT
 type F3<T1, T2, T3, RT = void> = (a1: T1, a2: T2, a3: T3) => RT
 
 type Maybe<T> = T | null
+type Option<T> = { label: string; value: T }
