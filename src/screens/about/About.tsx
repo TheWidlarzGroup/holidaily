@@ -4,11 +4,12 @@ import { isIos } from 'utils/layout'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerNavigationType } from 'navigation/types'
-import { Box, mkUseStyles } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { AboutDescription } from './components/AboutDescription'
 import { AboutBackground } from './components/AboutBackground'
 import { AboutHeader } from './components/AboutHeader'
 import { AboutLinks } from './components/AboutLinks'
+import { version } from '../../../package.json'
 
 type AboutTypes = { isFromWelcomeScreen?: true; closeModal: F0 }
 
@@ -35,6 +36,11 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
           <AboutDescription />
           <AboutLinks />
           <AboutBackground />
+        </Box>
+        <Box position="absolute" bottom={12} left="40%">
+          <Text fontSize={10} color="black">
+            v. {version} Holidaily
+          </Text>
         </Box>
       </GestureRecognizer>
     </SafeAreaWrapper>
