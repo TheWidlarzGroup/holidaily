@@ -70,7 +70,6 @@ export const UploadAttachmentModal = ({
       mediaType: 'photo',
     }
     if (action === 'gallery') {
-      console.log('gal')
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
       }, 400)
