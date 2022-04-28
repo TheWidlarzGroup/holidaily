@@ -12,7 +12,6 @@ import { StorageKeys, setItem, removeItem } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { isIos } from 'utils/layout'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
@@ -75,7 +74,7 @@ export const EditProfile = () => {
   return (
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack}>
-        <ScrollView style={{ marginBottom: isEdited ? 93 : 0, marginTop: isIos ? 0 : 0 }}>
+        <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
           <DrawerBackArrow goBack={handleGoBack} />
           <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
