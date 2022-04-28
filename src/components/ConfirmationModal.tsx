@@ -24,6 +24,9 @@ export const ConfirmationModal = ({
     <CustomModal
       isVisible={isVisible}
       onBackdropPress={hideModal}
+      onSwipeComplete={hideModal}
+      onBackButtonPress={hideModal}
+      swipeThreshold={20}
       backdropColor={theme.colors.white}
       backdropOpacity={0.5}
       animationIn="slideInUp"
