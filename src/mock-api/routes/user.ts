@@ -6,6 +6,7 @@ import { calculatePTO } from 'utils/dates'
 import { initPayloadService } from '../utils/payloadService'
 import { genManyRequests } from '../factories/requestFactory'
 import { DayOffRequest, Schema as ModelsSchema, User } from '../models'
+import { theme } from 'utils/theme'
 
 const DAY_IN_MS = 24 * 3600 * 1000
 
@@ -73,6 +74,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     photo: null,
     role: 'Admin',
     teams: [],
+    userColor: theme.colors.primary,
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()

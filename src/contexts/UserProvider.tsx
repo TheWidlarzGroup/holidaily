@@ -5,6 +5,7 @@ import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { setItem, removeMany } from 'utils/localStorage'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
+import { useTeamsContext } from 'hooks/useTeamsContext'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -31,6 +32,7 @@ export const emptyUser: User = {
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
   const { reset: clearUserCache } = useCreateTempUser()
+  const { reset: resetTeams } = useTeamsContext()
   const updateUser = useCallback((newData: Partial<User> | null) => {
     // checking if newData.photo !== user.photo makes updateUser dependend on user and changing its reference in unexpected way
     if (newData?.photo) {
@@ -51,6 +53,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'seenNotificationsIds',
     ])
     delete axios.defaults.headers.common.userId
+    resetTeams()
     setUser(null)
     clearUserCache()
     queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)

@@ -12,6 +12,7 @@ import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
 import { isIos } from 'utils/layout'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
+import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
 
@@ -22,18 +23,16 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
   const { data: organization, isLoading: isOrgLoading } = useGetOrganization()
 
   const idRef = useRef(user?.id)
-
+  const initTeams = useInitDemoUserTeams()
   useEffect(() => {
     // update user teams if we get to dashboard through onboarding
     if (user && isTempUserCreated && !isOrgLoading && organization?.teams) {
       // if idRef contains user.id than we already have updated the user teams
       if (user.id === idRef.current) return
       idRef.current = user.id
-      updateUser({
-        teams: organization.teams.slice(-0, -2),
-      })
+      initTeams()
     }
-  }, [isOrgLoading, organization, isTempUserCreated, updateUser, user])
+  }, [isOrgLoading, organization, isTempUserCreated, updateUser, user, initTeams])
 
   const handleOnSubmit = async () => {
     await setItem('firstName', firstName)

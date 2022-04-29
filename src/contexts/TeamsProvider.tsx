@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback, useEffect } from 'react'
+import React, { ReactNode, useState, useCallback, useEffect, useRef } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { TeamsContextProps, TeamsContext } from './TeamsContext'
@@ -16,6 +16,17 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     setTeams((prev) => [...prev, ...newData])
   }, [])
 
+  const addUserToTeams = useCallback(
+    (user: User, teamNames: string[]) => {
+      let { teamsToUpdate, unchangedTeams } = splitTeamsToUpdate(teams, teamNames)
+      teamsToUpdate = teamsToUpdate.map((t) => ({ ...t, users: [...t.users, user] }))
+      setTeams(teamsToUpdate.concat(unchangedTeams))
+    },
+    [teams]
+  )
+
+  const reset = useCallback(() => setTeams(data?.teams || []), [data?.teams])
+
   useEffect(() => {
     const removeDuplicatesOfAllUsers = () => {
       let users: User[] = []
@@ -32,6 +43,21 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     }
   }, [data])
 
-  const value: TeamsContextProps = { teams, updateTeams, allUsers }
+  const value: TeamsContextProps = {
+    teams,
+    updateTeams,
+    allUsers,
+    addUserToTeams,
+    reset,
+  }
   return <TeamsContext.Provider value={value}>{children}</TeamsContext.Provider>
+}
+
+const splitTeamsToUpdate = (teams: Team[], teamsToUpdateNames: string[]) => {
+  const teamsToUpdate: Team[] = []
+  const unchangedTeams: Team[] = []
+  teams.forEach((t) =>
+    teamsToUpdateNames.includes(t.name) ? teamsToUpdate.push(t) : unchangedTeams.push(t)
+  )
+  return { teamsToUpdate, unchangedTeams }
 }
