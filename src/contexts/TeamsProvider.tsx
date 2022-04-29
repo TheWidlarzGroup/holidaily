@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback, useEffect, useRef } from 'react'
+import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { TeamsContextProps, TeamsContext } from './TeamsContext'
