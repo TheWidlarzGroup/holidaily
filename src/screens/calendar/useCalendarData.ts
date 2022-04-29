@@ -1,6 +1,8 @@
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
+import { useUserContext } from 'hooks/useUserContext'
 import { parseISO } from 'utils/dates'
+import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/useRequestsContext'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from './components/DayInfo'
@@ -11,12 +13,22 @@ export const useCalendarData = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
   const { requests } = useRequestsContext()
+  const { user } = useUserContext()
 
   useEffect(() => {
     if (!teams.length) return
-    const teamsData = teams.map((team) => ({ id: +team.id, title: team.name, isSelected: true }))
-    setFilterCategories(teamsData)
-  }, [teams])
+    const unsubscribedTeams: Team[] = []
+    teams.forEach((team) => {
+      if (user?.teams.some((t) => t.name === team.name)) return
+      unsubscribedTeams.push(team)
+    })
+    const parseCategories = (teams: Team[], isSelected: boolean) =>
+      teams.map((t) => ({ id: +t.id, title: t.name, isSelected }))
+    const nextCategories: FilterCategory[] = parseCategories(user?.teams ?? [], true).concat(
+      parseCategories(unsubscribedTeams, false)
+    )
+    setFilterCategories(nextCategories)
+  }, [teams, user?.teams])
 
   const toggleFilterItemSelection = (id: number) => {
     setFilterCategories((prevState) => {
