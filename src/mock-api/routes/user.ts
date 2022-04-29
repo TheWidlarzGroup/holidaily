@@ -3,10 +3,10 @@ import Schema from 'miragejs/orm/schema'
 import { faker } from '@faker-js/faker'
 import { requireAuth } from 'mockApi/utils/requireAuth'
 import { calculatePTO } from 'utils/dates'
+import { theme } from 'utils/theme'
 import { initPayloadService } from '../utils/payloadService'
 import { genManyRequests } from '../factories/requestFactory'
 import { DayOffRequest, Schema as ModelsSchema, User } from '../models'
-import { theme } from 'utils/theme'
 
 const DAY_IN_MS = 24 * 3600 * 1000
 
