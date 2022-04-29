@@ -57,7 +57,7 @@ export const Slider: FC = () => {
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
-
+  console.log(translateX)
   const navigateToWelcomeScreen = () => {
     navigation.navigate('Welcome')
   }
