@@ -16,14 +16,14 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     setTeams((prev) => [...prev, ...newData])
   }, [])
 
-  const addUserToTeams = useCallback(
-    (user: User, teamNames: string[]) => {
-      let { teamsToUpdate, unchangedTeams } = splitTeamsToUpdate(teams, teamNames)
-      teamsToUpdate = teamsToUpdate.map((t) => ({ ...t, users: [...t.users, user] }))
-      setTeams(teamsToUpdate.concat(unchangedTeams))
-    },
-    [teams]
-  )
+  const addUserToTeams = (user: User, teamNames: string[], options?: { withReset?: true }) => {
+    const initialTeams = data?.teams || []
+    const teamsToUse = options?.withReset ? initialTeams : teams
+    let { teamsToUpdate, unchangedTeams } = splitTeamsToUpdate(teamsToUse, teamNames)
+
+    teamsToUpdate = teamsToUpdate.map((t) => ({ ...t, users: [...t.users, user] }))
+    setTeams(teamsToUpdate.concat(unchangedTeams))
+  }
 
   const reset = useCallback(() => setTeams(data?.teams || []), [data?.teams])
 
