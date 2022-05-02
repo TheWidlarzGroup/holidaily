@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { DayInfoProps } from 'screens/calendar/components/DayInfo'
 import { getAllSingleHolidayRequests } from 'utils/getAllSingleHolidayRequests'
 import { groupRequestsToMonths } from 'utils/groupRequestsToMonths'
+import { useUserContext } from './useUserContext'
 
 export type MonthType = {
   date: string
@@ -12,12 +13,14 @@ export type MonthType = {
 export const useGetHolidayRequests = () => {
   const { teams, allUsers } = useTeamsContext()
   const [allMonths, setAllMonths] = useState<MonthType[]>([])
+  const { user: appUser } = useUserContext()
 
   useEffect(() => {
-    const { allSingleRequests } = getAllSingleHolidayRequests(allUsers, teams)
+    if (!appUser) return
+    const { allSingleRequests } = getAllSingleHolidayRequests(allUsers, teams, appUser)
     const { groupedMonths } = groupRequestsToMonths(allSingleRequests)
     setAllMonths(groupedMonths)
-  }, [allUsers, teams])
+  }, [allUsers, appUser, teams])
 
   return { allMonths }
 }
