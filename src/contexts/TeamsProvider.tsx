@@ -22,7 +22,7 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     let { teamsToUpdate, unchangedTeams } = splitTeamsToUpdate(teamsToUse, teamNames)
 
     teamsToUpdate = teamsToUpdate.map((t) => ({ ...t, users: [...t.users, user] }))
-    setTeams(teamsToUpdate.concat(unchangedTeams))
+    setTeams([...teamsToUpdate, ...unchangedTeams])
   }
 
   const reset = useCallback(() => setTeams(data?.teams || []), [data?.teams])
