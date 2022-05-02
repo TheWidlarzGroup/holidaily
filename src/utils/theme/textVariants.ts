@@ -1,4 +1,35 @@
 export const textVariants = {
+  avatarXL: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 26,
+    letterSpacing: 26 * 0.02,
+    textAlign: 'center',
+  },
+  avatarLG: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 14,
+    letterSpacing: 14 * 0.02,
+    textAlign: 'center',
+  },
+  avatarMD: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    letterSpacing: 12 * 0.02,
+    textAlign: 'center',
+  },
+  avatarSM: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 10,
+    letterSpacing: 10 * 0.02,
+    textAlign: 'center',
+  },
+  avatarXS: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 7,
+    letterSpacing: 7 * 0.02,
+    textAlign: 'center',
+  },
+  // LEGACY VARIANTS BELOW
   body1: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,

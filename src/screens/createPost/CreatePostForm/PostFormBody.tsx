@@ -8,6 +8,7 @@ import { GalleryItemData } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
 import { useUserContext } from 'hooks/useUserContext'
+import { userDetails } from 'utils/userDetails'
 
 type PostBodyProps = {
   text: string
@@ -26,7 +27,7 @@ export const PostBody = (props: PostBodyProps) => {
   return (
     <Box flexGrow={1} padding="s">
       <Box flexDirection="row">
-        <Avatar src={user?.photo} size="s" padding="l" />
+        <Avatar src={user?.photo} userDetails={userDetails(user)} size="s" padding="l" />
         <Box marginLeft="m" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           {location?.addresses && <LocationInfo location={location} />}
           <TextInput
