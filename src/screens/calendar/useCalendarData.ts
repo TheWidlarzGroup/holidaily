@@ -17,17 +17,14 @@ export const useCalendarData = () => {
 
   useEffect(() => {
     if (!teams.length) return
-    const unsubscribedTeams: Team[] = []
+    const unsubscribedTeams: FilterCategory[] = []
+    const userTeams: FilterCategory[] = []
     teams.forEach((team) => {
-      if (user?.teams.some((t) => t.name === team.name)) return
-      unsubscribedTeams.push(team)
+      if (user?.teams.some((t) => t.name === team.name))
+        return userTeams.push(parseCategory(team, true))
+      unsubscribedTeams.push(parseCategory(team, false))
     })
-    const parseCategories = (teams: Team[], isSelected: boolean) =>
-      teams.map((t) => ({ id: +t.id, title: t.name, isSelected }))
-    const nextCategories: FilterCategory[] = parseCategories(user?.teams ?? [], true).concat(
-      parseCategories(unsubscribedTeams, false)
-    )
-    setFilterCategories(nextCategories)
+    setFilterCategories([...userTeams, ...unsubscribedTeams])
   }, [teams, user?.teams])
 
   const toggleFilterItemSelection = (id: number) => {
@@ -71,3 +68,9 @@ export const useCalendarData = () => {
     currentMonthDays,
   }
 }
+
+const parseCategory = (team: Team, isSelected: boolean) => ({
+  id: +team.id,
+  title: team.name,
+  isSelected,
+})
