@@ -10,15 +10,15 @@ export const useInitDemoUserTeams = () => {
   const idRef = useRef<string | null>(null)
   return useCallback(() => {
     if (!user || !organization?.teams.length) return
-      if (user.id === idRef.current) return
-      idRef.current = user.id
-      const userTeams = organization.teams.slice(0, -2)
-      updateUser({
-        teams: userTeams,
-      })
-      addUserToTeams(
-        user,
-        userTeams.map((t) => t.name)
-      )
+    if (user.id === idRef.current) return
+    idRef.current = user.id
+    const userTeams = organization.teams.slice(0, -2)
+    updateUser({
+      teams: userTeams,
+    })
+    addUserToTeams(
+      user,
+      userTeams.map((t) => t.name)
+    )
   }, [user, organization?.teams, updateUser, addUserToTeams])
 }
