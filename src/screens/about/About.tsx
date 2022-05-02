@@ -34,8 +34,8 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
         <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
         <Box justifyContent="space-between" flex={1}>
           <AboutDescription />
-          <AboutLinks />
-          <AboutBackground />
+          {!isFromWelcomeScreen && <AboutLinks />}
+          {!isFromWelcomeScreen && <AboutBackground />}
         </Box>
         <Box position="absolute" bottom={12} left="40%">
           <Text fontSize={10} color="black">
