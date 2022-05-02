@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { BaseOpacity, Box, Text } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
+import { useNavigation } from '@react-navigation/native'
 import { NotificationContent } from './NotificationContent'
 
 export const Notification = ({
@@ -12,16 +13,20 @@ export const Notification = ({
   ...p
 }: NotificationModel) => {
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
+  const { navigate } = useNavigation()
+  const opacity = wasSeenByHolder ? 0.6 : 1
   return (
-    <Box
+    <BaseOpacity
+      activeOpacity={opacity}
+      onPress={() => navigate('Feed')}
+      opacity={opacity}
       backgroundColor="lightGrey"
       borderRadius="lmin"
       marginVertical="m"
       marginTop={0}
       height={90}
       flexDirection="row"
-      overflow="hidden"
-      opacity={wasSeenByHolder ? 0.6 : 1}>
+      overflow="hidden">
       {author.photo && (
         <FastImage
           source={{ uri: author.photo }}
@@ -40,6 +45,6 @@ export const Notification = ({
           <Text variant="lightGreyRegular">{formatDate(new Date(p.createdAt), 'ago')}</Text>
         </Box>
       </Box>
-    </Box>
+    </BaseOpacity>
   )
 }
