@@ -15,7 +15,7 @@ export const palette = {
   gray: '#E1E1E1',
   grayLight: '#F3F3F3',
   grayModal: '#333333',
-  greyDark: '#555555',
+  greyDark: '#333A55',
   mediumGrey: 'rgba(0,0,0,0.3)',
   veryLightGray: 'rgba(255, 255, 255, 0.15)',
   grayTabIcons: '#D5D5D5',

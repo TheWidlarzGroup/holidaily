@@ -26,7 +26,7 @@ export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
         <TouchableOpacity
           onPress={openModal}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <AboutIcon height={21} width={21} />
+          <AboutIcon height={21} width={21} fill="#C0C3CD" />
         </TouchableOpacity>
       </Box>
     </Box>

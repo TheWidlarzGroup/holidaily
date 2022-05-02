@@ -34,7 +34,7 @@ export const textVariants = {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
     lineHeight: 24,
-    color: 'black',
+    color: 'greyDark',
     textAlign: 'center',
   },
   body1Bold: {
@@ -51,8 +51,8 @@ export const textVariants = {
   },
   title1: {
     fontFamily: 'Nunito-Bold',
-    fontSize: 28,
-    color: 'black',
+    fontSize: 22,
+    color: 'greyDark',
     textAlign: 'center',
   },
   label1: {
