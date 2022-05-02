@@ -8,28 +8,20 @@ import { useTheme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
-import { StorageKeys, setItem, removeItem } from 'utils/localStorage'
 import { User } from 'mock-api/models/mirageTypes'
-import { useEditUser } from 'dataAccess/mutations/useEditUser'
+import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
+import { useTeamsContext } from 'hooks/useTeamsContext'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
-type EditDetailsTypes = Pick<User, typeof fieldsToStoreLocally[number]>
-
-const fieldsToStoreLocally: readonly (keyof User & StorageKeys)[] = [
-  'firstName',
-  'lastName',
-  'occupation',
-  'photo',
-  'userColor',
-]
+type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
 export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
@@ -46,22 +38,26 @@ export const EditProfile = () => {
   })
   const { t } = useTranslation('userProfile')
   const { mutate, isLoading } = useEditUser()
-  const { updateUser } = useUserContext()
+  const { addUserToTeams } = useTeamsContext()
   const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
+  const onUpdate = useCallback(
+    (payload: EditUserSuccess) => {
+      if (user) {
+        addUserToTeams(
+          payload.user,
+          user.teams.map((t) => t.name),
+          { withReset: true }
+        )
+      }
+    },
+    [user, addUserToTeams]
+  )
   const onSubmit = (data: EditDetailsTypes) => {
     setEditedFalse()
     mutate(data, {
-      onSuccess: async ({ user }) => {
+      onSuccess: (payload) => {
+        onUpdate(payload)
         showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
-        await Promise.all(
-          fieldsToStoreLocally.map((field) =>
-            user[field] ? setItem(field, String(user[field])) : removeItem(field)
-          )
-        )
-        // @ts-expect-error user on the backend has teams as an empty array.
-        // Teams are a required prop of type User but we still want to delete theme before updating the context
-        delete user.teams
-        updateUser(user)
       },
     })
   }
@@ -76,7 +72,11 @@ export const EditProfile = () => {
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
           <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture setIsEditedTrue={setEditedTrue} setIsEditedFalse={setEditedFalse} />
+          <ProfilePicture
+            onUpdate={onUpdate}
+            setIsEditedTrue={setEditedTrue}
+            setIsEditedFalse={setEditedFalse}
+          />
           <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
           <TeamSubscriptions />
           <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />

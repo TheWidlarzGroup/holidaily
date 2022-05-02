@@ -6,7 +6,7 @@ import { Splash } from 'screens/splash/Splash'
 import { sleep } from 'utils/sleep'
 import { getItem } from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
-import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
+import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -16,21 +16,12 @@ type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisi
 export const AppNavigation = () => {
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
-  const { data: organization, isLoading: isOrgLoading } = useGetOrganization()
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
   const isFirstRender = useRef(true)
-  const idRef = useRef(user?.id)
+  const initTeams = useInitDemoUserTeams()
   useEffect(() => {
-    // add organization teams to user teams property
-    if (user && isTempUserCreated && !isOrgLoading && organization?.teams) {
-      // if idRef contains user.id than we already have updated the user teams
-      if (user.id === idRef.current) return
-      idRef.current = user.id
-      updateUser({
-        teams: organization.teams.slice(0, -2),
-      })
-    }
-  }, [isOrgLoading, organization, isTempUserCreated, updateUser, user])
+    initTeams()
+  }, [initTeams])
   const init = useCallback(
     async () =>
       Promise.all([
