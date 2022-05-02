@@ -8,7 +8,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/useUserContext'
-import { userDetails } from 'utils/userDetails'
+import { makeUserDetails } from 'utils/userDetails'
 
 export const FeedHeader = () => {
   const { navigate } = useNavigation()
@@ -25,7 +25,7 @@ export const FeedHeader = () => {
   return (
     <Box flexDirection="row" alignItems="stretch" padding="m" bg="white" borderRadius="l">
       <Box marginRight="m">
-        <Avatar src={user?.photo} userDetails={userDetails(user)} size="s" />
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
       </Box>
       <BaseOpacity flexGrow={1} onPress={() => navigate('CreatePost')} justifyContent="center">
         <Text variant="labelGreyLight">{t('createPostLabel')}</Text>
