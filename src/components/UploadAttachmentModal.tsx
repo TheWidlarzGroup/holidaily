@@ -26,7 +26,7 @@ type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
-  setPhotoURI: F1<string | undefined>
+  setPhotoURI: F1<string | null>
   showCamera?: true
 } & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
@@ -45,7 +45,7 @@ export const UploadAttachmentModal = ({
     }
     if (response.assets) {
       const photo = response.assets[0]
-      p.setPhotoURI(photo.uri)
+      if (photo.uri) p.setPhotoURI(photo.uri)
     }
   }
 

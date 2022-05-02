@@ -25,10 +25,10 @@ export const ProfilePicture = ({
 }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
-  const { updateUser, user } = useUserContext()
+  const { user } = useUserContext()
   const { mutate } = useEditUser()
 
-  const onChangePhoto = (newPhoto: string | undefined) =>
+  const onChangePhoto = (newPhoto: string | null) =>
     mutate({ photo: newPhoto }, { onSuccess: onUpdate })
 
   const showUploadAttachmentModal = () => {
@@ -86,7 +86,7 @@ export const ProfilePicture = ({
   }
   const handleDeletePicture = () => {
     setIsEditedFalse()
-    updateUser({ photo: null })
+    onChangePhoto(null)
     showModal(
       <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
     )
