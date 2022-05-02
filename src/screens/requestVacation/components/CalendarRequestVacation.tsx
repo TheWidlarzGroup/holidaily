@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import { CalendarList } from 'components/CalendarList'
+import { LoadingModal } from 'components/LoadingModal'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
 import { Box, mkUseStyles } from 'utils/theme'
 import { CalendarHeader } from './CalendarHeader'
@@ -33,36 +35,41 @@ export const CalendarRequestVacation = ({
       start: periodStart,
       end: periodEnd,
     })
+  // Calendar component draw phase takes long, so we initially show a loading spinner and mount the calendar after the screen is loaded
+  const [isCalendarVisible, { setTrue: showCalendar }] = useBooleanState(false)
+  useEffect(() => {
+    showCalendar()
+  }, [showCalendar])
   const styles = useStyles()
   return (
     <Box backgroundColor="white" borderRadius="m" flex={1} alignItems="center">
-      <CalendarList
-        periodStart={periodStart}
-        periodEnd={periodEnd}
-        selectPeriodStart={selectPeriodStart}
-        selectPeriodEnd={selectPeriodEnd}
-        selectable
-        style={styles.calendar}
-        renderHeader={useCallback(
-          (date: Date) => (
-            <CalendarHeader date={date} />
-          ),
-          []
-        )}
-        markedDates={{}}
-        isInvalid={isInvalid}
-      />
-      <SelectPeriodModal
-        isVisible={!!periodStart}
-        onSubmit={onSubmit}
-        onClear={onClear}
-        periodStart={periodStart}
-        periodEnd={periodEnd}
-        ptoTaken={ptoTaken}
-        availablePto={availablePto}
-        isInvalid={isInvalid}
-        customError={isSickTime ? <MaxSickdays /> : null}
-      />
+      <LoadingModal show />
+      {isCalendarVisible && (
+        <>
+          <CalendarList
+            periodStart={periodStart}
+            periodEnd={periodEnd}
+            selectPeriodStart={selectPeriodStart}
+            selectPeriodEnd={selectPeriodEnd}
+            selectable
+            style={styles.calendar}
+            renderHeader={(date: Date) => <CalendarHeader date={date} />}
+            markedDates={{}}
+            isInvalid={isInvalid}
+          />
+          <SelectPeriodModal
+            isVisible={!!periodStart}
+            onSubmit={onSubmit}
+            onClear={onClear}
+            periodStart={periodStart}
+            periodEnd={periodEnd}
+            ptoTaken={ptoTaken}
+            availablePto={availablePto}
+            isInvalid={isInvalid}
+            customError={isSickTime ? <MaxSickdays /> : null}
+          />
+        </>
+      )}
     </Box>
   )
 }
