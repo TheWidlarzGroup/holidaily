@@ -10,6 +10,7 @@ import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
+import { makeUserDetails } from 'utils/userDetails'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
@@ -109,7 +110,7 @@ export const ProfilePicture = ({
       <BaseOpacity
         onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.5}>
-        <Avatar src={user?.photo} size="l" marginBottom="m" />
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
       </BaseOpacity>
       <TextLink
         text={user?.photo ? t('editPhoto') : t('addPhoto')}
