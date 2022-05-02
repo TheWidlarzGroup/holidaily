@@ -4,6 +4,7 @@ import FastImage from 'react-native-fast-image'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
 import { useNavigation } from '@react-navigation/native'
+import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
 import { NotificationContent } from './NotificationContent'
 
 export const Notification = ({
@@ -14,11 +15,17 @@ export const Notification = ({
 }: NotificationModel) => {
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
   const { navigate } = useNavigation()
+  const { mutate } = useMarkNotificationAsSeen()
   const opacity = wasSeenByHolder ? 0.6 : 1
+  const onPress = () => {
+    if (!wasSeenByHolder) mutate(p.id)
+    if (type === 'dayOff') navigate('Calendar')
+    else navigate('Feed')
+  }
   return (
     <BaseOpacity
-      activeOpacity={opacity}
-      onPress={() => navigate('Feed')}
+      activeOpacity={1}
+      onPress={onPress}
       opacity={opacity}
       backgroundColor="lightGrey"
       borderRadius="lmin"
