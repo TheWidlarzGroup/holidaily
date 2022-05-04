@@ -120,7 +120,7 @@ const legacyVariants = {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
     lineHeight: 24,
-    color: 'black',
+    color: 'greyDark',
     textAlign: 'center',
   },
   body1Bold: {
@@ -137,7 +137,7 @@ const legacyVariants = {
   },
   title1: {
     fontFamily: 'Nunito-Bold',
-    fontSize: 28,
+    fontSize: 22,
     color: 'black',
     textAlign: 'center',
   },
@@ -183,10 +183,17 @@ const legacyVariants = {
     fontSize: 20,
     textAlign: 'center',
   },
+  boldBlackCenter16: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center',
+  },
   lightGreyRegular: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
-    color: 'grey',
+    color: 'headerGrey',
+    lineHeight: 18,
   },
   primaryBold12: {
     fontFamily: 'Nunito-Bold',

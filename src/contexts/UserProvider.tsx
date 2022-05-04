@@ -30,6 +30,7 @@ export const emptyUser: User = {
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
+
   const { reset: clearUserCache } = useCreateTempUser()
   const updateUser = useCallback(
     (newData: Partial<User> | null) =>
@@ -54,7 +55,11 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
   }
 
-  const value: ContextProps = { user, updateUser, handleLogout }
+  const value: ContextProps = {
+    user,
+    updateUser,
+    handleLogout,
+  }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
 

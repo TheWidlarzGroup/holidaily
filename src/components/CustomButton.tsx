@@ -1,14 +1,12 @@
 import React, { FC, ReactNode } from 'react'
 import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, Box, mkUseStyles, Theme } from 'utils/theme/index'
-import { colors } from 'utils/theme/colors'
-
+import { Text, Box, mkUseStyles, Theme, useTheme } from 'utils/theme/index'
 import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger'
+type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger' | 'primaryDisabled'
 type CustomButtonIcons = 'google' | 'apple' | 'plus'
 
 export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -34,39 +32,46 @@ export const CustomButton: FC<CustomButtonProps> = ({
   ...rest
 }) => {
   const styles = useStyles()
+  const theme = useTheme()
   let bgColor
   let borderWidth = 2
-  let color = colors.black
+  let color = theme.colors.black
   let rippleColor
 
   switch (variant) {
     case 'secondary':
-      color = colors.black
-      rippleColor = colors.disabled
+      color = theme.colors.black
+      rippleColor = theme.colors.disabled
       break
     case 'blackBgButton':
-      bgColor = colors.black
-      color = colors.white
-      rippleColor = colors.blackBtnRippleColor
+      bgColor = theme.colors.black
+      color = theme.colors.white
+      rippleColor = theme.colors.blackBtnRippleColor
       borderWidth = 0
       break
     case 'primary':
-      bgColor = colors.tertiary
-      color = colors.white
-      rippleColor = colors.disabled
+      bgColor = disabled ? theme.colors.primary : theme.colors.tertiary
+      color = theme.colors.white
+      rippleColor = theme.colors.disabled
+      borderWidth = 0
+      break
+    case 'primaryDisabled':
+      bgColor = theme.colors.primary
+      color = theme.colors.white
+      rippleColor = theme.colors.primary
       borderWidth = 0
       break
     case 'danger':
-      bgColor = colors.specialRed
-      color = colors.black
-      rippleColor = colors.disabled
+      bgColor = theme.colors.specialRed
+      color = theme.colors.black
+      rippleColor = theme.colors.disabled
       break
     default:
       break
   }
 
-  const backgroundColor = disabled && variant !== 'primary' ? colors.disabled : bgColor
-  const textColor = disabled && variant !== 'primary' ? colors.disabledText : color
+  const backgroundColor = disabled && variant !== 'primary' ? theme.colors.disabled : bgColor
+  const textColor = disabled && variant !== 'primary' ? theme.colors.disabledText : color
 
   return (
     <RectButton
@@ -75,7 +80,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       activeOpacity={disabled ? 0 : 0.2}
       style={[styles.container, { backgroundColor }, customStyle, rest]}>
       <Box
-        paddingVertical="xm"
+        paddingVertical="xxm"
         width="100%"
         flexDirection="row"
         alignItems="center"
@@ -94,7 +99,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
               <Text
                 variant="buttonText1"
                 style={{ color: textColor }}
-                opacity={disabled && variant === 'primary' ? 0.4 : 1}>
+                opacity={disabled && variant === 'primary' ? 0.8 : 1}>
                 {label}
               </Text>
             </>
