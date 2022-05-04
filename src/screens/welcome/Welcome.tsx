@@ -75,7 +75,7 @@ export const Welcome = () => {
           />
         </Box>
         <Box>
-          <Text variant="lightGreyRegular" paddingHorizontal="s">
+          <Text variant="lightGreyRegular" paddingHorizontal="m">
             {t('whyAskForName')}
           </Text>
         </Box>

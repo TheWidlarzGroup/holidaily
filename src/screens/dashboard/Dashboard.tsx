@@ -33,15 +33,15 @@ export const Dashboard = () => {
   const closeOrganizationModal = useCallback(() => organizationModalRef.current?.dismiss(), [])
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-extra-semi
-    ;(async () => {
+    const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
       if (seenTeamsModal === 'false') return
       setTimeout(async () => {
         openOrganizationModal()
         await setItem('seenTeamsModal', 'false')
-      }, 2500)
-    })()
+      }, 2000)
+    }
+    openModalOnFirstAppLaunch()
   }, [openOrganizationModal])
 
   if (!user?.teams) return <LoadingModal show />

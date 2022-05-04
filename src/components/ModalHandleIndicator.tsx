@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, mkUseStyles } from 'utils/theme'
 
-export const Indicator = () => {
+export const ModalHandleIndicator = () => {
   const styles = useStyles()
   return <Box style={styles.indicator} />
 }

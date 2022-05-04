@@ -62,6 +62,7 @@ export const colors = {
   transparent: palette.transparent,
   approvedGreen: palette.success500,
   input: palette.grayscale200,
+  inputBorder: palette.secondary700,
 }
 
 export const legacyPalette = {
