@@ -49,6 +49,7 @@ export const colors = {
   white: palette.grayscale50,
   lightGrey: palette.grayscale200,
   grey: palette.grayscale300,
+  darkGrey: palette.grayscale500,
   errorRed: palette.error700,
   specialRed: palette.error300,
   disabled: palette.grayscale200,
@@ -63,6 +64,7 @@ export const colors = {
   rippleColor: palette.darkMode2Background,
   greyDark: palette.grayscale700,
   modalBackdrop: palette.grayscale800,
+  titleActive: palette.grayscale800,
   transparent: palette.transparent,
   approvedGreen: palette.success500,
 }

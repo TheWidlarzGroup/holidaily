@@ -73,6 +73,8 @@
 		<string>Nunito-Bold.ttf</string>
 		<string>Nunito-Regular.ttf</string>
 		<string>Nunito-Italic-VariableFont_wght.ttf</string>
+		<string>Nunito-ExtraBold.ttf</string>
+		<string>Nunito-SemiBold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
