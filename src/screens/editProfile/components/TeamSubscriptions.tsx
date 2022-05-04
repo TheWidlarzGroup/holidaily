@@ -36,8 +36,9 @@ export const TeamSubscriptions = () => {
   const onSubscribeTeam = () => navigate('SubscribeTeam')
 
   const filterUnsubscribedTeams = (teamName: string) => {
-    const subscriptions = (user?.teams ?? []).filter((team) => team.name !== teamName)
-    updateUser({ teams: subscriptions })
+    if (!user) return
+    const subscriptions = user.teams.filter((team) => team.name !== teamName)
+    updateUser({ teams: subscriptions.map((s) => ({ ...s, users: [...s.users, user] })) })
   }
   if (isLoading || !user || isProcessingData)
     return <LoadingModal style={{ position: 'absolute', top: 0 }} show />
