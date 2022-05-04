@@ -8,7 +8,7 @@ import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger'
+type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger' | 'primaryDisabled'
 type CustomButtonIcons = 'google' | 'apple' | 'plus'
 
 export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -51,9 +51,15 @@ export const CustomButton: FC<CustomButtonProps> = ({
       borderWidth = 0
       break
     case 'primary':
-      bgColor = colors.tertiary
+      bgColor = disabled ? colors.primaryDisabled : colors.tertiary
       color = colors.white
       rippleColor = colors.disabled
+      borderWidth = 0
+      break
+    case 'primaryDisabled':
+      bgColor = colors.primary
+      color = colors.white
+      rippleColor = colors.primaryDisabled
       borderWidth = 0
       break
     case 'danger':
@@ -94,7 +100,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
               <Text
                 variant="buttonText1"
                 style={{ color: textColor }}
-                opacity={disabled && variant === 'primary' ? 0.4 : 1}>
+                opacity={disabled && variant === 'primary' ? 0.8 : 1}>
                 {label}
               </Text>
             </>

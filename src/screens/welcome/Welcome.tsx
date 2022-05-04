@@ -20,7 +20,7 @@ const validationPattern = minMaxSignsRegex(MIN_SIGNS, MAX_SIGNS)
 export const Welcome = () => {
   const styles = useStyles()
   const { t } = useTranslation('welcome')
-  const { control, handleSubmit, errors, watch } = useForm()
+  const { control, handleSubmit, errors, watch, reset } = useForm()
   const nameInput = watch('firstName')
 
   const modalRef = useRef<BottomSheetModal>(null)
@@ -41,11 +41,12 @@ export const Welcome = () => {
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>
-        <Box justifyContent="center" marginTop="s">
-          <Text variant="body1Bold">{t('welcomeSubtitle')}</Text>
+        <Box justifyContent="center" marginTop="m">
+          <Text variant="body1">{t('welcomeSubtitle')}</Text>
         </Box>
         <Box marginTop="xl">
           <FormInput
+            labelTextVariant="lightGreyRegular"
             maxLength={15}
             control={control}
             isError={!!errors.firstName}
@@ -55,10 +56,15 @@ export const Welcome = () => {
             validationPattern={validationPattern}
             errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
             blurOnSubmit
+            placeholder={t('placeholder')}
+            deleteIcon
+            reset={reset}
           />
         </Box>
-        <Box paddingLeft="m">
-          <Text variant="lightGreyRegular">{t('whyAskForName')}</Text>
+        <Box>
+          <Text variant="lightGreyRegular" paddingHorizontal="s">
+            {t('whyAskForName')}
+          </Text>
         </Box>
       </KeyboardAwareScrollView>
       <Box

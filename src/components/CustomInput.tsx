@@ -7,10 +7,11 @@ import {
   TextInputFocusEventData,
 } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import DeleteIcon from 'assets/icons/icon-delete.svg'
 
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
-import { Text, Box, mkUseStyles } from 'utils/theme/index'
+import { Text, Box, mkUseStyles, BaseOpacity } from 'utils/theme/index'
 import { colors } from 'utils/theme/colors'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { textVariants } from 'utils/theme/textVariants'
@@ -22,6 +23,8 @@ type CustomInputTypes = {
   disabled?: boolean
   labelTextVariant?: keyof typeof textVariants
   inputTextVariant?: 'bold'
+  deleteIcon?: true
+  reset?: F0
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
@@ -37,6 +40,9 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       labelTextVariant,
       inputTextVariant,
       disabled = false,
+      placeholder,
+      deleteIcon,
+      reset,
       ...props
     },
     ref
@@ -59,8 +65,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     }))
 
     useEffect(() => {
-      errorOpacity.value = isError || isFocused ? 2 : 0
-      borderColor.value = isFocused ? 'black' : 'red'
+      errorOpacity.value = isError || isFocused ? 0.8 : 0
+      borderColor.value = isFocused ? 'blue' : 'red'
     }, [borderColor, errorOpacity, isError, isFocused])
 
     const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -74,11 +80,11 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     return (
       <>
-        <Text variant={labelTextVariant || 'label1'} marginLeft="m" marginBottom="xs">
+        <Text variant={labelTextVariant || 'label1'} marginLeft="s" marginBottom="xs">
           {inputLabel}
         </Text>
         <Box flexDirection="row">
-          <Animated.View style={[styles.input, progressStyle]}>
+          <Animated.View style={[styles.input, progressStyle, isFocused && styles.noBackground]}>
             <TextInput
               style={[disabled && styles.disabled, inputTextVariant === 'bold' && styles.boldText]}
               secureTextEntry={isPasswordInput}
@@ -87,9 +93,15 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               onFocus={handleOnFocus}
               value={value}
               ref={ref}
+              placeholder={(!isFocused && placeholder) || ''}
               editable={!disabled}
               {...props}
             />
+            {deleteIcon && value && value.length > 0 ? (
+              <BaseOpacity position="absolute" right={15} onPress={reset}>
+                <DeleteIcon width={20} height={20} />
+              </BaseOpacity>
+            ) : null}
           </Animated.View>
           {isPasswordIconVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
@@ -110,12 +122,12 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     flex: 1,
     height: 50,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.grayVeryLight,
     borderRadius: theme.borderRadii.xxl,
     paddingHorizontal: theme.spacing.m,
     justifyContent: 'center',
   },
-
+  noBackground: { backgroundColor: colors.white },
   errorBorder: {
     borderStyle: 'solid',
     borderColor: colors.errorRed,

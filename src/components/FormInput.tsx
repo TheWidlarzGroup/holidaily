@@ -24,6 +24,9 @@ type FormInputTypes = {
   disabled?: boolean
   labelTextVariant?: keyof typeof textVariants
   inputTextVariant?: 'bold'
+  placeholder?: string
+  deleteIcon?: true
+  reset?: F0
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(

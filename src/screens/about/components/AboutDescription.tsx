@@ -11,7 +11,7 @@ export const AboutDescription = () => (
         i18nKey="aboutDesc1"
         components={{
           b: <Text variant="body1Bold" textAlign="left" />,
-          bp: <Text variant="body1Bold" color="primary" textAlign="left" />,
+          bp: <Text variant="body1Bold" color="tertiary" textAlign="left" />,
         }}
       />
     </Text>

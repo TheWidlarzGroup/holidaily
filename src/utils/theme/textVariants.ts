@@ -52,7 +52,7 @@ export const textVariants = {
   title1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 22,
-    color: 'greyDark',
+    color: 'greyVeryDark',
     textAlign: 'center',
   },
   label1: {
@@ -97,10 +97,17 @@ export const textVariants = {
     fontSize: 20,
     textAlign: 'center',
   },
+  boldBlackCenter16: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center',
+  },
   lightGreyRegular: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
-    color: 'grey',
+    color: 'bottomTabBgColor',
+    lineHeight: 18,
   },
   primaryBold12: {
     fontFamily: 'Nunito-Bold',
