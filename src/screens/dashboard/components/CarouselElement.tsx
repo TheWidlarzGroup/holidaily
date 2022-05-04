@@ -10,30 +10,30 @@ export type CarouselElementProps = {
   firstName: string
   lastName: string
   dayToBeDisplayed: string
+  userColor: string
   photo?: string | null
 }
 
-export const CarouselElement = (props: CarouselElementProps) => {
-  const { isOnHoliday, firstName, lastName, dayToBeDisplayed, photo } = props
-
-  return (
-    <Box marginBottom="m" alignItems="center">
-      <Box marginHorizontal="m" marginTop="m" marginBottom="xs">
-        <Avatar src={photo} />
-        {isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
-      </Box>
-      <Text variant="lightGreyRegular" color="black" lineHeight={14}>
-        {firstName}
-      </Text>
-      <Text variant="lightGreyRegular" color="black" lineHeight={14}>
-        {lastName}
-      </Text>
-      <Box flexDirection="row" alignItems="center">
-        {isOnHoliday ? <IconSuitcase /> : <IconPlane />}
-        <Text variant="holidayDate" color={isOnHoliday ? 'tertiary' : 'black'}>
-          {dayToBeDisplayed}
-        </Text>
-      </Box>
+export const CarouselElement = (p: CarouselElementProps) => (
+  <Box marginBottom="m" alignItems="center">
+    <Box marginHorizontal="m" marginTop="m" marginBottom="xs">
+      <Avatar
+        src={p.photo}
+        userDetails={{ firstName: p.firstName, lastName: p.lastName, userColor: p.userColor }}
+      />
+      {p.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
     </Box>
-  )
-}
+    <Text variant="lightGreyRegular" color="black" lineHeight={14}>
+      {p.firstName}
+    </Text>
+    <Text variant="lightGreyRegular" color="black" lineHeight={14}>
+      {p.lastName}
+    </Text>
+    <Box flexDirection="row" alignItems="center">
+      {p.isOnHoliday ? <IconSuitcase /> : <IconPlane />}
+      <Text variant="holidayDate" color={p.isOnHoliday ? 'tertiary' : 'black'}>
+        {p.dayToBeDisplayed}
+      </Text>
+    </Box>
+  </Box>
+)
