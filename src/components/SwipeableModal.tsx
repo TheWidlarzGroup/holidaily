@@ -14,6 +14,7 @@ type SwipableModalProps = PropsWithChildren<
 >
 
 export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableModalProps) => {
+  // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
   const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
   return (
     <Modal
