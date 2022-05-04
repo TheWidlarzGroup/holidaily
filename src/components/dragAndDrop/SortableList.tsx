@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import { Item } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
@@ -43,9 +43,20 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
       scrollY.value = event.contentOffset.y
     },
   })
+
+  // We need to use CellRenderer because the zIndex doesn't work inside a flatlist renderItem https://github.com/facebook/react-native/issues/18616
+  const CellRenderer = useCallback(
+    (props: any) => {
+      const { children } = props
+      return <Box zIndex={children[0].props?.id === draggedElement ? '10' : '0'}>{children}</Box>
+    },
+    [draggedElement]
+  )
+
   return (
     <Box paddingBottom="xxxl">
       <AnimatedFlatList
+        removeClippedSubviews={false}
         ref={scrollView}
         contentContainerStyle={{
           height:
@@ -57,6 +68,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
         bounces={false}
         scrollEventThrottle={16}
         onScroll={onScroll}
+        CellRendererComponent={CellRenderer}
         ListHeaderComponent={
           <Box height={NESTED_ELEM_OFFSET}>
             <Carousel openUserModal={openUserModal} />
@@ -66,18 +78,21 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
           </Box>
         }
         data={children}
-        renderItem={({ item: child }: any) => (
-          <Item
-            scrollView={scrollView}
-            onLongPress={() => onLongPress(child?.props?.id)}
-            stopDragging={() => setDraggedElement(null)}
-            draggedElement={draggedElement}
-            scrollY={scrollY}
-            key={child?.props?.id}
-            positions={positions}
-            id={child?.props?.id}>
-            {child}
-          </Item>
+        renderItem={useCallback(
+          ({ item: child }: any) => (
+            <Item
+              scrollView={scrollView}
+              onLongPress={() => onLongPress(child?.props?.id)}
+              stopDragging={() => setDraggedElement(null)}
+              draggedElement={draggedElement}
+              scrollY={scrollY}
+              key={child?.props?.id}
+              positions={positions}
+              id={child?.props?.id}>
+              {child}
+            </Item>
+          ),
+          [draggedElement, positions, scrollView, scrollY]
         )}
       />
     </Box>

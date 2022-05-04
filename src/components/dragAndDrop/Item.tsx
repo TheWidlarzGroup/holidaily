@@ -57,7 +57,6 @@ export const Item = (props: ItemProps) => {
   const isGestureActive = useSharedValue(false)
   const inset = useSafeAreaInsets()
   const { height } = useWindowDimensions()
-  // console.log(scrollView.current)
   const containerHeight = height - inset.top - inset.bottom - HEADER_OFFSET - BOTTOM_OFFSET
   const contentHeight =
     Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H + NESTED_ELEM_OFFSET
@@ -141,16 +140,14 @@ export const Item = (props: ItemProps) => {
       runOnJS(stopDragging)()
     },
   })
-
+  console.log(id)
   const style = useAnimatedStyle(() => {
-    const zIndex = isGestureActive.value ? themeBase.zIndices[50] : themeBase.zIndices[0]
     const scale = draggedElement === id ? 1.1 : 1
     return {
       position: 'absolute',
       left: 0,
       width: SIZE_W,
       height: SIZE_H,
-      zIndex,
       transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale }],
     }
   })
