@@ -43,23 +43,6 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
       scrollY.value = event.contentOffset.y
     },
   })
-  const draggableChildren = useMemo(
-    () =>
-      children.map((child) => (
-        <Item
-          scrollView={scrollView}
-          onLongPress={() => onLongPress(child?.props?.id)}
-          stopDragging={() => setDraggedElement(null)}
-          draggedElement={draggedElement}
-          scrollY={scrollY}
-          key={child?.props?.id}
-          positions={positions}
-          id={child?.props?.id}>
-          {child}
-        </Item>
-      )),
-    [children, draggedElement, positions, scrollView, scrollY]
-  )
   return (
     <Box paddingBottom="xxxl">
       <AnimatedFlatList
@@ -95,9 +78,8 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
             id={child?.props?.id}>
             {child}
           </Item>
-        )}>
-        {draggableChildren}
-      </AnimatedFlatList>
+        )}
+      />
     </Box>
   )
 }
