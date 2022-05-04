@@ -139,7 +139,6 @@ export const Item = (props: ItemProps) => {
       runOnJS(stopDragging)()
     },
   })
-  console.log(id)
   const style = useAnimatedStyle(() => {
     const scale = draggedElement === id ? 1.1 : 1
     return {
