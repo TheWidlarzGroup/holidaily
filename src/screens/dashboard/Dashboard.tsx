@@ -54,7 +54,9 @@ export const Dashboard = () => {
             <TeamElement
               {...team}
               key={team.name}
-              navigateToTeamScreen={() => navigateToTeamDetails(team)}
+              navigateToTeamScreen={() =>
+                navigateToTeamDetails({ ...team, users: [...team.users, user] })
+              }
             />
           ))}
         </SortableList>
