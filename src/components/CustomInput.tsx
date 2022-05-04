@@ -23,7 +23,6 @@ type CustomInputTypes = {
   disabled?: boolean
   labelTextVariant?: keyof typeof textVariants
   inputTextVariant?: 'bold'
-  deleteIcon?: true
   reset?: F0
 }
 
@@ -41,7 +40,6 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       inputTextVariant,
       disabled = false,
       placeholder,
-      deleteIcon,
       reset,
       ...props
     },
@@ -97,7 +95,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               editable={!disabled}
               {...props}
             />
-            {deleteIcon && value && value.length > 0 ? (
+            {reset && value && value.length > 0 ? (
               <BaseOpacity position="absolute" right={15} onPress={reset}>
                 <DeleteIcon width={20} height={20} />
               </BaseOpacity>

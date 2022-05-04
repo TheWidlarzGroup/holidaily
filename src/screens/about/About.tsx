@@ -5,6 +5,7 @@ import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerNavigationType } from 'navigation/types'
 import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Indicator } from 'components/Indicator'
 import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
 import { AboutDescription } from './components/AboutDescription'
@@ -35,7 +36,7 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
           isIos && isFromWelcomeScreen && styles.containerMargin,
         ]}>
         <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
-        {isFromWelcomeScreen && <Box style={styles.indicator} />}
+        {isFromWelcomeScreen && <Indicator />}
         <Box justifyContent="space-between" flex={1}>
           <AboutDescription />
           {!isFromWelcomeScreen && <AboutLinks />}
@@ -70,17 +71,5 @@ const useStyles = mkUseStyles((theme) => ({
   },
   containerMargin: {
     marginTop: -24,
-  },
-  indicator: {
-    position: 'absolute',
-    top: -10,
-    left: '42%',
-    width: 56,
-    height: 3,
-    backgroundColor: theme.colors.modalBackground,
-    borderTopStartRadius: 2,
-    borderBottomStartRadius: 2,
-    borderTopEndRadius: 2,
-    borderBottomEndRadius: 2,
   },
 }))

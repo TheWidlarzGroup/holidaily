@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
@@ -7,34 +7,22 @@ import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
-import { setItem } from 'utils/localStorage'
-import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
-import { useUserContext } from 'hooks/useUserContext'
+
 import { isIos } from 'utils/layout'
-import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
+import { Indicator } from 'components/Indicator'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
 
-export const TeamsModal = ({ firstName }: { firstName: string }) => {
+export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('welcome')
-  const { updateUser } = useUserContext()
-  const { mutate: createTempUser } = useCreateTempUser()
-  const initTeams = useInitDemoUserTeams()
-  useEffect(() => {
-    initTeams()
-  }, [initTeams])
-
-  const handleOnSubmit = async () => {
-    await setItem('firstName', firstName)
-    createTempUser({ firstName }, { onSuccess: (data) => updateUser(data.user) })
-  }
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" marginTop={isIos ? '-l' : 0}>
         <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
+          <Indicator />
           <TouchableOpacity
-            onPress={handleOnSubmit}
+            onPress={closeModal}
             hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
             <IconClose height={15} width={15} />
           </TouchableOpacity>
@@ -56,7 +44,7 @@ export const TeamsModal = ({ firstName }: { firstName: string }) => {
           </Box>
         </Box>
         <Box maxWidth={250} alignSelf="center" marginBottom="l">
-          <CustomButton variant="primary" label={t('thanksButton')} onPress={handleOnSubmit} />
+          <CustomButton variant="primary" label={t('thanksButton')} onPress={closeModal} />
         </Box>
       </Box>
     </SafeAreaWrapper>

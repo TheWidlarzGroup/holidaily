@@ -25,7 +25,6 @@ type FormInputTypes = {
   labelTextVariant?: keyof typeof textVariants
   inputTextVariant?: 'bold'
   placeholder?: string
-  deleteIcon?: true
   reset?: F0
 }
 

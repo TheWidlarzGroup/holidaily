@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamElement } from 'screens/dashboard/components/TeamElement'
@@ -9,6 +9,9 @@ import { Team, User } from 'mock-api/models/mirageTypes'
 import { LoadingModal } from 'components/LoadingModal'
 import { useUserContext } from 'hooks/useUserContext'
 import { SwipeableModal } from 'components/SwipeableModal'
+import { TeamsModal } from 'screens/welcome/components/TeamsModal'
+import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
@@ -23,6 +26,17 @@ export const Dashboard = () => {
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal: openModal })
+
+  const submitModalRef = useRef<BottomSheetModal>(null)
+  const openSubmitModal = useCallback(() => submitModalRef.current?.present(), [])
+  const closeSubmitModal = useCallback(() => submitModalRef.current?.dismiss(), [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      openSubmitModal()
+    }, 2500)
+  }, [])
+
   if (!user?.teams) return <LoadingModal show />
   return (
     <>
@@ -43,6 +57,9 @@ export const Dashboard = () => {
           <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={modalUser} />
         </SwipeableModal>
       )}
+      <BottomSheetModalComponent snapPoints={['90%']} modalRef={submitModalRef}>
+        <TeamsModal closeModal={closeSubmitModal} />
+      </BottomSheetModalComponent>
     </>
   )
 }
