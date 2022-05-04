@@ -5,6 +5,7 @@ import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/fun
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { Avatar } from 'components/Avatar'
 import { User } from 'mock-api/models/mirageTypes'
+import { makeUserDetails } from 'utils/userDetails'
 
 type MateElementProps = {
   userData: User
@@ -40,7 +41,7 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
       alignItems="center"
       onPress={handleOnPress}>
       <Box margin="m">
-        <Avatar src={photo} />
+        <Avatar src={photo} userDetails={makeUserDetails(userData)} />
         {userData.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
       </Box>
       <Box marginVertical="s">
