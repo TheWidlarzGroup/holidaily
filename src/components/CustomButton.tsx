@@ -51,7 +51,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       borderWidth = 0
       break
     case 'primary':
-      bgColor = disabled ? colors.primaryDisabled : colors.tertiary
+      bgColor = disabled ? colors.primary : colors.tertiary
       color = colors.white
       rippleColor = colors.disabled
       borderWidth = 0
@@ -59,7 +59,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
     case 'primaryDisabled':
       bgColor = colors.primary
       color = colors.white
-      rippleColor = colors.primaryDisabled
+      rippleColor = colors.primary
       borderWidth = 0
       break
     case 'danger':

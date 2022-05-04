@@ -120,7 +120,7 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     flex: 1,
     height: 50,
-    backgroundColor: colors.grayVeryLight,
+    backgroundColor: colors.input,
     borderRadius: theme.borderRadii.xxl,
     paddingHorizontal: theme.spacing.m,
     justifyContent: 'center',

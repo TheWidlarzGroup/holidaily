@@ -13,7 +13,7 @@ const useStyles = mkUseStyles((theme) => ({
     left: '42%',
     width: 56,
     height: 3,
-    backgroundColor: theme.colors.modalBackground,
+    backgroundColor: theme.colors.grey,
     borderTopStartRadius: 2,
     borderBottomStartRadius: 2,
     borderTopEndRadius: 2,

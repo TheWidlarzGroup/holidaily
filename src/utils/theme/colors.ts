@@ -61,6 +61,7 @@ export const colors = {
   modalBackdrop: palette.grayscale800,
   transparent: palette.transparent,
   approvedGreen: palette.success500,
+  input: palette.grayscale200,
 }
 
 export const legacyPalette = {
@@ -115,8 +116,8 @@ export const legacyColors = {
   headerGrey: legacyPalette.greyNeutral,
   rippleColor: legacyPalette.rippleColor,
   greyDark: legacyPalette.greyDark,
-  greyVeryDark: palette.greyVeryDark,
-  grayVeryLight: palette.grayVeryLight,
+  greyVeryDark: legacyPalette.greyVeryDark,
+  grayVeryLight: legacyPalette.grayVeryLight,
   modalBackdrop: legacyPalette.mediumGrey,
   transparent: legacyPalette.transparent,
   approvedGreen: legacyPalette.greenLight,
