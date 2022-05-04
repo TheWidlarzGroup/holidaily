@@ -1,7 +1,6 @@
 import React, { ReactNode, RefObject } from 'react'
 import { FlatList, StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { themeBase } from 'utils/theme/themeBase'
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedReaction,
