@@ -32,7 +32,6 @@ export const Dashboard = () => {
           {(user.teams ?? []).map((team: Team) => (
             <TeamElement
               {...team}
-              users={[...team.users, user]}
               key={team.name}
               navigateToTeamScreen={() =>
                 navigateToTeamDetails({ ...team, users: [...team.users, user] })
