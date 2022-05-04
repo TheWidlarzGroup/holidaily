@@ -50,3 +50,31 @@ export const colors = {
   transparent: palette.transparent,
   approvedGreen: palette.greenLight,
 }
+
+// temp darkThemeColors values
+export const darkThemeColors = {
+  primary: palette.red,
+  secondary: palette.red,
+  tertiary: palette.red,
+  special: palette.red,
+  black: palette.red,
+  white: palette.red,
+  lightGrey: palette.red,
+  grey: palette.red,
+  errorRed: palette.red,
+  specialRed: palette.red,
+  disabled: palette.red,
+  disabledText: palette.red,
+  mainBackground: palette.red,
+  bottomTabBgColor: palette.red,
+  modalBackground: palette.red,
+  blackBtnRippleColor: palette.red,
+  bottomBarIcons: palette.red,
+  labelLightGrey: palette.red,
+  headerGrey: palette.red,
+  rippleColor: palette.red,
+  greyDark: palette.red,
+  modalBackdrop: palette.red,
+  transparent: palette.red,
+  approvedGreen: palette.red,
+}

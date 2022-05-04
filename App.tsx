@@ -1,3 +1,4 @@
+import { UserSettingsContextProvider } from 'contexts/UserSettingsProvider'
 import { useOneSignal } from 'hooks/useOneSignal'
 import React from 'react'
 import { LogBox } from 'react-native'
@@ -18,7 +19,9 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Main />
+      <UserSettingsContextProvider>
+        <Main />
+      </UserSettingsContextProvider>
     </QueryClientProvider>
   )
 }

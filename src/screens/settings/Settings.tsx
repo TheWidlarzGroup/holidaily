@@ -11,6 +11,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { isIos } from 'utils/layout'
 import { Language } from './components/Language'
 import { Siri } from './components/Siri'
+import { DarkModeSwitch } from './components/DarkModeSwitch'
 
 export const Settings = () => {
   const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
@@ -28,7 +29,7 @@ export const Settings = () => {
       <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
         <Box marginHorizontal="m" flex={1}>
-          {/* <DarkModeSwitch /> */}
+          <DarkModeSwitch />
           {/* <BiometricPasscode /> */}
           <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
           {isIos && <Siri />}
