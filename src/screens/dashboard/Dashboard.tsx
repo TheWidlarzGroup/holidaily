@@ -12,6 +12,7 @@ import { SwipeableModal } from 'components/SwipeableModal'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { getItem, setItem } from 'utils/localStorage'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 export const Dashboard = () => {
@@ -27,15 +28,21 @@ export const Dashboard = () => {
   const navigateToTeamDetails = (team: Team) =>
     navigation.navigate('DashboardTeam', { ...team, openUserModal: openModal })
 
-  const submitModalRef = useRef<BottomSheetModal>(null)
-  const openSubmitModal = useCallback(() => submitModalRef.current?.present(), [])
-  const closeSubmitModal = useCallback(() => submitModalRef.current?.dismiss(), [])
+  const organizationModalRef = useRef<BottomSheetModal>(null)
+  const openOrganizationModal = useCallback(() => organizationModalRef.current?.present(), [])
+  const closeOrganizationModal = useCallback(() => organizationModalRef.current?.dismiss(), [])
 
   useEffect(() => {
-    setTimeout(() => {
-      openSubmitModal()
-    }, 2500)
-  }, [])
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
+    ;(async () => {
+      const seenTeamsModal = await getItem('seenTeamsModal')
+      if (seenTeamsModal === 'false') return
+      setTimeout(async () => {
+        openOrganizationModal()
+        await setItem('seenTeamsModal', 'false')
+      }, 2500)
+    })()
+  }, [openOrganizationModal])
 
   if (!user?.teams) return <LoadingModal show />
   return (
@@ -57,8 +64,8 @@ export const Dashboard = () => {
           <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={modalUser} />
         </SwipeableModal>
       )}
-      <BottomSheetModalComponent snapPoints={['90%']} modalRef={submitModalRef}>
-        <TeamsModal closeModal={closeSubmitModal} />
+      <BottomSheetModalComponent snapPoints={['90%']} modalRef={organizationModalRef}>
+        <TeamsModal closeModal={closeOrganizationModal} />
       </BottomSheetModalComponent>
     </>
   )
