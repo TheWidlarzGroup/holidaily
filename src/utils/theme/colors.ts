@@ -65,6 +65,7 @@ export const colors = {
   modalBackdrop: palette.grayscale800,
   transparent: palette.transparent,
   approvedGreen: palette.success500,
+  textBlue: palette.tertiary500,
 }
 
 export const legacyPalette = {
