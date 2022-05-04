@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
-import { minMaxSignsRegex } from 'utils/regex'
+import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -18,7 +18,6 @@ import { WelcomeTopBar } from './components/WelcomeTopBar'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
-const validationPattern = minMaxSignsRegex(MIN_SIGNS, MAX_SIGNS)
 
 export const Welcome = () => {
   const styles = useStyles()
@@ -68,7 +67,7 @@ export const Welcome = () => {
             errors={errors}
             name="firstName"
             inputLabel={t('yourName')}
-            validationPattern={validationPattern}
+            validationPattern={onlyLettersRegex}
             errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
             blurOnSubmit
             placeholder={t('placeholder')}
