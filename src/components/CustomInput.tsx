@@ -11,8 +11,7 @@ import DeleteIcon from 'assets/icons/icon-delete.svg'
 
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
-import { Text, Box, mkUseStyles, BaseOpacity } from 'utils/theme/index'
-import { colors } from 'utils/theme/colors'
+import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { textVariants } from 'utils/theme/textVariants'
 
@@ -49,6 +48,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     const [isFocused, setIsFocused] = useState(false)
 
     const styles = useStyles()
+    const theme = useTheme()
 
     const errorOpacity = useSharedValue(0)
     const borderColor = useSharedValue('black')
@@ -64,8 +64,15 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     useEffect(() => {
       errorOpacity.value = isError || isFocused ? 0.8 : 0
-      borderColor.value = isFocused ? colors.inputBorder : colors.errorRed
-    }, [borderColor, errorOpacity, isError, isFocused])
+      borderColor.value = isFocused ? theme.colors.inputBorder : theme.colors.errorRed
+    }, [
+      borderColor,
+      errorOpacity,
+      isError,
+      isFocused,
+      theme.colors.errorRed,
+      theme.colors.inputBorder,
+    ])
 
     const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       onBlur?.(e)
@@ -120,23 +127,23 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     flex: 1,
     height: 50,
-    backgroundColor: colors.input,
+    backgroundColor: theme.colors.input,
     borderRadius: theme.borderRadii.xxl,
     paddingHorizontal: theme.spacing.m,
     justifyContent: 'center',
   },
-  noBackground: { backgroundColor: colors.white },
+  noBackground: { backgroundColor: theme.colors.white },
   errorBorder: {
     borderStyle: 'solid',
-    borderColor: colors.errorRed,
+    borderColor: theme.colors.errorRed,
   },
   border: {
     borderWidth: 2,
     borderStyle: 'solid',
-    borderColor: colors.black,
+    borderColor: theme.colors.black,
   },
   disabled: {
-    color: colors.greyDark,
+    color: theme.colors.greyDark,
   },
   boldText: { fontFamily: 'Nunito-Bold', fontSize: 16, color: 'black' },
 }))
