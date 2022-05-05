@@ -1,3 +1,4 @@
+import { ProgressBar } from 'components/ProgressBar'
 import React, { useCallback, useRef, useState } from 'react'
 import {
   FlatList,
@@ -6,6 +7,7 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from 'react-native'
+import { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
 
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { Box } from 'utils/theme'
@@ -47,11 +49,17 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  const translateX = useSharedValue(0)
+
+  console.log(currentIndex)
+
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const totalWidth = event.nativeEvent.layoutMeasurement.width
     const xPos = event.nativeEvent.contentOffset.x
+    translateX.value = xPos
     const current = Math.floor(xPos / totalWidth)
     if (current === -1) return setCurrentIndex(0)
+    console.log('curr', current)
     setCurrentIndex(current)
   }
 
@@ -71,10 +79,24 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.src}
-        onScroll={onScroll}
+        // onScroll={onScroll}
+        onMomentumScrollEnd={onScroll}
         showsHorizontalScrollIndicator={false}
       />
-      {data.length > 1 && (
+      <Box
+        alignItems="center"
+        justifyContent="center"
+        alignSelf="center"
+        marginBottom="m"
+        position="absolute"
+        bottom={20}>
+        <ProgressBar
+          scrollPositionX={translateX}
+          slidersCount={data.length}
+          currentIndex={currentIndex}
+        />
+      </Box>
+      {/* {data.length > 1 && (
         <Box
           flexDirection="row"
           alignItems="center"
@@ -83,12 +105,12 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
           position="absolute"
           bottom={10}>
           {data.map((_, index) => {
-            let dotSize = 8
+            // let dotSize = 8
             const leftDotsToScrollOnRight = data.length - (currentIndex + 1)
             const leftDotsToScrollOnLeft = currentIndex
 
             if ((data.length >= 4 && currentIndex - index === 3) || currentIndex - index === -3) {
-              dotSize = 6
+              // dotSize = 6
             }
             if ((data.length >= 4 && currentIndex - index >= 4) || currentIndex - index <= -4)
               return
@@ -116,18 +138,19 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
             )
               return
             return (
-              <Box
-                key={Math.random()}
-                backgroundColor={index === currentIndex ? 'primary' : 'lightGrey'}
-                width={dotSize}
-                height={dotSize}
-                borderRadius="l"
-                margin="xs"
-              />
+              // <Dot
+              //   key={Math.random()}
+              //   index={index}
+              //   currentIndex={currentIndex}
+              //   dataLen={data.length}
+              // />
+              <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="m">
+                <ProgressBar scrollPositionX={translateX} slidersCount={data.length} />
+              </Box>
             )
           })}
         </Box>
-      )}
+      )} */}
     </>
   )
 }

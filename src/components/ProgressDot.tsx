@@ -8,9 +8,16 @@ const { width } = Dimensions.get('window')
 type ProgressDotProps = {
   scrollPositionX: Animated.SharedValue<number>
   index: number
+  isVisible: boolean
+  isSmall: boolean
 }
 
-export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) => {
+export const ProgressDot: FC<ProgressDotProps> = ({
+  scrollPositionX,
+  index,
+  isVisible = true,
+  isSmall,
+}) => {
   const style = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       scrollPositionX.value,
@@ -21,15 +28,21 @@ export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index }) =>
     return { backgroundColor }
   })
 
-  return <Animated.View style={[styles.dot, style]} />
+  if (!isVisible) return null
+  return <Animated.View style={[isSmall ? styles.smallDot : styles.dot, style]} />
 }
 
 const styles = StyleSheet.create({
   dot: {
     margin: 5,
-    width: 10,
-    height: 10,
-    backgroundColor: colors.white,
+    width: 8,
+    height: 8,
+    borderRadius: 10,
+  },
+  smallDot: {
+    margin: 5,
+    width: 6,
+    height: 6,
     borderRadius: 10,
   },
 })
