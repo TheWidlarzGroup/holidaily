@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 
 export type ValidationOfCompanyDayOff = {
