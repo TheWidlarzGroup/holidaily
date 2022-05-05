@@ -88,7 +88,7 @@ export const Welcome = () => {
         backgroundColor="white"
         paddingBottom="l"
         alignItems="center">
-        <Box maxWidth={250}>
+        <Box maxWidth={250} paddingBottom="l">
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}

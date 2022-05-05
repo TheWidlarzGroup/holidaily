@@ -6,7 +6,7 @@ import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger' | 'primaryDisabled'
+type CustomButtonVariants = 'primary' | 'secondary' | 'alternative' | 'danger' | 'tertiary'
 type CustomButtonIcons = 'google' | 'apple' | 'plus'
 
 export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -34,32 +34,31 @@ export const CustomButton: FC<CustomButtonProps> = ({
   const styles = useStyles()
   const theme = useTheme()
   let bgColor
-  let borderWidth = 2
+  let borderWidth = 0
   let color = theme.colors.black
   let rippleColor
 
   switch (variant) {
-    case 'secondary':
-      color = theme.colors.black
-      rippleColor = theme.colors.disabled
-      break
-    case 'blackBgButton':
-      bgColor = theme.colors.black
-      color = theme.colors.white
-      rippleColor = theme.colors.blackBtnRippleColor
-      borderWidth = 0
-      break
     case 'primary':
       bgColor = disabled ? theme.colors.primary : theme.colors.tertiary
       color = theme.colors.white
       rippleColor = theme.colors.disabled
-      borderWidth = 0
       break
-    case 'primaryDisabled':
-      bgColor = theme.colors.primary
+    case 'alternative':
+      bgColor = disabled ? theme.colors.grey : theme.colors.black
       color = theme.colors.white
-      rippleColor = theme.colors.primary
-      borderWidth = 0
+      rippleColor = theme.colors.blackBtnRippleColor
+      break
+    case 'secondary':
+      bgColor = theme.colors.white
+      color = theme.colors.black
+      rippleColor = theme.colors.grey
+      borderWidth = 1
+      break
+    case 'tertiary':
+      bgColor = theme.colors.special
+      color = theme.colors.white
+      rippleColor = theme.colors.grey
       break
     case 'danger':
       bgColor = theme.colors.specialRed
@@ -70,26 +69,29 @@ export const CustomButton: FC<CustomButtonProps> = ({
       break
   }
 
-  const backgroundColor = disabled && variant !== 'primary' ? theme.colors.disabled : bgColor
-  const textColor = disabled && variant !== 'primary' ? theme.colors.disabledText : color
-
   return (
     <RectButton
-      rippleColor={disabled ? backgroundColor : rippleColor}
+      rippleColor={disabled ? bgColor : rippleColor}
       onPress={disabled ? () => null : onPress}
       activeOpacity={disabled ? 0 : 0.2}
-      style={[styles.container, { backgroundColor }, customStyle, rest]}>
+      style={[
+        styles.container,
+        { backgroundColor: bgColor },
+        customStyle,
+        rest,
+        variant === 'tertiary' && styles.smallBtn,
+      ]}>
       <Box
-        paddingVertical="xxm"
+        paddingVertical="xm"
         width="100%"
         flexDirection="row"
         alignItems="center"
         justifyContent="center"
         borderWidth={borderWidth}
-        borderColor={disabled ? 'disabled' : 'black'}
+        borderColor={variant === 'secondary' && disabled ? 'grey' : 'black'}
         borderRadius="xxl">
         {loading ? (
-          <ActivityIndicator size="small" color={textColor} />
+          <ActivityIndicator size="small" color={color} />
         ) : (
           children || (
             <>
@@ -97,8 +99,9 @@ export const CustomButton: FC<CustomButtonProps> = ({
               {icon === 'apple' && <IconApple style={styles.icon} />}
               {icon === 'plus' && <IconPlusSmall style={styles.icon} />}
               <Text
-                variant="buttonText1"
-                style={{ color: textColor }}
+                lineHeight={variant === 'tertiary' ? 18 : 22}
+                variant={variant === 'tertiary' ? 'buttonSM' : 'buttonMD'}
+                style={{ color: variant === 'secondary' && disabled ? rippleColor : color }}
                 opacity={disabled && variant === 'primary' ? 0.8 : 1}>
                 {label}
               </Text>
@@ -118,6 +121,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     alignItems: 'center',
     borderRadius: theme.borderRadii.l,
   },
+  smallBtn: { borderRadius: theme.borderRadii.l2min },
   icon: {
     marginRight: theme.spacing.s,
   },
