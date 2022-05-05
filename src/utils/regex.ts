@@ -5,5 +5,4 @@ export const minTwoWordsRegex = /^(\w+\s).+/i
 export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
 export const noEmojiRegex =
   /^((?!(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])).)*$/i
-
-export const minMaxSignsRegex = (min: number, max: number) => new RegExp(`^.{${min},${max}}$`, 'i')
+export const onlyLettersRegex = /^[a-z]/i

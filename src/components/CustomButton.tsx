@@ -1,14 +1,12 @@
 import React, { FC, ReactNode } from 'react'
 import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, Box, mkUseStyles, Theme } from 'utils/theme/index'
-import { colors } from 'utils/theme/colors'
-
+import { Text, Box, mkUseStyles, Theme, useTheme } from 'utils/theme/index'
 import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
 
-type CustomButtonVariants = 'primary' | 'secondary' | 'blackBgButton' | 'danger'
+type CustomButtonVariants = 'primary' | 'secondary' | 'alternative' | 'danger' | 'tertiary'
 type CustomButtonIcons = 'google' | 'apple' | 'plus'
 
 export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
@@ -34,46 +32,55 @@ export const CustomButton: FC<CustomButtonProps> = ({
   ...rest
 }) => {
   const styles = useStyles()
+  const theme = useTheme()
   let bgColor
-  let borderWidth = 2
-  let color = colors.black
+  let borderWidth = 0
+  let color = theme.colors.black
   let rippleColor
 
   switch (variant) {
-    case 'secondary':
-      color = colors.black
-      rippleColor = colors.disabled
-      break
-    case 'blackBgButton':
-      bgColor = colors.black
-      color = colors.white
-      rippleColor = colors.blackBtnRippleColor
-      borderWidth = 0
-      break
     case 'primary':
-      bgColor = colors.tertiary
-      color = colors.white
-      rippleColor = colors.disabled
-      borderWidth = 0
+      bgColor = disabled ? theme.colors.primary : theme.colors.tertiary
+      color = theme.colors.white
+      rippleColor = theme.colors.disabled
+      break
+    case 'alternative':
+      bgColor = disabled ? theme.colors.grey : theme.colors.black
+      color = theme.colors.white
+      rippleColor = theme.colors.blackBtnRippleColor
+      break
+    case 'secondary':
+      bgColor = theme.colors.white
+      color = theme.colors.black
+      rippleColor = theme.colors.grey
+      borderWidth = 1
+      break
+    case 'tertiary':
+      bgColor = theme.colors.special
+      color = theme.colors.white
+      rippleColor = theme.colors.grey
       break
     case 'danger':
-      bgColor = colors.specialRed
-      color = colors.black
-      rippleColor = colors.disabled
+      bgColor = theme.colors.specialRed
+      color = theme.colors.black
+      rippleColor = theme.colors.disabled
       break
     default:
       break
   }
 
-  const backgroundColor = disabled && variant !== 'primary' ? colors.disabled : bgColor
-  const textColor = disabled && variant !== 'primary' ? colors.disabledText : color
-
   return (
     <RectButton
-      rippleColor={disabled ? backgroundColor : rippleColor}
+      rippleColor={disabled ? bgColor : rippleColor}
       onPress={disabled ? () => null : onPress}
       activeOpacity={disabled ? 0 : 0.2}
-      style={[styles.container, { backgroundColor }, customStyle, rest]}>
+      style={[
+        styles.container,
+        { backgroundColor: bgColor },
+        customStyle,
+        rest,
+        variant === 'tertiary' && styles.smallBtn,
+      ]}>
       <Box
         paddingVertical="xm"
         width="100%"
@@ -81,10 +88,10 @@ export const CustomButton: FC<CustomButtonProps> = ({
         alignItems="center"
         justifyContent="center"
         borderWidth={borderWidth}
-        borderColor={disabled ? 'disabled' : 'black'}
+        borderColor={variant === 'secondary' && disabled ? 'grey' : 'black'}
         borderRadius="xxl">
         {loading ? (
-          <ActivityIndicator size="small" color={textColor} />
+          <ActivityIndicator size="small" color={color} />
         ) : (
           children || (
             <>
@@ -92,9 +99,10 @@ export const CustomButton: FC<CustomButtonProps> = ({
               {icon === 'apple' && <IconApple style={styles.icon} />}
               {icon === 'plus' && <IconPlusSmall style={styles.icon} />}
               <Text
-                variant="buttonText1"
-                style={{ color: textColor }}
-                opacity={disabled && variant === 'primary' ? 0.4 : 1}>
+                lineHeight={variant === 'tertiary' ? 18 : 22}
+                variant={variant === 'tertiary' ? 'buttonSM' : 'buttonMD'}
+                style={{ color: variant === 'secondary' && disabled ? rippleColor : color }}
+                opacity={disabled && variant === 'primary' ? 0.8 : 1}>
                 {label}
               </Text>
             </>
@@ -113,6 +121,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     alignItems: 'center',
     borderRadius: theme.borderRadii.l,
   },
+  smallBtn: { borderRadius: theme.borderRadii.l2min },
   icon: {
     marginRight: theme.spacing.s,
   },

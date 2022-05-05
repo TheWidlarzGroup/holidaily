@@ -27,7 +27,7 @@ export const UpdateModalChildren: FC = () => {
       <TouchableOpacity onPress={navigateToLogin}>
         <CustomButton
           label={t('loginButton')}
-          variant="blackBgButton"
+          variant="alternative"
           marginTop={theme.spacing.xl}
           marginBottom={theme.spacing.m}
         />
