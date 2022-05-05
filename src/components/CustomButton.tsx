@@ -64,6 +64,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       bgColor = theme.colors.specialRed
       color = theme.colors.black
       rippleColor = theme.colors.disabled
+      borderWidth = 2
       break
     default:
       break
