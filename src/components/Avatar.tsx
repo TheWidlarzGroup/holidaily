@@ -9,7 +9,7 @@ const sizes = { xs: 24, s: 44, m: 62, l: 112 }
 type AvatarProps = React.ComponentProps<typeof Box> & {
   src?: string | null
   size?: keyof typeof sizes | number
-  userDetails?: Pick<User, 'userColor' | 'firstName' | 'lastName'>
+  userDetails?: Pick<User, 'userColor' | 'firstName'> & Partial<Pick<User, 'lastName'>>
 }
 
 export const Avatar = ({ size = 'm', src, userDetails, ...containerProps }: AvatarProps) => {
@@ -45,7 +45,7 @@ const UserPhoto = ({
         borderRadius="full"
         alignItems="center"
         justifyContent="center">
-        <Text variant={size > 62 ? 'avatarXL' : 'avatarLG'} color="white" padding="xs">
+        <Text variant={size >= 62 ? 'avatarXL' : 'avatarLG'} color="white" padding="xs">
           {userDetails.firstName[0]}
           {userDetails.lastName?.[0]}
         </Text>

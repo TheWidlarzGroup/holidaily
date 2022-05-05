@@ -37,6 +37,7 @@ export const Carousel = ({ openUserModal }: CarouselProps) => {
             firstName={user.firstName}
             lastName={user.lastName}
             photo={user.photo}
+            userColor={user.userColor}
             dayToBeDisplayed={displayDay(user)}
           />
         </TouchableOpacity>

@@ -18,6 +18,7 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
         const request = {
           id: generateUUID(),
           person: `${user.firstName} ${user.lastName}`,
+          personLastName: user.lastName,
           reason: req.description,
           position: user.occupation,
           color: user.userColor,

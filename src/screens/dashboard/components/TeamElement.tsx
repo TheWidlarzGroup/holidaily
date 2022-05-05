@@ -5,6 +5,7 @@ import { Avatar } from 'components/Avatar'
 import { SIZE_W, SIZE_H } from 'components/dragAndDrop/Config'
 import { Team } from 'mock-api/models/mirageTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
+import { makeUserDetails } from 'utils/userDetails'
 
 type TeamElementProps = Team & {
   navigateToTeamScreen: F0
@@ -32,8 +33,8 @@ export const TeamElement = (props: TeamElementProps) => {
           </Box>
         </Box>
         <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-          <Avatar src={users[0]?.photo} />
-          <Avatar src={users[1]?.photo} />
+          <Avatar src={users[0]?.photo} userDetails={makeUserDetails(users[0])} />
+          <Avatar src={users[1]?.photo} userDetails={makeUserDetails(users[1])} />
         </Box>
       </BaseOpacity>
     </Box>
