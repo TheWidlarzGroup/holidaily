@@ -63,25 +63,25 @@ const text = {
   },
 }
 const display = {
-  boldLG: {
+  displayBoldLG: {
     fontWeight: 'Nunito-Bold',
     fontSize: 22,
     letterSpacing: 0.01 * 22,
     textAlign: 'center',
   },
-  boldMD: {
+  displayBoldMD: {
     fontWeight: 'Nunito-Bold',
     fontSize: 20,
     letterSpacing: 0.01 * 20,
     textAlign: 'center',
   },
-  boldSM: {
+  displayBoldSM: {
     fontWeight: 'Nunito-Bold',
     fontSize: 16,
     letterSpacing: 0.01 * 16,
     textAlign: 'center',
   },
-  boldXS: {
+  displayXS: {
     fontWeight: 'Nunito-Regular',
     fontSize: 12,
   },
