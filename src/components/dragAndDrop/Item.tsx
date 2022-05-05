@@ -1,4 +1,4 @@
-import React, { ReactNode, RefObject } from 'react'
+import React, { ReactElement, ReactNode, RefObject } from 'react'
 import { FlatList, StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
@@ -34,12 +34,14 @@ type ItemProps = {
   children: ReactNode
   positions: Animated.SharedValue<Positions>
   id: number
-  scrollView: RefObject<FlatList<any>>
+  scrollView: RefObject<FlatList<SortableListItemType>>
   scrollY: Animated.SharedValue<number>
   draggedElement: number | null
   onLongPress: F0
   stopDragging: F0
 }
+
+export type SortableListItemType = ReactElement<{ id: number }>
 
 export const Item = (props: ItemProps) => {
   const {

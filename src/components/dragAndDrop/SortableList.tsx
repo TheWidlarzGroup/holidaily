@@ -1,6 +1,6 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
-import { Item } from 'components/dragAndDrop/Item'
+import { Item, SortableListItemType } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
   useAnimatedRef,
@@ -15,16 +15,16 @@ import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
 
-type SortableListItem = ReactElement<{ id: number }>
 type SortableListProps = {
-  children: SortableListItem[]
+  children: SortableListItemType[]
   openUserModal: F1<User>
 }
 
-const AnimatedFlatList = Animated.createAnimatedComponent<FlatListProps<SortableListItem>>(FlatList)
+const AnimatedFlatList =
+  Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
 export const SortableList = ({ children, openUserModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
-  const scrollView = useAnimatedRef<FlatList<SortableListItem>>()
+  const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const assignPositions = useCallback(() => {
