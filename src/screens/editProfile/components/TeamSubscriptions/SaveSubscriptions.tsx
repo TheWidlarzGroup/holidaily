@@ -12,6 +12,7 @@ import { Box } from 'utils/theme'
 
 type SaveSubscriptionsProps = {
   disabled?: boolean
+  setSubscriptions?: F1<ParsedTeamType[]>
   selectedTeams: ParsedTeamType[]
 }
 
@@ -34,6 +35,7 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
         hideModal={hideModal}
       />
     )
+    p.setSubscriptions?.(p.selectedTeams)
     goBack()
   }
   if (!user || !organization) return <LoadingModal show />
