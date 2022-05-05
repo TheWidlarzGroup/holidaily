@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { UserProfileNavigationProps } from 'navigation/types'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
@@ -10,7 +10,7 @@ import { SaveSubscriptions } from './TeamSubscriptions/SaveSubscriptions'
 
 type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
 
-export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
+export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps) => {
   const styles = useStyles()
   const [selectedTeams, setSelectedTeams] = useState<ParsedTeamType[]>([])
   const { user } = useUserContext()
@@ -36,7 +36,11 @@ export const SubscribeNewTeam: FC<SubscribeNewTeamProps> = () => {
             selectedTeams={selectedTeams}
             userTeams={teams}
           />
-          <SaveSubscriptions selectedTeams={selectedTeams} disabled={!selectedTeams.length} />
+          <SaveSubscriptions
+            setSubscriptions={p.addSubscriptions}
+            selectedTeams={selectedTeams}
+            disabled={!selectedTeams.length}
+          />
         </Box>
       </Box>
     </SafeAreaWrapper>
