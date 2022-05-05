@@ -61,7 +61,7 @@ export const ConfirmationModal = ({
           <TouchableOpacity onPress={onAccept} activeOpacity={1}>
             <CustomButton
               label={acceptBtnText ?? t('yes')}
-              variant="blackBgButton"
+              variant="alternative"
               width={221}
               height={53}
             />

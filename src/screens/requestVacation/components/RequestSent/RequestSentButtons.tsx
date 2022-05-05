@@ -26,10 +26,6 @@ type ButtonProps = {
 }
 const RequestSentButton = ({ label, onPress, isSpecial }: ButtonProps) => (
   <Box marginVertical="xs">
-    <CustomButton
-      label={label}
-      variant={isSpecial ? 'blackBgButton' : undefined}
-      onPress={onPress}
-    />
+    <CustomButton label={label} variant={isSpecial ? 'alternative' : undefined} onPress={onPress} />
   </Box>
 )
