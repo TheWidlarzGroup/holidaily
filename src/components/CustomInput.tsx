@@ -132,7 +132,7 @@ const useStyles = mkUseStyles((theme) => ({
     height: 40,
     backgroundColor: theme.colors.input,
     borderRadius: theme.borderRadii.xxl,
-    paddingLeft: theme.spacing.s,
+    paddingLeft: theme.spacing.xm,
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
   },
