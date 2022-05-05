@@ -13,15 +13,13 @@ import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
 import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { textVariants } from 'utils/theme/textVariants'
 
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
+  variant: 'medium' | 'small' | 'mediumSpecial'
   isPasswordIconVisible?: boolean
   disabled?: boolean
-  labelTextVariant?: keyof typeof textVariants
-  inputTextVariant?: 'bold'
   reset?: F0
 }
 
@@ -35,10 +33,9 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       value,
       isError,
       isPasswordIconVisible,
-      labelTextVariant,
-      inputTextVariant,
       disabled = false,
       placeholder,
+      variant,
       reset,
       ...props
     },
@@ -85,13 +82,19 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     return (
       <>
-        <Text variant={labelTextVariant || 'label1'} marginLeft="s" marginBottom="xs">
+        <Text variant="inputLabel" marginLeft="s" marginBottom="xs">
           {inputLabel}
         </Text>
         <Box flexDirection="row">
-          <Animated.View style={[styles.input, progressStyle, isFocused && styles.noBackground]}>
+          <Animated.View
+            style={[
+              styles.container,
+              progressStyle,
+              isFocused && styles.noBackground,
+              variant === 'small' && styles.leftPadding,
+            ]}>
             <TextInput
-              style={[disabled && styles.disabled, inputTextVariant === 'bold' && styles.boldText]}
+              style={[styles.input, disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
               onBlur={handleOnBlur}
               onChange={onChange}
@@ -124,15 +127,17 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 CustomInput.displayName = 'CustomInput'
 
 const useStyles = mkUseStyles((theme) => ({
-  input: {
+  container: {
     flex: 1,
-    height: 50,
+    height: 40,
     backgroundColor: theme.colors.input,
     borderRadius: theme.borderRadii.xxl,
-    paddingHorizontal: theme.spacing.m,
+    paddingLeft: theme.spacing.s,
+    paddingRight: theme.spacing.l,
     justifyContent: 'center',
   },
   noBackground: { backgroundColor: theme.colors.white },
+  leftPadding: { paddingLeft: theme.spacing.l2plus },
   errorBorder: {
     borderStyle: 'solid',
     borderColor: theme.colors.errorRed,
@@ -142,8 +147,11 @@ const useStyles = mkUseStyles((theme) => ({
     borderStyle: 'solid',
     borderColor: theme.colors.black,
   },
+  input: {
+    color: theme.colors.black,
+    fontFamily: 'Nunito-Regular',
+  },
   disabled: {
     color: theme.colors.greyDark,
   },
-  boldText: { fontFamily: 'Nunito-Bold', fontSize: 16, color: 'black' },
 }))

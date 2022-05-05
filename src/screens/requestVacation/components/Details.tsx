@@ -41,6 +41,7 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
       </Box>
       <Box marginTop="m">
         <FormInput
+          variant="medium"
           control={control}
           isError={!errors}
           errors={errors}

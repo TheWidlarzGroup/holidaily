@@ -3,10 +3,11 @@ import { TextInputProps, TextInput } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
-import { Text } from 'utils/theme/index'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme/index'
+import IconEdit from 'assets/icons/icon-edit.svg'
 import { generateInputErrors } from 'utils/generateInputErrors'
 import { useTranslation } from 'react-i18next'
-import { textVariants } from 'utils/theme/textVariants'
+import { SearchIcon } from 'assets/icons/SearchIcon'
 import { CustomInput } from './CustomInput'
 
 type FormInputTypes = {
@@ -17,15 +18,15 @@ type FormInputTypes = {
   validationPattern: RegExp
   errorMessage: string
   isError: boolean
+  variant: 'medium' | 'small' | 'mediumSpecial'
   signupPasswordHint?: string
   isPasswordIconVisible?: boolean
   passwordsAreEqual?: boolean
   screenName?: string
   disabled?: boolean
-  labelTextVariant?: keyof typeof textVariants
-  inputTextVariant?: 'bold'
   placeholder?: string
   reset?: F0
+  onBaseOpacityPress?: F0
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -42,13 +43,14 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       passwordsAreEqual,
       screenName,
       isError,
+      onBaseOpacityPress,
       ...props
     },
     ref
   ) => {
     const { t } = useTranslation('inputErrors')
     const errorOpacity = useSharedValue(0)
-
+    const theme = useTheme()
     const progressStyle = useAnimatedStyle(() => ({
       opacity: withTiming(errorOpacity.value, {
         duration: 300,
@@ -85,9 +87,31 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           }}
           defaultValue=""
         />
-
+        {props.variant === 'mediumSpecial' && (
+          <Box
+            position="absolute"
+            right={0}
+            top={16}
+            backgroundColor="lightGrey"
+            borderRadius="full"
+            width={49}
+            height={49}
+            borderWidth={4}
+            borderColor="white"
+            justifyContent="center"
+            alignItems="center">
+            <BaseOpacity onPress={onBaseOpacityPress} activeOpacity={0.2}>
+              <IconEdit color={theme.colors.headerGrey} />
+            </BaseOpacity>
+          </Box>
+        )}
+        {props.variant === 'small' && (
+          <Box position="absolute" left={6} top={25}>
+            <SearchIcon fill="grey" />
+          </Box>
+        )}
         <Animated.View style={progressStyle}>
-          <Text variant="inputErrorMessage" marginTop="xs" marginLeft="m">
+          <Text variant="inputErrorMessage" marginTop="xs" marginLeft="s">
             {generateInputErrors({ errors, name, passwordsAreEqual, screenName, t })}
           </Text>
         </Animated.View>

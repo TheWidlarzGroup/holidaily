@@ -49,12 +49,14 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
             </Text>
           )}
         </Box>
-        <Box>
-          <CustomButton
-            label={t('aboutButton')}
-            variant="primary"
-            onPress={isFromWelcomeScreen ? closeModal : handleGoBack}
-          />
+        <Box paddingBottom="l">
+          {isFromWelcomeScreen && (
+            <CustomButton
+              label={t('aboutButton')}
+              variant="primary"
+              onPress={isFromWelcomeScreen ? closeModal : handleGoBack}
+            />
+          )}
         </Box>
       </GestureRecognizer>
     </SafeAreaWrapper>
