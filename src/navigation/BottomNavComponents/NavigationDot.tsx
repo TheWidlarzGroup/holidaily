@@ -62,7 +62,7 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, m
 
 const styles = StyleSheet.create({
   dotContainer: {
-    height: 10,
+    height: 20,
     marginBottom: 5,
     backgroundColor: 'white',
   },

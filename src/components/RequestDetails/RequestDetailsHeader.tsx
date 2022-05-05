@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme/index'
 import { getFormattedPeriod } from 'utils/dates'
-import CalendarIcon from 'assets/icons/calendar.svg'
+import CalendarIcon from 'assets/icons/icon-calendar.svg'
 import { useTranslation } from 'react-i18next'
 
 type RequestDetailsHeaderProps = {

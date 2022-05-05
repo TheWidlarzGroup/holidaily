@@ -1,3 +1,4 @@
+import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
 
@@ -12,25 +13,35 @@ type SwipableModalProps = PropsWithChildren<
   >
 >
 
-export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableModalProps) => (
-  <Modal
-    statusBarTranslucent
-    swipeThreshold={20}
-    isVisible={isOpen}
-    hasBackdrop
-    hideModalContentWhileAnimating
-    backdropColor="black"
-    backdropOpacity={0.6}
-    swipeDirection="down"
-    animationIn="slideInUp"
-    animationOut="slideOutDown"
-    style={{ margin: 0, marginTop: 120 }}
-    animationInTiming={DEFAULT_MODAL_ANIM_TIME}
-    animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
-    onSwipeComplete={onHide}
-    onBackButtonPress={onHide}
-    onBackdropPress={onHide}
-    {...rest}>
-    {children}
-  </Modal>
-)
+export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableModalProps) => {
+  // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
+  const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
+  return (
+    <Modal
+      statusBarTranslucent
+      swipeThreshold={20}
+      isVisible={isOpen && isVisible}
+      hasBackdrop
+      useNativeDriverForBackdrop
+      coverScreen
+      hideModalContentWhileAnimating
+      backdropColor="black"
+      backdropOpacity={0.6}
+      swipeDirection="down"
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
+      style={{ margin: 0, marginTop: 120 }}
+      animationInTiming={DEFAULT_MODAL_ANIM_TIME}
+      animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
+      onModalHide={() => {
+        onHide()
+        resetState()
+      }}
+      onSwipeComplete={fadeOut}
+      onBackButtonPress={fadeOut}
+      onBackdropPress={fadeOut}
+      {...rest}>
+      {children}
+    </Modal>
+  )
+}

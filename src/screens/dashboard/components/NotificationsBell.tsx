@@ -1,6 +1,6 @@
 import React from 'react'
 import IconBell from 'assets/icons/icon-bell.svg'
-import { BaseOpacity, Text, Box } from 'utils/theme'
+import { BaseOpacity, Text, Box, theme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 
 export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
@@ -31,7 +31,7 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
           </Text>
         </Box>
       )}
-      <IconBell />
+      <IconBell color={theme.colors.headerGrey} />
     </BaseOpacity>
   )
 }

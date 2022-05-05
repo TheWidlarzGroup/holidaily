@@ -1,15 +1,16 @@
 {
   "slider": {
-    "slider1Title": "Welcome to Holidaily!",
-    "slider1SubTitle": "All your team days-off in one place.",
-    "slider2Title": "Real-time vacation checking",
-    "slider2SubTitle": "Check how many leaves have left.",
+    "slider1Title": "All team member’s time off in one place",
+    "slider1SubTitle": "The easiest tool to check when your team members will be off work.",
+    "slider2Title": "Time off balance has never been so transparent",
+    "slider2SubTitle": "No more self calculations. Holidaily will calculate it for you.",
     "slider3Title": "Request time off",
-    "slider3SubTitle": "Are you planning vacations or some personal time? Simply request it.",
+    "slider3SubTitle": "Family vacation or personal time? Request it within just a few taps!",
     "slider4Title": "Get notified",
-    "slider4SubTitle": "You’ll get notifications once the vacation is approved or rejected.",
+    "slider4SubTitle": "Get notifications once the time off is approved or rejected.",
     "next": "Next",
-    "skip": "Skip"
+    "skip": "Skip",
+    "letsStart": "Let’s start!"
   },
   "forgotPassword": {
     "email": "E-mail Address",
@@ -67,18 +68,23 @@
     "loginButton": "Log in"
   },
   "welcome": {
-    "welcomeTitle": "Nice to meet you!",
-    "welcomeSubtitle": "Take a demo tour and get to know Holidaily better.",
-    "yourName": "Your name",
-    "whyAskForName": "We will display your name in several places in the app, so that you can get almost the real impression of using Holidaily.",
+    "welcomeTitle": "Welcome to Holidaily!",
+    "welcomeSubtitle": "Take a demo tour and get to know us better.",
+    "yourName": "First name",
+    "whyAskForName": "We need your name to display it in several places in the app, so that you can get the real impression of using Holidaily.",
     "seeDemoButton": "See demo",
-    "firstNameErrMsg": "Please enter your name. It should not be longer than {{max}}",
-    "about": "About",
-    "aboutDesc1": "<bp>Holidaily</bp> is an app for <b>booking time off</b> for both <b>employers</b> and <b>employees.</b>",
-    "aboutDesc2": "<b>It simplifies the information flow</b> about vacation schedules within the company, making the process <b>a lot quicker and easier for everyone!</b>",
-    "memberOf": "You’re now a member of:",
-    "yourTeams": "Your teams:",
-    "thanksButton": "Ok, thanks!"
+    "firstNameErrMsg": "Please enter your name. It should not be longer than {{max}} and shouldn't contain digits and special characters",
+    "about": "About the app",
+    "aboutDesc1": "<bp>Holidaily</bp> is an app for managing time off for both employers and employees.",
+    "aboutDesc2": "It simplifies the information flow about vacation schedules within the company, making the process a lot quicker and easier for everyone!",
+    "aboutButton": "Got it!",
+    "congrats": "Congrats!",
+    "memberOf": "You just joined",
+    "yourTeams": "YOUR TEAMS:",
+    "joinMore": "You can join more Teams in the User Profile section.",
+    "joinMoreButton": "Join now",
+    "thanksButton": "Ok, thanks!",
+    "placeholder": "Your first name"
   },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
@@ -183,7 +189,8 @@
   "dashboard": {
     "welcome": "Hello {{name}}!",
     "today": "Today is {{date}}",
-    "teamsList": "Your teams",
+    "bookedHolidays": "PRESENT & UPCOMING TIME OFF",
+    "teamsList": "YOUR TEAMS",
     "outOfWorkNow": "Out of work now",
     "outOfWorkSoon": "Out of work soon",
     "othersTeamMembers": "Team members",
