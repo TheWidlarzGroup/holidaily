@@ -1,11 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
-import { TeamElement } from 'screens/dashboard/components/TeamElement'
-import { DashboardNavigationType } from 'navigation/types'
-import { useNavigation } from '@react-navigation/native'
-import { SortableList } from 'screens/dashboard/dragAndDrop/SortableList'
-import { Team, User } from 'mock-api/models/mirageTypes'
+import { User } from 'mock-api/models/mirageTypes'
 import { LoadingModal } from 'components/LoadingModal'
 import { useUserContext } from 'hooks/useUserContext'
 import { SwipeableModal } from 'components/SwipeableModal'
@@ -14,6 +10,7 @@ import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { getItem, setItem } from 'utils/localStorage'
 import { DashboardTeamMember } from './DashboardTeamMember'
+import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -24,10 +21,6 @@ export const Dashboard = () => {
     setIsModalVisible(true)
   }
   const { user } = useUserContext()
-  const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
-  const navigateToTeamDetails = (team: Team) =>
-    navigation.navigate('DashboardTeam', { ...team, openUserModal: openModal })
-
   const organizationModalRef = useRef<BottomSheetModal>(null)
   const openOrganizationModal = useCallback(() => organizationModalRef.current?.present(), [])
   const closeOrganizationModal = useCallback(() => organizationModalRef.current?.dismiss(), [])
@@ -49,17 +42,7 @@ export const Dashboard = () => {
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
-        <SortableList openUserModal={openModal}>
-          {(user.teams ?? []).map((team: Team) => (
-            <TeamElement
-              {...team}
-              key={team.name}
-              navigateToTeamScreen={() =>
-                navigateToTeamDetails({ ...team, users: [...team.users, user] })
-              }
-            />
-          ))}
-        </SortableList>
+        <SortableTeams openUserModal={openModal} teams={user.teams} />
       </SafeAreaWrapper>
       {modalUser && (
         <SwipeableModal isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>

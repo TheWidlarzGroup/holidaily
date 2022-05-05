@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
-import { SIZE_W, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
+import { SIZE_W, SIZE_H } from 'components/dragAndDrop/Config'
 import { Team } from 'mock-api/models/mirageTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
 

@@ -14,7 +14,7 @@ export const useInitDemoUserTeams = () => {
     idRef.current = user.id
     const userTeams = organization.teams.slice(0, -2)
     updateUser({
-      teams: userTeams,
+      teams: userTeams.map((t) => ({ ...t, users: [...t.users, user] })),
     })
     addUserToTeams(
       user,
