@@ -9,7 +9,8 @@
     "slider4Title": "Get notified",
     "slider4SubTitle": "Get notifications once the time off is approved or rejected.",
     "next": "Next",
-    "skip": "Skip"
+    "skip": "Skip",
+    "letsStart": "Let’s start!"
   },
   "forgotPassword": {
     "email": "E-mail Address",
@@ -72,7 +73,7 @@
     "yourName": "First name",
     "whyAskForName": "We need your name to display it in several places in the app, so that you can get the real impression of using Holidaily.",
     "seeDemoButton": "See demo",
-    "firstNameErrMsg": "Please enter your name. It should not be longer than {{max}}",
+    "firstNameErrMsg": "Please enter your name. It should not be longer than {{max}} and shouldn't contain digits and special characters",
     "about": "About the app",
     "aboutDesc1": "<bp>Holidaily</bp> is an app for managing time off for both employers and employees.",
     "aboutDesc2": "It simplifies the information flow about vacation schedules within the company, making the process a lot quicker and easier for everyone!",

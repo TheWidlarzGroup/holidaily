@@ -25,8 +25,8 @@ export const TeamElement = (props: TeamElementProps) => {
         <Box flexDirection="row" justifyContent="space-between">
           <Text variant="label1">{name}</Text>
           <Box flexDirection="row" alignItems="center">
-            <IconPalm color={theme.colors.black} width={16} height={16} />
-            <Text variant="label1" marginLeft="s">
+            <IconPalm color={theme.colors.tertiary} width={16} height={16} />
+            <Text variant="label1" marginLeft="s" color="tertiary">
               {qtyOnHolidayNow(users)}
             </Text>
           </Box>

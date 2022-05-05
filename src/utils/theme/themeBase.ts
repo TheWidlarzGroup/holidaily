@@ -34,6 +34,7 @@ export const themeBase = createTheme({
     m: 10,
     mplus: 12,
     lmin: 16,
+    l2min: 22,
     l: 25,
     lplus: 31,
     xl: 75,

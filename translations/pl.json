@@ -9,7 +9,8 @@
     "slider4Title": "Bądź na bieżąco",
     "slider4SubTitle": "Otrzymuj powiadomienia zatwierdzeniu lub odrzuceniu wniosku o urlop.",
     "next": "Dalej",
-    "skip": "Pomiń"
+    "skip": "Pomiń",
+    "letsStart": "Zaczynamy!"
   },
   "forgotPassword": {
     "email": "Adres e-mail",
@@ -72,7 +73,7 @@
     "yourName": "Imię",
     "whyAskForName": "Wyświetlimy Twoje imię w kilku miejscach aplikacji, aby pokazać Ci potencjał i sposób funkcjonowania Holidaily.",
     "seeDemoButton": "Zobacz demo",
-    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno zawierać więcej niż {{max}} znaków",
+    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfer i znaków specjalnych",
     "about": "O aplikacji",
     "aboutDesc1": "<bp>Holidaily</bp> to aplikacja do zarządzania urlopami przez pracodawcę i pracowników.",
     "aboutDesc2": "Aplikacja ułatwia przepływ informacji dotyczących organizacji urlopów w firmie, i sprawia, że cały proces jest szybszy i łatwiejszy.",

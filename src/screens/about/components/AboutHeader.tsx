@@ -24,7 +24,6 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
   return (
     <Box
       justifyContent="space-between"
-      alignItems="center"
       flexDirection="row"
       paddingBottom="xxl"
       paddingHorizontal="m">
@@ -32,13 +31,13 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
         onPress={handleGoBack}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
         {isFromWelcomeScreen ? (
-          <IconClose height={15} width={15} />
+          <IconClose height={14} width={14} />
         ) : (
           <IconBack height={18} width={18} />
         )}
       </TouchableOpacity>
-      <Box>
-        <Text variant="boldBlackCenter20">{t('about')}</Text>
+      <Box marginTop="l">
+        <Text variant="boldBlackCenter16">{t('about')}</Text>
       </Box>
       <Box paddingRight="l" />
     </Box>
