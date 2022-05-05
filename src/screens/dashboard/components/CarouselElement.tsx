@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, theme } from 'utils/theme'
 import IconPlane from 'assets/icons/icon-plane.svg'
 import IconSuitcase from 'assets/icons/icon-suitcase.svg'
 import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
@@ -12,6 +12,8 @@ export type CarouselElementProps = {
   dayToBeDisplayed: string
   photo?: string | null
 }
+
+const ICON_SIZE = 10
 
 export const CarouselElement = (props: CarouselElementProps) => {
   const { isOnHoliday, firstName, lastName, dayToBeDisplayed, photo } = props
@@ -29,8 +31,12 @@ export const CarouselElement = (props: CarouselElementProps) => {
         {lastName}
       </Text>
       <Box flexDirection="row" alignItems="center">
-        {isOnHoliday ? <IconSuitcase /> : <IconPlane />}
-        <Text variant="holidayDate" color={isOnHoliday ? 'tertiary' : 'black'}>
+        {isOnHoliday ? (
+          <IconSuitcase width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.tertiary} />
+        ) : (
+          <IconPlane width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.textBlue} />
+        )}
+        <Text variant="holidayDate" color={isOnHoliday ? 'tertiary' : 'textBlue'} marginLeft="xs">
           {dayToBeDisplayed}
         </Text>
       </Box>

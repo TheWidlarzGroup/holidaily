@@ -67,6 +67,7 @@ export const colors = {
   titleActive: palette.grayscale800,
   transparent: palette.transparent,
   approvedGreen: palette.success500,
+  textBlue: palette.tertiary500,
   input: palette.grayscale200,
   inputBorder: palette.secondary700,
 }
