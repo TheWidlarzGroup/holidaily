@@ -7,11 +7,11 @@ import {
   TextInputFocusEventData,
 } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import DeleteIcon from 'assets/icons/icon-delete.svg'
 
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
-import { Text, Box, mkUseStyles } from 'utils/theme/index'
-import { colors } from 'utils/theme/colors'
+import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { textVariants } from 'utils/theme/textVariants'
 
@@ -22,6 +22,7 @@ type CustomInputTypes = {
   disabled?: boolean
   labelTextVariant?: keyof typeof textVariants
   inputTextVariant?: 'bold'
+  reset?: F0
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
@@ -37,6 +38,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       labelTextVariant,
       inputTextVariant,
       disabled = false,
+      placeholder,
+      reset,
       ...props
     },
     ref
@@ -45,6 +48,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     const [isFocused, setIsFocused] = useState(false)
 
     const styles = useStyles()
+    const theme = useTheme()
 
     const errorOpacity = useSharedValue(0)
     const borderColor = useSharedValue('black')
@@ -59,9 +63,16 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     }))
 
     useEffect(() => {
-      errorOpacity.value = isError || isFocused ? 2 : 0
-      borderColor.value = isFocused ? 'black' : 'red'
-    }, [borderColor, errorOpacity, isError, isFocused])
+      errorOpacity.value = isError || isFocused ? 0.8 : 0
+      borderColor.value = isFocused ? theme.colors.inputBorder : theme.colors.errorRed
+    }, [
+      borderColor,
+      errorOpacity,
+      isError,
+      isFocused,
+      theme.colors.errorRed,
+      theme.colors.inputBorder,
+    ])
 
     const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       onBlur?.(e)
@@ -74,11 +85,11 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     return (
       <>
-        <Text variant={labelTextVariant || 'label1'} marginLeft="m" marginBottom="xs">
+        <Text variant={labelTextVariant || 'label1'} marginLeft="s" marginBottom="xs">
           {inputLabel}
         </Text>
         <Box flexDirection="row">
-          <Animated.View style={[styles.input, progressStyle]}>
+          <Animated.View style={[styles.input, progressStyle, isFocused && styles.noBackground]}>
             <TextInput
               style={[disabled && styles.disabled, inputTextVariant === 'bold' && styles.boldText]}
               secureTextEntry={isPasswordInput}
@@ -87,9 +98,15 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               onFocus={handleOnFocus}
               value={value}
               ref={ref}
+              placeholder={(!isFocused && placeholder) || ''}
               editable={!disabled}
               {...props}
             />
+            {reset && value && value.length > 0 ? (
+              <BaseOpacity position="absolute" right={15} onPress={reset}>
+                <DeleteIcon width={20} height={20} />
+              </BaseOpacity>
+            ) : null}
           </Animated.View>
           {isPasswordIconVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
@@ -110,23 +127,23 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     flex: 1,
     height: 50,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: theme.colors.input,
     borderRadius: theme.borderRadii.xxl,
     paddingHorizontal: theme.spacing.m,
     justifyContent: 'center',
   },
-
+  noBackground: { backgroundColor: theme.colors.white },
   errorBorder: {
     borderStyle: 'solid',
-    borderColor: colors.errorRed,
+    borderColor: theme.colors.errorRed,
   },
   border: {
     borderWidth: 2,
     borderStyle: 'solid',
-    borderColor: colors.black,
+    borderColor: theme.colors.black,
   },
   disabled: {
-    color: colors.greyDark,
+    color: theme.colors.greyDark,
   },
   boldText: { fontFamily: 'Nunito-Bold', fontSize: 16, color: 'black' },
 }))

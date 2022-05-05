@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'utils/theme'
+import { Box, theme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
@@ -26,7 +26,7 @@ export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
         <TouchableOpacity
           onPress={openModal}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <AboutIcon height={21} width={21} />
+          <AboutIcon height={23} width={23} color={theme.colors.grey} />
         </TouchableOpacity>
       </Box>
     </Box>

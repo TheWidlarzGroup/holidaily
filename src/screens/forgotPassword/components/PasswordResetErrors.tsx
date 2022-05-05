@@ -29,7 +29,7 @@ export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, s
       </Box>
       <Box paddingBottom="m">
         <TouchableOpacity onPress={hideModal} activeOpacity={1}>
-          <CustomButton label={t('errorBtnText')} variant="blackBgButton" />
+          <CustomButton label={t('errorBtnText')} variant="alternative" />
         </TouchableOpacity>
       </Box>
     </Box>

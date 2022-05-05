@@ -1,40 +1,126 @@
-export const textVariants = {
+const avatar = {
   avatarXL: {
-    fontFamily: 'Nunito-Bold',
+    fontFamily: 'Nunito-ExtraBold',
     fontSize: 26,
     letterSpacing: 26 * 0.02,
     textAlign: 'center',
   },
   avatarLG: {
-    fontFamily: 'Nunito-Bold',
+    fontFamily: 'Nunito-ExtraBold',
     fontSize: 14,
     letterSpacing: 14 * 0.02,
     textAlign: 'center',
   },
   avatarMD: {
-    fontFamily: 'Nunito-Bold',
+    fontFamily: 'Nunito-ExtraBold',
     fontSize: 12,
     letterSpacing: 12 * 0.02,
     textAlign: 'center',
   },
   avatarSM: {
-    fontFamily: 'Nunito-Bold',
+    fontFamily: 'Nunito-ExtraBold',
     fontSize: 10,
     letterSpacing: 10 * 0.02,
     textAlign: 'center',
   },
   avatarXS: {
-    fontFamily: 'Nunito-Bold',
+    fontFamily: 'Nunito-ExtraBold',
     fontSize: 7,
     letterSpacing: 7 * 0.02,
     textAlign: 'center',
   },
-  // LEGACY VARIANTS BELOW
+}
+const text = {
+  textMD: {
+    fontWeight: 'Nunito-Regular',
+    fontSize: 16,
+    textAlign: 'left',
+  },
+  textBoldMD: {
+    fontWeight: 'Nnunito-Bold',
+    fontSize: 16,
+    textAlign: 'left',
+  },
+  textSM: {
+    fontWeight: 'Nunito-Regular',
+    fontSize: 14,
+    textAlign: 'left',
+  },
+  textBoldSM: {
+    fontWeight: 'Nnunito-Bold',
+    fontSize: 14,
+    textAlign: 'left',
+  },
+  textXS: {
+    fontWeight: 'Nunito-Regular',
+    fontSize: 12,
+    textAlign: 'left',
+  },
+  textBoldXS: {
+    fontWeight: 'Nnunito-Bold',
+    fontSize: 12,
+    textAlign: 'left',
+  },
+}
+const display = {
+  displayBoldLG: {
+    fontWeight: 'Nunito-Bold',
+    fontSize: 22,
+    letterSpacing: 0.01 * 22,
+    textAlign: 'center',
+  },
+  displayBoldMD: {
+    fontWeight: 'Nunito-Bold',
+    fontSize: 20,
+    letterSpacing: 0.01 * 20,
+    textAlign: 'center',
+  },
+  displayBoldSM: {
+    fontWeight: 'Nunito-Bold',
+    fontSize: 16,
+    letterSpacing: 0.01 * 16,
+    textAlign: 'center',
+  },
+  displayXS: {
+    fontWeight: 'Nunito-Regular',
+    fontSize: 12,
+  },
+}
+
+const form = {
+  inputLabel: {
+    fontFamily: 'Nunito-SemiBold',
+    fontSize: 12,
+    color: 'darkGrey',
+  },
+  inputText: {
+    fontFamily: 'Nunito-Regular',
+    size: 14,
+    color: 'titleActive',
+  },
+}
+
+const button = {
+  buttonMD: {
+    fontFamily: 'Nunito-Bold',
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'titleActive',
+  },
+  buttonSM: {
+    fontFamily: 'Nunito-Bold',
+    textAlign: 'center',
+    fontSize: 14,
+    color: 'titleActive',
+  },
+}
+
+const legacyVariants = {
   body1: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
     lineHeight: 24,
-    color: 'black',
+    color: 'greyDark',
     textAlign: 'center',
   },
   body1Bold: {
@@ -51,7 +137,7 @@ export const textVariants = {
   },
   title1: {
     fontFamily: 'Nunito-Bold',
-    fontSize: 28,
+    fontSize: 22,
     color: 'black',
     textAlign: 'center',
   },
@@ -97,10 +183,17 @@ export const textVariants = {
     fontSize: 20,
     textAlign: 'center',
   },
+  boldBlackCenter16: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 16,
+    textAlign: 'center',
+  },
   lightGreyRegular: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
-    color: 'grey',
+    color: 'headerGrey',
+    lineHeight: 18,
   },
   primaryBold12: {
     fontFamily: 'Nunito-Bold',
@@ -237,4 +330,13 @@ export const textVariants = {
     fontSize: 10,
     color: 'headerGrey',
   },
+}
+
+export const textVariants = {
+  ...avatar,
+  ...legacyVariants,
+  ...display,
+  ...text,
+  ...form,
+  ...button,
 }
