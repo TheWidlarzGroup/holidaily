@@ -11,6 +11,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { ConfirmationModal } from 'components/ConfirmationModal'
+import { UserProfileType } from 'navigation/types'
 
 type TeamProps = {
   teamName: string
@@ -20,16 +21,24 @@ type TeamProps = {
 export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
   const theme = useTheme()
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
   const { user, updateUser } = useUserContext()
   const { isLoading } = useTeamMocks()
   const [teams, setTeams] = useState<TeamsType[]>(
     user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
   )
   const [changesSaved, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
-  const [lastUnsubscribedTeam, setLastUnsubscribedTeam] = useState('')
+  const [modalContent, setModalContent] = useState('')
   const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
-  const onSubscribeTeam = () => navigate('SubscribeTeam', { addSubscriptions: addTeams })
+  const onSubscribeTeam = () =>
+    navigate('SubscribeTeam', {
+      userTeams: teams,
+      addSubscriptions: (teams) => {
+        addTeams(teams)
+        setModalContent(teams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation'))
+        showModal()
+      },
+    })
 
   useEffect(() => {
     let timeout: number
@@ -39,7 +48,7 @@ export const TeamSubscriptions = () => {
 
   const filterUnsubscribedTeams = (teamName: string) => {
     if (!user) return
-    setLastUnsubscribedTeam(teamName)
+    setModalContent(t('unsubscribed', { teamName }))
     showModal()
     const userNextTeams: Team[] = []
     const teamsParsedForDisplay: TeamsType[] = []
@@ -84,10 +93,7 @@ export const TeamSubscriptions = () => {
           ))}
         </Box>
       </Box>
-      <ChangesSavedModal
-        isVisible={changesSaved}
-        content={t('unsubscribed', { teamName: lastUnsubscribedTeam })}
-      />
+      <ChangesSavedModal isVisible={changesSaved} content={modalContent} />
     </>
   )
 }

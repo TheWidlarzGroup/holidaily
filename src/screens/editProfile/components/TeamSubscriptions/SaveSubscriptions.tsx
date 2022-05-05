@@ -1,8 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { CustomButton } from 'components/CustomButton'
 import { LoadingModal } from 'components/LoadingModal'
-import { useModalContext } from 'contexts/ModalProvider'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useUserContext } from 'hooks/useUserContext'
 import React from 'react'
@@ -18,7 +16,6 @@ type SaveSubscriptionsProps = {
 
 export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   const { t } = useTranslation('userProfile')
-  const { showModal, hideModal } = useModalContext()
   const { goBack } = useNavigation()
   const { data: organization } = useGetOrganization()
   const { user, updateUser } = useUserContext()
@@ -28,13 +25,6 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
       p.selectedTeams.some((selectedTeam) => selectedTeam.teamName === orgTeam.name)
     )
     updateUser({ teams: [...teams, ...user.teams] })
-    showModal(
-      <ChangesSavedModal
-        isVisible
-        content={p.selectedTeams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation')}
-        hideModal={hideModal}
-      />
-    )
     p.setSubscriptions?.(p.selectedTeams)
     goBack()
   }

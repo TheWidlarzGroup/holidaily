@@ -66,5 +66,5 @@ export type AttachmentType = {
 
 export type UserTeamsSubscriptions = {
   userTeams: TeamsType[]
-  addSubscriptions: Dispatch<SetStateAction<TeamsType[]>>
+  addSubscriptions: F1<TeamsType[]>
 }
