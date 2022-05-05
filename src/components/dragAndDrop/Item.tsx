@@ -1,7 +1,6 @@
-import React, { ReactNode, RefObject } from 'react'
-import { StyleSheet, useWindowDimensions } from 'react-native'
+import React, { ReactElement, ReactNode, RefObject } from 'react'
+import { FlatList, StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { themeBase } from 'utils/theme/themeBase'
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedReaction,
@@ -35,12 +34,14 @@ type ItemProps = {
   children: ReactNode
   positions: Animated.SharedValue<Positions>
   id: number
-  scrollView: RefObject<Animated.ScrollView>
+  scrollView: RefObject<FlatList<SortableListItemType>>
   scrollY: Animated.SharedValue<number>
   draggedElement: number | null
   onLongPress: F0
   stopDragging: F0
 }
+
+export type SortableListItemType = ReactElement<{ id: number }>
 
 export const Item = (props: ItemProps) => {
   const {
@@ -57,7 +58,6 @@ export const Item = (props: ItemProps) => {
   const isGestureActive = useSharedValue(false)
   const inset = useSafeAreaInsets()
   const { height } = useWindowDimensions()
-
   const containerHeight = height - inset.top - inset.bottom - HEADER_OFFSET - BOTTOM_OFFSET
   const contentHeight =
     Math.ceil(Object.keys(positions.value).length / COL) * SIZE_H + NESTED_ELEM_OFFSET
@@ -141,17 +141,13 @@ export const Item = (props: ItemProps) => {
       runOnJS(stopDragging)()
     },
   })
-
   const style = useAnimatedStyle(() => {
-    const zIndex = isGestureActive.value ? themeBase.zIndices[50] : themeBase.zIndices[0]
     const scale = draggedElement === id ? 1.1 : 1
     return {
       position: 'absolute',
-      top: NESTED_ELEM_OFFSET,
       left: 0,
       width: SIZE_W,
       height: SIZE_H,
-      zIndex,
       transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale }],
     }
   })

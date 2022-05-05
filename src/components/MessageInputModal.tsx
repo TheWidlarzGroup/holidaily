@@ -7,6 +7,8 @@ import { MessageInput, MessageInputProps } from './MessageInput'
 type MessageInputModalProps = MessageInputProps &
   ModalProps & {
     requestCloseOnBlur?: true
+    messageContent: string
+    setMessageContent: F1<string>
   }
 
 export const MessageInputModal = (props: MessageInputModalProps) => {

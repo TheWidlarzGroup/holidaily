@@ -2,7 +2,7 @@ import React, { ReactNode, useState, useCallback } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
-import { setItem, removeMany } from 'utils/localStorage'
+import { removeMany } from 'utils/localStorage'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { ContextProps, UserContext } from './UserContext'
@@ -30,17 +30,13 @@ export const emptyUser: User = {
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
+
   const { reset: clearUserCache } = useCreateTempUser()
-  const updateUser = useCallback((newData: Partial<User> | null) => {
-    // checking if newData.photo !== user.photo makes updateUser dependend on user and changing its reference in unexpected way
-    if (newData?.photo) {
-      setItem('photo', newData.photo)
-    }
-    setUser((usr) => {
-      if (usr) return { ...usr, ...newData }
-      return { ...emptyUser, ...newData }
-    })
-  }, [])
+  const updateUser = useCallback(
+    (newData: Partial<User> | null) =>
+      setUser((usr) => (usr ? { ...usr, ...newData } : { ...emptyUser, ...newData })),
+    []
+  )
   const handleLogout = async () => {
     await removeMany([
       'firstName',
@@ -59,7 +55,11 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
   }
 
-  const value: ContextProps = { user, updateUser, handleLogout }
+  const value: ContextProps = {
+    user,
+    updateUser,
+    handleLogout,
+  }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
 

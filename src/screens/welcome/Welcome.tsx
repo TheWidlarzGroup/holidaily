@@ -1,37 +1,51 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
-import { minMaxSignsRegex } from 'utils/regex'
+import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { About } from 'screens/about/About'
+import { setItem } from 'utils/localStorage'
+import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
+import { useUserContext } from 'hooks/useUserContext'
+import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
-import { TeamsModal } from './components/TeamsModal'
 
-const MIN_SIGNS = 1
+const MIN_SIGNS = 2
 const MAX_SIGNS = 20
-const validationPattern = minMaxSignsRegex(MIN_SIGNS, MAX_SIGNS)
 
 export const Welcome = () => {
   const styles = useStyles()
   const { t } = useTranslation('welcome')
-  const { control, handleSubmit, errors, watch } = useForm()
+  const { control, handleSubmit, errors, watch, reset } = useForm()
   const nameInput = watch('firstName')
 
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
 
-  const submitModalRef = useRef<BottomSheetModal>(null)
-  const openSubmitModal = useCallback(() => submitModalRef.current?.present(), [])
+  const { updateUser } = useUserContext()
+  const { mutate: createTempUser } = useCreateTempUser()
+  const initTeams = useInitDemoUserTeams()
+  useEffect(() => {
+    initTeams()
+  }, [initTeams])
 
-  const onSubmit = () => {
-    openSubmitModal()
+  const onSubmit = async () => {
+    await setItem('firstName', nameInput)
+    createTempUser(
+      { firstName: nameInput },
+      {
+        onSuccess: (data) => {
+          updateUser(data.user)
+        },
+      }
+    )
   }
 
   return (
@@ -41,23 +55,29 @@ export const Welcome = () => {
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>
-        <Box justifyContent="center" marginTop="s">
-          <Text variant="body1Bold">{t('welcomeSubtitle')}</Text>
+        <Box justifyContent="center" marginTop="m">
+          <Text variant="body1">{t('welcomeSubtitle')}</Text>
         </Box>
         <Box marginTop="xl">
           <FormInput
+            labelTextVariant="lightGreyRegular"
+            maxLength={20}
             control={control}
             isError={!!errors.firstName}
             errors={errors}
             name="firstName"
             inputLabel={t('yourName')}
-            validationPattern={validationPattern}
+            validationPattern={onlyLettersRegex}
             errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
             blurOnSubmit
+            placeholder={t('placeholder')}
+            reset={reset}
           />
         </Box>
-        <Box paddingLeft="m">
-          <Text variant="lightGreyRegular">{t('whyAskForName')}</Text>
+        <Box>
+          <Text variant="lightGreyRegular" paddingHorizontal="m">
+            {t('whyAskForName')}
+          </Text>
         </Box>
       </KeyboardAwareScrollView>
       <Box
@@ -68,7 +88,7 @@ export const Welcome = () => {
         backgroundColor="white"
         paddingBottom="l"
         alignItems="center">
-        <Box maxWidth={250}>
+        <Box maxWidth={250} paddingBottom="l">
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}
@@ -80,9 +100,6 @@ export const Welcome = () => {
       <BottomSheetModalProvider>
         <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
           <About isFromWelcomeScreen closeModal={closeModal} />
-        </BottomSheetModalComponent>
-        <BottomSheetModalComponent snapPoints={['90%']} modalRef={submitModalRef}>
-          <TeamsModal firstName={nameInput} />
         </BottomSheetModalComponent>
       </BottomSheetModalProvider>
     </SafeAreaWrapper>

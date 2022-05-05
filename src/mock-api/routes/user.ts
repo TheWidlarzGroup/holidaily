@@ -2,6 +2,7 @@ import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { faker } from '@faker-js/faker'
 import { requireAuth } from 'mockApi/utils/requireAuth'
+import { theme } from 'utils/theme'
 import { calculatePTO } from 'utils/dates'
 import { initPayloadService } from '../utils/payloadService'
 import { genManyRequests } from '../factories/requestFactory'
@@ -73,6 +74,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     photo: null,
     role: 'Admin',
     teams: [],
+    userColor: theme.colors.primary,
   }
   const body = JSON.parse(req.requestBody)
   const { httpError, ...payload } = initPayloadService()

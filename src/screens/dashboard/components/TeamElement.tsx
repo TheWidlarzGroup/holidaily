@@ -2,9 +2,10 @@ import React from 'react'
 import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
-import { SIZE_W, SIZE_H } from 'screens/dashboard/dragAndDrop/Config'
+import { SIZE_W, SIZE_H } from 'components/dragAndDrop/Config'
 import { Team } from 'mock-api/models/mirageTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
+import { makeUserDetails } from 'utils/userDetails'
 
 type TeamElementProps = Team & {
   navigateToTeamScreen: F0
@@ -25,15 +26,15 @@ export const TeamElement = (props: TeamElementProps) => {
         <Box flexDirection="row" justifyContent="space-between">
           <Text variant="label1">{name}</Text>
           <Box flexDirection="row" alignItems="center">
-            <IconPalm color={theme.colors.black} width={16} height={16} />
-            <Text variant="label1" marginLeft="s">
+            <IconPalm color={theme.colors.tertiary} width={16} height={16} />
+            <Text variant="label1" marginLeft="s" color="tertiary">
               {qtyOnHolidayNow(users)}
             </Text>
           </Box>
         </Box>
         <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-          <Avatar src={users[0]?.photo} />
-          <Avatar src={users[1]?.photo} />
+          <Avatar src={users[0]?.photo} userDetails={makeUserDetails(users[0])} />
+          <Avatar src={users[1]?.photo} userDetails={makeUserDetails(users[1])} />
         </Box>
       </BaseOpacity>
     </Box>

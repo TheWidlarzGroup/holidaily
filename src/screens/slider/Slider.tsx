@@ -1,12 +1,6 @@
 import React, { FC } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  ImageSourcePropType,
-  TouchableOpacity,
-} from 'react-native'
+import { Dimensions, ScrollView, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -16,8 +10,7 @@ import Animated, {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationType } from 'navigation/types'
-import { colors } from 'utils/theme/colors'
-import { Box, Text } from 'utils/theme/index'
+import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
 
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
@@ -57,6 +50,8 @@ export const Slider: FC = () => {
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
+  const styles = useStyles()
+
   const navigateToWelcomeScreen = () => {
     navigation.navigate('Welcome')
   }
@@ -120,16 +115,16 @@ export const Slider: FC = () => {
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <Box maxWidth={250} marginBottom="lplus">
-        <CustomButton variant="blackBgButton" label={t('next')} onPress={handlePressButton} />
+        <CustomButton variant="alternative" label={t('next')} onPress={handlePressButton} />
       </Box>
     </SafeAreaView>
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: colors.mainBackground,
+    backgroundColor: theme.colors.mainBackground,
   },
-})
+}))

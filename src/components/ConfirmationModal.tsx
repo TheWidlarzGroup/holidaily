@@ -24,6 +24,9 @@ export const ConfirmationModal = ({
     <CustomModal
       isVisible={isVisible}
       onBackdropPress={hideModal}
+      onSwipeComplete={hideModal}
+      onBackButtonPress={hideModal}
+      swipeThreshold={20}
       backdropColor={theme.colors.white}
       backdropOpacity={0.5}
       animationIn="slideInUp"
@@ -58,7 +61,7 @@ export const ConfirmationModal = ({
           <TouchableOpacity onPress={onAccept} activeOpacity={1}>
             <CustomButton
               label={acceptBtnText ?? t('yes')}
-              variant="blackBgButton"
+              variant="alternative"
               width={221}
               height={53}
             />

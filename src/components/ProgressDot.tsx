@@ -15,7 +15,7 @@ type ProgressDotProps = {
 export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index, postPagination }) => {
   const styles = useStyles()
   const sliderDotColors = [colors.white, colors.black, colors.white]
-  const postDotColors = [colors.white, colors.primary, colors.white]
+  const postDotColors = [colors.paginationDot, colors.tertiary, colors.paginationDot]
   const style = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       scrollPositionX.value,

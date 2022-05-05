@@ -11,9 +11,9 @@ import {
   pickSingle as pickDocument,
   types as documentTypes,
 } from 'react-native-document-picker'
-import { CustomModal } from 'components/CustomModal'
 import { UploadAttachmentButtons } from 'components/UploadAttachmentButtons'
-import { mkUseStyles, Theme, useTheme } from 'utils/theme'
+import { Box, mkUseStyles, Theme, useTheme } from 'utils/theme'
+import { SwipeableModal } from './SwipeableModal'
 
 type UploadFilesProps =
   | {
@@ -26,7 +26,7 @@ type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
-  setPhotoURI: F1<string | undefined>
+  setPhotoURI: F1<string | null>
   showCamera?: true
 } & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
@@ -45,11 +45,11 @@ export const UploadAttachmentModal = ({
     }
     if (response.assets) {
       const photo = response.assets[0]
-      p.setPhotoURI(photo.uri)
+      if (photo.uri) p.setPhotoURI(photo.uri)
     }
   }
 
-  const onUpload = async (action: PhotoSelectionChoice) => {
+  const onUpload = (action: PhotoSelectionChoice) => {
     p.hideModal()
 
     if (p.allowFiles && action === 'file') {
@@ -58,9 +58,10 @@ export const UploadAttachmentModal = ({
         type: [doc, docx, pdf, plainText, ppt, pptx],
       }
       try {
-        const { uri, name } = await pickDocument(options)
-
-        p.setFile({ uri, name })
+        setTimeout(async () => {
+          const { uri, name } = await pickDocument(options)
+          p.setFile({ uri, name })
+        }, 400)
       } catch (error) {
         p.setFile(undefined)
       }
@@ -71,12 +72,12 @@ export const UploadAttachmentModal = ({
     if (action === 'gallery') {
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
-      }, 300)
+      }, 400)
     }
     if (action === 'camera') {
       setTimeout(() => {
         launchCamera(options, (response) => onHandleResponse(response))
-      }, 300)
+      }, 400)
     }
   }
   useEffect(() => {
@@ -84,37 +85,29 @@ export const UploadAttachmentModal = ({
   }, [hideEditAttachmentModal])
 
   return (
-    <CustomModal
-      onRequestClose={p.hideModal}
-      isVisible={p.isVisible}
-      onBackdropPress={p.hideModal}
+    <SwipeableModal
       backdropColor={theme.colors.white}
       backdropOpacity={0.5}
-      animationIn="slideInUp"
-      animationOut="slideOutDown"
-      animationInTiming={300}
-      animationOutTiming={300}
-      swipeDirection="down"
-      style={styles.modal}
-      hideModalContentWhileAnimating>
-      <UploadAttachmentButtons
-        onUpload={onUpload}
-        allowFiles={p.allowFiles}
-        showCamera={p.showCamera}
-      />
-    </CustomModal>
+      isOpen={p.isVisible}
+      onHide={p.hideModal}>
+      <Box style={styles.modal}>
+        <UploadAttachmentButtons
+          onUpload={onUpload}
+          allowFiles={p.allowFiles}
+          showCamera={p.showCamera}
+        />
+      </Box>
+    </SwipeableModal>
   )
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
-    flex: 1,
+    width: '100%',
     minHeight: 160,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,
-    left: -20,
-    right: -20,
     borderTopLeftRadius: theme.borderRadii.lmin,
     borderTopRightRadius: theme.borderRadii.lmin,
     shadowOffset: { width: -2, height: 0 },

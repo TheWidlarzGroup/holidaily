@@ -9,39 +9,27 @@ import { Box, BaseOpacity } from 'utils/theme'
 import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
-import { useEditUser } from 'dataAccess/mutations/useEditUser'
-import { StorageKeys, setItem } from 'utils/localStorage'
-import { User } from 'mockApi/models'
+import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
+import { makeUserDetails } from 'utils/userDetails'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
   setIsEditedFalse: F0
+  onUpdate: F1<EditUserSuccess>
 }
 
-const fieldsToStoreLocally: readonly (keyof User & StorageKeys)[] = [
-  'firstName',
-  'lastName',
-  'occupation',
-  'photo',
-  'userColor',
-]
-
-export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePictureProps) => {
+export const ProfilePicture = ({
+  setIsEditedTrue,
+  setIsEditedFalse,
+  onUpdate,
+}: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
-  const { updateUser, user } = useUserContext()
+  const { user } = useUserContext()
   const { mutate } = useEditUser()
 
-  const onChangePhoto = (newPhoto: string | undefined) =>
-    mutate(
-      { photo: newPhoto },
-      {
-        onSuccess: ({ user }) => {
-          fieldsToStoreLocally.forEach((field) => setItem(field, String(user[field])))
-          updateUser(user)
-        },
-      }
-    )
+  const onChangePhoto = (newPhoto: string | null) =>
+    mutate({ photo: newPhoto }, { onSuccess: onUpdate })
 
   const showUploadAttachmentModal = () => {
     hideModal()
@@ -98,7 +86,7 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
   }
   const handleDeletePicture = () => {
     setIsEditedFalse()
-    updateUser({ photo: null })
+    onChangePhoto(null)
     showModal(
       <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
     )
@@ -117,12 +105,12 @@ export const ProfilePicture = ({ setIsEditedTrue, setIsEditedFalse }: ProfilePic
       paddingHorizontal="m"
       justifyContent="center"
       alignItems="center"
-      marginTop="xxl"
+      marginTop="-s"
       marginBottom="xl">
       <BaseOpacity
         onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
         activeOpacity={0.5}>
-        <Avatar src={user?.photo} size="l" marginBottom="m" />
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
       </BaseOpacity>
       <TextLink
         text={user?.photo ? t('editPhoto') : t('addPhoto')}

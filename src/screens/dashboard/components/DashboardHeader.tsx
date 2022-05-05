@@ -9,6 +9,7 @@ import { getDayName } from 'utils/dates'
 import { formatDate } from 'utils/formatDate'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { getCurrentLocale } from 'utils/locale'
+import { makeUserDetails } from 'utils/userDetails'
 import { NotificationsBell } from './NotificationsBell'
 
 export const DashboardHeader = () => {
@@ -38,16 +39,11 @@ export const DashboardHeader = () => {
             paddingLeft="m"
             borderTopRightRadius="lplus"
             borderBottomRightRadius="lplus">
-            <Avatar size="s" src={user?.photo} />
+            <Avatar size="s" src={user?.photo} userDetails={makeUserDetails(user)} />
           </BaseOpacity>
         </Box>
-
-        <Box alignItems="center" flex={1}>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{ maxWidth: '60%' }}
-            variant="boldBlack18">
+        <Box alignItems="center" flex={1} paddingRight="xxl" marginLeft="xxl2plus">
+          <Text variant="boldBlack18" numberOfLines={1}>
             {t('welcome', { name: user?.firstName })}
           </Text>
           <Text variant="lightGreyRegular" lineHeight={14}>

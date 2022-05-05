@@ -25,7 +25,12 @@ export const RequestDetails = (
   const { t } = useTranslation('seeRequest')
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Box backgroundColor="primary" borderRadius="m" paddingBottom="xxxxl" overflow="hidden">
+      <Box
+        backgroundColor="primary"
+        borderRadius="m"
+        marginBottom={p.showStatus ? 'xxxl' : undefined}
+        paddingBottom="xxxxl"
+        overflow="hidden">
         <BackgroundPlant1 style={styles.plant1} />
         <BackgroundPlant2 style={styles.plant2} height={90} />
         {!!p.showStatus && (

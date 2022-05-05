@@ -1,36 +1,46 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
-import Modal from 'react-native-modal'
+import Modal, { ModalProps } from 'react-native-modal'
 
-const USER_MODAL_ANIM_TIME = 300
+const DEFAULT_MODAL_ANIM_TIME = 300
 
-type SwipableModalProps = PropsWithChildren<{
-  isOpen: boolean
-  onHide: F0
-}>
+type SwipableModalProps = PropsWithChildren<
+  {
+    isOpen: boolean
+    onHide: F0
+  } & Partial<
+    Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
+  >
+>
 
-export const SwipeableModal = ({ children, isOpen, onHide }: SwipableModalProps) => {
-  const [isFading, { setTrue: fadeOut }] = useBooleanState(false)
+export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableModalProps) => {
+  // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
+  const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
   return (
     <Modal
       statusBarTranslucent
       swipeThreshold={20}
-      isVisible={isOpen && !isFading}
+      isVisible={isOpen && isVisible}
       hasBackdrop
+      useNativeDriverForBackdrop
+      coverScreen
       hideModalContentWhileAnimating
-      useNativeDriver
       backdropColor="black"
       backdropOpacity={0.6}
       swipeDirection="down"
       animationIn="slideInUp"
       animationOut="slideOutDown"
       style={{ margin: 0, marginTop: 120 }}
-      animationInTiming={USER_MODAL_ANIM_TIME}
-      animationOutTiming={USER_MODAL_ANIM_TIME}
-      onModalHide={onHide}
+      animationInTiming={DEFAULT_MODAL_ANIM_TIME}
+      animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
+      onModalHide={() => {
+        onHide()
+        resetState()
+      }}
       onSwipeComplete={fadeOut}
       onBackButtonPress={fadeOut}
-      onBackdropPress={fadeOut}>
+      onBackdropPress={fadeOut}
+      {...rest}>
       {children}
     </Modal>
   )
