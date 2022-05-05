@@ -1,5 +1,5 @@
 import React from 'react'
-import Animated, { useSharedValue, useAnimatedStyle } from 'react-native-reanimated'
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import IconArrowUp from 'assets/icons/icon-arrow-up.svg'
 import { pluralizeWord } from 'utils/pluralizeWord'
@@ -20,7 +20,7 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
   return (
     <BaseOpacity
       onPress={() => {
-        rotation.value = opened ? 180 : 0
+        rotation.value = withSpring(opened ? 180 : 0)
         onPress()
       }}
       activeOpacity={0.7}
