@@ -4,6 +4,7 @@ import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
 import { Avatar } from 'components/Avatar'
 import { User } from 'mock-api/models/mirageTypes'
 import { makeUserDetails } from 'utils/userDetails'
+
 export const MateHeader = ({ user }: { user: User }) => {
   const { firstName, lastName, occupation, photo } = user
 
