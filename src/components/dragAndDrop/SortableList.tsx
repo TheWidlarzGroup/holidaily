@@ -10,19 +10,21 @@ import Animated, {
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { User } from 'mock-api/models/mirageTypes'
-import { FlatList } from 'react-native'
+import { FlatList, FlatListProps } from 'react-native'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
 
+type SortableListItem = ReactElement<{ id: number }>
 type SortableListProps = {
-  children: ReactElement<{ id: number }>[]
+  children: SortableListItem[]
   openUserModal: F1<User>
 }
-const AnimatedFlatList = Animated.createAnimatedComponent<any>(FlatList)
+
+const AnimatedFlatList = Animated.createAnimatedComponent<FlatListProps<SortableListItem>>(FlatList)
 export const SortableList = ({ children, openUserModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
-  const scrollView = useAnimatedRef<FlatList<any>>()
+  const scrollView = useAnimatedRef<FlatList<SortableListItem>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const assignPositions = useCallback(() => {
@@ -46,7 +48,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
 
   // We need to use CellRenderer because the zIndex doesn't work inside a flatlist renderItem https://github.com/facebook/react-native/issues/18616
   const CellRenderer = useCallback(
-    (props: any) => {
+    (props: SortableListProps) => {
       const { children } = props
       return <Box zIndex={children[0].props?.id === draggedElement ? '10' : '0'}>{children}</Box>
     },
@@ -79,7 +81,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
         }
         data={children}
         renderItem={useCallback(
-          ({ item: child }: any) => (
+          ({ item: child }) => (
             <Item
               scrollView={scrollView}
               onLongPress={() => onLongPress(child?.props?.id)}

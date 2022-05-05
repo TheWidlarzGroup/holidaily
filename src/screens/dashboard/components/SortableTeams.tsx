@@ -2,7 +2,7 @@ import React from 'react'
 import { Team, User } from 'mockApi/models'
 import { useNavigation } from '@react-navigation/native'
 import { DashboardNavigationType } from 'navigation/types'
-import { SortableList } from '../../../components/dragAndDrop/SortableList'
+import { SortableList } from 'components/dragAndDrop/SortableList'
 import { TeamElement } from './TeamElement'
 
 type SortableTeamsProps = {
