@@ -1,35 +1,43 @@
 import React, { FC } from 'react'
-import { StyleSheet, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
 import Animated, { useAnimatedStyle, interpolateColor } from 'react-native-reanimated'
 import { colors } from 'utils/theme/colors'
+import { mkUseStyles } from 'utils/theme/index'
 
 const { width } = Dimensions.get('window')
 
 type ProgressDotProps = {
-  scrollPositionX: Animated.SharedValue<number>
   index: number
+  scrollPositionX: Animated.SharedValue<number>
+  postPagination?: true
 }
 
-export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index, isVisible = true }) => {
+export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index, postPagination }) => {
+  const styles = useStyles()
+  const sliderDotColors = [colors.white, colors.black, colors.white]
+  const postDotColors = [colors.white, colors.primary, colors.white]
   const style = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       scrollPositionX.value,
       [width * (index - 1), width * index, width * (index + 1)],
-      [colors.white, colors.black, colors.white]
+      postPagination ? postDotColors : sliderDotColors
     )
 
     return { backgroundColor }
   })
 
-  if (!isVisible) return null
-  return <Animated.View style={[styles.dot, style]} />
+  return <Animated.View style={[style, styles.dot, postPagination && styles.smallDot]} />
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles(() => ({
   dot: {
     margin: 5,
-    width: 8,
-    height: 8,
+    width: 10,
+    height: 10,
     borderRadius: 10,
   },
-})
+  smallDot: {
+    width: 8,
+    height: 8,
+  },
+}))
