@@ -1,7 +1,17 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { FlatList, ViewToken, useWindowDimensions } from 'react-native'
-
+import { ProgressBar } from 'components/ProgressBar'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import React, { useCallback, useRef } from 'react'
+import {
+  FlatList,
+  ViewToken,
+  useWindowDimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native'
+import { useSharedValue } from 'react-native-reanimated'
 import { GalleryItemData } from 'types/holidaysDataTypes'
+import { isIos } from 'utils/layout'
+import { Box } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -12,9 +22,9 @@ type GalleryProps = {
 }
 
 export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: GalleryProps) => {
-  const { width: initialWidth } = useWindowDimensions()
-  const [imageWidth, setImageWidth] = useState(initialWidth)
+  const { width } = useWindowDimensions()
   const listRef = useRef<FlatList>(null)
+  const translateX = useSharedValue(0)
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -24,36 +34,48 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
     },
     [onIndexChanged]
   )
-
   const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig, onViewableItemsChanged }])
+
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const xPos = event.nativeEvent.contentOffset.x
+    translateX.value = xPos
+  }
 
   const renderItem = useCallback(
     ({ item, index }: { item: GalleryItemData; index: number }) => (
       <GalleryItem
         {...item}
-        width={imageWidth}
+        width={width}
         onPress={() => onItemPress && onItemPress(index, item.src)}
       />
     ),
-    [imageWidth, onItemPress]
+    [width, onItemPress]
   )
 
   return (
-    <FlatList
-      horizontal
-      ref={listRef}
-      initialScrollIndex={index}
-      onLayout={(event) => setImageWidth(event.nativeEvent.layout.width)}
-      viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-      getItemLayout={(_, index) => ({ length: imageWidth, offset: imageWidth * index, index })}
-      decelerationRate={0}
-      snapToInterval={imageWidth}
-      snapToAlignment="center"
-      contentContainerStyle={{ alignItems: 'center' }}
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.src}
-    />
+    <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
+      <FlatList
+        horizontal
+        ref={listRef}
+        initialScrollIndex={index}
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+        getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
+        decelerationRate={0}
+        snapToInterval={width}
+        snapToAlignment="center"
+        contentContainerStyle={{ alignItems: 'center' }}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.src}
+        onScroll={onScroll}
+        showsHorizontalScrollIndicator={false}
+      />
+      {data.length > 1 && (
+        <Box alignSelf="center" position="absolute" bottom={isIos ? 46 : 14}>
+          <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
+        </Box>
+      )}
+    </SafeAreaWrapper>
   )
 }
 

@@ -3,6 +3,7 @@ import { colors } from './colors'
 
 export const themeBase = createTheme({
   spacing: {
+    '-l2plus': -36,
     '-l': -24,
     '-ml': -20,
     '-m': -16,
@@ -34,6 +35,7 @@ export const themeBase = createTheme({
     m: 10,
     mplus: 12,
     lmin: 16,
+    l2min: 22,
     l: 25,
     lplus: 31,
     xl: 75,

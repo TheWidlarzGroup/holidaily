@@ -1,15 +1,16 @@
 {
   "slider": {
-    "slider1Title": "Witaj w Holidaily!",
-    "slider1SubTitle": "Wszystkie urlopy twojego zespołu w jednym miejscu.",
-    "slider2Title": "Sprawdzanie wakacji w czasie rzeczywistym",
-    "slider2SubTitle": "Sprawdź jak dużo dni urlopu zostało.",
-    "slider3Title": "Poproś o czas wolny",
-    "slider3SubTitle": "Planujesz wakacje lub czas dla siebie ? Po prostu o nie poproś.",
-    "slider4Title": "Otrzymuj powiadomienia",
-    "slider4SubTitle": "Dostaniesz powiadomienie kiedy wniosek zostanie zaakceptowany lub odrzucony",
+    "slider1Title": "Wszystkie urlopy w jednym miejscu",
+    "slider1SubTitle": "Najłatwiejsze narzędzie do sprawdzenia terminów urlopu współpracowników.",
+    "slider2Title": "Przejrzysta ilość dni urlopu",
+    "slider2SubTitle": "Już nie musisz sam kontrolować ilości dni urlopu. Holidaily zrobi to za Ciebie.",
+    "slider3Title": "Zapytaj o urlop",
+    "slider3SubTitle": "Chcesz zaplanować wakacje? Wyślij wniosek o urlop w kilku kliknięciach!",
+    "slider4Title": "Bądź na bieżąco",
+    "slider4SubTitle": "Otrzymuj powiadomienia zatwierdzeniu lub odrzuceniu wniosku o urlop.",
     "next": "Dalej",
-    "skip": "Pomiń"
+    "skip": "Pomiń",
+    "letsStart": "Zaczynamy!"
   },
   "forgotPassword": {
     "email": "Adres e-mail",
@@ -67,18 +68,23 @@
     "loginButton": "Zaloguj się"
   },
   "welcome": {
-    "welcomeTitle": "Miło cię widzieć!",
-    "welcomeSubtitle": "Przejdź przez demo i poznaj lepiej Holidaily.",
-    "yourName": "Twoje imię",
-    "whyAskForName": "Twoje imię i nazwisko wyświetlimy w kilku miejscach w aplikacji, dzięki czemu będziesz mógł odnieść prawdziwe wrażenie korzystania z Holidaily.",
+    "welcomeTitle": "Witaj w Holidaily!",
+    "welcomeSubtitle": "Skorzystaj z demo naszej aplikacji i poznaj nas lepiej.",
+    "yourName": "Imię",
+    "whyAskForName": "Wyświetlimy Twoje imię w kilku miejscach aplikacji, aby pokazać Ci potencjał i sposób funkcjonowania Holidaily.",
     "seeDemoButton": "Zobacz demo",
-    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno zawierać więcej niż {{max}} znaków",
+    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfer i znaków specjalnych",
     "about": "O aplikacji",
-    "aboutDesc1": "<bp>Holidaily</bp> to aplikacja do <b>rezerwacji urlopów</b> zarówno dla <b>pracodawców</b>, jak i <b>pracowników</b>",
-    "aboutDesc2": "<b>Ułatwia wymianę informacji</b> o harmonogramach urlopów w firmie, dzięki czemu proces jest <b>znacznie szybszy i łatwiejszy dla wszystkich pracowników!</b>",
-    "memberOf": "Jesteś teraz członkiem:",
-    "yourTeams": "Twoje zespoły:",
-    "thanksButton": "Ok, dzięki!"
+    "aboutDesc1": "<bp>Holidaily</bp> to aplikacja do zarządzania urlopami przez pracodawcę i pracowników.",
+    "aboutDesc2": "Aplikacja ułatwia przepływ informacji dotyczących organizacji urlopów w firmie, i sprawia, że cały proces jest szybszy i łatwiejszy.",
+    "aboutButton": "Rozumiem",
+    "congrats": "Gratulacje!",
+    "memberOf": "Właśnie dołączyłeś do",
+    "yourTeams": "TWOJE DZIAŁY:",
+    "joinMore": "Możesz dołączyć do innych działów w profilu użytkownika.",
+    "joinMoreButton": "Dołacz teraz",
+    "thanksButton": "Ok, dzięki!",
+    "placeholder": "Twoje imię"
   },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
@@ -175,15 +181,15 @@
     "selected": "Zaznaczono: ",
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
-    "fieldRequired": "To pole jest wymagane i powinno zawierać od {{min}} do {{max}} znaków",
+    "fieldRequired": "Pole jest puste lub zawiera niedozwolone znaki",
     "ifYouUnsubscribe": "Jeśli wypiszesz się z subskrypcji zespołu {{teamName}}, nie będziesz widział jego członków.",
     "unsubscribed": "Usunięto subskrypcję {{teamName}}",
     "colorPicker": "Wybierz swój ulubiony kolor\ni przeciągnij go do szarego pola na dole"
   },
   "dashboard": {
-    "welcome": "Cześć {{name}}!",
-    "today": "Dzisiaj jest {{date}}",
-    "teamsList": "Twoje zespoły",
+    "today": "Dzisiaj jest:",
+    "bookedHolidays": "OBECNE I NADCHODZĄCE URLOPY",
+    "teamsList": "TWOJE DZIAŁY",
     "outOfWorkNow": "Obecnie na urlopie",
     "outOfWorkSoon": "Wkrótce na urlopie",
     "othersTeamMembers": "Pozostali członkowie zespołu",
@@ -203,7 +209,8 @@
     "locationsAccessPromptText": "Uzyj mojej lokalizacji",
     "locationsSearch": "Wyszukaj",
     "locationNotFound": "Nie znaleziono",
-    "loading": "Szukam..."
+    "loading": "Szukam...",
+    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście"
   },
   "createPost": {
     "title": "Utwórz Post",

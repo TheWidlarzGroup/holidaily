@@ -82,6 +82,8 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           occupation: user?.occupation || '',
           name: `${user?.firstName} ${user?.lastName}` || '',
           pictureUrl: user?.photo || null,
+          userColor: user?.userColor,
+          lastName: user?.lastName,
         },
         timestamp: {
           createdAt: new Date(),

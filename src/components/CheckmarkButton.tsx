@@ -35,7 +35,7 @@ export const CheckmarkButton = ({
       case 'secondary':
         setCheckmarkColor(colors.black)
         break
-      case 'blackBgButton':
+      case 'alternative':
         setCheckmarkColor(colors.white)
         break
       case 'primary':

@@ -1,11 +1,12 @@
-import { eachDayOfInterval, format } from 'date-fns'
+import { eachDayOfInterval } from 'date-fns'
 import { Team, User } from 'mockApi/models/mirageTypes'
+import { isWeekendOrHoliday } from 'poland-public-holidays'
 import { DayOffEvent } from 'screens/calendar/components/DayEvent'
 import { getISODateString, getISOMonthYearString } from './dates'
 import { generateUUID } from './generateUUID'
 import { getUserTeamId } from './getUserTeamId'
 
-export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[]) => {
+export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], appUser: User) => {
   const allSingleRequests: DayOffEvent[] = []
 
   allUsers.forEach((user) => {
@@ -15,9 +16,11 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[]) => 
         end: new Date(req.endDate),
       })
       dates.forEach((date) => {
+        if (isWeekendOrHoliday(date)) return
         const request = {
           id: generateUUID(),
           person: `${user.firstName} ${user.lastName}`,
+          personLastName: user.lastName,
           reason: req.description,
           position: user.occupation,
           color: user.userColor,
@@ -25,9 +28,11 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[]) => 
           date: getISODateString(date),
           monthYear: getISOMonthYearString(date),
           photo: user.photo,
+          status: req.status,
         }
-        const dayOfWeek = format(new Date(request.date), 'e')
-        if (dayOfWeek === '7' || dayOfWeek === '1') return
+        if (request.person === `${appUser.firstName} ${appUser.lastName}`) {
+          if (request.status === 'cancelled' || request.status === 'pending') return
+        }
         allSingleRequests.push(request)
       })
     })

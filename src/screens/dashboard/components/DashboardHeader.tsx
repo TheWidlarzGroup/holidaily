@@ -5,7 +5,6 @@ import { Avatar } from 'components/Avatar'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
 import { useIsDrawerOpen } from '@react-navigation/drawer'
 import { useUserContext } from 'hooks/useUserContext'
-import { getDayName } from 'utils/dates'
 import { formatDate } from 'utils/formatDate'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { getCurrentLocale } from 'utils/locale'
@@ -16,11 +15,7 @@ export const DashboardHeader = () => {
   const { t } = useTranslation('dashboard')
   const navigation = useNavigation()
   const { user } = useUserContext()
-  const date = `${formatDate(
-    new Date(),
-    'dayNumeralLongMonthNoYear',
-    getCurrentLocale()
-  )} (${getDayName(new Date())})`
+  const date = `${formatDate(new Date(), 'dayNumeralLongMonthNoYear', getCurrentLocale())}`
 
   const isDrawerOpen = useIsDrawerOpen()
   const { data } = useFetchNotifications()
@@ -35,7 +30,7 @@ export const DashboardHeader = () => {
           <BaseOpacity
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
             bg="white"
-            padding="xs"
+            padding="s"
             paddingLeft="m"
             borderTopRightRadius="lplus"
             borderBottomRightRadius="lplus">
@@ -43,14 +38,10 @@ export const DashboardHeader = () => {
           </BaseOpacity>
         </Box>
         <Box alignItems="center" flex={1} paddingRight="xxl" marginLeft="xxl2plus">
-          <Text variant="boldBlack18" numberOfLines={1}>
-            {t('welcome', { name: user?.firstName })}
+          <Text variant="textXS" numberOfLines={1}>
+            {t('today')}
           </Text>
-          <Text variant="lightGreyRegular" lineHeight={14}>
-            {t('today', {
-              date,
-            })}
-          </Text>
+          <Text variant="textBoldMD">{date}</Text>
         </Box>
         <NotificationsBell unseenCount={unseenCount} />
       </Box>

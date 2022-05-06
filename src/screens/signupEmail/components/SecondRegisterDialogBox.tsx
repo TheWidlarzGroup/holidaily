@@ -38,7 +38,7 @@ export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hide
       </Box>
       <Box marginTop="l" marginBottom="m">
         <TouchableOpacity activeOpacity={1} onPress={navigateToLogin}>
-          <CustomButton label={t('dialog2FirstButton')} variant="blackBgButton" />
+          <CustomButton label={t('dialog2FirstButton')} variant="alternative" />
         </TouchableOpacity>
       </Box>
     </Box>

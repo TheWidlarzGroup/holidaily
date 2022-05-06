@@ -9,6 +9,7 @@ export type StorageKeys =
   | 'userColor'
   | 'seenNotificationsIds'
   | 'language'
+  | 'seenTeamsModal'
 
 type Callback = F1<Error | null | undefined>
 type MultiCallback = F1<readonly (Error | null)[] | null | undefined>

@@ -1,24 +1,27 @@
-import React from 'react'
-import { DayInfo, DayInfoProps } from 'screens/calendar/components/DayInfo'
+import React, { useCallback } from 'react'
+import { DayInfo, DayInfoProps, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
+import { EVENT_HEIGHT } from './DayEvent'
 
 export type EventsListProps = {
   days: DayInfoProps[]
 }
-const ITEM_HEIGHT = 72
-const EVENT_HEIGHT = 78
+
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => {
   const [language] = useLanguage()
   return (
     <Box marginTop="m" flex={1}>
       <FlatList
         data={days}
-        renderItem={({ item }) => (
-          <TouchableOpacity activeOpacity={1}>
-            <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
-          </TouchableOpacity>
+        renderItem={useCallback(
+          ({ item }) => (
+            <TouchableOpacity activeOpacity={1}>
+              <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
+            </TouchableOpacity>
+          ),
+          []
         )}
         extraData={[days, language]}
         keyExtractor={(item) => item.date}
@@ -37,8 +40,8 @@ EventsList.displayName = 'EventsList'
 export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: number) => {
   if (!data)
     return {
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
+      length: DAY_ITEM_HEIGHT,
+      offset: DAY_ITEM_HEIGHT * index,
       index,
     }
   let prevEventsCount = 0
@@ -46,8 +49,8 @@ export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: nu
     prevEventsCount += data[i]?.events?.length ? data[i].events?.length || 0 : 0
   }
   return {
-    length: ITEM_HEIGHT,
-    offset: index * ITEM_HEIGHT + prevEventsCount * EVENT_HEIGHT,
+    length: DAY_ITEM_HEIGHT,
+    offset: index * DAY_ITEM_HEIGHT + prevEventsCount * EVENT_HEIGHT,
     index,
   }
 }

@@ -38,7 +38,9 @@ export const SliderContent: FC<SliderContentProps> = ({
         <Animated.Image style={styles.image} source={image} resizeMode="contain" />
       </Animated.View>
       <Box maxWidth="80%" justifyContent="center" alignItems="center">
-        <Text variant="title1">{title}</Text>
+        <Text variant="title1" paddingBottom="m">
+          {title}
+        </Text>
         <Text variant="body1">{text}</Text>
       </Box>
     </Animated.View>
@@ -56,10 +58,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     aspectRatio: isSmallScreen ? 1.4 : 1,
     width: '100%',
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.primary,
+    marginTop: -20,
+    marginBottom: -20,
   },
   image: {
     width: '75%',
-    maxWidth: isSmallScreen ? 150 : 300,
+    maxWidth: 240,
   },
 })

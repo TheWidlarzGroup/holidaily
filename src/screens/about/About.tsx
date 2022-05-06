@@ -5,6 +5,9 @@ import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerNavigationType } from 'navigation/types'
 import { Box, mkUseStyles, Text } from 'utils/theme'
+import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
+import { CustomButton } from 'components/CustomButton'
+import { useTranslation } from 'react-i18next'
 import { AboutDescription } from './components/AboutDescription'
 import { AboutBackground } from './components/AboutBackground'
 import { AboutHeader } from './components/AboutHeader'
@@ -16,6 +19,7 @@ type AboutTypes = { isFromWelcomeScreen?: true; closeModal: F0 }
 export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
   const styles = useStyles()
   const navigation = useNavigation<DrawerNavigationType<'About'>>()
+  const { t } = useTranslation('welcome')
   const handleGoBack = useCallback(() => {
     if (isFromWelcomeScreen) return
     navigation.goBack()
@@ -32,15 +36,27 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
           isIos && isFromWelcomeScreen && styles.containerMargin,
         ]}>
         <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
+        {isFromWelcomeScreen && <ModalHandleIndicator />}
         <Box justifyContent="space-between" flex={1}>
           <AboutDescription />
-          <AboutLinks />
-          <AboutBackground />
+          {!isFromWelcomeScreen && <AboutLinks />}
+          {!isFromWelcomeScreen && <AboutBackground />}
         </Box>
-        <Box position="absolute" bottom={12} left="40%">
-          <Text fontSize={10} color="black">
-            v. {version} Holidaily
-          </Text>
+        <Box position="absolute" bottom={10} left="40%">
+          {!isFromWelcomeScreen && (
+            <Text fontSize={10} color="black">
+              v. {version} Holidaily
+            </Text>
+          )}
+        </Box>
+        <Box paddingBottom="l">
+          {isFromWelcomeScreen && (
+            <CustomButton
+              label={t('aboutButton')}
+              variant="primary"
+              onPress={isFromWelcomeScreen ? closeModal : handleGoBack}
+            />
+          )}
         </Box>
       </GestureRecognizer>
     </SafeAreaWrapper>

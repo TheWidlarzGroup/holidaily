@@ -45,6 +45,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
         <PostFormFooter
           onLocationPress={openLocationPicker}
           onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
+          imagesCount={state.images.length}
         />
       </KeyboardAvoidingView>
       <Submit disabledCTA={sendDisabled} onCTAPress={() => onSend(state)} />

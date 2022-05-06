@@ -5,12 +5,17 @@ import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { useTranslation } from 'react-i18next'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { useUserContext } from 'hooks/useUserContext'
+import { useTeamsContext } from 'hooks/useTeamsContext'
 
 export const Logout = () => {
   const { t } = useTranslation(['confirmLogoutModal', 'navigation'])
   const { handleLogout } = useUserContext()
+  const { reset: resetTeams } = useTeamsContext()
   const onPress = useWithConfirmation({
-    onAccept: handleLogout,
+    onAccept: () => {
+      handleLogout()
+      resetTeams()
+    },
     header: t('confirmLogoutModal:areYouSure'),
     acceptBtnText: t('confirmLogoutModal:yes'),
     declineBtnText: t('confirmLogoutModal:no'),
