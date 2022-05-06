@@ -26,7 +26,7 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
           backgroundColor="errorRed"
           justifyContent="center"
           alignItems="center">
-          <Text color="white" variant="boldWhite12">
+          <Text color="alwaysWhite" variant="boldWhite12">
             {unseenCount}
           </Text>
         </Box>

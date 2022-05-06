@@ -30,7 +30,7 @@ export const OnHolidayTag = (props: OnHolidayTagProps) => {
       position="absolute"
       justifyContent="center"
       style={{ ...styles }}>
-      <IconPalm color={theme.colors.white} width={iconWidth} height={iconHeight} />
+      <IconPalm color={theme.colors.alwaysWhite} width={iconWidth} height={iconHeight} />
     </Box>
   )
 }

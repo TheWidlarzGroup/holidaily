@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
-import { StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
 import { AddButton } from 'components/AddButton'
-import { Box, theme } from 'utils/theme'
+import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
@@ -23,6 +21,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
   activeTabIndex,
   minIconWidth,
 }) => {
+  const styles = useStyles()
   const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
 
   return (
@@ -57,8 +56,8 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
               {getBottomTabIcon(
                 tab.name,
                 tabs[activeTabIndex].name,
-                theme.colors.black,
-                theme.colors.bottomBarIcons
+                styles.active.color,
+                styles.inactive.color
               )}
             </BorderlessButton>
           </Box>
@@ -68,7 +67,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   button: {
     flex: 1,
     alignItems: 'center',
@@ -77,4 +76,10 @@ const styles = StyleSheet.create({
     paddingTop: theme.spacing.s,
     paddingBottom: theme.spacing.s,
   },
-})
+  active: {
+    color: theme.colors.black,
+  },
+  inactive: {
+    color: theme.colors.bottomBarIcons,
+  },
+}))
