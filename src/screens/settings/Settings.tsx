@@ -6,7 +6,7 @@ import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { Box } from 'utils/theme'
+import { Box, mkUseStyles } from 'utils/theme'
 import { LoadingModal } from 'components/LoadingModal'
 import { isIos } from 'utils/layout'
 import { Language } from './components/Language'
@@ -14,6 +14,7 @@ import { Siri } from './components/Siri'
 import { DarkModeSwitch } from './components/DarkModeSwitch'
 
 export const Settings = () => {
+  const styles = useStyles()
   const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
   const [loading, { setTrue: setLoadingTrue, setFalse: setLoadingFalse }] = useBooleanState(false)
 
@@ -26,7 +27,9 @@ export const Settings = () => {
 
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
+      <GestureRecognizer
+        onSwipeRight={handleGoBack}
+        style={{ flex: 1, backgroundColor: styles.container.backgroundColor }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
         <Box marginHorizontal="m" flex={1}>
           <DarkModeSwitch />
@@ -39,3 +42,9 @@ export const Settings = () => {
     </SafeAreaWrapper>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    backgroundColor: theme.colors.dashboardBackground,
+  },
+}))

@@ -27,7 +27,7 @@ export const DarkModeSwitch = () => {
 
   return (
     <Box style={styles.container}>
-      <Box flexDirection="row" justifyContent="space-between" alignItems="center">
+      <Box marginLeft="xxm" flexDirection="row" justifyContent="space-between" alignItems="center">
         <Text variant="body1Bold" textAlign="left">
           {t('darkmode')}
         </Text>

@@ -4,7 +4,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { useTheme } from 'utils/theme'
+import { mkUseStyles, useTheme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
@@ -27,6 +27,7 @@ export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
   const navigation = useNavigation()
   const { user } = useUserContext()
+  const styles = useStyles()
   const theme = useTheme()
   const { errors, control, handleSubmit } = useForm({
     defaultValues: {
@@ -70,7 +71,11 @@ export const EditProfile = () => {
   return (
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack}>
-        <ScrollView style={{ marginBottom: isEdited ? 93 : 0 }}>
+        <ScrollView
+          style={{
+            marginBottom: isEdited ? 93 : 0,
+            backgroundColor: styles.container.backgroundColor,
+          }}>
           <DrawerBackArrow goBack={handleGoBack} />
           <ProfilePicture
             onUpdate={onUpdate}
@@ -87,3 +92,9 @@ export const EditProfile = () => {
     </SafeAreaWrapper>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    backgroundColor: theme.colors.dashboardBackground,
+  },
+}))

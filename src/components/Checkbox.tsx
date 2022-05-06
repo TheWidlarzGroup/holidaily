@@ -52,7 +52,7 @@ export const Checkbox = ({
     const backgroundColor = interpolateColor(
       backgroundProgress.value,
       [0, 1],
-      [colors.lightGrey, colors.primary]
+      [colors.labelLightGrey, colors.primary]
     )
     return { backgroundColor }
   }, [])

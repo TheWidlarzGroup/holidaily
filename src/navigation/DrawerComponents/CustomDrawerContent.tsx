@@ -1,7 +1,7 @@
 import React from 'react'
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import Animated from 'react-native-reanimated'
-import { Box } from 'utils/theme'
+import { Box, mkUseStyles } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
 import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
@@ -12,6 +12,7 @@ import { Logout } from './Logout'
 
 export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
   const { user } = useUserContext()
+  const styles = useStyles()
 
   if (!user) return null
 
@@ -26,7 +27,8 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
 
   return (
     <SafeAreaWrapper>
-      <Animated.View style={[style, { flex: 1 }]}>
+      <Animated.View
+        style={[style, { flex: 1, backgroundColor: styles.container.backgroundColor }]}>
         <DrawerHeader
           firstName={user.firstName}
           lastName={user.lastName}
@@ -53,3 +55,9 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
     </SafeAreaWrapper>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    backgroundColor: theme.colors.dashboardBackground,
+  },
+}))
