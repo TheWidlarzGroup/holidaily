@@ -32,10 +32,6 @@ export const Welcome = () => {
 
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
-  const initTeams = useInitDemoUserTeams()
-  useEffect(() => {
-    initTeams()
-  }, [initTeams])
 
   const onSubmit = async () => {
     await setItem('firstName', nameInput)
