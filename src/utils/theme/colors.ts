@@ -70,6 +70,7 @@ export const colors = {
   textBlue: palette.tertiary500,
   input: palette.grayscale200,
   inputBorder: palette.secondary700,
+  bubble: palette.grayscale100,
 }
 
 export const legacyPalette = {

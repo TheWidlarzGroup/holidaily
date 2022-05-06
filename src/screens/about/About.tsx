@@ -42,19 +42,21 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
           {!isFromWelcomeScreen && <AboutLinks />}
           {!isFromWelcomeScreen && <AboutBackground />}
         </Box>
-        <Box position="absolute" bottom={25} left="40%">
+        <Box position="absolute" bottom={10} left="40%">
           {!isFromWelcomeScreen && (
             <Text fontSize={10} color="black">
               v. {version} Holidaily
             </Text>
           )}
         </Box>
-        <Box>
-          <CustomButton
-            label={t('aboutButton')}
-            variant="primary"
-            onPress={isFromWelcomeScreen ? closeModal : handleGoBack}
-          />
+        <Box paddingBottom="l">
+          {isFromWelcomeScreen && (
+            <CustomButton
+              label={t('aboutButton')}
+              variant="primary"
+              onPress={isFromWelcomeScreen ? closeModal : handleGoBack}
+            />
+          )}
         </Box>
       </GestureRecognizer>
     </SafeAreaWrapper>

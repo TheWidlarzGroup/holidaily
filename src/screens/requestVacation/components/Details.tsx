@@ -1,7 +1,7 @@
 import { FormInput } from 'components/FormInput'
 import { InputButton } from 'components/InputButton'
 import React from 'react'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { ModalNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
@@ -23,7 +23,6 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   const { control, register, errors } = useForm()
   const { sickTime, isPeriodInvalid } = useRequestVacationContext()
-  const styles = useStyles()
   const { t } = useTranslation('requestVacation')
 
   return (
@@ -41,6 +40,7 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
       </Box>
       <Box marginTop="m">
         <FormInput
+          variant="medium"
           control={control}
           isError={!errors}
           errors={errors}
@@ -54,17 +54,9 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
           autoCompleteType="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
           {...register('description', { required: false })}
-          maxLengt={300}
-          style={styles.formInput}
+          maxLength={300}
         />
       </Box>
     </Box>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  formInput: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 16,
-  },
-}))

@@ -6,8 +6,9 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Text } from 'utils/theme/index'
 import { generateInputErrors } from 'utils/generateInputErrors'
 import { useTranslation } from 'react-i18next'
-import { textVariants } from 'utils/theme/textVariants'
 import { CustomInput } from './CustomInput'
+import { InputSearchIcon } from './InputSearchIcon'
+import { InputEditIcon } from './InputEditIcon'
 
 type FormInputTypes = {
   control: Control
@@ -17,15 +18,15 @@ type FormInputTypes = {
   validationPattern: RegExp
   errorMessage: string
   isError: boolean
+  variant: 'medium' | 'small' | 'mediumSpecial'
   signupPasswordHint?: string
   isPasswordIconVisible?: boolean
   passwordsAreEqual?: boolean
   screenName?: string
   disabled?: boolean
-  labelTextVariant?: keyof typeof textVariants
-  inputTextVariant?: 'bold'
   placeholder?: string
   reset?: F0
+  onBaseOpacityPress?: F0
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -42,13 +43,13 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       passwordsAreEqual,
       screenName,
       isError,
+      onBaseOpacityPress,
       ...props
     },
     ref
   ) => {
     const { t } = useTranslation('inputErrors')
     const errorOpacity = useSharedValue(0)
-
     const progressStyle = useAnimatedStyle(() => ({
       opacity: withTiming(errorOpacity.value, {
         duration: 300,
@@ -85,9 +86,10 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           }}
           defaultValue=""
         />
-
+        {props.variant === 'mediumSpecial' && <InputEditIcon onPress={onBaseOpacityPress} />}
+        {props.variant === 'small' && <InputSearchIcon />}
         <Animated.View style={progressStyle}>
-          <Text variant="inputErrorMessage" marginTop="xs" marginLeft="m">
+          <Text variant="inputErrorMessage" marginTop="xs" marginLeft="s">
             {generateInputErrors({ errors, name, passwordsAreEqual, screenName, t })}
           </Text>
         </Animated.View>
