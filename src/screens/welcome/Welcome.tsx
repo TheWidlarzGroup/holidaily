@@ -60,7 +60,7 @@ export const Welcome = () => {
         </Box>
         <Box marginTop="xl">
           <FormInput
-            labelTextVariant="lightGreyRegular"
+            variant="medium"
             maxLength={20}
             control={control}
             isError={!!errors.firstName}
@@ -75,7 +75,7 @@ export const Welcome = () => {
           />
         </Box>
         <Box>
-          <Text variant="lightGreyRegular" paddingHorizontal="m">
+          <Text variant="lightGreyRegular" paddingHorizontal="s">
             {t('whyAskForName')}
           </Text>
         </Box>

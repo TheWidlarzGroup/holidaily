@@ -45,28 +45,16 @@ export const postsMock: FeedPost[] = [
       },
       {
         type: 'image',
-        src: 'https://unsplash.it/400/600',
+        src: 'https://images.unsplash.com/photo-1536663815808-535e2280d2c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80',
       },
       {
         type: 'image',
-        src: 'https://unsplash.it/500/400',
+        src: 'https://images.unsplash.com/photo-1503075131240-fe4b3a7fa473?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
       },
       {
         type: 'image',
-        src: 'https://unsplash.it/400/500',
+        src: 'https://images.unsplash.com/photo-1535911062411-3280a2af5b51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
       },
-      {
-        type: 'image',
-        src: 'https://unsplash.it/400/400',
-      },
-      // {
-      //   type: 'image',
-      //   src: 'https://unsplash.it/400/400',
-      // },
-      // {
-      //   type: 'image',
-      //   src: 'https://unsplash.it/400/400',
-      // },
     ],
     reactions: [],
     comments: [],

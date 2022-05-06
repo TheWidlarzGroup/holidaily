@@ -12,7 +12,7 @@ export const Bubble = ({ children, ...props }: BubbleProps) => (
     flexDirection="row"
     justifyContent="center"
     alignItems="center"
-    bg="rippleColor"
+    bg="bubble"
     borderRadius="l"
     {...props}>
     {children}

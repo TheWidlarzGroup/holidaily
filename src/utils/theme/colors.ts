@@ -73,6 +73,7 @@ export const colors = {
   input: palette.grayscale200,
   inputBorder: palette.secondary700,
   paginationDot: palette.paginationDot,
+  bubble: palette.grayscale100,
 }
 
 export const legacyPalette = {
