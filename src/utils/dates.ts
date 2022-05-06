@@ -126,19 +126,6 @@ export const calculatePTO = (start: DateOrISO, end: DateOrISO) => {
 export const getDurationInDays = (days: number) =>
   formatDuration({ days }, { locale: getCurrentLocale(), zero: true })
 
-export const getAllDaysInMonth = (year: number, month: number) => {
-  const date = new Date(year, month, 1)
-
-  const dates = []
-
-  while (date.getMonth() === month) {
-    dates.push(new Date(date))
-    date.setDate(date.getDate() + 1)
-  }
-
-  return dates
-}
-
 export const isDateBetween = (
   date: Date | number | string,
   rangeStart: Date | number | string,
