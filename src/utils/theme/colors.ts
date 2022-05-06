@@ -38,6 +38,8 @@ export const palette = {
   transparent: 'transparent',
   gradientHot500:
     'linear-gradient(134.7deg, rgba(255, 190, 112, 1) -3.95%, rgba(255, 139, 63, 1) 107.96%)',
+  paginationDot:
+    'linear-gradient(180deg, rgba(252, 252, 252, 0.8) 0%, rgba(252, 252, 252, 0.72) 100%)',
 }
 
 export const colors = {
@@ -70,6 +72,7 @@ export const colors = {
   textBlue: palette.tertiary500,
   input: palette.grayscale200,
   inputBorder: palette.secondary700,
+  paginationDot: palette.paginationDot,
   bubble: palette.grayscale100,
 }
 
