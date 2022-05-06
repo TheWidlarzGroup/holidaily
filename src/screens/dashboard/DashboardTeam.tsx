@@ -45,6 +45,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     <>
       <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
         <TeamHeader title={params.name} />
+        {/* TODO: refactor to use SectionList */}
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box paddingHorizontal="m" paddingBottom="xxl">
             {matesOnHoliday.length > 0 && (

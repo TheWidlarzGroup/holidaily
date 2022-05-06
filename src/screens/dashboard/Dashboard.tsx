@@ -11,7 +11,6 @@ export const Dashboard = () => {
   const organizationModalRef = useRef<BottomSheetModal>(null)
   const openOrganizationModal = useCallback(() => organizationModalRef.current?.present(), [])
   const closeOrganizationModal = useCallback(() => organizationModalRef.current?.dismiss(), [])
-  console.log('rerender')
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
@@ -23,7 +22,6 @@ export const Dashboard = () => {
     }
     openModalOnFirstAppLaunch()
   }, [openOrganizationModal])
-  console.log('dashboard')
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>

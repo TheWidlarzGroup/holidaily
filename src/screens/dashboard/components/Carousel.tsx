@@ -30,7 +30,6 @@ export const Carousel = () => {
     }
     return ''
   }
-  console.log('carousel')
   const first20Users = useMemo(() => getClosestHolidayRequests(teams).slice(0, 20), [teams])
   return (
     <>
