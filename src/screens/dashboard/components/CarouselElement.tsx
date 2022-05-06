@@ -43,17 +43,5 @@ export const CarouselElement = (p: CarouselElementProps) => (
         </Text>
       </Box>
     </Box>
-    <Text variant="lightGreyRegular" color="black" lineHeight={14}>
-      {p.firstName}
-    </Text>
-    <Text variant="lightGreyRegular" color="black" lineHeight={14}>
-      {p.lastName}
-    </Text>
-    <Box flexDirection="row" alignItems="center">
-      {p.isOnHoliday ? <IconSuitcase /> : <IconPlane />}
-      <Text variant="holidayDate" color={p.isOnHoliday ? 'tertiary' : 'black'}>
-        {p.dayToBeDisplayed}
-      </Text>
-    </Box>
   </Box>
 )
