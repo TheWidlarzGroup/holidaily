@@ -7,8 +7,8 @@ import { useLanguage } from 'hooks/useLanguage'
 export type EventsListProps = {
   days: DayInfoProps[]
 }
-const ITEM_HEIGHT = 56
-const EVENT_HEIGHT = 76
+const ITEM_HEIGHT = 74
+const EVENT_HEIGHT = 60
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => {
   const [language] = useLanguage()
   return (
