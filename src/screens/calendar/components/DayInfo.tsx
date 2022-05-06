@@ -15,7 +15,7 @@ const OUTER_BOX_MARGIN = 's'
 const INNER_BOX_MARGIN = 's'
 const HEADING_TEXT_VARIANT = 'captionText'
 const FONT_OFFSET = 4
-// used to determine container flatlist scroll offset
+// Comment: used to determine container flatlist scroll offset
 export const DAY_ITEM_HEIGHT =
   2 * theme.spacing[DAY_PADDING_VERTICAL] +
   2 * theme.spacing[OUTER_BOX_MARGIN] +

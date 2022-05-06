@@ -19,7 +19,7 @@ type DayEventProps = { event: DayOffEvent }
 
 const EVENT_VERTICAL_PADDING: keyof Theme['spacing'] = 's'
 const AVATAR_SIZE: keyof typeof avatarSizes = 's'
-// used to determine container flatlist scroll offset
+// Comment: used to determine container flatlist scroll offset
 export const EVENT_HEIGHT = theme.spacing[EVENT_VERTICAL_PADDING] * 2 + avatarSizes[AVATAR_SIZE]
 
 export const DayEvent = ({ event }: DayEventProps) => (

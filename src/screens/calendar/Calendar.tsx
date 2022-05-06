@@ -31,7 +31,7 @@ const CalendarToWrap = () => {
     setTimeout(() => setSelectedDate(parseISO(dateString)))
   }
 
-  // show loader spinner while calendar is rendering
+  // Comment: show loader spinner while calendar is rendering
   const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
   useEffect(() => {
     hideLoader()
