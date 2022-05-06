@@ -1,4 +1,5 @@
 import { ProgressBar } from 'components/ProgressBar'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import React, { useCallback, useRef } from 'react'
 import {
   FlatList,
@@ -9,6 +10,7 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { GalleryItemData } from 'types/holidaysDataTypes'
+import { isIos } from 'utils/layout'
 import { Box } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
@@ -51,7 +53,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
   )
 
   return (
-    <>
+    <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
       <FlatList
         horizontal
         ref={listRef}
@@ -69,11 +71,11 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         showsHorizontalScrollIndicator={false}
       />
       {data.length > 1 && (
-        <Box alignSelf="center" position="absolute" bottom={12}>
+        <Box alignSelf="center" position="absolute" bottom={isIos ? 46 : 14}>
           <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
         </Box>
       )}
-    </>
+    </SafeAreaWrapper>
   )
 }
 
