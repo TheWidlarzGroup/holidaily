@@ -166,7 +166,7 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
-  DashboardTeam: Team & { openUserModal: F1<User> }
+  DashboardTeam: Team
   DashboardTeamMember: User
   DashboardNotifications: undefined
 }
