@@ -210,7 +210,8 @@
     "locationsAccessPromptText": "Use my location",
     "locationsSearch": "Search",
     "locationNotFound": "Not found",
-    "loading": "Searching..."
+    "loading": "Searching...",
+    "exceededAmount": "You exceeded amount of images in single post"
   },
   "createPost": {
     "title": "Create Post",

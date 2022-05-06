@@ -53,7 +53,6 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
   // TODO:
   // 2) show alert/modal if user tries to add more thatn 5 images during post creation
   // 3) Adjust dots position in Holifeed
-  // dots colors
 
   return (
     <>
