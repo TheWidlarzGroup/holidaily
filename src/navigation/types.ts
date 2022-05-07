@@ -123,7 +123,7 @@ export type BottomTabRoutes = {
   Calendar: undefined
   RequestModal: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
-  Feed: { postId?: string }
+  Feed: { postId?: string } | undefined
 }
 
 export type DrawerRoutes = {

@@ -15,15 +15,15 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'Feed'>)
   const flatListRef = useRef<FlatList | null>(null)
 
   useEffect(() => {
-    if (p.postId && data) {
+    if (p?.postId && data) {
       console.log(
         data.map((d) => d.meta.id),
         p.postId
       )
-      const index = data?.findIndex((post) => String(post.meta.id) === String(p.postId))
+      const index = data.findIndex((post) => String(post.meta.id) === String(p.postId))
       if (index && index >= 0) flatListRef.current?.scrollToIndex({ index, animated: true })
     }
-  }, [data, p.postId])
+  }, [data, p?.postId])
 
   if (!data) return <LoadingModal show />
 
