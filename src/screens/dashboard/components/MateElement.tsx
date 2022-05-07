@@ -48,13 +48,13 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
         <Text variant="alreadyRegistered" color="black" lineHeight={20}>
           {firstName} {lastName}
         </Text>
-        <Text variant="lightGreyRegular" color="headerGrey">
+        <Text variant="lightGreyRegular" color="darkGreyBrighterDouble">
           {t(version.text).toUpperCase()}
         </Text>
-        <Text variant="bold20" color={version.color}>
+        <Text variant="bold20" color="blackBrighter">
           {displayDayShort(dateToBeDisplayed)}
         </Text>
-        <Text variant="regular15" color={version.color}>
+        <Text variant="regular15" color="blackBrighter">
           {displayWeekday(dateToBeDisplayed)}
         </Text>
       </Box>

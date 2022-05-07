@@ -45,7 +45,7 @@ const Subscription = (p: SubscriptionProps) => {
   return (
     <>
       <RectButton onPress={askForConfirmation} style={styles.team}>
-        <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm">
+        <Text variant="resendWhite" paddingHorizontal="l" paddingVertical="xm" color="alwaysWhite">
           {p.teamName}
         </Text>
       </RectButton>
@@ -66,7 +66,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   team: {
     marginRight: theme.spacing.s,
     marginBottom: theme.spacing.m,
-    backgroundColor: theme.colors.black,
+    backgroundColor: theme.colors.alwaysDarkBlue,
     borderRadius: theme.spacing.l,
     justifyContent: 'center',
     alignItems: 'center',

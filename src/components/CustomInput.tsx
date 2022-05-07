@@ -82,7 +82,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     return (
       <>
-        <Text variant="inputLabel" marginLeft="s" marginBottom="xs">
+        <Text variant="inputLabel" marginLeft="s" marginBottom="xs" color="darkGreyBrighter">
           {inputLabel}
         </Text>
         <Box flexDirection="row">
@@ -102,6 +102,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               value={value}
               ref={ref}
               placeholder={(!isFocused && placeholder) || ''}
+              placeholderTextColor={theme.colors.headerGrey}
               editable={!disabled}
               {...props}
             />

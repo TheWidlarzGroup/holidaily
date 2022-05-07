@@ -13,17 +13,16 @@ export const MateHolidayDetail = (props: MateHolidayDetailProps) => {
   const { t } = useTranslation('dashboard')
   const header = type === 'start' ? 'lastDayAtWork' : 'backAtWork'
   const dateTobedisplay = type === 'start' ? prevWorkday(date) : nextWorkday(date)
-  const color = type === 'start' ? 'greyDark' : 'black'
 
   return (
     <Box flexBasis="50%">
       <Text variant="inputErrorMessage" marginVertical="m" color="headerGrey">
         {t(header).toUpperCase()}
       </Text>
-      <Text variant="bold20" color={color}>
+      <Text variant="bold20" color="alwaysWhite">
         {displayDayShort(dateTobedisplay)}
       </Text>
-      <Text variant="regularGrey16" color={color}>
+      <Text variant="regularGrey16" color="alwaysDarkenWhite">
         {displayWeekday(dateTobedisplay)}
       </Text>
     </Box>

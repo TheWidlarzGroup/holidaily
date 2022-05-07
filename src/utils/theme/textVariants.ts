@@ -149,7 +149,7 @@ const legacyVariants = {
   labelGrey: {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
-    color: 'labelLightGrey',
+    color: 'darkGreyBrighter',
   },
   labelGreyLight: {
     fontFamily: 'Nunito-Regular',

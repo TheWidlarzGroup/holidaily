@@ -58,6 +58,6 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
-    backgroundColor: theme.colors.dashboardBackground,
+    backgroundColor: theme.colors.white,
   },
 }))

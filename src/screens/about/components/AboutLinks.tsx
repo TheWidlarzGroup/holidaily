@@ -1,5 +1,5 @@
 import React from 'react'
-import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
 import ShieldCheckIcon from 'assets/icons/icon-shield-check.svg'
 import { useTranslation } from 'react-i18next'
@@ -29,7 +29,7 @@ export const AboutLinks = () => {
           await linkWithFallback(ANDROID_RATE_LINK, COMPANY_WEBSITE_LINK)
         }}>
         <StarIcon color={theme.colors.black} />
-        <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24}>
+        <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24} color="black">
           {t('rateApp')}
         </Text>
       </BaseOpacity>
@@ -39,7 +39,7 @@ export const AboutLinks = () => {
         alignItems="center"
         onPress={() => showModal(<PrivacyPolicy hideModal={hideModal} />)}>
         <ShieldCheckIcon color={theme.colors.black} />
-        <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24}>
+        <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24} color="black">
           {t('privacyPolicy')}
         </Text>
       </BaseOpacity>
@@ -49,6 +49,7 @@ export const AboutLinks = () => {
 
 const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
   const theme = useTheme()
+  const styles = useStyles()
   const [isVisible, { setFalse: fadeOut }] = useBooleanState(true)
   const { t } = useTranslation('about')
   return (
@@ -76,9 +77,11 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
             onPress={fadeOut}
             hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             paddingLeft="m">
-            <IconBack height={18} width={18} />
+            <IconBack height={18} width={18} color={styles.arrow.color} />
           </BaseOpacity>
-          <Text variant="header">{t('privacyPolicy')}</Text>
+          <Text variant="header" color="black">
+            {t('privacyPolicy')}
+          </Text>
           <Box paddingRight="xl" />
         </ModalHeader>
 
@@ -87,3 +90,9 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
     </Modal>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  arrow: {
+    color: theme.colors.black,
+  },
+}))
