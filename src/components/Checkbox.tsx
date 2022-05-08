@@ -52,7 +52,7 @@ export const Checkbox = ({
     const backgroundColor = interpolateColor(
       backgroundProgress.value,
       [0, 1],
-      [colors.labelLightGrey, colors.primary]
+      [colors.darkGrey, colors.special]
     )
     return { backgroundColor }
   }, [])
@@ -91,7 +91,7 @@ const useStyles = mkUseStyles((theme) => ({
   dot: {
     position: 'absolute',
     top: -1,
-    backgroundColor: 'rgba(255, 140, 63, 0.596)',
+    backgroundColor: theme.colors.white,
     borderRadius: 32,
   },
   dotLarge: {
@@ -105,6 +105,6 @@ const useStyles = mkUseStyles((theme) => ({
     borderWidth: 2,
   },
   dotChecked: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.alwaysDarkenWhite,
   },
 }))

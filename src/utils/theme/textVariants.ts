@@ -132,7 +132,7 @@ const legacyVariants = {
   buttonText1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 18,
-    color: 'white',
+    color: 'darkGrey',
     textAlign: 'center',
   },
   title1: {

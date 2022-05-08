@@ -17,6 +17,10 @@ initBackendMocks()
 export const Main = () => {
   const userSettingsContext = useContext(UserSettingsContext)
   const currentTheme = userSettingsContext?.userSettings?.darkMode ? darkTheme : theme
+  const statusBarBgColor = currentTheme.colors.dashboardBackground
+  const statusBarStyle = userSettingsContext?.userSettings?.darkMode
+    ? 'light-content'
+    : 'dark-content'
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -26,7 +30,11 @@ export const Main = () => {
             <TeamsContextProvider>
               <QueryClientProvider client={queryClient}>
                 <UserContextProvider>
-                  <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+                  <StatusBar
+                    translucent
+                    barStyle={statusBarStyle}
+                    backgroundColor={statusBarBgColor}
+                  />
                   <AppNavigation />
                 </UserContextProvider>
               </QueryClientProvider>

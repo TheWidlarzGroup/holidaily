@@ -4,7 +4,7 @@ import { Box, Text } from 'utils/theme'
 
 export const AboutDescription = () => (
   <Box paddingHorizontal="m" paddingBottom="lplus">
-    <Text textAlign="left" variant="body1">
+    <Text textAlign="left" variant="body1" color="black">
       {/* @ts-ignore  Trans component causes error in pipeline but not in IDE: "Type instantiation is excessively deep and possibly infinite." */}
       <Trans
         ns="welcome"
@@ -15,7 +15,7 @@ export const AboutDescription = () => (
         }}
       />
     </Text>
-    <Text textAlign="left" marginTop="l" variant="body1">
+    <Text textAlign="left" marginTop="l" variant="body1" color="black">
       {/* @ts-ignore */}
       <Trans
         ns="welcome"
