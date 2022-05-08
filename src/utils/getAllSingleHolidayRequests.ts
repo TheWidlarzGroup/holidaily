@@ -1,5 +1,6 @@
-import { eachDayOfInterval, format } from 'date-fns'
+import { eachDayOfInterval } from 'date-fns'
 import { Team, User } from 'mockApi/models/mirageTypes'
+import { isWeekendOrHoliday } from 'poland-public-holidays'
 import { DayOffEvent } from 'screens/calendar/components/DayEvent'
 import { getISODateString, getISOMonthYearString } from './dates'
 import { generateUUID } from './generateUUID'
@@ -15,6 +16,7 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
         end: new Date(req.endDate),
       })
       dates.forEach((date) => {
+        if (isWeekendOrHoliday(date)) return
         const request = {
           id: generateUUID(),
           person: `${user.firstName} ${user.lastName}`,
@@ -31,8 +33,6 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
         if (request.person === `${appUser.firstName} ${appUser.lastName}`) {
           if (request.status === 'cancelled' || request.status === 'pending') return
         }
-        const dayOfWeek = format(new Date(request.date), 'e')
-        if (dayOfWeek === '7' || dayOfWeek === '1') return
         allSingleRequests.push(request)
       })
     })

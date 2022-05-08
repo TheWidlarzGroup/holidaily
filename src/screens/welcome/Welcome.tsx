@@ -11,6 +11,7 @@ import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { About } from 'screens/about/About'
 import { setItem } from 'utils/localStorage'
+import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
@@ -88,7 +89,7 @@ export const Welcome = () => {
         backgroundColor="white"
         paddingBottom="l"
         alignItems="center">
-        <Box maxWidth={250} paddingBottom="l">
+        <Box maxWidth={250} paddingBottom={isIos ? 'l' : 's'}>
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}

@@ -59,9 +59,11 @@ const styles = StyleSheet.create({
     aspectRatio: isSmallScreen ? 1.4 : 1,
     width: '100%',
     backgroundColor: theme.colors.primary,
+    marginTop: -20,
+    marginBottom: -20,
   },
   image: {
     width: '75%',
-    maxWidth: isSmallScreen ? 240 : 330,
+    maxWidth: 240,
   },
 })

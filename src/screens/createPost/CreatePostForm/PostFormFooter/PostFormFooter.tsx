@@ -10,16 +10,20 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker'
+import { Alert } from 'react-native'
 import { useKeyboard } from 'hooks/useKeyboard'
+import { useTranslation } from 'react-i18next'
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
   onLocationPress: F0
   onImagesPick: F1<Asset[]>
+  imagesCount: number
 }
 
-export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProps) => {
+export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: PostFooterProps) => {
   const [keyboardShown] = useKeyboard()
+  const { t } = useTranslation('feed')
 
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
@@ -30,6 +34,9 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProp
     [onImagesPick]
   )
   const handleCameraPress = () => {
+    if (imagesCount >= 5) {
+      return Alert.alert(t('exceededAmount'))
+    }
     launchCamera(
       {
         mediaType: 'photo',
@@ -40,6 +47,9 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProp
   }
 
   const handleCameraLongPress = () => {
+    if (imagesCount >= 5) {
+      return Alert.alert(t('exceededAmount'))
+    }
     launchCamera(
       {
         mediaType: 'video',
@@ -50,6 +60,9 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick }: PostFooterProp
   }
 
   const handleGalleryPress = () => {
+    if (imagesCount >= 5) {
+      return Alert.alert(t('exceededAmount'))
+    }
     launchImageLibrary(
       {
         mediaType: 'mixed',
