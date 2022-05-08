@@ -3,7 +3,7 @@ import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { FormInput } from 'components/FormInput'
 import { Box } from 'utils/theme/'
-import { noEmojiRegex } from 'utils/regex'
+import { onlyLettersRegex } from 'utils/regex'
 import { Control, DeepMap, FieldError, FieldValues } from 'react-hook-form'
 
 type UserData = {
@@ -11,7 +11,7 @@ type UserData = {
   errors: DeepMap<{ firstName: string; lastName: string; occupation: string }, FieldError>
   control: Control<FieldValues>
 }
-const validationPattern = noEmojiRegex
+const validationPattern = onlyLettersRegex
 export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
   const { t } = useTranslation('userProfile')
   const inputsRefs = [
