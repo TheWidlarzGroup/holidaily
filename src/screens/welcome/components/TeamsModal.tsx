@@ -14,7 +14,6 @@ const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team 
 
 export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('welcome')
-
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box

@@ -9,7 +9,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
-import { User } from 'mock-api/models/mirageTypes'
 import { FlatList, FlatListProps } from 'react-native'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
@@ -17,12 +16,11 @@ const SCROLL_VIEW_BOTTOM_PADDING = 75
 
 type SortableListProps = {
   children: SortableListItemType[]
-  openUserModal: F1<User>
 }
 
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
-export const SortableList = ({ children, openUserModal }: SortableListProps) => {
+export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
@@ -73,7 +71,7 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
         CellRendererComponent={CellRenderer}
         ListHeaderComponent={
           <Box height={NESTED_ELEM_OFFSET}>
-            <Carousel openUserModal={openUserModal} />
+            <Carousel />
             <Text
               variant="lightGreyRegular"
               color="darkGrey"

@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
-import { User } from 'mock-api/models/mirageTypes'
-import { SwipeableModal } from 'components/SwipeableModal'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
 import { getItem, setItem } from 'utils/localStorage'
+import { SwipeableModal } from 'components/SwipeableModal'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { DashboardTeamMember } from './DashboardTeamMember'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [modalUser, setModalUser] = useState<User>()
-  const openModal = (user: User) => {
-    setModalUser(user)
-    setIsModalVisible(true)
-  }
-
   const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
     useBooleanState(true)
   useEffect(() => {
@@ -34,13 +25,8 @@ export const Dashboard = () => {
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
-        <SortableTeams openUserModal={openModal} />
+        <SortableTeams />
       </SafeAreaWrapper>
-      {modalUser && (
-        <SwipeableModal isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={modalUser} />
-        </SwipeableModal>
-      )}
       <SwipeableModal isOpen={isSuccessModalVisible} onHide={closeSuccessModal}>
         <TeamsModal closeModal={closeSuccessModal} />
       </SwipeableModal>

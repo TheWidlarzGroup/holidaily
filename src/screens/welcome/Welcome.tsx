@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -14,7 +14,6 @@ import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
-import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 
 const MIN_SIGNS = 2
@@ -32,10 +31,6 @@ export const Welcome = () => {
 
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
-  const initTeams = useInitDemoUserTeams()
-  useEffect(() => {
-    initTeams()
-  }, [initTeams])
 
   const onSubmit = async () => {
     await setItem('firstName', nameInput)

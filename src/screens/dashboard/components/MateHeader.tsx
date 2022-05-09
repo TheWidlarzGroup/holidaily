@@ -17,7 +17,7 @@ export const MateHeader = ({ user }: { user: User }) => {
       <Text variant="bold20" color="black" marginTop="m">
         {firstName} {lastName}
       </Text>
-      {occupation && (
+      {!!occupation && (
         <Text variant="regularGrey16" color="headerGrey">
           {occupation}
         </Text>
