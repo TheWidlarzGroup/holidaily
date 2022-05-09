@@ -87,7 +87,7 @@ export const CalendarList = ({
         ...markedDates,
         ...genMarkedDates(p.periodStart, p.periodEnd),
       }}
-      calendarHeight={410}
+      calendarHeight={450}
       {...p}
     />
   )
