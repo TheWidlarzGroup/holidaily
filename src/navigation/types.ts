@@ -123,7 +123,7 @@ export type BottomTabRoutes = {
   Calendar: undefined
   RequestModal: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
-  Feed: undefined
+  Feed: { postId?: string } | undefined
 }
 
 export type DrawerRoutes = {
@@ -166,7 +166,7 @@ export type ModalRoutes = {
 
 export type DashboardRoutes = {
   Dashboard: undefined
-  DashboardTeam: Team & { openUserModal: F1<User> }
+  DashboardTeam: Team
   DashboardTeamMember: User
   DashboardNotifications: undefined
 }

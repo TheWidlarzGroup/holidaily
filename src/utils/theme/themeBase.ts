@@ -21,6 +21,7 @@ export const themeBase = createTheme({
     lplus: 30,
     l2plus: 36,
     xl: 40,
+    xlplus: 45,
     xxl: 50,
     xxlplus: 60,
     xxl2plus: 70,

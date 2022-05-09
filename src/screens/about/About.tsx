@@ -51,11 +51,7 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
         </Box>
         <Box paddingBottom="l">
           {isFromWelcomeScreen && (
-            <CustomButton
-              label={t('aboutButton')}
-              variant="primary"
-              onPress={isFromWelcomeScreen ? closeModal : handleGoBack}
-            />
+            <CustomButton label={t('aboutButton')} variant="primary" onPress={closeModal} />
           )}
         </Box>
       </GestureRecognizer>
