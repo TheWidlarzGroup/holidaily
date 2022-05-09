@@ -7,7 +7,6 @@ import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
 import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
-import { isIos } from 'utils/layout'
 import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
