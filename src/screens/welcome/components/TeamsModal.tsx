@@ -16,7 +16,13 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('welcome')
   return (
     <SafeAreaWrapper isDefaultBgColor>
-      <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" marginTop={isIos ? '-l' : 0}>
+      <Box
+        backgroundColor="white"
+        flexGrow={1}
+        paddingHorizontal="m"
+        marginTop={isIos ? '-l' : 0}
+        paddingBottom="l"
+        paddingTop="l">
         <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
           <ModalHandleIndicator />
           <TouchableOpacity
@@ -41,9 +47,9 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
             ))}
           </Box>
         </Box>
-        <Box maxWidth={250} alignSelf="center" marginBottom="l">
-          <CustomButton variant="primary" label={t('thanksButton')} onPress={closeModal} />
-        </Box>
+        <TouchableOpacity onPress={closeModal}>
+          <CustomButton variant="primary" label={t('thanksButton')} />
+        </TouchableOpacity>
       </Box>
     </SafeAreaWrapper>
   )

@@ -1,37 +1,35 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
-import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { getItem, setItem } from 'utils/localStorage'
+import { SwipeableModal } from 'components/SwipeableModal'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
-  const organizationModalRef = useRef<BottomSheetModal>(null)
-  const openOrganizationModal = useCallback(() => organizationModalRef.current?.present(), [])
-  const closeOrganizationModal = useCallback(() => organizationModalRef.current?.dismiss(), [])
+  const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
+    useBooleanState(true)
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
       if (seenTeamsModal === 'false') return
       setTimeout(async () => {
-        openOrganizationModal()
+        openSuccessModal()
         await setItem('seenTeamsModal', 'false')
       }, 2000)
     }
     openModalOnFirstAppLaunch()
-  }, [openOrganizationModal])
+  }, [openSuccessModal])
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
         <SortableTeams />
       </SafeAreaWrapper>
-
-      <BottomSheetModalComponent snapPoints={['90%']} modalRef={organizationModalRef}>
-        <TeamsModal closeModal={closeOrganizationModal} />
-      </BottomSheetModalComponent>
+      <SwipeableModal isOpen={isSuccessModalVisible} onHide={closeSuccessModal}>
+        <TeamsModal closeModal={closeSuccessModal} />
+      </SwipeableModal>
     </>
   )
 }
