@@ -55,7 +55,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
   const containerHeight = useSharedValue(fullCalendarHeight.value)
   const opacity = useDerivedValue(() =>
-    containerHeight.value >= fullCalendarHeight.value - 60 ? withTiming(1) : withTiming(0)
+    containerHeight.value > /* >= */ WEEK_CALENDAR_HEIGHT /* fullCalendarHeight.value */
+      ? withTiming(1)
+      : withTiming(0)
   )
   const { validPeriodStyles } = useCalendarPeriodStyles()
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
@@ -101,14 +103,16 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   })
 
   const containerHeightStyles = useAnimatedStyle(() => ({
-    minHeight: containerHeight.value,
+    minHeight:
+      containerHeight.value > WEEK_CALENDAR_HEIGHT ? containerHeight.value : WEEK_CALENDAR_HEIGHT,
   }))
   const weekOpacity = useAnimatedStyle(() => ({
-    opacity: containerHeight.value < 200 ? 1 : 0,
+    opacity: 1 - opacity.value, // containerHeight.value <= WEEK_CALENDAR_HEIGHT ? 1 : 0,
   }))
   const fullOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    display: containerHeight.value === WEEK_CALENDAR_HEIGHT ? 'none' : 'flex',
+    maxHeight: containerHeight.value,
+    // display: containerHeight.value === WEEK_CALENDAR_HEIGHT ? 'none' : 'flex',
   }))
   return (
     <>
@@ -148,7 +152,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <Animated.View
             style={[
               fullOpacity,
-              { position: 'absolute', top: -7, left: 0, right: 0, overflow: 'hidden' },
+              { transform: [{ translateY: -7 }], overflow: 'hidden' },
+              // { position: 'absolute', top: -7, left: 0, right: 0, overflow: 'hidden' },
             ]}>
             <Box
               ref={fullCalendarContainerRef}
