@@ -26,7 +26,6 @@ export const Submit = (p: SubmitProps) => {
         disabled={p.disabledCTA}
         variant="primary"
         onPress={p.onCTAPress}
-        paddingVertical={theme.spacing.xs}
         width={260}
         marginTop={10}
         alignSelf="center"
