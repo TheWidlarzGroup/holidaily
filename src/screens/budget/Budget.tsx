@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { DrawerActions, useNavigation, useTheme } from '@react-navigation/native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
