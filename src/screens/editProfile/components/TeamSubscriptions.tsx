@@ -39,7 +39,7 @@ export const TeamSubscriptions = () => {
     return () => clearTimeout(timeout)
   }, [changesSaved, hideModal])
 
-  const filterUnsubscribedTeams = (teamName: string) => {
+  const removeSubscription = (teamName: string) => {
     if (!user) return
     setModalContent(t('unsubscribed', { teamName }))
     showModal()
@@ -47,7 +47,7 @@ export const TeamSubscriptions = () => {
     const teamsParsedForDisplay: TeamsType[] = []
     user.teams.forEach((team) => {
       if (team.name === teamName) return
-      userNextTeams.push({ ...team, users: [...team.users, user] })
+      userNextTeams.push(team)
       teamsParsedForDisplay.push({ teamName: team.name, id: team.id })
     })
     updateUser({ teams: userNextTeams })
@@ -64,7 +64,7 @@ export const TeamSubscriptions = () => {
           {t('userSubscriptions')}
         </Text>
         <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
-        <ActiveSubscriptions teams={teams} filterUnsubscribedTeams={filterUnsubscribedTeams} />
+        <ActiveSubscriptions teams={teams} removeSubscription={removeSubscription} />
       </Box>
       <ChangesSavedModal isVisible={changesSaved} content={modalContent} />
     </>
