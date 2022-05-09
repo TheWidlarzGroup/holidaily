@@ -1,6 +1,7 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
+import { Box } from 'utils/theme'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
@@ -30,7 +31,7 @@ export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableMo
       swipeDirection="down"
       animationIn="slideInUp"
       animationOut="slideOutDown"
-      style={{ margin: 0, marginTop: 120 }}
+      style={{ margin: 0, marginTop: 110 }}
       animationInTiming={DEFAULT_MODAL_ANIM_TIME}
       animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
       onModalHide={() => {
@@ -41,7 +42,9 @@ export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableMo
       onBackButtonPress={fadeOut}
       onBackdropPress={fadeOut}
       {...rest}>
-      {children}
+      <Box flex={1} borderTopLeftRadius="m" borderTopRightRadius="l" overflow="hidden">
+        {children}
+      </Box>
     </Modal>
   )
 }
