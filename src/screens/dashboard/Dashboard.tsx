@@ -9,7 +9,7 @@ import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
   const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
-    useBooleanState(true)
+    useBooleanState(false)
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
