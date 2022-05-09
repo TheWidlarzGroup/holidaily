@@ -132,7 +132,7 @@ const legacyVariants = {
   buttonText1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 18,
-    color: 'white',
+    color: 'darkGrey',
     textAlign: 'center',
   },
   title1: {
@@ -149,7 +149,7 @@ const legacyVariants = {
   labelGrey: {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
-    color: 'labelLightGrey',
+    color: 'darkGreyBrighter',
   },
   labelGreyLight: {
     fontFamily: 'Nunito-Regular',

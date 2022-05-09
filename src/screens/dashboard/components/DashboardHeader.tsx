@@ -38,10 +38,12 @@ export const DashboardHeader = () => {
           </BaseOpacity>
         </Box>
         <Box alignItems="center" flex={1} paddingRight="xxl" marginLeft="xxl2plus">
-          <Text variant="textXS" numberOfLines={1}>
+          <Text variant="textXS" color="titleActive" numberOfLines={1}>
             {t('today')}
           </Text>
-          <Text variant="textBoldMD">{date}</Text>
+          <Text variant="textBoldMD" color="black">
+            {date}
+          </Text>
         </Box>
         <NotificationsBell unseenCount={unseenCount} />
       </Box>

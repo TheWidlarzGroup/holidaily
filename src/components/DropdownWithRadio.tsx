@@ -39,7 +39,7 @@ export const DropdownWithRadio = (props: DropdownWithRadioProps) => {
         </Text>
         <TouchableOpacity onPress={animation.changeOpened} hitSlop={hitSlop}>
           <Animated.View style={animation.animatedArrow}>
-            <ArrowDown />
+            <ArrowDown color={styles.arrow.color} />
           </Animated.View>
         </TouchableOpacity>
       </Box>
@@ -49,7 +49,12 @@ export const DropdownWithRadio = (props: DropdownWithRadioProps) => {
             key={option.label}
             onPress={() => changeSelectedOption(option.value)}
             style={index === 0 ? [styles.option, styles.firstOption] : styles.option}>
-            <Text variant="body1" paddingVertical="s" paddingHorizontal="m" textAlign="left">
+            <Text
+              variant="body1"
+              paddingVertical="s"
+              paddingHorizontal="m"
+              textAlign="left"
+              color="black">
               {option.label}
             </Text>
             <RadioInput checked={props.selectedOption === option.value} onPress={() => {}} />
@@ -89,5 +94,8 @@ const useStyles = mkUseStyles((theme) => ({
     width: theme.spacing.ml,
     height: theme.spacing.ml,
     marginHorizontal: theme.spacing.m,
+  },
+  arrow: {
+    color: theme.colors.black,
   },
 }))

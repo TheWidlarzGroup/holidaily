@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useContext, useEffect, useRef } from 'react'
 import { useUserContext } from 'hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
+import { mkUseStyles, Theme } from 'utils/theme'
 import SplashScreen from 'react-native-splash-screen'
 import { Splash } from 'screens/splash/Splash'
 import { sleep } from 'utils/sleep'
 import { getItem } from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
+import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -14,6 +16,10 @@ import { AppStackNavigation } from './AppStackNavigation'
 type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
 
 export const AppNavigation = () => {
+  const styles = useStyle()
+  const userSettingsContext = useContext(UserSettingsContext)
+  const isDarkTheme = !!userSettingsContext?.userSettings?.darkMode
+
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
@@ -63,8 +69,20 @@ export const AppNavigation = () => {
     checkLoginStatus()
   }, [updateUser, isTempUserCreated, createTempUser, init])
 
+  const navigatorTheme = {
+    dark: isDarkTheme,
+    colors: {
+      primary: styles.navigatorColors.primaryColor,
+      background: styles.navigatorColors.backgroundColor,
+      card: styles.navigatorColors.cardColor,
+      text: styles.navigatorColors.textColor,
+      border: styles.navigatorColors.borderColor,
+      notification: styles.navigatorColors.notificationColor,
+    },
+  }
+
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer linking={linking} theme={navigatorTheme}>
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
@@ -72,3 +90,15 @@ export const AppNavigation = () => {
     </NavigationContainer>
   )
 }
+
+const useStyle = mkUseStyles((theme: Theme) => ({
+  navigatorColors: {
+    primaryColor: theme.colors.primary,
+    cardColor: theme.colors.primary,
+    textColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
+    notificationColor: theme.colors.primary,
+    // colors above are used due to the TS demandings but they are not changing the UI
+    backgroundColor: theme.colors.dashboardBackground,
+  },
+}))

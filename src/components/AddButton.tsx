@@ -16,7 +16,7 @@ export const AddButton: FC<AddButtonProps> = ({ onPress }) => {
         <IconPlus />
       </RectButton>
       <Box position="absolute" bottom={-13}>
-        <CircleBg />
+        <CircleBg color={styles.background.color} width={91} height={45} />
       </Box>
     </Box>
   )
@@ -31,5 +31,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     height: 62,
     borderRadius: theme.borderRadii.lplus,
     zIndex: theme.zIndices[2],
+  },
+  background: {
+    color: theme.colors.white,
   },
 }))

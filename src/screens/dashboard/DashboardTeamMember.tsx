@@ -26,7 +26,7 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
         <TouchableOpacity
           onPress={closeModal}
           hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-          <IconBack height={18} width={18} />
+          <IconBack height={18} width={18} color="black" />
         </TouchableOpacity>
         <MateHeader user={user} />
         <MateHoliday user={user} />

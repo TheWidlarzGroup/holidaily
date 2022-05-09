@@ -45,7 +45,7 @@ const UserPhoto = ({
         borderRadius="full"
         alignItems="center"
         justifyContent="center">
-        <Text variant={size >= 62 ? 'avatarXL' : 'avatarLG'} color="white" padding="xs">
+        <Text variant={size >= 62 ? 'avatarXL' : 'avatarLG'} color="alwaysWhite" padding="xs">
           {userDetails.firstName[0]}
           {userDetails.lastName?.[0]}
         </Text>

@@ -14,7 +14,7 @@ export const InputEditIcon = ({ onPress }: { onPress: F0 | undefined }) => {
       width={49}
       height={49}
       borderWidth={4}
-      borderColor="white"
+      borderColor="whiteDarken"
       justifyContent="center"
       alignItems="center">
       <BaseOpacity onPress={() => onPress?.()} activeOpacity={0.2}>

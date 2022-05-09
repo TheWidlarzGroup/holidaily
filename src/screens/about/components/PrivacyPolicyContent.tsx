@@ -16,14 +16,14 @@ export const PrivacyPolicyContent = () => {
         <Paragraph i18nKey="p0b" />
         <PolicySection i18nKey="concerns" />
         <Subtitle i18nKey="contentsTableHeading" />
-        <Text textAlign="left" variant="body1">
+        <Text textAlign="left" variant="body1" color="black">
           {t('contentsTable')}
         </Text>
         <Subtitle i18nKey="p1heading" />
-        <Text textAlign="left" variant="body1Bold" marginVertical="m">
+        <Text textAlign="left" variant="body1Bold" marginVertical="m" color="black">
           {t('p1subheading')}
         </Text>
-        <Text textAlign="left" variant="body1">
+        <Text textAlign="left" variant="body1" color="black">
           {t('p1content1')}
         </Text>
         <PolicySection i18nKey="p1content2" />
@@ -36,16 +36,16 @@ export const PrivacyPolicyContent = () => {
         <Paragraph i18nKey="p1data2" />
         <Paragraph i18nKey="p1data3" />
         <Paragraph i18nKey="p1data4" />
-        <Text textAlign="left" variant="body1">
+        <Text textAlign="left" variant="body1" color="black">
           {t('p1info')}
         </Text>
-        <Text textAlign="left" variant="body1Bold" marginVertical="m">
+        <Text textAlign="left" variant="body1Bold" marginVertical="m" color="black">
           {t('p1auto')}
         </Text>
-        <Text textAlign="left" variant="body1">
+        <Text textAlign="left" variant="body1" color="black">
           {t('p1autocontent')}
         </Text>
-        <Text textAlign="left" variant="body1" marginVertical="m">
+        <Text textAlign="left" variant="body1" marginVertical="m" color="black">
           {t('p1collect')}
         </Text>
         <Paragraph i18nKey="p1collect1" />
@@ -58,7 +58,7 @@ export const PrivacyPolicyContent = () => {
           color="black">
           {t('p3italic')}
         </Text>
-        <Text textAlign="left" variant="body1">
+        <Text textAlign="left" variant="body1" color="black">
           {t('p3content')}
         </Text>
         <Paragraph i18nKey="p3a" />
@@ -73,7 +73,7 @@ const Subtitle = ({ i18nKey }: HelperProps) => {
   const { t } = useTranslation('privacyPolicy')
   return (
     <Box marginTop="l" marginBottom="m">
-      <Text fontFamily="Nunito-Bold" fontSize={18}>
+      <Text fontFamily="Nunito-Bold" fontSize={18} color="black">
         {t(i18nKey)}
       </Text>
     </Box>
@@ -81,13 +81,13 @@ const Subtitle = ({ i18nKey }: HelperProps) => {
 }
 
 const PolicySection = ({ i18nKey, noMargin }: HelperProps & { noMargin?: true }) => (
-  <Text textAlign="left" marginTop={noMargin ? undefined : 'l'} variant="body1">
+  <Text textAlign="left" marginTop={noMargin ? undefined : 'l'} variant="body1" color="black">
     {/* @ts-ignore */}
     <Trans
       ns="privacyPolicy"
       i18nKey={i18nKey}
       components={{
-        b: <Text variant="body1Bold" />,
+        b: <Text variant="body1Bold" color="black" />,
       }}
     />
   </Text>
@@ -95,7 +95,7 @@ const PolicySection = ({ i18nKey, noMargin }: HelperProps & { noMargin?: true })
 
 const Paragraph = ({ i18nKey }: HelperProps) => (
   <Box flexDirection="row" marginTop="l">
-    <Text marginRight="s" marginLeft="m">
+    <Text marginRight="s" marginLeft="m" color="black">
       ●
     </Text>
     <Box flex={1}>

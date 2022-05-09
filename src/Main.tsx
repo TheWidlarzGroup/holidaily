@@ -8,24 +8,31 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
 
 initBackendMocks()
 export const Main = () => {
-  // FIXME: read from user preferences
-  const darkMode = false
+  const { userSettings } = useUserSettingsContext()
+  const currentTheme = userSettings?.darkMode ? darkTheme : theme
+  const statusBarBgColor = currentTheme.colors.dashboardBackground
+  const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : theme}>
+    <ThemeProvider theme={currentTheme}>
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <ModalProvider>
             <TeamsContextProvider>
               <QueryClientProvider client={queryClient}>
                 <UserContextProvider>
-                  <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+                  <StatusBar
+                    translucent
+                    barStyle={statusBarStyle}
+                    backgroundColor={statusBarBgColor}
+                  />
                   <AppNavigation />
                 </UserContextProvider>
               </QueryClientProvider>

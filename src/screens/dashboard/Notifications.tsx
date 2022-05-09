@@ -26,7 +26,7 @@ export const Notifications = () => {
         justifyContent="space-between"
         paddingLeft="m">
         <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <IconBack height={18} width={18} />
+          <IconBack height={18} width={18} color="black" />
         </TouchableOpacity>
         <Text variant="header">{t('header')}</Text>
         <Box paddingRight="l" />

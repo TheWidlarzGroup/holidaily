@@ -19,10 +19,10 @@ export const MateHoliday = ({ user }: { user: User }) => {
       <Text variant="inputErrorMessage" marginVertical="m" color={colorHeader}>
         {t(header).toUpperCase()}
       </Text>
-      <Text variant="header" textAlign="left" color={color}>
+      <Text variant="header" textAlign="left" color="alwaysWhite">
         {description || t('coupleDaysOff')}
       </Text>
-      <Text variant="regularGrey16" color={color} marginTop="s" marginBottom="xs">
+      <Text variant="regularGrey16" color="alwaysDarkenWhite" marginTop="s" marginBottom="xs">
         {startDate && endDate && displayDatesRange(startDate, endDate)}
       </Text>
       {isSickTime && (

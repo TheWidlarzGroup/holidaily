@@ -19,7 +19,7 @@ export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
         <TouchableOpacity
           onPress={() => navigate('Slider')}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <BackArrowIcon height={18} width={18} />
+          <BackArrowIcon height={18} width={18} color="black" />
         </TouchableOpacity>
       </Box>
       <Box>

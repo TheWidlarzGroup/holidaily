@@ -35,7 +35,7 @@ export const BubbleContainer = ({
         <IconBack />
       </TouchableOpacity>
       <Box marginTop="xxxl" alignItems="center">
-        <Text variant="buttonText1" marginHorizontal="xxl">
+        <Text variant="buttonText1" marginHorizontal="xxl" color="alwaysWhite">
           {t('colorPicker')}
         </Text>
       </Box>

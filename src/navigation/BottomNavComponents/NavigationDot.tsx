@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
-import { theme } from 'utils/theme'
+import { mkUseStyles, Theme } from 'utils/theme'
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -17,6 +16,7 @@ type NavigationDotProps = {
 }
 
 export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, minIconWidth }) => {
+  const styles = useStyles()
   const startingPos = (width - 5) / 2
   const dotWidth = useSharedValue(5)
   const dotHeight = useSharedValue(5)
@@ -60,14 +60,14 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, m
   )
 }
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   dotContainer: {
     height: 20,
     marginBottom: 5,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
   },
   dot: {
     borderRadius: 2.5,
     backgroundColor: theme.colors.black,
   },
-})
+}))

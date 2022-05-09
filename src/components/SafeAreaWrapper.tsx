@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet } from 'react-native'
-import { colors } from 'utils/theme/colors'
-import { theme } from 'utils/theme'
+import { mkUseStyles, Theme, theme } from 'utils/theme'
 
 type EdgesTypes = 'top' | 'bottom' | 'left' | 'right'
 
@@ -19,27 +17,30 @@ export const SafeAreaWrapper: FC<WrapperProps> = ({
   edges,
   children,
   isDarkBgColor,
-}) => (
-  <SafeAreaView
-    edges={edges || ['top', 'right', 'bottom', 'left']}
-    style={[
-      styles.container,
-      !isDefaultBgColor && styles.containerBackground,
-      isDarkBgColor && styles.darkContainerBackground,
-      isTabNavigation && { paddingBottom: theme.spacing.xxxl },
-    ]}>
-    {children}
-  </SafeAreaView>
-)
+}) => {
+  const styles = useStyles()
+  return (
+    <SafeAreaView
+      edges={edges || ['top', 'right', 'bottom', 'left']}
+      style={[
+        styles.container,
+        !isDefaultBgColor && styles.containerBackground,
+        isDarkBgColor && styles.darkContainerBackground,
+        isTabNavigation && { paddingBottom: theme.spacing.xxxl },
+      ]}>
+      {children}
+    </SafeAreaView>
+  )
+}
 
-const styles = StyleSheet.create({
+const useStyles = mkUseStyles((theme: Theme) => ({
   container: {
     flex: 1,
   },
   containerBackground: {
-    backgroundColor: colors.white,
+    backgroundColor: theme.colors.dashboardBackgroundBrighter,
   },
   darkContainerBackground: {
-    backgroundColor: colors.grey,
+    backgroundColor: theme.colors.grey,
   },
-})
+}))

@@ -36,15 +36,11 @@ export const RadioInput = ({ checked, onPress }: RadioInputProps) => {
   }, [])
 
   const animatedCenterStyles = useAnimatedStyle(() => {
-    const borderColor = interpolateColor(
-      changeProgress.value,
-      [0, 1],
-      [colors.lightGrey, colors.white]
-    )
+    const borderColor = interpolateColor(changeProgress.value, [0, 1], [colors.grey, colors.white])
     const backgroundColor = interpolateColor(
       changeProgress.value,
       [0, 1],
-      [colors.lightGrey, colors.secondary]
+      [colors.grey, colors.secondary]
     )
     return { borderColor, backgroundColor }
   }, [])
@@ -62,7 +58,7 @@ const useStyles = mkUseStyles((theme) => ({
   center: {
     height: 15,
     width: 15,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.tertiary,
     borderRadius: theme.borderRadii.full,
     borderColor: theme.colors.white,
     borderWidth: 2.5,

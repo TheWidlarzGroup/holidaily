@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Box, Text } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import IconClose from 'assets/icons/icon-close2.svg'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
@@ -18,6 +18,7 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
     } else closeModal()
   }
 
+  const styles = useStyles()
   const navigation = useNavigation()
   const { t } = useTranslation('welcome')
 
@@ -31,9 +32,9 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
         onPress={handleGoBack}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
         {isFromWelcomeScreen ? (
-          <IconClose height={14} width={14} />
+          <IconClose height={14} width={14} color={styles.arrow.color} />
         ) : (
-          <IconBack height={18} width={18} />
+          <IconBack height={18} width={18} color={styles.arrow.color} />
         )}
       </TouchableOpacity>
       <Box marginTop="l">
@@ -43,3 +44,9 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  arrow: {
+    color: theme.colors.black,
+  },
+}))

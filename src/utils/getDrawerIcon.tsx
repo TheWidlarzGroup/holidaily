@@ -40,19 +40,19 @@ export const DrawerIcon = (tab: Tab) => {
       return <EditIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'Settings': {
-      return <SettingsIcon {...iconDimensions} />
+      return <SettingsIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'HolidayBudget': {
-      return <BudgetIcon {...iconDimensions} />
+      return <BudgetIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'About': {
       return <AboutIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'Logout': {
-      return <LogoutIcon {...iconDimensions} />
+      return <LogoutIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'AdminPanelEmployeesNavigation': {
-      return <EmployeesIcon {...smallDimensions} />
+      return <EmployeesIcon {...smallDimensions} color={theme.colors.black} />
     }
     default:
       break
