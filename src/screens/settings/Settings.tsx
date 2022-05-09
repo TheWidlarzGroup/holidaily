@@ -27,9 +27,7 @@ export const Settings = () => {
 
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer
-        onSwipeRight={handleGoBack}
-        style={{ flex: 1, backgroundColor: styles.container.backgroundColor }}>
+      <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1, ...styles.container }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
         <Box marginHorizontal="m" flex={1}>
           <DarkModeSwitch />

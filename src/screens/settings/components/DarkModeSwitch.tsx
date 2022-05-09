@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Checkbox } from 'components/Checkbox'
 import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Text } from 'utils/theme'
-import { UserSettingsContext } from 'contexts/UserSettingsContext'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 
 const TIMEOUT = 50
 
@@ -10,19 +10,22 @@ export const DarkModeSwitch = () => {
   const [mode, setMode] = useState(false)
   const styles = useStyles()
   const { t } = useTranslation('settings')
-  const settingsCtx = useContext(UserSettingsContext)
+  const { userSettings, updateSettings } = useUserSettingsContext()
 
   useEffect(() => {
-    const updateMode = settingsCtx?.userSettings?.darkMode || false
+    const updateMode = userSettings?.darkMode || false
     setMode(updateMode)
-  }, [settingsCtx])
+  }, [userSettings])
 
   const switchMode = () => {
-    const update = settingsCtx?.updateSettings
+    const update = updateSettings
     setMode((prev) => !prev)
-    setTimeout(() => {
+    const delay = setTimeout(() => {
       if (update) update({ darkMode: !mode })
     }, TIMEOUT)
+    return () => {
+      clearTimeout(delay)
+    }
   }
 
   return (
