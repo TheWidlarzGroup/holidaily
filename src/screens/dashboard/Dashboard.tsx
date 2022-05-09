@@ -18,10 +18,11 @@ export const Dashboard = () => {
   }
 
   const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
-    useBooleanState(true)
+    useBooleanState(false)
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
+      console.log(seenTeamsModal)
       if (seenTeamsModal === 'false') return
       setTimeout(async () => {
         openSuccessModal()

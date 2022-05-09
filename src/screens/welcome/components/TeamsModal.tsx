@@ -23,7 +23,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
         paddingHorizontal="m"
         marginTop={isIos ? '-l' : 0}
         paddingBottom="l"
-        paddingTop="l">
+        paddingTop={isIos ? 'xlplus' : 'l'}>
         <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
           <ModalHandleIndicator />
           <TouchableOpacity
