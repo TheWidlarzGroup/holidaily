@@ -84,7 +84,7 @@ export const Welcome = () => {
         backgroundColor="white"
         paddingBottom="l"
         alignItems="center">
-        <Box maxWidth={250} paddingBottom={isIos ? 'l' : 's'}>
+        <Box paddingBottom={isIos ? 'l' : 's'}>
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}

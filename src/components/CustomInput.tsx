@@ -106,7 +106,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               editable={!disabled}
               {...props}
             />
-            {reset && value && value.length > 0 ? (
+            {reset && value && value.length > 0 && isFocused ? (
               <BaseOpacity position="absolute" right={15} onPress={reset}>
                 <DeleteIcon width={20} height={20} />
               </BaseOpacity>
