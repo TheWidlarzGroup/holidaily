@@ -1,12 +1,8 @@
-import { createContext } from 'react'
-
-export type UserSettings = {
-  darkMode: boolean
-}
+import { createContext, Dispatch, SetStateAction } from 'react'
 
 export type UserSettingsContextProps = {
-  userSettings: UserSettings | null
-  updateSettings: F1<UserSettings>
+  userSettings: string | null
+  updateSettings: Dispatch<SetStateAction<string>>
 }
 
 export const UserSettingsContext = createContext<UserSettingsContextProps | null>(null)

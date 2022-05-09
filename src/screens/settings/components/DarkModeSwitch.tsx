@@ -13,7 +13,7 @@ export const DarkModeSwitch = () => {
   const { userSettings, updateSettings } = useUserSettingsContext()
 
   useEffect(() => {
-    const updateMode = userSettings?.darkMode || false
+    const updateMode = userSettings === 'true'
     setMode(updateMode)
   }, [userSettings])
 
@@ -21,7 +21,7 @@ export const DarkModeSwitch = () => {
     const update = updateSettings
     setMode((prev) => !prev)
     const delay = setTimeout(() => {
-      if (update) update({ darkMode: !mode })
+      if (update) update(JSON.stringify(!mode))
     }, TIMEOUT)
     return () => {
       clearTimeout(delay)

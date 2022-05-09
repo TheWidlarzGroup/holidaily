@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useUserContext } from 'hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { mkUseStyles, Theme } from 'utils/theme'
@@ -8,7 +8,6 @@ import { sleep } from 'utils/sleep'
 import { getItem } from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
-import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -17,8 +16,6 @@ type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisi
 
 export const AppNavigation = () => {
   const styles = useStyle()
-  const userSettingsContext = useContext(UserSettingsContext)
-  const isDarkTheme = !!userSettingsContext?.userSettings?.darkMode
 
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
@@ -70,7 +67,7 @@ export const AppNavigation = () => {
   }, [updateUser, isTempUserCreated, createTempUser, init])
 
   const navigatorTheme = {
-    dark: isDarkTheme,
+    dark: true,
     colors: {
       primary: styles.navigatorColors.primaryColor,
       background: styles.navigatorColors.backgroundColor,
