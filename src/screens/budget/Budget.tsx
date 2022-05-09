@@ -61,7 +61,7 @@ export const Budget = () => {
 }
 
 const SectionBoldText = ({ text }: { text: string }) => (
-  <Text variant="textBoldMD" lineHeight={33} letterSpacing={0.24} marginVertical="xm">
+  <Text variant="textBoldMD" lineHeight={33} letterSpacing={0.16} marginVertical="xm">
     {text}
   </Text>
 )
