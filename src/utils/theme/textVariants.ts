@@ -32,57 +32,57 @@ const avatar = {
 }
 const text = {
   textMD: {
-    fontWeight: 'Nunito-Regular',
+    fontFamily: 'Nunito-Regular',
     fontSize: 16,
     textAlign: 'left',
   },
   textBoldMD: {
-    fontWeight: 'Nnunito-Bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 16,
     textAlign: 'left',
   },
   textSM: {
-    fontWeight: 'Nunito-Regular',
+    fontFamily: 'Nunito-Regular',
     fontSize: 14,
     textAlign: 'left',
   },
   textBoldSM: {
-    fontWeight: 'Nnunito-Bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 14,
     textAlign: 'left',
   },
   textXS: {
-    fontWeight: 'Nunito-Regular',
+    fontFamily: 'Nunito-Regular',
     fontSize: 12,
     textAlign: 'left',
   },
   textBoldXS: {
-    fontWeight: 'Nnunito-Bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 12,
     textAlign: 'left',
   },
 }
 const display = {
   displayBoldLG: {
-    fontWeight: 'Nunito-Bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 22,
     letterSpacing: 0.01 * 22,
     textAlign: 'center',
   },
   displayBoldMD: {
-    fontWeight: 'Nunito-Bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 20,
     letterSpacing: 0.01 * 20,
     textAlign: 'center',
   },
   displayBoldSM: {
-    fontWeight: 'Nunito-Bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 16,
     letterSpacing: 0.01 * 16,
     textAlign: 'center',
   },
   displayXS: {
-    fontWeight: 'Nunito-Regular',
+    fontFamily: 'Nunito-Regular',
     fontSize: 12,
   },
 }

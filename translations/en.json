@@ -187,8 +187,7 @@
     "colorPicker": "Pick your favourite color and drop it in the grey area below"
   },
   "dashboard": {
-    "welcome": "Hello {{name}}!",
-    "today": "Today is {{date}}",
+    "today": "Today is:",
     "bookedHolidays": "PRESENT & UPCOMING TIME OFF",
     "teamsList": "YOUR TEAMS",
     "outOfWorkNow": "Out of work now",
@@ -210,7 +209,8 @@
     "locationsAccessPromptText": "Use my location",
     "locationsSearch": "Search",
     "locationNotFound": "Not found",
-    "loading": "Searching..."
+    "loading": "Searching...",
+    "exceededAmount": "You exceeded amount of images in single post"
   },
   "createPost": {
     "title": "Create Post",

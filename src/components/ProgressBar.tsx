@@ -7,15 +7,25 @@ import { ProgressDot } from './ProgressDot'
 type ProgressBarProps = {
   scrollPositionX: Animated.SharedValue<number>
   slidersCount: number
+  postPagination?: true
 }
 
-export const ProgressBar: FC<ProgressBarProps> = ({ scrollPositionX, slidersCount }) => {
+export const ProgressBar: FC<ProgressBarProps> = ({
+  scrollPositionX,
+  slidersCount,
+  postPagination,
+}) => {
   const mockArr = Array(slidersCount).fill('')
 
   return (
     <Box flexDirection="row">
       {mockArr.map((_, index) => (
-        <ProgressDot scrollPositionX={scrollPositionX} key={index} index={index} />
+        <ProgressDot
+          scrollPositionX={scrollPositionX}
+          key={index}
+          index={index}
+          postPagination={postPagination}
+        />
       ))}
     </Box>
   )

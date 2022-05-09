@@ -11,7 +11,7 @@ export const SIZE_H = 130
 // height of dashboard header, height of bottom padding, height of carousel nested in scrollView
 export const HEADER_OFFSET = 90
 export const BOTTOM_OFFSET = themeBase.spacing.xxxl
-export const NESTED_ELEM_OFFSET = 180
+export const NESTED_ELEM_OFFSET = 205
 
 type Order = number
 export type Positions = {

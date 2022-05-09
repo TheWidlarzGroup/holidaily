@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -9,6 +9,8 @@ import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
+import { useBooleanState } from 'hooks/useBooleanState'
+import { LoadingModal } from 'components/LoadingModal'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
@@ -28,6 +30,13 @@ const CalendarToWrap = () => {
     flatListRef.current?.scrollToIndex({ index, animated: true })
     setTimeout(() => setSelectedDate(parseISO(dateString)))
   }
+
+  // Comment: show loader spinner while calendar is rendering
+  const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
+  useEffect(() => {
+    hideLoader()
+  }, [hideLoader])
+  if (isLoading) return <LoadingModal show />
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>

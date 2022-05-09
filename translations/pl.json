@@ -187,8 +187,7 @@
     "colorPicker": "Wybierz swój ulubiony kolor\ni przeciągnij go do szarego pola na dole"
   },
   "dashboard": {
-    "welcome": "Cześć {{name}}!",
-    "today": "Dzisiaj jest {{date}}",
+    "today": "Dzisiaj jest:",
     "bookedHolidays": "OBECNE I NADCHODZĄCE URLOPY",
     "teamsList": "TWOJE DZIAŁY",
     "outOfWorkNow": "Obecnie na urlopie",
@@ -210,7 +209,8 @@
     "locationsAccessPromptText": "Uzyj mojej lokalizacji",
     "locationsSearch": "Wyszukaj",
     "locationNotFound": "Nie znaleziono",
-    "loading": "Szukam..."
+    "loading": "Szukam...",
+    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście"
   },
   "createPost": {
     "title": "Utwórz Post",

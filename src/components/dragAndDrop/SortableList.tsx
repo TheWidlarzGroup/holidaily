@@ -74,8 +74,13 @@ export const SortableList = ({ children, openUserModal }: SortableListProps) => 
         ListHeaderComponent={
           <Box height={NESTED_ELEM_OFFSET}>
             <Carousel openUserModal={openUserModal} />
-            <Text variant="lightGreyRegular" color="headerGrey" marginHorizontal="m">
-              {t('teamsList').toUpperCase()}
+            <Text
+              variant="lightGreyRegular"
+              color="darkGrey"
+              marginHorizontal="xm"
+              marginBottom="xs"
+              letterSpacing={0.7}>
+              {t('teamsList')}
             </Text>
           </Box>
         }
