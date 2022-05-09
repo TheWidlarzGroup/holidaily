@@ -22,7 +22,6 @@ export const Dashboard = () => {
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
-      console.log(seenTeamsModal)
       if (seenTeamsModal === 'false') return
       setTimeout(async () => {
         openSuccessModal()
