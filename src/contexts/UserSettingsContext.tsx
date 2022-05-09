@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-type UserSettings = {
+export type UserSettings = {
   darkMode: boolean
 }
 

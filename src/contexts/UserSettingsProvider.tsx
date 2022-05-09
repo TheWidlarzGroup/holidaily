@@ -1,6 +1,5 @@
 import React, { ReactNode, useState, useCallback } from 'react'
-import { UserSettings } from 'types/userSettingsTypes'
-import { ContextProps, UserSettingsContext } from './UserSettingsContext'
+import { UserSettingsContextProps, UserSettings, UserSettingsContext } from './UserSettingsContext'
 
 type ProviderProps = {
   children: ReactNode
@@ -20,6 +19,6 @@ export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
     []
   )
 
-  const value: ContextProps = { userSettings, updateSettings }
+  const value: UserSettingsContextProps = { userSettings, updateSettings }
   return <UserSettingsContext.Provider value={value}>{children}</UserSettingsContext.Provider>
 }
