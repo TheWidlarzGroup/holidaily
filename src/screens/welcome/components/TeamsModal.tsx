@@ -17,13 +17,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
-      <Box
-        backgroundColor="white"
-        flexGrow={1}
-        paddingHorizontal="m"
-        marginTop={isIos ? '-l' : 0}
-        paddingBottom="l"
-        paddingTop={isIos ? 'xlplus' : 'l'}>
+      <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" paddingVertical="l">
         <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
           <ModalHandleIndicator />
           <TouchableOpacity
