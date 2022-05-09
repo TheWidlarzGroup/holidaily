@@ -85,6 +85,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       <Box
         paddingVertical="xm"
         width="100%"
+        height={variant === 'tertiary' ? 39 : 44}
         flexDirection="row"
         alignItems="center"
         justifyContent="center"
@@ -100,7 +101,6 @@ export const CustomButton: FC<CustomButtonProps> = ({
               {icon === 'apple' && <IconApple style={styles.icon} />}
               {icon === 'plus' && <IconPlusSmall style={styles.icon} />}
               <Text
-                lineHeight={variant === 'tertiary' ? 18 : 22}
                 variant={variant === 'tertiary' ? 'buttonSM' : 'buttonMD'}
                 style={{ color: variant === 'secondary' && disabled ? rippleColor : color }}
                 opacity={disabled && variant === 'primary' ? 0.8 : 1}>

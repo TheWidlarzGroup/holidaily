@@ -114,7 +114,7 @@ export const Slider: FC = () => {
       <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="m">
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
-      <Box maxWidth={250} marginBottom="lplus">
+      <Box marginBottom="lplus">
         <CustomButton variant="alternative" label={t('next')} onPress={handlePressButton} />
       </Box>
     </SafeAreaView>
