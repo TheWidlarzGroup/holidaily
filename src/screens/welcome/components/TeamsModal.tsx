@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
@@ -9,14 +9,11 @@ import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
 import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { isIos } from 'utils/layout'
 import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
-import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 
 const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
 
 export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('welcome')
-  const initTeams = useInitDemoUserTeams()
-  useEffect(() => {}, [initTeams])
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" marginTop={isIos ? '-l' : 0}>
