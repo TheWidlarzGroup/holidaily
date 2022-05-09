@@ -1,5 +1,6 @@
 import { Server } from 'miragejs'
 import { Comment, FeedPost, Reaction, Schema } from 'mockApi/models'
+import { sourcePeter } from './notificationSources'
 
 export const postsSeed = (context: Server<Schema>) => {
   // @ts-ignore
@@ -14,7 +15,7 @@ export const postsSeed = (context: Server<Schema>) => {
   context.create('post', { ...postsMock[1], comments: [comments[1]], reactions: [reactions[3]] })
   context.create('post', {
     ...postsMock[2],
-    comments: [comments[2]],
+    comments: [comments[2], comments[3]],
     reactions: [reactions[4], reactions[5], reactions[6]],
   })
 }
@@ -152,6 +153,21 @@ export const commentsMock: Comment[] = [
       },
     },
     text: 'Nice flowers',
+  },
+  {
+    meta: {
+      id: '4',
+      author: {
+        id: sourcePeter.id,
+        occupation: sourcePeter.occupation,
+        name: `${sourcePeter.firstName} ${sourcePeter.lastName}`,
+        pictureUrl: sourcePeter.photo,
+      },
+      timestamp: {
+        createdAt: new Date(),
+      },
+    },
+    text: "Oh boy, that's what I call relax",
   },
 ]
 
