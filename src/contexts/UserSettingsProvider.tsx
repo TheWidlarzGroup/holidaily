@@ -1,4 +1,5 @@
 import React, { ReactNode, useState, useEffect } from 'react'
+import { Appearance } from 'react-native'
 import { getItem, setItem } from 'utils/localStorage'
 import { UserSettingsContextProps, UserSettings, UserSettingsContext } from './UserSettingsContext'
 
@@ -7,7 +8,7 @@ type ProviderProps = {
 }
 
 export const defaultUserSettings: UserSettings = {
-  darkMode: false,
+  darkMode: Appearance.getColorScheme() === 'dark',
 }
 
 export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
