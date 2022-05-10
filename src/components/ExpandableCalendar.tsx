@@ -53,10 +53,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
   const fullCalendarContainerRef = useAnimatedRef()
-  const fullCalendarHeight = useSharedValue(
+  const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
+  const containerHeight = useSharedValue(
     isScreenHeightShort ? BASE_CALENDAR_HEIGHT : WEEK_CALENDAR_HEIGHT
   )
-  const containerHeight = useSharedValue(fullCalendarHeight.value)
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
   )
