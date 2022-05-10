@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
@@ -10,6 +10,7 @@ import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
 import { User } from 'mockApi/models'
 import { SwipeableModal } from 'components/SwipeableModal'
+import { useUserContext } from 'hooks/useUserContext'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 type DashboardTeamProps = DashboardNavigationProps<'DashboardTeam'>
@@ -23,23 +24,31 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     setModalUser(user)
     setIsModalVisible(true)
   }
-  let matesOnHoliday = params && params?.users?.filter((mate) => mate.isOnHoliday)
-  matesOnHoliday = matesOnHoliday.filter(
-    (user) => user.requests[0].endDate > new Date().toISOString()
-  )
-  matesOnHoliday.sort(sortByEndDate)
+  const { user } = useUserContext()
 
-  let matesWithPlannedHolidays = params?.users?.filter(
-    (mate) => !mate.isOnHoliday && mate.requests[0].startDate
-  )
-  matesWithPlannedHolidays = matesWithPlannedHolidays.filter(
-    (user) => user.requests[0].endDate > new Date().toISOString()
-  )
-  matesWithPlannedHolidays.sort(sortByStartDate)
+  const { matesOnHoliday, matesWithPlannedHolidays, matesWithNoPlannedHolidays } = useMemo(() => {
+    let mates: User[] = []
+    if (params?.users && user) mates = [...params.users, user]
+    else if (params?.users) mates = params.users
+    let matesOnHoliday = mates.filter((mate) => mate.isOnHoliday)
+    matesOnHoliday = matesOnHoliday.filter(
+      (user) => user.requests[0].endDate > new Date().toISOString()
+    )
+    matesOnHoliday.sort(sortByEndDate)
 
-  const matesWithNoPlannedHolidays = params?.users?.filter(
-    (mate) => !mate.isOnHoliday && !mate.requests[0].startDate
-  )
+    let matesWithPlannedHolidays = mates.filter(
+      (mate) => !mate.isOnHoliday && mate.requests[0].startDate
+    )
+    matesWithPlannedHolidays = matesWithPlannedHolidays.filter(
+      (user) => user.requests[0].endDate > new Date().toISOString()
+    )
+    matesWithPlannedHolidays.sort(sortByStartDate)
+
+    const matesWithNoPlannedHolidays = mates.filter(
+      (mate) => !mate.isOnHoliday && !mate.requests[0].startDate
+    )
+    return { matesOnHoliday, matesWithPlannedHolidays, matesWithNoPlannedHolidays }
+  }, [params?.users, user])
 
   return (
     <>

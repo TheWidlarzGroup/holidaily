@@ -19,10 +19,10 @@ export const MateHolidayDetail = (props: MateHolidayDetailProps) => {
       <Text variant="inputErrorMessage" marginVertical="m" color="headerGrey">
         {t(header).toUpperCase()}
       </Text>
-      <Text variant="bold20" color="alwaysWhite">
+      <Text variant="bold20" color="black">
         {displayDayShort(dateTobedisplay)}
       </Text>
-      <Text variant="regularGrey16" color="alwaysDarkenWhite">
+      <Text variant="regularGrey16" color="black">
         {displayWeekday(dateTobedisplay)}
       </Text>
     </Box>

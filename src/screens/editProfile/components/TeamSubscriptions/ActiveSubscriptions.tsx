@@ -7,28 +7,21 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 
 type ActiveSubscriptionsProps = {
   teams: TeamsType[]
-  filterUnsubscribedTeams: F1<string>
+  removeSubscription: F1<string>
 }
 
 type SubscriptionProps = {
   teamName: string
-  filterUnsubscribedTeams: F1<string>
+  removeSubscription: F1<string>
 }
 
-export const ActiveSubscriptions = ({
-  teams,
-  filterUnsubscribedTeams,
-}: ActiveSubscriptionsProps) => {
+export const ActiveSubscriptions = ({ teams, removeSubscription }: ActiveSubscriptionsProps) => {
   const teamElements = useMemo(
     () =>
       teams.map(({ teamName, id }) => (
-        <Subscription
-          teamName={teamName}
-          key={id}
-          filterUnsubscribedTeams={filterUnsubscribedTeams}
-        />
+        <Subscription teamName={teamName} key={id} removeSubscription={removeSubscription} />
       )),
-    [teams, filterUnsubscribedTeams]
+    [teams, removeSubscription]
   )
   return (
     <Box flexDirection="row" marginRight="xl" flexWrap="wrap">
@@ -53,7 +46,7 @@ const Subscription = (p: SubscriptionProps) => {
         isVisible={isConfirmationNeeded}
         onAccept={() => {
           dismissConfirmation()
-          p.filterUnsubscribedTeams(p.teamName)
+          p.removeSubscription(p.teamName)
         }}
         hideModal={dismissConfirmation}
         onDecline={dismissConfirmation}
