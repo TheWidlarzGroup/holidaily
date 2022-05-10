@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
-import { SIZE_W, SIZE_H } from 'components/dragAndDrop/Config'
+import { SIZE_H } from 'components/dragAndDrop/Config'
 import { Team } from 'mock-api/models/mirageTypes'
 import { qtyOnHolidayNow } from 'utils/functions'
 import { makeUserDetails } from 'utils/userDetails'
@@ -11,30 +11,29 @@ type TeamElementProps = Team & {
   navigateToTeamScreen: F0
 }
 
-export const TeamElement = (props: TeamElementProps) => {
-  const { id, name, users, navigateToTeamScreen } = props
+export const TeamElement = (p: TeamElementProps) => {
   const theme = useTheme()
   return (
-    <Box key={id} width={SIZE_W} height={SIZE_H}>
+    <Box key={p.id} height={SIZE_H}>
       <BaseOpacity
+        marginBottom="m"
         borderRadius="m"
-        margin="s"
         padding="s"
         bg="white"
         flex={1}
-        onPress={navigateToTeamScreen}>
+        onPress={p.navigateToTeamScreen}>
         <Box flexDirection="row" justifyContent="space-between">
-          <Text variant="textSM">{name}</Text>
+          <Text variant="textSM">{p.name}</Text>
           <Box flexDirection="row" alignItems="center">
             <IconPalm color={theme.colors.tertiary} width={16} height={16} />
             <Text variant="label1" marginLeft="s" color="tertiary">
-              {qtyOnHolidayNow(users)}
+              {qtyOnHolidayNow(p.users)}
             </Text>
           </Box>
         </Box>
         <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-          <Avatar src={users[0]?.photo} userDetails={makeUserDetails(users[0])} />
-          <Avatar src={users[1]?.photo} userDetails={makeUserDetails(users[1])} />
+          <Avatar src={p.users[0]?.photo} userDetails={makeUserDetails(p.users[0])} />
+          <Avatar src={p.users[1]?.photo} userDetails={makeUserDetails(p.users[1])} />
         </Box>
       </BaseOpacity>
     </Box>
