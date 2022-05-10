@@ -24,7 +24,7 @@ export const CarouselElement = (p: CarouselElementProps) => (
           src={p.photo}
           userDetails={{ userColor: p.userColor, firstName: p.firstName, lastName: p.lastName }}
         />
-        {p.isOnHoliday && <OnHolidayTag variant="small" background="grey" />}
+        {p.isOnHoliday && <OnHolidayTag variant="small" background="dashboardBackground" />}
       </Box>
       <Box width={90} height={26} alignItems="center" justifyContent="center">
         <Text variant="lightGreyRegular" color="black" lineHeight={14}>
