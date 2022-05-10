@@ -16,9 +16,9 @@ import { initBackendMocks } from './mock-api/server'
 initBackendMocks()
 export const Main = () => {
   const { userSettings } = useUserSettingsContext()
-  const currentTheme = userSettings === 'true' ? darkTheme : theme
+  const currentTheme = userSettings?.darkMode ? darkTheme : theme
   const statusBarBgColor = currentTheme.colors.dashboardBackground
-  const statusBarStyle = userSettings === 'true' ? 'light-content' : 'dark-content'
+  const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
 
   return (
     <ThemeProvider theme={currentTheme}>

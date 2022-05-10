@@ -33,7 +33,7 @@ export const Budget = () => {
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
-        <Box paddingHorizontal="m" paddingTop="xxl">
+        <Box paddingHorizontal="m" paddingTop="xxl" backgroundColor="dashboardBackground">
           <Box style={[styles.section]} marginBottom="l2plus">
             <AvailablePto availablePto={user?.availablePto ?? 0} />
           </Box>
