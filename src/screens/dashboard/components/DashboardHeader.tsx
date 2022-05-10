@@ -37,11 +37,11 @@ export const DashboardHeader = () => {
             <Avatar size="s" src={user?.photo} userDetails={makeUserDetails(user)} />
           </BaseOpacity>
         </Box>
-        <Box alignItems="center" flex={1} paddingRight="xxl" marginLeft="xxl2plus">
-          <Text variant="textXS" color="titleActive" numberOfLines={1}>
+        <Box alignItems="center" flex={1}>
+          <Text variant="textXS" color="titleActive" lineHeight={16}>
             {t('today')}
           </Text>
-          <Text variant="textBoldMD" color="black">
+          <Text variant="textBoldMD" color="black" lineHeight={21}>
             {date}
           </Text>
         </Box>

@@ -57,7 +57,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'Feed'>)
           renderItem={({ item }) => <FeedPost post={item} />}
           keyExtractor={({ meta }) => meta.id}
           extraData={language}
-          contentContainerStyle={{ paddingBottom: 70 }}
+          contentContainerStyle={{ paddingBottom: 90 }}
         />
       </Box>
     </SafeAreaWrapper>

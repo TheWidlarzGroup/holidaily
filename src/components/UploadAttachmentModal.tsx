@@ -104,7 +104,7 @@ export const UploadAttachmentModal = ({
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     width: '100%',
-    minHeight: 160,
+    minHeight: 220,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,

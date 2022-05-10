@@ -83,7 +83,6 @@ export const CustomButton: FC<CustomButtonProps> = ({
         variant === 'tertiary' && styles.smallBtn,
       ]}>
       <Box
-        paddingVertical="xm"
         width="100%"
         height={variant === 'tertiary' ? 39 : 44}
         flexDirection="row"
