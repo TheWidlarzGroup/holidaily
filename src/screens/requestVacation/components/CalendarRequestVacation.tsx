@@ -6,6 +6,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
+import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { Box, mkUseStyles } from 'utils/theme'
 import { CalendarHeader } from './CalendarHeader'
 import { MaxSickdays, MAX_SICK_DAYS_COUNT } from './MaxSickDays'
@@ -41,6 +42,8 @@ export const CalendarRequestVacation = ({
     showCalendar()
   }, [showCalendar])
   const styles = useStyles()
+  const [month, setMonth] = useState<Date>(new Date())
+
   return (
     <Box backgroundColor="white" borderRadius="m" flex={1} alignItems="center">
       <LoadingModal show />
@@ -53,7 +56,13 @@ export const CalendarRequestVacation = ({
             selectPeriodEnd={selectPeriodEnd}
             selectable
             style={styles.calendar}
-            renderHeader={(date: Date) => <CalendarHeader date={date} />}
+            renderHeader={(date: Date) => {
+              // setTimeout(() => {
+              setMonth(date)
+              // }, 0)
+              return <CalendarHeader date={date} />
+            }}
+            monthHeight={doesMonthInCalendarHasSixRows(month) ? 550 : 290}
             markedDates={{}}
             isInvalid={isInvalid}
           />
@@ -80,7 +89,7 @@ const useStyles = mkUseStyles((theme) => ({
   },
   calendar: {
     width: 318,
-    marginTop: theme.spacing.l,
+    marginTop: theme.spacing.s,
   },
   dayNames: {
     width: '100%',

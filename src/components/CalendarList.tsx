@@ -18,6 +18,7 @@ type CustomCalendarProps = {
   selectable?: boolean
   onHeaderPressed?: F0
   isInvalid?: boolean
+  monthHeight?: number
 }
 
 export const CalendarList = ({
@@ -87,7 +88,7 @@ export const CalendarList = ({
         ...markedDates,
         ...genMarkedDates(p.periodStart, p.periodEnd),
       }}
-      calendarHeight={410}
+      calendarHeight={p.monthHeight || 0}
       {...p}
     />
   )

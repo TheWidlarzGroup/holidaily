@@ -111,6 +111,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     opacity: opacity.value,
     maxHeight: containerHeight.value,
   }))
+
   return (
     <>
       <CalendarHeader
@@ -137,6 +138,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                   right: 0,
                 }}>
                 <WeekCalendar
+                  hideExtraDays
                   date={selectedDate}
                   markedDates={deepmerge(markedDates, {
                     [getISODateString(selectedDate)]: { selected: true },
