@@ -1,31 +1,32 @@
 import React from 'react'
-import { Box, useTheme } from 'utils/theme'
+import { Box, Theme, useTheme } from 'utils/theme'
 
 import IconPalm from 'assets/icons/icon-palm.svg'
 
 type OnHolidayTagProps = {
   variant: 'small' | 'large'
-  background: 'white' | 'grey'
+  background: 'white' | 'grey' | 'dashboardBackground'
 }
 
-export const OnHolidayTag = (props: OnHolidayTagProps) => {
-  const { variant, background } = props
+export const OnHolidayTag = (p: OnHolidayTagProps) => {
   const theme = useTheme()
-  const size = variant === 'small' ? 36 : 51
+  const size = p.variant === 'small' ? 36 : 51
   const styles = {
     width: size,
     height: size,
     borderRadius: size / 2,
     top: -size / 3,
-    left: -size / 3,
+    right: -size / 3,
     borderWidth: 4,
   }
-  const iconWidth = variant === 'small' ? 17.41 : 29
-  const iconHeight = variant === 'small' ? 18.01 : 31
+  const iconWidth = p.variant === 'small' ? 17.41 : 29
+  const iconHeight = p.variant === 'small' ? 18.01 : 31
+  let borderColor: keyof Theme['colors'] = p.background
+  if (borderColor === 'grey') borderColor = 'disabledText'
   return (
     <Box
       bg="tertiary"
-      borderColor={background === 'white' ? 'white' : 'disabledText'}
+      borderColor={borderColor}
       alignItems="center"
       position="absolute"
       justifyContent="center"

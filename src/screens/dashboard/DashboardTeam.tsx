@@ -28,8 +28,11 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
 
   const { matesOnHoliday, matesWithPlannedHolidays, matesWithNoPlannedHolidays } = useMemo(() => {
     let mates: User[] = []
+    // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
+    // So developer has to remember to add him wherever he needs to show him in teams.
     if (params?.users && user) mates = [...params.users, user]
     else if (params?.users) mates = params.users
+
     let matesOnHoliday = mates.filter((mate) => mate.isOnHoliday)
     matesOnHoliday = matesOnHoliday.filter(
       (user) => user.requests[0].endDate > new Date().toISOString()

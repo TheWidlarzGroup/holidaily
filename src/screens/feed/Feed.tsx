@@ -20,7 +20,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'Feed'>)
   const flatListRef = useRef<FlatList | null>(null)
   const scrollRetries = useRef(0)
   const scrollToId = useCallback(() => {
-    if (flatListRef.current && p?.postId && data && scrollRetries.current <= MAX_SCROLL_RETRIES) {
+    if (
+      flatListRef.current &&
+      p?.postId &&
+      !!data?.length &&
+      scrollRetries.current <= MAX_SCROLL_RETRIES
+    ) {
       const index = data.findIndex((post) => String(post.meta.id) === String(p.postId))
       if (index && index >= 0 && index < data.length) {
         flatListRef.current.scrollToIndex({ index, animated: true })
