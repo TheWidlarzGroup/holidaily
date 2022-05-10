@@ -19,7 +19,7 @@ export const RequestSicktimeAndMessage = ({ isSick, message }: RequestSicktimeAn
         </Box>
       )}
       {!!message && (
-        <Text variant="regular15" paddingTop="m">
+        <Text variant="regular15" paddingTop="m" paddingHorizontal="s">
           {message}
         </Text>
       )}
