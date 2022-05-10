@@ -22,6 +22,8 @@ import org.unimodules.core.interfaces.SingletonModule;
 import com.facebook.react.bridge.JSIModulePackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 
+import com.newrelic.agent.android.NewRelic;
+
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
       new BasePackageList().getPackageList(), null);
@@ -69,6 +71,7 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    NewRelic.withApplicationToken("eu01xx5fd24600d4363c974b0535475ce24533ee76-NRMA").start(this);
   }
 
   /**
