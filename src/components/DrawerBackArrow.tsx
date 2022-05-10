@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
 import { TouchableOpacity } from 'react-native'
