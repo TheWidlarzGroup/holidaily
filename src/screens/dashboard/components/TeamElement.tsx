@@ -24,7 +24,7 @@ export const TeamElement = (props: TeamElementProps) => {
         flex={1}
         onPress={navigateToTeamScreen}>
         <Box flexDirection="row" justifyContent="space-between">
-          <Text variant="label1">{name}</Text>
+          <Text variant="textSM">{name}</Text>
           <Box flexDirection="row" alignItems="center">
             <IconPalm color={theme.colors.tertiary} width={16} height={16} />
             <Text variant="label1" marginLeft="s" color="tertiary">
