@@ -61,8 +61,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
         decelerationRate={0}
-        snapToInterval={width}
-        snapToAlignment="center"
+        pagingEnabled
         contentContainerStyle={{ alignItems: 'center' }}
         data={data}
         renderItem={renderItem}
