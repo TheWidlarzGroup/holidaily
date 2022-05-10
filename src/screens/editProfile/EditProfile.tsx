@@ -70,25 +70,27 @@ export const EditProfile = () => {
 
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer onSwipeRight={handleGoBack}>
-        <ScrollView
-          style={{
-            marginBottom: isEdited ? 93 : 0,
-            backgroundColor: styles.container.backgroundColor,
-          }}>
-          <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture
-            onUpdate={onUpdate}
-            setIsEditedTrue={setEditedTrue}
-            setIsEditedFalse={setEditedFalse}
-          />
-          <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
-          <TeamSubscriptions />
-          <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
-        </ScrollView>
-        {isLoading && <LoadingModal show />}
-        {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
-      </GestureRecognizer>
+      <ScrollView
+        style={{
+          marginBottom: isEdited ? 93 : 0,
+          backgroundColor: styles.container.backgroundColor,
+        }}>
+        <GestureRecognizer
+          onSwipeRight={handleGoBack}
+          style={{ position: 'absolute', height: '100%', width: '100%' }}
+        />
+        <DrawerBackArrow goBack={handleGoBack} />
+        <ProfilePicture
+          onUpdate={onUpdate}
+          setIsEditedTrue={setEditedTrue}
+          setIsEditedFalse={setEditedFalse}
+        />
+        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+        <TeamSubscriptions />
+        <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
+      </ScrollView>
+      {isLoading && <LoadingModal show />}
+      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
     </SafeAreaWrapper>
   )
 }
