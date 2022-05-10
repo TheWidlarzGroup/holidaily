@@ -29,7 +29,7 @@ export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
           setUserSettings(defaultUserSettings)
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.error(err))
   }, [])
 
   useEffect(() => {
