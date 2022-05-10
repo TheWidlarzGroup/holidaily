@@ -13,7 +13,7 @@ export const SortableTeams = () => {
   const teamElements = useMemo(() => {
     const navigateToTeamDetails = (team: Team) => navigation.navigate('DashboardTeam', { ...team })
     if (!user?.teams) return []
-    return user.teams.map((team: Team) => (
+    return user.teams.map((team: Team, idx) => (
       <TeamElement
         {...team}
         key={team.name}

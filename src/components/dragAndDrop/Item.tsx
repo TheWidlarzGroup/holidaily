@@ -17,6 +17,7 @@ import {
   PanGestureHandlerGestureEvent,
   LongPressGestureHandlerStateChangeEvent,
 } from 'react-native-gesture-handler'
+import { Box } from 'utils/theme'
 import {
   COL,
   getPosition,
@@ -151,12 +152,20 @@ export const Item = (props: ItemProps) => {
       transform: [{ translateX: translateX.value }, { translateY: translateY.value }, { scale }],
     }
   })
-
+  const isEven = !((position.x + position.y) % 2)
   return (
     <LongPressGestureHandler minDurationMs={400} onHandlerStateChange={handleLongPressStateChange}>
       <Animated.View style={style}>
         <PanGestureHandler enabled={draggedElement === id} onGestureEvent={onGestureEvent}>
-          <Animated.View style={StyleSheet.absoluteFill}>{children}</Animated.View>
+          <Animated.View style={StyleSheet.absoluteFill}>
+            <Box
+              marginTop="s"
+              marginBottom="s"
+              margin={isEven ? 'm' : undefined}
+              marginRight={!isEven ? 'm' : undefined}>
+              {children}
+            </Box>
+          </Animated.View>
         </PanGestureHandler>
       </Animated.View>
     </LongPressGestureHandler>
