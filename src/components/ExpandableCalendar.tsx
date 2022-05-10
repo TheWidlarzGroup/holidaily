@@ -25,6 +25,7 @@ import { addMonths, addWeeks } from 'date-fns'
 import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -52,7 +53,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
   const fullCalendarContainerRef = useAnimatedRef()
-  const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
+  const fullCalendarHeight = useSharedValue(
+    isScreenHeightShort ? BASE_CALENDAR_HEIGHT : WEEK_CALENDAR_HEIGHT
+  )
   const containerHeight = useSharedValue(fullCalendarHeight.value)
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
@@ -111,6 +114,17 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     opacity: opacity.value,
     maxHeight: containerHeight.value,
   }))
+
+  useEffect(() => {
+    const timeout = isIos ? 2000 : 3000
+
+    setTimeout(() => {
+      containerHeight.value = withSpring(
+        isScreenHeightShort ? WEEK_CALENDAR_HEIGHT : BASE_CALENDAR_HEIGHT
+      )
+    }, timeout)
+  }, [containerHeight])
+
   return (
     <>
       <CalendarHeader
