@@ -71,7 +71,6 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           {...commonInputProps}
           maxLength={20}
           variant="mediumSpecial"
-          onBlur={onSubmitEditing}
           isError={!!errors.occupation}
           name="occupation"
           inputLabel={t('userOccupation')}

@@ -21,13 +21,7 @@ export const SaveChangesButton = ({ handleEditDetailsSubmit }: SaveChangesButton
       alignItems="center"
       justifyContent="center"
       style={styles.shadow}>
-      <CustomButton
-        width={221}
-        height={53}
-        label={t('saveChanges')}
-        variant="primary"
-        onPress={handleEditDetailsSubmit}
-      />
+      <CustomButton label={t('saveChanges')} variant="primary" onPress={handleEditDetailsSubmit} />
     </Box>
   )
 }

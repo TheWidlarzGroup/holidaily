@@ -13,12 +13,15 @@ import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
 import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useUserContext } from 'hooks/useUserContext'
+import { User } from 'mockApi/models/mirageTypes'
 
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
   variant: 'medium' | 'small' | 'mediumSpecial'
   isPasswordIconVisible?: boolean
+  name: keyof User
   disabled?: boolean
   reset?: F0
 }
@@ -37,6 +40,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       placeholder,
       variant,
       reset,
+      name,
       ...props
     },
     ref
@@ -46,6 +50,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     const styles = useStyles()
     const theme = useTheme()
+
+    const { user } = useUserContext()
 
     const errorOpacity = useSharedValue(0)
     const borderColor = useSharedValue('black')
@@ -96,7 +102,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <TextInput
               style={[styles.input, disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
-              onBlur={handleOnBlur}
+              onBlur={user && value !== user[name] ? handleOnBlur : () => setIsFocused(false)}
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}
