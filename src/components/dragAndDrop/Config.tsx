@@ -14,7 +14,7 @@ export const BOTTOM_OFFSET = themeBase.spacing.xxxl
 export const NESTED_ELEM_OFFSET = 205
 
 export type Positions = {
-  [id: number | string]: number
+  [id: string]: number
 }
 export const animationConfig = {
   easing: Easing.inOut(Easing.ease),
