@@ -19,8 +19,6 @@ type SortableListProps = {
   children: SortableListItemType[]
 }
 
-type PositionsObjType = { [key: string]: number }
-
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
 export const SortableList = ({ children }: SortableListProps) => {
@@ -33,7 +31,7 @@ export const SortableList = ({ children }: SortableListProps) => {
     children.forEach((child, idx) => (positions[child.props.id] = idx))
     return positions
   }, [children])
-  const positions = useSharedValue<PositionsObjType>(assignPositions())
+  const positions = useSharedValue<Positions>(assignPositions())
   useFocusEffect(useCallback(() => () => setDraggedElement(null), []))
   useEffect(() => {
     positions.value = assignPositions()
@@ -114,7 +112,7 @@ export const SortableList = ({ children }: SortableListProps) => {
 }
 
 // Comment: OrderController updates user context in a way that doesn't require the rerender of SortableList when UserContext changes its value
-const OrderController = ({ order }: { order: PositionsObjType }) => {
+const OrderController = ({ order }: { order: Positions }) => {
   const { user, updateUser } = useUserContext()
   useEffect(() => {
     if (!user?.teams) return
