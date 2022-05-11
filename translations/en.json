@@ -344,6 +344,7 @@
     "version": "version"
   },
   "privacyPolicy": {
+    "lastUpdate": "Last update: {{date}}",
     "intro": "This Privacy Policy notice of The Widlarz Group\nSp. z o.o. (“<b>Company</b>”, “<b>we</b>”, “<b>us</b>” or “<b>our</b>”), describes how and why we might collect, store, use, and/or share(“process”) your information when you use our services (“Services”), such as when you:",
     "p0a": "Download and use our mobile application (Holidaily), or any other application of ours that links to this privacy notice",
     "p0b": "Engage with us in other related ways, including any sales, marketing or events",

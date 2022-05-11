@@ -342,5 +342,8 @@
     "rateAppBtn": "Oceń aplikację",
     "privacyPolicy": "Polityka prywatności",
     "version": "wersja"
+  },
+  "privacyPolicy": {
+    "lastUpdate": "Ostatnia aktualizacja: {{date}}"
   }
 }

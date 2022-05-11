@@ -96,7 +96,7 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
       <SafeAreaView
         style={{
           height: '100%',
-          backgroundColor: theme.colors.white,
+          backgroundColor: theme.colors.dashboardBackground,
         }}>
         <ModalHeader>
           <BaseOpacity
@@ -105,12 +105,9 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
             paddingLeft="m">
             <IconBack height={18} width={18} color={styles.arrow.color} />
           </BaseOpacity>
-          <Text variant="header" color="black">
-            {t('privacyPolicy')}
-          </Text>
+          <Text variant="displayBoldSM">{t('privacyPolicy')}</Text>
           <Box paddingRight="xl" />
         </ModalHeader>
-
         <PrivacyPolicyContent />
       </SafeAreaView>
     </Modal>
