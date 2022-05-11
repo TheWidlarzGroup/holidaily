@@ -37,7 +37,7 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
         <AboutDescription />
         {!isFromWelcomeScreen && <AboutLinks />}
         <Version show={!isFromWelcomeScreen} />
-        <Box paddingBottom="l">
+        <Box paddingBottom="l" style={{ marginTop: 'auto' }}>
           {isFromWelcomeScreen && (
             <CustomButton label={t('aboutButton')} variant="primary" onPress={closeModal} />
           )}
