@@ -25,6 +25,7 @@ import { addMonths, addWeeks } from 'date-fns'
 import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { useTheme } from '@shopify/restyle'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -111,6 +112,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     opacity: opacity.value,
     maxHeight: containerHeight.value,
   }))
+  const theme = useTheme()
   return (
     <>
       <CalendarHeader
@@ -119,7 +121,11 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
         )}
         renderArrow={(direction: 'left' | 'right') =>
-          direction === 'left' ? <ArrowLeft /> : <ArrowRight />
+          direction === 'left' ? (
+            <ArrowLeft color={theme.colors.titleActive} />
+          ) : (
+            <ArrowRight color={theme.colors.titleActive} />
+          )
         }
         theme={headerTheme}
         addMonth={handleAddMonth}
