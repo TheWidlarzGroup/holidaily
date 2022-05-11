@@ -116,13 +116,15 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   }))
 
   useEffect(() => {
-    const timeout = isIos ? 2000 : 3500
+    const delay = isIos ? 2000 : 3500
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       containerHeight.value = isScreenHeightShort
         ? withTiming(WEEK_CALENDAR_HEIGHT)
         : withSpring(BASE_CALENDAR_HEIGHT)
-    }, timeout)
+    }, delay)
+
+    return () => clearTimeout(timeout)
   }, [containerHeight])
 
   return (
