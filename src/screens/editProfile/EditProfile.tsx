@@ -34,6 +34,7 @@ export const EditProfile = () => {
     control,
     handleSubmit,
     formState: { isDirty },
+    reset,
   } = useForm({
     defaultValues: {
       firstName: user?.firstName,
@@ -65,6 +66,12 @@ export const EditProfile = () => {
       onSuccess: (payload) => {
         onUpdate(payload)
         showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+        reset({
+          firstName: payload.user?.firstName,
+          lastName: payload.user?.lastName,
+          occupation: payload.user?.occupation,
+          userColor: payload.user?.userColor,
+        })
       },
     })
   }

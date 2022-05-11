@@ -26,7 +26,6 @@ type FormInputTypes = {
   disabled?: boolean
   placeholder?: string
   reset?: F0
-  doesValueChanged?: boolean
   onBaseOpacityPress?: F0
 }
 

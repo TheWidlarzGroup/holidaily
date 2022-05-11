@@ -11,6 +11,7 @@ type UserData = {
   errors: DeepMap<{ firstName: string; lastName: string; occupation: string }, FieldError>
   control: Control<FieldValues>
   doesValueChanged?: boolean
+  reset?: F0
 }
 const validationPattern = onlyLettersRegex
 export const ProfileDetails = ({ errors, control, setIsEdited, doesValueChanged }: UserData) => {
