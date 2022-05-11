@@ -186,7 +186,9 @@
     "unsubscribed": "{{teamName}} unsubscribed",
     "colorPicker": "Pick your favourite color and drop it in the grey area below",
     "discardChanges": "Discard changes",
-    "discard": "Discard"
+    "discard": "Discard",
+    "changesWillBeLost": "By clicking Discard, all changes will be lost.",
+    "confirmSave": "Save changes?"
   },
   "dashboard": {
     "today": "Today is:",

@@ -20,6 +20,7 @@ import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
+import { useWithConfirmation } from 'hooks/useWithConfirmation'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
@@ -63,10 +64,24 @@ export const EditProfile = () => {
     })
   }
 
-  const handleGoBack = useCallback(() => {
-    navigation.goBack()
-    navigation.dispatch(DrawerActions.openDrawer())
-  }, [navigation])
+  const handleGoBack = useWithConfirmation({
+    onAccept: () => {
+      handleSubmit(onSubmit)
+      setEditedFalse()
+      navigation.goBack()
+      navigation.dispatch(DrawerActions.openDrawer())
+    },
+    onDecline: () => {
+      reset()
+      setEditedFalse()
+      navigation.goBack()
+      navigation.dispatch(DrawerActions.openDrawer())
+    },
+    header: t('confirmSave'),
+    content: t('changesWillBeLost'),
+    acceptBtnText: t('saveChanges'),
+    declineBtnText: t('discard'),
+  })
 
   return (
     <SafeAreaWrapper>

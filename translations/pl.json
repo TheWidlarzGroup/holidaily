@@ -186,7 +186,9 @@
     "unsubscribed": "Usunięto subskrypcję {{teamName}}",
     "colorPicker": "Wybierz swój ulubiony kolor\ni przeciągnij go do szarego pola na dole",
     "discardChanges": "Odrzuć zmiany",
-    "discard": "Odrzuć zmiany"
+    "discard": "Odrzuć zmiany",
+    "changesWillBeLost": "Zmiany nie zostaną zapisane, jeśli ich nie zapiszesz.",
+    "confirmSave": "Zapisać zmiany?"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",

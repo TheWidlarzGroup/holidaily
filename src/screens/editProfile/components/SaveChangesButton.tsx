@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
-import { mkUseStyles, Theme, Box, useTheme, Text } from 'utils/theme'
+import { mkUseStyles, Theme, Box, useTheme } from 'utils/theme'
 
 type SaveChangesButtonProps = {
   handleEditDetailsSubmit: F0
