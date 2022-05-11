@@ -98,7 +98,7 @@ const useStyle = mkUseStyles((theme: Theme) => ({
     textColor: theme.colors.primary,
     borderColor: theme.colors.primary,
     notificationColor: theme.colors.primary,
-    // colors above are used due to the TS demandings but they are not changing the UI
+    // COMMENT: colors above are used due to the TS demandings but they are not changing the UI
     backgroundColor: theme.colors.dashboardBackground,
   },
 }))

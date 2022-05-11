@@ -52,6 +52,6 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
 const useStyles = mkUseStyles((theme: Theme) => ({
   safeAreaTop: {
     flex: 1,
-    backgroundColor: theme.colors.bottomTabBgColor,
+    backgroundColor: theme.colors.dashboardBackground,
   },
 }))
