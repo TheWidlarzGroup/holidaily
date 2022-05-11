@@ -1,7 +1,7 @@
 import React from 'react'
 import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
-import ShieldCheckIcon from 'assets/icons/icon-shield-check.svg'
+import ArrowRightIcon from 'assets/icons/arrow-right.svg'
 import { useTranslation } from 'react-i18next'
 import { useModalContext } from 'contexts/ModalProvider'
 import Modal from 'react-native-modal'
@@ -11,8 +11,6 @@ import IconBack from 'assets/icons/icon-back2.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { linkWithFallback } from 'utils/linkWithFallback'
 import { PrivacyPolicyContent } from './PrivacyPolicyContent'
-import { Submit } from 'components/Submit'
-import { CustomButton } from 'components/CustomButton'
 
 const ANDROID_RATE_LINK = 'market://de tails?id=com.holidaily'
 const COMPANY_WEBSITE_LINK = 'https://thewidlarzgroup.com'
@@ -24,18 +22,19 @@ export const AboutLinks = () => {
   return (
     <Box paddingHorizontal="m">
       <RateApp />
-
       <BaseOpacity
-        bg="dashboardBackground"
+        bg="veryLightGrey"
         padding="m"
         borderRadius="lmin"
         marginTop="m"
         flexDirection="row"
         alignItems="center"
+        justifyContent="space-between"
         onPress={() => showModal(<PrivacyPolicy hideModal={hideModal} />)}>
         <Text variant="textBoldSM" color="titleActive">
           {t('privacyPolicy')}
         </Text>
+        <ArrowRightIcon color={theme.colors.darkGreyBrighter} />
       </BaseOpacity>
     </Box>
   )
