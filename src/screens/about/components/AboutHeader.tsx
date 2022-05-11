@@ -26,7 +26,7 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
     <Box
       justifyContent="space-between"
       flexDirection="row"
-      paddingBottom="xxl"
+      paddingBottom="lplus"
       paddingHorizontal="m">
       <TouchableOpacity
         onPress={handleGoBack}

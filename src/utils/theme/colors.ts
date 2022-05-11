@@ -14,6 +14,9 @@ export const palette = {
   primary100: 'rgba(255, 197, 131, 1)',
   primary50: 'rgba(255, 215, 170, 1)',
   primary25: 'rgba(255, 231, 204, 1)',
+  primary500opaque: 'rgba(255, 142, 60, 0.2)',
+  primary300opaque: 'rgba(252, 169, 93, 0.2)',
+  primary100opaque: 'rgba(255, 197, 131, 0.2)',
   secondary700: 'rgba(20, 94, 231, 1)',
   secondary500: 'rgba(92, 149, 255, 1)',
   secondary300: 'rgba(164, 196, 255, 1)',
@@ -44,8 +47,11 @@ export const palette = {
 
 export const colors = {
   primary: palette.primary100,
+  primaryOpaque: palette.primary100opaque,
   secondary: palette.primary300,
+  secondaryOpaque: palette.primary300opaque,
   tertiary: palette.primary500,
+  tertiaryOpaque: palette.primary500opaque,
   special: palette.secondary500,
   black: palette.grayscale800,
   blackBrighter: palette.grayscale700,
@@ -87,8 +93,11 @@ export const colors = {
 
 export const darkThemeColors = {
   primary: palette.primary100,
+  primaryOpaque: palette.primary100opaque,
   secondary: palette.primary300,
+  secondaryOpaque: palette.primary300opaque,
   tertiary: palette.primary500,
+  tertiaryOpaque: palette.primary500opaque,
   special: palette.secondary500,
   black: palette.grayscale50,
   blackBrighter: palette.grayscale100,
