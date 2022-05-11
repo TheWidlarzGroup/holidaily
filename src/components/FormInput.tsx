@@ -5,7 +5,6 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import { Text } from 'utils/theme/index'
 import { generateInputErrors } from 'utils/generateInputErrors'
-import { User } from 'mockApi/models/mirageTypes'
 import { useTranslation } from 'react-i18next'
 import { CustomInput } from './CustomInput'
 import { InputSearchIcon } from './InputSearchIcon'
@@ -14,10 +13,10 @@ import { InputEditIcon } from './InputEditIcon'
 type FormInputTypes = {
   control: Control
   errors: FieldErrors
-  name: keyof User
   inputLabel: string
   validationPattern: RegExp
   errorMessage: string
+  name: string
   isError: boolean
   variant: 'medium' | 'small' | 'mediumSpecial'
   signupPasswordHint?: string
@@ -27,6 +26,7 @@ type FormInputTypes = {
   disabled?: boolean
   placeholder?: string
   reset?: F0
+  doesValueChanged?: boolean
   onBaseOpacityPress?: F0
 }
 
@@ -74,7 +74,6 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               isError={isError}
               ref={ref}
               isPasswordIconVisible={isPasswordIconVisible}
-              name={name}
               {...props}
             />
           )}
