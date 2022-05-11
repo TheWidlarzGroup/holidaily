@@ -1,14 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
-import { mkUseStyles, Theme, Box } from 'utils/theme'
+import { mkUseStyles, Theme, Box, useTheme, Text } from 'utils/theme'
 
 type SaveChangesButtonProps = {
   handleEditDetailsSubmit: F0
+  onDiscard: F0
 }
 
-export const SaveChangesButton = ({ handleEditDetailsSubmit }: SaveChangesButtonProps) => {
+export const SaveChangesButton = ({
+  handleEditDetailsSubmit,
+  onDiscard,
+}: SaveChangesButtonProps) => {
   const { t } = useTranslation('userProfile')
+  const theme = useTheme()
   const styles = useStyles()
   return (
     <Box
@@ -17,16 +22,23 @@ export const SaveChangesButton = ({ handleEditDetailsSubmit }: SaveChangesButton
       left={0}
       bottom={0}
       backgroundColor="white"
-      height={85}
       alignItems="center"
       justifyContent="center"
       style={styles.shadow}>
       <CustomButton
-        width={221}
-        height={53}
+        marginHorizontal={theme.spacing.lplus}
+        marginTop={theme.spacing.m}
         label={t('saveChanges')}
         variant="primary"
         onPress={handleEditDetailsSubmit}
+      />
+      <CustomButton
+        marginHorizontal={theme.spacing.lplus}
+        marginVertical={theme.spacing.m}
+        borderWidth={0}
+        label={t('discardChanges')}
+        variant="secondary"
+        onPress={onDiscard}
       />
     </Box>
   )

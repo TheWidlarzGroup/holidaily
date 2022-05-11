@@ -29,7 +29,7 @@ export const EditProfile = () => {
   const { user } = useUserContext()
   const styles = useStyles()
   const theme = useTheme()
-  const { errors, control, handleSubmit } = useForm({
+  const { errors, control, handleSubmit, reset } = useForm({
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
@@ -72,7 +72,6 @@ export const EditProfile = () => {
     <SafeAreaWrapper>
       <ScrollView
         style={{
-          marginBottom: isEdited ? 93 : 0,
           backgroundColor: styles.container.backgroundColor,
         }}>
         <GestureRecognizer
@@ -90,7 +89,15 @@ export const EditProfile = () => {
         <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
       </ScrollView>
       {isLoading && <LoadingModal show />}
-      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
+      {isEdited && (
+        <SaveChangesButton
+          onDiscard={() => {
+            reset()
+            setEditedFalse()
+          }}
+          handleEditDetailsSubmit={handleSubmit(onSubmit)}
+        />
+      )}
     </SafeAreaWrapper>
   )
 }
