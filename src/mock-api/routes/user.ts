@@ -117,10 +117,10 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     id: 'peter-dayoff',
     createdAt: faker.date.between(
       new Date(Date.now() - 3 * DAY_IN_MS),
-      new Date(Date.now() - 7 * DAY_IN_MS)
+      new Date(Date.now() - DAY_IN_MS)
     ),
     source: Peter,
-    wasSeenByHolder: true,
+    wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
     endDate: faker.date.between(
@@ -132,10 +132,10 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     id: 'tom-dayoff',
     createdAt: faker.date.between(
       new Date(Date.now() - 3 * DAY_IN_MS),
-      new Date(Date.now() - 7 * DAY_IN_MS)
+      new Date(Date.now() - DAY_IN_MS)
     ),
     source: Tom,
-    wasSeenByHolder: true,
+    wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
     endDate: faker.date.between(
