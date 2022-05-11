@@ -9,7 +9,6 @@ import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
-import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { CategoriesSlider } from './components/CategoriesSlider'
@@ -39,13 +38,6 @@ const CalendarToWrap = () => {
   }, [hideLoader])
   if (isLoading) return <LoadingModal show />
 
-  const doesMonthInCalendarIsTooHigh = () => {
-    if (!Object.keys(getMarkedDates(currentMonthDays))[0]) return
-    return doesMonthInCalendarHasSixRows(new Date(Object.keys(getMarkedDates(currentMonthDays))[0]))
-  }
-
-  console.log('oo', currentMonthDays)
-
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <CategoriesSlider
@@ -63,21 +55,14 @@ const CalendarToWrap = () => {
         shadowRadius={6}
         elevation={4}>
         <ExpandableCalendar
-          markedDates={
-            doesMonthInCalendarIsTooHigh()
-              ? getMarkedDates(currentMonthDays)
-              : getMarkedDates(currentMonthDays)
-          }
+          markedDates={getMarkedDates(currentMonthDays)}
           markingType="multi-dot"
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           onDayPress={handleDayPress}
         />
       </Box>
-      <EventsList
-        days={doesMonthInCalendarIsTooHigh() ? currentMonthDays : currentMonthDays}
-        ref={flatListRef}
-      />
+      <EventsList days={currentMonthDays} ref={flatListRef} />
     </SafeAreaWrapper>
   )
 }

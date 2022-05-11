@@ -4,6 +4,9 @@ import { useUserContext } from 'hooks/useUserContext'
 import { parseISO } from 'utils/dates'
 import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/useRequestsContext'
+import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
+import { MonthType } from 'hooks/useGetHolidayRequests'
+import { add } from 'date-fns'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from './components/DayInfo'
 
@@ -36,17 +39,53 @@ export const useCalendarData = () => {
       return newState
     })
   }
+
   useEffect(() => {
     if (!requests.length) return
-    const currentMonth = requests.find((month) => {
+    const currentMonthRequests = requests.find((month) => {
       const thisMonth = parseISO(month.date)
       return (
         thisMonth.getMonth() === selectedDate.getMonth() &&
         thisMonth.getFullYear() === selectedDate.getFullYear()
       )
     })
-    if (currentMonth) {
-      const newCurrentMonthDays = currentMonth.days.map((day) => {
+
+    if (!currentMonthRequests) return
+
+    let bothMonthsRequests: MonthType = {
+      date: currentMonthRequests.date,
+      days: currentMonthRequests.days,
+    }
+
+    if (doesMonthInCalendarHasSixRows(selectedDate)) {
+      const nextMonthRequests = requests.find((month) => {
+        const thisMonth = parseISO(month.date)
+        const nextMonth = add(selectedDate, { months: 1 })
+        return (
+          thisMonth.getMonth() === nextMonth.getMonth() &&
+          thisMonth.getFullYear() === nextMonth.getFullYear()
+        )
+      })
+      if (!nextMonthRequests) return
+
+      const currentMonthRequestsDays = currentMonthRequests?.days
+      // Comment: get only four first days from next month, as week calendar may not display them in next month, so it will be displayed in previous month
+      const nextMonthRequestsDays = nextMonthRequests?.days.filter(
+        (day) =>
+          day.date.slice(-2) === '01' ||
+          day.date.slice(-2) === '02' ||
+          day.date.slice(-2) === '03' ||
+          day.date.slice(-2) === '04'
+      )
+
+      bothMonthsRequests = {
+        ...bothMonthsRequests,
+        days: [...currentMonthRequestsDays, ...nextMonthRequestsDays],
+      }
+    }
+
+    if (bothMonthsRequests) {
+      const newCurrentMonthDays = bothMonthsRequests.days.map((day) => {
         if (day.weekend || !day.events) return day
         return {
           ...day,
