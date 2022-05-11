@@ -35,6 +35,7 @@ export const palette = {
   success700: 'rgba(102, 185, 37, 1)',
   success500: 'rgba(153, 228, 93, 1)',
   success300: 'rgba(204, 242, 174, 1)',
+  success25: 'rgba(245, 252, 239, 1)',
   transparent: 'transparent',
   gradientHot500:
     'linear-gradient(134.7deg, rgba(255, 190, 112, 1) -3.95%, rgba(255, 139, 63, 1) 107.96%)',
@@ -83,6 +84,8 @@ export const colors = {
   bubble: palette.grayscale100,
   dashboardBackground: palette.grayscale100,
   dashboardBackgroundBrighter: palette.grayscale50,
+  successToastBg: palette.success25,
+  successToastBorder: palette.success300,
 }
 
 export const darkThemeColors = {
@@ -126,6 +129,8 @@ export const darkThemeColors = {
   bubble: palette.grayscale100,
   dashboardBackground: palette.grayscale900,
   dashboardBackgroundBrighter: palette.grayscale900,
+  successToastBg: palette.grayscale800,
+  successToastBorder: palette.success300,
 }
 
 export const legacyPalette = {
