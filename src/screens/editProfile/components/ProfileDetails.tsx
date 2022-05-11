@@ -10,11 +10,11 @@ type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
   errors: DeepMap<{ firstName: string; lastName: string; occupation: string }, FieldError>
   control: Control<FieldValues>
-  doesValueChanged?: boolean
+  hasValueChanged?: boolean
   reset?: F0
 }
 const validationPattern = onlyLettersRegex
-export const ProfileDetails = ({ errors, control, setIsEdited, doesValueChanged }: UserData) => {
+export const ProfileDetails = ({ errors, control, setIsEdited, hasValueChanged }: UserData) => {
   const { t } = useTranslation('userProfile')
   const inputsRefs = [
     useRef<TextInput>(null),
@@ -41,7 +41,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited, doesValueChanged 
     errors,
     validationPattern,
     errorMessage,
-    doesValueChanged,
+    hasValueChanged,
   } as const
   return (
     <Box paddingHorizontal="m">

@@ -103,7 +103,7 @@ export const EditProfile = () => {
           errors={errors}
           control={control}
           setIsEdited={setEditedTrue}
-          doesValueChanged={isDirty}
+          hasValueChanged={isDirty}
         />
         <TeamSubscriptions />
         <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
