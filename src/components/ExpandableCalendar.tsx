@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
@@ -114,6 +114,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     opacity: opacity.value,
     maxHeight: containerHeight.value,
   }))
+  const theme = useTheme()
 
   useEffect(() => {
     const delay = isIos ? 2000 : 3500
@@ -135,7 +136,11 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
         )}
         renderArrow={(direction: 'left' | 'right') =>
-          direction === 'left' ? <ArrowLeft /> : <ArrowRight />
+          direction === 'left' ? (
+            <ArrowLeft color={theme.colors.titleActive} />
+          ) : (
+            <ArrowRight color={theme.colors.titleActive} />
+          )
         }
         theme={headerTheme}
         addMonth={handleAddMonth}

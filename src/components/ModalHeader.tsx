@@ -5,7 +5,7 @@ export const ModalHeader = ({ children }: { children: React.ReactNode }) => (
   <Box
     paddingTop="m"
     paddingBottom="m"
-    bg="disabledText"
+    bg="veryLightGrey"
     flexDirection="row"
     alignItems="center"
     justifyContent="space-between"
