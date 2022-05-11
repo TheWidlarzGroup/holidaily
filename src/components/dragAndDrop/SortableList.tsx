@@ -10,6 +10,7 @@ import Animated, {
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { FlatList, FlatListProps } from 'react-native'
+import { useUserContext } from 'hooks/useUserContext'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
@@ -26,7 +27,7 @@ export const SortableList = ({ children }: SortableListProps) => {
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const assignPositions = useCallback(() => {
-    const positions: { [key: string]: number } = {}
+    const positions: Positions = {}
     children.forEach((child, idx) => (positions[child.props.id] = idx))
     return positions
   }, [children])
@@ -52,9 +53,15 @@ export const SortableList = ({ children }: SortableListProps) => {
     },
     [draggedElement]
   )
+  const [order, setOrder] = useState<typeof positions.value>(positions.value)
+
+  useEffect(() => {
+    if (draggedElement === null) setOrder(positions.value)
+  }, [draggedElement, positions])
 
   return (
     <Box paddingBottom="xxxl">
+      <OrderController order={order} />
       <AnimatedFlatList
         removeClippedSubviews={false}
         ref={scrollView}
@@ -102,4 +109,25 @@ export const SortableList = ({ children }: SortableListProps) => {
       />
     </Box>
   )
+}
+
+// Comment: OrderController updates user context in a way that doesn't require the rerender of SortableList when UserContext changes its value
+const OrderController = ({ order }: { order: Positions }) => {
+  const { user, updateUser } = useUserContext()
+  useEffect(() => {
+    if (!user?.teams) return
+    const orderedTeams = new Array(user.teams.length)
+    let shouldUpdateContext = false
+    user.teams.forEach((team) => {
+      const newIndex = order[team.id]
+      orderedTeams[newIndex] = team
+      if (user.teams[newIndex]?.id !== team.id) shouldUpdateContext = true
+    })
+    if (shouldUpdateContext) updateUser({ teams: orderedTeams.filter((t) => !!t) })
+    // Comment: Adding user.teams to dependency array starts an infinite loop.
+    // Since order derives from user teams, disabling exhaustive-deps shouldn't be harmfull
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [order])
+
+  return null
 }
