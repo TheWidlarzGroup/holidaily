@@ -26,13 +26,13 @@ import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 import { isScreenHeightShort } from 'utils/deviceSizes'
+import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef, NewDayComponentProps } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
-import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
