@@ -39,7 +39,7 @@ export const Carousel = () => {
         paddingHorizontal="xm"
         letterSpacing={0.7}
         paddingTop="m">
-        {t('bookedHolidays')}
+        {t('bookedHolidays').toUpperCase()}
       </Text>
       <FlatList
         data={first20Users}

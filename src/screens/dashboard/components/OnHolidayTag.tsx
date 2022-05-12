@@ -2,10 +2,12 @@ import React from 'react'
 import { Box, Theme, useTheme } from 'utils/theme'
 
 import IconPalm from 'assets/icons/icon-palm.svg'
+import IconPill from 'assets/icons/icon-pill.svg'
 
 type OnHolidayTagProps = {
   variant: 'small' | 'large'
-  background: 'white' | 'grey' | 'dashboardBackground'
+  background: 'white' | 'grey' | 'dashboardBackground' | 'secondaryOpaque'
+  isSick?: boolean
 }
 
 export const OnHolidayTag = (p: OnHolidayTagProps) => {
@@ -25,13 +27,17 @@ export const OnHolidayTag = (p: OnHolidayTagProps) => {
   if (borderColor === 'grey') borderColor = 'disabledText'
   return (
     <Box
-      bg="tertiary"
+      bg={p.isSick ? 'quaternary' : 'tertiary'}
       borderColor={borderColor}
       alignItems="center"
       position="absolute"
       justifyContent="center"
       style={{ ...styles }}>
-      <IconPalm color={theme.colors.alwaysWhite} width={iconWidth} height={iconHeight} />
+      {p.isSick ? (
+        <IconPill color={theme.colors.alwaysWhite} />
+      ) : (
+        <IconPalm color={theme.colors.alwaysWhite} width={iconWidth} height={iconHeight} />
+      )}
     </Box>
   )
 }
