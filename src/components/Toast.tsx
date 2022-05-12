@@ -1,15 +1,25 @@
 import { BoxProps } from '@shopify/restyle'
 import React from 'react'
 import { exhaustiveTypeCheck } from 'utils/exhautiveTypeCheck'
-import { Box, Theme } from 'utils/theme'
+import { Box, Text, Theme, useTheme } from 'utils/theme'
+import { CircleStatusIcon, IconStatus } from './CircleStatusIcon'
 
 type ToastProps = {
   variant: 'success'
-  text: 'string'
+  text: string
 } & BoxProps<Theme>
 
 export const Toast = ({ variant, text, ...styleProps }: ToastProps) => {
-  const getStyle = (): BoxProps<Theme> => {
+  const theme = useTheme()
+  const containerStyle = {
+    position: 'absolute',
+    top: 12,
+    paddingHorizontal: theme.spacing.m,
+    width: '100%',
+    zIndex: theme.zIndices['20'],
+  } as const
+  let iconStatus: IconStatus = variant
+  const getVariantStyle = (): BoxProps<Theme> => {
     switch (variant) {
       case 'success': {
         return {
@@ -24,5 +34,19 @@ export const Toast = ({ variant, text, ...styleProps }: ToastProps) => {
     }
   }
 
-  return <Box {...getStyle()} {...styleProps}></Box>
+  return (
+    <Box style={containerStyle}>
+      <Box
+        borderRadius="l1min"
+        paddingVertical="ml"
+        paddingHorizontal="xm"
+        alignItems="center"
+        flexDirection="row"
+        {...getVariantStyle()}
+        {...styleProps}>
+        <CircleStatusIcon width={25} status={iconStatus} />
+        <Text variant="textSM">{text}</Text>
+      </Box>
+    </Box>
+  )
 }

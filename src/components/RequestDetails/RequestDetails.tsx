@@ -10,7 +10,7 @@ import { RequestDetailsHeader } from './RequestDetailsHeader'
 import { RequestSicktimeAndMessage } from './RequestSicktimeAndMessage'
 import { RequestAttachments } from './RequestAttachments'
 import { TakenPtoSummary } from './TakenPtoSummary'
-import { CircleStatusIcon } from './CircleStatusIcon'
+import { CircleStatusIcon, IconStatus } from '../CircleStatusIcon'
 
 type RequestDetailsProps = {
   attachments?: DayOffRequest['attachments']
@@ -23,6 +23,10 @@ export const RequestDetails = (
 ) => {
   const styles = useStyles()
   const { t } = useTranslation('seeRequest')
+  let iconStatus: IconStatus
+  if (p.status === 'accepted') iconStatus = 'success'
+  else if (p.status === 'cancelled') iconStatus = 'error'
+  else iconStatus = p.status
   return (
     <ScrollView style={{ flex: 1 }}>
       <Box
@@ -46,7 +50,7 @@ export const RequestDetails = (
               zIndex="-1"
             />
             <Box padding="m" flexDirection="row" alignItems="center">
-              <CircleStatusIcon status={p.status} />
+              <CircleStatusIcon status={iconStatus} />
               <Text fontFamily="Nunito-Bold" fontSize={16} lineHeight={20}>
                 {t(p.status)}
               </Text>
