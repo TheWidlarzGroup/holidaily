@@ -44,6 +44,7 @@ const Subscription = (p: SubscriptionProps) => {
       </RectButton>
       <ConfirmationModal
         isVisible={isConfirmationNeeded}
+        content="cesf"
         onAccept={() => {
           dismissConfirmation()
           p.removeSubscription(p.teamName)
