@@ -18,7 +18,7 @@ export const Toast = ({ variant, text, ...styleProps }: ToastProps) => {
     width: '100%',
     zIndex: theme.zIndices['20'],
   } as const
-  let iconStatus: IconStatus = variant
+  const iconStatus: IconStatus = variant
   const getVariantStyle = (): BoxProps<Theme> => {
     switch (variant) {
       case 'success': {
