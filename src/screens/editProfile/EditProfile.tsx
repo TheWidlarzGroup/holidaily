@@ -15,12 +15,12 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
 import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
-import { useWithConfirmation } from 'hooks/useWithConfirmation'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
