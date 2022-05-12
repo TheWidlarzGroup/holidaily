@@ -8,7 +8,6 @@ import { generateInputErrors } from 'utils/generateInputErrors'
 import { useTranslation } from 'react-i18next'
 import { CustomInput } from './CustomInput'
 import { InputSearchIcon } from './InputSearchIcon'
-import { InputEditIcon } from './InputEditIcon'
 
 type FormInputTypes = {
   control: Control
@@ -26,7 +25,6 @@ type FormInputTypes = {
   disabled?: boolean
   placeholder?: string
   reset?: F0
-  onBaseOpacityPress?: F0
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -43,7 +41,6 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       passwordsAreEqual,
       screenName,
       isError,
-      onBaseOpacityPress,
       ...props
     },
     ref
@@ -66,6 +63,8 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           control={control}
           render={({ onChange, onBlur, value }) => (
             <CustomInput
+              hasAButton
+              reset={() => onChange('')}
               inputLabel={inputLabel}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -86,7 +85,6 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           }}
           defaultValue=""
         />
-        {props.variant === 'mediumSpecial' && <InputEditIcon onPress={onBaseOpacityPress} />}
         {props.variant === 'small' && <InputSearchIcon />}
         <Animated.View style={progressStyle}>
           <Text variant="inputErrorMessage" marginTop="xs" marginLeft="s">

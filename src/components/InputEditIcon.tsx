@@ -8,7 +8,7 @@ export const InputEditIcon = ({ onPress }: { onPress: F0 | undefined }) => {
     <Box
       position="absolute"
       right={0}
-      top={16}
+      top={-5}
       backgroundColor="lightGrey"
       borderRadius="full"
       width={49}
