@@ -13,6 +13,7 @@ type TeamElementProps = Team & {
 
 export const TeamElement = (p: TeamElementProps) => {
   const theme = useTheme()
+
   return (
     <Box key={p.id} height={SIZE_H}>
       <BaseOpacity
@@ -24,12 +25,14 @@ export const TeamElement = (p: TeamElementProps) => {
         onPress={p.navigateToTeamScreen}>
         <Box flexDirection="row" justifyContent="space-between">
           <Text variant="textSM">{p.name}</Text>
-          <Box flexDirection="row" alignItems="center">
-            <IconPalm color={theme.colors.tertiary} width={16} height={16} />
-            <Text variant="label1" marginLeft="s" color="tertiary">
-              {qtyOnHolidayNow(p.users)}
-            </Text>
-          </Box>
+          {qtyOnHolidayNow(p.users) > 0 && (
+            <Box flexDirection="row" alignItems="center">
+              <IconPalm color={theme.colors.tertiary} width={16} height={16} />
+              <Text variant="label1" marginLeft="s" color="tertiary">
+                {qtyOnHolidayNow(p.users)}
+              </Text>
+            </Box>
+          )}
         </Box>
         <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
           <Avatar src={p.users[0]?.photo} userDetails={makeUserDetails(p.users[0])} />
