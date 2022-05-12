@@ -29,7 +29,13 @@ export const EditProfile = () => {
   const { user } = useUserContext()
   const styles = useStyles()
   const theme = useTheme()
-  const { errors, control, handleSubmit } = useForm({
+  const {
+    errors,
+    control,
+    handleSubmit,
+    formState: { isDirty },
+    reset,
+  } = useForm({
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
@@ -37,6 +43,7 @@ export const EditProfile = () => {
       userColor: user?.userColor || theme.colors.primary,
     },
   })
+
   const { t } = useTranslation('userProfile')
   const { mutate, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
@@ -59,6 +66,12 @@ export const EditProfile = () => {
       onSuccess: (payload) => {
         onUpdate(payload)
         showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+        reset({
+          firstName: payload.user?.firstName,
+          lastName: payload.user?.lastName,
+          occupation: payload.user?.occupation,
+          userColor: payload.user?.userColor,
+        })
       },
     })
   }
@@ -85,7 +98,13 @@ export const EditProfile = () => {
           setIsEditedTrue={setEditedTrue}
           setIsEditedFalse={setEditedFalse}
         />
-        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+        <ProfileDetails
+          {...user}
+          errors={errors}
+          control={control}
+          setIsEdited={setEditedTrue}
+          hasValueChanged={isDirty}
+        />
         <TeamSubscriptions />
         <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
       </ScrollView>

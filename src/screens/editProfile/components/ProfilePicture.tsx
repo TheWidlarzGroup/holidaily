@@ -73,7 +73,6 @@ export const ProfilePicture = ({
       <EditPictureModal
         showUploadModal={() => {
           showUploadAttachmentModal()
-          setIsEditedTrue()
         }}
         isVisible
         hideModal={() => {
