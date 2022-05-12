@@ -88,7 +88,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
         flexDirection="row"
         alignItems="center"
         justifyContent="center"
-        borderWidth={borderWidth}
+        borderWidth={rest.borderWidth ?? borderWidth}
         borderColor={variant === 'secondary' && disabled ? 'grey' : 'black'}
         borderRadius="xxl">
         {loading ? (
