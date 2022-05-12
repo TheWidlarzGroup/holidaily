@@ -11,7 +11,10 @@ type CommentProps = {
 
 export const Comment = ({ comment, hideAvatar }: CommentProps) => (
   <Box flexDirection="row" padding="xs" alignItems="flex-start">
-    <Box marginRight="s" paddingRight={hideAvatar ? 'xl' : 0} paddingLeft={hideAvatar ? 'xs' : 0}>
+    <Box
+      marginRight="s"
+      paddingRight={hideAvatar ? 'xl' : 'none'}
+      paddingLeft={hideAvatar ? 'xs' : 'none'}>
       {!hideAvatar && (
         <Avatar
           size="s"
