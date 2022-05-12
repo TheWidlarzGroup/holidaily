@@ -1,8 +1,12 @@
 import React from 'react'
-import { BaseOpacity, Box, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Theme, useTheme } from 'utils/theme'
 import IconEdit from 'assets/icons/icon-edit.svg'
+import { BoxProps } from '@shopify/restyle'
 
-export const InputEditIcon = ({ onPress }: { onPress: F0 | undefined }) => {
+export const InputEditIcon = ({
+  onPress,
+  ...styleProps
+}: { onPress: F0 | undefined } & BoxProps<Theme>) => {
   const theme = useTheme()
   return (
     <Box
@@ -16,7 +20,8 @@ export const InputEditIcon = ({ onPress }: { onPress: F0 | undefined }) => {
       borderWidth={4}
       borderColor="whiteDarken"
       justifyContent="center"
-      alignItems="center">
+      alignItems="center"
+      {...styleProps}>
       <BaseOpacity onPress={() => onPress?.()} activeOpacity={0.2}>
         <IconEdit color={theme.colors.headerGrey} />
       </BaseOpacity>
