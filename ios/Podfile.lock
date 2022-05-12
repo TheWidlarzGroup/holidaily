@@ -44,7 +44,7 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.2.1)
   - NewRelicAgent (7.3.5)
-  - OneSignal (3.10.3)
+  - OneSignal (3.10.2)
   - OneSignalXCFramework (3.5.3)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -578,7 +578,7 @@ SPEC CHECKSUMS:
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   NewRelicAgent: b887ea75f6de2bb2fcf3ec0af4c5aa648efce2d0
-  OneSignal: a64c4a07be58b699fcda3aacf38a1c185ee3996b
+  OneSignal: 29b555f5991109dc717f75d4440c565cab92511c
   OneSignalXCFramework: 4e08d8353adec161c3d9174e2572c849e1225c9f
   RCT-Folly: 803a9cfd78114b2ec0f140cfa6fa2a6bafb2d685
   RCTRequired: 0aa6c1c27e1d65920df35ceea5341a5fe76bdb79
@@ -629,4 +629,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a88c5fdff37241109753c8b72afd6dc8bcbf0ab9
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
