@@ -1493,6 +1493,13 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bibabovn/react-native-newrelic@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@bibabovn/react-native-newrelic/-/react-native-newrelic-1.9.0.tgz#8450d1ff2f94d45e86e079151285dfc6d5c215e3"
+  integrity sha512-0TMwpD/PKZj+MTufG0oUFvjINX1dQUs3NKQ4YOzZrEMDVhuL6r0LcJ8cPZWu2cSksSm3hzX2gxITb8GlgQ9UeQ==
+  dependencies:
+    stacktrace-parser "^0.1.10"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz"
@@ -9153,7 +9160,7 @@ stackframe@^1.1.1:
   resolved "https://registry.npmjs.org/stackframe/-/stackframe-1.2.0.tgz"
   integrity sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==
 
-stacktrace-parser@^0.1.3:
+stacktrace-parser@^0.1.10, stacktrace-parser@^0.1.3:
   version "0.1.10"
   resolved "https://registry.npmjs.org/stacktrace-parser/-/stacktrace-parser-0.1.10.tgz"
   integrity sha512-KJP1OCML99+8fhOHxwwzyWrlUuVX5GQ0ZpJTd1DFXhdkrvg1szxfHhawXUZ3g9TkXORQd4/WG68jMlQZ2p8wlg==

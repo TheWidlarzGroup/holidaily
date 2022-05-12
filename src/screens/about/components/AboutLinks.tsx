@@ -1,7 +1,7 @@
 import React from 'react'
 import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
-import ShieldCheckIcon from 'assets/icons/icon-shield-check.svg'
+import ArrowRightIcon from 'assets/icons/arrow-right.svg'
 import { useTranslation } from 'react-i18next'
 import { useModalContext } from 'contexts/ModalProvider'
 import Modal from 'react-native-modal'
@@ -21,26 +21,52 @@ export const AboutLinks = () => {
   const { showModal, hideModal } = useModalContext()
   return (
     <Box paddingHorizontal="m">
+      <RateApp />
       <BaseOpacity
+        bg="veryLightGrey"
+        padding="m"
+        borderRadius="lmin"
+        marginTop="m"
         flexDirection="row"
         alignItems="center"
-        marginBottom="s"
-        onPress={async () => {
-          await linkWithFallback(ANDROID_RATE_LINK, COMPANY_WEBSITE_LINK)
-        }}>
-        <StarIcon color={theme.colors.black} />
-        <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24} color="black">
+        justifyContent="space-between"
+        onPress={() => showModal(<PrivacyPolicy hideModal={hideModal} />)}>
+        <Text variant="textBoldSM" color="titleActive">
+          {t('privacyPolicy')}
+        </Text>
+        <ArrowRightIcon color={theme.colors.darkGreyBrighter} />
+      </BaseOpacity>
+    </Box>
+  )
+}
+
+const RateApp = () => {
+  const { t } = useTranslation('about')
+  const theme = useTheme()
+  return (
+    <Box padding="m" bg="secondaryOpaque" borderRadius="lmin">
+      <Box flexDirection="row" alignItems="center">
+        <Box bg="tertiaryOpaque" borderRadius="full">
+          <StarIcon color={theme.colors.tertiary} />
+        </Box>
+
+        <Text marginLeft="m" variant="textBoldSM" color="titleActive" style={{ flex: 1 }}>
           {t('rateApp')}
         </Text>
-      </BaseOpacity>
-
+      </Box>
       <BaseOpacity
-        flexDirection="row"
-        alignItems="center"
-        onPress={() => showModal(<PrivacyPolicy hideModal={hideModal} />)}>
-        <ShieldCheckIcon color={theme.colors.black} />
-        <Text marginLeft="m" fontFamily="Nunito-Bold" fontSize={18} lineHeight={24} color="black">
-          {t('privacyPolicy')}
+        paddingVertical="xm"
+        paddingHorizontal="l"
+        marginTop="xm"
+        bg="tertiary"
+        borderRadius="full"
+        alignSelf="center"
+        onPress={async () => {
+          await linkWithFallback(ANDROID_RATE_LINK, COMPANY_WEBSITE_LINK)
+        }}
+        style={{ marginLeft: 'auto' }}>
+        <Text variant="buttonSM" color="white">
+          {t('rateAppBtn')}
         </Text>
       </BaseOpacity>
     </Box>
@@ -70,7 +96,7 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
       <SafeAreaView
         style={{
           height: '100%',
-          backgroundColor: theme.colors.white,
+          backgroundColor: theme.colors.dashboardBackground,
         }}>
         <ModalHeader>
           <BaseOpacity
@@ -79,12 +105,9 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
             paddingLeft="m">
             <IconBack height={18} width={18} color={styles.arrow.color} />
           </BaseOpacity>
-          <Text variant="header" color="black">
-            {t('privacyPolicy')}
-          </Text>
+          <Text variant="displayBoldSM">{t('privacyPolicy')}</Text>
           <Box paddingRight="xl" />
         </ModalHeader>
-
         <PrivacyPolicyContent />
       </SafeAreaView>
     </Modal>

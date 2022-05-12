@@ -43,7 +43,8 @@ PODS:
   - libwebp/mux (1.2.1):
     - libwebp/demux
   - libwebp/webp (1.2.1)
-  - OneSignal (3.10.2)
+  - NewRelicAgent (7.3.5)
+  - OneSignal (3.10.3)
   - OneSignalXCFramework (3.5.3)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -249,6 +250,9 @@ PODS:
     - React-Core
   - react-native-month-year-picker (1.6.4):
     - React
+  - react-native-newrelic (1.9.0):
+    - NewRelicAgent
+    - React-Core
   - react-native-onesignal (4.2.0):
     - OneSignalXCFramework (= 3.5.3)
     - React (< 1.0.0, >= 0.13.0)
@@ -410,6 +414,7 @@ DEPENDENCIES:
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-month-year-picker (from `../node_modules/react-native-month-year-picker`)
+  - "react-native-newrelic (from `../node_modules/@bibabovn/react-native-newrelic`)"
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -443,6 +448,7 @@ SPEC REPOS:
   trunk:
     - fmt
     - libwebp
+    - NewRelicAgent
     - OneSignal
     - OneSignalXCFramework
     - SDWebImage
@@ -499,6 +505,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-month-year-picker:
     :path: "../node_modules/react-native-month-year-picker"
+  react-native-newrelic:
+    :path: "../node_modules/@bibabovn/react-native-newrelic"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
   react-native-safe-area-context:
@@ -569,7 +577,8 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
-  OneSignal: 29b555f5991109dc717f75d4440c565cab92511c
+  NewRelicAgent: b887ea75f6de2bb2fcf3ec0af4c5aa648efce2d0
+  OneSignal: a64c4a07be58b699fcda3aacf38a1c185ee3996b
   OneSignalXCFramework: 4e08d8353adec161c3d9174e2572c849e1225c9f
   RCT-Folly: 803a9cfd78114b2ec0f140cfa6fa2a6bafb2d685
   RCTRequired: 0aa6c1c27e1d65920df35ceea5341a5fe76bdb79
@@ -586,6 +595,7 @@ SPEC CHECKSUMS:
   react-native-document-picker: 429972f7ece4463aa5bcdd789622b3a674a3c5d1
   react-native-image-picker: 474cf2c33c2b6671da53d293a16c97995f0aec15
   react-native-month-year-picker: 9a59b4b8c4802a23123b0ce4ccadce880ad55f8a
+  react-native-newrelic: c4ce90bfff64b857394a7e49c6aa22487c844e67
   react-native-onesignal: a7e433eec906c928954de4f124b6886418386bb4
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
@@ -619,4 +629,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a88c5fdff37241109753c8b72afd6dc8bcbf0ab9
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

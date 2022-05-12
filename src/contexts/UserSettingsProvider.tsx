@@ -21,15 +21,12 @@ export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
   }
 
   useEffect(() => {
-    getItem('userSettings')
-      .then((res) => {
-        if (res) {
-          setUserSettings(JSON.parse(res))
-        } else {
-          setUserSettings(defaultUserSettings)
-        }
-      })
-      .catch((err) => console.error(err))
+    const getItemFn = async () => {
+      const data = await getItem('userSettings')
+      if (data) setUserSettings(JSON.parse(data))
+      else setUserSettings(defaultUserSettings)
+    }
+    getItemFn()
   }, [])
 
   useEffect(() => {
