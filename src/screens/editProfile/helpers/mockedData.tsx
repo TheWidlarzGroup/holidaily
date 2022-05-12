@@ -21,27 +21,27 @@ type ColorProps = {
 
 export const COLORS: ColorProps[] = [
   {
-    color: '#EE4A16',
+    color: '91A6FF#',
     id: 1,
   },
   {
-    color: '#F47B23',
+    color: '#4E70FF',
     id: 2,
   },
   {
-    color: '#57B687',
+    color: '#FF88DC',
     id: 3,
   },
   {
-    color: '#FDC5F5',
+    color: '#80ED99',
     id: 4,
   },
   {
-    color: '#C1C4CA',
+    color: '#FAFF7F',
     id: 5,
   },
   {
-    color: '#4E70FF',
+    color: '#E5ED22',
     id: 6,
   },
   {
@@ -49,23 +49,23 @@ export const COLORS: ColorProps[] = [
     id: 7,
   },
   {
-    color: '#F47B23',
+    color: '#E522AC',
     id: 8,
   },
   {
-    color: '#57B687',
+    color: '#001D96',
     id: 9,
   },
   {
-    color: '#FDC5F5',
+    color: '#B7FF7F',
     id: 10,
   },
   {
-    color: '#C1C4CA',
+    color: '#B137EB',
     id: 11,
   },
   {
-    color: '#4E70FF',
+    color: '#3BEFB9',
     id: 12,
   },
 ]
