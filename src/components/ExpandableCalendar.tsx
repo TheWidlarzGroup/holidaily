@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
@@ -25,6 +25,7 @@ import { addMonths, addWeeks } from 'date-fns'
 import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -53,7 +54,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
   const fullCalendarContainerRef = useAnimatedRef()
   const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
-  const containerHeight = useSharedValue(fullCalendarHeight.value)
+  const containerHeight = useSharedValue(
+    isScreenHeightShort ? BASE_CALENDAR_HEIGHT : WEEK_CALENDAR_HEIGHT
+  )
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
   )
@@ -111,6 +114,20 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     opacity: opacity.value,
     maxHeight: containerHeight.value,
   }))
+  const theme = useTheme()
+
+  useEffect(() => {
+    const delay = isIos ? 2000 : 3500
+
+    const timeout = setTimeout(() => {
+      containerHeight.value = isScreenHeightShort
+        ? withTiming(WEEK_CALENDAR_HEIGHT)
+        : withSpring(BASE_CALENDAR_HEIGHT)
+    }, delay)
+
+    return () => clearTimeout(timeout)
+  }, [containerHeight])
+
   return (
     <>
       <CalendarHeader
@@ -119,7 +136,11 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
         )}
         renderArrow={(direction: 'left' | 'right') =>
-          direction === 'left' ? <ArrowLeft /> : <ArrowRight />
+          direction === 'left' ? (
+            <ArrowLeft color={theme.colors.titleActive} />
+          ) : (
+            <ArrowRight color={theme.colors.titleActive} />
+          )
         }
         theme={headerTheme}
         addMonth={handleAddMonth}

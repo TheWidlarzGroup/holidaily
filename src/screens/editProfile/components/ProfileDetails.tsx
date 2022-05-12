@@ -10,9 +10,11 @@ type UserData = {
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>
   errors: DeepMap<{ firstName: string; lastName: string; occupation: string }, FieldError>
   control: Control<FieldValues>
+  hasValueChanged?: boolean
+  reset?: F0
 }
 const validationPattern = onlyLettersRegex
-export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
+export const ProfileDetails = ({ errors, control, setIsEdited, hasValueChanged }: UserData) => {
   const { t } = useTranslation('userProfile')
   const inputsRefs = [
     useRef<TextInput>(null),
@@ -39,6 +41,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
     errors,
     validationPattern,
     errorMessage,
+    hasValueChanged,
   } as const
   return (
     <Box paddingHorizontal="m">
@@ -71,7 +74,6 @@ export const ProfileDetails = ({ errors, control, setIsEdited }: UserData) => {
           {...commonInputProps}
           maxLength={20}
           variant="mediumSpecial"
-          onBlur={onSubmitEditing}
           isError={!!errors.occupation}
           name="occupation"
           inputLabel={t('userOccupation')}

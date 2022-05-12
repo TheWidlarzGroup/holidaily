@@ -46,7 +46,10 @@ export const Welcome = () => {
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
-      <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView
+        style={styles.formContainer}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always">
         <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>

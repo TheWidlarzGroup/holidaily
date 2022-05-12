@@ -75,8 +75,8 @@
     "seeDemoButton": "Zobacz demo",
     "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfer i znaków specjalnych",
     "about": "O aplikacji",
-    "aboutDesc1": "<bp>Holidaily</bp> to aplikacja do zarządzania urlopami przez pracodawcę i pracowników.",
-    "aboutDesc2": "Aplikacja ułatwia przepływ informacji dotyczących organizacji urlopów w firmie, i sprawia, że cały proces jest szybszy i łatwiejszy.",
+    "aboutDesc1": "<b>Holidaily</b> to aplikacja do zarządzania urlopami przez pracodawcę i pracowników.",
+    "aboutDesc2": "<b>Aplikacja ułatwia przepływ informacji</b> dotyczących organizacji urlopów w firmie, i sprawia, że cały proces jest szybszy i łatwiejszy.",
     "aboutButton": "Rozumiem",
     "congrats": "Gratulacje!",
     "memberOf": "Właśnie dołączyłeś do",
@@ -342,7 +342,12 @@
     "yourRequest": "Twoje podanie"
   },
   "about": {
-    "rateApp": "Oceń aplikację",
-    "privacyPolicy": "Polityka prywatności"
+    "rateApp": "Daj znać czy podoba Ci się korzystanie z naszej aplikacji!",
+    "rateAppBtn": "Oceń aplikację",
+    "privacyPolicy": "Polityka prywatności",
+    "version": "wersja"
+  },
+  "privacyPolicy": {
+    "lastUpdate": "Ostatnia aktualizacja: {{date}}"
   }
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { ModalProps, Modal } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
-
+import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import IconArrowLeft from 'assets/icons/arrow-left.svg'
 import IconGeolocation from 'assets/icons/icon-geolocation.svg'
 import { useTranslation } from 'react-i18next'
@@ -35,6 +34,7 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
     if (!location?.position) return
     props.onLocationChange(location)
   }
+  const theme = useTheme()
 
   return (
     <Modal hardwareAccelerated {...props}>
@@ -49,7 +49,7 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
             onPress={() => {
               props.onRequestClose?.()
             }}>
-            <IconArrowLeft />
+            <IconArrowLeft color={theme.colors.titleActive} />
           </BaseOpacity>
         </Box>
         <Box paddingHorizontal="l" paddingTop="m">
