@@ -23,7 +23,7 @@ type CustomInputTypes = {
   hasValueChanged?: boolean
   disabled?: boolean
   reset?: F0
-  hasAButton?: true
+  hasAButton?: boolean
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(

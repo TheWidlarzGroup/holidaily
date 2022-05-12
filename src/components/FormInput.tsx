@@ -63,7 +63,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           control={control}
           render={({ onChange, onBlur, value }) => (
             <CustomInput
-              hasAButton
+              hasAButton={props.variant === 'mediumSpecial'}
               reset={() => onChange('')}
               inputLabel={inputLabel}
               onChangeText={onChange}
