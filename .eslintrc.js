@@ -1,9 +1,17 @@
 module.exports = {
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
   root: true,
-  extends: 'eslint-config-twg/typescript.js',
+  extends: ['eslint-config-twg/typescript.js'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json',
+    tsconfigRootDir: './',
   },
+  plugins: ['@typescript-eslint', 'import'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     'import/no-unresolved': 0,
@@ -13,6 +21,7 @@ module.exports = {
     'no-shadow': 0,
     '@typescript-eslint/no-shadow': 0,
     'no-undef': 'off',
+    '@typescript-eslint/no-unsafe-argument': 0,
   },
   globals: {
     __DEV__: 'readonly',

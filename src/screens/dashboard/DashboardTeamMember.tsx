@@ -21,7 +21,7 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
       borderTopRightRadius="m"
       backgroundColor="white"
       flexGrow={1}
-      marginTop={isIos ? '-l' : 0}>
+      marginTop={isIos ? '-l' : 'none'}>
       <ScrollView showsHorizontalScrollIndicator={false}>
         <TouchableOpacity
           onPress={closeModal}
