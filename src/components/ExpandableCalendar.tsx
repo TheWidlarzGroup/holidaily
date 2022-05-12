@@ -32,6 +32,7 @@ import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCale
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef, NewDayComponentProps } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
+import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
@@ -118,15 +119,16 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
   useEffect(() => {
     const delay = isIos ? 2000 : 3500
-
     const timeout = setTimeout(() => {
+      const EXTRA_HEIGHT = doesMonthInCalendarHasSixRows(selectedDate) ? 65 : 0
+
       containerHeight.value = isScreenHeightShort
         ? withTiming(WEEK_CALENDAR_HEIGHT)
-        : withSpring(BASE_CALENDAR_HEIGHT)
+        : withSpring(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
     }, delay)
 
     return () => clearTimeout(timeout)
-  }, [containerHeight])
+  }, [containerHeight, selectedDate])
 
   return (
     <>
