@@ -5,7 +5,7 @@ import { parseISO } from 'utils/dates'
 import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/useRequestsContext'
 import { FilterCategory } from './components/CategoriesSlider'
-import { DayInfoProps } from './components/DayInfo'
+import { DayInfoProps } from '../../types/DayInfoProps'
 
 export const useCalendarData = () => {
   const { teams } = useTeamsContext()
