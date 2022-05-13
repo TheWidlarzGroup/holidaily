@@ -18,10 +18,10 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
         <Box
           borderRadius="full"
           position="absolute"
-          width={19}
-          height={19}
-          left={20}
-          top={8}
+          width={17}
+          aspectRatio={1}
+          left={7}
+          top={10}
           zIndex="2"
           backgroundColor="errorRed"
           justifyContent="center"
