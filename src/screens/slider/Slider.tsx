@@ -94,6 +94,8 @@ export const Slider: FC = () => {
         onScroll={scrollHandler}
         horizontal
         showsHorizontalScrollIndicator={false}
+        decelerationRate="normal"
+        disableIntervalMomentum
         pagingEnabled>
         {SLIDER_DATA.map((item, index) => (
           <SliderContent

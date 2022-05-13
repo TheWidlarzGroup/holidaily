@@ -138,7 +138,7 @@
     "changesSaved": "Changes saved"
   },
   "confirmLogoutModal": {
-    "areYouSure": "Log out?",
+    "areYouSure": "Do you want to log out?",
     "yes": "Log out",
     "no": "Cancel"
   },
@@ -164,9 +164,11 @@
     "editPhoto": "Edit profile picture",
     "editDetailsErrMsg": "Something went wrong. Try again.",
     "userFirstName": "Name",
+    "firstNamePlaceholder": "Enter your name",
     "userLastName": "Surname",
+    "lastNamePlaceholder": "Enter your surname",
     "userRole": "Role",
-    "userOccupation": "Occupation",
+    "rolePlaceholder": "Enter your role",
     "userPassword": "Password",
     "userSubscriptions": "Subscribed teams",
     "userColor": "Your color",
@@ -184,15 +186,19 @@
     "fieldRequired": "Field is either empty or it contains illegal characters",
     "ifYouUnsubscribe": "If you unsubscribe {{teamName}} Team you will no longer see its members.",
     "unsubscribed": "{{teamName}} unsubscribed",
-    "colorPicker": "Pick your favourite color and drop it in the grey area below"
+    "colorPicker": "Pick your favourite color and drop it in the grey area below",
+    "discardChanges": "Discard changes",
+    "discard": "Discard",
+    "changesWillBeLost": "By clicking Discard, all changes will be lost.",
+    "confirmSave": "Save changes?"
   },
   "dashboard": {
     "today": "Today is:",
-    "bookedHolidays": "PRESENT & UPCOMING TIME OFF",
-    "teamsList": "YOUR TEAMS",
-    "outOfWorkNow": "Out of work now",
-    "outOfWorkSoon": "Out of work soon",
-    "othersTeamMembers": "Team members",
+    "bookedHolidays": "Present & upcoming time off",
+    "teamsList": "Your teams",
+    "outOfWorkNow": "Now out of office",
+    "outOfWorkSoon": "Soon out of office",
+    "othersTeamMembers": "Other team members",
     "outOfWork": "Out of work",
     "backAtWork": "Back at work",
     "lastDayAtWork": "Last day at work",

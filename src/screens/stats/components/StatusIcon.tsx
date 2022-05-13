@@ -1,11 +1,12 @@
 import React from 'react'
-import { Box, useTheme } from 'utils/theme'
+import { Box, Theme, useTheme } from 'utils/theme'
 import SpinnerIcon from 'assets/icons/icon-spinner.svg'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
 import CrossIcon from 'assets/icons/icon-close.svg'
 import PalmIcon from 'assets/icons/icon-palm.svg'
 import { DayOffRequest } from 'mock-api/models'
+import { BoxProps } from '@shopify/restyle'
 
 export const StatusIcon = ({
   status,
@@ -50,7 +51,7 @@ export const StatusIcon = ({
       return null
   }
 }
-const commonIconProps = {
+const commonIconProps: BoxProps<Theme> = {
   width: 50,
   justifyContent: 'center',
   alignItems: 'center',

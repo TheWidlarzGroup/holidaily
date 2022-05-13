@@ -25,10 +25,12 @@ export const palette = {
   tertiary500: 'rgba(133, 153, 255, 1)',
   tertiary300: 'rgba(186, 198, 255, 1)',
   tertiary25: 'rgba(233, 237, 255, 1)',
+  tertiary300opaque: 'rgba(174, 187, 255, 0.3)',
   quaternary700: 'rgba(59, 195, 164, 1)',
   quaternary500: 'rgba(104, 219, 192, 1)',
   quaternary300: 'rgba(181, 242, 227, 1)',
   quaternary25: 'rgba(222, 252, 245, 1)',
+  quarternaryOpaque: 'rgba(126, 247, 218, 0.3)',
   error700: 'rgba(212, 17, 3, 1)',
   error500: 'rgba(253, 102, 91, 1)',
   error300: 'rgba(254, 159, 153, 1)',
@@ -93,6 +95,9 @@ export const colors = {
   dashboardBackgroundBrighter: palette.grayscale50,
   successToastBg: palette.success25,
   successToastBorder: palette.success300,
+  lightBlue: palette.tertiary300opaque,
+  quarternary: palette.quaternary500,
+  quarternaryOpaque: palette.quarternaryOpaque,
 }
 
 export const darkThemeColors = {
@@ -142,6 +147,9 @@ export const darkThemeColors = {
   dashboardBackgroundBrighter: palette.grayscale900,
   successToastBg: palette.grayscale800,
   successToastBorder: palette.success300,
+  lightBlue: palette.tertiary300opaque,
+  quarternary: palette.quaternary500,
+  quarternaryOpaque: palette.quarternaryOpaque,
 }
 
 export const legacyPalette = {

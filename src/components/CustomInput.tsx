@@ -13,14 +13,17 @@ import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
 import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { InputEditIcon } from './InputEditIcon'
 
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
   variant: 'medium' | 'small' | 'mediumSpecial'
   isPasswordIconVisible?: boolean
+  hasValueChanged?: boolean
   disabled?: boolean
   reset?: F0
+  hasButton?: boolean
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
@@ -37,6 +40,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       placeholder,
       variant,
       reset,
+      hasValueChanged,
+      hasButton,
       ...props
     },
     ref
@@ -96,7 +101,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <TextInput
               style={[styles.input, disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
-              onBlur={handleOnBlur}
+              onBlur={hasValueChanged ? handleOnBlur : () => setIsFocused(false)}
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}
@@ -106,12 +111,20 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               editable={!disabled}
               {...props}
             />
+
             {reset && value && value.length > 0 && isFocused ? (
               <BaseOpacity position="absolute" right={15} onPress={reset}>
                 <DeleteIcon width={20} height={20} />
               </BaseOpacity>
             ) : null}
           </Animated.View>
+          {hasButton && !isFocused && (
+            <InputEditIcon
+              onPress={() => {
+                setIsFocused(true)
+              }}
+            />
+          )}
           {isPasswordIconVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
               <TouchableOpacity onPress={toggle}>

@@ -4,7 +4,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { mkUseStyles, useTheme } from 'utils/theme'
+import { useTheme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useModalContext } from 'contexts/ModalProvider'
@@ -15,6 +15,7 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
 import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -27,9 +28,14 @@ export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
   const navigation = useNavigation()
   const { user } = useUserContext()
-  const styles = useStyles()
   const theme = useTheme()
-  const { errors, control, handleSubmit } = useForm({
+  const {
+    errors,
+    control,
+    handleSubmit,
+    formState: { isDirty },
+    reset,
+  } = useForm({
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
@@ -37,6 +43,7 @@ export const EditProfile = () => {
       userColor: user?.userColor || theme.colors.primary,
     },
   })
+
   const { t } = useTranslation('userProfile')
   const { mutate, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
@@ -59,21 +66,40 @@ export const EditProfile = () => {
       onSuccess: (payload) => {
         onUpdate(payload)
         showModal(<ChangesSavedModal isVisible content={t('changesSaved')} hideModal={hideModal} />)
+        reset({
+          firstName: payload.user?.firstName,
+          lastName: payload.user?.lastName,
+          occupation: payload.user?.occupation,
+          userColor: payload.user?.userColor,
+        })
       },
     })
   }
 
-  const handleGoBack = useCallback(() => {
-    navigation.goBack()
-    navigation.dispatch(DrawerActions.openDrawer())
-  }, [navigation])
+  const handleGoBack = useWithConfirmation({
+    onAccept: () => {
+      handleSubmit(onSubmit)
+      setEditedFalse()
+      navigation.goBack()
+      navigation.dispatch(DrawerActions.openDrawer())
+    },
+    onDecline: () => {
+      reset()
+      setEditedFalse()
+      navigation.goBack()
+      navigation.dispatch(DrawerActions.openDrawer())
+    },
+    header: t('confirmSave'),
+    content: t('changesWillBeLost'),
+    acceptBtnText: t('saveChanges'),
+    declineBtnText: t('discard'),
+  })
 
   return (
     <SafeAreaWrapper>
       <ScrollView
         style={{
           marginBottom: isEdited ? 93 : 0,
-          backgroundColor: styles.container.backgroundColor,
         }}>
         <GestureRecognizer
           onSwipeRight={handleGoBack}
@@ -85,18 +111,26 @@ export const EditProfile = () => {
           setIsEditedTrue={setEditedTrue}
           setIsEditedFalse={setEditedFalse}
         />
-        <ProfileDetails {...user} errors={errors} control={control} setIsEdited={setEditedTrue} />
+        <ProfileDetails
+          {...user}
+          errors={errors}
+          control={control}
+          setIsEdited={setEditedTrue}
+          hasValueChanged={isDirty}
+        />
         <TeamSubscriptions />
         <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
       </ScrollView>
       {isLoading && <LoadingModal show />}
-      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
+      {isEdited && (
+        <SaveChangesButton
+          onDiscard={() => {
+            reset()
+            setEditedFalse()
+          }}
+          handleEditDetailsSubmit={handleSubmit(onSubmit)}
+        />
+      )}
     </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  container: {
-    backgroundColor: theme.colors.dashboardBackground,
-  },
-}))

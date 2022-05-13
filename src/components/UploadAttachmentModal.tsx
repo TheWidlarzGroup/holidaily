@@ -90,7 +90,7 @@ export const UploadAttachmentModal = ({
       backdropOpacity={0.5}
       isOpen={p.isVisible}
       onHide={p.hideModal}>
-      <Box style={styles.modal}>
+      <Box style={[styles.modal]}>
         <UploadAttachmentButtons
           onUpload={onUpload}
           allowFiles={p.allowFiles}
@@ -104,7 +104,7 @@ export const UploadAttachmentModal = ({
 const useStyles = mkUseStyles((theme: Theme) => ({
   modal: {
     width: '100%',
-    minHeight: 220,
+    minHeight: 170,
     backgroundColor: theme.colors.primary,
     position: 'absolute',
     bottom: -20,
