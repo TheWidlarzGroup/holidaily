@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, BaseOpacity, useTheme, mkUseStyles } from 'utils/theme'
+import { Box, Text, BaseOpacity, useTheme, mkUseStyles, Theme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/functions'
 import { HolidayTag } from 'screens/dashboard/components/HolidayTag'
@@ -22,8 +22,8 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
   const dateToBeDisplayed = setDateToBeDisplayed(date, userData.isOnHoliday)
 
   const version: {
-    color: 'secondaryOpaque' | 'lightBlue'
-    arrow: 'primary' | 'textBlue'
+    color: keyof Theme['colors']
+    arrow: keyof Theme['colors']
     text: 'backAtWork' | 'lastDayAtWork'
   } = {
     color: userData.isOnHoliday ? 'secondaryOpaque' : 'lightBlue',
@@ -65,8 +65,8 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
       </Box>
       <Box position="absolute" top={48} right={12} style={styles.arrow}>
         <IconBack
-          height={13.4}
-          width={13.4}
+          height={13}
+          width={13}
           color={isSick ? theme.colors.quarternary : theme.colors[version.arrow]}
         />
       </Box>

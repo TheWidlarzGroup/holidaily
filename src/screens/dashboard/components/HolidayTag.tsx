@@ -11,11 +11,6 @@ type HolidayTagProps = {
   isBorderBackgroundGrey?: true
 }
 
-const CONTAINER_SIZE = 30
-const TAG_SIZE = 24
-const PALM_SIZE = 16
-const PILL_SIZE = 13.7
-
 export const HolidayTag = ({
   isSick,
   hideBorder,
@@ -23,24 +18,6 @@ export const HolidayTag = ({
   isBorderBackgroundGrey,
 }: HolidayTagProps) => {
   const theme = useTheme()
-
-  const containerStyles = {
-    width: CONTAINER_SIZE,
-    height: CONTAINER_SIZE,
-    borderRadius: CONTAINER_SIZE / 2,
-    top: -CONTAINER_SIZE / 3,
-    right: -CONTAINER_SIZE / 3,
-  }
-  const borderContainerStyles = {
-    width: CONTAINER_SIZE,
-    height: CONTAINER_SIZE,
-    borderRadius: CONTAINER_SIZE / 2,
-  }
-  const tagStyles = {
-    width: TAG_SIZE,
-    height: TAG_SIZE,
-    borderRadius: TAG_SIZE / 2,
-  }
 
   let border: keyof Theme['colors'] = 'white'
   let tagBackground: keyof Theme['colors'] = 'white'
@@ -67,17 +44,13 @@ export const HolidayTag = ({
       position="absolute"
       alignItems="center"
       justifyContent="center"
-      style={{ ...containerStyles }}>
+      style={containerStyles}>
       <Box
         backgroundColor={hideBorderColor ? 'transparent' : border}
         alignItems="center"
         justifyContent="center"
-        style={{ ...borderContainerStyles }}>
-        <Box
-          bg={tagBackground}
-          alignItems="center"
-          justifyContent="center"
-          style={{ ...tagStyles }}>
+        style={borderContainerStyles}>
+        <Box bg={tagBackground} alignItems="center" justifyContent="center" style={tagStyles}>
           {isSick ? (
             <IconPill color={theme.colors.alwaysWhite} width={PILL_SIZE} height={PILL_SIZE} />
           ) : (
@@ -87,4 +60,27 @@ export const HolidayTag = ({
       </Box>
     </Box>
   )
+}
+
+const CONTAINER_SIZE = 30
+const TAG_SIZE = 24
+const PALM_SIZE = 16
+const PILL_SIZE = 13.7
+
+const containerStyles = {
+  width: CONTAINER_SIZE,
+  height: CONTAINER_SIZE,
+  borderRadius: CONTAINER_SIZE / 2,
+  top: -CONTAINER_SIZE / 3,
+  right: -CONTAINER_SIZE / 3,
+}
+const borderContainerStyles = {
+  width: CONTAINER_SIZE,
+  height: CONTAINER_SIZE,
+  borderRadius: CONTAINER_SIZE / 2,
+}
+const tagStyles = {
+  width: TAG_SIZE,
+  height: TAG_SIZE,
+  borderRadius: TAG_SIZE / 2,
 }
