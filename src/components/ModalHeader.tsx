@@ -3,8 +3,6 @@ import { Box } from 'utils/theme'
 
 export const ModalHeader = ({ children }: { children: React.ReactNode }) => (
   <Box
-    paddingTop="m"
-    paddingBottom="m"
     bg="veryLightGrey"
     flexDirection="row"
     alignItems="center"

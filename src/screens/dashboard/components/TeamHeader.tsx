@@ -19,9 +19,9 @@ export const TeamHeader = (props: TeamHeaderProps) => {
         onPress={goBack}
         hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
         paddingLeft="m">
-        <IconBack height={18} width={18} color={theme.colors.black} />
+        <IconBack height={16} width={16} color={theme.colors.black} />
       </BaseOpacity>
-      <Text variant="header" color="black">
+      <Text variant="displayBoldSM" color="black">
         {title}
       </Text>
       <Box paddingRight="xl" paddingVertical="lplus" />
