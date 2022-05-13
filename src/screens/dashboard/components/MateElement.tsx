@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, BaseOpacity, useTheme, mkUseStyles } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { displayWeekday, displayDayShort, setDateToBeDisplayed } from 'utils/functions'
-import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
+import { HolidayTag } from 'screens/dashboard/components/HolidayTag'
 import { Avatar } from 'components/Avatar'
 import { User } from 'mock-api/models/mirageTypes'
 import { makeUserDetails } from 'utils/userDetails'
@@ -47,9 +47,7 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
       position="relative">
       <Box margin="m">
         <Avatar size="xm" src={photo} userDetails={makeUserDetails(userData)} />
-        {userData.isOnHoliday && (
-          <OnHolidayTag variant="small" background="secondaryOpaque" isSick={isSick} />
-        )}
+        {userData.isOnHoliday && <HolidayTag isSick={isSick} />}
       </Box>
       <Box marginVertical="s">
         <Text variant="textBoldMD" lineHeight={30}>
@@ -69,7 +67,7 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
         <IconBack
           height={13.4}
           width={13.4}
-          color={isSick ? theme.colors.quaternary : theme.colors[version.arrow]}
+          color={isSick ? theme.colors.quarternary : theme.colors[version.arrow]}
         />
       </Box>
     </BaseOpacity>

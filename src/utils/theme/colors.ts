@@ -93,8 +93,7 @@ export const colors = {
   dashboardBackground: palette.grayscale100,
   dashboardBackgroundBrighter: palette.grayscale50,
   lightBlue: palette.tertiary300opaque,
-  lightestPrimary: palette.primary25,
-  quaternary: palette.quaternary500,
+  quarternary: palette.quaternary500,
   quarternaryOpaque: palette.quarternaryOpaque,
 }
 
@@ -144,8 +143,7 @@ export const darkThemeColors = {
   dashboardBackground: palette.grayscale900,
   dashboardBackgroundBrighter: palette.grayscale900,
   lightBlue: palette.tertiary300opaque,
-  lightestPrimary: palette.primary25,
-  quaternary: palette.quaternary500,
+  quarternary: palette.quaternary500,
   quarternaryOpaque: palette.quarternaryOpaque,
 }
 
