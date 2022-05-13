@@ -33,7 +33,7 @@ export const Budget = () => {
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
-        <Box paddingHorizontal="m" paddingTop="xxl" marginHorizontal="m">
+        <Box paddingHorizontal="m" paddingTop="xxl">
           <Box style={[styles.section]} marginBottom="l2plus">
             <AvailablePto availablePto={user?.availablePto ?? 0} />
           </Box>
@@ -76,7 +76,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     padding: theme.spacing.xxm,
     paddingBottom: 0,
     borderRadius: theme.borderRadii.l,
-    backgroundColor: theme.colors.bottomTabBgColor,
+    backgroundColor: theme.colors.alwaysWhite,
     overflow: 'hidden',
   },
 }))

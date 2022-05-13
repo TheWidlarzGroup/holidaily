@@ -8,16 +8,12 @@ export const OtherMateElement = (props: User) => {
   const { firstName, lastName, photo } = props
 
   return (
-    <Box marginVertical="m" alignItems="center" flexBasis="25%">
+    <Box marginVertical="s" alignItems="center" flexBasis="25%" marginBottom="m">
       <Box marginBottom="s">
-        <Avatar src={photo} userDetails={makeUserDetails(props)} />
+        <Avatar size="xm" src={photo} userDetails={makeUserDetails(props)} />
       </Box>
-      <Text numberOfLines={1} variant="holidayDate" color="black">
-        {firstName}
-      </Text>
-      <Text numberOfLines={1} variant="holidayDate" color="black">
-        {lastName}
-      </Text>
+      <Text variant="displayXS">{firstName}</Text>
+      <Text variant="displayXS">{lastName}</Text>
     </Box>
   )
 }

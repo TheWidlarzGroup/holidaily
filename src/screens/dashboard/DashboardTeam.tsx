@@ -40,7 +40,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     matesOnHoliday.sort(sortByEndDate)
 
     let matesWithPlannedHolidays = mates.filter(
-      (mate) => !mate.isOnHoliday && mate.requests[0].startDate
+      (mate) => !mate.isOnHoliday && mate.requests[0]?.startDate
     )
     matesWithPlannedHolidays = matesWithPlannedHolidays.filter(
       (user) => user.requests[0].endDate > new Date().toISOString()
@@ -48,7 +48,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     matesWithPlannedHolidays.sort(sortByStartDate)
 
     const matesWithNoPlannedHolidays = mates.filter(
-      (mate) => !mate.isOnHoliday && !mate.requests[0].startDate
+      (mate) => !mate.isOnHoliday && !mate.requests[0]?.startDate
     )
     return { matesOnHoliday, matesWithPlannedHolidays, matesWithNoPlannedHolidays }
   }, [params?.users, user])
@@ -59,7 +59,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
         <TeamHeader title={params.name} />
         {/* TODO: refactor to use SectionList */}
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Box paddingHorizontal="m" paddingBottom="xxl">
+          <Box paddingHorizontal="m" paddingBottom="xxxl">
             {matesOnHoliday.length > 0 && (
               <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
             )}

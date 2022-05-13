@@ -60,9 +60,8 @@ const Version = ({ show }: { show: boolean }) => {
   return null
 }
 
-const useStyles = mkUseStyles((theme) => ({
+const useStyles = mkUseStyles(() => ({
   container: {
-    backgroundColor: theme.colors.white,
     flexGrow: 1,
   },
   containerPadding: {

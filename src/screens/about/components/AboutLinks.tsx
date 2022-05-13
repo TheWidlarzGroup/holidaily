@@ -80,8 +80,8 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
   const { t } = useTranslation('about')
   return (
     <Modal
-      animationIn="slideInLeft"
-      animationOut="slideOutLeft"
+      animationIn="slideInRight"
+      animationOut="slideOutRight"
       animationInTiming={300}
       animationOutTiming={300}
       onModalHide={hideModal}

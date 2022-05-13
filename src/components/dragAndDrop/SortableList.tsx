@@ -85,7 +85,7 @@ export const SortableList = ({ children }: SortableListProps) => {
               marginHorizontal="xm"
               marginBottom="xs"
               letterSpacing={0.7}>
-              {t('teamsList')}
+              {t('teamsList').toUpperCase()}
             </Text>
           </Box>
         }
