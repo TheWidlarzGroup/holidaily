@@ -75,25 +75,27 @@ export const EditProfile = () => {
       },
     })
   }
-
-  const handleGoBack = useWithConfirmation({
+  const onGoBack = () => {
+    setEditedFalse()
+    navigation.goBack()
+    navigation.dispatch(DrawerActions.openDrawer())
+  }
+  const onUnsavedChanges = useWithConfirmation({
     onAccept: () => {
       handleSubmit(onSubmit)
-      setEditedFalse()
-      navigation.goBack()
-      navigation.dispatch(DrawerActions.openDrawer())
+      onGoBack()
     },
     onDecline: () => {
       reset()
-      setEditedFalse()
-      navigation.goBack()
-      navigation.dispatch(DrawerActions.openDrawer())
+      onGoBack()
     },
     header: t('confirmSave'),
     content: t('changesWillBeLost'),
     acceptBtnText: t('saveChanges'),
     declineBtnText: t('discard'),
   })
+
+  const handleGoBack = isEdited ? onUnsavedChanges : onGoBack
 
   return (
     <SafeAreaWrapper>
