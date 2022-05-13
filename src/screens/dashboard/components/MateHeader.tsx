@@ -8,15 +8,15 @@ export const MateHeader = ({ user }: { user: User }) => {
   const { firstName, lastName, occupation, photo } = user
 
   return (
-    <Box alignItems="center" borderBottomColor="black" borderBottomWidth={2} paddingBottom="l">
+    <Box alignItems="center" paddingBottom="l" paddingTop="m">
       <Box>
-        <Avatar src={photo} size="l" userDetails={makeUserDetails(user)} />
+        <Avatar src={photo} size="ml" userDetails={makeUserDetails(user)} />
       </Box>
-      <Text variant="bold20" color="black" marginTop="m">
+      <Text variant="displayBoldMD" marginTop="m">
         {firstName} {lastName}
       </Text>
       {!!occupation && (
-        <Text variant="regularGrey16" color="headerGrey">
+        <Text variant="textSM" color="headerGrey">
           {occupation}
         </Text>
       )}

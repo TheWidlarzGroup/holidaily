@@ -1,10 +1,9 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, Theme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { displayDatesRange } from 'utils/functions'
-
-import IconSickLeave from 'assets/icons/icon-sick-leave.svg'
 import { User } from 'mock-api/models/mirageTypes'
+import { HolidayTag } from './HolidayTag'
 
 export const MateHoliday = ({ user }: { user: User }) => {
   const { startDate, endDate, isSickTime, description } = user.requests[0]
@@ -12,27 +11,46 @@ export const MateHoliday = ({ user }: { user: User }) => {
   const { t } = useTranslation('dashboard')
 
   const header = isOnHoliday ? 'outOfWorkNow' : 'outOfWorkSoon'
-  const colorHeader = isOnHoliday ? 'tertiary' : 'headerGrey'
-  const color = isOnHoliday ? 'tertiary' : 'black'
+
+  let background: keyof Theme['colors'] = 'primaryOpaque'
+  let text: keyof Theme['colors'] = 'primaryOpaque'
+
+  switch (true) {
+    case isOnHoliday && !isSickTime:
+      background = 'primaryOpaque'
+      text = 'tertiary'
+      break
+    case isOnHoliday && isSickTime:
+      background = 'quarternaryOpaque'
+      text = 'quarternary'
+      break
+    case !isOnHoliday:
+      background = 'lightBlue'
+      text = 'textBlue'
+      break
+    default:
+      break
+  }
+
   return (
-    <Box borderBottomColor="black" borderBottomWidth={2} paddingBottom="l">
-      <Text variant="inputErrorMessage" marginVertical="m" color={colorHeader}>
-        {t(header).toUpperCase()}
+    <Box
+      padding="xm"
+      paddingBottom="l"
+      backgroundColor={background}
+      borderTopLeftRadius="lmin"
+      borderTopRightRadius="lmin">
+      <Box position="absolute" left={26} top={16}>
+        <HolidayTag hideBorder hideBorderColor isSick={isSickTime} isSoonOnHoliday={!isOnHoliday} />
+      </Box>
+      <Text variant="textBoldXS" color={text} paddingLeft="lplus">
+        {t(header)}
       </Text>
-      <Text variant="header" textAlign="left" color="black">
+      <Text variant="textBoldMD" textAlign="center" marginTop="s">
         {description || t('coupleDaysOff')}
       </Text>
-      <Text variant="regularGrey16" color="black" marginTop="s" marginBottom="xs">
+      <Text variant="textSM" textAlign="center" marginTop="xs">
         {startDate && endDate && displayDatesRange(startDate, endDate)}
       </Text>
-      {isSickTime && (
-        <Box flexDirection="row" alignItems="center">
-          <IconSickLeave />
-          <Text variant="inputErrorMessage" paddingLeft="xs" color={color}>
-            {t('sickLeave')}
-          </Text>
-        </Box>
-      )}
     </Box>
   )
 }

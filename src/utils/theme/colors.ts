@@ -8,6 +8,7 @@ export const palette = {
   grayscale200: 'rgba(236, 238, 242, 1)',
   grayscale100: 'rgba(243, 244, 246, 1)',
   grayscale50: 'rgba(252, 252, 252, 1)',
+  grayscaleOpaque: 'rgba(213, 215, 224, 0.3)',
   primary700: 'rgba(220, 98, 10, 1)',
   primary500: 'rgba(255, 142, 60, 1)',
   primary300: 'rgba(252, 169, 93, 1)',
@@ -21,6 +22,7 @@ export const palette = {
   secondary500: 'rgba(92, 149, 255, 1)',
   secondary300: 'rgba(164, 196, 255, 1)',
   secondary25: 'rgba(237, 243, 255, 1)',
+  secondary25opaque: 'rgba(92, 149, 255, 0.12)',
   tertiary700: 'rgba(84, 102, 255, 1)',
   tertiary500: 'rgba(133, 153, 255, 1)',
   tertiary300: 'rgba(186, 198, 255, 1)',
@@ -95,6 +97,8 @@ export const colors = {
   lightBlue: palette.tertiary300opaque,
   quarternary: palette.quaternary500,
   quarternaryOpaque: palette.quarternaryOpaque,
+  lightGrayOpaque: palette.grayscaleOpaque,
+  lightBlueOpaque: palette.secondary25opaque,
 }
 
 export const darkThemeColors = {
@@ -145,6 +149,8 @@ export const darkThemeColors = {
   lightBlue: palette.tertiary300opaque,
   quarternary: palette.quaternary500,
   quarternaryOpaque: palette.quarternaryOpaque,
+  lightGrayOpaque: palette.grayscaleOpaque,
+  lightBlueOpaque: palette.secondary25opaque,
 }
 
 export const legacyPalette = {

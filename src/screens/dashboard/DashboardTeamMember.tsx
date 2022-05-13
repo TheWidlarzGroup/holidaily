@@ -34,6 +34,14 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
           <MateHolidayDetail type="start" date={user?.requests[0].startDate || ''} />
           <MateHolidayDetail type="end" date={user?.requests[0].endDate || ''} />
         </Box>
+        {/* {user.teams.length > 0 &&
+          user.teams.map((team) => {
+            return (
+              <Box>
+                <Text variant='textSM'>{team}</Text>
+              </Box>
+            )
+          })} */}
       </ScrollView>
     </Box>
   </SafeAreaWrapper>
