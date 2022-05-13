@@ -57,11 +57,13 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
       <FlatList
         horizontal
         ref={listRef}
+        snapToInterval={width}
+        snapToAlignment="center"
         initialScrollIndex={index}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
-        decelerationRate={0}
-        pagingEnabled
+        decelerationRate="normal"
+        disableIntervalMomentum
         contentContainerStyle={{ alignItems: 'center' }}
         data={data}
         renderItem={renderItem}
