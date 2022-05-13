@@ -8,7 +8,7 @@ type AttachmentIconProps = {
 }
 
 export const AttachmentIcon = ({ showAttachmentModal }: AttachmentIconProps) => (
-  <Box backgroundColor="lightGrey" padding="xm" margin="s" marginLeft={0} borderRadius="l">
+  <Box backgroundColor="lightGrey" padding="xm" margin="s" marginLeft="none" borderRadius="l">
     <TouchableOpacity onPress={showAttachmentModal}>
       <PaperclipIcon width={22} height={22} />
     </TouchableOpacity>

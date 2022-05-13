@@ -15,6 +15,7 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
 import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -76,16 +77,29 @@ export const EditProfile = () => {
     })
   }
 
-  const handleGoBack = useCallback(() => {
-    navigation.goBack()
-    navigation.dispatch(DrawerActions.openDrawer())
-  }, [navigation])
+  const handleGoBack = useWithConfirmation({
+    onAccept: () => {
+      handleSubmit(onSubmit)
+      setEditedFalse()
+      navigation.goBack()
+      navigation.dispatch(DrawerActions.openDrawer())
+    },
+    onDecline: () => {
+      reset()
+      setEditedFalse()
+      navigation.goBack()
+      navigation.dispatch(DrawerActions.openDrawer())
+    },
+    header: t('confirmSave'),
+    content: t('changesWillBeLost'),
+    acceptBtnText: t('saveChanges'),
+    declineBtnText: t('discard'),
+  })
 
   return (
     <SafeAreaWrapper>
       <ScrollView
         style={{
-          marginBottom: isEdited ? 93 : 0,
           backgroundColor: styles.container.backgroundColor,
         }}>
         <GestureRecognizer
@@ -109,7 +123,15 @@ export const EditProfile = () => {
         <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
       </ScrollView>
       {isLoading && <LoadingModal show />}
-      {isEdited && <SaveChangesButton handleEditDetailsSubmit={handleSubmit(onSubmit)} />}
+      {isEdited && (
+        <SaveChangesButton
+          onDiscard={() => {
+            reset()
+            setEditedFalse()
+          }}
+          handleEditDetailsSubmit={handleSubmit(onSubmit)}
+        />
+      )}
     </SafeAreaWrapper>
   )
 }
