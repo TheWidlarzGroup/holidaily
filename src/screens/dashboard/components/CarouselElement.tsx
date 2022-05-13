@@ -12,6 +12,7 @@ export type CarouselElementProps = {
   dayToBeDisplayed: string
   userColor: string
   photo?: string | null
+  isSick?: boolean
 }
 
 const ICON_SIZE = 10

@@ -55,6 +55,7 @@ export const Carousel = () => {
                 photo={user.photo}
                 userColor={user.userColor}
                 dayToBeDisplayed={displayDay(user)}
+                isSick={user.requests[0]}
               />
             </TouchableOpacity>
           ),

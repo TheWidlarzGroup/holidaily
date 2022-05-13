@@ -44,8 +44,22 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.2.1)
   - NewRelicAgent (7.3.5)
+<<<<<<< Updated upstream
   - OneSignal (3.10.3)
   - OneSignalXCFramework (3.5.3)
+=======
+  - OneSignal (3.11.1):
+    - OneSignal/OneSignalCore (= 3.11.1)
+    - OneSignal/OneSignalExtension (= 3.11.1)
+    - OneSignal/OneSignalOutcomes (= 3.11.1)
+  - OneSignal/OneSignalCore (3.11.1)
+  - OneSignal/OneSignalExtension (3.11.1):
+    - OneSignal/OneSignalCore
+    - OneSignal/OneSignalOutcomes
+  - OneSignal/OneSignalOutcomes (3.11.1):
+    - OneSignal/OneSignalCore
+  - OneSignalXCFramework (3.10.3)
+>>>>>>> Stashed changes
   - RCT-Folly (2021.06.28.00-v2):
     - boost
     - DoubleConversion
@@ -578,8 +592,13 @@ SPEC CHECKSUMS:
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   NewRelicAgent: b887ea75f6de2bb2fcf3ec0af4c5aa648efce2d0
+<<<<<<< Updated upstream
   OneSignal: a64c4a07be58b699fcda3aacf38a1c185ee3996b
   OneSignalXCFramework: 4e08d8353adec161c3d9174e2572c849e1225c9f
+=======
+  OneSignal: 60902887c93f91e9b5599583e7df5f55b2144755
+  OneSignalXCFramework: 4efd7bd68c2b14920955b3f14b5b75bbf8fb662c
+>>>>>>> Stashed changes
   RCT-Folly: 803a9cfd78114b2ec0f140cfa6fa2a6bafb2d685
   RCTRequired: 0aa6c1c27e1d65920df35ceea5341a5fe76bdb79
   RCTTypeSafety: d76a59d00632891e11ed7522dba3fd1a995e573a
@@ -629,4 +648,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a88c5fdff37241109753c8b72afd6dc8bcbf0ab9
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
