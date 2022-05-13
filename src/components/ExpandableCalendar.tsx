@@ -128,7 +128,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     }, delay)
 
     return () => clearTimeout(timeout)
-  }, [containerHeight, selectedDate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
