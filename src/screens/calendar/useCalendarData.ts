@@ -5,8 +5,8 @@ import { parseISO } from 'utils/dates'
 import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/useRequestsContext'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
-import { MonthType } from 'hooks/useGetHolidayRequests'
 import { add } from 'date-fns'
+import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
 
@@ -52,7 +52,7 @@ export const useCalendarData = () => {
 
     if (!currentMonthRequests) return
 
-    let bothMonthsRequests: MonthType = {
+    let bothMonthsRequests: HolidailyRequestMonthType = {
       date: currentMonthRequests.date,
       days: currentMonthRequests.days,
     }
