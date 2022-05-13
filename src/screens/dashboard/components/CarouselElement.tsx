@@ -12,7 +12,7 @@ export type CarouselElementProps = {
   dayToBeDisplayed: string
   userColor: string
   photo?: string | null
-  isSick?: boolean
+  isSickTime?: boolean
 }
 
 const ICON_SIZE = 10
@@ -25,7 +25,9 @@ export const CarouselElement = (p: CarouselElementProps) => (
           src={p.photo}
           userDetails={{ userColor: p.userColor, firstName: p.firstName, lastName: p.lastName }}
         />
-        {p.isOnHoliday && <HolidayTag hideBorderColor isBorderBackgroundGrey />}
+        {p.isOnHoliday && (
+          <HolidayTag isSick={p.isSickTime} hideBorderColor isBorderBackgroundGrey />
+        )}
       </Box>
       <Box width={90} height={26} alignItems="center" justifyContent="center">
         <Text variant="lightGreyRegular" color="black" lineHeight={14}>
