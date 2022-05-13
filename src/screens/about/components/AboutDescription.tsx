@@ -10,7 +10,7 @@ export const AboutDescription = () => (
         ns="welcome"
         i18nKey="aboutDesc1"
         components={{
-          b: <Text variant="textBoldMD" textAlign="left" />,
+          b: <Text variant="textBoldMD" color="primary" textAlign="left" />,
         }}
       />
     </Text>
@@ -20,7 +20,7 @@ export const AboutDescription = () => (
         ns="welcome"
         i18nKey="aboutDesc2"
         components={{
-          b: <Text variant="textBoldMD" textAlign="left" />,
+          b: <Text variant="textMD" textAlign="left" color="black" />,
         }}
       />
     </Text>

@@ -46,7 +46,9 @@ export const BottomSheetModalComponent = (props: Props & BottomSheetModalProps) 
       detached={props.detached}
       bottomInset={props.bottomInset}
       handleComponent={null}>
-      <Box flex={1}>{props.children}</Box>
+      <Box flex={1} backgroundColor="white">
+        {props.children}
+      </Box>
     </BottomSheetModal>
   )
 }

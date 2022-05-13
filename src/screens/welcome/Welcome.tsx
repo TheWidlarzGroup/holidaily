@@ -84,7 +84,7 @@ export const Welcome = () => {
         right={0}
         left={0}
         bottom={0}
-        backgroundColor="white"
+        backgroundColor="dashboardBackground"
         paddingBottom="l"
         alignItems="center">
         <Box paddingBottom={isIos ? 'l' : 's'}>

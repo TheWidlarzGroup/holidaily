@@ -29,7 +29,7 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
           <Info color={theme.colors.headerGrey} />
         </TouchableOpacity>
         <Box>
-          <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+          <Text marginTop="xxm" variant="captionText" lineHeight={14} color="alwaysBlack">
             {t('have')}
           </Text>
           <Text marginVertical="xxm" variant="bold24" color="tertiary">
