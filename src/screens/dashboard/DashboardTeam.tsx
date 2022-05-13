@@ -77,7 +77,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
                 </Text>
                 <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
                   {matesWithNoPlannedHolidays.map((mate) => (
-                    <OtherMateElement key={mate.id} {...mate} />
+                    <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
                   ))}
                 </Box>
               </>

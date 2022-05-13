@@ -29,11 +29,16 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
           <IconBack height={18} width={18} color="black" />
         </TouchableOpacity>
         <MateHeader user={user} />
-        <MateHoliday user={user} />
-        <Box flexDirection="row">
-          <MateHolidayDetail type="start" date={user?.requests[0].startDate || ''} />
-          <MateHolidayDetail type="end" date={user?.requests[0].endDate || ''} />
-        </Box>
+        {!!user?.requests[0] && (
+          <>
+            <MateHoliday user={user} />
+            <Box flexDirection="row">
+              <MateHolidayDetail type="start" date={user?.requests[0].startDate || ''} />
+              <MateHolidayDetail type="end" date={user?.requests[0].endDate || ''} />
+            </Box>
+          </>
+        )}
+        {/* TODO: Display teams that user belongs to */}
         {/* {user.teams.length > 0 &&
           user.teams.map((team) => {
             return (
