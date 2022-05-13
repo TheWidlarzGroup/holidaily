@@ -1,5 +1,4 @@
-import React, { useRef } from 'react'
-import { TextInput } from 'react-native'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormInput } from 'components/FormInput'
 import { Box } from 'utils/theme/'
@@ -16,21 +15,9 @@ type UserData = {
 const validationPattern = onlyLettersRegex
 export const ProfileDetails = ({ errors, control, setIsEdited, hasValueChanged }: UserData) => {
   const { t } = useTranslation('userProfile')
-  const inputsRefs = [
-    useRef<TextInput>(null),
-    useRef<TextInput>(null),
-    useRef<TextInput>(null),
-    useRef<TextInput>(null),
-  ]
   const errorMessage = t('fieldRequired')
   const onSubmitEditing = () => {
     setIsEdited(true)
-  }
-  const onFocusInput = (index: number) => {
-    if (index === 3) {
-      return
-    }
-    inputsRefs[index]?.current?.focus()
   }
   // const navigation = useNavigation()
   // const navigateToChangePassword = () => navigation.navigate('ChangePassword')
@@ -52,9 +39,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited, hasValueChanged }
           isError={!!errors.firstName}
           name="firstName"
           inputLabel={t('userFirstName')}
-          placeholder={t('userFirstName')}
-          ref={inputsRefs[0]}
-          onBaseOpacityPress={() => onFocusInput(0)}
+          placeholder={t('firstNamePlaceholder')}
         />
       </Box>
       <Box position="relative">
@@ -64,9 +49,7 @@ export const ProfileDetails = ({ errors, control, setIsEdited, hasValueChanged }
           isError={!!errors.lastName}
           name="lastName"
           inputLabel={t('userLastName')}
-          placeholder={t('userLastName')}
-          ref={inputsRefs[1]}
-          onBaseOpacityPress={() => onFocusInput(1)}
+          placeholder={t('lastNamePlaceholder')}
         />
       </Box>
       <Box position="relative">
@@ -76,10 +59,8 @@ export const ProfileDetails = ({ errors, control, setIsEdited, hasValueChanged }
           variant="mediumSpecial"
           isError={!!errors.occupation}
           name="occupation"
-          inputLabel={t('userOccupation')}
-          placeholder={t('userOccupation')}
-          ref={inputsRefs[2]}
-          onBaseOpacityPress={() => onFocusInput(2)}
+          inputLabel={t('userRole')}
+          placeholder={t('rolePlaceholder')}
         />
       </Box>
       {/* <Box marginBottom="l">

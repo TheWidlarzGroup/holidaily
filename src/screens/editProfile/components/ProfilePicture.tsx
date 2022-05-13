@@ -11,6 +11,7 @@ import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { makeUserDetails } from 'utils/userDetails'
+import { InputEditIcon } from 'components/InputEditIcon'
 
 type ProfilePictureProps = {
   setIsEditedTrue: F0
@@ -98,7 +99,7 @@ export const ProfilePicture = ({
     setIsEditedTrue()
     showUploadAttachmentModal()
   }
-
+  const onPress = user?.photo ? onChangeProfilePicture : onAddProfilePicture
   return (
     <Box
       paddingHorizontal="m"
@@ -106,10 +107,9 @@ export const ProfilePicture = ({
       alignItems="center"
       marginTop="-s"
       marginBottom="xl">
-      <BaseOpacity
-        onPress={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
-        activeOpacity={0.5}>
+      <BaseOpacity onPress={onPress} activeOpacity={0.5}>
         <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
+        <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
       <TextLink
         text={user?.photo ? t('editPhoto') : t('addPhoto')}
