@@ -38,6 +38,11 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => (
             </Box>
           </>
         )}
+        {!!user?.requests[1] && (
+          <>
+            <MateHoliday user={user} isNextRequest />
+          </>
+        )}
         {/* TODO: Display teams that user belongs to */}
         {/* {user.teams.length > 0 &&
           user.teams.map((team) => {

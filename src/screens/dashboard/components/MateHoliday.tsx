@@ -5,8 +5,9 @@ import { displayDatesRange } from 'utils/functions'
 import { User } from 'mock-api/models/mirageTypes'
 import { HolidayTag } from './HolidayTag'
 
-export const MateHoliday = ({ user }: { user: User }) => {
-  const { startDate, endDate, isSickTime, description } = user.requests[0]
+export const MateHoliday = ({ user, isNextRequest }: { user: User; isNextRequest?: true }) => {
+  const userRequest = isNextRequest ? user.requests[1] : user.requests[0]
+  const { startDate, endDate, isSickTime, description } = userRequest
   const { isOnHoliday } = user
   const { t } = useTranslation('dashboard')
 
@@ -38,7 +39,10 @@ export const MateHoliday = ({ user }: { user: User }) => {
       paddingBottom="l"
       backgroundColor={background}
       borderTopLeftRadius="lmin"
-      borderTopRightRadius="lmin">
+      borderTopRightRadius="lmin"
+      marginTop={isNextRequest ? 'l' : 'none'}
+      borderBottomLeftRadius={isNextRequest ? 'lmin' : 'none'}
+      borderBottomRightRadius={isNextRequest ? 'lmin' : 'none'}>
       <Box position="absolute" left={26} top={16}>
         <HolidayTag hideBorder hideBorderColor isSick={isSickTime} isSoonOnHoliday={!isOnHoliday} />
       </Box>
