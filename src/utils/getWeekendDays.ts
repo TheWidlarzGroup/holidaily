@@ -1,5 +1,5 @@
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
-import { DayInfoProps } from 'screens/calendar/components/DayInfo'
+import { DayInfoProps } from 'types/DayInfoProps'
 import { getISODateString } from './dates'
 
 export const getWeekendDays = (months: string[]) =>

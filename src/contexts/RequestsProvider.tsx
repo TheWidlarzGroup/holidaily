@@ -3,7 +3,7 @@ import { useGetHolidayRequests } from 'hooks/useGetHolidayRequests'
 import { mergeRequestsArrays } from 'utils/mergeRequestsArrays'
 import { getWeekendDays } from 'utils/getWeekendDays'
 import { RequestContextProps, RequestsContext } from './RequestsContext'
-import { HolidailyRrequestMonthType } from '../types/HolidayRequestMonthType'
+import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
 
 type RequestProviderProps = {
   children: ReactNode
@@ -11,9 +11,9 @@ type RequestProviderProps = {
 
 export const RequestsContextProvider = ({ children }: RequestProviderProps) => {
   const { allMonths } = useGetHolidayRequests()
-  const [requests, setRequests] = useState<HolidailyRrequestMonthType[]>(allMonths || [])
+  const [requests, setRequests] = useState<HolidailyRequestMonthType[]>(allMonths || [])
 
-  const updateRequests = useCallback((newData: HolidailyRrequestMonthType[]) => {
+  const updateRequests = useCallback((newData: HolidailyRequestMonthType[]) => {
     setRequests((prev) => [...prev, ...newData])
   }, [])
 
