@@ -23,10 +23,8 @@ export const RequestDetails = (
 ) => {
   const styles = useStyles()
   const { t } = useTranslation('seeRequest')
-  let iconStatus: IconStatus
-  if (p.status === 'accepted') iconStatus = 'success'
-  else if (p.status === 'cancelled') iconStatus = 'error'
-  else iconStatus = p.status
+  const iconStatus = getIconStatus(p.status)
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <Box
@@ -74,6 +72,12 @@ export const RequestDetails = (
       </Box>
     </ScrollView>
   )
+}
+
+const getIconStatus = (status: DayOffRequest['status']): IconStatus => {
+  if (status === 'accepted') return 'success'
+  if (status === 'cancelled') return 'error'
+  return status
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({

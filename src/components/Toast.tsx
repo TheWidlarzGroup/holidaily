@@ -1,7 +1,7 @@
 import { BoxProps } from '@shopify/restyle'
 import React from 'react'
-import { exhaustiveTypeCheck } from 'utils/exhautiveTypeCheck'
-import { Box, Text, Theme, useTheme } from 'utils/theme'
+import { exhaustiveTypeCheck } from 'utils/functions'
+import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
 import { CircleStatusIcon, IconStatus } from './CircleStatusIcon'
 
 type ToastProps = {
@@ -9,40 +9,33 @@ type ToastProps = {
   text: string
 } & BoxProps<Theme>
 
-export const Toast = ({ variant, text, ...styleProps }: ToastProps) => {
-  const theme = useTheme()
-  const containerStyle = {
-    position: 'absolute',
-    top: 12,
-    paddingHorizontal: theme.spacing.m,
-    width: '100%',
-    zIndex: theme.zIndices['20'],
-  } as const
-  const iconStatus: IconStatus = variant
-  const getVariantStyle = (): BoxProps<Theme> => {
-    switch (variant) {
-      case 'success': {
-        return {
-          bg: 'successToastBg',
-          borderColor: 'successToastBorder',
-          borderWidth: 1,
-        }
+const getVariantStyle = (variant: ToastProps['variant']): BoxProps<Theme> => {
+  switch (variant) {
+    case 'success': {
+      return {
+        bg: 'successToastBg',
+        borderColor: 'successToastBorder',
+        borderWidth: 1,
       }
-      default:
-        exhaustiveTypeCheck(variant)
-        return {}
     }
+    default:
+      exhaustiveTypeCheck(variant, `Unknown Toast variant: ${variant}`)
+      return {}
   }
+}
+export const Toast = ({ variant, text, ...styleProps }: ToastProps) => {
+  const styles = useStyles()
+  const iconStatus: IconStatus = variant
 
   return (
-    <Box style={containerStyle}>
+    <Box style={styles.container}>
       <Box
         borderRadius="l1min"
         paddingVertical="ml"
         paddingHorizontal="xm"
         alignItems="center"
         flexDirection="row"
-        {...getVariantStyle()}
+        {...getVariantStyle(variant)}
         {...styleProps}>
         <CircleStatusIcon width={25} status={iconStatus} />
         <Text variant="textSM">{text}</Text>
@@ -50,3 +43,13 @@ export const Toast = ({ variant, text, ...styleProps }: ToastProps) => {
     </Box>
   )
 }
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  container: {
+    position: 'absolute',
+    top: 12,
+    paddingHorizontal: theme.spacing.m,
+    width: '100%',
+    zIndex: theme.zIndices['20'],
+  },
+}))

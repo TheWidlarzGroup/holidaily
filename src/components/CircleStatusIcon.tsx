@@ -4,9 +4,9 @@ import SpinnerIcon from 'assets/icons/icon-spinner.svg'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
 import CrossIcon from 'assets/icons/icon-close.svg'
-import { exhaustiveTypeCheck } from 'utils/exhautiveTypeCheck'
 import { BoxProps } from '@shopify/restyle'
 import { SvgProps } from 'react-native-svg'
+import { exhaustiveTypeCheck } from 'utils/functions'
 
 export type IconStatus = 'success' | 'error' | 'pending' | 'past'
 
@@ -16,17 +16,10 @@ type CircleStatusIconProps = {
 
 export const CircleStatusIcon = ({ status, ...styleProps }: CircleStatusIconProps) => {
   const theme = useTheme()
-  const iconWrapperStyle: BoxProps<Theme> = {
-    height: 36,
-    width: 36,
-    aspectRatio: 1,
-    borderRadius: 'full',
-    bg: 'primary',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 'm',
+  const iconWrapperStyle = {
+    ...iconWrapperBaseStyle,
     ...styleProps,
-  } as const
+  }
   const iconStyle: SvgProps['style'] = { maxHeight: '60%' }
   const iconProps = {
     color: theme.colors.alwaysWhite,
@@ -58,7 +51,18 @@ export const CircleStatusIcon = ({ status, ...styleProps }: CircleStatusIconProp
         </Box>
       )
     default:
-      exhaustiveTypeCheck(status)
+      exhaustiveTypeCheck(status, `Unknown status: ${status}`)
       return null
   }
+}
+
+const iconWrapperBaseStyle: BoxProps<Theme> = {
+  height: 36,
+  width: 36,
+  aspectRatio: 1,
+  borderRadius: 'full',
+  bg: 'primary',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginRight: 'm',
 }
