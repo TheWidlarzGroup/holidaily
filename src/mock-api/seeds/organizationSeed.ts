@@ -2,15 +2,19 @@ import { Server } from 'miragejs'
 import { genRandomDayOffRequest } from 'mockApi/factories/requestFactory'
 import { usersList } from 'mockApi/factories/userFactory'
 import { Schema } from 'mockApi/models'
+import { shuffleArray } from 'utils/shuffleArray'
 
 export const organizationSeed = (context: Server<Schema>) => {
-  const users = usersList.map((user) => {
+  let users = usersList.map((user, index) => {
     const userRecord = context.create('user', {
       ...user,
     })
-    context.create('request', { ...genRandomDayOffRequest(), user: userRecord })
+    if (index < 40) {
+      context.create('request', { ...genRandomDayOffRequest(), user: userRecord })
+    }
     return userRecord
   })
+  users = shuffleArray(users)
   const teams = []
   teams.push(
     context.create('team', {
@@ -69,19 +73,18 @@ export const organizationSeed = (context: Server<Schema>) => {
   teams.push(
     context.create('team', {
       name: 'AgileSoft',
-      users: [...users.slice(4, 7), ...users.slice(18, 20)],
+      users: users.slice(38, 45),
     })
   )
   teams.push(
     context.create('team', {
       name: 'WWWare',
-      users: [...users.slice(11, 13), ...users.slice(24, 32)],
+      users: users.slice(43, 50),
     })
   )
   context.create('organization', {
     name: 'Supercompany',
     maxPtoDays: 21,
-    // @ts-ignore
     teams,
   })
 }
