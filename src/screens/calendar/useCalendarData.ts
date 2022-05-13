@@ -70,13 +70,15 @@ export const useCalendarData = () => {
 
       const currentMonthRequestsDays = currentMonthRequests?.days
       // Comment: get only four first days from next month, as week calendar may not display them in next month, so it will be displayed in previous month
-      const nextMonthRequestsDays = nextMonthRequests?.days.filter(
-        (day) =>
+      const nextMonthRequestsDays = nextMonthRequests?.days.filter((day) => {
+        if (new Date(day.date).getDay() === 6 || new Date(day.date).getDay() === 0) return
+        return (
           day.date.slice(-2) === '01' ||
           day.date.slice(-2) === '02' ||
           day.date.slice(-2) === '03' ||
           day.date.slice(-2) === '04'
-      )
+        )
+      })
 
       bothMonthsRequests = {
         ...bothMonthsRequests,
