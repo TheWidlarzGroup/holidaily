@@ -19,6 +19,7 @@ type CustomInputTypes = {
   isError: boolean
   variant: 'medium' | 'small' | 'mediumSpecial'
   isPasswordIconVisible?: boolean
+  hasValueChanged?: boolean
   disabled?: boolean
   reset?: F0
 }
@@ -37,6 +38,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       placeholder,
       variant,
       reset,
+      hasValueChanged,
       ...props
     },
     ref
@@ -96,7 +98,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <TextInput
               style={[styles.input, disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
-              onBlur={handleOnBlur}
+              onBlur={hasValueChanged ? handleOnBlur : () => setIsFocused(false)}
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}

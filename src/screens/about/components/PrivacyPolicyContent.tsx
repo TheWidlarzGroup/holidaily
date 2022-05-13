@@ -1,6 +1,7 @@
 import React from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
+import { getCurrentLocale } from 'utils/locale'
 import { Text, Box } from 'utils/theme'
 import { Languages } from '../../../../i18n'
 
@@ -8,9 +9,14 @@ type HelperProps = { i18nKey: keyof Languages['en']['privacyPolicy'] }
 
 export const PrivacyPolicyContent = () => {
   const { t } = useTranslation('privacyPolicy')
+  const locale = getCurrentLocale()
+  const isEnglish = /eng*/.test(String(locale.code))
   return (
     <ScrollView>
       <Box paddingHorizontal="m" paddingBottom="l">
+        <Text color="headerGrey" style={{ marginLeft: 'auto' }} marginTop="m">
+          {t('lastUpdate', { date: isEnglish ? '15 April 2022' : '15.04.2022' })}
+        </Text>
         <PolicySection i18nKey="intro" />
         <Paragraph i18nKey="p0a" />
         <Paragraph i18nKey="p0b" />

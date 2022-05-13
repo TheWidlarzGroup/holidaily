@@ -49,22 +49,12 @@ export const ConfirmationModal = ({
         )}
         <Box marginBottom="xm">
           <TouchableOpacity onPress={onDecline} activeOpacity={1}>
-            <CustomButton
-              label={declineBtnText ?? t('no')}
-              variant="secondary"
-              width={221}
-              height={53}
-            />
+            <CustomButton label={declineBtnText ?? t('no')} variant="secondary" />
           </TouchableOpacity>
         </Box>
         <Box>
           <TouchableOpacity onPress={onAccept} activeOpacity={1}>
-            <CustomButton
-              label={acceptBtnText ?? t('yes')}
-              variant="alternative"
-              width={221}
-              height={53}
-            />
+            <CustomButton label={acceptBtnText ?? t('yes')} variant="alternative" />
           </TouchableOpacity>
         </Box>
       </Box>

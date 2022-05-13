@@ -20,7 +20,8 @@
       "utils/*": ["utils/*"],
       "dataAccess/*": ["data-access/*"],
       "mockApi/*": ["mock-api/*"],
-      "consts/*": ["consts/*"]
+      "consts/*": ["consts/*"],
+      "react-native-calendars": ["../node_modules/@types/react-native-calendars"]
     },
     "resolveJsonModule": true
   }

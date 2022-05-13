@@ -9,7 +9,6 @@ import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
 import { AboutDescription } from './components/AboutDescription'
-import { AboutBackground } from './components/AboutBackground'
 import { AboutHeader } from './components/AboutHeader'
 import { AboutLinks } from './components/AboutLinks'
 import { version } from '../../../package.json'
@@ -25,31 +24,20 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
   }, [isFromWelcomeScreen, navigation])
-
+  const containerStyle = [
+    styles.container,
+    !isFromWelcomeScreen && styles.containerPadding,
+    isIos && isFromWelcomeScreen && styles.containerMargin,
+  ]
   return (
     <SafeAreaWrapper isDefaultBgColor={isFromWelcomeScreen || false}>
-      <GestureRecognizer
-        onSwipeRight={handleGoBack}
-        style={[
-          styles.container,
-          !isFromWelcomeScreen && styles.containerPadding,
-          isIos && isFromWelcomeScreen && styles.containerMargin,
-        ]}>
+      <GestureRecognizer onSwipeRight={handleGoBack} style={containerStyle}>
         <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
         {isFromWelcomeScreen && <ModalHandleIndicator />}
-        <Box justifyContent="space-between" flex={1}>
-          <AboutDescription />
-          {!isFromWelcomeScreen && <AboutLinks />}
-          {!isFromWelcomeScreen && <AboutBackground />}
-        </Box>
-        <Box position="absolute" bottom={10} left="40%">
-          {!isFromWelcomeScreen && (
-            <Text fontSize={10} color="black">
-              v. {version} Holidaily
-            </Text>
-          )}
-        </Box>
-        <Box paddingBottom="l">
+        <AboutDescription />
+        {!isFromWelcomeScreen && <AboutLinks />}
+        <Version show={!isFromWelcomeScreen} />
+        <Box paddingBottom="l" style={{ marginTop: 'auto' }}>
           {isFromWelcomeScreen && (
             <CustomButton label={t('aboutButton')} variant="primary" onPress={closeModal} />
           )}
@@ -57,6 +45,19 @@ export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
       </GestureRecognizer>
     </SafeAreaWrapper>
   )
+}
+
+const Version = ({ show }: { show: boolean }) => {
+  const { t } = useTranslation('about')
+  if (show)
+    return (
+      <Box position="absolute" bottom={10} left="40%">
+        <Text variant="textXS" color="darkGreyBrighter">
+          {`${t('version')} ${version}`}
+        </Text>
+      </Box>
+    )
+  return null
 }
 
 const useStyles = mkUseStyles((theme) => ({

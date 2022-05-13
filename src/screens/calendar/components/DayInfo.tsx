@@ -2,13 +2,8 @@ import React from 'react'
 import { Box, Text, theme } from 'utils/theme'
 import { getDateWithMonthString } from 'utils/dates'
 import { DayWeekend } from './DayWeekend'
-import { DayEvent, DayOffEvent } from './DayEvent'
-
-export type DayInfoProps = {
-  date: string
-  events?: DayOffEvent[]
-  weekend?: number
-}
+import { DayEvent } from './DayEvent'
+import { DayInfoProps } from '../../../types/DayInfoProps'
 
 const DAY_PADDING_VERTICAL = 'm'
 const OUTER_BOX_MARGIN = 's'

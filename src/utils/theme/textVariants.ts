@@ -4,30 +4,35 @@ const avatar = {
     fontSize: 26,
     letterSpacing: 26 * 0.02,
     textAlign: 'center',
+    color: 'titleActive',
   },
   avatarLG: {
     fontFamily: 'Nunito-ExtraBold',
     fontSize: 14,
     letterSpacing: 14 * 0.02,
     textAlign: 'center',
+    color: 'titleActive',
   },
   avatarMD: {
     fontFamily: 'Nunito-ExtraBold',
     fontSize: 12,
     letterSpacing: 12 * 0.02,
     textAlign: 'center',
+    color: 'titleActive',
   },
   avatarSM: {
     fontFamily: 'Nunito-ExtraBold',
     fontSize: 10,
     letterSpacing: 10 * 0.02,
     textAlign: 'center',
+    color: 'titleActive',
   },
   avatarXS: {
     fontFamily: 'Nunito-ExtraBold',
     fontSize: 7,
     letterSpacing: 7 * 0.02,
     textAlign: 'center',
+    color: 'titleActive',
   },
 }
 const text = {
@@ -35,31 +40,37 @@ const text = {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
     textAlign: 'left',
+    color: 'greyDark',
   },
   textBoldMD: {
     fontFamily: 'Nunito-Bold',
     fontSize: 16,
     textAlign: 'left',
+    color: 'greyDark',
   },
   textSM: {
     fontFamily: 'Nunito-Regular',
     fontSize: 14,
     textAlign: 'left',
+    color: 'greyDark',
   },
   textBoldSM: {
     fontFamily: 'Nunito-Bold',
     fontSize: 14,
     textAlign: 'left',
+    color: 'greyDark',
   },
   textXS: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
     textAlign: 'left',
+    color: 'greyDark',
   },
   textBoldXS: {
     fontFamily: 'Nunito-Bold',
     fontSize: 12,
     textAlign: 'left',
+    color: 'greyDark',
   },
 }
 const display = {
@@ -68,22 +79,26 @@ const display = {
     fontSize: 22,
     letterSpacing: 0.01 * 22,
     textAlign: 'center',
+    color: 'titleActive',
   },
   displayBoldMD: {
     fontFamily: 'Nunito-Bold',
     fontSize: 20,
     letterSpacing: 0.01 * 20,
     textAlign: 'center',
+    color: 'titleActive',
   },
   displayBoldSM: {
     fontFamily: 'Nunito-Bold',
     fontSize: 16,
     letterSpacing: 0.01 * 16,
     textAlign: 'center',
+    color: 'titleActive',
   },
   displayXS: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
+    color: 'titleActive',
   },
 }
 

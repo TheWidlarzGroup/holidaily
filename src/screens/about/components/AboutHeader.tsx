@@ -26,7 +26,7 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
     <Box
       justifyContent="space-between"
       flexDirection="row"
-      paddingBottom="xxl"
+      paddingBottom="lplus"
       paddingHorizontal="m">
       <TouchableOpacity
         onPress={handleGoBack}
@@ -37,8 +37,8 @@ export const AboutHeader = ({ closeModal, isFromWelcomeScreen }: HeaderProps) =>
           <IconBack height={18} width={18} color={styles.arrow.color} />
         )}
       </TouchableOpacity>
-      <Box marginTop="l">
-        <Text variant="boldBlackCenter16">{t('about')}</Text>
+      <Box>
+        <Text variant="displayBoldSM">{t('about')}</Text>
       </Box>
       <Box paddingRight="l" />
     </Box>
