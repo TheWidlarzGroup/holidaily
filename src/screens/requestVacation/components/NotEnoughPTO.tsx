@@ -22,7 +22,7 @@ export const NotEnoughPTO = (p: NotEnoughPtoProps) => {
           bg="errorRed"
           height={28}
           width={28}
-          marginTop={0}
+          marginTop="none"
           borderRadius="full"
           alignItems="center"
           justifyContent="center">

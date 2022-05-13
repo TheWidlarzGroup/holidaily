@@ -13,10 +13,10 @@ import { InputEditIcon } from './InputEditIcon'
 type FormInputTypes = {
   control: Control
   errors: FieldErrors
-  name: string
   inputLabel: string
   validationPattern: RegExp
   errorMessage: string
+  name: string
   isError: boolean
   variant: 'medium' | 'small' | 'mediumSpecial'
   signupPasswordHint?: string

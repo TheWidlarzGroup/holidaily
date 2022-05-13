@@ -60,7 +60,8 @@ export const UploadAttachmentButtons = ({
             flexDirection="row"
             justifyContent="center"
             alignItems="center"
-            marginTop="m">
+            marginTop="m"
+            marginBottom="m">
             <FileIcon color={theme.colors.black} />
             <Box flexGrow={1} marginLeft="m">
               <Text variant="boldBlack18">{t('chooseFile')}</Text>

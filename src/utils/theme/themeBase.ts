@@ -11,6 +11,7 @@ export const themeBase = createTheme({
     '-xxm': -10,
     '-s': -8,
     '-xs': -4,
+    none: 0,
     xs: 4,
     s: 8,
     xxm: 10,

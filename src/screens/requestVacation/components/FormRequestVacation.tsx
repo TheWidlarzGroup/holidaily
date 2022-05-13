@@ -111,7 +111,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           />
         </Box>
       </ScrollView>
-      <Box marginBottom={showMessageInput ? 0 : 'l'}>
+      <Box marginBottom={showMessageInput ? 'none' : 'l'}>
         {showMessageInput ? (
           <MessageInputModal
             visible={showMessageInput}

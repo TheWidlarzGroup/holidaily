@@ -36,7 +36,7 @@ export const useSearch = <T>(props: UseSearchProps<T>) => {
       setData(data)
     } catch (error) {
       setData(null)
-      setError(error)
+      // setError(error) FIXME
     } finally {
       setLoading(false)
     }
