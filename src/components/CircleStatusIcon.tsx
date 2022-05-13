@@ -5,7 +5,7 @@ import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
 import CrossIcon from 'assets/icons/icon-close.svg'
 import { BoxProps } from '@shopify/restyle'
-import { SvgProps } from 'react-native-svg'
+import Svg, { SvgProps } from 'react-native-svg'
 import { exhaustiveTypeCheck } from 'utils/functions'
 
 export type IconStatus = 'success' | 'error' | 'pending' | 'past'
@@ -14,47 +14,47 @@ type CircleStatusIconProps = {
   status: IconStatus
 } & BoxProps<Theme>
 
+type WrappedIconProps = {
+  Icon: Svg
+  bg: BoxProps<Theme>['bg']
+}
+
 export const CircleStatusIcon = ({ status, ...styleProps }: CircleStatusIconProps) => {
-  const theme = useTheme()
-  const iconWrapperStyle = {
-    ...iconWrapperBaseStyle,
-    ...styleProps,
-  }
-  const iconStyle: SvgProps['style'] = { maxHeight: '60%' }
-  const iconProps = {
-    color: theme.colors.alwaysWhite,
-    style: iconStyle,
-  }
+  const WrappedIcon = mkWrappedIcon(styleProps ?? {})
   switch (status) {
     case 'error':
-      return (
-        <Box {...iconWrapperStyle} bg="errorRed">
-          <CrossIcon {...iconProps} />
-        </Box>
-      )
+      return <WrappedIcon Icon={CrossIcon} bg="errorRed" />
     case 'success':
-      return (
-        <Box {...iconWrapperStyle} bg="approvedGreen">
-          <CheckIcon {...iconProps} />
-        </Box>
-      )
+      return <WrappedIcon Icon={CheckIcon} bg="approvedGreen" />
     case 'past':
-      return (
-        <Box {...iconWrapperStyle} bg="greyDark">
-          <ClockIcon {...iconProps} />
-        </Box>
-      )
+      return <WrappedIcon Icon={ClockIcon} bg="greyDark" />
     case 'pending':
-      return (
-        <Box {...iconWrapperStyle} bg="primary">
-          <SpinnerIcon {...iconProps} />
-        </Box>
-      )
+      return <WrappedIcon Icon={SpinnerIcon} bg="primary" />
     default:
       exhaustiveTypeCheck(status, `Unknown status: ${status}`)
       return null
   }
 }
+
+const mkWrappedIcon =
+  (styleProps: BoxProps<Theme>) =>
+  ({ Icon, bg }: WrappedIconProps) => {
+    const theme = useTheme()
+    const iconStyle: SvgProps['style'] = { maxHeight: '60%' }
+    const iconWrapperStyle = {
+      ...iconWrapperBaseStyle,
+      ...(styleProps ?? {}),
+    }
+    const iconProps = {
+      color: theme.colors.alwaysWhite,
+      style: iconStyle,
+    }
+    return (
+      <Box {...iconWrapperStyle} bg={bg}>
+        <Icon {...iconProps} />
+      </Box>
+    )
+  }
 
 const iconWrapperBaseStyle: BoxProps<Theme> = {
   height: 36,
