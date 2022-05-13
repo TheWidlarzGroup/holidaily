@@ -2,12 +2,12 @@ import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
 import { getAllSingleHolidayRequests } from 'utils/getAllSingleHolidayRequests'
 import { groupRequestsToMonths } from 'utils/groupRequestsToMonths'
-import { HolidailyRrequestMonthType } from '../types/HolidayRequestMonthType'
+import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
 import { useUserContext } from './useUserContext'
 
 export const useGetHolidayRequests = () => {
   const { teams, allUsers } = useTeamsContext()
-  const [allMonths, setAllMonths] = useState<HolidailyRrequestMonthType[]>([])
+  const [allMonths, setAllMonths] = useState<HolidailyRequestMonthType[]>([])
   const { user: appUser } = useUserContext()
 
   useEffect(() => {

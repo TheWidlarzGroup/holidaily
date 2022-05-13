@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, theme } from 'utils/theme'
 import IconPlane from 'assets/icons/icon-plane.svg'
 import IconSuitcase from 'assets/icons/icon-suitcase.svg'
-import { OnHolidayTag } from 'screens/dashboard/components/OnHolidayTag'
+import { HolidayTag } from 'screens/dashboard/components/HolidayTag'
 import { Avatar } from 'components/Avatar'
 
 export type CarouselElementProps = {
@@ -12,6 +12,7 @@ export type CarouselElementProps = {
   dayToBeDisplayed: string
   userColor: string
   photo?: string | null
+  isSickTime?: boolean
 }
 
 const ICON_SIZE = 10
@@ -24,7 +25,9 @@ export const CarouselElement = (p: CarouselElementProps) => (
           src={p.photo}
           userDetails={{ userColor: p.userColor, firstName: p.firstName, lastName: p.lastName }}
         />
-        {p.isOnHoliday && <OnHolidayTag variant="small" background="dashboardBackground" />}
+        {p.isOnHoliday && (
+          <HolidayTag isSick={p.isSickTime} hideBorderColor isBorderBackgroundGrey />
+        )}
       </Box>
       <Box width={90} height={26} alignItems="center" justifyContent="center">
         <Text variant="lightGreyRegular" color="black" lineHeight={14}>
@@ -36,9 +39,19 @@ export const CarouselElement = (p: CarouselElementProps) => (
       </Box>
       <Box flexDirection="row" alignItems="center" justifyContent="center" width={90} height={20}>
         {p.isOnHoliday ? (
-          <IconSuitcase width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.tertiary} />
+          <IconSuitcase
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            color={theme.colors.tertiary}
+            style={{ transform: [{ translateY: -2 }] }}
+          />
         ) : (
-          <IconPlane width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.textBlue} />
+          <IconPlane
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            color={theme.colors.textBlue}
+            style={{ transform: [{ translateY: -1 }] }}
+          />
         )}
         <Text variant="holidayDate" color={p.isOnHoliday ? 'tertiary' : 'textBlue'} marginLeft="xs">
           {p.dayToBeDisplayed}

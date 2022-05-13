@@ -59,7 +59,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
         <TeamHeader title={params.name} />
         {/* TODO: refactor to use SectionList */}
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Box paddingHorizontal="m" paddingBottom="xxl">
+          <Box paddingHorizontal="m" paddingBottom="xxxl">
             {matesOnHoliday.length > 0 && (
               <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
             )}
