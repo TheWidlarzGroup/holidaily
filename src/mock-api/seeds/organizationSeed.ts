@@ -19,7 +19,7 @@ export const organizationSeed = (context: Server<Schema>) => {
   teams.push(
     context.create('team', {
       name: 'SmartSoft',
-      users: users.slice(0, 6),
+      users: users.slice(0, 7),
     })
   )
   teams.push(

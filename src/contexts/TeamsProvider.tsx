@@ -40,7 +40,6 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   useEffect(() => {
     if (data) {
       setTeams(data?.teams)
-      console.log(data?.teams[0].users)
     }
   }, [data])
 
