@@ -23,7 +23,7 @@ type CustomInputTypes = {
   hasValueChanged?: boolean
   disabled?: boolean
   reset?: F0
-  hasAButton?: boolean
+  hasButton?: boolean
 }
 
 export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputProps>(
@@ -41,7 +41,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       variant,
       reset,
       hasValueChanged,
-      hasAButton,
+      hasButton,
       ...props
     },
     ref
@@ -118,7 +118,13 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               </BaseOpacity>
             ) : null}
           </Animated.View>
-          {hasAButton && !isFocused && <InputEditIcon onPress={() => {}} />}
+          {hasButton && !isFocused && (
+            <InputEditIcon
+              onPress={() => {
+                setIsFocused(true)
+              }}
+            />
+          )}
           {isPasswordIconVisible && (
             <Box alignSelf="center" position="absolute" right={17}>
               <TouchableOpacity onPress={toggle}>
