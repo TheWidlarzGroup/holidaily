@@ -138,7 +138,7 @@
     "changesSaved": "Changes saved"
   },
   "confirmLogoutModal": {
-    "areYouSure": "Log out?",
+    "areYouSure": "Do you want to log out?",
     "yes": "Log out",
     "no": "Cancel"
   },
