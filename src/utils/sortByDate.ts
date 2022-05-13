@@ -1,5 +1,5 @@
 import { User } from 'mockApi/models/mirageTypes'
-import { DayInfoProps } from 'screens/calendar/components/DayInfo'
+import { DayInfoProps } from '../types/DayInfoProps'
 
 export const sortByStartDate = (a: User, b: User) => {
   if (a.requests[0].startDate < b.requests[0].startDate) return -1

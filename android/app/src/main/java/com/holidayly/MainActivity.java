@@ -1,5 +1,8 @@
 package com.holidaily;
 
+import expo.modules.ReactActivityDelegateWrapper;
+import com.facebook.react.ReactActivityDelegate;
+
 import org.devio.rn.splashscreen.SplashScreen;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
@@ -7,7 +10,7 @@ import com.facebook.react.ReactActivity;
 public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    SplashScreen.show(this, R.style.SplashStatusBarTheme);
+    SplashScreen.show(this, R.style.SplashStatusBarTheme, true);
     super.onCreate(savedInstanceState);
   }
 
@@ -19,5 +22,11 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "Holidayly";
+  }
+
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegateWrapper(this,
+        new ReactActivityDelegate(this, getMainComponentName()));
   }
 }

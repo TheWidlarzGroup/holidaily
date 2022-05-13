@@ -29,6 +29,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
     (res: ImagePickerResponse) => {
       if (res.didCancel) return console.log('cancelled')
       if (res.errorCode) return console.log('Error:', res.errorCode)
+      if (!res.assets) return console.warn(__DEV__ && 'empty assets')
       onImagesPick(res.assets)
     },
     [onImagesPick]

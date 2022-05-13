@@ -1,9 +1,9 @@
 import { createContext } from 'react'
-import { MonthType } from 'hooks/useGetHolidayRequests'
+import { HolidailyRrequestMonthType } from '../types/HolidayRequestMonthType'
 
 export type RequestContextProps = {
-  requests: MonthType[]
-  updateRequests: F1<MonthType[]>
+  requests: HolidailyRrequestMonthType[]
+  updateRequests: F1<HolidailyRrequestMonthType[]>
 }
 
 export const RequestsContext = createContext<RequestContextProps | null>(null)

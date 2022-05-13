@@ -8,7 +8,7 @@ import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRo
 import { MonthType } from 'hooks/useGetHolidayRequests'
 import { add } from 'date-fns'
 import { FilterCategory } from './components/CategoriesSlider'
-import { DayInfoProps } from './components/DayInfo'
+import { DayInfoProps } from '../../types/DayInfoProps'
 
 export const useCalendarData = () => {
   const { teams } = useTeamsContext()

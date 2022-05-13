@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
-import { DayInfo, DayInfoProps, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
+import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { EVENT_HEIGHT } from './DayEvent'
+import { DayInfoProps } from '../../../types/DayInfoProps'
 
 export type EventsListProps = {
   days: DayInfoProps[]
