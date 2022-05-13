@@ -13,7 +13,7 @@ export const PolicySection = ({
   const { t } = useTranslation('budget')
   return (
     <Box marginVertical="m">
-      <Text lineHeight={20}>
+      <Text lineHeight={20} color="black">
         {/* @ts-ignore */}
         <Trans
           ns="budget"
@@ -22,7 +22,7 @@ export const PolicySection = ({
         />
       </Text>
       {!!subtitleKey && (
-        <Text color="grey" fontSize={12} lineHeight={20}>
+        <Text color="darkGrey" fontSize={12} lineHeight={20}>
           {t(subtitleKey)}
         </Text>
       )}

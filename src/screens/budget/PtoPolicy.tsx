@@ -68,8 +68,6 @@ export const PtoPolicy = () => {
         }}>
         <AnimatedBox
           flex={1}
-          borderTopLeftRadius="m"
-          borderTopRightRadius="m"
           backgroundColor="white"
           overflow="hidden"
           style={[animatedTranslation]}>

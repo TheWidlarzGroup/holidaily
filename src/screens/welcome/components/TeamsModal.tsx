@@ -22,6 +22,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
             onPress={closeModal}
             hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
             <IconClose height={15} width={15} />
+            {/* TODO: Add color to the icon above */}
           </TouchableOpacity>
         </Box>
         <Box flex={1}>
