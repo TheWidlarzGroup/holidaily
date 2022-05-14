@@ -24,7 +24,11 @@ export const ConfirmationModal = ({
     <SwipeableModal isOpen={isVisible} onHide={onDecline}>
       <Box style={styles.modal}>
         {header !== null && <Text variant="displayBoldSM">{header || t('areYouSure')}</Text>}
-        {content !== null && <Text variant="textSM">{content}</Text>}
+        {content !== null && (
+          <Text variant="textSM" textAlign="center">
+            {content}
+          </Text>
+        )}
         <BaseOpacity activeOpacity={0.8} onPress={onAccept} marginBottom="xm" marginTop="xl">
           <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" />
         </BaseOpacity>

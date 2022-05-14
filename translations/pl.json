@@ -184,7 +184,7 @@
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
     "fieldRequired": "Pole jest puste lub zawiera niedozwolone znaki",
-    "ifYouUnsubscribe": "Jeśli wypiszesz się z subskrypcji zespołu {{teamName}}, nie będziesz widział jego członków.",
+    "ifYouUnsubscribe": "Jeśli opuścisz {{teamName}}, nie będziesz już widział członków tego zespołu.",
     "unsubscribed": "Usunięto subskrypcję {{teamName}}",
     "colorPicker": "Wybierz swój ulubiony kolor\ni przeciągnij go do szarego pola na dole",
     "discardChanges": "Odrzuć zmiany",
