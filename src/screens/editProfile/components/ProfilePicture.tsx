@@ -101,21 +101,11 @@ export const ProfilePicture = ({
   }
   const onPress = user?.photo ? onChangeProfilePicture : onAddProfilePicture
   return (
-    <Box
-      paddingHorizontal="m"
-      justifyContent="center"
-      alignItems="center"
-      marginTop="-s"
-      marginBottom="xl">
+    <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="-s">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
         <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
         <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
-      <TextLink
-        text={user?.photo ? t('editPhoto') : t('addPhoto')}
-        variant="boldOrange15"
-        action={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
-      />
     </Box>
   )
 }
