@@ -73,7 +73,7 @@
     "@twgdev/prettier-config": "^1.0.2",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.14.25",
-    "@types/react-native": "^0.63.2",
+    "@types/react-native": "0.67.4",
     "@types/react-native-calendars": "^1.1264.3",
     "@types/react-test-renderer": "^16.9.2",
     "@types/xdate": "^0.8.31",
