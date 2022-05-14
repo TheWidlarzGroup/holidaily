@@ -84,6 +84,7 @@ const useStyles = mkUseStyles((theme) => ({
     paddingVertical: theme.spacing.xm,
   },
   optionWrapper: {
+    alignItems: 'center',
     width: '100%',
     flexDirection: 'row',
   },
