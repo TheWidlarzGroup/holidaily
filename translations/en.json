@@ -190,7 +190,10 @@
     "discardChanges": "Discard changes",
     "discard": "Discard",
     "changesWillBeLost": "By clicking Discard, all changes will be lost.",
-    "confirmSave": "Save changes?"
+    "confirmSave": "Save changes?",
+    "discardTeams": "Do you want to discard selected teams?",
+    "backToSelection": "Back to selection",
+    "teamsEmptyState": "Click + and join your first Team!"
   },
   "dashboard": {
     "today": "Today is:",

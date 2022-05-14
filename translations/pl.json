@@ -190,7 +190,10 @@
     "discardChanges": "Odrzuć zmiany",
     "discard": "Odrzuć zmiany",
     "changesWillBeLost": "Zmiany nie zostaną zapisane, jeśli ich nie zapiszesz.",
-    "confirmSave": "Zapisać zmiany?"
+    "confirmSave": "Zapisać zmiany?",
+    "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
+    "backToSelection": "Wróć do wyboru",
+    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
