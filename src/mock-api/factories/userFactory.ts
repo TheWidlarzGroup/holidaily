@@ -229,7 +229,7 @@ export const usersList = [
     photo: 'https://randomuser.me/api/portraits/women/20.jpg',
     occupation: 'Software Engineer',
     userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
-    teams: [],
+    teams: ['Webrain'],
   },
   {
     firstName: 'Darlene',
