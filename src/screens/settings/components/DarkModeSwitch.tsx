@@ -52,9 +52,11 @@ export const DarkModeSwitch = () => {
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
-    backgroundColor: theme.colors.disabledText,
+    backgroundColor: theme.colors.dropdownBackground,
     borderRadius: theme.borderRadii.lmin,
-    padding: theme.spacing.ml,
-    marginVertical: theme.spacing.s,
+    paddingHorizontal: theme.spacing.ml,
+    paddingVertical: 17,
+    marginTop: theme.spacing.l2plus,
+    marginBottom: theme.spacing.s,
   },
 }))
