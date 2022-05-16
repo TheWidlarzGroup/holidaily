@@ -102,7 +102,7 @@ export const ProfilePicture = ({
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="-s">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
-        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="xl" marginBottom="m" />
         <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
     </Box>

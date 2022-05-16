@@ -17,7 +17,7 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => (
       paddingLeft={hideAvatar ? 'xs' : 'none'}>
       {!hideAvatar && (
         <Avatar
-          size="s"
+          size="m"
           src={comment.meta.author.pictureUrl}
           userDetails={
             comment.meta.author.userColor
