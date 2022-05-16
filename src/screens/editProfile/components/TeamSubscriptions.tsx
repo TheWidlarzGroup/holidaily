@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
@@ -6,14 +6,12 @@ import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { UserProfileType } from 'navigation/types'
 import IconAdd from 'assets/icons/icon-add.svg'
-import { Toast } from 'components/Toast'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
-export const TeamSubscriptions = () => {
+export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }) => {
   const { t } = useTranslation('userProfile')
   const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
   const { user, updateUser } = useUserContext()
@@ -21,8 +19,6 @@ export const TeamSubscriptions = () => {
   const [teams, setTeams] = useState<TeamsType[]>(
     user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
   )
-  const [changesSaved, { setTrue: showSuccessToast, setFalse: hideSuccessToast }] =
-    useBooleanState(false)
   const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
   const onSubscribeTeam = () =>
     navigate('SubscribeTeam', {
@@ -32,12 +28,6 @@ export const TeamSubscriptions = () => {
         showSuccessToast()
       },
     })
-
-  useEffect(() => {
-    let timeout: number
-    if (changesSaved) timeout = setTimeout(hideSuccessToast, 1200)
-    return () => clearTimeout(timeout)
-  }, [changesSaved, hideSuccessToast])
 
   const removeSubscription = (teamName: string) => {
     if (!user) return
@@ -55,25 +45,20 @@ export const TeamSubscriptions = () => {
 
   if (isLoading || !user) return <LoadingModal style={{ position: 'absolute', top: 0 }} show />
   return (
-    <>
-      <Box paddingHorizontal="m" position="relative">
-        <Text variant="sectionLabel" marginLeft="m" marginBottom="xm">
-          {t('userTeams')}
-        </Text>
+    <Box paddingHorizontal="m" position="relative">
+      <Text variant="sectionLabel" marginLeft="m" marginBottom="xm">
+        {t('userTeams')}
+      </Text>
 
-        {teams.length ? (
-          <>
-            <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
-            <ActiveSubscriptions teams={teams} removeSubscription={removeSubscription} />
-          </>
-        ) : (
-          <SubscriptionsEmptyState onPress={onSubscribeTeam} />
-        )}
-      </Box>
-      {changesSaved && (
-        <Toast variant="success" text={t('changesSaved')} onHide={hideSuccessToast} />
+      {teams.length ? (
+        <Box>
+          <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
+          <ActiveSubscriptions teams={teams} removeSubscription={removeSubscription} />
+        </Box>
+      ) : (
+        <SubscriptionsEmptyState onPress={onSubscribeTeam} />
       )}
-    </>
+    </Box>
   )
 }
 type SubscriptionsEmptyStateProps = {

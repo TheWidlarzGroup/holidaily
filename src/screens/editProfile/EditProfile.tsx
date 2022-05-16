@@ -100,29 +100,29 @@ export const EditProfile = () => {
   return (
     <>
       <SafeAreaWrapper>
-        {isToastVisible && (
-          <Box>
+        <Box>
+          <ScrollView
+            style={{
+              marginBottom: isDirty ? 93 : 0,
+            }}>
+            <GestureRecognizer
+              onSwipeRight={handleGoBack}
+              style={{ position: 'absolute', height: '100%', width: '100%' }}
+            />
+            <DrawerBackArrow goBack={handleGoBack} />
+            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+            <TeamSubscriptions showSuccessToast={showSuccessToast} />
+            <ProfileColor control={control} name="userColor" />
+          </ScrollView>
+          {isToastVisible && (
             <Toast onHide={hideSuccessToast} variant="success" text={t('changesSaved')} />
-          </Box>
-        )}
-        <ScrollView
-          style={{
-            marginBottom: isDirty ? 93 : 0,
-          }}>
-          <GestureRecognizer
-            onSwipeRight={handleGoBack}
-            style={{ position: 'absolute', height: '100%', width: '100%' }}
-          />
-          <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-          <TeamSubscriptions />
-          <ProfileColor control={control} name="userColor" />
-        </ScrollView>
-        {isLoading && <LoadingModal show />}
-        {!isLoading && isDirty && (
-          <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
-        )}
+          )}
+          {isLoading && <LoadingModal show />}
+          {!isLoading && isDirty && (
+            <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
+          )}
+        </Box>
       </SafeAreaWrapper>
     </>
   )
