@@ -182,7 +182,7 @@
     "newTeamConfirmation": "New team subscribed!",
     "joinTeams": "Join Teams",
     "selected": "SELECTED: ",
-    "subscribe": "Subscribe",
+    "join": "Join",
     "newColorSaved": "New color saved!",
     "fieldRequired": "Field is either empty or it contains illegal characters",
     "ifYouUnsubscribe": "If you leave {{teamName}}, you will no longer see its members.",

@@ -182,7 +182,7 @@
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
     "joinTeams": "Dołącz do zespołów",
     "selected": "WYBRANO: ",
-    "subscribe": "Subskrybuj",
+    "join": "Dołącz",
     "newColorSaved": "Nowy kolor zapisany!",
     "fieldRequired": "Pole jest puste lub zawiera niedozwolone znaki",
     "ifYouUnsubscribe": "Jeśli opuścisz {{teamName}}, nie będziesz już widział członków tego zespołu.",
