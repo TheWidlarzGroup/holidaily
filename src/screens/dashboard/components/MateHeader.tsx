@@ -10,7 +10,7 @@ export const MateHeader = ({ user }: { user: User }) => {
   return (
     <Box alignItems="center" paddingBottom="l" paddingTop="m">
       <Box>
-        <Avatar src={photo} size="ml" userDetails={makeUserDetails(user)} />
+        <Avatar src={photo} size="xl" userDetails={makeUserDetails(user)} />
       </Box>
       <Text variant="displayBoldMD" marginTop="m">
         {firstName} {lastName}

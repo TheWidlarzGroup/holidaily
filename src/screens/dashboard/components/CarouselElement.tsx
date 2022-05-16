@@ -22,6 +22,7 @@ export const CarouselElement = (p: CarouselElementProps) => (
     <Box marginBottom="m" alignItems="center">
       <Box marginHorizontal="m" marginTop="m" marginBottom="xs" height={65} width={62}>
         <Avatar
+          size="l"
           src={p.photo}
           userDetails={{ userColor: p.userColor, firstName: p.firstName, lastName: p.lastName }}
         />

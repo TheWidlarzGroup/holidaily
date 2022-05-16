@@ -79,8 +79,8 @@ const containerStyles = {
   width: CONTAINER_SIZE,
   height: CONTAINER_SIZE,
   borderRadius: CONTAINER_SIZE / 2,
-  top: -CONTAINER_SIZE / 3,
-  right: -CONTAINER_SIZE / 3,
+  top: -CONTAINER_SIZE / 5,
+  right: -CONTAINER_SIZE / 5,
 }
 const borderContainerStyles = {
   width: CONTAINER_SIZE,

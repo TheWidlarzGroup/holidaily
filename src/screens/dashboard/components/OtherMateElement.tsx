@@ -21,7 +21,7 @@ export const OtherMateElement = (props: OtherMateTypes) => {
       marginBottom="m"
       onPress={handleOnPress}>
       <Box marginBottom="s">
-        <Avatar size="xm" src={photo} userDetails={makeUserDetails(props.mate)} />
+        <Avatar size="l" src={photo} userDetails={makeUserDetails(props.mate)} />
       </Box>
       <Text variant="displayXS">{firstName}</Text>
       <Text variant="displayXS">{lastName}</Text>

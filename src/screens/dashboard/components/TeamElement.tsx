@@ -35,8 +35,8 @@ export const TeamElement = (p: TeamElementProps) => {
           )}
         </Box>
         <Box marginTop="xm" flexDirection="row" justifyContent="space-around">
-          <Avatar size="xm" src={p.users[0]?.photo} userDetails={makeUserDetails(p.users[0])} />
-          <Avatar size="xm" src={p.users[1]?.photo} userDetails={makeUserDetails(p.users[1])} />
+          <Avatar size="l" src={p.users[0]?.photo} userDetails={makeUserDetails(p.users[0])} />
+          <Avatar size="l" src={p.users[1]?.photo} userDetails={makeUserDetails(p.users[1])} />
         </Box>
       </BaseOpacity>
     </Box>

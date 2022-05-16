@@ -4,15 +4,15 @@ import { Box, Text } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 import { User } from 'mockApi/models'
 
-export const avatarSizes = { xs: 24, s: 44, xm: 56, m: 62, ml: 100, l: 112 }
+export const avatarSizes = { xs: 24, s: 32, m: 40, l: 56, xl: 100 }
 
 type AvatarProps = React.ComponentProps<typeof Box> & {
   src?: string | null
-  size?: keyof typeof avatarSizes | number
+  size?: keyof typeof avatarSizes
   userDetails?: Pick<User, 'userColor' | 'firstName'> & Partial<Pick<User, 'lastName'>>
 }
 
-export const Avatar = ({ size = 'm', src, userDetails, ...containerProps }: AvatarProps) => {
+export const Avatar = ({ size = 'l', src, userDetails, ...containerProps }: AvatarProps) => {
   const chosenSize = typeof size === 'number' ? size : avatarSizes[size]
   const width = chosenSize
   const height = chosenSize

@@ -12,7 +12,7 @@ export const DrawerHeader = ({ firstName, lastName, occupation }: DrawerHeaderPr
 
   return (
     <Box margin="m">
-      <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
+      <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="m" />
       <Text marginTop="m" variant="boldBlack18">
         {firstName} {lastName}
       </Text>

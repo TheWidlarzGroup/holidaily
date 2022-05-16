@@ -43,7 +43,7 @@ export const MateHoliday = ({ user, isNextRequest }: { user: User; isNextRequest
       marginTop={isNextRequest ? 'l' : 'none'}
       borderBottomLeftRadius={isNextRequest ? 'lmin' : 'none'}
       borderBottomRightRadius={isNextRequest ? 'lmin' : 'none'}>
-      <Box position="absolute" left={26} top={16}>
+      <Box position="absolute" left={30} top={11}>
         <HolidayTag hideBorder hideBorderColor isSick={isSickTime} isSoonOnHoliday={!isOnHoliday} />
       </Box>
       <Text variant="textBoldXS" color={text} paddingLeft="lplus">

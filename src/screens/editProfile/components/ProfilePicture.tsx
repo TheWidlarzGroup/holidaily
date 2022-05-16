@@ -108,7 +108,7 @@ export const ProfilePicture = ({
       marginTop="-s"
       marginBottom="xl">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
-        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="xl" marginBottom="m" />
         <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
       <TextLink
