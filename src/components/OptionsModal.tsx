@@ -51,14 +51,14 @@ export const OptionsModal = (p: OptionsModalProps) => {
 const OptionButton = ({ children, onPress }: PropsWithChildren<{ onPress: F0 }>) => {
   const styles = useStyles()
   const theme = useTheme()
-  const commonProps = { onPress, style: styles.option }
+  const buttonProps = { onPress, style: styles.option }
   return isIos ? (
-    <TouchableHighlight activeOpacity={0.8} {...commonProps} underlayColor={theme.colors.special}>
+    <TouchableHighlight activeOpacity={0.8} {...buttonProps} underlayColor={theme.colors.special}>
       {children}
     </TouchableHighlight>
   ) : (
     <Pressable
-      {...commonProps}
+      {...buttonProps}
       android_ripple={{
         color: theme.colors.special,
       }}>
