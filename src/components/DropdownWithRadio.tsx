@@ -41,10 +41,10 @@ export const DropdownWithRadio = (props: DropdownWithRadioProps) => {
   }
 
   const optionStyles = (option: Option<string>, index: number) => {
-    const isChosenOption =
+    const chosenOptionStyles =
       props.selectedOption === option.value ? styles.chosenOption : styles.option
-    const isLastOption = props.options.length - 1 === index ? styles.lastOption : styles.option
-    return { ...styles.option, ...isChosenOption, ...isLastOption }
+    const lastOptionStyles = props.options.length - 1 === index ? styles.lastOption : styles.option
+    return { ...styles.option, ...chosenOptionStyles, ...lastOptionStyles }
   }
 
   return (
@@ -97,7 +97,8 @@ const useStyles = mkUseStyles((theme) => ({
   header: {
     marginRight: 5,
     marginLeft: theme.spacing.xxm,
-    padding: theme.spacing.ml,
+    padding: theme.spacing.m,
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -117,6 +118,7 @@ const useStyles = mkUseStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: theme.spacing.ml,
+    paddingRight: theme.spacing.m,
   },
   chosenOption: {
     backgroundColor: theme.colors.dropdownPicked,
@@ -127,6 +129,6 @@ const useStyles = mkUseStyles((theme) => ({
   },
   arrow: {
     color: theme.colors.black,
-    marginRight: theme.spacing.xxs,
+    marginRight: theme.spacing.l,
   },
 }))

@@ -55,7 +55,7 @@ const useStyles = mkUseStyles((theme) => ({
     backgroundColor: theme.colors.dropdownBackground,
     borderRadius: theme.borderRadii.lmin,
     paddingHorizontal: theme.spacing.ml,
-    paddingVertical: 17,
+    paddingVertical: theme.spacing.m,
     marginTop: theme.spacing.l2plus,
     marginBottom: theme.spacing.s,
   },
