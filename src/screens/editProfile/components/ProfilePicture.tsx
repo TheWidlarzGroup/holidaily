@@ -14,22 +14,26 @@ import { Control, Controller } from 'react-hook-form'
 type ProfilePictureProps = {
   userPhoto: string | null
   onChange: F1<string | null>
+  onDelete: PictureControllerProps['onDelete']
 }
 
 type PictureControllerProps = {
   control: Control
   name: string
+  onDelete: F0
 }
 
-export const ProfilePicture = ({ control, name }: PictureControllerProps) => (
+export const ProfilePicture = ({ control, name, onDelete }: PictureControllerProps) => (
   <Controller
     control={control}
     name={name}
-    render={({ onChange, value }) => <ProfilePictureForm onChange={onChange} userPhoto={value} />}
+    render={({ onChange, value }) => (
+      <ProfilePictureForm onDelete={onDelete} onChange={onChange} userPhoto={value} />
+    )}
   />
 )
 
-const ProfilePictureForm = ({ onChange, userPhoto }: ProfilePictureProps) => {
+const ProfilePictureForm = ({ onChange, userPhoto, onDelete }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const { user } = useUserContext()
@@ -57,7 +61,7 @@ const ProfilePictureForm = ({ onChange, userPhoto }: ProfilePictureProps) => {
           hideModal={hideModal}
           onAccept={() => {
             hideModal()
-            handleDeletePicture()
+            onDelete()
           }}
           onDecline={hideModal}
           content={t('deletePictureMessage')}
@@ -77,9 +81,7 @@ const ProfilePictureForm = ({ onChange, userPhoto }: ProfilePictureProps) => {
       />
     )
   }
-  const handleDeletePicture = () => {
-    onChange(null)
-  }
+
   const onChangeProfilePicture = showEditPictureModal
   const onAddProfilePicture = showUploadAttachmentModal
   const onPress = userPhoto ? onChangeProfilePicture : onAddProfilePicture

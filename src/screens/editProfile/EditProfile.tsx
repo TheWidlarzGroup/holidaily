@@ -45,7 +45,7 @@ export const EditProfile = () => {
   const [isToastVisible, { setTrue: showSuccessToast, setFalse: hideSuccessToast }] =
     useBooleanState(false)
   const { t } = useTranslation('userProfile')
-  const { mutate, isLoading } = useEditUser()
+  const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
   const onUpdate = useCallback(
     (payload: EditUserSuccess) => {
@@ -59,8 +59,8 @@ export const EditProfile = () => {
     },
     [user, addUserToTeams]
   )
-  const onSubmit = (data: EditDetailsTypes) => {
-    mutate(data, {
+  const editUser = (data: Partial<User>) =>
+    mutateUser(data, {
       onSuccess: (payload) => {
         onUpdate(payload)
         showSuccessToast()
@@ -73,7 +73,8 @@ export const EditProfile = () => {
         })
       },
     })
-  }
+  const onSubmit = (data: EditDetailsTypes) => editUser(data)
+
   const onGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
@@ -92,6 +93,7 @@ export const EditProfile = () => {
     acceptBtnText: t('saveChanges'),
     declineBtnText: t('discard'),
   })
+  const onDeletePicture = () => editUser({ photo: null })
 
   const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
 
@@ -112,7 +114,7 @@ export const EditProfile = () => {
             style={{ position: 'absolute', height: '100%', width: '100%' }}
           />
           <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture control={control} name="photo" />
+          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
           <ProfileColor control={control} name="userColor" />
