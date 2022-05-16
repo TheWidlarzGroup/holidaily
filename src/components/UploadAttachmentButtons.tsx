@@ -46,7 +46,7 @@ export const UploadAttachmentButtons = ({
         alignItems="center"
         marginTop="m"
         activeOpacity={0.2}>
-        <Gallery />
+        <Gallery color={theme.colors.titleActive} />
         <Box flexGrow={1} marginLeft="m">
           <Text variant="boldBlack18">{t('openGallery')}</Text>
         </Box>

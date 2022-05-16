@@ -6,7 +6,6 @@ import { EditPictureModal } from 'components/EditPictureModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, BaseOpacity } from 'utils/theme'
-import { TextLink } from 'components/TextLink'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
@@ -101,21 +100,11 @@ export const ProfilePicture = ({
   }
   const onPress = user?.photo ? onChangeProfilePicture : onAddProfilePicture
   return (
-    <Box
-      paddingHorizontal="m"
-      justifyContent="center"
-      alignItems="center"
-      marginTop="-s"
-      marginBottom="xl">
+    <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="-s">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
         <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
         <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
-      <TextLink
-        text={user?.photo ? t('editPhoto') : t('addPhoto')}
-        variant="boldOrange15"
-        action={user?.photo ? onChangeProfilePicture : onAddProfilePicture}
-      />
     </Box>
   )
 }
