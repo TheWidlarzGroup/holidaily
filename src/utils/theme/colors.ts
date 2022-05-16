@@ -9,6 +9,7 @@ export const palette = {
   grayscale100: 'rgba(243, 244, 246, 1)',
   grayscale50: 'rgba(252, 252, 252, 1)',
   grayscaleOpaque: 'rgba(213, 215, 224, 0.3)',
+  grayscale900SemiOpaque: 'rgba(0, 5, 21, 1, 0.85)',
   primary700: 'rgba(220, 98, 10, 1)',
   primary500: 'rgba(255, 142, 60, 1)',
   primary300: 'rgba(252, 169, 93, 1)',
@@ -49,6 +50,8 @@ export const palette = {
     'linear-gradient(134.7deg, rgba(255, 190, 112, 1) -3.95%, rgba(255, 139, 63, 1) 107.96%)',
   paginationDot:
     'linear-gradient(180deg, rgba(252, 252, 252, 0.8) 0%, rgba(252, 252, 252, 0.72) 100%)',
+  colorPickerDropAreaGradient:
+    'linear-gradient(180deg, rgba(51, 58, 85, 0.8) 0%, rgba(0, 0, 0, 1) 31.77%, rgba(0, 0, 0, 1) 100%)',
 }
 
 export const colors = {
@@ -106,6 +109,8 @@ export const colors = {
   quarternaryOpaque: palette.quarternaryOpaque,
   lightGrayOpaque: palette.grayscaleOpaque,
   lightBlueOpaque: palette.secondary25opaque,
+  colorPickerBackdrop: palette.grayscale900SemiOpaque,
+  colorPickerDropArea: palette.colorPickerDropAreaGradient,
 }
 
 export const darkThemeColors = {
@@ -163,6 +168,8 @@ export const darkThemeColors = {
   quarternaryOpaque: palette.quarternaryOpaque,
   lightGrayOpaque: palette.grayscaleOpaque,
   lightBlueOpaque: palette.secondary25opaque,
+  colorPickerBackdrop: palette.grayscale900SemiOpaque,
+  colorPickerDropArea: palette.colorPickerDropAreaGradient,
 }
 
 export const legacyPalette = {
