@@ -59,8 +59,8 @@ export const TeamSubscriptions = () => {
   return (
     <>
       <Box paddingHorizontal="m" position="relative">
-        <Text variant="labelGrey" marginLeft="m" marginBottom="xm">
-          {t('userSubscriptions')}
+        <Text variant="sectionLabel" marginLeft="m" marginBottom="xm">
+          {t('userTeams')}
         </Text>
 
         {teams.length ? (
