@@ -37,7 +37,7 @@ export const MateHolidayDetail = (props: MateHolidayDetailProps) => {
 const useStyles = mkUseStyles(() => ({
   startBox: {
     backgroundColor: theme.colors.lightGrayOpaque,
-    marginRight: 8,
+    marginRight: theme.spacing.s,
     borderBottomLeftRadius: theme.borderRadii.lmin,
   },
   endBox: {
