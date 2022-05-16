@@ -89,7 +89,7 @@ const ProfilePictureForm = ({ onChange, userPhoto, onDelete }: ProfilePicturePro
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="-s">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
-        <Avatar src={userPhoto} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
+        <Avatar src={userPhoto} userDetails={makeUserDetails(user)} size="xl" marginBottom="m" />
         <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
     </Box>

@@ -28,6 +28,7 @@ export const SwipeableNotification = ({
         marginBottom="m"
         borderBottomLeftRadius="lmin"
         borderTopLeftRadius="lmin"
+        height={88}
         width="100%">
         <SwipeBar />
       </AnimatedBox>
@@ -54,10 +55,10 @@ const SwipeBar = () => {
         alignItems="center"
         paddingHorizontal="l">
         <Box marginRight="s">
-          <CheckIcon color={theme.colors.white} />
+          <CheckIcon width={12} height={12} color={theme.colors.alwaysWhite} />
         </Box>
 
-        <Text variant="boldBlack18" color="white" lineHeight={22}>
+        <Text variant="textBoldSM" color="alwaysWhite" lineHeight={21}>
           {t('markSeen')}
         </Text>
       </BaseOpacity>

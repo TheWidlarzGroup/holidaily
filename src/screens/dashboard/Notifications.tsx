@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, useTheme } from 'utils/theme'
 import { TouchableOpacity } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
@@ -10,6 +10,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
+  const theme = useTheme()
   const { goBack } = useNavigation()
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
@@ -18,7 +19,7 @@ export const Notifications = () => {
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <Box
         paddingVertical="lplus"
-        backgroundColor="disabledText"
+        backgroundColor="veryLightGrey"
         borderBottomRightRadius="lmin"
         borderBottomLeftRadius="lmin"
         flexDirection="row"
@@ -26,9 +27,9 @@ export const Notifications = () => {
         justifyContent="space-between"
         paddingLeft="m">
         <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <IconBack height={18} width={18} color="black" />
+          <IconBack height={16} width={10} color={theme.colors.black} />
         </TouchableOpacity>
-        <Text variant="header">{t('header')}</Text>
+        <Text variant="body1">{t('header')}</Text>
         <Box paddingRight="l" />
       </Box>
       <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm">

@@ -32,6 +32,7 @@ export const themeBase = createTheme({
   colors,
   breakpoints: {},
   borderRadii: {
+    none: 0,
     s: 4,
     xm: 8,
     m: 10,
