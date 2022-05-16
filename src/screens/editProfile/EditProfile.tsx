@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { useTheme } from 'utils/theme'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
@@ -16,7 +15,7 @@ import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
-import { ProfilePicture } from './components/ProfilePicture'
+import { PictureController } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
@@ -41,13 +40,13 @@ export const EditProfile = () => {
       lastName: user?.lastName,
       occupation: user?.occupation,
       userColor: user?.userColor || theme.colors.primary,
+      userPhoto: user?.photo,
     },
   })
 
   const { t } = useTranslation('userProfile')
   const { mutate, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
-  const [isEdited, { setTrue: setEditedTrue, setFalse: setEditedFalse }] = useBooleanState(false)
   const onUpdate = useCallback(
     (payload: EditUserSuccess) => {
       if (user) {
@@ -61,7 +60,6 @@ export const EditProfile = () => {
     [user, addUserToTeams]
   )
   const onSubmit = (data: EditDetailsTypes) => {
-    setEditedFalse()
     mutate(data, {
       onSuccess: (payload) => {
         onUpdate(payload)
@@ -71,12 +69,12 @@ export const EditProfile = () => {
           lastName: payload.user?.lastName,
           occupation: payload.user?.occupation,
           userColor: payload.user?.userColor,
+          userPhoto: payload.user?.photo,
         })
       },
     })
   }
   const onGoBack = () => {
-    setEditedFalse()
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
   }
@@ -95,43 +93,27 @@ export const EditProfile = () => {
     declineBtnText: t('discard'),
   })
 
-  const handleGoBack = isEdited ? onUnsavedChanges : onGoBack
+  const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
 
   return (
     <SafeAreaWrapper>
       <ScrollView
         style={{
-          marginBottom: isEdited ? 93 : 0,
+          marginBottom: isDirty ? 93 : 0,
         }}>
         <GestureRecognizer
           onSwipeRight={handleGoBack}
           style={{ position: 'absolute', height: '100%', width: '100%' }}
         />
         <DrawerBackArrow goBack={handleGoBack} />
-        <ProfilePicture
-          onUpdate={onUpdate}
-          setIsEditedTrue={setEditedTrue}
-          setIsEditedFalse={setEditedFalse}
-        />
-        <ProfileDetails
-          {...user}
-          errors={errors}
-          control={control}
-          setIsEdited={setEditedTrue}
-          hasValueChanged={isDirty}
-        />
+        <PictureController control={control} name="userPhoto" />
+        <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
         <TeamSubscriptions />
-        <ProfileColor control={control} name="userColor" setIsEdited={setEditedTrue} />
+        <ProfileColor control={control} name="userColor" />
       </ScrollView>
       {isLoading && <LoadingModal show />}
-      {isEdited && (
-        <SaveChangesButton
-          onDiscard={() => {
-            reset()
-            setEditedFalse()
-          }}
-          handleEditDetailsSubmit={handleSubmit(onSubmit)}
-        />
+      {isDirty && (
+        <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
       )}
     </SafeAreaWrapper>
   )
