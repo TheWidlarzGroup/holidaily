@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { EditPictureModal } from 'components/EditPictureModal'
-import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, BaseOpacity } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
@@ -22,15 +21,15 @@ type PictureControllerProps = {
   name: string
 }
 
-export const PictureController = ({ control, name }: PictureControllerProps) => (
+export const ProfilePicture = ({ control, name }: PictureControllerProps) => (
   <Controller
     control={control}
     name={name}
-    render={({ onChange, value }) => <ProfilePicture onChange={onChange} userPhoto={value} />}
+    render={({ onChange, value }) => <ProfilePictureForm onChange={onChange} userPhoto={value} />}
   />
 )
 
-export const ProfilePicture = ({ onChange, userPhoto }: ProfilePictureProps) => {
+const ProfilePictureForm = ({ onChange, userPhoto }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const { user } = useUserContext()
@@ -80,13 +79,11 @@ export const ProfilePicture = ({ onChange, userPhoto }: ProfilePictureProps) => 
   }
   const handleDeletePicture = () => {
     onChange(null)
-    showModal(
-      <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
-    )
   }
   const onChangeProfilePicture = showEditPictureModal
   const onAddProfilePicture = showUploadAttachmentModal
   const onPress = userPhoto ? onChangeProfilePicture : onAddProfilePicture
+
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="-s">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
