@@ -26,6 +26,7 @@ export const OptionsModal = (p: OptionsModalProps) => {
       <Box
         bg="white"
         position="absolute"
+        paddingBottom="xm"
         bottom={0}
         minHeight={160}
         style={{ width: '100%' }}
