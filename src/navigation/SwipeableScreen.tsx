@@ -13,11 +13,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
-type SwipableScreenProps = {
+type SwipeableScreenProps = {
   children: ReactNode
 }
 
-export const SwipableScreen = ({ children }: SwipableScreenProps) => {
+export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
   const { height } = useDimensions()
   const { goBack, ...navigation } = useNavigation()
   const styles = useStyles()

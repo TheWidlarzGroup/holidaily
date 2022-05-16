@@ -5,7 +5,7 @@ import { Box } from 'utils/theme'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
-type SwipableModalProps = PropsWithChildren<
+type SwipeableModalProps = PropsWithChildren<
   {
     isOpen: boolean
     onHide: F0
@@ -14,7 +14,7 @@ type SwipableModalProps = PropsWithChildren<
   >
 >
 
-export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipableModalProps) => {
+export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
   const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
   return (

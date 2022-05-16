@@ -3,7 +3,7 @@ import { UserProfileNavigationProps } from 'navigation/types'
 import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
-import { SwipableScreen } from 'navigation/SwipeableScreen'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { SearchTeams } from './TeamSubscriptions/SearchTeams'
 import { SaveSubscriptions } from './TeamSubscriptions/SaveSubscriptions'
 
@@ -19,7 +19,7 @@ export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps
   if (!user) return <LoadingModal show />
 
   return (
-    <SwipableScreen>
+    <SwipeableScreen>
       <SearchTeams
         setSelectedTeams={setSelectedTeams}
         selectedTeams={selectedTeams}
@@ -30,6 +30,6 @@ export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps
         selectedTeams={selectedTeams}
         disabled={!selectedTeams.length}
       />
-    </SwipableScreen>
+    </SwipeableScreen>
   )
 }
