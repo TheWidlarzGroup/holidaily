@@ -16,6 +16,15 @@ export type ValidationOfDataToBeDisplayed = {
   dayToBeDisplayed: string
 }
 
+export const exhaustiveTypeCheck = (
+  _: never,
+  message = "Condition that shouldn't be met occured",
+  strict?: true
+) => {
+  if (strict) throw new Error(message)
+  console.error(message)
+}
+
 // COMPARE DATE FUNCTIONS
 export const isTimeIntervalLessThanWeek = (date: DateOrISO): boolean => {
   const formattedDate = parseISO(date)

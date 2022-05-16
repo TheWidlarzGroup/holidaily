@@ -12,7 +12,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { linkWithFallback } from 'utils/linkWithFallback'
 import { PrivacyPolicyContent } from './PrivacyPolicyContent'
 
-const ANDROID_RATE_LINK = 'market://de tails?id=com.holidaily'
+const ANDROID_RATE_LINK = 'market://details?id=com.holidaily'
 const COMPANY_WEBSITE_LINK = 'https://thewidlarzgroup.com'
 
 export const AboutLinks = () => {
@@ -46,8 +46,13 @@ const RateApp = () => {
   return (
     <Box padding="m" bg="secondaryOpaque" borderRadius="lmin">
       <Box flexDirection="row" alignItems="center">
-        <Box bg="tertiaryOpaque" borderRadius="full">
-          <StarIcon color={theme.colors.tertiary} />
+        <Box
+          bg="tertiaryOpaque"
+          alignItems="center"
+          justifyContent="center"
+          aspectRatio={1}
+          borderRadius="full">
+          <StarIcon height={35} color={theme.colors.tertiary} />
         </Box>
 
         <Text marginLeft="m" variant="textBoldSM" color="titleActive" style={{ flex: 1 }}>
@@ -65,7 +70,7 @@ const RateApp = () => {
           await linkWithFallback(ANDROID_RATE_LINK, COMPANY_WEBSITE_LINK)
         }}
         style={{ marginLeft: 'auto' }}>
-        <Text variant="buttonSM" color="white">
+        <Text variant="buttonSM" color="alwaysWhite">
           {t('rateAppBtn')}
         </Text>
       </BaseOpacity>
