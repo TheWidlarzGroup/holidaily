@@ -52,7 +52,7 @@ export const CarouselElement = (p: CarouselElementProps) => {
           width={ICON_SIZE}
           height={ICON_SIZE}
           color={theme.colors.quarternary}
-          style={{ transform: [{ translateY: 0 }] }}
+          style={{ transform: [{ translateY: -1 }] }}
         />
       )
       break
