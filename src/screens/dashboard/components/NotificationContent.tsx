@@ -18,7 +18,7 @@ export const NotificationContent = (p: NotificationContentProps) => {
   return (
     <Box flexDirection="row" justifyContent="space-between">
       <Box flex={1} padding="m">
-        <Text>
+        <Text variant="textSM" lineHeight={21} color="blackBrighter" marginBottom="-s">
           {/* @ts-ignore   trans component causes "Type instantiation is excessively deep and possibly infinite." in pipeline, but not in VSCode */}
           <Trans
             ns="notifications"
@@ -29,21 +29,20 @@ export const NotificationContent = (p: NotificationContentProps) => {
                 ? formatDate(p.endDate, 'dayNumeralLongMonthNoYear', getCurrentLocale())
                 : undefined,
             }}
-            components={{ b: <Text variant="bold16" lineHeight={20} /> }}
+            components={{ b: <Text /> }}
           />
         </Text>
       </Box>
       {!p.isSeen && (
         <Box
-          backgroundColor="black"
+          backgroundColor="special"
           borderTopRightRadius="lmin"
           borderBottomLeftRadius="lmin"
-          paddingVertical="xs"
-          paddingHorizontal="m"
-          height={32}
+          height={21}
+          width={48}
           justifyContent="center"
           alignItems="center">
-          <Text variant="boldWhite12" paddingBottom="xs">
+          <Text variant="boldWhite12" paddingBottom="xs" color="veryLightGrey">
             {t('new')}
           </Text>
         </Box>
