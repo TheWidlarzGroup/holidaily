@@ -1,9 +1,11 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
-
-import { CustomModal } from 'components/CustomModal'
-import { theme, mkUseStyles, Theme } from 'utils/theme'
-import { EditPictureModalButtons } from './EditPictureModalButtons'
+import EditIconSvg from 'assets/icons/icon-edit.svg'
+import BinIcon from 'assets/icons/icon-bin.svg'
+import { SvgProps } from 'react-native-svg'
+import { useTranslation } from 'react-i18next'
+import { Box } from 'utils/theme'
+import { OptionsModal } from './OptionsModal'
 
 type EditPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
@@ -11,55 +13,36 @@ type EditPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   showDeleteCheckModal: F0
 }
 
+const EditIcon = (p: SvgProps) => (
+  <Box style={{ position: 'relative', left: -8, width: 32 }}>
+    <EditIconSvg {...p} />
+  </Box>
+)
+
 export const EditPictureModal = ({
   isVisible,
   hideModal,
   showUploadModal,
   showDeleteCheckModal,
 }: EditPictureModalProps) => {
-  // TODO: IOS setup required
-  const styles = useStyles()
-
+  const { t } = useTranslation('uploadAttachmentModal')
   const onDeleteImage = () => {
     showDeleteCheckModal()
   }
   const onChangeImage = () => {
     showUploadModal()
   }
-
-  return (
-    <CustomModal
-      isVisible={isVisible}
-      onBackdropPress={hideModal}
-      backdropColor={theme.colors.white}
-      backdropOpacity={0.5}
-      animationIn="slideInUp"
-      animationOut="slideOutDown"
-      animationInTiming={300}
-      animationOutTiming={300}
-      swipeDirection="down"
-      style={styles.modal}
-      hideModalContentWhileAnimating>
-      <EditPictureModalButtons onDeleteImage={onDeleteImage} onChangeImage={onChangeImage} />
-    </CustomModal>
-  )
+  const pictureChangeOptions = [
+    {
+      Icon: EditIcon,
+      text: t('changePicture'),
+      onPress: onChangeImage,
+    },
+    {
+      Icon: BinIcon,
+      text: t('deletePicture'),
+      onPress: onDeleteImage,
+    },
+  ]
+  return <OptionsModal options={pictureChangeOptions} isOpen={isVisible} onHide={hideModal} />
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  modal: {
-    flex: 1,
-    height: 175,
-    backgroundColor: theme.colors.primary,
-    position: 'absolute',
-    bottom: -20,
-    left: -20,
-    right: -20,
-    borderTopLeftRadius: theme.borderRadii.lmin,
-    borderTopRightRadius: theme.borderRadii.lmin,
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
-    elevation: 20,
-  },
-}))
