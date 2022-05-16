@@ -59,7 +59,6 @@ export const useCalendarData = () => {
     }
 
     if (doesMonthInCalendarHasSixRows(selectedDate)) {
-      console.log(requests[0].days[9])
       const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
       if (!nextMonthRequests) return
       const fewRequestsOfNextMonth = getFirstRequestsOfMonth(nextMonthRequests)

@@ -18,7 +18,6 @@ type CustomCalendarProps = {
   selectable?: boolean
   onHeaderPressed?: F0
   isInvalid?: boolean
-  monthHeight?: number
 }
 
 export const CalendarList = ({

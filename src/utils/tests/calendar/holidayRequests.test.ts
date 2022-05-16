@@ -2,7 +2,7 @@ import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 
-describe('E', () => {
+describe('Get holiday requests of next month', () => {
   const requests: HolidailyRequestMonthType[] = [
     {
       date: '2022-08',
@@ -73,7 +73,7 @@ describe('E', () => {
     expect(nextMonthRequests).toBe(requests[1])
   })
 
-  it('returns requests of next month ', () => {
+  it('returns first four days of month if it exists', () => {
     const firstRequestsOfMonth = getFirstRequestsOfMonth(requests[1])
     expect(firstRequestsOfMonth.length).toBe(1)
   })
