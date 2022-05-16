@@ -184,13 +184,16 @@
     "subscribe": "Subskrybuj",
     "newColorSaved": "Nowy kolor zapisany!",
     "fieldRequired": "Pole jest puste lub zawiera niedozwolone znaki",
-    "ifYouUnsubscribe": "Jeśli wypiszesz się z subskrypcji zespołu {{teamName}}, nie będziesz widział jego członków.",
+    "ifYouUnsubscribe": "Jeśli opuścisz {{teamName}}, nie będziesz już widział członków tego zespołu.",
     "unsubscribed": "Usunięto subskrypcję {{teamName}}",
     "colorPicker": "Wybierz swój ulubiony kolor\ni przeciągnij go do szarego pola na dole",
     "discardChanges": "Odrzuć zmiany",
     "discard": "Odrzuć zmiany",
     "changesWillBeLost": "Zmiany nie zostaną zapisane, jeśli ich nie zapiszesz.",
-    "confirmSave": "Zapisać zmiany?"
+    "confirmSave": "Zapisać zmiany?",
+    "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
+    "backToSelection": "Wróć do wyboru",
+    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
