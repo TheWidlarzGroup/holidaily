@@ -8,28 +8,32 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { Box, BaseOpacity } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { useModalContext } from 'contexts/ModalProvider'
-import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { makeUserDetails } from 'utils/userDetails'
 import { InputEditIcon } from 'components/InputEditIcon'
+import { Control, Controller } from 'react-hook-form'
 
 type ProfilePictureProps = {
-  setIsEditedTrue: F0
-  setIsEditedFalse: F0
-  onUpdate: F1<EditUserSuccess>
+  userPhoto: string | null
+  onChange: F1<string | null>
 }
 
-export const ProfilePicture = ({
-  setIsEditedTrue,
-  setIsEditedFalse,
-  onUpdate,
-}: ProfilePictureProps) => {
+type PictureControllerProps = {
+  control: Control
+  name: string
+}
+
+export const PictureController = ({ control, name }: PictureControllerProps) => (
+  <Controller
+    control={control}
+    name={name}
+    render={({ onChange, value }) => <ProfilePicture onChange={onChange} userPhoto={value} />}
+  />
+)
+
+export const ProfilePicture = ({ onChange, userPhoto }: ProfilePictureProps) => {
   const { hideModal, showModal } = useModalContext()
   const { t } = useTranslation('userProfile')
   const { user } = useUserContext()
-  const { mutate } = useEditUser()
-
-  const onChangePhoto = (newPhoto: string | null) =>
-    mutate({ photo: newPhoto }, { onSuccess: onUpdate })
 
   const showUploadAttachmentModal = () => {
     hideModal()
@@ -39,11 +43,8 @@ export const ProfilePicture = ({
           isVisible
           showCamera
           hideModal={hideModal}
-          onUserCancelled={() => {
-            setIsEditedFalse()
-            hideModal()
-          }}
-          setPhotoURI={onChangePhoto}
+          onUserCancelled={hideModal}
+          setPhotoURI={onChange}
         />
       )
     }, 250)
@@ -59,10 +60,7 @@ export const ProfilePicture = ({
             hideModal()
             handleDeletePicture()
           }}
-          onDecline={() => {
-            hideModal()
-            setIsEditedFalse()
-          }}
+          onDecline={hideModal}
           content={t('deletePictureMessage')}
         />
       )
@@ -75,34 +73,24 @@ export const ProfilePicture = ({
           showUploadAttachmentModal()
         }}
         isVisible
-        hideModal={() => {
-          hideModal()
-          setIsEditedFalse()
-        }}
+        hideModal={hideModal}
         showDeleteCheckModal={showDeleteConfirmationModal}
       />
     )
   }
   const handleDeletePicture = () => {
-    setIsEditedFalse()
-    onChangePhoto(null)
+    onChange(null)
     showModal(
       <ChangesSavedModal isVisible hideModal={hideModal} content={t('pictureDeletedMessage')} />
     )
   }
-  const onChangeProfilePicture = () => {
-    setIsEditedTrue()
-    showEditPictureModal()
-  }
-  const onAddProfilePicture = () => {
-    setIsEditedTrue()
-    showUploadAttachmentModal()
-  }
-  const onPress = user?.photo ? onChangeProfilePicture : onAddProfilePicture
+  const onChangeProfilePicture = showEditPictureModal
+  const onAddProfilePicture = showUploadAttachmentModal
+  const onPress = userPhoto ? onChangeProfilePicture : onAddProfilePicture
   return (
     <Box paddingHorizontal="m" justifyContent="center" alignItems="center" marginTop="-s">
       <BaseOpacity onPress={onPress} activeOpacity={0.5}>
-        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
+        <Avatar src={userPhoto} userDetails={makeUserDetails(user)} size="l" marginBottom="m" />
         <InputEditIcon bottom={10} top={undefined} onPress={onPress} />
       </BaseOpacity>
     </Box>

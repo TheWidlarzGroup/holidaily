@@ -8,7 +8,6 @@ import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 
 type ProfileColorProps = {
-  setIsEdited: F0
   onChange: F1<string>
   value: string
 }
@@ -16,7 +15,6 @@ type ProfileColorProps = {
 type PorifileColorControllerProps = {
   control: Control<FieldValues>
   name: string
-  setIsEdited: F0
 }
 
 const ProfileColorView = (p: ProfileColorProps) => {
@@ -31,7 +29,6 @@ const ProfileColorView = (p: ProfileColorProps) => {
     navigation.navigate('ColorPicker', {
       onChange: (value) => {
         p.onChange(value)
-        p.setIsEdited()
       },
       value: p.value,
     })
@@ -63,9 +60,7 @@ export const ProfileColor = (p: PorifileColorControllerProps) => (
   <Controller
     control={p.control}
     name={p.name}
-    render={({ onChange, value }) => (
-      <ProfileColorView onChange={onChange} value={value} setIsEdited={p.setIsEdited} />
-    )}
+    render={({ onChange, value }) => <ProfileColorView onChange={onChange} value={value} />}
   />
 )
 
