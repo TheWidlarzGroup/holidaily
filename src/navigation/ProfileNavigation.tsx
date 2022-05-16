@@ -13,11 +13,7 @@ export const ProfileNavigation = () => (
   <ProfileStack.Navigator {...StackNavigatorPresets.modalNavigator}>
     <ProfileStack.Screen name="EditProfile" component={EditProfile} />
     {/* <ProfileStack.Screen name="ChangePassword" component={ChangePassword} /> */}
-    <ProfileStack.Screen
-      name="ColorPicker"
-      component={BubbleContainer}
-      options={{ cardStyle: { opacity: 0.95 } }}
-    />
+    <ProfileStack.Screen name="ColorPicker" component={BubbleContainer} />
     <ProfileStack.Screen name="SubscribeTeam" component={SubscribeNewTeam} />
     <ProfileStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
   </ProfileStack.Navigator>
