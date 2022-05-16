@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
-import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UserProfileType } from 'navigation/types'
 import IconAdd from 'assets/icons/icon-add.svg'
+import { Toast } from 'components/Toast'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
@@ -21,29 +21,27 @@ export const TeamSubscriptions = () => {
   const [teams, setTeams] = useState<TeamsType[]>(
     user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
   )
-  const [changesSaved, { setTrue: showModal, setFalse: hideModal }] = useBooleanState(false)
-  const [modalContent, setModalContent] = useState('')
+  const [changesSaved, { setTrue: showSuccessToast, setFalse: hideSuccessToast }] =
+    useBooleanState(false)
   const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
   const onSubscribeTeam = () =>
     navigate('SubscribeTeam', {
       userTeams: teams,
       addSubscriptions: (teams) => {
         addTeams(teams)
-        setModalContent(teams.length > 1 ? t('newTeamsConfirmation') : t('newTeamConfirmation'))
-        showModal()
+        showSuccessToast()
       },
     })
 
   useEffect(() => {
     let timeout: number
-    if (changesSaved) timeout = setTimeout(hideModal, 1200)
+    if (changesSaved) timeout = setTimeout(hideSuccessToast, 1200)
     return () => clearTimeout(timeout)
-  }, [changesSaved, hideModal])
+  }, [changesSaved, hideSuccessToast])
 
   const removeSubscription = (teamName: string) => {
     if (!user) return
-    setModalContent(t('unsubscribed', { teamName }))
-    showModal()
+    showSuccessToast()
     const userNextTeams: Team[] = []
     const teamsParsedForDisplay: TeamsType[] = []
     user.teams.forEach((team) => {
@@ -72,7 +70,9 @@ export const TeamSubscriptions = () => {
           <SubscriptionsEmptyState onPress={onSubscribeTeam} />
         )}
       </Box>
-      <ChangesSavedModal isVisible={changesSaved} content={modalContent} />
+      {changesSaved && (
+        <Toast variant="success" text={t('changesSaved')} onHide={hideSuccessToast} />
+      )}
     </>
   )
 }
