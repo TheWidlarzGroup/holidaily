@@ -34,11 +34,14 @@ export const Toast = ({
       translateY.value = withTiming(-200)
       timeout = setTimeout(onHide, 300)
     }, visibilityTime)
+    
     return () => clearTimeout(timeout)
   }, [translateY, onHide, visibilityTime])
+  
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }))
+  
   return (
     <AnimatedBox style={[styles.container, animatedStyle]}>
       <Box
