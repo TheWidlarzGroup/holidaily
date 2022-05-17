@@ -6,7 +6,7 @@ const DURATION = 200
 export const useDropdownAnimation = (options: Option<string>[]) => {
   const [opened, { toggle: changeOpened }] = useBooleanState(false)
 
-  const HEIGHT = options.length * 40
+  const HEIGHT = options.length * 48
 
   const heightProgress = useDerivedValue(
     () =>

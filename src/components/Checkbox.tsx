@@ -16,9 +16,11 @@ type CheckboxProps = {
   backgroundColor?: string
 }
 
+// TODO: This checkbox in size 'l' appears in "Add Request" screen and it should be changed after the UI mock would be completed
 const DOT_POSITION_UNCHECKED = -1
 const DOT_POSITION_CHECKED = 25
-const DOT_POSITION_CHECKED_SMALL = 16
+const DOT_POSITION_SMALL_UNCHECKED = 4
+const DOT_POSITION_CHECKED_SMALL = 20
 
 export const Checkbox = ({
   checked,
@@ -35,7 +37,8 @@ export const Checkbox = ({
   )
 
   const offset = useDerivedValue(() => {
-    if (!checked) return DOT_POSITION_UNCHECKED
+    if (!checked && size === 'l') return DOT_POSITION_UNCHECKED
+    if (!checked && size !== 'l') return DOT_POSITION_SMALL_UNCHECKED
     return size === 'l' ? DOT_POSITION_CHECKED : DOT_POSITION_CHECKED_SMALL
   }, [checked])
 
@@ -60,7 +63,7 @@ export const Checkbox = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <Animated.View
-        style={[size === 'l' ? styles.container : styles.constainerSmall, backgroundStyles]}>
+        style={[size === 'l' ? styles.container : styles.containerSmall, backgroundStyles]}>
         <Animated.View
           style={[
             styles.dot,
@@ -82,27 +85,28 @@ const useStyles = mkUseStyles((theme) => ({
     borderRadius: theme.borderRadii.l,
     position: 'relative',
   },
-  constainerSmall: {
-    height: 22,
-    width: 38,
+  containerSmall: {
+    height: 28,
+    width: 44,
     borderRadius: theme.borderRadii.l,
     position: 'relative',
   },
   dot: {
     position: 'absolute',
-    top: -1,
+    top: 4,
     backgroundColor: theme.colors.white,
     borderRadius: 32,
   },
   dotLarge: {
+    position: 'absolute',
+    top: -1,
     height: 34,
     width: 34,
     borderWidth: 3,
   },
   dotSmall: {
-    height: 23,
-    width: 23,
-    borderWidth: 2,
+    height: 20,
+    width: 20,
   },
   dotChecked: {
     backgroundColor: theme.colors.alwaysDarkenWhite,

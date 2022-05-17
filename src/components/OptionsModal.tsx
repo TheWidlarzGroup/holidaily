@@ -1,13 +1,13 @@
 import React, { PropsWithChildren } from 'react'
 import { Pressable, TouchableHighlight } from 'react-native'
-import Svg from 'react-native-svg'
+import Svg, { SvgProps } from 'react-native-svg'
 import { isIos } from 'utils/layout'
 import { Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import { ModalHandleIndicator } from './ModalHandleIndicator'
 import { SwipeableModal } from './SwipeableModal'
 
 type Option = {
-  Icon?: Svg
+  Icon?: Svg | F1<SvgProps, JSX.Element>
   key?: string
   text: string
   onPress: F0
@@ -26,6 +26,7 @@ export const OptionsModal = (p: OptionsModalProps) => {
       <Box
         bg="white"
         position="absolute"
+        paddingBottom="xm"
         bottom={0}
         minHeight={160}
         style={{ width: '100%' }}

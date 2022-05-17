@@ -113,6 +113,12 @@ const form = {
     size: 14,
     color: 'titleActive',
   },
+  sectionLabel: {
+    fontFamily: 'Nunito-SemiBold',
+    fontSize: 12,
+    color: 'darkGrey',
+    letterSpacing: 12 * 0.08,
+  },
 }
 
 const button = {
