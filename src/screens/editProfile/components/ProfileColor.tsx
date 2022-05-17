@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, mkUseStyles, Theme, theme, BaseOpacity, useTheme } from 'utils/theme'
+import { Box, Text, mkUseStyles, Theme, BaseOpacity, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
