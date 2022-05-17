@@ -26,7 +26,7 @@ export const ActiveSubscriptions = ({ teams, removeSubscription }: ActiveSubscri
     [teams, removeSubscription]
   )
   return (
-    <Box flexDirection="row" marginRight="xl" flexWrap="wrap">
+    <Box flexDirection="row" flexWrap="wrap" flex={1}>
       {teamElements}
     </Box>
   )
@@ -65,7 +65,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginRight: theme.spacing.s,
     marginBottom: theme.spacing.m,
     paddingHorizontal: theme.spacing.l,
-    backgroundColor: theme.colors.alwaysDarkBlue,
+    backgroundColor: theme.colors.specialDarker,
     borderRadius: theme.spacing.l,
     justifyContent: 'center',
     alignItems: 'center',

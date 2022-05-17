@@ -23,7 +23,7 @@ export const useBubbles = () => {
   )
 
   const animateDropArea = () => {
-    dropTop.value = withTiming(-50, C.ANIMATION_CONFIG_MEDIUM)
+    dropTop.value = withTiming(-100, C.ANIMATION_CONFIG_MEDIUM)
     dropHeight.value = withTiming(1.5 * height, C.ANIMATION_CONFIG_MEDIUM)
     setTimeout(() => setAnimateCheckmark(true), C.CHECKMARK_ANIMATION_DELAY)
   }

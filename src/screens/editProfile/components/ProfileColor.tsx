@@ -1,11 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, mkUseStyles, Theme, theme, BaseOpacity } from 'utils/theme'
+import { Box, Text, mkUseStyles, Theme, BaseOpacity, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
+import { InputEditIcon } from 'components/InputEditIcon'
 
 type ProfileColorProps = {
   onChange: F1<string>
@@ -20,6 +21,7 @@ type PorifileColorControllerProps = {
 const ProfileColorView = (p: ProfileColorProps) => {
   const styles = useStyles()
   const { user } = useUserContext()
+  const theme = useTheme()
   const { t } = useTranslation('userProfile')
   const navigation = useNavigation<UserProfileType<'ColorPicker'>>()
   const { isLoading } = useTeamMocks()
@@ -40,8 +42,11 @@ const ProfileColorView = (p: ProfileColorProps) => {
       paddingHorizontal="m"
       marginBottom="xl"
       marginTop="s">
-      <Text variant="labelGrey" marginLeft="m">
+      <Text variant="sectionLabel" marginLeft="m">
         {t('userColor')}
+      </Text>
+      <Text variant="textXS" color="darkGrey" marginLeft="m">
+        {t('userColorDesc')}
       </Text>
       <BaseOpacity
         onPress={onPress}
@@ -51,6 +56,12 @@ const ProfileColorView = (p: ProfileColorProps) => {
             backgroundColor: p.value || user?.userColor || theme.colors.primary,
           },
         ]}
+      />
+      <InputEditIcon
+        bottom={theme.spacing['-xs']}
+        top={undefined}
+        right={theme.spacing.m}
+        onPress={onPress}
       />
     </Box>
   )
