@@ -1,4 +1,3 @@
-import { SwipeableModal } from 'components/SwipeableModal'
 import format from 'date-fns/format'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { User } from 'mock-api/models/mirageTypes'
@@ -9,6 +8,7 @@ import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getClosestHolidayRequests } from 'utils/closestHolidayRequests'
 import { Text } from 'utils/theme'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { DashboardTeamMember } from '../DashboardTeamMember'
 
 export const Carousel = () => {
@@ -63,9 +63,9 @@ export const Carousel = () => {
         )}
       />
       {modalUser && (
-        <SwipeableModal isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember closeModal={() => setIsModalVisible(false)} user={modalUser} />
-        </SwipeableModal>
+        <SwipeableModalRegular isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
+          <DashboardTeamMember user={modalUser} />
+        </SwipeableModalRegular>
       )}
     </>
   )

@@ -60,6 +60,7 @@ const Result = (p: ResultProps) => {
       style={p.isSelected ? styles.subscribedTeam : styles.teamItem}
       android_ripple={{
         color: theme.colors.alwaysWhite,
+        // COMMENT: type-check shows error for foreground below: "Type '{ color: string; foreground: true; }' is not assignable to type 'PressableAndroidRippleConfig'. Object literal may only specify known properties, and 'foreground' does not exist in type 'PressableAndroidRippleConfig'."
         foreground: true,
       }}
       onPress={() =>
