@@ -33,13 +33,13 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
           </Box>
           <Box height={1} backgroundColor="black" marginVertical="m" />
           <Box maxWidth="80%" flexDirection="row" alignItems="flex-start">
-            <Text variant="bold15" marginRight="s">
+            <Text variant="bold15" color="titleActive" marginRight="s">
               {getDurationInDays(+stats.ptoTaken ?? 0)}
             </Text>
             <Text variant="captionText">{t('takenPto')}</Text>
           </Box>
           <Box flexDirection="row" alignItems="flex-start">
-            <Text variant="bold15" marginRight="s">
+            <Text variant="bold15" color="titleActive" marginRight="s">
               {stats.sickdaysTaken ?? 0}
             </Text>
             <Text variant="captionText">{t('sickdaysTaken')}</Text>
