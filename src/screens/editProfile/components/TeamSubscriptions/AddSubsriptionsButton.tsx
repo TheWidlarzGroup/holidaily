@@ -14,8 +14,10 @@ export const AddSubscriptionsButton = (p: AddSubscriptionsButtonProps) => {
     <BaseOpacity
       onPress={p.onSubscribeTeam}
       justifyContent="center"
+      position="absolute"
+      bottom={theme.spacing.m}
+      right={theme.spacing.m}
       alignItems="center"
-      alignSelf="flex-end"
       height={44}
       width={44}
       borderRadius="full"

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, useTheme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { MateHeader } from 'screens/dashboard/components/MateHeader'
@@ -17,9 +17,9 @@ type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
   const { t } = useTranslation('dashboard')
+  const theme = useTheme()
   let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
   sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
-
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box
@@ -34,7 +34,7 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
           <TouchableOpacity
             onPress={closeModal}
             hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-            <IconBack height={18} width={18} color="black" />
+            <IconBack height={18} width={18} color={theme.colors.black} />
           </TouchableOpacity>
           <MateHeader user={user} />
           {!!sortedRequests[0] && (

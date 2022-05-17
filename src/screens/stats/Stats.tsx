@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
 import { getDurationInDays } from 'utils/dates'
+import { isSmallScreen } from 'utils/deviceSizes'
 import { SectionHeader } from './components/SectionHeader'
 
 export const Stats = ({ stats }: { stats: StatsType }) => {
@@ -31,20 +32,20 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
             <Text variant="body1">{t('availablePto')}</Text>
           </Box>
           <Box height={1} backgroundColor="black" marginVertical="m" />
-          <Box flexDirection="row" alignItems="center">
-            <Text variant="bold15" marginRight="s">
+          <Box maxWidth="80%" flexDirection="row" alignItems="flex-start">
+            <Text variant="bold15" color="titleActive" marginRight="s">
               {getDurationInDays(+stats.ptoTaken ?? 0)}
             </Text>
             <Text variant="captionText">{t('takenPto')}</Text>
           </Box>
-          <Box flexDirection="row" alignItems="center">
-            <Text variant="bold15" marginRight="s">
+          <Box flexDirection="row" alignItems="flex-start">
+            <Text variant="bold15" color="titleActive" marginRight="s">
               {stats.sickdaysTaken ?? 0}
             </Text>
             <Text variant="captionText">{t('sickdaysTaken')}</Text>
           </Box>
         </Box>
-        <Box position="absolute" right={0} top="-35%">
+        <Box position="absolute" right={isSmallScreen ? -10 : 0} top="-35%">
           <Character />
         </Box>
       </Box>

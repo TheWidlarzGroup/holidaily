@@ -41,7 +41,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
             </Box>
           )
         }
-
+        const buttonIdx = Math.floor(tabs.length / 2)
         return (
           <Box
             {...{ key }}
@@ -51,8 +51,8 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
             alignItems="center"
             flexDirection="column"
             backgroundColor="white"
-            borderTopRightRadius={key === Math.floor(tabs.length / 2) ? 's' : undefined}
-            borderTopLeftRadius={key === Math.ceil(tabs.length / 2) ? 's' : undefined}
+            borderTopRightRadius={key === buttonIdx - 1 ? 's' : undefined}
+            borderTopLeftRadius={key === buttonIdx + 1 ? 's' : undefined}
             zIndex="5">
             <BorderlessButton onPress={onPress} style={styles.button}>
               {getBottomTabIcon(
