@@ -60,6 +60,8 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
               </Text>
               <Box flexDirection="row" flexWrap="wrap">
                 {user.teams.map((team: Team | string) => {
+                  // TODO: types in teams of all users (user.teams value) should be unified to either string[] or Team[]
+                  // At the moment demo user has Team[] type and other users have string[] type
                   const teamName = typeof team === 'string' ? team : team.name
                   return <ToggleButton key={teamName}>{teamName}</ToggleButton>
                 })}
