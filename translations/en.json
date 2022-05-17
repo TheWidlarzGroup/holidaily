@@ -211,7 +211,8 @@
     "lastDayAtWork": "Last day at work",
     "sickLeave": "Sick time off",
     "coupleDaysOff": "A couple days off",
-    "teams": "Teams"
+    "teams": "Teams",
+    "joinFirstTeam": "Click + and join your first Team!"
   },
   "feed": {
     "postCommentBtn": "Comment",
