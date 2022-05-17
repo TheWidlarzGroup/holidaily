@@ -32,7 +32,7 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   return (
     <Box position="absolute" bottom={16} alignSelf="center">
       <CustomButton
-        label={t('subscribe')}
+        label={t('join')}
         variant="primary"
         onPress={submitSubscriptions}
         width={221}

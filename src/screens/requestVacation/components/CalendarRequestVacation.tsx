@@ -41,6 +41,7 @@ export const CalendarRequestVacation = ({
     showCalendar()
   }, [showCalendar])
   const styles = useStyles()
+
   return (
     <Box backgroundColor="white" borderRadius="m" flex={1} alignItems="center">
       <LoadingModal show />
@@ -80,7 +81,7 @@ const useStyles = mkUseStyles((theme) => ({
   },
   calendar: {
     width: 318,
-    marginTop: theme.spacing.l,
+    marginTop: theme.spacing.s,
   },
   dayNames: {
     width: '100%',

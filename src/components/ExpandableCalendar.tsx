@@ -26,6 +26,7 @@ import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 import { isScreenHeightShort } from 'utils/deviceSizes'
+import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -118,15 +119,17 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
   useEffect(() => {
     const delay = isIos ? 2000 : 3500
-
     const timeout = setTimeout(() => {
+      const EXTRA_HEIGHT = doesMonthInCalendarHasSixRows(selectedDate) ? 65 : 0
+
       containerHeight.value = isScreenHeightShort
         ? withTiming(WEEK_CALENDAR_HEIGHT)
-        : withSpring(BASE_CALENDAR_HEIGHT)
+        : withSpring(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
     }, delay)
 
     return () => clearTimeout(timeout)
-  }, [containerHeight])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -158,6 +161,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                   right: 0,
                 }}>
                 <WeekCalendar
+                  hideExtraDays
                   date={selectedDate}
                   markedDates={deepmerge(markedDates, {
                     [getISODateString(selectedDate)]: { selected: true },

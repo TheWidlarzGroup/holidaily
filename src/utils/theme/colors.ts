@@ -9,6 +9,7 @@ export const palette = {
   grayscale100: 'rgba(243, 244, 246, 1)',
   grayscale50: 'rgba(252, 252, 252, 1)',
   grayscaleOpaque: 'rgba(213, 215, 224, 0.3)',
+  grayscale900SemiOpaque: 'rgba(0, 5, 21, 0.85)',
   primary700: 'rgba(220, 98, 10, 1)',
   primary500: 'rgba(255, 142, 60, 1)',
   primary300: 'rgba(252, 169, 93, 1)',
@@ -50,6 +51,8 @@ export const palette = {
     'linear-gradient(134.7deg, rgba(255, 190, 112, 1) -3.95%, rgba(255, 139, 63, 1) 107.96%)',
   paginationDot:
     'linear-gradient(180deg, rgba(252, 252, 252, 0.8) 0%, rgba(252, 252, 252, 0.72) 100%)',
+  colorPickerDropAreaGradient:
+    'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
 }
 
 export const colors = {
@@ -60,6 +63,7 @@ export const colors = {
   tertiary: palette.primary500,
   tertiaryOpaque: palette.primary500opaque,
   special: palette.secondary500,
+  specialDarker: palette.secondary500,
   specialBrighter: palette.secondary300,
   specialOpaque: palette.secondary500opaque,
   specialBrighterOpaque: palette.secondary300opaque,
@@ -77,6 +81,7 @@ export const colors = {
   darkGreyBrighterDouble: palette.grayscale500,
   darkGreyMuchBrighter: palette.grayscale500,
   errorRed: palette.error700,
+  errorBrighter: palette.error500,
   specialRed: palette.error300,
   disabled: palette.grayscale200,
   disabledText: palette.grayscale200,
@@ -111,6 +116,8 @@ export const colors = {
   quarternaryOpaque: palette.quarternaryOpaque,
   lightGrayOpaque: palette.grayscaleOpaque,
   lightBlueOpaque: palette.secondary25opaque,
+  colorPickerBackdrop: palette.grayscale900SemiOpaque,
+  colorPickerDropArea: palette.colorPickerDropAreaGradient,
 }
 
 export const darkThemeColors = {
@@ -121,6 +128,7 @@ export const darkThemeColors = {
   tertiary: palette.primary500,
   tertiaryOpaque: palette.primary500opaque,
   special: palette.secondary500,
+  specialDarker: palette.secondary700,
   specialBrighter: palette.secondary300,
   specialOpaque: palette.secondary500opaque,
   specialBrighterOpaque: palette.secondary300opaque,
@@ -138,6 +146,7 @@ export const darkThemeColors = {
   darkGreyBrighterDouble: palette.grayscale300,
   darkGreyMuchBrighter: palette.grayscale100,
   errorRed: palette.error700,
+  errorBrighter: palette.error500,
   specialRed: palette.error300,
   disabled: palette.grayscale200,
   disabledText: palette.grayscale800,
@@ -172,6 +181,8 @@ export const darkThemeColors = {
   quarternaryOpaque: palette.quarternaryOpaque,
   lightGrayOpaque: palette.grayscaleOpaque,
   lightBlueOpaque: palette.secondary25opaque,
+  colorPickerBackdrop: palette.grayscale900SemiOpaque,
+  colorPickerDropArea: palette.colorPickerDropAreaGradient,
 }
 
 export const legacyPalette = {

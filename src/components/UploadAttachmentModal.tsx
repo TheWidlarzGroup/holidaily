@@ -11,9 +11,11 @@ import {
   pickSingle as pickDocument,
   types as documentTypes,
 } from 'react-native-document-picker'
-import { UploadAttachmentButtons } from 'components/UploadAttachmentButtons'
-import { Box, mkUseStyles, Theme, useTheme } from 'utils/theme'
-import { SwipeableModal } from './SwipeableModal'
+import Gallery from 'assets/icons/icon-gallery.svg'
+import FileIcon from 'assets/icons/icon-file.svg'
+import Smartphone from 'assets/icons/icon-smartphone.svg'
+import { useTranslation } from 'react-i18next'
+import { OptionsModal } from './OptionsModal'
 
 type UploadFilesProps =
   | {
@@ -36,9 +38,6 @@ export const UploadAttachmentModal = ({
   ...p
 }: UploadAttachmentModalProps) => {
   // TODO: IOS setup required
-  const styles = useStyles()
-  const theme = useTheme()
-
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
       p.onUserCancelled()
@@ -51,7 +50,6 @@ export const UploadAttachmentModal = ({
 
   const onUpload = (action: PhotoSelectionChoice) => {
     p.hideModal()
-
     if (p.allowFiles && action === 'file') {
       const { doc, docx, pdf, plainText, ppt, pptx } = documentTypes
       const options: DocumentPickerOptions<'android' | 'ios'> = {
@@ -80,40 +78,20 @@ export const UploadAttachmentModal = ({
       }, 400)
     }
   }
+  const { t } = useTranslation('uploadAttachmentModal')
   useEffect(() => {
     hideEditAttachmentModal?.()
   }, [hideEditAttachmentModal])
-
-  return (
-    <SwipeableModal
-      backdropColor={theme.colors.white}
-      backdropOpacity={0.5}
-      isOpen={p.isVisible}
-      onHide={p.hideModal}>
-      <Box style={[styles.modal]}>
-        <UploadAttachmentButtons
-          onUpload={onUpload}
-          allowFiles={p.allowFiles}
-          showCamera={p.showCamera}
-        />
-      </Box>
-    </SwipeableModal>
-  )
+  const options = [
+    {
+      Icon: Gallery,
+      text: t('openGallery'),
+      onPress: () => onUpload('gallery'),
+    },
+  ]
+  if (p.allowFiles)
+    options.push({ Icon: FileIcon, text: t('chooseFile'), onPress: () => onUpload('file') })
+  if (p.showCamera)
+    options.push({ Icon: Smartphone, text: t('openCamera'), onPress: () => onUpload('camera') })
+  return <OptionsModal isOpen={p.isVisible} options={options} onHide={p.hideModal} />
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  modal: {
-    width: '100%',
-    minHeight: 170,
-    backgroundColor: theme.colors.primary,
-    position: 'absolute',
-    bottom: -20,
-    borderTopLeftRadius: theme.borderRadii.lmin,
-    borderTopRightRadius: theme.borderRadii.lmin,
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
-    elevation: 20,
-  },
-}))
