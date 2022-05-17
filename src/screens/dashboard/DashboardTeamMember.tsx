@@ -7,7 +7,7 @@ import { MateHoliday } from 'screens/dashboard/components/MateHoliday'
 import { MateHolidayDetail } from 'screens/dashboard/components/MateHolidayDetail'
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Team, User } from 'mock-api/models/mirageTypes'
+import { User } from 'mock-api/models/mirageTypes'
 import { isIos } from 'utils/layout'
 import { useTranslation } from 'react-i18next'
 import { ToggleButton } from 'components/ToggleButton'
@@ -59,12 +59,9 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
                 {t('teams').toUpperCase()}
               </Text>
               <Box flexDirection="row" flexWrap="wrap">
-                {user.teams.map((team: Team | string) => {
-                  // TODO: types in teams of all users (user.teams value) should be unified to either string[] or Team[]
-                  // At the moment demo user has Team[] type and other users have string[] type
-                  const teamName = typeof team === 'string' ? team : team.name
-                  return <ToggleButton key={teamName}>{teamName}</ToggleButton>
-                })}
+                {user.teams.map((team) => (
+                  <ToggleButton key={team.name}>{team.name}</ToggleButton>
+                ))}
               </Box>
             </>
           ) : null}
