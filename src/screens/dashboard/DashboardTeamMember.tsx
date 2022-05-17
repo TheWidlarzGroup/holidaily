@@ -9,12 +9,13 @@ import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { User } from 'mock-api/models/mirageTypes'
 import { isIos } from 'utils/layout'
-import { sortAndFilterRequests } from 'utils/sortAndFilterRequests'
+import { sortSingleUserRequests } from 'utils/sortByDate'
 
 type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
-  const sortedRequests = sortAndFilterRequests(user.requests)
+  let sortedRequests = user.requests.sort(sortSingleUserRequests)
+  sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box
