@@ -34,7 +34,7 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
       ListHeaderComponent={<MarkAllAsSeen unseen={unseenNotifications} />}
       renderSectionHeader={({ section: { title, data } }) =>
         data.length ? (
-          <Text variant="lightGreyRegular" margin="xm">
+          <Text variant="inputLabel" marginBottom="s" color="darkGreyBrighter">
             {title}
           </Text>
         ) : null
@@ -61,8 +61,8 @@ const MarkAllAsSeen = ({ unseen }: { unseen: NotificationModel[] }) => {
   if (unseen.length < 2) return null
 
   return (
-    <BaseOpacity onPress={markAllAsSeen} alignSelf="flex-end">
-      <Text variant="bold15" color="greyDark">
+    <BaseOpacity onPress={markAllAsSeen} marginTop="s" marginBottom="s" alignSelf="flex-end">
+      <Text variant="textSM" color="darkGreyBrighter">
         {t('markAllAsSeen')}
       </Text>
     </BaseOpacity>

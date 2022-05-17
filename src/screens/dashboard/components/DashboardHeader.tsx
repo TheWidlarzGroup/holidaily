@@ -34,7 +34,7 @@ export const DashboardHeader = () => {
             paddingLeft="m"
             borderTopRightRadius="lplus"
             borderBottomRightRadius="lplus">
-            <Avatar size="s" src={user?.photo} userDetails={makeUserDetails(user)} />
+            <Avatar size="m" src={user?.photo} userDetails={makeUserDetails(user)} />
           </BaseOpacity>
         </Box>
         <Box alignItems="center" flex={1}>

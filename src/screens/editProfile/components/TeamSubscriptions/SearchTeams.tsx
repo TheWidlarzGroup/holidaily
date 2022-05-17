@@ -76,7 +76,9 @@ export const SearchTeams = (p: SearchBarProps) => {
       setFilteredTeams(masterData)
       goBack()
     },
-    content: t('quitMessage'),
+    header: t('discardTeams'),
+    declineBtnText: t('backToSelection'),
+    acceptBtnText: t('discard'),
   })
 
   const handleGoBack = () => {

@@ -3,17 +3,18 @@ import { faker } from '@faker-js/faker'
 import { getRandomValue } from 'utils/getRandomValue'
 
 const colors = [
+  '91A6FF#',
+  '#4E70FF',
   '#FF88DC',
-  '#390099',
-  '#FFA756',
-  '#BE8FF2',
-  '#BE8FF2',
   '#80ED99',
-  '#FEE610',
-  '#8E94A5',
-  '#FD8989',
-  '#8DF4E7',
-  '#91A6FF',
+  '#FAFF7F',
+  '#E5ED22',
+  '#EE4A16',
+  '#E522AC',
+  '#001D96',
+  '#B7FF7F',
+  '#B137EB',
+  '#3BEFB9',
 ]
 
 export const userFactory = Factory.extend({

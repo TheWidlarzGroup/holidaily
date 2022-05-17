@@ -25,7 +25,7 @@ export const FeedHeader = () => {
   return (
     <Box flexDirection="row" alignItems="stretch" padding="m" bg="white" borderRadius="l">
       <Box marginRight="m">
-        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="m" />
       </Box>
       <BaseOpacity flexGrow={1} onPress={() => navigate('CreatePost')} justifyContent="center">
         <Text variant="labelGreyLight">{t('createPostLabel')}</Text>

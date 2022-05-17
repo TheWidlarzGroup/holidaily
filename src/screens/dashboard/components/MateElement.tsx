@@ -46,7 +46,7 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
       onPress={handleOnPress}
       position="relative">
       <Box margin="m">
-        <Avatar size="xm" src={photo} userDetails={makeUserDetails(userData)} />
+        <Avatar size="l" src={photo} userDetails={makeUserDetails(userData)} />
         {userData.isOnHoliday && <HolidayTag isSick={isSick} />}
       </Box>
       <Box marginVertical="s">

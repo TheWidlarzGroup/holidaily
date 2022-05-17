@@ -184,13 +184,16 @@
     "subscribe": "Subscribe",
     "newColorSaved": "New color saved!",
     "fieldRequired": "Field is either empty or it contains illegal characters",
-    "ifYouUnsubscribe": "If you unsubscribe {{teamName}} Team you will no longer see its members.",
+    "ifYouUnsubscribe": "If you leave {{teamName}}, you will no longer see its members.",
     "unsubscribed": "{{teamName}} unsubscribed",
     "colorPicker": "Pick your favourite color and drop it in the grey area below",
     "discardChanges": "Discard changes",
     "discard": "Discard",
     "changesWillBeLost": "By clicking Discard, all changes will be lost.",
-    "confirmSave": "Save changes?"
+    "confirmSave": "Save changes?",
+    "discardTeams": "Do you want to discard selected teams?",
+    "backToSelection": "Back to selection",
+    "teamsEmptyState": "Click + and join your first Team!"
   },
   "dashboard": {
     "today": "Today is:",

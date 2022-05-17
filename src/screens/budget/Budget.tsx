@@ -33,23 +33,23 @@ export const Budget = () => {
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
-        <Box paddingHorizontal="m" paddingTop="xxl" backgroundColor="dashboardBackground">
+        <Box paddingHorizontal="m" paddingTop="xxl">
           <Box style={[styles.section]} marginBottom="l2plus">
             <AvailablePto availablePto={user?.availablePto ?? 0} />
           </Box>
           <Box flexDirection="row">
             <Box style={styles.section} flex={1} marginRight="m">
-              <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+              <Text marginTop="xxm" variant="captionText" lineHeight={14} color="alwaysBlack">
                 {t('took')}
               </Text>
               <SectionBoldText text={t('sickDays', { number: sickDaysCount })} />
             </Box>
             <Box style={styles.section} flex={1}>
-              <Text marginTop="xxm" variant="captionText" lineHeight={14}>
+              <Text marginTop="xxm" variant="captionText" lineHeight={14} color="alwaysBlack">
                 {t('sent')}
               </Text>
               <SectionBoldText text={t('requests', { number: sentRequestsCount })} />
-              <Text marginVertical="xxm" variant="captionText" lineHeight={14}>
+              <Text marginVertical="xxm" variant="captionText" lineHeight={14} color="alwaysBlack">
                 {t('requestsStatus', { accepted, pending })}
               </Text>
             </Box>
@@ -61,7 +61,12 @@ export const Budget = () => {
 }
 
 const SectionBoldText = ({ text }: { text: string }) => (
-  <Text variant="textBoldMD" lineHeight={33} letterSpacing={0.16} marginVertical="xm">
+  <Text
+    variant="textBoldMD"
+    lineHeight={33}
+    letterSpacing={0.16}
+    marginVertical="xm"
+    color="alwaysBlack">
     {text}
   </Text>
 )
@@ -71,7 +76,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     padding: theme.spacing.xxm,
     paddingBottom: 0,
     borderRadius: theme.borderRadii.l,
-    backgroundColor: theme.colors.bottomTabBgColor,
+    backgroundColor: theme.colors.alwaysWhite,
     overflow: 'hidden',
   },
 }))

@@ -3,19 +3,19 @@ import { ScrollView } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { ChangesSavedModal } from 'components/ChangesSavedModal'
-import { mkUseStyles, useTheme } from 'utils/theme'
+import GestureRecognizer from 'react-native-swipe-gestures'
+import { useTheme } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { useModalContext } from 'contexts/ModalProvider'
 import { User } from 'mock-api/models/mirageTypes'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
+import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
-import GestureRecognizer from 'react-native-swipe-gestures'
 import { LoadingModal } from 'components/LoadingModal'
-import { useTeamsContext } from 'hooks/useTeamsContext'
-import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -28,7 +28,6 @@ export const EditProfile = () => {
   const { showModal, hideModal } = useModalContext()
   const navigation = useNavigation()
   const { user } = useUserContext()
-  const styles = useStyles()
   const theme = useTheme()
   const {
     errors,
@@ -76,19 +75,19 @@ export const EditProfile = () => {
       },
     })
   }
-
-  const handleGoBack = useWithConfirmation({
+  const onGoBack = () => {
+    setEditedFalse()
+    navigation.goBack()
+    navigation.dispatch(DrawerActions.openDrawer())
+  }
+  const onUnsavedChanges = useWithConfirmation({
     onAccept: () => {
       handleSubmit(onSubmit)
-      setEditedFalse()
-      navigation.goBack()
-      navigation.dispatch(DrawerActions.openDrawer())
+      onGoBack()
     },
     onDecline: () => {
       reset()
-      setEditedFalse()
-      navigation.goBack()
-      navigation.dispatch(DrawerActions.openDrawer())
+      onGoBack()
     },
     header: t('confirmSave'),
     content: t('changesWillBeLost'),
@@ -96,11 +95,13 @@ export const EditProfile = () => {
     declineBtnText: t('discard'),
   })
 
+  const handleGoBack = isEdited ? onUnsavedChanges : onGoBack
+
   return (
     <SafeAreaWrapper>
       <ScrollView
         style={{
-          backgroundColor: styles.container.backgroundColor,
+          marginBottom: isEdited ? 93 : 0,
         }}>
         <GestureRecognizer
           onSwipeRight={handleGoBack}
@@ -135,9 +136,3 @@ export const EditProfile = () => {
     </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  container: {
-    backgroundColor: theme.colors.dashboardBackground,
-  },
-}))

@@ -1,9 +1,10 @@
 import React from 'react'
+import { ViewStyle } from 'react-native'
 import { Box, mkUseStyles } from 'utils/theme'
 
-export const ModalHandleIndicator = () => {
+export const ModalHandleIndicator = (p: { style?: ViewStyle }) => {
   const styles = useStyles()
-  return <Box style={styles.indicator} />
+  return <Box style={[styles.indicator, p.style ?? {}]} />
 }
 
 const useStyles = mkUseStyles((theme) => ({

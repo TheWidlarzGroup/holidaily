@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 0,
     'no-undef': 'off',
     '@typescript-eslint/no-unsafe-argument': 0,
+    'react/display-name': 'off',
   },
   globals: {
     __DEV__: 'readonly',

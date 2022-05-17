@@ -11,6 +11,7 @@ export const FeedPostHeader = ({ meta }: FeedPostHeaderProps) => (
   <Box paddingHorizontal="xm" paddingTop="s" alignItems="flex-start">
     <Box flexDirection="row" paddingBottom="s">
       <Avatar
+        size="l"
         src={meta?.author.pictureUrl}
         marginRight="s"
         userDetails={

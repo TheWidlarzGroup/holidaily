@@ -35,7 +35,7 @@ export const DayEvent = ({ event }: DayEventProps) => (
         firstName: event.person,
         lastName: event.personLastName,
       }}
-      size="s"
+      size="m"
     />
     <Box
       marginHorizontal="s"

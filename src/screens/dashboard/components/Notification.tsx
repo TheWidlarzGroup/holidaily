@@ -29,9 +29,9 @@ export const Notification = ({
       opacity={opacity}
       backgroundColor="lightGrey"
       borderRadius="lmin"
-      marginVertical="m"
+      marginVertical="s"
       marginTop="none"
-      height={90}
+      height={88}
       flexDirection="row"
       overflow="hidden">
       {author.photo && (
@@ -48,8 +48,10 @@ export const Notification = ({
           lastName={author.lastName}
           isSeen={wasSeenByHolder}
         />
-        <Box paddingBottom="s" paddingRight="s" alignSelf="flex-end">
-          <Text variant="lightGreyRegular">{formatDate(new Date(p.createdAt), 'ago')}</Text>
+        <Box marginBottom="s" marginRight="m" alignSelf="flex-end">
+          <Text variant="textXS" color="darkGreyBrighter">
+            {formatDate(new Date(p.createdAt), 'ago')}
+          </Text>
         </Box>
       </Box>
     </BaseOpacity>

@@ -5,14 +5,17 @@ import IconClose from 'assets/icons/icon-close2.svg'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
-import { USER_GROUPS_DAYS_OFF } from 'screens/dashboard/helpers/temporaryData'
-import { ValidationOfGroupDayOff } from 'types/holidaysDataTypes'
 import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
+import { useUserContext } from 'hooks/useUserContext'
+import IconPeople from 'assets/icons/icon-people.svg'
+import { useNavigation } from '@react-navigation/native'
 
-const teamsList: ValidationOfGroupDayOff[] = USER_GROUPS_DAYS_OFF // fetch Team from mirage and remove this type
+const ICON_SIZE = 18
 
 export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('welcome')
+  const { user } = useUserContext()
+  const { navigate } = useNavigation()
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" paddingVertical="l">
@@ -21,23 +24,77 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
           <TouchableOpacity
             onPress={closeModal}
             hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-            <IconClose height={15} width={15} />
+            <IconClose height={15} width={15} color="black" />
           </TouchableOpacity>
         </Box>
         <Box flex={1}>
-          <Text variant="body1">{t('memberOf')}</Text>
-          <Text textAlign="center" variant="boldOrange20" marginTop="s">
-            Supercompany
+          <Text variant="displayBoldSM" marginTop="s">
+            {t('congrats')}
           </Text>
+          <Box flexDirection="row" justifyContent="center" marginTop="xm">
+            <Text variant="textSM">{t('memberOf')}</Text>
+            <Text variant="textBoldSM" color="tertiary" marginLeft="xs">
+              Supercompany
+            </Text>
+          </Box>
+
           <Box>
-            <Text textAlign="left" variant="body1" marginTop="l" marginBottom="s">
+            <Text
+              variant="displayXS"
+              color="darkGrey"
+              letterSpacing={0.7}
+              marginTop="l"
+              marginBottom="xs">
               {t('yourTeams')}
             </Text>
-            {teamsList.map((team) => (
-              <Text key={team.groupId} variant="boldBlack18" marginTop="s">
-                {team.groupName}
-              </Text>
-            ))}
+            <Box flexDirection="row" flexWrap="wrap">
+              {user?.teams.map((team) => (
+                <Box
+                  key={team.name}
+                  height={37}
+                  paddingHorizontal="m"
+                  marginRight="s"
+                  marginTop="s"
+                  backgroundColor="input"
+                  justifyContent="center"
+                  alignItems="center"
+                  borderRadius="l">
+                  <Text variant="textSM">{team.name}</Text>
+                </Box>
+              ))}
+            </Box>
+            <Box
+              backgroundColor="specialBrighterOpaque"
+              borderRadius="lmin"
+              marginTop="xl"
+              padding="m">
+              <Box flexDirection="row">
+                <Box
+                  height={36}
+                  width={36}
+                  alignItems="center"
+                  justifyContent="center"
+                  borderRadius="l"
+                  backgroundColor="specialOpaque"
+                  marginRight="m">
+                  <IconPeople width={ICON_SIZE} height={ICON_SIZE} />
+                </Box>
+                <Box flex={1}>
+                  <Text variant="textSM">{t('joinMore')}</Text>
+                </Box>
+              </Box>
+              <Box alignSelf="flex-end" marginRight="-xm" marginTop="xm">
+                <CustomButton
+                  variant="tertiary"
+                  label={t('joinMoreButton')}
+                  width={120}
+                  onPress={() => {
+                    navigate('ProfileNavigation')
+                    closeModal()
+                  }}
+                />
+              </Box>
+            </Box>
           </Box>
         </Box>
         <TouchableOpacity onPress={closeModal}>

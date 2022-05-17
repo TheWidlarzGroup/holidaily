@@ -24,31 +24,15 @@ export const RadioInput = ({ checked, onPress }: RadioInputProps) => {
     const borderColor = interpolateColor(
       changeProgress.value,
       [0, 1],
-      [colors.transparent, colors.primary]
+      [colors.transparent, colors.special]
     )
-    const borderWidth = withTiming(changeProgress.value * 3, {
-      duration: 30,
-    })
-    const margin = withTiming((1 - changeProgress.value) * 3, {
-      duration: 30,
-    })
-    return { borderColor, borderWidth, margin }
-  }, [])
-
-  const animatedCenterStyles = useAnimatedStyle(() => {
-    const borderColor = interpolateColor(changeProgress.value, [0, 1], [colors.grey, colors.white])
-    const backgroundColor = interpolateColor(
-      changeProgress.value,
-      [0, 1],
-      [colors.grey, colors.secondary]
-    )
-    return { borderColor, backgroundColor }
+    return { borderColor }
   }, [])
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <Animated.View style={[styles.ring, animatedRingStyles]}>
-        <Animated.View style={[styles.center, animatedCenterStyles]} />
+      <Animated.View style={checked ? [styles.ringChecked, animatedRingStyles] : styles.ring}>
+        <Animated.View style={checked ? styles.centerChecked : styles.center} />
       </Animated.View>
     </TouchableOpacity>
   )
@@ -56,14 +40,26 @@ export const RadioInput = ({ checked, onPress }: RadioInputProps) => {
 
 const useStyles = mkUseStyles((theme) => ({
   center: {
+    height: 18,
+    width: 18,
+    borderRadius: theme.borderRadii.full,
+    backgroundColor: theme.colors.transparent,
+  },
+  centerChecked: {
     height: 15,
     width: 15,
-    backgroundColor: theme.colors.tertiary,
     borderRadius: theme.borderRadii.full,
-    borderColor: theme.colors.white,
-    borderWidth: 2.5,
+    backgroundColor: theme.colors.transparent,
   },
   ring: {
+    borderWidth: 2,
+    marginRight: 1,
+    borderColor: theme.colors.darkGrey,
+    borderRadius: theme.borderRadii.full,
+  },
+  ringChecked: {
+    borderWidth: 5,
+    borderColor: theme.colors.special,
     borderRadius: theme.borderRadii.full,
   },
 }))

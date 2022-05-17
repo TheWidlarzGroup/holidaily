@@ -16,6 +16,15 @@ export type ValidationOfDataToBeDisplayed = {
   dayToBeDisplayed: string
 }
 
+export const exhaustiveTypeCheck = (
+  _: never,
+  message = "Condition that shouldn't be met occured",
+  strict?: true
+) => {
+  if (strict) throw new Error(message)
+  console.error(message)
+}
+
 // COMPARE DATE FUNCTIONS
 export const isTimeIntervalLessThanWeek = (date: DateOrISO): boolean => {
   const formattedDate = parseISO(date)
@@ -39,16 +48,16 @@ export const displayDatesRange = (startDate: DateOrISO, endDate: DateOrISO) => {
 
   // 1.if different year: 20 December 2020 - 7 January2021
   if (getYear(startDateConverted) !== getYear(endDateConverted)) {
-    return `${displayDayLong(startDate)} - ${displayDayLong(endDate)}`
+    return `${displayDayLong(startDate)}-${displayDayLong(endDate)}`
   }
 
   // 2.if the same year but different month: 20 May -16 June 2021
   if (getMonth(startDateConverted) !== getMonth(endDateConverted)) {
-    return `${displayDayShort(startDate)} - ${displayDayLong(endDate)}`
+    return `${displayDayShort(startDate)}-${displayDayLong(endDate)}`
   }
   // 3.if the same month but different day: 12-16 June 2021
   if (getDate(startDateConverted) !== getDate(endDateConverted)) {
-    return `${getDate(startDateConverted)} - ${displayDayLong(endDateConverted)}`
+    return `${getDate(startDateConverted)}-${displayDayLong(endDateConverted)}`
   }
   // 4.if the same day (one day off): 16 June 2021
   return displayDayLong(startDate)
