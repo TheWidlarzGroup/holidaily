@@ -15,7 +15,7 @@ export const BubbleContainerButtons = () => {
   const [isInfoVisible, { setTrue: showInfo, setFalse: hideInfo }] = useBooleanState(false)
   return (
     <>
-      <Box position="absolute" zIndex="10" width="100%">
+      <Box position="absolute" zIndex="2" width="100%">
         <Box flexDirection="row">
           <BaseOpacity onPress={goBack} style={styles.backBtn} activeOpacity={0.2}>
             <IconBack color={theme.colors.alwaysWhite} />

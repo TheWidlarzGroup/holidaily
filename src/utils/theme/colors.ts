@@ -52,7 +52,7 @@ export const palette = {
   paginationDot:
     'linear-gradient(180deg, rgba(252, 252, 252, 0.8) 0%, rgba(252, 252, 252, 0.72) 100%)',
   colorPickerDropAreaGradient:
-    'linear-gradient(180deg, rgba(51, 58, 85, 0.8) 0%, rgba(0, 0, 0, 1) 31.77%, rgba(0, 0, 0, 1) 100%)',
+    'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
 }
 
 export const colors = {
