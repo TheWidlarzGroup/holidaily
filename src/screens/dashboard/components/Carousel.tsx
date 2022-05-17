@@ -1,18 +1,16 @@
 import { SwipeableModal } from 'components/SwipeableModal'
 import format from 'date-fns/format'
-import { useTeamsContext } from 'hooks/useTeamsContext'
 import { User } from 'mock-api/models/mirageTypes'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
-import { getClosestHolidayRequests } from 'utils/closestHolidayRequests'
 import { Text } from 'utils/theme'
+import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { DashboardTeamMember } from '../DashboardTeamMember'
 
 export const Carousel = () => {
-  const { teams } = useTeamsContext()
   const { t } = useTranslation('dashboard')
 
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -30,7 +28,10 @@ export const Carousel = () => {
     }
     return ''
   }
-  const first20Users = useMemo(() => getClosestHolidayRequests(teams).slice(0, 20), [teams])
+
+  const { sortedRequests } = useSortAllHolidayRequests()
+  const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
+
   return (
     <>
       <Text
