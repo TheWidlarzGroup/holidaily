@@ -1,10 +1,11 @@
-import React, { ReactNode, useState, useCallback } from 'react'
+import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { removeMany } from 'utils/localStorage'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
+import { sortSingleUserRequests } from 'utils/sortByDate'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -54,6 +55,12 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'seenNotificationsIds',
     ])
   }
+
+  useEffect(() => {
+    if (!user?.requests?.length) return
+    const sortedRequests = user?.requests.sort(sortSingleUserRequests)
+    updateUser({ requests: sortedRequests })
+  }, [updateUser, user?.requests])
 
   const value: ContextProps = {
     user,

@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { User } from 'mock-api/models/mirageTypes'
 import { isIos } from 'utils/layout'
+import { sortSingleUserRequests } from 'utils/sortByDate'
 import { useTranslation } from 'react-i18next'
 import { ToggleButton } from 'components/ToggleButton'
 
@@ -16,6 +17,8 @@ type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
   const { t } = useTranslation('dashboard')
+  let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
+  sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
 
   return (
     <SafeAreaWrapper isDefaultBgColor>
@@ -34,18 +37,18 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
             <IconBack height={18} width={18} color="black" />
           </TouchableOpacity>
           <MateHeader user={user} />
-          {!!user?.requests[0] && (
+          {!!sortedRequests[0] && (
             <>
-              <MateHoliday user={user} />
+              <MateHoliday user={user} sortedRequests={sortedRequests} />
               <Box flexDirection="row">
-                <MateHolidayDetail type="start" date={user?.requests[0].startDate || ''} />
-                <MateHolidayDetail type="end" date={user?.requests[0].endDate || ''} />
+                <MateHolidayDetail type="start" date={sortedRequests[0].startDate || ''} />
+                <MateHolidayDetail type="end" date={sortedRequests[0].endDate || ''} />
               </Box>
             </>
           )}
-          {!!user?.requests[1] && (
+          {!!sortedRequests[1] && (
             <>
-              <MateHoliday user={user} isNextRequest />
+              <MateHoliday user={user} sortedRequests={sortedRequests} isNextRequest />
             </>
           )}
           {user.teams.length > 0 ? (

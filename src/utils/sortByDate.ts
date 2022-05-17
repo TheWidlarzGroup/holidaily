@@ -1,4 +1,4 @@
-import { User } from 'mockApi/models/mirageTypes'
+import { DayOffRequest, User } from 'mockApi/models/mirageTypes'
 import { DayInfoProps } from '../types/DayInfoProps'
 
 export const sortByStartDate = (a: User, b: User) => {
@@ -15,5 +15,11 @@ export const sortByEndDate = (a: User, b: User) => {
 export const sortByRequestDate = (a: DayInfoProps, b: DayInfoProps) => {
   if (a.date < b.date) return -1
   if (a.date > b.date) return 1
+  return 0
+}
+
+export const sortSingleUserRequests = (a: DayOffRequest, b: DayOffRequest) => {
+  if (a.startDate < b.startDate) return -1
+  if (a.startDate > b.startDate) return 1
   return 0
 }
