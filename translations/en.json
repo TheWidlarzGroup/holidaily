@@ -206,7 +206,8 @@
     "backAtWork": "Back at work",
     "lastDayAtWork": "Last day at work",
     "sickLeave": "Sick time off",
-    "coupleDaysOff": "A couple days off"
+    "coupleDaysOff": "A couple days off",
+    "teams": "Teams"
   },
   "feed": {
     "postCommentBtn": "Comment",

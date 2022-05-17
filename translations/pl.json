@@ -206,7 +206,8 @@
     "backAtWork": "Powrót",
     "lastDayAtWork": "Ostatni dzień w pracy",
     "SickLeave": "Chorobowe",
-    "coupleDaysOff": "Kilka dni wolnego"
+    "coupleDaysOff": "Kilka dni wolnego",
+    "teams": "Zespoły"
   },
   "feed": {
     "postCommentBtn": "Skomentuj",
