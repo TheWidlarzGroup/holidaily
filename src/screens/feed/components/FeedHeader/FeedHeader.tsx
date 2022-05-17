@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, BaseOpacity, Text } from 'utils/theme'
+import { Box, BaseOpacity, Text, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import IconGallery from 'assets/icons/icon-gallery-2.svg'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +13,7 @@ import { makeUserDetails } from 'utils/userDetails'
 export const FeedHeader = () => {
   const { navigate } = useNavigation()
   const { t } = useTranslation('feed')
+  const theme = useTheme()
   const [
     showAttachmentModal,
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
@@ -31,7 +32,7 @@ export const FeedHeader = () => {
         <Text variant="labelGreyLight">{t('createPostLabel')}</Text>
       </BaseOpacity>
       <BaseOpacity onPress={setShowAttachmentModalTrue} justifyContent="center">
-        <IconGallery />
+        <IconGallery color={theme.colors.black} />
       </BaseOpacity>
       <UploadAttachmentModal
         isVisible={showAttachmentModal}

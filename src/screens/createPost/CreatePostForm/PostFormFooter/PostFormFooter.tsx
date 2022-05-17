@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 
 import IconCamera from 'assets/icons/icon-camera.svg'
 import IconGallery from 'assets/icons/icon-gallery-2.svg'
@@ -24,6 +24,7 @@ type PostFooterProps = {
 export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: PostFooterProps) => {
   const [keyboardShown] = useKeyboard()
   const { t } = useTranslation('feed')
+  const theme = useTheme()
 
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
@@ -88,7 +89,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
         <IconCamera />
       </FooterButton>
       <FooterButton onPress={handleGalleryPress}>
-        <IconGallery />
+        <IconGallery color={theme.colors.black} />
       </FooterButton>
       <FooterButton onPress={onLocationPress}>
         <IconLocation />

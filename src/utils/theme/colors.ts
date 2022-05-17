@@ -170,7 +170,7 @@ export const darkThemeColors = {
   alwaysDarkBlue: palette.secondary700,
   alwaysBlack: palette.grayscale800,
   paginationDot: palette.paginationDot,
-  bubble: palette.grayscale100,
+  bubble: palette.grayscale900,
   dashboardBackground: palette.grayscale900,
   dashboardBackgroundBrighter: palette.grayscale900,
   successToastBg: palette.grayscale800,
