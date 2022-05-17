@@ -51,9 +51,9 @@ export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }
       </Text>
 
       {teams.length ? (
-        <Box>
-          <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
+        <Box flexDirection="row">
           <ActiveSubscriptions teams={teams} removeSubscription={removeSubscription} />
+          <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
         </Box>
       ) : (
         <SubscriptionsEmptyState onPress={onSubscribeTeam} />
