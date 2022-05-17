@@ -154,7 +154,6 @@ export const Item = (props: ItemProps) => {
   })
   const theme = useTheme()
   const animatedMargins = useAnimatedStyle(() => {
-    console.log(positions.value[id])
     const isEven = !(positions.value[id] % 2)
     if (isEven)
       return {

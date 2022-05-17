@@ -41,7 +41,6 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
             </Box>
           )
         }
-        console.log('keys', key)
         const buttonIdx = Math.floor(tabs.length / 2)
         return (
           <Box
