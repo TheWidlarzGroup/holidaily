@@ -10,6 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { isIos } from 'utils/layout'
 import { useTranslation } from 'react-i18next'
+import { ToggleButton } from 'components/ToggleButton'
 
 type MemberProps = { user: User; closeModal: F0 }
 
@@ -60,20 +61,7 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
               <Box flexDirection="row" flexWrap="wrap">
                 {user.teams.map((team: Team | string) => {
                   const teamName = typeof team === 'string' ? team : team.name
-                  return (
-                    <Box
-                      key={teamName}
-                      height={37}
-                      paddingHorizontal="m"
-                      marginRight="s"
-                      marginTop="s"
-                      backgroundColor="input"
-                      justifyContent="center"
-                      alignItems="center"
-                      borderRadius="l">
-                      <Text variant="textSM">{teamName}</Text>
-                    </Box>
-                  )
+                  return <ToggleButton key={teamName}>{teamName}</ToggleButton>
                 })}
               </Box>
             </>
