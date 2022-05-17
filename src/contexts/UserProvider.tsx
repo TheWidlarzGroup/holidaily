@@ -55,8 +55,9 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.USER_STATS)
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
   }
+
   useEffect(() => {
-    if (!user?.requests) return
+    if (!user?.requests?.length) return
     const sortedRequests = user?.requests.sort(sortSingleUserRequests)
     updateUser({ requests: sortedRequests })
   }, [updateUser, user?.requests])

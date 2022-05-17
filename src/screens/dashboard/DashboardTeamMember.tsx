@@ -14,7 +14,7 @@ import { sortSingleUserRequests } from 'utils/sortByDate'
 type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
-  let sortedRequests = user.requests.sort(sortSingleUserRequests)
+  let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
   sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
   return (
     <SafeAreaWrapper isDefaultBgColor>
