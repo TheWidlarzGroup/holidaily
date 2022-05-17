@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SwipeableModal } from 'components/SwipeableModal'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -17,16 +17,15 @@ export const CreatePostResult = (props: CreatePostResultProps) => {
       cardStyle: { backgroundColor: 'transparent' },
     })
   }, [setOptions])
-  const fadeOut = useCallback(() => {
-    hideModal()
-    goBack()
-  }, [goBack, hideModal])
   useEffect(() => {
-    const timeout = setTimeout(fadeOut, 600)
+    if (!isVisible) goBack()
+  }, [isVisible, goBack])
+  useEffect(() => {
+    const timeout = setTimeout(hideModal, 600)
     return () => clearTimeout(timeout)
-  }, [fadeOut])
+  }, [hideModal])
   return (
-    <SwipeableModal backdropOpacity={0} isOpen={isVisible} onHide={fadeOut}>
+    <SwipeableModal backdropOpacity={0} isOpen={isVisible} onHide={hideModal}>
       {props.status === 'success' && <SuccessCard />}
       {props.status === 'failure' && <SuccessCard />}
     </SwipeableModal>
