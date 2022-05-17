@@ -23,7 +23,7 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
           left={7}
           top={10}
           zIndex="2"
-          backgroundColor="errorRed"
+          backgroundColor="errorBrighter"
           justifyContent="center"
           alignItems="center">
           <Text variant="boldWhite12" color="alwaysWhite">
