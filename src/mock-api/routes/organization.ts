@@ -9,6 +9,7 @@ export function organizationRoute(context: Server<ModelsSchema>) {
 }
 function fetchOrganization(schema: Schema<ModelsSchema>) {
   const response = schema.all('organization')
+  const teams = response.models[0].teamIds.map((id) => schema.find('team', id))
   response.models[0].teamIds.forEach((id: string) => {
     const team = schema.find('team', id)
     if (!team) return response
@@ -21,8 +22,13 @@ function fetchOrganization(schema: Schema<ModelsSchema>) {
         const isTodayBeforeEnd = isBefore(Date.now(), new Date(req.endDate))
         return isTodayAfterStart && isTodayBeforeEnd
       })
+      // Comment: providing users as an empty array to simplify things in demo app
+      const userTeams = teams
+        .filter((t) => t.userIds.some((id) => id === user.id))
+        .map((t) => ({ id: t.id, name: t.name, users: [] }))
       user.update({
         isOnHoliday,
+        teams: userTeams,
       })
     })
   })
