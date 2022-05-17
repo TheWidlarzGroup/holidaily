@@ -31,7 +31,7 @@ export const Budget = () => {
 
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer onSwipeRight={handleGoBack}>
+      <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
         <Box paddingHorizontal="m" paddingTop="xxl">
           <Box style={[styles.section]} marginBottom="l2plus">

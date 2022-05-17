@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import DeleteIcon from 'assets/icons/icon-delete.svg'
-
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
 import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
