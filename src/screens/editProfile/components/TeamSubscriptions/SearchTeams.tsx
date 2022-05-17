@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Text } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { ParsedTeamType, useTeamMocks } from 'utils/mocks/teamsMocks'
@@ -92,14 +92,16 @@ export const SearchTeams = (p: SearchBarProps) => {
   return (
     <>
       <SearchHeader handleGoBack={handleGoBack} />
-      <SearchBar searchFilter={searchFilter} searchPhrase={searchPhrase} />
-      <Text variant="lightGreyRegular">{`${t('selected')} ${p.selectedTeams.length}`}</Text>
-      <SearchResults
-        filteredTeams={filteredTeams}
-        searchedItems={searchedItems}
-        removeFromSubscriptions={removeFromSubscriptions}
-        addToSubscriptions={addToSubscriptions}
-      />
+      <Box paddingHorizontal="m">
+        <SearchBar searchFilter={searchFilter} searchPhrase={searchPhrase} />
+        <Text variant="sectionLabel">{t('selected', { selected: p.selectedTeams.length })}</Text>
+        <SearchResults
+          filteredTeams={filteredTeams}
+          searchedItems={searchedItems}
+          removeFromSubscriptions={removeFromSubscriptions}
+          addToSubscriptions={addToSubscriptions}
+        />
+      </Box>
     </>
   )
 }

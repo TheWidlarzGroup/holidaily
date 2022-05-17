@@ -9,6 +9,7 @@ import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 import { useUserContext } from 'hooks/useUserContext'
 import IconPeople from 'assets/icons/icon-people.svg'
 import { useNavigation } from '@react-navigation/native'
+import { ToggleButton } from 'components/ToggleButton'
 
 const ICON_SIZE = 18
 
@@ -49,18 +50,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
             </Text>
             <Box flexDirection="row" flexWrap="wrap">
               {user?.teams.map((team) => (
-                <Box
-                  key={team.name}
-                  height={37}
-                  paddingHorizontal="m"
-                  marginRight="s"
-                  marginTop="s"
-                  backgroundColor="input"
-                  justifyContent="center"
-                  alignItems="center"
-                  borderRadius="l">
-                  <Text variant="textSM">{team.name}</Text>
-                </Box>
+                <ToggleButton key={team.name}>{team.name}</ToggleButton>
               ))}
             </Box>
             <Box

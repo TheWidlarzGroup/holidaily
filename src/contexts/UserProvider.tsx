@@ -39,6 +39,13 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     []
   )
   const handleLogout = async () => {
+    setUser(null)
+    delete axios.defaults.headers.common.userId
+    clearUserCache()
+    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
+    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
+    queryClient.invalidateQueries(QueryKeys.USER_STATS)
+    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
     await removeMany([
       'firstName',
       'lastName',
@@ -47,13 +54,6 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'userColor',
       'seenNotificationsIds',
     ])
-    delete axios.defaults.headers.common.userId
-    setUser(null)
-    clearUserCache()
-    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
-    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
-    queryClient.invalidateQueries(QueryKeys.USER_STATS)
-    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
   }
 
   useEffect(() => {

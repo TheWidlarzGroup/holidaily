@@ -22,14 +22,14 @@ export const PrivacyPolicyContent = () => {
         <Paragraph i18nKey="p0b" />
         <PolicySection i18nKey="concerns" />
         <Subtitle i18nKey="contentsTableHeading" />
-        <Text textAlign="left" variant="body1" color="black">
+        <Text variant="body1" textAlign="left" color="black">
           {t('contentsTable')}
         </Text>
         <Subtitle i18nKey="p1heading" />
         <Text textAlign="left" variant="body1Bold" marginVertical="m" color="black">
           {t('p1subheading')}
         </Text>
-        <Text textAlign="left" variant="body1" color="black">
+        <Text variant="body1" textAlign="left" color="black">
           {t('p1content1')}
         </Text>
         <PolicySection i18nKey="p1content2" />
@@ -42,16 +42,16 @@ export const PrivacyPolicyContent = () => {
         <Paragraph i18nKey="p1data2" />
         <Paragraph i18nKey="p1data3" />
         <Paragraph i18nKey="p1data4" />
-        <Text textAlign="left" variant="body1" color="black">
+        <Text variant="body1" textAlign="left" color="black">
           {t('p1info')}
         </Text>
         <Text textAlign="left" variant="body1Bold" marginVertical="m" color="black">
           {t('p1auto')}
         </Text>
-        <Text textAlign="left" variant="body1" color="black">
+        <Text variant="body1" textAlign="left" color="black">
           {t('p1autocontent')}
         </Text>
-        <Text textAlign="left" variant="body1" marginVertical="m" color="black">
+        <Text variant="body1" textAlign="left" marginVertical="m" color="black">
           {t('p1collect')}
         </Text>
         <Paragraph i18nKey="p1collect1" />
@@ -64,7 +64,7 @@ export const PrivacyPolicyContent = () => {
           color="black">
           {t('p3italic')}
         </Text>
-        <Text textAlign="left" variant="body1" color="black">
+        <Text variant="body1" textAlign="left" color="black">
           {t('p3content')}
         </Text>
         <Paragraph i18nKey="p3a" />
@@ -87,7 +87,7 @@ const Subtitle = ({ i18nKey }: HelperProps) => {
 }
 
 const PolicySection = ({ i18nKey, noMargin }: HelperProps & { noMargin?: true }) => (
-  <Text textAlign="left" marginTop={noMargin ? undefined : 'l'} variant="body1" color="black">
+  <Text variant="body1" textAlign="left" marginTop={noMargin ? undefined : 'l'} color="black">
     {/* @ts-ignore */}
     <Trans
       ns="privacyPolicy"

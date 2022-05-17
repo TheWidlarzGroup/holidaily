@@ -11,7 +11,7 @@ export const CalendarHeader = ({ date }: { date: Date }) => {
       <Text variant="bold16" color="black" marginRight="s">
         {monthName}
       </Text>
-      <Text fontSize={fontSize.xs} lineHeight={14} color="black">
+      <Text fontSize={fontSize.xs} lineHeight={20} color="black">
         {year}
       </Text>
     </Box>

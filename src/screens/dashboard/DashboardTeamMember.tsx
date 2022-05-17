@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { MateHeader } from 'screens/dashboard/components/MateHeader'
@@ -10,12 +10,16 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { User } from 'mock-api/models/mirageTypes'
 import { isIos } from 'utils/layout'
 import { sortSingleUserRequests } from 'utils/sortByDate'
+import { useTranslation } from 'react-i18next'
+import { ToggleButton } from 'components/ToggleButton'
 
 type MemberProps = { user: User; closeModal: F0 }
 
 export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
+  const { t } = useTranslation('dashboard')
   let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
   sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
+
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box
@@ -47,15 +51,23 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
               <MateHoliday user={user} sortedRequests={sortedRequests} isNextRequest />
             </>
           )}
-          {/* TODO: Display teams that user belongs to */}
-          {/* {user.teams.length > 0 &&
-          user.teams.map((team) => {
-            return (
-              <Box>
-                <Text variant='textSM'>{team}</Text>
+          {user.teams.length > 0 ? (
+            <>
+              <Text
+                variant="displayXS"
+                color="darkGrey"
+                letterSpacing={0.7}
+                paddingTop="m"
+                marginBottom="s">
+                {t('teams').toUpperCase()}
+              </Text>
+              <Box flexDirection="row" flexWrap="wrap">
+                {user.teams.map((team) => (
+                  <ToggleButton key={team.name}>{team.name}</ToggleButton>
+                ))}
               </Box>
-            )
-          })} */}
+            </>
+          ) : null}
         </ScrollView>
       </Box>
     </SafeAreaWrapper>
