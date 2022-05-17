@@ -111,7 +111,7 @@ const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
             <IconBack height={18} width={18} color={styles.arrow.color} />
           </BaseOpacity>
           <Text variant="displayBoldSM">{t('privacyPolicy')}</Text>
-          <Box paddingRight="xl" />
+          <Box paddingRight="xl" paddingVertical="lplus" />
         </ModalHeader>
         <PrivacyPolicyContent />
       </SafeAreaView>
