@@ -181,7 +181,7 @@
     "newTeamsConfirmation": "Nowe zespoły zostały zasubskrybowane!",
     "newTeamConfirmation": "Nowy zespół został zasubskrybowany!",
     "joinTeams": "Dołącz do zespołów",
-    "selected": "WYBRANO: ",
+    "selected": "WYBRANO: {{selected}}",
     "join": "Dołącz",
     "newColorSaved": "Nowy kolor zapisany!",
     "fieldRequired": "Pole jest puste lub zawiera niedozwolone znaki",
