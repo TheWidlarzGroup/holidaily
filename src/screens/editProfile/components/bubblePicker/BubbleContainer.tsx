@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { Box, mkUseStyles, Theme, useTheme } from 'utils/theme'
+import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
 import { shadow } from 'utils/theme/shadows'
 import { UserProfileNavigationProps } from 'navigation/types'
 import { windowWidth } from 'utils/deviceSizes'
+import { useTranslation } from 'react-i18next'
 import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
@@ -19,6 +20,7 @@ export const BubbleContainer = ({
 }: UserProfileNavigationProps<'ColorPicker'>) => {
   const styles = useStyles()
   const theme = useTheme()
+  const { t } = useTranslation('userProfile')
   const [dropColor, setDropColor] = useState(theme.colors.colorPickerDropArea)
   const { animatedDrop, bubbles, animateCheckmark, dropArea, animateDropArea } = useBubbles()
 
@@ -52,6 +54,11 @@ export const BubbleContainer = ({
           />
         </Box>
       ))}
+      <Box position="absolute" bottom={64} width="100%" alignItems="center">
+        <Text variant="textBoldXS" color="alwaysWhite">
+          {t('dropAreaText')}
+        </Text>
+      </Box>
     </View>
   )
 }

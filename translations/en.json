@@ -193,6 +193,7 @@
     "discardChanges": "Discard changes",
     "discard": "Discard",
     "changesWillBeLost": "By clicking Discard, all changes will be lost.",
+    "dropAreaText": "Drop selected color here!",
     "confirmSave": "Save changes?",
     "discardTeams": "Do you want to discard selected teams?",
     "backToSelection": "Back to selection",
