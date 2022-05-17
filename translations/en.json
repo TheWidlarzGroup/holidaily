@@ -181,7 +181,7 @@
     "newTeamsConfirmation": "New teams subscribed!",
     "newTeamConfirmation": "New team subscribed!",
     "joinTeams": "Join Teams",
-    "selected": "SELECTED: ",
+    "selected": "SELECTED: {{selected}}",
     "join": "Join",
     "newColorSaved": "New color saved!",
     "fieldRequired": "Field is either empty or it contains illegal characters",

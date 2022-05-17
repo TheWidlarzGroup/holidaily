@@ -17,6 +17,8 @@ type ToastProps = {
   visibilityTime?: number
 } & BoxProps<Theme>
 
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 export const Toast = ({
   variant,
   text,
@@ -34,14 +36,14 @@ export const Toast = ({
       translateY.value = withTiming(-200)
       timeout = setTimeout(onHide, 300)
     }, visibilityTime)
-    
+
     return () => clearTimeout(timeout)
   }, [translateY, onHide, visibilityTime])
-  
+
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }))
-  
+
   return (
     <AnimatedBox style={[styles.container, animatedStyle]}>
       <Box
@@ -83,5 +85,3 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     zIndex: theme.zIndices['20'],
   },
 }))
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)

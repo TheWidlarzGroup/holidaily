@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -96,19 +96,15 @@ export const EditProfile = () => {
   const onDeletePicture = () => editUser({ photo: null })
 
   const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
-
+  const formOffset = {
+    marginBottom: isDirty ? 93 : 0,
+  }
   return (
     <>
       <SafeAreaWrapper>
         <Box>
-          <ScrollView
-            style={{
-              marginBottom: isDirty ? 93 : 0,
-            }}>
-            <GestureRecognizer
-              onSwipeRight={handleGoBack}
-              style={{ position: 'absolute', height: '100%', width: '100%' }}
-            />
+          <ScrollView style={formOffset}>
+            <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
             <DrawerBackArrow goBack={handleGoBack} />
             <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
             <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />

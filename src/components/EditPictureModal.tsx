@@ -4,7 +4,7 @@ import EditIconSvg from 'assets/icons/icon-edit.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
 import { SvgProps } from 'react-native-svg'
 import { useTranslation } from 'react-i18next'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { OptionsModal } from './OptionsModal'
 
 type EditPictureModalProps = Pick<ModalProps, 'isVisible'> & {
@@ -13,11 +13,14 @@ type EditPictureModalProps = Pick<ModalProps, 'isVisible'> & {
   showDeleteCheckModal: F0
 }
 
-const EditIcon = (p: SvgProps) => (
-  <Box style={{ position: 'relative', left: -8, width: 32 }}>
-    <EditIconSvg {...p} />
-  </Box>
-)
+const EditIcon = (p: SvgProps) => {
+  const theme = useTheme()
+  return (
+    <Box left={theme.spacing['-s']} width={theme.spacing.lplus}>
+      <EditIconSvg {...p} />
+    </Box>
+  )
+}
 
 export const EditPictureModal = ({
   isVisible,
