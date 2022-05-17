@@ -1,10 +1,19 @@
-import { Team, User } from 'mockApi/models/mirageTypes'
+import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useUserContext } from 'hooks/useUserContext'
+import { User } from 'mockApi/models/mirageTypes'
 import { sortByEndDate, sortByStartDate } from './sortByDate'
 
-export const getClosestHolidayRequests = (teams: Team[]) => {
-  let allSortedUsers: User[] = []
+export const useSortAllHolidayRequests = () => {
+  const { user } = useUserContext()
+  const { allUsers } = useTeamsContext()
+  let allSortedUsers: User[] = allUsers
 
-  teams.forEach((team) => allSortedUsers.push(...team.users))
+  // Comment: Demo user from TeamsContext didn't have teams assigned, so whole user is added from UserContext
+  allSortedUsers = allSortedUsers.filter(
+    (teamsUser) => teamsUser.firstName !== user?.firstName && teamsUser.lastName !== user?.lastName
+  )
+  if (user) allSortedUsers.push(user)
+
   allSortedUsers = allSortedUsers.filter(
     (user, index, arr) => arr.findIndex((usr) => usr.id === user.id) === index
   )
@@ -20,5 +29,5 @@ export const getClosestHolidayRequests = (teams: Team[]) => {
     usersWithoutHoliday.sort(sortByStartDate)
     return usersWithHoliday.concat(usersWithoutHoliday)
   }
-  return sortUsers(allSortedUsers)
+  return { sortedRequests: sortUsers(allSortedUsers) }
 }

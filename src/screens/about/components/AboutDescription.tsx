@@ -14,13 +14,13 @@ export const AboutDescription = () => (
         }}
       />
     </Text>
-    <Text textAlign="left" marginTop="l" variant="body1" color="black">
+    <Text variant="body1" textAlign="left" marginTop="l" color="black">
       {/* @ts-ignore */}
       <Trans
         ns="welcome"
         i18nKey="aboutDesc2"
         components={{
-          b: <Text variant="textMD" textAlign="left" color="black" />,
+          b: <Text variant="textMD" color="black" textAlign="left" />,
         }}
       />
     </Text>
