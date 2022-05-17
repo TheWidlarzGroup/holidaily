@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
 import { getDurationInDays } from 'utils/dates'
-import { SectionHeader } from './components/SectionHeader'
 import { isSmallScreen } from 'utils/deviceSizes'
+import { SectionHeader } from './components/SectionHeader'
 
 export const Stats = ({ stats }: { stats: StatsType }) => {
   const { t } = useTranslation('stats')
