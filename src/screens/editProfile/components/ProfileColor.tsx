@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, mkUseStyles, Theme, theme, BaseOpacity } from 'utils/theme'
+import { Box, Text, mkUseStyles, Theme, BaseOpacity, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
+import { InputEditIcon } from 'components/InputEditIcon'
 
 type ProfileColorProps = {
-  setIsEdited: F0
   onChange: F1<string>
   value: string
 }
@@ -16,12 +16,12 @@ type ProfileColorProps = {
 type PorifileColorControllerProps = {
   control: Control<FieldValues>
   name: string
-  setIsEdited: F0
 }
 
 const ProfileColorView = (p: ProfileColorProps) => {
   const styles = useStyles()
   const { user } = useUserContext()
+  const theme = useTheme()
   const { t } = useTranslation('userProfile')
   const navigation = useNavigation<UserProfileType<'ColorPicker'>>()
   const { isLoading } = useTeamMocks()
@@ -31,7 +31,6 @@ const ProfileColorView = (p: ProfileColorProps) => {
     navigation.navigate('ColorPicker', {
       onChange: (value) => {
         p.onChange(value)
-        p.setIsEdited()
       },
       value: p.value,
     })
@@ -43,8 +42,11 @@ const ProfileColorView = (p: ProfileColorProps) => {
       paddingHorizontal="m"
       marginBottom="xl"
       marginTop="s">
-      <Text variant="labelGrey" marginLeft="m">
+      <Text variant="sectionLabel" marginLeft="m">
         {t('userColor')}
+      </Text>
+      <Text variant="textXS" color="darkGrey" marginLeft="m">
+        {t('userColorDesc')}
       </Text>
       <BaseOpacity
         onPress={onPress}
@@ -55,6 +57,12 @@ const ProfileColorView = (p: ProfileColorProps) => {
           },
         ]}
       />
+      <InputEditIcon
+        bottom={theme.spacing['-xs']}
+        top={undefined}
+        right={theme.spacing.m}
+        onPress={onPress}
+      />
     </Box>
   )
 }
@@ -63,9 +71,7 @@ export const ProfileColor = (p: PorifileColorControllerProps) => (
   <Controller
     control={p.control}
     name={p.name}
-    render={({ onChange, value }) => (
-      <ProfileColorView onChange={onChange} value={value} setIsEdited={p.setIsEdited} />
-    )}
+    render={({ onChange, value }) => <ProfileColorView onChange={onChange} value={value} />}
   />
 )
 

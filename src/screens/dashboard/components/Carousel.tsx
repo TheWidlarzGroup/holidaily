@@ -1,18 +1,17 @@
 import format from 'date-fns/format'
-import { useTeamsContext } from 'hooks/useTeamsContext'
 import { User } from 'mock-api/models/mirageTypes'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
-import { getClosestHolidayRequests } from 'utils/closestHolidayRequests'
+import { getCurrentLocale } from 'utils/locale'
 import { Text } from 'utils/theme'
 import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
+import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { DashboardTeamMember } from '../DashboardTeamMember'
 
 export const Carousel = () => {
-  const { teams } = useTeamsContext()
   const { t } = useTranslation('dashboard')
 
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,15 +21,16 @@ export const Carousel = () => {
     setIsModalVisible(true)
   }
   const displayDay = (user: User) => {
-    if (user.isOnHoliday) {
-      return format(new Date(user.requests[0].endDate), 'dd MMMM')
-    }
-    if (!user.isOnHoliday) {
-      return format(new Date(user.requests[0].startDate), 'dd MMMM')
-    }
-    return ''
+    const { endDate, startDate } = user.requests[0]
+    const dateFormat = 'dd MMMM'
+    const formatDayoffDate = (dateString: string) =>
+      format(new Date(dateString), dateFormat, { locale: getCurrentLocale() })
+    return user.isOnHoliday ? formatDayoffDate(endDate) : formatDayoffDate(startDate)
   }
-  const first20Users = useMemo(() => getClosestHolidayRequests(teams).slice(0, 20), [teams])
+
+  const { sortedRequests } = useSortAllHolidayRequests()
+  const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
+
   return (
     <>
       <Text

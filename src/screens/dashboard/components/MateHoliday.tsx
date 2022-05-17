@@ -2,11 +2,13 @@ import React from 'react'
 import { Box, Text, Theme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { displayDatesRange } from 'utils/functions'
-import { User } from 'mock-api/models/mirageTypes'
+import { DayOffRequest, User } from 'mock-api/models/mirageTypes'
 import { HolidayTag } from './HolidayTag'
 
-export const MateHoliday = ({ user, isNextRequest }: { user: User; isNextRequest?: true }) => {
-  const userRequest = isNextRequest ? user.requests[1] : user.requests[0]
+type MateHolidayTypes = { user: User; isNextRequest?: true; sortedRequests: DayOffRequest[] }
+
+export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHolidayTypes) => {
+  const userRequest = isNextRequest ? sortedRequests[1] : sortedRequests[0]
   const { startDate, endDate, isSickTime, description } = userRequest
   const { isOnHoliday } = user
   const { t } = useTranslation('dashboard')

@@ -4,6 +4,10 @@ import { useUserContext } from 'hooks/useUserContext'
 import { parseISO } from 'utils/dates'
 import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/useRequestsContext'
+import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
+import { getNextMonthRequests } from 'utils/getNextMonthRequests'
+import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
+import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
 
@@ -36,17 +40,39 @@ export const useCalendarData = () => {
       return newState
     })
   }
+
   useEffect(() => {
     if (!requests.length) return
-    const currentMonth = requests.find((month) => {
+    const currentMonthRequests = requests.find((month) => {
       const thisMonth = parseISO(month.date)
       return (
         thisMonth.getMonth() === selectedDate.getMonth() &&
         thisMonth.getFullYear() === selectedDate.getFullYear()
       )
     })
-    if (currentMonth) {
-      const newCurrentMonthDays = currentMonth.days.map((day) => {
+
+    if (!currentMonthRequests) return
+
+    let bothMonthsRequests: HolidailyRequestMonthType = {
+      date: currentMonthRequests.date,
+      days: currentMonthRequests.days,
+    }
+
+    if (doesMonthInCalendarHasSixRows(selectedDate)) {
+      const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
+      if (!nextMonthRequests) return
+      const fewRequestsOfNextMonth = getFirstRequestsOfMonth(nextMonthRequests)
+
+      const currentMonthRequestsDays = currentMonthRequests?.days
+
+      bothMonthsRequests = {
+        ...bothMonthsRequests,
+        days: [...currentMonthRequestsDays, ...fewRequestsOfNextMonth],
+      }
+    }
+
+    if (bothMonthsRequests) {
+      const newCurrentMonthDays = bothMonthsRequests.days.map((day) => {
         if (day.weekend || !day.events) return day
         return {
           ...day,

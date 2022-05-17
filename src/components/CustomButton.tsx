@@ -84,7 +84,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       ]}>
       <Box
         width="100%"
-        height={variant === 'tertiary' ? 39 : 44}
+        height={variant === 'tertiary' ? 41 : 45}
         flexDirection="row"
         alignItems="center"
         justifyContent="center"

@@ -24,6 +24,7 @@ export const userFactory = Factory.extend({
   lastName: faker.name.lastName(),
   occupation: faker.name.jobTitle(),
   requests: [],
+  teams: [],
   language: 'en',
   userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   photo: null,
@@ -370,7 +371,7 @@ export const usersList = [
   {
     firstName: 'Emma',
     lastName: 'Henry',
-    photo: 'https://randomuser.me/api/portraits/men/43.jpg',
+    photo: 'https://randomuser.me/api/portraits/women/43.jpg',
     occupation: 'QA Tester',
     userColor: getRandomValue(colors, faker.datatype.number({ min: 0, max: colors.length - 1 })),
   },

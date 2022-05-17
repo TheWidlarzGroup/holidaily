@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 import { Reaction, Comment, FeedPost } from 'mock-api/models/miragePostTypes'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
 import EmojiPicker from 'rn-emoji-keyboard'
@@ -96,6 +96,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   const [isPickerOpen, { setTrue: openPicker, setFalse: closePicker }] = useBooleanState(false)
   const [isShowMoreOpen, { setTrue: showMore, setFalse: showLess }] = useBooleanState(false)
   const { t } = useTranslation('feed')
+  const theme = useTheme()
   const [footerWidth, setFooterWidth] = useState(0)
 
   const COMMENT_EMOJI_BTNS_WIDTH = 146
@@ -132,7 +133,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
           onPress={onCommentBtnPress}
           height={42}
           alignSelf="flex-start">
-          <IconComment />
+          <IconComment color={theme.colors.black} />
           <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
             {t('postCommentBtn')}
           </Text>
@@ -164,8 +165,11 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   )
 }
 
-export const ReactionPickerBtn = (props: BubbleProps) => (
-  <Bubble {...props} width={42} height={42} margin="xs">
-    <IconReaction />
-  </Bubble>
-)
+export const ReactionPickerBtn = (props: BubbleProps) => {
+  const theme = useTheme()
+  return (
+    <Bubble {...props} width={42} height={42} margin="xs">
+      <IconReaction color={theme.colors.black} />
+    </Bubble>
+  )
+}

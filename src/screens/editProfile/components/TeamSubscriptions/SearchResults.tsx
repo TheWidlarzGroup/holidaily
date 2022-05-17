@@ -79,6 +79,8 @@ const Result = (p: ResultProps) => {
 const useStyles = mkUseStyles((theme: Theme) => ({
   teamItem: {
     backgroundColor: theme.colors.white,
+    borderWidth: 2,
+    borderColor: theme.colors.special,
     marginTop: theme.spacing.m,
     marginRight: theme.spacing.xm,
     paddingHorizontal: theme.spacing.ml,

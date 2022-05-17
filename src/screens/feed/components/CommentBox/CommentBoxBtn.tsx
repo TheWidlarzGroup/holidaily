@@ -1,6 +1,6 @@
 import React from 'react'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
-import { BaseOpacity, Box, Text } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import IconArrowUp from 'assets/icons/icon-arrow-up.svg'
 import { pluralizeWord } from 'utils/pluralizeWord'
 
@@ -12,7 +12,7 @@ type CommentBoxBtnProps = {
 
 export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps) => {
   const rotation = useSharedValue(180)
-
+  const theme = useTheme()
   const rotationStyles = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
   }))
@@ -29,7 +29,7 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
         <Box flexDirection="row" alignItems="center">
           <Text variant="captionText">{pluralizeWord('comments', quantity)}</Text>
           <Animated.View style={[rotationStyles]}>
-            <IconArrowUp />
+            <IconArrowUp color={theme.colors.black} />
           </Animated.View>
         </Box>
       )}

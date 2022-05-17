@@ -57,7 +57,12 @@ export const InputButton = ({
               {showEditIcon ? (
                 <EditIcon color={theme.colors.headerGrey} />
               ) : (
-                <BackArrowIcon width={16} height={16} style={styles.icon} />
+                <BackArrowIcon
+                  color={theme.colors.black}
+                  width={16}
+                  height={16}
+                  style={styles.icon}
+                />
               )}
             </Box>
           </Box>

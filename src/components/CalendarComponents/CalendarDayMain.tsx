@@ -32,11 +32,11 @@ export const CalendarDayMain = ({
   const day = date.dateString
   const isNotAWorkingDay = isWeekend(day) || isHoliday(day)
   const textColor = () => {
-    const isDisabled = isWeekend(day) || marking?.disabled || state === 'disabled'
+    const isDisabled = isWeekend(day) || marking?.disabled || false
     if (isDisabled && marking?.period) return 'white'
     if (isDisabled) return 'grey'
     if (marking?.selected || marking?.period) return 'white'
-    return 'black'
+    return 'alwaysBlack'
   }
 
   const containerStyles = useAnimatedStyle(() => ({

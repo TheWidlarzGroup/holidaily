@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { useNavigation } from '@react-navigation/native'
-import { Box, Text, mkUseStyles, Theme, useTheme } from 'utils/theme'
+import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
 import { shadow } from 'utils/theme/shadows'
-import IconBack from 'assets/icons/icon-back-white.svg'
 import { UserProfileNavigationProps } from 'navigation/types'
-import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
+import { windowWidth } from 'utils/deviceSizes'
 import { useTranslation } from 'react-i18next'
 import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
+import { BubbleContainerButtons } from './BubbleContainerButtons'
+import { BubbleContainerHeader } from './BubbleContainerHeader'
+
+const DropArea = Animated.createAnimatedComponent(Box)
 
 export const BubbleContainer = ({
   route: { params: p },
@@ -19,34 +21,25 @@ export const BubbleContainer = ({
   const styles = useStyles()
   const theme = useTheme()
   const { t } = useTranslation('userProfile')
-  const { width } = useDimensions()
-  const { goBack } = useNavigation()
-  const [dropColor, setDropColor] = useState(theme.colors.disabledText)
+  const [dropColor, setDropColor] = useState(theme.colors.colorPickerDropArea)
   const { animatedDrop, bubbles, animateCheckmark, dropArea, animateDropArea } = useBubbles()
 
   useEffect(() => {
-    if (dropColor !== theme.colors.disabledText) p.onChange(dropColor)
-  }, [dropColor, p, theme.colors.disabledText])
+    if (dropColor !== theme.colors.colorPickerDropArea) p.onChange(dropColor)
+  }, [dropColor, p, theme.colors.colorPickerDropArea])
 
   return (
     <View style={styles.mainContainer}>
       {animateCheckmark && <CheckMark animateCheckmark={animateCheckmark} />}
-      <TouchableOpacity onPress={goBack} style={styles.backBtn} activeOpacity={0.2}>
-        <IconBack />
-      </TouchableOpacity>
-      <Box marginTop="xxxl" alignItems="center">
-        <Text variant="buttonText1" marginHorizontal="xxl" color="alwaysWhite">
-          {t('colorPicker')}
-        </Text>
-      </Box>
-      <Animated.View
+      <BubbleContainerButtons />
+      <BubbleContainerHeader />
+      <DropArea
         style={[
           styles.dropArea,
           animatedDrop,
           {
             backgroundColor: dropColor,
-            left: width / 2 - 500,
-            zIndex: dropColor === theme.colors.disabledText ? 0 : 3,
+            zIndex: dropColor === theme.colors.colorPickerDropArea ? 0 : 3,
           },
         ]}
       />
@@ -61,24 +54,26 @@ export const BubbleContainer = ({
           />
         </Box>
       ))}
+      <Box position="absolute" bottom={64} width="100%" alignItems="center">
+        <Text variant="textBoldXS" color="alwaysWhite">
+          {t('dropAreaText')}
+        </Text>
+      </Box>
     </View>
   )
 }
+
 const useStyles = mkUseStyles((theme: Theme) => ({
-  backBtn: {
-    position: 'absolute',
-    left: 0,
-    top: 65,
-    zIndex: theme.zIndices['2'],
-  },
   mainContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.85)',
+    backgroundColor: theme.colors.colorPickerBackdrop,
     flexWrap: 'wrap',
   },
   dropArea: {
     position: 'absolute',
-    width: 1000,
+    width: windowWidth * 1.2,
+    left: -windowWidth * 0.1,
+    aspectRatio: 1,
     borderRadius: 500,
     shadowColor: shadow.md.shadowColor,
     shadowRadius: shadow.md.shadowRadius,
