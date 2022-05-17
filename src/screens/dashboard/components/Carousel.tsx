@@ -27,7 +27,7 @@ export const Carousel = () => {
     const dateFormat = 'dd MMMM'
     const formatDayoffDate = (dateString: string) =>
       format(new Date(dateString), dateFormat, { locale: getCurrentLocale() })
-    return user.isOnHoliday ? formatDayoffDate(startDate) : formatDayoffDate(endDate)
+    return user.isOnHoliday ? formatDayoffDate(endDate) : formatDayoffDate(startDate)
   }
   const first20Users = useMemo(() => getClosestHolidayRequests(teams).slice(0, 20), [teams])
   return (
