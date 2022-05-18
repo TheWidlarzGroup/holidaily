@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
-import { ScrollView, StyleSheet } from 'react-native'
-import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { BackHandler, ScrollView, StyleSheet } from 'react-native'
+import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import GestureRecognizer from 'react-native-swipe-gestures'
@@ -15,6 +15,7 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Toast } from 'components/Toast'
+import { useModalContext } from 'contexts/ModalProvider'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -47,6 +48,7 @@ export const EditProfile = () => {
   const { t } = useTranslation('userProfile')
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
+  const { hideModal } = useModalContext()
   const onUpdate = useCallback(
     (payload: EditUserSuccess) => {
       if (user) {
@@ -74,7 +76,6 @@ export const EditProfile = () => {
       },
     })
   const onSubmit = (data: EditDetailsTypes) => editUser(data)
-
   const onGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
@@ -88,6 +89,7 @@ export const EditProfile = () => {
       reset()
       onGoBack()
     },
+    onDismiss: hideModal,
     header: t('confirmSave'),
     content: t('changesWillBeLost'),
     acceptBtnText: t('saveChanges'),
@@ -99,6 +101,16 @@ export const EditProfile = () => {
   const formOffset = {
     marginBottom: isDirty ? 93 : 0,
   }
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        handleGoBack()
+        return true
+      }
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [handleGoBack])
+  )
   return (
     <>
       <SafeAreaWrapper>
