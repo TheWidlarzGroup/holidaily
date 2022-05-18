@@ -45,7 +45,7 @@ export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableM
       onBackButtonPress={fadeOut}
       onBackdropPress={fadeOut}
       {...rest}>
-      <Box width={50} height={50} justifyContent="center" alignItems="center" top={60} zIndex="10">
+      <Box width={50} height={50} justifyContent="center" alignItems="center" top={50} zIndex="10">
         <TouchableOpacity
           onPress={() => onHide()}
           hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>

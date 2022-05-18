@@ -15,7 +15,7 @@ export const DashboardTeamMember = ({ user }: MemberProps) => {
   let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
   sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
   return (
-    <>
+    <Box marginTop="m">
       <MateHeader user={user} />
       {!!sortedRequests[0] && (
         <>
@@ -48,6 +48,6 @@ export const DashboardTeamMember = ({ user }: MemberProps) => {
           </Box>
         </>
       ) : null}
-    </>
+    </Box>
   )
 }
