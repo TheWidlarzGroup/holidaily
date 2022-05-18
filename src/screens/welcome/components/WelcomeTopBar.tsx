@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, theme } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
@@ -8,18 +8,18 @@ import { isIos } from 'utils/layout'
 
 export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
   const { navigate } = useNavigation()
-
+  const theme = useTheme()
   return (
     <Box
       justifyContent="space-between"
       alignItems="center"
       flexDirection="row"
-      paddingTop={isIos ? 'xxlplus' : 'xl'}>
+      paddingTop={isIos ? 'xxlplus' : 'l'}>
       <Box>
         <TouchableOpacity
           onPress={() => navigate('Slider')}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <BackArrowIcon height={18} width={18} color="black" />
+          <BackArrowIcon height={18} width={18} color={theme.colors.black} />
         </TouchableOpacity>
       </Box>
       <Box>
