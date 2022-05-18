@@ -73,7 +73,7 @@
     "yourName": "Imię",
     "whyAskForName": "Wyświetlimy Twoje imię w kilku miejscach aplikacji, aby pokazać Ci potencjał i sposób funkcjonowania Holidaily.",
     "seeDemoButton": "Zobacz demo",
-    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfer i znaków specjalnych",
+    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfr i znaków specjalnych",
     "about": "O aplikacji",
     "aboutDesc1": "<b>Holidaily</b> to aplikacja do zarządzania urlopami przez pracodawcę i pracowników.",
     "aboutDesc2": "<b>Aplikacja ułatwia przepływ informacji</b> dotyczących organizacji urlopów w firmie, i sprawia, że cały proces jest szybszy i łatwiejszy.",
