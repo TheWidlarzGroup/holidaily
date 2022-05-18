@@ -44,8 +44,8 @@ export const TeamSubscriptions = ({
   )
 
   useEffect(() => {
-    if (teams.length < 1 && openSubscribeModal) onSubscribeTeam()
-  }, [onSubscribeTeam, openSubscribeModal, teams.length])
+    if (openSubscribeModal) onSubscribeTeam()
+  }, [onSubscribeTeam, openSubscribeModal])
 
   const removeSubscription = (teamName: string) => {
     if (!user) return

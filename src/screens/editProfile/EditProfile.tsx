@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { BackHandler, ScrollView, StyleSheet } from 'react-native'
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
@@ -28,6 +28,12 @@ type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'ph
 export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>) => {
   const openSubscribeModal = route?.params?.openSubscribeModal
   const navigation = useNavigation()
+
+  useEffect(
+    () => () => navigation.setParams({ openSubscribeModal: false }),
+    [navigation, openSubscribeModal]
+  )
+
   const { user } = useUserContext()
   const theme = useTheme()
   const {
