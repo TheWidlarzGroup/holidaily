@@ -212,7 +212,8 @@
     "sickLeave": "Sick time off",
     "coupleDaysOff": "A couple days off",
     "teams": "Teams",
-    "joinFirstTeam": "Click + and join your first Team!"
+    "joinFirstTeam": "Click + and join your first Team!",
+    "changesSaved": "Changes saved"
   },
   "feed": {
     "postCommentBtn": "Comment",

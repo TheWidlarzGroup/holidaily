@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
@@ -11,7 +11,15 @@ import IconAdd from 'assets/icons/icon-add.svg'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
-export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }) => {
+type TeamSubscriptionsType = {
+  showSuccessToast: F0
+  openSubscribeModal?: true
+}
+
+export const TeamSubscriptions = ({
+  showSuccessToast,
+  openSubscribeModal,
+}: TeamSubscriptionsType) => {
   const { t } = useTranslation('userProfile')
   const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
   const { isLoading } = useTeamMocks()
@@ -19,15 +27,25 @@ export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }
   const [teams, setTeams] = useState<TeamsType[]>(
     user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
   )
-  const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
-  const onSubscribeTeam = () =>
-    navigate('SubscribeTeam', {
-      userTeams: teams,
-      addSubscriptions: (teams) => {
-        addTeams(teams)
-        showSuccessToast()
-      },
-    })
+  const addTeams = useCallback(
+    (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams]),
+    [teams]
+  )
+  const onSubscribeTeam = useCallback(
+    () =>
+      navigate('SubscribeTeam', {
+        userTeams: teams,
+        addSubscriptions: (teams) => {
+          addTeams(teams)
+          showSuccessToast()
+        },
+      }),
+    [addTeams, navigate, showSuccessToast, teams]
+  )
+
+  useEffect(() => {
+    if (teams.length < 1 && openSubscribeModal) onSubscribeTeam()
+  }, [onSubscribeTeam, openSubscribeModal, teams.length])
 
   const removeSubscription = (teamName: string) => {
     if (!user) return

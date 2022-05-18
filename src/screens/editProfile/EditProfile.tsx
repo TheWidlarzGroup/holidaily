@@ -15,6 +15,7 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Toast } from 'components/Toast'
+import { UserProfileNavigationProps } from 'navigation/types'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -23,7 +24,8 @@ import { SaveChangesButton } from './components/SaveChangesButton'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
-export const EditProfile = () => {
+export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>) => {
+  const openSubscribeModal = route?.params?.openSubscribeModal
   const navigation = useNavigation()
   const { user } = useUserContext()
   const theme = useTheme()
@@ -99,6 +101,7 @@ export const EditProfile = () => {
   const formOffset = {
     marginBottom: isDirty ? 93 : 0,
   }
+
   return (
     <>
       <SafeAreaWrapper>
@@ -108,7 +111,10 @@ export const EditProfile = () => {
             <DrawerBackArrow goBack={handleGoBack} />
             <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
             <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-            <TeamSubscriptions showSuccessToast={showSuccessToast} />
+            <TeamSubscriptions
+              showSuccessToast={showSuccessToast}
+              openSubscribeModal={openSubscribeModal}
+            />
             <ProfileColor control={control} name="userColor" />
           </ScrollView>
           {isToastVisible && (
