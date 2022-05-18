@@ -9,15 +9,15 @@ export const ModalHandleIndicator = (p: { style?: ViewStyle }) => {
 
 const useStyles = mkUseStyles((theme) => ({
   indicator: {
-    position: 'absolute',
-    top: -10,
-    left: '42%',
     width: 56,
     height: 3,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: theme.spacing.xm,
     backgroundColor: theme.colors.grey,
-    borderTopStartRadius: 2,
-    borderBottomStartRadius: 2,
-    borderTopEndRadius: 2,
-    borderBottomEndRadius: 2,
+    borderTopEndRadius: theme.borderRadii.xs,
+    borderTopStartRadius: theme.borderRadii.xs,
+    borderBottomEndRadius: theme.borderRadii.xs,
+    borderBottomStartRadius: theme.borderRadii.xs,
   },
 }))
