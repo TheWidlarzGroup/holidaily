@@ -32,7 +32,7 @@ export const DropdownWithRadio = (props: DropdownWithRadioProps) => {
 
   const changeSelectedOption = (option: string) => {
     setSelectedOption(option)
-    animation.changeOpened()
+    handlePress()
   }
 
   const findSelectedOptionLabel = (selectedOption: string, options: Option<string>[]) => {
