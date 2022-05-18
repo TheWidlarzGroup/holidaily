@@ -62,7 +62,6 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
         <TouchableOpacity onPress={handleGoBack} hitSlop={HIT_SLOP}>
           {closeButton()}
         </TouchableOpacity>
-
         {aboutIcon()}
       </Box>
       {props.title && (

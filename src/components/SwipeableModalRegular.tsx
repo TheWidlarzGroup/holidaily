@@ -1,6 +1,6 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
+import { ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import Modal, { ModalProps } from 'react-native-modal'
 import { isIos } from 'utils/layout'
 import { Box } from 'utils/theme'
@@ -60,7 +60,9 @@ export const SwipeableModalRegular = (props: SwipeableModalTempProps) => {
       isVisible={props.isOpen && isVisible}
       onModalHide={modalHideHandler}
       animationInTiming={DEFAULT_MODAL_ANIM_TIME}
-      animationOutTiming={DEFAULT_MODAL_ANIM_TIME}>
+      animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
+      propagateSwipe
+      {...props}>
       <Box flex={1} borderTopLeftRadius="m" borderTopRightRadius="l" overflow="hidden">
         <SafeAreaWrapper isDefaultBgColor>
           <Box
@@ -72,23 +74,29 @@ export const SwipeableModalRegular = (props: SwipeableModalTempProps) => {
             borderTopRightRadius="m"
             marginTop={isIos ? '-l' : 'none'}>
             <ScrollView showsHorizontalScrollIndicator={false}>
-              <SwipeableModalHeader
-                title={props.title}
-                subtitle={props.subtitle}
-                aboutIcon={props.aboutIcon}
-                closeModal={modalHideHandler}
-                hasIndicator={props.hasIndicator}
-                closeAction={props.closeAction || 'close'}
-                aboutAction={props.aboutAction || modalHideHandler}
-              />
-              {props.children}
-              {props.buttonLabel && (
-                <Box paddingBottom="lplus" style={btnStyle}>
-                  <TouchableOpacity onPress={props.buttonAction || modalHideHandler}>
-                    <CustomButton label={btnLabel} variant="primary" />
-                  </TouchableOpacity>
-                </Box>
-              )}
+              <TouchableOpacity>
+                <TouchableWithoutFeedback>
+                  <>
+                    <SwipeableModalHeader
+                      title={props.title}
+                      subtitle={props.subtitle}
+                      aboutIcon={props.aboutIcon}
+                      closeModal={modalHideHandler}
+                      hasIndicator={props.hasIndicator}
+                      closeAction={props.closeAction || 'close'}
+                      aboutAction={props.aboutAction || modalHideHandler}
+                    />
+                    {props.children}
+                    {props.buttonLabel && (
+                      <Box paddingBottom="lplus" style={btnStyle}>
+                        <TouchableOpacity onPress={props.buttonAction || modalHideHandler}>
+                          <CustomButton label={btnLabel} variant="primary" />
+                        </TouchableOpacity>
+                      </Box>
+                    )}
+                  </>
+                </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </ScrollView>
           </Box>
         </SafeAreaWrapper>
