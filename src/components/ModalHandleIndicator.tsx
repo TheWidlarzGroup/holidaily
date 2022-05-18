@@ -10,7 +10,7 @@ export const ModalHandleIndicator = (p: { style?: ViewStyle }) => {
 const useStyles = mkUseStyles((theme) => ({
   indicator: {
     position: 'absolute',
-    left: '42%',
+    top: 2,
     width: 56,
     height: 3,
     backgroundColor: theme.colors.grey,

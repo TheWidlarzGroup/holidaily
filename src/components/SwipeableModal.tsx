@@ -2,6 +2,9 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
 import { Box } from 'utils/theme'
+import IconBack from 'assets/icons/icon-back2.svg'
+import { TouchableOpacity } from 'react-native'
+import { ModalHandleIndicator } from './ModalHandleIndicator'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
@@ -42,7 +45,23 @@ export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableM
       onBackButtonPress={fadeOut}
       onBackdropPress={fadeOut}
       {...rest}>
-      <Box flex={1} borderTopLeftRadius="m" borderTopRightRadius="l" overflow="hidden">
+      <Box width={50} height={50} justifyContent="center" alignItems="center" top={50} zIndex="10">
+        <TouchableOpacity
+          onPress={() => onHide()}
+          hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
+          <IconBack height={18} width={18} color="black" />
+        </TouchableOpacity>
+      </Box>
+      <Box height={3} justifyContent="center" alignItems="center" zIndex="10">
+        <ModalHandleIndicator />
+      </Box>
+      <Box
+        flex={1}
+        borderTopLeftRadius="m"
+        borderTopRightRadius="l"
+        overflow="hidden"
+        marginBottom="-s"
+        marginTop="-s">
         {children}
       </Box>
     </Modal>

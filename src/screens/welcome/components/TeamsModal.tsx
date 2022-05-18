@@ -1,11 +1,9 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import IconClose from 'assets/icons/icon-close2.svg'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
-import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 import { useUserContext } from 'hooks/useUserContext'
 import IconPeople from 'assets/icons/icon-people.svg'
 import { useNavigation } from '@react-navigation/native'
@@ -25,14 +23,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
           flexDirection="row"
           marginLeft="xs"
           marginBottom="s"
-          marginTop="-xs">
-          <ModalHandleIndicator style={{ transform: [{ translateY: -15 }] }} />
-          <TouchableOpacity
-            onPress={closeModal}
-            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-            <IconClose height={15} width={15} color="black" />
-          </TouchableOpacity>
-        </Box>
+          marginTop="-xs"></Box>
         <Box flex={1}>
           <Text variant="displayBoldSM" marginTop="s">
             {t('congrats')}
