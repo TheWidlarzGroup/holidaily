@@ -5,6 +5,7 @@ import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
+import { tabsBorderRadius } from 'navigation/service/tabsBorderRadius'
 
 type TabsHandlerProps = {
   tabs: {
@@ -42,17 +43,19 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
           )
         }
         const buttonIdx = Math.floor(tabs.length / 2)
+        const tabWidthSetter = (key: number) => (key === 4 ? tabWidth - 6 : tabWidth)
+
         return (
           <Box
             {...{ key }}
             height={40}
-            width={tabWidth}
+            width={tabWidthSetter(key)}
             marginTop="lplus"
             alignItems="center"
             flexDirection="column"
             backgroundColor="white"
-            borderTopRightRadius={key === buttonIdx - 1 ? 's' : undefined}
-            borderTopLeftRadius={key === buttonIdx + 1 ? 's' : undefined}
+            borderTopLeftRadius={tabsBorderRadius(key)('left')(buttonIdx)}
+            borderTopRightRadius={tabsBorderRadius(key)('right')(buttonIdx)}
             zIndex="5">
             <BorderlessButton onPress={onPress} style={styles.button}>
               {getBottomTabIcon(
