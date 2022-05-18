@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, theme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
 import { useTranslation } from 'react-i18next'
@@ -67,7 +67,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
                   borderRadius="l"
                   backgroundColor="specialOpaque"
                   marginRight="m">
-                  <IconPeople width={ICON_SIZE} height={ICON_SIZE} />
+                  <IconPeople width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.special} />
                 </Box>
                 <Box flex={1}>
                   <Text variant="textSM">{t('joinMore')}</Text>

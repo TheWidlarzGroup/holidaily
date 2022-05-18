@@ -14,8 +14,8 @@ import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }) => {
   const { t } = useTranslation('userProfile')
   const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
-  const { user, updateUser } = useUserContext()
   const { isLoading } = useTeamMocks()
+  const { user, updateUser } = useUserContext()
   const [teams, setTeams] = useState<TeamsType[]>(
     user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
   )
@@ -61,9 +61,11 @@ export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }
     </Box>
   )
 }
+
 type SubscriptionsEmptyStateProps = {
   onPress: F0
 }
+
 const SubscriptionsEmptyState = (p: SubscriptionsEmptyStateProps) => {
   const { t } = useTranslation('userProfile')
   const theme = useTheme()
@@ -72,8 +74,9 @@ const SubscriptionsEmptyState = (p: SubscriptionsEmptyStateProps) => {
       activeOpacity={0.8}
       onPress={p.onPress}
       bg="specialBrighterOpaque"
-      borderRadius="l2min"
+      borderRadius="lmin"
       padding="m"
+      marginHorizontal="m"
       flex={1}
       flexDirection="row"
       alignItems="center">
