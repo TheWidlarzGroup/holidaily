@@ -84,7 +84,8 @@
     "joinMore": "You can join more Teams in the User Profile section.",
     "joinMoreButton": "Join now",
     "thanksButton": "Ok, thanks!",
-    "placeholder": "Your first name"
+    "placeholder": "Your first name",
+    "logoutSuccess": "Logged out successfully!"
   },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
