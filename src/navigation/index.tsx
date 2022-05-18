@@ -45,7 +45,7 @@ export const AppNavigation = () => {
 
   useEffect(() => {
     if (isFirstRender.current) return
-    if (loginStatus === 'LoggedIn' && !user) return setLoginStatus('FirstVisit')
+    if (loginStatus === 'LoggedIn' && !user) return setLoginStatus('AnotherVisit')
     if (user?.firstName && loginStatus !== 'LoggedIn') setLoginStatus('LoggedIn')
   }, [user, loginStatus])
 
