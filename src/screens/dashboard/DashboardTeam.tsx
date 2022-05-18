@@ -9,7 +9,7 @@ import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
 import { User } from 'mockApi/models'
-import { SwipeableModal } from 'components/SwipeableModal'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { useUserContext } from 'hooks/useUserContext'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
@@ -86,9 +86,9 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
         </ScrollView>
       </SafeAreaWrapper>
       {modalUser && (
-        <SwipeableModal isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
+        <SwipeableModalRegular isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
           <DashboardTeamMember user={modalUser} />
-        </SwipeableModal>
+        </SwipeableModalRegular>
       )}
     </>
   )

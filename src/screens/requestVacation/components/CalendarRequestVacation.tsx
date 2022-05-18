@@ -43,8 +43,8 @@ export const CalendarRequestVacation = ({
   const styles = useStyles()
 
   return (
-    <Box backgroundColor="white" borderRadius="m" flex={1} alignItems="center">
-      <LoadingModal show />
+    <Box style={styles.container} borderRadius="m" flex={1} alignItems="center">
+      <LoadingModal show={!isCalendarVisible} />
       {isCalendarVisible && (
         <>
           <CalendarList
@@ -85,5 +85,9 @@ const useStyles = mkUseStyles((theme) => ({
   },
   dayNames: {
     width: '100%',
+  },
+  // Comment: Not using theme.colors.white / alwaysWhite because newCalendarList has #fff background, and idk where it comes from
+  container: {
+    backgroundColor: '#fff',
   },
 }))

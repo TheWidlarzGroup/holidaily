@@ -155,9 +155,14 @@ export const Item = (props: ItemProps) => {
   const theme = useTheme()
   const animatedMargins = useAnimatedStyle(() => {
     const isEven = !(positions.value[id] % 2)
+    if (isEven)
+      return {
+        marginLeft: theme.spacing.m,
+        marginRight: theme.spacing.s,
+      }
     return {
-      margin: isEven ? theme.spacing.m : undefined,
-      marginRight: !isEven ? theme.spacing.m : undefined,
+      marginLeft: theme.spacing.s,
+      marginRight: theme.spacing.m,
     }
   })
   return (

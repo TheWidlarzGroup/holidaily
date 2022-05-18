@@ -45,7 +45,7 @@ export const TeamSubscriptions = ({ showSuccessToast }: { showSuccessToast: F0 }
 
   if (isLoading || !user) return <LoadingModal style={{ position: 'absolute', top: 0 }} show />
   return (
-    <Box paddingHorizontal="m" position="relative">
+    <Box>
       <Text variant="sectionLabel" marginLeft="m" marginBottom="xm">
         {t('userTeams')}
       </Text>

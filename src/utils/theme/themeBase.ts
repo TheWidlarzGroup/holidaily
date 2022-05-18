@@ -14,6 +14,7 @@ export const themeBase = createTheme({
     none: 0,
     xxs: 2,
     xs: 4,
+    xsplus: 6,
     s: 8,
     xxm: 10,
     xm: 12,
@@ -34,6 +35,7 @@ export const themeBase = createTheme({
   breakpoints: {},
   borderRadii: {
     none: 0,
+    xs: 2,
     s: 4,
     xm: 8,
     m: 10,

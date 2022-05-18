@@ -19,32 +19,32 @@ export const StatusIcon = ({
   if (isOngoing)
     return (
       <Box backgroundColor="special" {...commonIconProps}>
-        <PalmIcon color={theme.colors.white} />
+        <PalmIcon color={theme.colors.alwaysWhite} />
       </Box>
     )
   switch (status) {
     case 'accepted':
       return (
         <Box backgroundColor="approvedGreen" {...commonIconProps}>
-          <CheckIcon color={theme.colors.white} />
+          <CheckIcon color={theme.colors.alwaysWhite} />
         </Box>
       )
     case 'pending':
       return (
         <Box backgroundColor="primary" {...commonIconProps}>
-          <SpinnerIcon color={theme.colors.white} />
+          <SpinnerIcon color={theme.colors.alwaysWhite} />
         </Box>
       )
     case 'past':
       return (
         <Box backgroundColor="headerGrey" {...commonIconProps}>
-          <ClockIcon color={theme.colors.white} />
+          <ClockIcon color={theme.colors.alwaysWhite} />
         </Box>
       )
     case 'cancelled':
       return (
         <Box backgroundColor="errorRed" {...commonIconProps}>
-          <CrossIcon color={theme.colors.white} />
+          <CrossIcon color={theme.colors.alwaysWhite} />
         </Box>
       )
     default:

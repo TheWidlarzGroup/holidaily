@@ -36,7 +36,7 @@ export const CalendarDayMain = ({
     if (isDisabled && marking?.period) return 'white'
     if (isDisabled) return 'grey'
     if (marking?.selected || marking?.period) return 'white'
-    return 'black'
+    return 'alwaysBlack'
   }
 
   const containerStyles = useAnimatedStyle(() => ({

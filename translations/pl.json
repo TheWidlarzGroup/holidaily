@@ -211,7 +211,8 @@
     "lastDayAtWork": "Ostatni dzień w pracy",
     "SickLeave": "Chorobowe",
     "coupleDaysOff": "Kilka dni wolnego",
-    "teams": "Zespoły"
+    "teams": "Zespoły",
+    "joinFirstTeam": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
   },
   "feed": {
     "postCommentBtn": "Skomentuj",

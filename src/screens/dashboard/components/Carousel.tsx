@@ -1,4 +1,3 @@
-import { SwipeableModal } from 'components/SwipeableModal'
 import format from 'date-fns/format'
 import { User } from 'mock-api/models/mirageTypes'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -8,6 +7,7 @@ import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getCurrentLocale } from 'utils/locale'
 import { Text } from 'utils/theme'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { DashboardTeamMember } from '../DashboardTeamMember'
 
@@ -63,9 +63,9 @@ export const Carousel = () => {
         )}
       />
       {modalUser && (
-        <SwipeableModal isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
+        <SwipeableModalRegular isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
           <DashboardTeamMember user={modalUser} />
-        </SwipeableModal>
+        </SwipeableModalRegular>
       )}
     </>
   )

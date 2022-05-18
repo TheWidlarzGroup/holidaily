@@ -19,7 +19,7 @@ export const SickTime = ({ sickTime, toggle }: SickTimeProps) => {
         <Text variant="body1" textAlign="left">
           {t('sickTimeLabel')}
         </Text>
-        <Checkbox checked={sickTime} onPress={toggle} />
+        <Checkbox size="s" checked={sickTime} onPress={toggle} />
       </Box>
     </Box>
   )

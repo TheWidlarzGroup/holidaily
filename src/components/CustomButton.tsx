@@ -41,7 +41,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   switch (variant) {
     case 'primary':
       bgColor = disabled ? theme.colors.primary : theme.colors.tertiary
-      color = theme.colors.white
+      color = theme.colors.alwaysWhite
       rippleColor = theme.colors.disabled
       break
     case 'alternative':

@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { FlatList, FlatListProps } from 'react-native'
 import { useUserContext } from 'hooks/useUserContext'
+import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
@@ -21,6 +22,7 @@ type SortableListProps = {
 
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
+
 export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
@@ -55,9 +57,29 @@ export const SortableList = ({ children }: SortableListProps) => {
   )
   const [order, setOrder] = useState<typeof positions.value>(positions.value)
 
+  const renderItem = useCallback(
+    ({ item: child }) => (
+      <Item
+        scrollView={scrollView}
+        onLongPress={() => onLongPress(child?.props?.id)}
+        stopDragging={() => setDraggedElement(null)}
+        draggedElement={draggedElement}
+        scrollY={scrollY}
+        key={child?.props?.id}
+        positions={positions}
+        id={child?.props?.id}>
+        {child}
+      </Item>
+    ),
+    [draggedElement, positions, scrollView, scrollY]
+  )
+
   useEffect(() => {
     if (draggedElement === null) setOrder(positions.value)
   }, [draggedElement, positions])
+
+  const CONTAINER_HEIGHT =
+    Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING
 
   return (
     <Box paddingBottom="xxxl">
@@ -66,10 +88,7 @@ export const SortableList = ({ children }: SortableListProps) => {
         removeClippedSubviews={false}
         ref={scrollView}
         contentContainerStyle={{
-          height:
-            Math.ceil(children.length / COL) * SIZE_H +
-            NESTED_ELEM_OFFSET +
-            SCROLL_VIEW_BOTTOM_PADDING,
+          height: children.length > 0 ? CONTAINER_HEIGHT : 600,
         }}
         showsVerticalScrollIndicator={false}
         bounces={false}
@@ -77,35 +96,23 @@ export const SortableList = ({ children }: SortableListProps) => {
         onScroll={onScroll}
         CellRendererComponent={CellRenderer}
         ListHeaderComponent={
-          <Box height={NESTED_ELEM_OFFSET}>
-            <Carousel />
-            <Text
-              variant="lightGreyRegular"
-              color="darkGrey"
-              marginHorizontal="xm"
-              marginBottom="xs"
-              letterSpacing={0.7}>
-              {t('teamsList').toUpperCase()}
-            </Text>
-          </Box>
+          <>
+            <Box height={NESTED_ELEM_OFFSET}>
+              <Carousel />
+              <Text
+                variant="lightGreyRegular"
+                color="darkGrey"
+                marginHorizontal="xm"
+                marginBottom="xs"
+                letterSpacing={0.7}>
+                {t('teamsList').toUpperCase()}
+              </Text>
+            </Box>
+            {!(children.length > 0) && <JoinFirstTeam />}
+          </>
         }
         data={children}
-        renderItem={useCallback(
-          ({ item: child }) => (
-            <Item
-              scrollView={scrollView}
-              onLongPress={() => onLongPress(child?.props?.id)}
-              stopDragging={() => setDraggedElement(null)}
-              draggedElement={draggedElement}
-              scrollY={scrollY}
-              key={child?.props?.id}
-              positions={positions}
-              id={child?.props?.id}>
-              {child}
-            </Item>
-          ),
-          [draggedElement, positions, scrollView, scrollY]
-        )}
+        renderItem={renderItem}
       />
     </Box>
   )

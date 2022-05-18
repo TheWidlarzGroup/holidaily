@@ -10,6 +10,7 @@ export const ConfirmationModal = ({
   isVisible,
   onAccept,
   onDecline,
+  onDismiss,
   content,
   header,
   declineBtnText,
@@ -21,7 +22,7 @@ export const ConfirmationModal = ({
   // FIXME: Something in the drawer menu is intercepting the touch gestures, so a hack with wrapping CustomButton in BaseOpacity is needed for buttons to work
   // and a hack with full width & height BaseOpacity for backdrop press to work
   return (
-    <SwipeableModal isOpen={isVisible} onHide={onDecline}>
+    <SwipeableModal isOpen={isVisible} onHide={onDismiss ?? onDecline}>
       <Box style={styles.modal}>
         {header !== null && <Text variant="displayBoldSM">{header || t('areYouSure')}</Text>}
         {content !== null && (
@@ -37,7 +38,7 @@ export const ConfirmationModal = ({
         </BaseOpacity>
       </Box>
       <BaseOpacity
-        onPress={onDecline}
+        onPress={onDismiss ?? onDecline}
         position="absolute"
         zIndex="-1"
         style={{ width: '100%', height: '100%' }}

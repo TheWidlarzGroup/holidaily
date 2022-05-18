@@ -39,7 +39,12 @@ export const Request = (p: DayOffRequest) => {
             isOngoing={p.status === 'accepted' && isDateBetween(new Date(), p.startDate, p.endDate)}
           />
           <Box paddingHorizontal="m" paddingVertical="xm" style={{ width: '90%' }}>
-            <Text variant="bold16" marginBottom="s" numberOfLines={1} style={{ maxWidth: '90%' }}>
+            <Text
+              variant="bold16"
+              color="titleActive"
+              marginBottom="s"
+              numberOfLines={1}
+              style={{ maxWidth: '90%' }}>
               {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
             </Text>
             <Text variant="captionText">{getFormattedPeriod(p.startDate, p.endDate, 'long')}</Text>

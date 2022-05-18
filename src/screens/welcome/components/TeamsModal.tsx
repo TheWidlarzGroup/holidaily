@@ -16,77 +16,73 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { user } = useUserContext()
   const { navigate } = useNavigation()
   return (
-    <SafeAreaWrapper isDefaultBgColor>
-      <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" paddingVertical="l">
-        <Box
-          alignItems="center"
-          flexDirection="row"
-          marginLeft="xs"
-          marginBottom="s"
-          marginTop="-xs"></Box>
-        <Box flex={1}>
-          <Text variant="displayBoldSM" marginTop="s">
-            {t('congrats')}
-          </Text>
-          <Box flexDirection="row" justifyContent="center" marginTop="xm">
-            <Text variant="textSM">{t('memberOf')}</Text>
-            <Text variant="textBoldSM" color="tertiary" marginLeft="xs">
-              Supercompany
+    <Box flex={1} borderTopLeftRadius="l1min" borderTopRightRadius="l1min" overflow="hidden">
+      <SafeAreaWrapper isDefaultBgColor>
+        <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" paddingVertical="l">
+          <Box flex={1} marginTop="xm">
+            <Text variant="displayBoldSM" marginTop="s">
+              {t('congrats')}
             </Text>
-          </Box>
+            <Box flexDirection="row" justifyContent="center" marginTop="xm">
+              <Text variant="textSM">{t('memberOf')}</Text>
+              <Text variant="textBoldSM" color="tertiary" marginLeft="xs">
+                Supercompany
+              </Text>
+            </Box>
 
-          <Box>
-            <Text
-              variant="displayXS"
-              color="darkGrey"
-              letterSpacing={0.7}
-              marginTop="l"
-              marginBottom="xs">
-              {t('yourTeams')}
-            </Text>
-            <Box flexDirection="row" flexWrap="wrap">
-              {user?.teams.map((team) => (
-                <ToggleButton key={team.name}>{team.name}</ToggleButton>
-              ))}
-            </Box>
-            <Box
-              backgroundColor="specialBrighterOpaque"
-              borderRadius="lmin"
-              marginTop="xl"
-              padding="m">
-              <Box flexDirection="row">
-                <Box
-                  height={36}
-                  width={36}
-                  alignItems="center"
-                  justifyContent="center"
-                  borderRadius="l"
-                  backgroundColor="specialOpaque"
-                  marginRight="m">
-                  <IconPeople width={ICON_SIZE} height={ICON_SIZE} />
-                </Box>
-                <Box flex={1}>
-                  <Text variant="textSM">{t('joinMore')}</Text>
-                </Box>
+            <Box>
+              <Text
+                variant="displayXS"
+                color="darkGrey"
+                letterSpacing={0.7}
+                marginTop="l"
+                marginBottom="xs">
+                {t('yourTeams')}
+              </Text>
+              <Box flexDirection="row" flexWrap="wrap">
+                {user?.teams.map((team) => (
+                  <ToggleButton key={team.name}>{team.name}</ToggleButton>
+                ))}
               </Box>
-              <Box alignSelf="flex-end" marginRight="-xm" marginTop="xm">
-                <CustomButton
-                  variant="tertiary"
-                  label={t('joinMoreButton')}
-                  width={120}
-                  onPress={() => {
-                    navigate('ProfileNavigation')
-                    closeModal()
-                  }}
-                />
+              <Box
+                backgroundColor="specialBrighterOpaque"
+                borderRadius="lmin"
+                marginTop="xl"
+                padding="m">
+                <Box flexDirection="row">
+                  <Box
+                    height={36}
+                    width={36}
+                    alignItems="center"
+                    justifyContent="center"
+                    borderRadius="l"
+                    backgroundColor="specialOpaque"
+                    marginRight="m">
+                    <IconPeople width={ICON_SIZE} height={ICON_SIZE} />
+                  </Box>
+                  <Box flex={1}>
+                    <Text variant="textSM">{t('joinMore')}</Text>
+                  </Box>
+                </Box>
+                <Box alignSelf="flex-end" marginRight="-xm" marginTop="xm">
+                  <CustomButton
+                    variant="tertiary"
+                    label={t('joinMoreButton')}
+                    width={120}
+                    onPress={() => {
+                      navigate('ProfileNavigation')
+                      closeModal()
+                    }}
+                  />
+                </Box>
               </Box>
             </Box>
           </Box>
+          <TouchableOpacity onPress={closeModal}>
+            <CustomButton variant="primary" label={t('thanksButton')} />
+          </TouchableOpacity>
         </Box>
-        <TouchableOpacity onPress={closeModal}>
-          <CustomButton variant="primary" label={t('thanksButton')} />
-        </TouchableOpacity>
-      </Box>
-    </SafeAreaWrapper>
+      </SafeAreaWrapper>
+    </Box>
   )
 }

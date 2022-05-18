@@ -15,18 +15,24 @@ type ActiveSubscriptionsProps = {
 type SubscriptionProps = {
   teamName: string
   removeSubscription: F1<string>
+  keepSpaceForAddButton?: boolean
 }
 
 export const ActiveSubscriptions = ({ teams, removeSubscription }: ActiveSubscriptionsProps) => {
   const teamElements = useMemo(
     () =>
-      teams.map(({ teamName, id }) => (
-        <Subscription teamName={teamName} key={id} removeSubscription={removeSubscription} />
+      teams.map(({ teamName, id }, idx) => (
+        <Subscription
+          teamName={teamName}
+          key={id}
+          keepSpaceForAddButton={idx === teams.length - 1}
+          removeSubscription={removeSubscription}
+        />
       )),
     [teams, removeSubscription]
   )
   return (
-    <Box flexDirection="row" flexWrap="wrap" flex={1}>
+    <Box flexDirection="row" flexWrap="wrap" flex={1} marginHorizontal="s">
       {teamElements}
     </Box>
   )
@@ -38,8 +44,9 @@ const Subscription = (p: SubscriptionProps) => {
   const theme = useTheme()
   const styles = useStyles()
   const { t } = useTranslation('userProfile')
+
   return (
-    <>
+    <Box marginRight={p.keepSpaceForAddButton ? 'xxl' : undefined}>
       <RectButton onPress={askForConfirmation} style={styles.team}>
         <Text variant="resendWhite" paddingVertical="xm" marginRight="s" color="alwaysWhite">
           {p.teamName}
@@ -56,19 +63,20 @@ const Subscription = (p: SubscriptionProps) => {
         hideModal={dismissConfirmation}
         onDecline={dismissConfirmation}
       />
-    </>
+    </Box>
   )
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
   team: {
-    marginRight: theme.spacing.s,
+    marginLeft: theme.spacing.s,
     marginBottom: theme.spacing.m,
-    paddingHorizontal: theme.spacing.l,
+    paddingHorizontal: theme.spacing.m,
     backgroundColor: theme.colors.specialDarker,
     borderRadius: theme.spacing.l,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    alignSelf: 'flex-start',
   },
 }))
