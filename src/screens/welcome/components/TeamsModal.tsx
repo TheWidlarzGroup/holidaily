@@ -20,8 +20,13 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   return (
     <SafeAreaWrapper isDefaultBgColor>
       <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" paddingVertical="l">
-        <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
-          <ModalHandleIndicator />
+        <Box
+          alignItems="center"
+          flexDirection="row"
+          marginLeft="xs"
+          marginBottom="s"
+          marginTop="-xs">
+          <ModalHandleIndicator style={{ transform: [{ translateY: -15 }] }} />
           <TouchableOpacity
             onPress={closeModal}
             hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>

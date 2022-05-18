@@ -8,10 +8,10 @@ import { MateHolidayDetail } from 'screens/dashboard/components/MateHolidayDetai
 import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { User } from 'mock-api/models/mirageTypes'
-import { isIos } from 'utils/layout'
 import { sortSingleUserRequests } from 'utils/sortByDate'
 import { useTranslation } from 'react-i18next'
 import { ToggleButton } from 'components/ToggleButton'
+import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 type MemberProps = { user: User; closeModal: F0 }
 
@@ -29,13 +29,17 @@ export const DashboardTeamMember = ({ user, closeModal }: MemberProps) => {
         borderTopRightRadius="m"
         backgroundColor="white"
         flexGrow={1}
-        marginTop={isIos ? '-l' : 'none'}>
+        marginTop="-l"
+        position="relative">
         <ScrollView showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity
-            onPress={closeModal}
-            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-            <IconBack height={18} width={18} color="black" />
-          </TouchableOpacity>
+          <ModalHandleIndicator />
+          <Box position="absolute">
+            <TouchableOpacity
+              onPress={closeModal}
+              hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
+              <IconBack height={18} width={18} color="black" />
+            </TouchableOpacity>
+          </Box>
           <MateHeader user={user} />
           {!!sortedRequests[0] && (
             <>
