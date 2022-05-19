@@ -27,9 +27,7 @@ export const DashboardTeamMember = ({ user }: MemberProps) => {
         </>
       )}
       {!!sortedRequests[1] && (
-        <>
-          <MateHoliday user={user} sortedRequests={sortedRequests} isNextRequest />
-        </>
+        <MateHoliday user={user} sortedRequests={sortedRequests} isNextRequest />
       )}
       {user.teams.length > 0 ? (
         <>
@@ -41,7 +39,7 @@ export const DashboardTeamMember = ({ user }: MemberProps) => {
             marginBottom="s">
             {t('teams').toUpperCase()}
           </Text>
-          <Box flexDirection="row" flexWrap="wrap">
+          <Box flexDirection="row" flexWrap="wrap" paddingBottom="xm">
             {user.teams.map((team) => (
               <ToggleButton key={team.name}>{team.name}</ToggleButton>
             ))}
