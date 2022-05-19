@@ -14,7 +14,6 @@ export const PolicySection = ({
   return (
     <Box marginVertical="m">
       <Text lineHeight={20} color="black">
-        {/* @ts-ignore */}
         <Trans
           ns="budget"
           i18nKey={textKey}
