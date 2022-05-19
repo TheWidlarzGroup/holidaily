@@ -132,7 +132,6 @@ export type DrawerRoutes = {
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
-  DashboardNotifications: undefined
   AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
 }
 
@@ -158,7 +157,7 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
-
+  DashboardNotifications: undefined
   RequestVacationCalendar: { isSickTime?: boolean }
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
@@ -169,7 +168,6 @@ export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: Team
   DashboardTeamMember: User
-  DashboardNotifications: undefined
 }
 
 export type BudgetRoutes = {
