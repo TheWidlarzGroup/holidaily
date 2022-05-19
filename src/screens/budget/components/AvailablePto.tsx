@@ -21,21 +21,30 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   }, [navigation])
 
   return (
-    <Box>
-      <Box flexDirection="row-reverse" justifyContent="space-between">
+    <Box
+      bg="primaryOpaque"
+      marginBottom="s"
+      borderTopLeftRadius="l1min"
+      borderTopRightRadius="l2min">
+      <Box flexDirection="row-reverse" padding="xm" justifyContent="space-between">
         <TouchableOpacity
           style={{ transform: [{ translateX: 5 }, { translateY: -5 }] }}
           onPress={onInfoPress}>
-          <Info color={theme.colors.headerGrey} />
+          <Info color={theme.colors.tertiary} />
         </TouchableOpacity>
-        <Box>
-          <Text marginTop="xxm" variant="captionText" lineHeight={14} color="alwaysBlack">
+        <Box flex={1} alignItems="center">
+          <Text
+            marginTop="xxm"
+            variant="textBoldSM"
+            lineHeight={14}
+            color="tertiary"
+            style={styles.alignSelfStart}>
             {t('have')}
           </Text>
-          <Text marginVertical="xxm" variant="bold24" color="tertiary">
+          <Text textAlign="center" variant="textBoldMD" color="titleActive">
             {t('left', { number: availablePto })}
           </Text>
-          <Text marginBottom="xm" variant="lightGreyRegular">
+          <Text marginBottom="ml" variant="lightGreyRegular">
             {t('of', { number: String(PTO_LIMIT) })}
           </Text>
         </Box>
@@ -45,9 +54,15 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
         width={`${(availablePto / PTO_LIMIT) * 100}%`}
         height={theme.spacing.xs}
         backgroundColor="tertiary"
+        borderRadius="m"
         zIndex="2"
       />
-      <Box width="100%" height={theme.spacing.xs} backgroundColor="headerGrey" />
+      <Box
+        width="100%"
+        height={theme.spacing.xs}
+        backgroundColor="primaryOpaque"
+        borderRadius="m"
+      />
     </Box>
   )
 }
@@ -65,5 +80,8 @@ const useStyles = mkUseStyles(() => ({
     borderColor: 'transparent',
 
     right: 0,
+  },
+  alignSelfStart: {
+    alignSelf: 'flex-start',
   },
 }))
