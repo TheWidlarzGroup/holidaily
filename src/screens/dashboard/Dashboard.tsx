@@ -6,24 +6,23 @@ import { getItem, setItem } from 'utils/localStorage'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { SwipeableModal } from 'components/SwipeableModal'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { ModalProps } from 'react-native-modal'
+import { sleep } from 'utils/sleep'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
   const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
     useBooleanState(false)
   useEffect(() => {
-    let timeout: number
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
       if (seenTeamsModal === 'false') return
-      // Comment: Modal just flickers in instead of sliding from the bottom without setTimeout. setImmediate doesn't fix the issue.
-      timeout = setTimeout(() => {
-        openSuccessModal()
-        setItem('seenTeamsModal', 'false')
-      }, 1)
+      // Comment: Modal just flickers in instead of sliding from the bottom without sleep. setImmediate doesn't fix the issue.
+      await sleep(1)
+      openSuccessModal()
+      setItem('seenTeamsModal', 'false')
     }
     openModalOnFirstAppLaunch()
-    return () => clearTimeout(timeout)
   }, [openSuccessModal])
 
   return (
@@ -42,7 +41,7 @@ export const Dashboard = () => {
   )
 }
 
-const teamsModalStyle = {
+const teamsModalStyle: ModalProps['style'] = {
   margin: 0,
   marginTop: isScreenHeightShort ? 20 : 110,
 }
