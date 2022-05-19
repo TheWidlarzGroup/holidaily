@@ -39,7 +39,7 @@ export const CalendarDayMain = ({ date, marking, onPress, styles }: CalendarDayM
     ),
   }))
 
-  const dateBgColor = () => {
+  const getDateBgColor = () => {
     if (isToday(day) && !marking?.selected) return 'disabledTextBrighter'
     if (marking?.selected && isToday(day)) return 'primary'
     if (marking?.selected) return 'primary'
@@ -69,7 +69,7 @@ export const CalendarDayMain = ({ date, marking, onPress, styles }: CalendarDayM
           hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
           <Box
             borderRadius="l"
-            backgroundColor={dateBgColor()}
+            backgroundColor={getDateBgColor()}
             width={28}
             height={28}
             justifyContent="center"
