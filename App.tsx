@@ -8,9 +8,9 @@ import { UserSettingsContextProvider } from 'contexts/UserSettingsProvider'
 import { Main } from './src/Main'
 
 LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-  '`new NativeEventEmitter()`',
   'Require cycle: node_modules',
+  'Require cycle: index.js',
+  '`new NativeEventEmitter()`',
   'EventEmitter.removeListener',
 ])
 
