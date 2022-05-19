@@ -31,7 +31,7 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
 
   useEffect(
     () => () => navigation.setParams({ openSubscribeModal: false }),
-    [navigation, openSubscribeModal]
+    [navigation, route?.params?.openSubscribeModal]
   )
 
   const { user } = useUserContext()

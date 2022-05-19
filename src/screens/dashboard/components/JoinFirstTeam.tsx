@@ -16,29 +16,27 @@ export const JoinFirstTeam = () => {
     })
 
   return (
-    <>
-      <Box
-        margin="xm"
-        backgroundColor="specialBrighterOpaque"
-        borderRadius="lmin"
-        padding="m"
-        flexDirection="row"
-        justifyContent="space-between">
-        <Text variant="textBoldSM" marginRight="l" lineHeight={20}>
-          {t('joinFirstTeam')}
-        </Text>
-        <TouchableOpacity onPress={onSubscribeTeam}>
-          <Box
-            width={40}
-            height={40}
-            backgroundColor="special"
-            borderRadius="l"
-            justifyContent="center"
-            alignItems="center">
-            <IconPlus />
-          </Box>
-        </TouchableOpacity>
-      </Box>
-    </>
+    <Box
+      margin="xm"
+      backgroundColor="specialBrighterOpaque"
+      borderRadius="lmin"
+      padding="m"
+      flexDirection="row"
+      justifyContent="space-between">
+      <Text variant="textBoldSM" marginRight="l" lineHeight={20}>
+        {t('joinFirstTeam')}
+      </Text>
+      <TouchableOpacity onPress={onSubscribeTeam}>
+        <Box
+          width={40}
+          height={40}
+          backgroundColor="special"
+          borderRadius="l"
+          justifyContent="center"
+          alignItems="center">
+          <IconPlus />
+        </Box>
+      </TouchableOpacity>
+    </Box>
   )
 }

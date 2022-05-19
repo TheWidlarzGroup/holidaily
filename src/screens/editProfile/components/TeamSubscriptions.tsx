@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
-import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
+import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { UserProfileType } from 'navigation/types'
-import IconAdd from 'assets/icons/icon-add.svg'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
@@ -27,21 +27,17 @@ export const TeamSubscriptions = ({
   const [teams, setTeams] = useState<TeamsType[]>(
     user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
   )
-  const addTeams = useCallback(
-    (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams]),
-    [teams]
-  )
-  const onSubscribeTeam = useCallback(
-    () =>
-      navigate('SubscribeTeam', {
-        userTeams: teams,
-        addSubscriptions: (teams) => {
-          addTeams(teams)
-          showSuccessToast()
-        },
-      }),
-    [addTeams, navigate, showSuccessToast, teams]
-  )
+
+  const onSubscribeTeam = useCallback(() => {
+    const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
+    navigate('SubscribeTeam', {
+      userTeams: teams,
+      addSubscriptions: (teams) => {
+        addTeams(teams)
+        showSuccessToast()
+      },
+    })
+  }, [navigate, showSuccessToast, teams])
 
   useEffect(() => {
     if (openSubscribeModal) onSubscribeTeam()
@@ -74,42 +70,8 @@ export const TeamSubscriptions = ({
           <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
         </Box>
       ) : (
-        <SubscriptionsEmptyState onPress={onSubscribeTeam} />
+        <JoinFirstTeam />
       )}
     </Box>
-  )
-}
-
-type SubscriptionsEmptyStateProps = {
-  onPress: F0
-}
-
-const SubscriptionsEmptyState = (p: SubscriptionsEmptyStateProps) => {
-  const { t } = useTranslation('userProfile')
-  const theme = useTheme()
-  return (
-    <BaseOpacity
-      activeOpacity={0.8}
-      onPress={p.onPress}
-      bg="specialBrighterOpaque"
-      borderRadius="lmin"
-      padding="m"
-      marginHorizontal="m"
-      flex={1}
-      flexDirection="row"
-      alignItems="center">
-      <Text variant="textBoldSM" style={{ flex: 1 }}>
-        {t('teamsEmptyState')}
-      </Text>
-      <Box
-        bg="special"
-        marginLeft="m"
-        aspectRatio={1}
-        alignItems="center"
-        justifyContent="center"
-        borderRadius="full">
-        <IconAdd color={theme.colors.alwaysWhite} />
-      </Box>
-    </BaseOpacity>
   )
 }
