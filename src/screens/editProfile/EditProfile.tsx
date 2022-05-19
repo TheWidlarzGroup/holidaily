@@ -120,29 +120,27 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
     }, [handleGoBack])
   )
   return (
-    <>
-      <SafeAreaWrapper>
-        <Box>
-          <ScrollView style={formOffset}>
-            <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
-            <DrawerBackArrow goBack={handleGoBack} />
-            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-            <TeamSubscriptions
-              showSuccessToast={showSuccessToast}
-              openSubscribeModal={openSubscribeModal}
-            />
-            <ProfileColor control={control} name="userColor" />
-          </ScrollView>
-          {isToastVisible && (
-            <Toast onHide={hideSuccessToast} variant="success" text={t('changesSaved')} />
-          )}
-          {isLoading && <LoadingModal show />}
-          {!isLoading && isDirty && (
-            <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
-          )}
-        </Box>
-      </SafeAreaWrapper>
-    </>
+    <SafeAreaWrapper>
+      <Box>
+        <ScrollView style={formOffset}>
+          <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
+          <DrawerBackArrow goBack={handleGoBack} />
+          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+          <TeamSubscriptions
+            showSuccessToast={showSuccessToast}
+            openSubscribeModal={openSubscribeModal}
+          />
+          <ProfileColor control={control} name="userColor" />
+        </ScrollView>
+        {isToastVisible && (
+          <Toast onHide={hideSuccessToast} variant="success" text={t('changesSaved')} />
+        )}
+        {isLoading && <LoadingModal show />}
+        {!isLoading && isDirty && (
+          <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
+        )}
+      </Box>
+    </SafeAreaWrapper>
   )
 }
