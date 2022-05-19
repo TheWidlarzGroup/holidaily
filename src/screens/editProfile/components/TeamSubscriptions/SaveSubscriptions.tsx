@@ -35,8 +35,6 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
         label={t('join')}
         variant="primary"
         onPress={submitSubscriptions}
-        width={221}
-        height={53}
         disabled={p.disabled}
       />
     </Box>
