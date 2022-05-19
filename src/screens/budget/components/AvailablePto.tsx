@@ -23,10 +23,10 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   return (
     <Box
       bg="primaryOpaque"
-      marginBottom="s"
       borderTopLeftRadius="l1min"
-      borderTopRightRadius="l2min">
-      <Box flexDirection="row-reverse" padding="xm" justifyContent="space-between">
+      borderTopRightRadius="l2min"
+      marginBottom="s">
+      <Box flexDirection="row-reverse" padding="xm" marginBottom="m" justifyContent="space-between">
         <TouchableOpacity
           style={{ transform: [{ translateX: 5 }, { translateY: -5 }] }}
           onPress={onInfoPress}>
@@ -44,7 +44,7 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
           <Text textAlign="center" variant="textBoldMD" color="titleActive">
             {t('left', { number: availablePto })}
           </Text>
-          <Text marginBottom="ml" variant="lightGreyRegular">
+          <Text variant="textSM" color="blackBrighter">
             {t('of', { number: String(PTO_LIMIT) })}
           </Text>
         </Box>
@@ -78,7 +78,6 @@ const useStyles = mkUseStyles(() => ({
     position: 'absolute',
     borderWidth: 3,
     borderColor: 'transparent',
-
     right: 0,
   },
   alignSelfStart: {

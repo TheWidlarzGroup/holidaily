@@ -5,7 +5,7 @@ import GestureRecognizer from 'react-native-swipe-gestures'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/useUserContext'
 import IconPill from 'assets/icons/icon-pill.svg'
 import { BoxProps } from '@shopify/restyle'
@@ -25,12 +25,8 @@ export const Budget = () => {
   const requests = user?.requests ?? []
   const sentReqsCount = requests.length
   const sickDaysCount = requests.filter((req) => req.status === 'past' && req.isSickTime).length
-  const acceptedReqsCount = requests.filter(
-    (req) => req.status === 'accepted' && req.isSickTime
-  ).length
-  const pendingReqsCount = requests.filter(
-    (req) => req.status === 'pending' && req.isSickTime
-  ).length
+  const acceptedReqsCount = requests.filter((req) => req.status === 'accepted').length
+  const pendingReqsCount = requests.filter((req) => req.status === 'pending').length
 
   const handleGoBack = useCallback(() => {
     navigation.goBack()
@@ -59,20 +55,30 @@ export const Budget = () => {
 
 const SentReqsSection = (p: SentReqsSectionCount) => {
   const theme = useTheme()
-  const { t } = useTranslation()
+  const { t } = useTranslation('budget')
   return (
     <Box bg="specialBrighterOpaque" borderBottomRightRadius="l1min" padding="xm" flex={1}>
       <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Text variant="textBoldSM" lineHeight={14} color="special">
+        <Text variant="textBoldSM" lineHeight={14} color="specialDarker">
           {t('sent')}
         </Text>
-        <IconWrapper bg="special" padding="s">
+        <IconWrapper bg="specialDarker" padding="s">
           <PlaneIcon color={theme.colors.alwaysWhite} />
         </IconWrapper>
       </Box>
       <SectionBoldText text={t('requests', { number: p.sentReqsCount })} />
-      <Text marginVertical="xxm" variant="captionText" lineHeight={14} color="alwaysBlack">
-        {t('requestsStatus', { accepted: p.acceptedReqsCount, pending: p.pendingReqsCount })}
+      <Text variant="textSM" textAlign="left" color="black">
+        <Trans
+          ns="budget"
+          i18nKey="requestsStatus"
+          components={{
+            g: <Text variant="textSM" color="darkGreen" textAlign="left" />,
+          }}
+          values={{
+            accepted: p.acceptedReqsCount,
+            pending: p.pendingReqsCount,
+          }}
+        />
       </Text>
     </Box>
   )
@@ -90,7 +96,7 @@ const IconWrapper = ({ children, ...props }: React.PropsWithChildren<BoxProps<Th
 )
 const SickDaysSection = (p: { sickDaysCount: number }) => {
   const theme = useTheme()
-  const { t } = useTranslation()
+  const { t } = useTranslation('budget')
   return (
     <Box
       bg="quarternaryOpaque"
@@ -107,17 +113,13 @@ const SickDaysSection = (p: { sickDaysCount: number }) => {
         </IconWrapper>
       </Box>
       <SectionBoldText text={t('sickDays', { number: p.sickDaysCount })} />
+      <Text variant="textSM">{t('sickDaysLimit', { number: 21 })}</Text>
     </Box>
   )
 }
 
 const SectionBoldText = ({ text }: { text: string }) => (
-  <Text
-    variant="textBoldMD"
-    lineHeight={33}
-    letterSpacing={0.16}
-    marginVertical="xm"
-    color="alwaysBlack">
+  <Text variant="textBoldMD" lineHeight={24} color="black">
     {text}
   </Text>
 )
