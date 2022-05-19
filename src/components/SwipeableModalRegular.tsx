@@ -6,7 +6,7 @@ import { CustomButton } from './CustomButton'
 import { SwipeableModal } from './SwipeableModal'
 import { SwipeableModalHeader } from './SwipeableModalHeader'
 
-type SwipeableModalTempProps = PropsWithChildren<
+type SwipeableModalRegularProps = PropsWithChildren<
   {
     isOpen: boolean
     onHide: F0
@@ -23,7 +23,7 @@ type SwipeableModalTempProps = PropsWithChildren<
   >
 >
 
-export const SwipeableModalRegular = (props: SwipeableModalTempProps) => {
+export const SwipeableModalRegular = (props: SwipeableModalRegularProps) => {
   const btnStyle = { marginTop: 'auto' }
   const btnLabel = props.buttonLabel ? props.buttonLabel : ''
   return (

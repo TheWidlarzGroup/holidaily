@@ -29,7 +29,7 @@ export const DayInfo = ({ date, events, weekend }: DayInfoProps) => {
       paddingHorizontal="lplus"
       marginVertical={OUTER_BOX_MARGIN}>
       <Text variant={HEADING_TEXT_VARIANT}>
-        {getDateWithMonthString(date)}, <Text color="darkGrey">{getDayName(date)}</Text>
+        {getDateWithMonthString(date)}, <Text color="blackBrighterDouble">{getDayName(date)}</Text>
       </Text>
       {typeof events !== 'undefined' && events?.length > 0 && (
         <Box marginTop={INNER_BOX_MARGIN}>
