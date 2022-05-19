@@ -76,8 +76,8 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
   }
 
   const handleRequestLocation = async () => {
-    const request = await requestLocationPermission()
-    if (request) return onLocationPress()
+    const granted = await requestLocationPermission()
+    if (granted) return onLocationPress()
   }
 
   return (

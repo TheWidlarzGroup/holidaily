@@ -117,8 +117,7 @@ export const useLocation = (options?: UseLocationProps) => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     )
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
-    return false
+    return granted === PermissionsAndroid.RESULTS.GRANTED
   }
 
   return { requestLocation, requestPosition, requestAddresses, requestLocationPermission }
