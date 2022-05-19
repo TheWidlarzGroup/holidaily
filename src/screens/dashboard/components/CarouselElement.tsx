@@ -25,7 +25,7 @@ type Appearance = {
 }
 const ICON_SIZE = 10
 
-const commonIconProps = {
+const commonIconProps: SvgProps = {
   width: ICON_SIZE,
   height: ICON_SIZE,
   style: { transform: [{ translateY: -2 }] },
