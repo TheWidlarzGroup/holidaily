@@ -17,7 +17,7 @@ initBackendMocks()
 export const Main = () => {
   const { userSettings } = useUserSettingsContext()
   const currentTheme = userSettings?.darkMode ? darkTheme : theme
-  const statusBarBgColor = currentTheme.colors.dashboardBackground
+  const statusBarBgColor = currentTheme.colors.transparent
   const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
 
   return (
