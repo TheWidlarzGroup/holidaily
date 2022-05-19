@@ -63,7 +63,11 @@ export const Carousel = () => {
         )}
       />
       {modalUser && (
-        <SwipeableModalRegular isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
+        <SwipeableModalRegular
+          useScrollView
+          hasIndicator
+          isOpen={isModalVisible}
+          onHide={() => setIsModalVisible(false)}>
           <DashboardTeamMember user={modalUser} />
         </SwipeableModalRegular>
       )}
