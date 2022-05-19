@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker'
 import { getRandomValue } from 'utils/getRandomValue'
 
 const colors = [
-  '91A6FF#',
+  '#91A6FF',
   '#4E70FF',
   '#FF88DC',
   '#80ED99',
