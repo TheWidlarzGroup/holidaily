@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Box, Text, Theme, useTheme } from 'utils/theme'
 import IconPlane from 'assets/icons/icon-plane.svg'
 import IconSuitcase from 'assets/icons/icon-suitcase.svg'
 import IconPill from 'assets/icons/icon-pill.svg'
 import { HolidayTag } from 'screens/dashboard/components/HolidayTag'
 import { Avatar } from 'components/Avatar'
+import { TextProps } from '@shopify/restyle'
+import { SvgProps } from 'react-native-svg'
 
 export type CarouselElementProps = {
   isOnHoliday: boolean
@@ -16,6 +18,11 @@ export type CarouselElementProps = {
   isSickTime?: boolean
 }
 
+type AppearanceKey = 'onDayOffNow' | 'onSicktimeNow' | 'futureDayOff'
+type Appearance = {
+  textColor: TextProps<Theme>['color']
+  icon: ReactElement<SvgProps>
+}
 const ICON_SIZE = 10
 
 const commonIconProps = {
@@ -24,21 +31,20 @@ const commonIconProps = {
   style: { transform: [{ translateY: -2 }] },
 }
 
-const mkAppearanceDictionary = (theme: Theme) =>
-  ({
-    onDayOffNow: {
-      textColor: 'tertiary',
-      icon: <IconSuitcase {...commonIconProps} color={theme.colors.tertiary} />,
-    },
-    onSicktimeNow: {
-      textColor: 'quarternary',
-      icon: <IconPill {...commonIconProps} color={theme.colors.quarternary} />,
-    },
-    futureDayOff: {
-      textColor: 'textBlue',
-      icon: <IconPlane {...commonIconProps} color={theme.colors.textBlue} />,
-    },
-  } as const)
+const mkAppearanceDictionary = (theme: Theme): Readonly<Record<AppearanceKey, Appearance>> => ({
+  onDayOffNow: {
+    textColor: 'tertiary',
+    icon: <IconSuitcase {...commonIconProps} color={theme.colors.tertiary} />,
+  },
+  onSicktimeNow: {
+    textColor: 'quarternary',
+    icon: <IconPill {...commonIconProps} color={theme.colors.quarternary} />,
+  },
+  futureDayOff: {
+    textColor: 'textBlue',
+    icon: <IconPlane {...commonIconProps} color={theme.colors.textBlue} />,
+  },
+})
 
 export const CarouselElement = (p: CarouselElementProps) => {
   const theme = useTheme()
