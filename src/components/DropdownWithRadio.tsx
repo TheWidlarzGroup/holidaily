@@ -96,7 +96,6 @@ const useStyles = mkUseStyles((theme) => ({
   },
   header: {
     marginRight: 5,
-    marginLeft: theme.spacing.xxm,
     padding: theme.spacing.m,
     height: 56,
     flexDirection: 'row',
@@ -117,7 +116,6 @@ const useStyles = mkUseStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: theme.spacing.ml,
     paddingRight: theme.spacing.m,
   },
   chosenOption: {

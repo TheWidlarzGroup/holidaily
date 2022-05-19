@@ -35,11 +35,7 @@ export const DarkModeSwitch = () => {
     <>
       {isLoading && <LoadingModal style={{ position: 'absolute', zIndex: 20 }} show />}
       <Box style={styles.container}>
-        <Box
-          marginLeft="xxm"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center">
+        <Box flexDirection="row" justifyContent="space-between" alignItems="center">
           <Text variant="body1Bold" textAlign="left">
             {t('darkmode')}
           </Text>
@@ -55,6 +51,7 @@ const useStyles = mkUseStyles((theme) => ({
     backgroundColor: theme.colors.dropdownBackground,
     borderRadius: theme.borderRadii.lmin,
     paddingHorizontal: theme.spacing.ml,
+    paddingLeft: theme.spacing.m,
     paddingVertical: theme.spacing.m,
     marginTop: theme.spacing.l2plus,
     marginBottom: theme.spacing.s,
