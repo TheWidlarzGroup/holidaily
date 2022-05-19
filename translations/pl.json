@@ -84,7 +84,8 @@
     "joinMore": "Możesz dołączyć do innych działów w profilu użytkownika.",
     "joinMoreButton": "Dołacz teraz",
     "thanksButton": "Ok, dzięki!",
-    "placeholder": "Twoje imię"
+    "placeholder": "Twoje imię",
+    "logoutSuccess": "Wylogowano pomyślnie!"
   },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
