@@ -39,7 +39,6 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       placeholder,
       variant,
       reset,
-      hasValueChanged,
       hasButton,
       ...props
     },
