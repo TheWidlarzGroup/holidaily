@@ -6,7 +6,6 @@ export const MAX_SICK_DAYS_COUNT = 20
 
 export const MaxSickdays = () => (
   <Text marginBottom="l">
-    {/* @ts-ignore */}
     <Trans
       ns="requestVacation"
       i18nKey="maxSickdaysError"
