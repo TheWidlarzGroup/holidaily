@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import { ModalProps } from 'react-native-modal'
-import { isIos } from 'utils/layout'
 import { Box } from 'utils/theme'
 import { CustomButton } from './CustomButton'
 import { SwipeableModal } from './SwipeableModal'
@@ -36,8 +35,7 @@ export const SwipeableModalRegular = (props: SwipeableModalTempProps) => {
           paddingHorizontal="m"
           backgroundColor="white"
           borderTopLeftRadius="m"
-          borderTopRightRadius="m"
-          marginTop={isIos ? '-l' : 'none'}>
+          borderTopRightRadius="m">
           <ScrollView showsHorizontalScrollIndicator={false}>
             <TouchableOpacity activeOpacity={1}>
               <TouchableWithoutFeedback>
