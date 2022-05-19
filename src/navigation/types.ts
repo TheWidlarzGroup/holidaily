@@ -137,7 +137,7 @@ export type DrawerRoutes = {
 
 export type AuthRoutes = {
   Slider: undefined
-  Welcome: undefined
+  Welcome: { userLoggedOut?: true } | undefined
   About: { isFromWelcomeScreen?: true }
   TeamsModal: { firstName: string }
   Login: undefined
@@ -157,7 +157,7 @@ export type ModalRoutes = {
     end: string
     action?: string
   }
-
+  DashboardNotifications: undefined
   RequestVacationCalendar: { isSickTime?: boolean }
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
@@ -168,7 +168,6 @@ export type DashboardRoutes = {
   Dashboard: undefined
   DashboardTeam: Team
   DashboardTeamMember: User
-  DashboardNotifications: undefined
 }
 
 export type BudgetRoutes = {

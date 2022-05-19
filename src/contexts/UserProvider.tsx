@@ -53,6 +53,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'photo',
       'userColor',
       'seenNotificationsIds',
+      'seenTeamsModal',
     ])
   }
 

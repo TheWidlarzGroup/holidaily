@@ -17,7 +17,8 @@ export const LocationInfo = (props: LocationInfoProps) => {
         <IconMapLocation width={10} height={10} />
       </Box>
       <Text variant="regularNeutralGrey10">
-        {props.location.addresses?.[0].name}, {props.location.addresses?.[0].city}
+        {props.location.addresses?.[0].street} {props.location.addresses?.[0].name},{' '}
+        {props.location.addresses?.[0].city}
       </Text>
     </Box>
   )

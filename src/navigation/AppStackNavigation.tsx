@@ -5,6 +5,7 @@ import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
 import { CreatePost } from 'screens/createPost/CreatePost'
+import { Notifications } from 'screens/dashboard/Notifications'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
 
@@ -23,6 +24,14 @@ export const AppStackNavigation = () => {
           ...TransitionPresets.ModalPresentationIOS,
           animationEnabled: true,
         }}>
+        <AppStack.Screen
+          name="DashboardNotifications"
+          component={Notifications}
+          options={{
+            ...TransitionPresets.DefaultTransition,
+            animationEnabled: false,
+          }}
+        />
         <AppStack.Screen name="RequestVacation" component={RequestVacation} />
         <AppStack.Screen name="RequestVacationCalendar" component={CalendarRequestVacation} />
         <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />

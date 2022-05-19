@@ -57,7 +57,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       break
     case 'tertiary':
       bgColor = theme.colors.special
-      color = theme.colors.white
+      color = theme.colors.alwaysWhite
       rippleColor = theme.colors.grey
       break
     case 'danger':

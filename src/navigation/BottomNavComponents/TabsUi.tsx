@@ -24,7 +24,7 @@ export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
 
   return (
     <Box>
-      <Box width={windowWidth} position="absolute" bottom={-5} backgroundColor="transparent">
+      <Box position="absolute" bottom={-5} backgroundColor="transparent">
         <Box>
           <TabsHandler
             {...{ tabs, tabWidth }}
