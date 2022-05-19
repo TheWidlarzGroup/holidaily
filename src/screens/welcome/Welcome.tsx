@@ -16,15 +16,13 @@ import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
 import { Toast } from 'components/Toast'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { AuthNavigationProps } from 'navigation/types'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
-// Comment: Using ref for isFirstVisit causes the state to be forget when auth stck navigation is unmounted. We don't want it
-// The isFirstVisit is used to show toast when demo user logs out
-let isFirstVisit = true
 
-export const Welcome = () => {
+export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
   const styles = useStyles()
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch, reset } = useForm()
@@ -37,9 +35,8 @@ export const Welcome = () => {
   const { mutate: createTempUser } = useCreateTempUser()
 
   useEffect(() => {
-    if (isFirstVisit) isFirstVisit = false
-    else showToast()
-  }, [showToast])
+    if (route.params?.userLoggedOut) showToast()
+  }, [showToast, route.params?.userLoggedOut])
 
   const onSubmit = async () => {
     await setItem('firstName', nameInput)

@@ -13,7 +13,7 @@ import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
 
-type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
+type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'LoggedOut' | 'FirstVisit'
 
 export const AppNavigation = () => {
   const styles = useStyle()
@@ -45,7 +45,7 @@ export const AppNavigation = () => {
 
   useEffect(() => {
     if (isFirstRender.current) return
-    if (loginStatus === 'LoggedIn' && !user) return setLoginStatus('AnotherVisit')
+    if (loginStatus === 'LoggedIn' && !user) return setLoginStatus('LoggedOut')
     if (user?.firstName && loginStatus !== 'LoggedIn') setLoginStatus('LoggedIn')
   }, [user, loginStatus])
 
@@ -86,7 +86,7 @@ export const AppNavigation = () => {
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
-      {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Welcome" />}
+      {loginStatus === 'LoggedOut' && <AuthStackNavigation initialRoute="Welcome" userLoggedOut />}
     </NavigationContainer>
   )
 }
