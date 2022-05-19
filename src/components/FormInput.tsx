@@ -2,7 +2,6 @@ import React, { forwardRef, useEffect } from 'react'
 import { TextInputProps, TextInput } from 'react-native'
 import { Controller, Control, FieldErrors } from 'react-hook-form'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-
 import { Text } from 'utils/theme/index'
 import { generateInputErrors } from 'utils/generateInputErrors'
 import { useTranslation } from 'react-i18next'
@@ -41,6 +40,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       passwordsAreEqual,
       screenName,
       isError,
+      onBlur: onBlurCb,
       ...props
     },
     ref
@@ -67,7 +67,10 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
               reset={() => onChange('')}
               inputLabel={inputLabel}
               onChangeText={onChange}
-              onBlur={onBlur}
+              onBlur={(e) => {
+                onBlurCb?.(e)
+                onBlur()
+              }}
               value={value}
               isError={isError}
               ref={ref}

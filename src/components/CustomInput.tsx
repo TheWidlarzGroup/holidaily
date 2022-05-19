@@ -100,7 +100,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <TextInput
               style={[styles.input, disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
-              onBlur={hasValueChanged ? handleOnBlur : () => setIsFocused(false)}
+              onBlur={handleOnBlur}
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}
