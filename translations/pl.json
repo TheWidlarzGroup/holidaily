@@ -158,7 +158,7 @@
     "panel": "Panel",
     "chat": "Czat",
     "editProfile": "Edytuj profil",
-    "budget": "Budżet urlopowy"
+    "budget": "Moje urlopy"
   },
   "userProfile": {
     "addPhoto": "Dodaj zdjęcie profilowe",
@@ -332,13 +332,14 @@
     "dayOff": "<b>{{author}}</b> <b>ma jutro wolne</b> i wraca <b>{{endDate}}</b>"
   },
   "budget": {
-    "budget": "Budżet wakacyjny",
+    "budget": "Moje urlopy",
     "have": "Mam",
     "took": "Wziąłem/am",
     "sent": "Wysłałem/am",
     "of": "Z {{number}}",
     "left": "{{number}} dni urlopu",
     "sickDays": "{{number}} dni urlopu chorobowego",
+    "sickDaysLimit": "Z {{number}} możliwych",
     "requests": "{{number}} zapytań",
     "requestsStatus": "{{accepted}} zaakceptowane, {{pending}} oczekujące",
     "policyHeader": "Polityka dni urlopowych",
