@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { isWeekend } from 'utils/dates'
+import { isToday, isWeekend } from 'utils/dates'
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import { ViewStyle } from 'react-native'
 import { isHoliday } from 'poland-public-holidays'
@@ -22,26 +22,30 @@ export type MarkingStyles = {
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
-export const CalendarDayMain = ({
-  date,
-  state,
-  marking,
-  onPress,
-  styles,
-}: CalendarDayMainProps) => {
+export const CalendarDayMain = ({ date, marking, onPress, styles }: CalendarDayMainProps) => {
   const day = date.dateString
   const isNotAWorkingDay = isWeekend(day) || isHoliday(day)
   const textColor = () => {
     const isDisabled = isWeekend(day) || marking?.disabled || false
-    if (isDisabled && marking?.period) return 'white'
-    if (isDisabled) return 'grey'
+    if (isDisabled && marking?.period) return 'errorRed'
+    if (isDisabled) return 'headerGreyDarker'
     if (marking?.selected || marking?.period) return 'white'
-    return 'alwaysBlack'
+    return 'black'
   }
 
   const containerStyles = useAnimatedStyle(() => ({
-    backgroundColor: withTiming(marking?.selected && !marking?.period ? '#000000ff' : '#00000000'),
+    backgroundColor: withTiming(
+      marking?.selected && !marking?.period ? 'disabledTextBrighter' : 'primary'
+    ),
   }))
+
+  const getDateBgColor = () => {
+    if (isToday(day) && !marking?.selected) return 'disabledTextBrighter'
+    if (marking?.selected && isToday(day)) return 'primary'
+    if (marking?.selected) return 'primary'
+    return 'transparent'
+  }
+
   return (
     <Box
       style={[
@@ -65,14 +69,12 @@ export const CalendarDayMain = ({
           hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
           <Box
             borderRadius="l"
-            borderWidth={state === 'today' ? 2 : 0}
-            borderColor={marking?.period ? 'white' : 'black'}
-            backgroundColor="transparent"
+            backgroundColor={getDateBgColor()}
             width={28}
             height={28}
             justifyContent="center"
             alignItems="center">
-            <Text color={textColor()} variant={isNotAWorkingDay ? 'regular15Calendar' : 'bold15'}>
+            <Text color={textColor()} variant="regular14Calendar">
               {date.day}
             </Text>
           </Box>

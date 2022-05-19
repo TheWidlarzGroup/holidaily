@@ -140,9 +140,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
         )}
         renderArrow={(direction: 'left' | 'right') =>
           direction === 'left' ? (
-            <ArrowLeft color={theme.colors.titleActive} />
+            <ArrowLeft color={theme.colors.black} />
           ) : (
-            <ArrowRight color={theme.colors.titleActive} />
+            <ArrowRight color={theme.colors.black} />
           )
         }
         theme={headerTheme}

@@ -291,6 +291,11 @@ const legacyVariants = {
     fontSize: 12,
     lineHeight: 20,
   },
+  regular14Calendar: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 14,
+    lineHeight: 21,
+  },
   regular15Calendar: {
     fontFamily: 'Nunito-Regular',
     fontSize: 15,

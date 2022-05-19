@@ -86,7 +86,10 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
         </ScrollView>
       </SafeAreaWrapper>
       {modalUser && (
-        <SwipeableModalRegular isOpen={isModalVisible} onHide={() => setIsModalVisible(false)}>
+        <SwipeableModalRegular
+          hasIndicator
+          isOpen={isModalVisible}
+          onHide={() => setIsModalVisible(false)}>
           <DashboardTeamMember user={modalUser} />
         </SwipeableModalRegular>
       )}
