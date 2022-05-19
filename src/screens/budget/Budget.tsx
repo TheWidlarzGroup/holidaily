@@ -29,7 +29,7 @@ export const Budget = () => {
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
-        <Box paddingHorizontal="m" paddingTop="xxl">
+        <Box paddingHorizontal="m" paddingTop="lplus">
           <AvailablePto availablePto={user?.availablePto ?? 0} />
           <Box flexDirection="row">
             <SickDaysSection sickDaysCount={sickDaysCount} />
