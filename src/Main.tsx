@@ -25,18 +25,18 @@ export const Main = () => {
       <SafeAreaProvider>
         <BottomSheetModalProvider>
           <ModalProvider>
-            <TeamsContextProvider>
-              <QueryClientProvider client={queryClient}>
-                <UserContextProvider>
+            <UserContextProvider>
+              <TeamsContextProvider>
+                <QueryClientProvider client={queryClient}>
                   <StatusBar
                     translucent
                     barStyle={statusBarStyle}
                     backgroundColor={statusBarBgColor}
                   />
                   <AppNavigation />
-                </UserContextProvider>
-              </QueryClientProvider>
-            </TeamsContextProvider>
+                </QueryClientProvider>
+              </TeamsContextProvider>
+            </UserContextProvider>
           </ModalProvider>
         </BottomSheetModalProvider>
       </SafeAreaProvider>
