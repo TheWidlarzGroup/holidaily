@@ -17,6 +17,7 @@ import {
   hasServicesEnabledAsync,
   enableNetworkProviderAsync,
 } from 'expo-location'
+import { PermissionsAndroid } from 'react-native'
 
 export type UseLocationProps = {
   lastKnownLocationOptions?: LocationLastKnownOptions
@@ -112,7 +113,15 @@ export const useLocation = (options?: UseLocationProps) => {
     return combinedAddresses
   }, [])
 
-  return { requestLocation, requestPosition, requestAddresses }
+  const requestLocationPermission = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    )
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
+    return false
+  }
+
+  return { requestLocation, requestPosition, requestAddresses, requestLocationPermission }
 }
 
 const defaultLastLocationOptions: LocationLastKnownOptions = {

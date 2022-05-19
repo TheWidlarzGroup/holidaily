@@ -12,6 +12,7 @@ import {
 } from 'react-native-image-picker'
 import { Alert } from 'react-native'
 import { useKeyboard } from 'hooks/useKeyboard'
+import { useLocation } from 'hooks/useLocation'
 import { useTranslation } from 'react-i18next'
 import { FooterButton } from './FooterButton'
 
@@ -25,6 +26,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
   const [keyboardShown] = useKeyboard()
   const { t } = useTranslation('feed')
   const theme = useTheme()
+  const { requestLocationPermission } = useLocation()
 
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
@@ -73,6 +75,11 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
     )
   }
 
+  const handleRequestLocation = async () => {
+    const request = await requestLocationPermission()
+    if (request) return onLocationPress()
+  }
+
   return (
     <Box
       backgroundColor="disabled"
@@ -91,7 +98,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
       <FooterButton onPress={handleGalleryPress}>
         <IconGallery color={theme.colors.black} />
       </FooterButton>
-      <FooterButton onPress={onLocationPress}>
+      <FooterButton onPress={handleRequestLocation}>
         <IconLocation />
       </FooterButton>
     </Box>
