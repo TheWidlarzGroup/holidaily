@@ -137,7 +137,7 @@ export type DrawerRoutes = {
 
 export type AuthRoutes = {
   Slider: undefined
-  Welcome: undefined
+  Welcome: { userLoggedOut?: true } | undefined
   About: { isFromWelcomeScreen?: true }
   TeamsModal: { firstName: string }
   Login: undefined

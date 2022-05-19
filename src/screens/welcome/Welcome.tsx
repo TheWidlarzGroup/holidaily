@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -14,23 +14,29 @@ import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
+import { Toast } from 'components/Toast'
+import { useBooleanState } from 'hooks/useBooleanState'
+import { AuthNavigationProps } from 'navigation/types'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
 
-export const Welcome = () => {
+export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
   const styles = useStyles()
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch, reset } = useForm()
   const nameInput = watch('firstName')
-
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
   const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
-
+  const [isToastVisible, { setTrue: showToast, setFalse: hideToast }] = useBooleanState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
+
+  useEffect(() => {
+    if (route.params?.userLoggedOut) showToast()
+  }, [showToast, route.params?.userLoggedOut])
 
   const onSubmit = async () => {
     await setItem('firstName', nameInput)
@@ -45,7 +51,10 @@ export const Welcome = () => {
   }
 
   return (
-    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper>
+      <Box>
+        {isToastVisible && <Toast variant="success" text={t('logoutSuccess')} onHide={hideToast} />}
+      </Box>
       <KeyboardAwareScrollView
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}

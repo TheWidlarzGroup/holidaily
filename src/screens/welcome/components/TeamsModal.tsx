@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Text, useTheme } from 'utils/theme'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconClose from 'assets/icons/icon-close2.svg'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
@@ -10,6 +9,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import IconPeople from 'assets/icons/icon-people.svg'
 import { useNavigation } from '@react-navigation/native'
 import { ToggleButton } from 'components/ToggleButton'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 
 const ICON_SIZE = 18
 
@@ -18,82 +18,112 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { user } = useUserContext()
   const theme = useTheme()
   const { navigate } = useNavigation()
+  const screenSizeAwareSpacing = isScreenHeightShort ? 'xm' : 'l'
   return (
     <Box flex={1} borderTopLeftRadius="l1min" borderTopRightRadius="l1min" overflow="hidden">
-      <SafeAreaWrapper isDefaultBgColor>
-        <Box backgroundColor="white" flexGrow={1} paddingHorizontal="m" paddingVertical="l">
-          <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
-            <ModalHandleIndicator />
-            <TouchableOpacity
-              onPress={closeModal}
-              hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-              <IconClose height={15} width={15} color={theme.colors.black} />
-            </TouchableOpacity>
-          </Box>
-          <Box flex={1}>
-            <Text variant="displayBoldSM" marginTop="s">
-              {t('congrats')}
-            </Text>
-            <Box flexDirection="row" justifyContent="center" marginTop="xm">
-              <Text variant="textSM">{t('memberOf')}</Text>
-              <Text variant="textBoldSM" color="tertiary" marginLeft="xs">
-                Supercompany
-              </Text>
-            </Box>
-
-            <Box>
-              <Text
-                variant="displayXS"
-                color="darkGrey"
-                letterSpacing={0.7}
-                marginTop="l"
-                marginBottom="xs">
-                {t('yourTeams')}
-              </Text>
-              <Box flexDirection="row" flexWrap="wrap">
-                {user?.teams.map((team) => (
-                  <ToggleButton key={team.name}>{team.name}</ToggleButton>
-                ))}
-              </Box>
-              <Box
-                backgroundColor="specialBrighterOpaque"
-                borderRadius="lmin"
-                marginTop="xl"
-                padding="m">
-                <Box flexDirection="row">
-                  <Box
-                    height={36}
-                    width={36}
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius="l"
-                    backgroundColor="specialOpaque"
-                    marginRight="m">
-                    <IconPeople width={ICON_SIZE} height={ICON_SIZE} />
-                  </Box>
-                  <Box flex={1}>
-                    <Text variant="textSM">{t('joinMore')}</Text>
-                  </Box>
-                </Box>
-                <Box alignSelf="flex-end" marginRight="-xm" marginTop="xm">
-                  <CustomButton
-                    variant="tertiary"
-                    label={t('joinMoreButton')}
-                    width={120}
-                    onPress={() => {
-                      navigate('ProfileNavigation')
-                      closeModal()
-                    }}
-                  />
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-          <TouchableOpacity onPress={closeModal}>
-            <CustomButton variant="primary" label={t('thanksButton')} />
+      <Box
+        backgroundColor="white"
+        flexGrow={1}
+        paddingHorizontal="m"
+        paddingVertical={screenSizeAwareSpacing}>
+        <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
+          <ModalHandleIndicator />
+          <TouchableOpacity
+            onPress={closeModal}
+            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
+            <IconClose height={15} width={15} color={theme.colors.black} />
           </TouchableOpacity>
         </Box>
-      </SafeAreaWrapper>
+        <Box flex={1}>
+          <TeamsModalHeader />
+          <Box>
+            <Text
+              variant="displayXS"
+              color="darkGrey"
+              letterSpacing={0.7}
+              marginTop={screenSizeAwareSpacing}
+              marginBottom="xs">
+              {t('yourTeams')}
+            </Text>
+            <Box flexDirection="row" flexWrap="wrap">
+              {user?.teams.map((team) => (
+                <ToggleButton key={team.name}>{team.name}</ToggleButton>
+              ))}
+            </Box>
+            <Box
+              backgroundColor="specialBrighterOpaque"
+              borderRadius="lmin"
+              marginTop={screenSizeAwareSpacing}
+              padding="m">
+              <Box flexDirection="row">
+                <Box
+                  height={36}
+                  width={36}
+                  alignItems="center"
+                  justifyContent="center"
+                  borderRadius="l"
+                  backgroundColor="specialOpaque"
+                  marginRight="m">
+                  <IconPeople
+                    color={theme.colors.alwaysWhite}
+                    width={ICON_SIZE}
+                    height={ICON_SIZE}
+                  />
+                </Box>
+                <Box flex={1}>
+                  <Text variant="textSM">{t('joinMore')}</Text>
+                </Box>
+              </Box>
+              <Box alignSelf="flex-end" marginRight="-xm" marginTop="xm">
+                <CustomButton
+                  variant="tertiary"
+                  label={t('joinMoreButton')}
+                  width={120}
+                  onPress={() => {
+                    navigate('ProfileNavigation')
+                    closeModal()
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        <TouchableOpacity onPress={closeModal}>
+          <CustomButton variant="primary" label={t('thanksButton')} />
+        </TouchableOpacity>
+      </Box>
     </Box>
+  )
+}
+
+const TeamsModalHeader = () => {
+  const { t } = useTranslation('welcome')
+  if (isScreenHeightShort)
+    return (
+      <>
+        <Box flexDirection="row" justifyContent="center" alignItems="center" marginTop="xs">
+          <Text variant="displayBoldSM" marginRight="xs">
+            {t('congrats')}
+          </Text>
+          <Text variant="textSM">{t('memberOf')}</Text>
+          <Text variant="textBoldSM" color="tertiary" marginLeft="xs">
+            Supercompany
+          </Text>
+        </Box>
+      </>
+    )
+
+  return (
+    <>
+      <Text variant="displayBoldSM" marginTop="s">
+        {t('congrats')}
+      </Text>
+      <Box flexDirection="row" justifyContent="center" marginTop="xm">
+        <Text variant="textSM">{t('memberOf')}</Text>
+        <Text variant="textBoldSM" color="tertiary" marginLeft="xs">
+          Supercompany
+        </Text>
+      </Box>
+    </>
   )
 }

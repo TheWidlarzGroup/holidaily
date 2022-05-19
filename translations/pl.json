@@ -80,11 +80,12 @@
     "aboutButton": "Rozumiem",
     "congrats": "Gratulacje!",
     "memberOf": "Właśnie dołączyłeś do",
-    "yourTeams": "TWOJE DZIAŁY:",
-    "joinMore": "Możesz dołączyć do innych działów w profilu użytkownika.",
-    "joinMoreButton": "Dołacz teraz",
+    "yourTeams": "TWOJE ZESPOŁY:",
+    "joinMore": "Możesz dołączyć do innych zespołów w profilu użytkownika.",
+    "joinMoreButton": "Dołącz teraz",
     "thanksButton": "Ok, dzięki!",
-    "placeholder": "Twoje imię"
+    "placeholder": "Twoje imię",
+    "logoutSuccess": "Wylogowano pomyślnie!"
   },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
