@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Text, theme } from 'utils/theme'
-import { getDateWithMonthString, getDayName } from 'utils/dates'
+import { getDateWithMonthString, getDayName, isWeekend } from 'utils/dates'
 import { DayWeekend } from './DayWeekend'
 import { DayEvent } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
@@ -22,7 +22,7 @@ export const DayInfo = ({ date, events, weekend }: DayInfoProps) => {
   if (weekend) return <DayWeekend date={date} weekend={weekend} />
   return (
     <Box
-      opacity={new Date(date).getDay() === 0 || new Date(date).getDay() === 6 ? 0.5 : 1}
+      opacity={isWeekend(new Date(date)) ? 0.5 : 1}
       borderRadius="lmin"
       backgroundColor="white"
       paddingVertical={DAY_PADDING_VERTICAL}
