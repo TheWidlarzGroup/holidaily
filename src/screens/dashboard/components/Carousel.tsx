@@ -22,7 +22,7 @@ export const Carousel = () => {
   }
   const displayDay = (user: User) => {
     const { endDate, startDate } = user.requests[0]
-    const dateFormat = 'dd MMMM'
+    const dateFormat = 'dd MMM'
     const formatDayoffDate = (dateString: string) =>
       format(new Date(dateString), dateFormat, { locale: getCurrentLocale() })
     return user.isOnHoliday ? formatDayoffDate(endDate) : formatDayoffDate(startDate)
