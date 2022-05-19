@@ -8,6 +8,7 @@ import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { DrawerRoutes } from 'navigation/types'
 import { useSiriListeners } from 'hooks/useSiriListeners'
+import { Notifications } from 'screens/dashboard/Notifications'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -99,6 +100,11 @@ export const DrawerNavigator = () => {
         name="About"
         component={About}
         options={{ title: t('about'), swipeEnabled: false }}
+      />
+      <Drawer.Screen
+        name="DashboardNotifications"
+        component={Notifications}
+        options={{ swipeEnabled: false }}
       />
     </Drawer.Navigator>
   )

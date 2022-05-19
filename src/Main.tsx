@@ -9,7 +9,6 @@ import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
-import { RouteContextProvider } from 'contexts/RouteProvider'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
@@ -24,24 +23,22 @@ export const Main = () => {
   return (
     <ThemeProvider theme={currentTheme}>
       <SafeAreaProvider>
-        <RouteContextProvider>
-          <BottomSheetModalProvider>
-            <ModalProvider>
-              <TeamsContextProvider>
-                <QueryClientProvider client={queryClient}>
-                  <UserContextProvider>
-                    <StatusBar
-                      translucent
-                      barStyle={statusBarStyle}
-                      backgroundColor={statusBarBgColor}
-                    />
-                    <AppNavigation />
-                  </UserContextProvider>
-                </QueryClientProvider>
-              </TeamsContextProvider>
-            </ModalProvider>
-          </BottomSheetModalProvider>
-        </RouteContextProvider>
+        <BottomSheetModalProvider>
+          <ModalProvider>
+            <TeamsContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <UserContextProvider>
+                  <StatusBar
+                    translucent
+                    barStyle={statusBarStyle}
+                    backgroundColor={statusBarBgColor}
+                  />
+                  <AppNavigation />
+                </UserContextProvider>
+              </QueryClientProvider>
+            </TeamsContextProvider>
+          </ModalProvider>
+        </BottomSheetModalProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   )

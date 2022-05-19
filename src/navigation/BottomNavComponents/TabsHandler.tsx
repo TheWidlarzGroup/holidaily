@@ -54,8 +54,8 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
             alignItems="center"
             flexDirection="column"
             backgroundColor="white"
-            borderTopLeftRadius={tabsBorderRadius(key)('left')(buttonIdx)}
-            borderTopRightRadius={tabsBorderRadius(key)('right')(buttonIdx)}
+            borderTopLeftRadius={tabsBorderRadius({ key, side: 'left', buttonIdx })}
+            borderTopRightRadius={tabsBorderRadius({ key, side: 'right', buttonIdx })}
             zIndex="5">
             <BorderlessButton onPress={onPress} style={styles.button}>
               {getBottomTabIcon(

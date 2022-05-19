@@ -132,6 +132,7 @@ export type DrawerRoutes = {
   HolidayBudget: undefined
   About: undefined
   Settings: undefined
+  DashboardNotifications: undefined
   AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
 }
 
