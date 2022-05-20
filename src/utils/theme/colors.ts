@@ -76,6 +76,7 @@ export const colors = {
   alwaysDarkenWhite: palette.grayscale100,
   lightGrey: palette.grayscale200,
   veryLightGrey: palette.grayscale100,
+  veryLightGreyBrighter: palette.grayscale100,
   grey: palette.grayscale300,
   darkGrey: palette.grayscale500,
   darkGreyBrighter: palette.grayscale500,
@@ -124,6 +125,8 @@ export const colors = {
   lightBlueOpaque: palette.secondary25opaque,
   colorPickerBackdrop: palette.grayscale900SemiOpaque,
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
+  orangeToBlack: palette.primary100,
+  transparentToOrange: palette.transparent,
 }
 
 export const darkThemeColors = {
@@ -147,6 +150,7 @@ export const darkThemeColors = {
   alwaysDarkenWhite: palette.grayscale100,
   lightGrey: palette.grayscale800,
   veryLightGrey: palette.grayscale800,
+  veryLightGreyBrighter: palette.grayscale700,
   grey: palette.grayscale300,
   darkGrey: palette.grayscale500,
   darkGreyBrighter: palette.grayscale400,
@@ -195,6 +199,8 @@ export const darkThemeColors = {
   lightBlueOpaque: palette.secondary25opaque,
   colorPickerBackdrop: palette.grayscale900SemiOpaque,
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
+  orangeToBlack: palette.grayscale800,
+  transparentToOrange: palette.primary100,
 }
 
 export const legacyPalette = {

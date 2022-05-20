@@ -187,6 +187,11 @@ const legacyVariants = {
     fontSize: 12,
     color: 'errorRed',
   },
+  boldBlack16: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 16,
+  },
   boldBlack18: {
     fontFamily: 'Nunito-Bold',
     color: 'black',

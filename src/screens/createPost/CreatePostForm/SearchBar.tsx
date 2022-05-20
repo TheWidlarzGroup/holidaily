@@ -28,6 +28,7 @@ export const SearchBar = (props: SearchBarProps) => {
       borderRadius="xxl"
       flexDirection="row"
       alignItems="center"
+      backgroundColor="alwaysDarkenWhite"
       justifyContent="space-around">
       <BaseOpacity onPress={focusInput} paddingHorizontal="s">
         <IconSearch />

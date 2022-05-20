@@ -15,7 +15,12 @@ export const PostHeader = ({ left, right }: PostHeaderProps) => {
   const { goBack } = useNavigation()
   const theme = useTheme()
   return (
-    <Box flexDirection="row" alignItems="center" justifyContent="center" padding="l">
+    <Box
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="center"
+      padding="l"
+      backgroundColor="transparent">
       <Box position="absolute" left={0}>
         {left ?? (
           <BaseOpacity padding="m" onPress={() => goBack()}>
@@ -23,7 +28,7 @@ export const PostHeader = ({ left, right }: PostHeaderProps) => {
           </BaseOpacity>
         )}
       </Box>
-      <Text variant="boldBlack18" textAlign="center">
+      <Text variant="boldBlack16" textAlign="center">
         {t('title')}
       </Text>
       <Box position="absolute" right={0}>
