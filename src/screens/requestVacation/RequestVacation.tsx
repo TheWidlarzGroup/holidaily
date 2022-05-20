@@ -15,6 +15,7 @@ import {
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 
 export type RequestDataTypes = {
   description: string
@@ -122,9 +123,11 @@ const emptyRequest = {
   files: [],
 }
 const WrappedRequestVacation = (p: RequestVacationProps) => (
-  <RequestVacationProvider>
-    <RequestVacation {...p} />
-  </RequestVacationProvider>
+  <SwipeableScreen>
+    <RequestVacationProvider>
+      <RequestVacation {...p} />
+    </RequestVacationProvider>
+  </SwipeableScreen>
 )
 
 export { WrappedRequestVacation as RequestVacation }
