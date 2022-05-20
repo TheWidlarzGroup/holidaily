@@ -11,6 +11,7 @@ import { RequestDetails } from './RequestDetails'
 export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SeeRequest'>) => {
   const { navigate } = useNavigation<RequestsNavigatorType<'SeeRequest'>>()
   const { t } = useTranslation('seeRequest')
+
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <ModalHeader>
