@@ -64,6 +64,7 @@ export const Carousel = () => {
       />
       {modalUser && (
         <SwipeableModalRegular
+          useScrollView
           hasIndicator
           isOpen={isModalVisible}
           onHide={() => setIsModalVisible(false)}>
