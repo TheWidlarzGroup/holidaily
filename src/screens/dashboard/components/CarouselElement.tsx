@@ -56,32 +56,30 @@ export const CarouselElement = (p: CarouselElementProps) => {
   const { textColor, icon } = appearanceDictionary[status]
 
   return (
-    <Box>
-      <Box marginBottom="m" alignItems="center">
-        <Box marginHorizontal="m" marginTop="m" marginBottom="xs" height={65} width={62}>
-          <Avatar
-            size="l"
-            src={p.photo}
-            userDetails={{ userColor: p.userColor, firstName: p.firstName, lastName: p.lastName }}
-          />
-          {p.isOnHoliday && (
-            <HolidayTag isSick={p.isSickTime} hideBorderColor isBorderBackgroundGrey />
-          )}
-        </Box>
-        <Box width={90} height={26} alignItems="center" justifyContent="center">
-          <Text variant="lightGreyRegular" color="black" lineHeight={14}>
-            {p.firstName}
-          </Text>
-          <Text variant="lightGreyRegular" color="black" lineHeight={14}>
-            {p.lastName}
-          </Text>
-        </Box>
-        <Box flexDirection="row" alignItems="center" justifyContent="center" width={90} height={20}>
-          {icon}
-          <Text variant="holidayDate" color={textColor} marginLeft="xs">
-            {p.dayToBeDisplayed}
-          </Text>
-        </Box>
+    <Box marginBottom="m" alignItems="center" flexGrow={1}>
+      <Box marginHorizontal="m" marginTop="m" marginBottom="xs" height={65} width={62}>
+        <Avatar
+          size="l"
+          src={p.photo}
+          userDetails={{ userColor: p.userColor, firstName: p.firstName, lastName: p.lastName }}
+        />
+        {p.isOnHoliday && (
+          <HolidayTag isSick={p.isSickTime} hideBorderColor isBorderBackgroundGrey />
+        )}
+      </Box>
+      <Box width={90} height={26} alignItems="center" justifyContent="center">
+        <Text variant="lightGreyRegular" color="black" lineHeight={14}>
+          {p.firstName}
+        </Text>
+        <Text variant="lightGreyRegular" color="black" lineHeight={14}>
+          {p.lastName}
+        </Text>
+      </Box>
+      <Box flexDirection="row" alignItems="center" justifyContent="center" width={90} height={20}>
+        {icon}
+        <Text variant="holidayDate" color={textColor} marginLeft="xs">
+          {p.dayToBeDisplayed}
+        </Text>
       </Box>
     </Box>
   )
