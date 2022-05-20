@@ -14,7 +14,7 @@ export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
       justifyContent="space-between"
       alignItems="center"
       flexDirection="row"
-      paddingTop={isIos ? 'xxlplus' : 'l'}>
+      paddingTop={isIos ? 's' : 'l'}>
       <Box>
         <TouchableOpacity
           onPress={() => navigate('Slider')}
