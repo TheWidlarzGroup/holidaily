@@ -12,14 +12,16 @@ export const SuccessCard = () => {
       flexGrow={1}
       alignItems="center"
       padding="xxxl"
-      bg="primary"
+      backgroundColor="orangeToBlack"
       borderTopLeftRadius="l"
       borderTopRightRadius="l"
+      borderTopColor="transparentToOrange"
+      borderTopWidth={2}
       position="absolute"
       bottom={0}
       right={0}
       left={0}>
-      <Text variant="bold20" marginBottom="l">
+      <Text variant="bold20" marginBottom="l" color="black">
         {t('postSent')}
       </Text>
       <Box>

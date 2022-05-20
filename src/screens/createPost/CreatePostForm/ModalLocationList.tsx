@@ -18,7 +18,7 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
     <Box paddingHorizontal="xs">
       {loading && (
         <Box alignItems="center" padding="m">
-          <Text>{t('loading')}</Text>
+          <Text color="black">{t('loading')}</Text>
         </Box>
       )}
       {!loading &&
@@ -30,7 +30,7 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
                 onPress={() => onLocationPress(location)}
                 paddingVertical="m"
                 key={address.name}>
-                <Text variant="regular15">
+                <Text variant="regular15" color="darkGreyBrighter">
                   {address.street} {address.name}, {address.city}
                 </Text>
                 <Text variant="labelGrey">
@@ -41,7 +41,7 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
           )
         ) : (
           <Box alignItems="center" padding="m">
-            <Text>{t('locationNotFound')}</Text>
+            <Text color="black">{t('locationNotFound')}</Text>
           </Box>
         ))}
     </Box>

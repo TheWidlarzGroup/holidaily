@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
+import { useTheme } from 'utils/theme'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
@@ -20,6 +21,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   const [state, dispatch] = usePostFormReducer()
   const [locationPickerOpened, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
     useBooleanState(false)
+  const theme = useTheme()
 
   const galleryImages = state.images.map(assetToGalleryItem)
   const sendDisabled = isSendDisabled(state)
@@ -30,9 +32,13 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
     }
   }, [dispatch, photosAsset])
 
+  const containerStyle = {
+    backgroundColor: theme.colors.white,
+  }
+
   return (
     <>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+      <KeyboardAvoidingView style={{ flex: 1, ...containerStyle }} behavior="height">
         <PostHeader />
         <ScrollView>
           <PostBody
