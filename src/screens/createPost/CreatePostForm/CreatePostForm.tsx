@@ -32,13 +32,11 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
     }
   }, [dispatch, photosAsset])
 
-  const containerStyle = {
-    backgroundColor: theme.colors.white,
-  }
-
   return (
     <>
-      <KeyboardAvoidingView style={{ flex: 1, ...containerStyle }} behavior="height">
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: theme.colors.white }}
+        behavior="height">
         <PostHeader />
         <ScrollView>
           <PostBody
