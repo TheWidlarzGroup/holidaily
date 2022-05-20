@@ -69,6 +69,7 @@ const Subscription = (p: SubscriptionProps) => {
 
 const useStyles = mkUseStyles((theme: Theme) => ({
   team: {
+    height: 45,
     marginLeft: theme.spacing.s,
     marginBottom: theme.spacing.m,
     paddingHorizontal: theme.spacing.m,
