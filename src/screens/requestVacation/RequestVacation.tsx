@@ -6,6 +6,7 @@ import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
@@ -15,7 +16,6 @@ import {
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
-import { SwipeableScreen } from 'navigation/SwipeableScreen'
 
 export type RequestDataTypes = {
   description: string
