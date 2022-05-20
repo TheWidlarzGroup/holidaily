@@ -55,10 +55,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
       <Box>
         {isToastVisible && <Toast variant="success" text={t('logoutSuccess')} onHide={hideToast} />}
       </Box>
-      <KeyboardAwareScrollView
-        style={styles.formContainer}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="always">
+      <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
         <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
