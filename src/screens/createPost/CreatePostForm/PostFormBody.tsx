@@ -32,6 +32,7 @@ export const PostBody = (props: PostBodyProps) => {
           {location?.addresses && <LocationInfo location={location} />}
           <TextInput
             multiline
+            placeholderTextColor={styles.placeholder.color}
             underlineColorAndroid="transparent"
             style={styles.textInput}
             placeholder={t('inputPlaceholder')}
@@ -46,6 +47,9 @@ export const PostBody = (props: PostBodyProps) => {
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
+  placeholder: {
+    color: theme.colors.headerGrey,
+  },
   textInput: {
     flexGrow: 1,
     paddingBottom: theme.spacing.l,
@@ -53,5 +57,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     width: '100%',
     fontSize: theme.fontSize.base,
     fontFamily: theme.fontFamily.nunitoRegular,
+    color: theme.colors.black,
   },
 }))

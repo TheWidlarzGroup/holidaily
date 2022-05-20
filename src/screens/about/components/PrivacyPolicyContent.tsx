@@ -88,7 +88,6 @@ const Subtitle = ({ i18nKey }: HelperProps) => {
 
 const PolicySection = ({ i18nKey, noMargin }: HelperProps & { noMargin?: true }) => (
   <Text variant="body1" textAlign="left" marginTop={noMargin ? undefined : 'l'} color="black">
-    {/* @ts-ignore */}
     <Trans
       ns="privacyPolicy"
       i18nKey={i18nKey}

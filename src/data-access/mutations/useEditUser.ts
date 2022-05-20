@@ -28,13 +28,13 @@ const fieldsToStoreLocally: readonly (keyof User & StorageKeys)[] = [
 export const useEditUser = () => {
   const { updateUser } = useUserContext()
   return useMutation<EditUserSuccess, AxiosError<{ errors: string[] }>, EditUserBody>(editUser, {
-    onSuccess: async (payload: EditUserSuccess<'OptionalTeams'>) => {
+    onSuccess: (payload: EditUserSuccess<'OptionalTeams'>) => {
       queryClient.setQueryData([QueryKeys.USER], () => ({ ...payload }))
       const { user } = payload
       // user on the backend has teams as an empty array so we want to delete them before updating the context
       delete user.teams
       updateUser(user)
-      await Promise.all(
+      Promise.all(
         fieldsToStoreLocally.map((field) =>
           user[field] ? setItem(field, String(user[field])) : removeItem(field)
         )

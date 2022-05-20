@@ -4,7 +4,7 @@ import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import GestureRecognizer from 'react-native-swipe-gestures'
-import { Box, useTheme } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/useUserContext'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
@@ -35,7 +35,6 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
   )
 
   const { user } = useUserContext()
-  const theme = useTheme()
   const {
     errors,
     control,
@@ -47,7 +46,6 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
       firstName: user?.firstName,
       lastName: user?.lastName,
       occupation: user?.occupation,
-      userColor: user?.userColor || theme.colors.primary,
       photo: user?.photo,
     },
   })
@@ -57,30 +55,27 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
   const { hideModal } = useModalContext()
-  const onUpdate = useCallback(
-    (payload: EditUserSuccess) => {
-      if (user) {
-        addUserToTeams(
-          payload.user,
-          user.teams.map((t) => t.name),
-          { withReset: true }
-        )
-      }
-    },
-    [user, addUserToTeams]
-  )
+  const onUpdate = (payload: EditUserSuccess) => {
+    if (user) {
+      addUserToTeams(
+        payload.user,
+        user.teams.map((t) => t.name),
+        { withReset: true }
+      )
+    }
+  }
+
   const editUser = (data: Partial<User>) =>
     mutateUser(data, {
       onSuccess: (payload) => {
         onUpdate(payload)
-        showSuccessToast()
         reset({
           firstName: payload.user?.firstName,
           lastName: payload.user?.lastName,
           occupation: payload.user?.occupation,
-          userColor: payload.user?.userColor,
           photo: payload.user?.photo,
         })
+        showSuccessToast()
       },
     })
   const onSubmit = (data: EditDetailsTypes) => editUser(data)
@@ -120,27 +115,29 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
     }, [handleGoBack])
   )
   return (
-    <SafeAreaWrapper>
-      <Box>
-        <ScrollView style={formOffset} keyboardShouldPersistTaps="handled">
-          <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
-          <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-          <TeamSubscriptions
-            showSuccessToast={showSuccessToast}
-            openSubscribeModal={openSubscribeModal}
-          />
-          <ProfileColor control={control} name="userColor" />
-        </ScrollView>
-        {isToastVisible && (
-          <Toast onHide={hideSuccessToast} variant="success" text={t('changesSaved')} />
-        )}
-        {isLoading && <LoadingModal show />}
-        {!isLoading && isDirty && (
-          <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
-        )}
-      </Box>
-    </SafeAreaWrapper>
+    <>
+      <SafeAreaWrapper>
+        <Box>
+          <ScrollView style={formOffset} keyboardShouldPersistTaps="handled">
+            <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
+            <DrawerBackArrow goBack={handleGoBack} />
+            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+            <TeamSubscriptions
+              showSuccessToast={showSuccessToast}
+              openSubscribeModal={openSubscribeModal}
+            />
+            <ProfileColor onUpdate={onUpdate} />
+          </ScrollView>
+          {isToastVisible && (
+            <Toast onHide={hideSuccessToast} variant="success" text={t('changesSaved')} />
+          )}
+          {isLoading && <LoadingModal show />}
+          {!isLoading && isDirty && (
+            <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
+          )}
+        </Box>
+      </SafeAreaWrapper>
+    </>
   )
 }

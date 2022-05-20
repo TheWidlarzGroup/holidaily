@@ -82,7 +82,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
 
   return (
     <Box
-      backgroundColor="disabled"
+      backgroundColor="white"
       borderTopLeftRadius="l"
       borderTopRightRadius="l"
       flexDirection="row"
@@ -93,13 +93,13 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
         paddingBottom: keyboardShown ? 65 : 0,
       }}>
       <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
-        <IconCamera />
+        <IconCamera color={theme.colors.black} />
       </FooterButton>
       <FooterButton onPress={handleGalleryPress}>
         <IconGallery color={theme.colors.black} />
       </FooterButton>
       <FooterButton onPress={handleRequestLocation}>
-        <IconLocation />
+        <IconLocation color={theme.colors.black} />
       </FooterButton>
     </Box>
   )

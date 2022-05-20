@@ -13,7 +13,7 @@ export type EventsListProps = {
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => {
   const [language] = useLanguage()
   return (
-    <Box marginTop="m" flex={1}>
+    <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
       <FlatList
         data={days}
         renderItem={useCallback(

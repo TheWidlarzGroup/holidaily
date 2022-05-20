@@ -187,6 +187,11 @@ const legacyVariants = {
     fontSize: 12,
     color: 'errorRed',
   },
+  boldBlack16: {
+    fontFamily: 'Nunito-Bold',
+    color: 'black',
+    fontSize: 16,
+  },
   boldBlack18: {
     fontFamily: 'Nunito-Bold',
     color: 'black',
@@ -290,6 +295,11 @@ const legacyVariants = {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
     lineHeight: 20,
+  },
+  regular14Calendar: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 14,
+    lineHeight: 21,
   },
   regular15Calendar: {
     fontFamily: 'Nunito-Regular',

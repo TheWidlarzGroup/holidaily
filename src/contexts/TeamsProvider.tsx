@@ -1,6 +1,8 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
+import { useUserContext } from 'hooks/useUserContext'
+import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
 import { TeamsContextProps, TeamsContext } from './TeamsContext'
 
 type TeamsProviderProps = {
@@ -9,8 +11,10 @@ type TeamsProviderProps = {
 
 export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const { data } = useGetOrganization()
+  const { user } = useUserContext()
   const [teams, setTeams] = useState<Team[]>(data?.teams || [])
   const [allUsers, setAllUsers] = useState<User[]>([])
+  const [demoUserTeamMates, setDemoUserTeamMates] = useState<User[]>([])
 
   const updateTeams = useCallback((newData: Team[]) => {
     setTeams((prev) => [...prev, ...newData])
@@ -28,14 +32,19 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const reset = useCallback(() => setTeams(data?.teams || []), [data?.teams])
 
   useEffect(() => {
-    const removeDuplicatesOfAllUsers = () => {
-      let users: User[] = []
-      teams?.forEach((team) => users.push(...team.users))
-      users = users.filter((user, i, arr) => arr.findIndex((usr) => usr.id === user.id) === i)
-      setAllUsers(users)
-    }
-    removeDuplicatesOfAllUsers()
+    const usersWithoutDuplicates = getUsersWithoutDuplicates(teams)
+    setAllUsers(usersWithoutDuplicates)
   }, [teams])
+
+  useEffect(() => {
+    const getAllDemoUserTeammates = () => {
+      const demoUserTeamsList = user?.teams.map((team) => team.name)
+      const demoUserTeams = teams.filter((team) => demoUserTeamsList?.includes(team.name))
+      const noDuplicatedUsers = getUsersWithoutDuplicates(demoUserTeams)
+      setDemoUserTeamMates(noDuplicatedUsers)
+    }
+    getAllDemoUserTeammates()
+  }, [teams, user?.teams])
 
   useEffect(() => {
     if (data) {
@@ -49,6 +58,7 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     allUsers,
     addUserToTeams,
     reset,
+    demoUserTeamMates,
   }
   return <TeamsContext.Provider value={value}>{children}</TeamsContext.Provider>
 }

@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react'
-import { Box, Text, Theme, theme } from 'utils/theme'
+import { Box, Text, Theme, useTheme } from 'utils/theme'
 import IconPlane from 'assets/icons/icon-plane.svg'
 import IconSuitcase from 'assets/icons/icon-suitcase.svg'
 import IconPill from 'assets/icons/icon-pill.svg'
 import { HolidayTag } from 'screens/dashboard/components/HolidayTag'
 import { Avatar } from 'components/Avatar'
+import { TextProps } from '@shopify/restyle'
+import { SvgProps } from 'react-native-svg'
 
 export type CarouselElementProps = {
   isOnHoliday: boolean
@@ -16,49 +18,43 @@ export type CarouselElementProps = {
   isSickTime?: boolean
 }
 
+type AppearanceKey = 'onDayOffNow' | 'onSicktimeNow' | 'futureDayOff'
+type Appearance = {
+  textColor: TextProps<Theme>['color']
+  icon: ReactElement<SvgProps>
+}
 const ICON_SIZE = 10
 
-export const CarouselElement = (p: CarouselElementProps) => {
-  let icon: ReactElement = <Box />
-  let textColor: keyof Theme['colors'] = 'tertiary'
+const commonIconProps: SvgProps = {
+  width: ICON_SIZE,
+  height: ICON_SIZE,
+  style: { transform: [{ translateY: -2 }] },
+}
 
-  switch (true) {
-    case p.isOnHoliday && !p.isSickTime:
-      textColor = 'tertiary'
-      icon = (
-        <IconSuitcase
-          width={ICON_SIZE}
-          height={ICON_SIZE}
-          color={theme.colors.tertiary}
-          style={{ transform: [{ translateY: -2 }] }}
-        />
-      )
-      break
-    case !p.isOnHoliday:
-      textColor = 'textBlue'
-      icon = (
-        <IconPlane
-          width={ICON_SIZE}
-          height={ICON_SIZE}
-          color={theme.colors.textBlue}
-          style={{ transform: [{ translateY: -1 }] }}
-        />
-      )
-      break
-    case p.isOnHoliday && p.isSickTime:
-      textColor = 'quarternary'
-      icon = (
-        <IconPill
-          width={ICON_SIZE}
-          height={ICON_SIZE}
-          color={theme.colors.quarternary}
-          style={{ transform: [{ translateY: -1 }] }}
-        />
-      )
-      break
-    default:
-      break
-  }
+const mkAppearanceDictionary = (theme: Theme): Readonly<Record<AppearanceKey, Appearance>> => ({
+  onDayOffNow: {
+    textColor: 'tertiary',
+    icon: <IconSuitcase {...commonIconProps} color={theme.colors.tertiary} />,
+  },
+  onSicktimeNow: {
+    textColor: 'quarternary',
+    icon: <IconPill {...commonIconProps} color={theme.colors.quarternary} />,
+  },
+  futureDayOff: {
+    textColor: 'textBlue',
+    icon: <IconPlane {...commonIconProps} color={theme.colors.textBlue} />,
+  },
+})
+
+export const CarouselElement = (p: CarouselElementProps) => {
+  const theme = useTheme()
+  const appearanceDictionary = mkAppearanceDictionary(theme)
+  let status: keyof typeof appearanceDictionary
+  if (p.isOnHoliday && p.isSickTime) status = 'onSicktimeNow'
+  else if (p.isOnHoliday) status = 'onDayOffNow'
+  else status = 'futureDayOff'
+  const { textColor, icon } = appearanceDictionary[status]
+
   return (
     <Box marginBottom="m" alignItems="center" flexGrow={1}>
       <Box marginHorizontal="m" marginTop="m" marginBottom="xs" height={65} width={62}>

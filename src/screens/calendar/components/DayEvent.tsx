@@ -46,14 +46,14 @@ export const DayEvent = ({ event }: DayEventProps) => (
     />
     <Box style={{ marginTop: 1 }}>
       <Box flexDirection="row" alignItems="center">
-        <Text fontSize={12} fontFamily="Nunito-Bold" lineHeight={14}>
+        <Text fontSize={12} fontFamily="Nunito-Bold" lineHeight={18} color="blackBrighter">
           {`${event.person}: `}
         </Text>
-        <Text fontSize={12} fontFamily="Nunito-Regular" lineHeight={14}>
+        <Text fontSize={12} fontFamily="Nunito-Regular" lineHeight={18} color="blackBrighter">
           {event.reason}
         </Text>
       </Box>
-      <Text fontSize={12} fontFamily="Nunito-Regular" lineHeight={14} color="grey">
+      <Text fontSize={12} fontFamily="Nunito-Regular" lineHeight={18} color="darkGreyBrighter">
         {event.position}
       </Text>
     </Box>

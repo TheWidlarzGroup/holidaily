@@ -6,8 +6,8 @@ import { CustomButton } from './CustomButton'
 type SubmitProps = {
   onCTAPress: F0
   disabledCTA: boolean
+  noBg?: boolean
   text?: string
-  noBg?: true
   loading?: boolean
 }
 
@@ -16,7 +16,7 @@ export const Submit = (p: SubmitProps) => {
   const theme = useTheme()
   return (
     <Box
-      backgroundColor={p.noBg ? undefined : 'disabled'}
+      backgroundColor="white"
       justifyContent="center"
       alignItems="stretch"
       paddingHorizontal="xxxl"
