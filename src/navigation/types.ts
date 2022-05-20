@@ -181,7 +181,7 @@ export type RequestsRoutes = {
 }
 
 export type UserProfileRoutes = {
-  EditProfile: { openSubscribeModal?: true }
+  EditProfile: undefined
   ChangePassword: undefined
   Recovery: undefined
   SubscribeTeam: UserTeamsSubscriptions

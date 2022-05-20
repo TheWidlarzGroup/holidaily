@@ -5,14 +5,14 @@ import IconAdd from 'assets/icons/icon-add.svg'
 
 type AddSubscriptionsButtonProps = {
   userTeams: Team[]
-  onSubscribeTeam: F0
+  openModal: F0
 }
 
 export const AddSubscriptionsButton = (p: AddSubscriptionsButtonProps) => {
   const theme = useTheme()
   return (
     <BaseOpacity
-      onPress={p.onSubscribeTeam}
+      onPress={p.openModal}
       justifyContent="center"
       position="absolute"
       bottom={theme.spacing.m}

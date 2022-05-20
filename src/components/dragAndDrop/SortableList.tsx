@@ -18,12 +18,13 @@ const SCROLL_VIEW_BOTTOM_PADDING = 75
 
 type SortableListProps = {
   children: SortableListItemType[]
+  openModal: F0
 }
 
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
 
-export const SortableList = ({ children }: SortableListProps) => {
+export const SortableList = ({ children, openModal }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
@@ -108,7 +109,7 @@ export const SortableList = ({ children }: SortableListProps) => {
                 {t('teamsList').toUpperCase()}
               </Text>
             </Box>
-            {!(children.length > 0) && <JoinFirstTeam />}
+            {!(children.length > 0) && <JoinFirstTeam openModal={openModal} />}
           </>
         }
         data={children}

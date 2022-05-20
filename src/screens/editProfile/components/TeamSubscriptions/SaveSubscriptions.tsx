@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { CustomButton } from 'components/CustomButton'
 import { LoadingModal } from 'components/LoadingModal'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
@@ -9,14 +8,13 @@ import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { Box } from 'utils/theme'
 
 type SaveSubscriptionsProps = {
-  disabled?: boolean
-  setSubscriptions?: F1<ParsedTeamType[]>
   selectedTeams: ParsedTeamType[]
+  closeModal: F0
+  disabled?: boolean
 }
 
 export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   const { t } = useTranslation('userProfile')
-  const { goBack } = useNavigation()
   const { data: organization } = useGetOrganization()
   const { user, updateUser } = useUserContext()
   const submitSubscriptions = () => {
@@ -25,8 +23,8 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
       p.selectedTeams.some((selectedTeam) => selectedTeam.teamName === orgTeam.name)
     )
     updateUser({ teams: [...teams, ...user.teams] })
-    p.setSubscriptions?.(p.selectedTeams)
-    goBack()
+    console.log(p.selectedTeams)
+    p.closeModal()
   }
   if (!user || !organization) return <LoadingModal show />
   return (

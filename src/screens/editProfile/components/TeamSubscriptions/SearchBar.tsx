@@ -18,7 +18,7 @@ export const SearchBar = ({ searchFilter, searchPhrase }: SearchBarProps) => (
       variant="small"
       isError={false}
     />
-    <Box position="absolute">
+    <Box position="absolute" top={-1}>
       <InputSearchIcon />
     </Box>
   </Box>

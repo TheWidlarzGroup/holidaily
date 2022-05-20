@@ -1,15 +1,16 @@
 import React, { useMemo, useState } from 'react'
-import { UserProfileNavigationProps } from 'navigation/types'
 import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
-import { SwipeableScreen } from 'navigation/SwipeableScreen'
-import { SearchTeams } from './TeamSubscriptions/SearchTeams'
+import { Box, Text } from 'utils/theme'
+import { useTranslation } from 'react-i18next'
 import { SaveSubscriptions } from './TeamSubscriptions/SaveSubscriptions'
+import { SearchTeams } from './TeamSubscriptions/SearchTeams'
 
-type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
+type SubscribeNewTeamProps = { closeModal: F0 }
 
-export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps) => {
+export const SubscribeNewTeam = ({ closeModal }: SubscribeNewTeamProps) => {
+  const { t } = useTranslation('userProfile')
   const [selectedTeams, setSelectedTeams] = useState<ParsedTeamType[]>([])
   const { user } = useUserContext()
   const teams = useMemo(() => {
@@ -19,17 +20,18 @@ export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps
   if (!user) return <LoadingModal show />
 
   return (
-    <SwipeableScreen>
+    <Box>
+      <Text variant="displayBoldSM">{t('joinTeams')}</Text>
       <SearchTeams
         setSelectedTeams={setSelectedTeams}
         selectedTeams={selectedTeams}
         userTeams={teams}
       />
       <SaveSubscriptions
-        setSubscriptions={p.addSubscriptions}
         selectedTeams={selectedTeams}
         disabled={!selectedTeams.length}
+        closeModal={closeModal}
       />
-    </SwipeableScreen>
+    </Box>
   )
 }

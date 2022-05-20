@@ -7,7 +7,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { TeamElement } from './TeamElement'
 
-export const SortableTeams = () => {
+export const SortableTeams = ({ openModal }: { openModal: F0 }) => {
   const { user } = useUserContext()
   const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
   const navigateToTeamDetails = (team: Team) => navigation.navigate('DashboardTeam', { ...team })
@@ -20,5 +20,5 @@ export const SortableTeams = () => {
   ))
 
   if (!user?.teams) return <LoadingModal show />
-  return <SortableList>{teamElements}</SortableList>
+  return <SortableList openModal={openModal}>{teamElements}</SortableList>
 }

@@ -1,19 +1,10 @@
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { Box, Text } from 'utils/theme'
-import { TouchableOpacity } from 'react-native'
+import { BaseOpacity, Box, Text } from 'utils/theme'
 import IconPlus from 'assets/icons/icon-plus-small.svg'
-import { UserProfileType } from 'navigation/types'
 
-export const JoinFirstTeam = () => {
+export const JoinFirstTeam = ({ openModal }: { openModal: F0 }) => {
   const { t } = useTranslation('dashboard')
-  const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
-
-  const onSubscribeTeam = () =>
-    navigate('EditProfile', {
-      openSubscribeModal: true,
-    })
 
   return (
     <Box
@@ -26,17 +17,16 @@ export const JoinFirstTeam = () => {
       <Text variant="textBoldSM" marginRight="l" lineHeight={20}>
         {t('joinFirstTeam')}
       </Text>
-      <TouchableOpacity onPress={onSubscribeTeam}>
-        <Box
-          width={40}
-          height={40}
-          backgroundColor="special"
-          borderRadius="l"
-          justifyContent="center"
-          alignItems="center">
-          <IconPlus />
-        </Box>
-      </TouchableOpacity>
+      <BaseOpacity
+        onPress={openModal}
+        width={40}
+        height={40}
+        backgroundColor="special"
+        borderRadius="l"
+        justifyContent="center"
+        alignItems="center">
+        <IconPlus />
+      </BaseOpacity>
     </Box>
   )
 }

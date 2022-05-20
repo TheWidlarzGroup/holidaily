@@ -1,47 +1,32 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/native'
 import { Box, Text } from 'utils/theme'
 import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
-import { UserProfileType } from 'navigation/types'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
+import { SubscribeNewTeam } from './SubscribeNewTeam'
 
 type TeamSubscriptionsType = {
   showSuccessToast: F0
-  openSubscribeModal?: true
 }
 
-export const TeamSubscriptions = ({
-  showSuccessToast,
-  openSubscribeModal,
-}: TeamSubscriptionsType) => {
+export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) => {
+  const [isSubscribeModalVisible, { setFalse: closeSubscribeModal, setTrue: openSubscribeModal }] =
+    useBooleanState(false)
   const { t } = useTranslation('userProfile')
-  const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
   const { isLoading } = useTeamMocks()
   const { user, updateUser } = useUserContext()
-  const [teams, setTeams] = useState<TeamsType[]>(
-    user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
-  )
-
-  const onSubscribeTeam = useCallback(() => {
-    const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
-    navigate('SubscribeTeam', {
-      userTeams: teams,
-      addSubscriptions: (teams) => {
-        addTeams(teams)
-        showSuccessToast()
-      },
-    })
-  }, [navigate, showSuccessToast, teams])
+  const [teams, setTeams] = useState<TeamsType[]>([])
 
   useEffect(() => {
-    if (openSubscribeModal) onSubscribeTeam()
-  }, [onSubscribeTeam, openSubscribeModal])
+    setTeams(user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? [])
+  }, [user?.teams])
 
   const removeSubscription = (teamName: string) => {
     if (!user) return
@@ -59,19 +44,27 @@ export const TeamSubscriptions = ({
 
   if (isLoading || !user) return <LoadingModal style={{ position: 'absolute', top: 0 }} show />
   return (
-    <Box>
-      <Text variant="sectionLabel" marginLeft="m" marginBottom="xm">
-        {t('userTeams')}
-      </Text>
+    <>
+      <Box>
+        <Text variant="sectionLabel" marginLeft="m" marginBottom="xm">
+          {t('userTeams')}
+        </Text>
 
-      {teams.length ? (
-        <Box flexDirection="row">
-          <ActiveSubscriptions teams={teams} removeSubscription={removeSubscription} />
-          <AddSubscriptionsButton onSubscribeTeam={onSubscribeTeam} userTeams={user.teams} />
-        </Box>
-      ) : (
-        <JoinFirstTeam />
-      )}
-    </Box>
+        {teams.length ? (
+          <Box flexDirection="row">
+            <ActiveSubscriptions teams={teams} removeSubscription={removeSubscription} />
+            <AddSubscriptionsButton openModal={openSubscribeModal} userTeams={user.teams} />
+          </Box>
+        ) : (
+          <JoinFirstTeam openModal={openSubscribeModal} />
+        )}
+      </Box>
+      <SwipeableModalRegular
+        hasIndicator
+        isOpen={isSubscribeModalVisible}
+        onHide={closeSubscribeModal}>
+        <SubscribeNewTeam closeModal={closeSubscribeModal} />
+      </SwipeableModalRegular>
+    </>
   )
 }

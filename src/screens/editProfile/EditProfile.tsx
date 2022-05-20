@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { BackHandler, ScrollView, StyleSheet } from 'react-native'
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
@@ -15,7 +15,6 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Toast } from 'components/Toast'
-import { UserProfileNavigationProps } from 'navigation/types'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
@@ -25,14 +24,8 @@ import { SaveChangesButton } from './components/SaveChangesButton'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
-export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>) => {
-  const openSubscribeModal = route?.params?.openSubscribeModal
+export const EditProfile = () => {
   const navigation = useNavigation()
-
-  useEffect(
-    () => () => navigation.setParams({ openSubscribeModal: false }),
-    [navigation, route?.params?.openSubscribeModal]
-  )
 
   const { user } = useUserContext()
   const {
@@ -123,10 +116,7 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
             <DrawerBackArrow goBack={handleGoBack} />
             <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
             <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-            <TeamSubscriptions
-              showSuccessToast={showSuccessToast}
-              openSubscribeModal={openSubscribeModal}
-            />
+            <TeamSubscriptions showSuccessToast={showSuccessToast} />
             <ProfileColor onUpdate={onUpdate} />
           </ScrollView>
           {isToastVisible && (

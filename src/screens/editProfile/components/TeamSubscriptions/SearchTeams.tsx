@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Box, Text } from 'utils/theme'
+import { Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/native'
 import { ParsedTeamType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { LoadingModal } from 'components/LoadingModal'
@@ -11,7 +10,6 @@ import {
   checkTeamsAvailableToSubscribe,
   filterSearchedItems,
 } from '../../helpers/teamSubscriptionHelper'
-import { SearchHeader } from './SearchHeader'
 import { SearchBar } from './SearchBar'
 
 type SearchBarProps = {
@@ -26,7 +24,6 @@ export const SearchTeams = (p: SearchBarProps) => {
   const [filteredTeams, setFilteredTeams] = useState<ParsedTeamType[]>([])
   const [searchedItems, setSearchedItems] = useState<ParsedTeamType[]>([])
   const { TEAMS, isLoading } = useTeamMocks()
-  const { goBack } = useNavigation()
   const { t } = useTranslation('userProfile')
   const filterAlreadySubmittedSubscriptions = useCallback(() => {
     const teamsAvailableToSubscribe = filterNotSubmittedTeams(TEAMS, p.userTeams)
@@ -70,38 +67,36 @@ export const SearchTeams = (p: SearchBarProps) => {
     p.setSelectedTeams(subscriptions)
   }
 
-  const quitWithoutSaving = useWithConfirmation({
-    onAccept: () => {
-      p.setSelectedTeams([])
-      setFilteredTeams(masterData)
-      goBack()
-    },
-    header: t('discardTeams'),
-    declineBtnText: t('backToSelection'),
-    acceptBtnText: t('discard'),
-  })
+  // const quitWithoutSaving = useWithConfirmation({
+  //   onAccept: () => {
+  //     p.setSelectedTeams([])
+  //     setFilteredTeams(masterData)
+  //     // goBack()
+  //   },
+  //   header: t('discardTeams'),
+  //   declineBtnText: t('backToSelection'),
+  //   acceptBtnText: t('discard'),
+  // })
 
-  const handleGoBack = () => {
-    if (p.selectedTeams.length > 0 || searchedItems.length > 0) {
-      quitWithoutSaving()
-    } else {
-      goBack()
-    }
-  }
+  // const handleGoBack = () => {
+  //   if (p.selectedTeams.length > 0 || searchedItems.length > 0) {
+  //     quitWithoutSaving()
+  //   } else {
+  //     goBack()
+  //   }
+  // }
+
   if (isLoading) return <LoadingModal show />
   return (
     <>
-      <SearchHeader handleGoBack={handleGoBack} />
-      <Box paddingHorizontal="m">
-        <SearchBar searchFilter={searchFilter} searchPhrase={searchPhrase} />
-        <Text variant="sectionLabel">{t('selected', { selected: p.selectedTeams.length })}</Text>
-        <SearchResults
-          filteredTeams={filteredTeams}
-          searchedItems={searchedItems}
-          removeFromSubscriptions={removeFromSubscriptions}
-          addToSubscriptions={addToSubscriptions}
-        />
-      </Box>
+      <SearchBar searchFilter={searchFilter} searchPhrase={searchPhrase} />
+      <Text variant="sectionLabel">{t('selected', { selected: p.selectedTeams.length })}</Text>
+      <SearchResults
+        filteredTeams={filteredTeams}
+        searchedItems={searchedItems}
+        removeFromSubscriptions={removeFromSubscriptions}
+        addToSubscriptions={addToSubscriptions}
+      />
     </>
   )
 }

@@ -8,10 +8,14 @@ import { SwipeableModal } from 'components/SwipeableModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { ModalProps } from 'react-native-modal'
 import { sleep } from 'utils/sleep'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
+import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
   const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
+    useBooleanState(false)
+  const [isSubscribeModalVisible, { setFalse: closeSubscribeModal, setTrue: openSubscribeModal }] =
     useBooleanState(false)
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
@@ -29,7 +33,7 @@ export const Dashboard = () => {
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
-        <SortableTeams />
+        <SortableTeams openModal={openSubscribeModal} />
       </SafeAreaWrapper>
       <SwipeableModal
         style={teamsModalStyle}
@@ -37,6 +41,12 @@ export const Dashboard = () => {
         onHide={closeSuccessModal}>
         <TeamsModal closeModal={closeSuccessModal} />
       </SwipeableModal>
+      <SwipeableModalRegular
+        hasIndicator
+        isOpen={isSubscribeModalVisible}
+        onHide={closeSubscribeModal}>
+        <SubscribeNewTeam closeModal={closeSubscribeModal} />
+      </SwipeableModalRegular>
     </>
   )
 }
