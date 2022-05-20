@@ -6,6 +6,8 @@ import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { genMarkedDates } from 'utils/genMarkedDates'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { isPast } from 'date-fns'
+import { isToday } from 'date-fns/esm'
 import { MarkingType, NewCalendarBaseProps } from './CalendarComponents/CalendarTypes'
 import { NewCalendarList } from './CalendarComponents/NewCalendar'
 
@@ -18,6 +20,7 @@ type CustomCalendarProps = {
   selectable?: boolean
   onHeaderPressed?: F0
   isInvalid?: boolean
+  disablePastDates?: boolean
 }
 
 export const CalendarList = ({
@@ -70,10 +73,22 @@ export const CalendarList = ({
       hideArrows
       theme={theme}
       dayComponent={useCallback(
-        (props) => (
-          <CalendarDay {...props} styles={p.isInvalid ? invalidPeriodStyles : validPeriodStyles} />
-        ),
-        [p.isInvalid, invalidPeriodStyles, validPeriodStyles]
+        (props) => {
+          const date = new Date(props.date.dateString)
+          const disabledBecauseIsPast = p.disablePastDates && !isToday(date) && isPast(date)
+          return (
+            <CalendarDay
+              {...props}
+              marking={{
+                ...(props.marking ?? {}),
+                disabled: disabledBecauseIsPast || props.marking?.disabled,
+              }}
+              dayTextColor="alwaysBlack"
+              styles={p.isInvalid ? invalidPeriodStyles : validPeriodStyles}
+            />
+          )
+        },
+        [p.isInvalid, invalidPeriodStyles, validPeriodStyles, p.disablePastDates]
       )}
       markingType="period"
       onDayPress={handleClick}
