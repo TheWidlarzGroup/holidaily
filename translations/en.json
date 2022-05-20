@@ -158,7 +158,7 @@
     "panel": "Panel",
     "chat": "Chat",
     "editProfile": "Edit profile",
-    "budget": "Holiday budget"
+    "budget": "My time off"
   },
   "userProfile": {
     "addPhoto": "Add profile picture",
@@ -332,15 +332,16 @@
     "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"
   },
   "budget": {
-    "budget": "Holiday budget",
+    "budget": "My time off",
     "have": "I have",
     "took": "I took",
     "sent": "I sent",
     "of": "Out of {{number}}",
-    "left": "{{number}} Days of PTO left",
+    "left": "{{number}} PTO days left to use",
     "sickDays": "{{number}} sick days off",
+    "sickDaysLimit": "Out of {{number}}",
     "requests": "{{number}} requests",
-    "requestsStatus": "{{accepted}} accepted, {{pending}} pending",
+    "requestsStatus": "<g>{{accepted}} accepted</g>, {{pending}} pending",
     "policyHeader": "PTO days policy",
     "policyOne": "Number of PTO days depends on individual arrangements, but usually it is <b>21 PTO days per year.</b>",
     "policyTwo": "It increases after working a <b>full month.</b>",

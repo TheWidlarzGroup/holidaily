@@ -9,8 +9,10 @@ export const CalendarHeader = ({ date, onHeaderPressed }: { date: Date; onHeader
   return (
     <TouchableOpacity onPress={onHeaderPressed}>
       <Box margin="xm" flexDirection="row" alignItems="center">
-        <Text variant="bold16Calendar">{monthName}</Text>
-        <Text variant="regular12Calendar" marginLeft="s">
+        <Text variant="regular14Calendar" color="black">
+          {monthName}
+        </Text>
+        <Text variant="regular14Calendar" marginLeft="s" color="black">
           {year}
         </Text>
       </Box>

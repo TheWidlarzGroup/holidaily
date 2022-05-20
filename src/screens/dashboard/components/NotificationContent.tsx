@@ -19,7 +19,6 @@ export const NotificationContent = (p: NotificationContentProps) => {
     <Box flexDirection="row" justifyContent="space-between">
       <Box flex={1} padding="m">
         <Text variant="textSM" lineHeight={21} color="blackBrighter" marginBottom="-s">
-          {/* @ts-ignore   trans component causes "Type instantiation is excessively deep and possibly infinite." in pipeline, but not in VSCode */}
           <Trans
             ns="notifications"
             i18nKey={p.type}
