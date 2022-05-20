@@ -20,6 +20,7 @@ export type MarkingStyles = {
     disabledDay: ViewStyle
   }
   dayTextColor?: TextProps<Theme>['color']
+  ignoreDarkMode?: true
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
@@ -32,7 +33,8 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
     if (isDisabled && p.marking?.period) return 'errorRed'
     if (isDisabled) return 'headerGreyDarker'
     if (p.marking?.selected || p.marking?.period) return 'white'
-    return p.dayTextColor ?? 'black'
+    if (p.ignoreDarkMode) return 'alwaysBlack'
+    return 'black'
   }
 
   const containerStyles = useAnimatedStyle(() => ({
@@ -42,6 +44,7 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
   }))
 
   const getDateBgColor = () => {
+    if (p.ignoreDarkMode && isToday(day) && !p.marking?.selected) return 'disabled'
     if (isToday(day) && !p.marking?.selected) return 'disabledTextBrighter'
     if (p.marking?.selected && isToday(day)) return 'primary'
     if (p.marking?.selected) return 'primary'

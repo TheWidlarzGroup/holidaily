@@ -83,7 +83,7 @@ export const CalendarList = ({
                 ...(props.marking ?? {}),
                 disabled: disabledBecauseIsPast || props.marking?.disabled,
               }}
-              dayTextColor="alwaysBlack"
+              ignoreDarkMode
               styles={p.isInvalid ? invalidPeriodStyles : validPeriodStyles}
             />
           )
