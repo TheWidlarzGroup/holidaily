@@ -8,6 +8,7 @@ import { CreatePost } from 'screens/createPost/CreatePost'
 import { Notifications } from 'screens/dashboard/Notifications'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
+import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
@@ -17,13 +18,8 @@ export const AppStackNavigation = () => {
   return (
     <Box flex={1} backgroundColor="black">
       <AppStack.Navigator
-        mode="modal"
-        headerMode="none"
-        initialRouteName="DrawerNavigator"
-        screenOptions={{
-          ...TransitionPresets.ModalPresentationIOS,
-          animationEnabled: true,
-        }}>
+        {...StackNavigatorPresets.modalNavigator}
+        initialRouteName="DrawerNavigator">
         <AppStack.Screen
           name="DashboardNotifications"
           component={Notifications}
