@@ -1,6 +1,7 @@
 import { useAddPost } from 'dataAccess/mutations/useAddPost'
 import { useUserContext } from 'hooks/useUserContext'
 import { FeedPost, FeedPostDataType } from 'mockApi/models/miragePostTypes'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps } from 'navigation/types'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'react-native'
@@ -69,12 +70,12 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
   }
 
   return (
-    <>
+    <SwipeableScreen>
       {status === 'draft' ? (
         <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
       ) : (
         <CreatePostResult status={status} />
       )}
-    </>
+    </SwipeableScreen>
   )
 }

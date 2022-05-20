@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
-import { useTheme } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
@@ -52,7 +52,9 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
           imagesCount={state.images.length}
         />
       </KeyboardAvoidingView>
-      <Submit disabledCTA={sendDisabled} onCTAPress={() => onSend(state)} />
+      <Box bg="dropdownPicked">
+        <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
+      </Box>
       <ModalLocationPicker
         visible={locationPickerOpened}
         onLocationChange={(locationPayload) => {
