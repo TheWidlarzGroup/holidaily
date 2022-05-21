@@ -6,6 +6,7 @@ import { DayOffRequest } from 'mock-api/models'
 import { calculatePTO } from 'utils/dates'
 import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
 import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { RequestDetailsHeader } from './RequestDetailsHeader'
 import { RequestSicktimeAndMessage } from './RequestSicktimeAndMessage'
 import { RequestAttachments } from './RequestAttachments'
@@ -22,13 +23,16 @@ export const RequestDetails = (
   p: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'> & RequestDetailsProps
 ) => {
   const styles = useStyles()
+  const { userSettings } = useUserSettingsContext()
   const { t } = useTranslation('seeRequest')
   const iconStatus = getIconStatus(p.status)
+  const topOpacity = userSettings?.darkMode ? 0 : 0.3
+  const bgColor = userSettings?.darkMode ? 'white' : 'primary' // TODO: create color in colors and replace below
 
   return (
     <ScrollView style={{ flex: 1 }}>
       <Box
-        backgroundColor="primary"
+        backgroundColor={bgColor}
         borderRadius="m"
         marginBottom={p.showStatus ? 'xxxl' : undefined}
         paddingBottom="xxxxl"
@@ -36,20 +40,20 @@ export const RequestDetails = (
         <BackgroundPlant1 style={styles.plant1} />
         <BackgroundPlant2 style={styles.plant2} height={90} />
         {!!p.showStatus && (
-          <Box bg="primary">
+          <Box bg={bgColor}>
             <Box
               position="absolute"
               height="100%"
               width="100%"
               bg="white"
-              opacity={0.3}
+              opacity={topOpacity}
               alignItems="center"
               justifyContent="center"
               zIndex="-1"
             />
             <Box padding="m" flexDirection="row" alignItems="center">
               <CircleStatusIcon status={iconStatus} />
-              <Text fontFamily="Nunito-Bold" fontSize={16} lineHeight={20}>
+              <Text fontFamily="Nunito-Bold" color="black" fontSize={16} lineHeight={20}>
                 {t(p.status)}
               </Text>
             </Box>
