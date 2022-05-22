@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
@@ -7,6 +6,8 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
@@ -26,18 +27,13 @@ type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestD
 type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
+  const { userSettings } = useUserSettingsContext()
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
   const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
-
-  useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    return () => {
-      StatusBar.setBarStyle('dark-content')
-    }
-  }, [])
+  useSetStatusBarStyle(userSettings)
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback(ctx.requestData)
