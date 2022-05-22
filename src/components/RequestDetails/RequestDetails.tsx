@@ -53,9 +53,7 @@ export const RequestDetails = (
             />
             <Box padding="m" flexDirection="row" alignItems="center">
               <CircleStatusIcon status={iconStatus} />
-              <Text fontFamily="Nunito-Bold" color="black" fontSize={16} lineHeight={20}>
-                {t(p.status)}
-              </Text>
+              <Text variant="body1Bold">{t(p.status)}</Text>
             </Box>
           </Box>
         )}
