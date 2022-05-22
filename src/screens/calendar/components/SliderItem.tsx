@@ -12,7 +12,7 @@ export const SliderItem = ({ title, toggleItemSelection }: SliderItemProps) => (
   <Box backgroundColor="special" marginHorizontal="xs" borderRadius="l">
     <BorderlessButton borderless={false} onPress={toggleItemSelection}>
       <Box paddingHorizontal="m" paddingVertical="s">
-        <Text color="alwaysWhite" fontFamily="buttonSM">
+        <Text color="alwaysWhite" variant="buttonSM">
           {title}
         </Text>
       </Box>
