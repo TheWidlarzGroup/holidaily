@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 
 type UseSetStatusBarStyleProps = {
-  darkMode: boolean | undefined
+  darkMode?: boolean
 }
 
 export const useSetStatusBarStyle = (props: UseSetStatusBarStyleProps | null) => {
