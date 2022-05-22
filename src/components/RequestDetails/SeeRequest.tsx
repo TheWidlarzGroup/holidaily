@@ -1,7 +1,7 @@
 import React from 'react'
-import { BaseOpacity, Box, Text } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import IconBack from 'assets/icons/icon-back.svg'
+import IconBack from 'assets/icons/icon-back2.svg'
 import { useNavigation } from '@react-navigation/native'
 import { RequestsNavigationProps, RequestsNavigatorType } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
@@ -11,14 +11,19 @@ import { RequestDetails } from './RequestDetails'
 export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SeeRequest'>) => {
   const { navigate } = useNavigation<RequestsNavigatorType<'SeeRequest'>>()
   const { t } = useTranslation('seeRequest')
+  const theme = useTheme()
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <ModalHeader>
-        <BaseOpacity onPress={() => navigate('StatsAndRequests')}>
-          <IconBack width={64} height={64} />
+        <BaseOpacity
+          onPress={() => navigate('StatsAndRequests')}
+          marginLeft="l"
+          paddingBottom="ml"
+          paddingTop="lplus">
+          <IconBack width={14} height={14} color={theme.colors.black} />
         </BaseOpacity>
-        <Text style={{ transform: [{ translateX: -16 }] }} variant="header">
+        <Text variant="header" color="black" fontSize={20} paddingBottom="ml" paddingTop="lplus">
           {t('yourRequest')}
         </Text>
         <Box paddingRight="xl" />
