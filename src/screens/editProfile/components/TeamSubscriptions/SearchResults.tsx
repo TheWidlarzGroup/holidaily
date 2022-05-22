@@ -77,25 +77,30 @@ const Result = (p: ResultProps) => {
 
 const useStyles = mkUseStyles((theme: Theme) => ({
   teamItem: {
+    height: 45,
     backgroundColor: theme.colors.white,
-    borderWidth: 2,
+    borderWidth: 1.2,
     borderColor: theme.colors.special,
     marginTop: theme.spacing.m,
     marginRight: theme.spacing.xm,
     paddingHorizontal: theme.spacing.ml,
-    paddingVertical: theme.spacing.xm,
     borderRadius: theme.borderRadii.l,
     overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   subscribedTeam: {
+    height: 45,
     backgroundColor: theme.colors.special,
+    borderColor: theme.colors.special,
+    borderWidth: 1.2,
     marginTop: theme.spacing.m,
     marginRight: theme.spacing.xm,
     paddingHorizontal: theme.spacing.ml,
-    paddingVertical: theme.spacing.xm,
     borderRadius: theme.borderRadii.l,
     overflow: 'hidden',
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 }))

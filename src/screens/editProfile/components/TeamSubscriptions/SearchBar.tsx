@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from 'utils/theme'
 import { InputSearchIcon } from 'components/InputSearchIcon'
 import { CustomInput } from 'components/CustomInput'
+import { isIos } from 'utils/layout'
 
 type SearchBarProps = {
   searchFilter: F1<string>
@@ -18,7 +19,7 @@ export const SearchBar = ({ searchFilter, searchPhrase }: SearchBarProps) => (
       variant="small"
       isError={false}
     />
-    <Box position="absolute">
+    <Box position="absolute" top={isIos ? -2 : 0}>
       <InputSearchIcon />
     </Box>
   </Box>
