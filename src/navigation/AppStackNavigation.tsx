@@ -1,11 +1,11 @@
 import React from 'react'
-import { Dimensions } from 'react-native'
 import {
   createStackNavigator,
   StackNavigationOptions,
   TransitionPresets,
 } from '@react-navigation/stack'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
+import { windowHeight } from 'utils/deviceSizes'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
@@ -16,7 +16,6 @@ import { ModalRoutes } from './types'
 import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
 
 const AppStack = createStackNavigator<ModalRoutes>()
-const windowHeight = Dimensions.get('window').height
 
 export const AppStackNavigation = () => {
   const styles = useStyle()
