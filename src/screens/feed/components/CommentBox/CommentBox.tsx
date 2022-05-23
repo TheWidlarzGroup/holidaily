@@ -14,19 +14,20 @@ export const CommentBox = ({ comments }: CommentBoxProps) => {
   if (comments?.length === 0) return null
 
   return (
-    <Box padding="s">
+    <Box padding="s" marginTop="-ml" paddingBottom="xm">
       <CommentBoxBtn quantity={comments?.length} onPress={toggle} opened={opened} />
-      {opened && (
-        <ScrollView>
-          {comments.map((comment, index) => (
+      <ScrollView>
+        {comments.map((comment, index) => {
+          if (!opened && index > 0) return
+          return (
             <Comment
               comment={comment}
               key={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
             />
-          ))}
-        </ScrollView>
-      )}
+          )
+        })}
+      </ScrollView>
     </Box>
   )
 }

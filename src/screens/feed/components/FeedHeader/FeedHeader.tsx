@@ -37,7 +37,7 @@ export const FeedHeader = () => {
         bg="white"
         borderRadius="lmin"
         justifyContent="center">
-        <Box marginRight="m" marginLeft="s">
+        <Box marginRight="m" marginLeft="xs">
           <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
         </Box>
         <BaseOpacity flexGrow={1} onPress={() => navigate('CreatePost')} justifyContent="center">

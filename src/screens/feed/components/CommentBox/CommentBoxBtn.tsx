@@ -24,7 +24,8 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
         onPress()
       }}
       activeOpacity={0.7}
-      padding="s">
+      padding="s"
+      paddingBottom="xs">
       {quantity > 0 && (
         <Box flexDirection="row" alignItems="center">
           <Text variant="captionText">{pluralizeWord('comments', quantity)}</Text>
