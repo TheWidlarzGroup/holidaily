@@ -1,3 +1,4 @@
+import { subDays } from 'date-fns'
 import { Server } from 'miragejs'
 import { Comment, FeedPost, Reaction, Schema } from 'mockApi/models'
 import { sourcePeter } from './notificationSources'
@@ -70,7 +71,7 @@ export const postsMock: FeedPost[] = [
         pictureUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
       },
       timestamp: {
-        createdAt: new Date(2022, 3, 10),
+        createdAt: subDays(new Date(), 4),
       },
     },
     text: 'Having fun in Venice',
@@ -93,7 +94,7 @@ export const postsMock: FeedPost[] = [
         pictureUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
       },
       timestamp: {
-        createdAt: new Date(2022, 2, 28),
+        createdAt: subDays(new Date(), 9),
       },
     },
     text: 'Chill :)',

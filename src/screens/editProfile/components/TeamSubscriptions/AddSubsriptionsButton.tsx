@@ -15,7 +15,7 @@ export const AddSubscriptionsButton = (p: AddSubscriptionsButtonProps) => {
       onPress={p.onSubscribeTeam}
       justifyContent="center"
       position="absolute"
-      bottom={theme.spacing.m}
+      bottom={theme.spacing.xs}
       right={theme.spacing.m}
       alignItems="center"
       height={44}

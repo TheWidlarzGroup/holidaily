@@ -82,7 +82,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
 
   return (
     <Box
-      backgroundColor="white"
+      backgroundColor="dropdownPicked"
       borderTopLeftRadius="l"
       borderTopRightRadius="l"
       flexDirection="row"
@@ -90,7 +90,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
       alignItems="center"
       paddingVertical="m"
       style={{
-        paddingBottom: keyboardShown ? 65 : 0,
+        paddingBottom: keyboardShown ? 80 : 0,
       }}>
       <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
         <IconCamera color={theme.colors.black} />

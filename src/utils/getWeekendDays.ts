@@ -1,6 +1,6 @@
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { DayInfoProps } from 'types/DayInfoProps'
-import { getISODateString } from './dates'
+import { getISODateString, isWeekend } from './dates'
 
 export const getWeekendDays = (months: string[]) =>
   months.map((month) => {
@@ -12,7 +12,7 @@ export const getWeekendDays = (months: string[]) =>
 
     const days: DayInfoProps[] = []
     eachDayOfMonth.forEach((day) => {
-      if (day.getDay() === 0 || day.getDay() === 6) {
+      if (isWeekend(day)) {
         days.push({ date: getISODateString(day) })
       }
     })

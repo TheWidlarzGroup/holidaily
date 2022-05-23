@@ -1,10 +1,8 @@
 import React from 'react'
 import { Box, Text, useTheme } from 'utils/theme'
-import IconClose from 'assets/icons/icon-close2.svg'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
-import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 import { useUserContext } from 'hooks/useUserContext'
 import IconPeople from 'assets/icons/icon-people.svg'
 import { useNavigation } from '@react-navigation/native'
@@ -21,19 +19,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const screenSizeAwareSpacing = isScreenHeightShort ? 'xm' : 'l'
   return (
     <Box flex={1} borderTopLeftRadius="l1min" borderTopRightRadius="l1min" overflow="hidden">
-      <Box
-        backgroundColor="white"
-        flexGrow={1}
-        paddingHorizontal="m"
-        paddingVertical={screenSizeAwareSpacing}>
-        <Box alignItems="center" flexDirection="row" marginLeft="xs" marginBottom="s">
-          <ModalHandleIndicator />
-          <TouchableOpacity
-            onPress={closeModal}
-            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-            <IconClose height={15} width={15} color={theme.colors.black} />
-          </TouchableOpacity>
-        </Box>
+      <Box backgroundColor="white" flexGrow={1} paddingVertical={screenSizeAwareSpacing}>
         <Box flex={1}>
           <TeamsModalHeader />
           <Box>
@@ -64,11 +50,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
                   borderRadius="l"
                   backgroundColor="specialOpaque"
                   marginRight="m">
-                  <IconPeople
-                    color={theme.colors.alwaysWhite}
-                    width={ICON_SIZE}
-                    height={ICON_SIZE}
-                  />
+                  <IconPeople color={theme.colors.special} width={ICON_SIZE} height={ICON_SIZE} />
                 </Box>
                 <Box flex={1}>
                   <Text variant="textSM">{t('joinMore')}</Text>

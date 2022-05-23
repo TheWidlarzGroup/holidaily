@@ -1,9 +1,11 @@
 import { useAddPost } from 'dataAccess/mutations/useAddPost'
+import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserContext } from 'hooks/useUserContext'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { FeedPost, FeedPostDataType } from 'mockApi/models/miragePostTypes'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps } from 'navigation/types'
-import React, { useEffect, useState } from 'react'
-import { StatusBar } from 'react-native'
+import React, { useState } from 'react'
 import { Asset } from 'react-native-image-picker'
 import { generateUUID } from 'utils/generateUUID'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
@@ -17,17 +19,12 @@ type PostAttachment = {
 }
 
 export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
+  const { userSettings } = useUserSettingsContext()
+  useSetStatusBarStyle(userSettings)
   const [status, setStatus] = useState<CreatePostStatus>('draft')
   const photo = route.params?.photo
   const { user } = useUserContext()
   const { mutate } = useAddPost()
-
-  useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    return () => {
-      StatusBar.setBarStyle('dark-content')
-    }
-  }, [])
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
     attachments.map((item) => {
@@ -69,12 +66,12 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
   }
 
   return (
-    <>
+    <SwipeableScreen>
       {status === 'draft' ? (
         <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
       ) : (
         <CreatePostResult status={status} />
       )}
-    </>
+    </SwipeableScreen>
   )
 }

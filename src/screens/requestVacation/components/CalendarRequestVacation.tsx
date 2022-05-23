@@ -3,6 +3,7 @@ import { CalendarList } from 'components/CalendarList'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
@@ -43,36 +44,38 @@ export const CalendarRequestVacation = ({
   const styles = useStyles()
 
   return (
-    <Box style={styles.container} borderRadius="m" flex={1} alignItems="center">
-      <LoadingModal show={!isCalendarVisible} />
-      {isCalendarVisible && (
-        <>
-          <CalendarList
-            periodStart={periodStart}
-            periodEnd={periodEnd}
-            selectPeriodStart={selectPeriodStart}
-            selectPeriodEnd={selectPeriodEnd}
-            selectable
-            disablePastDates
-            style={styles.calendar}
-            renderHeader={(date: Date) => <CalendarHeader date={date} />}
-            markedDates={{}}
-            isInvalid={isInvalid}
-          />
-          <SelectPeriodModal
-            isVisible={!!periodStart}
-            onSubmit={onSubmit}
-            onClear={onClear}
-            periodStart={periodStart}
-            periodEnd={periodEnd}
-            ptoTaken={ptoTaken}
-            availablePto={availablePto}
-            isInvalid={isInvalid}
-            customError={isSickTime ? <MaxSickdays /> : null}
-          />
-        </>
-      )}
-    </Box>
+    <SwipeableScreen>
+      <Box style={styles.container} borderRadius="m" flex={1} alignItems="center">
+        <LoadingModal show={!isCalendarVisible} />
+        {isCalendarVisible && (
+          <>
+            <CalendarList
+              periodStart={periodStart}
+              periodEnd={periodEnd}
+              selectPeriodStart={selectPeriodStart}
+              selectPeriodEnd={selectPeriodEnd}
+              selectable
+              disablePastDates
+              style={styles.calendar}
+              renderHeader={(date: Date) => <CalendarHeader date={date} />}
+              markedDates={{}}
+              isInvalid={isInvalid}
+            />
+            <SelectPeriodModal
+              isVisible={!!periodStart}
+              onSubmit={onSubmit}
+              onClear={onClear}
+              periodStart={periodStart}
+              periodEnd={periodEnd}
+              ptoTaken={ptoTaken}
+              availablePto={availablePto}
+              isInvalid={isInvalid}
+              customError={isSickTime ? <MaxSickdays /> : null}
+            />
+          </>
+        )}
+      </Box>
+    </SwipeableScreen>
   )
 }
 
