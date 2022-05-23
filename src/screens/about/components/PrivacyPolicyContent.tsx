@@ -88,7 +88,7 @@ const PolicySection = ({ i18nKey, noMargin }: HelperProps & { noMargin?: true })
       ns="privacyPolicy"
       i18nKey={i18nKey}
       components={{
-        b: <Text variant="body1Bold" color="black" />,
+        b: <Text variant="body1Bold" color="black" textAlign="left" />,
       }}
     />
   </Text>
