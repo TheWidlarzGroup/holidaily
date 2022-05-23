@@ -34,18 +34,10 @@ export const SearchResults = (p: SearchResultsProps) => {
   )
   return (
     <ScrollView>
-      {p.searchedItems.length > 0 && (
-        <Box
-          flexDirection="row"
-          flexWrap="wrap"
-          borderBottomColor="headerGrey"
-          borderBottomWidth={1}
-          paddingBottom="xl">
-          {p.searchedItems.map(makeResult)}
-        </Box>
-      )}
       <Box flexDirection="row" flexWrap="wrap">
-        {p.filteredTeams.map(makeResult)}
+        {p.searchedItems.length > 0
+          ? p.searchedItems.map(makeResult)
+          : p.filteredTeams.map(makeResult)}
       </Box>
     </ScrollView>
   )
