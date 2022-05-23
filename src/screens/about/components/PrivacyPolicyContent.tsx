@@ -57,11 +57,7 @@ export const PrivacyPolicyContent = () => {
         <Paragraph i18nKey="p1collect1" />
         <Paragraph i18nKey="p1collect2" />
         <Subtitle i18nKey="p3" />
-        <Text
-          fontFamily="Nunito-Italic-VariableFont_wght"
-          fontSize={16}
-          lineHeight={24}
-          color="black">
+        <Text variant="textBoldMD" fontSize={16} lineHeight={24} color="black">
           {t('p3italic')}
         </Text>
         <Text variant="body1" textAlign="left" color="black">
