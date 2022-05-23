@@ -1,7 +1,7 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { GalleryItemData, UserTeamsSubscriptions } from 'types/holidaysDataTypes'
+import { GalleryItemData } from 'types/holidaysDataTypes'
 import { DayOffRequest } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
 
@@ -162,6 +162,7 @@ export type ModalRoutes = {
   DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
   Gallery: { data: GalleryItemData[]; index: number }
   CreatePost: { photo: { id: string; uri: string } }
+  SubscribeNewTeam: undefined
 }
 
 export type DashboardRoutes = {
@@ -184,7 +185,6 @@ export type UserProfileRoutes = {
   EditProfile: { openSubscribeModal?: true }
   ChangePassword: undefined
   Recovery: undefined
-  SubscribeTeam: UserTeamsSubscriptions
   ColorPicker: { onChange: F1<string>; value: string }
 }
 

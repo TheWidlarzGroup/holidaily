@@ -6,6 +6,7 @@ import { CalendarRequestVacation } from 'screens/requestVacation/components/Cale
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
 import { CreatePost } from 'screens/createPost/CreatePost'
 import { Notifications } from 'screens/dashboard/Notifications'
+import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
 import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
@@ -40,6 +41,7 @@ export const AppStackNavigation = () => {
           }}
         />
         <AppStack.Screen name="CreatePost" component={CreatePost} />
+        <AppStack.Screen name="SubscribeNewTeam" component={SubscribeNewTeam} />
       </AppStack.Navigator>
     </Box>
   )

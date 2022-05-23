@@ -10,7 +10,6 @@ import { Box } from 'utils/theme'
 
 type SaveSubscriptionsProps = {
   disabled?: boolean
-  setSubscriptions?: F1<ParsedTeamType[]>
   selectedTeams: ParsedTeamType[]
 }
 
@@ -25,7 +24,6 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
       p.selectedTeams.some((selectedTeam) => selectedTeam.teamName === orgTeam.name)
     )
     updateUser({ teams: [...teams, ...user.teams] })
-    p.setSubscriptions?.(p.selectedTeams)
     goBack()
   }
   if (!user || !organization) return <LoadingModal show />
