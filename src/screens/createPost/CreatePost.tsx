@@ -3,6 +3,7 @@ import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserContext } from 'hooks/useUserContext'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { FeedPost, FeedPostDataType } from 'mockApi/models/miragePostTypes'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps } from 'navigation/types'
 import React, { useState } from 'react'
 import { Asset } from 'react-native-image-picker'
@@ -65,12 +66,12 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
   }
 
   return (
-    <>
+    <SwipeableScreen>
       {status === 'draft' ? (
         <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
       ) : (
         <CreatePostResult status={status} />
       )}
-    </>
+    </SwipeableScreen>
   )
 }

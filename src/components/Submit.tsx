@@ -16,7 +16,7 @@ export const Submit = (p: SubmitProps) => {
   const theme = useTheme()
   return (
     <Box
-      backgroundColor="white"
+      backgroundColor={p.noBg ? 'transparent' : 'white'}
       justifyContent="center"
       alignItems="stretch"
       paddingHorizontal="xxxl"

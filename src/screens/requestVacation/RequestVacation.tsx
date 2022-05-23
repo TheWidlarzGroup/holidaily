@@ -5,6 +5,7 @@ import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
@@ -118,9 +119,11 @@ const emptyRequest = {
   files: [],
 }
 const WrappedRequestVacation = (p: RequestVacationProps) => (
-  <RequestVacationProvider>
-    <RequestVacation {...p} />
-  </RequestVacationProvider>
+  <SwipeableScreen>
+    <RequestVacationProvider>
+      <RequestVacation {...p} />
+    </RequestVacationProvider>
+  </SwipeableScreen>
 )
 
 export { WrappedRequestVacation as RequestVacation }
