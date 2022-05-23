@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { BaseOpacity, Box, mkUseStyles, Theme } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles } from 'utils/theme'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -87,13 +87,8 @@ export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
   )
 }
 
-const useStyles = mkUseStyles((theme: Theme) => ({
+const useStyles = mkUseStyles(() => ({
   safeArea: {
     flex: 1,
-  },
-  background: {
-    flex: 1,
-    overflow: 'visible',
-    zIndex: theme.zIndices['-1'],
   },
 }))

@@ -3,11 +3,10 @@ import { CalendarList } from 'components/CalendarList'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
-import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
-import { Box, mkUseStyles } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles } from 'utils/theme'
 import { CalendarHeader } from './CalendarHeader'
 import { MaxSickdays, MAX_SICK_DAYS_COUNT } from './MaxSickDays'
 import { SelectPeriodModal } from './SelectPeriodModal'
@@ -19,6 +18,7 @@ export const CalendarRequestVacation = ({
 }: ModalNavigationProps<'RequestVacationCalendar'>) => {
   const [periodStart, selectPeriodStart] = useState<string>('')
   const [periodEnd, selectPeriodEnd] = useState<string>('')
+  const { goBack } = useNavigation()
   const { user } = useUserContext()
   const availablePto = useMemo(() => user?.availablePto ?? 0, [user])
   const ptoTaken = useMemo(() => {
@@ -44,9 +44,17 @@ export const CalendarRequestVacation = ({
   const styles = useStyles()
 
   return (
-    <SwipeableScreen>
-      <Box style={styles.container} borderRadius="m" flex={1} alignItems="center">
-        <LoadingModal show={!isCalendarVisible} />
+    <Box flex={1} paddingTop="m">
+      <BaseOpacity onPress={goBack} position="absolute" width="100%" height="100%" top={0} />
+      <Box
+        style={styles.container}
+        borderRadius="m"
+        flex={1}
+        alignItems="center"
+        marginTop="xxxl"
+        borderTopLeftRadius="l2min"
+        borderTopRightRadius="l2min">
+        <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
         {isCalendarVisible && (
           <>
             <CalendarList
@@ -75,7 +83,7 @@ export const CalendarRequestVacation = ({
           </>
         )}
       </Box>
-    </SwipeableScreen>
+    </Box>
   )
 }
 
@@ -89,6 +97,9 @@ const useStyles = mkUseStyles((theme) => ({
   },
   dayNames: {
     width: '100%',
+  },
+  loadingSpinneer: {
+    backgroundColor: theme.colors.transparent,
   },
   // Comment: Not using theme.colors.white / alwaysWhite because newCalendarList has #fff background, and idk where it comes from
   container: {
