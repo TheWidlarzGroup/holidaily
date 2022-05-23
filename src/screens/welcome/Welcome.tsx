@@ -14,9 +14,8 @@ import { useUserContext } from 'hooks/useUserContext'
 import { Toast } from 'components/Toast'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { AuthNavigationProps } from 'navigation/types'
-import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
-import { AboutDescription } from 'screens/about/components/AboutDescription'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
+import { AboutModal } from './components/AboutModal'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
@@ -103,24 +102,6 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
       </Box>
       <AboutModal isOpen={isModalVisible} onHide={hideModal} />
     </SafeAreaWrapper>
-  )
-}
-
-type AboutModalProps = {
-  isOpen: boolean
-  onHide: F0
-}
-const AboutModal = (p: AboutModalProps) => {
-  const { t } = useTranslation('welcome')
-  return (
-    <SwipeableModalRegular
-      hasIndicator
-      title={t('about')}
-      buttonLabel={t('aboutButton')}
-      buttonAction={p.onHide}
-      {...p}>
-      <AboutDescription />
-    </SwipeableModalRegular>
   )
 }
 
