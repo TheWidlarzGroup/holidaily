@@ -43,7 +43,8 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
     <Box
       pointerEvents={isTouchDisabled ? 'none' : undefined}
       opacity={isTouchDisabled ? 0.4 : 1}
-      paddingHorizontal="m"
+      paddingLeft="xs"
+      paddingRight="m"
       marginBottom="xl"
       marginTop="s">
       <Text variant="sectionLabel" marginLeft="m">
