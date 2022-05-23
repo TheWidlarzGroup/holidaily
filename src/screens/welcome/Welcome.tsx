@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -7,9 +7,6 @@ import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { About } from 'screens/about/About'
 import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
@@ -18,6 +15,7 @@ import { Toast } from 'components/Toast'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { AuthNavigationProps } from 'navigation/types'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
+import { AboutModal } from './components/AboutModal'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
@@ -27,9 +25,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
-  const modalRef = useRef<BottomSheetModal>(null)
-  const openModal = useCallback(() => modalRef.current?.present(), [])
-  const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
+  const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
   const [isToastVisible, { setTrue: showToast, setFalse: hideToast }] = useBooleanState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
@@ -104,11 +100,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
           />
         </Box>
       </Box>
-      <BottomSheetModalProvider>
-        <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
-          <About isFromWelcomeScreen closeModal={closeModal} />
-        </BottomSheetModalComponent>
-      </BottomSheetModalProvider>
+      <AboutModal isOpen={isModalVisible} onHide={hideModal} />
     </SafeAreaWrapper>
   )
 }

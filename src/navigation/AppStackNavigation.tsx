@@ -1,6 +1,11 @@
 import React from 'react'
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+  TransitionPresets,
+} from '@react-navigation/stack'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
+import { windowHeight } from 'utils/deviceSizes'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
@@ -15,7 +20,6 @@ const AppStack = createStackNavigator<ModalRoutes>()
 
 export const AppStackNavigation = () => {
   const styles = useStyle()
-
   return (
     <Box flex={1} backgroundColor="black">
       <AppStack.Navigator
@@ -30,7 +34,11 @@ export const AppStackNavigation = () => {
           }}
         />
         <AppStack.Screen name="RequestVacation" component={RequestVacation} />
-        <AppStack.Screen name="RequestVacationCalendar" component={CalendarRequestVacation} />
+        <AppStack.Screen
+          name="RequestVacationCalendar"
+          component={CalendarRequestVacation}
+          options={RequestVacationCalendarOptions}
+        />
         <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
         <AppStack.Screen
           name="Gallery"
@@ -45,6 +53,29 @@ export const AppStackNavigation = () => {
       </AppStack.Navigator>
     </Box>
   )
+}
+
+const RequestVacationCalendarOptions: StackNavigationOptions = {
+  cardStyleInterpolator: ({ current: { progress } }) => ({
+    cardStyle: {
+      transform: [
+        {
+          translateY: progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [windowHeight, 0],
+            extrapolate: 'clamp',
+          }),
+        },
+      ],
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  }),
 }
 
 const useStyle = mkUseStyles((theme: Theme) => ({
