@@ -56,7 +56,7 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   }
 
   return (
-    <Box padding="m" paddingTop="none">
+    <Box padding="m" paddingVertical="none">
       {props.hasIndicator && <ModalHandleIndicator />}
       <Box justifyContent="space-between" flexDirection="row" marginVertical="xsplus">
         <TouchableOpacity onPress={handleGoBack} hitSlop={HIT_SLOP}>
