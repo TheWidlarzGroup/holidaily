@@ -25,7 +25,7 @@ const MAX_SIGNS = 20
 export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
   const styles = useStyles()
   const { t } = useTranslation('welcome')
-  const { control, handleSubmit, errors, watch, reset } = useForm()
+  const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
   const modalRef = useRef<BottomSheetModal>(null)
   const openModal = useCallback(() => modalRef.current?.present(), [])
@@ -55,7 +55,10 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
       <Box>
         {isToastVisible && <Toast variant="success" text={t('logoutSuccess')} onHide={hideToast} />}
       </Box>
-      <KeyboardAwareScrollView style={styles.formContainer} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView
+        style={styles.formContainer}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled">
         <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
@@ -76,7 +79,6 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
             errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
             blurOnSubmit
             placeholder={t('placeholder')}
-            reset={reset}
           />
         </Box>
         <Box>
