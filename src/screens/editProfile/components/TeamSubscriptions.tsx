@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { Box, Text } from 'utils/theme'
@@ -26,9 +26,9 @@ export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) =
     setTeams(user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? [])
   }, [user?.teams])
 
-  const onSubscribeTeam = useCallback(() => {
+  const onSubscribeTeam = () => {
     navigate('SubscribeNewTeam')
-  }, [navigate])
+  }
 
   const removeSubscription = (teamName: string) => {
     if (!user) return

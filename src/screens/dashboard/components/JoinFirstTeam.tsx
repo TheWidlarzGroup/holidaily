@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
@@ -10,9 +10,9 @@ export const JoinFirstTeam = () => {
   const { t } = useTranslation('dashboard')
   const { navigate } = useNavigation<ModalNavigationType<'SubscribeNewTeam'>>()
 
-  const onSubscribeTeam = useCallback(() => {
+  const onSubscribeTeam = () => {
     navigate('SubscribeNewTeam')
-  }, [navigate])
+  }
 
   return (
     <Box
