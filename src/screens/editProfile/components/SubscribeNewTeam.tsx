@@ -1,21 +1,20 @@
-import React, { useMemo, useState } from 'react'
-import { UserProfileNavigationProps } from 'navigation/types'
-import { ParsedTeamType } from 'utils/mocks/teamsMocks'
+import React, { useEffect, useState } from 'react'
+import { ParsedTeamType, TeamsType } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { SearchTeams } from './TeamSubscriptions/SearchTeams'
 import { SaveSubscriptions } from './TeamSubscriptions/SaveSubscriptions'
 
-type SubscribeNewTeamProps = UserProfileNavigationProps<'SubscribeTeam'>
-
-export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps) => {
+export const SubscribeNewTeam = () => {
   const [selectedTeams, setSelectedTeams] = useState<ParsedTeamType[]>([])
   const { user } = useUserContext()
-  const teams = useMemo(() => {
-    if (!user?.teams) return []
-    return user.teams.map((t) => ({ teamName: t.name, id: t.id }))
+  const [teams, setTeams] = useState<TeamsType[]>([])
+
+  useEffect(() => {
+    setTeams(user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? [])
   }, [user?.teams])
+
   if (!user) return <LoadingModal show />
 
   return (
@@ -25,11 +24,7 @@ export const SubscribeNewTeam = ({ route: { params: p } }: SubscribeNewTeamProps
         selectedTeams={selectedTeams}
         userTeams={teams}
       />
-      <SaveSubscriptions
-        setSubscriptions={p.addSubscriptions}
-        selectedTeams={selectedTeams}
-        disabled={!selectedTeams.length}
-      />
+      <SaveSubscriptions selectedTeams={selectedTeams} disabled={!selectedTeams.length} />
     </SwipeableScreen>
   )
 }

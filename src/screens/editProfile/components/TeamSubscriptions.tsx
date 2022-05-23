@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { Box, Text } from 'utils/theme'
@@ -6,42 +6,29 @@ import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useUserContext } from 'hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
+import { ModalNavigationType } from 'navigation/types'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
-import { UserProfileType } from 'navigation/types'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
 type TeamSubscriptionsType = {
   showSuccessToast: F0
-  openSubscribeModal?: true
 }
 
-export const TeamSubscriptions = ({
-  showSuccessToast,
-  openSubscribeModal,
-}: TeamSubscriptionsType) => {
+export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) => {
   const { t } = useTranslation('userProfile')
-  const { navigate } = useNavigation<UserProfileType<'EditProfile'>>()
+  const { navigate } = useNavigation<ModalNavigationType<'SubscribeNewTeam'>>()
   const { isLoading } = useTeamMocks()
   const { user, updateUser } = useUserContext()
-  const [teams, setTeams] = useState<TeamsType[]>(
-    user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? []
-  )
-
-  const onSubscribeTeam = useCallback(() => {
-    const addTeams = (newTeams: TeamsType[]) => setTeams([...teams, ...newTeams])
-    navigate('SubscribeTeam', {
-      userTeams: teams,
-      addSubscriptions: (teams) => {
-        addTeams(teams)
-        showSuccessToast()
-      },
-    })
-  }, [navigate, showSuccessToast, teams])
+  const [teams, setTeams] = useState<TeamsType[]>([])
 
   useEffect(() => {
-    if (openSubscribeModal) onSubscribeTeam()
-  }, [onSubscribeTeam, openSubscribeModal])
+    setTeams(user?.teams.map((t) => ({ teamName: t.name, id: t.id })) ?? [])
+  }, [user?.teams])
+
+  const onSubscribeTeam = () => {
+    navigate('SubscribeNewTeam')
+  }
 
   const removeSubscription = (teamName: string) => {
     if (!user) return

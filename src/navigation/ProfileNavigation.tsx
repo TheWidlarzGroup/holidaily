@@ -1,7 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { EditProfile } from 'screens/editProfile/EditProfile'
-import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
 import { BubbleContainer } from 'screens/editProfile/components/bubblePicker/BubbleContainer'
 import { UserProfileRoutes } from './types'
 import { ForgotPasswordNavigation } from './ForgotPasswordNavigation'
@@ -14,7 +13,6 @@ export const ProfileNavigation = () => (
     <ProfileStack.Screen name="EditProfile" component={EditProfile} />
     {/* <ProfileStack.Screen name="ChangePassword" component={ChangePassword} /> */}
     <ProfileStack.Screen name="ColorPicker" component={BubbleContainer} />
-    <ProfileStack.Screen name="SubscribeTeam" component={SubscribeNewTeam} />
     <ProfileStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
   </ProfileStack.Navigator>
 )
