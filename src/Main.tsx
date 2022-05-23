@@ -4,7 +4,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from '@shopify/restyle'
 import { UserContextProvider } from 'contexts/UserProvider'
 import { ModalProvider } from 'contexts/ModalProvider'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
@@ -23,22 +22,20 @@ export const Main = () => {
   return (
     <ThemeProvider theme={currentTheme}>
       <SafeAreaProvider>
-        <BottomSheetModalProvider>
-          <ModalProvider>
-            <UserContextProvider>
-              <TeamsContextProvider>
-                <QueryClientProvider client={queryClient}>
-                  <StatusBar
-                    translucent
-                    barStyle={statusBarStyle}
-                    backgroundColor={statusBarBgColor}
-                  />
-                  <AppNavigation />
-                </QueryClientProvider>
-              </TeamsContextProvider>
-            </UserContextProvider>
-          </ModalProvider>
-        </BottomSheetModalProvider>
+        <ModalProvider>
+          <UserContextProvider>
+            <TeamsContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <StatusBar
+                  translucent
+                  barStyle={statusBarStyle}
+                  backgroundColor={statusBarBgColor}
+                />
+                <AppNavigation />
+              </QueryClientProvider>
+            </TeamsContextProvider>
+          </UserContextProvider>
+        </ModalProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   )
