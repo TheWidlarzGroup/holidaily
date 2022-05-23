@@ -55,6 +55,7 @@ export const CalendarRequestVacation = ({
               selectPeriodStart={selectPeriodStart}
               selectPeriodEnd={selectPeriodEnd}
               selectable
+              disablePastDates
               style={styles.calendar}
               renderHeader={(date: Date) => <CalendarHeader date={date} />}
               markedDates={{}}
