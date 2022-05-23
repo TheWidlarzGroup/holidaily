@@ -1,9 +1,8 @@
 import React from 'react'
-import { Pressable } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { TeamsType } from 'utils/mocks/teamsMocks'
-import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
-import CrossIcon from 'assets/icons/icon-close.svg'
+import { Box } from 'utils/theme'
+import { TertiaryButton } from 'components/TertiaryButton'
 
 type ParsedTeamsType = TeamsType & { isSelected?: boolean }
 
@@ -53,49 +52,10 @@ export const SearchResults = (p: SearchResultsProps) => {
 }
 
 const Result = (p: ResultProps) => {
-  const styles = useStyles()
-  const theme = useTheme()
-  return (
-    <Pressable
-      style={p.isSelected ? styles.subscribedTeam : styles.teamItem}
-      android_ripple={{
-        color: theme.colors.alwaysWhite,
-        foreground: true,
-      }}
-      onPress={() =>
-        p.isSelected
-          ? p.removeFromSubscriptions(p.id)
-          : p.addToSubscriptions({ teamName: p.teamName, id: p.id, isSelected: p.isSelected })
-      }>
-      <Text color={p.isSelected ? 'alwaysWhite' : 'special'} variant="bold15" marginRight="s">
-        {p.teamName}
-      </Text>
-      {p.isSelected && <CrossIcon height={12} color={theme.colors.alwaysWhite} />}
-    </Pressable>
-  )
-}
+  const handleOnPress = () =>
+    p.isSelected
+      ? p.removeFromSubscriptions(p.id)
+      : p.addToSubscriptions({ teamName: p.teamName, id: p.id, isSelected: p.isSelected })
 
-const useStyles = mkUseStyles((theme: Theme) => ({
-  teamItem: {
-    backgroundColor: theme.colors.white,
-    borderWidth: 2,
-    borderColor: theme.colors.special,
-    marginTop: theme.spacing.m,
-    marginRight: theme.spacing.xm,
-    paddingHorizontal: theme.spacing.ml,
-    paddingVertical: theme.spacing.xm,
-    borderRadius: theme.borderRadii.l,
-    overflow: 'hidden',
-  },
-  subscribedTeam: {
-    backgroundColor: theme.colors.special,
-    marginTop: theme.spacing.m,
-    marginRight: theme.spacing.xm,
-    paddingHorizontal: theme.spacing.ml,
-    paddingVertical: theme.spacing.xm,
-    borderRadius: theme.borderRadii.l,
-    overflow: 'hidden',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-}))
+  return <TertiaryButton onPress={handleOnPress} {...p} />
+}

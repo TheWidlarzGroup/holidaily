@@ -4,10 +4,10 @@ import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
 import { getItem, setItem } from 'utils/localStorage'
 import { isScreenHeightShort } from 'utils/deviceSizes'
-import { SwipeableModal } from 'components/SwipeableModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { ModalProps } from 'react-native-modal'
 import { sleep } from 'utils/sleep'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
@@ -31,12 +31,13 @@ export const Dashboard = () => {
         <DashboardHeader />
         <SortableTeams />
       </SafeAreaWrapper>
-      <SwipeableModal
+      <SwipeableModalRegular
+        hasIndicator
         style={teamsModalStyle}
         isOpen={isSuccessModalVisible}
         onHide={closeSuccessModal}>
         <TeamsModal closeModal={closeSuccessModal} />
-      </SwipeableModal>
+      </SwipeableModalRegular>
     </>
   )
 }

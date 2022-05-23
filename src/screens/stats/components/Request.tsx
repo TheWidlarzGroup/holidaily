@@ -24,6 +24,7 @@ export const Request = (p: DayOffRequest) => {
 
   return (
     <Box
+      height={90}
       marginHorizontal="s"
       marginTop="s"
       backgroundColor="white"
@@ -42,12 +43,14 @@ export const Request = (p: DayOffRequest) => {
             <Text
               variant="bold16"
               color="titleActive"
-              marginBottom="s"
+              marginBottom="xsplus"
               numberOfLines={1}
               style={{ maxWidth: '90%' }}>
               {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
             </Text>
-            <Text variant="captionText">{getFormattedPeriod(p.startDate, p.endDate, 'long')}</Text>
+            <Text variant="captionText" marginBottom="xsplus">
+              {getFormattedPeriod(p.startDate, p.endDate, 'long')}
+            </Text>
             <Text variant="captionText" color="headerGrey">
               {daysBetween} {daysBetween > 1 ? t('stats:days') : t('stats:day')}
             </Text>

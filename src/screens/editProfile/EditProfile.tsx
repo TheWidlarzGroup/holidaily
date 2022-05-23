@@ -118,7 +118,7 @@ export const EditProfile = ({ route }: UserProfileNavigationProps<'EditProfile'>
     <>
       <SafeAreaWrapper>
         <Box>
-          <ScrollView style={formOffset}>
+          <ScrollView style={formOffset} keyboardShouldPersistTaps="handled">
             <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
             <DrawerBackArrow goBack={handleGoBack} />
             <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />

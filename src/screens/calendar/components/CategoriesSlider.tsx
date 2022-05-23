@@ -1,7 +1,7 @@
+import { TertiaryButton } from 'components/TertiaryButton'
 import React from 'react'
-import { FlatList, TouchableOpacity } from 'react-native'
+import { FlatList } from 'react-native'
 import { Box } from 'utils/theme'
-import { SliderItem } from './SliderItem'
 
 export type FilterCategory = {
   id: number
@@ -22,12 +22,14 @@ export const CategoriesSlider = ({
       horizontal
       data={filterCategories}
       renderItem={({ item }) => (
-        <TouchableOpacity activeOpacity={1}>
-          <SliderItem {...item} toggleItemSelection={() => toggleFilterItemSelection(item.id)} />
-        </TouchableOpacity>
+        <TertiaryButton
+          teamName={item.title}
+          isSelected={item.isSelected}
+          onPress={() => toggleFilterItemSelection(item.id)}
+        />
       )}
-      ListHeaderComponent={() => <Box width={8} />}
-      ListFooterComponent={() => <Box width={8} />}
+      ListHeaderComponent={() => <Box width={16} />}
+      ListFooterComponent={() => <Box width={16} />}
       keyExtractor={({ id }) => id.toString()}
       showsHorizontalScrollIndicator={false}
     />
