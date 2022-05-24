@@ -72,7 +72,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         showsHorizontalScrollIndicator={false}
       />
       {data.length > 1 && (
-        <Box alignSelf="center" position="absolute" bottom={isIos ? 46 : 14}>
+        <Box alignSelf="center" position="absolute" bottom={isIos ? 40 : 10}>
           <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
         </Box>
       )}

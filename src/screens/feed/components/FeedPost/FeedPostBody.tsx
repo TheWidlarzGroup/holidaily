@@ -16,7 +16,7 @@ export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
   return (
     <Box>
       {text.length > 0 && (
-        <Box padding="s">
+        <Box paddingHorizontal="m" paddingVertical="s">
           <ExpandingText text={text} />
         </Box>
       )}
