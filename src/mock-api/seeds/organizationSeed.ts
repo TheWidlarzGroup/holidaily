@@ -65,7 +65,7 @@ export const organizationSeed = (context: Server<Schema>) => {
   teams.push(
     context.create('team', {
       name: 'Encrypto',
-      users: [...users.slice(36, 40), ...users.slice(41, 43)],
+      users: [...users.slice(36, 40), ...users.slice(42, 44)],
     })
   )
   teams.push(
@@ -77,7 +77,7 @@ export const organizationSeed = (context: Server<Schema>) => {
   teams.push(
     context.create('team', {
       name: 'WWWare',
-      users: [...users.slice(43, 50), ...users.slice(46, 48)],
+      users: [...users.slice(22, 26), ...users.slice(45, 50)],
     })
   )
   context.create('organization', {

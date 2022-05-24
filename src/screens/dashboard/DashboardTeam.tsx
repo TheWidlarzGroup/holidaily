@@ -26,7 +26,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   }
   const { user } = useUserContext()
 
-  const { matesOnHoliday, matesWithPlannedHolidays, matesWithNoPlannedHolidays } = useMemo(() => {
+  const { matesOnHoliday, matesWithPlannedHolidays, mates } = useMemo(() => {
     let mates: User[] = []
     // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
     // So developer has to remember to add him wherever he needs to show him in teams.
@@ -47,10 +47,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     )
     matesWithPlannedHolidays.sort(sortByStartDate)
 
-    const matesWithNoPlannedHolidays = mates.filter(
-      (mate) => !mate.isOnHoliday && !mate.requests[0]?.startDate
-    )
-    return { matesOnHoliday, matesWithPlannedHolidays, matesWithNoPlannedHolidays }
+    return { matesOnHoliday, matesWithPlannedHolidays, mates }
   }, [params?.users, user])
 
   return (
@@ -70,18 +67,15 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
                 isOutOfOffice={false}
               />
             )}
-            {matesWithNoPlannedHolidays.length > 0 && (
-              <>
-                <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
-                  {t('othersTeamMembers').toUpperCase()}
-                </Text>
-                <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
-                  {matesWithNoPlannedHolidays.map((mate) => (
-                    <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
-                  ))}
-                </Box>
-              </>
-            )}
+
+            <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
+              {t('allTeamMembers').toUpperCase()} ({mates.length})
+            </Text>
+            <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
+              {mates.map((mate) => (
+                <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
+              ))}
+            </Box>
           </Box>
         </ScrollView>
       </SafeAreaWrapper>
