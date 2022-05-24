@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Item, SortableListItemType } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
@@ -24,40 +23,14 @@ const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
 
 let persistedOrder: Positions = {}
-const orderToPositions = (order: (string | number)[]) => {
-  const positions: Positions = {}
-  order.forEach((item, idx) => (positions[item] = idx))
-  return positions
-}
 
 export const SortableList = ({ children }: SortableListProps) => {
-  const order = useMemo(() => {
-    const persistedOrderKeys = keys(persistedOrder)
-    let order: (number | string)[] = new Array(persistedOrderKeys.length)
-    persistedOrderKeys.forEach((key) => {
-      const idx = persistedOrder[key]
-      order[idx] = key
-    })
-    order = order.filter((item) => children.some((child) => child.props.id === item))
-    const newTeams = children.filter((child) => !order.some((item) => child.props.id === item))
-    newTeams.forEach((child) => order.push(child.props.id))
-    return order
-  }, [children])
-
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
-  const assignPositions = useCallback(() => {
-    const positions: Positions = {}
-    children.forEach((child, idx) => (positions[child.props.id] = idx))
-    return positions
-  }, [children])
-  const positions = useSharedValue<Positions>(
-    order.length ? orderToPositions(order) : assignPositions()
-  )
+  const positions = useSharedValue<Positions>(orderToPositions(makeOrder(children, persistedOrder)))
 
-  useFocusEffect(useCallback(() => () => setDraggedElement(null), []))
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)
   }
@@ -93,8 +66,8 @@ export const SortableList = ({ children }: SortableListProps) => {
   )
 
   useEffect(() => {
-    positions.value = orderToPositions(order)
-  }, [order, positions])
+    positions.value = orderToPositions(makeOrder(children, persistedOrder))
+  }, [children, positions])
 
   useEffect(() => {
     if (draggedElement === null) {
@@ -139,4 +112,26 @@ export const SortableList = ({ children }: SortableListProps) => {
       />
     </Box>
   )
+}
+
+export const orderToPositions = (order: (string | number)[]) => {
+  const positions: Positions = {}
+  order.forEach((item, idx) => (positions[item] = idx))
+  return positions
+}
+
+export const makeOrder = (
+  sortableItems: React.ReactElement<{ id: number }, string | React.JSXElementConstructor<any>>[],
+  persistedOrder: Positions
+) => {
+  const persistedOrderKeys = keys(persistedOrder)
+  let order: (number | string)[] = new Array(persistedOrderKeys.length)
+  persistedOrderKeys.forEach((key) => {
+    const idx = persistedOrder[key]
+    order[idx] = key
+  })
+  order = order.filter((item) => sortableItems.some((child) => child.props.id === item))
+  const newTeams = sortableItems.filter((child) => !order.some((item) => child.props.id === item))
+  newTeams.forEach((child) => order.push(child.props.id))
+  return order
 }
