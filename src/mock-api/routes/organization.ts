@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { isAfter, isBefore } from 'date-fns'
 import { Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
+import { isOnholiday } from 'mockApi/utils/general'
 import { Schema as ModelsSchema } from '../models'
 
 export function organizationRoute(context: Server<ModelsSchema>) {
@@ -17,11 +17,7 @@ function fetchOrganization(schema: Schema<ModelsSchema>) {
       const user = schema.find('user', id)
       if (!user || !user.id) return
       const requests = schema.where('request', { userId: user.id })
-      const isOnHoliday = requests.models.some((req) => {
-        const isTodayAfterStart = isAfter(Date.now(), new Date(req.startDate))
-        const isTodayBeforeEnd = isBefore(Date.now(), new Date(req.endDate))
-        return isTodayAfterStart && isTodayBeforeEnd
-      })
+      const isOnHoliday = isOnholiday(requests.models)
       // Comment: providing users as an empty array to simplify things in demo app
       const userTeams = teams
         .filter((t) => t.userIds.some((id) => id === user.id))

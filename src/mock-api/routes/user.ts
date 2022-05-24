@@ -1,9 +1,11 @@
+// @ts-nocheck
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { faker } from '@faker-js/faker'
 import { requireAuth } from 'mockApi/utils/requireAuth'
 import { theme } from 'utils/theme'
 import { calculatePTO } from 'utils/dates'
+import { isOnholiday } from 'mockApi/utils/general'
 import { initPayloadService } from '../utils/payloadService'
 import { genManyRequests } from '../factories/requestFactory'
 import { DayOffRequest, Schema as ModelsSchema, User } from '../models'
@@ -49,7 +51,6 @@ function editUser(schema: Schema<ModelsSchema>, req: Request) {
   const { httpError, ...payload } = initPayloadService()
   if (httpError) return new Response(httpError.status, {}, { errors: httpError.errors })
   payload.fill(optionalFields, JSON.parse(req.requestBody))
-  // @ts-ignore
   userRecord.update(payload.body)
   return userRecord
 }
@@ -87,12 +88,11 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   if (!user.id) return new Response(400)
   const requests = genManyRequests(5)
   requests.forEach((req) => schema.create('request', { ...req, user }))
-  // @ts-ignore
   const userRequests = schema.where('request', { userId: user.id }).models
   const availablePto = countAvailablePto(schema, userRequests)
+  const isOnHoliday = isOnholiday(userRequests)
 
-  // @ts-ignore
-  user.update({ availablePto, requests: userRequests })
+  user.update({ availablePto, requests: userRequests, isOnHoliday })
 
   const June = schema.find('user', 'source-june')
   const Peter = schema.find('user', 'source-peter')
@@ -153,10 +153,8 @@ const countAvailablePto = (
   let availablePto = schema.findBy('organization', { name: 'Supercompany' })?.maxPtoDays ?? 24
   if (userRequests) {
     const ptoRequests = userRequests.filter(
-      // @ts-ignore
       (req: DayOffRequest) => req.status !== 'cancelled' && !req.isSickTime
     )
-    // @ts-ignore
     ptoRequests.forEach((req: DayOffRequest) => {
       if (req.status !== 'cancelled' && !req.isSickTime)
         availablePto -= calculatePTO(req.startDate, req.endDate)
