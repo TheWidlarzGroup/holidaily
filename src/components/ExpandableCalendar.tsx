@@ -120,7 +120,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const containerPadding: ViewProps['style'] = { paddingBottom: theme.spacing.m }
   // Comment: Show calendar expading animation with some delay on first open
   useEffect(() => {
-    const delay = isIos ? 2000 : 3500
+    const delay = 2000
     const timeout = setTimeout(() => {
       const EXTRA_HEIGHT = doesMonthInCalendarHasSixRows(selectedDate) ? 65 : 0
 
