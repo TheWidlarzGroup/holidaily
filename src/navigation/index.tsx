@@ -9,6 +9,8 @@ import { getItem } from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
+import { Analytics } from 'services/analytics'
+import { currentRouteConverter } from 'utils/currentRouteConverter'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -19,6 +21,10 @@ export const AppNavigation = () => {
   const styles = useStyle()
   const userSettingsContext = useContext(UserSettingsContext)
   const isDarkTheme = !!userSettingsContext?.userSettings?.darkMode
+
+  const navigationRef: any = useRef()
+  const routeNameRef: any = useRef()
+  // TODO: Any ideas how to fix types above?
 
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
@@ -82,7 +88,24 @@ export const AppNavigation = () => {
   }
 
   return (
-    <NavigationContainer linking={linking} theme={navigatorTheme}>
+    <NavigationContainer
+      linking={linking}
+      theme={navigatorTheme}
+      ref={navigationRef}
+      onReady={() => {
+        if (routeNameRef) {
+          routeNameRef.current = navigationRef.current.getCurrentRoute()
+        }
+      }}
+      onStateChange={() => {
+        const previousRouteName = routeNameRef.current
+        const currentRouteName = navigationRef.current.getCurrentRoute()
+        if (previousRouteName !== currentRouteName && currentRouteName) {
+          const currentRoute = currentRouteConverter(currentRouteName.name)
+          Analytics().track(currentRoute)
+        }
+        routeNameRef.current = currentRouteName
+      }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}

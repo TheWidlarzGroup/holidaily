@@ -21,6 +21,7 @@
       "dataAccess/*": ["data-access/*"],
       "mockApi/*": ["mock-api/*"],
       "consts/*": ["consts/*"],
+      "services/*": ["./services/*"],
       "react-native-calendars": ["../node_modules/@types/react-native-calendars"]
     },
     "resolveJsonModule": true

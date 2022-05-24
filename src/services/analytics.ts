@@ -1,4 +1,6 @@
 import * as NewRelic from '@bibabovn/react-native-newrelic'
+import { generateUUID } from 'utils/generateUUID'
+import { getItem, removeItem, setItem } from 'utils/localStorage'
 import { User } from '../mock-api/models'
 import { makePrefixKeys, parseObjectToNewRelicSimpleType } from '../utils/analyticsUtils'
 import { AnalyticsEvent, AnalyticsEventKeys, analyticsEventMap } from '../utils/eventMap'
@@ -6,6 +8,7 @@ import { entries } from '../utils/manipulation'
 
 export type UserAnalyticsAttributes = Pick<User, 'firstName' | 'id' | 'role'>
 
+const USER_ID = 'userId'
 let analyticsService: AnalyticsService | null = null
 
 export const initAnalytics = () => {
@@ -15,10 +18,15 @@ export const initAnalytics = () => {
   initializeAnalytics()
 
   return {
-    // setUserId: () => {
-    // AsyncStroage + call to NR
-    // },
-
+    setUserId: async () => {
+      const cachedUserId = await getItem(USER_ID)
+      if (!cachedUserId) {
+        const userId = generateUUID()
+        setItem(USER_ID, userId)
+        return userId
+      }
+      return cachedUserId
+    },
     identify: (opts: Partial<UserAnalyticsAttributes>) => {
       for (const [key, val] of entries(opts)) {
         if (!val) return
@@ -33,10 +41,9 @@ export const initAnalytics = () => {
       )
     },
 
-    // TODO: check if a user can log out, if so we need to clear the session
-    // reset: () => {
-    //   analytics.reset()
-    // },
+    reset: () => {
+      removeItem(USER_ID)
+    },
   }
 }
 
