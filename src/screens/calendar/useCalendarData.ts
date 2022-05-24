@@ -52,17 +52,16 @@ export const useCalendarData = () => {
     })
 
     if (!currentMonthRequests) {
-      const firstDayOfMonth = new Date(
-        `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-01`
-      )
+      const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
+
       currentMonthRequests = {
         date: selectedDate.toISOString(),
         days: eachWeekendDaysOfMonth(firstDayOfMonth),
       }
     }
     let bothMonthsRequests: HolidailyRequestMonthType = {
-      date: currentMonthRequests.date,
-      days: currentMonthRequests.days,
+      date: currentMonthRequests?.date,
+      days: currentMonthRequests?.days,
     }
 
     if (doesMonthInCalendarHasSixRows(selectedDate)) {
