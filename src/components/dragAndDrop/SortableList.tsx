@@ -65,7 +65,9 @@ export const SortableList = ({ children }: SortableListProps) => {
     [draggedElement, positions, scrollView, scrollY]
   )
 
+  // Comment: runs when we add/remove teams in edit profile
   useEffect(() => {
+    console.log('test')
     positions.value = orderToPositions(makeOrder(children, persistedOrder))
   }, [children, positions])
 
