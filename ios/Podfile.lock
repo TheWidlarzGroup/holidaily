@@ -40,16 +40,7 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.2.1)
   - NewRelicAgent (7.3.5)
-  - OneSignal (3.11.1):
-    - OneSignal/OneSignalCore (= 3.11.1)
-    - OneSignal/OneSignalExtension (= 3.11.1)
-    - OneSignal/OneSignalOutcomes (= 3.11.1)
-  - OneSignal/OneSignalCore (3.11.1)
-  - OneSignal/OneSignalExtension (3.11.1):
-    - OneSignal/OneSignalCore
-    - OneSignal/OneSignalOutcomes
-  - OneSignal/OneSignalOutcomes (3.11.1):
-    - OneSignal/OneSignalCore
+  - OneSignal (3.10.3)
   - OneSignalXCFramework (3.10.3)
   - Permission-LocationAlways (3.3.1):
     - RNPermissions
@@ -599,7 +590,7 @@ SPEC CHECKSUMS:
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   NewRelicAgent: b887ea75f6de2bb2fcf3ec0af4c5aa648efce2d0
-  OneSignal: 60902887c93f91e9b5599583e7df5f55b2144755
+  OneSignal: a64c4a07be58b699fcda3aacf38a1c185ee3996b
   OneSignalXCFramework: 4efd7bd68c2b14920955b3f14b5b75bbf8fb662c
   Permission-LocationAlways: fbf36cbdcabc3101f1168ad1ec45cfc5a6448cc4
   Permission-LocationWhenInUse: 006c85c8de0c05b5d8be8e8029e4f6b813270293
@@ -650,4 +641,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 76777f440299d843f7587dcadea87ebcb9f44463
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
