@@ -50,6 +50,7 @@
     "react-native-modal": "13.0.1",
     "react-native-month-year-picker": "^1.6.4",
     "react-native-onesignal": "^4.2.0",
+    "react-native-permissions": "^3.3.1",
     "react-native-reanimated": "2.4.0",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.18.1",
