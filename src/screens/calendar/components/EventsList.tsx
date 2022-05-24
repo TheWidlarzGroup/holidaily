@@ -26,11 +26,11 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
         initialNumToRender={6}
         maxToRenderPerBatch={6}
         updateCellsBatchingPeriod={300}
+        windowSize={17}
         extraData={[days, language]}
         keyExtractor={(item) => item.date}
         initialScrollIndex={0}
         getItemLayout={getItemLayout}
-        windowSize={5}
         ref={flatListRef}
         onScrollToIndexFailed={() => {}}
         contentContainerStyle={{ paddingBottom: 60 }}
