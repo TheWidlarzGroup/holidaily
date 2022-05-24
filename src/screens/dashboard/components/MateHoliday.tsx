@@ -19,6 +19,11 @@ export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHoliday
   let text: keyof Theme['colors'] = 'primaryOpaque'
 
   switch (true) {
+    case isNextRequest:
+      background = 'lightBlue'
+      text = 'textBlue'
+      header = 'outOfWorkSoon'
+      break
     case isOnHoliday && !isSickTime:
       background = 'primaryOpaque'
       text = 'tertiary'
@@ -49,7 +54,12 @@ export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHoliday
       borderBottomLeftRadius={isNextRequest ? 'lmin' : 'none'}
       borderBottomRightRadius={isNextRequest ? 'lmin' : 'none'}>
       <Box position="absolute" left={30} top={11}>
-        <HolidayTag hideBorder hideBorderColor isSick={isSickTime} isSoonOnHoliday={!isOnHoliday} />
+        <HolidayTag
+          hideBorder
+          hideBorderColor
+          isSick={isSickTime}
+          isSoonOnHoliday={isNextRequest || !isOnHoliday}
+        />
       </Box>
       <Text variant="textBoldXS" color={text} paddingLeft="lplus">
         {t(header)}
