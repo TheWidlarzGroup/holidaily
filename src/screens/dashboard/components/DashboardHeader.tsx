@@ -26,17 +26,20 @@ export const DashboardHeader = () => {
   return (
     <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
       <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
-        <Box opacity={isDrawerOpen ? 0 : 1} position="absolute">
-          <BaseOpacity
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        <BaseOpacity
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+          opacity={isDrawerOpen ? 0 : 1}
+          position="absolute"
+          zIndex="10">
+          <Box
             bg="white"
             padding="s"
             paddingLeft="m"
             borderTopRightRadius="lplus"
             borderBottomRightRadius="lplus">
             <Avatar size="m" src={user?.photo} userDetails={makeUserDetails(user)} />
-          </BaseOpacity>
-        </Box>
+          </Box>
+        </BaseOpacity>
         <Box alignItems="center" flex={1}>
           <Text variant="textXS" color="titleActive" lineHeight={16}>
             {t('today')}
