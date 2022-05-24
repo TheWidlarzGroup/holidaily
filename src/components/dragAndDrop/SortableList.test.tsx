@@ -3,7 +3,6 @@ import { makeOrder, orderToPositions } from './SortableList'
 
 // Comment: Tests throw "Can not find module react-native-reanimated from Item.tsx"
 describe.skip('makeOrder util', () => {
-  beforeAll(() => jest.mock('react-native-reanimated'))
   it('Should return order of children ids', () => {
     // eslint-disable-next-line no-unused-vars
     const ComponentWithId = ({ id }: { id: number | string }) => null
@@ -22,7 +21,6 @@ describe.skip('makeOrder util', () => {
   })
 })
 describe.skip('orderToPositions', () => {
-  beforeAll(() => jest.mock('react-native-reanimated'))
   it('should create positions object', () => {
     const order = ['foo', 'baz', 'bar']
     expect(orderToPositions(order)).toEqual({ foo: 0, baz: 1, bar: 2 })
