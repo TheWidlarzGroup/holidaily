@@ -13,8 +13,8 @@ export const FeedPost = ({ post }: FeedPostProps) => (
   <BaseOpacity
     activeOpacity={1}
     bg="white"
-    borderTopLeftRadius="l"
-    borderTopRightRadius="l"
+    borderTopLeftRadius="lmin"
+    borderTopRightRadius="lmin"
     marginTop="s"
     paddingTop="s">
     <FeedPostHeader {...post} />
