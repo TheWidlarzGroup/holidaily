@@ -18,6 +18,8 @@ import {
   enableNetworkProviderAsync,
 } from 'expo-location'
 import { PermissionsAndroid } from 'react-native'
+import { isIos } from 'utils/layout'
+import { PERMISSIONS, RESULTS, request } from 'react-native-permissions'
 
 export type UseLocationProps = {
   lastKnownLocationOptions?: LocationLastKnownOptions
@@ -114,10 +116,14 @@ export const useLocation = (options?: UseLocationProps) => {
   }, [])
 
   const requestLocationPermission = async () => {
-    const granted = await PermissionsAndroid.request(
+    if (isIos) {
+      const IosGranted = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+      return IosGranted === RESULTS.GRANTED
+    }
+    const androidGranted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     )
-    return granted === PermissionsAndroid.RESULTS.GRANTED
+    return androidGranted === PermissionsAndroid.RESULTS.GRANTED
   }
 
   return { requestLocation, requestPosition, requestAddresses, requestLocationPermission }
