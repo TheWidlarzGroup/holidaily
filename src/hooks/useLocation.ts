@@ -118,6 +118,7 @@ export const useLocation = (options?: UseLocationProps) => {
   const requestLocationPermission = async () => {
     if (isIos) {
       const IosPermission = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+      if (IosPermission === RESULTS.GRANTED) return true
       if (IosPermission === RESULTS.BLOCKED) return Linking.openSettings()
 
       const IosPermissionReq = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
