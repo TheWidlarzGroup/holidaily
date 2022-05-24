@@ -60,8 +60,8 @@ export const useCalendarData = () => {
       }
     }
     let bothMonthsRequests: HolidailyRequestMonthType = {
-      date: currentMonthRequests?.date,
-      days: currentMonthRequests?.days,
+      date: currentMonthRequests.date,
+      days: currentMonthRequests.days,
     }
 
     if (doesMonthInCalendarHasSixRows(selectedDate)) {
