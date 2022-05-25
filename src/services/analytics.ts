@@ -30,12 +30,9 @@ export const initAnalytics = () => {
         NewRelic.setAttribute(key, val)
       }
     },
-    setCurrentScreen: (previousRoute: any, currentRoute: any) => {
-      // TODO: Fix types
-      const currentRouteName = currentRoute.current.getCurrentRoute()
-      if (previousRoute !== currentRouteName && currentRouteName) {
-        const currentRoute = currentRouteName.name
-        NewRelic.recordCustomEvent('Custom', `[${currentRoute}] Viewed`)
+    setCurrentScreen: (currentScreenName: string | undefined) => {
+      if (currentScreenName) {
+        NewRelic.recordCustomEvent('Custom', `[${currentScreenName}] Viewed`)
       }
     },
     track: <K extends AnalyticsEventKeys>(event: K, properties?: AnalyticsEvent[K]['payload']) => {

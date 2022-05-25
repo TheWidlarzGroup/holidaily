@@ -10,6 +10,7 @@ import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCre
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { Analytics } from 'services/analytics'
+import { getCurrentScreenName } from 'utils/getCurrentScreenName'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -97,7 +98,8 @@ export const AppNavigation = () => {
         }
       }}
       onStateChange={() => {
-        Analytics().setCurrentScreen(routeNameRef, navigationRef)
+        const currentScreenName = getCurrentScreenName(routeNameRef, navigationRef)
+        Analytics().setCurrentScreen(currentScreenName)
         routeNameRef.current = navigationRef.current.getCurrentRoute()
       }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
