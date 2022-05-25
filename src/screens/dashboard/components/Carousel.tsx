@@ -1,6 +1,6 @@
 import format from 'date-fns/format'
 import { User } from 'mock-api/models/mirageTypes'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
@@ -41,12 +41,12 @@ export const Carousel = () => {
         paddingTop="m">
         {t('bookedHolidays').toUpperCase()}
       </Text>
-      <FlatList
-        data={first20Users}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        renderItem={useCallback(
-          ({ item: user }) => (
+      {sortedRequests.length > 0 && (
+        <FlatList
+          data={first20Users}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item: user }) => (
             <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openModal(user)}>
               <CarouselElement
                 isOnHoliday={user.isOnHoliday}
@@ -58,10 +58,10 @@ export const Carousel = () => {
                 isSickTime={user.requests[0].isSickTime}
               />
             </TouchableOpacity>
-          ),
-          []
-        )}
-      />
+          )}
+        />
+      )}
+
       {modalUser && (
         <SwipeableModalRegular
           useScrollView
