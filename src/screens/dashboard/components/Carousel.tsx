@@ -1,8 +1,8 @@
 import format from 'date-fns/format'
 import { User } from 'mock-api/models/mirageTypes'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
+import { LayoutChangeEvent, TouchableOpacity } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getCurrentLocale } from 'utils/locale'
@@ -13,7 +13,8 @@ import { DashboardTeamMember } from '../DashboardTeamMember'
 
 export const Carousel = () => {
   const { t } = useTranslation('dashboard')
-
+  const [teamMemberHeight, setTeamMemberHeight] = useState(0)
+  const [modalHeight, setModalHeight] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
@@ -31,6 +32,16 @@ export const Carousel = () => {
   const { sortedRequests } = useSortAllHolidayRequests()
   const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
 
+  const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    setTeamMemberHeight(height)
+  }
+
+  const getModalHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    setModalHeight(height)
+  }
+
   return (
     <>
       <Text
@@ -41,12 +52,12 @@ export const Carousel = () => {
         paddingTop="m">
         {t('bookedHolidays').toUpperCase()}
       </Text>
-      <FlatList
-        data={first20Users}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        renderItem={useCallback(
-          ({ item: user }) => (
+      {sortedRequests.length > 0 && (
+        <FlatList
+          data={first20Users}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item: user }) => (
             <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openModal(user)}>
               <CarouselElement
                 isOnHoliday={user.isOnHoliday}
@@ -58,17 +69,17 @@ export const Carousel = () => {
                 isSickTime={user.requests[0].isSickTime}
               />
             </TouchableOpacity>
-          ),
-          []
-        )}
-      />
+          )}
+        />
+      )}
       {modalUser && (
         <SwipeableModalRegular
-          useScrollView
+          onLayout={getModalHeight}
+          useScrollView={teamMemberHeight > modalHeight}
           hasIndicator
           isOpen={isModalVisible}
           onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember user={modalUser} />
+          <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
         </SwipeableModalRegular>
       )}
     </>

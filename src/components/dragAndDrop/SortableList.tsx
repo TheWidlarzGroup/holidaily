@@ -95,18 +95,32 @@ export const SortableList = ({ children }: SortableListProps) => {
         CellRendererComponent={CellRenderer}
         ListHeaderComponent={
           <>
-            <Box height={NESTED_ELEM_OFFSET}>
-              <Carousel />
-              <Text
-                variant="lightGreyRegular"
-                color="darkGrey"
-                marginHorizontal="xm"
-                marginBottom="xs"
-                letterSpacing={0.7}>
-                {t('teamsList').toUpperCase()}
-              </Text>
-            </Box>
-            {!(children.length > 0) && <JoinFirstTeam />}
+            {children.length > 0 ? (
+              <Box height={NESTED_ELEM_OFFSET}>
+                <Carousel />
+                <Text
+                  variant="lightGreyRegular"
+                  color="darkGrey"
+                  marginHorizontal="xm"
+                  marginBottom="xs"
+                  letterSpacing={0.7}>
+                  {t('teamsList').toUpperCase()}
+                </Text>
+              </Box>
+            ) : (
+              <>
+                <Text
+                  marginTop="m"
+                  variant="lightGreyRegular"
+                  color="darkGrey"
+                  marginHorizontal="xm"
+                  marginBottom="xs"
+                  letterSpacing={0.7}>
+                  {t('teamsList').toUpperCase()}
+                </Text>
+                <JoinFirstTeam />
+              </>
+            )}
           </>
         }
         data={children}

@@ -198,7 +198,8 @@
     "confirmSave": "Save changes?",
     "discardTeams": "Do you want to discard selected teams?",
     "backToSelection": "Back to selection",
-    "teamsEmptyState": "Click + and join your first Team!"
+    "teamsEmptyState": "Click + and join your first Team!",
+    "search": "Search"
   },
   "dashboard": {
     "today": "Today is:",

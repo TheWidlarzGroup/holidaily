@@ -10,7 +10,7 @@ import Animated, {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationType } from 'navigation/types'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
+import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
 
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
@@ -86,7 +86,9 @@ export const Slider: FC = () => {
         <TouchableOpacity
           onPress={navigateToWelcomeScreen}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <Text variant="boldBlack18">{t('skip')}</Text>
+          <Text variant="boldBlack18" color="alwaysBlack">
+            {t('skip')}
+          </Text>
         </TouchableOpacity>
       </Box>
       <Animated.ScrollView
@@ -112,7 +114,13 @@ export const Slider: FC = () => {
         <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
       </Box>
       <Box marginBottom="lplus">
-        <CustomButton variant="alternative" label={t('next')} onPress={handlePressButton} />
+        <CustomButton
+          variant="alternative"
+          label={t('next')}
+          onPress={handlePressButton}
+          customStyle={{ backgroundColor: theme.colors.alwaysBlack }}
+          customTextColor="alwaysWhite"
+        />
       </Box>
     </SafeAreaView>
   )

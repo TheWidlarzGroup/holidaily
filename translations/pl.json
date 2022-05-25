@@ -198,7 +198,8 @@
     "confirmSave": "Zapisać zmiany?",
     "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
     "backToSelection": "Wróć do wyboru",
-    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
+    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
+    "search": "Wyszukaj"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
@@ -209,8 +210,8 @@
     "sick": "Chorobowe",
     "allTeamMembers": "Wszyscy członkowie",
     "outOfWork": "Urlop",
-    "backAtWork": "Powrót",
-    "lastDayAtWork": "Ostatni dzień w pracy",
+    "backAtWork": "Z powrotem w biurze",
+    "lastDayAtWork": "Ostatni dzień",
     "SickLeave": "Chorobowe",
     "coupleDaysOff": "Kilka dni wolnego",
     "teams": "Zespoły",

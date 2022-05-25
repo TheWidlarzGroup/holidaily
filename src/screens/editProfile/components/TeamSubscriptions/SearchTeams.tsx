@@ -98,6 +98,7 @@ export const SearchTeams = (p: SearchBarProps) => {
           {t('selected', { selected: p.selectedTeams.length })}
         </Text>
         <SearchResults
+          searchPhrase={searchPhrase}
           filteredTeams={filteredTeams}
           searchedItems={searchedItems}
           removeFromSubscriptions={removeFromSubscriptions}
