@@ -8,6 +8,7 @@ import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { createNotifications } from 'react-native-notificated'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
@@ -18,6 +19,7 @@ export const Main = () => {
   const currentTheme = userSettings?.darkMode ? darkTheme : theme
   const statusBarBgColor = currentTheme.colors.transparent
   const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
+  const { NotificationsProvider } = createNotifications()
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -25,14 +27,16 @@ export const Main = () => {
         <ModalProvider>
           <UserContextProvider>
             <TeamsContextProvider>
-              <QueryClientProvider client={queryClient}>
-                <StatusBar
-                  translucent
-                  barStyle={statusBarStyle}
-                  backgroundColor={statusBarBgColor}
-                />
-                <AppNavigation />
-              </QueryClientProvider>
+              <NotificationsProvider>
+                <QueryClientProvider client={queryClient}>
+                  <StatusBar
+                    translucent
+                    barStyle={statusBarStyle}
+                    backgroundColor={statusBarBgColor}
+                  />
+                  <AppNavigation />
+                </QueryClientProvider>
+              </NotificationsProvider>
             </TeamsContextProvider>
           </UserContextProvider>
         </ModalProvider>

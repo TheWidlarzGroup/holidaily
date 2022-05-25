@@ -8102,6 +8102,11 @@ react-native-month-year-picker@^1.6.4:
     invariant "^2.2.4"
     moment "^2.24.0"
 
+react-native-notificated@^0.0.1-alpha.0:
+  version "0.0.1-alpha.0"
+  resolved "https://registry.yarnpkg.com/react-native-notificated/-/react-native-notificated-0.0.1-alpha.0.tgz#adfa86ab30e314324edc73ccdc986209273aaadd"
+  integrity sha512-l1vs+v2frQMYExJysLoMFReoEmnyOR8PlRIbKPuXD64DPjWpqjML93IXudvlUtc/TGEYUWIekzAt5PvlrkV1cQ==
+
 react-native-onesignal@^4.2.0:
   version "4.3.9"
   resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.3.9.tgz#8ebe2e144d0484481f097b839d43cec95a19968e"
