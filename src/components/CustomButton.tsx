@@ -18,6 +18,7 @@ export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   onPress?: F0
   children?: ReactNode
   customStyle?: RectButtonProperties['style']
+  customTextColor?: keyof Theme['colors']
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
@@ -29,6 +30,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   onPress,
   children,
   customStyle,
+  customTextColor,
   ...rest
 }) => {
   const styles = useStyles()
@@ -46,7 +48,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       break
     case 'alternative':
       bgColor = disabled ? theme.colors.grey : theme.colors.black
-      color = theme.colors.white
+      color = customTextColor || theme.colors.white
       rippleColor = theme.colors.blackBtnRippleColor
       break
     case 'secondary':
