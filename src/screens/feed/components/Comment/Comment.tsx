@@ -10,7 +10,7 @@ type CommentProps = {
 }
 
 export const Comment = ({ comment, hideAvatar }: CommentProps) => (
-  <Box flexDirection="row" padding="xs" alignItems="flex-start">
+  <Box flexDirection="row" padding="xs" alignItems="flex-start" marginTop="xs">
     <Box
       marginRight="s"
       paddingRight={hideAvatar ? 'xl' : 'none'}
@@ -31,7 +31,7 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => (
         />
       )}
     </Box>
-    <Bubble padding="xm" flexShrink={1} activeOpacity={1} isCommentBubble>
+    <Bubble padding="xm" flexShrink={1} activeOpacity={1} isCommentBubble marginTop="-xs">
       <Text variant="textXS">{comment.text}</Text>
     </Bubble>
   </Box>

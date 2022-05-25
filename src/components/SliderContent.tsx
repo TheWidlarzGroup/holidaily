@@ -38,10 +38,12 @@ export const SliderContent: FC<SliderContentProps> = ({
         <Animated.Image style={styles.image} source={image} resizeMode="contain" />
       </Animated.View>
       <Box maxWidth="80%" justifyContent="center" alignItems="center">
-        <Text variant="title1" paddingBottom="m">
+        <Text variant="title1" paddingBottom="m" color="alwaysBlack">
           {title}
         </Text>
-        <Text variant="body1">{text}</Text>
+        <Text variant="body1" color="alwaysBlack">
+          {text}
+        </Text>
       </Box>
     </Animated.View>
   )

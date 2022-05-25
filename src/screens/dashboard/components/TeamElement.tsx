@@ -17,6 +17,7 @@ export const TeamElement = (p: TeamElementProps) => {
   return (
     <Box key={p.id} height={SIZE_H}>
       <BaseOpacity
+        delayPressIn={60}
         marginBottom="m"
         borderRadius="m"
         padding="s"

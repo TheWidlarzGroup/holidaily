@@ -28,7 +28,7 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
   }
   if (!user || !organization) return <LoadingModal show />
   return (
-    <Box position="absolute" bottom={16} alignSelf="center">
+    <Box position="absolute" bottom={35} alignSelf="center">
       <CustomButton
         label={t('join')}
         variant="primary"

@@ -22,7 +22,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
       <Box backgroundColor="white" flexGrow={1} paddingVertical={screenSizeAwareSpacing}>
         <Box flex={1}>
           <TeamsModalHeader />
-          <Box>
+          <Box paddingHorizontal="m">
             <Text
               variant="displayXS"
               color="darkGrey"

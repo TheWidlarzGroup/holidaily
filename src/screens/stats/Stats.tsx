@@ -13,7 +13,7 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
   const { user } = useUserContext()
 
   return (
-    <Box>
+    <Box marginTop="m">
       <SectionHeader text={t('score')} />
       <Box
         marginLeft="s"

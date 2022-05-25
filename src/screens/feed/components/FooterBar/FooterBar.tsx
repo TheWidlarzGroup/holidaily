@@ -114,6 +114,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
     <Box
       flexDirection="row"
       padding="s"
+      paddingTop="xm"
       justifyContent="space-between"
       alignItems="center"
       onLayout={({ nativeEvent }) => {

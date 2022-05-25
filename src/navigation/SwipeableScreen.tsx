@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { BaseOpacity, Box, mkUseStyles } from 'utils/theme'
+import { BaseOpacity, Box } from 'utils/theme'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
@@ -20,7 +20,6 @@ type SwipeableScreenProps = {
 export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
   const { height } = useDimensions()
   const { goBack, ...navigation } = useNavigation()
-  const styles = useStyles()
   const translateY = useSharedValue(height)
   const isCloseTriggered = useRef(false)
   useEffect(() => {
@@ -57,7 +56,7 @@ export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
     return subscription
   })
   return (
-    <SafeAreaView style={[styles.safeArea]}>
+    <SafeAreaWrapper edges={['top']} isDefaultBgColor>
       <BaseOpacity
         position="absolute"
         style={{ width: '100%', height: '100%' }}
@@ -83,12 +82,6 @@ export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
           {children}
         </AnimatedBox>
       </PanGestureHandler>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  safeArea: {
-    flex: 1,
-  },
-}))

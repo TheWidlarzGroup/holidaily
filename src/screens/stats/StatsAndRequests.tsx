@@ -38,7 +38,7 @@ export const StatsAndRequests = () => {
 
   if (isLoading || !stats) return <LoadingModal show />
   return (
-    <SafeAreaWrapper isDefaultBgColor>
+    <SafeAreaWrapper isDefaultBgColor edges={['bottom']}>
       <SectionList
         ListHeaderComponent={
           <>

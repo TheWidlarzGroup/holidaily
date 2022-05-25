@@ -8,7 +8,7 @@ import { FooterBar } from '../FooterBar/FooterBar'
 type Post = { post: FeedPost }
 
 export const FeedPostFooter = ({ post }: Post) => (
-  <Box marginTop={isIos ? '-lplus' : 'none'}>
+  <Box marginTop={isIos ? '-l2plus' : 'none'}>
     <FooterBar post={post} />
     <CommentBox comments={post.comments} />
   </Box>
