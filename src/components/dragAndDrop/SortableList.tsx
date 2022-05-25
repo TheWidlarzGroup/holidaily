@@ -108,7 +108,18 @@ export const SortableList = ({ children }: SortableListProps) => {
                 </Text>
               </Box>
             ) : (
-              <JoinFirstTeam />
+              <>
+                <Text
+                  marginTop="m"
+                  variant="lightGreyRegular"
+                  color="darkGrey"
+                  marginHorizontal="xm"
+                  marginBottom="xs"
+                  letterSpacing={0.7}>
+                  {t('teamsList').toUpperCase()}
+                </Text>
+                <JoinFirstTeam />
+              </>
             )}
           </>
         }

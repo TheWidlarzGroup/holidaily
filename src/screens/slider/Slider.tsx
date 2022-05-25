@@ -86,7 +86,9 @@ export const Slider: FC = () => {
         <TouchableOpacity
           onPress={navigateToWelcomeScreen}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-          <Text variant="boldBlack18">{t('skip')}</Text>
+          <Text variant="boldBlack18" color="alwaysBlack">
+            {t('skip')}
+          </Text>
         </TouchableOpacity>
       </Box>
       <Animated.ScrollView

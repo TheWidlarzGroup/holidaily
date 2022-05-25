@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { BaseOpacity, Box, Text, theme } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
 
@@ -13,6 +13,7 @@ const ICON_SIZE = 13
 export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextProps) => {
   const [numOfLines, setNumOfLines] = useState(lines)
   const [opened, { toggle }] = useBooleanState(false)
+  const styles = useStyles()
 
   const onTextLayout = useCallback((e) => {
     const textLines = e?.nativeEvent?.lines.length
@@ -32,9 +33,15 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
       </Text>
       {!opened && numOfLines >= 3 && (
         <Box position="absolute" bottom={5} right={2}>
-          <ArrowDown color={theme.colors.black} width={ICON_SIZE} />
+          <ArrowDown color={styles.arrow.color} width={ICON_SIZE} />
         </Box>
       )}
     </BaseOpacity>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  arrow: {
+    color: theme.colors.black,
+  },
+}))
