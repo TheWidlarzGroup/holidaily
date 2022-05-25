@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { useTheme } from 'utils/theme'
@@ -74,12 +74,7 @@ export const CalendarList = ({
       dayComponent={CalendarDayComponent}
       markingType="period"
       onDayPress={handleClick}
-      renderHeader={useCallback(
-        (date: Date) => (
-          <CalendarHeader date={date} />
-        ),
-        []
-      )}
+      renderHeader={renderHeader}
       markedDates={{
         ...markedDates,
         ...getMarkedDates(p.periodStart, p.periodEnd),
@@ -88,12 +83,10 @@ export const CalendarList = ({
     />
   )
 }
-
+const renderHeader = (date: Date) => <CalendarHeader date={date} />
 const CalendarDayComponent = React.memo(
   (props: any) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
-    const start = performance.now()
-    useEffect(() => console.log(performance.now() - start))
     const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
     return (
       <CalendarDay
