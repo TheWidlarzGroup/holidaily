@@ -8,7 +8,8 @@ import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
-import { createNotifications, ZoomInDownZoomOutUp } from 'react-native-notificated'
+import { createNotifications } from 'react-native-notificated'
+import { notificationAnimation } from 'utils/generateAnimation'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
@@ -19,9 +20,11 @@ export const Main = () => {
   const currentTheme = userSettings?.darkMode ? darkTheme : theme
   const statusBarBgColor = currentTheme.colors.transparent
   const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
+
   const { NotificationsProvider } = createNotifications({
     duration: 1200,
-    animationConfig: ZoomInDownZoomOutUp,
+    animationConfig: notificationAnimation,
+
     defaultStylesSettings: {
       darkMode: userSettings?.darkMode,
       successConfig: {
@@ -29,14 +32,13 @@ export const Main = () => {
         bgColor: theme.colors.successToastBg,
         titleColor: theme.colors.black,
         borderRadius: theme.borderRadii.l1min,
-        leftIconSource: require('assets/icons/icon-check.svg'),
+        leftIconSource: require('assets/icons/success-icon.png'),
       },
       errorConfig: {
         titleSize: 14,
         bgColor: theme.colors.errorBrighter,
         titleColor: theme.colors.black,
         borderRadius: theme.borderRadii.l1min,
-        leftIconSource: require('assets/icons/icon-close.svg'),
       },
     },
   })
