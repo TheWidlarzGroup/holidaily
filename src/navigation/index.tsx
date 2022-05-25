@@ -24,7 +24,7 @@ export const AppNavigation = () => {
 
   const navigationRef: any = useRef()
   const routeNameRef: any = useRef()
-  // TODO: Any ideas how to fix types above?
+  // TODO: Fix types
 
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
@@ -102,10 +102,6 @@ export const AppNavigation = () => {
         const currentRouteName = navigationRef.current.getCurrentRoute()
         if (previousRouteName !== currentRouteName && currentRouteName) {
           const currentRoute = `${currentRouteName.name}_VIEWED`
-          console.log(
-            '🚀 ~ file: index.tsx ~ line 105 ~ AppNavigation ~ currentRoute',
-            currentRoute
-          )
           Analytics().track(currentRoute as keyof AnalyticsEvent)
         }
         routeNameRef.current = currentRouteName
