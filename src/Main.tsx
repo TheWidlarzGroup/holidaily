@@ -24,21 +24,13 @@ export const Main = () => {
   const { NotificationsProvider } = createNotifications({
     duration: 1200,
     animationConfig: notificationAnimation,
-
     defaultStylesSettings: {
-      darkMode: userSettings?.darkMode,
       successConfig: {
         titleSize: 14,
-        bgColor: theme.colors.successToastBg,
-        titleColor: theme.colors.black,
+        bgColor: userSettings?.darkMode ? theme.colors.black : theme.colors.successToastBg,
+        titleColor: userSettings?.darkMode ? theme.colors.white : theme.colors.black,
         borderRadius: theme.borderRadii.l1min,
         leftIconSource: require('assets/icons/success-icon.png'),
-      },
-      errorConfig: {
-        titleSize: 14,
-        bgColor: theme.colors.errorBrighter,
-        titleColor: theme.colors.black,
-        borderRadius: theme.borderRadii.l1min,
       },
     },
   })
