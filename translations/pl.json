@@ -198,7 +198,8 @@
     "confirmSave": "Zapisać zmiany?",
     "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
     "backToSelection": "Wróć do wyboru",
-    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
+    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
+    "search": "Wyszukaj"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
