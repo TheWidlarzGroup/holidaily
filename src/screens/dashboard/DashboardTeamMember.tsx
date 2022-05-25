@@ -7,15 +7,16 @@ import { User } from 'mock-api/models/mirageTypes'
 import { sortSingleUserRequests } from 'utils/sortByDate'
 import { useTranslation } from 'react-i18next'
 import { ToggleButton } from 'components/ToggleButton'
+import { LayoutChangeEvent } from 'react-native'
 
-type MemberProps = { user: User }
+type MemberProps = { user: User; onLayout?: F1<LayoutChangeEvent> }
 
-export const DashboardTeamMember = ({ user }: MemberProps) => {
+export const DashboardTeamMember = ({ user, onLayout }: MemberProps) => {
   const { t } = useTranslation('dashboard')
   let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
   sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
   return (
-    <>
+    <Box paddingHorizontal="xm" paddingBottom="xxxl" onLayout={onLayout}>
       <MateHeader user={user} />
       {!!sortedRequests[0] && (
         <>
@@ -39,13 +40,13 @@ export const DashboardTeamMember = ({ user }: MemberProps) => {
             marginBottom="s">
             {t('teams').toUpperCase()}
           </Text>
-          <Box flexDirection="row" flexWrap="wrap" paddingBottom="ml">
+          <Box flexDirection="row" flexWrap="wrap">
             {user.teams.map((team) => (
               <ToggleButton key={team.name}>{team.name}</ToggleButton>
             ))}
           </Box>
         </>
       ) : null}
-    </>
+    </Box>
   )
 }

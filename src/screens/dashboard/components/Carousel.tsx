@@ -2,7 +2,7 @@ import format from 'date-fns/format'
 import { User } from 'mock-api/models/mirageTypes'
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
+import { LayoutChangeEvent, TouchableOpacity } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getCurrentLocale } from 'utils/locale'
@@ -13,7 +13,8 @@ import { DashboardTeamMember } from '../DashboardTeamMember'
 
 export const Carousel = () => {
   const { t } = useTranslation('dashboard')
-
+  const [teamMemberHeight, setTeamMemberHeight] = useState(0)
+  const [modalHeight, setModalHeight] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
@@ -30,6 +31,16 @@ export const Carousel = () => {
 
   const { sortedRequests } = useSortAllHolidayRequests()
   const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
+
+  const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    setTeamMemberHeight(height)
+  }
+
+  const getModalHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    setModalHeight(height)
+  }
 
   return (
     <>
@@ -61,14 +72,14 @@ export const Carousel = () => {
           )}
         />
       )}
-
       {modalUser && (
         <SwipeableModalRegular
-          useScrollView
+          onLayout={getModalHeight}
+          useScrollView={teamMemberHeight > modalHeight}
           hasIndicator
           isOpen={isModalVisible}
           onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember user={modalUser} />
+          <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
         </SwipeableModalRegular>
       )}
     </>
