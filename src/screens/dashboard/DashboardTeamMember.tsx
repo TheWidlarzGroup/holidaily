@@ -39,7 +39,7 @@ export const DashboardTeamMember = ({ user }: MemberProps) => {
             marginBottom="s">
             {t('teams').toUpperCase()}
           </Text>
-          <Box flexDirection="row" flexWrap="wrap" paddingBottom="xm">
+          <Box flexDirection="row" flexWrap="wrap" paddingBottom="ml">
             {user.teams.map((team) => (
               <ToggleButton key={team.name}>{team.name}</ToggleButton>
             ))}
