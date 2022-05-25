@@ -245,7 +245,7 @@
     "en": "English",
     "pl": "Polish",
     "biometric": "Biometric passcode",
-    "changed": "has been changed!"
+    "languageChanged": "Język został zmieniony!"
   },
   "loader": {
     "wait": "Wait a second..."

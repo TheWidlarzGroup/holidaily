@@ -11,7 +11,7 @@ import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
-import { Toast } from 'components/Toast'
+import { createNotifications } from 'react-native-notificated'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { AuthNavigationProps } from 'navigation/types'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
@@ -21,18 +21,25 @@ const MIN_SIGNS = 2
 const MAX_SIGNS = 20
 
 export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
+  const { useNotifications } = createNotifications()
+  const { notify } = useNotifications()
   const styles = useStyles()
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
   const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
-  const [isToastVisible, { setTrue: showToast, setFalse: hideToast }] = useBooleanState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
 
   useEffect(() => {
-    if (route.params?.userLoggedOut) showToast()
-  }, [showToast, route.params?.userLoggedOut])
+    if (route.params?.userLoggedOut) {
+      notify('success', {
+        params: {
+          title: t('logoutSuccess'),
+        },
+      })
+    }
+  }, [route.params?.userLoggedOut, notify, t])
 
   const onSubmit = async () => {
     await setItem('firstName', nameInput)
@@ -48,9 +55,6 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
 
   return (
     <SafeAreaWrapper>
-      <Box>
-        {isToastVisible && <Toast variant="success" text={t('logoutSuccess')} onHide={hideToast} />}
-      </Box>
       <KeyboardAwareScrollView
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}

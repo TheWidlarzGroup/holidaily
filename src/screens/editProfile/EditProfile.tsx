@@ -13,9 +13,8 @@ import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
-import { useBooleanState } from 'hooks/useBooleanState'
-import { Toast } from 'components/Toast'
 import { useModalContext } from 'contexts/ModalProvider'
+import { notify } from 'react-native-notificated'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -42,8 +41,7 @@ export const EditProfile = () => {
       photo: user?.photo,
     },
   })
-  const [isToastVisible, { setTrue: showSuccessToast, setFalse: hideSuccessToast }] =
-    useBooleanState(false)
+
   const { t } = useTranslation('userProfile')
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
@@ -68,7 +66,12 @@ export const EditProfile = () => {
           occupation: payload.user?.occupation,
           photo: payload.user?.photo,
         })
-        showSuccessToast()
+
+        notify('success', {
+          params: {
+            title: t('changesSaved'),
+          },
+        })
       },
     })
   const onSubmit = (data: EditDetailsTypes) => editUser(data)
@@ -107,6 +110,7 @@ export const EditProfile = () => {
       return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress)
     }, [handleGoBack])
   )
+
   return (
     <>
       <SafeAreaWrapper>
@@ -116,12 +120,9 @@ export const EditProfile = () => {
             <DrawerBackArrow goBack={handleGoBack} />
             <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
             <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-            <TeamSubscriptions showSuccessToast={showSuccessToast} />
+            <TeamSubscriptions />
             <ProfileColor onUpdate={onUpdate} />
           </ScrollView>
-          {isToastVisible && (
-            <Toast onHide={hideSuccessToast} variant="success" text={t('changesSaved')} />
-          )}
           {isLoading && <LoadingModal show />}
           {!isLoading && isDirty && (
             <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />

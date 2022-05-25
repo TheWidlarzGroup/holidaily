@@ -11,11 +11,7 @@ import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
-type TeamSubscriptionsType = {
-  showSuccessToast: F0
-}
-
-export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) => {
+export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
   const { navigate } = useNavigation<ModalNavigationType<'SubscribeNewTeam'>>()
   const { isLoading } = useTeamMocks()
@@ -32,7 +28,7 @@ export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) =
 
   const removeSubscription = (teamName: string) => {
     if (!user) return
-    showSuccessToast()
+    // showSuccessToast()
     const userNextTeams: Team[] = []
     const teamsParsedForDisplay: TeamsType[] = []
     user.teams.forEach((team) => {
