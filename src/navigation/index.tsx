@@ -10,7 +10,7 @@ import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCre
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { Analytics } from 'services/analytics'
-import { currentRouteConverter } from 'utils/currentRouteConverter'
+import { AnalyticsEvent } from 'utils/eventMap'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -101,15 +101,19 @@ export const AppNavigation = () => {
         const previousRouteName = routeNameRef.current
         const currentRouteName = navigationRef.current.getCurrentRoute()
         if (previousRouteName !== currentRouteName && currentRouteName) {
-          const currentRoute = currentRouteConverter(currentRouteName.name)
-          Analytics().track(currentRoute)
+          const currentRoute = `${currentRouteName.name}_VIEWED`
+          console.log(
+            '🚀 ~ file: index.tsx ~ line 105 ~ AppNavigation ~ currentRoute',
+            currentRoute
+          )
+          Analytics().track(currentRoute as keyof AnalyticsEvent)
         }
         routeNameRef.current = currentRouteName
       }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
-      {loginStatus === 'LoggedOut' && <AuthStackNavigation initialRoute="Welcome" userLoggedOut />}
+      {loginStatus === 'LoggedOut' && <AuthStackNavigation initialRoute="WELCOME" userLoggedOut />}
     </NavigationContainer>
   )
 }

@@ -40,7 +40,6 @@ export const initAnalytics = () => {
         parseObjectToNewRelicSimpleType(makePrefixKeys(properties ?? {}))
       )
     },
-
     reset: () => {
       removeItem(USER_ID)
     },

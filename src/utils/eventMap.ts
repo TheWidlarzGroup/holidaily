@@ -22,14 +22,14 @@ export const analyticsEventMap = {
   FEED_VIEWED: { name: '[HOLIFEED] Viewed', payload: fcast<never>() },
   CREATE_POST_VIEWED: { name: '[CREATE_POST] Viewed', payload: fcast<never>() },
 
-  // Add Requezt
-  ADD_REQUEST_VIEWED: { name: '[ADD_REQUEST] Viewed', payload: fcast<never>() },
+  // Add Request
+  REQUEST_VACATION_VIEWED: { name: '[REQUEST_VACATION] Viewed', payload: fcast<never>() },
 
   // Stats and Requests
   STATS_AND_REQUESTS_VIEWED: { name: '[STATS_AND_REQUESTS] Viewed', payload: fcast<never>() },
   SEE_REQUEST_VIEWED: { name: '[SEE_REQUEST] Viewed', payload: fcast<never>() },
-  STATS_AND_REQUESTS_CALENDAR_VIEWED: {
-    name: '[STATS_AND_REQUESTS_CALENDAR] Viewed',
+  REQUEST_VACATION_CALENDAR_VIEWED: {
+    name: '[REQUEST_VACATION_CALENDAR_CALENDAR] Viewed',
     payload: fcast<never>(),
   },
 

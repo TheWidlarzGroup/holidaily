@@ -15,7 +15,7 @@ export const AvailablePto = ({ availablePto }: { availablePto: number }) => {
   const navigation = useNavigation()
 
   const onInfoPress = useCallback(() => {
-    navigation.navigate('PtoPolicy', {
+    navigation.navigate('PTO_POLICY', {
       screen: 'BudgetNavigation',
     })
   }, [navigation])

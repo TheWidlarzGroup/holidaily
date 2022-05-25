@@ -46,14 +46,14 @@ const SLIDER_DATA: {
 const { width } = Dimensions.get('window')
 
 export const Slider: FC = () => {
-  const navigation = useNavigation<AuthNavigationType<'Slider'>>()
+  const navigation = useNavigation<AuthNavigationType<'SLIDER'>>()
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
   const styles = useStyles()
 
   const navigateToWelcomeScreen = () => {
-    navigation.navigate('Welcome')
+    navigation.navigate('WELCOME')
   }
 
   const scrollHandler = useAnimatedScrollHandler({

@@ -13,7 +13,7 @@ import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { useUserContext } from 'hooks/useUserContext'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
-type DashboardTeamProps = DashboardNavigationProps<'DashboardTeam'>
+type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
 
 export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   const { params } = route

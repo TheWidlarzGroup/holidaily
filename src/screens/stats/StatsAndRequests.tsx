@@ -88,7 +88,7 @@ export const StatsAndRequests = () => {
 const Item = ({ item }: { item: DayOffRequest }) => {
   const { navigate } = useNavigation()
   return (
-    <TouchableOpacity activeOpacity={1} onPress={() => navigate('SeeRequest', item)}>
+    <TouchableOpacity activeOpacity={1} onPress={() => navigate('SEE_REQUEST', item)}>
       <Request {...item} />
     </TouchableOpacity>
   )

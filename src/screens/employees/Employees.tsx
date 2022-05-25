@@ -20,7 +20,7 @@ export const Employees = () => {
     navigation.navigate('Home', {
       screen: 'DashboardNavigation',
       params: {
-        screen: 'Dashboard',
+        screen: 'DASHBOARD',
       },
     })
     navigation.dispatch(DrawerActions.openDrawer())

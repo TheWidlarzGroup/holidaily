@@ -17,7 +17,7 @@ type TeamSubscriptionsType = {
 
 export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) => {
   const { t } = useTranslation('userProfile')
-  const { navigate } = useNavigation<ModalNavigationType<'SubscribeNewTeam'>>()
+  const { navigate } = useNavigation<ModalNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
   const { isLoading } = useTeamMocks()
   const { user, updateUser } = useUserContext()
   const [teams, setTeams] = useState<TeamsType[]>([])
@@ -27,7 +27,7 @@ export const TeamSubscriptions = ({ showSuccessToast }: TeamSubscriptionsType) =
   }, [user?.teams])
 
   const onSubscribeTeam = () => {
-    navigate('SubscribeNewTeam')
+    navigate('SUBSCRIBE_NEW_TEAM')
   }
 
   const removeSubscription = (teamName: string) => {

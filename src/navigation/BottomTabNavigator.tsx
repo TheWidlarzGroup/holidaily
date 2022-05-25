@@ -19,10 +19,10 @@ const tabs = [
   {
     name: 'DashboardNavigation',
   },
-  { name: 'Calendar' },
+  { name: 'CALENDAR' },
   { name: 'RequestModal' },
   { name: 'Stats' },
-  { name: 'Feed' },
+  { name: 'FEED' },
 ]
 
 export const BottomTabNavigator = ({ style }: ViewProps) => {
@@ -38,10 +38,10 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
               options={{ unmountOnBlur: true }}
               component={DashboardNavigation}
             />
-            <Tab.Screen name="Calendar" component={Calendar} />
+            <Tab.Screen name="CALENDAR" component={Calendar} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
             <Tab.Screen name="Stats" component={RequestsNavigation} />
-            <Tab.Screen name="Feed" component={Feed} />
+            <Tab.Screen name="FEED" component={Feed} />
           </Tab.Navigator>
         </SafeAreaView>
       </Animated.View>

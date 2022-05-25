@@ -15,7 +15,7 @@ export const useSiriListeners = () => {
       'SiriShortcutListener',
       ({ activityType, userInfo }) => {
         if (activityType === 'com.holidaily.AddRequest') {
-          navigation.navigate('RequestVacation', userInfo)
+          navigation.navigate('REQUEST_VACATION', userInfo)
         }
       }
     )

@@ -12,7 +12,7 @@ import { version } from '../../../package.json'
 
 export const About = () => {
   const styles = useStyles()
-  const navigation = useNavigation<DrawerNavigationType<'About'>>()
+  const navigation = useNavigation<DrawerNavigationType<'ABOUT'>>()
   const handleGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
