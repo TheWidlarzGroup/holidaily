@@ -7,8 +7,6 @@ import { AnalyticsEvent, AnalyticsEventKeys, analyticsEventMap } from '../utils/
 import { entries } from '../utils/manipulation'
 
 export type UserAnalyticsAttributes = Pick<User, 'firstName' | 'id' | 'role'>
-
-const USER_ID = 'userId'
 let analyticsService: AnalyticsService | null = null
 
 export const initAnalytics = () => {
@@ -19,18 +17,25 @@ export const initAnalytics = () => {
 
   return {
     setUserId: async () => {
-      const cachedUserId = await getItem(USER_ID)
+      const userId = generateUUID()
+      const cachedUserId = await getItem('userId')
       if (!cachedUserId) {
-        const userId = generateUUID()
-        setItem(USER_ID, userId)
-        return userId
+        setItem('userId', userId)
       }
-      return cachedUserId
+      Analytics().identify({ id: cachedUserId || userId })
     },
     identify: (opts: Partial<UserAnalyticsAttributes>) => {
       for (const [key, val] of entries(opts)) {
         if (!val) return
         NewRelic.setAttribute(key, val)
+      }
+    },
+    setCurrentScreen: (previousRoute: any, currentRoute: any) => {
+      // TODO: Fix types
+      const currentRouteName = currentRoute.current.getCurrentRoute()
+      if (previousRoute !== currentRouteName && currentRouteName) {
+        const currentRoute = currentRouteName.name
+        NewRelic.recordCustomEvent('Custom', `[${currentRoute}] Viewed`)
       }
     },
     track: <K extends AnalyticsEventKeys>(event: K, properties?: AnalyticsEvent[K]['payload']) => {
@@ -41,7 +46,7 @@ export const initAnalytics = () => {
       )
     },
     reset: () => {
-      removeItem(USER_ID)
+      removeItem('userId')
     },
   }
 }

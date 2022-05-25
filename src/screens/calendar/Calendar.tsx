@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -11,9 +11,7 @@ import { parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
-import { useFocusEffect } from '@react-navigation/native'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { Analytics } from '../../services/analytics'
 
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
@@ -24,8 +22,6 @@ const CalendarToWrap = () => {
     setSelectedDate,
     currentMonthDays,
   } = useCalendarData()
-
-  useFocusEffect(useCallback(() => () => Analytics().track('CALENDAR_VIEWED'), []))
 
   const handleDayPress = ({ dateString }: { dateString: string }) => {
     const dayEvents = currentMonthDays.find((a) => a.date === dateString)

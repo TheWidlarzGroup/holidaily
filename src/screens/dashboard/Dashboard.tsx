@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
@@ -8,8 +8,6 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { ModalProps } from 'react-native-modal'
 import { sleep } from 'utils/sleep'
 import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
-import { useFocusEffect } from '@react-navigation/native'
-import { Analytics } from 'services/analytics'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
@@ -26,8 +24,6 @@ export const Dashboard = () => {
     }
     openModalOnFirstAppLaunch()
   }, [openSuccessModal])
-
-  useFocusEffect(useCallback(() => () => Analytics().track('DASHBOARD_VIEWED'), []))
 
   return (
     <>

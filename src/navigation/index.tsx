@@ -10,7 +10,6 @@ import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCre
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { Analytics } from 'services/analytics'
-import { AnalyticsEvent } from 'utils/eventMap'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -98,13 +97,8 @@ export const AppNavigation = () => {
         }
       }}
       onStateChange={() => {
-        const previousRouteName = routeNameRef.current
-        const currentRouteName = navigationRef.current.getCurrentRoute()
-        if (previousRouteName !== currentRouteName && currentRouteName) {
-          const currentRoute = `${currentRouteName.name}_VIEWED`
-          Analytics().track(currentRoute as keyof AnalyticsEvent)
-        }
-        routeNameRef.current = currentRouteName
+        Analytics().setCurrentScreen(routeNameRef, navigationRef)
+        routeNameRef.current = navigationRef.current.getCurrentRoute()
       }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}

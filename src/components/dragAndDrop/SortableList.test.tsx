@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */ // COMMENT: eslint disabled as eslint-disable-next-line below doesn't work
 import React from 'react'
 import { makeOrder, orderToPositions } from './SortableList'
 
