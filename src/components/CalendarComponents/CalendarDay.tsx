@@ -9,6 +9,6 @@ export const CalendarDay = (
 ) => (
   <Box alignItems="center" position="relative">
     <CalendarDayMain {...p} />
-    <CalendarDayDots marking={p.marking} />
+    {p.marking?.dots && <CalendarDayDots marking={p.marking} />}
   </Box>
 )
