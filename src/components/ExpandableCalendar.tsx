@@ -153,7 +153,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
             addMonth={handleAddMonth}
             firstDay={1}
           />
-          <Animated.View style={weekOpacity}>
+          <Animated.View style={[weekOpacity, { zIndex: theme.zIndices['10'] }]}>
             <Box>
               <Box
                 style={{
