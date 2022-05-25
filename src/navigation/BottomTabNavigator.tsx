@@ -38,7 +38,7 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
               options={{ unmountOnBlur: true }}
               component={DashboardNavigation}
             />
-            <Tab.Screen name="CALENDAR" component={Calendar} options={{ unmountOnBlur: true }}/>
+            <Tab.Screen name="CALENDAR" component={Calendar} options={{ unmountOnBlur: true }} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
             <Tab.Screen name="Stats" component={RequestsNavigation} />
             <Tab.Screen name="FEED" component={Feed} />
