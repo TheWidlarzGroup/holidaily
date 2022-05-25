@@ -11,6 +11,7 @@ type SearchResultsProps = {
   filteredTeams: ParsedTeamsType[]
   removeFromSubscriptions: F1<string | number>
   addToSubscriptions: F1<ParsedTeamsType>
+  searchPhrase: string
 }
 
 type ResultProps = {
@@ -32,12 +33,12 @@ export const SearchResults = (p: SearchResultsProps) => {
       addToSubscriptions={p.addToSubscriptions}
     />
   )
+
   return (
     <ScrollView>
       <Box flexDirection="row" flexWrap="wrap">
-        {p.searchedItems.length > 0
-          ? p.searchedItems.map(makeResult)
-          : p.filteredTeams.map(makeResult)}
+        {p.searchedItems.length > 0 && p.searchedItems.map(makeResult)}
+        {p.filteredTeams && p.searchPhrase.length === 0 && p.filteredTeams.map(makeResult)}
       </Box>
     </ScrollView>
   )
