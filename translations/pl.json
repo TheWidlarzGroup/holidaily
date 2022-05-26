@@ -230,7 +230,9 @@
     "locationNotFound": "Nie znaleziono",
     "loading": "Szukam...",
     "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
-    "seeMore": "see more"
+    "seeMore": "see more",
+    "postPublished": "Post published!",
+    "undo": "Undo"
   },
   "createPost": {
     "title": "Utwórz Post",

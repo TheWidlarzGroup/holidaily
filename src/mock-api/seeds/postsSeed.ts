@@ -173,7 +173,7 @@ export const commentsMock: Comment[] = [
         createdAt: new Date(),
       },
     },
-    text: 'Porto is an interesting place to see. Is a quiet old city with nice arhitecture. On the river shores are few terraces with a lovely view over the other shore where are a lot of Porto wine shops. On some of them you can see how the wine is kept and processed and also you cat taste it.',
+    text: 'Porto is an interesting place to see. Is a quiet old city with nice architecture. On the river shores are few terraces with a lovely view over the other shore where are a lot of Porto wine shops. On some of them you can see how the wine is kept and processed and also you cat taste it.',
   },
   {
     meta: {

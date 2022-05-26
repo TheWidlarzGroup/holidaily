@@ -230,7 +230,9 @@
     "locationNotFound": "Not found",
     "loading": "Searching...",
     "exceededAmount": "You exceeded amount of images in single post",
-    "seeMore": "pokaż więcej"
+    "seeMore": "pokaż więcej",
+    "postPublished": "Opublikowano post!",
+    "undo": "Cofnij"
   },
   "createPost": {
     "title": "Create Post",
