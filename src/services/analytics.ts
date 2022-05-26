@@ -30,10 +30,8 @@ export const initAnalytics = () => {
         NewRelic.setAttribute(key, val)
       }
     },
-    setCurrentScreen: (currentScreenName: string | undefined) => {
-      if (currentScreenName) {
-        NewRelic.recordCustomEvent('Custom', `[${currentScreenName}] Viewed`)
-      }
+    setCurrentScreen: (currentScreenName: string) => {
+      NewRelic.recordCustomEvent('Custom', `[${currentScreenName}] Viewed`)
     },
     track: <K extends AnalyticsEventKeys>(event: K, properties?: AnalyticsEvent[K]['payload']) => {
       NewRelic.recordCustomEvent(

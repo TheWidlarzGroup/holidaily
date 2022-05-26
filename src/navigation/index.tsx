@@ -10,7 +10,6 @@ import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCre
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { Analytics } from 'services/analytics'
-import { getCurrentScreenName } from 'utils/getCurrentScreenName'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -23,7 +22,7 @@ export const AppNavigation = () => {
   const isDarkTheme = !!userSettingsContext?.userSettings?.darkMode
 
   const navigationRef: any = useRef()
-  const routeNameRef: any = useRef()
+  const routeNameRef = useRef()
   // TODO: Fix types
 
   const { user, updateUser } = useUserContext()
@@ -98,9 +97,10 @@ export const AppNavigation = () => {
         }
       }}
       onStateChange={() => {
-        const currentScreenName = getCurrentScreenName(routeNameRef, navigationRef)
-        Analytics().setCurrentScreen(currentScreenName)
-        routeNameRef.current = navigationRef.current.getCurrentRoute()
+        const currentRouteName = navigationRef.current.getCurrentRoute()
+        const currentScreenName = currentRouteName.name
+        if (currentScreenName) Analytics().setCurrentScreen(currentScreenName as string)
+        routeNameRef.current = currentRouteName
       }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
