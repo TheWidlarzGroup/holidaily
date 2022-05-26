@@ -281,6 +281,7 @@
     "additionalsTitle": "DODATKI",
     "additionalsLabel": "Dodaj wiadomość i/lub załącznik.",
     "messageLabel": "Wiadomość",
+    "messageCharactes": "{{count}}/{{max}} znaków",
     "attachmentDeleteMessage": "Usunąć załącznik?",
     "CTA": "Dalej",
     "timeOffDescriptionPlaceholder": "Czas wolny",

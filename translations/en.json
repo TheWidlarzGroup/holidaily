@@ -281,6 +281,7 @@
     "additionalsTitle": "ADDITIONALS",
     "additionalsLabel": "Add an attachment or write message",
     "messageLabel": "Message",
+    "messageCharactes": "{{count}}/{{max}} characters",
     "attachmentDeleteMessage": "Delete attachment?",
     "CTA": "Next",
     "timeOffDescriptionPlaceholder": "Time Off",
