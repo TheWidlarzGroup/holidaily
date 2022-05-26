@@ -2,7 +2,7 @@ import React, { FC, useMemo, useState } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { LayoutChangeEvent, ScrollView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
@@ -19,6 +19,8 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [teamMemberHeight, setTeamMemberHeight] = useState(0)
+  const [modalHeight, setModalHeight] = useState(0)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
     setModalUser(user)
@@ -49,6 +51,16 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
 
     return { matesOnHoliday, matesWithPlannedHolidays, mates }
   }, [params?.users, user])
+
+  const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    setTeamMemberHeight(height)
+  }
+
+  const getModalHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    setModalHeight(height)
+  }
 
   return (
     <>
@@ -81,11 +93,12 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
       </SafeAreaWrapper>
       {modalUser && (
         <SwipeableModalRegular
-          useScrollView
+          onLayout={getModalHeight}
+          useScrollView={teamMemberHeight > modalHeight}
           hasIndicator
           isOpen={isModalVisible}
           onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember user={modalUser} />
+          <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
         </SwipeableModalRegular>
       )}
     </>

@@ -18,7 +18,7 @@ type SwipeableModalRegularProps = PropsWithChildren<
     buttonLabel?: string
     hasIndicator?: boolean
     closeAction?: 'close' | 'back'
-    useScrollView?: true
+    useScrollView?: boolean
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >
@@ -42,6 +42,7 @@ export const SwipeableModalRegular = (props: SwipeableModalRegularProps) => {
     buttonAction: props.buttonAction,
     buttonLabel: props.buttonLabel,
   }
+
   return (
     <SwipeableModal propagateSwipe {...props}>
       <Box flex={1} borderTopLeftRadius="l1min" borderTopRightRadius="l1min" overflow="hidden">
@@ -82,7 +83,7 @@ const ModalScrollView = ({
 }: PropsWithChildren<RegularModalButtonProps>) => (
   <ScrollView showsHorizontalScrollIndicator={false}>
     {/* Comment: TouchableOpacity and TouchableWithoutFeedback hack is needed for scrollview to work inside of react-native-modals */}
-    <BaseOpacity paddingHorizontal="m" activeOpacity={1}>
+    <BaseOpacity activeOpacity={1}>
       <TouchableWithoutFeedback>
         <>
           {children}

@@ -91,7 +91,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         backgroundColor="dashboardBackgroundBrighter"
         paddingBottom="l"
         alignItems="center">
-        <Box paddingBottom={isIos ? 'xl' : 's'} backgroundColor="white">
+        <Box paddingBottom={isIos ? 'xl' : 's'} backgroundColor="dashboardBackgroundBrighter">
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}
