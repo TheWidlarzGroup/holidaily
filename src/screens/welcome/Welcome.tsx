@@ -14,6 +14,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { Toast } from 'components/Toast'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { AuthNavigationProps } from 'navigation/types'
+import { Analytics } from 'services/analytics'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
 
@@ -36,6 +37,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
 
   const onSubmit = async () => {
     await setItem('firstName', nameInput)
+    Analytics().identify({ firstName: nameInput })
     createTempUser(
       { firstName: nameInput },
       {

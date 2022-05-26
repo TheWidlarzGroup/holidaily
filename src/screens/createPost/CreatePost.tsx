@@ -7,6 +7,7 @@ import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps } from 'navigation/types'
 import React, { useState } from 'react'
 import { Asset } from 'react-native-image-picker'
+import { Analytics } from 'services/analytics'
 import { generateUUID } from 'utils/generateUUID'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { PostState } from './CreatePostForm/usePostFormReducer'
@@ -60,6 +61,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
     mutate(feedPost)
+    Analytics().track('CREATE_POST', { content: data.text })
 
     if (!data) return setStatus('failure')
     setStatus('success')
