@@ -23,7 +23,7 @@ export const AppNavigation = () => {
 
   const navigationRef: any = useRef()
   const routeNameRef = useRef()
-  // TODO: Fix types
+  // COMMENT: types in navigationRef could be <NavigationContainerRef> probably, needs research
 
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
@@ -99,7 +99,7 @@ export const AppNavigation = () => {
       onStateChange={() => {
         const currentRouteName = navigationRef.current.getCurrentRoute()
         const currentScreenName = currentRouteName.name
-        if (currentScreenName) Analytics().setCurrentScreen(currentScreenName as string)
+        if (currentScreenName) Analytics().setCurrentScreen(currentScreenName)
         routeNameRef.current = currentRouteName
       }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
