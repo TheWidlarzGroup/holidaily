@@ -4,11 +4,15 @@ import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { useTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
-import { useMarkedDates } from 'utils/genMarkedDates'
+import { MarkedDateType, useMarkedDates } from 'utils/genMarkedDates'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 import { isPast } from 'date-fns'
 import { isToday } from 'date-fns/esm'
-import { MarkingType, NewCalendarBaseProps } from './CalendarComponents/CalendarTypes'
+import {
+  MarkingType,
+  NewCalendarBaseProps,
+  NewDayComponentProps,
+} from './CalendarComponents/CalendarTypes'
 import { NewCalendarList } from './CalendarComponents/NewCalendar'
 
 type CustomCalendarProps = {
@@ -84,8 +88,9 @@ export const CalendarList = ({
   )
 }
 const renderHeader = (date: Date) => <CalendarHeader date={date} />
+
 const CalendarDayComponent = React.memo(
-  (props: any) => {
+  (props: NewDayComponentProps & { marking: MarkedDateType }) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
     const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
     return (

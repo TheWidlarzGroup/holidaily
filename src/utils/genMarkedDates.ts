@@ -2,7 +2,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useCallback } from 'react'
 import { calculatePTO, getDatesBetween } from './dates'
 
-type MarkedDateType = {
+export type MarkedDateType = {
   selected?: boolean
   color?: string
   endingDay?: boolean
