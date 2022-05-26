@@ -11,16 +11,22 @@ type SickTimeProps = {
 export const SickTime = ({ sickTime, toggle }: SickTimeProps) => {
   const { t } = useTranslation('requestVacation')
   return (
-    <Box marginTop="s">
-      <Text variant="boldBlack18" textAlign="left">
-        {t('sickTimeTitle')}
-      </Text>
-      <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Text variant="body1" textAlign="left">
+    <Box marginBottom="m">
+      <Box
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        bg="specialOpaque"
+        padding="m"
+        borderRadius="l2min">
+        <Text variant="textSM" textAlign="left">
           {t('sickTimeLabel')}
         </Text>
         <Checkbox size="s" checked={sickTime} onPress={toggle} />
       </Box>
+      <Text variant="inputLabel" lineHeight={18}>
+        {t('sickTimeDesc')}
+      </Text>
     </Box>
   )
 }
