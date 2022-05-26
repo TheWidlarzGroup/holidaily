@@ -15,7 +15,7 @@ export const SicktimeAndMessage = ({ isSick, message }: SicktimeAndMessageProps)
       {isSick && (
         <Box flexDirection="row" alignItems="center">
           <PillIcon />
-          <Text variant="body1">{t('sickTimeTitle')}</Text>
+          <Text variant="body1">{t('sickTimeLabel')}</Text>
         </Box>
       )}
       {!!message && (
