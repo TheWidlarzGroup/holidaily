@@ -65,6 +65,9 @@ export const Additionals = (p: AdditionalsProps) => {
         </Box>
       )}
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
+        {!p.isMsgInputVisible && !msgContent && (
+          <AttachmentIcon variant="msg" onPress={p.onMsgBtnPress} />
+        )}
         {p.attachments.length ? (
           <Attachments
             attachments={p.attachments}
@@ -74,10 +77,6 @@ export const Additionals = (p: AdditionalsProps) => {
           />
         ) : (
           <AttachmentIcon variant="file" onPress={p.showAttachmentModal} />
-        )}
-
-        {!p.isMsgInputVisible && !msgContent && (
-          <AttachmentIcon variant="msg" onPress={p.onMsgBtnPress} />
         )}
       </Box>
     </Box>
