@@ -1,5 +1,4 @@
 import { FormInput } from 'components/FormInput'
-import { InputButton } from 'components/InputButton'
 import React from 'react'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { ModalNavigationType } from 'navigation/types'
