@@ -229,7 +229,8 @@
     "locationsSearch": "Search",
     "locationNotFound": "Not found",
     "loading": "Searching...",
-    "exceededAmount": "You exceeded amount of images in single post"
+    "exceededAmount": "You exceeded amount of images in single post",
+    "seeMore": "pokaż więcej"
   },
   "createPost": {
     "title": "Create Post",
@@ -266,7 +267,8 @@
   },
   "messageInput": {
     "placeholder": "Write your message...",
-    "maxCharacters": "Max {{maxLength}} characters"
+    "maxCharacters": "Max {{maxLength}} characters",
+    "commentAdded": "Comment added!"
   },
   "requestVacation": {
     "title": "Take time off",

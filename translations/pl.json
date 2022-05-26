@@ -229,7 +229,8 @@
     "locationsSearch": "Wyszukaj",
     "locationNotFound": "Nie znaleziono",
     "loading": "Szukam...",
-    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście"
+    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
+    "seeMore": "see more"
   },
   "createPost": {
     "title": "Utwórz Post",
@@ -266,7 +267,8 @@
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
-    "maxCharacters": "Limit {{maxLength}} znaków"
+    "maxCharacters": "Limit {{maxLength}} znaków",
+    "commentAdded": "Dodano komentarz!"
   },
   "requestVacation": {
     "title": "Weź wolne",
