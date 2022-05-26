@@ -19,8 +19,8 @@ export const Notification = ({
   const opacity = wasSeenByHolder ? 0.6 : 1
   const onPress = () => {
     if (!wasSeenByHolder) mutate(p.id)
-    if (type === 'dayOff') navigate('Calendar')
-    else navigate('Feed', { postId: 3 })
+    if (type === 'dayOff') navigate('CALENDAR')
+    else navigate('FEED', { postId: 3 })
   }
   return (
     <BaseOpacity

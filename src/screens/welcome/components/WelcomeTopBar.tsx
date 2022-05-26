@@ -17,7 +17,7 @@ export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
       paddingTop={isIos ? 's' : 'l'}>
       <Box>
         <TouchableOpacity
-          onPress={() => navigate('Slider')}
+          onPress={() => navigate('SLIDER')}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <BackArrowIcon height={18} width={18} color={theme.colors.black} />
         </TouchableOpacity>

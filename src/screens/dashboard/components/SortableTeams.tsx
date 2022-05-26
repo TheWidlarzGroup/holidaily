@@ -9,8 +9,8 @@ import { TeamElement } from './TeamElement'
 
 export const SortableTeams = () => {
   const { user } = useUserContext()
-  const navigation = useNavigation<DashboardNavigationType<'Dashboard'>>()
-  const navigateToTeamDetails = (team: Team) => navigation.navigate('DashboardTeam', { ...team })
+  const navigation = useNavigation<DashboardNavigationType<'DASHBOARD'>>()
+  const navigateToTeamDetails = (team: Team) => navigation.navigate('DASHBOARD_TEAM', { ...team })
   const teamElements = (user?.teams ?? []).map((team: Team) => (
     <TeamElement
       {...team}

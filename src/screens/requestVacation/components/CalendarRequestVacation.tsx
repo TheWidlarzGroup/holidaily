@@ -15,7 +15,7 @@ export const CalendarRequestVacation = ({
   route: {
     params: { isSickTime },
   },
-}: ModalNavigationProps<'RequestVacationCalendar'>) => {
+}: ModalNavigationProps<'REQUEST_VACATION_CALENDAR'>) => {
   const [periodStart, selectPeriodStart] = useState<string>('')
   const [periodEnd, selectPeriodEnd] = useState<string>('')
   const { goBack } = useNavigation()
@@ -26,13 +26,13 @@ export const CalendarRequestVacation = ({
     return calculatePTO(periodStart, periodEnd)
   }, [periodStart, periodEnd])
   const isInvalid = isSickTime ? ptoTaken > MAX_SICK_DAYS_COUNT : ptoTaken > availablePto
-  const navigation = useNavigation<ModalNavigationType<'RequestVacationCalendar'>>()
+  const navigation = useNavigation<ModalNavigationType<'REQUEST_VACATION_CALENDAR'>>()
   const onClear = () => {
     selectPeriodStart('')
     selectPeriodEnd('')
   }
   const onSubmit = () =>
-    navigation.navigate('RequestVacation', {
+    navigation.navigate('REQUEST_VACATION', {
       start: periodStart,
       end: periodEnd,
     })

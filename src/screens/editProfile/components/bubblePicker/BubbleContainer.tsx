@@ -17,7 +17,7 @@ const DropArea = Animated.createAnimatedComponent(Box)
 
 export const BubbleContainer = ({
   route: { params: p },
-}: UserProfileNavigationProps<'ColorPicker'>) => {
+}: UserProfileNavigationProps<'COLOR_PICKER'>) => {
   const styles = useStyles()
   const theme = useTheme()
   const { t } = useTranslation('userProfile')

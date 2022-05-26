@@ -14,7 +14,7 @@ import { Siri } from './components/Siri'
 import { DarkModeSwitch } from './components/DarkModeSwitch'
 
 export const Settings = () => {
-  const navigation = useNavigation<DrawerNavigationType<'Settings'>>()
+  const navigation = useNavigation<DrawerNavigationType<'SETTINGS'>>()
   const [loading, { setTrue: setLoadingTrue, setFalse: setLoadingFalse }] = useBooleanState(false)
 
   const handleGoBack = useCallback(() => {

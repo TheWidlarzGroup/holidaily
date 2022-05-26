@@ -7,10 +7,10 @@ import { ModalNavigationType } from 'navigation/types'
 
 export const JoinFirstTeam = () => {
   const { t } = useTranslation('dashboard')
-  const { navigate } = useNavigation<ModalNavigationType<'SubscribeNewTeam'>>()
+  const { navigate } = useNavigation<ModalNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
 
   const onSubscribeTeam = () => {
-    navigate('SubscribeNewTeam')
+    navigate('SUBSCRIBE_NEW_TEAM')
   }
 
   return (

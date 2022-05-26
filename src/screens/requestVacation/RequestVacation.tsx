@@ -25,14 +25,14 @@ export type RequestDataTypes = {
   files: (AttachmentType & { name: string })[]
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
-type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
+type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const { userSettings } = useUserSettingsContext()
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
+  const navigation = useNavigation<ModalNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
 
@@ -64,7 +64,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       params: {
         screen: 'Stats',
         params: {
-          screen: 'SeeRequest',
+          screen: 'SEE_REQUEST',
           params: {
             ...ctx.requestData,
             endDate: (ctx.endDate ?? new Date()).toISOString(),
