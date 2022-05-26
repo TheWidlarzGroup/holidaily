@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, useTheme } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from './CustomButton'
 
@@ -13,25 +13,19 @@ type SubmitProps = {
 
 export const Submit = (p: SubmitProps) => {
   const { t } = useTranslation('createPost')
-  const theme = useTheme()
   return (
     <Box
       backgroundColor={p.noBg ? 'transparent' : 'white'}
       justifyContent="center"
       alignItems="stretch"
-      paddingHorizontal="xxxl"
-      paddingBottom="l">
+      paddingBottom="xxm">
       <CustomButton
         label={p.text ?? t('sendPost')}
         disabled={p.disabledCTA}
         variant="primary"
         onPress={p.onCTAPress}
-        width={260}
         marginTop={10}
         alignSelf="center"
-        customStyle={{
-          borderRadius: theme.borderRadii.full,
-        }}
       />
     </Box>
   )

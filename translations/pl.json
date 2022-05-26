@@ -245,7 +245,7 @@
     "en": "Angielski",
     "pl": "Polski",
     "biometric": "Odblokuj odciskiem palca",
-    "changed": "został zmieniony!"
+    "languageChanged": "Language has been changed!"
   },
   "loader": {
     "wait": "Jeszcze chwilkę..."
@@ -271,8 +271,10 @@
   "requestVacation": {
     "title": "Weź wolne",
     "detailsTitle": "Szczegóły",
-    "detailsDate": "Termin",
-    "detailsDescription": "Opis (opcjonalnie)",
+    "detailsDate": "Data",
+    "selectDate": "Wybierz datę",
+    "detailsDescription": "Tytuł (opcjonalnie)",
+    "setDescription": "Wpisz tytuł",
     "detailsDescriptionError": "Nieprawidłowy opis",
     "sickTimeTitle": "Chorobowe",
     "sickTimeLabel": "Nie czuje się najlepiej",

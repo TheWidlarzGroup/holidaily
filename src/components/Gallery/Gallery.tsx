@@ -11,7 +11,7 @@ import {
 import { useSharedValue } from 'react-native-reanimated'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { isIos } from 'utils/layout'
-import { Box } from 'utils/theme'
+import { Box, theme } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -64,7 +64,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
         decelerationRate="normal"
         disableIntervalMomentum
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={{ alignItems: 'center', paddingTop: theme.spacing.xxm }}
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.src}

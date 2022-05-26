@@ -1,12 +1,13 @@
 import { FormInput } from 'components/FormInput'
-import { InputButton } from 'components/InputButton'
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { ModalNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { CustomInput } from 'components/CustomInput'
+import CalendarIcon from 'assets/icons/icon-calendar.svg'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 
 type DetailsProps = {
@@ -24,6 +25,11 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
   const { control, register, errors } = useForm()
   const { sickTime, isPeriodInvalid } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
+  const theme = useTheme()
+
+  React.useEffect(() => {
+    register('description', { required: false })
+  }, [register])
 
   return (
     <Box>
@@ -31,12 +37,24 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
         {t('detailsTitle')}
       </Text>
       <Box marginTop="m">
-        <InputButton
-          isError={isPeriodInvalid}
-          inputLabel={t('detailsDate')}
-          onClick={() => navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })}
-          value={getFormattedPeriod(date.start, date.end)}
-        />
+        <BaseOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
+          }>
+          <CustomInput
+            focusable={false}
+            disabled
+            placeholder={t('selectDate')}
+            inputLabel={t('detailsDate')}
+            isError={isPeriodInvalid}
+            variant="medium"
+            value={getFormattedPeriod(date.start, date.end)}
+          />
+          <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
+            <CalendarIcon color={theme.colors.headerGrey} />
+          </Box>
+        </BaseOpacity>
       </Box>
       <Box marginTop="m">
         <FormInput
@@ -46,14 +64,14 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
           errors={errors}
           name="description"
           inputLabel={t('detailsDescription')}
+          placeholder={t('setDescription')}
           validationPattern={/$/}
           errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
           onTouchStart={hideNext}
           onBlur={showNext}
-          autoCompleteType="off"
+          autoComplete="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
-          {...register('description', { required: false })}
           maxLength={300}
         />
       </Box>

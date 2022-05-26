@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Text, Theme } from 'utils/theme'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { isToday, isWeekend } from 'utils/dates'
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import { ViewStyle } from 'react-native'
 import { isHoliday } from 'poland-public-holidays'
 import { TextProps } from '@shopify/restyle'
@@ -23,12 +22,9 @@ export type MarkingStyles = {
   ignoreDarkMode?: true
 }
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
-
 export const CalendarDayMain = (p: CalendarDayMainProps) => {
   const day = p.date.dateString
-  const isNotAWorkingDay = isWeekend(day) || isHoliday(day)
-  const isDisabled = isNotAWorkingDay || !!p.marking?.disabled
+  const isDisabled = !!p.marking?.disabled || isWeekend(day) || isHoliday(day)
   const textColor = () => {
     if (isDisabled && p.marking?.period) return 'errorRed'
     if (isDisabled) return 'headerGreyDarker'
@@ -36,12 +32,6 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
     if (p.ignoreDarkMode) return 'alwaysBlack'
     return 'black'
   }
-
-  const containerStyles = useAnimatedStyle(() => ({
-    backgroundColor: withTiming(
-      p.marking?.selected && !p.marking?.period ? 'disabledTextBrighter' : 'primary'
-    ),
-  }))
 
   const getDateBgColor = () => {
     if (p.ignoreDarkMode && isToday(day) && !p.marking?.selected) return 'disabled'
@@ -58,16 +48,15 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
         p.marking?.period && p.styles.dayInPeriod,
         p.marking?.endingDay && p.styles.periodEndDay,
         p.marking?.startingDay && p.styles.periodStartDay,
-        p.marking?.period && isNotAWorkingDay && p.styles.disabledDay,
+        p.marking?.period && isDisabled && p.styles.disabledDay,
       ]}>
-      <AnimatedBox
+      <Box
         borderRadius="lmin"
         width={30}
         height={30}
         margin="s"
         justifyContent="center"
-        alignItems="center"
-        style={containerStyles}>
+        alignItems="center">
         <BorderlessButton
           onPress={() => p.onPress(p.date)}
           enabled={!isDisabled}
@@ -84,7 +73,7 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
             </Text>
           </Box>
         </BorderlessButton>
-      </AnimatedBox>
+      </Box>
     </Box>
   )
 }

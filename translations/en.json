@@ -245,7 +245,7 @@
     "en": "English",
     "pl": "Polish",
     "biometric": "Biometric passcode",
-    "changed": "has been changed!"
+    "languageChanged": "Język został zmieniony!"
   },
   "loader": {
     "wait": "Wait a second..."
@@ -272,7 +272,9 @@
     "title": "Take time off",
     "detailsTitle": "Details",
     "detailsDate": "Date",
-    "detailsDescription": "Description (optional)",
+    "selectDate": "Select a date",
+    "detailsDescription": "Title (optional)",
+    "setDescription": "Enter a title",
     "detailsDescriptionError": "Incorrect description",
     "sickTimeTitle": "Sick Time off",
     "sickTimeLabel": "I'm not feeling well",
