@@ -26,6 +26,11 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
   const { sickTime, isPeriodInvalid } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
+
+  React.useEffect(() => {
+    register('description', { required: false })
+  }, [register])
+
   return (
     <Box>
       <Text variant="boldBlack18" textAlign="left">
@@ -65,9 +70,8 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
           keyboardType="default"
           onTouchStart={hideNext}
           onBlur={showNext}
-          autoCompleteType="off"
+          autoComplete="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
-          {...register('description', { required: false })}
           maxLength={300}
         />
       </Box>
