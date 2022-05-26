@@ -7,6 +7,7 @@ import { useUserContext } from 'hooks/useUserContext'
 import { useTeamsContext } from 'hooks/useTeamsContext'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { ConfirmationModal } from 'components/ConfirmationModal'
+import { Analytics } from 'services/analytics'
 
 export const Logout = () => {
   const { t } = useTranslation(['confirmLogoutModal', 'navigation'])
@@ -16,6 +17,8 @@ export const Logout = () => {
     useBooleanState(false)
   const onLogout = () => {
     hideModal()
+    Analytics().track('LOG_OUT')
+    Analytics().reset()
     handleLogout()
     resetTeams()
   }

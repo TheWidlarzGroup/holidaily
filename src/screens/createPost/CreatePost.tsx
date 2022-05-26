@@ -18,7 +18,7 @@ type PostAttachment = {
   type: FeedPostDataType
 }
 
-export const CreatePost = ({ route }: ModalNavigationProps<'CreatePost'>) => {
+export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { userSettings } = useUserSettingsContext()
   useSetStatusBarStyle(userSettings)
   const [status, setStatus] = useState<CreatePostStatus>('draft')

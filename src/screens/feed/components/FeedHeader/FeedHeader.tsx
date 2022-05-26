@@ -22,7 +22,7 @@ export const FeedHeader = () => {
   ] = useBooleanState(false)
   const { user } = useUserContext()
   const changeDataRequest = (modalPhoto: AttachmentType) => {
-    navigate('CreatePost', { photo: modalPhoto })
+    navigate('CREATE_POST', { photo: modalPhoto })
   }
 
   return (
@@ -40,7 +40,7 @@ export const FeedHeader = () => {
         <Box marginRight="m" marginLeft="xs">
           <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
         </Box>
-        <BaseOpacity flexGrow={1} onPress={() => navigate('CreatePost')} justifyContent="center">
+        <BaseOpacity flexGrow={1} onPress={() => navigate('CREATE_POST')} justifyContent="center">
           <Text variant="textSM" color="headerGrey">
             {t('createPostLabel')}
           </Text>

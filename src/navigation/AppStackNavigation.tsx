@@ -24,32 +24,32 @@ export const AppStackNavigation = () => {
     <Box flex={1} backgroundColor="black">
       <AppStack.Navigator
         {...StackNavigatorPresets.modalNavigator}
-        initialRouteName="DrawerNavigator">
+        initialRouteName="DRAWER_NAVIGATOR">
         <AppStack.Screen
-          name="DashboardNotifications"
+          name="NOTIFICATIONS"
           component={Notifications}
           options={{
             ...TransitionPresets.DefaultTransition,
             animationEnabled: false,
           }}
         />
-        <AppStack.Screen name="RequestVacation" component={RequestVacation} />
+        <AppStack.Screen name="REQUEST_VACATION" component={RequestVacation} />
         <AppStack.Screen
-          name="RequestVacationCalendar"
+          name="REQUEST_VACATION_CALENDAR"
           component={CalendarRequestVacation}
           options={RequestVacationCalendarOptions}
         />
-        <AppStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+        <AppStack.Screen name="DRAWER_NAVIGATOR" component={DrawerNavigator} />
         <AppStack.Screen
-          name="Gallery"
+          name="GALLERY"
           component={GalleryScreen}
           options={{
             cardStyle: styles.galleryScreenCard,
             cardStyleInterpolator: undefined,
           }}
         />
-        <AppStack.Screen name="CreatePost" component={CreatePost} />
-        <AppStack.Screen name="SubscribeNewTeam" component={SubscribeNewTeam} />
+        <AppStack.Screen name="CREATE_POST" component={CreatePost} />
+        <AppStack.Screen name="SUBSCRIBE_NEW_TEAM" component={SubscribeNewTeam} />
       </AppStack.Navigator>
     </Box>
   )

@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
-export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SeeRequest'>) => {
-  const { navigate } = useNavigation<RequestsNavigatorType<'SeeRequest'>>()
+export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SEE_REQUEST'>) => {
+  const { navigate } = useNavigation<RequestsNavigatorType<'SEE_REQUEST'>>()
   const { t } = useTranslation('seeRequest')
   const theme = useTheme()
 
@@ -17,7 +17,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'Se
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <ModalHeader>
         <BaseOpacity
-          onPress={() => navigate('StatsAndRequests')}
+          onPress={() => navigate('STATS_AND_REQUESTS')}
           marginLeft="l"
           paddingBottom="ml"
           paddingTop="lplus">

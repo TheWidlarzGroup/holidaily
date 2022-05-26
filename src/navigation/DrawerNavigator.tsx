@@ -91,12 +91,12 @@ export const DrawerNavigator = () => {
         options={{ title: t('budget'), swipeEnabled: false }}
       />
       <Drawer.Screen
-        name="Settings"
+        name="SETTINGS"
         component={Settings}
         options={{ title: t('settings'), swipeEnabled: false }}
       />
       <Drawer.Screen
-        name="About"
+        name="ABOUT"
         component={About}
         options={{ title: t('about'), swipeEnabled: false }}
       />

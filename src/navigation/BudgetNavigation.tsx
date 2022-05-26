@@ -9,7 +9,7 @@ const BudgetStack = createStackNavigator<BudgetRoutes>()
 
 export const BudgetNavigation = () => (
   <BudgetStack.Navigator {...StackNavigatorPresets.modalNavigator}>
-    <BudgetStack.Screen name="Budget" component={Budget} />
-    <BudgetStack.Screen name="PtoPolicy" component={PtoPolicy} />
+    <BudgetStack.Screen name="BUDGET" component={Budget} />
+    <BudgetStack.Screen name="PTO_POLICY" component={PtoPolicy} />
   </BudgetStack.Navigator>
 )
