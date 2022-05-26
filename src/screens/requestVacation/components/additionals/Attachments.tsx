@@ -1,12 +1,12 @@
 import React from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
-import Cross from 'assets/icons/circle-cross.svg'
+import { Box, mkUseStyles } from 'utils/theme'
+// import Cross from 'assets/icons/circle-cross.svg'
 import { Photo } from 'components/RequestDetails/Photo'
 import { AddMore } from './AddMore'
 
 type AttachmentProps = {
-  attachments: (AttachmentType | (AttachmentType & { name: string }))[]
+  attachments: AttachmentType[]
   removeAttachment: F1<string>
   addMore: F0
   displayAddMore?: boolean
@@ -42,7 +42,7 @@ export const Attachments = ({
               paddingRight: getPadding(uriIndex, 'right'),
               width: '33.33%',
             }}>
-            {'name' in attachment ? (
+            {/* {'name' in attachment ? (
               <Box alignItems="center" justifyContent="center">
                 <BaseOpacity
                   alignSelf="flex-end"
@@ -52,13 +52,13 @@ export const Attachments = ({
                 </BaseOpacity>
                 <Text>{attachment.name}</Text>
               </Box>
-            ) : (
-              <Photo
-                src={attachment.uri}
-                onClose={() => removeAttachment(attachment.id)}
-                displayClose
-              />
-            )}
+            ) : ( */}
+            <Photo
+              src={attachment.uri}
+              onClose={() => removeAttachment(attachment.id)}
+              displayClose
+            />
+            {/* )} */}
           </Box>
         ))}
         {attachments.length % 3 !== 0 && displayAddMore && (

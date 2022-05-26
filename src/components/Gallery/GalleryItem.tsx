@@ -8,8 +8,8 @@ type GalleryItemProps = GalleryItemData & {
   onPress: F0
 }
 
-export const GalleryItem = ({ src, width, onPress }: GalleryItemProps) => (
+export const GalleryItem = ({ uri, width, onPress }: GalleryItemProps) => (
   <BaseOpacity onPress={onPress} activeOpacity={1}>
-    <FastImage style={{ aspectRatio: 4 / 5, width }} source={{ uri: src }} resizeMode="cover" />
+    <FastImage style={{ aspectRatio: 4 / 5, width }} source={{ uri }} resizeMode="cover" />
   </BaseOpacity>
 )

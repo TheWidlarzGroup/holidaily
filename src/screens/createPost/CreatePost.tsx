@@ -14,8 +14,9 @@ import { CreatePostResult } from './CreatePostResult/CreatePostResult'
 import { CreatePostStatus } from './types'
 
 type PostAttachment = {
-  src: string
+  uri: string
   type: FeedPostDataType
+  id: string
 }
 
 export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
@@ -30,13 +31,15 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     attachments.map((item) => {
       if (item.type === 'image/jpeg') {
         return {
-          src: item.uri || '',
+          uri: item.uri || '',
           type: 'image',
+          id: generateUUID(),
         }
       }
       return {
-        src: item.uri || '',
+        uri: item.uri || '',
         type: 'video',
+        id: generateUUID(),
       }
     })
 

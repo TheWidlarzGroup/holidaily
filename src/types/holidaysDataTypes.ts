@@ -52,11 +52,13 @@ export type RequiredMateHolidaysData = UserData & {
 }
 
 export type GalleryItemData = {
-  src: string
+  id: string
+  uri: string
   type: 'image' | 'video'
 }
 
 export type AttachmentType = {
   id: string
   uri: string
+  type?: 'image' | 'video'
 }

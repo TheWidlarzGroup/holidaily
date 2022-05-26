@@ -69,8 +69,9 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
 }
 
 const assetToGalleryItem = (asset: Asset): GalleryItemData => ({
+  id: asset.id ?? '',
   type: asset.type ? 'image' : 'video',
-  src: asset.uri ?? '',
+  uri: asset.uri ?? '',
 })
 
 const isSendDisabled = ({ text, images }: PostState) => text.length === 0 && images.length === 0
