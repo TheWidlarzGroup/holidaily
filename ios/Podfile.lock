@@ -46,8 +46,26 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.2.1)
   - NewRelicAgent (7.3.5)
-  - OneSignal (3.10.3)
-  - OneSignalXCFramework (3.10.3)
+  - OneSignal (3.11.1):
+    - OneSignal/OneSignalCore (= 3.11.1)
+    - OneSignal/OneSignalExtension (= 3.11.1)
+    - OneSignal/OneSignalOutcomes (= 3.11.1)
+  - OneSignal/OneSignalCore (3.11.1)
+  - OneSignal/OneSignalExtension (3.11.1):
+    - OneSignal/OneSignalCore
+    - OneSignal/OneSignalOutcomes
+  - OneSignal/OneSignalOutcomes (3.11.1):
+    - OneSignal/OneSignalCore
+  - OneSignalXCFramework (3.11.1):
+    - OneSignalXCFramework/OneSignalCore (= 3.11.1)
+    - OneSignalXCFramework/OneSignalExtension (= 3.11.1)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.11.1)
+  - OneSignalXCFramework/OneSignalCore (3.11.1)
+  - OneSignalXCFramework/OneSignalExtension (3.11.1):
+    - OneSignalXCFramework/OneSignalCore
+    - OneSignalXCFramework/OneSignalOutcomes
+  - OneSignalXCFramework/OneSignalOutcomes (3.11.1):
+    - OneSignalXCFramework/OneSignalCore
   - Permission-LocationAlways (3.3.1):
     - RNPermissions
   - Permission-LocationWhenInUse (3.3.1):
@@ -259,8 +277,8 @@ PODS:
   - react-native-newrelic (1.9.0):
     - NewRelicAgent
     - React-Core
-  - react-native-onesignal (4.3.9):
-    - OneSignalXCFramework (= 3.10.3)
+  - react-native-onesignal (4.3.10):
+    - OneSignalXCFramework (= 3.11.1)
     - React (< 1.0.0, >= 0.13.0)
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -331,7 +349,7 @@ PODS:
     - React-jsi (= 0.67.4)
     - React-logger (= 0.67.4)
     - React-perflogger (= 0.67.4)
-  - RNCAsyncStorage (1.17.4):
+  - RNCAsyncStorage (1.17.5):
     - React-Core
   - RNCClipboard (1.10.0):
     - React-Core
@@ -604,8 +622,8 @@ SPEC CHECKSUMS:
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   NewRelicAgent: b887ea75f6de2bb2fcf3ec0af4c5aa648efce2d0
-  OneSignal: a64c4a07be58b699fcda3aacf38a1c185ee3996b
-  OneSignalXCFramework: 4efd7bd68c2b14920955b3f14b5b75bbf8fb662c
+  OneSignal: 60902887c93f91e9b5599583e7df5f55b2144755
+  OneSignalXCFramework: 8bdcaa3b7f6082565bf29c5481435376a33e94f2
   Permission-LocationAlways: fbf36cbdcabc3101f1168ad1ec45cfc5a6448cc4
   Permission-LocationWhenInUse: 006c85c8de0c05b5d8be8e8029e4f6b813270293
   RCT-Folly: 803a9cfd78114b2ec0f140cfa6fa2a6bafb2d685
@@ -624,7 +642,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: e95b4785b685cfc06609bc50ed6fb55b59990c99
   react-native-month-year-picker: 66acab2013309482578a015f01c71e8f2eebb134
   react-native-newrelic: c4ce90bfff64b857394a7e49c6aa22487c844e67
-  react-native-onesignal: 88a38450ee225600da7fbcfcf844a8af487db919
+  react-native-onesignal: ebe25c107bc2d04aa1db040b1b5dee56f4df4436
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: 0afaf2f01a47fd0fc368a93bfbb5bd3b26db6e7f
@@ -639,7 +657,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 3b52a7dced19cdb025b4f88ab26ceb2d85f30ba2
   React-runtimeexecutor: a9d3c82ddf7ffdad9fbe6a81c6d6f8c06385464d
   ReactCommon: 07d0c460b9ba9af3eaf1b8f5abe7daaad28c9c4e
-  RNCAsyncStorage: 9367a646dc24e3ab7b6874d79bc1bfd0832dce58
+  RNCAsyncStorage: 81187912cc9a5c2591ddb161e03e587688afb764
   RNCClipboard: f1736c75ab85b627a4d57587edb4b60999c4dd80
   RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
@@ -655,4 +673,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 76777f440299d843f7587dcadea87ebcb9f44463
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

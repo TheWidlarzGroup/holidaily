@@ -23,6 +23,7 @@ module.exports = {
     'no-undef': 'off',
     '@typescript-eslint/no-unsafe-argument': 0,
     'react/display-name': 'off',
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
   globals: {
     __DEV__: 'readonly',

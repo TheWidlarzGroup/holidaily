@@ -4,7 +4,7 @@ import { makeOrder, orderToPositions } from './SortableList'
 // Comment: Tests throw "Can not find module react-native-reanimated from Item.tsx"
 describe.skip('makeOrder util', () => {
   it('Should return order of children ids', () => {
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line
     const ComponentWithId = ({ id }: { id: number | string }) => null
     const children = [
       <ComponentWithId id="test1" />,

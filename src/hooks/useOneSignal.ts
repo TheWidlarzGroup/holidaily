@@ -9,7 +9,7 @@ export const useOneSignal = () => {
     // END OneSignal Init Code
 
     // Prompt for push on iOS
-    OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+    OneSignal.promptForPushNotificationsWithUserResponse((_response) => {
       // console.log('Prompt response:', response)
     })
 
