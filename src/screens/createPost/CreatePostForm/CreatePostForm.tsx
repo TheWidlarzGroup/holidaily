@@ -52,7 +52,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
           imagesCount={state.images.length}
         />
       </KeyboardAvoidingView>
-      <Box bg="dropdownPicked">
+      <Box bg="dropdownPicked" paddingBottom="xl">
         <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
       </Box>
       <ModalLocationPicker
