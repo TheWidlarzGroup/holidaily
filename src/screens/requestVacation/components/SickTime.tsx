@@ -11,7 +11,7 @@ type SickTimeProps = {
 export const SickTime = ({ sickTime, toggle }: SickTimeProps) => {
   const { t } = useTranslation('requestVacation')
   return (
-    <Box marginBottom="m">
+    <Box>
       <Box
         flexDirection="row"
         justifyContent="space-between"
@@ -24,7 +24,7 @@ export const SickTime = ({ sickTime, toggle }: SickTimeProps) => {
         </Text>
         <Checkbox size="s" checked={sickTime} onPress={toggle} />
       </Box>
-      <Text variant="inputLabel" lineHeight={18}>
+      <Text variant="inputLabel" lineHeight={18} marginTop="xs">
         {t('sickTimeDesc')}
       </Text>
     </Box>

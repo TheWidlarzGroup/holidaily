@@ -90,7 +90,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     <Box flex={1}>
       <KeyboardAwareScrollView>
         <Box margin="ml" paddingBottom="xxxl">
-          <Text variant="sectionLabel" textAlign="left">
+          <Text variant="sectionLabel" textAlign="left" marginBottom="m">
             {t('detailsTitle')}
           </Text>
           <SickTime sickTime={sickTime} toggle={toggleSickTime} />
