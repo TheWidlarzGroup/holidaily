@@ -1,14 +1,18 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
 import { useTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
-import { genMarkedDates } from 'utils/genMarkedDates'
+import { MarkedDateType, useMarkedDates } from 'utils/genMarkedDates'
 import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 import { isPast } from 'date-fns'
 import { isToday } from 'date-fns/esm'
-import { MarkingType, NewCalendarBaseProps } from './CalendarComponents/CalendarTypes'
+import {
+  MarkingType,
+  NewCalendarBaseProps,
+  NewDayComponentProps,
+} from './CalendarComponents/CalendarTypes'
 import { NewCalendarList } from './CalendarComponents/NewCalendar'
 
 type CustomCalendarProps = {
@@ -29,7 +33,6 @@ export const CalendarList = ({
   markedDates,
   ...p
 }: CustomCalendarProps & RNCalendarProps) => {
-  const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
   const appTheme = useTheme()
 
   const handleClick = ({ dateString: clickedDate }: DateObject) => {
@@ -63,7 +66,7 @@ export const CalendarList = ({
     } as const,
     ...themeProp,
   }
-
+  const getMarkedDates = useMarkedDates()
   return (
     <NewCalendarList
       pastScrollRange={0}
@@ -72,37 +75,38 @@ export const CalendarList = ({
       hideExtraDays
       hideArrows
       theme={theme}
-      dayComponent={useCallback(
-        (props) => {
-          const date = new Date(props.date.dateString)
-          const disabledBecauseIsPast = p.disablePastDates && !isToday(date) && isPast(date)
-          return (
-            <CalendarDay
-              {...props}
-              marking={{
-                ...(props.marking ?? {}),
-                disabled: disabledBecauseIsPast || props.marking?.disabled,
-              }}
-              ignoreDarkMode
-              styles={p.isInvalid ? invalidPeriodStyles : validPeriodStyles}
-            />
-          )
-        },
-        [p.isInvalid, invalidPeriodStyles, validPeriodStyles, p.disablePastDates]
-      )}
+      dayComponent={CalendarDayComponent}
       markingType="period"
       onDayPress={handleClick}
-      renderHeader={useCallback(
-        (date: Date) => (
-          <CalendarHeader date={date} />
-        ),
-        []
-      )}
+      renderHeader={renderHeader}
       markedDates={{
         ...markedDates,
-        ...genMarkedDates(p.periodStart, p.periodEnd),
+        ...getMarkedDates(p.periodStart, p.periodEnd),
       }}
       {...p}
     />
   )
 }
+const renderHeader = (date: Date) => <CalendarHeader date={date} />
+
+const CalendarDayComponent = React.memo(
+  (props: NewDayComponentProps & { marking: MarkedDateType }) => {
+    const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
+    const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
+    return (
+      <CalendarDay
+        {...props}
+        marking={{
+          ...(props.marking ?? {}),
+          disabled: isPastDate || props.marking?.disabled,
+        }}
+        ignoreDarkMode
+        styles={props.marking?.isInvalid ? invalidPeriodStyles : validPeriodStyles}
+      />
+    )
+  },
+  (prevProps, nextProps) => {
+    if (!prevProps.marking?.period && !nextProps.marking?.period) return true
+    return false
+  }
+)
