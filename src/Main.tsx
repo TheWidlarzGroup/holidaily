@@ -8,7 +8,7 @@ import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
-import { notificationsConfig } from 'utils/notifications/notificationsConfig'
+import { getNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
@@ -19,7 +19,7 @@ export const Main = () => {
   const currentTheme = userSettings?.darkMode ? darkTheme : theme
   const statusBarBgColor = currentTheme.colors.transparent
   const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
-  const { NotificationsProvider } = notificationsConfig({ isDarkMode: userSettings?.darkMode })
+  const { NotificationsProvider } = getNotificationsConfig({ isDarkMode: userSettings?.darkMode })
 
   return (
     <ThemeProvider theme={currentTheme}>

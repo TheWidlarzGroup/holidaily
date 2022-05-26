@@ -6,7 +6,7 @@ type ConfigType = {
   isDarkMode?: boolean
 }
 
-export const notificationsConfig = ({ isDarkMode }: ConfigType) => {
+export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
   const notificationAnimation = generateAnimationConfig({
     animationConfigIn: {
       type: 'timing',
