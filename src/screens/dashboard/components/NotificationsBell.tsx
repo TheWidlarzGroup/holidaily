@@ -13,7 +13,7 @@ export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
       right={16}
       height={45}
       width={45}
-      onPress={() => navigation.navigate('DashboardNotifications')}>
+      onPress={() => navigation.navigate('NOTIFICATIONS')}>
       {!!unseenCount && (
         <Box
           borderRadius="full"

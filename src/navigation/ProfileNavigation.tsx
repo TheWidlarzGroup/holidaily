@@ -10,9 +10,9 @@ const ProfileStack = createStackNavigator<UserProfileRoutes>()
 
 export const ProfileNavigation = () => (
   <ProfileStack.Navigator {...StackNavigatorPresets.modalNavigator}>
-    <ProfileStack.Screen name="EditProfile" component={EditProfile} />
+    <ProfileStack.Screen name="EDIT_PROFILE" component={EditProfile} />
     {/* <ProfileStack.Screen name="ChangePassword" component={ChangePassword} /> */}
-    <ProfileStack.Screen name="ColorPicker" component={BubbleContainer} />
-    <ProfileStack.Screen name="Recovery" component={ForgotPasswordNavigation} />
+    <ProfileStack.Screen name="COLOR_PICKER" component={BubbleContainer} />
+    <ProfileStack.Screen name="RECOVERY" component={ForgotPasswordNavigation} />
   </ProfileStack.Navigator>
 )

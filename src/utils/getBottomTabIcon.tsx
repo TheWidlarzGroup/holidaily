@@ -14,14 +14,14 @@ export const getBottomTabIcon = (
     case 'DashboardNavigation': {
       return <HomeIcon color={routeName === 'DashboardNavigation' ? fillActive : fillInactive} />
     }
-    case 'Calendar': {
-      return <CalendarIcon color={routeName === 'Calendar' ? fillActive : fillInactive} />
+    case 'CALENDAR': {
+      return <CalendarIcon color={routeName === 'CALENDAR' ? fillActive : fillInactive} />
     }
     case 'Stats': {
       return <StatsIcon color={routeName === 'Stats' ? fillActive : fillInactive} />
     }
-    case 'Feed': {
-      return <PasteIcon color={routeName === 'Feed' ? fillActive : fillInactive} />
+    case 'FEED': {
+      return <PasteIcon color={routeName === 'FEED' ? fillActive : fillInactive} />
     }
     default:
       break

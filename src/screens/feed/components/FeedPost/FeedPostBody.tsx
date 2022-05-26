@@ -9,9 +9,9 @@ import { ModalNavigationType } from 'navigation/types'
 type FeedPostBodyProps = Pick<FeedPost, 'data' | 'text'>
 
 export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
-  const { navigate } = useNavigation<ModalNavigationType<'Gallery'>>()
+  const { navigate } = useNavigation<ModalNavigationType<'GALLERY'>>()
   const handleGalleryItemPress = (index: number) => {
-    navigate('Gallery', { data, index })
+    navigate('GALLERY', { data, index })
   }
   return (
     <Box>

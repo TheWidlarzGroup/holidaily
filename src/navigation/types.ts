@@ -120,25 +120,25 @@ export type AppRoutes = {
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  Calendar: undefined
+  CALENDAR: undefined
   RequestModal: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
-  Feed: { postId?: string } | undefined
+  FEED: { postId?: string } | undefined
 }
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
   ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   HolidayBudget: undefined
-  About: undefined
-  Settings: undefined
+  ABOUT: undefined
+  SETTINGS: undefined
   AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
 }
 
 export type AuthRoutes = {
-  Slider: undefined
-  Welcome: { userLoggedOut?: true } | undefined
-  About: { isFromWelcomeScreen?: true }
+  SLIDER: undefined
+  WELCOME: { userLoggedOut?: true } | undefined
+  ABOUT: { isFromWelcomeScreen?: true }
   TeamsModal: { firstName: string }
   Login: undefined
   Signup: undefined
@@ -152,40 +152,40 @@ export type AuthRoutes = {
 }
 
 export type ModalRoutes = {
-  RequestVacation?: {
+  REQUEST_VACATION?: {
     start: string
     end: string
     action?: string
   }
-  DashboardNotifications: undefined
-  RequestVacationCalendar: { isSickTime?: boolean }
-  DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
-  Gallery: { data: GalleryItemData[]; index: number }
-  CreatePost: { photo: { id: string; uri: string } }
-  SubscribeNewTeam: undefined
+  NOTIFICATIONS: undefined
+  REQUEST_VACATION_CALENDAR: { isSickTime?: boolean }
+  DRAWER_NAVIGATOR: NestedNavigatorParams<DrawerRoutes>
+  GALLERY: { data: GalleryItemData[]; index: number }
+  CREATE_POST: { photo: { id: string; uri: string } }
+  SUBSCRIBE_NEW_TEAM: undefined
 }
 
 export type DashboardRoutes = {
-  Dashboard: undefined
-  DashboardTeam: Team
-  DashboardTeamMember: User
+  DASHBOARD: undefined
+  DASHBOARD_TEAM: Team
+  DASHBOARD_TEAM_MEMBER: User
 }
 
 export type BudgetRoutes = {
-  Budget: undefined
-  PtoPolicy: undefined
+  BUDGET: undefined
+  PTO_POLICY: undefined
 }
 
 export type RequestsRoutes = {
-  StatsAndRequests: undefined
-  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
+  STATS_AND_REQUESTS: undefined
+  SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
 }
 
 export type UserProfileRoutes = {
-  EditProfile: undefined
-  ChangePassword: undefined
-  Recovery: undefined
-  ColorPicker: { onChange: F1<string>; value: string }
+  EDIT_PROFILE: undefined
+  CHANGE_PASSWORD: undefined
+  RECOVERY: undefined
+  COLOR_PICKER: { onChange: F1<string>; value: string }
 }
 
 export type ForgotPasswordRoutes = {

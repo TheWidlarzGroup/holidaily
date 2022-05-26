@@ -14,7 +14,7 @@ import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
 export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
-  const { navigate } = useNavigation<ModalNavigationType<'SubscribeNewTeam'>>()
+  const { navigate } = useNavigation<ModalNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
   const { isLoading } = useTeamMocks()
   const { user, updateUser } = useUserContext()
   const [teams, setTeams] = useState<TeamsType[]>([])
@@ -24,7 +24,7 @@ export const TeamSubscriptions = () => {
   }, [user?.teams])
 
   const onSubscribeTeam = () => {
-    navigate('SubscribeNewTeam')
+    navigate('SUBSCRIBE_NEW_TEAM')
   }
 
   const removeSubscription = (teamName: string) => {

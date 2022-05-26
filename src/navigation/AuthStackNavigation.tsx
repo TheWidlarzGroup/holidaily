@@ -19,13 +19,13 @@ type AuthStackNavigationProps = {
 }
 
 export const AuthStackNavigation = ({
-  initialRoute = 'Slider',
+  initialRoute = 'SLIDER',
   userLoggedOut,
 }: AuthStackNavigationProps) => (
   <AppStack.Navigator headerMode="none" initialRouteName={initialRoute}>
-    <AppStack.Screen name="Slider" component={Slider} />
-    <AppStack.Screen name="Welcome" component={Welcome} initialParams={{ userLoggedOut }} />
-    <AppStack.Screen name="About" component={About} />
+    <AppStack.Screen name="SLIDER" component={Slider} />
+    <AppStack.Screen name="WELCOME" component={Welcome} initialParams={{ userLoggedOut }} />
+    <AppStack.Screen name="ABOUT" component={About} />
     {/* <AppStack.Screen name="TeamsModal" component={TeamsModal} /> */}
     {/* <AppStack.Screen name="Login" component={Login} /> */}
     <AppStack.Screen name="Signup" component={Signup} />

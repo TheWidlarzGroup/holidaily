@@ -20,7 +20,7 @@ import { AboutModal } from './components/AboutModal'
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
 
-export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
+export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { useNotifications } = createNotifications()
   const { notify } = useNotifications()
   const styles = useStyles()

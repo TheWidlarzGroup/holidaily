@@ -27,12 +27,12 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
   const { user } = useUserContext()
   const theme = useTheme()
   const { t } = useTranslation('userProfile')
-  const navigation = useNavigation<UserProfileType<'ColorPicker'>>()
+  const navigation = useNavigation<UserProfileType<'COLOR_PICKER'>>()
   const { isLoading } = useTeamMocks()
   const isTouchDisabled = isLoading || !user
   const onPress = () => {
     if (isTouchDisabled) return
-    navigation.navigate('ColorPicker', {
+    navigation.navigate('COLOR_PICKER', {
       onChange: (value) => {
         p.onChange(value)
       },

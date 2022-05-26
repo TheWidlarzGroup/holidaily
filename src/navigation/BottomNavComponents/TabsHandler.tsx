@@ -23,14 +23,14 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
   minIconWidth,
 }) => {
   const styles = useStyles()
-  const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
+  const navigation = useNavigation<ModalNavigationType<'DRAWER_NAVIGATOR'>>()
 
   return (
     <Box flexDirection="row" flex={1}>
       {tabs.map((tab, key: number) => {
         const onPress = () => {
           if (tab.name === 'RequestModal') {
-            navigation.navigate('RequestVacation')
+            navigation.navigate('REQUEST_VACATION')
           } else {
             navigation.navigate(tab.name as never)
           }

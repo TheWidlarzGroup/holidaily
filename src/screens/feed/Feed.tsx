@@ -11,7 +11,7 @@ import { FeedPost } from './components/FeedPost/FeedPost'
 
 const MAX_SCROLL_RETRIES = 4
 
-export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'Feed'>) => {
+export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
   const { data } = useGetPostsData()
   const navigation = useNavigation()
