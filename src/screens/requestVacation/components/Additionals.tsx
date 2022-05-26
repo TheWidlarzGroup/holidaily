@@ -3,11 +3,9 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { Box, Text } from 'utils/theme/index'
-import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { AttachmentIcon } from './additionals/AttachmentIcon'
 import { Attachments } from './additionals/Attachments'
 import { Message } from './additionals/Message'
-import { MessageIcon } from './additionals/MessageIcon'
 
 type AdditionalsProps = {
   onMsgBtnPress: F0
@@ -19,18 +17,20 @@ type AdditionalsProps = {
   onMsgSubmit: F1<string>
 }
 
+const MSG_MAX_LEN = 400
+
 export const Additionals = (p: AdditionalsProps) => {
   const { t } = useTranslation('requestVacation')
   const [msgContent, setMsgContent] = useState('')
   const getFlexDirection = () => {
-    // if (p.msgContent) return 'column-reverse'
+    if (msgContent) return 'column-reverse'
     if (!p.attachments.length) return 'row'
     return 'column'
   }
 
   return (
-    <Box>
-      <Text variant="sectionLabel" textAlign="left" marginTop="l">
+    <Box marginTop="m">
+      <Text variant="sectionLabel" textAlign="left">
         {t('additionalsTitle')}
       </Text>
       <Text variant="textXS" color="darkGreyBrighter" textAlign="left">
@@ -49,16 +49,21 @@ export const Additionals = (p: AdditionalsProps) => {
             variant="medium"
             onChangeText={setMsgContent}
             autoFocus
-            maxLength={400}
+            maxLength={MSG_MAX_LEN}
           />
           <Box alignSelf="flex-end">
             <Text variant="textXS" color="darkGrey">
-              {msgContent.length}/400
+              {t('messageCharactes', { count: msgContent.length, max: MSG_MAX_LEN })}
             </Text>
           </Box>
         </>
       )}
-
+      {!p.isMsgInputVisible && !!msgContent && (
+        <Box marginTop="m">
+          <Text variant="inputLabel">{t('messageLabel')}</Text>
+          <Message content={msgContent} onPress={p.onMsgBtnPress} maxLen={MSG_MAX_LEN} />
+        </Box>
+      )}
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
         {p.attachments.length ? (
           <Attachments
@@ -68,15 +73,12 @@ export const Additionals = (p: AdditionalsProps) => {
             removeAttachment={p.removeAttachment}
           />
         ) : (
-          <AttachmentIcon showAttachmentModal={p.showAttachmentModal} />
+          <AttachmentIcon variant="file" onPress={p.showAttachmentModal} />
         )}
 
-        {!p.isMsgInputVisible &&
-          (msgContent ? (
-            <Message messageContent={msgContent} onPressMessage={p.onMsgBtnPress} />
-          ) : (
-            <MessageIcon onPress={p.onMsgBtnPress} />
-          ))}
+        {!p.isMsgInputVisible && !msgContent && (
+          <AttachmentIcon variant="msg" onPress={p.onMsgBtnPress} />
+        )}
       </Box>
     </Box>
   )
