@@ -31,10 +31,10 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
                 paddingVertical="m"
                 key={address.name}>
                 <Text variant="regular15" color="darkGreyBrighter">
-                  {address.street} {address.name}, {address.city}
+                  {address.city}
                 </Text>
                 <Text variant="labelGrey">
-                  {address.region}, {address.country}
+                  {address?.region && `${address?.region},`} {address.country}
                 </Text>
               </BaseOpacity>
             ))

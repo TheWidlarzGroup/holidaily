@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import ArrowDown from 'assets/icons/arrowDown.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
 
 type ExpandingTextProps = React.ComponentProps<typeof Text> & {
   text: string
@@ -15,10 +16,10 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
   const [opened, { toggle }] = useBooleanState(false)
   const styles = useStyles()
 
-  const onTextLayout = useCallback((e) => {
+  const onTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
     const textLines = e?.nativeEvent?.lines.length
     setNumOfLines(textLines)
-  }, [])
+  }
 
   return (
     <BaseOpacity onPress={toggle} activeOpacity={1}>

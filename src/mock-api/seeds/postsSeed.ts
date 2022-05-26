@@ -10,13 +10,13 @@ export const postsSeed = (context: Server<Schema>) => {
   const comments = commentsMock.map((comment) => context.create('comment', comment))
   context.create('post', {
     ...postsMock[0],
-    comments: [comments[0]],
+    comments: [comments[0], comments[1]],
     reactions: [reactions[0], reactions[1], reactions[2]],
   })
-  context.create('post', { ...postsMock[1], comments: [comments[1]], reactions: [reactions[3]] })
+  context.create('post', { ...postsMock[1], comments: [comments[2]], reactions: [reactions[3]] })
   context.create('post', {
     ...postsMock[2],
-    comments: [comments[2], comments[3]],
+    comments: [comments[3], comments[4]],
     reactions: [reactions[4], reactions[5], reactions[6]],
   })
 }
@@ -33,6 +33,24 @@ export const postsMock: FeedPost[] = [
       },
       timestamp: {
         createdAt: new Date(),
+      },
+      location: {
+        position: null,
+        addresses: [
+          {
+            city: 'Porto',
+            country: 'Portugal',
+            district:
+              'União das freguesias de Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória',
+            isoCountryCode: 'PT',
+            name: 'Praça do Gen Humberto Delgado 266',
+            postalCode: '4049-001',
+            region: 'Norte',
+            street: 'Praça do Gen Humberto Delgado',
+            subregion: 'District Porto',
+            timezone: 'Europe/Lisbon',
+          },
+        ],
       },
     },
     text: 'Hope it will make you hungry guys! :D Greetings from Porto!',
@@ -73,8 +91,25 @@ export const postsMock: FeedPost[] = [
       timestamp: {
         createdAt: subDays(new Date(), 4),
       },
+      location: {
+        position: null,
+        addresses: [
+          {
+            city: 'Venice',
+            country: 'Italy',
+            district: 'Venezia Murano Burano (Venezia Insulare)',
+            isoCountryCode: 'IT',
+            name: 'Santa Croce 1882, Salizada Carminati',
+            postalCode: '30135',
+            region: 'Venice',
+            street: 'Santa Croce',
+            subregion: 'Venice',
+            timezone: 'Europe/Rome',
+          },
+        ],
+      },
     },
-    text: 'Having fun in Venice',
+    text: 'Ahhh… city of lurrve!! Romance on every corner, a picture on every cobbled street and alley way. The light was just superb for photos and I had a great time getting lost in all the twisting and turning alley ways. I’ve always prided myself on my sense of direction and being able to nose my way in and around an area – not in Venice. ',
     data: [
       {
         type: 'image',
@@ -112,7 +147,7 @@ export const postsMock: FeedPost[] = [
 export const commentsMock: Comment[] = [
   {
     meta: {
-      id: '2',
+      id: '1',
       author: {
         id: '1',
         occupation: 'QA Tester',
@@ -127,7 +162,22 @@ export const commentsMock: Comment[] = [
   },
   {
     meta: {
-      id: '1',
+      id: '2',
+      author: {
+        id: '1',
+        occupation: 'QA Tester',
+        name: 'Jeff Perry',
+        pictureUrl: 'https://randomuser.me/api/portraits/men/44.jpg',
+      },
+      timestamp: {
+        createdAt: new Date(),
+      },
+    },
+    text: 'Porto is an interesting place to see. Is a quiet old city with nice arhitecture. On the river shores are few terraces with a lovely view over the other shore where are a lot of Porto wine shops. On some of them you can see how the wine is kept and processed and also you cat taste it.',
+  },
+  {
+    meta: {
+      id: '3',
       author: {
         id: '1',
         occupation: 'Software Engineer',
@@ -142,7 +192,7 @@ export const commentsMock: Comment[] = [
   },
   {
     meta: {
-      id: '1',
+      id: '4',
       author: {
         id: '1',
         occupation: 'QA Tester',
@@ -157,7 +207,7 @@ export const commentsMock: Comment[] = [
   },
   {
     meta: {
-      id: '4',
+      id: '5',
       author: {
         id: sourcePeter.id,
         occupation: sourcePeter.occupation,
