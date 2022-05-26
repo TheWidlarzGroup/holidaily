@@ -10,13 +10,13 @@ export const postsSeed = (context: Server<Schema>) => {
   const comments = commentsMock.map((comment) => context.create('comment', comment))
   context.create('post', {
     ...postsMock[0],
-    comments: [comments[0]],
+    comments: [comments[0], comments[1]],
     reactions: [reactions[0], reactions[1], reactions[2]],
   })
-  context.create('post', { ...postsMock[1], comments: [comments[1]], reactions: [reactions[3]] })
+  context.create('post', { ...postsMock[1], comments: [comments[2]], reactions: [reactions[3]] })
   context.create('post', {
     ...postsMock[2],
-    comments: [comments[2], comments[3]],
+    comments: [comments[3], comments[4]],
     reactions: [reactions[4], reactions[5], reactions[6]],
   })
 }
@@ -147,7 +147,7 @@ export const postsMock: FeedPost[] = [
 export const commentsMock: Comment[] = [
   {
     meta: {
-      id: '2',
+      id: '1',
       author: {
         id: '1',
         occupation: 'QA Tester',
@@ -162,7 +162,22 @@ export const commentsMock: Comment[] = [
   },
   {
     meta: {
-      id: '1',
+      id: '2',
+      author: {
+        id: '1',
+        occupation: 'QA Tester',
+        name: 'Jeff Perry',
+        pictureUrl: 'https://randomuser.me/api/portraits/men/44.jpg',
+      },
+      timestamp: {
+        createdAt: new Date(),
+      },
+    },
+    text: 'Porto is an interesting place to see. Is a quiet old city with nice arhitecture. On the river shores are few terraces with a lovely view over the other shore where are a lot of Porto wine shops. On some of them you can see how the wine is kept and processed and also you cat taste it.',
+  },
+  {
+    meta: {
+      id: '3',
       author: {
         id: '1',
         occupation: 'Software Engineer',
@@ -177,7 +192,7 @@ export const commentsMock: Comment[] = [
   },
   {
     meta: {
-      id: '1',
+      id: '4',
       author: {
         id: '1',
         occupation: 'QA Tester',
@@ -192,7 +207,7 @@ export const commentsMock: Comment[] = [
   },
   {
     meta: {
-      id: '4',
+      id: '5',
       author: {
         id: sourcePeter.id,
         occupation: sourcePeter.occupation,
