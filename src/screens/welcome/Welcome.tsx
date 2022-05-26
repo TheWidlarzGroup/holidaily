@@ -33,11 +33,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'Welcome'>) => {
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
-      notify('success', {
-        params: {
-          title: t('logoutSuccess'),
-        },
-      })
+      notify('success', { params: { title: t('logoutSuccess') } })
     }
   }, [route.params?.userLoggedOut, notify, t])
 

@@ -8,6 +8,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
 import { ModalNavigationType } from 'navigation/types'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
+import { notify } from 'react-native-notificated'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
@@ -28,7 +29,7 @@ export const TeamSubscriptions = () => {
 
   const removeSubscription = (teamName: string) => {
     if (!user) return
-    // showSuccessToast()
+    notify('success', { params: { title: t('changesSaved') } })
     const userNextTeams: Team[] = []
     const teamsParsedForDisplay: TeamsType[] = []
     user.teams.forEach((team) => {

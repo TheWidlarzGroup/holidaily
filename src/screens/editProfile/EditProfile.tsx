@@ -67,11 +67,7 @@ export const EditProfile = () => {
           photo: payload.user?.photo,
         })
 
-        notify('success', {
-          params: {
-            title: t('changesSaved'),
-          },
-        })
+        notify('success', { params: { title: t('changesSaved') } })
       },
     })
   const onSubmit = (data: EditDetailsTypes) => editUser(data)

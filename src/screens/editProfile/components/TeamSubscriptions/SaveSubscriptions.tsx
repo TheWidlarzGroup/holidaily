@@ -5,6 +5,7 @@ import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useUserContext } from 'hooks/useUserContext'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { notify } from 'react-native-notificated'
 import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { Box } from 'utils/theme'
 
@@ -24,6 +25,7 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
       p.selectedTeams.some((selectedTeam) => selectedTeam.teamName === orgTeam.name)
     )
     updateUser({ teams: [...teams, ...user.teams] })
+    notify('success', { params: { title: t('changesSaved') } })
     goBack()
   }
   if (!user || !organization) return <LoadingModal show />

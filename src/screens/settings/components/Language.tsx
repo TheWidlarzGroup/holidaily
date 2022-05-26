@@ -20,11 +20,7 @@ export const Language = (props: LanguageProps) => {
     setSelectedLng(lng)
     props.setLoadingTrue()
     setItem('language', lng)
-    notify('success', {
-      params: {
-        title: t('languageChanged'),
-      },
-    })
+    notify('success', { params: { title: t('languageChanged') } })
   }
 
   useEffect(() => {
