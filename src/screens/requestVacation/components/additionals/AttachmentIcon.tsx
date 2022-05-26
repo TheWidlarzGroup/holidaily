@@ -10,9 +10,9 @@ type AttachmentIconProps = {
 export const AttachmentIcon = ({ showAttachmentModal }: AttachmentIconProps) => {
   const theme = useTheme()
   return (
-    <Box backgroundColor="lightGrey" padding="xm" margin="s" marginLeft="none" borderRadius="l">
+    <Box backgroundColor="special" padding="xm" margin="s" marginLeft="none" borderRadius="l">
       <TouchableOpacity onPress={showAttachmentModal}>
-        <PaperclipIcon color={theme.colors.black} width={22} height={22} />
+        <PaperclipIcon color={theme.colors.alwaysWhite} width={22} height={22} />
       </TouchableOpacity>
     </Box>
   )
