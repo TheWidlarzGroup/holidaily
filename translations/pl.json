@@ -245,7 +245,7 @@
     "en": "Angielski",
     "pl": "Polski",
     "biometric": "Odblokuj odciskiem palca",
-    "changed": "został zmieniony!"
+    "languageChanged": "Language has been changed!"
   },
   "loader": {
     "wait": "Jeszcze chwilkę..."
