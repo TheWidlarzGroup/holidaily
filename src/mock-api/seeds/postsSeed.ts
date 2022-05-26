@@ -34,6 +34,24 @@ export const postsMock: FeedPost[] = [
       timestamp: {
         createdAt: new Date(),
       },
+      location: {
+        position: null,
+        addresses: [
+          {
+            city: 'Porto',
+            country: 'Portugal',
+            district:
+              'União das freguesias de Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória',
+            isoCountryCode: 'PT',
+            name: 'Praça do Gen Humberto Delgado 266',
+            postalCode: '4049-001',
+            region: 'Norte',
+            street: 'Praça do Gen Humberto Delgado',
+            subregion: 'District Porto',
+            timezone: 'Europe/Lisbon',
+          },
+        ],
+      },
     },
     text: 'Hope it will make you hungry guys! :D Greetings from Porto!',
     data: [
@@ -73,8 +91,25 @@ export const postsMock: FeedPost[] = [
       timestamp: {
         createdAt: subDays(new Date(), 4),
       },
+      location: {
+        position: null,
+        addresses: [
+          {
+            city: 'Venice',
+            country: 'Italy',
+            district: 'Venezia Murano Burano (Venezia Insulare)',
+            isoCountryCode: 'IT',
+            name: 'Santa Croce 1882, Salizada Carminati',
+            postalCode: '30135',
+            region: 'Venice',
+            street: 'Santa Croce',
+            subregion: 'Venice',
+            timezone: 'Europe/Rome',
+          },
+        ],
+      },
     },
-    text: 'Having fun in Venice',
+    text: 'Ahhh… city of lurrve!! Romance on every corner, a picture on every cobbled street and alley way. The light was just superb for photos and I had a great time getting lost in all the twisting and turning alley ways. I’ve always prided myself on my sense of direction and being able to nose my way in and around an area – not in Venice. ',
     data: [
       {
         type: 'image',

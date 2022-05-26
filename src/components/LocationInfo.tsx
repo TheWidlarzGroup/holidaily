@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
+import { Box, Text, theme } from 'utils/theme'
 
 import IconMapLocation from 'assets/icons/icon-map-location.svg'
 import { CompoundLocation } from 'hooks/useLocation'
@@ -8,17 +8,18 @@ export type LocationInfoProps = {
   location?: CompoundLocation
 }
 
+const ICON_SIZE = 13
+
 export const LocationInfo = (props: LocationInfoProps) => {
   if (!props.location?.addresses || props.location.addresses.length === 0) return null
 
   return (
     <Box flexDirection="row" justifyContent="center" alignItems="center" collapsable>
       <Box marginRight="xs">
-        <IconMapLocation width={10} height={10} />
+        <IconMapLocation width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.headerGrey} />
       </Box>
-      <Text variant="regularNeutralGrey10">
-        {props.location.addresses?.[0].street} {props.location.addresses?.[0].name},{' '}
-        {props.location.addresses?.[0].city}
+      <Text variant="textXS" color="headerGrey">
+        {props.location?.addresses?.[0].city}, {props.location?.addresses?.[0].country}
       </Text>
     </Box>
   )
