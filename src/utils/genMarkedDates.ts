@@ -27,15 +27,15 @@ export const genMarkedDates = (start?: string, end?: string, isInvalid?: boolean
   return calendarDatesObj
 }
 
-export const useMarkedDates = () => {
+export const useMarkedDates = (isInvalid?: boolean) => {
   const { user } = useUserContext()
   const availablePto = user?.availablePto ?? 0
   return useCallback(
     (start?: string, end?: string) => {
       if (!start || !end) return {}
-      const isInvalid = calculatePTO(start, end) > availablePto
-      return genMarkedDates(start, end, isInvalid)
+      const periodInvalid = isInvalid ?? calculatePTO(start, end) > availablePto
+      return genMarkedDates(start, end, periodInvalid)
     },
-    [availablePto]
+    [availablePto, isInvalid]
   )
 }

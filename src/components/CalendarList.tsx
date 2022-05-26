@@ -66,7 +66,7 @@ export const CalendarList = ({
     } as const,
     ...themeProp,
   }
-  const getMarkedDates = useMarkedDates()
+  const getMarkedDates = useMarkedDates(p.isInvalid)
   return (
     <NewCalendarList
       pastScrollRange={0}
