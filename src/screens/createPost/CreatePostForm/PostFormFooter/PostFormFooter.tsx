@@ -82,7 +82,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
 
   return (
     <Box
-      backgroundColor="dropdownPicked"
+      backgroundColor="white"
       borderTopLeftRadius="l"
       borderTopRightRadius="l"
       flexDirection="row"
