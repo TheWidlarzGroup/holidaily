@@ -22,7 +22,7 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => {
       <Box
         marginRight="s"
         paddingRight={hideAvatar ? 'xl' : 'none'}
-        paddingLeft={hideAvatar ? 'xs' : 'none'}>
+        marginLeft={hideAvatar ? '-s' : 'none'}>
         {!hideAvatar && (
           <Avatar
             size="s"

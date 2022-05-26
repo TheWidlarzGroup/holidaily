@@ -164,7 +164,7 @@ export const commentsMock: Comment[] = [
     meta: {
       id: '2',
       author: {
-        id: '1',
+        id: '4',
         occupation: 'QA Tester',
         name: 'Jeff Perry',
         pictureUrl: 'https://randomuser.me/api/portraits/men/44.jpg',
