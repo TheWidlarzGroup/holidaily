@@ -33,7 +33,7 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
 
   return (
     <Box>
-      <Text variant="boldBlack18" textAlign="left">
+      <Text variant="sectionLabel" textAlign="left">
         {t('detailsTitle')}
       </Text>
       <Box marginTop="m">
