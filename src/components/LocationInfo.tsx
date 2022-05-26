@@ -13,13 +13,15 @@ const ICON_SIZE = 13
 export const LocationInfo = (props: LocationInfoProps) => {
   if (!props.location?.addresses || props.location.addresses.length === 0) return null
 
+  const address = props.location?.addresses?.[0]
+
   return (
     <Box flexDirection="row" justifyContent="center" alignItems="center" collapsable>
       <Box marginRight="xs">
         <IconMapLocation width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.headerGrey} />
       </Box>
       <Text variant="textXS" color="headerGrey">
-        {props.location?.addresses?.[0].city}, {props.location?.addresses?.[0].country}
+        {address.city && `${address.city},`} {address.country}
       </Text>
     </Box>
   )
