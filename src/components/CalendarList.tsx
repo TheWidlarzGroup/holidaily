@@ -66,8 +66,6 @@ export const CalendarList = ({
     } as const,
     ...themeProp,
   }
-  // TODO: console log days rerenders  BEFORE MERGE
-  // const getMarkedDates = useMarkedDates(p.isInvalid)
   return (
     <NewCalendarList
       pastScrollRange={0}
@@ -89,7 +87,6 @@ export const CalendarList = ({
   )
 }
 const renderHeader = (date: Date) => <CalendarHeader date={date} />
-
 const CalendarDayComponent = React.memo(
   (props: NewDayComponentProps & { marking: MarkedDateType }) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
