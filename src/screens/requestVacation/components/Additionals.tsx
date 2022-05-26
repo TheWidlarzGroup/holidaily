@@ -1,63 +1,81 @@
-import React from 'react'
+import { CustomInput } from 'components/CustomInput'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { Box, Text } from 'utils/theme/index'
+import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { AttachmentIcon } from './additionals/AttachmentIcon'
 import { Attachments } from './additionals/Attachments'
 import { Message } from './additionals/Message'
 import { MessageIcon } from './additionals/MessageIcon'
 
 type AdditionalsProps = {
-  onPressMessage: F0
-  messageContent: string
-  messageInputVisible: boolean
+  onMsgBtnPress: F0
+  isMsgInputVisible: boolean
   showAttachmentModal: F0
   attachments: (AttachmentType | (AttachmentType & { name: string }))[]
   removeAttachment: F1<string>
+  hideMsgInput: F0
+  onMsgSubmit: F1<string>
 }
 
-export const Additionals = ({
-  onPressMessage,
-  messageContent,
-  messageInputVisible,
-  showAttachmentModal,
-  attachments,
-  removeAttachment,
-}: AdditionalsProps) => {
+export const Additionals = (p: AdditionalsProps) => {
   const { t } = useTranslation('requestVacation')
-
+  const [msgContent, setMsgContent] = useState('')
   const getFlexDirection = () => {
-    if (messageContent) return 'column-reverse'
-    if (!attachments.length) return 'row'
+    // if (p.msgContent) return 'column-reverse'
+    if (!p.attachments.length) return 'row'
     return 'column'
   }
 
   return (
     <Box>
-      <Text variant="boldBlack18" textAlign="left" marginTop="l">
+      <Text variant="sectionLabel" textAlign="left" marginTop="l">
         {t('additionalsTitle')}
       </Text>
-      <Text variant="regular15Calendar" color="grey" textAlign="left">
+      <Text variant="textXS" color="darkGreyBrighter" textAlign="left">
         {t('additionalsLabel')}
       </Text>
 
+      {p.isMsgInputVisible && (
+        <>
+          <CustomInput
+            multiline
+            blurOnSubmit
+            onBlur={p.hideMsgInput}
+            onSubmitEditing={({ nativeEvent: e }) => p.onMsgSubmit(e.text)}
+            inputLabel={t('messageLabel')}
+            isError={false}
+            variant="medium"
+            onChangeText={setMsgContent}
+            autoFocus
+            maxLength={400}
+          />
+          <Box alignSelf="flex-end">
+            <Text variant="textXS" color="darkGrey">
+              {msgContent.length}/400
+            </Text>
+          </Box>
+        </>
+      )}
+
       <Box flexDirection={getFlexDirection()} justifyContent="flex-start" alignItems="flex-start">
-        {attachments.length ? (
+        {p.attachments.length ? (
           <Attachments
-            attachments={attachments}
-            addMore={showAttachmentModal}
-            displayAddMore={attachments.length < 9}
-            removeAttachment={removeAttachment}
+            attachments={p.attachments}
+            addMore={p.showAttachmentModal}
+            displayAddMore={p.attachments.length < 9}
+            removeAttachment={p.removeAttachment}
           />
         ) : (
-          <AttachmentIcon showAttachmentModal={showAttachmentModal} />
+          <AttachmentIcon showAttachmentModal={p.showAttachmentModal} />
         )}
 
-        {!messageInputVisible &&
-          (messageContent ? (
-            <Message messageContent={messageContent} onPressMessage={onPressMessage} />
+        {!p.isMsgInputVisible &&
+          (msgContent ? (
+            <Message messageContent={msgContent} onPressMessage={p.onMsgBtnPress} />
           ) : (
-            <MessageIcon onPress={onPressMessage} />
+            <MessageIcon onPress={p.onMsgBtnPress} />
           ))}
       </Box>
     </Box>
