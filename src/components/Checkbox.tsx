@@ -94,7 +94,7 @@ const useStyles = mkUseStyles((theme) => ({
   dot: {
     position: 'absolute',
     top: 4,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.alwaysWhite,
     borderRadius: 32,
   },
   dotLarge: {

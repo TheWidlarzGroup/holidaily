@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-
 import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
-import { AttachmentType } from 'types/holidaysDataTypes'
-import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { keys } from 'utils/manipulation'
+import { AttachmentType } from 'types/holidaysDataTypes'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
@@ -89,8 +89,12 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       setEndDate(tomorow)
     }
   }, [route, route.params, markSickTime, setEndDate, setStartDate])
+
+  const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
+  const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
+
   return (
-    <>
+    <SwipeableScreen bg="dashboardBackground" confirmLeave={isDirty}>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
@@ -107,7 +111,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         }}
       />
       {!isSentModalVisible && <BadStateController />}
-    </>
+    </SwipeableScreen>
   )
 }
 
@@ -118,11 +122,9 @@ const emptyRequest = {
   files: [],
 }
 const WrappedRequestVacation = (p: RequestVacationProps) => (
-  <SwipeableScreen>
-    <RequestVacationProvider>
-      <RequestVacation {...p} />
-    </RequestVacationProvider>
-  </SwipeableScreen>
+  <RequestVacationProvider>
+    <RequestVacation {...p} />
+  </RequestVacationProvider>
 )
 
 export { WrappedRequestVacation as RequestVacation }
