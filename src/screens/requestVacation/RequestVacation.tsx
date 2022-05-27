@@ -7,6 +7,7 @@ import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
@@ -16,7 +17,6 @@ import {
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
-import { useTranslation } from 'react-i18next'
 
 export type RequestDataTypes = {
   description: string
