@@ -25,7 +25,7 @@ export const SearchBar = (props: SearchBarProps) => {
         isError={false}
         placeholder={t('locationsSearch')}
       />
-      <Box position="absolute" top={isIos ? -2 : 0}>
+      <Box position="absolute" top={isIos ? -6 : 0}>
         <InputSearchIcon />
       </Box>
     </Box>
