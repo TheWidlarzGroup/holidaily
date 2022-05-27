@@ -21,8 +21,7 @@ export const Carousel = () => {
   const openModal = (user: User) => {
     setModalUser(user)
     Analytics().track('DASHBOARD_CAROUSEL_OPENED', {
-      profileName: `${user.firstName}
-      ${user.lastName}`,
+      profileName: `${user.firstName} ${user.lastName}`,
     })
     setIsModalVisible(true)
   }

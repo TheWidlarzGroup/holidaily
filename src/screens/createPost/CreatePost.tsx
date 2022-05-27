@@ -65,8 +65,14 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
     mutate(feedPost)
-    Analytics().track('CREATE_POST', { content: data.text })
 
+    const address = data.location?.addresses[0]
+    const locationToSend = address ? `${address.city} ${address.country}` : data.location
+    Analytics().track('CREATE_POST', {
+      content: data.text,
+      imagesCount: data.images.length,
+      location: JSON.stringify(locationToSend),
+    })
     if (!data) return setStatus('failure')
     setStatus('success')
   }

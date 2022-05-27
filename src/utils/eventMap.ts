@@ -20,7 +20,10 @@ export const analyticsEventMap = {
   },
 
   // Holifeed
-  CREATE_POST: { name: '[HOLIFEED] Post Created', payload: fcast<{ content: string }>() },
+  CREATE_POST: {
+    name: '[HOLIFEED] Post Created',
+    payload: fcast<{ content: string; imagesCount: number; location: string }>(),
+  },
 
   // Add Request
   // REQUEST_VACATION: { name: '[REQUEST_VACATION] Opened', payload: fcast<never>() },
