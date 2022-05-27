@@ -223,13 +223,15 @@
     "comments": "{{quantity}} comments",
     "noComments": "No comments yet",
     "createPostLabel": "What's up?",
-    "locations": "Locations",
-    "locationsAccessText": "Want to find nearby places? Turn on location access.",
+    "locations": "Add location",
+    "locationsAccessText": "Turn on location services.",
     "locationsAccessPromptText": "Use my location",
-    "locationsSearch": "Search",
+    "locationsSearch": "Search location",
     "locationNotFound": "Not found",
-    "loading": "Searching...",
-    "exceededAmount": "You exceeded amount of images in single post"
+    "exceededAmount": "You exceeded amount of images in single post",
+    "seeMore": "pokaż więcej",
+    "postPublished": "Opublikowano post!",
+    "undo": "Cofnij"
   },
   "createPost": {
     "title": "Create Post",
@@ -266,7 +268,8 @@
   },
   "messageInput": {
     "placeholder": "Write your message...",
-    "maxCharacters": "Max {{maxLength}} characters"
+    "maxCharacters": "Max {{maxLength}} characters",
+    "commentAdded": "Comment added!"
   },
   "requestVacation": {
     "title": "Take time off",

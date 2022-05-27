@@ -223,13 +223,15 @@
     "comments": "komentarze",
     "noComments": "Brak komentarzy",
     "createPostLabel": "Co słychać?",
-    "locations": "Lokalizacja",
-    "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
-    "locationsAccessPromptText": "Uzyj mojej lokalizacji",
-    "locationsSearch": "Wyszukaj",
+    "locations": "Dodaj lokalizację",
+    "locationsAccessText": "Włącz usługi lokalizacji.",
+    "locationsAccessPromptText": "Uzyj lokalizacji",
+    "locationsSearch": "Szukaj lokalizacji",
     "locationNotFound": "Nie znaleziono",
-    "loading": "Szukam...",
-    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście"
+    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
+    "seeMore": "see more",
+    "postPublished": "Post published!",
+    "undo": "Undo"
   },
   "createPost": {
     "title": "Utwórz Post",
@@ -266,7 +268,8 @@
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
-    "maxCharacters": "Limit {{maxLength}} znaków"
+    "maxCharacters": "Limit {{maxLength}} znaków",
+    "commentAdded": "Dodano komentarz!"
   },
   "requestVacation": {
     "title": "Złóż wniosek",

@@ -46,7 +46,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
       <GalleryItem
         {...item}
         width={width}
-        onPress={() => onItemPress && onItemPress(index, item.src)}
+        onPress={() => onItemPress && onItemPress(index, item.uri)}
       />
     ),
     [width, onItemPress]
@@ -67,7 +67,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         contentContainerStyle={{ alignItems: 'center', paddingTop: theme.spacing.xxm }}
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => item.src}
+        keyExtractor={(item) => item.uri}
         onScroll={onScroll}
         showsHorizontalScrollIndicator={false}
       />
