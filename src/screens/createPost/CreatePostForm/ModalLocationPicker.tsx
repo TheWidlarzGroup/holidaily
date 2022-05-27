@@ -77,7 +77,7 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
             alignItems="center"
             borderRadius="l1min"
             backgroundColor="secondaryOpaque">
-            <Box flexDirection="row" justifyContent="space-between">
+            <Box flexDirection="row" justifyContent="space-between" alignItems="center">
               <Box
                 height={36}
                 width={36}

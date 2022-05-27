@@ -224,7 +224,7 @@
     "noComments": "No comments yet",
     "createPostLabel": "What's up?",
     "locations": "Add location",
-    "locationsAccessText": "Want to find nearby places? Turn on location services.",
+    "locationsAccessText": "Turn on location services.",
     "locationsAccessPromptText": "Use my location",
     "locationsSearch": "Search location",
     "locationNotFound": "Not found",

@@ -224,7 +224,7 @@
     "noComments": "Brak komentarzy",
     "createPostLabel": "Co słychać?",
     "locations": "Dodaj lokalizację",
-    "locationsAccessText": "Chcesz zobaczyć miejsca w pobliżu? Włącz usługi lokalizacji.",
+    "locationsAccessText": "Włącz usługi lokalizacji.",
     "locationsAccessPromptText": "Uzyj lokalizacji",
     "locationsSearch": "Szukaj lokalizacji",
     "locationNotFound": "Nie znaleziono",
