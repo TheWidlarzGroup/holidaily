@@ -13,9 +13,8 @@
 		232E9F8D26B3F69A00949471 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E9F8C26B3F69A00949471 /* NotificationService.swift */; };
 		232E9F9126B3F69A00949471 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 232E9F8A26B3F69A00949471 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7794E26A74159009C34A4 /* BridgeHeader.swift */; };
-		32823F931DE6FFFEC0E7F178 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F76237637B4A3CE97112D34A /* libPods-OneSignalNotificationServiceExtension.a */; };
+		27E6FB1714F059A26988AB72 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 950644FBF3F33CA2E7F30C41 /* libPods-OneSignalNotificationServiceExtension.a */; };
 		4921F76A3DC743B79253D1A0 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29F33DBF71844F71BB19B849 /* Nunito-SemiBold.ttf */; };
-		602A05B23E624670895EB113 /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E45BA60BDF19190C43F52F /* libPods-Holidayly.a */; };
 		6A311BD7BF597274A5DF6AA7 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392D92A95213A14CFFB9828 /* ExpoModulesProvider.swift */; };
 		78737D9F879D4E579FC97C40 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2012E5C6E95D496DB1E18D2A /* Nunito-Regular.ttf */; };
 		791521C85FEF46AE82663ECC /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D83AA926887646598CE83E69 /* Nunito-Italic-VariableFont_wght.ttf */; };
@@ -24,6 +23,7 @@
 		C9802163B524495DAD789F05 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6A8EF2419904A28B00070D1 /* Nunito-Bold.ttf */; };
 		CEED94D62806A1DF00638D39 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		F6400A4811754D149C5D8217 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED85F5F2EF7A4497A6E9DE87 /* Nunito-ExtraBold.ttf */; };
+		FE6A17AFAB84CE9DD1A5849C /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E089768CD0F2B79FBF88FA7 /* libPods-Holidayly.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,19 +70,19 @@
 		23E7794D26A74158009C34A4 /* Holidayly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Holidayly-Bridging-Header.h"; sourceTree = "<group>"; };
 		23E7794E26A74159009C34A4 /* BridgeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeHeader.swift; sourceTree = "<group>"; };
 		29F33DBF71844F71BB19B849 /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-SemiBold.ttf"; path = "../src/assets/fonts/Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
-		7F772F204A04F7F25A06A8E7 /* Pods-Holidayly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly.release.xcconfig"; path = "Target Support Files/Pods-Holidayly/Pods-Holidayly.release.xcconfig"; sourceTree = "<group>"; };
+		4DCA374A09C904E501E6137B /* Pods-Holidayly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly.debug.xcconfig"; path = "Target Support Files/Pods-Holidayly/Pods-Holidayly.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Holidayly/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8E089768CD0F2B79FBF88FA7 /* libPods-Holidayly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Holidayly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94227D36282DB7310003AB8F /* NewRelic.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = NewRelic.xcframework; sourceTree = "<group>"; };
+		950644FBF3F33CA2E7F30C41 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01BB1F8E9571BAA7B295375 /* Pods-Holidayly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly.release.xcconfig"; path = "Target Support Files/Pods-Holidayly/Pods-Holidayly.release.xcconfig"; sourceTree = "<group>"; };
+		B024AD8E586A4CE30BFE015E /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		C6A8EF2419904A28B00070D1 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Bold.ttf"; path = "../src/assets/fonts/Nunito-Bold.ttf"; sourceTree = "<group>"; };
-		D79E8C9E92E80405970E45BC /* Pods-Holidayly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Holidayly.debug.xcconfig"; path = "Target Support Files/Pods-Holidayly/Pods-Holidayly.debug.xcconfig"; sourceTree = "<group>"; };
 		D83AA926887646598CE83E69 /* Nunito-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Italic-VariableFont_wght.ttf"; path = "../src/assets/fonts/Nunito-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		E3E2AD0D581B3D420880F4E0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		ED85F5F2EF7A4497A6E9DE87 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-ExtraBold.ttf"; path = "../src/assets/fonts/Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
-		EE5A3A273E2CE4D8A1AE47A3 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		F76237637B4A3CE97112D34A /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9E45BA60BDF19190C43F52F /* libPods-Holidayly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Holidayly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF222268D378C432186A9959 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94227D38282DB7370003AB8F /* NewRelic.xcframework in Frameworks */,
-				602A05B23E624670895EB113 /* libPods-Holidayly.a in Frameworks */,
+				FE6A17AFAB84CE9DD1A5849C /* libPods-Holidayly.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32823F931DE6FFFEC0E7F178 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
+				27E6FB1714F059A26988AB72 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,8 +156,8 @@
 				94227D36282DB7310003AB8F /* NewRelic.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				F9E45BA60BDF19190C43F52F /* libPods-Holidayly.a */,
-				F76237637B4A3CE97112D34A /* libPods-OneSignalNotificationServiceExtension.a */,
+				8E089768CD0F2B79FBF88FA7 /* libPods-Holidayly.a */,
+				950644FBF3F33CA2E7F30C41 /* libPods-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,10 +165,10 @@
 		4478CC51CBE621B7287A6B00 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D79E8C9E92E80405970E45BC /* Pods-Holidayly.debug.xcconfig */,
-				7F772F204A04F7F25A06A8E7 /* Pods-Holidayly.release.xcconfig */,
-				FF222268D378C432186A9959 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				EE5A3A273E2CE4D8A1AE47A3 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+				4DCA374A09C904E501E6137B /* Pods-Holidayly.debug.xcconfig */,
+				A01BB1F8E9571BAA7B295375 /* Pods-Holidayly.release.xcconfig */,
+				B024AD8E586A4CE30BFE015E /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				E3E2AD0D581B3D420880F4E0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -242,7 +242,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Holidayly" */;
 			buildPhases = (
-				886138FBA320033435E73841 /* [CP] Check Pods Manifest.lock */,
+				7DE66E66124C3CD26E1197CB /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -250,8 +250,8 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				232E9F9526B3F69A00949471 /* Embed App Extensions */,
 				94BE61E0282B133200FC397C /* New relic run script */,
-				BD375B94A9A3ABFF6A7FDA22 /* [CP] Embed Pods Frameworks */,
-				ABC18F2F508B98624DA910AE /* [CP] Copy Pods Resources */,
+				65882CFFE347D76985A39B91 /* [CP] Embed Pods Frameworks */,
+				659FF6DE6233E6122075B100 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,7 +267,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 232E9F9226B3F69A00949471 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
 			buildPhases = (
-				C0125C9CFC2696E945C03CB9 /* [CP] Check Pods Manifest.lock */,
+				09FD3D784B22A3593D1795FA /* [CP] Check Pods Manifest.lock */,
 				232E9F8626B3F69A00949471 /* Sources */,
 				232E9F8726B3F69A00949471 /* Frameworks */,
 				232E9F8826B3F69A00949471 /* Resources */,
@@ -360,7 +360,77 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		886138FBA320033435E73841 /* [CP] Check Pods Manifest.lock */ = {
+		09FD3D784B22A3593D1795FA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		65882CFFE347D76985A39B91 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/NewRelicAgent/NewRelic.framework/NewRelic",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignal.framework/OneSignal",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalCore/OneSignalCore.framework/OneSignalCore",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalExtension/OneSignalExtension.framework/OneSignalExtension",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalOutcomes/OneSignalOutcomes.framework/OneSignalOutcomes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NewRelic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalOutcomes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		659FF6DE6233E6122075B100 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-resources.sh",
+				"${PODS_ROOT}/Amplitude/Sources/Resources/ComodoRsaDomainValidationCA.der",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaDomainValidationCA.der",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7DE66E66124C3CD26E1197CB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -399,76 +469,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"eu01xx5fd24600d4363c974b0535475ce24533ee76-NRMA\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ABC18F2F508B98624DA910AE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-resources.sh",
-				"${PODS_ROOT}/Amplitude/Sources/Resources/ComodoRsaDomainValidationCA.der",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaDomainValidationCA.der",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD375B94A9A3ABFF6A7FDA22 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/NewRelicAgent/NewRelic.framework/NewRelic",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignal.framework/OneSignal",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalCore/OneSignalCore.framework/OneSignalCore",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalExtension/OneSignalExtension.framework/OneSignalExtension",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OneSignalXCFramework/OneSignalOutcomes/OneSignalOutcomes.framework/OneSignalOutcomes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NewRelic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignal.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalExtension.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OneSignalOutcomes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Holidayly/Pods-Holidayly-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0125C9CFC2696E945C03CB9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -525,7 +525,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D79E8C9E92E80405970E45BC /* Pods-Holidayly.debug.xcconfig */;
+			baseConfigurationReference = 4DCA374A09C904E501E6137B /* Pods-Holidayly.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -558,7 +558,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F772F204A04F7F25A06A8E7 /* Pods-Holidayly.release.xcconfig */;
+			baseConfigurationReference = A01BB1F8E9571BAA7B295375 /* Pods-Holidayly.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -592,7 +592,7 @@
 		};
 		232E9F9326B3F69A00949471 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF222268D378C432186A9959 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = B024AD8E586A4CE30BFE015E /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -629,7 +629,7 @@
 		};
 		232E9F9426B3F69A00949471 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE5A3A273E2CE4D8A1AE47A3 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = E3E2AD0D581B3D420880F4E0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
