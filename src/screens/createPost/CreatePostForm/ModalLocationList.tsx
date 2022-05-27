@@ -6,12 +6,15 @@ import { BaseOpacity, Box, Text } from 'utils/theme'
 type ModalLocationListProps = {
   locations: Maybe<CompoundLocation[]>
   onLocationPress: F1<CompoundLocation>
+  query: string
 }
 
 export const ModalLocationList = (props: ModalLocationListProps) => {
   const { locations, onLocationPress } = props
 
   const { t } = useTranslation('feed')
+
+  if (props.query.length < 1) return null
 
   return (
     <Box paddingHorizontal="xs">
@@ -23,10 +26,10 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
                 onPress={() => onLocationPress(location)}
                 paddingVertical="m"
                 key={address.name}>
-                <Text variant="regular15" color="darkGreyBrighter">
+                <Text variant="textMD" color="black">
                   {address.city}
                 </Text>
-                <Text variant="labelGrey">
+                <Text variant="textMD" color="darkGrey">
                   {address?.region && `${address?.region},`} {address.country}
                 </Text>
               </BaseOpacity>
@@ -34,7 +37,9 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
           )
         ) : (
           <Box alignItems="center" padding="m">
-            <Text color="black">{t('locationNotFound')}</Text>
+            <Text variant="textMD" color="black">
+              {t('locationNotFound')}
+            </Text>
           </Box>
         ))}
     </Box>

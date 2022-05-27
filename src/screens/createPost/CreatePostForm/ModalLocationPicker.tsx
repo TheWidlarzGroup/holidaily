@@ -62,9 +62,13 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
         </Box>
         <Box paddingHorizontal="l" paddingTop="m">
           <SearchBar query={query} onQueryChange={setQuery} onClear={clearSearch} />
-          <ModalLocationList locations={locations} onLocationPress={props.onLocationChange} />
+          <ModalLocationList
+            locations={locations}
+            onLocationPress={props.onLocationChange}
+            query={query}
+          />
         </Box>
-        {(!locations || !locations.length) && (
+        {query.length === 0 && (
           <Box
             marginTop="l"
             padding="m"
