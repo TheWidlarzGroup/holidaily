@@ -1,23 +1,36 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { BaseOpacity, Box } from 'utils/theme'
-import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
-import Animated, {
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
+import { BaseOpacity, Box, Theme } from 'utils/theme'
+import { PanGestureHandler } from 'react-native-gesture-handler'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { BoxProps } from '@shopify/restyle'
+import { ConfirmationModalProps } from 'types/confirmationModalProps'
+import { useOnGoback, useSwipeGestureHandler } from './service/swipeableScreenUtils'
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
-type SwipeableScreenProps = {
+export type SwipeableScreenProps = {
   children: ReactNode
-}
+} & Omit<BoxProps<Theme>, 'style'> &
+  (
+    | { confirmLeave?: never; confirmLeaveOptions?: never }
+    | {
+        confirmLeave: boolean
+        confirmLeaveOptions?: Omit<
+          ConfirmationModalProps,
+          'onAccept' | 'hideModal' | 'isVisible' | 'onDecline'
+        >
+      }
+  )
 
-export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
+export const SwipeableScreen = ({
+  children,
+  confirmLeave,
+  confirmLeaveOptions,
+  ...containerProps
+}: SwipeableScreenProps) => {
   const { height } = useDimensions()
   const { goBack, ...navigation } = useNavigation()
   const translateY = useSharedValue(height)
@@ -25,34 +38,19 @@ export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
   useEffect(() => {
     translateY.value = withTiming(0)
   }, [translateY])
-
-  const gestureHandler = useAnimatedGestureHandler<
-    PanGestureHandlerGestureEvent,
-    {
-      offsetY: number
-      offsetX: number
-    }
-  >({
-    onStart: (_, ctx) => {
-      ctx.offsetY = translateY.value
-    },
-    onActive: (event, ctx) => {
-      if (ctx.offsetY + event.translationY < 0) return
-      translateY.value = ctx.offsetY + event.translationY
-    },
-  })
-
+  const gestureHandler = useSwipeGestureHandler(translateY)
   const animatedTranslation = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }))
-
+  const fadeAway = () => {
+    if (!isCloseTriggered.current) {
+      isCloseTriggered.current = true
+      translateY.value = withTiming(height)
+    }
+  }
+  const onGoback = useOnGoback({ onSuccess: fadeAway, confirmLeave, confirmLeaveOptions })
   useEffect(() => {
-    const subscription = navigation.addListener('beforeRemove', () => {
-      if (!isCloseTriggered.current) {
-        isCloseTriggered.current = true
-        translateY.value = withTiming(height)
-      }
-    })
+    const subscription = navigation.addListener('beforeRemove', (e) => onGoback(e))
     return subscription
   })
   return (
@@ -78,6 +76,7 @@ export const SwipeableScreen = ({ children }: SwipeableScreenProps) => {
           marginTop="xxl"
           borderTopLeftRadius="l2min"
           borderTopRightRadius="l2min"
+          {...containerProps}
           style={[animatedTranslation]}>
           {children}
         </AnimatedBox>
