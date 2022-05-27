@@ -21,6 +21,7 @@ type GoBackEvent = EventArg<
 >
 type OnGobackProps = {
   onSuccess: F0
+  onFailure?: F0
 } & (
   | {
       confirmLeave: true
@@ -46,6 +47,7 @@ export const useOnGoback = (p: OnGobackProps) => {
           }}
           onDecline={() => {
             hideModal()
+            p.onFailure?.()
           }}
           {...p.confirmLeaveOptions}
         />

@@ -48,7 +48,13 @@ export const SwipeableScreen = ({
       translateY.value = withTiming(height)
     }
   }
-  const onGoback = useOnGoback({ onSuccess: fadeAway, confirmLeave, confirmLeaveOptions })
+  const fadeBack = () => (translateY.value = withTiming(0))
+  const onGoback = useOnGoback({
+    onSuccess: fadeAway,
+    onFailure: fadeBack,
+    confirmLeave,
+    confirmLeaveOptions,
+  })
   useEffect(() => {
     const subscription = navigation.addListener('beforeRemove', (e) => onGoback(e))
     return subscription
