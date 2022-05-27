@@ -43,9 +43,12 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => {
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}
           {comment.text.length > 130 && !isCommentExpanded && (
-            <Text variant="textXS" color="special" onPress={() => expandComment()}>
-              ... {t('seeMore')}
-            </Text>
+            <>
+              {'... '}
+              <Text variant="textXS" color="special" onPress={() => expandComment()}>
+                {t('seeMore')}
+              </Text>
+            </>
           )}
         </Text>
       </Bubble>
