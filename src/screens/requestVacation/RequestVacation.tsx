@@ -16,6 +16,7 @@ import {
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
+import { useTranslation } from 'react-i18next'
 
 export type RequestDataTypes = {
   description: string
@@ -75,7 +76,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       },
     })
   }
-
+  const { t } = useTranslation('requestVacation')
   useEffect(() => {
     const { params } = route
 
@@ -94,7 +95,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
 
   return (
-    <SwipeableScreen bg="dashboardBackground" confirmLeave={isDirty}>
+    <SwipeableScreen
+      bg="dashboardBackground"
+      confirmLeave={isDirty}
+      confirmLeaveOptions={{
+        acceptBtnText: t('discardRequestYes'),
+        declineBtnText: t('discardRequestNo'),
+        header: t('discardRequestHeader'),
+        content: t('discardRequestContent'),
+      }}>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
