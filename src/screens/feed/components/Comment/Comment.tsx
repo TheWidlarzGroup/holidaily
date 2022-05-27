@@ -7,8 +7,8 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
-  hideAvatar?: boolean
   comment: CommentType
+  hideAvatar?: boolean
 }
 
 export const Comment = ({ comment, hideAvatar }: CommentProps) => {
