@@ -3,6 +3,7 @@ import { BaseOpacity, Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { User } from 'mock-api/models/mirageTypes'
 import { makeUserDetails } from 'utils/userDetails'
+import { Analytics } from 'services/analytics'
 
 type OtherMateTypes = {
   mate: User
@@ -11,7 +12,10 @@ type OtherMateTypes = {
 
 export const OtherMateElement = (props: OtherMateTypes) => {
   const { firstName, lastName, photo } = props.mate
-  const handleOnPress = () => props.openUserModal(props.mate)
+  const handleOnPress = () => {
+    props.openUserModal(props.mate)
+    Analytics().track('DASHBOARD_TEAM_MATE_OPENED', { teamMateName: `${firstName} ${lastName}` })
+  }
 
   return (
     <BaseOpacity

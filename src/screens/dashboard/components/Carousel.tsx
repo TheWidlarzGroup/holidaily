@@ -9,6 +9,7 @@ import { getCurrentLocale } from 'utils/locale'
 import { Text } from 'utils/theme'
 import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
+import { Analytics } from 'services/analytics'
 import { DashboardTeamMember } from '../DashboardTeamMember'
 
 export const Carousel = () => {
@@ -19,6 +20,9 @@ export const Carousel = () => {
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
     setModalUser(user)
+    Analytics().track('DASHBOARD_CAROUSEL_OPENED', {
+      profileName: `${user.firstName} ${user.lastName}`,
+    })
     setIsModalVisible(true)
   }
   const displayDay = (user: User) => {

@@ -1,5 +1,5 @@
 import * as NewRelic from '@bibabovn/react-native-newrelic'
-import { Amplitude } from '@amplitude/react-native'
+import { Amplitude, Identify } from '@amplitude/react-native'
 import { generateUUID } from 'utils/generateUUID'
 import { getItem, removeItem, setItem } from 'utils/localStorage'
 import { AMPLITUDE_API_KEY } from '@env'
@@ -28,12 +28,15 @@ export const initAnalytics = () => {
       if (!cachedUserId) {
         setItem('userId', userId)
       }
+      ampInstance.setUserId(cachedUserId || userId)
       Analytics().identify({ id: cachedUserId || userId })
     },
     identify: (opts: Partial<UserAnalyticsAttributes>) => {
+      const identify = new Identify()
       for (const [key, val] of entries(opts)) {
         if (!val) return
-        ampInstance.setUserId(val)
+        identify.set(key, val)
+        ampInstance.identify(identify)
         NewRelic.setAttribute(key, val)
       }
     },
@@ -42,6 +45,7 @@ export const initAnalytics = () => {
       NewRelic.recordCustomEvent('Custom', `[${currentScreenName}] Viewed`)
     },
     track: <K extends AnalyticsEventKeys>(event: K, properties?: AnalyticsEvent[K]['payload']) => {
+      ampInstance.logEvent(analyticsEventMap[event].name, properties ?? {})
       NewRelic.recordCustomEvent(
         'Custom',
         analyticsEventMap[event].name,

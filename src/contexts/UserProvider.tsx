@@ -6,6 +6,8 @@ import { removeMany } from 'utils/localStorage'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { sortSingleUserRequests } from 'utils/sortByDate'
+import { Analytics } from 'services/analytics'
+import { entries } from 'utils/manipulation'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -62,6 +64,14 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     const sortedRequests = user?.requests.sort(sortSingleUserRequests)
     updateUser({ requests: sortedRequests })
   }, [updateUser, user?.requests])
+
+  useEffect(() => {
+    if (user) {
+      for (const [key, val] of entries(user)) {
+        Analytics().identify({ [key]: JSON.stringify(val) })
+      }
+    }
+  }, [user])
 
   const value: ContextProps = {
     user,

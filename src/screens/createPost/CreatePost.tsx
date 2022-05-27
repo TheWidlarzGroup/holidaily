@@ -7,6 +7,7 @@ import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps } from 'navigation/types'
 import React, { useState } from 'react'
 import { Asset } from 'react-native-image-picker'
+import { Analytics } from 'services/analytics'
 import { generateUUID } from 'utils/generateUUID'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { PostState } from './CreatePostForm/usePostFormReducer'
@@ -68,6 +69,13 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     }
     mutate(feedPost)
 
+    const address = data.location?.addresses[0]
+    const locationToSend = address ? `${address.city} ${address.country}` : data.location
+    Analytics().track('CREATE_POST', {
+      content: data.text,
+      imagesCount: data.images.length,
+      location: JSON.stringify(locationToSend),
+    })
     if (!data) return setStatus('failure')
     setStatus('success')
   }
