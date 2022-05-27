@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { AddButton } from 'components/AddButton'
+import { AddButton, ADD_BTN_WIDTH } from 'components/AddButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { ModalNavigationType } from 'navigation/types'
@@ -12,15 +12,9 @@ type TabsHandlerProps = {
   }[]
   tabWidth: number
   activeTabIndex: number
-  minIconWidth: number
 }
 
-export const TabsHandler: FC<TabsHandlerProps> = ({
-  tabs,
-  tabWidth,
-  activeTabIndex,
-  minIconWidth,
-}) => {
+export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
   const styles = useStyles()
   const navigation = useNavigation<ModalNavigationType<'DRAWER_NAVIGATOR'>>()
 
@@ -36,7 +30,7 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
         }
         if (tab.name === 'RequestModal') {
           return (
-            <Box key="logo" backgroundColor="transparent" width={minIconWidth}>
+            <Box key="logo" backgroundColor="transparent" width={ADD_BTN_WIDTH}>
               <AddButton onPress={onPress} />
             </Box>
           )

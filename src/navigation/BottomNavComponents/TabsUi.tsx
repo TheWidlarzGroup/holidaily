@@ -18,11 +18,7 @@ export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
 
   return (
     <Box position="absolute" bottom={-5} width={windowWidth}>
-      <TabsHandler
-        {...{ tabs, tabWidth }}
-        activeTabIndex={state.index}
-        minIconWidth={ADD_BTN_WIDTH}
-      />
+      <TabsHandler {...{ tabs, tabWidth }} activeTabIndex={state.index} />
       <NavigationDot width={tabWidth} activeTabIndex={state.index} minIconWidth={ADD_BTN_WIDTH} />
     </Box>
   )
