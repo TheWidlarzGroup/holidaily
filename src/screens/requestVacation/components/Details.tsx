@@ -1,6 +1,6 @@
 import { FormInput } from 'components/FormInput'
 import React from 'react'
-import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, useTheme } from 'utils/theme'
 import { ModalNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
@@ -33,9 +33,6 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
 
   return (
     <Box>
-      <Text variant="boldBlack18" textAlign="left">
-        {t('detailsTitle')}
-      </Text>
       <Box marginTop="m">
         <BaseOpacity
           activeOpacity={0.8}

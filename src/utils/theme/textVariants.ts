@@ -110,7 +110,7 @@ const form = {
   },
   inputText: {
     fontFamily: 'Nunito-Regular',
-    size: 14,
+    fontSize: 14,
     color: 'titleActive',
   },
   sectionLabel: {

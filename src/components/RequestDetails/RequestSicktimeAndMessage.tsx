@@ -16,7 +16,7 @@ export const RequestSicktimeAndMessage = ({ isSick, message }: RequestSicktimeAn
         <Box flexDirection="row" alignItems="center">
           <PillIcon />
           <Text variant="body1" color="black">
-            {t('sickTimeTitle')}
+            {t('sickTimeLabel')}
           </Text>
         </Box>
       )}

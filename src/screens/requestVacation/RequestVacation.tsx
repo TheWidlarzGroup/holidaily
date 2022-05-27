@@ -6,7 +6,6 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { RequestSent } from './components/RequestSent'
@@ -91,7 +90,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     }
   }, [route, route.params, markSickTime, setEndDate, setStartDate])
   return (
-    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+    <>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
@@ -108,7 +107,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         }}
       />
       {!isSentModalVisible && <BadStateController />}
-    </SafeAreaWrapper>
+    </>
   )
 }
 
