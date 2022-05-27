@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 
 export type MessageInputProps = {
   messageContent: string
@@ -38,6 +39,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     setMessageContent,
   } = props
   const [error, setError] = useState('')
+  const { userSettings } = useUserSettingsContext()
 
   const { t } = useTranslation('messageInput')
 
@@ -128,7 +130,11 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         />
         {!!messageContent && (
           <TouchableOpacity style={styles.sendArrow} onPress={handleSubmit}>
-            <SendArrowIcon height={9} width={9} />
+            <SendArrowIcon
+              height={9}
+              width={9}
+              color={userSettings?.darkMode ? 'black' : 'white'}
+            />
           </TouchableOpacity>
         )}
       </Animated.View>
@@ -141,7 +147,7 @@ MessageInput.displayName = 'MessageInput'
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
-    backgroundColor: theme.colors.disabled,
+    backgroundColor: theme.colors.white,
     padding: theme.spacing.s,
     borderTopLeftRadius: theme.spacing.xm,
     borderTopRightRadius: theme.spacing.xm,
@@ -158,13 +164,13 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
-    color: 'black',
     flex: 1,
     padding: 0,
     borderColor: theme.colors.transparent,
+    color: theme.colors.black,
   },
   sendArrow: {
-    backgroundColor: 'black',
+    backgroundColor: theme.colors.black,
     padding: 10,
     alignSelf: 'flex-end',
     borderRadius: theme.borderRadii.full,
