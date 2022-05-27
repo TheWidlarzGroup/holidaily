@@ -125,7 +125,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
       containerHeight.value = isScreenHeightShort
         ? withTiming(WEEK_CALENDAR_HEIGHT)
-        : withSpring(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
+        : withTiming(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
     }, delay)
 
     return () => clearTimeout(timeout)
