@@ -27,16 +27,15 @@ export const Main = () => {
         <ModalProvider>
           <UserContextProvider>
             <TeamsContextProvider>
-              <NotificationsProvider>
-                <QueryClientProvider client={queryClient}>
-                  <StatusBar
-                    translucent
-                    barStyle={statusBarStyle}
-                    backgroundColor={statusBarBgColor}
-                  />
-                  <AppNavigation />
-                </QueryClientProvider>
-              </NotificationsProvider>
+              <QueryClientProvider client={queryClient}>
+                <StatusBar
+                  translucent
+                  barStyle={statusBarStyle}
+                  backgroundColor={statusBarBgColor}
+                />
+                <AppNavigation />
+                <NotificationsProvider />
+              </QueryClientProvider>
             </TeamsContextProvider>
           </UserContextProvider>
         </ModalProvider>
