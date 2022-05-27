@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
+import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
@@ -32,7 +32,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const navigation = useNavigation<ModalNavigationType<'REQUEST_VACATION'>>()
+  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
 
@@ -59,7 +59,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
   const onPressSee = () => {
     hideSentModal()
-    navigation.navigate('DrawerNavigator', {
+    navigation.navigate('DRAWER_NAVIGATOR', {
       screen: 'Home',
       params: {
         screen: 'Stats',
@@ -116,7 +116,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
-          navigation.navigate('Home')
+          navigation.navigate('DRAWER_NAVIGATOR')
         }}
       />
       {!isSentModalVisible && <BadStateController />}

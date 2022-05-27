@@ -11,7 +11,7 @@ import { AvailablePto } from './components/AvailablePto'
 import { SentReqsSection, SickDaysSection } from './components/BudgetSections'
 
 export const Budget = () => {
-  const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
+  const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
   const { t } = useTranslation('budget')
   const { user } = useUserContext()
   const requests = user?.requests ?? []

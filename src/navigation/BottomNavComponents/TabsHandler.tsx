@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import { AddButton, ADD_BTN_WIDTH } from 'components/AddButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
-import { ModalNavigationType } from 'navigation/types'
+import { AppNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { tabsBorderRadius } from 'navigation/service/tabsBorderRadius'
 
@@ -17,7 +17,7 @@ type TabsHandlerProps = {
 
 export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
   const styles = useStyles()
-  const navigation = useNavigation<ModalNavigationType<'DRAWER_NAVIGATOR'>>()
+  const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
 
   return (
     <Box flexDirection="row">
