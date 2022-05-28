@@ -8,6 +8,7 @@ import { QueryKeys } from 'dataAccess/QueryKeys'
 import { sortSingleUserRequests } from 'utils/sortByDate'
 import { Analytics } from 'services/analytics'
 import { entries } from 'utils/manipulation'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -33,6 +34,7 @@ export const emptyUser: User = {
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
+  const [isAppLaunched, { setTrue: setIsAppLaunched }] = useBooleanState(false)
 
   const { reset: clearUserCache } = useCreateTempUser()
   const updateUser = useCallback(
@@ -49,6 +51,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.USER_STATS)
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
     await removeMany([
+      'id',
       'firstName',
       'lastName',
       'occupation',
@@ -58,6 +61,13 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'seenTeamsModal',
     ])
   }
+
+  useEffect(() => {
+    if (user?.id && !isAppLaunched) {
+      setIsAppLaunched()
+      Analytics().setUserId(user.id)
+    }
+  }, [user, isAppLaunched, setIsAppLaunched])
 
   useEffect(() => {
     if (!user?.requests?.length) return
