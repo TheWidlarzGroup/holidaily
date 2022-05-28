@@ -8,11 +8,8 @@ import { QueryKeys } from 'dataAccess/QueryKeys'
 import { sortSingleUserRequests } from 'utils/sortByDate'
 import { Analytics } from 'services/analytics'
 import { entries } from 'utils/manipulation'
-<<<<<<< HEAD
 import { useBooleanState } from 'hooks/useBooleanState'
 import { generateUUID } from 'utils/generateUUID'
-=======
->>>>>>> master
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
