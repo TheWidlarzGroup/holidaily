@@ -7,6 +7,7 @@ import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
@@ -75,7 +76,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       },
     })
   }
-
+  const { t } = useTranslation('requestVacation')
   useEffect(() => {
     const { params } = route
 
@@ -94,7 +95,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
 
   return (
-    <SwipeableScreen bg="dashboardBackground" confirmLeave={isDirty}>
+    <SwipeableScreen
+      bg="dashboardBackground"
+      confirmLeave={isDirty}
+      confirmLeaveOptions={{
+        acceptBtnText: t('discardRequestYes'),
+        declineBtnText: t('discardRequestNo'),
+        header: t('discardRequestHeader'),
+        content: t('discardRequestContent'),
+      }}>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
