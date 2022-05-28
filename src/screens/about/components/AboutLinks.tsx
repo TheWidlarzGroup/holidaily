@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { linkWithFallback } from 'utils/linkWithFallback'
+import { Analytics } from 'services/analytics'
 import { PrivacyPolicyContent } from './PrivacyPolicyContent'
 
 const ANDROID_RATE_LINK = 'market://details?id=com.holidaily'
@@ -68,6 +69,7 @@ const RateApp = () => {
         alignSelf="center"
         onPress={async () => {
           await linkWithFallback(ANDROID_RATE_LINK, COMPANY_WEBSITE_LINK)
+          Analytics().track('RATE_APP_PRESSED')
         }}
         style={{ marginLeft: 'auto' }}>
         <Text variant="buttonSM" color="alwaysWhite">

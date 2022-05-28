@@ -9,6 +9,7 @@ import { Team } from 'mockApi/models'
 import { ModalNavigationType } from 'navigation/types'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { notify } from 'react-native-notificated'
+import { Analytics } from 'services/analytics'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
@@ -24,6 +25,9 @@ export const TeamSubscriptions = () => {
   }, [user?.teams])
 
   const onSubscribeTeam = () => {
+    const teamNames = teams.map((team) => team.teamName)
+    if (teamNames.length > 0)
+      Analytics().track('TEAM_SUBSCRIBED', { teamName: JSON.stringify(teamNames) })
     navigate('SUBSCRIBE_NEW_TEAM')
   }
 
@@ -39,6 +43,7 @@ export const TeamSubscriptions = () => {
     })
     updateUser({ teams: userNextTeams })
     setTeams(teamsParsedForDisplay)
+    Analytics().track('TEAM_UNSUBSCRIBED', { teamName })
   }
 
   if (isLoading || !user) return <LoadingModal style={{ position: 'absolute', top: 0 }} show />

@@ -9,6 +9,7 @@ import { sortSingleUserRequests } from 'utils/sortByDate'
 import { Analytics } from 'services/analytics'
 import { entries } from 'utils/manipulation'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { generateUUID } from 'utils/generateUUID'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -65,7 +66,8 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   useEffect(() => {
     if (user?.id && !isAppLaunched) {
       setIsAppLaunched()
-      Analytics().setUserId(user.id)
+      Analytics().setUserId(user.id + generateUUID())
+      // TODO: generateUUID added temporarily to distinguish users by unique ID, remove it if unique ID provided by backend
     }
   }, [user, isAppLaunched, setIsAppLaunched])
 
