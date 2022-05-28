@@ -34,6 +34,7 @@ export const SwipeableScreen = ({
   const { height } = useDimensions()
   const { goBack, ...navigation } = useNavigation()
   const translateY = useSharedValue(height)
+  const dismissedModalWithSwipe = translateY.value > 140
   const isCloseTriggered = useRef(false)
   useEffect(() => {
     translateY.value = withTiming(0)
@@ -42,16 +43,16 @@ export const SwipeableScreen = ({
   const animatedTranslation = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
   }))
-  const fadeAway = () => {
+  const slideOut = () => {
     if (!isCloseTriggered.current) {
       isCloseTriggered.current = true
       translateY.value = withTiming(height)
     }
   }
-  const fadeBack = () => (translateY.value = withTiming(0))
+  const slideBackIn = () => (translateY.value = withTiming(0))
   const onGoback = useOnGoback({
-    onSuccess: fadeAway,
-    onFailure: fadeBack,
+    onSuccess: slideOut,
+    onFailure: slideBackIn,
     confirmLeave,
     confirmLeaveOptions,
   })
@@ -71,9 +72,9 @@ export const SwipeableScreen = ({
         onGestureEvent={gestureHandler}
         onEnded={() => {
           if (isCloseTriggered.current) return
-          if (translateY.value > 140) {
+          if (dismissedModalWithSwipe) {
             goBack()
-          } else translateY.value = withTiming(0)
+          } else slideBackIn()
         }}>
         <AnimatedBox
           flex={1}

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { getMarkedDates } from 'screens/calendar/utils'
+import { getDayDots } from 'utils/calendarUtils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
@@ -36,12 +36,10 @@ const CalendarToWrap = () => {
 
   // Comment: show loader spinner while calendar is rendering
   const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
+  useEffect(hideLoader, [hideLoader])
 
-  useEffect(() => {
-    hideLoader()
-  }, [hideLoader])
-
-  const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
+  // Comment: It's not an expensive operation, but it shouldn't change it's reference to avoid the rerender of calendar days
+  const markedDates = useMemo(() => getDayDots(currentMonthDays), [currentMonthDays])
 
   if (isLoading) return <LoadingModal show />
 

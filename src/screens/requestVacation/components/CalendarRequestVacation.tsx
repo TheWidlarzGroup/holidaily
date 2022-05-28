@@ -1,13 +1,13 @@
 import { useNavigation } from '@react-navigation/native'
 import { CalendarList } from 'components/CalendarList'
 import { LoadingModal } from 'components/LoadingModal'
+import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
 import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
 import { BaseOpacity, Box, mkUseStyles } from 'utils/theme'
-import { CalendarHeader } from './CalendarHeader'
 import { MaxSickdays, MAX_SICK_DAYS_COUNT } from './MaxSickDays'
 import { SelectPeriodModal } from './SelectPeriodModal'
 
@@ -56,7 +56,7 @@ export const CalendarRequestVacation = ({
         borderTopRightRadius="l2min">
         <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
         {isCalendarVisible && (
-          <>
+          <RequestsContextProvider>
             <CalendarList
               periodStart={periodStart}
               periodEnd={periodEnd}
@@ -65,7 +65,6 @@ export const CalendarRequestVacation = ({
               selectable
               disablePastDates
               style={styles.calendar}
-              renderHeader={(date: Date) => <CalendarHeader date={date} />}
               markedDates={{}}
               isInvalid={isInvalid}
             />
@@ -80,7 +79,7 @@ export const CalendarRequestVacation = ({
               isInvalid={isInvalid}
               customError={isSickTime ? <MaxSickdays /> : null}
             />
-          </>
+          </RequestsContextProvider>
         )}
       </Box>
     </Box>
