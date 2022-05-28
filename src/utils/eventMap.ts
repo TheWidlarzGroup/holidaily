@@ -18,16 +18,20 @@ export const analyticsEventMap = {
     name: '[DASHBOARD] Carousel Modal Opened',
     payload: fcast<{ profileName: string }>(),
   },
+<<<<<<< HEAD
   DASHBOARD_FIRST_TEAM_VIEWED: {
     name: '[DASHBOARD] Join First Team Viewed',
     payload: fcast<{ profileName: string }>(),
   },
+=======
+>>>>>>> master
 
   // Holifeed
   CREATE_POST: {
     name: '[HOLIFEED] Post Created',
     payload: fcast<{ content: string; imagesCount: number; location: string }>(),
   },
+<<<<<<< HEAD
   FEED_ADD_EMOJI: {
     name: '[HOLIFEED] Emoji Added',
     payload: fcast<{ emoji: string; postId?: string }>(),
@@ -36,6 +40,8 @@ export const analyticsEventMap = {
     name: '[HOLIFEED] Comment Created',
     payload: fcast<{ postId?: string; content: string }>(),
   },
+=======
+>>>>>>> master
 
   // Add Request
   // REQUEST_VACATION: { name: '[REQUEST_VACATION] Opened', payload: fcast<never>() },

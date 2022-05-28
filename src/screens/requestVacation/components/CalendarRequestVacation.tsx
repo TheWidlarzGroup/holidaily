@@ -3,7 +3,7 @@ import { CalendarList } from 'components/CalendarList'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/useUserContext'
-import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
+import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { calculatePTO } from 'utils/dates'
 import { BaseOpacity, Box, mkUseStyles } from 'utils/theme'
@@ -26,7 +26,7 @@ export const CalendarRequestVacation = ({
     return calculatePTO(periodStart, periodEnd)
   }, [periodStart, periodEnd])
   const isInvalid = isSickTime ? ptoTaken > MAX_SICK_DAYS_COUNT : ptoTaken > availablePto
-  const navigation = useNavigation<ModalNavigationType<'REQUEST_VACATION_CALENDAR'>>()
+  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION_CALENDAR'>>()
   const onClear = () => {
     selectPeriodStart('')
     selectPeriodEnd('')

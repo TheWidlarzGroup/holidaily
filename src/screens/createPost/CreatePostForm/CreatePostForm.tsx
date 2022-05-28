@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Box, useTheme } from 'utils/theme'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
@@ -33,7 +34,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   }, [dispatch, photosAsset])
 
   return (
-    <>
+    <SafeAreaWrapper edges={['bottom']}>
       <KeyboardAvoidingView
         style={{ flex: 1, backgroundColor: theme.colors.white }}
         behavior="height">
@@ -52,7 +53,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
           imagesCount={state.images.length}
         />
       </KeyboardAvoidingView>
-      <Box bg="dropdownPicked" paddingBottom="xl">
+      <Box bg="white" paddingBottom="s">
         <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
       </Box>
       <ModalLocationPicker
@@ -63,13 +64,14 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
         }}
         onRequestClose={hideLocationPicker}
       />
-    </>
+    </SafeAreaWrapper>
   )
 }
 
 const assetToGalleryItem = (asset: Asset): GalleryItemData => ({
+  id: asset.id ?? '',
   type: asset.type ? 'image' : 'video',
-  src: asset.uri ?? '',
+  uri: asset.uri ?? '',
 })
 
 const isSendDisabled = ({ text, images }: PostState) => text.length === 0 && images.length === 0

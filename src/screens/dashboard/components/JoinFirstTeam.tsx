@@ -3,12 +3,16 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import IconPlus from 'assets/icons/icon-plus-small.svg'
+<<<<<<< HEAD
 import { ModalNavigationType } from 'navigation/types'
 import { Analytics } from 'services/analytics'
+=======
+import { AppNavigationType } from 'navigation/types'
+>>>>>>> master
 
 export const JoinFirstTeam = () => {
   const { t } = useTranslation('dashboard')
-  const { navigate } = useNavigation<ModalNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
+  const { navigate } = useNavigation<AppNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
 
   useEffect(() => {
     Analytics().track('DASHBOARD_FIRST_TEAM_VIEWED')

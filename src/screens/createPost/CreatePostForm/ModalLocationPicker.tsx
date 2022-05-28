@@ -7,12 +7,15 @@ import IconGeolocation from 'assets/icons/icon-geolocation.svg'
 import { useTranslation } from 'react-i18next'
 import { CompoundLocation, useLocation } from 'hooks/useLocation'
 import { useSearch } from 'hooks/useSearch'
+import { CustomButton } from 'components/CustomButton'
 import { SearchBar } from './SearchBar'
 import { ModalLocationList } from './ModalLocationList'
 
 export type ModalLocationPickerProps = ModalProps & {
   onLocationChange: F1<CompoundLocation>
 }
+
+const ICON_SIZE = 16
 
 export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
   const { t } = useTranslation('feed')
@@ -21,7 +24,6 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
   const {
     query,
     setQuery,
-    loading,
     data: locations,
     clearSearch,
   } = useSearch({
@@ -39,17 +41,23 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
   return (
     <Modal hardwareAccelerated {...props}>
       <SafeAreaView style={styles.areaStyles}>
-        <Box padding="l" alignItems="center" flexDirection="row">
+        <Box
+          padding="l"
+          paddingTop="s"
+          paddingBottom="none"
+          alignItems="center"
+          flexDirection="row">
           <Box flexGrow={1}>
-            <Text variant="body1Bold">{t('locations')}</Text>
+            <Text variant="displayBoldSM">{t('locations')}</Text>
           </Box>
           <BaseOpacity
             padding="l"
+            top={-12}
             position="absolute"
             onPress={() => {
               props.onRequestClose?.()
             }}>
-            <IconArrowLeft color={theme.colors.black} />
+            <IconArrowLeft color={theme.colors.black} width={ICON_SIZE} height={ICON_SIZE} />
           </BaseOpacity>
         </Box>
         <Box paddingHorizontal="l" paddingTop="m">
@@ -57,18 +65,42 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
           <ModalLocationList
             locations={locations}
             onLocationPress={props.onLocationChange}
-            loading={loading}
+            query={query}
           />
         </Box>
-        {(!locations || !locations.length) && (
-          <Box marginTop="xxxl" paddingHorizontal="l" alignItems="center">
-            <Text variant="lightGreyBold">{t('locationsAccessText')}</Text>
-            <BaseOpacity flexDirection="row" padding="m" onPress={handleLocationAccess}>
-              <Box paddingHorizontal="xs">
-                <IconGeolocation />
+        {query.length === 0 && (
+          <Box
+            marginTop="l"
+            padding="m"
+            paddingHorizontal="xxm"
+            marginHorizontal="m"
+            alignItems="center"
+            borderRadius="l1min"
+            backgroundColor="secondaryOpaque">
+            <Box flexDirection="row" justifyContent="space-between" alignItems="center">
+              <Box
+                height={36}
+                width={36}
+                marginRight="m"
+                backgroundColor="tertiaryOpaque"
+                justifyContent="center"
+                alignItems="center"
+                borderRadius="full">
+                <IconGeolocation color={theme.colors.tertiary} />
               </Box>
-              <Text variant="boldOrange15">{t('locationsAccessPromptText')}</Text>
-            </BaseOpacity>
+              <Box width="80%">
+                <Text variant="textBoldSM">{t('locationsAccessText')}</Text>
+              </Box>
+            </Box>
+            <Box marginTop="m" alignSelf="flex-end" marginRight="-m">
+              <CustomButton
+                label={t('locationsAccessPromptText')}
+                variant="tertiary"
+                width={160}
+                customStyle={{ backgroundColor: theme.colors.tertiary }}
+                onPress={handleLocationAccess}
+              />
+            </Box>
           </Box>
         )}
       </SafeAreaView>

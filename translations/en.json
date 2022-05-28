@@ -223,13 +223,15 @@
     "comments": "{{quantity}} comments",
     "noComments": "No comments yet",
     "createPostLabel": "What's up?",
-    "locations": "Locations",
-    "locationsAccessText": "Want to find nearby places? Turn on location access.",
+    "locations": "Add location",
+    "locationsAccessText": "Turn on location services.",
     "locationsAccessPromptText": "Use my location",
-    "locationsSearch": "Search",
+    "locationsSearch": "Search location",
     "locationNotFound": "Not found",
-    "loading": "Searching...",
-    "exceededAmount": "You exceeded amount of images in single post"
+    "exceededAmount": "You exceeded amount of images in single post",
+    "seeMore": "pokaż więcej",
+    "postPublished": "Opublikowano post!",
+    "undo": "Cofnij"
   },
   "createPost": {
     "title": "Create Post",
@@ -266,20 +268,23 @@
   },
   "messageInput": {
     "placeholder": "Write your message...",
-    "maxCharacters": "Max {{maxLength}} characters"
+    "maxCharacters": "Max {{maxLength}} characters",
+    "commentAdded": "Comment added!"
   },
   "requestVacation": {
     "title": "Take time off",
-    "detailsTitle": "Details",
+    "detailsTitle": "REQUEST DETAILS",
     "detailsDate": "Date",
     "selectDate": "Select a date",
     "detailsDescription": "Title (optional)",
     "setDescription": "Enter a title",
     "detailsDescriptionError": "Incorrect description",
-    "sickTimeTitle": "Sick Time off",
-    "sickTimeLabel": "I'm not feeling well",
-    "additionalsTitle": "Additionals",
+    "sickTimeLabel": "Sick leave",
+    "sickTimeDesc": "Sick leave can be max. 20 days long and does not require supervisor’s approval.",
+    "additionalsTitle": "ADDITIONALS",
     "additionalsLabel": "Add an attachment or write message",
+    "messageLabel": "Message",
+    "messageCharactes": "{{count}}/{{max}} characters",
     "attachmentDeleteMessage": "Delete attachment?",
     "CTA": "Next",
     "timeOffDescriptionPlaceholder": "Time Off",
@@ -300,7 +305,11 @@
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
-    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>"
+    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>",
+    "discardRequestHeader": "Discard request?",
+    "discardRequestContent": "By clicking Discard, all changes will be lost.",
+    "discardRequestYes": "Discard",
+    "discardRequestNo": "Keep editing"
   },
   "adminPanel": {
     "employees": "Employees",

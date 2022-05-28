@@ -4,11 +4,14 @@ import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 
 import IconClose from 'assets/icons/icon-close.svg'
 import { useNavigation } from '@react-navigation/native'
+import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 type PostHeaderProps = {
   left?: React.ReactNode
   right?: React.ReactNode
 }
+
+const ICON_SIZE = 16
 
 export const PostHeader = ({ left, right }: PostHeaderProps) => {
   const { t } = useTranslation('createPost')
@@ -21,14 +24,17 @@ export const PostHeader = ({ left, right }: PostHeaderProps) => {
       justifyContent="center"
       padding="l"
       backgroundColor="transparent">
-      <Box position="absolute" left={0}>
+      <Box position="absolute" top={-2}>
+        <ModalHandleIndicator />
+      </Box>
+      <Box position="absolute" right={0} top={4}>
         {left ?? (
           <BaseOpacity padding="m" onPress={() => goBack()}>
-            <IconClose color={theme.colors.black} />
+            <IconClose color={theme.colors.black} height={ICON_SIZE} width={ICON_SIZE} />
           </BaseOpacity>
         )}
       </Box>
-      <Text variant="boldBlack16" textAlign="center">
+      <Text variant="displayBoldSM" textAlign="center" paddingTop="m">
         {t('title')}
       </Text>
       <Box position="absolute" right={0}>
