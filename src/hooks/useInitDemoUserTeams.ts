@@ -1,7 +1,7 @@
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useCallback, useRef } from 'react'
-import { useTeamsContext } from './useTeamsContext'
-import { useUserContext } from './useUserContext'
+import { useTeamsContext } from './context-hooks/useTeamsContext'
+import { useUserContext } from './context-hooks/useUserContext'
 
 export const useInitDemoUserTeams = () => {
   const { user, updateUser } = useUserContext()

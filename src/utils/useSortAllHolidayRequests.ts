@@ -1,5 +1,5 @@
-import { useTeamsContext } from 'hooks/useTeamsContext'
-import { useUserContext } from 'hooks/useUserContext'
+import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { User } from 'mockApi/models/mirageTypes'
 import { sortByEndDate, sortByStartDate } from './sortByDate'
 
