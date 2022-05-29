@@ -38,7 +38,18 @@ export const analyticsEventMap = {
   },
 
   // Add Request
-  // REQUEST_VACATION: { name: '[REQUEST_VACATION] Opened', payload: fcast<never>() },
+  REQUEST_VACATION_ADD: {
+    name: '[REQUEST_VACATION] Request Vacation Added',
+    payload: fcast<{
+      description?: string
+      filesCount: number
+      message?: string
+      photosCount: number
+      startDate?: string
+      endDate?: string
+      isSick: boolean
+    }>(),
+  },
 
   // Edit Profile
   USER_COLOR_PICKED: {
