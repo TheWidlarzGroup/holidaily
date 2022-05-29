@@ -1,7 +1,7 @@
 import { useModalStyles } from 'hooks/style-hooks/useModalStyles'
 import React from 'react'
 import Modal from 'react-native-modal'
-import { Box, Text, useTheme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { CircleStatusIcon } from './CircleStatusIcon'
 import { CustomButton } from './CustomButton'
 
