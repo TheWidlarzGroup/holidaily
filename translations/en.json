@@ -310,7 +310,10 @@
     "discardRequestHeader": "Discard request?",
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",
-    "discardRequestNo": "Keep editing"
+    "discardRequestNo": "Keep editing",
+    "outOfOffice": "Out of office",
+    "removeAttachmentYes": "Delete",
+    "removeAttachmentNo": "Cancel"
   },
   "adminPanel": {
     "employees": "Employees",
