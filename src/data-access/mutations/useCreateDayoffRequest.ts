@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
 import { DayOffRequest } from 'mock-api/models'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { API } from '../API'

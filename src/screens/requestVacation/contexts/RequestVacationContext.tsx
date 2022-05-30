@@ -1,5 +1,5 @@
 import { useBooleanState } from 'hooks/useBooleanState'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { calculatePTO } from 'utils/dates'

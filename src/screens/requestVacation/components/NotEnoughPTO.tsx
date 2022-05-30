@@ -34,7 +34,7 @@ export const NotEnoughPTO = (p: NotEnoughPtoProps) => {
           ) : (
             <>
               <Text fontSize={15} lineHeight={20}>
-                {t('error')}
+                {t('notEnoughPto')}
               </Text>
               <Text fontSize={14} fontFamily="Nunito-Bold" marginTop="m" marginBottom="l">
                 {t('availablePto', { availablePto: getDurationInDays(p.availablePto) })}

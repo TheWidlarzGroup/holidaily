@@ -299,7 +299,8 @@
     "seeRequest": "Zobacz podanie",
     "addAnother": "Poproś o kolejne wolne",
     "ok": "W porządku",
-    "error": "Ups! Brakuje Ci dni urlopu",
+    "notEnoughPto": "Ups! Brakuje Ci dni urlopu",
+    "maxSickDays": "Ups! Pojedynczy wniosek o chorobowe może wynosić maksymalnie {{maxDays}} dni :(",
     "clear": "Wyczyść",
     "availablePto": "Masz do wykorzystania {{availablePto}} urlopu",
     "changeDays": "Zmień termin",
@@ -307,7 +308,10 @@
     "discardRequestHeader": "Odrzucić wniosek?",
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",
-    "discardRequestNo": "Kontynuuj edycję"
+    "discardRequestNo": "Kontynuuj edycję",
+    "outOfOffice": "Poza biurem",
+    "removeAttachmentYes": "Usuń",
+    "removeAttachmentNo": "Anuluj"
   },
   "adminPanel": {
     "employees": "Pracownicy",

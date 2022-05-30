@@ -34,7 +34,7 @@ export const Attachments = ({
     if (n === 1) return paddingSize
     if (n === 2) return side === 'left' ? 2 * paddingSize : 0
   }
-
+  const isRowFull = attachments.length % 4 === 0
   return (
     <Box alignSelf="stretch" style={styles.container}>
       <Box flexDirection="row" flexWrap="wrap">
@@ -52,13 +52,17 @@ export const Attachments = ({
             />
           </Box>
         ))}
-        {attachments.length % 3 !== 0 && displayAddMore && (
+        {!isRowFull && displayAddMore && (
           <Box flexDirection="row" justifyContent="flex-end" flex={1}>
             <AddMore onPress={addMore} />
           </Box>
         )}
       </Box>
-      {attachments.length % 3 === 0 && displayAddMore && <AddMore onPress={addMore} />}
+      {isRowFull && displayAddMore && (
+        <Box justifyContent="flex-end" flexDirection="row">
+          <AddMore onPress={addMore} />
+        </Box>
+      )}
     </Box>
   )
 }

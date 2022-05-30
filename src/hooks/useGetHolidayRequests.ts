@@ -1,9 +1,9 @@
-import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
 import { getAllSingleHolidayRequests } from 'utils/getAllSingleHolidayRequests'
 import { groupRequestsToMonths } from 'utils/groupRequestsToMonths'
 import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
-import { useUserContext } from './useUserContext'
+import { useUserContext } from './context-hooks/useUserContext'
 
 export const useGetHolidayRequests = () => {
   const { teams, allUsers } = useTeamsContext()
