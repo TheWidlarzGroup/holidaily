@@ -27,11 +27,11 @@ export const PostBody = (props: PostBodyProps) => {
   return (
     <Box flexGrow={1} padding="s">
       <Box flexDirection="row">
-        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="m" padding="l" />
-        <Box marginLeft="m" alignItems="flex-start" flexShrink={1} flexGrow={1}>
-          {location?.addresses && <LocationInfo location={location} />}
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" padding="l" />
+        <Box marginLeft="s" marginTop="s" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           <TextInput
             multiline
+            placeholderTextColor={styles.placeholder.color}
             underlineColorAndroid="transparent"
             style={styles.textInput}
             placeholder={t('inputPlaceholder')}
@@ -40,18 +40,25 @@ export const PostBody = (props: PostBodyProps) => {
           />
         </Box>
       </Box>
+      <Box paddingHorizontal="s" marginTop="-s">
+        {location?.addresses && <LocationInfo location={location} />}
+      </Box>
       <Gallery data={data} />
     </Box>
   )
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
+  placeholder: {
+    color: theme.colors.headerGrey,
+  },
   textInput: {
     flexGrow: 1,
     paddingBottom: theme.spacing.l,
     borderColor: theme.colors.transparent,
     width: '100%',
-    fontSize: theme.fontSize.base,
+    fontSize: theme.fontSize.sm,
     fontFamily: theme.fontFamily.nunitoRegular,
+    color: theme.colors.black,
   },
 }))

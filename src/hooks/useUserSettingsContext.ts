@@ -8,5 +8,5 @@ export const useUserSettingsContext = () => {
     return context
   }
 
-  throw Error('Use this hook in UserProvider scope')
+  throw Error('Use this hook in UserSettingsProvider scope')
 }

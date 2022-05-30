@@ -62,6 +62,7 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, m
 
 const useStyles = mkUseStyles((theme: Theme) => ({
   dotContainer: {
+    width: '120%',
     height: 20,
     marginBottom: 5,
     backgroundColor: theme.colors.white,

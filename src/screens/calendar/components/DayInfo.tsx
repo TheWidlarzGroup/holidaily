@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Text, theme } from 'utils/theme'
-import { getDateWithMonthString } from 'utils/dates'
+import { getDateWithMonthString, getDayName, isWeekend } from 'utils/dates'
 import { DayWeekend } from './DayWeekend'
 import { DayEvent } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
@@ -18,23 +18,30 @@ export const DAY_ITEM_HEIGHT =
   theme.textVariants[HEADING_TEXT_VARIANT].fontSize +
   FONT_OFFSET
 
-export const DayInfo = ({ date, events, weekend }: DayInfoProps) => {
-  if (weekend) return <DayWeekend date={date} weekend={weekend} />
-  return (
-    <Box
-      borderRadius="lmin"
-      backgroundColor="white"
-      paddingVertical={DAY_PADDING_VERTICAL}
-      paddingHorizontal="lplus"
-      marginVertical={OUTER_BOX_MARGIN}>
-      <Text variant={HEADING_TEXT_VARIANT}>{getDateWithMonthString(date)}</Text>
-      {typeof events !== 'undefined' && events?.length > 0 && (
-        <Box marginTop={INNER_BOX_MARGIN}>
-          {events.map((event) => (
-            <DayEvent event={event} key={event.id} />
-          ))}
-        </Box>
-      )}
-    </Box>
-  )
-}
+export const DayInfo = React.memo(
+  (p: DayInfoProps) => {
+    if (p.weekend) return <DayWeekend date={p.date} weekend={p.weekend} />
+    return (
+      <Box
+        opacity={isWeekend(new Date(p.date)) ? 0.5 : 1}
+        borderRadius="lmin"
+        backgroundColor="white"
+        paddingVertical={DAY_PADDING_VERTICAL}
+        paddingHorizontal="lplus"
+        marginVertical={OUTER_BOX_MARGIN}>
+        <Text variant={HEADING_TEXT_VARIANT}>
+          {getDateWithMonthString(p.date)},
+          <Text color="blackBrighterDouble">{getDayName(p.date)}</Text>
+        </Text>
+        {typeof p.events !== 'undefined' && p.events?.length > 0 && (
+          <Box marginTop={INNER_BOX_MARGIN}>
+            {p.events.map((event) => (
+              <DayEvent event={event} key={event.id} />
+            ))}
+          </Box>
+        )}
+      </Box>
+    )
+  },
+  () => true
+)

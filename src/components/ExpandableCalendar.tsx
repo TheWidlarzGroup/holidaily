@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useMemo } from 'react'
 import { Box, useTheme } from 'utils/theme'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
@@ -10,6 +10,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
 import deepmerge from 'deepmerge'
+import { ViewProps } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -24,14 +25,13 @@ import { isIos } from 'utils/layout'
 import { addMonths, addWeeks } from 'date-fns'
 import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
-import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
-import { CalendarRef, NewDayComponentProps } from './CalendarComponents/CalendarTypes'
+import { CalendarRef } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
@@ -61,7 +61,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
   )
-  const { validPeriodStyles } = useCalendarPeriodStyles()
+
   const handlePicker = (event: MonthChangeEventType, newDate: Date) => {
     hidePicker()
     if (event === ACTION_DATE_SET) setSelectedDate(newDate)
@@ -91,9 +91,9 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
       containerHeight.value = newHeight > WEEK_CALENDAR_HEIGHT ? newHeight : WEEK_CALENDAR_HEIGHT
     },
     onEnd: (event) => {
-      if (event.translationY > 100) {
+      if (event.translationY > 40) {
         containerHeight.value = withSpring(fullCalendarHeight.value, { overshootClamping: true })
-      } else if (event.translationY < -60) {
+      } else if (event.translationY < -40) {
         containerHeight.value = withSpring(WEEK_CALENDAR_HEIGHT, { overshootClamping: true })
       } else {
         containerHeight.value =
@@ -116,42 +116,51 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     maxHeight: containerHeight.value,
   }))
   const theme = useTheme()
-
+  const containerPadding: ViewProps['style'] = { paddingBottom: theme.spacing.m }
+  // Comment: Show calendar expading animation with some delay on first open
   useEffect(() => {
-    const delay = isIos ? 2000 : 3500
+    const delay = 2000
     const timeout = setTimeout(() => {
       const EXTRA_HEIGHT = doesMonthInCalendarHasSixRows(selectedDate) ? 65 : 0
 
       containerHeight.value = isScreenHeightShort
         ? withTiming(WEEK_CALENDAR_HEIGHT)
-        : withSpring(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
+        : withTiming(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
     }, delay)
 
     return () => clearTimeout(timeout)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const newMarkedDates = useMemo(
+    () =>
+      deepmerge(markedDates, {
+        [getISODateString(selectedDate)]: { selected: true },
+      }),
+    [markedDates, selectedDate]
+  )
+
   return (
     <>
-      <CalendarHeader
-        month={new XDate(selectedDate)}
-        renderHeader={(date: Date) => (
-          <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
-        )}
-        renderArrow={(direction: 'left' | 'right') =>
-          direction === 'left' ? (
-            <ArrowLeft color={theme.colors.titleActive} />
-          ) : (
-            <ArrowRight color={theme.colors.titleActive} />
-          )
-        }
-        theme={headerTheme}
-        addMonth={handleAddMonth}
-        firstDay={1}
-      />
       <PanGestureHandler onGestureEvent={gestureHandler}>
-        <Animated.View style={containerHeightStyles}>
-          <Animated.View style={weekOpacity}>
+        <Animated.View style={[containerHeightStyles, containerPadding]}>
+          <CalendarHeader
+            month={new XDate(selectedDate)}
+            renderHeader={(date: Date) => (
+              <CalendarHeaderComponent date={date} onHeaderPressed={showPicker} />
+            )}
+            renderArrow={(direction: 'left' | 'right') =>
+              direction === 'left' ? (
+                <ArrowLeft color={theme.colors.black} />
+              ) : (
+                <ArrowRight color={theme.colors.black} />
+              )
+            }
+            theme={headerTheme}
+            addMonth={handleAddMonth}
+            firstDay={1}
+          />
+          <Animated.View style={[weekOpacity, { zIndex: theme.zIndices['10'] }]}>
             <Box>
               <Box
                 style={{
@@ -188,17 +197,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
                 hideExtraDays
                 firstDay={1}
                 theme={calendarTheme}
-                // FIXME: NewCalendar type in CalendarTypes differs from Calendar type defined in react-native-calendars, probably purposely,
-                // but NewCalendar component or the CalendarDay component don't have a type guard to let their props differ, and so runtime type-errors may occur
-                dayComponent={useCallback<F1<NewDayComponentProps>>(
-                  (props) => (
-                    <CalendarDay {...props} styles={validPeriodStyles} />
-                  ),
-                  [validPeriodStyles]
-                )}
-                markedDates={deepmerge(markedDates, {
-                  [getISODateString(selectedDate)]: { selected: true },
-                })}
+                dayComponent={CalendarDay}
+                markedDates={newMarkedDates}
                 markingType="multi-dot"
                 disableMonthChange
                 ref={calendarRef}

@@ -1,63 +1,44 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { isIos } from 'utils/layout'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { DrawerNavigationType } from 'navigation/types'
 import { Box, mkUseStyles, Text } from 'utils/theme'
-import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
-import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
 import { AboutDescription } from './components/AboutDescription'
 import { AboutHeader } from './components/AboutHeader'
 import { AboutLinks } from './components/AboutLinks'
 import { version } from '../../../package.json'
 
-type AboutTypes = { isFromWelcomeScreen?: true; closeModal: F0 }
-
-export const About = ({ isFromWelcomeScreen, closeModal }: AboutTypes) => {
+export const About = () => {
   const styles = useStyles()
-  const navigation = useNavigation<DrawerNavigationType<'About'>>()
-  const { t } = useTranslation('welcome')
-  const handleGoBack = useCallback(() => {
-    if (isFromWelcomeScreen) return
+  const navigation = useNavigation<DrawerNavigationType<'ABOUT'>>()
+  const handleGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
-  }, [isFromWelcomeScreen, navigation])
-  const containerStyle = [
-    styles.container,
-    !isFromWelcomeScreen && styles.containerPadding,
-    isIos && isFromWelcomeScreen && styles.containerMargin,
-  ]
+  }
+  const containerStyle = [styles.container, styles.containerPadding]
   return (
-    <SafeAreaWrapper isDefaultBgColor={isFromWelcomeScreen || false}>
+    <SafeAreaWrapper isDefaultBgColor={false}>
       <GestureRecognizer onSwipeRight={handleGoBack} style={containerStyle}>
-        <AboutHeader closeModal={closeModal} isFromWelcomeScreen={isFromWelcomeScreen} />
-        {isFromWelcomeScreen && <ModalHandleIndicator />}
+        <AboutHeader onClose={handleGoBack} />
         <AboutDescription />
-        {!isFromWelcomeScreen && <AboutLinks />}
-        <Version show={!isFromWelcomeScreen} />
-        <Box paddingBottom="l" style={{ marginTop: 'auto' }}>
-          {isFromWelcomeScreen && (
-            <CustomButton label={t('aboutButton')} variant="primary" onPress={closeModal} />
-          )}
-        </Box>
+        <AboutLinks />
+        <Version />
       </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }
 
-const Version = ({ show }: { show: boolean }) => {
+const Version = () => {
   const { t } = useTranslation('about')
-  if (show)
-    return (
-      <Box position="absolute" bottom={10} left="40%">
-        <Text variant="textXS" color="darkGreyBrighter">
-          {`${t('version')} ${version}`}
-        </Text>
-      </Box>
-    )
-  return null
+  return (
+    <Box position="absolute" bottom={10} left="40%">
+      <Text variant="textXS" color="darkGreyBrighter">
+        {`${t('version')} ${version}`}
+      </Text>
+    </Box>
+  )
 }
 
 const useStyles = mkUseStyles(() => ({

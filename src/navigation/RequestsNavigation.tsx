@@ -8,11 +8,11 @@ const RequestsStack = createStackNavigator<RequestsRoutes>()
 
 export const RequestsNavigation = () => (
   <RequestsStack.Navigator
-    initialRouteName="StatsAndRequests"
+    initialRouteName="STATS_AND_REQUESTS"
     screenOptions={{ headerShown: false }}>
-    <RequestsStack.Screen name="StatsAndRequests" component={StatsAndRequests} />
+    <RequestsStack.Screen name="STATS_AND_REQUESTS" component={StatsAndRequests} />
     <RequestsStack.Screen
-      name="SeeRequest"
+      name="SEE_REQUEST"
       component={SeeRequest}
       options={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
     />

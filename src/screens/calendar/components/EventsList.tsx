@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
@@ -10,25 +10,27 @@ export type EventsListProps = {
   days: DayInfoProps[]
 }
 
+const renderItem = ({ item }: { item: DayInfoProps }) => (
+  <TouchableOpacity activeOpacity={1} key={item.date}>
+    <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
+  </TouchableOpacity>
+)
+
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => {
   const [language] = useLanguage()
   return (
-    <Box marginTop="m" flex={1}>
+    <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
       <FlatList
         data={days}
-        renderItem={useCallback(
-          ({ item }) => (
-            <TouchableOpacity activeOpacity={1}>
-              <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
-            </TouchableOpacity>
-          ),
-          []
-        )}
+        renderItem={renderItem}
+        initialNumToRender={6}
+        maxToRenderPerBatch={6}
+        updateCellsBatchingPeriod={300}
+        windowSize={17}
         extraData={[days, language]}
         keyExtractor={(item) => item.date}
         initialScrollIndex={0}
         getItemLayout={getItemLayout}
-        windowSize={5}
         ref={flatListRef}
         onScrollToIndexFailed={() => {}}
         contentContainerStyle={{ paddingBottom: 60 }}

@@ -7,28 +7,32 @@ import { Control, Controller, FieldValues } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 import { InputEditIcon } from 'components/InputEditIcon'
+import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 
-type ProfileColorProps = {
+type ProfileColorViewProps = {
   onChange: F1<string>
   value: string
 }
 
-type PorifileColorControllerProps = {
+type ControlledColorPickerProps = {
   control: Control<FieldValues>
   name: string
 }
 
-const ProfileColorView = (p: ProfileColorProps) => {
+type UncontrolledColorPickerProps = { onUpdate?: F1<EditUserSuccess> }
+
+type PorifileColorProps = ControlledColorPickerProps | UncontrolledColorPickerProps
+const ProfileColorView = (p: ProfileColorViewProps) => {
   const styles = useStyles()
   const { user } = useUserContext()
   const theme = useTheme()
   const { t } = useTranslation('userProfile')
-  const navigation = useNavigation<UserProfileType<'ColorPicker'>>()
+  const navigation = useNavigation<UserProfileType<'COLOR_PICKER'>>()
   const { isLoading } = useTeamMocks()
   const isTouchDisabled = isLoading || !user
   const onPress = () => {
     if (isTouchDisabled) return
-    navigation.navigate('ColorPicker', {
+    navigation.navigate('COLOR_PICKER', {
       onChange: (value) => {
         p.onChange(value)
       },
@@ -39,7 +43,8 @@ const ProfileColorView = (p: ProfileColorProps) => {
     <Box
       pointerEvents={isTouchDisabled ? 'none' : undefined}
       opacity={isTouchDisabled ? 0.4 : 1}
-      paddingHorizontal="m"
+      paddingLeft="xs"
+      paddingRight="m"
       marginBottom="xl"
       marginTop="s">
       <Text variant="sectionLabel" marginLeft="m">
@@ -67,14 +72,32 @@ const ProfileColorView = (p: ProfileColorProps) => {
   )
 }
 
-export const ProfileColor = (p: PorifileColorControllerProps) => (
-  <Controller
-    control={p.control}
-    name={p.name}
-    render={({ onChange, value }) => <ProfileColorView onChange={onChange} value={value} />}
-  />
-)
+const UncontrolledProfileColor = (p: UncontrolledColorPickerProps) => {
+  const { user } = useUserContext()
+  const { mutate } = useEditUser()
+  const theme = useTheme()
+  return (
+    <ProfileColorView
+      onChange={(newColor) =>
+        mutate({ userColor: newColor }, { onSuccess: (payload) => p.onUpdate?.(payload) })
+      }
+      value={user?.userColor ?? theme.colors.primary}
+    />
+  )
+}
 
+export const ProfileColor = (p: PorifileColorProps) => {
+  const isControlled = 'control' in p
+  return isControlled ? (
+    <Controller
+      control={p.control}
+      name={p.name}
+      render={({ onChange, value }) => <ProfileColorView onChange={onChange} value={value} />}
+    />
+  ) : (
+    <UncontrolledProfileColor {...p} />
+  )
+}
 const useStyles = mkUseStyles((theme: Theme) => ({
   colorBtn: {
     marginTop: theme.spacing.xm,

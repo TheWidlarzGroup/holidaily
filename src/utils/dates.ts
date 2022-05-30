@@ -5,6 +5,7 @@ import {
   format,
   formatDuration,
   getDay,
+  isSameDay,
   isSameMonth,
   isSameYear,
   parseISO as FNSParseISO,
@@ -32,6 +33,11 @@ export const getMonthName = (monthNumber: number): string =>
 export const isWeekend = (date: DateOrISO): boolean => {
   const parsedDate = parseISO(date)
   return getDay(parsedDate) === 6 || getDay(parsedDate) === 0
+}
+
+export const isToday = (date: DateOrISO): boolean => {
+  const parsedDate = parseISO(date)
+  return isSameDay(parsedDate, new Date())
 }
 
 const getWeekDaysFromSunday = (): string[] => {

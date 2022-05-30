@@ -6,13 +6,12 @@ import { useLanguage } from 'hooks/useLanguage'
 import { BottomTabNavigationProps } from 'navigation/types'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { FlatList } from 'react-native'
-import { Box } from 'utils/theme'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
 const MAX_SCROLL_RETRIES = 4
 
-export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'Feed'>) => {
+export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
   const { data } = useGetPostsData()
   const navigation = useNavigation()
@@ -50,21 +49,19 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'Feed'>)
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <Box marginHorizontal="s" marginTop="m">
-        <FlatList
-          ref={flatListRef}
-          keyboardShouldPersistTaps="handled"
-          onScrollToIndexFailed={() => {
-            setTimeout(scrollToId, 100)
-          }}
-          ListHeaderComponent={<FeedHeader />}
-          data={data}
-          renderItem={({ item }) => <FeedPost post={item} />}
-          keyExtractor={({ meta }) => meta.id}
-          extraData={language}
-          contentContainerStyle={{ paddingBottom: 90 }}
-        />
-      </Box>
+      <FlatList
+        ref={flatListRef}
+        keyboardShouldPersistTaps="handled"
+        onScrollToIndexFailed={() => {
+          setTimeout(scrollToId, 100)
+        }}
+        ListHeaderComponent={<FeedHeader />}
+        data={data}
+        renderItem={({ item }) => <FeedPost post={item} />}
+        keyExtractor={({ meta }) => meta.id}
+        extraData={language}
+        contentContainerStyle={{ paddingBottom: 90 }}
+      />
     </SafeAreaWrapper>
   )
 }

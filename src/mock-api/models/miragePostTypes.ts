@@ -51,7 +51,8 @@ export type FeedPost = {
 
 export type FeedPostData = {
   type: FeedPostDataType
-  src: string
+  uri: string
+  id: string
 }
 
 export type FeedPostDataType = 'image' | 'video'

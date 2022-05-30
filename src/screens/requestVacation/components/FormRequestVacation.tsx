@@ -1,11 +1,10 @@
 import React, { FC, useState } from 'react'
-import { ScrollView } from 'react-native'
-import { Box } from 'utils/theme/index'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { MessageInputModal } from 'components/MessageInputModal'
 import { useTranslation } from 'react-i18next'
 import { Submit } from 'components/Submit'
 import { Additionals } from './Additionals'
@@ -28,7 +27,6 @@ type FormRequestVacationProps = {
   toggleSickTime: F0
   nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
-  message: string
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
   removeAttachment: F1<string>
@@ -40,7 +38,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   toggleSickTime,
   nextStep,
   changeRequestData,
-  message,
   photos,
   files,
   removeAttachment,
@@ -53,7 +50,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   ] = useBooleanState(false)
   const [attachmentsToRemove, setAttachmentsToRemove] = useState<string[]>([])
   const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
-  const [messageContent, setMessageContent] = useState('')
 
   const { t } = useTranslation('requestVacation')
 
@@ -66,13 +62,13 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
     changeRequestData((oldData) => ({ ...oldData, description }))
   }
 
+  const askRemovePhoto = (id: string) => {
+    setAttachmentsToRemove((prev) => [...prev, id])
+  }
+
   const handleMessageSubmit = (message: string) => {
     changeRequestData((oldData) => ({ ...oldData, message }))
     hideMessageInput()
-  }
-
-  const askRemovePhoto = (id: string) => {
-    setAttachmentsToRemove((prev) => [...prev, id])
   }
 
   const clearPhotosToRemove = () => {
@@ -92,42 +88,34 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 
   return (
     <Box flex={1}>
-      <ScrollView>
+      <KeyboardAwareScrollView>
         <Box margin="ml" paddingBottom="xxxl">
+          <Text variant="sectionLabel" textAlign="left" marginBottom="m">
+            {t('detailsTitle')}
+          </Text>
+          <SickTime sickTime={sickTime} toggle={toggleSickTime} />
           <Details
             showNext={showNext}
             hideNext={hideNext}
             onDescriptionChange={handleDescriptionChange}
             date={date}
           />
-          <SickTime sickTime={sickTime} toggle={toggleSickTime} />
           <Additionals
-            onPressMessage={toggleShowMessageInput}
-            messageContent={showMessageInput ? '' : message}
-            messageInputVisible={showMessageInput}
+            onMsgBtnPress={toggleShowMessageInput}
+            onMsgSubmit={handleMessageSubmit}
+            hideMsgInput={hideMessageInput}
+            isMsgInputVisible={showMessageInput}
             showAttachmentModal={setShowAttachmentModalTrue}
             attachments={[...photos, ...files]}
             removeAttachment={askRemovePhoto}
           />
         </Box>
-      </ScrollView>
-      <Box marginBottom={showMessageInput ? 'none' : 'l'}>
-        {showMessageInput ? (
-          <MessageInputModal
-            visible={showMessageInput}
-            onSubmitEditing={handleMessageSubmit}
-            onRequestClose={hideMessageInput}
-            defaultValue={message}
-            autofocus
-            messageContent={messageContent}
-            setMessageContent={setMessageContent}
-          />
-        ) : (
-          isNextVisible && (
-            <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
-          )
-        )}
-      </Box>
+      </KeyboardAwareScrollView>
+      {isNextVisible && !showMessageInput && (
+        <Box marginBottom="l">
+          <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
+        </Box>
+      )}
       <ConfirmationModal
         onAccept={clearPhotosToRemove}
         onDecline={cancelRemovingPhoto}

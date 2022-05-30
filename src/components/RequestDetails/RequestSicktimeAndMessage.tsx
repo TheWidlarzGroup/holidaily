@@ -15,11 +15,13 @@ export const RequestSicktimeAndMessage = ({ isSick, message }: RequestSicktimeAn
       {isSick && (
         <Box flexDirection="row" alignItems="center">
           <PillIcon />
-          <Text variant="body1">{t('sickTimeTitle')}</Text>
+          <Text variant="body1" color="black">
+            {t('sickTimeLabel')}
+          </Text>
         </Box>
       )}
       {!!message && (
-        <Text variant="regular15" paddingTop="m" paddingHorizontal="s">
+        <Text variant="regular15" paddingTop="m" paddingHorizontal="s" color="black">
           {message}
         </Text>
       )}

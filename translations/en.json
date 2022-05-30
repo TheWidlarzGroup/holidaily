@@ -84,7 +84,8 @@
     "joinMore": "You can join more Teams in the User Profile section.",
     "joinMoreButton": "Join now",
     "thanksButton": "Ok, thanks!",
-    "placeholder": "Your first name"
+    "placeholder": "Your first name",
+    "logoutSuccess": "Logged out successfully!"
   },
   "signupEmail": {
     "signupEmailTitle": "Create company account",
@@ -157,7 +158,7 @@
     "panel": "Panel",
     "chat": "Chat",
     "editProfile": "Edit profile",
-    "budget": "Holiday budget"
+    "budget": "My time off"
   },
   "userProfile": {
     "addPhoto": "Add profile picture",
@@ -197,35 +198,40 @@
     "confirmSave": "Save changes?",
     "discardTeams": "Do you want to discard selected teams?",
     "backToSelection": "Back to selection",
-    "teamsEmptyState": "Click + and join your first Team!"
+    "teamsEmptyState": "Click + and join your first Team!",
+    "search": "Search"
   },
   "dashboard": {
     "today": "Today is:",
     "bookedHolidays": "Present & upcoming time off",
     "teamsList": "Your teams",
-    "outOfWorkNow": "Now out of office",
+    "outOfWorkNow": "Out of office now",
     "outOfWorkSoon": "Soon out of office",
-    "othersTeamMembers": "Other team members",
+    "sick": "Sick",
+    "allTeamMembers": "All team members",
     "outOfWork": "Out of work",
-    "backAtWork": "Back at work",
-    "lastDayAtWork": "Last day at work",
+    "backAtWork": "Back at office",
+    "lastDayAtWork": "Last day at office",
     "sickLeave": "Sick time off",
     "coupleDaysOff": "A couple days off",
     "teams": "Teams",
-    "joinFirstTeam": "Click + and join your first Team!"
+    "joinFirstTeam": "Click + and join your first Team!",
+    "changesSaved": "Changes saved"
   },
   "feed": {
     "postCommentBtn": "Comment",
     "comments": "{{quantity}} comments",
     "noComments": "No comments yet",
     "createPostLabel": "What's up?",
-    "locations": "Locations",
-    "locationsAccessText": "Want to find nearby places? Turn on location access.",
+    "locations": "Add location",
+    "locationsAccessText": "Turn on location services.",
     "locationsAccessPromptText": "Use my location",
-    "locationsSearch": "Search",
+    "locationsSearch": "Search location",
     "locationNotFound": "Not found",
-    "loading": "Searching...",
-    "exceededAmount": "You exceeded amount of images in single post"
+    "exceededAmount": "You exceeded amount of images in single post",
+    "seeMore": "pokaż więcej",
+    "postPublished": "Opublikowano post!",
+    "undo": "Cofnij"
   },
   "createPost": {
     "title": "Create Post",
@@ -241,7 +247,7 @@
     "en": "English",
     "pl": "Polish",
     "biometric": "Biometric passcode",
-    "changed": "has been changed!"
+    "languageChanged": "Język został zmieniony!"
   },
   "loader": {
     "wait": "Wait a second..."
@@ -262,18 +268,23 @@
   },
   "messageInput": {
     "placeholder": "Write your message...",
-    "maxCharacters": "Max {{maxLength}} characters"
+    "maxCharacters": "Max {{maxLength}} characters",
+    "commentAdded": "Comment added!"
   },
   "requestVacation": {
     "title": "Take time off",
-    "detailsTitle": "Details",
+    "detailsTitle": "REQUEST DETAILS",
     "detailsDate": "Date",
-    "detailsDescription": "Description (optional)",
+    "selectDate": "Select a date",
+    "detailsDescription": "Title (optional)",
+    "setDescription": "Enter a title",
     "detailsDescriptionError": "Incorrect description",
-    "sickTimeTitle": "Sick Time off",
-    "sickTimeLabel": "I'm not feeling well",
-    "additionalsTitle": "Additionals",
+    "sickTimeLabel": "Sick leave",
+    "sickTimeDesc": "Sick leave can be max. 20 days long and does not require supervisor’s approval.",
+    "additionalsTitle": "ADDITIONALS",
     "additionalsLabel": "Add an attachment or write message",
+    "messageLabel": "Message",
+    "messageCharactes": "{{count}}/{{max}} characters",
     "attachmentDeleteMessage": "Delete attachment?",
     "CTA": "Next",
     "timeOffDescriptionPlaceholder": "Time Off",
@@ -294,7 +305,11 @@
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
-    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>"
+    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>",
+    "discardRequestHeader": "Discard request?",
+    "discardRequestContent": "By clicking Discard, all changes will be lost.",
+    "discardRequestYes": "Discard",
+    "discardRequestNo": "Keep editing"
   },
   "adminPanel": {
     "employees": "Employees",
@@ -330,15 +345,16 @@
     "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"
   },
   "budget": {
-    "budget": "Holiday budget",
+    "budget": "My time off",
     "have": "I have",
     "took": "I took",
     "sent": "I sent",
     "of": "Out of {{number}}",
-    "left": "{{number}} Days of PTO left",
+    "left": "{{number}} PTO days left to use",
     "sickDays": "{{number}} sick days off",
+    "sickDaysLimit": "Out of {{number}}",
     "requests": "{{number}} requests",
-    "requestsStatus": "{{accepted}} accepted, {{pending}} pending",
+    "requestsStatus": "<g>{{accepted}} accepted</g>, {{pending}} pending",
     "policyHeader": "PTO days policy",
     "policyOne": "Number of PTO days depends on individual arrangements, but usually it is <b>21 PTO days per year.</b>",
     "policyTwo": "It increases after working a <b>full month.</b>",

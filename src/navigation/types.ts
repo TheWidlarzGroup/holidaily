@@ -1,7 +1,7 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { GalleryItemData, UserTeamsSubscriptions } from 'types/holidaysDataTypes'
+import { GalleryItemData } from 'types/holidaysDataTypes'
 import { DayOffRequest } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
 
@@ -12,7 +12,7 @@ type NestedNavigatorParams<ParamList> = {
 // for useNavigation hook
 export type AuthNavigationType<RouteName extends keyof AuthRoutes> = CompositeNavigationProp<
   StackNavigationProp<AuthRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'DrawerNavigator'>
+  StackNavigationProp<AppRoutes, 'DRAWER_NAVIGATOR'>
 >
 
 export type AuthNavigationProps<RouteName extends keyof AuthRoutes> = {
@@ -34,7 +34,7 @@ export type BottomTabNavigationProps<RouteName extends keyof BottomTabRoutes> = 
 // for useNavigation hook
 export type DrawerNavigationType<RouteName extends keyof DrawerRoutes> = CompositeNavigationProp<
   StackNavigationProp<DrawerRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'DrawerNavigator'>
+  StackNavigationProp<AppRoutes, 'DRAWER_NAVIGATOR'>
 >
 
 export type DrawerNavigationProps<RouteName extends keyof DrawerRoutes> = {
@@ -52,10 +52,10 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
 >
 
 // for useNavigation hook
-export type ModalNavigationType<RouteName extends keyof ModalRoutes> = CompositeNavigationProp<
-  StackNavigationProp<ModalRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'ModalRoutes'>
->
+// export type ModalNavigationType<RouteName extends keyof ModalRoutes> = CompositeNavigationProp<
+//   StackNavigationProp<ModalRoutes, RouteName>,
+//   StackNavigationProp<AppRoutes, 'ModalRoutes'>
+// >
 
 export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
   navigation: StackNavigationProp<ModalRoutes, RouteName>
@@ -66,7 +66,7 @@ export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
 export type DashboardNavigationType<RouteName extends keyof DashboardRoutes> =
   CompositeNavigationProp<
     StackNavigationProp<DashboardRoutes, RouteName>,
-    StackNavigationProp<AppRoutes, 'DashboardNavigation'>
+    StackNavigationProp<DrawerRoutes, 'Home'>
   >
 
 export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = {
@@ -77,7 +77,7 @@ export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = 
 // for useNavigation hook
 export type UserProfileType<RouteName extends keyof UserProfileRoutes> = CompositeNavigationProp<
   StackNavigationProp<UserProfileRoutes, RouteName>,
-  StackNavigationProp<AppRoutes, 'ProfileNavigation'>
+  StackNavigationProp<DrawerRoutes, 'ProfileNavigation'>
 >
 
 export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes> = {
@@ -85,11 +85,11 @@ export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes
   route: RouteProp<UserProfileRoutes, RouteName>
 }
 // for useNavigation hook
-export type ForgotPasswordTypes<RouteName extends keyof ForgotPasswordRoutes> =
-  CompositeNavigationProp<
-    StackNavigationProp<ForgotPasswordRoutes, RouteName>,
-    StackNavigationProp<AppRoutes, 'ForgotPasswordNavigation'>
-  >
+// export type ForgotPasswordTypes<RouteName extends keyof ForgotPasswordRoutes> =
+//   CompositeNavigationProp<
+//     StackNavigationProp<ForgotPasswordRoutes, RouteName>,
+//     StackNavigationProp<AppRoutes, 'ForgotPasswordNavigation'>
+//   >
 
 export type ForgotPasswordProps<RouteName extends keyof ForgotPasswordRoutes> = {
   navigation: StackNavigationProp<ForgotPasswordRoutes, RouteName>
@@ -107,38 +107,42 @@ export type RequestsNavigationProps<RouteName extends keyof RequestsRoutes> = {
   route: RouteProp<RequestsRoutes, RouteName>
 }
 
-export type AppRoutes = {
-  AuthStackNavigation: NestedNavigatorParams<AuthRoutes>
-  DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
-  Home: NestedNavigatorParams<BottomTabRoutes>
-  ModalRoutes: NestedNavigatorParams<DrawerRoutes>
-  DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
-  ForgotPasswordNavigation: NestedNavigatorParams<ForgotPasswordRoutes>
-  AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
+export type AppRoutes = ModalRoutes
+export type ModalRoutes = {
+  REQUEST_VACATION?: {
+    start: string
+    end: string
+    action?: string
+  }
+  NOTIFICATIONS: undefined
+  REQUEST_VACATION_CALENDAR: { isSickTime?: boolean }
+  DRAWER_NAVIGATOR: NestedNavigatorParams<DrawerRoutes>
+  GALLERY: { data: GalleryItemData[]; index: number }
+  CREATE_POST: { photo: { id: string; uri: string } }
+  SUBSCRIBE_NEW_TEAM: undefined
 }
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  Calendar: undefined
+  CALENDAR: undefined
   RequestModal: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
-  Feed: { postId?: string } | undefined
+  FEED: { postId?: string } | undefined
 }
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
   ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   HolidayBudget: undefined
-  About: undefined
-  Settings: undefined
+  ABOUT: undefined
+  SETTINGS: undefined
   AdminPanelEmployeesNavigation: NestedNavigatorParams<AdminPanelEmployeesRoutes>
 }
 
 export type AuthRoutes = {
-  Slider: undefined
-  Welcome: undefined
-  About: { isFromWelcomeScreen?: true }
+  SLIDER: undefined
+  WELCOME: { userLoggedOut?: true } | undefined
+  ABOUT: { isFromWelcomeScreen?: true }
   TeamsModal: { firstName: string }
   Login: undefined
   Signup: undefined
@@ -151,42 +155,27 @@ export type AuthRoutes = {
   Recovery: undefined
 }
 
-export type ModalRoutes = {
-  RequestVacation?: {
-    start: string
-    end: string
-    action?: string
-  }
-
-  RequestVacationCalendar: { isSickTime?: boolean }
-  DrawerNavigator: NestedNavigatorParams<DrawerRoutes>
-  Gallery: { data: GalleryItemData[]; index: number }
-  CreatePost: { photo: { id: string; uri: string } }
-}
-
 export type DashboardRoutes = {
-  Dashboard: undefined
-  DashboardTeam: Team
-  DashboardTeamMember: User
-  DashboardNotifications: undefined
+  DASHBOARD: undefined
+  DASHBOARD_TEAM: Team
+  DASHBOARD_TEAM_MEMBER: User
 }
 
 export type BudgetRoutes = {
-  Budget: undefined
-  PtoPolicy: undefined
+  BUDGET: undefined
+  PTO_POLICY: undefined
 }
 
 export type RequestsRoutes = {
-  StatsAndRequests: undefined
-  SeeRequest: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
+  STATS_AND_REQUESTS: undefined
+  SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
 }
 
 export type UserProfileRoutes = {
-  EditProfile: undefined
-  ChangePassword: undefined
-  Recovery: undefined
-  SubscribeTeam: UserTeamsSubscriptions
-  ColorPicker: { onChange: F1<string>; value: string }
+  EDIT_PROFILE: undefined
+  CHANGE_PASSWORD: undefined
+  RECOVERY: undefined
+  COLOR_PICKER: { onChange: F1<string>; value: string }
 }
 
 export type ForgotPasswordRoutes = {

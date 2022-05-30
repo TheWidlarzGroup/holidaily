@@ -35,7 +35,6 @@ export const RequestVacationSteps = ({
         toggleSickTime={toggleSickTime}
         changeRequestData={changeRequestData}
         date={{ start: startDate, end: endDate }}
-        message={requestData.message}
         photos={requestData.photos}
         files={requestData.files}
         removeAttachment={removeAttachment}

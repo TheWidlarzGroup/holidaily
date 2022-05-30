@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
 import { Item, SortableListItemType } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
@@ -9,8 +8,8 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
+import { keys } from 'utils/manipulation'
 import { FlatList, FlatListProps } from 'react-native'
-import { useUserContext } from 'hooks/useUserContext'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
@@ -23,21 +22,15 @@ type SortableListProps = {
 const AnimatedFlatList =
   Animated.createAnimatedComponent<FlatListProps<SortableListItemType>>(FlatList)
 
+let persistedOrder: Positions = {}
+
 export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
-  const assignPositions = useCallback(() => {
-    const positions: Positions = {}
-    children.forEach((child, idx) => (positions[child.props.id] = idx))
-    return positions
-  }, [children])
-  const positions = useSharedValue<Positions>(assignPositions())
-  useFocusEffect(useCallback(() => () => setDraggedElement(null), []))
-  useEffect(() => {
-    positions.value = assignPositions()
-  }, [positions, assignPositions])
+  const positions = useSharedValue<Positions>(orderToPositions(makeOrder(children, persistedOrder)))
+
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)
   }
@@ -55,8 +48,6 @@ export const SortableList = ({ children }: SortableListProps) => {
     },
     [draggedElement]
   )
-  const [order, setOrder] = useState<typeof positions.value>(positions.value)
-
   const renderItem = useCallback(
     ({ item: child }) => (
       <Item
@@ -74,8 +65,15 @@ export const SortableList = ({ children }: SortableListProps) => {
     [draggedElement, positions, scrollView, scrollY]
   )
 
+  // Comment: runs when we add/remove teams in edit profile
   useEffect(() => {
-    if (draggedElement === null) setOrder(positions.value)
+    positions.value = orderToPositions(makeOrder(children, persistedOrder))
+  }, [children, positions])
+
+  useEffect(() => {
+    if (draggedElement === null) {
+      persistedOrder = positions.value
+    }
   }, [draggedElement, positions])
 
   const CONTAINER_HEIGHT =
@@ -83,7 +81,6 @@ export const SortableList = ({ children }: SortableListProps) => {
 
   return (
     <Box paddingBottom="xxxl">
-      <OrderController order={order} />
       <AnimatedFlatList
         removeClippedSubviews={false}
         ref={scrollView}
@@ -97,18 +94,32 @@ export const SortableList = ({ children }: SortableListProps) => {
         CellRendererComponent={CellRenderer}
         ListHeaderComponent={
           <>
-            <Box height={NESTED_ELEM_OFFSET}>
-              <Carousel />
-              <Text
-                variant="lightGreyRegular"
-                color="darkGrey"
-                marginHorizontal="xm"
-                marginBottom="xs"
-                letterSpacing={0.7}>
-                {t('teamsList').toUpperCase()}
-              </Text>
-            </Box>
-            {!(children.length > 0) && <JoinFirstTeam />}
+            {children.length > 0 ? (
+              <Box height={NESTED_ELEM_OFFSET}>
+                <Carousel />
+                <Text
+                  variant="lightGreyRegular"
+                  color="darkGrey"
+                  marginHorizontal="xm"
+                  marginBottom="xs"
+                  letterSpacing={0.7}>
+                  {t('teamsList').toUpperCase()}
+                </Text>
+              </Box>
+            ) : (
+              <>
+                <Text
+                  marginTop="m"
+                  variant="lightGreyRegular"
+                  color="darkGrey"
+                  marginHorizontal="xm"
+                  marginBottom="xs"
+                  letterSpacing={0.7}>
+                  {t('teamsList').toUpperCase()}
+                </Text>
+                <JoinFirstTeam />
+              </>
+            )}
           </>
         }
         data={children}
@@ -118,23 +129,24 @@ export const SortableList = ({ children }: SortableListProps) => {
   )
 }
 
-// Comment: OrderController updates user context in a way that doesn't require the rerender of SortableList when UserContext changes its value
-const OrderController = ({ order }: { order: Positions }) => {
-  const { user, updateUser } = useUserContext()
-  useEffect(() => {
-    if (!user?.teams) return
-    const orderedTeams = new Array(user.teams.length)
-    let shouldUpdateContext = false
-    user.teams.forEach((team) => {
-      const newIndex = order[team.id]
-      orderedTeams[newIndex] = team
-      if (user.teams[newIndex]?.id !== team.id) shouldUpdateContext = true
-    })
-    if (shouldUpdateContext) updateUser({ teams: orderedTeams.filter((t) => !!t) })
-    // Comment: Adding user.teams to dependency array starts an infinite loop.
-    // Since order derives from user teams, disabling exhaustive-deps shouldn't be harmfull
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order])
+export const orderToPositions = (order: (string | number)[]) => {
+  const positions: Positions = {}
+  order.forEach((item, idx) => (positions[item] = idx))
+  return positions
+}
 
-  return null
+export const makeOrder = (
+  sortableItems: React.ReactElement<{ id: number }, string | React.JSXElementConstructor<any>>[],
+  persistedOrder: Positions
+) => {
+  const persistedOrderKeys = keys(persistedOrder)
+  let order: (number | string)[] = new Array(persistedOrderKeys.length)
+  persistedOrderKeys.forEach((key) => {
+    const idx = persistedOrder[key]
+    order[idx] = key
+  })
+  order = order.filter((item) => sortableItems.some((child) => child.props.id === item))
+  const newTeams = sortableItems.filter((child) => !order.some((item) => child.props.id === item))
+  newTeams.forEach((child) => order.push(child.props.id))
+  return order
 }

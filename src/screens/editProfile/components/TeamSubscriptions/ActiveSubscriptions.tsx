@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react'
-import { RectButton } from 'react-native-gesture-handler'
-import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { TeamsType } from 'utils/mocks/teamsMocks'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { ConfirmationModal } from 'components/ConfirmationModal'
-import CrossIcon from 'assets/icons/icon-close.svg'
 import { useTranslation } from 'react-i18next'
+import { TertiaryButton } from 'components/TertiaryButton'
 
 type ActiveSubscriptionsProps = {
   teams: TeamsType[]
@@ -32,7 +31,7 @@ export const ActiveSubscriptions = ({ teams, removeSubscription }: ActiveSubscri
     [teams, removeSubscription]
   )
   return (
-    <Box flexDirection="row" flexWrap="wrap" flex={1} marginHorizontal="s">
+    <Box flexDirection="row" flexWrap="wrap" flex={1} marginHorizontal="m">
       {teamElements}
     </Box>
   )
@@ -41,18 +40,11 @@ export const ActiveSubscriptions = ({ teams, removeSubscription }: ActiveSubscri
 const Subscription = (p: SubscriptionProps) => {
   const [isConfirmationNeeded, { setTrue: askForConfirmation, setFalse: dismissConfirmation }] =
     useBooleanState(false)
-  const theme = useTheme()
-  const styles = useStyles()
   const { t } = useTranslation('userProfile')
 
   return (
     <Box marginRight={p.keepSpaceForAddButton ? 'xxl' : undefined}>
-      <RectButton onPress={askForConfirmation} style={styles.team}>
-        <Text variant="resendWhite" paddingVertical="xm" marginRight="s" color="alwaysWhite">
-          {p.teamName}
-        </Text>
-        <CrossIcon height={12} color={theme.colors.alwaysWhite} />
-      </RectButton>
+      <TertiaryButton onPress={askForConfirmation} teamName={p.teamName} isSelected />
       <ConfirmationModal
         isVisible={isConfirmationNeeded}
         content={t('ifYouUnsubscribe', { teamName: p.teamName })}
@@ -66,17 +58,3 @@ const Subscription = (p: SubscriptionProps) => {
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  team: {
-    marginLeft: theme.spacing.s,
-    marginBottom: theme.spacing.m,
-    paddingHorizontal: theme.spacing.m,
-    backgroundColor: theme.colors.specialDarker,
-    borderRadius: theme.spacing.l,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
-  },
-}))

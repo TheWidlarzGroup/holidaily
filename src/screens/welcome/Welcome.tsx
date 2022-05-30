@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -7,33 +7,40 @@ import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BottomSheetModalComponent } from 'components/BottomSheetModalComponent'
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { About } from 'screens/about/About'
 import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/useUserContext'
+import { createNotifications } from 'react-native-notificated'
+import { useBooleanState } from 'hooks/useBooleanState'
+import { AuthNavigationProps } from 'navigation/types'
+import { Analytics } from 'services/analytics'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
+import { AboutModal } from './components/AboutModal'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
 
-export const Welcome = () => {
+export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
+  const { useNotifications } = createNotifications()
+  const { notify } = useNotifications()
   const styles = useStyles()
   const { t } = useTranslation('welcome')
-  const { control, handleSubmit, errors, watch, reset } = useForm()
+  const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
-
-  const modalRef = useRef<BottomSheetModal>(null)
-  const openModal = useCallback(() => modalRef.current?.present(), [])
-  const closeModal = useCallback(() => modalRef.current?.dismiss(), [])
-
+  const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
 
+  useEffect(() => {
+    if (route.params?.userLoggedOut) {
+      notify('success', { params: { title: t('logoutSuccess') } })
+    }
+  }, [route.params?.userLoggedOut, notify, t])
+
   const onSubmit = async () => {
     await setItem('firstName', nameInput)
+    Analytics().identify({ firstName: nameInput })
     createTempUser(
       { firstName: nameInput },
       {
@@ -45,11 +52,11 @@ export const Welcome = () => {
   }
 
   return (
-    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper>
       <KeyboardAwareScrollView
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="always">
+        keyboardShouldPersistTaps="handled">
         <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
@@ -70,7 +77,6 @@ export const Welcome = () => {
             errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
             blurOnSubmit
             placeholder={t('placeholder')}
-            reset={reset}
           />
         </Box>
         <Box>
@@ -84,10 +90,10 @@ export const Welcome = () => {
         right={0}
         left={0}
         bottom={0}
-        backgroundColor="dashboardBackground"
+        backgroundColor="dashboardBackgroundBrighter"
         paddingBottom="l"
         alignItems="center">
-        <Box paddingBottom={isIos ? 'l' : 's'}>
+        <Box paddingBottom={isIos ? 'xl' : 's'} backgroundColor="dashboardBackgroundBrighter">
           <CustomButton
             variant="primary"
             label={t('seeDemoButton')}
@@ -96,11 +102,7 @@ export const Welcome = () => {
           />
         </Box>
       </Box>
-      <BottomSheetModalProvider>
-        <BottomSheetModalComponent snapPoints={['90%']} modalRef={modalRef}>
-          <About isFromWelcomeScreen closeModal={closeModal} />
-        </BottomSheetModalComponent>
-      </BottomSheetModalProvider>
+      <AboutModal isOpen={isModalVisible} onHide={hideModal} />
     </SafeAreaWrapper>
   )
 }

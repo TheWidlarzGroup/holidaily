@@ -7,6 +7,7 @@ import { Avatar } from 'components/Avatar'
 import { User } from 'mock-api/models/mirageTypes'
 import { makeUserDetails } from 'utils/userDetails'
 import IconBack from 'assets/icons/icon-back2.svg'
+import { Analytics } from 'services/analytics'
 
 type MateElementProps = {
   userData: User
@@ -31,12 +32,16 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
     text: userData.isOnHoliday ? 'backAtWork' : 'lastDayAtWork',
   }
 
-  const handleOnPress = () => openUserModal(userData)
+  const handleOnPress = () => {
+    openUserModal(userData)
+    Analytics().track('DASHBOARD_TEAM_MATE_OPENED', { teamMateName: `${firstName} ${lastName}` })
+  }
 
   const isSick = userData.requests[0].isSickTime
 
   return (
     <BaseOpacity
+      delayPressIn={60}
       backgroundColor={isSick ? 'quarternaryOpaque' : version.color}
       borderRadius="lmin"
       marginVertical="s"

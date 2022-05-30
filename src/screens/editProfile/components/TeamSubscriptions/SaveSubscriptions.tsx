@@ -5,12 +5,12 @@ import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useUserContext } from 'hooks/useUserContext'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { notify } from 'react-native-notificated'
 import { ParsedTeamType } from 'utils/mocks/teamsMocks'
 import { Box } from 'utils/theme'
 
 type SaveSubscriptionsProps = {
   disabled?: boolean
-  setSubscriptions?: F1<ParsedTeamType[]>
   selectedTeams: ParsedTeamType[]
 }
 
@@ -25,18 +25,16 @@ export const SaveSubscriptions = (p: SaveSubscriptionsProps) => {
       p.selectedTeams.some((selectedTeam) => selectedTeam.teamName === orgTeam.name)
     )
     updateUser({ teams: [...teams, ...user.teams] })
-    p.setSubscriptions?.(p.selectedTeams)
+    notify('success', { params: { title: t('changesSaved') } })
     goBack()
   }
   if (!user || !organization) return <LoadingModal show />
   return (
-    <Box position="absolute" bottom={16} alignSelf="center">
+    <Box position="absolute" bottom={35} alignSelf="center">
       <CustomButton
         label={t('join')}
         variant="primary"
         onPress={submitSubscriptions}
-        width={221}
-        height={53}
         disabled={p.disabled}
       />
     </Box>

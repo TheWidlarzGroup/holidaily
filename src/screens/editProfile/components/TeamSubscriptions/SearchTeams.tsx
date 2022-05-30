@@ -94,8 +94,11 @@ export const SearchTeams = (p: SearchBarProps) => {
       <SearchHeader handleGoBack={handleGoBack} />
       <Box paddingHorizontal="m">
         <SearchBar searchFilter={searchFilter} searchPhrase={searchPhrase} />
-        <Text variant="sectionLabel">{t('selected', { selected: p.selectedTeams.length })}</Text>
+        <Text variant="sectionLabel" paddingBottom="xm">
+          {t('selected', { selected: p.selectedTeams.length })}
+        </Text>
         <SearchResults
+          searchPhrase={searchPhrase}
           filteredTeams={filteredTeams}
           searchedItems={searchedItems}
           removeFromSubscriptions={removeFromSubscriptions}

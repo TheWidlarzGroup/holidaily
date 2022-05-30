@@ -8,15 +8,17 @@ type AddButtonProps = {
   onPress: () => void
 }
 
+export const ADD_BTN_WIDTH = 90
+
 export const AddButton: FC<AddButtonProps> = ({ onPress }) => {
   const styles = useStyles()
   return (
-    <Box position="relative" alignItems="center">
+    <Box position="relative" alignItems="center" width={ADD_BTN_WIDTH}>
       <RectButton style={styles.button} onPress={onPress} rippleColor={theme.colors.lightGrey}>
         <IconPlus />
       </RectButton>
       <Box position="absolute" bottom={-13}>
-        <CircleBg color={styles.background.color} width={91} height={45} />
+        <CircleBg color={styles.background.color} width={ADD_BTN_WIDTH} height={45} />
       </Box>
     </Box>
   )

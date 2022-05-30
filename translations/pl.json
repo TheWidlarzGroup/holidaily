@@ -73,18 +73,19 @@
     "yourName": "Imię",
     "whyAskForName": "Wyświetlimy Twoje imię w kilku miejscach aplikacji, aby pokazać Ci potencjał i sposób funkcjonowania Holidaily.",
     "seeDemoButton": "Zobacz demo",
-    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfer i znaków specjalnych",
+    "firstNameErrMsg": "Dodaj swoje imię. Nie powinno być dłuższe niż {{max}} znaków oraz nie powinno zawierać cyfr i znaków specjalnych",
     "about": "O aplikacji",
     "aboutDesc1": "<b>Holidaily</b> to aplikacja do zarządzania urlopami przez pracodawcę i pracowników.",
     "aboutDesc2": "<b>Aplikacja ułatwia przepływ informacji</b> dotyczących organizacji urlopów w firmie, i sprawia, że cały proces jest szybszy i łatwiejszy.",
     "aboutButton": "Rozumiem",
     "congrats": "Gratulacje!",
     "memberOf": "Właśnie dołączyłeś do",
-    "yourTeams": "TWOJE DZIAŁY:",
-    "joinMore": "Możesz dołączyć do innych działów w profilu użytkownika.",
-    "joinMoreButton": "Dołacz teraz",
+    "yourTeams": "TWOJE ZESPOŁY:",
+    "joinMore": "Możesz dołączyć do innych zespołów w profilu użytkownika.",
+    "joinMoreButton": "Dołącz teraz",
     "thanksButton": "Ok, dzięki!",
-    "placeholder": "Twoje imię"
+    "placeholder": "Twoje imię",
+    "logoutSuccess": "Wylogowano pomyślnie!"
   },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
@@ -157,7 +158,7 @@
     "panel": "Panel",
     "chat": "Czat",
     "editProfile": "Edytuj profil",
-    "budget": "Budżet urlopowy"
+    "budget": "Moje urlopy"
   },
   "userProfile": {
     "addPhoto": "Dodaj zdjęcie profilowe",
@@ -197,7 +198,8 @@
     "confirmSave": "Zapisać zmiany?",
     "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
     "backToSelection": "Wróć do wyboru",
-    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
+    "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
+    "search": "Wyszukaj"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
@@ -205,27 +207,31 @@
     "teamsList": "Twoje działy",
     "outOfWorkNow": "Teraz poza biurem",
     "outOfWorkSoon": "Wkrótce poza biurem",
-    "othersTeamMembers": "Pozostali członkowie",
+    "sick": "Chorobowe",
+    "allTeamMembers": "Wszyscy członkowie",
     "outOfWork": "Urlop",
-    "backAtWork": "Powrót",
-    "lastDayAtWork": "Ostatni dzień w pracy",
+    "backAtWork": "Z powrotem w biurze",
+    "lastDayAtWork": "Ostatni dzień",
     "SickLeave": "Chorobowe",
     "coupleDaysOff": "Kilka dni wolnego",
     "teams": "Zespoły",
-    "joinFirstTeam": "Kliknij + i dołącz do Twojego pierwszego zespołu!"
+    "joinFirstTeam": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
+    "changesSaved": "Zmiany zostały zapisane"
   },
   "feed": {
     "postCommentBtn": "Skomentuj",
     "comments": "komentarze",
     "noComments": "Brak komentarzy",
     "createPostLabel": "Co słychać?",
-    "locations": "Lokalizacja",
-    "locationsAccessText": "Chcesz znaleźć pobliskie miejsca? Włącz lokalizację.",
-    "locationsAccessPromptText": "Uzyj mojej lokalizacji",
-    "locationsSearch": "Wyszukaj",
+    "locations": "Dodaj lokalizację",
+    "locationsAccessText": "Włącz usługi lokalizacji.",
+    "locationsAccessPromptText": "Uzyj lokalizacji",
+    "locationsSearch": "Szukaj lokalizacji",
     "locationNotFound": "Nie znaleziono",
-    "loading": "Szukam...",
-    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście"
+    "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
+    "seeMore": "see more",
+    "postPublished": "Post published!",
+    "undo": "Undo"
   },
   "createPost": {
     "title": "Utwórz Post",
@@ -241,7 +247,7 @@
     "en": "Angielski",
     "pl": "Polski",
     "biometric": "Odblokuj odciskiem palca",
-    "changed": "został zmieniony!"
+    "languageChanged": "Language has been changed!"
   },
   "loader": {
     "wait": "Jeszcze chwilkę..."
@@ -253,7 +259,7 @@
     "sickdaysTaken": "wziętych dni urlopu chorobowego",
     "day": "dzień",
     "days": "dni",
-    "requests": "ŻĄDANIA URLOPU",
+    "requests": "Żądania urlopu",
     "ongoingRequestsHeader": "W TRAKCIE",
     "acceptedRequestsHeader": "ZATWIERDZONE",
     "pendingRequestsHeader": "OCZEKUJĄCE",
@@ -262,18 +268,23 @@
   },
   "messageInput": {
     "placeholder": "Napisz swoją wiadomość...",
-    "maxCharacters": "Limit {{maxLength}} znaków"
+    "maxCharacters": "Limit {{maxLength}} znaków",
+    "commentAdded": "Dodano komentarz!"
   },
   "requestVacation": {
-    "title": "Weź wolne",
-    "detailsTitle": "Szczegóły",
-    "detailsDate": "Termin",
-    "detailsDescription": "Opis (opcjonalnie)",
+    "title": "Złóż wniosek",
+    "detailsTitle": "SZCZEGÓŁY WNIOSKU",
+    "detailsDate": "Data",
+    "selectDate": "Wybierz datę",
+    "detailsDescription": "Tytuł (opcjonalnie)",
+    "setDescription": "Wpisz tytuł",
     "detailsDescriptionError": "Nieprawidłowy opis",
-    "sickTimeTitle": "Chorobowe",
-    "sickTimeLabel": "Nie czuje się najlepiej",
-    "additionalsTitle": "Dodatki",
-    "additionalsLabel": "Dodaj załącznik lub wiadomość",
+    "sickTimeLabel": "Zwolnienie lekarskie/chorobowe",
+    "sickTimeDesc": "Wniosek związany ze zwolnieniem lekarskim/chorobowym może wynosić maks. 20 dni i nie wymaga zatwierdzenia przez przełożonego.",
+    "additionalsTitle": "DODATKOWE INFORMACJE",
+    "additionalsLabel": "Dodaj wiadomość i/lub załącznik.",
+    "messageLabel": "Wiadomość",
+    "messageCharactes": "{{count}}/{{max}} znaków",
     "attachmentDeleteMessage": "Usunąć załącznik?",
     "CTA": "Dalej",
     "timeOffDescriptionPlaceholder": "Czas wolny",
@@ -290,11 +301,15 @@
     "seeRequest": "Zobacz podanie",
     "addAnother": "Poproś o kolejne wolne",
     "ok": "W porządku",
-    "error": "Ojej! Brakuje ci dni urlopu",
+    "error": "Ups! Brakuje Ci dni urlopu",
     "clear": "Wyczyść",
     "availablePto": "Masz do wykorzystania {{availablePto}} urlopu",
     "changeDays": "Zmień termin",
-    "maxSickdaysError": "Możesz wziąć maksymalnie <b>{{max}} dni chorobowego.</b> <b>Zmień liczbę dni w kalendarzu.</b>"
+    "maxSickdaysError": "Możesz wziąć maksymalnie <b>{{max}} dni chorobowego.</b> <b>Zmień liczbę dni w kalendarzu.</b>",
+    "discardRequestHeader": "Odrzucić wniosek?",
+    "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
+    "discardRequestYes": "Odrzuć",
+    "discardRequestNo": "Kontynuuj edycję"
   },
   "adminPanel": {
     "employees": "Pracownicy",
@@ -330,15 +345,16 @@
     "dayOff": "<b>{{author}}</b> <b>ma jutro wolne</b> i wraca <b>{{endDate}}</b>"
   },
   "budget": {
-    "budget": "Budżet wakacyjny",
-    "have": "Mam",
+    "budget": "Moje urlopy",
+    "have": "Mogę wziąć",
     "took": "Wziąłem/am",
     "sent": "Wysłałem/am",
-    "of": "Z {{number}}",
+    "of": "Z {{number}} dostępnych",
     "left": "{{number}} dni urlopu",
     "sickDays": "{{number}} dni urlopu chorobowego",
-    "requests": "{{number}} zapytań",
-    "requestsStatus": "{{accepted}} zaakceptowane, {{pending}} oczekujące",
+    "sickDaysLimit": "Z {{number}} możliwych",
+    "requests": "{{number}} próśb o urlop",
+    "requestsStatus": "<g>{{accepted}} zaakceptowane</g>, {{pending}} oczekujące",
     "policyHeader": "Polityka dni urlopowych",
     "policyOne": "Liczba dni urlopu zależy od indywidualnych ustaleń, ale zwykle jest to <b>21 dni<b/> rocznie.",
     "policyTwo": "Liczba zwiększa się po przepracowaniu <b>pełnego miesiąca.</b> ",

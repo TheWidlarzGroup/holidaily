@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import { StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
-import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
+import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
+import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { useTranslation } from 'react-i18next'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
@@ -23,21 +25,16 @@ export type RequestDataTypes = {
   files: (AttachmentType & { name: string })[]
 }
 type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
-type RequestVacationProps = ModalNavigationProps<'RequestVacation'>
+type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
+  const { userSettings } = useUserSettingsContext()
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const navigation = useNavigation<ModalNavigationType<'RequestVacation'>>()
+  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
-
-  useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    return () => {
-      StatusBar.setBarStyle('dark-content')
-    }
-  }, [])
+  useSetStatusBarStyle(userSettings)
 
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback(ctx.requestData)
@@ -62,12 +59,12 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
   const onPressSee = () => {
     hideSentModal()
-    navigation.navigate('DrawerNavigator', {
+    navigation.navigate('DRAWER_NAVIGATOR', {
       screen: 'Home',
       params: {
         screen: 'Stats',
         params: {
-          screen: 'SeeRequest',
+          screen: 'SEE_REQUEST',
           params: {
             ...ctx.requestData,
             endDate: (ctx.endDate ?? new Date()).toISOString(),
@@ -79,7 +76,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       },
     })
   }
-
+  const { t } = useTranslation('requestVacation')
   useEffect(() => {
     const { params } = route
 
@@ -93,8 +90,20 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       setEndDate(tomorow)
     }
   }, [route, route.params, markSickTime, setEndDate, setStartDate])
+
+  const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
+  const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
+
   return (
-    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+    <SwipeableScreen
+      bg="dashboardBackground"
+      confirmLeave={isDirty}
+      confirmLeaveOptions={{
+        acceptBtnText: t('discardRequestYes'),
+        declineBtnText: t('discardRequestNo'),
+        header: t('discardRequestHeader'),
+        content: t('discardRequestContent'),
+      }}>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
@@ -107,11 +116,11 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
-          navigation.navigate('Home')
+          navigation.navigate('DRAWER_NAVIGATOR')
         }}
       />
       {!isSentModalVisible && <BadStateController />}
-    </SafeAreaWrapper>
+    </SwipeableScreen>
   )
 }
 

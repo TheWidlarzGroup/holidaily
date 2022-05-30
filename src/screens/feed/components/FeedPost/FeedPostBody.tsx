@@ -4,19 +4,23 @@ import { Box } from 'utils/theme'
 import { ExpandingText } from 'components/ExpandingText'
 import { Gallery } from 'components/Gallery/Gallery'
 import { useNavigation } from '@react-navigation/native'
-import { ModalNavigationType } from 'navigation/types'
+import { AppNavigationType } from 'navigation/types'
+import { isIos } from 'utils/layout'
 
 type FeedPostBodyProps = Pick<FeedPost, 'data' | 'text'>
 
 export const FeedPostBody = ({ data, text }: FeedPostBodyProps) => {
-  const { navigate } = useNavigation<ModalNavigationType<'Gallery'>>()
+  const { navigate } = useNavigation<AppNavigationType<'GALLERY'>>()
   const handleGalleryItemPress = (index: number) => {
-    navigate('Gallery', { data, index })
+    navigate('GALLERY', { data, index })
   }
   return (
     <Box>
       {text.length > 0 && (
-        <Box padding="s">
+        <Box
+          paddingHorizontal="m"
+          paddingTop="s"
+          marginBottom={data?.length === 0 && isIos ? 'lplus' : 'none'}>
           <ExpandingText text={text} />
         </Box>
       )}

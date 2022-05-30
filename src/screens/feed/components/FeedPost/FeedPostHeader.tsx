@@ -8,10 +8,10 @@ import { LocationInfo } from 'components/LocationInfo'
 type FeedPostHeaderProps = Pick<FeedPost, 'meta'>
 
 export const FeedPostHeader = ({ meta }: FeedPostHeaderProps) => (
-  <Box paddingHorizontal="xm" paddingTop="s" alignItems="flex-start">
-    <Box flexDirection="row" paddingBottom="s">
+  <Box paddingHorizontal="m" paddingTop="s" alignItems="flex-start">
+    <Box flexDirection="row" paddingBottom="xm">
       <Avatar
-        size="l"
+        size="m"
         src={meta?.author.pictureUrl}
         marginRight="s"
         userDetails={

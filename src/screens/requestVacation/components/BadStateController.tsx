@@ -16,7 +16,7 @@ export const BadStateController = () => {
       <BottomModal isVisible isInvalid>
         <NotEnoughPTO
           origin="form"
-          onPress={() => navigation.navigate('RequestVacationCalendar', { isSickTime: sickTime })}
+          onPress={() => navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })}
           availablePto={user.availablePto}
           customError={sickTime ? <MaxSickdays /> : null}
         />

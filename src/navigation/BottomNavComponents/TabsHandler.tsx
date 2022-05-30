@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { AddButton } from 'components/AddButton'
+import { AddButton, ADD_BTN_WIDTH } from 'components/AddButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
-import { ModalNavigationType } from 'navigation/types'
+import { AppNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
+import { tabsBorderRadius } from 'navigation/service/tabsBorderRadius'
 
 type TabsHandlerProps = {
   tabs: {
@@ -12,36 +13,30 @@ type TabsHandlerProps = {
   }[]
   tabWidth: number
   activeTabIndex: number
-  minIconWidth: number
 }
 
-export const TabsHandler: FC<TabsHandlerProps> = ({
-  tabs,
-  tabWidth,
-  activeTabIndex,
-  minIconWidth,
-}) => {
+export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
   const styles = useStyles()
-  const navigation = useNavigation<ModalNavigationType<'DrawerNavigator'>>()
+  const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
 
   return (
-    <Box flexDirection="row" flex={1}>
+    <Box flexDirection="row">
       {tabs.map((tab, key: number) => {
         const onPress = () => {
           if (tab.name === 'RequestModal') {
-            navigation.navigate('RequestVacation')
+            navigation.navigate('REQUEST_VACATION')
           } else {
             navigation.navigate(tab.name as never)
           }
         }
         if (tab.name === 'RequestModal') {
           return (
-            <Box key="logo" width={tabWidth} backgroundColor="transparent" minWidth={minIconWidth}>
+            <Box key="logo" backgroundColor="transparent" width={ADD_BTN_WIDTH}>
               <AddButton onPress={onPress} />
             </Box>
           )
         }
-        const buttonIdx = Math.floor(tabs.length / 2)
+
         return (
           <Box
             {...{ key }}
@@ -51,9 +46,9 @@ export const TabsHandler: FC<TabsHandlerProps> = ({
             alignItems="center"
             flexDirection="column"
             backgroundColor="white"
-            borderTopRightRadius={key === buttonIdx - 1 ? 's' : undefined}
-            borderTopLeftRadius={key === buttonIdx + 1 ? 's' : undefined}
-            zIndex="5">
+            zIndex="5"
+            borderTopLeftRadius={tabsBorderRadius({ key, side: 'left' })}
+            borderTopRightRadius={tabsBorderRadius({ key, side: 'right' })}>
             <BorderlessButton onPress={onPress} style={styles.button}>
               {getBottomTabIcon(
                 tab.name,

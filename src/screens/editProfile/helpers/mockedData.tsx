@@ -21,7 +21,7 @@ type ColorProps = {
 
 export const COLORS: ColorProps[] = [
   {
-    color: '91A6FF#',
+    color: '#91A6FF',
     id: 1,
   },
   {

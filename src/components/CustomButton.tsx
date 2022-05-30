@@ -18,6 +18,7 @@ export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   onPress?: F0
   children?: ReactNode
   customStyle?: RectButtonProperties['style']
+  customTextColor?: keyof Theme['colors']
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({
@@ -29,6 +30,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   onPress,
   children,
   customStyle,
+  customTextColor,
   ...rest
 }) => {
   const styles = useStyles()
@@ -41,7 +43,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   switch (variant) {
     case 'primary':
       bgColor = disabled ? theme.colors.primary : theme.colors.tertiary
-      color = theme.colors.white
+      color = theme.colors.alwaysWhite
       rippleColor = theme.colors.disabled
       break
     case 'alternative':
@@ -57,7 +59,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       break
     case 'tertiary':
       bgColor = theme.colors.special
-      color = theme.colors.white
+      color = theme.colors.alwaysWhite
       rippleColor = theme.colors.grey
       break
     case 'danger':
@@ -69,6 +71,8 @@ export const CustomButton: FC<CustomButtonProps> = ({
     default:
       break
   }
+
+  color = customTextColor ? theme.colors[customTextColor] : color
 
   return (
     <RectButton
@@ -84,7 +88,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       ]}>
       <Box
         width="100%"
-        height={variant === 'tertiary' ? 41 : 45}
+        height={variant === 'tertiary' ? 41 : 47}
         flexDirection="row"
         alignItems="center"
         justifyContent="center"

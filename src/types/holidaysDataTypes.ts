@@ -1,5 +1,3 @@
-import { TeamsType } from 'utils/mocks/teamsMocks'
-
 export type ValidationOfCompanyDayOff = {
   id: number
   isOnHoliday: boolean
@@ -54,16 +52,13 @@ export type RequiredMateHolidaysData = UserData & {
 }
 
 export type GalleryItemData = {
-  src: string
+  id: string
+  uri: string
   type: 'image' | 'video'
 }
 
 export type AttachmentType = {
   id: string
   uri: string
-}
-
-export type UserTeamsSubscriptions = {
-  userTeams: TeamsType[]
-  addSubscriptions: F1<TeamsType[]>
+  type?: 'image' | 'video'
 }

@@ -8,6 +8,7 @@ import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRo
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { eachWeekendDaysOfMonth } from 'utils/getWeekendDays'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
 
@@ -42,8 +43,7 @@ export const useCalendarData = () => {
   }
 
   useEffect(() => {
-    if (!requests.length) return
-    const currentMonthRequests = requests.find((month) => {
+    let currentMonthRequests = requests.find((month) => {
       const thisMonth = parseISO(month.date)
       return (
         thisMonth.getMonth() === selectedDate.getMonth() &&
@@ -51,8 +51,14 @@ export const useCalendarData = () => {
       )
     })
 
-    if (!currentMonthRequests) return
+    if (!currentMonthRequests) {
+      const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
 
+      currentMonthRequests = {
+        date: selectedDate.toISOString(),
+        days: eachWeekendDaysOfMonth(firstDayOfMonth),
+      }
+    }
     let bothMonthsRequests: HolidailyRequestMonthType = {
       date: currentMonthRequests.date,
       days: currentMonthRequests.days,

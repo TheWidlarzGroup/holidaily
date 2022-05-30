@@ -10,9 +10,9 @@ import { isSmallScreen } from './deviceSizes'
 
 export type Tab =
   | 'ProfileNavigation'
-  | 'Settings'
+  | 'SETTINGS'
   | 'HolidayBudget'
-  | 'About'
+  | 'ABOUT'
   | 'Logout'
   | 'AdminPanelEmployeesNavigation'
 
@@ -39,13 +39,13 @@ export const DrawerIcon = (tab: Tab) => {
     case 'ProfileNavigation': {
       return <EditIcon {...iconDimensions} color={theme.colors.black} />
     }
-    case 'Settings': {
+    case 'SETTINGS': {
       return <SettingsIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'HolidayBudget': {
       return <BudgetIcon {...iconDimensions} color={theme.colors.black} />
     }
-    case 'About': {
+    case 'ABOUT': {
       return <AboutIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'Logout': {

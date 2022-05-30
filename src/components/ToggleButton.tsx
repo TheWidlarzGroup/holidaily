@@ -7,7 +7,7 @@ export const ToggleButton = ({ children }: { children: string }) => (
     paddingHorizontal="m"
     marginRight="s"
     marginTop="s"
-    backgroundColor="input"
+    backgroundColor="grayToggleButton"
     justifyContent="center"
     alignItems="center"
     borderRadius="l">

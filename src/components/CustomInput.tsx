@@ -39,7 +39,6 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       placeholder,
       variant,
       reset,
-      hasValueChanged,
       hasButton,
       ...props
     },
@@ -100,7 +99,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <TextInput
               style={[styles.input, disabled && styles.disabled]}
               secureTextEntry={isPasswordInput}
-              onBlur={hasValueChanged ? handleOnBlur : () => setIsFocused(false)}
+              onBlur={handleOnBlur}
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}
@@ -142,9 +141,8 @@ CustomInput.displayName = 'CustomInput'
 const useStyles = mkUseStyles((theme) => ({
   container: {
     flex: 1,
-    height: 40,
     backgroundColor: theme.colors.input,
-    borderRadius: theme.borderRadii.xxl,
+    borderRadius: theme.borderRadii.lplus,
     paddingLeft: theme.spacing.xm,
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
@@ -161,6 +159,7 @@ const useStyles = mkUseStyles((theme) => ({
     borderColor: theme.colors.black,
   },
   input: {
+    paddingVertical: 6,
     color: theme.colors.black,
     fontFamily: 'Nunito-Regular',
   },

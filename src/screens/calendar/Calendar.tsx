@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -23,19 +23,26 @@ const CalendarToWrap = () => {
     currentMonthDays,
   } = useCalendarData()
 
-  const handleDayPress = ({ dateString }: { dateString: string }) => {
-    const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-    if (!dayEvents) return
-    const index = currentMonthDays.indexOf(dayEvents)
-    flatListRef.current?.scrollToIndex({ index, animated: true })
-    setTimeout(() => setSelectedDate(parseISO(dateString)))
-  }
+  const handleDayPress = useCallback(
+    ({ dateString }: { dateString: string }) => {
+      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
+      if (!dayEvents) return
+      const index = currentMonthDays.indexOf(dayEvents)
+      flatListRef.current?.scrollToIndex({ index, animated: true })
+      setTimeout(() => setSelectedDate(parseISO(dateString)))
+    },
+    [currentMonthDays, setSelectedDate]
+  )
 
   // Comment: show loader spinner while calendar is rendering
   const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
+
   useEffect(() => {
     hideLoader()
   }, [hideLoader])
+
+  const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
+
   if (isLoading) return <LoadingModal show />
 
   return (
@@ -48,14 +55,14 @@ const CalendarToWrap = () => {
         borderRadius="lmin"
         backgroundColor="white"
         marginTop="m"
-        paddingBottom="m"
+        marginHorizontal="xm"
         shadowOffset={{ width: 0, height: 2 }}
         shadowColor="black"
         shadowOpacity={0.15}
         shadowRadius={6}
         elevation={4}>
         <ExpandableCalendar
-          markedDates={getMarkedDates(currentMonthDays)}
+          markedDates={markedDates}
           markingType="multi-dot"
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}

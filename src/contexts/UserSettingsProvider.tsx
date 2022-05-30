@@ -14,10 +14,9 @@ export const defaultUserSettings: UserSettings = {
 export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
   const [userSettings, setUserSettings] = useState<UserSettings | null>(null)
 
-  const updateSettings = (newData: Partial<UserSettings> | null) => {
-    if (userSettings && newData) {
-      setUserSettings({ ...userSettings, ...newData })
-    }
+  const updateSettings = (newData: UserSettings) => {
+    if (userSettings) return setUserSettings({ ...userSettings, ...newData })
+    setUserSettings({ ...newData })
   }
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { displayDatesRange } from 'utils/functions'
 import { DayOffRequest, User } from 'mock-api/models/mirageTypes'
 import { HolidayTag } from './HolidayTag'
+import { Languages } from '../../../../i18n'
 
 type MateHolidayTypes = { user: User; isNextRequest?: true; sortedRequests: DayOffRequest[] }
 
@@ -13,23 +14,30 @@ export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHoliday
   const { isOnHoliday } = user
   const { t } = useTranslation('dashboard')
 
-  const header = isOnHoliday ? 'outOfWorkNow' : 'outOfWorkSoon'
-
+  let header: keyof Languages['en' | 'pl']['dashboard'] = 'outOfWorkNow'
   let background: keyof Theme['colors'] = 'primaryOpaque'
   let text: keyof Theme['colors'] = 'primaryOpaque'
 
   switch (true) {
+    case isNextRequest:
+      background = 'lightBlue'
+      text = 'textBlue'
+      header = 'outOfWorkSoon'
+      break
     case isOnHoliday && !isSickTime:
       background = 'primaryOpaque'
       text = 'tertiary'
+      header = 'outOfWorkNow'
       break
     case isOnHoliday && isSickTime:
       background = 'quarternaryOpaque'
       text = 'quarternary'
+      header = 'sick'
       break
     case !isOnHoliday:
       background = 'lightBlue'
       text = 'textBlue'
+      header = 'outOfWorkSoon'
       break
     default:
       break
@@ -46,7 +54,12 @@ export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHoliday
       borderBottomLeftRadius={isNextRequest ? 'lmin' : 'none'}
       borderBottomRightRadius={isNextRequest ? 'lmin' : 'none'}>
       <Box position="absolute" left={30} top={11}>
-        <HolidayTag hideBorder hideBorderColor isSick={isSickTime} isSoonOnHoliday={!isOnHoliday} />
+        <HolidayTag
+          hideBorder
+          hideBorderColor
+          isSick={isSickTime}
+          isSoonOnHoliday={isNextRequest || !isOnHoliday}
+        />
       </Box>
       <Text variant="textBoldXS" color={text} paddingLeft="lplus">
         {t(header)}

@@ -3,8 +3,11 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
 import { getItem, setItem } from 'utils/localStorage'
-import { SwipeableModal } from 'components/SwipeableModal'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { ModalProps } from 'react-native-modal'
+import { sleep } from 'utils/sleep'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { SortableTeams } from './components/SortableTeams'
 
 export const Dashboard = () => {
@@ -14,22 +17,32 @@ export const Dashboard = () => {
     const openModalOnFirstAppLaunch = async () => {
       const seenTeamsModal = await getItem('seenTeamsModal')
       if (seenTeamsModal === 'false') return
-      setTimeout(async () => {
-        openSuccessModal()
-        await setItem('seenTeamsModal', 'false')
-      }, 2000)
+      // Comment: Modal just flickers in instead of sliding from the bottom without sleep. setImmediate doesn't fix the issue.
+      await sleep(1)
+      openSuccessModal()
+      setItem('seenTeamsModal', 'false')
     }
     openModalOnFirstAppLaunch()
   }, [openSuccessModal])
+
   return (
     <>
       <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
         <DashboardHeader />
         <SortableTeams />
       </SafeAreaWrapper>
-      <SwipeableModal isOpen={isSuccessModalVisible} onHide={closeSuccessModal}>
+      <SwipeableModalRegular
+        hasIndicator
+        style={teamsModalStyle}
+        isOpen={isSuccessModalVisible}
+        onHide={closeSuccessModal}>
         <TeamsModal closeModal={closeSuccessModal} />
-      </SwipeableModal>
+      </SwipeableModalRegular>
     </>
   )
+}
+
+const teamsModalStyle: ModalProps['style'] = {
+  margin: 0,
+  marginTop: isScreenHeightShort ? 20 : 110,
 }

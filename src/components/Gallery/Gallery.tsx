@@ -11,7 +11,7 @@ import {
 import { useSharedValue } from 'react-native-reanimated'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { isIos } from 'utils/layout'
-import { Box } from 'utils/theme'
+import { Box, theme } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -46,7 +46,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
       <GalleryItem
         {...item}
         width={width}
-        onPress={() => onItemPress && onItemPress(index, item.src)}
+        onPress={() => onItemPress && onItemPress(index, item.uri)}
       />
     ),
     [width, onItemPress]
@@ -64,15 +64,15 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
         decelerationRate="normal"
         disableIntervalMomentum
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={{ alignItems: 'center', paddingTop: theme.spacing.xxm }}
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => item.src}
+        keyExtractor={(item) => item.uri}
         onScroll={onScroll}
         showsHorizontalScrollIndicator={false}
       />
       {data.length > 1 && (
-        <Box alignSelf="center" position="absolute" bottom={isIos ? 46 : 14}>
+        <Box alignSelf="center" position="absolute" bottom={isIos ? 40 : 10}>
           <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
         </Box>
       )}

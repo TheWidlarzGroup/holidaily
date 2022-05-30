@@ -9,16 +9,21 @@ import { getItem } from 'utils/localStorage'
 import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
+import { Analytics } from 'services/analytics'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
 
-type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'AnotherVisit' | 'FirstVisit'
+type LoginStatusTypes = 'BeforeCheck' | 'LoggedIn' | 'LoggedOut' | 'FirstVisit'
 
 export const AppNavigation = () => {
   const styles = useStyle()
   const userSettingsContext = useContext(UserSettingsContext)
   const isDarkTheme = !!userSettingsContext?.userSettings?.darkMode
+
+  const navigationRef: any = useRef()
+  const routeNameRef = useRef()
+  // COMMENT: types in navigationRef could be <NavigationContainerRef> probably, needs research
 
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
@@ -45,7 +50,7 @@ export const AppNavigation = () => {
 
   useEffect(() => {
     if (isFirstRender.current) return
-    if (loginStatus === 'LoggedIn' && !user) return setLoginStatus('FirstVisit')
+    if (loginStatus === 'LoggedIn' && !user) return setLoginStatus('LoggedOut')
     if (user?.firstName && loginStatus !== 'LoggedIn') setLoginStatus('LoggedIn')
   }, [user, loginStatus])
 
@@ -82,11 +87,25 @@ export const AppNavigation = () => {
   }
 
   return (
-    <NavigationContainer linking={linking} theme={navigatorTheme}>
+    <NavigationContainer
+      linking={linking}
+      theme={navigatorTheme}
+      ref={navigationRef}
+      onReady={() => {
+        if (routeNameRef) {
+          routeNameRef.current = navigationRef.current.getCurrentRoute()
+        }
+      }}
+      onStateChange={() => {
+        const currentRouteName = navigationRef.current.getCurrentRoute()
+        const currentScreenName = currentRouteName.name
+        if (currentScreenName) Analytics().setCurrentScreen(currentScreenName)
+        routeNameRef.current = currentRouteName
+      }}>
       {loginStatus === 'BeforeCheck' && <Splash />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
-      {loginStatus === 'AnotherVisit' && <AuthStackNavigation initialRoute="Welcome" />}
+      {loginStatus === 'LoggedOut' && <AuthStackNavigation initialRoute="WELCOME" userLoggedOut />}
     </NavigationContainer>
   )
 }

@@ -5,6 +5,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { Box, useTheme } from 'utils/theme'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
@@ -20,6 +22,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   const [state, dispatch] = usePostFormReducer()
   const [locationPickerOpened, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
     useBooleanState(false)
+  const theme = useTheme()
 
   const galleryImages = state.images.map(assetToGalleryItem)
   const sendDisabled = isSendDisabled(state)
@@ -31,8 +34,10 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   }, [dispatch, photosAsset])
 
   return (
-    <>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
+    <SafeAreaWrapper edges={['bottom']}>
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: theme.colors.white }}
+        behavior="height">
         <PostHeader />
         <ScrollView>
           <PostBody
@@ -48,7 +53,9 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
           imagesCount={state.images.length}
         />
       </KeyboardAvoidingView>
-      <Submit disabledCTA={sendDisabled} onCTAPress={() => onSend(state)} />
+      <Box bg="white" paddingBottom="s">
+        <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
+      </Box>
       <ModalLocationPicker
         visible={locationPickerOpened}
         onLocationChange={(locationPayload) => {
@@ -57,13 +64,14 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
         }}
         onRequestClose={hideLocationPicker}
       />
-    </>
+    </SafeAreaWrapper>
   )
 }
 
 const assetToGalleryItem = (asset: Asset): GalleryItemData => ({
+  id: asset.id ?? '',
   type: asset.type ? 'image' : 'video',
-  src: asset.uri ?? '',
+  uri: asset.uri ?? '',
 })
 
 const isSendDisabled = ({ text, images }: PostState) => text.length === 0 && images.length === 0

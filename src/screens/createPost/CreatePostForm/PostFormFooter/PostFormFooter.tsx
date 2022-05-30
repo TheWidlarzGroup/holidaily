@@ -12,6 +12,7 @@ import {
 } from 'react-native-image-picker'
 import { Alert } from 'react-native'
 import { useKeyboard } from 'hooks/useKeyboard'
+import { useLocation } from 'hooks/useLocation'
 import { useTranslation } from 'react-i18next'
 import { FooterButton } from './FooterButton'
 
@@ -25,6 +26,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
   const [keyboardShown] = useKeyboard()
   const { t } = useTranslation('feed')
   const theme = useTheme()
+  const { requestLocationPermission } = useLocation()
 
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
@@ -73,9 +75,14 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
     )
   }
 
+  const handleRequestLocation = async () => {
+    const granted = await requestLocationPermission()
+    if (granted) return onLocationPress()
+  }
+
   return (
     <Box
-      backgroundColor="disabled"
+      backgroundColor="white"
       borderTopLeftRadius="l"
       borderTopRightRadius="l"
       flexDirection="row"
@@ -83,16 +90,16 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
       alignItems="center"
       paddingVertical="m"
       style={{
-        paddingBottom: keyboardShown ? 65 : 0,
+        paddingBottom: keyboardShown ? 80 : 0,
       }}>
       <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
-        <IconCamera />
+        <IconCamera color={theme.colors.black} />
       </FooterButton>
       <FooterButton onPress={handleGalleryPress}>
         <IconGallery color={theme.colors.black} />
       </FooterButton>
-      <FooterButton onPress={onLocationPress}>
-        <IconLocation />
+      <FooterButton onPress={handleRequestLocation}>
+        <IconLocation color={theme.colors.black} />
       </FooterButton>
     </Box>
   )

@@ -27,7 +27,7 @@ export const headerTheme = {
       marginBottom: 8,
       fontSize: 12,
       fontFamily: 'Nunito-Regular',
-      color: appTheme.colors.grey,
+      color: appTheme.colors.darkGreyBrighter,
     },
   },
   ...theme,
