@@ -127,6 +127,7 @@ export const colors = {
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
   orangeToBlack: palette.primary100,
   transparentToOrange: palette.transparent,
+  deleteButton: palette.grayscale300,
   inputSendArrowBlack: palette.grayscale800,
   inputSendArrowWhite: palette.grayscale50,
 }
@@ -203,6 +204,7 @@ export const darkThemeColors = {
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
   orangeToBlack: palette.grayscale800,
   transparentToOrange: palette.primary100,
+  deleteButton: palette.grayscale300,
   inputSendArrowBlack: palette.grayscale800,
   inputSendArrowWhite: palette.grayscale50,
 }

@@ -43,7 +43,11 @@ export const PostBody = (props: PostBodyProps) => {
       <Box paddingHorizontal="s" marginTop="-s">
         {location?.addresses && <LocationInfo location={location} />}
       </Box>
-      <Attachments removeAttachment={props.removeAttachment} attachments={data} />
+      <Attachments
+        removeAttachment={props.removeAttachment}
+        attachments={data}
+        imgHalfScreenWidth
+      />
     </Box>
   )
 }
