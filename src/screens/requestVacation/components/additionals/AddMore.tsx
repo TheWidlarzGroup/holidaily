@@ -4,7 +4,7 @@ import { Box, Text } from 'utils/theme'
 import PaperclipOrangeIcon from 'assets/icons/paperclipOrange.svg'
 
 type AddMoreProps = {
-  onPress: F0
+  onPress?: F0
 }
 
 export const AddMore = ({ onPress }: AddMoreProps) => (

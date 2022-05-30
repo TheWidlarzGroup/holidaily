@@ -3,25 +3,25 @@ import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
-import { Gallery } from 'components/Gallery/Gallery'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
 import { useUserContext } from 'hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
+import { Attachments } from 'screens/requestVacation/components/additionals/Attachments'
 
 type PostBodyProps = {
   text: string
   location: Maybe<CompoundLocation>
   onTextChange: F1<string>
   data: GalleryItemData[]
+  removeAttachment: F1<string>
 }
 
 export const PostBody = (props: PostBodyProps) => {
   const { location, onTextChange, text, data } = props
   const { user } = useUserContext()
   const { t } = useTranslation('createPost')
-
   const styles = useStyles()
 
   return (
@@ -43,7 +43,7 @@ export const PostBody = (props: PostBodyProps) => {
       <Box paddingHorizontal="s" marginTop="-s">
         {location?.addresses && <LocationInfo location={location} />}
       </Box>
-      <Gallery data={data} />
+      <Attachments removeAttachment={props.removeAttachment} attachments={data} />
     </Box>
   )
 }

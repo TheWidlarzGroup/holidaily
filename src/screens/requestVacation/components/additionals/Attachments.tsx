@@ -8,7 +8,7 @@ import { AddMore } from './AddMore'
 type AttachmentProps = {
   attachments: (AttachmentType | (AttachmentType & { name: string }))[]
   removeAttachment: F1<string>
-  addMore: F0
+  addMore?: F0
   displayAddMore?: boolean
 }
 

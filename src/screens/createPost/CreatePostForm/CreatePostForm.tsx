@@ -27,6 +27,10 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   const galleryImages = state.images.map(assetToGalleryItem)
   const sendDisabled = isSendDisabled(state)
 
+  const removeAttachment = (id: string) => {
+    dispatch({ type: 'removeImage', payload: { id } })
+  }
+
   useEffect(() => {
     if (photosAsset) {
       dispatch({ type: 'addImages', payload: { images: [photosAsset] } })
@@ -45,6 +49,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
             location={state.location}
             onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
             data={galleryImages}
+            removeAttachment={removeAttachment}
           />
         </ScrollView>
         <PostFormFooter

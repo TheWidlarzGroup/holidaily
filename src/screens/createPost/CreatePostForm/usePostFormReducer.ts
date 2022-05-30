@@ -1,6 +1,7 @@
 import { CompoundLocation } from 'hooks/useLocation'
 import { useReducer } from 'react'
 import { Asset } from 'react-native-image-picker'
+import { generateUUID } from 'utils/generateUUID'
 
 export type PostState = {
   readonly text: string
@@ -22,8 +23,8 @@ export type PostAction =
       payload: { images: Asset[] }
     }
   | {
-      type: 'removeImages'
-      payload: { uris: string[] }
+      type: 'removeImage'
+      payload: { id: string }
     }
   | {
       type: 'reset'
@@ -42,11 +43,12 @@ const reducer = (state: PostState, action: PostAction): PostState => {
     case 'addImages': {
       const { images } = action.payload
       const uris = images.map((img) => img.uri ?? '')
-      return { ...state, images: [...filterAssets(state.images, uris), ...images] }
+      const imagesWithId = images.map((img) => ({ ...img, id: generateUUID() }))
+      return { ...state, images: [...filterAssets(state.images, uris), ...imagesWithId] }
     }
-    case 'removeImages': {
-      const { uris } = action.payload
-      return { ...state, images: filterAssets(state.images, uris) }
+    case 'removeImage': {
+      const { id } = action.payload
+      return { ...state, images: deleteAsset(state.images, id) }
     }
     case 'reset':
       return initState
@@ -59,3 +61,5 @@ export const usePostFormReducer = () => useReducer(reducer, initState)
 
 const filterAssets = (assets: Asset[], uris: string[]) =>
   assets.filter((asset) => !uris.includes(asset.uri ?? ''))
+
+const deleteAsset = (assets: Asset[], id: string) => assets.filter((asset) => asset.id !== id)
