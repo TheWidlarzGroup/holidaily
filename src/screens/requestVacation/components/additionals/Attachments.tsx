@@ -1,27 +1,32 @@
 import React from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
-import Cross from 'assets/icons/circle-cross.svg'
 import { Photo } from 'components/RequestDetails/Photo'
+import { CircleStatusIcon } from 'components/CircleStatusIcon'
 import { AddMore } from './AddMore'
 
-type AttachmentProps = {
-  attachments: (AttachmentType | (AttachmentType & { name: string }))[]
+type AttachmentsProps = {
+  attachments: (AttachmentType & { name?: string })[]
   removeAttachment: F1<string>
   addMore: F0
   displayAddMore?: boolean
 }
 
-type Side = 'right' | 'left' | 'top'
+type AttachmentWrapperProps = {
+  onClose?: F0
+  uri: string
+  fileName?: string
+}
+type PaddingSide = 'right' | 'left' | 'top'
 
 export const Attachments = ({
   attachments,
   addMore,
   displayAddMore,
   removeAttachment,
-}: AttachmentProps) => {
+}: AttachmentsProps) => {
   const styles = useStyles()
-  const getPadding = (index: number, side: Side) => {
+  const getPadding = (index: number, side: PaddingSide) => {
     const n = index % 3
     const paddingSize = 4
     if (side === 'top') return 3 * paddingSize
@@ -37,28 +42,14 @@ export const Attachments = ({
           <Box
             key={attachment.id}
             style={{
-              paddingTop: getPadding(0, 'top'),
               paddingLeft: getPadding(uriIndex, 'left'),
               paddingRight: getPadding(uriIndex, 'right'),
-              width: '33.33%',
             }}>
-            {'name' in attachment ? (
-              <Box alignItems="center" justifyContent="center">
-                <BaseOpacity
-                  alignSelf="flex-end"
-                  onPress={() => removeAttachment(attachment.id)}
-                  hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
-                  <Cross width={18} height={18} />
-                </BaseOpacity>
-                <Text>{attachment.name}</Text>
-              </Box>
-            ) : (
-              <Photo
-                src={attachment.uri}
-                onClose={() => removeAttachment(attachment.id)}
-                displayClose
-              />
-            )}
+            <AttachmentWrapper
+              onClose={() => removeAttachment(attachment.id)}
+              uri={attachment.uri}
+              fileName={attachment.name}
+            />
           </Box>
         ))}
         {attachments.length % 3 !== 0 && displayAddMore && (
@@ -71,6 +62,39 @@ export const Attachments = ({
     </Box>
   )
 }
+export const AttachmentWrapper = (p: AttachmentWrapperProps) => (
+  <>
+    {p.onClose && (
+      <BaseOpacity
+        position="absolute"
+        zIndex="10"
+        right={-10}
+        top={-5}
+        onPress={p.onClose}
+        hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
+        <CircleStatusIcon status="error" bg="grey" height={20} />
+      </BaseOpacity>
+    )}
+    <BaseOpacity
+      onPress={p.onClose}
+      width={80}
+      aspectRatio={1}
+      borderRadius="l1min"
+      overflow="hidden"
+      bg="attachmentBg"
+      marginBottom="xs">
+      {p.fileName ? (
+        <Box flex={1} alignItems="center" justifyContent="center">
+          <Text style={{ flexWrap: 'wrap' }} lineBreakMode="tail" ellipsizeMode="tail">
+            {p.fileName}
+          </Text>
+        </Box>
+      ) : (
+        <Photo src={p.uri} />
+      )}
+    </BaseOpacity>
+  </>
+)
 
 const useStyles = mkUseStyles(() => ({
   container: {
