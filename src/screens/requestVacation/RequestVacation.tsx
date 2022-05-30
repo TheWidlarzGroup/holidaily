@@ -6,19 +6,18 @@ import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useModalContext } from 'contexts/ModalProvider'
-import { ConfirmationModal } from 'components/ConfirmationModal'
 import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
-  RequestVacationData,
   RequestVacationProvider,
   useRequestVacationContext,
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
+import { RequestSentModal } from './components/RequestSentModal'
 
 export type RequestDataTypes = {
   description: string
@@ -34,7 +33,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const wasSubmitEventTriggered = useRef(false)
-  const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
+  const { goBack } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
   const { showModal, hideModal } = useModalContext()
@@ -50,27 +49,12 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     }))
   }
   const { t } = useTranslation('requestVacation')
-  // Comment: This effect navigates to dashboard and shows modal to let user see request after submitting
   useEffect(() => {
     if (!requestSent || wasSubmitEventTriggered.current) return
     wasSubmitEventTriggered.current = true
     goBack()
-    const onSeeRequestPress = () => {
-      navigateToDetails(navigate, ctx)
-      hideModal()
-    }
-    showModal(
-      <ConfirmationModal
-        isVisible
-        header={t('sent')}
-        content={t('sentDescription')}
-        hideModal={hideModal}
-        onAccept={hideModal}
-        onDismiss={hideModal}
-        onDecline={onSeeRequestPress}
-      />
-    )
-  }, [requestSent, goBack, navigate, hideModal, showModal, ctx, t])
+    showModal(<RequestSentModal hideModal={hideModal} />)
+  }, [requestSent, goBack, hideModal, showModal])
 
   useEffect(() => {
     const { params } = route
@@ -109,27 +93,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     </SwipeableScreen>
   )
 }
-
-const navigateToDetails = (
-  navigate: AppNavigationType<'REQUEST_VACATION'>['navigate'],
-  ctx: RequestVacationData
-) =>
-  navigate('DRAWER_NAVIGATOR', {
-    screen: 'Home',
-    params: {
-      screen: 'Stats',
-      params: {
-        screen: 'SEE_REQUEST',
-        params: {
-          ...ctx.requestData,
-          startDate: (ctx.startDate ?? new Date()).toISOString(),
-          endDate: (ctx.endDate ?? ctx.startDate ?? new Date()).toISOString(),
-          isSickTime: ctx.sickTime,
-          status: ctx.sickTime ? 'accepted' : 'pending',
-        },
-      },
-    },
-  })
 
 const WrappedRequestVacation = (p: RequestVacationProps) => (
   <RequestVacationProvider>
