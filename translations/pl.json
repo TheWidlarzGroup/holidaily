@@ -310,7 +310,9 @@
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",
     "discardRequestNo": "Kontynuuj edycję",
-    "outOfOffice": "Poza biurem"
+    "outOfOffice": "Poza biurem",
+    "removeAttachmentYes": "Usuń",
+    "removeAttachmentNo": "Anuluj"
   },
   "adminPanel": {
     "employees": "Pracownicy",
