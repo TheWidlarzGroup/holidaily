@@ -309,6 +309,7 @@
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",
     "discardRequestNo": "Keep editing",
+    "sickDayDescription": "Sick leave request doesn’t need your supervisor’s approval.",
     "outOfOffice": "Out of office",
     "removeAttachmentYes": "Delete",
     "removeAttachmentNo": "Cancel"

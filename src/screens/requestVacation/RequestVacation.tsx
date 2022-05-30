@@ -70,7 +70,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
             endDate: (ctx.endDate ?? new Date()).toISOString(),
             startDate: (ctx.startDate ?? new Date()).toISOString(),
             isSickTime: ctx.sickTime,
-            status: 'pending',
+            status: ctx.sickTime ? 'accepted' : 'pending',
           },
         },
       },
