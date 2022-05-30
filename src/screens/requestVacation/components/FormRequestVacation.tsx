@@ -121,8 +121,9 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         onDecline={cancelRemovingPhoto}
         hideModal={cancelRemovingPhoto}
         isVisible={!!attachmentsToRemove.length}
-        header={null}
-        content={t('attachmentDeleteMessage')}
+        header={t('attachmentDeleteMessage')}
+        acceptBtnText={t('removeAttachmentYes')}
+        declineBtnText={t('removeAttachmentNo')}
       />
       <UploadAttachmentModal
         isVisible={showAttachmentModal}

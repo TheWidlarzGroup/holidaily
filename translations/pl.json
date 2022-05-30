@@ -289,11 +289,9 @@
     "CTA": "Dalej",
     "timeOffDescriptionPlaceholder": "Czas wolny",
     "sendRequest": "Wyślij",
-    "ptoTaken1": "Bierzesz",
-    "ptoTaken2": "dni wolnego",
-    "ptoLeft1": "Pozostanie",
-    "ptoLeft2": "dni wolnego",
+    "ptoTaken": "{{days}} urlopu",
     "pickedPTO": "{{days}} wolnego",
+    "ptoLeft": "Po zatwierdzeniu wniosku będziesz mieć <b>{{days}}</b> płatnego urlopu do wykorzystania.",
     "select": "Wybierz",
     "sent": "Poproszono o wolne!",
     "waitForApproval": "Ale nie pakuj się jeszcze, poczekaj na zatwierdzenie urlopu!",
@@ -311,7 +309,10 @@
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",
     "discardRequestNo": "Kontynuuj edycję",
-    "sickDayDescription": "Wniosek o zwolnienie lekarskie nie wymaga zatwierdzenia przez przełożonego."
+    "sickDayDescription": "Wniosek o zwolnienie lekarskie nie wymaga zatwierdzenia przez przełożonego.",
+    "outOfOffice": "Poza biurem",
+    "removeAttachmentYes": "Usuń",
+    "removeAttachmentNo": "Anuluj"
   },
   "adminPanel": {
     "employees": "Pracownicy",
