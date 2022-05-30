@@ -1,13 +1,32 @@
-import { useNavigation } from '@react-navigation/native'
 import { ConfirmationModal } from 'components/ConfirmationModal'
+import { useModalContext } from 'contexts/ModalProvider'
 import { AppNavigationType } from 'navigation/types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { RequestVacationData, useRequestVacationContext } from '../contexts/RequestVacationContext'
+import {
+  RequestVacationData,
+  RequestVacationProvider,
+  useRequestVacationContext,
+} from '../contexts/RequestVacationContext'
 
-export const RequestSentModal = ({ hideModal }: { hideModal: F0 }) => {
+type RequestSentModalProps = {
+  navigate: AppNavigationType<'REQUEST_VACATION'>['navigate']
+}
+
+export const RequestSentModal = ({ navigate }: RequestSentModalProps) => {
+  const { hideModal } = useModalContext()
+  return (
+    <RequestVacationProvider>
+      <RequestSentModalContent hideModal={hideModal} navigate={navigate} />
+    </RequestVacationProvider>
+  )
+}
+
+const RequestSentModalContent = ({
+  hideModal,
+  navigate,
+}: RequestSentModalProps & { hideModal: F0 }) => {
   const ctx = useRequestVacationContext()
-  const { navigate } = useNavigation()
 
   const onSeeRequestPress = () => {
     navigateToDetails(navigate, ctx)
@@ -19,10 +38,13 @@ export const RequestSentModal = ({ hideModal }: { hideModal: F0 }) => {
       isVisible
       header={t('sent')}
       content={t('sentDescription')}
+      acceptBtnText={t('ok')}
+      declineBtnText={t('seeRequest')}
       hideModal={hideModal}
       onAccept={hideModal}
       onDismiss={hideModal}
       onDecline={onSeeRequestPress}
+      statusIcon="success"
     />
   )
 }

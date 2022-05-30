@@ -1,11 +1,9 @@
-import React, { useRef } from 'react'
-import { Box, Text } from 'utils/theme/index'
-import { Trans, useTranslation } from 'react-i18next'
+import React from 'react'
+import { Box } from 'utils/theme/index'
+import { useTranslation } from 'react-i18next'
 import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
 import { Submit } from 'components/Submit'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { calculatePTO, getDurationInDays } from 'utils/dates'
 
 type SummaryRequestVacationProps = {
   description: string
@@ -49,7 +47,6 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         isSickTime={p.isSick}
         status="pending"
       />
-      {!!p.startDate && !!p.endDate && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
       {!p.hideNext && (
         <Submit
           loading={isLoading}
@@ -59,24 +56,6 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
           text={t('sendRequest')}
         />
       )}
-    </Box>
-  )
-}
-
-const PtoLeft = (p: { ptoTaken: number }) => {
-  const { user } = useUserContext()
-  // Comment: ref, because once assigned, we don't want this number to change when we reduce availablePto by submitting request
-  const availablePto = useRef((user?.availablePto ?? 0) - p.ptoTaken)
-  return (
-    <Box padding="m" bg="attachmentBg" borderRadius="l1min" marginTop="l">
-      <Text variant="textSM">
-        <Trans
-          ns="requestVacation"
-          i18nKey="ptoLeft"
-          components={{ b: <Text variant="textBoldSM" /> }}
-          values={{ days: getDurationInDays(availablePto.current) }}
-        />
-      </Text>
     </Box>
   )
 }

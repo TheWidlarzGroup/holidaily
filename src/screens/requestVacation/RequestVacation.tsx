@@ -33,7 +33,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const wasSubmitEventTriggered = useRef(false)
-  const { goBack } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
+  const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
   const { showModal, hideModal } = useModalContext()
@@ -53,8 +53,8 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     if (!requestSent || wasSubmitEventTriggered.current) return
     wasSubmitEventTriggered.current = true
     goBack()
-    showModal(<RequestSentModal hideModal={hideModal} />)
-  }, [requestSent, goBack, hideModal, showModal])
+    showModal(<RequestSentModal navigate={navigate} />)
+  }, [requestSent, goBack, navigate, hideModal, showModal])
 
   useEffect(() => {
     const { params } = route
