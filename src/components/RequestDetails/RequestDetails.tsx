@@ -63,7 +63,7 @@ const PtoLeft = (p: { ptoTaken: number }) => {
   const { user } = useUserContext()
   const availablePto = (user?.availablePto ?? 0) - p.ptoTaken
   return (
-    <Box padding="m" bg="attachmentBg" borderRadius="l1min">
+    <Box padding="m" bg="attachmentBg" borderRadius="l1min" marginTop="l">
       <Text variant="textSM">
         <Trans
           ns="requestVacation"

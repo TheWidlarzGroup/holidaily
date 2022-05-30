@@ -5,6 +5,7 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import CrossIcon from 'assets/icons/icon-close.svg'
 import { useTranslation } from 'react-i18next'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
+import ArrowLeft from 'assets/icons/arrow-left.svg'
 
 type HeaderProps = { step: number; setStep: F1<number>; stepBackNeedsConfirm?: boolean }
 
@@ -19,13 +20,23 @@ export const RequestVacationHeaderText = (p: HeaderProps) => {
   const stepBackWithConfirm = useWithConfirmation({
     onAccept: stepBack,
   })
+  const goBackWithConfirm = useWithConfirmation({
+    onAccept: goBack,
+  })
   const onStepBack = p.stepBackNeedsConfirm ? stepBackWithConfirm : stepBack
+  const onCloseModal = p.stepBackNeedsConfirm ? goBackWithConfirm : goBack
 
   return (
     <Box alignItems="center" marginHorizontal="m" marginBottom="s">
-      <Pressable style={styles.stepBackBtn} onPress={onStepBack}>
-        <CrossIcon style={styles.crossIcon} />
-      </Pressable>
+      <Box flexDirection="row" justifyContent="space-between" width="100%">
+        <Pressable style={styles.stepBackBtn} onPress={onStepBack}>
+          <ArrowLeft style={styles.crossIcon} />
+        </Pressable>
+
+        <Pressable style={styles.stepBackBtn} onPress={onCloseModal}>
+          <CrossIcon style={styles.crossIcon} />
+        </Pressable>
+      </Box>
       <Text variant="modalHeader" textAlign="center">
         {t('title')}
       </Text>
