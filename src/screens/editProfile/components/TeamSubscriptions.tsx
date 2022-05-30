@@ -25,9 +25,9 @@ export const TeamSubscriptions = () => {
   }, [user?.teams])
 
   const onSubscribeTeam = () => {
-    const teamNames = teams.map((team) => team.teamName)
-    if (teamNames.length > 0)
-      Analytics().track('TEAM_SUBSCRIBED', { teamName: JSON.stringify(teamNames) })
+    const subscribedTeamName = teams.map((team) => team.teamName)
+    if (subscribedTeamName.length > 0)
+      Analytics().track('TEAM_SUBSCRIBED', { teamNames: JSON.stringify(subscribedTeamName) })
     navigate('SUBSCRIBE_NEW_TEAM')
   }
 

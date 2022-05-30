@@ -2,14 +2,14 @@ import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
-import { removeMany } from 'utils/localStorage'
+import { getItem, removeMany, setItem } from 'utils/localStorage'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { sortSingleUserRequests } from 'utils/sortByDate'
 import { Analytics } from 'services/analytics'
 import { entries } from 'utils/manipulation'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { generateUUID } from 'utils/generateUUID'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -35,7 +35,6 @@ export const emptyUser: User = {
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
-  const [isAppLaunched, { setTrue: setIsAppLaunched }] = useBooleanState(false)
 
   const { reset: clearUserCache } = useCreateTempUser()
   const updateUser = useCallback(
@@ -52,7 +51,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.USER_STATS)
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
     await removeMany([
-      'id',
+      'userId',
       'firstName',
       'lastName',
       'occupation',
@@ -63,13 +62,15 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     ])
   }
 
-  useEffect(() => {
-    if (user?.id && !isAppLaunched) {
-      setIsAppLaunched()
-      Analytics().setUserId(user.id + generateUUID())
-      // TODO: generateUUID added temporarily to distinguish users by unique ID, remove it if unique ID provided by backend
+  useAsyncEffect(async () => {
+    const userId = generateUUID()
+    const cachedUserId = await getItem('userId')
+    if (!cachedUserId) {
+      setItem('userId', userId)
     }
-  }, [user, isAppLaunched, setIsAppLaunched])
+    Analytics().setUserId(cachedUserId || userId)
+    Analytics().track('APP_LAUNCH')
+  }, [])
 
   useEffect(() => {
     if (!user?.requests?.length) return

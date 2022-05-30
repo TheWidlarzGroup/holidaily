@@ -1,5 +1,15 @@
 import { fcast } from './manipulation'
 
+type AddRequestPayload = {
+  isSick: boolean
+  filesCount: number
+  photosCount: number
+  message?: string
+  endDate?: string
+  startDate?: string
+  description?: string
+}
+
 export const analyticsEventMap = {
   // General
   APP_LAUNCH: { name: '[GENERAL] App-launch', payload: fcast<never>() },
@@ -20,7 +30,7 @@ export const analyticsEventMap = {
   },
   DASHBOARD_FIRST_TEAM_VIEWED: {
     name: '[DASHBOARD] Join First Team Viewed',
-    payload: fcast<{ profileName: string }>(),
+    payload: fcast<never>(),
   },
 
   // Holifeed
@@ -40,15 +50,7 @@ export const analyticsEventMap = {
   // Add Request
   REQUEST_VACATION_ADD: {
     name: '[REQUEST_VACATION] Request Vacation Added',
-    payload: fcast<{
-      description?: string
-      filesCount: number
-      message?: string
-      photosCount: number
-      startDate?: string
-      endDate?: string
-      isSick: boolean
-    }>(),
+    payload: fcast<AddRequestPayload>(),
   },
 
   // Edit Profile
@@ -62,7 +64,7 @@ export const analyticsEventMap = {
   },
   TEAM_SUBSCRIBED: {
     name: '[EDIT_PROFILE] New Team Subscribed',
-    payload: fcast<{ teamName: string }>(),
+    payload: fcast<{ teamNames: string }>(),
   },
 
   // Settings
