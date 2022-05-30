@@ -15,7 +15,6 @@ import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
-import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 
 export type MessageInputProps = {
   messageContent: string
@@ -39,7 +38,6 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     setMessageContent,
   } = props
   const [error, setError] = useState('')
-  const { userSettings } = useUserSettingsContext()
 
   const { t } = useTranslation('messageInput')
 
@@ -130,15 +128,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         />
         {!!messageContent && (
           <TouchableOpacity style={styles.sendArrow} onPress={handleSubmit}>
-            <SendArrowIcon
-              height={9}
-              width={9}
-              color={
-                userSettings?.darkMode
-                  ? theme.colors.inputSendArrowBlack
-                  : theme.colors.inputSendArrowWhite
-              }
-            />
+            <SendArrowIcon height={9} width={9} color={theme.colors.inputSendArrow} />
           </TouchableOpacity>
         )}
       </Animated.View>
@@ -174,7 +164,7 @@ const useStyles = mkUseStyles((theme) => ({
     color: theme.colors.black,
   },
   sendArrow: {
-    backgroundColor: theme.colors.black,
+    backgroundColor: theme.colors.inputSendArrowBackground,
     padding: 10,
     alignSelf: 'flex-end',
     borderRadius: theme.borderRadii.full,
