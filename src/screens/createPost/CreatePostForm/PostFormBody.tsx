@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
 import { useUserContext } from 'hooks/useUserContext'
@@ -14,7 +14,7 @@ type PostBodyProps = {
   text: string
   location: Maybe<CompoundLocation>
   onTextChange: F1<string>
-  data: GalleryItemData[]
+  data: AttachmentType[]
   removeAttachment: F1<string>
 }
 

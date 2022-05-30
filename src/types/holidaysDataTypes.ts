@@ -51,12 +51,6 @@ export type RequiredMateHolidaysData = UserData & {
   holidays: Required<HolidayDetails> & HolidayDetailsOptional
 }
 
-export type GalleryItemData = {
-  id: string
-  uri: string
-  type: 'image' | 'video'
-}
-
 export type AttachmentType = {
   id: string
   uri: string

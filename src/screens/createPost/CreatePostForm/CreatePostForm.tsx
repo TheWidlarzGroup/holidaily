@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -73,7 +73,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   )
 }
 
-const assetToGalleryItem = (asset: Asset): GalleryItemData => ({
+const assetToGalleryItem = (asset: Asset): AttachmentType => ({
   id: asset.id ?? '',
   type: asset.type ? 'image' : 'video',
   uri: asset.uri ?? '',
