@@ -27,7 +27,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
       {
         startDate: p.startDate.toISOString(),
         endDate: p.endDate.toISOString(),
-        description: p.description,
+        description: p.description ?? t('outOfOffice'),
         isSickTime: p.isSick,
         message: p.message ?? '',
         attachments: p.attachments,
