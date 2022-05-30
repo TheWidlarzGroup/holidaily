@@ -340,7 +340,10 @@
     "unseen": "UNSEEN",
     "markAllAsSeen": "Mark all as seen",
     "markSeen": "Seen",
-    "like": "<b>{{author}}</b> liked your <b>Holifeed</b> post",
+    "requestApproved": "Wohoo! Your <b>{{description}}</b> request has been approved!",
+    "requestDeclined": "Bad news. Your <b>{{description}}</b> request has been declined.",
+    "prompt": "Hey! Let’s take some time off. Check out available dates now!",
+    "like": "<b>{{author}}</b> reacted to your <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> commented your <b>Holifeed</b> post",
     "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"
   },

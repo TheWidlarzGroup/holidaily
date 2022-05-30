@@ -340,7 +340,10 @@
     "unseen": "NIEPRZECZYTANE",
     "markSeen": "Odczytane",
     "markAllAsSeen": "Oznacz wszystkie jako przeczytane",
-    "like": "<b>{{author}}</b> polubił twój <b>Holifeed</b> post",
+    "requestApproved": "Wohoo! Twoje zapytanie o <b>{{description}}</b> zostało zaakceptowane!",
+    "requestDeclined": "Złe wieści. Twoje zapytanie o <b>{{description}}</b> zostało odrzucone.",
+    "prompt": "Hej! Weź sobie wolne! Sprawdź możliwe terminy już teraz!",
+    "like": "<b>{{author}}</b> zareagował na twój <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> skomentował twój <b>Holifeed</b> post",
     "dayOff": "<b>{{author}}</b> <b>ma jutro wolne</b> i wraca <b>{{endDate}}</b>"
   },

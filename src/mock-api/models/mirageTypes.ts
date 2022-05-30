@@ -52,9 +52,5 @@ export type Notification = {
   source: User
   wasSeenByHolder: boolean
   holderId: string
-} & (
-  | {
-      type: 'like' | 'comment'
-    }
-  | { type: 'dayOff'; endDate: string }
-)
+} & ({ type: 'like' | 'comment' | 'prompt' } | { type: 'dayOff'; endDate: string })
+// | { type: 'accepted' | 'declined'; description: string }
