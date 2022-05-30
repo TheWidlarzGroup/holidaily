@@ -14,7 +14,7 @@ export const initPayloadService = <RT extends Record<string, unknown>>(): Payloa
     fields.forEach((field) => {
       if (!requestBody[field]) {
         if (!this.httpError) this.httpError = { status: 400, errors: [] }
-        this.httpError.errors.push(`Field ${field} is mandatory`)
+        this.httpError.errors.push(`Field ${String(field)} is mandatory`)
       } else {
         this.body[field] = requestBody[field]
       }
