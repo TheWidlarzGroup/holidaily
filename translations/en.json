@@ -294,6 +294,7 @@
     "ptoLeft": "You’ll have <b>{{days}}</b> of paid time off to use after this request is approved.",
     "select": "Select",
     "sent": "Request sent!",
+    "sentDescription": "We will notify you about the approval or rejection of your request by sending a notification.",
     "waitForApproval": "Now wait for the request approval, and do not pack your suitcase yet!",
     "findRequests": "You will find all requests at the bottom of the screen.",
     "seeRequest": "See request",
