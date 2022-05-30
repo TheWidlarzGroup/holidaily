@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 
 const ICON_SIZE = 30

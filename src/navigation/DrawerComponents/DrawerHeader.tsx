@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { User } from 'mock-api/models/mirageTypes'
 import { makeUserDetails } from 'utils/userDetails'
 

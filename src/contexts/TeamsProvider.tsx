@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
 import { TeamsContextProps, TeamsContext } from './TeamsContext'
 

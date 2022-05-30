@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Checkbox } from 'components/Checkbox'
 import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Text } from 'utils/theme'
-import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { LoadingModal } from 'components/LoadingModal'
 
 const TIMEOUT = 100

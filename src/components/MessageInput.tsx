@@ -10,7 +10,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { themeBase } from 'utils/theme/themeBase'
 import { useCombinedRefs } from 'hooks/useCombinedRefs'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
