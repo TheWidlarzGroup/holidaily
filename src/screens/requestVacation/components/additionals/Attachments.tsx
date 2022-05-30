@@ -1,54 +1,59 @@
 import React from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
-import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text, theme } from 'utils/theme'
 import { Photo } from 'components/RequestDetails/Photo'
 import { CircleStatusIcon } from 'components/CircleStatusIcon'
+import { windowWidth } from 'utils/deviceSizes'
 import { AddMore } from './AddMore'
 
 type AttachmentsProps = {
   attachments: (AttachmentType & { name?: string })[]
   removeAttachment: F1<string>
+  imagesPerScreenWidth: 2 | 4
   addMore?: F0
   displayAddMore?: boolean
 }
 
 type AttachmentWrapperProps = {
-  onClose?: F0
   uri: string
+  imageWidth: number
+  onClose?: F0
   fileName?: string
 }
-type PaddingSide = 'right' | 'left' | 'top'
+
+const CONTAINER_TOTAL_HORIZONTAL_MARGINS = 24
 
 export const Attachments = ({
   attachments,
   addMore,
   displayAddMore,
   removeAttachment,
+  imagesPerScreenWidth,
 }: AttachmentsProps) => {
   const styles = useStyles()
-  const getPadding = (index: number, side: PaddingSide) => {
-    const n = index % 3
-    const paddingSize = 4
-    if (side === 'top') return 3 * paddingSize
-    if (n === 0) return side === 'left' ? 0 : 2 * paddingSize
-    if (n === 1) return paddingSize
-    if (n === 2) return side === 'left' ? 2 * paddingSize : 0
-  }
+
+  const IMAGE_SHORT_PADDINGS_TOTAL = theme.spacing.xs * 2
+  const IMAGE_WIDE_PADDINGS_TOTAL = theme.spacing.s * 2
+
+  const SINGLE_IMAGE_TOTAL_PADDINGS =
+    imagesPerScreenWidth === 4 ? IMAGE_SHORT_PADDINGS_TOTAL : IMAGE_WIDE_PADDINGS_TOTAL
+  const IMAGE_WIDTH =
+    (windowWidth -
+      CONTAINER_TOTAL_HORIZONTAL_MARGINS -
+      SINGLE_IMAGE_TOTAL_PADDINGS * imagesPerScreenWidth) /
+    imagesPerScreenWidth
+
   const isRowFull = attachments.length % 4 === 0
   return (
-    <Box alignSelf="stretch" style={styles.container}>
+    <Box alignSelf="stretch" style={styles.container} marginHorizontal="-s">
       <Box flexDirection="row" flexWrap="wrap">
-        {attachments.map((attachment, uriIndex) => (
-          <Box
-            key={attachment.id}
-            style={{
-              paddingLeft: getPadding(uriIndex, 'left'),
-              paddingRight: getPadding(uriIndex, 'right'),
-            }}>
+        {attachments.map((attachment) => (
+          <Box key={attachment.id} padding={imagesPerScreenWidth === 4 ? 'xs' : 's'}>
             <AttachmentWrapper
               onClose={() => removeAttachment(attachment.id)}
               uri={attachment.uri}
               fileName={attachment.name}
+              imageWidth={IMAGE_WIDTH}
             />
           </Box>
         ))}
@@ -72,8 +77,8 @@ export const AttachmentWrapper = (p: AttachmentWrapperProps) => (
       <BaseOpacity
         position="absolute"
         zIndex="10"
-        right={-10}
-        top={-5}
+        right={-16}
+        top={1}
         onPress={p.onClose}
         hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
         <CircleStatusIcon status="error" bg="grey" height={20} />
@@ -81,7 +86,7 @@ export const AttachmentWrapper = (p: AttachmentWrapperProps) => (
     )}
     <BaseOpacity
       onPress={p.onClose}
-      width={80}
+      width={p.imageWidth}
       aspectRatio={1}
       borderRadius="l1min"
       overflow="hidden"
