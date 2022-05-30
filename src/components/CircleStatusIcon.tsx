@@ -40,7 +40,7 @@ const mkWrappedIcon =
   (styleProps: BoxProps<Theme>) =>
   ({ Icon, bg }: WrappedIconProps) => {
     const theme = useTheme()
-    const iconStyle: SvgProps['style'] = { maxHeight: '60%' }
+    const iconStyle: SvgProps['style'] = { maxHeight: '50%' }
     const iconWrapperStyle = {
       ...iconWrapperBaseStyle,
       ...(styleProps ?? {}),
@@ -50,7 +50,7 @@ const mkWrappedIcon =
       style: iconStyle,
     }
     return (
-      <Box {...iconWrapperStyle} bg={bg}>
+      <Box bg={bg} {...iconWrapperStyle}>
         <Icon {...iconProps} />
       </Box>
     )
