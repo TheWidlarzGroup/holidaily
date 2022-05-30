@@ -1,4 +1,4 @@
-import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { useCalendarPeriodStyles } from 'hooks/style-hooks/useCalendarStyles'
 import React from 'react'
 import { Box } from 'utils/theme'
 import { CalendarDayDots } from './CalendarDayDots'

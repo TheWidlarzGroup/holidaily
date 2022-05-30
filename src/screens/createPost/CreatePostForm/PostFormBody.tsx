@@ -7,7 +7,7 @@ import { Gallery } from 'components/Gallery/Gallery'
 import { GalleryItemData } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 
 type PostBodyProps = {
