@@ -1,11 +1,9 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
-import { calculatePTO, getDurationInDays } from 'utils/dates'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { RequestDetailsHeader } from './RequestDetailsHeader'
 import { RequestAttachments } from './RequestAttachments'
 import { CircleStatusIcon, IconStatus } from '../CircleStatusIcon'
@@ -53,26 +51,8 @@ export const RequestDetails = (
           message={p.message}
         />
         <RequestAttachments attachments={p.attachments} />
-        {p.status === 'pending' && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
       </Box>
     </ScrollView>
-  )
-}
-
-const PtoLeft = (p: { ptoTaken: number }) => {
-  const { user } = useUserContext()
-  const availablePto = (user?.availablePto ?? 0) - p.ptoTaken
-  return (
-    <Box padding="m" bg="attachmentBg" borderRadius="l1min" marginTop="l">
-      <Text variant="textSM">
-        <Trans
-          ns="requestVacation"
-          i18nKey="ptoLeft"
-          components={{ b: <Text variant="textBoldSM" /> }}
-          values={{ days: getDurationInDays(availablePto) }}
-        />
-      </Text>
-    </Box>
   )
 }
 
