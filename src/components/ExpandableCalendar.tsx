@@ -28,7 +28,6 @@ import { useLanguage } from 'hooks/useLanguage'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { BASE_CALENDAR_HEIGHT, WEEK_CALENDAR_HEIGHT } from 'screens/calendar/utils'
-import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
 import { getInitialCalendarHeight } from 'utils/getInitialCalendarHeight'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
@@ -36,6 +35,7 @@ import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCale
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
+import { useUserSettingsContext } from '../hooks/context-hooks/useUserSettingsContext'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
