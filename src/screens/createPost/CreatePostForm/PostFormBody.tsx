@@ -26,7 +26,7 @@ export const PostBody = (props: PostBodyProps) => {
 
   return (
     <Box flexGrow={1} padding="s">
-      <Box flexDirection="row">
+      <Box flexDirection="row" marginTop="-m">
         <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" padding="l" />
         <Box marginLeft="s" marginTop="s" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           <TextInput
@@ -40,7 +40,7 @@ export const PostBody = (props: PostBodyProps) => {
           />
         </Box>
       </Box>
-      <Box paddingHorizontal="s" marginTop="-s">
+      <Box paddingHorizontal="s" marginTop="-s" marginBottom="-xm">
         {location?.addresses && <LocationInfo location={location} />}
       </Box>
       <Attachments

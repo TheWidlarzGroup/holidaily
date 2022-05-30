@@ -224,14 +224,15 @@
     "noComments": "No comments yet",
     "createPostLabel": "What's up?",
     "locations": "Add location",
-    "locationsAccessText": "Turn on location services.",
+    "locationsAccessText": "Turn on location services and show your friends where you're posting from.",
     "locationsAccessPromptText": "Use my location",
     "locationsSearch": "Search location",
     "locationNotFound": "Not found",
     "exceededAmount": "You exceeded amount of images in single post",
     "seeMore": "see more",
     "postPublished": "Post published!",
-    "undo": "Undo"
+    "undo": "Undo",
+    "cancel": "Cancel"
   },
   "createPost": {
     "title": "Create Post",
