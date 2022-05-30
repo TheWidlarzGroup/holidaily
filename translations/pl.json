@@ -309,7 +309,8 @@
     "discardRequestHeader": "Odrzucić wniosek?",
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",
-    "discardRequestNo": "Kontynuuj edycję"
+    "discardRequestNo": "Kontynuuj edycję",
+    "sickDayDescription": "Wniosek o zwolnienie lekarskie nie wymaga zatwierdzenia przez przełożonego."
   },
   "adminPanel": {
     "employees": "Pracownicy",
