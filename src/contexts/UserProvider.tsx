@@ -63,13 +63,12 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   }
 
   useAsyncEffect(async () => {
-    const userId = generateUUID()
     const cachedUserId = await getItem('userId')
-    if (!cachedUserId) {
-      setItem('userId', userId)
-    }
+    if (cachedUserId) return
+
+    const userId = generateUUID()
+    setItem('userId', userId)
     Analytics().setUserId(cachedUserId || userId)
-    Analytics().track('APP_LAUNCH')
   }, [])
 
   useEffect(() => {
