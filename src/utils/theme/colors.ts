@@ -127,8 +127,8 @@ export const colors = {
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
   orangeToBlack: palette.primary100,
   transparentToOrange: palette.transparent,
-  inputSendArrowBlack: palette.grayscale800,
-  inputSendArrowWhite: palette.grayscale50,
+  inputSendArrow: palette.grayscale50,
+  inputSendArrowBackground: palette.grayscale800,
 }
 
 export const darkThemeColors = {
@@ -203,8 +203,8 @@ export const darkThemeColors = {
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
   orangeToBlack: palette.grayscale800,
   transparentToOrange: palette.primary100,
-  inputSendArrowBlack: palette.grayscale800,
-  inputSendArrowWhite: palette.grayscale50,
+  inputSendArrow: palette.grayscale800,
+  inputSendArrowBackground: palette.primary500,
 }
 
 export const legacyPalette = {

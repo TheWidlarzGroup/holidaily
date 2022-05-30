@@ -1,8 +1,8 @@
 import { createContext } from 'react'
 
 export type UserSettings = {
-  darkMode: boolean
-  hasUserSeenCalendar: boolean
+  darkMode?: boolean
+  hasUserSeenCalendar?: boolean
 }
 
 export type UserSettingsContextProps = {
