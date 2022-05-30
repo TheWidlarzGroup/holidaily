@@ -16,7 +16,7 @@ type AttachmentsProps = {
 
 type AttachmentWrapperProps = {
   uri: string
-  imageWidth: number
+  imageWidth?: number
   onClose?: F0
   fileName?: string
 }
