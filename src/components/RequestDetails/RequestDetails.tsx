@@ -53,7 +53,7 @@ export const RequestDetails = (
           message={p.message}
         />
         <RequestAttachments attachments={p.attachments} />
-        <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />
+        {p.status === 'pending' && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
       </Box>
     </ScrollView>
   )

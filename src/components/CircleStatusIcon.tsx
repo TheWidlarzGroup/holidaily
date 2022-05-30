@@ -61,7 +61,6 @@ const iconWrapperBaseStyle: BoxProps<Theme> = {
   width: 36,
   aspectRatio: 1,
   borderRadius: 'full',
-  bg: 'primary',
   alignItems: 'center',
   justifyContent: 'center',
   marginRight: 'm',
