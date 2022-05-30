@@ -1,16 +1,13 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { useTranslation } from 'react-i18next'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme'
+import { Trans, useTranslation } from 'react-i18next'
+import { Box, Text } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
-import { calculatePTO } from 'utils/dates'
-import BackgroundPlant1 from 'assets/backgroundPlant1.svg'
-import BackgroundPlant2 from 'assets/backgroundPlant2.svg'
+import { calculatePTO, getDurationInDays } from 'utils/dates'
 import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { useUserContext } from 'hooks/useUserContext'
 import { RequestDetailsHeader } from './RequestDetailsHeader'
-import { RequestSicktimeAndMessage } from './RequestSicktimeAndMessage'
 import { RequestAttachments } from './RequestAttachments'
-import { TakenPtoSummary } from './TakenPtoSummary'
 import { CircleStatusIcon, IconStatus } from '../CircleStatusIcon'
 
 type RequestDetailsProps = {
@@ -22,7 +19,6 @@ type RequestDetailsProps = {
 export const RequestDetails = (
   p: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'> & RequestDetailsProps
 ) => {
-  const styles = useStyles()
   const { userSettings } = useUserSettingsContext()
   const { t } = useTranslation('seeRequest')
   const iconStatus = getIconStatus(p.status)
@@ -31,48 +27,52 @@ export const RequestDetails = (
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Box
-        backgroundColor={bgColor}
-        borderRadius="m"
-        marginBottom={p.showStatus ? 'xxxl' : undefined}
-        paddingBottom="xxxxl"
-        overflow="hidden">
-        <BackgroundPlant1 style={styles.plant1} />
-        <BackgroundPlant2 style={styles.plant2} height={90} />
-        {!!p.showStatus && (
-          <Box bg={bgColor}>
-            <Box
-              position="absolute"
-              height="100%"
-              width="100%"
-              bg="white"
-              opacity={topOpacity}
-              alignItems="center"
-              justifyContent="center"
-              zIndex="-1"
-            />
-            <Box padding="m" flexDirection="row" alignItems="center">
-              <CircleStatusIcon status={iconStatus} />
-              <Text variant="body1Bold">{t(p.status)}</Text>
-            </Box>
+      {!!p.showStatus && (
+        <Box bg={bgColor}>
+          <Box
+            position="absolute"
+            height="100%"
+            width="100%"
+            bg="white"
+            opacity={topOpacity}
+            alignItems="center"
+            justifyContent="center"
+            zIndex="-1"
+          />
+          <Box padding="m" flexDirection="row" alignItems="center">
+            <CircleStatusIcon status={iconStatus} />
+            <Text variant="body1Bold">{t(p.status)}</Text>
           </Box>
-        )}
-        <Box padding="m">
-          <RequestDetailsHeader
-            startDate={p.startDate}
-            endDate={p.endDate}
-            description={p.description}
-          />
-          <RequestSicktimeAndMessage isSick={p.isSickTime} message={p.message} />
-          <RequestAttachments attachments={p.attachments} />
-          <Box borderBottomColor="black" borderBottomWidth={2} marginVertical="m" />
-          <TakenPtoSummary
-            ptoTaken={calculatePTO(p.startDate, p.endDate)}
-            wasSent={p.wasSent || p.isSickTime}
-          />
         </Box>
+      )}
+      <Box>
+        <RequestDetailsHeader
+          startDate={p.startDate}
+          endDate={p.endDate}
+          description={p.description}
+          message={p.message}
+        />
+        <RequestAttachments attachments={p.attachments} />
+        <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />
       </Box>
     </ScrollView>
+  )
+}
+
+const PtoLeft = (p: { ptoTaken: number }) => {
+  const { user } = useUserContext()
+  const availablePto = (user?.availablePto ?? 0) - p.ptoTaken
+  return (
+    <Box padding="m" bg="attachmentBg" borderRadius="l1min">
+      <Text variant="textSM">
+        <Trans
+          ns="requestVacation"
+          i18nKey="ptoLeft"
+          components={{ b: <Text variant="textBoldSM" /> }}
+          values={{ days: getDurationInDays(availablePto) }}
+        />
+      </Text>
+    </Box>
   )
 }
 
@@ -81,21 +81,3 @@ const getIconStatus = (status: DayOffRequest['status']): IconStatus => {
   if (status === 'cancelled') return 'error'
   return status
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  plant1: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: theme.zIndices['10'],
-  },
-  plant2: {
-    position: 'absolute',
-    bottom: 0,
-    left: -30,
-    zIndex: theme.zIndices['10'],
-  },
-  button: {
-    marginTop: 20,
-  },
-}))
