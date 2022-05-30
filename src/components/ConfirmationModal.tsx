@@ -1,9 +1,8 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
-import { Text, Box, BaseOpacity } from 'utils/theme'
+import { Text, Box, BaseOpacity, mkUseStyles } from 'utils/theme'
 import { ConfirmationModalProps } from 'types/confirmationModalProps'
-import { useModalStyles } from 'hooks/style-hooks/useModalStyles'
 import { CustomButton } from './CustomButton'
 import { SwipeableModal } from './SwipeableModal'
 
@@ -47,3 +46,23 @@ export const ConfirmationModal = ({
     </SwipeableModal>
   )
 }
+
+export const useModalStyles = mkUseStyles((theme) => ({
+  bottomModal: {
+    paddingVertical: theme.spacing.l,
+    backgroundColor: theme.colors.white,
+    paddingHorizontal: theme.spacing.l2plus,
+    marginTop: 'auto',
+    borderTopLeftRadius: theme.borderRadii.l2min,
+    borderTopRightRadius: theme.borderRadii.l2min,
+    alignItems: 'center',
+    shadowOffset: { width: -2, height: 0 },
+    shadowColor: theme.colors.black,
+    shadowOpacity: 0.04,
+    shadowRadius: 2,
+    elevation: 20,
+  },
+  nativeModalStyleReset: {
+    margin: 0,
+  },
+}))

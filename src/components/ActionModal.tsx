@@ -1,4 +1,4 @@
-import { useModalStyles } from 'hooks/style-hooks/useModalStyles'
+import { useModalStyles } from 'components/ConfirmationModal'
 import React from 'react'
 import Modal from 'react-native-modal'
 import { Box, Text } from 'utils/theme'

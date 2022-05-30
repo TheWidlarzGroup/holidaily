@@ -22,7 +22,7 @@ type GetPeriodModalTextsProps = {
   tFunc: TFunction<'requestVacation'>
 }
 
-const getPeriodModalTexts = (p: GetPeriodModalTextsProps) => {
+const getPeriodModalTexts = (p: GetPeriodModalTextsProps): { header: string; content: string } => {
   if (!p.haveUserPickedPeriod) return { header: '', content: '' }
   if (p.isInvalid && p.isSickTime)
     return { header: p.tFunc('maxSickdaysError', { maxDays: MAX_SICK_DAYS_COUNT }), content: '' }
