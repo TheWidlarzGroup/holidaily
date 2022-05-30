@@ -9,19 +9,23 @@ type ProviderProps = {
 
 export const defaultUserSettings: UserSettings = {
   darkMode: Appearance.getColorScheme() === 'dark',
+  hasUserSeenCalendar: false,
 }
 
 export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
   const [userSettings, setUserSettings] = useState<UserSettings | null>(null)
 
-  const updateSettings = (newData: UserSettings) => {
-    if (userSettings) return setUserSettings({ ...userSettings, ...newData })
-    setUserSettings({ ...newData })
+  const updateSettings = (newData: Partial<UserSettings> | null) => {
+    if (!newData) return
+    setUserSettings((set) =>
+      set ? { ...set, ...newData } : { ...defaultUserSettings, ...newData }
+    )
   }
 
   useEffect(() => {
     const getItemFn = async () => {
       const data = await getItem('userSettings')
+      console.log(data)
       if (data) setUserSettings(JSON.parse(data))
       else setUserSettings(defaultUserSettings)
     }
