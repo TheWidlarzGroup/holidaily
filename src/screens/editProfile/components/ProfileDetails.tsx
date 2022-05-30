@@ -46,6 +46,7 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
           name="lastName"
           inputLabel={t('userLastName')}
           placeholder={t('lastNamePlaceholder')}
+          isRequired={false}
         />
       </Box>
       <Box position="relative">
@@ -57,6 +58,7 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
           name="occupation"
           inputLabel={t('userRole')}
           placeholder={t('rolePlaceholder')}
+          isRequired={false}
         />
       </Box>
       {/* <Box marginBottom="l">
