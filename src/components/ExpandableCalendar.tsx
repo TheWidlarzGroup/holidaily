@@ -27,6 +27,9 @@ import { startOfMonth, startOfWeek } from 'date-fns/esm'
 import { useLanguage } from 'hooks/useLanguage'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
+import { BASE_CALENDAR_HEIGHT, WEEK_CALENDAR_HEIGHT } from 'screens/calendar/utils'
+import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { getInitialCalendarHeight } from 'utils/getInitialCalendarHeight'
 import { CalendarHeader as CalendarHeaderComponent } from './CalendarComponents/CalendarHeader'
 import { CalendarDay } from './CalendarComponents/CalendarDay'
 import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCalendarTheme'
@@ -43,21 +46,22 @@ type ExpandableCalendarProps = {
   onDayPress: F1<DateObject>
 }
 
-const WEEK_CALENDAR_HEIGHT = 50
-const BASE_CALENDAR_HEIGHT = 290
-
 export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarProps) => {
   const { markedDates, selectedDate, setSelectedDate, ...restProps } = props
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
   const [language] = useLanguage()
+  const { userSettings, updateSettings } = useUserSettingsContext()
+  const hasUserSeenCalendar = userSettings?.hasUserSeenCalendar
+  const EXTRA_HEIGHT = doesMonthInCalendarHasSixRows(selectedDate) ? 65 : 0
 
   const calendarRef = useRef<CalendarRef>(null)
   const [isPickerVisible, { setTrue: showPicker, setFalse: hidePicker }] = useBooleanState(false)
   const fullCalendarContainerRef = useAnimatedRef()
   const fullCalendarHeight = useSharedValue(BASE_CALENDAR_HEIGHT)
   const containerHeight = useSharedValue(
-    isScreenHeightShort ? BASE_CALENDAR_HEIGHT : WEEK_CALENDAR_HEIGHT
+    getInitialCalendarHeight(isScreenHeightShort, hasUserSeenCalendar || false)
   )
+
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
   )
@@ -117,18 +121,21 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   }))
   const theme = useTheme()
   const containerPadding: ViewProps['style'] = { paddingBottom: theme.spacing.m }
-  // Comment: Show calendar expading animation with some delay on first open
+
   useEffect(() => {
-    const delay = 2000
-    const timeout = setTimeout(() => {
-      const EXTRA_HEIGHT = doesMonthInCalendarHasSixRows(selectedDate) ? 65 : 0
+    const expandCalendarOnFirstAppLaunch = () => {
+      if (hasUserSeenCalendar) return
+      updateSettings({ hasUserSeenCalendar: true })
+      const delay = 1500
+      const timeout = setTimeout(() => {
+        containerHeight.value = isScreenHeightShort
+          ? withTiming(WEEK_CALENDAR_HEIGHT)
+          : withTiming(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
+      }, delay)
 
-      containerHeight.value = isScreenHeightShort
-        ? withTiming(WEEK_CALENDAR_HEIGHT)
-        : withTiming(BASE_CALENDAR_HEIGHT + EXTRA_HEIGHT)
-    }, delay)
-
-    return () => clearTimeout(timeout)
+      return () => clearTimeout(timeout)
+    }
+    expandCalendarOnFirstAppLaunch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

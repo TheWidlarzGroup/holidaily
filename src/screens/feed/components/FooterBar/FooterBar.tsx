@@ -17,9 +17,10 @@ import { LessBubble } from '../Bubble/LessBubble'
 
 type Post = {
   post: FeedPost
+  expandComments: F0
 }
 
-export const FooterBar = ({ post }: Post) => {
+export const FooterBar = ({ post, expandComments }: Post) => {
   const { reactions, id } = post
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -35,6 +36,7 @@ export const FooterBar = ({ post }: Post) => {
     const payload = { postId: id || '', comment }
     addComment(payload)
     setMessageContent('')
+    expandComments()
   }
 
   const handlePressReaction = (emoji: string) => {

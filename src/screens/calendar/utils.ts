@@ -37,3 +37,6 @@ export const getMarkedDates = (days: DayInfoProps[]) =>
       }),
       {}
     )
+
+export const WEEK_CALENDAR_HEIGHT = 50
+export const BASE_CALENDAR_HEIGHT = 290
