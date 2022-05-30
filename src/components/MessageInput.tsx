@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
-import { Box, mkUseStyles, useColors } from 'utils/theme'
+import { Box, mkUseStyles, theme, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/SendArrow.svg'
 import Animated, {
   interpolateColor,
@@ -133,7 +133,11 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
             <SendArrowIcon
               height={9}
               width={9}
-              color={userSettings?.darkMode ? 'black' : 'white'}
+              color={
+                userSettings?.darkMode
+                  ? theme.colors.inputSendArrowBlack
+                  : theme.colors.inputSendArrowWhite
+              }
             />
           </TouchableOpacity>
         )}
