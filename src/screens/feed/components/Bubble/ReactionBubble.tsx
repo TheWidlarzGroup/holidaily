@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Text } from 'utils/theme'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Reaction } from 'mock-api/models/miragePostTypes'
 import { Bubble } from './Bubble'
 

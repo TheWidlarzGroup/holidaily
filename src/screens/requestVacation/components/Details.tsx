@@ -1,7 +1,7 @@
 import { FormInput } from 'components/FormInput'
 import React from 'react'
 import { BaseOpacity, Box, useTheme } from 'utils/theme'
-import { ModalNavigationType } from 'navigation/types'
+import { AppNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
 import { getFormattedPeriod } from 'utils/dates'
 import { useForm } from 'react-hook-form'
@@ -21,7 +21,7 @@ type DetailsProps = {
 }
 
 export const Details = ({ date, onDescriptionChange, hideNext, showNext }: DetailsProps) => {
-  const navigation = useNavigation<ModalNavigationType<'REQUEST_VACATION'>>()
+  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const { control, register, errors } = useForm()
   const { sickTime, isPeriodInvalid } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
@@ -65,7 +65,7 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
           validationPattern={/$/}
           errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
-          onTouchStart={hideNext}
+          onFocus={hideNext}
           onBlur={showNext}
           autoComplete="off"
           onChange={(e) => onDescriptionChange(e.nativeEvent.text)}

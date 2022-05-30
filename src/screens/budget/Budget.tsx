@@ -6,12 +6,12 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { AvailablePto } from './components/AvailablePto'
 import { SentReqsSection, SickDaysSection } from './components/BudgetSections'
 
 export const Budget = () => {
-  const navigation = useNavigation<AppNavigationType<'DrawerNavigator'>>()
+  const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
   const { t } = useTranslation('budget')
   const { user } = useUserContext()
   const requests = user?.requests ?? []

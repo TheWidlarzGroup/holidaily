@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Attachments } from 'screens/requestVacation/components/additionals/Attachments'
 

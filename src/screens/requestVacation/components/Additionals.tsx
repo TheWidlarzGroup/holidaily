@@ -72,7 +72,7 @@ export const Additionals = (p: AdditionalsProps) => {
           <Attachments
             attachments={p.attachments}
             addMore={p.showAttachmentModal}
-            displayAddMore={p.attachments.length < 9}
+            displayAddMore={p.attachments.length < 8}
             removeAttachment={p.removeAttachment}
           />
         ) : (

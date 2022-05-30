@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { ModalNavigationProps, ModalNavigationType } from 'navigation/types'
+import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
-import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { RequestSent } from './components/RequestSent'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
@@ -31,7 +32,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
   const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
     useBooleanState(false)
-  const navigation = useNavigation<ModalNavigationType<'REQUEST_VACATION'>>()
+  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
 
@@ -58,7 +59,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
   const onPressSee = () => {
     hideSentModal()
-    navigation.navigate('DrawerNavigator', {
+    navigation.navigate('DRAWER_NAVIGATOR', {
       screen: 'Home',
       params: {
         screen: 'Stats',
@@ -75,7 +76,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       },
     })
   }
-
+  const { t } = useTranslation('requestVacation')
   useEffect(() => {
     const { params } = route
 
@@ -94,7 +95,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
 
   return (
-    <SwipeableScreen bg="dashboardBackground" confirmLeave={isDirty}>
+    <SwipeableScreen
+      bg="dashboardBackground"
+      confirmLeave={isDirty}
+      confirmLeaveOptions={{
+        acceptBtnText: t('discardRequestYes'),
+        declineBtnText: t('discardRequestNo'),
+        header: t('discardRequestHeader'),
+        content: t('discardRequestContent'),
+      }}>
       <RequestVacationHeader />
       <RequestVacationSteps
         changeRequestData={changeRequestData}
@@ -107,7 +116,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         onPressAnother={reset}
         onPressOk={() => {
           hideSentModal()
-          navigation.navigate('Home')
+          navigation.navigate('DRAWER_NAVIGATOR')
         }}
       />
       {!isSentModalVisible && <BadStateController />}

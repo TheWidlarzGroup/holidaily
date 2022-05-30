@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { Box, Text } from 'utils/theme'
 import { TeamsType, useTeamMocks } from 'utils/mocks/teamsMocks'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
-import { ModalNavigationType } from 'navigation/types'
+import { AppNavigationType } from 'navigation/types'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { notify } from 'react-native-notificated'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
@@ -14,7 +14,7 @@ import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
 export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
-  const { navigate } = useNavigation<ModalNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
+  const { navigate } = useNavigation<AppNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
   const { isLoading } = useTeamMocks()
   const { user, updateUser } = useUserContext()
   const [teams, setTeams] = useState<TeamsType[]>([])

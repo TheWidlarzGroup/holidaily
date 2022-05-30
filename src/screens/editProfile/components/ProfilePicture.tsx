@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { EditPictureModal } from 'components/EditPictureModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
