@@ -108,6 +108,7 @@ export const CalendarRequestVacation = ({
             <ActionModal
               isVisible={!!periodStart}
               onUserAction={onModalBtnPress}
+              label={t('select')}
               variant={actionModalVariant}
               header={actionModalTexts.header}
               content={actionModalTexts.content}

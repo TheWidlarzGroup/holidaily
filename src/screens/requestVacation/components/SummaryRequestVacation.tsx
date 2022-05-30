@@ -37,7 +37,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   }
 
   return (
-    <Box flex={1} padding="l" paddingTop="xl">
+    <Box flex={1} paddingHorizontal="m">
       <RequestDetails
         description={p.description}
         message={p.message ?? ''}

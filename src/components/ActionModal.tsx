@@ -11,6 +11,7 @@ type ActionModalProps = {
   onUserAction: F0
   isVisible: boolean
   variant: ActionModalVariants
+  label: string
   header?: string
   content?: string
 }
@@ -36,7 +37,7 @@ export const ActionModal = (p: ActionModalProps) => {
         {!!p.header && <Text variant="displayBoldSM">{p.header}</Text>}
         {!!p.content && <Text variant="textSM">{p.content}</Text>}
         <Box marginTop="m">
-          <CustomButton label="label" variant="primary" onPress={p.onUserAction} />
+          <CustomButton label={p.label} variant="primary" onPress={p.onUserAction} />
         </Box>
       </Box>
     </Modal>
