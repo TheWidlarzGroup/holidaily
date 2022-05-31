@@ -36,7 +36,6 @@ import { calendarTheme, headerTheme } from './CalendarComponents/ExplandableCale
 import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
-import { useUserSettingsContext } from '../hooks/context-hooks/useUserSettingsContext'
 
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
 type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
