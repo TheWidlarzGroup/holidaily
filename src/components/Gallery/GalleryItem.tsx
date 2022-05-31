@@ -1,9 +1,9 @@
 import React from 'react'
 import FastImage from 'react-native-fast-image'
 import { BaseOpacity } from 'utils/theme'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 
-type GalleryItemProps = GalleryItemData & {
+type GalleryItemProps = AttachmentType & {
   width: number
   onPress: F0
 }

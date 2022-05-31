@@ -224,14 +224,15 @@
     "noComments": "Brak komentarzy",
     "createPostLabel": "Co słychać?",
     "locations": "Dodaj lokalizację",
-    "locationsAccessText": "Włącz usługi lokalizacji.",
+    "locationsAccessText": "Włącz usługi lokalizacji i pokaż swoim znajomym, skąd dodajesz posty.",
     "locationsAccessPromptText": "Uzyj lokalizacji",
     "locationsSearch": "Szukaj lokalizacji",
     "locationNotFound": "Nie znaleziono",
     "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
     "seeMore": "pokaż więcej",
     "postPublished": "Opublikowano post!",
-    "undo": "Cofnij"
+    "undo": "Cofnij",
+    "cancel": "Anuluj"
   },
   "createPost": {
     "title": "Utwórz Post",

@@ -31,8 +31,8 @@ export const Photo = ({ src, ...containerProps }: PhotoProps) => {
 const useStyles = mkUseStyles((theme) => ({
   cross: {
     position: 'absolute',
-    top: -4,
-    right: -4,
+    top: -6,
+    right: -6,
   },
   photo: {
     borderRadius: theme.borderRadii.m,
