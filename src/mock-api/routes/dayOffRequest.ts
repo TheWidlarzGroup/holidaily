@@ -1,6 +1,7 @@
 import { Request, Response, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { calculatePTO } from 'utils/dates'
+import { isOnholiday } from 'mockApi/utils/general'
 import { initPayloadService } from '../utils/payloadService'
 import { DayOffRequest, Schema as ModelsSchema } from '../models'
 import { requireAuth } from '../utils/requireAuth'
@@ -42,13 +43,14 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   const optionalFields: readonly (keyof CreateDayOffRequestBody)[] = ['attachments']
   const body = JSON.parse(req.requestBody)
 
-  const payload = initPayloadService()
+  const payload = initPayloadService<DayOffRequest>()
   const { httpError } = payload
   payload.validate(mandatoryFields, body)
   if (httpError) return new Response(httpError.status, {}, { errors: String(httpError.errors) })
 
   payload.fill(optionalFields, body)
-
+  if (!payload.body.startDate || !payload.body.endDate)
+    return new Response(500, {}, { error: 'Something went wrong' })
   const userPtoAfterRequest =
     user.availablePto -
     calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate))
@@ -59,10 +61,20 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   user.update({ availablePto: userPtoAfterRequest })
   const request = schema.create('request', {
     ...payload.body,
-    status: 'pending',
+    status: payload.body.isSickTime ? 'accepted' : 'pending',
     user,
   })
-  return new Response(201, {}, { request, availablePto: userPtoAfterRequest })
+  const isDayoffHappeningNow =
+    payload.body.isSickTime && isOnholiday([payload.body as DayOffRequest])
+  return new Response(
+    201,
+    {},
+    {
+      request,
+      availablePto: userPtoAfterRequest,
+      isOnHoliday: user.isOnHoliday || isDayoffHappeningNow,
+    }
+  )
 }
 
 type CreateDayOffRequestBody = Omit<DayOffRequest, 'status' | 'user'>

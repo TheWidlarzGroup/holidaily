@@ -129,6 +129,8 @@ export const colors = {
   attachmentBg: palette.grayscale200,
   orangeToBlack: palette.primary100,
   transparentToOrange: palette.transparent,
+  inputSendArrow: palette.grayscale50,
+  inputSendArrowBackground: palette.grayscale800,
 }
 
 export const darkThemeColors = {
@@ -204,6 +206,8 @@ export const darkThemeColors = {
   attachmentBg: palette.grayScale750,
   orangeToBlack: palette.grayscale800,
   transparentToOrange: palette.primary100,
+  inputSendArrow: palette.grayscale800,
+  inputSendArrowBackground: palette.primary500,
 }
 
 export const legacyPalette = {

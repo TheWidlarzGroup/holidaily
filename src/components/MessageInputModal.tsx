@@ -35,11 +35,11 @@ export const MessageInputModal = (props: MessageInputModalProps) => {
         keyboardShouldPersistTaps="handled">
         <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onRequestClose} />
         <Box
-          paddingTop="xm"
-          paddingBottom="xs"
+          paddingBottom="ml"
           bg="disabled"
           borderTopLeftRadius="m"
-          borderTopRightRadius="m">
+          borderTopRightRadius="m"
+          backgroundColor="white">
           <MessageInput ref={inputRef} {...props} onBlur={handleBlur} />
         </Box>
       </KeyboardAwareScrollView>

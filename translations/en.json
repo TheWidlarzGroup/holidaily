@@ -229,9 +229,9 @@
     "locationsSearch": "Search location",
     "locationNotFound": "Not found",
     "exceededAmount": "You exceeded amount of images in single post",
-    "seeMore": "pokaż więcej",
-    "postPublished": "Opublikowano post!",
-    "undo": "Cofnij"
+    "seeMore": "see more",
+    "postPublished": "Post published!",
+    "undo": "Undo"
   },
   "createPost": {
     "title": "Create Post",
@@ -310,6 +310,7 @@
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",
     "discardRequestNo": "Keep editing",
+    "sickDayDescription": "Sick leave request doesn’t need your supervisor’s approval.",
     "outOfOffice": "Out of office",
     "removeAttachmentYes": "Delete",
     "removeAttachmentNo": "Cancel"

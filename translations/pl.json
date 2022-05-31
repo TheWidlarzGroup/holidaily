@@ -229,9 +229,9 @@
     "locationsSearch": "Szukaj lokalizacji",
     "locationNotFound": "Nie znaleziono",
     "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
-    "seeMore": "see more",
-    "postPublished": "Post published!",
-    "undo": "Undo"
+    "seeMore": "pokaż więcej",
+    "postPublished": "Opublikowano post!",
+    "undo": "Cofnij"
   },
   "createPost": {
     "title": "Utwórz Post",
@@ -310,6 +310,7 @@
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",
     "discardRequestNo": "Kontynuuj edycję",
+    "sickDayDescription": "Wniosek o zwolnienie lekarskie nie wymaga zatwierdzenia przez przełożonego.",
     "outOfOffice": "Poza biurem",
     "removeAttachmentYes": "Usuń",
     "removeAttachmentNo": "Anuluj"

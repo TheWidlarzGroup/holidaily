@@ -10,8 +10,10 @@ import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
+import { Analytics } from 'services/analytics'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
+  RequestVacationData,
   RequestVacationProvider,
   useRequestVacationContext,
 } from './contexts/RequestVacationContext'
@@ -53,8 +55,9 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     if (!requestSent || wasSubmitEventTriggered.current) return
     wasSubmitEventTriggered.current = true
     goBack()
+    sendAnalytics(ctx)
     showModal(<RequestSentModal navigate={navigate} />)
-  }, [requestSent, goBack, navigate, hideModal, showModal])
+  }, [requestSent, goBack, navigate, hideModal, showModal, ctx])
 
   useEffect(() => {
     const { params } = route
@@ -92,6 +95,18 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       <BadStateController />
     </SwipeableScreen>
   )
+}
+
+const sendAnalytics = (ctx: RequestVacationData) => {
+  Analytics().track('REQUEST_VACATION_ADD', {
+    description: ctx.requestData.description,
+    filesCount: ctx.requestData.files.length,
+    photosCount: ctx.requestData.photos.length,
+    message: ctx.requestData.message,
+    startDate: String(ctx.startDate),
+    endDate: String(ctx.endDate),
+    isSick: ctx.sickTime,
+  })
 }
 
 const WrappedRequestVacation = (p: RequestVacationProps) => (
