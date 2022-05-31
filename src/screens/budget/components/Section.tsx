@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { getDurationInDays } from 'utils/dates'
 import { BaseOpacity, Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
 import ArrowRight from 'assets/icons/arrow-right.svg'
-import { Languages } from '../../../../i18n'
 import { useNavigation } from '@react-navigation/native'
-import { BudgetNavigationType, BudgetRoutes } from 'navigation/types'
+import { BudgetNavigationType } from 'navigation/types'
+import { Languages } from '../../../../i18n'
 
 type SectionProps = {
   variant: 'sick' | 'took' | 'left'
