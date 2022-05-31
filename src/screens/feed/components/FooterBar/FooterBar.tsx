@@ -10,6 +10,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useAddComment, useAddReaction } from 'dataAccess/mutations/useAddReactionsComment'
+import { Analytics } from 'services/analytics'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 import { MoreBubble } from '../Bubble/MoreBubble'
@@ -35,6 +36,7 @@ export const FooterBar = ({ post, expandComments }: Post) => {
     if (comment.text?.length < 1) return
     const payload = { postId: id || '', comment }
     addComment(payload)
+    Analytics().track('FEED_COMMENT_CREATED', { postId: id, content: comment.text })
     setMessageContent('')
     expandComments()
   }
@@ -56,11 +58,13 @@ export const FooterBar = ({ post, expandComments }: Post) => {
         reaction: { type: emoji, users: [...usersAddedReaction] },
       })
     }
+    Analytics().track('FEED_ADD_EMOJI', { emoji, postId: id })
   }
 
   const handleAddReaction = (emoji: EmojiType) => {
     const newReaction = { type: emoji.emoji, users: [user.id] }
     const isEmojiPresent = reactions.some((reaction) => reaction.type === emoji.emoji)
+    Analytics().track('FEED_ADD_EMOJI', { emoji: emoji.emoji, postId: id })
     if (isEmojiPresent) handlePressReaction(emoji.emoji)
     else addReaction({ postId: id || '', reaction: newReaction })
   }

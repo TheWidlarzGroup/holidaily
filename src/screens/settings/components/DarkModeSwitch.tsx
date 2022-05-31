@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { LoadingModal } from 'components/LoadingModal'
+import { Analytics } from 'services/analytics'
 
 const TIMEOUT = 100
 
@@ -23,6 +24,7 @@ export const DarkModeSwitch = () => {
   const switchMode = () => {
     setIsLoading(true)
     setMode((prev) => !prev)
+    Analytics().track('THEME_CHANGED', { darkMode: !mode })
     const delay = setTimeout(() => {
       updateSettings({ darkMode: !mode })
     }, TIMEOUT)

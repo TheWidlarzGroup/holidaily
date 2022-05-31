@@ -2,12 +2,14 @@ import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
-import { removeMany } from 'utils/localStorage'
+import { getItem, removeMany, setItem } from 'utils/localStorage'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { sortSingleUserRequests } from 'utils/sortByDate'
 import { Analytics } from 'services/analytics'
 import { entries } from 'utils/manipulation'
+import { generateUUID } from 'utils/generateUUID'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
@@ -49,6 +51,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.USER_STATS)
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
     await removeMany([
+      'userId',
       'firstName',
       'lastName',
       'occupation',
@@ -58,6 +61,15 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'seenTeamsModal',
     ])
   }
+
+  useAsyncEffect(async () => {
+    const cachedUserId = await getItem('userId')
+    if (cachedUserId) return
+
+    const userId = generateUUID()
+    setItem('userId', userId)
+    Analytics().setUserId(cachedUserId || userId)
+  }, [])
 
   useEffect(() => {
     if (!user?.requests?.length) return
