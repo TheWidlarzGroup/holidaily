@@ -231,7 +231,9 @@
     "exceededAmount": "You exceeded amount of images in single post",
     "seeMore": "see more",
     "postPublished": "Post published!",
-    "undo": "Undo"
+    "undo": "Undo",
+    "more": "more",
+    "showLess": "Show less"
   },
   "createPost": {
     "title": "Create Post",

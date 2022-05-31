@@ -231,7 +231,9 @@
     "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
     "seeMore": "pokaż więcej",
     "postPublished": "Opublikowano post!",
-    "undo": "Cofnij"
+    "undo": "Cofnij",
+    "more": "więcej",
+    "showLess": "Pokaż mniej"
   },
   "createPost": {
     "title": "Utwórz Post",
