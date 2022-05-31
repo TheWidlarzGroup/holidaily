@@ -16,11 +16,6 @@ export const Budget = () => {
   const { t } = useTranslation('budget')
   const { data: stats, isLoading: loadingStats } = useFetchUserStats()
   const { user } = useUserContext()
-  // const requests = user?.requests ?? []
-  // const sentReqsCount = requests.length
-  // const sickDaysCount = requests.filter((req) => req.status === 'past' && req.isSickTime).length
-  // const acceptedReqsCount = requests.filter((req) => req.status === 'accepted').length
-  // const pendingReqsCount = requests.filter((req) => req.status === 'pending').length
 
   const handleGoBack = useCallback(() => {
     navigation.goBack()

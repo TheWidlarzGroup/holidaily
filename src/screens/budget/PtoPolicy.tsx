@@ -1,11 +1,11 @@
 import React from 'react'
-import { SwipeableScreen } from 'navigation/SwipeableScreen'
+import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { Policies } from './components/Policies'
 import { PolicyHeader } from './components/PolicyHeader'
 
 export const PtoPolicy = () => (
-  <SwipeableScreen>
+  <SafeAreaWrapper>
     <PolicyHeader />
     <Policies />
-  </SwipeableScreen>
+  </SafeAreaWrapper>
 )
