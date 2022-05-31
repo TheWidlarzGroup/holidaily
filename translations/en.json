@@ -233,7 +233,9 @@
     "postPublished": "Post published!",
     "undo": "Undo",
     "more": "more",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "createPost": {
     "title": "Create Post",

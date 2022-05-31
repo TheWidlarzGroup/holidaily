@@ -233,7 +233,9 @@
     "postPublished": "Opublikowano post!",
     "undo": "Cofnij",
     "more": "więcej",
-    "showLess": "Pokaż mniej"
+    "showLess": "Pokaż mniej",
+    "edit": "Edytuj",
+    "delete": "Usuń"
   },
   "createPost": {
     "title": "Utwórz Post",
