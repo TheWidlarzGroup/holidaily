@@ -7,4 +7,5 @@ export type ConfirmationModalProps = {
   header?: string | null
   declineBtnText?: string
   acceptBtnText?: string
+  statusIcon?: 'success' | 'error'
 }
