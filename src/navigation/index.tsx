@@ -100,6 +100,10 @@ export const AppNavigation = () => {
         const currentRouteName = navigationRef.current.getCurrentRoute()
         const currentScreenName = currentRouteName.name
         if (currentScreenName) Analytics().setCurrentScreen(currentScreenName)
+        console.log(
+          '🚀 ~ file: index.tsx ~ line 103 ~ AppNavigation ~ currentScreenName',
+          navigationRef.current.getCurrentRoute()
+        )
         routeNameRef.current = currentRouteName
       }}>
       {loginStatus === 'BeforeCheck' && <Splash />}

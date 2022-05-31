@@ -46,11 +46,16 @@ export type Organization = {
   teams: Team[]
 }
 
-export type Notification = {
-  id: string
-  createdAt: string
-  source: User
-  wasSeenByHolder: boolean
-  holderId: string
-} & ({ type: 'like' | 'comment' | 'prompt' } | { type: 'dayOff'; endDate: string })
-// | { type: 'accepted' | 'declined'; description: string }
+export type Notification =
+  | {
+      id: string
+      createdAt: string
+      source: User
+      wasSeenByHolder: boolean
+      holderId: string
+      requestId?: string
+    } & (
+      | { type: 'like' | 'comment' | 'prompt' }
+      | { type: 'dayOff'; endDate: string }
+      | { type: 'accepted' | 'cancelled'; description: string }
+    )
