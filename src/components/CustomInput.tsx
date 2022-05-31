@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import {
   TextInput,
   TouchableOpacity,
@@ -46,6 +46,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
   ) => {
     const [isPasswordInput, { toggle }] = useBooleanState(!!isPasswordIconVisible)
     const [isFocused, setIsFocused] = useState(false)
+    const inputRef = useRef<TextInput>(null)
 
     const styles = useStyles()
     const theme = useTheme()
@@ -91,7 +92,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
               onChange={onChange}
               onFocus={handleOnFocus}
               value={value}
-              ref={ref}
+              ref={ref || inputRef}
               placeholder={(!isFocused && placeholder) || ''}
               placeholderTextColor={theme.colors.headerGrey}
               editable={!disabled}
@@ -108,6 +109,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             <InputEditIcon
               onPress={() => {
                 setIsFocused(true)
+                inputRef?.current?.focus()
               }}
             />
           )}
