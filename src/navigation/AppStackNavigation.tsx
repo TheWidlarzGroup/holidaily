@@ -30,7 +30,7 @@ export const AppStackNavigation = () => {
           component={Notifications}
           options={{
             ...TransitionPresets.DefaultTransition,
-            animationEnabled: false,
+            animationEnabled: true,
           }}
         />
         <AppStack.Screen name="REQUEST_VACATION" component={RequestVacation} />
