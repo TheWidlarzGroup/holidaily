@@ -33,7 +33,9 @@ allprojects {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
         }
-
+        maven {
+            url "https://sdk.smartlook.com/android/release"
+        }
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }

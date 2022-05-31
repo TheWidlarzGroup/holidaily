@@ -210,6 +210,8 @@ dependencies {
 
     implementation "com.newrelic.agent.android:android-agent:5.+"
 
+    implementation 'com.smartlook.recording:app:1.8.13-native'
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
