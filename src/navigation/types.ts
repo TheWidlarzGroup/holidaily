@@ -169,6 +169,7 @@ export type BudgetRoutes = {
 export type RequestsRoutes = {
   STATS_AND_REQUESTS: undefined
   SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
+  NOTIFICATIONS: undefined
 }
 
 export type UserProfileRoutes = {

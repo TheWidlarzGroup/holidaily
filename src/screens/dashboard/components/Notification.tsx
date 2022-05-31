@@ -4,6 +4,7 @@ import { Notification as NotificationModel } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
 import { useNavigation } from '@react-navigation/native'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { NotificationContent } from './NotificationContent'
 import { notificationNavHandler } from '../helpers/notificationNavHandler'
 import { NotificationThumbnail } from './NotificationThumbnail'
@@ -16,12 +17,18 @@ export const Notification = ({
 }: NotificationModel) => {
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
   const description = 'description' in p ? p.description : undefined
+  const { user } = useUserContext()
   const { navigate } = useNavigation()
   const { mutate } = useMarkNotificationAsSeen()
   const opacity = wasSeenByHolder ? 0.6 : 1
+
+  const notificationRequest = p.requestId
+    ? user?.requests.find((item) => item.id === p.requestId)
+    : undefined
+
   const onPress = () => {
     if (!wasSeenByHolder) mutate(p.id)
-    notificationNavHandler(navigate, type, p.requestId)
+    notificationNavHandler(navigate, type, notificationRequest)
   }
 
   return (

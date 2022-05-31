@@ -1,4 +1,10 @@
-export const notificationNavHandler = (navigate: any, type: string, requestId?: string) => {
+import { DayOffRequest } from 'mockApi/models'
+
+export const notificationNavHandler = (
+  navigate: any,
+  type: string,
+  notificationRequest?: DayOffRequest
+) => {
   if (type === 'accepted' || type === 'cancelled')
     navigate('DRAWER_NAVIGATOR', {
       screen: 'Home',
@@ -6,7 +12,7 @@ export const notificationNavHandler = (navigate: any, type: string, requestId?: 
         screen: 'Stats',
         params: {
           screen: 'SEE_REQUEST',
-          params: { id: requestId },
+          params: { ...notificationRequest, prevScreen: 'NOTIFICATIONS' },
         },
       },
     })
