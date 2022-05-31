@@ -77,9 +77,8 @@ export const SwipeableScreen = ({
 
   const onSwipeEnd = () => {
     if (isCloseTriggered.current) return
-    if (translateY.value > 140) {
-      goBack()
-    } else translateY.value = withTiming(0)
+    if (translateY.value > 140) goBack()
+    else translateY.value = withTiming(0)
   }
   const containerProps = { ...baseContainerProps, ...(extraContainerProps ?? {}) }
   const containerStyle: ViewProps['style'] = [animatedTranslation, extraStyle ?? {}]
