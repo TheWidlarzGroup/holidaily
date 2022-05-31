@@ -51,28 +51,15 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
     const theme = useTheme()
 
     const errorOpacity = useSharedValue(0)
-    const borderColor = useSharedValue('black')
-
     const progressStyle = useAnimatedStyle(() => ({
       borderWidth: withTiming(errorOpacity.value, {
-        duration: 300,
-      }),
-      borderColor: withTiming(borderColor.value, {
         duration: 300,
       }),
     }))
 
     useEffect(() => {
       errorOpacity.value = isError || isFocused ? 0.8 : 0
-      borderColor.value = isFocused ? theme.colors.inputBorder : theme.colors.errorRed
-    }, [
-      borderColor,
-      errorOpacity,
-      isError,
-      isFocused,
-      theme.colors.errorRed,
-      theme.colors.inputBorder,
-    ])
+    }, [errorOpacity, isError, isFocused, theme.colors.errorRed, theme.colors.inputBorder])
 
     const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       onBlur?.(e)
@@ -93,7 +80,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             style={[
               styles.container,
               progressStyle,
-              isFocused && styles.noBackground,
+              isFocused && [styles.noBackground, styles.focusBorder],
+              isError && styles.errorBorder,
               variant === 'small' && styles.leftPadding,
             ]}>
             <TextInput
@@ -150,14 +138,13 @@ const useStyles = mkUseStyles((theme) => ({
   },
   noBackground: { backgroundColor: theme.colors.white },
   leftPadding: { paddingLeft: theme.spacing.l2plus },
+  focusBorder: {
+    borderStyle: 'solid',
+    borderColor: theme.colors.inputBorder,
+  },
   errorBorder: {
     borderStyle: 'solid',
     borderColor: theme.colors.errorRed,
-  },
-  border: {
-    borderWidth: 2,
-    borderStyle: 'solid',
-    borderColor: theme.colors.black,
   },
   input: {
     paddingVertical: 6,
