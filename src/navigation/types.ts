@@ -31,6 +31,11 @@ export type BottomTabNavigationProps<RouteName extends keyof BottomTabRoutes> = 
   route: RouteProp<BottomTabRoutes, RouteName>
 }
 
+export type BudgetNavigationType<RouteName extends keyof BudgetRoutes> = CompositeNavigationProp<
+  StackNavigationProp<BudgetRoutes, RouteName>,
+  StackNavigationProp<DrawerRoutes, 'HolidayBudget'>
+>
+
 // for useNavigation hook
 export type DrawerNavigationType<RouteName extends keyof DrawerRoutes> = CompositeNavigationProp<
   StackNavigationProp<DrawerRoutes, RouteName>,
