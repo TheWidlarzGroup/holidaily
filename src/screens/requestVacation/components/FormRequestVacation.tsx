@@ -86,6 +86,15 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 
   const cancelRemovingPhoto = () => setAttachmentsToRemove([])
 
+  const onSicktimeToggle = () => {
+    if (!sickTime)
+      changeRequestData((old) => {
+        if (old.description) return old
+        return { ...old, description: t('sickTimeLabel') }
+      })
+    toggleSickTime()
+  }
+
   return (
     <Box flex={1}>
       <KeyboardAwareScrollView>
@@ -93,7 +102,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           <Text variant="sectionLabel" textAlign="left" marginBottom="m">
             {t('detailsTitle')}
           </Text>
-          <SickTime sickTime={sickTime} toggle={toggleSickTime} />
+          <SickTime sickTime={sickTime} toggle={onSicktimeToggle} />
           <Details
             showNext={showNext}
             hideNext={hideNext}

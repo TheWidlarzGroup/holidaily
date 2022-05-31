@@ -6,7 +6,7 @@ import AboutIcon from 'assets/icons/icon-info.svg'
 import LogoutIcon from 'assets/icons/icon-log-out.svg'
 import EmployeesIcon from 'assets/icons/icon-employees.svg'
 import { useTheme } from './theme'
-import { isSmallScreen } from './deviceSizes'
+import { isScreenHeightShort } from './deviceSizes'
 
 export type Tab =
   | 'ProfileNavigation'
@@ -34,7 +34,7 @@ const smallDimensions = {
 
 export const DrawerIcon = (tab: Tab) => {
   const theme = useTheme()
-  const iconDimensions = isSmallScreen ? mediumDimensions : regularDimensions
+  const iconDimensions = isScreenHeightShort ? mediumDimensions : regularDimensions
   switch (tab) {
     case 'ProfileNavigation': {
       return <EditIcon {...iconDimensions} color={theme.colors.black} />

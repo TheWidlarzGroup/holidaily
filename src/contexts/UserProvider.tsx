@@ -50,6 +50,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
     queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
     queryClient.invalidateQueries(QueryKeys.USER_STATS)
     queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
+    queryClient.invalidateQueries(QueryKeys.POSTS)
     await removeMany([
       'userId',
       'firstName',

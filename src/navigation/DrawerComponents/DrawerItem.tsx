@@ -1,7 +1,7 @@
 import React from 'react'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { Box, Text, theme } from 'utils/theme'
-import { isSmallScreen } from 'utils/deviceSizes'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 
 type DrawerItemProps = {
   onPress: () => void
@@ -22,7 +22,7 @@ export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (
           fontFamily="Nunito-Bold"
           color="black"
           textAlign="center"
-          fontSize={isSmallScreen ? 16 : 18}
+          fontSize={isScreenHeightShort ? 16 : 18}
           marginRight="m">
           {text}
         </Text>
