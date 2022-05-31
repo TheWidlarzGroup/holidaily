@@ -20,10 +20,10 @@ type DetailsProps = {
   showNext: F0
 }
 
-export const Details = ({ date, onDescriptionChange, hideNext, showNext }: DetailsProps) => {
+export const Details = (p: DetailsProps) => {
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const { control, register, errors } = useForm()
-  const { sickTime, isPeriodInvalid } = useRequestVacationContext()
+  const { sickTime, isPeriodInvalid, requestData } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
 
@@ -46,7 +46,7 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
             inputLabel={t('detailsDate')}
             isError={isPeriodInvalid}
             variant="medium"
-            value={getFormattedPeriod(date.start, date.end)}
+            value={getFormattedPeriod(p.date.start, p.date.end)}
           />
           <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
             <CalendarIcon color={theme.colors.headerGrey} />
@@ -65,11 +65,12 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
           validationPattern={/$/}
           errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
-          onFocus={hideNext}
-          onBlur={showNext}
+          onFocus={p.hideNext}
+          onBlur={p.showNext}
           autoComplete="off"
-          onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
+          onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
           maxLength={300}
+          value={requestData.description}
         />
       </Box>
     </Box>
