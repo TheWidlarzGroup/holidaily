@@ -88,7 +88,7 @@ export const SwipeableScreen = ({
       <Wrapper>
         <AnimatedBox {...containerProps} style={containerStyle}>
           <PanGestureHandler onGestureEvent={gestureHandler} onEnded={onSwipeEnd}>
-            <AnimatedBox height={50}>
+            <AnimatedBox height={50} width="100%">
               <ModalHandleIndicator />
             </AnimatedBox>
           </PanGestureHandler>
