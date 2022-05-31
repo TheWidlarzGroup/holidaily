@@ -12,6 +12,7 @@ export type IconStatus = 'success' | 'error' | 'pending' | 'past'
 
 type CircleStatusIconProps = {
   status: IconStatus
+  iconProps?: SvgProps
 } & BoxProps<Theme>
 
 type WrappedIconProps = {
@@ -19,11 +20,11 @@ type WrappedIconProps = {
   bg: BoxProps<Theme>['bg']
 }
 
-export const CircleStatusIcon = ({ status, ...styleProps }: CircleStatusIconProps) => {
-  const WrappedIcon = mkWrappedIcon(styleProps ?? {})
+export const CircleStatusIcon = ({ status, iconProps, ...styleProps }: CircleStatusIconProps) => {
+  const WrappedIcon = mkWrappedIcon(styleProps ?? {}, iconProps ?? {})
   switch (status) {
     case 'error':
-      return <WrappedIcon Icon={CrossIcon} bg="errorRed" />
+      return <WrappedIcon Icon={CrossIcon} bg="errorBrighter" />
     case 'success':
       return <WrappedIcon Icon={CheckIcon} bg="approvedGreen" />
     case 'past':
@@ -37,20 +38,24 @@ export const CircleStatusIcon = ({ status, ...styleProps }: CircleStatusIconProp
 }
 
 const mkWrappedIcon =
-  (styleProps: BoxProps<Theme>) =>
+  (styleProps: BoxProps<Theme>, customIconProps: SvgProps) =>
   ({ Icon, bg }: WrappedIconProps) => {
     const theme = useTheme()
-    const iconStyle: SvgProps['style'] = { maxHeight: '60%' }
+    const iconStyle: SvgProps['style'] = { maxHeight: '50%' }
     const iconWrapperStyle = {
       ...iconWrapperBaseStyle,
       ...(styleProps ?? {}),
     }
-    const iconProps = {
+    const iconBaseProps = {
       color: theme.colors.alwaysWhite,
       style: iconStyle,
     }
+    const iconProps = {
+      ...iconBaseProps,
+      ...customIconProps,
+    }
     return (
-      <Box {...iconWrapperStyle} bg={bg}>
+      <Box bg={bg} {...iconWrapperStyle}>
         <Icon {...iconProps} />
       </Box>
     )
@@ -61,7 +66,6 @@ const iconWrapperBaseStyle: BoxProps<Theme> = {
   width: 36,
   aspectRatio: 1,
   borderRadius: 'full',
-  bg: 'primary',
   alignItems: 'center',
   justifyContent: 'center',
   marginRight: 'm',

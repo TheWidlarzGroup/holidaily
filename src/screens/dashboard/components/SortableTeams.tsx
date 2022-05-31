@@ -3,7 +3,7 @@ import { Team } from 'mockApi/models'
 import { useNavigation } from '@react-navigation/native'
 import { DashboardNavigationType } from 'navigation/types'
 import { SortableList } from 'components/dragAndDrop/SortableList'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { TeamElement } from './TeamElement'
 

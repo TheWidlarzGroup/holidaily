@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ParsedTeamType, TeamsType } from 'utils/mocks/teamsMocks'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { LoadingModal } from 'components/LoadingModal'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { SearchTeams } from './TeamSubscriptions/SearchTeams'

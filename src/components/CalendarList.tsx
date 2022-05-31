@@ -5,7 +5,7 @@ import { useTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
 import { getShortWeekDays } from 'utils/dates'
 import { genMarkedDates, MarkedDateType } from 'utils/genMarkedDates'
-import { useCalendarPeriodStyles } from 'hooks/useCalendarStyles'
+import { useCalendarPeriodStyles } from 'hooks/style-hooks/useCalendarStyles'
 import { isPast } from 'date-fns'
 import { isToday } from 'date-fns/esm'
 import {
