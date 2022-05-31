@@ -49,7 +49,9 @@ export const Attachments = ({
     <Box alignSelf="stretch" style={styles.container} marginHorizontal="-s">
       <Box flexDirection="row" flexWrap="wrap">
         {attachments.map((attachment) => (
-          <Box key={attachment.id} padding={imagesPerScreenWidth === 4 ? 'xs' : 's'}>
+          <Box
+            key={attachment.id}
+            padding={imagesPerScreenWidth === 4 ? IMAGE_SHORT_PADDING : IMAGE_WIDE_PADDING}>
             <AttachmentWrapper
               onClose={() => removeAttachment(attachment.id)}
               uri={attachment.uri}
