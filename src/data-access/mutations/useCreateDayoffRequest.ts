@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
 import { DayOffRequest } from 'mock-api/models'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { API } from '../API'
@@ -10,7 +10,11 @@ export type PostDayOffRequestBody = Pick<
   DayOffRequest,
   'description' | 'endDate' | 'isSickTime' | 'message' | 'startDate' | 'attachments'
 >
-export type PostDayOffRequestSuccess = { request: DayOffRequest; availablePto: number }
+export type PostDayOffRequestSuccess = {
+  request: DayOffRequest
+  availablePto: number
+  isOnHoliday: boolean
+}
 
 const createDayOffRequest = async (
   body: PostDayOffRequestBody
@@ -30,6 +34,7 @@ export const useCreateDayOffRequest = () => {
       updateUser({
         requests: [...oldRequests, payload.request],
         availablePto: payload.availablePto,
+        isOnHoliday: payload.isOnHoliday,
       })
       queryClient.invalidateQueries(QueryKeys.USER_STATS)
     },

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { BottomModal } from 'components/BottomModal'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import React from 'react'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { MaxSickdays } from './MaxSickDays'

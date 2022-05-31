@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TextInput, TouchableOpacity } from 'react-native'
-import { Box, mkUseStyles, useColors } from 'utils/theme'
+import { Box, mkUseStyles, theme, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/SendArrow.svg'
 import Animated, {
   interpolateColor,
@@ -10,7 +10,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { themeBase } from 'utils/theme/themeBase'
 import { useCombinedRefs } from 'hooks/useCombinedRefs'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
@@ -128,7 +128,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         />
         {!!messageContent && (
           <TouchableOpacity style={styles.sendArrow} onPress={handleSubmit}>
-            <SendArrowIcon height={9} width={9} />
+            <SendArrowIcon height={9} width={9} color={theme.colors.inputSendArrow} />
           </TouchableOpacity>
         )}
       </Animated.View>
@@ -141,7 +141,7 @@ MessageInput.displayName = 'MessageInput'
 
 const useStyles = mkUseStyles((theme) => ({
   container: {
-    backgroundColor: theme.colors.disabled,
+    backgroundColor: theme.colors.white,
     padding: theme.spacing.s,
     borderTopLeftRadius: theme.spacing.xm,
     borderTopRightRadius: theme.spacing.xm,
@@ -158,13 +158,13 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
-    color: 'black',
     flex: 1,
     padding: 0,
     borderColor: theme.colors.transparent,
+    color: theme.colors.black,
   },
   sendArrow: {
-    backgroundColor: 'black',
+    backgroundColor: theme.colors.inputSendArrowBackground,
     padding: 10,
     alignSelf: 'flex-end',
     borderRadius: theme.borderRadii.full,

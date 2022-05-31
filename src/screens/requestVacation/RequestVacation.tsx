@@ -4,7 +4,7 @@ import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
-import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
@@ -85,7 +85,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
             endDate: (ctx.endDate ?? new Date()).toISOString(),
             startDate: (ctx.startDate ?? new Date()).toISOString(),
             isSickTime: ctx.sickTime,
-            status: 'pending',
+            status: ctx.sickTime ? 'accepted' : 'pending',
           },
         },
       },

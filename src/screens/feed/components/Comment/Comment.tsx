@@ -7,8 +7,8 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
-  hideAvatar?: boolean
   comment: CommentType
+  hideAvatar?: boolean
 }
 
 export const Comment = ({ comment, hideAvatar }: CommentProps) => {
@@ -43,9 +43,12 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => {
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}
           {comment.text.length > 130 && !isCommentExpanded && (
-            <Text variant="textXS" color="special" onPress={() => expandComment()}>
-              ... {t('seeMore')}
-            </Text>
+            <>
+              {'... '}
+              <Text variant="textXS" color="special" onPress={() => expandComment()}>
+                {t('seeMore')}
+              </Text>
+            </>
           )}
         </Text>
       </Bubble>

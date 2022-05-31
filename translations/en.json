@@ -229,9 +229,9 @@
     "locationsSearch": "Search location",
     "locationNotFound": "Not found",
     "exceededAmount": "You exceeded amount of images in single post",
-    "seeMore": "pokaż więcej",
-    "postPublished": "Opublikowano post!",
-    "undo": "Cofnij"
+    "seeMore": "see more",
+    "postPublished": "Post published!",
+    "undo": "Undo"
   },
   "createPost": {
     "title": "Create Post",
@@ -289,11 +289,9 @@
     "CTA": "Next",
     "timeOffDescriptionPlaceholder": "Time Off",
     "sendRequest": "Send Request",
-    "ptoTaken1": "You are taking",
-    "ptoTaken2": "days of PTO",
-    "ptoLeft1": "You will have",
-    "ptoLeft2": "days of PTO left",
+    "ptoTaken": "{{days}} out of office",
     "pickedPTO": "{{days}} of PTO",
+    "ptoLeft": "You’ll have <b>{{days}}</b> of paid time off to use after this request is approved.",
     "select": "Select",
     "sent": "Request sent!",
     "waitForApproval": "Now wait for the request approval, and do not pack your suitcase yet!",
@@ -301,7 +299,8 @@
     "seeRequest": "See request",
     "addAnother": "Add another request",
     "ok": "Ok, cool!",
-    "error": "Ooops! You don’t that many PTO",
+    "notEnoughPto": "Ooops! You don’t that many PTO",
+    "maxSickDays": "Ooops! You can take max. {{maxDays}} days of sick leave over a single request :(",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
@@ -309,7 +308,11 @@
     "discardRequestHeader": "Discard request?",
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",
-    "discardRequestNo": "Keep editing"
+    "discardRequestNo": "Keep editing",
+    "sickDayDescription": "Sick leave request doesn’t need your supervisor’s approval.",
+    "outOfOffice": "Out of office",
+    "removeAttachmentYes": "Delete",
+    "removeAttachmentNo": "Cancel"
   },
   "adminPanel": {
     "employees": "Employees",

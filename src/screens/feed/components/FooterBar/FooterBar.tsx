@@ -8,7 +8,7 @@ import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useAddComment, useAddReaction } from 'dataAccess/mutations/useAddReactionsComment'
 import { Analytics } from 'services/analytics'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
@@ -18,9 +18,10 @@ import { LessBubble } from '../Bubble/LessBubble'
 
 type Post = {
   post: FeedPost
+  expandComments: F0
 }
 
-export const FooterBar = ({ post }: Post) => {
+export const FooterBar = ({ post, expandComments }: Post) => {
   const { reactions, id } = post
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -37,6 +38,7 @@ export const FooterBar = ({ post }: Post) => {
     addComment(payload)
     Analytics().track('FEED_COMMENT_CREATED', { postId: id, content: comment.text })
     setMessageContent('')
+    expandComments()
   }
 
   const handlePressReaction = (emoji: string) => {

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { mkUseStyles, Theme } from 'utils/theme'
 import SplashScreen from 'react-native-splash-screen'

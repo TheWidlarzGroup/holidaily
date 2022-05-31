@@ -1,6 +1,7 @@
 export const palette = {
   grayscale900: 'rgba(0, 5, 21, 1)',
   grayscale800: 'rgba(19, 25, 46, 1)',
+  grayScale750: 'rgba(28, 37, 67, 1)',
   grayscale700: 'rgba(51, 58, 85, 1)',
   grayscale500: 'rgba(106, 113, 141, 1)',
   grayscale400: 'rgba(153, 158, 178, 1)',
@@ -125,8 +126,11 @@ export const colors = {
   lightBlueOpaque: palette.secondary25opaque,
   colorPickerBackdrop: palette.grayscale900SemiOpaque,
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
+  attachmentBg: palette.grayscale200,
   orangeToBlack: palette.primary100,
   transparentToOrange: palette.transparent,
+  inputSendArrow: palette.grayscale50,
+  inputSendArrowBackground: palette.grayscale800,
 }
 
 export const darkThemeColors = {
@@ -151,7 +155,7 @@ export const darkThemeColors = {
   lightGrey: palette.grayscale800,
   veryLightGrey: palette.grayscale800,
   veryLightGreyBrighter: palette.grayscale700,
-  grey: palette.grayscale300,
+  grey: palette.grayscale500,
   darkGrey: palette.grayscale500,
   darkGreyBrighter: palette.grayscale400,
   darkGreyBrighterDouble: palette.grayscale300,
@@ -199,8 +203,11 @@ export const darkThemeColors = {
   lightBlueOpaque: palette.secondary25opaque,
   colorPickerBackdrop: palette.grayscale900SemiOpaque,
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
+  attachmentBg: palette.grayScale750,
   orangeToBlack: palette.grayscale800,
   transparentToOrange: palette.primary100,
+  inputSendArrow: palette.grayscale800,
+  inputSendArrowBackground: palette.primary500,
 }
 
 export const legacyPalette = {

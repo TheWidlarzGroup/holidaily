@@ -146,6 +146,7 @@ const useStyles = mkUseStyles((theme) => ({
     paddingLeft: theme.spacing.xm,
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
+    height: 40,
   },
   noBackground: { backgroundColor: theme.colors.white },
   leftPadding: { paddingLeft: theme.spacing.l2plus },
