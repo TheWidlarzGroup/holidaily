@@ -10,7 +10,11 @@ export type PostDayOffRequestBody = Pick<
   DayOffRequest,
   'description' | 'endDate' | 'isSickTime' | 'message' | 'startDate' | 'attachments'
 >
-export type PostDayOffRequestSuccess = { request: DayOffRequest; availablePto: number }
+export type PostDayOffRequestSuccess = {
+  request: DayOffRequest
+  availablePto: number
+  isOnHoliday: boolean
+}
 
 const createDayOffRequest = async (
   body: PostDayOffRequestBody
@@ -30,6 +34,7 @@ export const useCreateDayOffRequest = () => {
       updateUser({
         requests: [...oldRequests, payload.request],
         availablePto: payload.availablePto,
+        isOnHoliday: payload.isOnHoliday,
       })
       queryClient.invalidateQueries(QueryKeys.USER_STATS)
     },

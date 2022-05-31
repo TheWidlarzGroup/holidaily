@@ -24,6 +24,7 @@ type FormInputTypes = {
   disabled?: boolean
   placeholder?: string
   reset?: F0
+  isRequired?: boolean
 }
 
 export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
@@ -41,6 +42,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
       screenName,
       isError,
       onBlur: onBlurCb,
+      isRequired = true,
       ...props
     },
     ref
@@ -80,7 +82,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
           )}
           name={name}
           rules={{
-            required: `${t('requiredField')}`,
+            required: isRequired ? `${t('requiredField')}` : false,
             pattern: {
               value: validationPattern,
               message: errorMessage,
