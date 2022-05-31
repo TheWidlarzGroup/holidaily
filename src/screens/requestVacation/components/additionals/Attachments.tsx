@@ -22,6 +22,8 @@ type AttachmentWrapperProps = {
 }
 
 const CONTAINER_TOTAL_HORIZONTAL_MARGINS = 24
+const IMAGE_SHORT_PADDING = 'xs' // for 4 images per screen width
+const IMAGE_WIDE_PADDING = 's' // for 2 images per screen width
 
 export const Attachments = ({
   attachments,
@@ -32,15 +34,14 @@ export const Attachments = ({
 }: AttachmentsProps) => {
   const styles = useStyles()
 
-  const IMAGE_SHORT_PADDINGS_TOTAL = theme.spacing.xs * 2
-  const IMAGE_WIDE_PADDINGS_TOTAL = theme.spacing.s * 2
-
-  const SINGLE_IMAGE_TOTAL_PADDINGS =
-    imagesPerScreenWidth === 4 ? IMAGE_SHORT_PADDINGS_TOTAL : IMAGE_WIDE_PADDINGS_TOTAL
-  const IMAGE_WIDTH =
+  const singleImageTotalPaddings =
+    imagesPerScreenWidth === 4
+      ? 2 * theme.spacing[IMAGE_SHORT_PADDING]
+      : 2 * theme.spacing[IMAGE_WIDE_PADDING]
+  const imageWidth =
     (windowWidth -
       CONTAINER_TOTAL_HORIZONTAL_MARGINS -
-      SINGLE_IMAGE_TOTAL_PADDINGS * imagesPerScreenWidth) /
+      singleImageTotalPaddings * imagesPerScreenWidth) /
     imagesPerScreenWidth
 
   const isRowFull = attachments.length % 4 === 0
@@ -53,7 +54,7 @@ export const Attachments = ({
               onClose={() => removeAttachment(attachment.id)}
               uri={attachment.uri}
               fileName={attachment.name}
-              imageWidth={IMAGE_WIDTH}
+              imageWidth={imageWidth}
             />
           </Box>
         ))}
