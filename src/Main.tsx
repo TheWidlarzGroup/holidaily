@@ -24,21 +24,21 @@ export const Main = () => {
   return (
     <ThemeProvider theme={currentTheme}>
       <SafeAreaProvider>
-        <ModalProvider>
-          <UserContextProvider>
-            <TeamsContextProvider>
-              <QueryClientProvider client={queryClient}>
+        <UserContextProvider>
+          <TeamsContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <ModalProvider>
                 <StatusBar
                   translucent
                   barStyle={statusBarStyle}
                   backgroundColor={statusBarBgColor}
                 />
                 <AppNavigation />
-                <NotificationsProvider />
-              </QueryClientProvider>
-            </TeamsContextProvider>
-          </UserContextProvider>
-        </ModalProvider>
+              </ModalProvider>
+              <NotificationsProvider />
+            </QueryClientProvider>
+          </TeamsContextProvider>
+        </UserContextProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   )

@@ -5,6 +5,7 @@ import { setItem } from 'utils/localStorage'
 import { useTranslation } from 'react-i18next'
 import { DropdownWithRadio } from 'components/DropdownWithRadio'
 import { notify } from 'react-native-notificated'
+import { Analytics } from 'services/analytics'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -20,6 +21,7 @@ export const Language = (props: LanguageProps) => {
     setSelectedLng(lng)
     props.setLoadingTrue()
     setItem('language', lng)
+    Analytics().track('LANGUAGE_CHANGED', { language: lng })
     notify('success', { params: { title: t('languageChanged') } })
   }
 

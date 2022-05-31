@@ -8,6 +8,7 @@ import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 import { InputEditIcon } from 'components/InputEditIcon'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
+import { Analytics } from 'services/analytics'
 
 type ProfileColorViewProps = {
   onChange: F1<string>
@@ -35,6 +36,7 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
     navigation.navigate('COLOR_PICKER', {
       onChange: (value) => {
         p.onChange(value)
+        Analytics().track('USER_COLOR_PICKED', { color: value })
       },
       value: p.value,
     })

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { ScrollView } from 'react-native'
 import { Trans, useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
-import { calculatePTO, getDurationInDays } from 'utils/dates'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { calculatePTO, getDurationInDays } from 'utils/dates'
 import { RequestDetailsHeader } from './RequestDetailsHeader'
 import { RequestAttachments } from './RequestAttachments'
 import { CircleStatusIcon, IconStatus } from '../CircleStatusIcon'
@@ -24,9 +24,9 @@ export const RequestDetails = (
   const iconStatus = getIconStatus(p.status)
   const topOpacity = userSettings?.darkMode ? 0 : 0.3
   const bgColor = userSettings?.darkMode ? 'white' : 'primary' // TODO: create color in colors and replace below
-
+  const showPtoLeft = !!p.startDate && !!p.endDate && !p.wasSent
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView>
       {!!p.showStatus && (
         <Box bg={bgColor}>
           <Box
@@ -53,15 +53,16 @@ export const RequestDetails = (
           message={p.message}
         />
         <RequestAttachments attachments={p.attachments} />
-        {p.status === 'pending' && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
       </Box>
+      {showPtoLeft && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
     </ScrollView>
   )
 }
 
 const PtoLeft = (p: { ptoTaken: number }) => {
   const { user } = useUserContext()
-  const availablePto = (user?.availablePto ?? 0) - p.ptoTaken
+  // Comment: ref, because once assigned, we don't want this number to change when we reduce availablePto by submitting request
+  const availablePto = useRef((user?.availablePto ?? 0) - p.ptoTaken)
   return (
     <Box padding="m" bg="attachmentBg" borderRadius="l1min" marginTop="l">
       <Text variant="textSM">
@@ -69,7 +70,7 @@ const PtoLeft = (p: { ptoTaken: number }) => {
           ns="requestVacation"
           i18nKey="ptoLeft"
           components={{ b: <Text variant="textBoldSM" /> }}
-          values={{ days: getDurationInDays(availablePto) }}
+          values={{ days: getDurationInDays(availablePto.current) }}
         />
       </Text>
     </Box>

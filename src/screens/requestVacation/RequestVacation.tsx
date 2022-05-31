@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useSoftInputMode, SoftInputModes } from 'hooks/useSoftInputMode'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { useModalContext } from 'contexts/ModalProvider'
 import { keys } from 'utils/manipulation'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
-import { RequestSent } from './components/RequestSent'
+import { Analytics } from 'services/analytics'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
+  RequestVacationData,
   RequestVacationProvider,
   useRequestVacationContext,
 } from './contexts/RequestVacationContext'
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
+import { RequestSentModal } from './components/RequestSentModal'
 
 export type RequestDataTypes = {
   description: string
@@ -29,27 +32,17 @@ type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const { userSettings } = useUserSettingsContext()
+  const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
   const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
-  const [isSentModalVisible, { setTrue: showSentModal, setFalse: hideSentModal }] =
-    useBooleanState(false)
-  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
+  const wasSubmitEventTriggered = useRef(false)
+  const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
-
+  const { showModal, hideModal } = useModalContext()
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
     const newData = callback(ctx.requestData)
     ctx.setRequestData((oldData) => ({ ...oldData, ...newData }))
   }
-
-  const reset = () => {
-    hideSentModal()
-    ctx.setStep(0)
-    setStartDate(undefined)
-    setEndDate(undefined)
-    ctx.setRequestData(emptyRequest)
-    ctx.cancelSickTime()
-  }
-
   const removeAttachment = (id: string) => {
     ctx.setRequestData((old) => ({
       ...old,
@@ -57,26 +50,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       files: old.files.filter((f) => f.id !== id),
     }))
   }
-  const onPressSee = () => {
-    hideSentModal()
-    navigation.navigate('DRAWER_NAVIGATOR', {
-      screen: 'Home',
-      params: {
-        screen: 'Stats',
-        params: {
-          screen: 'SEE_REQUEST',
-          params: {
-            ...ctx.requestData,
-            endDate: (ctx.endDate ?? new Date()).toISOString(),
-            startDate: (ctx.startDate ?? new Date()).toISOString(),
-            isSickTime: ctx.sickTime,
-            status: 'pending',
-          },
-        },
-      },
-    })
-  }
   const { t } = useTranslation('requestVacation')
+  useEffect(() => {
+    if (!requestSent || wasSubmitEventTriggered.current) return
+    wasSubmitEventTriggered.current = true
+    goBack()
+    sendAnalytics(ctx)
+    showModal(<RequestSentModal navigate={navigate} />)
+  }, [requestSent, goBack, navigate, hideModal, showModal, ctx])
+
   useEffect(() => {
     const { params } = route
 
@@ -97,7 +79,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   return (
     <SwipeableScreen
       bg="dashboardBackground"
-      confirmLeave={isDirty}
+      confirmLeave={isDirty && !requestSent}
       confirmLeaveOptions={{
         acceptBtnText: t('discardRequestYes'),
         declineBtnText: t('discardRequestNo'),
@@ -108,28 +90,25 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       <RequestVacationSteps
         changeRequestData={changeRequestData}
         removeAttachment={removeAttachment}
-        showSentModal={showSentModal}
+        showSentModal={markRequestAsSent}
       />
-      <RequestSent
-        isVisible={isSentModalVisible}
-        onPressSee={onPressSee}
-        onPressAnother={reset}
-        onPressOk={() => {
-          hideSentModal()
-          navigation.navigate('DRAWER_NAVIGATOR')
-        }}
-      />
-      {!isSentModalVisible && <BadStateController />}
+      <BadStateController />
     </SwipeableScreen>
   )
 }
 
-const emptyRequest = {
-  description: '',
-  message: '',
-  photos: [],
-  files: [],
+const sendAnalytics = (ctx: RequestVacationData) => {
+  Analytics().track('REQUEST_VACATION_ADD', {
+    description: ctx.requestData.description,
+    filesCount: ctx.requestData.files.length,
+    photosCount: ctx.requestData.photos.length,
+    message: ctx.requestData.message,
+    startDate: String(ctx.startDate),
+    endDate: String(ctx.endDate),
+    isSick: ctx.sickTime,
+  })
 }
+
 const WrappedRequestVacation = (p: RequestVacationProps) => (
   <RequestVacationProvider>
     <RequestVacation {...p} />

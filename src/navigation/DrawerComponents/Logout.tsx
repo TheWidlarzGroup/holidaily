@@ -18,7 +18,6 @@ export const Logout = () => {
   const onLogout = () => {
     hideModal()
     Analytics().track('LOG_OUT')
-    Analytics().reset()
     handleLogout()
     resetTeams()
   }
