@@ -37,7 +37,7 @@ export const AppStackNavigation = () => {
         <AppStack.Screen
           name="REQUEST_VACATION_CALENDAR"
           component={CalendarRequestVacation}
-          options={RequestVacationCalendarOptions}
+          // options={RequestVacationCalendarOptions}
         />
         <AppStack.Screen name="DRAWER_NAVIGATOR" component={DrawerNavigator} />
         <AppStack.Screen

@@ -6,8 +6,9 @@ import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import React, { useEffect, useState } from 'react'
 import { calculatePTO, getDurationInDays, getFormattedPeriod } from 'utils/dates'
-import { BaseOpacity, Box, mkUseStyles } from 'utils/theme'
+import { mkUseStyles } from 'utils/theme'
 import { ActionModal } from 'components/ActionModal'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { TFunction, useTranslation } from 'react-i18next'
 import { MAX_SICK_DAYS_COUNT } from './MaxSickDays'
 
@@ -44,7 +45,6 @@ export const CalendarRequestVacation = ({
 }: ModalNavigationProps<'REQUEST_VACATION_CALENDAR'>) => {
   const [periodStart, selectPeriodStart] = useState<string>('')
   const [periodEnd, selectPeriodEnd] = useState<string>('')
-  const { goBack } = useNavigation()
   const { user } = useUserContext()
   const { t } = useTranslation('requestVacation')
   const haveUserPickedPeriod = !!periodStart && !!periodEnd
@@ -81,42 +81,32 @@ export const CalendarRequestVacation = ({
   const styles = useStyles()
 
   return (
-    <Box flex={1} paddingTop="m">
-      <BaseOpacity onPress={goBack} position="absolute" width="100%" height="100%" top={0} />
-      <Box
-        style={styles.container}
-        borderRadius="m"
-        flex={1}
-        alignItems="center"
-        marginTop="xxxl"
-        borderTopLeftRadius="l2min"
-        borderTopRightRadius="l2min">
-        <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
-        {isCalendarVisible && (
-          <>
-            <CalendarList
-              periodStart={periodStart}
-              periodEnd={periodEnd}
-              selectPeriodStart={selectPeriodStart}
-              selectPeriodEnd={selectPeriodEnd}
-              selectable
-              disablePastDates
-              style={styles.calendar}
-              markedDates={{}}
-              isInvalid={isInvalid}
-            />
-            <ActionModal
-              isVisible={!!periodStart}
-              onUserAction={onModalBtnPress}
-              label={t('select')}
-              variant={actionModalVariant}
-              header={actionModalTexts.header}
-              content={actionModalTexts.content}
-            />
-          </>
-        )}
-      </Box>
-    </Box>
+    <SwipeableScreen swipeWithIndicator alignItems="center" extraStyle={styles.container}>
+      <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
+      {isCalendarVisible && (
+        <>
+          <CalendarList
+            periodStart={periodStart}
+            periodEnd={periodEnd}
+            selectPeriodStart={selectPeriodStart}
+            selectPeriodEnd={selectPeriodEnd}
+            selectable
+            disablePastDates
+            style={styles.calendar}
+            markedDates={{}}
+            isInvalid={isInvalid}
+          />
+          <ActionModal
+            isVisible={!!periodStart}
+            onUserAction={onModalBtnPress}
+            label={t('select')}
+            variant={actionModalVariant}
+            header={actionModalTexts.header}
+            content={actionModalTexts.content}
+          />
+        </>
+      )}
+    </SwipeableScreen>
   )
 }
 
