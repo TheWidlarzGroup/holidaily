@@ -56,6 +56,8 @@ export const palette = {
     'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
   loader: 'rgba(255, 255, 255, .8)',
   loaderDark: 'rgba(0, 5, 21, .8)',
+  contextMenu: 'rgba(237, 237, 237, 0.9)',
+  contextMenuBorder: 'rgba(106, 113, 141, 0.9)',
 }
 
 export const colors = {
@@ -135,6 +137,8 @@ export const colors = {
   inputSendArrow: palette.grayscale50,
   inputSendArrowBackground: palette.grayscale800,
   loader: palette.loader,
+  contextMenu: palette.contextMenu,
+  contextMenuBorder: palette.contextMenuBorder,
 }
 
 export const darkThemeColors = {
@@ -214,6 +218,8 @@ export const darkThemeColors = {
   inputSendArrow: palette.grayscale800,
   inputSendArrowBackground: palette.primary500,
   loader: palette.loaderDark,
+  contextMenu: palette.contextMenu,
+  contextMenuBorder: palette.contextMenuBorder,
 }
 
 export const legacyPalette = {

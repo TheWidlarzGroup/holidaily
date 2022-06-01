@@ -232,6 +232,10 @@
     "seeMore": "see more",
     "postPublished": "Post published!",
     "undo": "Undo",
+    "more": "more",
+    "showLess": "Show less",
+    "edit": "Edit",
+    "delete": "Delete",
     "cancel": "Cancel"
   },
   "createPost": {
