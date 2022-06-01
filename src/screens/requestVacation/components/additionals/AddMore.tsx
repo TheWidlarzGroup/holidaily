@@ -3,7 +3,7 @@ import { BaseOpacity, useTheme } from 'utils/theme'
 import IconPlus from 'assets/icons/icon-plus.svg'
 
 type AddMoreProps = {
-  onPress: F0
+  onPress?: F0
 }
 
 export const AddMore = ({ onPress }: AddMoreProps) => {

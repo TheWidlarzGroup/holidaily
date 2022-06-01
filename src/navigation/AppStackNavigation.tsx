@@ -1,11 +1,6 @@
 import React from 'react'
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-  TransitionPresets,
-} from '@react-navigation/stack'
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
-import { windowHeight } from 'utils/deviceSizes'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
@@ -34,11 +29,7 @@ export const AppStackNavigation = () => {
           }}
         />
         <AppStack.Screen name="REQUEST_VACATION" component={RequestVacation} />
-        <AppStack.Screen
-          name="REQUEST_VACATION_CALENDAR"
-          component={CalendarRequestVacation}
-          options={RequestVacationCalendarOptions}
-        />
+        <AppStack.Screen name="REQUEST_VACATION_CALENDAR" component={CalendarRequestVacation} />
         <AppStack.Screen name="DRAWER_NAVIGATOR" component={DrawerNavigator} />
         <AppStack.Screen
           name="GALLERY"
@@ -54,30 +45,6 @@ export const AppStackNavigation = () => {
     </Box>
   )
 }
-
-const RequestVacationCalendarOptions: StackNavigationOptions = {
-  cardStyleInterpolator: ({ current: { progress } }) => ({
-    cardStyle: {
-      transform: [
-        {
-          translateY: progress.interpolate({
-            inputRange: [0, 1],
-            outputRange: [windowHeight, 0],
-            extrapolate: 'clamp',
-          }),
-        },
-      ],
-    },
-    overlayStyle: {
-      opacity: progress.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 0.5],
-        extrapolate: 'clamp',
-      }),
-    },
-  }),
-}
-
 const useStyle = mkUseStyles((theme: Theme) => ({
   galleryScreenCard: {
     backgroundColor: theme.colors.modalBackground,

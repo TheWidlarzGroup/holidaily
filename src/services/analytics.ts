@@ -1,7 +1,5 @@
 import * as NewRelic from '@bibabovn/react-native-newrelic'
 import { Amplitude, Identify } from '@amplitude/react-native'
-import { generateUUID } from 'utils/generateUUID'
-import { getItem, removeItem, setItem } from 'utils/localStorage'
 import { AMPLITUDE_API_KEY } from '@env'
 import { User } from '../mock-api/models'
 import { makePrefixKeys, parseObjectToNewRelicSimpleType } from '../utils/analyticsUtils'
@@ -22,14 +20,9 @@ export const initAnalytics = () => {
   initializeAnalytics()
 
   return {
-    setUserId: async () => {
-      const userId = generateUUID()
-      const cachedUserId = await getItem('userId')
-      if (!cachedUserId) {
-        setItem('userId', userId)
-      }
-      ampInstance.setUserId(cachedUserId || userId)
-      Analytics().identify({ id: cachedUserId || userId })
+    setUserId: (id: string) => {
+      ampInstance.setUserId(id)
+      NewRelic.setUserId(id)
     },
     identify: (opts: Partial<UserAnalyticsAttributes>) => {
       const identify = new Identify()
@@ -51,9 +44,6 @@ export const initAnalytics = () => {
         analyticsEventMap[event].name,
         parseObjectToNewRelicSimpleType(makePrefixKeys(properties ?? {}))
       )
-    },
-    reset: () => {
-      removeItem('userId')
     },
   }
 }

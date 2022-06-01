@@ -89,10 +89,12 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
                 <IconGeolocation color={theme.colors.tertiary} />
               </Box>
               <Box width="80%">
-                <Text variant="textBoldSM">{t('locationsAccessText')}</Text>
+                <Text variant="textBoldSM" lineHeight={21}>
+                  {t('locationsAccessText')}
+                </Text>
               </Box>
             </Box>
-            <Box marginTop="m" alignSelf="flex-end" marginRight="-m">
+            <Box marginTop="m" alignSelf="flex-end" marginRight="-xm">
               <CustomButton
                 label={t('locationsAccessPromptText')}
                 variant="tertiary"

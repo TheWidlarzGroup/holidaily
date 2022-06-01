@@ -144,8 +144,8 @@ android {
         applicationId "com.holidaily"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 37
-        versionName "1.0.28"
+        versionCode 38
+        versionName "1.0.29"
     }
     splits {
         abi {
@@ -209,6 +209,8 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     implementation "com.newrelic.agent.android:android-agent:5.+"
+
+    implementation 'com.smartlook.recording:app:1.8.13-native'
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

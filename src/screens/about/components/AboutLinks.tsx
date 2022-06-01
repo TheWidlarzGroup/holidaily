@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { linkWithFallback } from 'utils/linkWithFallback'
+import { Analytics } from 'services/analytics'
 import { isIos } from 'utils/layout'
 import { PrivacyPolicyContent } from './PrivacyPolicyContent'
 
@@ -69,6 +70,7 @@ const RateApp = () => {
         borderRadius="full"
         alignSelf="center"
         onPress={async () => {
+          Analytics().track('RATE_APP_PRESSED')
           if (isIos) await linkWithFallback(APPLE_RATE_LINK, COMPANY_WEBSITE_LINK)
           else await linkWithFallback(ANDROID_RATE_LINK, COMPANY_WEBSITE_LINK)
         }}

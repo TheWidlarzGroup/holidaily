@@ -21,6 +21,7 @@ export const Submit = (p: SubmitProps) => {
       paddingBottom="xxm">
       <CustomButton
         label={p.text ?? t('sendPost')}
+        loading={p.loading}
         disabled={p.disabledCTA}
         variant="primary"
         onPress={p.onCTAPress}
