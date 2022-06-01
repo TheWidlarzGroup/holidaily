@@ -60,7 +60,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     useEffect(() => {
       errorOpacity.value = isError || isFocused ? 0.8 : 0
-    }, [errorOpacity, isError, isFocused, theme.colors.errorRed, theme.colors.inputBorder])
+    }, [errorOpacity, isError, isFocused])
 
     const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       onBlur?.(e)
