@@ -26,8 +26,7 @@ export const SwipeableNotification = ({
         style={animatedOpacity}
         backgroundColor="primary"
         marginBottom="m"
-        borderBottomLeftRadius="lmin"
-        borderTopLeftRadius="lmin"
+        borderRadius="lmin"
         height={88}
         width="100%">
         <SwipeBar />
@@ -47,29 +46,19 @@ const SwipeBar = () => {
   const { t } = useTranslation('notifications')
   const theme = useTheme()
   return (
-    <>
-      <BaseOpacity
-        width="100%"
-        height="100%"
-        flexDirection="row"
-        alignItems="center"
-        paddingHorizontal="l">
-        <Box marginRight="s">
-          <CheckIcon width={12} height={12} color={theme.colors.alwaysWhite} />
-        </Box>
+    <BaseOpacity
+      width="100%"
+      height="100%"
+      flexDirection="row"
+      alignItems="center"
+      paddingHorizontal="l">
+      <Box marginRight="s">
+        <CheckIcon width={12} height={12} color={theme.colors.alwaysWhite} />
+      </Box>
 
-        <Text variant="textBoldSM" color="alwaysWhite" lineHeight={21}>
-          {t('markSeen')}
-        </Text>
-      </BaseOpacity>
-      <Box
-        position="absolute"
-        backgroundColor="primary"
-        width={400}
-        height="100%"
-        left={20}
-        zIndex="-1"
-      />
-    </>
+      <Text variant="textBoldSM" color="alwaysWhite" lineHeight={21}>
+        {t('markSeen')}
+      </Text>
+    </BaseOpacity>
   )
 }
