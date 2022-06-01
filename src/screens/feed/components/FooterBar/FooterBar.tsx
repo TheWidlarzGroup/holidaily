@@ -172,11 +172,13 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   )
 }
 
+const ICON_SIZE = 24
+
 export const ReactionPickerBtn = (props: BubbleProps) => {
   const theme = useTheme()
   return (
     <Bubble {...props} width={42} height={42} margin="xs">
-      <IconReaction color={theme.colors.black} />
+      <IconReaction color={theme.colors.black} width={ICON_SIZE} height={ICON_SIZE} />
     </Bubble>
   )
 }

@@ -18,14 +18,13 @@ export const Notifications = () => {
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <Box
-        paddingTop="lplus"
         paddingBottom="m"
+        paddingTop="xxlplus"
         backgroundColor="veryLightGrey"
         borderBottomRightRadius="lmin"
         borderBottomLeftRadius="lmin"
         flexDirection="row"
         alignItems="center"
-        marginTop="l"
         justifyContent="space-between"
         paddingLeft="m">
         <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>

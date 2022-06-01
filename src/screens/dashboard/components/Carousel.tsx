@@ -10,12 +10,15 @@ import { Text } from 'utils/theme'
 import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { Analytics } from 'services/analytics'
+import { windowHeight } from 'utils/deviceSizes'
+import { SWIPEABLE_MODAL_OFFSET_TOP } from 'components/SwipeableModal'
 import { DashboardTeamMember } from '../DashboardTeamMember'
+
+const modalHeight = windowHeight - SWIPEABLE_MODAL_OFFSET_TOP
 
 export const Carousel = () => {
   const { t } = useTranslation('dashboard')
   const [teamMemberHeight, setTeamMemberHeight] = useState(0)
-  const [modalHeight, setModalHeight] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
@@ -39,11 +42,6 @@ export const Carousel = () => {
   const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout
     setTeamMemberHeight(height)
-  }
-
-  const getModalHeight = (event: LayoutChangeEvent) => {
-    const { height } = event.nativeEvent.layout
-    setModalHeight(height)
   }
 
   return (
@@ -78,7 +76,6 @@ export const Carousel = () => {
       )}
       {modalUser && (
         <SwipeableModalRegular
-          onLayout={getModalHeight}
           useScrollView={teamMemberHeight > modalHeight}
           hasIndicator
           isOpen={isModalVisible}

@@ -8,7 +8,7 @@ import { AddMore } from './AddMore'
 
 type AttachmentsProps = {
   attachments: (AttachmentType & { name?: string })[]
-  removeAttachment: F1<string>
+  removeAttachment?: F1<string>
   imagesPerScreenWidth: 2 | 4
   addMore?: F0
   displayAddMore?: boolean
@@ -44,7 +44,7 @@ export const Attachments = ({
       singleImageTotalPaddings * imagesPerScreenWidth) /
     imagesPerScreenWidth
 
-  const isRowFull = attachments.length % 4 === 0
+  const isRowFull = attachments.length % imagesPerScreenWidth === 0
   return (
     <Box alignSelf="stretch" style={styles.container} marginHorizontal="-s">
       <Box flexDirection="row" flexWrap="wrap">
@@ -53,7 +53,7 @@ export const Attachments = ({
             key={attachment.id}
             padding={imagesPerScreenWidth === 4 ? IMAGE_SHORT_PADDING : IMAGE_WIDE_PADDING}>
             <AttachmentWrapper
-              onClose={() => removeAttachment(attachment.id)}
+              onClose={removeAttachment ? () => removeAttachment(attachment.id) : undefined}
               uri={attachment.uri}
               fileName={attachment.name}
               imageWidth={imageWidth}
@@ -89,6 +89,7 @@ export const AttachmentWrapper = (p: AttachmentWrapperProps) => (
     )}
     <BaseOpacity
       onPress={p.onClose}
+      activeOpacity={p.onClose ? 0.8 : 1}
       width={p.imageWidth}
       aspectRatio={1}
       borderRadius="l1min"
