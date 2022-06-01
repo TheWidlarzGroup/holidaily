@@ -10,8 +10,8 @@ import { Analytics } from 'services/analytics'
 import { entries } from 'utils/manipulation'
 import { generateUUID } from 'utils/generateUUID'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
-import { ContextProps, UserContext } from './UserContext'
 import Smartlook from 'smartlook-react-native-wrapper'
+import { ContextProps, UserContext } from './UserContext'
 
 type ProviderProps = {
   children: ReactNode
