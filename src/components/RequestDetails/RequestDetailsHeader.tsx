@@ -14,7 +14,7 @@ export const RequestDetailsHeader = (p: RequestDetailsHeaderProps) => {
   if (typeof p.startDate === 'string') p.startDate = new Date(p.startDate)
   if (typeof p.endDate === 'string') p.endDate = new Date(p.endDate)
   const { t } = useTranslation('requestVacation')
-
+  console.log(typeof p.startDate, typeof p.endDate)
   return (
     <Box>
       <Text variant="heading4">{p.description || t('timeOffDescriptionPlaceholder')}</Text>
@@ -23,7 +23,7 @@ export const RequestDetailsHeader = (p: RequestDetailsHeaderProps) => {
           <Box paddingVertical="s">
             <Text variant="textSM">
               {getFormattedPeriod(p.startDate, p.endDate)}{' '}
-              {(p.endDate ?? p.startDate).getFullYear()}
+              {new Date(p.endDate ?? p.startDate).getFullYear()}
             </Text>
           </Box>
           <Text variant="textBoldXS">
