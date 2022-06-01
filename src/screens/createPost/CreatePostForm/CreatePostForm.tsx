@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { Asset } from 'react-native-image-picker'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -27,6 +27,10 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   const galleryImages = state.images.map(assetToGalleryItem)
   const sendDisabled = isSendDisabled(state)
 
+  const removeAttachment = (id: string) => {
+    dispatch({ type: 'removeImage', payload: { id } })
+  }
+
   useEffect(() => {
     if (photosAsset) {
       dispatch({ type: 'addImages', payload: { images: [photosAsset] } })
@@ -45,6 +49,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
             location={state.location}
             onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
             data={galleryImages}
+            removeAttachment={removeAttachment}
           />
         </ScrollView>
         <PostFormFooter
@@ -68,7 +73,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
   )
 }
 
-const assetToGalleryItem = (asset: Asset): GalleryItemData => ({
+const assetToGalleryItem = (asset: Asset): AttachmentType => ({
   id: asset.id ?? '',
   type: asset.type ? 'image' : 'video',
   uri: asset.uri ?? '',

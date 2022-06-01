@@ -74,6 +74,7 @@ export const Additionals = (p: AdditionalsProps) => {
             addMore={p.showAttachmentModal}
             displayAddMore={p.attachments.length < 8}
             removeAttachment={p.removeAttachment}
+            imagesPerScreenWidth={4}
           />
         ) : (
           <AttachmentIcon variant="file" onPress={p.showAttachmentModal} />

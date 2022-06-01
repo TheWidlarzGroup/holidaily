@@ -25,10 +25,14 @@ export const CommentBoxBtn = ({ quantity, onPress, opened }: CommentBoxBtnProps)
     <BaseOpacity onPress={onPress} activeOpacity={0.7} padding="s" paddingBottom="xs">
       {quantity > 0 && (
         <Box flexDirection="row" alignItems="center">
-          <Text variant="captionText">{pluralizeWord('comments', quantity)}</Text>
-          <Animated.View style={[rotationStyles]}>
-            <IconArrowUp color={theme.colors.black} />
-          </Animated.View>
+          <Text variant="captionText" paddingVertical="s">
+            {pluralizeWord('comments', quantity)}
+          </Text>
+          {quantity > 1 && (
+            <Animated.View style={[rotationStyles]}>
+              <IconArrowUp color={theme.colors.black} />
+            </Animated.View>
+          )}
         </Box>
       )}
     </BaseOpacity>

@@ -9,13 +9,13 @@ import {
   NativeScrollEvent,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { isIos } from 'utils/layout'
 import { Box, theme } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
-  data: GalleryItemData[]
+  data: AttachmentType[]
   index?: number
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
@@ -42,7 +42,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
   }
 
   const renderItem = useCallback(
-    ({ item, index }: { item: GalleryItemData; index: number }) => (
+    ({ item, index }: { item: AttachmentType; index: number }) => (
       <GalleryItem
         {...item}
         width={width}

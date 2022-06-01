@@ -5,7 +5,6 @@ import { PolicySection } from './PolicySection'
 export const Policies = () => (
   <Box padding="l" marginTop="l">
     <PolicySection textKey="policyOne" />
-    <PolicySection textKey="policyTwo" subtitleKey="policyTwoExample" />
-    <PolicySection textKey="policyThree" />
+    <PolicySection textKey="policyTwo" />
   </Box>
 )

@@ -1,6 +1,6 @@
 {
   "name": "Holidaily",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -62,6 +62,7 @@
     "react-native-swipe-gestures": "^1.0.5",
     "react-query": "^3.13.4",
     "rn-emoji-keyboard": "^0.7.0",
+    "smartlook-react-native-wrapper": "^1.2.6",
     "xdate": "^0.8.2"
   },
   "devDependencies": {

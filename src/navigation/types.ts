@@ -1,7 +1,7 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { DayOffRequest } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
 
@@ -30,6 +30,11 @@ export type BottomTabNavigationProps<RouteName extends keyof BottomTabRoutes> = 
   navigation: BottomTabNavigationProp<BottomTabRoutes, RouteName>
   route: RouteProp<BottomTabRoutes, RouteName>
 }
+
+export type BudgetNavigationType<RouteName extends keyof BudgetRoutes> = CompositeNavigationProp<
+  StackNavigationProp<BudgetRoutes, RouteName>,
+  StackNavigationProp<DrawerRoutes, 'HolidayBudget'>
+>
 
 // for useNavigation hook
 export type DrawerNavigationType<RouteName extends keyof DrawerRoutes> = CompositeNavigationProp<
@@ -117,7 +122,7 @@ export type ModalRoutes = {
   NOTIFICATIONS: undefined
   REQUEST_VACATION_CALENDAR: { isSickTime?: boolean }
   DRAWER_NAVIGATOR: NestedNavigatorParams<DrawerRoutes>
-  GALLERY: { data: GalleryItemData[]; index: number }
+  GALLERY: { data: AttachmentType[]; index: number }
   CREATE_POST: { photo: { id: string; uri: string } }
   SUBSCRIBE_NEW_TEAM: undefined
 }

@@ -4,6 +4,8 @@ import { LogBox } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { UserSettingsContextProvider } from 'contexts/UserSettingsProvider'
 import { Analytics } from 'services/analytics'
+import Smartlook from 'smartlook-react-native-wrapper'
+import { SMARTLOOK_API_KEY } from '@env'
 import { Main } from './src/Main'
 
 LogBox.ignoreLogs([
@@ -20,6 +22,7 @@ export const App = () => {
 
   useEffect(() => {
     Analytics().track('APP_LAUNCH')
+    if (SMARTLOOK_API_KEY && !__DEV__) Smartlook.setupAndStartRecording(SMARTLOOK_API_KEY)
   }, [])
 
   return (
