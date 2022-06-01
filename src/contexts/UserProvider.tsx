@@ -71,7 +71,6 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       setItem('userId', userId)
     }
     Analytics().setUserId(userId)
-    Smartlook.setUserIdentifier(userId, user ?? {})
   }, [])
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { User } from '../mock-api/models'
 import { makePrefixKeys, parseObjectToNewRelicSimpleType } from '../utils/analyticsUtils'
 import { AnalyticsEvent, AnalyticsEventKeys, analyticsEventMap } from '../utils/eventMap'
 import { entries } from '../utils/manipulation'
+import Smartlook from 'smartlook-react-native-wrapper'
 
 export type UserAnalyticsAttributes = Pick<User, 'firstName' | 'id' | 'role'>
 let analyticsService: AnalyticsService | null = null
@@ -23,9 +24,11 @@ export const initAnalytics = () => {
     setUserId: (id: string) => {
       ampInstance.setUserId(id)
       NewRelic.setUserId(id)
+      Smartlook.setUserIdentifier(id)
     },
     identify: (opts: Partial<UserAnalyticsAttributes>) => {
       const identify = new Identify()
+      if (opts.id) Smartlook.setUserIdentifier(opts.id, opts)
       for (const [key, val] of entries(opts)) {
         if (!val) return
         identify.set(key, val)
