@@ -55,7 +55,7 @@ export const palette = {
   colorPickerDropAreaGradient:
     'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
   loader: 'rgba(255, 255, 255, .8)',
-  loaderDark: 'rgba(19, 25, 46, .8)',
+  loaderDark: 'rgba(0, 5, 21, .8)',
 }
 
 export const colors = {
