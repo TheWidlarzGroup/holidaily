@@ -11,6 +11,7 @@ import { entries } from 'utils/manipulation'
 import { generateUUID } from 'utils/generateUUID'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { ContextProps, UserContext } from './UserContext'
+import Smartlook from 'smartlook-react-native-wrapper'
 
 type ProviderProps = {
   children: ReactNode
@@ -64,12 +65,13 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   }
 
   useAsyncEffect(async () => {
-    const cachedUserId = await getItem('userId')
-    if (cachedUserId) return
-
-    const userId = generateUUID()
-    setItem('userId', userId)
-    Analytics().setUserId(cachedUserId || userId)
+    let userId = await getItem('userId')
+    if (!userId) {
+      userId = generateUUID()
+      setItem('userId', userId)
+    }
+    Analytics().setUserId(userId)
+    Smartlook.setUserIdentifier(userId, user ?? {})
   }, [])
 
   useEffect(() => {
