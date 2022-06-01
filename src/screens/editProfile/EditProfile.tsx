@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { BackHandler, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
+import React, { useCallback } from 'react'
+import { BackHandler, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +15,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { Box, mkUseStyles } from 'utils/theme'
 import { notify } from 'react-native-notificated'
+import { useCheckKeyboardOpen } from 'hooks/useCheckKeyboardOpen'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -26,21 +27,7 @@ type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'ph
 export const EditProfile = () => {
   const navigation = useNavigation()
   const styles = useStyles()
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-      setIsKeyboardVisible(true)
-    })
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      setIsKeyboardVisible(false)
-    })
-
-    return () => {
-      keyboardDidHideListener.remove()
-      keyboardDidShowListener.remove()
-    }
-  }, [isKeyboardVisible])
+  const { isKeyboardOpen } = useCheckKeyboardOpen()
 
   const { user } = useUserContext()
   const {
@@ -133,7 +120,7 @@ export const EditProfile = () => {
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
           <ProfileColor onUpdate={onUpdate} />
-          <Box height={isKeyboardVisible ? 120 : 0} />
+          <Box height={isKeyboardOpen ? 120 : 0} />
         </ScrollView>
         {isLoading && <LoadingModal show />}
         {!isLoading && isDirty && (
