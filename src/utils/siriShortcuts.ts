@@ -2,10 +2,10 @@ import { ShortcutOptions } from 'react-native-siri-shortcut'
 
 export const sickday: ShortcutOptions = {
   activityType: 'com.holidaily.AddRequest',
-  title: 'Take sickday',
+  title: 'Take a sick day',
   isEligibleForSearch: true,
   isEligibleForPrediction: true,
-  suggestedInvocationPhrase: 'Take sickday',
+  suggestedInvocationPhrase: 'Take a sick day',
   userInfo: {
     action: 'sickday',
   },
