@@ -1,11 +1,11 @@
 import * as NewRelic from '@bibabovn/react-native-newrelic'
 import { Amplitude, Identify } from '@amplitude/react-native'
 import { AMPLITUDE_API_KEY } from '@env'
+import Smartlook from 'smartlook-react-native-wrapper'
 import { User } from '../mock-api/models'
 import { makePrefixKeys, parseObjectToNewRelicSimpleType } from '../utils/analyticsUtils'
 import { AnalyticsEvent, AnalyticsEventKeys, analyticsEventMap } from '../utils/eventMap'
 import { entries } from '../utils/manipulation'
-import Smartlook from 'smartlook-react-native-wrapper'
 
 export type UserAnalyticsAttributes = Pick<User, 'firstName' | 'id' | 'role'>
 let analyticsService: AnalyticsService | null = null
