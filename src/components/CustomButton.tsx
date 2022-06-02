@@ -1,10 +1,11 @@
 import React, { FC, ReactNode } from 'react'
 import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, Box, mkUseStyles, Theme, useTheme } from 'utils/theme/index'
+import { Text, mkUseStyles, Theme, useTheme, BaseOpacity } from 'utils/theme/index'
 import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
+import { isAndroid } from 'utils/layout'
 
 type CustomButtonVariants = 'primary' | 'secondary' | 'alternative' | 'danger' | 'tertiary'
 type CustomButtonIcons = 'google' | 'apple' | 'plus'
@@ -86,7 +87,9 @@ export const CustomButton: FC<CustomButtonProps> = ({
         rest,
         variant === 'tertiary' && styles.smallBtn,
       ]}>
-      <Box
+      <BaseOpacity
+        activeOpacity={1}
+        onPress={!disabled && isAndroid ? onPress : () => null}
         width="100%"
         height={variant === 'tertiary' ? 41 : 47}
         flexDirection="row"
@@ -112,7 +115,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
             </>
           )
         )}
-      </Box>
+      </BaseOpacity>
     </RectButton>
   )
 }
