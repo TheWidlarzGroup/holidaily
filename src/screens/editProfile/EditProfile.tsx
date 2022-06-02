@@ -95,10 +95,15 @@ export const EditProfile = () => {
   })
   const onDeletePicture = () => editUser({ photo: null })
 
-  const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
-  const formOffset = {
-    marginBottom: isDirty ? 93 : 0,
+  const getBottomOffset = () => {
+    if (isKeyboardOpen && isDirty) return 210
+    if (isKeyboardOpen && !isDirty) return 200
+    if (!isKeyboardOpen && isDirty) return 95
+    return 0
   }
+
+  const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
+
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -113,14 +118,14 @@ export const EditProfile = () => {
   return (
     <SafeAreaWrapper>
       <KeyboardAvoidingView style={styles.container}>
-        <ScrollView style={formOffset} keyboardShouldPersistTaps="handled">
+        <ScrollView keyboardShouldPersistTaps="handled">
           <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
           <DrawerBackArrow goBack={handleGoBack} />
           <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
           <ProfileColor onUpdate={onUpdate} />
-          <Box height={isKeyboardOpen ? 120 : 0} />
+          <Box height={getBottomOffset()} />
         </ScrollView>
         {isLoading && <LoadingModal show />}
         {!isLoading && isDirty && (
