@@ -64,12 +64,12 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   }
 
   useAsyncEffect(async () => {
-    let userId = await getItem('userId')
-    if (!userId) {
-      userId = generateUUID()
-      setItem('userId', userId)
-    }
-    Analytics().setUserId(userId)
+    const cachedUserId = await getItem('userId')
+    if (cachedUserId) return
+
+    const userId = generateUUID()
+    setItem('userId', userId)
+    Analytics().setUserId(cachedUserId || userId)
   }, [])
 
   useEffect(() => {
