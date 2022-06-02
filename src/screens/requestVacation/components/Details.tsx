@@ -69,6 +69,7 @@ export const Details = (p: DetailsProps) => {
           onBlur={p.showNext}
           autoComplete="off"
           onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
+          reset={() => p.onDescriptionChange('')}
           maxLength={300}
           value={requestData.description}
         />

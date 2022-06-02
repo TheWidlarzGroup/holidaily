@@ -97,7 +97,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
 
   return (
     <Box flex={1}>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
         <Box margin="ml" paddingBottom="xxxl">
           <Text variant="sectionLabel" textAlign="left" marginBottom="m">
             {t('detailsTitle')}
