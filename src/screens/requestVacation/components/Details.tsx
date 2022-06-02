@@ -31,15 +31,15 @@ export const Details = (p: DetailsProps) => {
     register('description', { required: false })
   }, [register])
 
+  const handleNavigate = () =>
+    navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
+
   return (
     <Box>
       <Box marginTop="m">
-        <BaseOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
-          }>
+        <BaseOpacity activeOpacity={0.8} onPress={handleNavigate}>
           <CustomInput
+            onPressIn={handleNavigate}
             focusable={false}
             disabled
             placeholder={t('selectDate')}
