@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { Box } from 'utils/theme'
+import { BaseOpacity, Box } from 'utils/theme'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { AppNavigationType } from 'navigation/types'
+import { AppNavigationType, BudgetNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
@@ -16,6 +16,7 @@ export const Budget = () => {
   const { t } = useTranslation('budget')
   const { data: stats, isLoading: loadingStats } = useFetchUserStats()
   const { user } = useUserContext()
+  const { navigate } = useNavigation<BudgetNavigationType<'BUDGET'>>()
 
   const handleGoBack = useCallback(() => {
     navigation.goBack()
@@ -28,7 +29,9 @@ export const Budget = () => {
       <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
         <Box paddingHorizontal="m" paddingTop="lplus">
-          <Section variant="left" duration={user.availablePto ?? 0} />
+          <BaseOpacity activeOpacity={0.8} onPress={() => navigate('PTO_POLICY')}>
+            <Section variant="left" duration={user.availablePto ?? 0} />
+          </BaseOpacity>
           <Section variant="sick" duration={+stats.sickdaysTaken ?? 0} />
         </Box>
       </GestureRecognizer>
