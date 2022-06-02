@@ -18,5 +18,5 @@ export const useCheckKeyboardOpen = () => {
     }
   }, [setIsKeyboardOpen])
 
-  return { isKeyboardOpen }
+  return isKeyboardOpen
 }

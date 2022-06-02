@@ -27,7 +27,7 @@ type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'ph
 export const EditProfile = () => {
   const navigation = useNavigation()
   const styles = useStyles()
-  const { isKeyboardOpen } = useCheckKeyboardOpen()
+  const isKeyboardOpen = useCheckKeyboardOpen()
 
   const { user } = useUserContext()
   const {
