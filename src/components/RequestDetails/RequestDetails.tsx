@@ -24,11 +24,11 @@ export const RequestDetails = (
   const iconStatus = getIconStatus(p.status)
   const topOpacity = userSettings?.darkMode ? 0 : 0.3
   const bgColor = userSettings?.darkMode ? 'white' : 'primary' // TODO: create color in colors and replace below
-  const showPtoLeft = !!p.startDate && !!p.endDate && !p.wasSent
+  const showPtoLeft = !!p.startDate && !!p.endDate && !p.wasSent && !p.isSickTime
   return (
     <ScrollView>
       {!!p.showStatus && (
-        <Box bg={bgColor}>
+        <Box bg={bgColor} borderRadius="l2min">
           <Box
             position="absolute"
             height="100%"

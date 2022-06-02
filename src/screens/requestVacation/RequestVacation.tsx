@@ -56,7 +56,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     wasSubmitEventTriggered.current = true
     goBack()
     sendAnalytics(ctx)
-    showModal(<RequestSentModal navigate={navigate} />)
+    showModal(<RequestSentModal navigate={navigate} ctx={ctx} />)
   }, [requestSent, goBack, navigate, hideModal, showModal, ctx])
 
   useEffect(() => {
