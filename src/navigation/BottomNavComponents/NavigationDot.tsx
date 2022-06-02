@@ -7,7 +7,6 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated'
-import { isSmallScreen } from 'utils/deviceSizes'
 
 type NavigationDotProps = {
   width: number
@@ -33,7 +32,7 @@ export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, m
   }))
 
   useEffect(() => {
-    if (isSmallScreen && activeTabIndex > 2) {
+    if (activeTabIndex > 2) {
       translateX.value = withTiming(startingPos + minIconWidth + (activeTabIndex - 1) * width, {
         duration: 600,
       })
