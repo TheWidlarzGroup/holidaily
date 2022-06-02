@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
 import { Box, theme } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
@@ -72,7 +73,10 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         showsHorizontalScrollIndicator={false}
       />
       {data.length > 1 && (
-        <Box alignSelf="center" position="absolute" bottom={isIos ? 40 : 10}>
+        <Box
+          alignSelf="center"
+          position="absolute"
+          bottom={isIos && !isScreenHeightShort ? 40 : 10}>
           <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
         </Box>
       )}

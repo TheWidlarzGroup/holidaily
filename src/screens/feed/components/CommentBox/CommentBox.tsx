@@ -25,16 +25,17 @@ export const CommentBox = ({
         opened={areCommentsExpanded}
       />
       <ScrollView>
-        {comments.map((comment, index) => {
-          if (!areCommentsExpanded && index > 0) return
-          return (
+        {areCommentsExpanded ? (
+          comments.map((comment, index) => (
             <Comment
               comment={comment}
               key={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
             />
-          )
-        })}
+          ))
+        ) : (
+          <Comment comment={comments[comments.length - 1]} />
+        )}
       </ScrollView>
     </Box>
   )

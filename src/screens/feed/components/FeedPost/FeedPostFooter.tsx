@@ -3,6 +3,7 @@ import { FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { isIos } from 'utils/layout'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 import { CommentBox } from '../CommentBox/CommentBox'
 import { FooterBar } from '../FooterBar/FooterBar'
 
@@ -13,7 +14,7 @@ export const FeedPostFooter = ({ post }: Post) => {
     useBooleanState(false)
 
   return (
-    <Box marginTop={isIos ? '-l2plus' : 'none'}>
+    <Box marginTop={isIos && !isScreenHeightShort ? '-l2plus' : 'none'}>
       <FooterBar post={post} expandComments={expandComments} />
       <CommentBox
         comments={post.comments}

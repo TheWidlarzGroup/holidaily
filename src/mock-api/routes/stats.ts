@@ -23,12 +23,17 @@ const fetchStats = (schema: Schema<ModelsSchema>, req: Request) => {
     const isNotSicktime = !req.isSickTime
     return wasAccepted && isNotSicktime
   }).models
+
   let ptoTaken = 0
   PTOrequests.forEach((req: DayOffRequest) => {
     ptoTaken += calculatePTO(req.startDate, req.endDate)
   })
-  const sickdaysTaken = requests.filter(
-    (req: DayOffRequest) => req.isSickTime && req.status === 'past'
-  ).length
+
+  let sickdaysTaken = 0
+  const sickDays = requests.filter((req: DayOffRequest) => req.isSickTime).models
+  sickDays.forEach((req: DayOffRequest) => {
+    sickdaysTaken += calculatePTO(req.startDate, req.endDate)
+  })
+
   return new Response(200, {}, { ptoTaken: String(ptoTaken), sickdaysTaken: String(sickdaysTaken) })
 }
