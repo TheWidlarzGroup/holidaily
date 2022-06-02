@@ -3,7 +3,7 @@ import { Trans } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 
 export const AboutDescription = () => (
-  <Box paddingHorizontal="m" paddingBottom="lplus">
+  <Box paddingHorizontal="m" paddingBottom="lplus" paddingTop="ml">
     <Text textAlign="left" variant="textMD" color="black">
       <Trans
         ns="welcome"
