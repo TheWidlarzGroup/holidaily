@@ -14,8 +14,8 @@ import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { Box, mkUseStyles } from 'utils/theme'
+import { useKeyboard } from 'hooks/useKeyboard'
 import { notify } from 'react-native-notificated'
-import { useCheckKeyboardOpen } from 'hooks/useCheckKeyboardOpen'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -27,7 +27,7 @@ type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'ph
 export const EditProfile = () => {
   const navigation = useNavigation()
   const styles = useStyles()
-  const isKeyboardOpen = useCheckKeyboardOpen()
+  const [keyboardOpen] = useKeyboard()
 
   const { user } = useUserContext()
   const {
@@ -96,9 +96,9 @@ export const EditProfile = () => {
   const onDeletePicture = () => editUser({ photo: null })
 
   const getBottomOffset = () => {
-    if (isKeyboardOpen && isDirty) return 210
-    if (isKeyboardOpen && !isDirty) return 200
-    if (!isKeyboardOpen && isDirty) return 95
+    if (keyboardOpen && isDirty) return 210
+    if (keyboardOpen && !isDirty) return 200
+    if (!keyboardOpen && isDirty) return 95
     return 0
   }
 
