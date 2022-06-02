@@ -10,6 +10,7 @@ export const palette = {
   grayscale100: 'rgba(243, 244, 246, 1)',
   grayscale50: 'rgba(252, 252, 252, 1)',
   grayscaleOpaque: 'rgba(213, 215, 224, 0.3)',
+  grayscale50SemiOpaque: 'rgba(252, 252, 252, 0.8)',
   grayscale900SemiOpaque: 'rgba(0, 5, 21, 0.85)',
   primary700: 'rgba(220, 98, 10, 1)',
   primary500: 'rgba(255, 142, 60, 1)',
@@ -136,6 +137,7 @@ export const colors = {
   inputSendArrowBackground: palette.grayscale800,
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
+  loadingModalBackdrop: palette.grayscale50SemiOpaque,
 }
 
 export const darkThemeColors = {
@@ -216,6 +218,7 @@ export const darkThemeColors = {
   inputSendArrowBackground: palette.primary500,
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
+  loadingModalBackdrop: palette.grayscale900SemiOpaque,
 }
 
 export const legacyPalette = {

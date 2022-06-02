@@ -64,9 +64,9 @@ export const LoadingModal = ({ show, showText, style }: LoadingModalProps) => {
   )
 }
 
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme) => ({
   container: {
-    backgroundColor: 'rgba(255, 255, 255, .8)',
+    backgroundColor: theme.colors.loadingModalBackdrop,
     position: 'absolute',
     left: -50,
     right: -50,
