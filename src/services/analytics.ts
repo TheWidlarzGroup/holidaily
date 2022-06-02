@@ -1,6 +1,7 @@
 import * as NewRelic from '@bibabovn/react-native-newrelic'
 import { Amplitude, Identify } from '@amplitude/react-native'
 import { AMPLITUDE_API_KEY } from '@env'
+import Smartlook from 'smartlook-react-native-wrapper'
 import { User } from '../mock-api/models'
 import { makePrefixKeys, parseObjectToNewRelicSimpleType } from '../utils/analyticsUtils'
 import { AnalyticsEvent, AnalyticsEventKeys, analyticsEventMap } from '../utils/eventMap'
@@ -23,9 +24,11 @@ export const initAnalytics = () => {
     setUserId: (id: string) => {
       ampInstance.setUserId(id)
       NewRelic.setUserId(id)
+      Smartlook.setUserIdentifier(id)
     },
     identify: (opts: Partial<UserAnalyticsAttributes>) => {
       const identify = new Identify()
+      if (opts.id) Smartlook.setUserIdentifier(opts.id, opts)
       for (const [key, val] of entries(opts)) {
         if (!val) return
         identify.set(key, val)
