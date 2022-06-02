@@ -54,6 +54,8 @@ export const palette = {
     'linear-gradient(180deg, rgba(252, 252, 252, 0.8) 0%, rgba(252, 252, 252, 0.72) 100%)',
   colorPickerDropAreaGradient:
     'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
+  loader: 'rgba(255, 255, 255, .8)',
+  loaderDark: 'rgba(0, 5, 21, .8)',
   contextMenu: 'rgba(237, 237, 237, 0.9)',
   contextMenuBorder: 'rgba(106, 113, 141, 0.9)',
 }
@@ -134,6 +136,7 @@ export const colors = {
   deleteButton: palette.grayscale300,
   inputSendArrow: palette.grayscale50,
   inputSendArrowBackground: palette.grayscale800,
+  loader: palette.loader,
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
 }
@@ -214,6 +217,7 @@ export const darkThemeColors = {
   deleteButton: palette.grayscale300,
   inputSendArrow: palette.grayscale800,
   inputSendArrowBackground: palette.primary500,
+  loader: palette.loaderDark,
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
 }
