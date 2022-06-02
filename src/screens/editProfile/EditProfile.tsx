@@ -4,7 +4,7 @@ import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import GestureRecognizer from 'react-native-swipe-gestures'
-import { Box, mkUseStyles } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
@@ -43,7 +43,6 @@ export const EditProfile = () => {
   })
 
   const { t } = useTranslation('userProfile')
-  const styles = useStyles()
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
   const { hideModal } = useModalContext()
@@ -112,10 +111,7 @@ export const EditProfile = () => {
     <>
       <SafeAreaWrapper>
         <Box>
-          <ScrollView
-            style={formOffset}
-            contentContainerStyle={styles.scrollViewContainer}
-            keyboardShouldPersistTaps="handled">
+          <ScrollView style={formOffset} keyboardShouldPersistTaps="handled">
             <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
             <DrawerBackArrow goBack={handleGoBack} />
             <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
@@ -132,9 +128,3 @@ export const EditProfile = () => {
     </>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  scrollViewContainer: {
-    // paddingBottom: theme.spacing.xl,
-  },
-}))
