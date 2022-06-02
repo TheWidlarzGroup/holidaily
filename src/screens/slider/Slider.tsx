@@ -99,14 +99,12 @@ export const Slider: FC = () => {
         decelerationRate="normal"
         disableIntervalMomentum
         pagingEnabled>
-        {SLIDER_DATA.map((item, index) => (
+        {SLIDER_DATA.map((item) => (
           <SliderContent
             key={item.title}
             title={t(item.title)}
             text={t(item.text)}
             image={item.image}
-            sliderIndex={index}
-            scrollPositionX={translateX}
           />
         ))}
       </Animated.ScrollView>
