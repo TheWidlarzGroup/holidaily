@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
@@ -57,15 +57,13 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
                 </Box>
               </Box>
               <Box alignSelf="flex-end" marginRight="-xm" marginTop="xm">
-                <CustomButton
-                  variant="tertiary"
-                  label={t('joinMoreButton')}
-                  width={120}
+                <BaseOpacity
                   onPress={() => {
                     navigate('ProfileNavigation')
                     closeModal()
-                  }}
-                />
+                  }}>
+                  <CustomButton variant="tertiary" label={t('joinMoreButton')} width={120} />
+                </BaseOpacity>
               </Box>
             </Box>
           </Box>
