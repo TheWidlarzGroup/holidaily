@@ -1,32 +1,41 @@
 import React from 'react'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { Box } from 'utils/theme'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Comment as CommentType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
 
-type CommentBoxProps = Pick<FeedPost, 'comments'>
+type CommentBoxProps = Pick<FeedPost, 'comments'> & {
+  areCommentsExpanded: boolean
+  toggleCommentsExpanded: F0
+}
 
-export const CommentBox = ({ comments }: CommentBoxProps) => {
-  const [opened, { toggle }] = useBooleanState(false)
-
+export const CommentBox = ({
+  comments,
+  areCommentsExpanded,
+  toggleCommentsExpanded,
+}: CommentBoxProps) => {
   if (comments?.length === 0) return null
 
   return (
     <Box padding="s" marginTop="-ml" paddingBottom="xm">
-      <CommentBoxBtn quantity={comments?.length} onPress={toggle} opened={opened} />
+      <CommentBoxBtn
+        quantity={comments?.length}
+        onPress={toggleCommentsExpanded}
+        opened={areCommentsExpanded}
+      />
       <ScrollView>
-        {comments.map((comment, index) => {
-          if (!opened && index > 0) return
-          return (
+        {areCommentsExpanded ? (
+          comments.map((comment, index) => (
             <Comment
               comment={comment}
               key={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
             />
-          )
-        })}
+          ))
+        ) : (
+          <Comment comment={comments[comments.length - 1]} />
+        )}
       </ScrollView>
     </Box>
   )

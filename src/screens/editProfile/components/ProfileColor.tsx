@@ -2,12 +2,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, mkUseStyles, Theme, BaseOpacity, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 import { InputEditIcon } from 'components/InputEditIcon'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
+import { Analytics } from 'services/analytics'
 
 type ProfileColorViewProps = {
   onChange: F1<string>
@@ -35,6 +36,7 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
     navigation.navigate('COLOR_PICKER', {
       onChange: (value) => {
         p.onChange(value)
+        Analytics().track('USER_COLOR_PICKED', { color: value })
       },
       value: p.value,
     })
@@ -45,7 +47,7 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
       opacity={isTouchDisabled ? 0.4 : 1}
       paddingLeft="xs"
       paddingRight="m"
-      marginBottom="xl"
+      marginBottom="xxxl"
       marginTop="s">
       <Text variant="sectionLabel" marginLeft="m">
         {t('userColor')}

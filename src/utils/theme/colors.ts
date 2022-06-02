@@ -1,6 +1,7 @@
 export const palette = {
   grayscale900: 'rgba(0, 5, 21, 1)',
   grayscale800: 'rgba(19, 25, 46, 1)',
+  grayScale750: 'rgba(28, 37, 67, 1)',
   grayscale700: 'rgba(51, 58, 85, 1)',
   grayscale500: 'rgba(106, 113, 141, 1)',
   grayscale400: 'rgba(153, 158, 178, 1)',
@@ -53,6 +54,10 @@ export const palette = {
     'linear-gradient(180deg, rgba(252, 252, 252, 0.8) 0%, rgba(252, 252, 252, 0.72) 100%)',
   colorPickerDropAreaGradient:
     'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
+  loader: 'rgba(255, 255, 255, .8)',
+  loaderDark: 'rgba(0, 5, 21, .8)',
+  contextMenu: 'rgba(237, 237, 237, 0.9)',
+  contextMenuBorder: 'rgba(106, 113, 141, 0.9)',
 }
 
 export const colors = {
@@ -125,8 +130,15 @@ export const colors = {
   lightBlueOpaque: palette.secondary25opaque,
   colorPickerBackdrop: palette.grayscale900SemiOpaque,
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
+  attachmentBg: palette.grayscale200,
   orangeToBlack: palette.primary100,
   transparentToOrange: palette.transparent,
+  deleteButton: palette.grayscale300,
+  inputSendArrow: palette.grayscale50,
+  inputSendArrowBackground: palette.grayscale800,
+  loader: palette.loader,
+  contextMenu: palette.contextMenu,
+  contextMenuBorder: palette.contextMenuBorder,
 }
 
 export const darkThemeColors = {
@@ -151,7 +163,7 @@ export const darkThemeColors = {
   lightGrey: palette.grayscale800,
   veryLightGrey: palette.grayscale800,
   veryLightGreyBrighter: palette.grayscale700,
-  grey: palette.grayscale300,
+  grey: palette.grayscale500,
   darkGrey: palette.grayscale500,
   darkGreyBrighter: palette.grayscale400,
   darkGreyBrighterDouble: palette.grayscale300,
@@ -199,8 +211,15 @@ export const darkThemeColors = {
   lightBlueOpaque: palette.secondary25opaque,
   colorPickerBackdrop: palette.grayscale900SemiOpaque,
   colorPickerDropArea: palette.colorPickerDropAreaGradient,
+  attachmentBg: palette.grayScale750,
   orangeToBlack: palette.grayscale800,
   transparentToOrange: palette.primary100,
+  deleteButton: palette.grayscale300,
+  inputSendArrow: palette.grayscale800,
+  inputSendArrowBackground: palette.primary500,
+  loader: palette.loaderDark,
+  contextMenu: palette.contextMenu,
+  contextMenuBorder: palette.contextMenuBorder,
 }
 
 export const legacyPalette = {

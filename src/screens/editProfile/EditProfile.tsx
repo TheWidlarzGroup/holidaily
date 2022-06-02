@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react'
-import { BackHandler, ScrollView, StyleSheet } from 'react-native'
+import { BackHandler, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import GestureRecognizer from 'react-native-swipe-gestures'
-import { Box } from 'utils/theme'
-import { useUserContext } from 'hooks/useUserContext'
-import { useTeamsContext } from 'hooks/useTeamsContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
 import { User } from 'mock-api/models/mirageTypes'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
@@ -14,7 +13,9 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
+import { Box, mkUseStyles } from 'utils/theme'
 import { notify } from 'react-native-notificated'
+import { useCheckKeyboardOpen } from 'hooks/useCheckKeyboardOpen'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -25,6 +26,8 @@ type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'ph
 
 export const EditProfile = () => {
   const navigation = useNavigation()
+  const styles = useStyles()
+  const isKeyboardOpen = useCheckKeyboardOpen()
 
   const { user } = useUserContext()
   const {
@@ -92,10 +95,15 @@ export const EditProfile = () => {
   })
   const onDeletePicture = () => editUser({ photo: null })
 
-  const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
-  const formOffset = {
-    marginBottom: isDirty ? 93 : 0,
+  const getBottomOffset = () => {
+    if (isKeyboardOpen && isDirty) return 210
+    if (isKeyboardOpen && !isDirty) return 200
+    if (!isKeyboardOpen && isDirty) return 95
+    return 0
   }
+
+  const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
+
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -108,23 +116,28 @@ export const EditProfile = () => {
   )
 
   return (
-    <>
-      <SafeAreaWrapper>
-        <Box>
-          <ScrollView style={formOffset} keyboardShouldPersistTaps="handled">
-            <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
-            <DrawerBackArrow goBack={handleGoBack} />
-            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-            <TeamSubscriptions />
-            <ProfileColor onUpdate={onUpdate} />
-          </ScrollView>
-          {isLoading && <LoadingModal show />}
-          {!isLoading && isDirty && (
-            <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
-          )}
-        </Box>
-      </SafeAreaWrapper>
-    </>
+    <SafeAreaWrapper>
+      <KeyboardAvoidingView style={styles.container}>
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
+          <DrawerBackArrow goBack={handleGoBack} />
+          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+          <TeamSubscriptions />
+          <ProfileColor onUpdate={onUpdate} />
+          <Box height={getBottomOffset()} />
+        </ScrollView>
+        {isLoading && <LoadingModal show />}
+        {!isLoading && isDirty && (
+          <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
+        )}
+      </KeyboardAvoidingView>
+    </SafeAreaWrapper>
   )
 }
+
+const useStyles = mkUseStyles(() => ({
+  container: {
+    flex: 1,
+  },
+}))

@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 import { Box, mkUseStyles } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
-import Cross from 'assets/icons/circle-cross.svg'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type PhotoProps = React.ComponentProps<typeof Box> & {
-  onClose: F0
-  displayClose?: true
-  src?: string
+  src: string
 }
 
-export const Photo = ({ src, onClose, displayClose, ...containerProps }: PhotoProps) => {
+export const Photo = ({ src, ...containerProps }: PhotoProps) => {
   const [size, setSize] = useState(0)
   const styles = useStyles()
 
@@ -28,15 +24,6 @@ export const Photo = ({ src, onClose, displayClose, ...containerProps }: PhotoPr
         source={{ uri: src }}
         resizeMode="cover"
       />
-      {displayClose && (
-        <Box style={styles.cross}>
-          <TouchableOpacity
-            onPress={onClose}
-            hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
-            <Cross width={18} height={18} />
-          </TouchableOpacity>
-        </Box>
-      )}
     </Box>
   )
 }
@@ -44,8 +31,8 @@ export const Photo = ({ src, onClose, displayClose, ...containerProps }: PhotoPr
 const useStyles = mkUseStyles((theme) => ({
   cross: {
     position: 'absolute',
-    top: -4,
-    right: -4,
+    top: -6,
+    right: -6,
   },
   photo: {
     borderRadius: theme.borderRadii.m,

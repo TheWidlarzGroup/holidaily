@@ -81,7 +81,7 @@ const ModalScrollView = ({
   children,
   ...modalBtnProps
 }: PropsWithChildren<RegularModalButtonProps>) => (
-  <ScrollView showsHorizontalScrollIndicator={false}>
+  <ScrollView showsHorizontalScrollIndicator={false} bounces={false}>
     {/* Comment: TouchableOpacity and TouchableWithoutFeedback hack is needed for scrollview to work inside of react-native-modals */}
     <BaseOpacity activeOpacity={1}>
       <TouchableWithoutFeedback>

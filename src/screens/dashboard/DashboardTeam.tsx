@@ -10,7 +10,7 @@ import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
 import { User } from 'mockApi/models'
 import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Analytics } from 'services/analytics'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
@@ -69,7 +69,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
       <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
         <TeamHeader title={params.name} />
         {/* TODO: refactor to use SectionList */}
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
           <Box paddingHorizontal="m" paddingBottom="xxxl">
             {matesOnHoliday.length > 0 && (
               <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />

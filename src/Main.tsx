@@ -7,7 +7,7 @@ import { ModalProvider } from 'contexts/ModalProvider'
 import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
-import { useUserSettingsContext } from 'hooks/useUserSettingsContext'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { getNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
@@ -24,21 +24,21 @@ export const Main = () => {
   return (
     <ThemeProvider theme={currentTheme}>
       <SafeAreaProvider>
-        <ModalProvider>
-          <UserContextProvider>
-            <TeamsContextProvider>
-              <QueryClientProvider client={queryClient}>
+        <UserContextProvider>
+          <TeamsContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <ModalProvider>
                 <StatusBar
                   translucent
                   barStyle={statusBarStyle}
                   backgroundColor={statusBarBgColor}
                 />
                 <AppNavigation />
-                <NotificationsProvider />
-              </QueryClientProvider>
-            </TeamsContextProvider>
-          </UserContextProvider>
-        </ModalProvider>
+              </ModalProvider>
+              <NotificationsProvider />
+            </QueryClientProvider>
+          </TeamsContextProvider>
+        </UserContextProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   )

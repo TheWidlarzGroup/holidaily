@@ -6,39 +6,30 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { AppNavigationType } from 'navigation/types'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
-import { useUserContext } from 'hooks/useUserContext'
-import { AvailablePto } from './components/AvailablePto'
-import { SentReqsSection, SickDaysSection } from './components/BudgetSections'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useFetchUserStats } from 'dataAccess/queries/useFetchUserStats'
+import { LoadingModal } from 'components/LoadingModal'
+import { Section } from './components/Section'
 
 export const Budget = () => {
   const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
   const { t } = useTranslation('budget')
+  const { data: stats, isLoading: loadingStats } = useFetchUserStats()
   const { user } = useUserContext()
-  const requests = user?.requests ?? []
-  const sentReqsCount = requests.length
-  const sickDaysCount = requests.filter((req) => req.status === 'past' && req.isSickTime).length
-  const acceptedReqsCount = requests.filter((req) => req.status === 'accepted').length
-  const pendingReqsCount = requests.filter((req) => req.status === 'pending').length
 
   const handleGoBack = useCallback(() => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
-
+  const isLoading = loadingStats || !user || !stats
+  if (isLoading) return <LoadingModal show />
   return (
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
         <Box paddingHorizontal="m" paddingTop="lplus">
-          <AvailablePto availablePto={user?.availablePto ?? 0} />
-          <Box flexDirection="row">
-            <SickDaysSection sickDaysCount={sickDaysCount} />
-            <SentReqsSection
-              sentReqsCount={sentReqsCount}
-              acceptedReqsCount={acceptedReqsCount}
-              pendingReqsCount={pendingReqsCount}
-            />
-          </Box>
+          <Section variant="left" duration={user.availablePto ?? 0} />
+          <Section variant="sick" duration={+stats.sickdaysTaken ?? 0} />
         </Box>
       </GestureRecognizer>
     </SafeAreaWrapper>

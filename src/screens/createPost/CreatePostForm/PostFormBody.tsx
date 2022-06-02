@@ -3,30 +3,30 @@ import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
-import { Gallery } from 'components/Gallery/Gallery'
-import { GalleryItemData } from 'types/holidaysDataTypes'
+import { AttachmentType } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
 import { CompoundLocation } from 'hooks/useLocation'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
+import { Attachments } from 'screens/requestVacation/components/additionals/Attachments'
 
 type PostBodyProps = {
   text: string
   location: Maybe<CompoundLocation>
   onTextChange: F1<string>
-  data: GalleryItemData[]
+  data: AttachmentType[]
+  removeAttachment: F1<string>
 }
 
 export const PostBody = (props: PostBodyProps) => {
   const { location, onTextChange, text, data } = props
   const { user } = useUserContext()
   const { t } = useTranslation('createPost')
-
   const styles = useStyles()
 
   return (
     <Box flexGrow={1} padding="s">
-      <Box flexDirection="row">
+      <Box flexDirection="row" marginTop="-m">
         <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" padding="l" />
         <Box marginLeft="s" marginTop="s" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           <TextInput
@@ -40,10 +40,16 @@ export const PostBody = (props: PostBodyProps) => {
           />
         </Box>
       </Box>
-      <Box paddingHorizontal="s" marginTop="-s">
+      <Box paddingHorizontal="s" marginTop="-s" marginBottom="-xm">
         {location?.addresses && <LocationInfo location={location} />}
       </Box>
-      <Gallery data={data} />
+      <Box marginHorizontal="xm">
+        <Attachments
+          removeAttachment={props.removeAttachment}
+          attachments={data}
+          imagesPerScreenWidth={2}
+        />
+      </Box>
     </Box>
   )
 }

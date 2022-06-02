@@ -8,8 +8,9 @@ import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useAddComment, useAddReaction } from 'dataAccess/mutations/useAddReactionsComment'
+import { Analytics } from 'services/analytics'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
 import { MoreBubble } from '../Bubble/MoreBubble'
@@ -17,9 +18,10 @@ import { LessBubble } from '../Bubble/LessBubble'
 
 type Post = {
   post: FeedPost
+  expandComments: F0
 }
 
-export const FooterBar = ({ post }: Post) => {
+export const FooterBar = ({ post, expandComments }: Post) => {
   const { reactions, id } = post
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -34,7 +36,9 @@ export const FooterBar = ({ post }: Post) => {
     if (comment.text?.length < 1) return
     const payload = { postId: id || '', comment }
     addComment(payload)
+    Analytics().track('FEED_COMMENT_CREATED', { postId: id, content: comment.text })
     setMessageContent('')
+    expandComments()
   }
 
   const handlePressReaction = (emoji: string) => {
@@ -54,11 +58,13 @@ export const FooterBar = ({ post }: Post) => {
         reaction: { type: emoji, users: [...usersAddedReaction] },
       })
     }
+    Analytics().track('FEED_ADD_EMOJI', { emoji, postId: id })
   }
 
   const handleAddReaction = (emoji: EmojiType) => {
     const newReaction = { type: emoji.emoji, users: [user.id] }
     const isEmojiPresent = reactions.some((reaction) => reaction.type === emoji.emoji)
+    Analytics().track('FEED_ADD_EMOJI', { emoji: emoji.emoji, postId: id })
     if (isEmojiPresent) handlePressReaction(emoji.emoji)
     else addReaction({ postId: id || '', reaction: newReaction })
   }
@@ -91,6 +97,10 @@ type FooterBarContentProps = {
   handleAddReaction: F1<EmojiType>
 }
 
+const ADD_COMMENT_BTN_WIDTH = 134
+const ADD_EMOJI_BTN_WIDTH = 50
+const EMOJI_BTN_WIDTH = 70
+
 const FooterBarContent = (props: FooterBarContentProps) => {
   const { reactions, onCommentBtnPress } = props
   const [isPickerOpen, { setTrue: openPicker, setFalse: closePicker }] = useBooleanState(false)
@@ -99,11 +109,8 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   const theme = useTheme()
   const [footerWidth, setFooterWidth] = useState(0)
 
-  const COMMENT_EMOJI_BTNS_WIDTH = 146
-  const EMOJI_BTN_WIDTH = 74
-
   const maxEmojisInFirstLine = Math.trunc(
-    (footerWidth - COMMENT_EMOJI_BTNS_WIDTH) / EMOJI_BTN_WIDTH
+    (footerWidth - ADD_COMMENT_BTN_WIDTH - ADD_EMOJI_BTN_WIDTH) / EMOJI_BTN_WIDTH
   )
   const maxEmojisInSecondLine = Math.trunc(footerWidth / EMOJI_BTN_WIDTH)
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
@@ -118,7 +125,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
       justifyContent="space-between"
       alignItems="center"
       onLayout={({ nativeEvent }) => {
-        setFooterWidth(nativeEvent.layout.width - 16) // subtract margins
+        setFooterWidth(nativeEvent.layout.width)
       }}>
       <Box
         flexDirection="row"
@@ -133,6 +140,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
           marginTop="xs"
           onPress={onCommentBtnPress}
           height={42}
+          width={110}
           alignSelf="flex-start">
           <IconComment color={theme.colors.black} />
           <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
@@ -166,11 +174,13 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   )
 }
 
+const ICON_SIZE = 24
+
 export const ReactionPickerBtn = (props: BubbleProps) => {
   const theme = useTheme()
   return (
     <Bubble {...props} width={42} height={42} margin="xs">
-      <IconReaction color={theme.colors.black} />
+      <IconReaction color={theme.colors.black} width={ICON_SIZE} height={ICON_SIZE} />
     </Bubble>
   )
 }

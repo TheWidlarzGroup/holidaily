@@ -1,10 +1,12 @@
 import React from 'react'
 import { ModalProps } from 'react-native-modal'
 import { useTranslation } from 'react-i18next'
-import { mkUseStyles, Theme, Text, Box, BaseOpacity } from 'utils/theme'
+import { Text, Box, BaseOpacity, mkUseStyles, useTheme } from 'utils/theme'
 import { ConfirmationModalProps } from 'types/confirmationModalProps'
+import { SvgProps } from 'react-native-svg'
 import { CustomButton } from './CustomButton'
 import { SwipeableModal } from './SwipeableModal'
+import { CircleStatusIcon } from './CircleStatusIcon'
 
 export const ConfirmationModal = ({
   isVisible,
@@ -15,15 +17,27 @@ export const ConfirmationModal = ({
   header,
   declineBtnText,
   acceptBtnText,
+  statusIcon,
 }: ConfirmationModalProps & Pick<ModalProps, 'isVisible'>) => {
-  const styles = useStyles()
+  const styles = useModalStyles()
+  const theme = useTheme()
   const { t } = useTranslation('confirmationModal')
-
+  const statusIconProps: SvgProps = {
+    color: theme.colors.white,
+    height: '50%',
+    width: '50%',
+    style: {
+      marginTop: theme.spacing.xs,
+    },
+  }
   // FIXME: Something in the drawer menu is intercepting the touch gestures, so a hack with wrapping CustomButton in BaseOpacity is needed for buttons to work
   // and a hack with full width & height BaseOpacity for backdrop press to work
   return (
     <SwipeableModal isOpen={isVisible} onHide={onDismiss ?? onDecline}>
-      <Box style={styles.modal}>
+      <Box style={styles.bottomModal}>
+        {statusIcon && (
+          <CircleStatusIcon status={statusIcon} height={64} iconProps={statusIconProps} />
+        )}
         {header !== null && <Text variant="displayBoldSM">{header || t('areYouSure')}</Text>}
         {content !== null && (
           <Text variant="textSM" textAlign="center">
@@ -47,8 +61,8 @@ export const ConfirmationModal = ({
   )
 }
 
-const useStyles = mkUseStyles((theme: Theme) => ({
-  modal: {
+export const useModalStyles = mkUseStyles((theme) => ({
+  bottomModal: {
     paddingVertical: theme.spacing.l,
     backgroundColor: theme.colors.white,
     paddingHorizontal: theme.spacing.l2plus,
@@ -61,5 +75,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowOpacity: 0.04,
     shadowRadius: 2,
     elevation: 20,
+  },
+  nativeModalStyleReset: {
+    margin: 0,
   },
 }))

@@ -20,10 +20,10 @@ type DetailsProps = {
   showNext: F0
 }
 
-export const Details = ({ date, onDescriptionChange, hideNext, showNext }: DetailsProps) => {
+export const Details = (p: DetailsProps) => {
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const { control, register, errors } = useForm()
-  const { sickTime, isPeriodInvalid } = useRequestVacationContext()
+  const { sickTime, isPeriodInvalid, requestData, setRequestData } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
 
@@ -31,22 +31,22 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
     register('description', { required: false })
   }, [register])
 
+  const handleNavigate = () =>
+    navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
+
   return (
     <Box>
       <Box marginTop="m">
-        <BaseOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
-          }>
+        <BaseOpacity activeOpacity={0.8} onPress={handleNavigate}>
           <CustomInput
+            onPressIn={handleNavigate}
             focusable={false}
             disabled
             placeholder={t('selectDate')}
             inputLabel={t('detailsDate')}
             isError={isPeriodInvalid}
             variant="medium"
-            value={getFormattedPeriod(date.start, date.end)}
+            value={getFormattedPeriod(p.date.start, p.date.end)}
           />
           <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
             <CalendarIcon color={theme.colors.headerGrey} />
@@ -65,11 +65,15 @@ export const Details = ({ date, onDescriptionChange, hideNext, showNext }: Detai
           validationPattern={/$/}
           errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
-          onFocus={hideNext}
-          onBlur={showNext}
+          onFocus={p.hideNext}
+          onBlur={p.showNext}
           autoComplete="off"
-          onChange={(e) => onDescriptionChange(e.nativeEvent.text)}
+          onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
           maxLength={300}
+          reset={() => {
+            setRequestData({ ...requestData, description: '' })
+          }}
+          value={requestData.description}
         />
       </Box>
     </Box>

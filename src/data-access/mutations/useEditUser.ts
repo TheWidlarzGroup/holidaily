@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
 import { Team, User } from 'mock-api/models'
-import { useUserContext } from 'hooks/useUserContext'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { removeItem, setItem, StorageKeys } from 'utils/localStorage'
 import { API } from '../API'
 import { queryClient } from '../queryClient'

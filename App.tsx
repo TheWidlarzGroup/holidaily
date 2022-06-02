@@ -1,10 +1,11 @@
 import { useOneSignal } from 'hooks/useOneSignal'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { LogBox } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { UserSettingsContextProvider } from 'contexts/UserSettingsProvider'
 import { Analytics } from 'services/analytics'
-import { useAsyncEffect } from 'hooks/useAsyncEffect'
+import Smartlook from 'smartlook-react-native-wrapper'
+import { SMARTLOOK_API_KEY } from '@env'
 import { Main } from './src/Main'
 
 LogBox.ignoreLogs([
@@ -19,10 +20,10 @@ export const queryClient = new QueryClient()
 export const App = () => {
   useOneSignal()
 
-  useAsyncEffect(async () => {
-    await Analytics().setUserId()
+  useEffect(() => {
     Analytics().track('APP_LAUNCH')
-  })
+    if (SMARTLOOK_API_KEY && !__DEV__) Smartlook.setupAndStartRecording(SMARTLOOK_API_KEY)
+  }, [])
 
   return (
     <QueryClientProvider client={queryClient}>

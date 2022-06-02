@@ -469,6 +469,10 @@ PODS:
   - SDWebImageWebPCoder (0.8.4):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
+  - Smartlook (1.8.8)
+  - smartlook-react-native-bridge (1.2.6):
+    - React
+    - Smartlook (~> 1.8.3)
   - UMTaskManagerInterface (7.0.3):
     - ExpoModulesCore
   - Yoga (1.14.0)
@@ -559,6 +563,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSiriShortcuts (from `../node_modules/react-native-siri-shortcut`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - smartlook-react-native-bridge (from `../node_modules/smartlook-react-native-wrapper`)
   - UMTaskManagerInterface (from `../node_modules/unimodules-task-manager-interface/ios`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -586,6 +591,7 @@ SPEC REPOS:
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
+    - Smartlook
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -705,6 +711,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-siri-shortcut"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  smartlook-react-native-bridge:
+    :path: "../node_modules/smartlook-react-native-wrapper"
   UMTaskManagerInterface:
     :path: "../node_modules/unimodules-task-manager-interface/ios"
   Yoga:
@@ -791,6 +799,8 @@ SPEC CHECKSUMS:
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
+  Smartlook: db524b84f9af30ce0712c3990a0a317c3d224771
+  smartlook-react-native-bridge: d4ad49aa3118d68611af8ef5a606bfbce194f0c5
   UMTaskManagerInterface: 5654c50e68af11b19b9d05452bacf23d19b3f30f
   Yoga: d6b6a80659aa3e91aaba01d0012e7edcbedcbecd
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
