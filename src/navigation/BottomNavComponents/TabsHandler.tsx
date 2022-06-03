@@ -38,42 +38,37 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
         }
 
         return (
-          <>
-            <Box
-              {...{ key }}
-              height={40}
-              width={tabWidth}
-              marginTop="lplus"
-              alignItems="center"
-              flexDirection="column"
-              backgroundColor="white"
-              zIndex="5"
-              borderTopLeftRadius={tabsBorderRadius({ key, side: 'left' })}
-              borderTopRightRadius={tabsBorderRadius({ key, side: 'right' })}>
-              <BorderlessButton onPress={onPress} style={styles.button}>
-                {getBottomTabIcon(
-                  tab.name,
-                  tabs[activeTabIndex].name,
-                  styles.active.color,
-                  styles.inactive.color
-                )}
-              </BorderlessButton>
-            </Box>
-            {/* Comment: When the drawer is open, transparent stripes show up between the tabs. The box below covers the visible ones.  */}
-            {key === 1 && (
-              <Box
-                key="tab-bg"
-                position="absolute"
-                bottom={-10}
-                left={10}
-                height={49}
-                width={2 * tabWidth}
-                bg="white"
-              />
-            )}
-          </>
+          <Box
+            {...{ key }}
+            height={40}
+            width={tabWidth}
+            marginTop="lplus"
+            alignItems="center"
+            flexDirection="column"
+            backgroundColor="white"
+            zIndex="5"
+            borderTopLeftRadius={tabsBorderRadius({ key, side: 'left' })}
+            borderTopRightRadius={tabsBorderRadius({ key, side: 'right' })}>
+            <BorderlessButton onPress={onPress} style={styles.button}>
+              {getBottomTabIcon(
+                tab.name,
+                tabs[activeTabIndex].name,
+                styles.active.color,
+                styles.inactive.color
+              )}
+            </BorderlessButton>
+          </Box>
         )
       })}
+      {/* Comment: When the drawer is open, transparent stripes show up between the tabs. The box below covers the visible ones.  */}
+      <Box
+        position="absolute"
+        bottom={-10}
+        left={10}
+        height={49}
+        width={1.8 * tabWidth}
+        bg="white"
+      />
     </Box>
   )
 }
