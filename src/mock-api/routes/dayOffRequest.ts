@@ -51,9 +51,10 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
   payload.fill(optionalFields, body)
   if (!payload.body.startDate || !payload.body.endDate)
     return new Response(500, {}, { error: 'Something went wrong' })
-  const userPtoAfterRequest =
-    user.availablePto -
-    calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate))
+  const userPtoAfterRequest = payload.body.isSickTime
+    ? user.availablePto
+    : user.availablePto -
+      calculatePTO(new Date(payload.body.startDate), new Date(payload.body.endDate))
   const ptoIsUnavailable = !payload.body.isSickTime && userPtoAfterRequest < 0
   if (ptoIsUnavailable)
     return new Response(403, {}, { errors: String(['Not enough available PTO']) })
