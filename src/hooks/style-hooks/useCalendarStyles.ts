@@ -30,7 +30,7 @@ const useInvalidPeriodStyles = mkUseStyles((theme) => ({
     backgroundColor: theme.colors.specialRed,
   },
   dayInPeriod: {
-    backgroundColor: theme.colors.errorRed,
+    backgroundColor: theme.colors.errorBrighter,
   },
 }))
 
