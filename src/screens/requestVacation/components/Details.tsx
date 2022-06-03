@@ -23,7 +23,7 @@ type DetailsProps = {
 export const Details = (p: DetailsProps) => {
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const { control, register, errors } = useForm()
-  const { sickTime, isPeriodInvalid, requestData, setRequestData } = useRequestVacationContext()
+  const { sickTime, isPeriodInvalid, requestData } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
 
