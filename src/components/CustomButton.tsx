@@ -78,7 +78,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   return (
     <RectButton
       rippleColor={disabled ? bgColor : rippleColor}
-      onPress={disabled ? () => null : onPress}
+      onPress={!disabled && !isAndroid ? onPress : () => null}
       activeOpacity={disabled ? 0 : 0.2}
       style={[
         styles.container,
