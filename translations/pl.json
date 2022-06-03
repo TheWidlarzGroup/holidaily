@@ -379,5 +379,10 @@
   },
   "privacyPolicy": {
     "lastUpdate": "Ostatnia aktualizacja: {{date}}"
+  },
+  "calendar": {
+    "cantDeselect": "Nie możesz odznaczyć wszystkich zespołów :(",
+    "calendarPurpose": "Celem tego kalendarza jest możliwość sprawdzenia terminów urlopów Twoich wspólpracowników.",
+    "gotIt": "Rozumiem"
   }
 }
