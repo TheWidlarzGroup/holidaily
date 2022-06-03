@@ -25,7 +25,7 @@ export const CategoriesSlider = ({
     useBooleanState(false)
 
   const handleToggleSelection = (id: number) => {
-    const selectedTeams = filterCategories.filter((team) => team.isSelected === true)
+    const selectedTeams = filterCategories.filter((team) => team.isSelected)
     const isSelected = filterCategories.find((cat) => cat.id === id)?.isSelected
     if (selectedTeams.length === 1 && isSelected) return openWarningModal()
     toggleFilterItemSelection(id)
