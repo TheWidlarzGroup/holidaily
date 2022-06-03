@@ -3,12 +3,14 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Box } from 'utils/theme/index'
 
 type AnimatedBarProps = {
+  isActive: boolean
   reverseAnimation?: boolean
   disableInitialAnimation?: boolean
 } & React.ComponentProps<typeof Box>
 export const AnimatedBar: FC<AnimatedBarProps> = ({
   reverseAnimation,
   disableInitialAnimation,
+  isActive,
   ...p
 }) => {
   const barWidth = useSharedValue(reverseAnimation ? 100 : 0)
@@ -31,7 +33,7 @@ export const AnimatedBar: FC<AnimatedBarProps> = ({
   return (
     <Box flex={1} {...p}>
       <Animated.View style={animatedProgressStyle}>
-        <Box backgroundColor="tertiary" height={4} borderRadius="full" />
+        <Box backgroundColor={isActive ? 'tertiary' : 'lightGrey'} height={4} borderRadius="full" />
       </Animated.View>
       <Box
         backgroundColor="lightGrey"

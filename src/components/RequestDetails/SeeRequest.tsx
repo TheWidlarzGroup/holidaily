@@ -5,6 +5,7 @@ import IconBack from 'assets/icons/icon-back2.svg'
 import { useNavigation } from '@react-navigation/native'
 import { RequestsNavigationProps, RequestsNavigatorType } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
+import { StatusBar } from 'react-native'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
@@ -15,6 +16,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+      <StatusBar backgroundColor={theme.colors.veryLightGrey} />
       <ModalHeader>
         <BaseOpacity
           onPress={() => navigate('STATS_AND_REQUESTS')}

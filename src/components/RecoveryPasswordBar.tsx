@@ -10,13 +10,13 @@ export const RecoveryPasswordBar: FC<RecoveryPasswordBarTypes> = ({ currentScree
   <Box flexDirection="row" paddingHorizontal="m">
     {currentScreen === 'RecoveryCode' ? (
       <>
-        <AnimatedBar marginRight="s" />
+        <AnimatedBar marginRight="s" isActive />
         <Box backgroundColor="lightGrey" height={4} flex={1} marginLeft="s" />
       </>
     ) : (
       <>
         <Box backgroundColor="tertiary" height={4} flex={1} marginRight="s" />
-        <AnimatedBar marginLeft="s" />
+        <AnimatedBar marginLeft="s" isActive />
       </>
     )}
   </Box>

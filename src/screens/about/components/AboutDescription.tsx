@@ -2,14 +2,24 @@ import React from 'react'
 import { Trans } from 'react-i18next'
 import { Box, Text } from 'utils/theme'
 
-export const AboutDescription = () => (
-  <Box paddingHorizontal="m" paddingBottom="lplus">
+type AboutDescriptionProps = {
+  isFromWelcomeScreen?: true
+}
+
+export const AboutDescription = (p: AboutDescriptionProps) => (
+  <Box paddingHorizontal="m" paddingBottom="lplus" paddingTop="ml">
     <Text textAlign="left" variant="textMD" color="black">
       <Trans
         ns="welcome"
         i18nKey="aboutDesc1"
         components={{
-          b: <Text variant="textBoldMD" color="primary" textAlign="left" />,
+          b: (
+            <Text
+              variant="textBoldMD"
+              color={p.isFromWelcomeScreen ? 'primary' : 'black'}
+              textAlign="left"
+            />
+          ),
         }}
       />
     </Text>
@@ -18,7 +28,13 @@ export const AboutDescription = () => (
         ns="welcome"
         i18nKey="aboutDesc2"
         components={{
-          b: <Text variant="textMD" color="black" textAlign="left" />,
+          b: (
+            <Text
+              variant={p.isFromWelcomeScreen ? 'textMD' : 'textBoldMD'}
+              color="black"
+              textAlign="left"
+            />
+          ),
         }}
       />
     </Text>

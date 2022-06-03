@@ -1,6 +1,6 @@
 {
   "name": "Holidaily",
-  "version": "1.0.29",
+  "version": "1.0.31",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@amplitude/react-native": "^2.11.0",
-    "@bibabovn/react-native-newrelic": "^1.9.0",
     "@codler/react-native-keyboard-aware-scroll-view": "^2.0.1",
     "@react-native-async-storage/async-storage": "^1.17.0",
     "@react-native-clipboard/clipboard": "^1.8.4",

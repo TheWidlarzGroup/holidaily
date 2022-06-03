@@ -35,7 +35,6 @@ export const SaveChangesButton = ({
       <CustomButton
         marginHorizontal={theme.spacing.lplus}
         marginVertical={theme.spacing.m}
-        borderWidth={0}
         label={t('discardChanges')}
         variant="secondary"
         onPress={onDiscard}

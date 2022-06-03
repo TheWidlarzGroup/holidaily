@@ -11,10 +11,11 @@ export const RequestVacationBar = ({ currentScreen }: RequestVacationBarProps) =
 
   return (
     <Box flexDirection="row" paddingHorizontal="m">
-      <AnimatedBar marginRight="s" />
+      <AnimatedBar marginRight="s" isActive />
       <AnimatedBar
         disableInitialAnimation
         reverseAnimation={currentScreen === initialScreen}
+        isActive={currentScreen === 'Summary'}
         marginLeft="s"
       />
     </Box>

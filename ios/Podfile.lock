@@ -45,7 +45,6 @@ PODS:
   - libwebp/mux (1.2.1):
     - libwebp/demux
   - libwebp/webp (1.2.1)
-  - NewRelicAgent (7.3.5)
   - OneSignal (3.11.1):
     - OneSignal/OneSignalCore (= 3.11.1)
     - OneSignal/OneSignalExtension (= 3.11.1)
@@ -274,9 +273,6 @@ PODS:
     - React-Core
   - react-native-month-year-picker (1.8.1):
     - React
-  - react-native-newrelic (1.9.0):
-    - NewRelicAgent
-    - React-Core
   - react-native-onesignal (4.3.10):
     - OneSignalXCFramework (= 3.11.1)
     - React (< 1.0.0, >= 0.13.0)
@@ -445,7 +441,6 @@ DEPENDENCIES:
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-month-year-picker (from `../node_modules/react-native-month-year-picker`)
-  - "react-native-newrelic (from `../node_modules/@bibabovn/react-native-newrelic`)"
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -480,7 +475,6 @@ SPEC REPOS:
     - AnalyticsConnector
     - fmt
     - libwebp
-    - NewRelicAgent
     - OneSignal
     - OneSignalXCFramework
     - SDWebImage
@@ -552,8 +546,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-month-year-picker:
     :path: "../node_modules/react-native-month-year-picker"
-  react-native-newrelic:
-    :path: "../node_modules/@bibabovn/react-native-newrelic"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
   react-native-safe-area-context:
@@ -629,7 +621,6 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
-  NewRelicAgent: b887ea75f6de2bb2fcf3ec0af4c5aa648efce2d0
   OneSignal: 60902887c93f91e9b5599583e7df5f55b2144755
   OneSignalXCFramework: 8bdcaa3b7f6082565bf29c5481435376a33e94f2
   Permission-LocationAlways: fbf36cbdcabc3101f1168ad1ec45cfc5a6448cc4
@@ -649,7 +640,6 @@ SPEC CHECKSUMS:
   react-native-document-picker: 5663fe4bcdb646200683a41790464d2793307ac8
   react-native-image-picker: e95b4785b685cfc06609bc50ed6fb55b59990c99
   react-native-month-year-picker: 66acab2013309482578a015f01c71e8f2eebb134
-  react-native-newrelic: c4ce90bfff64b857394a7e49c6aa22487c844e67
   react-native-onesignal: ebe25c107bc2d04aa1db040b1b5dee56f4df4436
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457

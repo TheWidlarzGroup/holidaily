@@ -21,9 +21,7 @@ export const DrawerBackArrow: FC<DrawerBackArrowProps> = ({ goBack, title = '' }
         <BackArrowIcon height={18} width={18} color={styles.arrow.color} />
       </TouchableOpacity>
       <Box flex={1}>
-        <Text variant="boldBlackCenter20" color="black">
-          {title}
-        </Text>
+        <Text variant="displayBoldSM">{title}</Text>
       </Box>
       <Box width={8} />
     </Box>
