@@ -23,7 +23,7 @@ type DetailsProps = {
 export const Details = (p: DetailsProps) => {
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const { control, register, errors } = useForm()
-  const { sickTime, isPeriodInvalid, requestData, setRequestData } = useRequestVacationContext()
+  const { sickTime, isPeriodInvalid, requestData } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
 
@@ -69,10 +69,8 @@ export const Details = (p: DetailsProps) => {
           onBlur={p.showNext}
           autoComplete="off"
           onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
+          reset={() => p.onDescriptionChange('')}
           maxLength={300}
-          reset={() => {
-            setRequestData({ ...requestData, description: '' })
-          }}
           value={requestData.description}
         />
       </Box>

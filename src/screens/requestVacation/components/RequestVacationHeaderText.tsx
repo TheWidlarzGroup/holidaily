@@ -42,7 +42,7 @@ export const RequestVacationHeaderText = (p: HeaderProps) => {
 }
 const useStyles = mkUseStyles((theme) => ({
   stepBackBtn: {
-    padding: theme.spacing.s,
+    paddingHorizontal: theme.spacing.s,
     alignSelf: 'flex-end',
     meginBottom: theme.spacing.m,
   },

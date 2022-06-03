@@ -2,10 +2,8 @@ import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { getDurationInDays } from 'utils/dates'
-import { BaseOpacity, Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
+import { Box, Text, Theme, useTheme } from 'utils/theme'
 import ArrowRight from 'assets/icons/arrow-right.svg'
-import { useNavigation } from '@react-navigation/native'
-import { BudgetNavigationType } from 'navigation/types'
 import { Languages } from '../../../../i18n'
 
 type SectionProps = {
@@ -28,7 +26,6 @@ const descriptions: Record<SectionProps['variant'], keyof Languages['en']['budge
 export const Section = (p: SectionProps) => {
   const { t } = useTranslation('budget')
   const theme = useTheme()
-  const { navigate } = useNavigation<BudgetNavigationType<'BUDGET'>>()
   const { data: organization } = useGetOrganization()
   const PTO_LIMIT = organization?.maxPtoDays ?? 21
   return (
@@ -44,14 +41,9 @@ export const Section = (p: SectionProps) => {
 
       {p.variant === 'left' && (
         <>
-          <BaseOpacity
-            hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
-            position="absolute"
-            right={theme.spacing.m}
-            top="40%"
-            onPress={() => navigate('PTO_POLICY')}>
+          <Box position="absolute" right={theme.spacing.m} top="40%">
             <ArrowRight color={theme.colors.darkGrey} />
-          </BaseOpacity>
+          </Box>
           <ProgressBar value={p.duration} max={PTO_LIMIT} />
         </>
       )}
@@ -59,49 +51,25 @@ export const Section = (p: SectionProps) => {
   )
 }
 
-const ProgressBar = ({ value, max }: { value: number; max: number }) => {
-  const styles = useStyles()
-  const theme = useTheme()
-  return (
-    <>
-      <Box
-        style={[styles.progressTranslation]}
-        width={`${(value / max) * 100}%`}
-        height={theme.spacing.xs}
-        position="absolute"
-        bottom={4}
-        right={0}
-        backgroundColor="special"
-        borderRadius="m"
-        zIndex="2"
-      />
-      <Box
-        width="100%"
-        height={theme.spacing.xs}
-        bg="lightGrayOpaque"
-        borderRadius="m"
-        position="absolute"
-        bottom={0}
-      />
-    </>
-  )
-}
-
-const useStyles = mkUseStyles(() => ({
-  progressTranslation: {
-    transform: [
-      {
-        translateY: 4,
-      },
-    ],
-  },
-  infoPressable: {
-    position: 'absolute',
-    borderWidth: 3,
-    borderColor: 'transparent',
-    right: 0,
-  },
-  alignSelfStart: {
-    alignSelf: 'flex-start',
-  },
-}))
+const ProgressBar = ({ value, max }: { value: number; max: number }) => (
+  <>
+    <Box
+      width={`${(value / max) * 100}%`}
+      padding="xxs"
+      position="absolute"
+      bottom={0}
+      right={0}
+      backgroundColor="special"
+      borderRadius="m"
+      zIndex="2"
+    />
+    <Box
+      width="100%"
+      padding="xxs"
+      bg="lightGrayOpaque"
+      borderRadius="m"
+      position="absolute"
+      bottom={0}
+    />
+  </>
+)
