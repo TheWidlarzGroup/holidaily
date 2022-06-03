@@ -16,22 +16,31 @@ type CategoriesSliderProps = {
 export const CategoriesSlider = ({
   filterCategories,
   toggleFilterItemSelection,
-}: CategoriesSliderProps) => (
-  <Box paddingTop="l">
-    <FlatList
-      horizontal
-      data={filterCategories}
-      renderItem={({ item }) => (
-        <TertiaryButton
-          teamName={item.title}
-          isSelected={item.isSelected}
-          onPress={() => toggleFilterItemSelection(item.id)}
-        />
-      )}
-      ListHeaderComponent={() => <Box width={16} />}
-      ListFooterComponent={() => <Box width={16} />}
-      keyExtractor={({ id }) => id.toString()}
-      showsHorizontalScrollIndicator={false}
-    />
-  </Box>
-)
+}: CategoriesSliderProps) => {
+  const handleToggleSelection = (id: number) => {
+    const selectedTeams = filterCategories.filter((team) => team.isSelected === true)
+    const isSelected = filterCategories.find((cat) => cat.id === id)?.isSelected
+    if (selectedTeams.length === 1 && isSelected) return
+    toggleFilterItemSelection(id)
+  }
+
+  return (
+    <Box paddingTop="l">
+      <FlatList
+        horizontal
+        data={filterCategories}
+        renderItem={({ item }) => (
+          <TertiaryButton
+            teamName={item.title}
+            isSelected={item.isSelected}
+            onPress={() => handleToggleSelection(item.id)}
+          />
+        )}
+        ListHeaderComponent={() => <Box width={16} />}
+        ListFooterComponent={() => <Box width={16} />}
+        keyExtractor={({ id }) => id.toString()}
+        showsHorizontalScrollIndicator={false}
+      />
+    </Box>
+  )
+}
