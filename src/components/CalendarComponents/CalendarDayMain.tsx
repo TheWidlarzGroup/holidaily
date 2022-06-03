@@ -56,7 +56,7 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
         borderRadius="lmin"
         width={p.dayWidth ?? 30}
         height={p.dayHeight ?? 30}
-        aspectRatio={p.marking.endingDay && p.marking.startingDay ? 1 : undefined}
+        aspectRatio={p.marking?.endingDay && p.marking?.startingDay ? 1 : undefined}
         margin="s"
         justifyContent="center"
         alignItems="center">
