@@ -61,7 +61,7 @@ const OptionButton = ({ children, onPress }: PropsWithChildren<{ onPress: F0 }>)
     <Pressable
       {...buttonProps}
       android_ripple={{
-        color: theme.colors.special,
+        color: theme.colors.newRippleColor,
       }}>
       {children}
     </Pressable>
