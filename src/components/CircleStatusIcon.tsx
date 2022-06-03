@@ -55,7 +55,7 @@ const mkWrappedIcon =
       ...customIconProps,
     }
     return (
-      <Box bg={bg} {...iconWrapperStyle}>
+      <Box marginLeft="xm" bg={bg} {...iconWrapperStyle}>
         <Icon {...iconProps} />
       </Box>
     )
