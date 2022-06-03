@@ -71,9 +71,6 @@ export const Details = (p: DetailsProps) => {
           onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
           reset={() => p.onDescriptionChange('')}
           maxLength={300}
-          reset={() => {
-            setRequestData({ ...requestData, description: '' })
-          }}
           value={requestData.description}
         />
       </Box>
