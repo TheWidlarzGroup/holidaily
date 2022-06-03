@@ -1,6 +1,5 @@
 import { eachDayOfInterval } from 'date-fns'
 import { Team, User } from 'mockApi/models/mirageTypes'
-import { isWeekendOrHoliday } from 'poland-public-holidays'
 import { DayOffEvent } from 'screens/calendar/components/DayEvent'
 import { getISODateString, getISOMonthYearString } from './dates'
 import { generateUUID } from './generateUUID'
@@ -16,7 +15,6 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
         end: new Date(req.endDate),
       })
       dates.forEach((date) => {
-        if (isWeekendOrHoliday(date)) return
         const request = {
           id: generateUUID(),
           person: `${user.firstName} ${user.lastName}`,

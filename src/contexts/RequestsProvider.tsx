@@ -1,7 +1,5 @@
 import React, { ReactNode, useState, useCallback, useEffect } from 'react'
 import { useGetHolidayRequests } from 'hooks/useGetHolidayRequests'
-import { mergeRequestsArrays } from 'utils/mergeRequestsArrays'
-import { getWeekendDays } from 'utils/getWeekendDays'
 import { RequestContextProps, RequestsContext } from './RequestsContext'
 import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
 
@@ -19,9 +17,7 @@ export const RequestsContextProvider = ({ children }: RequestProviderProps) => {
 
   useEffect(() => {
     if (allMonths.length > 0) {
-      const monthsList = allMonths.map((month) => month.date)
-      const allMonthsWithWeekendDays = getWeekendDays(monthsList)
-      setRequests(mergeRequestsArrays(allMonths, allMonthsWithWeekendDays))
+      setRequests(allMonths)
     }
   }, [allMonths])
 
