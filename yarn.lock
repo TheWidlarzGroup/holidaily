@@ -1094,13 +1094,6 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bibabovn/react-native-newrelic@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@bibabovn/react-native-newrelic/-/react-native-newrelic-1.9.0.tgz#8450d1ff2f94d45e86e079151285dfc6d5c215e3"
-  integrity sha512-0TMwpD/PKZj+MTufG0oUFvjINX1dQUs3NKQ4YOzZrEMDVhuL6r0LcJ8cPZWu2cSksSm3hzX2gxITb8GlgQ9UeQ==
-  dependencies:
-    stacktrace-parser "^0.1.10"
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -9027,7 +9020,7 @@ stackframe@^1.1.1:
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-1.2.1.tgz#1033a3473ee67f08e2f2fc8eba6aef4f845124e1"
   integrity sha512-h88QkzREN/hy8eRdyNhhsO7RSJ5oyTqxxmmn0dzBIMUclZsjpfmrsg81vp8mjjAs2vAZ72nyWxRUwSwmh0e4xg==
 
-stacktrace-parser@^0.1.10, stacktrace-parser@^0.1.3:
+stacktrace-parser@^0.1.3:
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/stacktrace-parser/-/stacktrace-parser-0.1.10.tgz#29fb0cae4e0d0b85155879402857a1639eb6051a"
   integrity sha512-KJP1OCML99+8fhOHxwwzyWrlUuVX5GQ0ZpJTd1DFXhdkrvg1szxfHhawXUZ3g9TkXORQd4/WG68jMlQZ2p8wlg==

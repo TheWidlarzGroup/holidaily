@@ -6,8 +6,6 @@
 #import <React/RCTLinkingManager.h>
 #import "RNSplashScreen.h"
 
-#import <NewRelic/NewRelic.h>
-
 @import RNSiriShortcuts;
 
 #ifdef FB_SONARKIT_ENABLED
@@ -32,9 +30,7 @@ static void InitializeFlipper(UIApplication *application) {
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  
-  [NewRelic startWithApplicationToken:@"eu01xx5fd24600d4363c974b0535475ce24533ee76-NRMA"];
-  
+    
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
