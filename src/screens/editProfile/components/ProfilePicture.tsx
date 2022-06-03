@@ -10,6 +10,7 @@ import { useModalContext } from 'contexts/ModalProvider'
 import { makeUserDetails } from 'utils/userDetails'
 import { InputEditIcon } from 'components/InputEditIcon'
 import { Control, Controller } from 'react-hook-form'
+import { Analytics } from 'services/analytics'
 
 type ProfilePictureProps = {
   userPhoto: string | null
@@ -41,8 +42,10 @@ const ProfilePictureForm = ({ onChange, userPhoto, onDelete }: ProfilePicturePro
   const showUploadAttachmentModal = () => {
     hideModal()
     setTimeout(() => {
+      Analytics().track('USER_ADD_ATTACHMENT_MODAL_OPENED')
       showModal(
         <UploadAttachmentModal
+          source="USER"
           isVisible
           showCamera
           hideModal={hideModal}

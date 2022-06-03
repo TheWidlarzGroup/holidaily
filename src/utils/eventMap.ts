@@ -10,6 +10,8 @@ type AddRequestPayload = {
   description?: string
 }
 
+export type Screens = 'FEED' | 'USER' | 'REQUEST'
+
 export const analyticsEventMap = {
   // General
   APP_LAUNCH: { name: '[GENERAL] App-launch', payload: fcast<never>() },
@@ -46,17 +48,77 @@ export const analyticsEventMap = {
     name: '[HOLIFEED] Comment Created',
     payload: fcast<{ postId?: string; content: string }>(),
   },
+  FEED_ADD_ATTACHMENT_MODAL_OPENED: {
+    name: '[HOLIFEED] Add Attachment Modal Opened',
+    payload: fcast<never>(),
+  },
+  FEED_ADD_ATTACHMENT_MODAL_CANCELLED: {
+    name: '[HOLIFEED] Add Attachment Modal Cancelled',
+    payload: fcast<never>(),
+  },
+  FEED_ADD_ATTACHMENT_MODAL_GALLERY_PICKED: {
+    name: '[HOLIFEED] Add Attachment Modal Gallery Picked',
+    payload: fcast<never>(),
+  },
+  FEED_ADD_ATTACHMENT_MODAL_CAMERA_PICKED: {
+    name: '[HOLIFEED] Add Attachment Modal Camera Picked',
+    payload: fcast<never>(),
+  },
+  FEED_ADD_ATTACHMENT_MODAL_FILE_PICKED: {
+    name: '[HOLIFEED] Add Attachment Modal File Picked',
+    payload: fcast<never>(),
+  },
 
   // Add Request
   REQUEST_VACATION_ADD: {
     name: '[REQUEST_VACATION] Request Vacation Added',
     payload: fcast<AddRequestPayload>(),
   },
+  REQUEST_ADD_ATTACHMENT_MODAL_OPENED: {
+    name: '[REQUEST_VACATION] Add Attachment Modal Opened',
+    payload: fcast<never>(),
+  },
+  REQUEST_ADD_ATTACHMENT_MODAL_CANCELLED: {
+    name: '[REQUEST_VACATION] Add Attachment Modal Cancelled',
+    payload: fcast<never>(),
+  },
+  REQUEST_ADD_ATTACHMENT_MODAL_GALLERY_PICKED: {
+    name: '[REQUEST_VACATION] Add Attachment Modal Gallery Picked',
+    payload: fcast<never>(),
+  },
+  REQUEST_ADD_ATTACHMENT_MODAL_CAMERA_PICKED: {
+    name: '[REQUEST_VACATION] Add Attachment Modal Camera Picked',
+    payload: fcast<never>(),
+  },
+  REQUEST_ADD_ATTACHMENT_MODAL_FILE_PICKED: {
+    name: '[REQUEST_VACATION] Add Attachment Modal Camera Picked',
+    payload: fcast<never>(),
+  },
 
   // Edit Profile
   USER_COLOR_PICKED: {
     name: '[EDIT_PROFILE] User Color Picked',
     payload: fcast<{ color: string }>(),
+  },
+  USER_ADD_ATTACHMENT_MODAL_OPENED: {
+    name: '[EDIT_PROFILE] Add Attachment Modal Opened',
+    payload: fcast<never>(),
+  },
+  USER_ADD_ATTACHMENT_MODAL_CANCELLED: {
+    name: '[EDIT_PROFILE] Add Attachment Modal Cancelled',
+    payload: fcast<never>(),
+  },
+  USER_ADD_ATTACHMENT_MODAL_GALLERY_PICKED: {
+    name: '[EDIT_PROFILE] Add Attachment Modal Gallery Picked',
+    payload: fcast<never>(),
+  },
+  USER_ADD_ATTACHMENT_MODAL_CAMERA_PICKED: {
+    name: '[EDIT_PROFILE] Add Attachment Modal Camera Picked',
+    payload: fcast<never>(),
+  },
+  USER_ADD_ATTACHMENT_MODAL_FILE_PICKED: {
+    name: '[EDIT_PROFILE] Add Attachment Modal File Picked',
+    payload: fcast<never>(),
   },
   TEAM_UNSUBSCRIBED: {
     name: '[EDIT_PROFILE] Team Unsubscribed',
