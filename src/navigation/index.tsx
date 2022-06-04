@@ -99,10 +99,6 @@ export const AppNavigation = () => {
       onStateChange={() => {
         const currentRouteName = navigationRef.current.getCurrentRoute()
         const currentScreenName = currentRouteName.name
-        console.log(
-          '🚀 ~ file: index.tsx ~ line 102 ~ AppNavigation ~ currentScreenName',
-          currentScreenName
-        )
         if (currentScreenName) Analytics().setCurrentScreen(currentScreenName)
         routeNameRef.current = currentRouteName
       }}>
