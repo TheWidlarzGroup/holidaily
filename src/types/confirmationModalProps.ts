@@ -8,4 +8,5 @@ export type ConfirmationModalProps = {
   declineBtnText?: string
   acceptBtnText?: string
   statusIcon?: 'success' | 'error'
+  hideRejectButton?: true
 }

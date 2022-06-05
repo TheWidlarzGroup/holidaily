@@ -1,6 +1,6 @@
 {
   "name": "Holidaily",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@amplitude/react-native": "^2.11.0",
-    "@bibabovn/react-native-newrelic": "^1.9.0",
     "@codler/react-native-keyboard-aware-scroll-view": "^2.0.1",
     "@react-native-async-storage/async-storage": "^1.17.0",
     "@react-native-clipboard/clipboard": "^1.8.4",
@@ -44,7 +43,7 @@
     "react-native-document-picker": "^8.0.0",
     "react-native-dotenv": "^2.5.5",
     "react-native-fast-image": "^8.3.4",
-    "react-native-gesture-handler": "^1.10.3",
+    "react-native-gesture-handler": "^2.4.2",
     "react-native-image-picker": "^4.0.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "13.0.1",

@@ -10,7 +10,6 @@ buildscript {
 
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: "com.android.application"
-apply plugin: 'newrelic'
 
 import com.android.build.OutputFile
 
@@ -144,8 +143,8 @@ android {
         applicationId "com.holidaily"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 39
-        versionName "1.0.30"
+        versionCode 40
+        versionName "1.0.31"
     }
     splits {
         abi {
@@ -207,8 +206,6 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
-    implementation "com.newrelic.agent.android:android-agent:5.+"
 
     implementation 'com.smartlook.recording:app:1.8.13-native'
 
