@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
-import { isAndroid } from 'react-native-calendars/src/expandableCalendar/commons'
+import { isAndroid } from 'utils/layout'
 
 export type MessageInputProps = {
   messageContent: string
