@@ -10,7 +10,7 @@ type AddRequestPayload = {
   description?: string
 }
 
-export type Screens = 'FEED' | 'USER' | 'REQUEST'
+export type AnalyticsScreens = 'FEED' | 'USER' | 'REQUEST'
 
 export const analyticsEventMap = {
   // General
