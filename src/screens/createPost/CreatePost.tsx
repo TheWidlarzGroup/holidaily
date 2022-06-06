@@ -65,6 +65,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       text: data.text,
       reactions: [],
       comments: [],
+      recentlyAdded: true,
       data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
     mutate(feedPost)
