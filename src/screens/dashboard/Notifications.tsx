@@ -33,7 +33,7 @@ export const Notifications = () => {
         <Text variant="body1">{t('header')}</Text>
         <Box paddingRight="l" />
       </Box>
-      <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm">
+      <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm" flex={1}>
         {data?.notifications && <NotificationsList data={data.notifications} />}
         <LoadingModal show={isLoading} />
       </Box>
