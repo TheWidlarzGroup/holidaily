@@ -32,12 +32,20 @@ export const RequestVacationHeaderText = (p: HeaderProps) => {
         justifyContent="space-between"
         width="100%"
         paddingBottom="s">
-        <Pressable style={styles.stepBackBtn} onPress={onCloseModal}>
+        <Pressable
+          style={styles.stepBackBtn}
+          onPress={onCloseModal}
+          hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}>
           <CrossIcon style={styles.crossIcon} height={CROSS_SIZE} width={CROSS_SIZE} />
         </Pressable>
         {p.step > 0 && (
           <Pressable style={styles.stepBackBtn} onPress={stepBack}>
-            <ArrowLeft style={styles.crossIcon} height={ARROW_SIZE} width={ARROW_SIZE} />
+            <ArrowLeft
+              style={styles.crossIcon}
+              height={ARROW_SIZE}
+              width={ARROW_SIZE}
+              hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
+            />
           </Pressable>
         )}
       </Box>
