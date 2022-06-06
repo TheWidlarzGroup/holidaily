@@ -3,15 +3,17 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Comment as CommentType } from 'mock-api/models/miragePostTypes'
 import { useTranslation } from 'react-i18next'
+import { GestureResponderEvent } from 'react-native'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
   comment: CommentType
+  handleEdit: F1<GestureResponderEvent>
   hideAvatar?: boolean
 }
 
-export const Comment = ({ comment, hideAvatar }: CommentProps) => {
+export const Comment = ({ comment, hideAvatar, handleEdit }: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
   const { t } = useTranslation('feed')
 
@@ -39,7 +41,13 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => {
           />
         )}
       </Box>
-      <Bubble padding="xm" flexShrink={1} activeOpacity={1} isCommentBubble marginTop="-xs">
+      <Bubble
+        padding="xm"
+        flexShrink={1}
+        activeOpacity={0.6}
+        isCommentBubble
+        marginTop="-xs"
+        onLongPress={(e) => handleEdit(e)}>
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}
           {comment.text.length > 130 && !isCommentExpanded && (

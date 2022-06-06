@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, theme } from 'utils/theme'
 import TrashIcon from 'assets/icons/icon-trash.svg'
 import EditIcon from 'assets/icons/icon-edit2.svg'
+import { windowWidth } from 'utils/deviceSizes'
 
 const TRASH_ICON_SIZE = 21
 const EDIT_ICON_SIZE = 19
@@ -10,19 +11,40 @@ const EDIT_ICON_SIZE = 19
 type MenuTypes = {
   onDeletePress: F0
   onEditPress: F0
+  isOpen: boolean
+  coordsX: number
+  coordsY: number
 }
 
-export const EditContextMenu = ({ onDeletePress, onEditPress }: MenuTypes) => {
+export const EditContextMenu = ({
+  onDeletePress,
+  onEditPress,
+  isOpen,
+  coordsX,
+  coordsY,
+}: MenuTypes) => {
+  const [menuWidth, setMenuWidth] = useState(0)
   const { t } = useTranslation('feed')
+
+  if (!isOpen) return null
+
+  const isTooWide = windowWidth - coordsX < menuWidth
 
   return (
     <Box
       height={95}
-      minWidth={150}
-      maxWidth={230}
+      minWidth={140}
+      maxWidth={220}
       backgroundColor="contextMenu"
       position="absolute"
-      borderRadius="xm">
+      borderRadius="xm"
+      zIndex="10"
+      top={coordsY - 50}
+      left={!isTooWide ? coordsX : undefined}
+      right={!isTooWide ? undefined : windowWidth - coordsX}
+      onLayout={({ nativeEvent }) => {
+        setMenuWidth(nativeEvent.layout.width)
+      }}>
       <BaseOpacity
         onPress={onEditPress}
         flex={1}
