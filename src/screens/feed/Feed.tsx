@@ -6,6 +6,7 @@ import { useLanguage } from 'hooks/useLanguage'
 import { BottomTabNavigationProps } from 'navigation/types'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { FlatList } from 'react-native'
+import { FeedPost as FeedPostType } from 'mockApi/models/miragePostTypes'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -55,9 +56,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         onScrollToIndexFailed={() => {
           setTimeout(scrollToId, 100)
         }}
-        ListHeaderComponent={<FeedHeader />}
+        ListHeaderComponent={FeedHeader}
         data={data}
-        renderItem={({ item }) => <FeedPost post={item} />}
+        renderItem={renderFeedPost}
         keyExtractor={({ meta }) => meta.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 90 }}
@@ -65,3 +66,5 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     </SafeAreaWrapper>
   )
 }
+
+const renderFeedPost = ({ item }: { item: FeedPostType }) => <FeedPost post={item} />
