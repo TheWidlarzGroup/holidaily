@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Analytics } from 'services/analytics'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { FormRequestVacation } from './FormRequestVacation'
@@ -26,6 +27,10 @@ export const RequestVacationSteps = ({
 }: StepsProps) => {
   const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData } =
     useRequestVacationContext()
+
+  useEffect(() => {
+    Analytics().track('REQUEST_STEP_CHANGED', { step })
+  }, [step])
 
   if (step === 0)
     return (
