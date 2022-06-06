@@ -8,7 +8,7 @@ import { FeedPostHeader } from './FeedPostHeader'
 
 type FeedPostProps = {
   post: FeedPostType
-  handleEdit: F1<GestureResponderEvent>
+  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
 }
 
 export const FeedPost = ({ post, handleEdit }: FeedPostProps) => (

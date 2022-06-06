@@ -9,7 +9,7 @@ import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
   comment: CommentType
-  handleEdit: F1<GestureResponderEvent>
+  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
   hideAvatar?: boolean
 }
 
@@ -47,7 +47,9 @@ export const Comment = ({ comment, hideAvatar, handleEdit }: CommentProps) => {
         activeOpacity={0.6}
         isCommentBubble
         marginTop="-xs"
-        onLongPress={(e) => handleEdit(e)}>
+        onLongPress={(e) =>
+          handleEdit(e, { type: 'comment', id: comment.meta.id, author: comment.meta.author.name })
+        }>
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}
           {comment.text.length > 130 && !isCommentExpanded && (

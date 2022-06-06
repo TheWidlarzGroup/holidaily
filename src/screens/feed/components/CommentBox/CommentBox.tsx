@@ -9,7 +9,7 @@ import { CommentBoxBtn } from './CommentBoxBtn'
 type CommentBoxProps = Pick<FeedPost, 'comments'> & {
   areCommentsExpanded: boolean
   toggleCommentsExpanded: F0
-  handleEdit: F1<GestureResponderEvent>
+  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
 }
 
 export const CommentBox = ({

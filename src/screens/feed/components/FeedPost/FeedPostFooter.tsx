@@ -8,7 +8,10 @@ import { isScreenHeightShort } from 'utils/deviceSizes'
 import { CommentBox } from '../CommentBox/CommentBox'
 import { FooterBar } from '../FooterBar/FooterBar'
 
-type Post = { post: FeedPost; handleEdit: F1<GestureResponderEvent> }
+type Post = {
+  post: FeedPost
+  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
+}
 
 export const FeedPostFooter = ({ post, handleEdit }: Post) => {
   const [areCommentsExpanded, { toggle: toggleCommentsExpanded, setTrue: expandComments }] =

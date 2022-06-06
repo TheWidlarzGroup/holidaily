@@ -3,6 +3,7 @@ import { EditContextMenu } from 'components/EditContextMenu'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { BottomTabNavigationProps } from 'navigation/types'
@@ -17,6 +18,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [language] = useLanguage()
   const { data } = useGetPostsData()
   const navigation = useNavigation()
+  const { user } = useUserContext()
 
   const [isContextMenuOpen, { setFalse: closeContextMenu, setTrue: openContextMenu }] =
     useBooleanState(false)
@@ -51,10 +53,17 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     return removeListener
   }, [navigation])
 
-  const handleEdit = (e: GestureResponderEvent) => {
+  const handleEdit = (
+    e: GestureResponderEvent,
+    target: { type: 'comment' | 'post'; id: string; author: string }
+  ) => {
+    // if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
     const { pageX, pageY } = e.nativeEvent
     setMenuCoords({ locationX: pageX, locationY: pageY })
     openContextMenu?.()
+    // if (target.type === 'comment') {
+
+    // }
   }
 
   if (!data) return <LoadingModal show />
