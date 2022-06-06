@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TextInput } from 'react-native'
+import { StyleProp, TextInput, ViewStyle } from 'react-native'
 import { BaseOpacity, Box, mkUseStyles, theme, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/icon-paperplane.svg'
 import Animated, {
@@ -30,6 +30,7 @@ export type MessageInputProps = {
 }
 
 const ICON_SIZE = 16
+const androidPaddings: StyleProp<ViewStyle> = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
 
 export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
   const {
@@ -111,8 +112,6 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   useEffect(() => {
     if (autofocus) setTimeout(() => combinedInputRef.current?.focus(), 50)
   }, [autofocus, combinedInputRef])
-
-  const androidPaddings = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
 
   return (
     <Box style={styles.container}>
