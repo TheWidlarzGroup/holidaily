@@ -9,6 +9,7 @@ import { CompoundLocation } from 'hooks/useLocation'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Attachments } from 'screens/requestVacation/components/additionals/Attachments'
+import { isIos } from 'utils/layout'
 
 type PostBodyProps = {
   text: string
@@ -28,7 +29,12 @@ export const PostBody = (props: PostBodyProps) => {
     <Box flexGrow={1} padding="s">
       <Box flexDirection="row" marginTop="-m">
         <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" padding="l" />
-        <Box marginLeft="s" marginTop="s" alignItems="flex-start" flexShrink={1} flexGrow={1}>
+        <Box
+          marginLeft="s"
+          marginTop={isIos ? 's' : 'none'}
+          alignItems="flex-start"
+          flexShrink={1}
+          flexGrow={1}>
           <TextInput
             multiline
             placeholderTextColor={styles.placeholder.color}

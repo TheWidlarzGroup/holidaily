@@ -5,6 +5,7 @@ import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
 import { Submit } from 'components/Submit'
 import IconPill from 'assets/icons/icon-pill.svg'
+import { isIos } from 'utils/layout'
 
 type SummaryRequestVacationProps = {
   description: string
@@ -37,7 +38,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   }
 
   return (
-    <Box flex={1} paddingHorizontal="m">
+    <Box flex={1} paddingHorizontal="m" paddingBottom={isIos ? 'ml' : 'none'}>
       {p.isSick && <SickTimeInfo />}
       <RequestDetails
         description={p.description}
