@@ -87,11 +87,12 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   const cancelRemovingPhoto = () => setAttachmentsToRemove([])
 
   const onSicktimeToggle = () => {
-    if (!sickTime)
-      changeRequestData((old) => {
-        if (old.description) return old
-        return { ...old, description: t('sickTimeLabel') }
-      })
+    changeRequestData((old) => {
+      const haveUserChangedDescription = !!old.description && old.description !== t('sickTimeLabel')
+      if (haveUserChangedDescription) return old
+      // Comment: sickTime wasn't updated yet
+      return { ...old, description: sickTime ? '' : t('sickTimeLabel') }
+    })
     toggleSickTime()
   }
 
