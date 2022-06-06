@@ -48,6 +48,7 @@ export const PostBody = (props: PostBodyProps) => {
           removeAttachment={props.removeAttachment}
           attachments={data}
           imagesPerScreenWidth={2}
+          disableDeleteImgOnPress
         />
       </Box>
     </Box>
