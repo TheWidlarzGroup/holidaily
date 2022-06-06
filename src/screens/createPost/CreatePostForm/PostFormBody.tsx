@@ -26,8 +26,8 @@ export const PostBody = (props: PostBodyProps) => {
 
   return (
     <Box flexGrow={1} padding="s">
-      <Box flexDirection="row" marginTop="-m">
-        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" padding="l" />
+      <Box flexDirection="row" marginTop="-m" alignItems="center">
+        <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
         <Box marginLeft="s" marginTop="s" alignItems="flex-start" flexShrink={1} flexGrow={1}>
           <TextInput
             multiline
@@ -60,7 +60,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   textInput: {
     flexGrow: 1,
-    paddingBottom: theme.spacing.l,
     borderColor: theme.colors.transparent,
     width: '100%',
     fontSize: theme.fontSize.sm,
