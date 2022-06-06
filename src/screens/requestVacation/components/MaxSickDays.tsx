@@ -8,8 +8,8 @@ export const MaxSickdays = () => (
   <Text marginBottom="l">
     <Trans
       ns="requestVacation"
-      i18nKey="maxSickdaysError"
-      values={{ max: MAX_SICK_DAYS_COUNT }}
+      i18nKey="maxSickDays"
+      values={{ maxDays: MAX_SICK_DAYS_COUNT }}
       components={{
         b: <Text variant="body1Bold" textAlign="left" />,
       }}
