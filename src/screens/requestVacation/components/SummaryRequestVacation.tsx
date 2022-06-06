@@ -42,6 +42,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
     <Box flex={1} paddingHorizontal="m">
       {p.isSick && <SickTimeInfo />}
       <RequestDetails
+        source="ADD_REQUEST"
         description={p.description}
         message={p.message ?? ''}
         attachments={p.attachments}

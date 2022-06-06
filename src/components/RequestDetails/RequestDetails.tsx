@@ -14,6 +14,7 @@ import { RequestFooter } from './RequestFooter'
 type RequestDetailsProps = {
   attachments?: DayOffRequest['attachments']
   showStatus?: true
+  source?: string
   wasSent?: true
 }
 
@@ -81,12 +82,14 @@ export const RequestDetails = (
           message={p.message}
         />
         <RequestAttachments attachments={p.attachments} />
-        <RequestFooter
-          status={p.status}
-          isSick={p.isSickTime}
-          startDay={p.startDate}
-          createdAt={p.createdAt}
-        />
+        {!!p.showStatus && (
+          <RequestFooter
+            status={p.status}
+            isSick={p.isSickTime}
+            startDay={p.startDate}
+            createdAt={p.createdAt}
+          />
+        )}
       </Box>
       {showPtoLeft && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
     </ScrollView>
