@@ -367,7 +367,10 @@
     "cancelled": "Declined",
     "past": "Past",
     "accepted": "Accepted",
-    "yourRequest": "Your request"
+    "sent": "Sent:",
+    "acceptedAt": "Accepted:",
+    "yourRequest": "Your request",
+    "automatically": "Automatically"
   },
   "about": {
     "rateApp": "Let us know how do you enjoy Holidaily!",

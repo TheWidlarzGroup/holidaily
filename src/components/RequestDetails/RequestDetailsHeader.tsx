@@ -17,11 +17,13 @@ export const RequestDetailsHeader = (p: RequestDetailsHeaderProps) => {
 
   return (
     <Box>
-      <Text variant="heading4">{p.description || t('timeOffDescriptionPlaceholder')}</Text>
+      <Text variant="textBoldMD" color="black" lineHeight={24}>
+        {p.description || t('timeOffDescriptionPlaceholder')}
+      </Text>
       {p.startDate && (
         <>
-          <Box paddingVertical="s">
-            <Text variant="textSM">
+          <Box marginVertical="s">
+            <Text variant="textSM" lineHeight={21}>
               {getFormattedPeriod(p.startDate, p.endDate)}{' '}
               {new Date(p.endDate ?? p.startDate).getFullYear()}
             </Text>
@@ -32,7 +34,7 @@ export const RequestDetailsHeader = (p: RequestDetailsHeaderProps) => {
             })}
           </Text>
           {!!p.message && (
-            <Text variant="regular15" paddingTop="m">
+            <Text variant="textSM" color="blackDarkerOnce" lineHeight={20} marginVertical="m">
               {p.message}
             </Text>
           )}
