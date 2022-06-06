@@ -306,6 +306,7 @@
     "addAnother": "Add another request",
     "ok": "Got it",
     "notEnoughPto": "Ooops! You don’t that many PTO",
+    "noPtoAvailable": "Ooops! Unfortunately, you don't have any more days out of office :(",
     "maxSickDays": "Ooops! You can take max. {{maxDays}} days of sick leave over a single request :(",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",

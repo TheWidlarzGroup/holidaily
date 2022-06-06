@@ -27,6 +27,11 @@ const getPeriodModalTexts = (p: GetPeriodModalTextsProps): { header: string; con
   if (!p.haveUserPickedPeriod) return { header: '', content: '' }
   if (p.isInvalid && p.isSickTime)
     return { header: p.tFunc('maxSickdaysError', { maxDays: MAX_SICK_DAYS_COUNT }), content: '' }
+  if (p.isInvalid && p.availablePto < 1)
+    return {
+      header: p.tFunc('noPtoAvailable'),
+      content: '',
+    }
   if (p.isInvalid)
     return {
       header: p.tFunc('notEnoughPto'),
