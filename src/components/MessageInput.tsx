@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
+import { isAndroid } from 'react-native-calendars/src/expandableCalendar/commons'
 
 export type MessageInputProps = {
   messageContent: string
@@ -111,13 +112,15 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     if (autofocus) setTimeout(() => combinedInputRef.current?.focus(), 50)
   }, [autofocus, combinedInputRef])
 
+  const androidPaddings = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
+
   return (
     <Box style={styles.container}>
       <Animated.View style={[styles.inputBox, errorBorderStyle]}>
         <TextInput
           ref={combinedInputRef}
           underlineColorAndroid={themeBase.colors.transparent}
-          style={styles.input}
+          style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={handleSubmit}
