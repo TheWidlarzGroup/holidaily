@@ -14,7 +14,7 @@ type AddRequestPayload = {
 
 type Request = Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
 
-export type Screens = 'FEED' | 'USER' | 'REQUEST'
+export type AnalyticsScreens = 'FEED' | 'USER' | 'REQUEST'
 
 export const analyticsEventMap = {
   // General

@@ -16,7 +16,7 @@ import FileIcon from 'assets/icons/icon-file.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import { useTranslation } from 'react-i18next'
 import { Analytics } from 'services/analytics'
-import { Screens } from 'utils/eventMap'
+import { AnalyticsScreens } from 'utils/eventMap'
 import { OptionsModal } from './OptionsModal'
 
 type UploadFilesProps =
@@ -28,7 +28,7 @@ type UploadFilesProps =
 
 type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
-  source: Screens
+  source: AnalyticsScreens
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | null>
