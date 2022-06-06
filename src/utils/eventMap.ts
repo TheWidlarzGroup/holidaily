@@ -7,6 +7,7 @@ type AddRequestPayload = {
   message?: string
   endDate?: string
   startDate?: string
+  createdAt?: string
   description?: string
 }
 

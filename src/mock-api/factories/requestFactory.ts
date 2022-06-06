@@ -31,7 +31,7 @@ export const genManyRequests = (count: number) => {
 export function genRandomDayOffRequest(
   status: DayOffRequest['status'] | 'now' = genReqStatus()
 ): Omit<DayOffRequest, 'id'> {
-  let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate'>
+  let request: Pick<DayOffRequest, 'status' | 'startDate' | 'endDate' | 'createdAt'>
   const { futureDate, pastDate, recentDate, soonDate } = drawDates()
 
   switch (status) {
@@ -40,6 +40,7 @@ export function genRandomDayOffRequest(
         status,
         startDate: genStartDate(futureDate).toISOString(),
         endDate: futureDate.toISOString(),
+        createdAt: pastDate.toISOString(),
       }
       break
     case 'pending':
@@ -47,6 +48,7 @@ export function genRandomDayOffRequest(
         status,
         startDate: genStartDate(futureDate).toISOString(),
         endDate: futureDate.toISOString(),
+        createdAt: pastDate.toISOString(),
       }
       break
     case 'cancelled':
@@ -54,6 +56,7 @@ export function genRandomDayOffRequest(
         status,
         startDate: genStartDate(futureDate).toISOString(),
         endDate: futureDate.toISOString(),
+        createdAt: pastDate.toISOString(),
       }
       break
     case 'now':
@@ -61,6 +64,7 @@ export function genRandomDayOffRequest(
         status: 'accepted',
         startDate: recentDate.toISOString(),
         endDate: soonDate.toISOString(),
+        createdAt: pastDate.toISOString(),
       }
       break
     case 'past':
@@ -69,6 +73,7 @@ export function genRandomDayOffRequest(
         status,
         startDate: pastDate.toISOString(),
         endDate: genEndDate(pastDate).toISOString(),
+        createdAt: pastDate.toISOString(),
       }
       break
   }

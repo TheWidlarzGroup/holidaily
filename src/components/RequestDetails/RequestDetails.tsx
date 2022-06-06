@@ -50,6 +50,26 @@ export const RequestDetails = (
             <Text variant="textBoldSM" color={statusColor}>
               {t(p.status)}
             </Text>
+            {p.isSickTime && (
+              <Box
+                position="absolute"
+                top={0}
+                right={0}
+                backgroundColor="quarternaryDarken"
+                borderTopRightRadius="lmin"
+                borderBottomLeftRadius="lmin"
+                justifyContent="center"
+                alignItems="center">
+                <Text
+                  variant="boldWhite12"
+                  lineHeight={14}
+                  marginHorizontal="xm"
+                  marginVertical="xs"
+                  color="veryLightGrey">
+                  {t('sickLeave')}
+                </Text>
+              </Box>
+            )}
           </Box>
         </Box>
       )}
@@ -61,7 +81,12 @@ export const RequestDetails = (
           message={p.message}
         />
         <RequestAttachments attachments={p.attachments} />
-        <RequestFooter status={p.status} isSick={p.isSickTime} />
+        <RequestFooter
+          status={p.status}
+          isSick={p.isSickTime}
+          startDay={p.startDate}
+          createdAt={p.createdAt}
+        />
       </Box>
       {showPtoLeft && <PtoLeft ptoTaken={calculatePTO(p.startDate, p.endDate)} />}
     </ScrollView>

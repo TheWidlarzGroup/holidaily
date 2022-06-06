@@ -12,6 +12,7 @@ type SummaryRequestVacationProps = {
   onNextPressed: F0
   startDate?: Date
   endDate?: Date
+  createdAt?: Date
   message?: string
   attachments?: { id: string; uri: string }[]
   hideNext?: boolean
@@ -21,12 +22,13 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   const { t } = useTranslation('requestVacation')
   const { mutate, isLoading } = useCreateDayOffRequest()
   const onSubmit = () => {
-    if (!p.startDate || !p.endDate) return
+    if (!p.startDate || !p.endDate || !p.createdAt) return
 
     mutate(
       {
         startDate: p.startDate.toISOString(),
         endDate: p.endDate.toISOString(),
+        createdAt: p.createdAt.toISOString(),
         description: p.description ?? t('outOfOffice'),
         isSickTime: p.isSick,
         message: p.message ?? '',
@@ -45,6 +47,7 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
         attachments={p.attachments}
         startDate={(p.startDate ?? new Date()).toISOString()}
         endDate={(p.endDate ?? new Date()).toISOString()}
+        createdAt={(p.createdAt ?? new Date()).toISOString()}
         isSickTime={p.isSick}
         status={p.isSick ? 'accepted' : 'pending'}
       />

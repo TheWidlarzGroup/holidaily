@@ -9,6 +9,7 @@ export type RequestVacationData = {
   step: number
   startDate?: Date
   endDate?: Date
+  createdAt?: Date
   requestData: {
     description: string
     message: string
@@ -23,6 +24,7 @@ export type RequestVacationContextProps = RequestVacationData & {
   setStep: F1<number>
   setStartDate: F1<Date | undefined>
   setEndDate: F1<Date | undefined>
+  setCreatedAt: F1<Date | undefined>
   setRequestData: React.Dispatch<React.SetStateAction<RequestVacationData['requestData']>>
   markSickTime: F0
   cancelSickTime: F0
@@ -36,6 +38,7 @@ export const RequestVacationProvider = ({ children }: { children: React.ReactNod
   const [step, setStep] = useState(0)
   const [startDate, setStartDate] = useState<Date | undefined>()
   const [endDate, setEndDate] = useState<Date | undefined>()
+  const [createdAt, setCreatedAt] = useState<Date | undefined>()
   const [requestData, setRequestData] = useState<RequestVacationData['requestData']>(emptyRequest)
   const [sickTime, { setTrue: markSickTime, setFalse: cancelSickTime, toggle: toggleSickTime }] =
     useBooleanState(false)
@@ -50,12 +53,14 @@ export const RequestVacationProvider = ({ children }: { children: React.ReactNod
         step,
         startDate,
         endDate,
+        createdAt,
         requestData,
         sickTime,
         isPeriodInvalid,
         setStep,
         setStartDate,
         setEndDate,
+        setCreatedAt,
         setRequestData,
         markSickTime,
         cancelSickTime,
