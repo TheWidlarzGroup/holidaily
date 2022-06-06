@@ -9,6 +9,9 @@ import ArrowLeft from 'assets/icons/arrow-left.svg'
 
 type HeaderProps = { step: number; setStep: F1<number>; stepBackNeedsConfirm?: boolean }
 
+const CROSS_SIZE = 15
+const ARROW_SIZE = 16
+
 export const RequestVacationHeaderText = (p: HeaderProps) => {
   const { goBack } = useNavigation()
   const { t } = useTranslation('requestVacation')
@@ -24,17 +27,21 @@ export const RequestVacationHeaderText = (p: HeaderProps) => {
 
   return (
     <Box alignItems="center" marginHorizontal="m" marginBottom="s">
-      <Box flexDirection="row-reverse" justifyContent="space-between" width="100%">
+      <Box
+        flexDirection="row-reverse"
+        justifyContent="space-between"
+        width="100%"
+        paddingBottom="s">
         <Pressable style={styles.stepBackBtn} onPress={onCloseModal}>
-          <CrossIcon style={styles.crossIcon} />
+          <CrossIcon style={styles.crossIcon} height={CROSS_SIZE} width={CROSS_SIZE} />
         </Pressable>
         {p.step > 0 && (
           <Pressable style={styles.stepBackBtn} onPress={stepBack}>
-            <ArrowLeft style={styles.crossIcon} />
+            <ArrowLeft style={styles.crossIcon} height={ARROW_SIZE} width={ARROW_SIZE} />
           </Pressable>
         )}
       </Box>
-      <Text variant="modalHeader" textAlign="center">
+      <Text variant="displayBoldSM" textAlign="center">
         {t('title')}
       </Text>
     </Box>
