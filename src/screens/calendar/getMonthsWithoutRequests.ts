@@ -12,8 +12,8 @@ import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { getISODateString } from 'utils/dates'
 
 export const getMonthsWithoutRequests = () => {
-  const endDate = add(new Date(), { months: 6 })
-  const startDate = sub(new Date(), { months: 6 })
+  const endDate = add(new Date(), { months: 12 })
+  const startDate = sub(new Date(), { months: 12 })
   const eachMonthBetweenDates = eachMonthOfInterval({
     start: startDate,
     end: endDate,
