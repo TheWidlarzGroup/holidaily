@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
-import { BaseOpacity, Box } from 'utils/theme'
+import { Box } from 'utils/theme'
 import Animated, {
   Easing,
   useAnimatedStyle,

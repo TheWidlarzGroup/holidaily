@@ -11,6 +11,7 @@ import { Analytics } from 'services/analytics'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { PostState } from './CreatePostForm/usePostFormReducer'
 
@@ -22,6 +23,7 @@ type PostAttachment = {
 
 export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { userSettings } = useUserSettingsContext()
+  const { t } = useTranslation('createPost')
   useSetStatusBarStyle(userSettings)
   const photo = route.params?.photo
   const { user } = useUserContext()
@@ -78,7 +80,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       location: JSON.stringify(locationToSend),
     })
     goBack()
-    notify('success', { params: { title: 'nice' } })
+    notify('success', { params: { title: t('postSent') } })
   }
 
   return (
