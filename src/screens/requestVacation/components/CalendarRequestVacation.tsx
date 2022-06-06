@@ -99,7 +99,7 @@ export const CalendarRequestVacation = ({
           <ActionModal
             isVisible={!!periodStart}
             onUserAction={onModalBtnPress}
-            label={t('select')}
+            label={isInvalid ? t('clear') : t('select')}
             variant={actionModalVariant}
             header={actionModalTexts.header}
             content={actionModalTexts.content}
@@ -115,7 +115,7 @@ const useStyles = mkUseStyles((theme) => ({
     height: 40,
   },
   calendar: {
-    width: 318,
+    width: 400,
     marginTop: theme.spacing.s,
   },
   dayNames: {

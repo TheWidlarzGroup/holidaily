@@ -28,8 +28,13 @@ export const EditProfile = () => {
   const navigation = useNavigation()
   const styles = useStyles()
   const [keyboardOpen] = useKeyboard()
-
   const { user } = useUserContext()
+  const defaultValues = {
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    occupation: user?.occupation,
+    photo: user?.photo,
+  }
   const {
     errors,
     control,
@@ -37,14 +42,9 @@ export const EditProfile = () => {
     formState: { isDirty },
     reset,
   } = useForm({
-    defaultValues: {
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      occupation: user?.occupation,
-      photo: user?.photo,
-    },
+    defaultValues,
   })
-
+  const onDiscard = () => reset(defaultValues)
   const { t } = useTranslation('userProfile')
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
@@ -84,7 +84,7 @@ export const EditProfile = () => {
       onGoBack()
     },
     onDecline: () => {
-      reset()
+      onDiscard()
       onGoBack()
     },
     onDismiss: hideModal,
@@ -129,7 +129,10 @@ export const EditProfile = () => {
         </ScrollView>
         {isLoading && <LoadingModal show />}
         {!isLoading && isDirty && (
-          <SaveChangesButton onDiscard={reset} handleEditDetailsSubmit={handleSubmit(onSubmit)} />
+          <SaveChangesButton
+            onDiscard={onDiscard}
+            handleEditDetailsSubmit={handleSubmit(onSubmit)}
+          />
         )}
       </KeyboardAvoidingView>
     </SafeAreaWrapper>

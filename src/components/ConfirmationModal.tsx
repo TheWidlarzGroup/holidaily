@@ -31,8 +31,7 @@ export const ConfirmationModal = ({
       marginTop: theme.spacing.xs,
     },
   }
-  // FIXME: Something in the drawer menu is intercepting the touch gestures, so a hack with wrapping CustomButton in BaseOpacity is needed for buttons to work
-  // and a hack with full width & height BaseOpacity for backdrop press to work
+
   return (
     <SwipeableModal isOpen={isVisible} onHide={onDismiss ?? onDecline}>
       <Box style={styles.bottomModal}>
@@ -50,13 +49,11 @@ export const ConfirmationModal = ({
             {content}
           </Text>
         )}
-        <BaseOpacity activeOpacity={0.8} onPress={onAccept} marginBottom="xm" marginTop="xl">
-          <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" />
-        </BaseOpacity>
+        <Box marginBottom="xm" marginTop="xl">
+          <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" onPress={onAccept} />
+        </Box>
         {!hideRejectButton && (
-          <BaseOpacity activeOpacity={0.8} onPress={onDecline}>
-            <CustomButton label={declineBtnText ?? t('no')} variant="secondary" />
-          </BaseOpacity>
+          <CustomButton label={declineBtnText ?? t('no')} variant="secondary" onPress={onDecline} />
         )}
       </Box>
       <BaseOpacity
