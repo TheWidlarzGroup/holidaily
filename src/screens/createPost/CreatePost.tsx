@@ -5,14 +5,14 @@ import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsConte
 import { FeedPost, FeedPostDataType } from 'mockApi/models/miragePostTypes'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { ModalNavigationProps } from 'navigation/types'
-import React, { useState } from 'react'
+import React from 'react'
 import { Asset } from 'react-native-image-picker'
 import { Analytics } from 'services/analytics'
 import { generateUUID } from 'utils/generateUUID'
+import { notify } from 'react-native-notificated'
+import { useNavigation } from '@react-navigation/native'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { PostState } from './CreatePostForm/usePostFormReducer'
-import { CreatePostResult } from './CreatePostResult/CreatePostResult'
-import { CreatePostStatus } from './types'
 
 type PostAttachment = {
   uri: string
@@ -23,10 +23,10 @@ type PostAttachment = {
 export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { userSettings } = useUserSettingsContext()
   useSetStatusBarStyle(userSettings)
-  const [status, setStatus] = useState<CreatePostStatus>('draft')
   const photo = route.params?.photo
   const { user } = useUserContext()
   const { mutate } = useAddPost()
+  const { goBack } = useNavigation()
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
     attachments.map((item) => {
@@ -76,17 +76,13 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       imagesCount: data.images.length,
       location: JSON.stringify(locationToSend),
     })
-    if (!data) return setStatus('failure')
-    setStatus('success')
+    goBack()
+    notify('success', { params: { title: 'nice' } })
   }
 
   return (
     <SwipeableScreen>
-      {status === 'draft' ? (
-        <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
-      ) : (
-        <CreatePostResult status={status} />
-      )}
+      <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
     </SwipeableScreen>
   )
 }
