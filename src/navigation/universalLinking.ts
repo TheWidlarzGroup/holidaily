@@ -12,7 +12,6 @@ const config = {
             DashboardNavigation: {
               screens: {
                 Dashboard: '/dashboard',
-                // DashboardTeam: '/team:id',
               },
             },
           },

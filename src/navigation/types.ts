@@ -56,12 +56,6 @@ export type AppNavigationType<RouteName extends keyof AppRoutes> = StackNavigati
   RouteName
 >
 
-// for useNavigation hook
-// export type ModalNavigationType<RouteName extends keyof ModalRoutes> = CompositeNavigationProp<
-//   StackNavigationProp<ModalRoutes, RouteName>,
-//   StackNavigationProp<AppRoutes, 'ModalRoutes'>
-// >
-
 export type ModalNavigationProps<RouteName extends keyof ModalRoutes> = {
   navigation: StackNavigationProp<ModalRoutes, RouteName>
   route: RouteProp<ModalRoutes, RouteName>
@@ -89,12 +83,6 @@ export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes
   navigation: StackNavigationProp<UserProfileRoutes, RouteName>
   route: RouteProp<UserProfileRoutes, RouteName>
 }
-// for useNavigation hook
-// export type ForgotPasswordTypes<RouteName extends keyof ForgotPasswordRoutes> =
-//   CompositeNavigationProp<
-//     StackNavigationProp<ForgotPasswordRoutes, RouteName>,
-//     StackNavigationProp<AppRoutes, 'ForgotPasswordNavigation'>
-//   >
 
 export type ForgotPasswordProps<RouteName extends keyof ForgotPasswordRoutes> = {
   navigation: StackNavigationProp<ForgotPasswordRoutes, RouteName>
