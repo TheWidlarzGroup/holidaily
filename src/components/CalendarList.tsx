@@ -1,12 +1,14 @@
 import React from 'react'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import { CalendarDay } from 'components/CalendarComponents/CalendarDay'
-import { useTheme } from 'utils/theme'
+import { isWeekendOrHoliday } from 'poland-public-holidays'
+import { Theme, useTheme } from 'utils/theme'
 import { CalendarHeader } from 'components/CalendarComponents/CalendarHeader'
-import { getShortWeekDays } from 'utils/dates'
+import { getISODateString, getShortWeekDays } from 'utils/dates'
 import { genMarkedDates, MarkedDateType } from 'utils/genMarkedDates'
 import { useCalendarPeriodStyles } from 'hooks/style-hooks/useCalendarStyles'
-import { isPast } from 'date-fns'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { eachDayOfInterval, isPast } from 'date-fns'
 import { isToday } from 'date-fns/esm'
 import {
   MarkingType,
@@ -14,6 +16,7 @@ import {
   NewDayComponentProps,
 } from './CalendarComponents/CalendarTypes'
 import { NewCalendarList } from './CalendarComponents/NewCalendar'
+import type { Dot } from './ExpandableCalendar'
 
 type CustomCalendarProps = {
   markedDates: MarkingType | Record<string, never>
@@ -34,7 +37,7 @@ export const CalendarList = ({
   ...p
 }: CustomCalendarProps & RNCalendarProps) => {
   const appTheme = useTheme()
-
+  const userRequestDots = useUserRequestDots()
   const handleClick = ({ dateString: clickedDate }: DateObject) => {
     if (!selectable) return
     if (!p.periodStart || !p.periodEnd || p.periodStart !== p.periodEnd) {
@@ -42,30 +45,19 @@ export const CalendarList = ({
       p.selectPeriodEnd(clickedDate)
       return
     }
-
     if (clickedDate < p.periodStart) p.selectPeriodStart(clickedDate)
     if (clickedDate > p.periodEnd) p.selectPeriodEnd(clickedDate)
   }
   LocaleConfig.locales[LocaleConfig.defaultLocale].dayNamesShort = getShortWeekDays()
 
-  const theme: NewCalendarBaseProps['theme'] = {
-    textDayFontFamily: appTheme.fontFamily.nunitoRegular,
-    textDayFontSize: appTheme.fontSize.xs,
-    textSectionTitleColor: appTheme.colors.grey,
-    arrowColor: appTheme.colors.black,
-    'stylesheet.calendar.header': {
-      header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginTop: 6,
-        alignItems: 'center',
-        marginBottom: 10,
-      },
-    } as const,
-    ...themeProp,
+  const calendarMarkedDates = {
+    ...markedDates,
+    ...genMarkedDates(p.periodStart, p.periodEnd, p.isInvalid, {
+      dotMarking: { dates: userRequestDots },
+    }),
   }
+  const calendarTheme = mkCalendarTheme(appTheme, themeProp)
+
   return (
     <NewCalendarList
       pastScrollRange={0}
@@ -73,19 +65,60 @@ export const CalendarList = ({
       firstDay={1}
       hideExtraDays
       hideArrows
-      theme={theme}
+      theme={calendarTheme}
       dayComponent={CalendarDayComponent}
       markingType="period"
       onDayPress={handleClick}
       renderHeader={renderHeader}
-      markedDates={{
-        ...markedDates,
-        ...genMarkedDates(p.periodStart, p.periodEnd, p.isInvalid),
-      }}
+      markedDates={calendarMarkedDates}
       {...p}
     />
   )
 }
+
+const useUserRequestDots = () => {
+  const appTheme = useTheme()
+  const { user } = useUserContext()
+  const userRequestsDates: string[] = []
+  ;(user?.requests ?? []).forEach((req) => {
+    if (req.status === 'cancelled') return
+    const eachDayOfReq = eachDayOfInterval({
+      start: new Date(req.startDate),
+      end: new Date(req.endDate),
+    })
+      .filter((date) => !isWeekendOrHoliday(date))
+      .map((date) => getISODateString(date))
+    userRequestsDates.push(...eachDayOfReq)
+  })
+  const userRequestDots: Dot[] = userRequestsDates.map((date) => ({
+    key: date,
+    color: user?.userColor ?? appTheme.colors.primary,
+  }))
+  return userRequestDots
+}
+
+const mkCalendarTheme = (
+  appTheme: Theme,
+  themeProp: RNCalendarProps['theme']
+): NewCalendarBaseProps['theme'] => ({
+  textDayFontFamily: appTheme.fontFamily.nunitoRegular,
+  textDayFontSize: appTheme.fontSize.xs,
+  textSectionTitleColor: appTheme.colors.grey,
+  arrowColor: appTheme.colors.black,
+  'stylesheet.calendar.header': {
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingLeft: 10,
+      paddingRight: 10,
+      marginTop: 6,
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+  } as const,
+  ...themeProp,
+})
+
 const renderHeader = (date: Date) => <CalendarHeader ignoreDarkmode date={date} />
 const CalendarDayComponent = React.memo(
   (props: NewDayComponentProps & { marking: MarkedDateType }) => {
@@ -106,6 +139,8 @@ const CalendarDayComponent = React.memo(
     )
   },
   (prevProps, nextProps) => {
+    if ((prevProps.marking?.dots ?? []).length !== (nextProps.marking?.dots ?? []).length)
+      return false
     if (!prevProps.marking?.period && !nextProps.marking?.period) return true
     return false
   }

@@ -37,8 +37,9 @@ import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
 
+export type Dot = { key: string; color: string }
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
-type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
+type MarkedDatesMultiDots = { [key: string]: { dots: Dot[] } }
 type ExpandableCalendarProps = {
   markedDates: MarkedDatesMultiDots
   selectedDate: Date
