@@ -3,21 +3,28 @@ import React from 'react'
 import { Box, Text } from 'utils/theme'
 import { Comment as CommentType, EditTargetType } from 'mock-api/models/miragePostTypes'
 import { useTranslation } from 'react-i18next'
-import { GestureResponderEvent } from 'react-native'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
   comment: CommentType
-  openContextMenu: F2<GestureResponderEvent, EditTargetType>
+  openEditModal: F1<EditTargetType>
   hideAvatar?: boolean
 }
 
-export const Comment = ({ comment, hideAvatar, openContextMenu }: CommentProps) => {
+export const Comment = ({ comment, hideAvatar, openEditModal }: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
   const { t } = useTranslation('feed')
 
   const numberOfChars = isCommentExpanded ? 999 : 130
+
+  const handleOnPress = () => {
+    openEditModal({
+      type: 'comment',
+      id: comment.meta.id,
+      author: comment.meta.author.name,
+    })
+  }
 
   return (
     <Box flexDirection="row" padding="xs" alignItems="flex-start" marginTop="xs">
@@ -47,13 +54,8 @@ export const Comment = ({ comment, hideAvatar, openContextMenu }: CommentProps) 
         activeOpacity={0.6}
         isCommentBubble
         marginTop="-xs"
-        onLongPress={(e) =>
-          openContextMenu(e, {
-            type: 'comment',
-            id: comment.meta.id,
-            author: comment.meta.author.name,
-          })
-        }>
+        onLongPress={handleOnPress}
+        onPress={handleOnPress}>
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}
           {comment.text.length > 130 && !isCommentExpanded && (

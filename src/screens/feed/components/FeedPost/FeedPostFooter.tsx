@@ -3,17 +3,16 @@ import { EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { isIos } from 'utils/layout'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { GestureResponderEvent } from 'react-native'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { CommentBox } from '../CommentBox/CommentBox'
 import { FooterBar } from '../FooterBar/FooterBar'
 
 type Post = {
   post: FeedPost
-  openContextMenu: F2<GestureResponderEvent, EditTargetType>
+  openEditModal: F1<EditTargetType>
 }
 
-export const FeedPostFooter = ({ post, openContextMenu }: Post) => {
+export const FeedPostFooter = ({ post, openEditModal }: Post) => {
   const [areCommentsExpanded, { toggle: toggleCommentsExpanded, setTrue: expandComments }] =
     useBooleanState(false)
 
@@ -24,7 +23,7 @@ export const FeedPostFooter = ({ post, openContextMenu }: Post) => {
         comments={post.comments}
         areCommentsExpanded={areCommentsExpanded}
         toggleCommentsExpanded={toggleCommentsExpanded}
-        openContextMenu={openContextMenu}
+        openEditModal={openEditModal}
       />
     </Box>
   )

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
-import { EditContextMenu } from 'components/EditContextMenu'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
@@ -9,7 +9,10 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { EditTargetType } from 'mock-api/models/miragePostTypes'
 import { BottomTabNavigationProps } from 'navigation/types'
-import { FlatList, GestureResponderEvent } from 'react-native'
+import { FlatList } from 'react-native'
+import { OptionsModal } from 'components/OptionsModal'
+import EditIcon from 'assets/icons/icon-edit2.svg'
+import BinIcon from 'assets/icons/icon-bin.svg'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -19,9 +22,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [language] = useLanguage()
   const { data } = useGetPostsData()
   const navigation = useNavigation()
+  const { t } = useTranslation('feed')
 
-  const [isContextMenuOpen, { setFalse: closeMenu, setTrue: openMenu }] = useBooleanState(false)
-  const [menuCoords, setMenuCoords] = useState({ pageX: 0, pageY: 0 })
+  const [isModalOpen, { setFalse: closeModal, setTrue: openModal }] = useBooleanState(false)
   const [editTarget, setEditTarget] = useState<EditTargetType>()
 
   // const { user } = useUserContext()
@@ -57,27 +60,38 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     return removeListener
   }, [navigation])
 
-  const openContextMenu = (e: GestureResponderEvent, target: EditTargetType) => {
+  const openEditModal = (target: EditTargetType) => {
     // if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
-    const { pageX, pageY } = e.nativeEvent
-    setMenuCoords({ pageX, pageY })
     setEditTarget(target)
-    openMenu?.()
+    openModal?.()
   }
 
   const handleDelete = () => {
     if (editTarget?.type === 'comment') {
       deleteComment(editTarget.id)
     }
-    closeMenu?.()
+    closeModal?.()
   }
 
   const handleEdit = () => {
     if (editTarget?.type === 'comment') {
       editComment(editTarget.id)
     }
-    closeMenu?.()
+    closeModal?.()
   }
+
+  const pictureChangeOptions = [
+    {
+      Icon: EditIcon,
+      text: t('edit'),
+      onPress: handleEdit,
+    },
+    {
+      Icon: BinIcon,
+      text: t('delete'),
+      onPress: handleDelete,
+    },
+  ]
 
   if (!data) return <LoadingModal show />
 
@@ -91,18 +105,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         }}
         ListHeaderComponent={<FeedHeader />}
         data={data}
-        renderItem={({ item }) => <FeedPost post={item} openContextMenu={openContextMenu} />}
+        renderItem={({ item }) => <FeedPost post={item} openEditModal={openEditModal} />}
         keyExtractor={({ meta }) => meta.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 90 }}
       />
-      <EditContextMenu
-        coordsX={menuCoords.pageX}
-        coordsY={menuCoords.pageY}
-        isOpen={isContextMenuOpen}
-        onDeletePress={handleDelete}
-        onEditPress={handleEdit}
-      />
+      <OptionsModal options={pictureChangeOptions} isOpen={isModalOpen} onHide={closeModal} />
     </SafeAreaWrapper>
   )
 }
