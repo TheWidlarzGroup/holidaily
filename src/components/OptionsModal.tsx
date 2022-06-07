@@ -26,7 +26,7 @@ export const OptionsModal = (p: OptionsModalProps) => {
       <Box
         bg="white"
         position="absolute"
-        paddingBottom="xm"
+        paddingBottom="xlplus"
         bottom={0}
         minHeight={160}
         style={{ width: '100%' }}
@@ -38,7 +38,11 @@ export const OptionsModal = (p: OptionsModalProps) => {
           return (
             <OptionButton key={key ?? text} onPress={onPress}>
               <Box style={styles.optionWrapper}>
-                {Icon && <Icon style={styles.optionIcon} />}
+                {Icon && (
+                  <Box width={35}>
+                    <Icon style={styles.optionIcon} />
+                  </Box>
+                )}
                 <Text variant="buttonMD">{text}</Text>
               </Box>
             </OptionButton>
@@ -54,7 +58,10 @@ const OptionButton = ({ children, onPress }: PropsWithChildren<{ onPress: F0 }>)
   const theme = useTheme()
   const buttonProps = { onPress, style: styles.option }
   return isIos ? (
-    <TouchableHighlight activeOpacity={0.8} {...buttonProps} underlayColor={theme.colors.special}>
+    <TouchableHighlight
+      activeOpacity={0.8}
+      {...buttonProps}
+      underlayColor={theme.colors.newRippleColor}>
       {children}
     </TouchableHighlight>
   ) : (
