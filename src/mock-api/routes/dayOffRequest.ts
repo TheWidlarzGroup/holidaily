@@ -39,6 +39,7 @@ function createDayOffRequest(schema: Schema<ModelsSchema>, req: Request) {
     'isSickTime',
     'message',
     'startDate',
+    'createdAt',
   ]
   const optionalFields: readonly (keyof CreateDayOffRequestBody)[] = ['attachments']
   const body = JSON.parse(req.requestBody)

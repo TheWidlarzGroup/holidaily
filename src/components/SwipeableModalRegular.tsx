@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react'
-import { ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { ScrollView, TouchableWithoutFeedback } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 import { BaseOpacity, Box } from 'utils/theme'
 import { CustomButton } from './CustomButton'
 import { SwipeableModal } from './SwipeableModal'
 import { SwipeableModalHeader } from './SwipeableModalHeader'
 
-type SwipeableModalRegularProps = PropsWithChildren<
+export type SwipeableModalRegularProps = PropsWithChildren<
   {
     isOpen: boolean
     onHide: F0
@@ -71,9 +71,7 @@ const RegularModalButton = (p: RegularModalButtonProps) => {
   const btnLabel = p.buttonLabel ?? ''
   return p.buttonLabel ? (
     <Box paddingBottom="lplus" style={btnStyle}>
-      <TouchableOpacity onPress={p.buttonAction || p.onHide}>
-        <CustomButton label={btnLabel} variant="primary" />
-      </TouchableOpacity>
+      <CustomButton label={btnLabel} variant="primary" onPress={p.buttonAction || p.onHide} />
     </Box>
   ) : null
 }

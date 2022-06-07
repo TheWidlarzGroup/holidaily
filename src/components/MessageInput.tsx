@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TextInput } from 'react-native'
+import { StyleProp, TextInput, ViewStyle } from 'react-native'
 import { BaseOpacity, Box, mkUseStyles, theme, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/icon-paperplane.svg'
 import Animated, {
@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
+import { isAndroid } from 'utils/layout'
 
 export type MessageInputProps = {
   messageContent: string
@@ -29,6 +30,7 @@ export type MessageInputProps = {
 }
 
 const ICON_SIZE = 16
+const androidPaddings: StyleProp<ViewStyle> = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
 
 export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
   const {
@@ -117,7 +119,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         <TextInput
           ref={combinedInputRef}
           underlineColorAndroid={themeBase.colors.transparent}
-          style={styles.input}
+          style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={handleSubmit}

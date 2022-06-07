@@ -306,11 +306,11 @@
     "addAnother": "Add another request",
     "ok": "Got it",
     "notEnoughPto": "Ooops! You don’t that many PTO",
+    "noPtoAvailable": "Ooops! Unfortunately, you don't have any more days out of office :(",
     "maxSickDays": "Ooops! You can take max. {{maxDays}} days of sick leave over a single request :(",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
-    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>",
     "discardRequestHeader": "Discard request?",
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",
@@ -367,7 +367,11 @@
     "cancelled": "Declined",
     "past": "Past",
     "accepted": "Accepted",
-    "yourRequest": "Your request"
+    "sent": "Sent:",
+    "sickLeave": "sick leave",
+    "acceptedAt": "Accepted:",
+    "yourRequest": "Your request",
+    "automatically": "Automatically"
   },
   "about": {
     "rateApp": "Let us know how do you enjoy Holidaily!",

@@ -103,7 +103,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         onScrollToIndexFailed={() => {
           setTimeout(scrollToId, 100)
         }}
-        ListHeaderComponent={<FeedHeader />}
+        ListHeaderComponent={FeedHeader}
         data={data}
         renderItem={({ item }) => <FeedPost post={item} openEditModal={openEditModal} />}
         keyExtractor={({ meta }) => meta.id}

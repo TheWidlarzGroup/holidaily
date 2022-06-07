@@ -306,11 +306,11 @@
     "addAnother": "Poproś o kolejne wolne",
     "ok": "Gotowe",
     "notEnoughPto": "Ups! Nie masz tyle dni urlopu do wykorzystania :(",
+    "noPtoAvailable": "Ups! Niestety nie masz już żadnych dni urlopowych do wykorzystania :(",
     "maxSickDays": "Ups! Pojedynczy wniosek o chorobowe może wynosić maksymalnie {{maxDays}} dni :(",
     "clear": "Wyczyść",
     "availablePto": "Możesz wziąć {{availablePto}} urlopu.",
     "changeDays": "Zmień termin",
-    "maxSickdaysError": "Możesz wziąć maksymalnie <b>{{max}} dni chorobowego.</b> <b>Zmień liczbę dni w kalendarzu.</b>",
     "discardRequestHeader": "Odrzucić wniosek?",
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",
@@ -368,8 +368,12 @@
     "pending": "Oczekujące",
     "cancelled": "Odrzucone",
     "past": "Wykorzystane",
+    "sent": "Wysłano:",
+    "acceptedAt": "Zaakceptowano:",
     "accepted": "Zatwierdzone",
-    "yourRequest": "Twoje podanie"
+    "sickLeave": "chorobowe",
+    "yourRequest": "Twoje podanie",
+    "automatically": "Automatycznie"
   },
   "about": {
     "rateApp": "Daj znać czy podoba Ci się korzystanie z naszej aplikacji!",

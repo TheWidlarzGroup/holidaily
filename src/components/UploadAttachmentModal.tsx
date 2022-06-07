@@ -15,6 +15,8 @@ import Gallery from 'assets/icons/icon-gallery.svg'
 import FileIcon from 'assets/icons/icon-file.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import { useTranslation } from 'react-i18next'
+import { Analytics } from 'services/analytics'
+import { AnalyticsScreens } from 'utils/eventMap'
 import { OptionsModal } from './OptionsModal'
 
 type UploadFilesProps =
@@ -26,6 +28,7 @@ type UploadFilesProps =
 
 type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal: F0
+  source: AnalyticsScreens
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
   setPhotoURI: F1<string | null>
@@ -41,6 +44,7 @@ export const UploadAttachmentModal = ({
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
       p.onUserCancelled()
+      Analytics().track(`${p.source}_ADD_ATTACHMENT_MODAL_CANCELLED`)
     }
     if (response.assets) {
       const photo = response.assets[0]
@@ -51,6 +55,7 @@ export const UploadAttachmentModal = ({
   const onUpload = (action: PhotoSelectionChoice) => {
     p.hideModal()
     if (p.allowFiles && action === 'file') {
+      Analytics().track(`${p.source}_ADD_ATTACHMENT_MODAL_FILE_PICKED`)
       const { doc, docx, pdf, plainText, ppt, pptx } = documentTypes
       const options: DocumentPickerOptions<'android' | 'ios'> = {
         type: [doc, docx, pdf, plainText, ppt, pptx],
@@ -68,11 +73,13 @@ export const UploadAttachmentModal = ({
       mediaType: 'photo',
     }
     if (action === 'gallery') {
+      Analytics().track(`${p.source}_ADD_ATTACHMENT_MODAL_GALLERY_PICKED`)
       setTimeout(() => {
         launchImageLibrary(options, (response) => onHandleResponse(response))
       }, 400)
     }
     if (action === 'camera') {
+      Analytics().track(`${p.source}_ADD_ATTACHMENT_MODAL_CAMERA_PICKED`)
       setTimeout(() => {
         launchCamera(options, (response) => onHandleResponse(response))
       }, 400)

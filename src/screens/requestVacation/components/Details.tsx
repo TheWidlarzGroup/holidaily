@@ -37,21 +37,27 @@ export const Details = (p: DetailsProps) => {
   return (
     <Box>
       <Box marginTop="m">
-        <BaseOpacity activeOpacity={0.8} onPress={handleNavigate}>
-          <CustomInput
-            onPressIn={handleNavigate}
-            focusable={false}
-            disabled
-            placeholder={t('selectDate')}
-            inputLabel={t('detailsDate')}
-            isError={isPeriodInvalid}
-            variant="medium"
-            value={getFormattedPeriod(p.date.start, p.date.end)}
-          />
-          <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
-            <CalendarIcon color={theme.colors.headerGrey} />
-          </Box>
-        </BaseOpacity>
+        <BaseOpacity
+          position="absolute"
+          activeOpacity={0.8}
+          onPress={handleNavigate}
+          backgroundColor="transparent"
+          width="100%"
+          height={60}
+          zIndex="10"
+        />
+        <CustomInput
+          focusable={false}
+          disabled
+          placeholder={t('selectDate')}
+          inputLabel={t('detailsDate')}
+          isError={isPeriodInvalid}
+          variant="medium"
+          value={getFormattedPeriod(p.date.start, p.date.end)}
+        />
+        <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
+          <CalendarIcon color={theme.colors.headerGrey} />
+        </Box>
       </Box>
       <Box marginTop="m">
         <FormInput

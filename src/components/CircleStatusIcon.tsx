@@ -10,9 +10,12 @@ import { exhaustiveTypeCheck } from 'utils/functions'
 
 export type IconStatus = 'success' | 'error' | 'pending' | 'past'
 
+type AvailableSources = 'SEE_REQUEST'
+
 type CircleStatusIconProps = {
   status: IconStatus
   iconProps?: SvgProps
+  source?: AvailableSources
 } & BoxProps<Theme>
 
 type WrappedIconProps = {
@@ -20,7 +23,13 @@ type WrappedIconProps = {
   bg: BoxProps<Theme>['bg']
 }
 
-export const CircleStatusIcon = ({ status, iconProps, ...styleProps }: CircleStatusIconProps) => {
+export const CircleStatusIcon = ({
+  status,
+  iconProps,
+  source,
+  ...styleProps
+}: CircleStatusIconProps) => {
+  const pendingBgColor = source === 'SEE_REQUEST' ? 'special' : 'primary'
   const WrappedIcon = mkWrappedIcon(styleProps ?? {}, iconProps ?? {})
   switch (status) {
     case 'error':
@@ -28,9 +37,9 @@ export const CircleStatusIcon = ({ status, iconProps, ...styleProps }: CircleSta
     case 'success':
       return <WrappedIcon Icon={CheckIcon} bg="approvedGreen" />
     case 'past':
-      return <WrappedIcon Icon={ClockIcon} bg="greyDark" />
+      return <WrappedIcon Icon={ClockIcon} bg="headerGrey" />
     case 'pending':
-      return <WrappedIcon Icon={SpinnerIcon} bg="primary" />
+      return <WrappedIcon Icon={SpinnerIcon} bg={pendingBgColor} />
     default:
       exhaustiveTypeCheck(status, `Unknown status: ${status}`)
       return null
@@ -62,8 +71,8 @@ const mkWrappedIcon =
   }
 
 const iconWrapperBaseStyle: BoxProps<Theme> = {
-  height: 36,
-  width: 36,
+  height: 24,
+  width: 24,
   aspectRatio: 1,
   borderRadius: 'full',
   alignItems: 'center',

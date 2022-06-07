@@ -42,6 +42,7 @@ export type AddReaction = {
 
 export type FeedPost = {
   id?: string
+  recentlyAdded?: boolean
   meta: MetaData
   comments: Comment[]
   data: FeedPostData[]

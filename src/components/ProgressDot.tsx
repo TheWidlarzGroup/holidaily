@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Dimensions } from 'react-native'
 import Animated, { useAnimatedStyle, interpolateColor } from 'react-native-reanimated'
+import { Analytics } from 'services/analytics'
 import { colors } from 'utils/theme/colors'
 import { mkUseStyles } from 'utils/theme/index'
 
@@ -10,9 +11,15 @@ type ProgressDotProps = {
   index: number
   scrollPositionX: Animated.SharedValue<number>
   postPagination?: true
+  postId?: string
 }
 
-export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index, postPagination }) => {
+export const ProgressDot: FC<ProgressDotProps> = ({
+  scrollPositionX,
+  index,
+  postPagination,
+  postId,
+}) => {
   const styles = useStyles()
   const sliderDotColors = [colors.white, colors.black, colors.white]
   const postDotColors = [colors.paginationDot, colors.tertiary, colors.paginationDot]
@@ -25,6 +32,10 @@ export const ProgressDot: FC<ProgressDotProps> = ({ scrollPositionX, index, post
 
     return { backgroundColor }
   })
+
+  useEffect(() => {
+    if (postId) Analytics().track('POST_SLIDE_CHANGED', { postId, slideNumber: index })
+  }, [postId, index])
 
   return <Animated.View style={[style, styles.dot, postPagination && styles.smallDot]} />
 }
