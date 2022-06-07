@@ -62,17 +62,18 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     setMenuCoords({ locationX: pageX, locationY: pageY })
     setEditTarget(target)
     openMenu?.()
-    if (target.type === 'comment') {
-      deleteComment(target.id)
-    }
   }
 
   const handleDelete = () => {
-    console.log(editTarget)
+    if (editTarget?.type === 'comment') {
+      deleteComment(editTarget.id)
+    }
     closeMenu?.()
   }
   const handleEdit = () => {
-    console.log(editTarget)
+    // if (editTarget?.type === 'comment') {
+    //   editComment(editTarget.id)
+    // }
     closeMenu?.()
   }
 
