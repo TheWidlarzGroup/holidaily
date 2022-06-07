@@ -2,6 +2,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
 import { windowHeight } from 'utils/deviceSizes'
+import { mkUseStyles, theme } from 'utils/theme'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
@@ -27,6 +28,8 @@ export const SwipeableModal = ({
 }: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
   const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
+  const styles = useStyles()
+
   return (
     <Modal
       statusBarTranslucent
@@ -41,7 +44,7 @@ export const SwipeableModal = ({
       swipeDirection="down"
       animationIn="slideInUp"
       animationOut="slideOutDown"
-      style={{ margin: 0, marginTop: SWIPEABLE_MODAL_OFFSET_TOP }}
+      style={styles.container}
       animationInTiming={DEFAULT_MODAL_ANIM_TIME}
       animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
       onModalHide={() => {
@@ -56,3 +59,14 @@ export const SwipeableModal = ({
     </Modal>
   )
 }
+
+const useStyles = mkUseStyles(() => ({
+  container: {
+    margin: 0,
+    marginTop: SWIPEABLE_MODAL_OFFSET_TOP,
+    shadowColor: theme.colors.modalShadow,
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+  },
+}))
