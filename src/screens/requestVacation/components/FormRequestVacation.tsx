@@ -137,6 +137,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         declineBtnText={t('removeAttachmentNo')}
       />
       <UploadAttachmentModal
+        source="REQUEST"
         isVisible={showAttachmentModal}
         hideModal={setShowAttachmentModalFalse}
         onUserCancelled={setShowAttachmentModalFalse}
