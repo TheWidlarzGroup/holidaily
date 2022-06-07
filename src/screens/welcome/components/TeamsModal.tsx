@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Text, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { TouchableOpacity } from 'react-native'
 import { CustomButton } from 'components/CustomButton'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import IconPeople from 'assets/icons/icon-people.svg'
@@ -70,9 +69,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
             </Box>
           </Box>
         </Box>
-        <TouchableOpacity onPress={closeModal}>
-          <CustomButton variant="primary" label={t('thanksButton')} />
-        </TouchableOpacity>
+        <CustomButton variant="primary" label={t('thanksButton')} onPress={closeModal} />
       </Box>
     </Box>
   )
