@@ -368,8 +368,12 @@
     "pending": "Oczekujące",
     "cancelled": "Odrzucone",
     "past": "Wykorzystane",
+    "sent": "Wysłano:",
+    "acceptedAt": "Zaakceptowano:",
     "accepted": "Zatwierdzone",
-    "yourRequest": "Twoje podanie"
+    "sickLeave": "chorobowe",
+    "yourRequest": "Twoje podanie",
+    "automatically": "Automatycznie"
   },
   "about": {
     "rateApp": "Daj znać czy podoba Ci się korzystanie z naszej aplikacji!",

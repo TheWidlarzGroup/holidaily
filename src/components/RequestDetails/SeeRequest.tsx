@@ -20,17 +20,17 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
       <ModalHeader>
         <BaseOpacity
           onPress={() => navigate('STATS_AND_REQUESTS')}
-          marginLeft="l"
+          marginLeft="ml"
           paddingBottom="ml"
           paddingTop="lplus">
-          <IconBack width={14} height={14} color={theme.colors.black} />
+          <IconBack width={9} height={16} color={theme.colors.black} />
         </BaseOpacity>
-        <Text variant="header" color="black" fontSize={20} paddingBottom="ml" paddingTop="lplus">
+        <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="lplus">
           {t('yourRequest')}
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <Box padding="m" flex={1}>
+      <Box marginTop="l" paddingBottom="m" flex={1}>
         <RequestDetails {...p} showStatus wasSent />
       </Box>
     </SafeAreaWrapper>
