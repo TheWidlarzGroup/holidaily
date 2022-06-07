@@ -1,7 +1,7 @@
 import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { parseISO } from 'utils/dates'
+import { getISODateString, parseISO } from 'utils/dates'
 import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/context-hooks/useRequestsContext'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
@@ -11,6 +11,7 @@ import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachWeekendDaysOfMonth } from 'utils/getWeekendDays'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
+import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 
 export const useCalendarData = () => {
   const { teams } = useTeamsContext()
@@ -54,9 +55,14 @@ export const useCalendarData = () => {
     if (!currentMonthRequests) {
       const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
 
+      const eachDayOfMonth = eachDayOfInterval({
+        start: new Date(firstDayOfMonth),
+        end: new Date(lastDayOfMonth(firstDayOfMonth)),
+      })
+
       currentMonthRequests = {
         date: selectedDate.toISOString(),
-        days: eachWeekendDaysOfMonth(firstDayOfMonth),
+        days: eachDayOfMonth.map((day) => ({ date: getISODateString(day) })),
       }
     }
     let bothMonthsRequests: HolidailyRequestMonthType = {
@@ -66,8 +72,10 @@ export const useCalendarData = () => {
 
     if (doesMonthInCalendarHasSixRows(selectedDate)) {
       const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
-      if (!nextMonthRequests) return
-      const fewRequestsOfNextMonth = getFirstRequestsOfMonth(nextMonthRequests)
+      // if (!nextMonthRequests) return
+      const fewRequestsOfNextMonth = nextMonthRequests
+        ? getFirstRequestsOfMonth(nextMonthRequests)
+        : []
 
       const currentMonthRequestsDays = currentMonthRequests?.days
 
