@@ -23,13 +23,13 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   const { t } = useTranslation('requestVacation')
   const { mutate, isLoading } = useCreateDayOffRequest()
   const onSubmit = () => {
-    if (!p.startDate || !p.endDate || !p.createdAt) return
-
+    if (!p.startDate || !p.endDate) return
+    const createdAt = p.createdAt ?? new Date()
     mutate(
       {
         startDate: p.startDate.toISOString(),
         endDate: p.endDate.toISOString(),
-        createdAt: p.createdAt.toISOString(),
+        createdAt: createdAt.toISOString(),
         description: p.description ?? t('outOfOffice'),
         isSickTime: p.isSick,
         message: p.message ?? '',
