@@ -311,7 +311,6 @@
     "clear": "Wyczyść",
     "availablePto": "Możesz wziąć {{availablePto}} urlopu.",
     "changeDays": "Zmień termin",
-    "maxSickdaysError": "Możesz wziąć maksymalnie <b>{{max}} dni chorobowego.</b> <b>Zmień liczbę dni w kalendarzu.</b>",
     "discardRequestHeader": "Odrzucić wniosek?",
     "discardRequestContent": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "discardRequestYes": "Odrzuć",

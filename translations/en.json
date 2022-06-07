@@ -311,7 +311,6 @@
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
-    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>",
     "discardRequestHeader": "Discard request?",
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",

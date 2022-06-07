@@ -2,23 +2,17 @@ import format from 'date-fns/format'
 import { User } from 'mock-api/models/mirageTypes'
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LayoutChangeEvent, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getCurrentLocale } from 'utils/locale'
 import { Text } from 'utils/theme'
-import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { Analytics } from 'services/analytics'
-import { windowHeight } from 'utils/deviceSizes'
-import { SWIPEABLE_MODAL_OFFSET_TOP } from 'components/SwipeableModal'
-import { DashboardTeamMember } from '../DashboardTeamMember'
-
-const modalHeight = windowHeight - SWIPEABLE_MODAL_OFFSET_TOP
+import { TeamMemberModal } from '../DashboardTeam'
 
 export const Carousel = () => {
   const { t } = useTranslation('dashboard')
-  const [teamMemberHeight, setTeamMemberHeight] = useState(0)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
@@ -38,11 +32,6 @@ export const Carousel = () => {
 
   const { sortedRequests } = useSortAllHolidayRequests()
   const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
-
-  const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
-    const { height } = event.nativeEvent.layout
-    setTeamMemberHeight(height)
-  }
 
   return (
     <>
@@ -75,13 +64,11 @@ export const Carousel = () => {
         />
       )}
       {modalUser && (
-        <SwipeableModalRegular
-          useScrollView={teamMemberHeight > modalHeight}
-          hasIndicator
+        <TeamMemberModal
           isOpen={isModalVisible}
-          onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
-        </SwipeableModalRegular>
+          onHide={() => setIsModalVisible(false)}
+          modalUser={modalUser}
+        />
       )}
     </>
   )

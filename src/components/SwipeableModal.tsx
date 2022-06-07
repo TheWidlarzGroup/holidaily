@@ -1,6 +1,7 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
+import { windowHeight } from 'utils/deviceSizes'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
@@ -14,6 +15,7 @@ type SwipeableModalProps = PropsWithChildren<
 >
 
 export const SWIPEABLE_MODAL_OFFSET_TOP = 110
+export const SWIPEABLE_MODAL_HEIGHT = windowHeight - SWIPEABLE_MODAL_OFFSET_TOP
 
 export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
