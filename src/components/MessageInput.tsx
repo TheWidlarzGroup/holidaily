@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TextInput, TouchableOpacity } from 'react-native'
-import { Box, mkUseStyles, theme, useColors } from 'utils/theme'
-import SendArrowIcon from 'assets/icons/SendArrow.svg'
+import { StyleProp, TextInput, ViewStyle } from 'react-native'
+import { BaseOpacity, Box, mkUseStyles, theme, useColors } from 'utils/theme'
+import SendArrowIcon from 'assets/icons/icon-paperplane.svg'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
 import { notify } from 'react-native-notificated'
+import { isAndroid } from 'utils/layout'
 
 export type MessageInputProps = {
   messageContent: string
@@ -25,7 +26,11 @@ export type MessageInputProps = {
   defaultValue?: string
   maxLength?: number
   autofocus?: boolean
+  placeholder?: string
 }
+
+const ICON_SIZE = 16
+const androidPaddings: StyleProp<ViewStyle> = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
 
 export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
   const {
@@ -36,11 +41,10 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     autofocus = false,
     messageContent,
     setMessageContent,
+    placeholder,
   } = props
   const [error, setError] = useState('')
-
   const { t } = useTranslation('messageInput')
-
   const inputRef = useRef<TextInput>(null)
   const combinedInputRef = useCombinedRefs([ref, inputRef])
 
@@ -55,7 +59,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     const borderColor = interpolateColor(
       errorProgress.value,
       [0, 1],
-      [colors.tertiary, colors.errorRed]
+      [colors.special, colors.errorRed]
     )
     return { borderColor }
   }, [])
@@ -115,8 +119,8 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
         <TextInput
           ref={combinedInputRef}
           underlineColorAndroid={themeBase.colors.transparent}
-          style={styles.input}
-          placeholder={t('placeholder')}
+          style={[styles.input, androidPaddings]}
+          placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
           onSubmitEditing={handleSubmit}
           onBlur={handleBlur}
@@ -127,9 +131,22 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           value={messageContent.length > 0 ? messageContent : ''}
         />
         {!!messageContent && (
-          <TouchableOpacity style={styles.sendArrow} onPress={handleSubmit}>
-            <SendArrowIcon height={9} width={9} color={theme.colors.inputSendArrow} />
-          </TouchableOpacity>
+          <BaseOpacity
+            width={32}
+            height={32}
+            onPress={handleSubmit}
+            backgroundColor="special"
+            borderRadius="full"
+            justifyContent="center"
+            alignItems="center"
+            alignSelf="flex-end"
+            marginLeft="m">
+            <SendArrowIcon
+              height={ICON_SIZE}
+              width={ICON_SIZE}
+              color={theme.colors.inputSendArrow}
+            />
+          </BaseOpacity>
         )}
       </Animated.View>
       <Animated.Text style={[styles.error, errorMessageStyle]}>{error}</Animated.Text>
@@ -143,32 +160,28 @@ const useStyles = mkUseStyles((theme) => ({
   container: {
     backgroundColor: theme.colors.white,
     padding: theme.spacing.s,
-    borderTopLeftRadius: theme.spacing.xm,
-    borderTopRightRadius: theme.spacing.xm,
+    borderTopLeftRadius: theme.spacing.l,
+    borderTopRightRadius: theme.spacing.l,
     position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputBox: {
-    borderRadius: theme.spacing.xm,
+    borderRadius: theme.spacing.l,
     backgroundColor: theme.colors.white,
-    borderWidth: 2,
-    paddingVertical: theme.spacing.s,
-    paddingHorizontal: theme.spacing.s,
+    borderWidth: 1.2,
+    paddingLeft: theme.spacing.xxm,
+    padding: theme.spacing.xs,
     flexDirection: 'row',
   },
   input: {
+    minHeight: 32,
+    lineHeight: 20,
     fontFamily: 'Nunito-Regular',
-    fontSize: 16,
+    fontSize: 14,
     flex: 1,
-    padding: 0,
     borderColor: theme.colors.transparent,
     color: theme.colors.black,
-  },
-  sendArrow: {
-    backgroundColor: theme.colors.inputSendArrowBackground,
-    padding: 10,
-    alignSelf: 'flex-end',
-    borderRadius: theme.borderRadii.full,
-    marginLeft: 20,
   },
   error: {
     alignSelf: 'flex-end',

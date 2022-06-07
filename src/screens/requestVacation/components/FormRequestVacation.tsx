@@ -7,6 +7,7 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { Submit } from 'components/Submit'
+import { isIos } from 'utils/layout'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -87,11 +88,12 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   const cancelRemovingPhoto = () => setAttachmentsToRemove([])
 
   const onSicktimeToggle = () => {
-    if (!sickTime)
-      changeRequestData((old) => {
-        if (old.description) return old
-        return { ...old, description: t('sickTimeLabel') }
-      })
+    changeRequestData((old) => {
+      const haveUserChangedDescription = !!old.description && old.description !== t('sickTimeLabel')
+      if (haveUserChangedDescription) return old
+      // Comment: sickTime wasn't updated yet
+      return { ...old, description: sickTime ? '' : t('sickTimeLabel') }
+    })
     toggleSickTime()
   }
 
@@ -121,7 +123,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         </Box>
       </KeyboardAwareScrollView>
       {isNextVisible && !showMessageInput && (
-        <Box marginBottom="l">
+        <Box marginBottom={isIos ? 'ml' : 'none'}>
           <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
         </Box>
       )}

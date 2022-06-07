@@ -33,7 +33,8 @@ type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const { userSettings } = useUserSettingsContext()
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
-  const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
+  const { markSickTime, setEndDate, setStartDate, setCreatedAt, ...ctx } =
+    useRequestVacationContext()
   const wasSubmitEventTriggered = useRef(false)
   const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -80,7 +81,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, route.params, markSickTime, setEndDate, setStartDate])
+  }, [route, route.params, markSickTime, setEndDate, setStartDate, setCreatedAt])
 
   const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
@@ -115,6 +116,7 @@ const sendAnalytics = (ctx: RequestVacationData) => {
     message: ctx.requestData.message,
     startDate: String(ctx.startDate),
     endDate: String(ctx.endDate),
+    createdAt: String(ctx.createdAt),
     isSick: ctx.sickTime,
   })
 }

@@ -25,7 +25,7 @@ export const RequestVacationSteps = ({
   removeAttachment,
   showSentModal,
 }: StepsProps) => {
-  const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData } =
+  const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData, createdAt } =
     useRequestVacationContext()
 
   useEffect(() => {
@@ -52,6 +52,7 @@ export const RequestVacationSteps = ({
         isSick={sickTime}
         startDate={startDate}
         endDate={endDate}
+        createdAt={createdAt}
         message={requestData.message}
         onNextPressed={showSentModal}
         attachments={[...requestData.photos, ...requestData.files]}

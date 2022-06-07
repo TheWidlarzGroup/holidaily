@@ -37,7 +37,6 @@ const navigateToDetails = (
   navigate: AppNavigationType<'REQUEST_VACATION'>['navigate'],
   ctx: RequestVacationData
 ) => {
-  console.log(ctx)
   navigate('DRAWER_NAVIGATOR', {
     screen: 'Home',
     params: {
@@ -50,6 +49,7 @@ const navigateToDetails = (
           attachments: [...ctx.requestData.photos, ...ctx.requestData.files],
           startDate: (ctx.startDate ?? new Date()).toISOString(),
           endDate: (ctx.endDate ?? ctx.startDate ?? new Date()).toISOString(),
+          createdAt: (ctx.createdAt ?? new Date()).toISOString(),
           isSickTime: ctx.sickTime,
           status: ctx.sickTime ? 'accepted' : 'pending',
         },

@@ -6,14 +6,28 @@ export const mergeRequestsArrays = (
   arr2: HolidailyRequestMonthType[]
 ) => {
   const mergedMonths: HolidailyRequestMonthType[] = []
+  const listOfMonths = arr1.map((month) => month.date)
+
   arr1.forEach((x) => {
     arr2.forEach((y) => {
       if (x.date === y.date) {
-        const days = [...x.days, ...y.days].sort(sortByRequestDate)
+        let days = [...x.days, ...y.days]
+        days = days
+          .filter((value, index, self) => index === self.findIndex((t) => t.date === value.date))
+          .sort(sortByRequestDate)
+
         mergedMonths.push({
-          date: x.date,
+          date: y.date,
           days,
         })
+      }
+
+      if (!listOfMonths.includes(y.date)) {
+        mergedMonths.push({
+          date: y.date,
+          days: y.days,
+        })
+        listOfMonths.push(y.date)
       }
     })
   })

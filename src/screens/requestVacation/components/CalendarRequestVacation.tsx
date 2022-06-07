@@ -26,7 +26,12 @@ type GetPeriodModalTextsProps = {
 const getPeriodModalTexts = (p: GetPeriodModalTextsProps): { header: string; content: string } => {
   if (!p.haveUserPickedPeriod) return { header: '', content: '' }
   if (p.isInvalid && p.isSickTime)
-    return { header: p.tFunc('maxSickdaysError', { maxDays: MAX_SICK_DAYS_COUNT }), content: '' }
+    return { header: p.tFunc('maxSickDays', { maxDays: MAX_SICK_DAYS_COUNT }), content: '' }
+  if (p.isInvalid && p.availablePto < 1)
+    return {
+      header: p.tFunc('noPtoAvailable'),
+      content: '',
+    }
   if (p.isInvalid)
     return {
       header: p.tFunc('notEnoughPto'),
@@ -99,7 +104,7 @@ export const CalendarRequestVacation = ({
           <ActionModal
             isVisible={!!periodStart}
             onUserAction={onModalBtnPress}
-            label={t('select')}
+            label={isInvalid ? t('clear') : t('select')}
             variant={actionModalVariant}
             header={actionModalTexts.header}
             content={actionModalTexts.content}
@@ -115,7 +120,7 @@ const useStyles = mkUseStyles((theme) => ({
     height: 40,
   },
   calendar: {
-    width: 318,
+    width: 400,
     marginTop: theme.spacing.s,
   },
   dayNames: {

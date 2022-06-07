@@ -306,11 +306,11 @@
     "addAnother": "Add another request",
     "ok": "Got it",
     "notEnoughPto": "Ooops! You don’t that many PTO",
+    "noPtoAvailable": "Ooops! Unfortunately, you don't have any more days out of office :(",
     "maxSickDays": "Ooops! You can take max. {{maxDays}} days of sick leave over a single request :(",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
-    "maxSickdaysError": "You can take a maximum of <b>{{max}} sick days off.</b> <b>Change the number of days in the calendar.</b>",
     "discardRequestHeader": "Discard request?",
     "discardRequestContent": "By clicking Discard, all changes will be lost.",
     "discardRequestYes": "Discard",
@@ -367,7 +367,11 @@
     "cancelled": "Declined",
     "past": "Past",
     "accepted": "Accepted",
-    "yourRequest": "Your request"
+    "sent": "Sent:",
+    "sickLeave": "sick leave",
+    "acceptedAt": "Accepted:",
+    "yourRequest": "Your request",
+    "automatically": "Automatically"
   },
   "about": {
     "rateApp": "Let us know how do you enjoy Holidaily!",
@@ -411,5 +415,10 @@
     "p3a": "<b>Consent.</b> We may process your information if you have given us permission (i.e., consent) to use your personal information for a specific purpose. You can withdraw your consent at any time.",
     "p3b": "<b>Legal Obligations.</b> We may process your information where we believe it is necessary for compliance with our legal obligations, such as to cooperate with a law enforcement body or regulatory agency, exercise or defend our legal rights, or disclose your information as evidence in litigation in which we are involved.",
     "p3c": "<b>Vital Interests.</b> We may process your information where we believe it is necessary to protect your vital interests or the vital interests of a third party, such as situations involving potential threats to the safety of any person."
+  },
+  "calendar": {
+    "cantDeselect": "You can’t deselect all your Teams :(",
+    "calendarPurpose": "The purpose of this Calendar is to find out about your Team members time off.",
+    "gotIt": "Got it!"
   }
 }

@@ -8,7 +8,7 @@ import { API } from '../API'
 
 export type PostDayOffRequestBody = Pick<
   DayOffRequest,
-  'description' | 'endDate' | 'isSickTime' | 'message' | 'startDate' | 'attachments'
+  'description' | 'endDate' | 'isSickTime' | 'message' | 'startDate' | 'attachments' | 'createdAt'
 >
 export type PostDayOffRequestSuccess = {
   request: DayOffRequest

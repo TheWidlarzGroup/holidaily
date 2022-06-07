@@ -9,6 +9,7 @@ type AddRequestPayload = {
   message?: string
   endDate?: string
   startDate?: string
+  createdAt?: string
   description?: string
 }
 
@@ -160,7 +161,6 @@ export const analyticsEventMap = {
     name: '[STATS_AND_REQUESTS] Request Opened',
     payload: fcast<{ request: Request }>(),
   },
-
   // Edit Profile
   USER_COLOR_PICKED: {
     name: '[EDIT_PROFILE] User Color Picked',

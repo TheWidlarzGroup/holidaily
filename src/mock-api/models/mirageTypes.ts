@@ -28,6 +28,7 @@ export type DayOffRequest = {
   startDate: string
   endDate: string
   isSickTime: boolean
+  createdAt: string
   status: 'accepted' | 'cancelled' | 'pending' | 'past'
   // array of attachments URLs
   attachments?: Attachment[]

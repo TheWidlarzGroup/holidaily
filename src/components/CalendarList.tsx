@@ -86,7 +86,7 @@ export const CalendarList = ({
     />
   )
 }
-const renderHeader = (date: Date) => <CalendarHeader date={date} />
+const renderHeader = (date: Date) => <CalendarHeader ignoreDarkmode date={date} />
 const CalendarDayComponent = React.memo(
   (props: NewDayComponentProps & { marking: MarkedDateType }) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
@@ -94,6 +94,8 @@ const CalendarDayComponent = React.memo(
     return (
       <CalendarDay
         {...props}
+        dayHeight={24}
+        dayWidth={37}
         marking={{
           ...(props.marking ?? {}),
           disabled: isPastDate || props.marking?.disabled,
