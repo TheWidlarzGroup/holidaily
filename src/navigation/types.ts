@@ -125,6 +125,7 @@ export type ModalRoutes = {
   GALLERY: { data: AttachmentType[]; index: number; postId?: string }
   CREATE_POST: { photo: { id: string; uri: string } }
   SUBSCRIBE_NEW_TEAM: undefined
+  PRIVACY_POLICY: undefined
 }
 
 export type BottomTabRoutes = {

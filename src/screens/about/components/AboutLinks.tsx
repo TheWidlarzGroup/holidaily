@@ -1,18 +1,13 @@
 import React from 'react'
-import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import StarIcon from 'assets/icons/icon-star.svg'
 import ArrowRightIcon from 'assets/icons/arrow-right.svg'
 import { useTranslation } from 'react-i18next'
-import { useModalContext } from 'contexts/ModalProvider'
-import Modal from 'react-native-modal'
-import { ModalHeader } from 'components/ModalHeader'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import IconBack from 'assets/icons/icon-back2.svg'
-import { useBooleanState } from 'hooks/useBooleanState'
+
 import { linkWithFallback } from 'utils/linkWithFallback'
 import { Analytics } from 'services/analytics'
 import { isIos } from 'utils/layout'
-import { PrivacyPolicyContent } from './PrivacyPolicyContent'
+import { useNavigation } from '@react-navigation/native'
 
 const ANDROID_RATE_LINK = 'market://details?id=com.holidaily'
 const APPLE_RATE_LINK = 'itms-apps://itunes.apple.com/us/app/id1572204223?mt=8'
@@ -21,7 +16,8 @@ const COMPANY_WEBSITE_LINK = 'https://thewidlarzgroup.com'
 export const AboutLinks = () => {
   const theme = useTheme()
   const { t } = useTranslation('about')
-  const { showModal, hideModal } = useModalContext()
+  const { navigate } = useNavigation()
+
   return (
     <Box paddingHorizontal="m">
       <RateApp />
@@ -33,7 +29,7 @@ export const AboutLinks = () => {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
-        onPress={() => showModal(<PrivacyPolicy hideModal={hideModal} />)}>
+        onPress={() => navigate('PRIVACY_POLICY')}>
         <Text variant="textBoldSM" color="titleActive">
           {t('privacyPolicy')}
         </Text>
@@ -82,50 +78,3 @@ const RateApp = () => {
     </Box>
   )
 }
-
-const PrivacyPolicy = ({ hideModal }: { hideModal: F0 }) => {
-  const theme = useTheme()
-  const styles = useStyles()
-  const [isVisible, { setFalse: fadeOut }] = useBooleanState(true)
-  const { t } = useTranslation('about')
-  return (
-    <Modal
-      animationIn="slideInRight"
-      animationOut="slideOutRight"
-      animationInTiming={300}
-      animationOutTiming={300}
-      onModalHide={hideModal}
-      hasBackdrop={false}
-      isVisible={isVisible}
-      style={{
-        margin: 0,
-        height: '100%',
-      }}
-      onBackButtonPress={fadeOut}
-      onBackdropPress={fadeOut}>
-      <SafeAreaView
-        style={{
-          height: '100%',
-          backgroundColor: theme.colors.dashboardBackground,
-        }}>
-        <ModalHeader>
-          <BaseOpacity
-            onPress={fadeOut}
-            hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-            paddingLeft="m">
-            <IconBack height={18} width={18} color={styles.arrow.color} />
-          </BaseOpacity>
-          <Text variant="displayBoldSM">{t('privacyPolicy')}</Text>
-          <Box paddingRight="xl" paddingVertical="lplus" />
-        </ModalHeader>
-        <PrivacyPolicyContent />
-      </SafeAreaView>
-    </Modal>
-  )
-}
-
-const useStyles = mkUseStyles((theme) => ({
-  arrow: {
-    color: theme.colors.black,
-  },
-}))
