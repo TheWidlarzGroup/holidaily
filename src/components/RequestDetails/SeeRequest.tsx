@@ -25,6 +25,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
       <ModalHeader>
         <BaseOpacity
           onPress={() => navigate('STATS_AND_REQUESTS')}
+          hitSlop={{ top: 24, right: 24, bottom: 24, left: 24 }}
           marginLeft="ml"
           paddingBottom="ml"
           paddingTop="lplus">

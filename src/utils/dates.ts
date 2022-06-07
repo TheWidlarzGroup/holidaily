@@ -23,6 +23,8 @@ export const formatFromISO = (date: DateOrISO, dateFormat: string) =>
 
 export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc')
 
+export const getDateWithShortMonthString = (date: DateOrISO): string =>
+  formatFromISO(date, 'd MMM y')
 export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
 export const getISODateString = (date: DateOrISO): string => formatFromISO(date, 'yyyy-MM-dd')
 export const getISOMonthYearString = (date: DateOrISO): string => formatFromISO(date, 'yyyy-MM')
@@ -67,7 +69,7 @@ export const getDatesBetween = (startDate: DateOrISO, endDate: DateOrISO) => {
 export const getFormattedPeriod = (
   dateA?: DateOrISO,
   dateB?: DateOrISO,
-  format: 'short' | 'long' = 'short'
+  format: 'short' | 'long' | 'shortMonths' = 'short'
 ) => {
   if (!dateA || !dateB) return ''
 
@@ -79,6 +81,16 @@ export const getFormattedPeriod = (
   if (format === 'short') {
     a = formatFromISO(parsedDateA, 'd MMM')
     b = formatFromISO(parsedDateB, 'd MMM')
+  } else if (format === 'shortMonths' && isSameMonth(parsedDateA, parsedDateB)) {
+    a = formatFromISO(parsedDateA, 'd')
+    b = formatFromISO(parsedDateB, 'd MMM yyyy')
+  } else if (
+    format === 'shortMonths' &&
+    !isSameMonth(parsedDateA, parsedDateB) &&
+    isSameYear(parsedDateA, parsedDateB)
+  ) {
+    a = formatFromISO(parsedDateA, 'd MMM')
+    b = formatFromISO(parsedDateB, 'd MMM yyyy')
   } else if (format === 'long' && isSameMonth(parsedDateA, parsedDateB)) {
     a = formatFromISO(parsedDateA, 'd')
     b = formatFromISO(parsedDateB, 'd MMMM yyyy')
