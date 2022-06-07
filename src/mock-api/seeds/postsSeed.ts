@@ -57,7 +57,7 @@ export const postsMock: FeedPost[] = [
     data: [
       {
         type: 'image',
-        uri: 'https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80',
+        uri: 'https://images.unsplash.com/photo-1653343325659-98c7fde4ef11?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
         id: '1',
       },
       {

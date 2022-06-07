@@ -110,7 +110,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         extraData={language}
         contentContainerStyle={{ paddingBottom: 90 }}
       />
-      <OptionsModal options={pictureChangeOptions} isOpen={isModalOpen} onHide={closeModal} />
+      <OptionsModal
+        options={pictureChangeOptions}
+        isOpen={isModalOpen}
+        onHide={closeModal}
+        hideBackdrop
+      />
     </SafeAreaWrapper>
   )
 }

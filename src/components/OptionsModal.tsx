@@ -7,22 +7,23 @@ import { ModalHandleIndicator } from './ModalHandleIndicator'
 import { SwipeableModal } from './SwipeableModal'
 
 type Option = {
-  Icon?: Svg | F1<SvgProps, JSX.Element>
-  key?: string
   text: string
   onPress: F0
+  Icon?: Svg | F1<SvgProps, JSX.Element>
+  key?: string
 }
 
 type OptionsModalProps = {
   options: Option[]
   isOpen: boolean
   onHide: F0
+  hideBackdrop?: true
 }
 
 export const OptionsModal = (p: OptionsModalProps) => {
   const styles = useStyles()
   return (
-    <SwipeableModal isOpen={p.isOpen} onHide={p.onHide}>
+    <SwipeableModal isOpen={p.isOpen} onHide={p.onHide} hideBackdrop={p.hideBackdrop}>
       <Box
         bg="white"
         position="absolute"

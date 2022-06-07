@@ -9,6 +9,7 @@ type SwipeableModalProps = PropsWithChildren<
   {
     isOpen: boolean
     onHide: F0
+    hideBackdrop?: true
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >
@@ -17,7 +18,13 @@ type SwipeableModalProps = PropsWithChildren<
 export const SWIPEABLE_MODAL_OFFSET_TOP = 110
 export const SWIPEABLE_MODAL_HEIGHT = windowHeight - SWIPEABLE_MODAL_OFFSET_TOP
 
-export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableModalProps) => {
+export const SwipeableModal = ({
+  children,
+  isOpen,
+  onHide,
+  hideBackdrop,
+  ...rest
+}: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
   const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
   return (
@@ -25,7 +32,7 @@ export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableM
       statusBarTranslucent
       swipeThreshold={20}
       isVisible={isOpen && isVisible}
-      hasBackdrop
+      hasBackdrop={!hideBackdrop}
       useNativeDriverForBackdrop
       coverScreen
       hideModalContentWhileAnimating
