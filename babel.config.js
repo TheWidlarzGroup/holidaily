@@ -30,7 +30,6 @@ module.exports = {
           components: './src/components',
           contexts: './src/contexts',
           hooks: './src/hooks',
-          graphqlActions: './src/graphql',
           navigation: './src/navigation',
           screens: './src/screens',
           types: './src/types',
