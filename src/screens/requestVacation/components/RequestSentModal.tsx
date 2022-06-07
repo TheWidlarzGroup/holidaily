@@ -37,7 +37,6 @@ const navigateToDetails = (
   navigate: AppNavigationType<'REQUEST_VACATION'>['navigate'],
   ctx: RequestVacationData
 ) => {
-  console.log(ctx)
   navigate('DRAWER_NAVIGATOR', {
     screen: 'Home',
     params: {

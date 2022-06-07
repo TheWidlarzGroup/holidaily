@@ -8,10 +8,9 @@ import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRo
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
-import { eachWeekendDaysOfMonth } from 'utils/getWeekendDays'
+import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
-import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 
 export const useCalendarData = () => {
   const { teams } = useTeamsContext()
@@ -72,7 +71,6 @@ export const useCalendarData = () => {
 
     if (doesMonthInCalendarHasSixRows(selectedDate)) {
       const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
-      // if (!nextMonthRequests) return
       const fewRequestsOfNextMonth = nextMonthRequests
         ? getFirstRequestsOfMonth(nextMonthRequests)
         : []
