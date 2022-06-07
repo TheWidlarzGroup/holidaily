@@ -9,6 +9,8 @@ export function postsRoute(context: Server<ModelsSchema>) {
   context.post('/addpost', addPost)
   context.post('/posts/:postId', addComment)
   context.put('/posts/:postId', addReaction)
+  context.delete('/comment/:id', deleteComment)
+  context.put('/comment/:id', editComment)
 }
 function fetchPosts(schema: Schema<ModelsSchema>) {
   return schema.all('post')
@@ -49,4 +51,20 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
     schema.create('reaction', { ...body.reaction, post: getPost })
   }
   return getPost
+}
+
+function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
+  const body = JSON.parse(req)
+  console.log('del', req)
+  const getComment = schema.find('comment', body)
+  if (!getComment) return new Response(404)
+  getComment.destroy()
+}
+
+function editComment(schema: Schema<ModelsSchema>, req: Request) {
+  const body = JSON.parse(req)
+  console.log('edit', req)
+  const getComment = schema.find('comment', body)
+  if (!getComment) return new Response(404)
+  getComment.update()
 }

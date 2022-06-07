@@ -3,13 +3,13 @@ import { useNavigation } from '@react-navigation/native'
 import { EditContextMenu } from 'components/EditContextMenu'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { useDeleteComment } from 'dataAccess/mutations/useAddReactionsComment'
+import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
+import { EditTargetType } from 'mock-api/models/miragePostTypes'
 import { BottomTabNavigationProps } from 'navigation/types'
 import { FlatList, GestureResponderEvent } from 'react-native'
-import { EditTargetType } from 'mockApi/models/miragePostTypes'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -21,11 +21,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const navigation = useNavigation()
 
   const [isContextMenuOpen, { setFalse: closeMenu, setTrue: openMenu }] = useBooleanState(false)
-  const [menuCoords, setMenuCoords] = useState({ locationX: 0, locationY: 0 })
+  const [menuCoords, setMenuCoords] = useState({ pageX: 0, pageY: 0 })
   const [editTarget, setEditTarget] = useState<EditTargetType>()
 
   // const { user } = useUserContext()
   const { mutate: deleteComment } = useDeleteComment()
+  const { mutate: editComment } = useEditComment()
 
   const flatListRef = useRef<FlatList | null>(null)
   const scrollRetries = useRef(0)
@@ -59,7 +60,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const openContextMenu = (e: GestureResponderEvent, target: EditTargetType) => {
     // if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
     const { pageX, pageY } = e.nativeEvent
-    setMenuCoords({ locationX: pageX, locationY: pageY })
+    setMenuCoords({ pageX, pageY })
     setEditTarget(target)
     openMenu?.()
   }
@@ -70,10 +71,11 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
     closeMenu?.()
   }
+
   const handleEdit = () => {
-    // if (editTarget?.type === 'comment') {
-    //   editComment(editTarget.id)
-    // }
+    if (editTarget?.type === 'comment') {
+      editComment(editTarget.id)
+    }
     closeMenu?.()
   }
 
@@ -95,8 +97,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         contentContainerStyle={{ paddingBottom: 90 }}
       />
       <EditContextMenu
-        coordsX={menuCoords.locationX}
-        coordsY={menuCoords.locationY}
+        coordsX={menuCoords.pageX}
+        coordsY={menuCoords.pageY}
         isOpen={isContextMenuOpen}
         onDeletePress={handleDelete}
         onEditPress={handleEdit}

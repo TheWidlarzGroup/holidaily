@@ -61,7 +61,7 @@ export const useAddReaction = () =>
   })
 
 const deleteComment = async (id: string): Promise<any> => {
-  const { data } = await axios.post(API.DELETE.deleteComment(id), id)
+  const { data } = await axios.delete(API.DELETE.deleteComment(id))
   return data
 }
 export const useDeleteComment = () =>
@@ -71,5 +71,19 @@ export const useDeleteComment = () =>
     },
     onError: (err) => {
       console.log('Error while removing comment: ', err.message)
+    },
+  })
+
+const editComment = async (id: string): Promise<any> => {
+  const { data } = await axios.put(API.PUT.editComment(id))
+  return data
+}
+export const useEditComment = () =>
+  useMutation<any, AxiosError<{ errors: string[] }>, any>(editComment, {
+    onSuccess: (payload) => {
+      console.log(payload)
+    },
+    onError: (err) => {
+      console.log('Error while editing comment: ', err.message)
     },
   })

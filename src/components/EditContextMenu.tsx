@@ -33,7 +33,8 @@ export const EditContextMenu = ({
   return (
     <Box
       height={95}
-      minWidth={140}
+      width={windowWidth / 2}
+      minWidth={100}
       maxWidth={220}
       backgroundColor="contextMenu"
       position="absolute"
