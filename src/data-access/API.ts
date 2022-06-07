@@ -22,5 +22,9 @@ export const API = {
   PUT: {
     editUser: '/api/users',
     addReactionToPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
+    editComment: (id: string) => `/api/comment/${id}`,
+  },
+  DELETE: {
+    deleteComment: (id: string) => `/api/comment/${id}`,
   },
 }

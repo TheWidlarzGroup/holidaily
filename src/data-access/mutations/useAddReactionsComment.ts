@@ -59,3 +59,17 @@ export const useAddReaction = () =>
       console.log('Error while adding reaction: ', err.message)
     },
   })
+
+const deleteComment = async (id: string): Promise<any> => {
+  const { data } = await axios.post(API.DELETE.deleteComment(id), id)
+  return data
+}
+export const useDeleteComment = () =>
+  useMutation<any, AxiosError<{ errors: string[] }>, any>(deleteComment, {
+    onSuccess: (payload) => {
+      console.log(payload)
+    },
+    onError: (err) => {
+      console.log('Error while removing comment: ', err.message)
+    },
+  })
