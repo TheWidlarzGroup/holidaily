@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'utils/theme'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Comment as CommentType, FeedPost } from 'mock-api/models/miragePostTypes'
+import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { GestureResponderEvent } from 'react-native'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
@@ -9,14 +9,14 @@ import { CommentBoxBtn } from './CommentBoxBtn'
 type CommentBoxProps = Pick<FeedPost, 'comments'> & {
   areCommentsExpanded: boolean
   toggleCommentsExpanded: F0
-  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
+  openContextMenu: F2<GestureResponderEvent, EditTargetType>
 }
 
 export const CommentBox = ({
   comments,
   areCommentsExpanded,
   toggleCommentsExpanded,
-  handleEdit,
+  openContextMenu,
 }: CommentBoxProps) => {
   if (comments?.length === 0) return null
 
@@ -34,11 +34,11 @@ export const CommentBox = ({
               comment={comment}
               key={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
-              handleEdit={handleEdit}
+              openContextMenu={openContextMenu}
             />
           ))
         ) : (
-          <Comment comment={comments[comments.length - 1]} handleEdit={handleEdit} />
+          <Comment comment={comments[comments.length - 1]} openContextMenu={openContextMenu} />
         )}
       </ScrollView>
     </Box>

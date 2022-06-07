@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
+import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import { BaseOpacity } from 'utils/theme'
 import { GestureResponderEvent } from 'react-native'
 import { FeedPostBody } from './FeedPostBody'
@@ -8,10 +8,10 @@ import { FeedPostHeader } from './FeedPostHeader'
 
 type FeedPostProps = {
   post: FeedPostType
-  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
+  openContextMenu: F2<GestureResponderEvent, EditTargetType>
 }
 
-export const FeedPost = ({ post, handleEdit }: FeedPostProps) => (
+export const FeedPost = ({ post, openContextMenu }: FeedPostProps) => (
   <BaseOpacity
     activeOpacity={1}
     bg="white"
@@ -21,6 +21,6 @@ export const FeedPost = ({ post, handleEdit }: FeedPostProps) => (
     paddingTop="s">
     <FeedPostHeader {...post} />
     <FeedPostBody {...post} />
-    <FeedPostFooter post={post} handleEdit={handleEdit} />
+    <FeedPostFooter post={post} openContextMenu={openContextMenu} />
   </BaseOpacity>
 )

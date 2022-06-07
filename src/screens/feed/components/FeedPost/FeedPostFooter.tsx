@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost } from 'mock-api/models/miragePostTypes'
+import { EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { isIos } from 'utils/layout'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -10,10 +10,10 @@ import { FooterBar } from '../FooterBar/FooterBar'
 
 type Post = {
   post: FeedPost
-  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
+  openContextMenu: F2<GestureResponderEvent, EditTargetType>
 }
 
-export const FeedPostFooter = ({ post, handleEdit }: Post) => {
+export const FeedPostFooter = ({ post, openContextMenu }: Post) => {
   const [areCommentsExpanded, { toggle: toggleCommentsExpanded, setTrue: expandComments }] =
     useBooleanState(false)
 
@@ -24,7 +24,7 @@ export const FeedPostFooter = ({ post, handleEdit }: Post) => {
         comments={post.comments}
         areCommentsExpanded={areCommentsExpanded}
         toggleCommentsExpanded={toggleCommentsExpanded}
-        handleEdit={handleEdit}
+        openContextMenu={openContextMenu}
       />
     </Box>
   )

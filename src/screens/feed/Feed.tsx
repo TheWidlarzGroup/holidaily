@@ -1,14 +1,15 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { EditContextMenu } from 'components/EditContextMenu'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { useDeleteComment } from 'dataAccess/mutations/useAddReactionsComment'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { BottomTabNavigationProps } from 'navigation/types'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FlatList, GestureResponderEvent } from 'react-native'
+import { EditTargetType } from 'mockApi/models/miragePostTypes'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -18,11 +19,13 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [language] = useLanguage()
   const { data } = useGetPostsData()
   const navigation = useNavigation()
-  const { user } = useUserContext()
 
-  const [isContextMenuOpen, { setFalse: closeContextMenu, setTrue: openContextMenu }] =
-    useBooleanState(false)
+  const [isContextMenuOpen, { setFalse: closeMenu, setTrue: openMenu }] = useBooleanState(false)
   const [menuCoords, setMenuCoords] = useState({ locationX: 0, locationY: 0 })
+  const [editTarget, setEditTarget] = useState<EditTargetType>()
+
+  // const { user } = useUserContext()
+  const { mutate: deleteComment } = useDeleteComment()
 
   const flatListRef = useRef<FlatList | null>(null)
   const scrollRetries = useRef(0)
@@ -53,17 +56,24 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     return removeListener
   }, [navigation])
 
-  const handleEdit = (
-    e: GestureResponderEvent,
-    target: { type: 'comment' | 'post'; id: string; author: string }
-  ) => {
+  const openContextMenu = (e: GestureResponderEvent, target: EditTargetType) => {
     // if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
     const { pageX, pageY } = e.nativeEvent
     setMenuCoords({ locationX: pageX, locationY: pageY })
-    openContextMenu?.()
-    // if (target.type === 'comment') {
+    setEditTarget(target)
+    openMenu?.()
+    if (target.type === 'comment') {
+      deleteComment(target.id)
+    }
+  }
 
-    // }
+  const handleDelete = () => {
+    console.log(editTarget)
+    closeMenu?.()
+  }
+  const handleEdit = () => {
+    console.log(editTarget)
+    closeMenu?.()
   }
 
   if (!data) return <LoadingModal show />
@@ -78,7 +88,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         }}
         ListHeaderComponent={<FeedHeader />}
         data={data}
-        renderItem={({ item }) => <FeedPost post={item} handleEdit={handleEdit} />}
+        renderItem={({ item }) => <FeedPost post={item} openContextMenu={openContextMenu} />}
         keyExtractor={({ meta }) => meta.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 90 }}
@@ -87,8 +97,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         coordsX={menuCoords.locationX}
         coordsY={menuCoords.locationY}
         isOpen={isContextMenuOpen}
-        onDeletePress={() => closeContextMenu?.()}
-        onEditPress={() => closeContextMenu?.()}
+        onDeletePress={handleDelete}
+        onEditPress={handleEdit}
       />
     </SafeAreaWrapper>
   )

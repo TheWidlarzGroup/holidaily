@@ -1,7 +1,7 @@
 import { Avatar } from 'components/Avatar'
 import React from 'react'
 import { Box, Text } from 'utils/theme'
-import { Comment as CommentType } from 'mock-api/models/miragePostTypes'
+import { Comment as CommentType, EditTargetType } from 'mock-api/models/miragePostTypes'
 import { useTranslation } from 'react-i18next'
 import { GestureResponderEvent } from 'react-native'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -9,11 +9,11 @@ import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
   comment: CommentType
-  handleEdit: F2<GestureResponderEvent, { type: 'comment' | 'post'; id: string; author: string }>
+  openContextMenu: F2<GestureResponderEvent, EditTargetType>
   hideAvatar?: boolean
 }
 
-export const Comment = ({ comment, hideAvatar, handleEdit }: CommentProps) => {
+export const Comment = ({ comment, hideAvatar, openContextMenu }: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
   const { t } = useTranslation('feed')
 
@@ -48,7 +48,11 @@ export const Comment = ({ comment, hideAvatar, handleEdit }: CommentProps) => {
         isCommentBubble
         marginTop="-xs"
         onLongPress={(e) =>
-          handleEdit(e, { type: 'comment', id: comment.meta.id, author: comment.meta.author.name })
+          openContextMenu(e, {
+            type: 'comment',
+            id: comment.meta.id,
+            author: comment.meta.author.name,
+          })
         }>
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}

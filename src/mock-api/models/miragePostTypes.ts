@@ -56,3 +56,5 @@ export type FeedPostData = {
 }
 
 export type FeedPostDataType = 'image' | 'video'
+
+export type EditTargetType = { type: 'comment' | 'post'; id: string; author: string }
