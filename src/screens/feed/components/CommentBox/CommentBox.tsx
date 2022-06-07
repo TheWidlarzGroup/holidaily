@@ -10,6 +10,7 @@ type CommentBoxProps = Pick<FeedPost, 'comments'> & {
   areCommentsExpanded: boolean
   toggleCommentsExpanded: F0
   openEditModal: F1<EditTargetType>
+  isModalOpen: boolean
 }
 
 export const CommentBox = ({
@@ -17,6 +18,7 @@ export const CommentBox = ({
   areCommentsExpanded,
   toggleCommentsExpanded,
   openEditModal,
+  isModalOpen,
 }: CommentBoxProps) => {
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
@@ -38,12 +40,19 @@ export const CommentBox = ({
             <Comment
               comment={comment}
               key={comment.meta.id}
+              id={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
               openEditModal={openEditModal}
+              isModalOpen={isModalOpen}
             />
           ))
         ) : (
-          <Comment comment={comments[comments.length - 1]} openEditModal={openEditModal} />
+          <Comment
+            comment={comments[comments.length - 1]}
+            openEditModal={openEditModal}
+            isModalOpen={isModalOpen}
+            id={comments[comments.length - 1].meta.id}
+          />
         )}
       </ScrollView>
     </Box>

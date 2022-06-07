@@ -10,20 +10,21 @@ import { FooterBar } from '../FooterBar/FooterBar'
 type Post = {
   post: FeedPost
   openEditModal: F1<EditTargetType>
+  isModalOpen: boolean
 }
 
-export const FeedPostFooter = ({ post, openEditModal }: Post) => {
+export const FeedPostFooter = (p: Post) => {
   const [areCommentsExpanded, { toggle: toggleCommentsExpanded, setTrue: expandComments }] =
     useBooleanState(false)
 
   return (
     <Box marginTop={isIos && !isScreenHeightShort ? '-l2plus' : 'none'}>
-      <FooterBar post={post} expandComments={expandComments} />
+      <FooterBar post={p.post} expandComments={expandComments} />
       <CommentBox
-        comments={post.comments}
+        comments={p.post.comments}
         areCommentsExpanded={areCommentsExpanded}
         toggleCommentsExpanded={toggleCommentsExpanded}
-        openEditModal={openEditModal}
+        {...p}
       />
     </Box>
   )

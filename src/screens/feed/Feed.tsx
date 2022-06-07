@@ -105,7 +105,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         }}
         ListHeaderComponent={FeedHeader}
         data={data}
-        renderItem={({ item }) => <FeedPost post={item} openEditModal={openEditModal} />}
+        renderItem={({ item }) => (
+          <FeedPost post={item} openEditModal={openEditModal} isModalOpen={isModalOpen} />
+        )}
         keyExtractor={({ meta }) => meta.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 90 }}

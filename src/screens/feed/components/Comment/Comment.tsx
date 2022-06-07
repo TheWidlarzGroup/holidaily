@@ -1,5 +1,5 @@
 import { Avatar } from 'components/Avatar'
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Text } from 'utils/theme'
 import { Comment as CommentType, EditTargetType } from 'mock-api/models/miragePostTypes'
 import { useTranslation } from 'react-i18next'
@@ -9,11 +9,14 @@ import { Bubble } from '../Bubble/Bubble'
 type CommentProps = {
   comment: CommentType
   openEditModal: F1<EditTargetType>
+  id: string
+  isModalOpen: boolean
   hideAvatar?: boolean
 }
 
-export const Comment = ({ comment, hideAvatar, openEditModal }: CommentProps) => {
+export const Comment = ({ comment, hideAvatar, openEditModal, id, isModalOpen }: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
+  const [editCommentId, setEditCommentId] = useState('')
   const { t } = useTranslation('feed')
 
   const numberOfChars = isCommentExpanded ? 999 : 130
@@ -24,6 +27,7 @@ export const Comment = ({ comment, hideAvatar, openEditModal }: CommentProps) =>
       id: comment.meta.id,
       author: comment.meta.author.name,
     })
+    setEditCommentId(comment.meta.id)
   }
 
   return (
@@ -49,6 +53,8 @@ export const Comment = ({ comment, hideAvatar, openEditModal }: CommentProps) =>
         )}
       </Box>
       <Bubble
+        borderColor={editCommentId === id && isModalOpen ? 'special' : 'transparent'}
+        borderWidth={1}
         padding="xm"
         flexShrink={1}
         activeOpacity={0.6}

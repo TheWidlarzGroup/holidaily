@@ -14,12 +14,13 @@ import { FeedPostHeader } from './FeedPostHeader'
 type FeedPostProps = {
   post: FeedPostType
   openEditModal: F1<EditTargetType>
+  isModalOpen: boolean
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
-export const FeedPost = ({ post, openEditModal }: FeedPostProps) => {
-  const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
+export const FeedPost = (p: FeedPostProps) => {
+  const animProgress = useSharedValue(p.post.recentlyAdded ? 0 : 11)
   useEffect(() => {
     animProgress.value = withTiming(11, { duration: 800, easing: Easing.exp })
   }, [animProgress])
@@ -38,9 +39,9 @@ export const FeedPost = ({ post, openEditModal }: FeedPostProps) => {
       borderTopRightRadius="lmin"
       marginTop="s"
       paddingTop="s">
-      <FeedPostHeader {...post} />
-      <FeedPostBody {...post} />
-      <FeedPostFooter post={post} openEditModal={openEditModal} />
+      <FeedPostHeader {...p.post} />
+      <FeedPostBody {...p.post} />
+      <FeedPostFooter {...p} />
     </AnimatedBox>
   )
 }
