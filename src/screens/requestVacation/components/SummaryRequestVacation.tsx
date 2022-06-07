@@ -75,7 +75,7 @@ const SickTimeInfo = () => {
       flexDirection="row"
       alignItems="center">
       <IconPill color={theme.colors.quarternary} />
-      <Text variant="textSM" marginLeft="s">
+      <Text variant="textSM" marginLeft="s" marginRight="m">
         {t('sickDayDescription')}
       </Text>
     </Box>
