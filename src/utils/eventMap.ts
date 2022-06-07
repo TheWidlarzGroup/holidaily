@@ -118,6 +118,22 @@ export const analyticsEventMap = {
     name: '[REQUEST_VACATION] Request Vacation Added',
     payload: fcast<AddRequestPayload>(),
   },
+  REQUEST_SICK_TIME_PRESSED: {
+    name: '[REQUEST_VACATION] Sick Time Pressed',
+    payload: fcast<never>(),
+  },
+  REQUEST_START_DATE_CHANGED: {
+    name: '[REQUEST_VACATION] Start Date Changed',
+    payload: fcast<{ startDate: string }>(),
+  },
+  REQUEST_END_DATE_CHANGED: {
+    name: '[REQUEST_VACATION] End Date Changed',
+    payload: fcast<{ endDate: string }>(),
+  },
+  REQUEST_STEP_CHANGED: {
+    name: '[REQUEST_VACATION] Step Changed',
+    payload: fcast<{ step: number }>(),
+  },
   REQUEST_ADD_ATTACHMENT_MODAL_OPENED: {
     name: '[REQUEST_VACATION] Add Attachment Modal Opened',
     payload: fcast<never>(),
