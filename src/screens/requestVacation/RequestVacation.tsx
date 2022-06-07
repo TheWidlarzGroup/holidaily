@@ -63,11 +63,19 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   useEffect(() => {
     const { params } = route
 
-    setCreatedAt(new Date())
-    if (params?.start) setStartDate(new Date(params.start))
-    if (params?.end) setEndDate(new Date(params.end))
+    if (params?.start) {
+      const newStartDate = new Date(params.start)
+      setStartDate(newStartDate)
+      Analytics().track('REQUEST_START_DATE_CHANGED', { startDate: String(newStartDate) })
+    }
+    if (params?.end) {
+      const newEndDate = new Date(params.end)
+      setEndDate(new Date(params.end))
+      Analytics().track('REQUEST_END_DATE_CHANGED', { endDate: String(newEndDate) })
+    }
     if (params?.action === 'sickday') {
       markSickTime()
+      Analytics().track('REQUEST_SICK_TIME_PRESSED')
       const tomorow = new Date()
       tomorow.setDate(tomorow.getDate() + 1)
       setStartDate(tomorow)

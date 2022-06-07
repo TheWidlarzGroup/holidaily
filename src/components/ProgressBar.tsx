@@ -8,12 +8,14 @@ type ProgressBarProps = {
   scrollPositionX: Animated.SharedValue<number>
   slidersCount: number
   postPagination?: true
+  postId?: string
 }
 
 export const ProgressBar: FC<ProgressBarProps> = ({
   scrollPositionX,
   slidersCount,
   postPagination,
+  postId,
 }) => {
   const mockArr = Array(slidersCount).fill('')
 
@@ -22,6 +24,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
       {mockArr.map((_, index) => (
         <ProgressDot
           scrollPositionX={scrollPositionX}
+          postId={postId}
           key={index}
           index={index}
           postPagination={postPagination}

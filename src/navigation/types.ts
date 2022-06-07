@@ -122,7 +122,7 @@ export type ModalRoutes = {
   NOTIFICATIONS: undefined
   REQUEST_VACATION_CALENDAR: { isSickTime?: boolean }
   DRAWER_NAVIGATOR: NestedNavigatorParams<DrawerRoutes>
-  GALLERY: { data: AttachmentType[]; index: number }
+  GALLERY: { data: AttachmentType[]; index: number; postId?: string }
   CREATE_POST: { photo: { id: string; uri: string } }
   SUBSCRIBE_NEW_TEAM: undefined
 }

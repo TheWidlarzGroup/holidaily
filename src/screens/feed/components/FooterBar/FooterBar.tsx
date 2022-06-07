@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 import { Reaction, Comment, FeedPost } from 'mock-api/models/miragePostTypes'
@@ -72,6 +72,7 @@ export const FooterBar = ({ post, expandComments }: Post) => {
   return (
     <>
       <FooterBarContent
+        postId={post.id}
         onCommentBtnPress={showMessageInput}
         reactions={reactions}
         handlePressReaction={handlePressReaction}
@@ -91,6 +92,7 @@ export const FooterBar = ({ post, expandComments }: Post) => {
 }
 
 type FooterBarContentProps = {
+  postId: string | undefined
   reactions: Reaction[]
   onCommentBtnPress: F0
   handlePressReaction: F1<string>
@@ -117,6 +119,15 @@ const FooterBarContent = (props: FooterBarContentProps) => {
 
   let emojisCounter = 0
 
+  useEffect(() => {
+    if (isPickerOpen) Analytics().track('FEED_EMOJI_PICKER_OPENED', { postId: props.postId })
+  }, [isPickerOpen, props.postId])
+
+  const handleCommentBtn = () => {
+    Analytics().track('FEED_MESSAGE_INPUT_MODAL_OPENED', { postId: props.postId })
+    onCommentBtnPress()
+  }
+
   return (
     <Box
       flexDirection="row"
@@ -138,7 +149,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
           padding="s"
           marginHorizontal="xs"
           marginTop="xs"
-          onPress={onCommentBtnPress}
+          onPress={handleCommentBtn}
           height={42}
           width={110}
           alignSelf="flex-start">

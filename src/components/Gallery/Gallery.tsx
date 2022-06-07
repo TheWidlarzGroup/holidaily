@@ -20,9 +20,10 @@ type GalleryProps = {
   index?: number
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
+  postId?: string
 }
 
-export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: GalleryProps) => {
+export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
   const { width } = useWindowDimensions()
   const listRef = useRef<FlatList>(null)
   const translateX = useSharedValue(0)
@@ -77,7 +78,12 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
           alignSelf="center"
           position="absolute"
           bottom={isIos && !isScreenHeightShort ? 40 : 10}>
-          <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
+          <ProgressBar
+            postId={postId}
+            scrollPositionX={translateX}
+            slidersCount={data.length}
+            postPagination
+          />
         </Box>
       )}
     </SafeAreaWrapper>
