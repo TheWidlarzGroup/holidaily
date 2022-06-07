@@ -10,10 +10,12 @@ import { exhaustiveTypeCheck } from 'utils/functions'
 
 export type IconStatus = 'success' | 'error' | 'pending' | 'past'
 
+type AvailableSources = 'SEE_REQUEST'
+
 type CircleStatusIconProps = {
   status: IconStatus
   iconProps?: SvgProps
-  source?: string
+  source?: AvailableSources
 } & BoxProps<Theme>
 
 type WrappedIconProps = {

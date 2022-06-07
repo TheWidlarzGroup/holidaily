@@ -26,6 +26,10 @@ export const RequestFooter = (props: RequestFooterProps) => {
   const acceptDate = addDays(sentDate, 1)
   const mockedAcceptedDate = getDateWithMonthString(acceptDate)
 
+  const isAccepted = props.status === 'past' || props.status === 'accepted'
+  const acceptedMessage =
+    props.isSick && props.status !== 'past' ? `${t('automatically')}` : mockedAcceptedDate
+
   return (
     <Box marginTop="l">
       <Box flexDirection="row" justifyContent="flex-start">
@@ -37,15 +41,13 @@ export const RequestFooter = (props: RequestFooterProps) => {
         </Text>
       </Box>
 
-      {(props.isSick ||
-        (props.isSick && props.status === 'past') ||
-        props.status === 'accepted') && (
+      {isAccepted && (
         <Box flexDirection="row" justifyContent="flex-start" marginTop="xs">
           <Text variant="textSM" color="darkGreyBrighter" lineHeight={LINE_HEIGHT}>
             {t('acceptedAt')}
           </Text>
           <Text variant="textSM" color="blackDarker" lineHeight={LINE_HEIGHT} marginLeft="xs">
-            {props.isSick && props.status !== 'past' ? `${t('automatically')}` : mockedAcceptedDate}
+            {acceptedMessage}
           </Text>
         </Box>
       )}

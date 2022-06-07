@@ -39,6 +39,7 @@ export const RequestDetails = (
             height="100%"
             width="100%"
             bg="white"
+            borderRadius="lmin"
             opacity={topOpacity}
             zIndex="-1"
           />
