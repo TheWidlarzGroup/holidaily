@@ -67,7 +67,11 @@ const deleteComment = async (id: string): Promise<any> => {
 export const useDeleteComment = () =>
   useMutation<any, AxiosError<{ errors: string[] }>, any>(deleteComment, {
     onSuccess: (payload) => {
-      console.log(payload)
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        console.log('payload', payload)
+        return data
+      })
     },
     onError: (err) => {
       console.log('Error while removing comment: ', err.message)
@@ -81,7 +85,11 @@ const editComment = async (id: string): Promise<any> => {
 export const useEditComment = () =>
   useMutation<any, AxiosError<{ errors: string[] }>, any>(editComment, {
     onSuccess: (payload) => {
-      console.log(payload)
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        console.log('payload', payload)
+        return data
+      })
     },
     onError: (err) => {
       console.log('Error while editing comment: ', err.message)

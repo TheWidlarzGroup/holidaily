@@ -54,16 +54,14 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
 }
 
 function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req)
-  console.log('del', req)
+  const body = JSON.parse(req.params.id)
   const getComment = schema.find('comment', body)
   if (!getComment) return new Response(404)
   getComment.destroy()
 }
 
 function editComment(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req)
-  console.log('edit', req)
+  const body = JSON.parse(req.params.id)
   const getComment = schema.find('comment', body)
   if (!getComment) return new Response(404)
   getComment.update()
