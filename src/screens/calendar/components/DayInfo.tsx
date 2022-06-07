@@ -30,5 +30,8 @@ export const DayInfo = React.memo(
       </Box>
     )
   },
-  () => true
+  (prev, next) => {
+    if ((prev.events ?? []).length !== (next.events ?? []).length) return false
+    return true
+  }
 )
