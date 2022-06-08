@@ -236,7 +236,10 @@
     "showLess": "Pokaż mniej",
     "edit": "Edytuj",
     "delete": "Usuń",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "changesSaved": "Zapisano zamiany!",
+    "commentDeleted": "Usunięto komentarz!",
+    "postDeleted": "Usunięto post!"
   },
   "createPost": {
     "title": "Utwórz Post",
