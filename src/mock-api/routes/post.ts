@@ -33,7 +33,6 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   const user = requireAuth(schema, req)
 
   const body = JSON.parse(req.requestBody)
-  console.log('BODY', body)
   const getPost = schema.find('post', body.postId)
   if (!getPost || !user.id) return new Response(404)
   const allPostReactions = getPost.reactionIds.map((id) => schema.find('reaction', id))
@@ -56,11 +55,12 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
 }
 
 function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
-  console.log('request body', req.params.id)
-  const user = requireAuth(schema, req)
-  const getComment = schema.find('comment', req.params.id)
-  if (!user.id) return new Response(404)
+  const body = JSON.parse(req.requestBody)
+  const getComment = schema.find('comment', body.commentId)
+  const getPost = schema.find('post', body.postId)
+  if (!getComment) return new Response(404)
   getComment.destroy()
+  return getPost
 }
 
 function editComment(schema: Schema<ModelsSchema>, req: Request) {

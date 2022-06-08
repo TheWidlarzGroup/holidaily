@@ -45,12 +45,9 @@ export const useAddReaction = () =>
         const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
         if (postIndex !== -1 && allPosts) {
           const filtered = payload.post.reactions.filter((reaction) => reaction.users.length > 0)
-
           payload.post.reactions = filtered
-
           allPosts[postIndex] = payload.post
         }
-
         if (allPosts?.length) return [...allPosts]
         return [payload.post]
       })
@@ -60,21 +57,20 @@ export const useAddReaction = () =>
     },
   })
 
-const deleteComment = async (comment: EditComment): Promise<any> => {
-  console.log('commment', comment)
-  await axios
-    .delete(API.DELETE.deleteComment({ data: comment }))
-    .then((data) => console.log('dadata', data))
-    .catch((err) => console.log(err))
-  return {}
+const deleteComment = async (comment: EditComment): Promise<SubmitSuccess> => {
+  const { data } = await axios.delete(API.DELETE.deleteComment(comment), { data: comment })
+  return data
 }
 export const useDeleteComment = () =>
-  useMutation<any, AxiosError<{ errors: string[] }>, any>(deleteComment, {
+  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, EditComment>(deleteComment, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (!data) throw new Error('No posts found!')
-        console.log(payload)
-        return data
+        const allPosts = data
+        const deletedCommentPostId = payload.post.id
+        const postIndex = allPosts?.findIndex((post) => post.id === deletedCommentPostId)
+        allPosts[postIndex] = payload.post
+        return allPosts
       })
     },
     onError: (err) => {
