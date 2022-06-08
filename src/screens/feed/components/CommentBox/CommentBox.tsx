@@ -24,7 +24,7 @@ export const CommentBox = ({
 }: CommentBoxProps) => {
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
-      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].meta.id })
+      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
   }, [areCommentsExpanded, comments])
 
   if (comments?.length === 0) return null
@@ -41,8 +41,8 @@ export const CommentBox = ({
           comments.map((comment, index) => (
             <Comment
               comment={comment}
-              key={comment.meta.id}
-              id={comment.meta.id}
+              key={comment.id}
+              id={comment.id}
               postId={post.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
               openEditModal={openEditModal}
@@ -55,7 +55,7 @@ export const CommentBox = ({
             openEditModal={openEditModal}
             isModalOpen={isModalOpen}
             postId={post.id}
-            id={comments[comments.length - 1].meta.id}
+            id={comments[comments.length - 1].id}
           />
         )}
       </ScrollView>

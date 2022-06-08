@@ -33,11 +33,11 @@ export const Comment = ({
     openEditModal({
       type: 'comment',
       postId: postId || '',
-      commentId: comment.meta.id,
+      commentId: comment.id,
       author: comment.meta.author.name,
       text: comment.text,
     })
-    setEditCommentId(comment.meta.id)
+    setEditCommentId(comment.id)
   }
 
   return (
