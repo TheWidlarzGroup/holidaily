@@ -1,9 +1,8 @@
 import faker from '@faker-js/faker'
-import { eachDayOfInterval } from 'date-fns'
 import { Factory } from 'miragejs'
 import { DayOffRequest } from 'mock-api/models'
 import { isWorkingDay } from 'poland-public-holidays'
-import { isDateBetween } from 'utils/dates'
+import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 import { genRequestDetails } from './genRequestDetails'
 
 const DAY_IN_MS = 24 * 3600 * 1000
@@ -12,15 +11,10 @@ export const requestFactory = Factory.extend(genRandomDayOffRequest())
 
 export const genManyRequests = (count: number) => {
   const requests: Omit<DayOffRequest, 'id'>[] = []
-  const drawnDayoffInAlreadyScehduledTime = (req: Omit<DayOffRequest, 'id'>) =>
-    requests.some((existingReq) => {
-      const days = eachDayOfInterval({ start: new Date(req.startDate), end: new Date(req.endDate) })
-      return days.some((day) => isDateBetween(day, existingReq.startDate, existingReq.endDate))
-    })
   for (let i = 0; i < count; i++) {
     let req = genRandomDayOffRequest()
 
-    while (drawnDayoffInAlreadyScehduledTime(req)) {
+    while (drawnDayoffInAlreadyScheduledTime(req, requests)) {
       req = genRandomDayOffRequest()
     }
     requests.push(req)

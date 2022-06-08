@@ -11,6 +11,7 @@ import { ActionModal } from 'components/ActionModal'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { TFunction, useTranslation } from 'react-i18next'
 import { MAX_SICK_DAYS_COUNT } from './MaxSickDays'
+import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 
 type GetPeriodModalTextsProps = {
   haveUserPickedPeriod: boolean
@@ -55,7 +56,21 @@ export const CalendarRequestVacation = ({
   const haveUserPickedPeriod = !!periodStart && !!periodEnd
   const availablePto = user?.availablePto ?? 0
   const ptoTaken = haveUserPickedPeriod ? calculatePTO(periodStart, periodEnd) : 0
-  const isInvalid = isSickTime ? ptoTaken > MAX_SICK_DAYS_COUNT : ptoTaken > availablePto
+  const isInvalid = (() => {
+    if (
+      user?.requests &&
+      periodStart &&
+      periodEnd &&
+      drawnDayoffInAlreadyScheduledTime(
+        { startDate: periodStart, endDate: periodEnd },
+        user.requests
+      )
+    )
+      return true
+    if (isSickTime && ptoTaken > MAX_SICK_DAYS_COUNT) return true
+    if (!isSickTime && ptoTaken > availablePto) return true
+    return false
+  })()
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION_CALENDAR'>>()
   const onClear = () => {
     selectPeriodStart('')
