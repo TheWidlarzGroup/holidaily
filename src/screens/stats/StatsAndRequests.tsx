@@ -17,7 +17,9 @@ export const StatsAndRequests = () => {
   const { t } = useTranslation('stats')
   const { user } = useUserContext()
   const requests = useMemo(
-    () => user?.requests.sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)) ?? [],
+    () =>
+      user?.requests.slice().sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)) ??
+      [],
     [user]
   )
 
