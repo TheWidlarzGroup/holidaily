@@ -28,6 +28,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
   const [isModalOpen, { setFalse: closeModal, setTrue: openModal }] = useBooleanState(false)
+  const [isEditingComment, { setFalse: setEditingCommentFalse, setTrue: setEditingCommentTrue }] =
+    useBooleanState(false)
   const [editTarget, setEditTarget] = useState<EditTargetType>()
   const [messageContent, setMessageContent] = useState('')
 
@@ -68,12 +70,16 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     // if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
     setEditTarget(target)
     openModal?.()
+    if (target.type === 'comment') {
+      setEditingCommentTrue()
+    }
   }
 
   const handleDelete = () => {
     closeModal?.()
     if (editTarget?.type === 'comment') {
       deleteComment({ ...editTarget })
+      setEditingCommentFalse()
     }
   }
 
@@ -95,6 +101,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       })
     }
     setMessageContent('')
+    setEditingCommentFalse()
   }
 
   const pictureChangeOptions = [
@@ -123,7 +130,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         ListHeaderComponent={FeedHeader}
         data={data}
         renderItem={({ item }) => (
-          <FeedPost post={item} openEditModal={openEditModal} isModalOpen={isModalOpen} />
+          <FeedPost post={item} openEditModal={openEditModal} isEditingComment={isEditingComment} />
         )}
         keyExtractor={({ meta }) => meta.id}
         extraData={language}
@@ -133,6 +140,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         options={pictureChangeOptions}
         isOpen={isModalOpen}
         onHide={closeModal}
+        onDismiss={setEditingCommentFalse}
         hideBackdrop
       />
       <MessageInputModal

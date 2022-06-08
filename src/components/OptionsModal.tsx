@@ -18,12 +18,13 @@ type OptionsModalProps = {
   isOpen: boolean
   onHide: F0
   hideBackdrop?: true
+  onDismiss?: F0
 }
 
 export const OptionsModal = (p: OptionsModalProps) => {
   const styles = useStyles()
   return (
-    <SwipeableModal isOpen={p.isOpen} onHide={p.onHide} hideBackdrop={p.hideBackdrop}>
+    <SwipeableModal {...p}>
       <Box
         bg="white"
         position="absolute"

@@ -10,7 +10,7 @@ import { FooterBar } from '../FooterBar/FooterBar'
 type Post = {
   post: FeedPost
   openEditModal: F1<EditTargetType>
-  isModalOpen: boolean
+  isEditingComment: boolean
 }
 
 export const FeedPostFooter = (p: Post) => {

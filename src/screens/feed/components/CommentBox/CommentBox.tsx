@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box } from 'utils/theme'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
@@ -10,8 +10,8 @@ type CommentBoxProps = Pick<FeedPost, 'comments'> & {
   areCommentsExpanded: boolean
   toggleCommentsExpanded: F0
   openEditModal: F1<EditTargetType>
-  isModalOpen: boolean
   post: FeedPost
+  isEditingComment: boolean
 }
 
 export const CommentBox = ({
@@ -19,9 +19,11 @@ export const CommentBox = ({
   areCommentsExpanded,
   toggleCommentsExpanded,
   openEditModal,
-  isModalOpen,
   post,
+  isEditingComment,
 }: CommentBoxProps) => {
+  const [editCommentId, setEditCommentId] = useState('')
+
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
       Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
@@ -46,16 +48,20 @@ export const CommentBox = ({
               postId={post.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
               openEditModal={openEditModal}
-              isModalOpen={isModalOpen}
+              editCommentId={editCommentId}
+              setEditCommentId={setEditCommentId}
+              isEditingComment={isEditingComment}
             />
           ))
         ) : (
           <Comment
             comment={comments[comments.length - 1]}
             openEditModal={openEditModal}
-            isModalOpen={isModalOpen}
             postId={post.id}
             id={comments[comments.length - 1].id}
+            editCommentId={editCommentId}
+            setEditCommentId={setEditCommentId}
+            isEditingComment={isEditingComment}
           />
         )}
       </ScrollView>

@@ -57,8 +57,9 @@ function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
   const body = JSON.parse(req.requestBody)
   const comment = schema.find('comment', body.commentId)
   const post = schema.find('post', body.postId)
+  console.log(comment, post)
   if (!comment || !post) return new Response(404)
-  getComment.destroy()
+  comment.destroy()
   return post
 }
 
