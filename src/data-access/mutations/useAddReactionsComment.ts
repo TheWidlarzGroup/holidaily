@@ -79,7 +79,7 @@ export const useDeleteComment = () =>
   })
 
 const editComment = async (comment: EditComment): Promise<SubmitSuccess> => {
-  const { data } = await axios.put(API.PUT.editComment(comment), { data: comment })
+  const { data } = await axios.put(API.PUT.editComment(comment), comment)
   return data
 }
 export const useEditComment = () =>
@@ -87,8 +87,11 @@ export const useEditComment = () =>
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (!data) throw new Error('No posts found!')
-        console.log('payload', payload)
-        return data
+        const allPosts = data
+        const editedCommentPostId = payload.post.id
+        const postIndex = allPosts?.findIndex((post) => post.id === editedCommentPostId)
+        allPosts[postIndex] = payload.post
+        return allPosts
       })
     },
     onError: (err) => {

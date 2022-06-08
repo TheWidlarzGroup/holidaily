@@ -82,7 +82,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     if (editTarget?.type === 'comment') {
       if (!editTarget.text) return
       setMessageContent(editTarget?.text)
-      setTimeout(() => showMessageInput(), 350)
+      setTimeout(() => showMessageInput(), 400)
     }
   }
 
