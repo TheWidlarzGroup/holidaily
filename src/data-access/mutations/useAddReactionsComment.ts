@@ -78,12 +78,12 @@ export const useDeleteComment = () =>
     },
   })
 
-const editComment = async (comment: EditComment): Promise<any> => {
-  const { data } = await axios.put(API.PUT.editComment(comment))
+const editComment = async (comment: EditComment): Promise<SubmitSuccess> => {
+  const { data } = await axios.put(API.PUT.editComment(comment), { data: comment })
   return data
 }
 export const useEditComment = () =>
-  useMutation<any, AxiosError<{ errors: string[] }>, any>(editComment, {
+  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, EditComment>(editComment, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (!data) throw new Error('No posts found!')

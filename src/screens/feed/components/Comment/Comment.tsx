@@ -32,9 +32,10 @@ export const Comment = ({
   const handleOnPress = () => {
     openEditModal({
       type: 'comment',
-      commentId: comment.meta.id,
       postId: postId || '',
+      commentId: comment.meta.id,
       author: comment.meta.author.name,
+      text: comment.text,
     })
     setEditCommentId(comment.meta.id)
   }

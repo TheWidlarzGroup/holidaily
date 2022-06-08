@@ -50,7 +50,6 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   } else if (filterReactions.length <= 0) {
     schema.create('reaction', { ...body.reaction, post: getPost })
   }
-  console.log('getpost', getPost)
   return getPost
 }
 
