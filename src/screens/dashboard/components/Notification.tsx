@@ -1,11 +1,13 @@
 import React from 'react'
 import { BaseOpacity, Box, Text } from 'utils/theme'
-import FastImage from 'react-native-fast-image'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
 import { useNavigation } from '@react-navigation/native'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { NotificationContent } from './NotificationContent'
+import { notificationNavHandler } from '../helpers/notificationNavHandler'
+import { NotificationThumbnail } from './NotificationThumbnail'
 
 export const Notification = ({
   source: author,
@@ -14,14 +16,21 @@ export const Notification = ({
   ...p
 }: NotificationModel) => {
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
+  const description = 'description' in p ? p.description : undefined
+  const { user } = useUserContext()
   const { navigate } = useNavigation()
   const { mutate } = useMarkNotificationAsSeen()
   const opacity = wasSeenByHolder ? 0.6 : 1
+
+  const notificationRequest = p.requestId
+    ? user?.requests.find((item) => item.id === p.requestId)
+    : undefined
+
   const onPress = () => {
     if (!wasSeenByHolder) mutate(p.id)
-    if (type === 'dayOff') navigate('CALENDAR')
-    else navigate('FEED', { postId: 3 })
+    notificationNavHandler(navigate, type, notificationRequest)
   }
+
   return (
     <BaseOpacity
       activeOpacity={1}
@@ -34,16 +43,12 @@ export const Notification = ({
       height={88}
       flexDirection="row"
       overflow="hidden">
-      {author.photo && (
-        <FastImage
-          source={{ uri: author.photo }}
-          style={{ borderColor: author.userColor, width: 56, borderLeftWidth: 16 }}
-        />
-      )}
+      <NotificationThumbnail author={author} type={type} />
       <Box flex={1}>
         <NotificationContent
           endDate={endDate}
           type={type}
+          description={description}
           firstName={author.firstName}
           lastName={author.lastName}
           isSeen={wasSeenByHolder}

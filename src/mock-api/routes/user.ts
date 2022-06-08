@@ -97,6 +97,26 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   const June = schema.find('user', 'source-june')
   const Peter = schema.find('user', 'source-peter')
   const Tom = schema.find('user', 'source-tom')
+  const Holidaily = schema.find('user', 'source-holidaily')
+
+  userRequests.forEach((singleRequest) => {
+    if (
+      (singleRequest.status === 'accepted' || singleRequest.status === 'cancelled') &&
+      singleRequest.description
+    ) {
+      schema.create('notification', {
+        id: `holidaily-${singleRequest.status}-${singleRequest.id}`,
+        createdAt: faker.date.recent(0),
+        source: Holidaily,
+        wasSeenByHolder: false,
+        holderId: user.id,
+        requestId: singleRequest.id,
+        description: singleRequest.description,
+        type: singleRequest.status,
+      })
+    }
+  })
+
   schema.create('notification', {
     id: 'june-like',
     createdAt: faker.date.recent(0),
@@ -112,6 +132,14 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'comment',
+  })
+  schema.create('notification', {
+    id: 'holidaily-prompt',
+    createdAt: faker.date.recent(0),
+    source: Holidaily,
+    wasSeenByHolder: false,
+    holderId: user.id,
+    type: 'prompt',
   })
   schema.create('notification', {
     id: 'peter-dayoff',

@@ -1,6 +1,15 @@
 import { Server } from 'miragejs'
 import { Schema as ModelsSchema } from 'mockApi/models'
 
+export const sourceHolidaily = {
+  firstName: 'Holidaily',
+  lastName: 'Holidaily',
+  userColor: 'rgba(255, 197, 131, 1)',
+  id: 'source-holidaily',
+  photo: null,
+  occupation: 'Holidaily',
+}
+
 export const sourcePeter = {
   firstName: 'Peter',
   lastName: 'Kansas',
@@ -26,6 +35,7 @@ export const sourceTom = {
   photo: 'https://randomuser.me/api/portraits/men/15.jpg',
 }
 export const notificationSources = (context: Server<ModelsSchema>) => {
+  context.create('user', sourceHolidaily)
   context.create('user', sourceJune)
   context.create('user', sourcePeter)
   context.create('user', sourceTom)

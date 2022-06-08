@@ -5,15 +5,22 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { LoadingModal } from 'components/LoadingModal'
+import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
   const theme = useTheme()
-  const { goBack } = useNavigation()
+  const navigation = useNavigation()
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
+
+  const goBack = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'DRAWER_NAVIGATOR' }],
+    })
+  }
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>

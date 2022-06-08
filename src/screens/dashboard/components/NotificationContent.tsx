@@ -9,8 +9,9 @@ type NotificationContentProps = {
   type: Notification['type']
   firstName: string
   lastName: string
-  endDate: Date | undefined
   isSeen: boolean
+  endDate?: Date
+  description?: string
 }
 
 export const NotificationContent = (p: NotificationContentProps) => {
@@ -24,6 +25,7 @@ export const NotificationContent = (p: NotificationContentProps) => {
             i18nKey={p.type}
             values={{
               author: `${p.firstName} ${p.lastName}`,
+              description: p.description ? p.description : undefined,
               endDate: p.endDate
                 ? formatDate(p.endDate, 'dayNumeralLongMonthNoYear', getCurrentLocale())
                 : undefined,
