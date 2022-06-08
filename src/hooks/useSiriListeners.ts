@@ -20,7 +20,7 @@ export const useSiriListeners = () => {
       }
     )
     return () => {
-      listener.remove()
+      listener?.remove()
     }
   }, [navigation])
 }
