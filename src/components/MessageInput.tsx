@@ -78,7 +78,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     []
   )
 
-  const handleSubmit = () => {
+  const handleSubmitComment = () => {
     if (error) return
     onSubmitEditing(messageContent)
     const message: Comment = {
@@ -124,7 +124,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
-          onSubmitEditing={handleSubmit}
+          onSubmitEditing={handleSubmitComment}
           onBlur={handleBlur}
           blurOnSubmit
           multiline
@@ -136,7 +136,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           <BaseOpacity
             width={32}
             height={32}
-            onPress={handleEditComment || handleSubmit}
+            onPress={handleEditComment || handleSubmitComment}
             backgroundColor="special"
             borderRadius="full"
             justifyContent="center"

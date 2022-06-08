@@ -15,7 +15,7 @@ export type Timestamp = {
 }
 
 export type MetaData = {
-  id: string
+  id?: string
   author: UserData
   timestamp: Timestamp
   location?: CompoundLocation
@@ -27,6 +27,7 @@ export type Reaction = {
 }
 
 export type Comment = {
+  id: string
   meta: MetaData
   text: string
 }
@@ -59,7 +60,7 @@ export type FeedPostData = {
 export type FeedPostDataType = 'image' | 'video'
 
 export type EditComment = {
-  type?: 'comment'
+  type: 'comment'
   postId: string
   commentId: string
   author?: string
