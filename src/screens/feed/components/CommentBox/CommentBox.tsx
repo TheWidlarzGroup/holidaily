@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from 'utils/theme'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Comment as CommentType, FeedPost } from 'mock-api/models/miragePostTypes'
+import { Analytics } from 'services/analytics'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
 
@@ -15,6 +16,11 @@ export const CommentBox = ({
   areCommentsExpanded,
   toggleCommentsExpanded,
 }: CommentBoxProps) => {
+  useEffect(() => {
+    if (areCommentsExpanded && comments?.length > 0)
+      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].meta.id })
+  }, [areCommentsExpanded, comments])
+
   if (comments?.length === 0) return null
 
   return (
@@ -25,16 +31,17 @@ export const CommentBox = ({
         opened={areCommentsExpanded}
       />
       <ScrollView>
-        {comments.map((comment, index) => {
-          if (!areCommentsExpanded && index > 0) return
-          return (
+        {areCommentsExpanded ? (
+          comments.map((comment, index) => (
             <Comment
               comment={comment}
               key={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
             />
-          )
-        })}
+          ))
+        ) : (
+          <Comment comment={comments[comments.length - 1]} />
+        )}
       </ScrollView>
     </Box>
   )

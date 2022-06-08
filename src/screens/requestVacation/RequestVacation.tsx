@@ -33,7 +33,8 @@ type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const { userSettings } = useUserSettingsContext()
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
-  const { markSickTime, setEndDate, setStartDate, ...ctx } = useRequestVacationContext()
+  const { markSickTime, setEndDate, setStartDate, setCreatedAt, ...ctx } =
+    useRequestVacationContext()
   const wasSubmitEventTriggered = useRef(false)
   const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
@@ -56,22 +57,31 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     wasSubmitEventTriggered.current = true
     goBack()
     sendAnalytics(ctx)
-    showModal(<RequestSentModal navigate={navigate} />)
+    showModal(<RequestSentModal navigate={navigate} ctx={ctx} />)
   }, [requestSent, goBack, navigate, hideModal, showModal, ctx])
 
   useEffect(() => {
     const { params } = route
 
-    if (params?.start) setStartDate(new Date(params.start))
-    if (params?.end) setEndDate(new Date(params.end))
+    if (params?.start) {
+      const newStartDate = new Date(params.start)
+      setStartDate(newStartDate)
+      Analytics().track('REQUEST_START_DATE_CHANGED', { startDate: String(newStartDate) })
+    }
+    if (params?.end) {
+      const newEndDate = new Date(params.end)
+      setEndDate(new Date(params.end))
+      Analytics().track('REQUEST_END_DATE_CHANGED', { endDate: String(newEndDate) })
+    }
     if (params?.action === 'sickday') {
       markSickTime()
+      Analytics().track('REQUEST_SICK_TIME_PRESSED')
       const tomorow = new Date()
       tomorow.setDate(tomorow.getDate() + 1)
       setStartDate(tomorow)
       setEndDate(tomorow)
     }
-  }, [route, route.params, markSickTime, setEndDate, setStartDate])
+  }, [route, route.params, markSickTime, setEndDate, setStartDate, setCreatedAt])
 
   const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
@@ -106,6 +116,7 @@ const sendAnalytics = (ctx: RequestVacationData) => {
     message: ctx.requestData.message,
     startDate: String(ctx.startDate),
     endDate: String(ctx.endDate),
+    createdAt: String(ctx.createdAt),
     isSick: ctx.sickTime,
   })
 }

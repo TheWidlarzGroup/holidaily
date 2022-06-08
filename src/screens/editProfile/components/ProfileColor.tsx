@@ -47,12 +47,12 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
       opacity={isTouchDisabled ? 0.4 : 1}
       paddingLeft="xs"
       paddingRight="m"
-      marginBottom="xl"
+      marginBottom="xxxl"
       marginTop="s">
-      <Text variant="sectionLabel" marginLeft="m">
+      <Text variant="sectionLabel" marginLeft="m" marginBottom="s">
         {t('userColor')}
       </Text>
-      <Text variant="textXS" color="darkGrey" marginLeft="m">
+      <Text variant="textXS" color="darkGrey" marginLeft="m" lineHeight={18}>
         {t('userColorDesc')}
       </Text>
       <BaseOpacity

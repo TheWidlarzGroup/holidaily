@@ -18,6 +18,7 @@ export const ConfirmationModal = ({
   declineBtnText,
   acceptBtnText,
   statusIcon,
+  hideRejectButton,
 }: ConfirmationModalProps & Pick<ModalProps, 'isVisible'>) => {
   const styles = useModalStyles()
   const theme = useTheme()
@@ -30,26 +31,30 @@ export const ConfirmationModal = ({
       marginTop: theme.spacing.xs,
     },
   }
-  // FIXME: Something in the drawer menu is intercepting the touch gestures, so a hack with wrapping CustomButton in BaseOpacity is needed for buttons to work
-  // and a hack with full width & height BaseOpacity for backdrop press to work
+
   return (
     <SwipeableModal isOpen={isVisible} onHide={onDismiss ?? onDecline}>
       <Box style={styles.bottomModal}>
         {statusIcon && (
-          <CircleStatusIcon status={statusIcon} height={64} iconProps={statusIconProps} />
+          <CircleStatusIcon
+            status={statusIcon}
+            height={64}
+            iconProps={statusIconProps}
+            marginBottom="ml"
+          />
         )}
         {header !== null && <Text variant="displayBoldSM">{header || t('areYouSure')}</Text>}
         {content !== null && (
-          <Text variant="textSM" textAlign="center">
+          <Text paddingTop="s" variant="textSM" textAlign="center">
             {content}
           </Text>
         )}
-        <BaseOpacity activeOpacity={0.8} onPress={onAccept} marginBottom="xm" marginTop="xl">
-          <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" />
-        </BaseOpacity>
-        <BaseOpacity activeOpacity={0.8} onPress={onDecline}>
-          <CustomButton label={declineBtnText ?? t('no')} variant="secondary" />
-        </BaseOpacity>
+        <Box marginBottom="xm" marginTop="xl">
+          <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" onPress={onAccept} />
+        </Box>
+        {!hideRejectButton && (
+          <CustomButton label={declineBtnText ?? t('no')} variant="secondary" onPress={onDecline} />
+        )}
       </Box>
       <BaseOpacity
         onPress={onDismiss ?? onDecline}

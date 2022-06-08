@@ -6,6 +6,7 @@ import { CalendarRequestVacation } from 'screens/requestVacation/components/Cale
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
 import { CreatePost } from 'screens/createPost/CreatePost'
 import { Notifications } from 'screens/dashboard/Notifications'
+import { PrivacyPolicy } from 'screens/about/components/PrivacyPolicy'
 import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
@@ -40,6 +41,13 @@ export const AppStackNavigation = () => {
         />
         <AppStack.Screen name="CREATE_POST" component={CreatePost} />
         <AppStack.Screen name="SUBSCRIBE_NEW_TEAM" component={SubscribeNewTeam} />
+        <AppStack.Screen
+          name="PRIVACY_POLICY"
+          component={PrivacyPolicy}
+          options={{
+            ...TransitionPresets.SlideFromRightIOS,
+          }}
+        />
       </AppStack.Navigator>
     </Box>
   )

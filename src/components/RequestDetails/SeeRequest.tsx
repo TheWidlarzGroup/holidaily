@@ -5,6 +5,8 @@ import IconBack from 'assets/icons/icon-back2.svg'
 import { useNavigation } from '@react-navigation/native'
 import { RequestsNavigationProps, RequestsNavigatorType } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
+import { StatusBar } from 'react-native'
+import { Analytics } from 'services/analytics'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
@@ -21,22 +23,32 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
     if (getPrevScreen) setPrevScreen(getPrevScreen)
   }, [navigation])
 
+  useEffect(() => {
+    Analytics().track('REQUEST_OPENED', { request: { ...p } })
+  }, [p])
+
   const goBack = () => {
     navigation.navigate(prevScreen)
   }
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+      <StatusBar backgroundColor={theme.colors.veryLightGrey} />
       <ModalHeader>
-        <BaseOpacity onPress={goBack} marginLeft="l" paddingBottom="ml" paddingTop="lplus">
-          <IconBack width={14} height={14} color={theme.colors.black} />
+        <BaseOpacity
+          onPress={goBack}
+          hitSlop={{ top: 24, right: 24, bottom: 24, left: 24 }}
+          marginLeft="ml"
+          paddingBottom="ml"
+          paddingTop="lplus">
+          <IconBack width={9} height={16} color={theme.colors.black} />
         </BaseOpacity>
-        <Text variant="header" color="black" fontSize={20} paddingBottom="ml" paddingTop="lplus">
+        <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="lplus">
           {t('yourRequest')}
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <Box padding="m" flex={1}>
+      <Box marginTop="l" paddingBottom="m" flex={1}>
         <RequestDetails {...p} showStatus wasSent />
       </Box>
     </SafeAreaWrapper>

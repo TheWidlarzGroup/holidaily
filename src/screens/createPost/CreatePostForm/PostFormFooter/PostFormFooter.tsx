@@ -14,6 +14,7 @@ import { Alert } from 'react-native'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { useLocation } from 'hooks/useLocation'
 import { useTranslation } from 'react-i18next'
+import { Analytics } from 'services/analytics'
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
@@ -38,6 +39,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
     [onImagesPick]
   )
   const handleCameraPress = () => {
+    Analytics().track('CREATE_POST_CAMERA_PRESSED')
     if (imagesCount >= 5) {
       return Alert.alert(t('exceededAmount'))
     }
@@ -51,6 +53,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
   }
 
   const handleCameraLongPress = () => {
+    Analytics().track('CREATE_POST_CAMERA_LONG_PRESSED')
     if (imagesCount >= 5) {
       return Alert.alert(t('exceededAmount'))
     }
@@ -64,6 +67,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
   }
 
   const handleGalleryPress = () => {
+    Analytics().track('CREATE_POST_LOCATION_PRESSED')
     if (imagesCount >= 5) {
       return Alert.alert(t('exceededAmount'))
     }

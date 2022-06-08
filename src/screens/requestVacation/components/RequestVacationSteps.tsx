@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Analytics } from 'services/analytics'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { FormRequestVacation } from './FormRequestVacation'
@@ -24,8 +25,12 @@ export const RequestVacationSteps = ({
   removeAttachment,
   showSentModal,
 }: StepsProps) => {
-  const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData } =
+  const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData, createdAt } =
     useRequestVacationContext()
+
+  useEffect(() => {
+    Analytics().track('REQUEST_STEP_CHANGED', { step })
+  }, [step])
 
   if (step === 0)
     return (
@@ -47,6 +52,7 @@ export const RequestVacationSteps = ({
         isSick={sickTime}
         startDate={startDate}
         endDate={endDate}
+        createdAt={createdAt}
         message={requestData.message}
         onNextPressed={showSentModal}
         attachments={[...requestData.photos, ...requestData.files]}

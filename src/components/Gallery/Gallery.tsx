@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
+import { isScreenHeightShort } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
 import { Box, theme } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
@@ -19,9 +20,10 @@ type GalleryProps = {
   index?: number
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
+  postId?: string
 }
 
-export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: GalleryProps) => {
+export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
   const { width } = useWindowDimensions()
   const listRef = useRef<FlatList>(null)
   const translateX = useSharedValue(0)
@@ -72,8 +74,16 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress }: Galler
         showsHorizontalScrollIndicator={false}
       />
       {data.length > 1 && (
-        <Box alignSelf="center" position="absolute" bottom={isIos ? 40 : 10}>
-          <ProgressBar scrollPositionX={translateX} slidersCount={data.length} postPagination />
+        <Box
+          alignSelf="center"
+          position="absolute"
+          bottom={isIos && !isScreenHeightShort ? 40 : 10}>
+          <ProgressBar
+            postId={postId}
+            scrollPositionX={translateX}
+            slidersCount={data.length}
+            postPagination
+          />
         </Box>
       )}
     </SafeAreaWrapper>

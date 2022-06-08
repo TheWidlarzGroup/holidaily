@@ -1,6 +1,7 @@
 import { CompoundLocation } from 'hooks/useLocation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Analytics } from 'services/analytics'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 
 type ModalLocationListProps = {
@@ -13,6 +14,10 @@ export const ModalLocationList = (props: ModalLocationListProps) => {
   const { locations, onLocationPress } = props
 
   const { t } = useTranslation('feed')
+
+  useEffect(() => {
+    Analytics().track('FEED_LOCATION_LIST_MODAL_OPENED')
+  }, [])
 
   if (props.query.length < 1) return null
 

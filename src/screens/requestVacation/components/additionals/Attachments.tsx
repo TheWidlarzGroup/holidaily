@@ -12,6 +12,7 @@ type AttachmentsProps = {
   imagesPerScreenWidth: 2 | 4
   addMore?: F0
   displayAddMore?: boolean
+  disableDeleteImgOnPress?: true
 }
 
 type AttachmentWrapperProps = {
@@ -19,6 +20,7 @@ type AttachmentWrapperProps = {
   imageWidth?: number
   onClose?: F0
   fileName?: string
+  disableDeleteImgOnPress?: true
 }
 
 const CONTAINER_TOTAL_HORIZONTAL_MARGINS = 24
@@ -31,6 +33,7 @@ export const Attachments = ({
   displayAddMore,
   removeAttachment,
   imagesPerScreenWidth,
+  disableDeleteImgOnPress,
 }: AttachmentsProps) => {
   const styles = useStyles()
 
@@ -57,6 +60,7 @@ export const Attachments = ({
               uri={attachment.uri}
               fileName={attachment.name}
               imageWidth={imageWidth}
+              disableDeleteImgOnPress={disableDeleteImgOnPress}
             />
           </Box>
         ))}
@@ -88,8 +92,8 @@ export const AttachmentWrapper = (p: AttachmentWrapperProps) => (
       </BaseOpacity>
     )}
     <BaseOpacity
-      onPress={p.onClose}
-      activeOpacity={p.onClose ? 0.8 : 1}
+      onPress={p.disableDeleteImgOnPress ? () => null : p.onClose}
+      activeOpacity={p.onClose && !p.disableDeleteImgOnPress ? 0.8 : 1}
       width={p.imageWidth}
       aspectRatio={1}
       borderRadius="l1min"

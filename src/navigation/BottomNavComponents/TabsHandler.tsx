@@ -60,6 +60,15 @@ export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabInd
           </Box>
         )
       })}
+      {/* Comment: When the drawer is open, transparent stripes show up between the tabs. The box below covers the visible ones.  */}
+      <Box
+        position="absolute"
+        bottom={-10}
+        left={10}
+        height={49}
+        width={1.8 * tabWidth}
+        bg="white"
+      />
     </Box>
   )
 }

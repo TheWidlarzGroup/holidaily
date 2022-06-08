@@ -5,6 +5,7 @@ import { RequestDetails } from 'components/RequestDetails/RequestDetails'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
 import { Submit } from 'components/Submit'
 import IconPill from 'assets/icons/icon-pill.svg'
+import { isIos } from 'utils/layout'
 
 type SummaryRequestVacationProps = {
   description: string
@@ -12,6 +13,7 @@ type SummaryRequestVacationProps = {
   onNextPressed: F0
   startDate?: Date
   endDate?: Date
+  createdAt?: Date
   message?: string
   attachments?: { id: string; uri: string }[]
   hideNext?: boolean
@@ -22,11 +24,12 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   const { mutate, isLoading } = useCreateDayOffRequest()
   const onSubmit = () => {
     if (!p.startDate || !p.endDate) return
-
+    const createdAt = p.createdAt ?? new Date()
     mutate(
       {
         startDate: p.startDate.toISOString(),
         endDate: p.endDate.toISOString(),
+        createdAt: createdAt.toISOString(),
         description: p.description ?? t('outOfOffice'),
         isSickTime: p.isSick,
         message: p.message ?? '',
@@ -37,14 +40,16 @@ export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVa
   }
 
   return (
-    <Box flex={1} paddingHorizontal="m">
+    <Box flex={1} paddingHorizontal="m" paddingBottom={isIos ? 'ml' : 'none'}>
       {p.isSick && <SickTimeInfo />}
       <RequestDetails
+        source="ADD_REQUEST"
         description={p.description}
         message={p.message ?? ''}
         attachments={p.attachments}
         startDate={(p.startDate ?? new Date()).toISOString()}
         endDate={(p.endDate ?? new Date()).toISOString()}
+        createdAt={(p.createdAt ?? new Date()).toISOString()}
         isSickTime={p.isSick}
         status={p.isSick ? 'accepted' : 'pending'}
       />
@@ -74,7 +79,7 @@ const SickTimeInfo = () => {
       flexDirection="row"
       alignItems="center">
       <IconPill color={theme.colors.quarternary} />
-      <Text variant="textSM" marginLeft="s">
+      <Text variant="textSM" marginLeft="s" marginRight="m">
         {t('sickDayDescription')}
       </Text>
     </Box>

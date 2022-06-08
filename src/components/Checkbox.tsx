@@ -16,7 +16,6 @@ type CheckboxProps = {
   backgroundColor?: string
 }
 
-// TODO: This checkbox in size 'l' appears in "Add Request" screen and it should be changed after the UI mock would be completed
 const DOT_POSITION_UNCHECKED = -1
 const DOT_POSITION_CHECKED = 25
 const DOT_POSITION_SMALL_UNCHECKED = 4

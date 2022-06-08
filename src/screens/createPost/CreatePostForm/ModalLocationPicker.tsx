@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { CompoundLocation, useLocation } from 'hooks/useLocation'
 import { useSearch } from 'hooks/useSearch'
 import { CustomButton } from 'components/CustomButton'
+import { Analytics } from 'services/analytics'
 import { SearchBar } from './SearchBar'
 import { ModalLocationList } from './ModalLocationList'
 
@@ -34,6 +35,7 @@ export const ModalLocationPicker = (props: ModalLocationPickerProps) => {
   const handleLocationAccess = async () => {
     const location = await requestLocation()
     if (!location?.position) return
+    Analytics().track('FEED_LOCATION_ADDED', { location })
     props.onLocationChange(location)
   }
   const theme = useTheme()

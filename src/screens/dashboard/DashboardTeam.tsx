@@ -9,9 +9,9 @@ import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
 import { User } from 'mockApi/models'
-import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { SwipeableModalRegular, SwipeableModalRegularProps } from 'components/SwipeableModalRegular'
 import { Analytics } from 'services/analytics'
+import { SWIPEABLE_MODAL_HEIGHT } from 'components/SwipeableModal'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
@@ -20,22 +20,15 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [teamMemberHeight, setTeamMemberHeight] = useState(0)
-  const [modalHeight, setModalHeight] = useState(0)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
     setModalUser(user)
     setIsModalVisible(true)
     Analytics().track('DASHBOARD_TEAM_OPENED', { teamName: params.name })
   }
-  const { user } = useUserContext()
 
   const { matesOnHoliday, matesWithPlannedHolidays, mates } = useMemo(() => {
-    let mates: User[] = []
-    // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
-    // So developer has to remember to add him wherever he needs to show him in teams.
-    if (params?.users && user) mates = [...params.users, user]
-    else if (params?.users) mates = params.users
+    const mates: User[] = params?.users ?? []
 
     let matesOnHoliday = mates.filter((mate) => mate.isOnHoliday)
     matesOnHoliday = matesOnHoliday.filter(
@@ -52,17 +45,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     matesWithPlannedHolidays.sort(sortByStartDate)
 
     return { matesOnHoliday, matesWithPlannedHolidays, mates }
-  }, [params?.users, user])
-
-  const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
-    const { height } = event.nativeEvent.layout
-    setTeamMemberHeight(height)
-  }
-
-  const getModalHeight = (event: LayoutChangeEvent) => {
-    const { height } = event.nativeEvent.layout
-    setModalHeight(height)
-  }
+  }, [params?.users])
 
   return (
     <>
@@ -94,15 +77,31 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
         </ScrollView>
       </SafeAreaWrapper>
       {modalUser && (
-        <SwipeableModalRegular
-          onLayout={getModalHeight}
-          useScrollView={teamMemberHeight > modalHeight}
-          hasIndicator
+        <TeamMemberModal
+          onHide={() => setIsModalVisible(false)}
           isOpen={isModalVisible}
-          onHide={() => setIsModalVisible(false)}>
-          <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
-        </SwipeableModalRegular>
+          modalUser={modalUser}
+        />
       )}
     </>
+  )
+}
+
+type TeamMemberProps = Pick<SwipeableModalRegularProps, 'isOpen' | 'onHide'> & { modalUser: User }
+export const TeamMemberModal = ({ onHide, isOpen, modalUser }: TeamMemberProps) => {
+  const [teamMemberHeight, setTeamMemberHeight] = useState(0)
+  const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout
+    requestAnimationFrame(() => setTeamMemberHeight(height))
+  }
+
+  return (
+    <SwipeableModalRegular
+      useScrollView={teamMemberHeight > SWIPEABLE_MODAL_HEIGHT}
+      hasIndicator
+      isOpen={isOpen}
+      onHide={onHide}>
+      <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
+    </SwipeableModalRegular>
   )
 }

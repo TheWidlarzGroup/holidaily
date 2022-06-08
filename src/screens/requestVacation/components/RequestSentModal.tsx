@@ -3,31 +3,15 @@ import { useModalContext } from 'contexts/ModalProvider'
 import { AppNavigationType } from 'navigation/types'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RequestVacationData,
-  RequestVacationProvider,
-  useRequestVacationContext,
-} from '../contexts/RequestVacationContext'
+import { RequestVacationData } from '../contexts/RequestVacationContext'
 
 type RequestSentModalProps = {
   navigate: AppNavigationType<'REQUEST_VACATION'>['navigate']
+  ctx: RequestVacationData
 }
 
-export const RequestSentModal = ({ navigate }: RequestSentModalProps) => {
+export const RequestSentModal = ({ navigate, ctx }: RequestSentModalProps) => {
   const { hideModal } = useModalContext()
-  return (
-    <RequestVacationProvider>
-      <RequestSentModalContent hideModal={hideModal} navigate={navigate} />
-    </RequestVacationProvider>
-  )
-}
-
-const RequestSentModalContent = ({
-  hideModal,
-  navigate,
-}: RequestSentModalProps & { hideModal: F0 }) => {
-  const ctx = useRequestVacationContext()
-
   const onSeeRequestPress = () => {
     navigateToDetails(navigate, ctx)
     hideModal()
@@ -52,7 +36,7 @@ const RequestSentModalContent = ({
 const navigateToDetails = (
   navigate: AppNavigationType<'REQUEST_VACATION'>['navigate'],
   ctx: RequestVacationData
-) =>
+) => {
   navigate('DRAWER_NAVIGATOR', {
     screen: 'Home',
     params: {
@@ -60,12 +44,16 @@ const navigateToDetails = (
       params: {
         screen: 'SEE_REQUEST',
         params: {
-          ...ctx.requestData,
+          description: ctx.requestData.description,
+          message: ctx.requestData.message,
+          attachments: [...ctx.requestData.photos, ...ctx.requestData.files],
           startDate: (ctx.startDate ?? new Date()).toISOString(),
           endDate: (ctx.endDate ?? ctx.startDate ?? new Date()).toISOString(),
+          createdAt: (ctx.createdAt ?? new Date()).toISOString(),
           isSickTime: ctx.sickTime,
           status: ctx.sickTime ? 'accepted' : 'pending',
         },
       },
     },
   })
+}

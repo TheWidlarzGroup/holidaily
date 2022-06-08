@@ -31,27 +31,33 @@ export const Details = (p: DetailsProps) => {
     register('description', { required: false })
   }, [register])
 
+  const handleNavigate = () =>
+    navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
+
   return (
     <Box>
       <Box marginTop="m">
         <BaseOpacity
+          position="absolute"
           activeOpacity={0.8}
-          onPress={() =>
-            navigation.navigate('REQUEST_VACATION_CALENDAR', { isSickTime: sickTime })
-          }>
-          <CustomInput
-            focusable={false}
-            disabled
-            placeholder={t('selectDate')}
-            inputLabel={t('detailsDate')}
-            isError={isPeriodInvalid}
-            variant="medium"
-            value={getFormattedPeriod(p.date.start, p.date.end)}
-          />
-          <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
-            <CalendarIcon color={theme.colors.headerGrey} />
-          </Box>
-        </BaseOpacity>
+          onPress={handleNavigate}
+          backgroundColor="transparent"
+          width="100%"
+          height={60}
+          zIndex="10"
+        />
+        <CustomInput
+          focusable={false}
+          disabled
+          placeholder={t('selectDate')}
+          inputLabel={t('detailsDate')}
+          isError={isPeriodInvalid}
+          variant="medium"
+          value={getFormattedPeriod(p.date.start, p.date.end)}
+        />
+        <Box position="absolute" right={theme.spacing.m} top={theme.spacing.lplus}>
+          <CalendarIcon color={theme.colors.headerGrey} />
+        </Box>
       </Box>
       <Box marginTop="m">
         <FormInput
@@ -69,6 +75,7 @@ export const Details = (p: DetailsProps) => {
           onBlur={p.showNext}
           autoComplete="off"
           onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
+          reset={() => p.onDescriptionChange('')}
           maxLength={300}
           value={requestData.description}
         />

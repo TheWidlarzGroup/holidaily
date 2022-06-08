@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 import { Reaction, Comment, FeedPost } from 'mock-api/models/miragePostTypes'
@@ -72,6 +72,7 @@ export const FooterBar = ({ post, expandComments }: Post) => {
   return (
     <>
       <FooterBarContent
+        postId={post.id}
         onCommentBtnPress={showMessageInput}
         reactions={reactions}
         handlePressReaction={handlePressReaction}
@@ -91,11 +92,16 @@ export const FooterBar = ({ post, expandComments }: Post) => {
 }
 
 type FooterBarContentProps = {
+  postId: string | undefined
   reactions: Reaction[]
   onCommentBtnPress: F0
   handlePressReaction: F1<string>
   handleAddReaction: F1<EmojiType>
 }
+
+const ADD_COMMENT_BTN_WIDTH = 134
+const ADD_EMOJI_BTN_WIDTH = 50
+const EMOJI_BTN_WIDTH = 70
 
 const FooterBarContent = (props: FooterBarContentProps) => {
   const { reactions, onCommentBtnPress } = props
@@ -105,16 +111,22 @@ const FooterBarContent = (props: FooterBarContentProps) => {
   const theme = useTheme()
   const [footerWidth, setFooterWidth] = useState(0)
 
-  const COMMENT_EMOJI_BTNS_WIDTH = 146
-  const EMOJI_BTN_WIDTH = 74
-
   const maxEmojisInFirstLine = Math.trunc(
-    (footerWidth - COMMENT_EMOJI_BTNS_WIDTH) / EMOJI_BTN_WIDTH
+    (footerWidth - ADD_COMMENT_BTN_WIDTH - ADD_EMOJI_BTN_WIDTH) / EMOJI_BTN_WIDTH
   )
   const maxEmojisInSecondLine = Math.trunc(footerWidth / EMOJI_BTN_WIDTH)
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
 
   let emojisCounter = 0
+
+  useEffect(() => {
+    if (isPickerOpen) Analytics().track('FEED_EMOJI_PICKER_OPENED', { postId: props.postId })
+  }, [isPickerOpen, props.postId])
+
+  const handleCommentBtn = () => {
+    Analytics().track('FEED_MESSAGE_INPUT_MODAL_OPENED', { postId: props.postId })
+    onCommentBtnPress()
+  }
 
   return (
     <Box
@@ -124,7 +136,7 @@ const FooterBarContent = (props: FooterBarContentProps) => {
       justifyContent="space-between"
       alignItems="center"
       onLayout={({ nativeEvent }) => {
-        setFooterWidth(nativeEvent.layout.width - 16) // subtract margins
+        setFooterWidth(nativeEvent.layout.width)
       }}>
       <Box
         flexDirection="row"
@@ -137,8 +149,9 @@ const FooterBarContent = (props: FooterBarContentProps) => {
           padding="s"
           marginHorizontal="xs"
           marginTop="xs"
-          onPress={onCommentBtnPress}
+          onPress={handleCommentBtn}
           height={42}
+          width={110}
           alignSelf="flex-start">
           <IconComment color={theme.colors.black} />
           <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">

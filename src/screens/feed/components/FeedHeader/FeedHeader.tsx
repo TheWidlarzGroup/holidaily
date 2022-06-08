@@ -9,6 +9,7 @@ import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
+import { Analytics } from 'services/analytics'
 
 const ICON_SIZE = 30
 
@@ -21,8 +22,14 @@ export const FeedHeader = () => {
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
   const { user } = useUserContext()
+
   const changeDataRequest = (modalPhoto: AttachmentType) => {
     navigate('CREATE_POST', { photo: modalPhoto })
+  }
+
+  const handleGalleryIcon = () => {
+    setShowAttachmentModalTrue()
+    Analytics().track('FEED_ADD_ATTACHMENT_MODAL_OPENED')
   }
 
   return (
@@ -45,10 +52,11 @@ export const FeedHeader = () => {
             {t('createPostLabel')}
           </Text>
         </BaseOpacity>
-        <BaseOpacity onPress={setShowAttachmentModalTrue} justifyContent="center" paddingRight="s">
+        <BaseOpacity onPress={handleGalleryIcon} justifyContent="center" paddingRight="s">
           <IconGallery height={ICON_SIZE} color={theme.colors.headerGrey} />
         </BaseOpacity>
         <UploadAttachmentModal
+          source="FEED"
           isVisible={showAttachmentModal}
           hideModal={setShowAttachmentModalFalse}
           onUserCancelled={setShowAttachmentModalFalse}

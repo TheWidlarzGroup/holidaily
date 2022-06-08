@@ -1,54 +1,55 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
-import Character from 'assets/Character.svg'
+import { Box, Text, Theme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
-import { getDurationInDays } from 'utils/dates'
-import { isSmallScreen } from 'utils/deviceSizes'
+import { ResponsiveValue } from '@shopify/restyle'
 import { SectionHeader } from './components/SectionHeader'
 
+type StatsTabProps = {
+  bgColor: ResponsiveValue<keyof Theme['colors'], Theme>
+  textColor: ResponsiveValue<keyof Theme['colors'], Theme>
+  caption: string
+  value?: number | `${number}`
+}
+
 export const Stats = ({ stats }: { stats: StatsType }) => {
-  const { t } = useTranslation('stats')
   const { user } = useUserContext()
+  const { t } = useTranslation('stats')
 
   return (
     <Box marginTop="m">
-      <SectionHeader text={t('score')} />
-      <Box
-        marginLeft="s"
-        marginTop="l"
-        backgroundColor="white"
-        borderTopLeftRadius="lmin"
-        borderBottomLeftRadius="lmin"
-        padding="m"
-        flexDirection="row"
-        position="relative">
-        <Box flex={1 / 2}>
-          <Box flexDirection="row" alignItems="center">
-            <Text variant="boldOrange20" marginRight="s">
-              {user?.availablePto ?? 0}
-            </Text>
-            <Text variant="body1">{t('availablePto')}</Text>
-          </Box>
-          <Box height={1} backgroundColor="black" marginVertical="m" />
-          <Box maxWidth="80%" flexDirection="row" alignItems="flex-start">
-            <Text variant="bold15" color="titleActive" marginRight="s">
-              {getDurationInDays(+stats.ptoTaken ?? 0)}
-            </Text>
-            <Text variant="captionText">{t('takenPto')}</Text>
-          </Box>
-          <Box flexDirection="row" alignItems="flex-start">
-            <Text variant="bold15" color="titleActive" marginRight="s">
-              {stats.sickdaysTaken ?? 0}
-            </Text>
-            <Text variant="captionText">{t('sickdaysTaken')}</Text>
-          </Box>
-        </Box>
-        <Box position="absolute" right={isSmallScreen ? -10 : 0} top="-35%">
-          <Character />
-        </Box>
+      <SectionHeader text={t('requests')} />
+      <Box marginTop="m" marginBottom="s" flexDirection="row" justifyContent="space-around">
+        <StatsTab
+          bgColor="tertiaryOpaqueBrighter"
+          textColor="tertiary"
+          value={user?.availablePto}
+          caption={t('daysToUse')}
+        />
+        <StatsTab
+          bgColor="quarternaryOpaque"
+          textColor="quarternaryDark"
+          value={stats.sickdaysTaken}
+          caption={t('sickLeaveDaysTaken')}
+        />
       </Box>
     </Box>
   )
 }
+
+const StatsTab = (props: StatsTabProps) => (
+  <Box
+    width="49%"
+    flexDirection="column"
+    alignItems="center"
+    justifyContent="center"
+    backgroundColor={`${props.bgColor}`}>
+    <Text variant="bold20" marginTop="m" lineHeight={30} color={`${props.textColor}`}>
+      {props.value ?? 0}
+    </Text>
+    <Text variant="displayXS" marginBottom="m" lineHeight={18} color={`${props.textColor}`}>
+      {props.caption}
+    </Text>
+  </Box>
+)

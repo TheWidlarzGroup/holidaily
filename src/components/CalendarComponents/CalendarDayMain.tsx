@@ -20,6 +20,8 @@ export type MarkingStyles = {
   }
   dayTextColor?: TextProps<Theme>['color']
   ignoreDarkMode?: true
+  dayHeight?: number
+  dayWidth?: number
 }
 
 export const CalendarDayMain = (p: CalendarDayMainProps) => {
@@ -28,7 +30,7 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
   const textColor = () => {
     if (isDisabled && p.marking?.period) return 'errorRed'
     if (isDisabled) return 'headerGreyDarker'
-    if (p.marking?.selected || p.marking?.period) return 'white'
+    if (p.marking?.selected || p.marking?.period) return p.ignoreDarkMode ? 'alwaysWhite' : 'white'
     if (p.ignoreDarkMode) return 'alwaysBlack'
     return 'black'
   }
@@ -52,8 +54,9 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
       ]}>
       <Box
         borderRadius="lmin"
-        width={30}
-        height={30}
+        width={p.dayWidth ?? 30}
+        height={p.dayHeight ?? 30}
+        aspectRatio={p.marking?.endingDay && p.marking?.startingDay ? 1 : undefined}
         margin="s"
         justifyContent="center"
         alignItems="center">
