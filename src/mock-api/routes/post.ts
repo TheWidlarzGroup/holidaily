@@ -56,11 +56,9 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
 }
 
 function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
-  console.log('req', req)
-  console.log('schema', schema)
+  console.log('request body', req.params.id)
   const user = requireAuth(schema, req)
-  const body = JSON.parse(req.requestBody)
-  const getComment = schema.find('comment', body.id)
+  const getComment = schema.find('comment', req.params.id)
   if (!user.id) return new Response(404)
   getComment.destroy()
 }

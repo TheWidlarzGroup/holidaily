@@ -25,6 +25,6 @@ export const API = {
     editComment: (comment: EditComment) => `/api/comment/${comment.commentId}`,
   },
   DELETE: {
-    deleteComment: (comment: EditComment) => `/api/comment/${comment.commentId}`,
+    deleteComment: (comment: { data: EditComment }) => `/api/comment/${comment.data.commentId}`,
   },
 }

@@ -63,7 +63,7 @@ export const useAddReaction = () =>
 const deleteComment = async (comment: EditComment): Promise<any> => {
   console.log('commment', comment)
   await axios
-    .delete(API.DELETE.deleteComment(comment))
+    .delete(API.DELETE.deleteComment({ data: comment }))
     .then((data) => console.log('dadata', data))
     .catch((err) => console.log(err))
   return {}
