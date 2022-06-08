@@ -25,7 +25,7 @@ export const NotificationThumbnail = (props: NotificationThumbnailProps) => {
           style={{ borderColor: props.author.userColor, width: 56, borderLeftWidth: 16 }}
         />
       )}
-      {otherUserPhoto && (
+      {!!otherUserPhoto && (
         <FastImage
           source={{ uri: user?.photo || '' }}
           style={{ borderColor: user?.userColor, width: 56, borderLeftWidth: 16 }}
