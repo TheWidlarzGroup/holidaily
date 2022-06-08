@@ -7,7 +7,6 @@ import { Schema } from 'mockApi/models'
 const DAY_IN_MS = 24 * 3600 * 1000
 
 const requestTomWaist = {
-  id: 'requestTomWaist',
   description: 'A couple days off',
   startDate: new Date(Date.now() + 1 * DAY_IN_MS).toISOString(),
   endDate: new Date(Date.now() + 7 * DAY_IN_MS).toISOString(),
@@ -16,7 +15,6 @@ const requestTomWaist = {
 }
 
 const requestPeterKansas = {
-  id: 'requestPeterKansas',
   description: 'A couple days off',
   startDate: new Date(Date.now() + 1 * DAY_IN_MS).toISOString(),
   endDate: new Date(Date.now() + 14 * DAY_IN_MS).toISOString(),
