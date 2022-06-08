@@ -105,7 +105,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
       singleRequest.description
     ) {
       schema.create('notification', {
-        id: `holidaily-${singleRequest.status}`,
+        id: `holidaily-${singleRequest.status}-${singleRequest.id}`,
         createdAt: faker.date.recent(0),
         source: Holidaily,
         wasSeenByHolder: false,

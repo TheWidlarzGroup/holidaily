@@ -14,21 +14,24 @@ type NotificationThumbnailProps = {
 export const NotificationThumbnail = (props: NotificationThumbnailProps) => {
   const { user } = useUserContext()
 
+  const otherUserPhoto = user?.photo && NOTIFICATION_FROM_APP.includes(props.type)
+  const noPhoto = !props.author.photo && !user?.photo && NOTIFICATION_FROM_APP.includes(props.type)
+
   return (
     <>
-      {props.author.photo && (
+      {!!props.author.photo && (
         <FastImage
           source={{ uri: props.author.photo }}
           style={{ borderColor: props.author.userColor, width: 56, borderLeftWidth: 16 }}
         />
       )}
-      {user?.photo && NOTIFICATION_FROM_APP.includes(props.type) && (
+      {otherUserPhoto && (
         <FastImage
-          source={{ uri: user?.photo }}
+          source={{ uri: user?.photo || '' }}
           style={{ borderColor: user?.userColor, width: 56, borderLeftWidth: 16 }}
         />
       )}
-      {!props.author.photo && !user?.photo && NOTIFICATION_FROM_APP.includes(props.type) && (
+      {noPhoto && (
         <Box
           style={{
             backgroundColor: user?.userColor,
