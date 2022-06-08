@@ -13,6 +13,7 @@ import { FlatList } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
+import { MessageInputModal } from 'components/MessageInputModal'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -24,8 +25,11 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const navigation = useNavigation()
   const { t } = useTranslation('feed')
 
+  const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
+    useBooleanState(false)
   const [isModalOpen, { setFalse: closeModal, setTrue: openModal }] = useBooleanState(false)
   const [editTarget, setEditTarget] = useState<EditTargetType>()
+  const [messageContent, setMessageContent] = useState('')
 
   // const { user } = useUserContext()
   const { mutate: deleteComment } = useDeleteComment()
@@ -67,17 +71,30 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   }
 
   const handleDelete = () => {
-    if (editTarget?.type === 'comment') {
-      deleteComment({ postId: editTarget.postId, commentId: editTarget.commentId })
-    }
     closeModal?.()
+    if (editTarget?.type === 'comment') {
+      deleteComment({ ...editTarget })
+    }
   }
 
   const handleEdit = () => {
-    if (editTarget?.type === 'comment') {
-      editComment({ postId: editTarget.postId, commentId: editTarget.commentId })
-    }
     closeModal?.()
+    if (editTarget?.type === 'comment') {
+      if (!editTarget.text) return
+      setMessageContent(editTarget?.text)
+      setTimeout(() => showMessageInput(), 350)
+    }
+  }
+
+  const handleSubmitComment = () => {
+    hideMessageInput()
+    if (editTarget?.type === 'comment') {
+      editComment({
+        ...editTarget,
+        text: messageContent,
+      })
+    }
+    setMessageContent('')
   }
 
   const pictureChangeOptions = [
@@ -117,6 +134,15 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         isOpen={isModalOpen}
         onHide={closeModal}
         hideBackdrop
+      />
+      <MessageInputModal
+        messageContent={messageContent}
+        setMessageContent={setMessageContent}
+        visible={messageInputOpened}
+        onSubmitEditing={hideMessageInput}
+        onRequestClose={hideMessageInput}
+        handleSubmitComment={handleSubmitComment}
+        autofocus
       />
     </SafeAreaWrapper>
   )
