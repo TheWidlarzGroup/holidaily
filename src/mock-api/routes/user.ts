@@ -148,7 +148,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
-    endDate: new Date(Date.now() + 14 * DAY_IN_MS).toISOString(),
+    endDate: new Date(Date.now() + 7 * DAY_IN_MS).toISOString(),
   })
   schema.create('notification', {
     id: 'tom-dayoff',
@@ -157,7 +157,7 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
-    endDate: new Date(Date.now() + 7 * DAY_IN_MS).toISOString(),
+    endDate: new Date(Date.now() + 14 * DAY_IN_MS).toISOString(),
   })
   return user
 }
