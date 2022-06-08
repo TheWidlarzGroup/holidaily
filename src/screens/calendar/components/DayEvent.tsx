@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Text } from 'utils/theme'
-import { Avatar } from 'components/Avatar'
+import { Box, Text, Theme, theme } from 'utils/theme'
+import { Avatar, avatarSizes } from 'components/Avatar'
 
 export type DayOffEvent = {
   id: string
@@ -17,8 +17,19 @@ export type DayOffEvent = {
 
 type DayEventProps = { event: DayOffEvent }
 
+const EVENT_VERTICAL_PADDING: keyof Theme['spacing'] = 's'
+const AVATAR_SIZE: keyof typeof avatarSizes = 's'
+// Comment: used to determine container flatlist scroll offset
+export const EVENT_HEIGHT = theme.spacing[EVENT_VERTICAL_PADDING] * 2 + avatarSizes[AVATAR_SIZE]
+
+// Comment: Please, if you change the views of this component, make sure that you didn't break the EventList scrollTo in Calendar.tsx, as it uses getItemLayout to avoid lag on initial render.
 export const DayEvent = ({ event }: DayEventProps) => (
-  <Box paddingVertical="s" flexDirection="row" alignItems="center" key={event.person}>
+  <Box
+    height={EVENT_HEIGHT}
+    paddingVertical={EVENT_VERTICAL_PADDING}
+    flexDirection="row"
+    alignItems="center"
+    key={event.person}>
     <Avatar
       src={event?.photo}
       userDetails={{
