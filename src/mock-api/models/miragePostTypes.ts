@@ -39,6 +39,10 @@ export type AddReaction = {
   postId: string
   reaction: Reaction
 }
+export type EditComment = {
+  postId: string
+  commentId: string
+}
 
 export type FeedPost = {
   id?: string
@@ -58,4 +62,4 @@ export type FeedPostData = {
 
 export type FeedPostDataType = 'image' | 'video'
 
-export type EditTargetType = { type: 'comment' | 'post'; id: string; author: string }
+export type EditTargetType = { type: 'comment' | 'post'; author: string } & EditComment

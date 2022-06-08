@@ -11,6 +11,7 @@ type CommentBoxProps = Pick<FeedPost, 'comments'> & {
   toggleCommentsExpanded: F0
   openEditModal: F1<EditTargetType>
   isModalOpen: boolean
+  post: FeedPost
 }
 
 export const CommentBox = ({
@@ -19,6 +20,7 @@ export const CommentBox = ({
   toggleCommentsExpanded,
   openEditModal,
   isModalOpen,
+  post,
 }: CommentBoxProps) => {
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
@@ -41,6 +43,7 @@ export const CommentBox = ({
               comment={comment}
               key={comment.meta.id}
               id={comment.meta.id}
+              postId={post.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
               openEditModal={openEditModal}
               isModalOpen={isModalOpen}
@@ -51,6 +54,7 @@ export const CommentBox = ({
             comment={comments[comments.length - 1]}
             openEditModal={openEditModal}
             isModalOpen={isModalOpen}
+            postId={post.id}
             id={comments[comments.length - 1].meta.id}
           />
         )}

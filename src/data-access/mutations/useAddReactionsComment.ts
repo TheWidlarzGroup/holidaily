@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
-import { AddComment, AddReaction, FeedPost } from 'mock-api/models/miragePostTypes'
+import { AddComment, AddReaction, EditComment, FeedPost } from 'mock-api/models/miragePostTypes'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { API } from '../API'
@@ -60,16 +60,20 @@ export const useAddReaction = () =>
     },
   })
 
-const deleteComment = async (id: string): Promise<any> => {
-  const { data } = await axios.delete(API.DELETE.deleteComment(id))
-  return data
+const deleteComment = async (comment: EditComment): Promise<any> => {
+  console.log('commment', comment)
+  await axios
+    .delete(API.DELETE.deleteComment(comment))
+    .then((data) => console.log('dadata', data))
+    .catch((err) => console.log(err))
+  return {}
 }
 export const useDeleteComment = () =>
   useMutation<any, AxiosError<{ errors: string[] }>, any>(deleteComment, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (!data) throw new Error('No posts found!')
-        console.log('payload', payload)
+        console.log(payload)
         return data
       })
     },
@@ -78,8 +82,8 @@ export const useDeleteComment = () =>
     },
   })
 
-const editComment = async (id: string): Promise<any> => {
-  const { data } = await axios.put(API.PUT.editComment(id))
+const editComment = async (comment: EditComment): Promise<any> => {
+  const { data } = await axios.put(API.PUT.editComment(comment))
   return data
 }
 export const useEditComment = () =>

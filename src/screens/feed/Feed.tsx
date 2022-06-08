@@ -68,14 +68,14 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const handleDelete = () => {
     if (editTarget?.type === 'comment') {
-      deleteComment(editTarget.id)
+      deleteComment({ postId: editTarget.postId, commentId: editTarget.commentId })
     }
     closeModal?.()
   }
 
   const handleEdit = () => {
     if (editTarget?.type === 'comment') {
-      editComment(editTarget.id)
+      editComment({ postId: editTarget.postId, commentId: editTarget.commentId })
     }
     closeModal?.()
   }

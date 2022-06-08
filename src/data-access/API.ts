@@ -1,4 +1,4 @@
-import { AddComment, AddReaction } from 'mockApi/models/miragePostTypes'
+import { AddComment, AddReaction, EditComment } from 'mockApi/models/miragePostTypes'
 
 export const API = {
   GET: {
@@ -22,9 +22,9 @@ export const API = {
   PUT: {
     editUser: '/api/users',
     addReactionToPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
-    editComment: (id: string) => `/api/comment/${id}`,
+    editComment: (comment: EditComment) => `/api/comment/${comment.commentId}`,
   },
   DELETE: {
-    deleteComment: (id: string) => `/api/comment/${id}`,
+    deleteComment: (comment: EditComment) => `/api/comment/${comment.commentId}`,
   },
 }

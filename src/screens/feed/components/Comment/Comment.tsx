@@ -11,10 +11,18 @@ type CommentProps = {
   openEditModal: F1<EditTargetType>
   id: string
   isModalOpen: boolean
+  postId?: string
   hideAvatar?: boolean
 }
 
-export const Comment = ({ comment, hideAvatar, openEditModal, id, isModalOpen }: CommentProps) => {
+export const Comment = ({
+  comment,
+  hideAvatar,
+  openEditModal,
+  id,
+  isModalOpen,
+  postId,
+}: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
   const [editCommentId, setEditCommentId] = useState('')
   const { t } = useTranslation('feed')
@@ -24,7 +32,8 @@ export const Comment = ({ comment, hideAvatar, openEditModal, id, isModalOpen }:
   const handleOnPress = () => {
     openEditModal({
       type: 'comment',
-      id: comment.meta.id,
+      commentId: comment.meta.id,
+      postId: postId || '',
       author: comment.meta.author.name,
     })
     setEditCommentId(comment.meta.id)
