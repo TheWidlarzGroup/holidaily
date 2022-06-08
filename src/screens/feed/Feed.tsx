@@ -14,6 +14,7 @@ import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -33,7 +34,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [editTarget, setEditTarget] = useState<EditTargetType>()
   const [messageContent, setMessageContent] = useState('')
 
-  // const { user } = useUserContext()
+  const { user } = useUserContext()
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
 
@@ -67,7 +68,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   }, [navigation])
 
   const openEditModal = (target: EditTargetType) => {
-    // if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
+    if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
     setEditTarget(target)
     openModal?.()
     if (target.type === 'comment') {
