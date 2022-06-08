@@ -3,12 +3,41 @@ import { genRandomDayOffRequest } from 'mockApi/factories/requestFactory'
 import { usersList } from 'mockApi/factories/userFactory'
 import { Schema } from 'mockApi/models'
 
+// Comment: Mocked requests
+const DAY_IN_MS = 24 * 3600 * 1000
+
+const requestTomWaist = {
+  id: 'requestTomWaist',
+  description: 'A couple days off',
+  startDate: new Date(Date.now() + 1 * DAY_IN_MS).toISOString(),
+  endDate: new Date(Date.now() + 7 * DAY_IN_MS).toISOString(),
+  createdAt: new Date(Date.now()).toISOString(),
+  status: 'accepted',
+}
+
+const requestPeterKansas = {
+  id: 'requestPeterKansas',
+  description: 'A couple days off',
+  startDate: new Date(Date.now() + 1 * DAY_IN_MS).toISOString(),
+  endDate: new Date(Date.now() + 14 * DAY_IN_MS).toISOString(),
+  createdAt: new Date(Date.now()).toISOString(),
+  status: 'accepted',
+}
+
 export const organizationSeed = (context: Server<Schema>) => {
   const users = usersList.map((user, index) => {
     const userRecord = context.create('user', {
       ...user,
     })
-    if (index < 40) {
+    if (index === 0) {
+      const mockedRequest = Object.assign(genRandomDayOffRequest(), requestTomWaist)
+      context.create('request', { ...mockedRequest, user: userRecord })
+    }
+    if (index === 1) {
+      const mockedRequest = Object.assign(genRandomDayOffRequest(), requestPeterKansas)
+      context.create('request', { ...mockedRequest, user: userRecord })
+    }
+    if (index < 40 && index !== 0 && index !== 1) {
       context.create('request', { ...genRandomDayOffRequest(), user: userRecord })
     }
     return userRecord

@@ -143,33 +143,21 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   })
   schema.create('notification', {
     id: 'peter-dayoff',
-    createdAt: faker.date.between(
-      new Date(Date.now() - 3 * DAY_IN_MS),
-      new Date(Date.now() - DAY_IN_MS)
-    ),
+    createdAt: new Date(Date.now() - DAY_IN_MS).toISOString(),
     source: Peter,
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
-    endDate: faker.date.between(
-      new Date(Date.now() + 3 * DAY_IN_MS),
-      new Date(Date.now() + 14 * DAY_IN_MS)
-    ),
+    endDate: new Date(Date.now() + 14 * DAY_IN_MS).toISOString(),
   })
   schema.create('notification', {
     id: 'tom-dayoff',
-    createdAt: faker.date.between(
-      new Date(Date.now() - 3 * DAY_IN_MS),
-      new Date(Date.now() - DAY_IN_MS)
-    ),
+    createdAt: new Date(Date.now() - DAY_IN_MS).toISOString(),
     source: Tom,
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
-    endDate: faker.date.between(
-      new Date(Date.now() + 3 * DAY_IN_MS),
-      new Date(Date.now() + 14 * DAY_IN_MS)
-    ),
+    endDate: new Date(Date.now() + 7 * DAY_IN_MS).toISOString(),
   })
   return user
 }
