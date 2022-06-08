@@ -86,7 +86,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const handleSubmitComment = () => {
+  const handleEditComment = () => {
     hideMessageInput()
     if (editTarget?.type === 'comment') {
       editComment({
@@ -141,7 +141,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         visible={messageInputOpened}
         onSubmitEditing={hideMessageInput}
         onRequestClose={hideMessageInput}
-        handleSubmitComment={handleSubmitComment}
+        handleEditComment={handleEditComment}
         autofocus
       />
     </SafeAreaWrapper>
