@@ -9,9 +9,9 @@ import { calculatePTO, getDurationInDays, getFormattedPeriod } from 'utils/dates
 import { mkUseStyles } from 'utils/theme'
 import { ActionModal } from 'components/ActionModal'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
+import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 import { TFunction, useTranslation } from 'react-i18next'
 import { MAX_SICK_DAYS_COUNT } from './MaxSickDays'
-import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 
 type GetPeriodModalTextsProps = {
   haveUserPickedPeriod: boolean
