@@ -27,6 +27,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const { data } = useGetPostsData()
   const navigation = useNavigation()
   const { t } = useTranslation('feed')
+  const { user } = useUserContext()
 
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -36,7 +37,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [editTarget, setEditTarget] = useState<EditTargetType>()
   const [messageContent, setMessageContent] = useState('')
 
-  const { user } = useUserContext()
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
 
@@ -78,7 +78,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const handleDelete = () => {
+  const handleModalDelete = () => {
     closeModal?.()
     if (editTarget?.type === 'comment') {
       deleteComment({ ...editTarget })
@@ -87,7 +87,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const handleEdit = () => {
+  const handleModalEdit = () => {
     closeModal?.()
     if (editTarget?.type === 'comment') {
       if (!editTarget.text) return
@@ -113,12 +113,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     {
       Icon: EditIcon,
       text: t('edit'),
-      onPress: handleEdit,
+      onPress: handleModalEdit,
     },
     {
       Icon: BinIcon,
       text: t('delete'),
-      onPress: handleDelete,
+      onPress: handleModalDelete,
     },
   ]
 

@@ -31,6 +31,14 @@ export const CommentBox = ({
 
   if (comments?.length === 0) return null
 
+  const commonCommentProps = {
+    openEditModal,
+    editCommentId,
+    setEditCommentId,
+    isEditingComment,
+    postId: post.id,
+  }
+
   return (
     <Box padding="s" marginTop="-ml" paddingBottom="xm">
       <CommentBoxBtn
@@ -42,26 +50,18 @@ export const CommentBox = ({
         {areCommentsExpanded ? (
           comments.map((comment, index) => (
             <Comment
+              {...commonCommentProps}
               comment={comment}
-              key={comment.id}
-              id={comment.id}
-              postId={post.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
-              openEditModal={openEditModal}
-              editCommentId={editCommentId}
-              setEditCommentId={setEditCommentId}
-              isEditingComment={isEditingComment}
+              id={comment.id}
+              key={comment.id}
             />
           ))
         ) : (
           <Comment
+            {...commonCommentProps}
             comment={comments[comments.length - 1]}
-            openEditModal={openEditModal}
-            postId={post.id}
             id={comments[comments.length - 1].id}
-            editCommentId={editCommentId}
-            setEditCommentId={setEditCommentId}
-            isEditingComment={isEditingComment}
           />
         )}
       </ScrollView>
