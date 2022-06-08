@@ -1,11 +1,14 @@
 import { useEffect } from 'react'
 import OneSignal from 'react-native-onesignal'
+import { ONESIGNAL_API_KEY } from '@env'
 
 export const useOneSignal = () => {
   useEffect(() => {
+    if (!ONESIGNAL_API_KEY) return
+
     // OneSignal Init Code
     OneSignal.setLogLevel(6, 0)
-    OneSignal.setAppId('7d186f7d-3d0f-481f-a558-15aa4e1f5aa4')
+    OneSignal.setAppId(ONESIGNAL_API_KEY)
     // END OneSignal Init Code
 
     // Prompt for push on iOS

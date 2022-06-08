@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { calculatePTO, getFormattedPeriod, isDateBetween } from 'utils/dates'
 import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
+import { getDateWithShortMonthString, getFormattedPeriod } from 'utils/dates'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
 import { StatusIcon } from './StatusIcon'
 
 export const Request = (p: DayOffRequest) => {
-  const { t } = useTranslation(['stats', 'requestVacation'])
+  const { t } = useTranslation(['stats', 'requestVacation', 'seeRequest'])
   const [additionals, setAdditionals] = useState<Additional[]>([])
-  const [daysBetween, setDaysBetween] = useState(1)
-
-  useEffect(() => {
-    setDaysBetween(calculatePTO(p.startDate, p.endDate))
-  }, [p.startDate, p.endDate])
 
   useEffect(() => {
     const tempAdditionals: Additional[] = []
@@ -24,46 +19,54 @@ export const Request = (p: DayOffRequest) => {
 
   return (
     <Box
-      height={90}
-      marginHorizontal="s"
+      height={106}
+      marginHorizontal="m"
       marginTop="s"
       backgroundColor="white"
       borderRadius="lmin"
       flexDirection="row"
-      justifyContent="space-between"
-      borderColor="tertiary"
+      justifyContent="flex-start"
       overflow="hidden">
-      <Box>
-        <Box flexDirection="row">
-          <StatusIcon
-            status={p.status}
-            isOngoing={p.status === 'accepted' && isDateBetween(new Date(), p.startDate, p.endDate)}
-          />
-          <Box paddingHorizontal="m" paddingVertical="xm" style={{ width: '90%' }}>
-            <Text
-              variant="bold16"
-              color="titleActive"
-              marginBottom="xsplus"
-              numberOfLines={1}
-              style={{ maxWidth: '90%' }}>
-              {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
-            </Text>
-            <Text variant="captionText" marginBottom="xsplus">
-              {getFormattedPeriod(p.startDate, p.endDate, 'long')}
-            </Text>
-            <Text variant="captionText" color="headerGrey">
-              {daysBetween} {daysBetween > 1 ? t('stats:days') : t('stats:day')}
-            </Text>
-          </Box>
+      {p.isSickTime && (
+        <Box
+          position="absolute"
+          top={0}
+          right={0}
+          backgroundColor="quarternaryDarken"
+          borderTopRightRadius="lmin"
+          borderBottomLeftRadius="lmin"
+          justifyContent="center"
+          alignItems="center">
+          <Text
+            variant="boldWhite12"
+            lineHeight={14}
+            marginHorizontal="xm"
+            marginVertical="xs"
+            color="veryLightGrey">
+            {t('seeRequest:sickLeave')}
+          </Text>
         </Box>
-      </Box>
-      <Box
-        alignSelf="flex-end"
-        alignItems="flex-end"
-        justifyContent="space-between"
-        paddingHorizontal="m"
-        paddingVertical="xm">
-        <AdditionalsIcons additionals={additionals} />
+      )}
+      <StatusIcon status={p.status} />
+      <Box margin="m" flexDirection="column" flexGrow={1}>
+        <Text
+          variant="textBoldSM"
+          color="black"
+          marginBottom="xsplus"
+          numberOfLines={1}
+          lineHeight={21}
+          style={{ maxWidth: '70%' }}>
+          {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
+        </Text>
+        <Text variant="textSM" color="blackBrighter" lineHeight={21} marginBottom="xm">
+          {getFormattedPeriod(p.startDate, p.endDate, 'shortMonths')}
+        </Text>
+        <Box flexDirection="row" justifyContent="space-between">
+          <AdditionalsIcons additionals={additionals} />
+          <Text variant="displayXS" color="darkGreyBrighter">
+            {`${t('stats:sent')}: ${getDateWithShortMonthString(p.createdAt)}`}
+          </Text>
+        </Box>
       </Box>
     </Box>
   )
