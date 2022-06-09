@@ -22,9 +22,13 @@ type GetPeriodModalTextsProps = {
 }
 
 const mkModalTexts = (p: GetPeriodModalTextsProps) => {
+  console.log('hmm', p.periodEnd, p.periodStart, p.ptoTaken)
   const modalTexts = {
     valid: {
-      header: getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
+      header:
+        p.periodStart &&
+        p.periodEnd &&
+        getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
       content: p.tFunc('pickedPTO', { days: getDurationInDays(p.ptoTaken) }),
     },
     tooLongSicktime: {
