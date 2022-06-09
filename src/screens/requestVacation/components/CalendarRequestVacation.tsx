@@ -14,34 +14,37 @@ import { TFunction, useTranslation } from 'react-i18next'
 import { MAX_SICK_DAYS_COUNT } from './MaxSickDays'
 
 type GetPeriodModalTextsProps = {
-  haveUserPickedPeriod: boolean
   periodStart: string
   periodEnd: string
   ptoTaken: number
-  isInvalid: boolean
-  isSickTime?: boolean
   availablePto: number
   tFunc: TFunction<'requestVacation'>
 }
 
-const getPeriodModalTexts = (p: GetPeriodModalTextsProps): { header: string; content: string } => {
-  if (!p.haveUserPickedPeriod) return { header: '', content: '' }
-  if (p.isInvalid && p.isSickTime)
-    return { header: p.tFunc('maxSickDays', { maxDays: MAX_SICK_DAYS_COUNT }), content: '' }
-  if (p.isInvalid && p.availablePto < 1)
-    return {
-      header: p.tFunc('noPtoAvailable'),
+const mkModalTexts = (p: GetPeriodModalTextsProps) => {
+  const modalTexts = {
+    valid: {
+      header: getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
+      content: p.tFunc('pickedPTO', { days: getDurationInDays(p.ptoTaken) }),
+    },
+    tooLongSicktime: {
+      header: p.tFunc('maxSickDays', { maxDays: MAX_SICK_DAYS_COUNT }),
       content: '',
-    }
-  if (p.isInvalid)
-    return {
+    },
+    notEnoughPto: {
       header: p.tFunc('notEnoughPto'),
       content: p.tFunc('availablePto', { availablePto: getDurationInDays(p.availablePto) }),
-    }
-  return {
-    header: getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
-    content: p.tFunc('pickedPTO', { days: getDurationInDays(p.ptoTaken) }),
+    },
+    noPtoAtAll: {
+      header: p.tFunc('noPtoAvailable'),
+      content: '',
+    },
+    alreadyScheduledPeriod: {
+      header: 'test',
+      content: 'test',
+    },
   }
+  return modalTexts
 }
 
 export const CalendarRequestVacation = ({
@@ -56,8 +59,8 @@ export const CalendarRequestVacation = ({
   const haveUserPickedPeriod = !!periodStart && !!periodEnd
   const availablePto = user?.availablePto ?? 0
   const ptoTaken = haveUserPickedPeriod ? calculatePTO(periodStart, periodEnd) : 0
-  const isInvalid = (() => {
-    if (
+  const periodState = (() => {
+    const alreadyScheduledPeriod =
       user?.requests &&
       periodStart &&
       periodEnd &&
@@ -65,11 +68,14 @@ export const CalendarRequestVacation = ({
         { startDate: periodStart, endDate: periodEnd },
         user.requests
       )
-    )
-      return true
-    if (isSickTime && ptoTaken > MAX_SICK_DAYS_COUNT) return true
-    if (!isSickTime && ptoTaken > availablePto) return true
-    return false
+    const tooLongSicktime = isSickTime && ptoTaken > MAX_SICK_DAYS_COUNT
+    const noPtoAtAll = !isSickTime && availablePto === 0
+    const notEnoughPto = !isSickTime && ptoTaken > availablePto
+    if (alreadyScheduledPeriod) return 'alreadyScheduledPeriod'
+    if (tooLongSicktime) return 'tooLongSicktime'
+    if (notEnoughPto) return 'notEnoughPto'
+    if (noPtoAtAll) return 'noPtoAtAll'
+    return 'valid'
   })()
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION_CALENDAR'>>()
   const onClear = () => {
@@ -81,25 +87,14 @@ export const CalendarRequestVacation = ({
       start: periodStart,
       end: periodEnd,
     })
-
-  const onModalBtnPress = isInvalid ? onClear : onSubmit
-
-  const actionModalTexts = getPeriodModalTexts({
-    isInvalid,
-    isSickTime,
-    periodEnd,
-    periodStart,
-    haveUserPickedPeriod,
-    ptoTaken,
-    availablePto,
-    tFunc: t,
-  })
-  const actionModalVariant = isInvalid ? 'error' : 'regular'
+  const isPeriodValid = periodState === 'valid'
+  const onModalBtnPress = isPeriodValid ? onSubmit : onClear
+  const actionModalVariant = isPeriodValid ? 'regular' : 'error'
   // Calendar component draw phase takes long, so we initially show a loading spinner and mount the calendar after the screen is loaded
   const [isCalendarVisible, { setTrue: showCalendar }] = useBooleanState(false)
   useEffect(showCalendar, [showCalendar])
   const styles = useStyles()
-
+  const modalTexts = mkModalTexts({ periodStart, periodEnd, ptoTaken, availablePto, tFunc: t })
   return (
     <SwipeableScreen swipeWithIndicator alignItems="center" extraStyle={styles.container}>
       <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
@@ -114,15 +109,15 @@ export const CalendarRequestVacation = ({
             disablePastDates
             style={styles.calendar}
             markedDates={{}}
-            isInvalid={isInvalid}
+            isInvalid={!isPeriodValid}
           />
           <ActionModal
             isVisible={!!periodStart}
             onUserAction={onModalBtnPress}
-            label={isInvalid ? t('clear') : t('select')}
+            label={isPeriodValid ? t('select') : t('clear')}
             variant={actionModalVariant}
-            header={actionModalTexts.header}
-            content={actionModalTexts.content}
+            header={modalTexts[periodState].header}
+            content={modalTexts[periodState].content}
           />
         </>
       )}
