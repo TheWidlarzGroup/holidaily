@@ -18,7 +18,7 @@ jobs:
         id: service_account_json_file
         with:
           fileName: 'serviceAccount.json'
-          encodedString: ${{ secrets.GPLAY_SERVICE_ACCOUNT_KEY_JSON }}
+          encodedString: ${{ secrets.GPLAY_SERVICE_ACCOUNT_KEY }}
       - name: Build & deploy Android release
         run: bundle exec fastlane android beta
         env:
