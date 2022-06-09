@@ -8,13 +8,14 @@ import { LoadingModal } from 'components/LoadingModal'
 import { Team } from 'mockApi/models'
 import { AppNavigationType } from 'navigation/types'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
-import { notify } from 'react-native-notificated'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { Analytics } from 'services/analytics'
 import { AddSubscriptionsButton } from './TeamSubscriptions/AddSubsriptionsButton'
 import { ActiveSubscriptions } from './TeamSubscriptions/ActiveSubscriptions'
 
 export const TeamSubscriptions = () => {
   const { t } = useTranslation('userProfile')
+  const { notify } = useGetNotificationsConfig()
   const { navigate } = useNavigation<AppNavigationType<'SUBSCRIBE_NEW_TEAM'>>()
   const { isLoading } = useTeamMocks()
   const { user, updateUser } = useUserContext()
@@ -33,7 +34,7 @@ export const TeamSubscriptions = () => {
 
   const removeSubscription = (teamName: string) => {
     if (!user) return
-    notify('success', { params: { title: t('changesSaved') } })
+    notify('successCustom', { params: { title: t('changesSaved') } })
     const userNextTeams: Team[] = []
     const teamsParsedForDisplay: TeamsType[] = []
     user.teams.forEach((team) => {

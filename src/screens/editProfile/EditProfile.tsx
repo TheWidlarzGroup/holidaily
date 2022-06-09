@@ -15,7 +15,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
-import { notify } from 'react-native-notificated'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -29,6 +29,7 @@ export const EditProfile = () => {
   const styles = useStyles()
   const [keyboardOpen] = useKeyboard()
   const { user } = useUserContext()
+  const { notify } = useGetNotificationsConfig()
   const defaultValues = {
     firstName: user?.firstName,
     lastName: user?.lastName,
@@ -70,7 +71,7 @@ export const EditProfile = () => {
           photo: payload.user?.photo,
         })
 
-        notify('success', { params: { title: t('changesSaved') } })
+        notify('successCustom', { params: { title: t('changesSaved') } })
       },
     })
   const onSubmit = (data: EditDetailsTypes) => editUser(data)

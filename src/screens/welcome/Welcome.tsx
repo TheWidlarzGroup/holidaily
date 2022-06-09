@@ -11,8 +11,8 @@ import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { createNotifications } from 'react-native-notificated'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { AuthNavigationProps } from 'navigation/types'
 import { Analytics } from 'services/analytics'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
@@ -22,8 +22,6 @@ const MIN_SIGNS = 2
 const MAX_SIGNS = 20
 
 export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
-  const { useNotifications } = createNotifications()
-  const { notify } = useNotifications()
   const styles = useStyles()
   const { t } = useTranslation('welcome')
   const { control, handleSubmit, errors, watch } = useForm()
@@ -31,10 +29,11 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
+  const { notify } = useGetNotificationsConfig()
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
-      notify('success', { params: { title: t('logoutSuccess') } })
+      notify('successCustom', { params: { title: t('logoutSuccess') } })
     }
   }, [route.params?.userLoggedOut, notify, t])
 
