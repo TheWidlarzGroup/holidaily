@@ -1,18 +1,23 @@
 import React from 'react'
-import { BottomModal } from 'components/BottomModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useTranslation } from 'react-i18next'
+import { ActionModal } from 'components/ActionModal'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
-import { EmptyForm } from './EmptyForm'
 
 export const AddButtonValidation = () => {
   const { isFormEmpty, setIsFormEmpty } = useRequestVacationContext()
+  const { t } = useTranslation('requestVacation')
   const { user } = useUserContext()
 
-  if (isFormEmpty && user)
-    return (
-      <BottomModal isVisible isInvalid>
-        <EmptyForm onPress={() => setIsFormEmpty(false)} />
-      </BottomModal>
-    )
-  return null
+  const isVisible = isFormEmpty && user !== null
+
+  return (
+    <ActionModal
+      isVisible={isVisible}
+      onUserAction={() => setIsFormEmpty(false)}
+      label={t('understand')}
+      variant="error"
+      header={t('addRequestValidation')}
+    />
+  )
 }
