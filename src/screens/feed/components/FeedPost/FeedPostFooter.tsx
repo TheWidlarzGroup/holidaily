@@ -21,7 +21,6 @@ export const FeedPostFooter = (p: Post) => {
     <Box marginTop={isIos && !isScreenHeightShort ? '-l2plus' : 'none'}>
       <FooterBar post={p.post} expandComments={expandComments} />
       <CommentBox
-        comments={p.post.comments}
         areCommentsExpanded={areCommentsExpanded}
         toggleCommentsExpanded={toggleCommentsExpanded}
         {...p}
