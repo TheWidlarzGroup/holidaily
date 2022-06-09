@@ -319,6 +319,8 @@
     "discardRequestYes": "Discard",
     "discardRequestNo": "Keep editing",
     "sickDayDescription": "Sick leave request doesn’t need your supervisor’s approval.",
+    "addRequestValidation": "You must select a date to continue adding the request.",
+    "understand": "I understand",
     "outOfOffice": "Out of office",
     "removeAttachmentYes": "Delete",
     "removeAttachmentNo": "Cancel"
