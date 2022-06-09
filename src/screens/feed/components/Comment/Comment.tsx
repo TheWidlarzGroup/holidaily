@@ -13,7 +13,7 @@ type CommentProps = {
   editCommentId: string
   setEditCommentId: F1<string>
   isEditingComment: boolean
-  postId?: string
+  postId: string
   hideAvatar?: boolean
 }
 
@@ -35,7 +35,7 @@ export const Comment = ({
   const handleOnPress = () => {
     openEditModal({
       type: 'comment',
-      postId: postId || '',
+      postId,
       commentId: comment.id,
       authorId: comment.meta.author.id,
       text: comment.text,

@@ -15,7 +15,6 @@ export type Timestamp = {
 }
 
 export type MetaData = {
-  id?: string
   author: UserData
   timestamp: Timestamp
   location?: CompoundLocation
@@ -42,13 +41,13 @@ export type AddReaction = {
 }
 
 export type FeedPost = {
-  id?: string
-  recentlyAdded?: boolean
+  id: string
   meta: MetaData
   comments: Comment[]
   data: FeedPostData[]
   text: string
   reactions: Reaction[]
+  recentlyAdded?: boolean
 }
 
 export type FeedPostData = {

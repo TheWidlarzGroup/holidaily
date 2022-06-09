@@ -49,7 +49,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       !!data?.length &&
       scrollRetries.current <= MAX_SCROLL_RETRIES
     ) {
-      const index = data.findIndex((post) => String(post.meta.id) === String(p.postId))
+      const index = data.findIndex((post) => String(post.id) === String(p.postId))
       if (index && index >= 0 && index < data.length) {
         flatListRef.current.scrollToIndex({ index, animated: true })
         scrollRetries.current++
@@ -137,7 +137,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         renderItem={({ item }) => (
           <FeedPost post={item} openEditModal={openEditModal} isEditingComment={isEditingComment} />
         )}
-        keyExtractor={({ meta }) => meta.id}
+        keyExtractor={(post) => post.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 90 }}
       />
