@@ -4,8 +4,8 @@ import { keys } from 'utils/manipulation'
 import { setItem } from 'utils/localStorage'
 import { useTranslation } from 'react-i18next'
 import { DropdownWithRadio } from 'components/DropdownWithRadio'
-import { notify } from 'react-native-notificated'
 import { Analytics } from 'services/analytics'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 
 type LanguageProps = {
   setLoadingTrue: F0
@@ -15,6 +15,7 @@ type LanguageProps = {
 export const Language = (props: LanguageProps) => {
   const { i18n, t } = useTranslation('settings')
   const [selectedLng, setSelectedLng] = useState(i18n.language)
+  const { notify } = useGetNotificationsConfig()
 
   const changeLanguage = (lng: string) => {
     if (lng === selectedLng) return

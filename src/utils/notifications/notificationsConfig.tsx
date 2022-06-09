@@ -1,13 +1,12 @@
 import { SuccessModal } from 'components/notifications/SuccessModal'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { createNotifications, generateAnimationConfig } from 'react-native-notificated'
 import { Easing, interpolate, SharedValue } from 'react-native-reanimated'
 import { theme } from 'utils/theme'
 
-type ConfigType = {
-  isDarkMode?: boolean
-}
-
-export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
+export const useGetNotificationsConfig = () => {
+  const { userSettings } = useUserSettingsContext()
+  const isDarkMode = userSettings?.darkMode
   const notificationAnimation = generateAnimationConfig({
     animationConfigIn: {
       type: 'timing',
@@ -28,7 +27,7 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
     },
   })
 
-  const { NotificationsProvider } = createNotifications({
+  const { NotificationsProvider, useNotifications } = createNotifications({
     variants: {
       successCustom: {
         component: SuccessModal,
@@ -51,5 +50,7 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
     },
   })
 
-  return { NotificationsProvider, notificationAnimation }
+  const { notify } = useNotifications()
+
+  return { NotificationsProvider, notificationAnimation, useNotifications, notify }
 }
