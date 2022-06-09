@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box, Text, theme } from 'utils/theme'
+import { Box, Spacing, Text, TextVariant, theme } from 'utils/theme'
 import { getDateWithMonthString, getDayName, isWeekend } from 'utils/dates'
 import { DayEvent, EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 
-const DAY_PADDING_VERTICAL = 'm'
-const OUTER_BOX_MARGIN = 's'
-const HEADING_TEXT_VARIANT = 'captionText'
+const DAY_PADDING_VERTICAL: Spacing = 'm'
+const OUTER_BOX_MARGIN: Spacing = 's'
+const HEADING_TEXT_VARIANT: TextVariant = 'captionText'
 const FONT_OFFSET = 4
 // Comment: used to determine container flatlist scroll offset
 export const DAY_ITEM_HEIGHT =

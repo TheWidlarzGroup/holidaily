@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Text, Theme, theme } from 'utils/theme'
-import { Avatar, avatarSizes } from 'components/Avatar'
+import { Box, Spacing, Text, theme } from 'utils/theme'
+import { Avatar, AvatarSize, avatarSizes } from 'components/Avatar'
 
 export type DayOffEvent = {
   id: string
@@ -17,8 +17,8 @@ export type DayOffEvent = {
 
 type DayEventProps = { event: DayOffEvent }
 
-const EVENT_VERTICAL_PADDING: keyof Theme['spacing'] = 's'
-const AVATAR_SIZE: keyof typeof avatarSizes = 's'
+const EVENT_VERTICAL_PADDING: Spacing = 's'
+const AVATAR_SIZE: AvatarSize = 's'
 // Comment: used to determine container flatlist scroll offset
 export const EVENT_HEIGHT = theme.spacing[EVENT_VERTICAL_PADDING] * 2 + avatarSizes[AVATAR_SIZE]
 

@@ -50,7 +50,7 @@ export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: nu
     }
   let prevEventsCount = 0
   for (let i = 0; i < index; i++) {
-    prevEventsCount += data[i]?.events?.length ? data[i].events?.length || 0 : 0
+    prevEventsCount += data[i].events?.length ?? 0
   }
   return {
     length: DAY_ITEM_HEIGHT,
