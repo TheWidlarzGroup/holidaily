@@ -81,7 +81,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const onPressModalDelete = () => {
     closeModal?.()
     if (editTarget?.type === 'comment') {
-      deleteComment({ ...editTarget })
+      deleteComment(editTarget.commentId)
       setEditingCommentFalse()
       notify('success', { params: { title: t('commentDeleted') } })
     }

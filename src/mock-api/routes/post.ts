@@ -56,7 +56,7 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
 function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
   const body = JSON.parse(req.requestBody)
   const comment = schema.find('comment', body.commentId)
-  const post = schema.find('post', body.postId)
+  const post = schema.find('post', comment.postId)
   if (!comment || !post) return new Response(404)
   comment.destroy()
   return post
@@ -65,7 +65,7 @@ function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
 function editComment(schema: Schema<ModelsSchema>, req: Request) {
   const body = JSON.parse(req.requestBody)
   const comment = schema.find('comment', body.commentId)
-  const post = schema.find('post', body.postId)
+  const post = schema.find('post', comment.postId)
   if (!comment || !post) return new Response(404)
   comment.update({ text: body.text })
   return post

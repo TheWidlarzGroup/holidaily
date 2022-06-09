@@ -57,12 +57,12 @@ export const useAddReaction = () =>
     },
   })
 
-const deleteComment = async (comment: EditComment): Promise<SubmitSuccess> => {
+const deleteComment = async (comment: string): Promise<SubmitSuccess> => {
   const { data } = await axios.delete(API.DELETE.deleteComment(comment), { data: comment })
   return data
 }
 export const useDeleteComment = () =>
-  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, EditComment>(deleteComment, {
+  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, string>(deleteComment, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (!data) throw new Error('No posts found!')
@@ -70,7 +70,7 @@ export const useDeleteComment = () =>
         const deletedCommentPostId = payload.post.id
         const postIndex = allPosts?.findIndex((post) => post.id === deletedCommentPostId)
         allPosts[postIndex] = payload.post
-        return [payload.post]
+        return allPosts
       })
     },
     onError: (err) => {
@@ -91,7 +91,7 @@ export const useEditComment = () =>
         const editedCommentPostId = payload.post.id
         const postIndex = allPosts?.findIndex((post) => post.id === editedCommentPostId)
         allPosts[postIndex] = payload.post
-        return [payload.post]
+        return allPosts
       })
     },
     onError: (err) => {
