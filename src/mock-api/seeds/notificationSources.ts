@@ -15,7 +15,7 @@ export const sourcePeter = {
   lastName: 'Kansas',
   userColor: '#FF88DC',
   id: 'source-peter',
-  photo: 'https://randomuser.me/api/portraits/men/62.jpg',
+  photo: 'https://randomuser.me/api/portraits/men/1.jpg',
   occupation: 'Software Engineer',
 }
 
@@ -29,11 +29,12 @@ export const sourceJune = {
 
 export const sourceTom = {
   firstName: 'Tom',
-  lastName: 'Waits',
+  lastName: 'Waist',
   userColor: '#91A6FF',
   id: 'source-tom',
-  photo: 'https://randomuser.me/api/portraits/men/15.jpg',
+  photo: 'https://randomuser.me/api/portraits/men/2.jpg',
 }
+
 export const notificationSources = (context: Server<ModelsSchema>) => {
   context.create('user', sourceHolidaily)
   context.create('user', sourceJune)
