@@ -30,6 +30,7 @@ export const Notification = ({
   const [modalUser, setModalUser] = useState<User>()
 
   const openModal = () => {
+    // TO-DO: first and last name are used for mocks - with BE change for user id
     const userModalData = allUsers.find(
       (userData) => userData.firstName === author.firstName && userData.lastName === author.lastName
     )
