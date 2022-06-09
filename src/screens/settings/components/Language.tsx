@@ -22,7 +22,11 @@ export const Language = (props: LanguageProps) => {
     props.setLoadingTrue()
     setItem('language', lng)
     Analytics().track('LANGUAGE_CHANGED', { language: lng })
-    notify('success', { params: { title: t('languageChanged') } })
+    notify('successCustom', {
+      params: {
+        title: t('languageChanged'),
+      },
+    })
   }
 
   useEffect(() => {

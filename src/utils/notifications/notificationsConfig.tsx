@@ -1,3 +1,4 @@
+import { SuccessModal } from 'components/notifications/SuccessModal'
 import { createNotifications, generateAnimationConfig } from 'react-native-notificated'
 import { Easing, interpolate, SharedValue } from 'react-native-reanimated'
 import { theme } from 'utils/theme'
@@ -28,6 +29,15 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
   })
 
   const { NotificationsProvider } = createNotifications({
+    variants: {
+      successCustom: {
+        component: SuccessModal,
+        config: {
+          notificationPosition: 'top',
+          duration: 1200,
+        },
+      },
+    },
     duration: 1200,
     animationConfig: notificationAnimation,
     defaultStylesSettings: {
