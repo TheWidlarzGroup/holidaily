@@ -28,6 +28,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const navigation = useNavigation()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
+  const flatListRef = useRef<FlatList | null>(null)
+  const scrollRetries = useRef(0)
 
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -39,35 +41,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
-
-  const flatListRef = useRef<FlatList | null>(null)
-  const scrollRetries = useRef(0)
-  const scrollToId = useCallback(() => {
-    if (
-      flatListRef.current &&
-      p?.postId &&
-      !!data?.length &&
-      scrollRetries.current <= MAX_SCROLL_RETRIES
-    ) {
-      const index = data.findIndex((post) => String(post.id) === String(p.postId))
-      if (index && index >= 0 && index < data.length) {
-        flatListRef.current.scrollToIndex({ index, animated: true })
-        scrollRetries.current++
-      }
-    }
-  }, [p?.postId, data])
-
-  useEffect(() => {
-    scrollToId()
-  }, [scrollToId])
-
-  useEffect(() => {
-    const removeListener = navigation.addListener('blur', () => {
-      scrollRetries.current = 0
-      navigation.setParams({ postId: undefined })
-    })
-    return removeListener
-  }, [navigation])
 
   const openEditModal = (target: EditTargetType) => {
     if (!(target.authorId === user?.id)) return
@@ -121,6 +94,33 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       onPress: onPressModalDelete,
     },
   ]
+
+  const scrollToId = useCallback(() => {
+    if (
+      flatListRef.current &&
+      p?.postId &&
+      !!data?.length &&
+      scrollRetries.current <= MAX_SCROLL_RETRIES
+    ) {
+      const index = data.findIndex((post) => String(post.id) === String(p.postId))
+      if (index && index >= 0 && index < data.length) {
+        flatListRef.current.scrollToIndex({ index, animated: true })
+        scrollRetries.current++
+      }
+    }
+  }, [p?.postId, data])
+
+  useEffect(() => {
+    scrollToId()
+  }, [scrollToId])
+
+  useEffect(() => {
+    const removeListener = navigation.addListener('blur', () => {
+      scrollRetries.current = 0
+      navigation.setParams({ postId: undefined })
+    })
+    return removeListener
+  }, [navigation])
 
   if (!data) return <LoadingModal show />
 

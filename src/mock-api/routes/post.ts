@@ -54,8 +54,7 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
 }
 
 function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req.requestBody)
-  const comment = schema.find('comment', body.commentId)
+  const comment = schema.find('comment', req.requestBody)
   const post = schema.find('post', comment.postId)
   if (!comment || !post) return new Response(404)
   comment.destroy()
