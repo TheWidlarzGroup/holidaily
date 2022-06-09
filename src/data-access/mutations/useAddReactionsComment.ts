@@ -70,7 +70,7 @@ export const useDeleteComment = () =>
         const deletedCommentPostId = payload.post.id
         const postIndex = allPosts?.findIndex((post) => post.id === deletedCommentPostId)
         allPosts[postIndex] = payload.post
-        return allPosts
+        return [payload.post]
       })
     },
     onError: (err) => {
@@ -91,7 +91,7 @@ export const useEditComment = () =>
         const editedCommentPostId = payload.post.id
         const postIndex = allPosts?.findIndex((post) => post.id === editedCommentPostId)
         allPosts[postIndex] = payload.post
-        return allPosts
+        return [payload.post]
       })
     },
     onError: (err) => {

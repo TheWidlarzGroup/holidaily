@@ -109,7 +109,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     notify('success', { params: { title: t('changesSaved') } })
   }
 
-  const pictureChangeOptions = [
+  const modalOptions = [
     {
       Icon: EditIcon,
       text: t('edit'),
@@ -142,7 +142,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         contentContainerStyle={{ paddingBottom: 90 }}
       />
       <OptionsModal
-        options={pictureChangeOptions}
+        options={modalOptions}
         isOpen={isModalOpen}
         onHide={closeModal}
         onDismiss={setEditingCommentFalse}
