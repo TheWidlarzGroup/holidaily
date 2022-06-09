@@ -7,6 +7,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'
 import { FeedPostHeader } from './FeedPostHeader'
@@ -18,18 +19,40 @@ type FeedPostProps = {
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const FeedPost = ({ post }: FeedPostProps) => {
-  const [showBorder, setShowBorder] = useState(true)
+  const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
+  const navigation = useNavigation<any>()
+
   useEffect(() => {
     animProgress.value = withTiming(11, { duration: 800, easing: Easing.exp })
   }, [animProgress])
 
-  useEffect(() => {
-    setShowBorder(true)
-    setTimeout(() => {
-      setShowBorder(false)
-    }, 3000)
-  }, [])
+  useFocusEffect(
+    React.useCallback(() => {
+      const { routes } = navigation.getState()
+      const getIdParam = routes.slice().pop()?.params?.postId
+      const getPrevScreen = routes.slice().pop()?.params?.prevScreen
+      console.log(
+        '🚀 ~ file: FeedPost.tsx ~ line 35 ~ React.useCallback ~ getPrevScreen ',
+        getPrevScreen
+      )
+
+      const isFromNotifications =
+        getPrevScreen === 'NOTIFICATIONS' && getIdParam === Number(post.id)
+
+      if (isFromNotifications) {
+        setShowBorder(true)
+
+        setTimeout(() => {
+          setShowBorder(false)
+        }, 3000)
+      }
+
+      return () => {
+        navigation.setParams({ prevScreen: 'DASHBOARD' })
+      }
+    }, [navigation, post.id])
+  )
 
   const animatedStyle = useAnimatedStyle(() => ({
     maxHeight: `${animProgress.value * 100}%`,
