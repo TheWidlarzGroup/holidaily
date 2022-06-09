@@ -7,13 +7,19 @@ import { useNavigation } from '@react-navigation/native'
 import { AppNavigationType } from 'navigation/types'
 import { isIos } from 'utils/layout'
 
-type FeedPostBodyProps = Pick<FeedPost, 'data' | 'text' | 'id'>
+type FeedPostBodyProps = {
+  showBorder: boolean
+  post: Pick<FeedPost, 'data' | 'text' | 'id'>
+}
 
-export const FeedPostBody = ({ data, text, id }: FeedPostBodyProps) => {
+export const FeedPostBody = (props: FeedPostBodyProps) => {
+  const { post, showBorder } = props
+  const { data, text, id } = post
   const { navigate } = useNavigation<AppNavigationType<'GALLERY'>>()
   const handleGalleryItemPress = (index: number) => {
     navigate('GALLERY', { data, index, postId: id })
   }
+  const isBorderShown = showBorder ? 2 : 0
 
   return (
     <Box>
@@ -21,7 +27,11 @@ export const FeedPostBody = ({ data, text, id }: FeedPostBodyProps) => {
         <Box
           paddingHorizontal="m"
           paddingTop="s"
-          marginBottom={data?.length === 0 && isIos ? 'lplus' : 'none'}>
+          borderWidth={isBorderShown}
+          borderColor="special"
+          borderBottomWidth={0}
+          borderTopWidth={0}
+          paddingBottom={data?.length === 0 && isIos ? 'lplus' : 'none'}>
           <ExpandingText text={text} />
         </Box>
       )}
