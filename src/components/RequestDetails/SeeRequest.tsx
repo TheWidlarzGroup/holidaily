@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
@@ -10,21 +10,33 @@ import { Analytics } from 'services/analytics'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
+type PrevScreen = 'NOTIFICATIONS' | 'STATS_AND_REQUESTS'
+
 export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SEE_REQUEST'>) => {
-  const { navigate } = useNavigation<RequestsNavigatorType<'SEE_REQUEST'>>()
+  const [prevScreen, setPrevScreen] = useState<PrevScreen>('STATS_AND_REQUESTS')
+  const navigation = useNavigation<RequestsNavigatorType<'SEE_REQUEST'>>()
   const { t } = useTranslation('seeRequest')
   const theme = useTheme()
 
   useEffect(() => {
+    const getPrevScreen = navigation.getState().routes.slice().pop()?.params?.prevScreen
+    if (getPrevScreen) setPrevScreen(getPrevScreen)
+  }, [navigation])
+
+  useEffect(() => {
     Analytics().track('REQUEST_OPENED', { request: { ...p } })
   }, [p])
+
+  const goBack = () => {
+    navigation.navigate(prevScreen)
+  }
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
       <StatusBar backgroundColor={theme.colors.veryLightGrey} />
       <ModalHeader>
         <BaseOpacity
-          onPress={() => navigate('STATS_AND_REQUESTS')}
+          onPress={goBack}
           hitSlop={{ top: 24, right: 24, bottom: 24, left: 24 }}
           marginLeft="ml"
           paddingBottom="ml"

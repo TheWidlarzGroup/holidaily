@@ -20,7 +20,6 @@
 		791521C85FEF46AE82663ECC /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D83AA926887646598CE83E69 /* Nunito-Italic-VariableFont_wght.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C9802163B524495DAD789F05 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6A8EF2419904A28B00070D1 /* Nunito-Bold.ttf */; };
-		EB0D982E24ADCEF2DB023A84 /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E98079052B49B84FBF716E /* libPods-Holidayly.a */; };
 		F6400A4811754D149C5D8217 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED85F5F2EF7A4497A6E9DE87 /* Nunito-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
