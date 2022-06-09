@@ -21,36 +21,6 @@ type GetPeriodModalTextsProps = {
   tFunc: TFunction<'requestVacation'>
 }
 
-const mkModalTexts = (p: GetPeriodModalTextsProps) => {
-  console.log('hmm', p.periodEnd, p.periodStart, p.ptoTaken)
-  const modalTexts = {
-    valid: {
-      header:
-        p.periodStart &&
-        p.periodEnd &&
-        getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
-      content: p.tFunc('pickedPTO', { days: getDurationInDays(p.ptoTaken) }),
-    },
-    tooLongSicktime: {
-      header: p.tFunc('maxSickDays', { maxDays: MAX_SICK_DAYS_COUNT }),
-      content: '',
-    },
-    notEnoughPto: {
-      header: p.tFunc('notEnoughPto'),
-      content: p.tFunc('availablePto', { availablePto: getDurationInDays(p.availablePto) }),
-    },
-    noPtoAtAll: {
-      header: p.tFunc('noPtoAvailable'),
-      content: '',
-    },
-    alreadyScheduledPeriod: {
-      header: 'test',
-      content: 'test',
-    },
-  }
-  return modalTexts
-}
-
 export const CalendarRequestVacation = ({
   route: {
     params: { isSickTime },
@@ -128,6 +98,32 @@ export const CalendarRequestVacation = ({
     </SwipeableScreen>
   )
 }
+
+const mkModalTexts = (p: GetPeriodModalTextsProps) => ({
+  valid: {
+    header:
+      p.periodStart &&
+      p.periodEnd &&
+      getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
+    content: p.tFunc('pickedPTO', { days: getDurationInDays(p.ptoTaken) }),
+  },
+  tooLongSicktime: {
+    header: p.tFunc('maxSickDays', { maxDays: MAX_SICK_DAYS_COUNT }),
+    content: '',
+  },
+  notEnoughPto: {
+    header: p.tFunc('notEnoughPto'),
+    content: p.tFunc('availablePto', { availablePto: getDurationInDays(p.availablePto) }),
+  },
+  noPtoAtAll: {
+    header: p.tFunc('noPtoAvailable'),
+    content: '',
+  },
+  alreadyScheduledPeriod: {
+    header: p.tFunc('alreadyScheduledHeader'),
+    content: p.tFunc('alreadyScheduledContent'),
+  },
+})
 
 const useStyles = mkUseStyles((theme) => ({
   selectModal: {

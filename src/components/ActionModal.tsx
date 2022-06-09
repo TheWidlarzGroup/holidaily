@@ -35,7 +35,11 @@ export const ActionModal = (p: ActionModalProps) => {
           />
         )}
         {!!p.header && <Text variant="displayBoldSM">{p.header}</Text>}
-        {!!p.content && <Text variant="textSM">{p.content}</Text>}
+        {!!p.content && (
+          <Text variant="textSM" textAlign="center" marginTop="s">
+            {p.content}
+          </Text>
+        )}
         <Box marginTop={p.variant === 'regular' ? 'm' : 'xl'}>
           <CustomButton label={p.label} variant="primary" onPress={p.onUserAction} />
         </Box>

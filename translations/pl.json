@@ -311,6 +311,8 @@
     "notEnoughPto": "Ups! Nie masz tyle dni urlopu do wykorzystania :(",
     "noPtoAvailable": "Ups! Niestety nie masz już żadnych dni urlopowych do wykorzystania :(",
     "maxSickDays": "Ups! Pojedynczy wniosek o chorobowe może wynosić maksymalnie {{maxDays}} dni :(",
+    "alreadyScheduledHeader": "Wygląda na to, że już wziąłeś urlop w tym terminie!",
+    "alreadyScheduledContent": "Zrezygnuj z dodawania nowego urlopu lub weź urlop z inną datą.",
     "clear": "Wyczyść",
     "availablePto": "Możesz wziąć {{availablePto}} urlopu.",
     "changeDays": "Zmień termin",
