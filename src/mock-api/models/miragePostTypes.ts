@@ -63,13 +63,13 @@ export type EditComment = {
   type: 'comment'
   postId: string
   commentId: string
-  author?: string
+  authorId?: string
   text?: string
 }
 
 type EditPost = {
   type: 'post'
-  author: string
+  authorId: string
   postId: string
 }
 

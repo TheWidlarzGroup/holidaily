@@ -70,7 +70,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   }, [navigation])
 
   const openEditModal = (target: EditTargetType) => {
-    if (!(target.author === `${user?.firstName} ${user?.lastName}`)) return
+    if (!(target.authorId === user?.id)) return
     setEditTarget(target)
     openModal?.()
     if (target.type === 'comment') {
@@ -78,7 +78,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const handleModalDelete = () => {
+  const onPressModalDelete = () => {
     closeModal?.()
     if (editTarget?.type === 'comment') {
       deleteComment({ ...editTarget })
@@ -87,7 +87,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const handleModalEdit = () => {
+  const onPressModalEdit = () => {
     closeModal?.()
     if (editTarget?.type === 'comment') {
       if (!editTarget.text) return
@@ -96,7 +96,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const handleEditComment = () => {
+  const onCommentEdit = () => {
     hideMessageInput()
     if (editTarget?.type === 'comment') {
       editComment({
@@ -113,12 +113,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     {
       Icon: EditIcon,
       text: t('edit'),
-      onPress: handleModalEdit,
+      onPress: onPressModalEdit,
     },
     {
       Icon: BinIcon,
       text: t('delete'),
-      onPress: handleModalDelete,
+      onPress: onPressModalDelete,
     },
   ]
 
@@ -154,7 +154,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         visible={messageInputOpened}
         onSubmitEditing={hideMessageInput}
         onRequestClose={hideMessageInput}
-        handleEditComment={handleEditComment}
+        handleEditComment={onCommentEdit}
         autofocus
       />
     </SafeAreaWrapper>

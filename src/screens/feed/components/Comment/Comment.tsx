@@ -37,7 +37,7 @@ export const Comment = ({
       type: 'comment',
       postId: postId || '',
       commentId: comment.id,
-      author: comment.meta.author.name,
+      authorId: comment.meta.author.id,
       text: comment.text,
     })
     setEditCommentId(comment.id)
