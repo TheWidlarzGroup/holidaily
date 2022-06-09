@@ -7,7 +7,7 @@ import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
 import React, { useEffect, useState } from 'react'
 import { calculatePTO, getDurationInDays, getFormattedPeriod } from 'utils/dates'
 import { mkUseStyles } from 'utils/theme'
-import { ActionModal } from 'components/ActionModal'
+import { ActionModal, ActionModalProps } from 'components/ActionModal'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 import { TFunction, useTranslation } from 'react-i18next'
@@ -69,6 +69,18 @@ export const CalendarRequestVacation = ({
   useEffect(showCalendar, [showCalendar])
   const styles = useStyles()
   const modalTexts = mkModalTexts({ periodStart, periodEnd, ptoTaken, availablePto, tFunc: t })
+
+  const modalExtraProps:
+    | Record<string, never>
+    | Pick<ActionModalProps, 'extraBtn' | 'onExtraBtnPress' | 'extraBtnText'> =
+    periodState === 'alreadyScheduledPeriod'
+      ? {
+          extraBtn: true,
+          extraBtnText: 'test',
+          onExtraBtnPress: () => navigation.navigate('DRAWER_NAVIGATOR'),
+        }
+      : {}
+
   return (
     <SwipeableScreen swipeWithIndicator alignItems="center" extraStyle={styles.container}>
       <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
@@ -92,6 +104,7 @@ export const CalendarRequestVacation = ({
             variant={actionModalVariant}
             header={modalTexts[periodState].header}
             content={modalTexts[periodState].content}
+            {...modalExtraProps}
           />
         </>
       )}
@@ -106,22 +119,27 @@ const mkModalTexts = (p: GetPeriodModalTextsProps) => ({
       p.periodEnd &&
       getFormattedPeriod(new Date(p.periodStart), new Date(p.periodEnd)),
     content: p.tFunc('pickedPTO', { days: getDurationInDays(p.ptoTaken) }),
+    btnText: p.tFunc('select'),
   },
   tooLongSicktime: {
     header: p.tFunc('maxSickDays', { maxDays: MAX_SICK_DAYS_COUNT }),
     content: '',
+    btnText: p.tFunc('clear'),
   },
   notEnoughPto: {
     header: p.tFunc('notEnoughPto'),
     content: p.tFunc('availablePto', { availablePto: getDurationInDays(p.availablePto) }),
+    btnText: p.tFunc('clear'),
   },
   noPtoAtAll: {
     header: p.tFunc('noPtoAvailable'),
     content: '',
+    btnText: p.tFunc('clear'),
   },
   alreadyScheduledPeriod: {
     header: p.tFunc('alreadyScheduledHeader'),
     content: p.tFunc('alreadyScheduledContent'),
+    btnText: p.tFunc('change'),
   },
 })
 

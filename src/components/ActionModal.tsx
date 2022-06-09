@@ -7,13 +7,16 @@ import { CustomButton } from './CustomButton'
 
 type ActionModalVariants = 'regular' | 'success' | 'error'
 
-type ActionModalProps = {
+export type ActionModalProps = {
   onUserAction: F0
   isVisible: boolean
   variant: ActionModalVariants
   label: string
   header?: string
   content?: string
+  extraBtn?: true
+  onExtraBtnPress?: F0
+  extraBtnText?: string
 }
 
 export const ActionModal = (p: ActionModalProps) => {
@@ -43,6 +46,15 @@ export const ActionModal = (p: ActionModalProps) => {
         <Box marginTop={p.variant === 'regular' ? 'm' : 'xl'}>
           <CustomButton label={p.label} variant="primary" onPress={p.onUserAction} />
         </Box>
+        {p.extraBtn && (
+          <Box marginTop="m">
+            <CustomButton
+              label={p.extraBtnText ?? ''}
+              variant="secondary"
+              onPress={p.onExtraBtnPress ?? (() => {})}
+            />
+          </Box>
+        )}
       </Box>
     </Modal>
   )

@@ -313,6 +313,8 @@
     "maxSickDays": "Ooops! You can take max. {{maxDays}} days of sick leave over a single request :(",
     "alreadyScheduledHeader": "You've already taken a days out of office this term!",
     "alreadyScheduledContent": "Decline to add a new leave or take a leave with a different date.",
+    "drop": "Drop this request",
+    "change": "Change date",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",

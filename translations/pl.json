@@ -313,6 +313,8 @@
     "maxSickDays": "Ups! Pojedynczy wniosek o chorobowe może wynosić maksymalnie {{maxDays}} dni :(",
     "alreadyScheduledHeader": "Wygląda na to, że już wziąłeś urlop w tym terminie!",
     "alreadyScheduledContent": "Zrezygnuj z dodawania nowego urlopu lub weź urlop z inną datą.",
+    "drop": "Zrezygnuj",
+    "change": "Zmień datę",
     "clear": "Wyczyść",
     "availablePto": "Możesz wziąć {{availablePto}} urlopu.",
     "changeDays": "Zmień termin",
