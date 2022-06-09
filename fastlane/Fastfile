@@ -2,7 +2,9 @@ fastlane_version "2.190.0"
 
 before_all do
    yarn(command: "install", step_name: "install_dependencies")
-   ensure_git_branch
+   ensure_git_branch(
+   branch: 'staging'
+   )
    # ensure_git_status_clean
    git_pull
 end
@@ -88,7 +90,7 @@ platform :android do
       upload_to_play_store(
          package_name: ENV["ANDROID_PACKAGE_NAME"],
          track: "internal",
-         json_key: "./android/app/holidaily-fastlane.json",
+         json_key: ENV["ANDROID_JSON_KEY_FILE"],
          aab: "./android/app/build/outputs/bundle/release/app-release.aab"
       )
   end
