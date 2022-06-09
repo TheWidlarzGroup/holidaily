@@ -11,6 +11,7 @@ export const theme = {
 }
 
 export type Theme = typeof theme
+export type Colors = keyof Theme['colors']
 export const darkTheme: Theme = {
   ...theme,
   colors: darkThemeColors,

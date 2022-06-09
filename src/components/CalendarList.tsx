@@ -10,6 +10,7 @@ import { useCalendarPeriodStyles } from 'hooks/style-hooks/useCalendarStyles'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { eachDayOfInterval, isPast } from 'date-fns'
 import { isToday } from 'date-fns/esm'
+import { DayOffRequest } from 'mockApi/models'
 import {
   MarkingType,
   NewCalendarBaseProps,
@@ -37,7 +38,8 @@ export const CalendarList = ({
   ...p
 }: CustomCalendarProps & RNCalendarProps) => {
   const appTheme = useTheme()
-  const userRequestDots = useUserRequestDots()
+  const { user } = useUserContext()
+  const userRequestDots = user ? mkUserRequestDots(user.requests, user.userColor) : []
   const handleClick = ({ dateString: clickedDate }: DateObject) => {
     if (!selectable) return
     if (!p.periodStart || !p.periodEnd || p.periodStart !== p.periodEnd) {
@@ -76,11 +78,9 @@ export const CalendarList = ({
   )
 }
 
-const useUserRequestDots = () => {
-  const appTheme = useTheme()
-  const { user } = useUserContext()
+const mkUserRequestDots = (requests: DayOffRequest[], userColor: string) => {
   const userRequestsDates: string[] = []
-  ;(user?.requests ?? []).forEach((req) => {
+  requests.forEach((req) => {
     if (req.status === 'cancelled') return
     const eachDayOfReq = eachDayOfInterval({
       start: new Date(req.startDate),
@@ -92,7 +92,7 @@ const useUserRequestDots = () => {
   })
   const userRequestDots: Dot[] = userRequestsDates.map((date) => ({
     key: date,
-    color: user?.userColor ?? appTheme.colors.primary,
+    color: userColor,
   }))
   return userRequestDots
 }
