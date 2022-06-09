@@ -32,10 +32,6 @@ export const FeedPost = ({ post }: FeedPostProps) => {
       const { routes } = navigation.getState()
       const getIdParam = routes.slice().pop()?.params?.postId
       const getPrevScreen = routes.slice().pop()?.params?.prevScreen
-      console.log(
-        '🚀 ~ file: FeedPost.tsx ~ line 35 ~ React.useCallback ~ getPrevScreen ',
-        getPrevScreen
-      )
 
       const isFromNotifications =
         getPrevScreen === 'NOTIFICATIONS' && getIdParam === Number(post.id)
@@ -45,7 +41,7 @@ export const FeedPost = ({ post }: FeedPostProps) => {
 
         setTimeout(() => {
           setShowBorder(false)
-        }, 3000)
+        }, 6000)
       }
 
       return () => {
@@ -66,7 +62,7 @@ export const FeedPost = ({ post }: FeedPostProps) => {
       bg="white"
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"
-      marginTop="s">
+      marginTop={showBorder ? 'xsplus' : 's'}>
       <FeedPostHeader post={post} showBorder={showBorder} />
       <FeedPostBody post={post} showBorder={showBorder} />
       <FeedPostFooter post={post} showBorder={showBorder} />

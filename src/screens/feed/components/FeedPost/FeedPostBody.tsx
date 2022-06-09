@@ -25,7 +25,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
     <Box>
       {text.length > 0 && (
         <Box
-          paddingHorizontal="m"
+          paddingHorizontal={showBorder ? 'ms' : 'm'}
           paddingTop="s"
           borderWidth={isBorderShown}
           borderColor="special"

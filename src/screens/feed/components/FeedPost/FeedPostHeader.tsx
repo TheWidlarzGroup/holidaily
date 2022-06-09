@@ -16,8 +16,8 @@ export const FeedPostHeader = (props: FeedPostHeaderProps) => {
 
   return (
     <Box
-      paddingHorizontal="m"
-      paddingTop="m"
+      paddingHorizontal={showBorder ? 'ms' : 'm'}
+      paddingTop={showBorder ? 'ms' : 'm'}
       alignItems="flex-start"
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"

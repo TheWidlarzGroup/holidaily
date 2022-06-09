@@ -22,6 +22,8 @@ export const FeedPostFooter = (props: Post) => {
     <Box
       marginTop={isIos && !isScreenHeightShort ? '-l2plus' : 'none'}
       borderWidth={isBorderShown}
+      paddingHorizontal={showBorder ? 'none' : 'xxs'}
+      paddingBottom={showBorder ? 'none' : 'xxs'}
       borderColor="special"
       borderTopWidth={0}>
       <FooterBar post={post} expandComments={expandComments} />
