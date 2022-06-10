@@ -1,6 +1,11 @@
 import { eachDayOfInterval } from 'date-fns'
-import { DayOffRequest } from 'mockApi/models'
-import { isDateBetween } from './dates'
+import type { DayOffRequest, User, Team } from 'mockApi/models'
+import { isWeekendOrHoliday } from 'poland-public-holidays'
+import type { DayOffEvent } from 'screens/calendar/components/DayEvent'
+import type { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { getISODateString, getISOMonthYearString, isDateBetween, isWeekend } from './dates'
+import { generateUUID } from './generateUUID'
+import { getUserTeamId } from './getUserTeamId'
 
 export const drawnDayoffInAlreadyScheduledTime = (
   req: Pick<DayOffRequest, 'startDate' | 'endDate'>,
@@ -12,4 +17,52 @@ export const drawnDayoffInAlreadyScheduledTime = (
     const days = eachDayOfInterval({ start, end })
     return days.some((day) => isDateBetween(day, existingReq.startDate, existingReq.endDate))
   })
+}
+
+export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], appUser: User) => {
+  const allSingleRequests: DayOffEvent[] = []
+
+  allUsers.forEach((user) => {
+    user.requests.forEach((req) => {
+      const dates = eachDayOfInterval({
+        start: new Date(req.startDate),
+        end: new Date(req.endDate),
+      })
+      dates.forEach((date) => {
+        if (isWeekendOrHoliday(date)) return
+        const request = {
+          id: generateUUID(),
+          person: `${user.firstName} ${user.lastName}`,
+          personLastName: user.lastName,
+          reason: req.description,
+          position: user.occupation,
+          color: user.userColor,
+          categoryId: getUserTeamId(`${user.firstName} ${user.lastName}`, teams),
+          date: getISODateString(date),
+          monthYear: getISOMonthYearString(date),
+          photo: user.photo,
+          status: req.status,
+        }
+        if (request.person === `${appUser.firstName} ${appUser.lastName}`) {
+          if (request.status === 'cancelled' || request.status === 'pending') return
+        }
+        allSingleRequests.push(request)
+      })
+    })
+  })
+
+  return { allSingleRequests }
+}
+
+export const getFirstRequestsOfMonth = (allRequestsOfMonth: HolidailyRequestMonthType) => {
+  const firstDaysOfNextMonthRequests = allRequestsOfMonth?.days.filter((day) => {
+    if (isWeekend(day.date)) return
+    return (
+      day.date.slice(-2) === '01' ||
+      day.date.slice(-2) === '02' ||
+      day.date.slice(-2) === '03' ||
+      day.date.slice(-2) === '04'
+    )
+  })
+  return firstDaysOfNextMonthRequests
 }
