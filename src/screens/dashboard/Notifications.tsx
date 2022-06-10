@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Text, useTheme } from 'utils/theme'
 import { TouchableOpacity } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { LoadingModal } from 'components/LoadingModal'
+import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
+  const [showLoadingModal, setShowLoadingModal] = useState(false)
   const theme = useTheme()
-  const { goBack } = useNavigation()
+  const navigation = useNavigation()
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
+
+  const goBack = () => {
+    setShowLoadingModal(true)
+    setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'DRAWER_NAVIGATOR' }],
+      })
+    }, 100)
+  }
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
@@ -35,7 +46,7 @@ export const Notifications = () => {
       </Box>
       <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm" flex={1}>
         {data?.notifications && <NotificationsList data={data.notifications} />}
-        <LoadingModal show={isLoading} />
+        <LoadingModal show={isLoading || showLoadingModal} />
       </Box>
     </SafeAreaWrapper>
   )

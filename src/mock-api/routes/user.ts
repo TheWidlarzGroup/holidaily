@@ -97,6 +97,26 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
   const June = schema.find('user', 'source-june')
   const Peter = schema.find('user', 'source-peter')
   const Tom = schema.find('user', 'source-tom')
+  const Holidaily = schema.find('user', 'source-holidaily')
+
+  userRequests.forEach((singleRequest) => {
+    if (
+      (singleRequest.status === 'accepted' || singleRequest.status === 'cancelled') &&
+      singleRequest.description
+    ) {
+      schema.create('notification', {
+        id: `holidaily-${singleRequest.status}-${singleRequest.id}`,
+        createdAt: faker.date.recent(0),
+        source: Holidaily,
+        wasSeenByHolder: false,
+        holderId: user.id,
+        requestId: singleRequest.id,
+        description: singleRequest.description,
+        type: singleRequest.status,
+      })
+    }
+  })
+
   schema.create('notification', {
     id: 'june-like',
     createdAt: faker.date.recent(0),
@@ -114,34 +134,30 @@ function createTempUser(schema: Schema<ModelsSchema>, req: Request) {
     type: 'comment',
   })
   schema.create('notification', {
+    id: 'holidaily-prompt',
+    createdAt: faker.date.recent(0),
+    source: Holidaily,
+    wasSeenByHolder: false,
+    holderId: user.id,
+    type: 'prompt',
+  })
+  schema.create('notification', {
     id: 'peter-dayoff',
-    createdAt: faker.date.between(
-      new Date(Date.now() - 3 * DAY_IN_MS),
-      new Date(Date.now() - DAY_IN_MS)
-    ),
+    createdAt: new Date(Date.now() - DAY_IN_MS).toISOString(),
     source: Peter,
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
-    endDate: faker.date.between(
-      new Date(Date.now() + 3 * DAY_IN_MS),
-      new Date(Date.now() + 14 * DAY_IN_MS)
-    ),
+    endDate: new Date(Date.now() + 7 * DAY_IN_MS).toISOString(),
   })
   schema.create('notification', {
     id: 'tom-dayoff',
-    createdAt: faker.date.between(
-      new Date(Date.now() - 3 * DAY_IN_MS),
-      new Date(Date.now() - DAY_IN_MS)
-    ),
+    createdAt: new Date(Date.now() - DAY_IN_MS).toISOString(),
     source: Tom,
     wasSeenByHolder: false,
     holderId: user.id,
     type: 'dayOff',
-    endDate: faker.date.between(
-      new Date(Date.now() + 3 * DAY_IN_MS),
-      new Date(Date.now() + 14 * DAY_IN_MS)
-    ),
+    endDate: new Date(Date.now() + 14 * DAY_IN_MS).toISOString(),
   })
   return user
 }

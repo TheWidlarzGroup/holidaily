@@ -16,7 +16,13 @@ export const StatsAndRequests = () => {
   const { isLoading, data: stats } = useFetchUserStats()
   const { t } = useTranslation('stats')
   const { user } = useUserContext()
-  const requests = useMemo(() => user?.requests ?? [], [user])
+  const requests = useMemo(
+    () =>
+      user?.requests.slice().sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)) ??
+      [],
+    [user]
+  )
+
   const { ongoingRequests, pendingRequests, approvedRequests, pastRequests, declinedRequests } =
     useMemo(
       () => ({
@@ -86,7 +92,9 @@ export const StatsAndRequests = () => {
 const Item = ({ item }: { item: DayOffRequest }) => {
   const { navigate } = useNavigation()
   return (
-    <TouchableOpacity activeOpacity={1} onPress={() => navigate('SEE_REQUEST', item)}>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => navigate('SEE_REQUEST', { ...item, prevScreen: 'STATS_AND_REQUESTS' })}>
       <Request {...item} />
     </TouchableOpacity>
   )
