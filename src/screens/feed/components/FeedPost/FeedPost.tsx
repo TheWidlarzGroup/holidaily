@@ -31,10 +31,7 @@ export const FeedPost = ({ post }: FeedPostProps) => {
     React.useCallback(() => {
       const { routes } = navigation.getState()
       const getIdParam = routes.slice().pop()?.params?.postId
-      const getPrevScreen = routes.slice().pop()?.params?.prevScreen
-
-      const isFromNotifications =
-        getPrevScreen === 'NOTIFICATIONS' && getIdParam === Number(post.id)
+      const isFromNotifications = getIdParam === Number(post.id)
 
       if (isFromNotifications) {
         setShowBorder(true)
@@ -42,10 +39,6 @@ export const FeedPost = ({ post }: FeedPostProps) => {
         setTimeout(() => {
           setShowBorder(false)
         }, 6000)
-      }
-
-      return () => {
-        navigation.setParams({ prevScreen: 'DASHBOARD' })
       }
     }, [navigation, post.id])
   )
