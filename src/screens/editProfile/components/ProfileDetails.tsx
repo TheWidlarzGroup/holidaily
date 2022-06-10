@@ -16,8 +16,6 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
   const { t } = useTranslation('userProfile')
   const errorMessage = t('fieldRequired')
 
-  // const navigation = useNavigation()
-  // const navigateToChangePassword = () => navigation.navigate('ChangePassword')
   const commonInputProps = {
     maxLength: 15,
     control,
@@ -61,15 +59,6 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
           isRequired={false}
         />
       </Box>
-      {/* <Box marginBottom="l">
-        <InputButton
-          inputLabel={t('userPassword')}
-          value={'••••••••'}
-          onClick={navigateToChangePassword}
-          showEditIcon
-          labelTextVariant="labelGrey"
-        />
-      </Box> */}
     </Box>
   )
 }

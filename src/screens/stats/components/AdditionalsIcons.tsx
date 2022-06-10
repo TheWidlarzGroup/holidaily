@@ -1,29 +1,35 @@
 import React from 'react'
 
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import IconMessage from 'assets/icons/icon-message-small.svg'
 import IconAttachment from 'assets/icons/icon-attachment-small.svg'
-import IconPill from 'assets/icons/icon-pill-small.svg'
 
 export type Additional = 'sick' | 'comment' | 'attachment'
 
-const Icon = ({ name }: { name: Additional }) => {
-  switch (name) {
+type IconProps = {
+  name: Additional
+  iconColor: string
+}
+
+const Icon = (props: IconProps) => {
+  switch (props.name) {
     case 'attachment':
-      return <IconAttachment />
+      return <IconAttachment color={props.iconColor} />
     case 'comment':
-      return <IconMessage />
-    case 'sick':
-      return <IconPill />
+      return <IconMessage color={props.iconColor} />
     default:
       return null
   }
 }
 
-export const AdditionalsIcons = ({ additionals }: { additionals?: Additional[] }) => (
-  <Box flexDirection="row" alignItems="flex-end">
-    {additionals?.map((item) => (
-      <Icon name={item} key={item} />
-    ))}
-  </Box>
-)
+export const AdditionalsIcons = ({ additionals }: { additionals?: Additional[] }) => {
+  const theme = useTheme()
+
+  return (
+    <Box flexDirection="row" alignItems="flex-start">
+      {additionals?.map((item) => (
+        <Icon name={item} key={item} iconColor={theme.colors.darkGreyBrighter} />
+      ))}
+    </Box>
+  )
+}

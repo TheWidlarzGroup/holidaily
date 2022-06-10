@@ -30,6 +30,7 @@ export type DayOffRequest = {
   isSickTime: boolean
   createdAt: string
   status: 'accepted' | 'cancelled' | 'pending' | 'past'
+  prevScreen?: 'STATS_AND_REQUESTS' | 'NOTIFICATIONS'
   // array of attachments URLs
   attachments?: Attachment[]
 }
@@ -47,15 +48,16 @@ export type Organization = {
   teams: Team[]
 }
 
-export type Notification = {
-  id: string
-  createdAt: string
-  source: User
-  wasSeenByHolder: boolean
-  holderId: string
-} & (
+export type Notification =
   | {
-      type: 'like' | 'comment'
-    }
-  | { type: 'dayOff'; endDate: string }
-)
+      id: string
+      createdAt: string
+      source: User
+      wasSeenByHolder: boolean
+      holderId: string
+      requestId?: string
+    } & (
+      | { type: 'like' | 'comment' | 'prompt' }
+      | { type: 'dayOff'; endDate: string }
+      | { type: 'accepted' | 'cancelled'; description: string }
+    )

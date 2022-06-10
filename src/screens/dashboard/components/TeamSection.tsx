@@ -14,7 +14,6 @@ export const TeamSection = (props: TeamSectionProps) => {
   const { isOutOfOffice, matesArray, openUserModal } = props
   const { t } = useTranslation('dashboard')
 
-  // version - to change while reskin TeamSection
   const version: { color: 'tertiary' | 'headerGrey'; text: 'outOfWorkNow' | 'outOfWorkSoon' } = {
     color: isOutOfOffice === true ? 'tertiary' : 'headerGrey',
     text: isOutOfOffice === true ? 'outOfWorkNow' : 'outOfWorkSoon',

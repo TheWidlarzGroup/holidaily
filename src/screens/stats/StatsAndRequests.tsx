@@ -11,13 +11,18 @@ import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
 import { Stats } from './Stats'
 import { Request } from './components/Request'
-import { SectionHeader } from './components/SectionHeader'
 
 export const StatsAndRequests = () => {
   const { isLoading, data: stats } = useFetchUserStats()
   const { t } = useTranslation('stats')
   const { user } = useUserContext()
-  const requests = useMemo(() => user?.requests ?? [], [user])
+  const requests = useMemo(
+    () =>
+      user?.requests.slice().sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)) ??
+      [],
+    [user]
+  )
+
   const { ongoingRequests, pendingRequests, approvedRequests, pastRequests, declinedRequests } =
     useMemo(
       () => ({
@@ -40,14 +45,7 @@ export const StatsAndRequests = () => {
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['bottom']}>
       <SectionList
-        ListHeaderComponent={
-          <>
-            <Stats stats={stats} />
-            <Box paddingTop="xl">
-              <SectionHeader text={t('requests')} />
-            </Box>
-          </>
-        }
+        ListHeaderComponent={<Stats stats={stats} />}
         sections={[
           {
             title: t('ongoingRequestsHeader'),
@@ -73,7 +71,13 @@ export const StatsAndRequests = () => {
         keyExtractor={({ id }) => id}
         renderSectionHeader={({ section: { title, data } }) =>
           data.length ? (
-            <Text variant="lightGreyRegular" margin="xm">
+            <Text
+              marginBottom="s"
+              marginLeft="m"
+              marginTop="l"
+              variant="inputLabel"
+              lineHeight={18}
+              color="darkGreyBrighter">
               {title}
             </Text>
           ) : null
@@ -88,7 +92,9 @@ export const StatsAndRequests = () => {
 const Item = ({ item }: { item: DayOffRequest }) => {
   const { navigate } = useNavigation()
   return (
-    <TouchableOpacity activeOpacity={1} onPress={() => navigate('SEE_REQUEST', item)}>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => navigate('SEE_REQUEST', { ...item, prevScreen: 'STATS_AND_REQUESTS' })}>
       <Request {...item} />
     </TouchableOpacity>
   )

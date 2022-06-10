@@ -1,10 +1,8 @@
 import { Dimensions } from 'react-native'
 import { Easing } from 'react-native-reanimated'
-// import { Theme } from 'utils/theme/index'
 import { themeBase } from 'utils/theme/themeBase'
 
 const { width } = Dimensions.get('window')
-// export const MARGIN: Theme['spacing'] = themeBase.spacing.xs
 export const SIZE_W = width / 2
 export const COL = 2
 export const SIZE_H = 130

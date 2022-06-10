@@ -12,6 +12,8 @@ type AvatarProps = React.ComponentProps<typeof Box> & {
   userDetails?: Pick<User, 'userColor' | 'firstName'> & Partial<Pick<User, 'lastName'>>
 }
 
+export type AvatarSize = keyof typeof avatarSizes
+
 export const Avatar = ({ size = 'l', src, userDetails, ...containerProps }: AvatarProps) => {
   const chosenSize = typeof size === 'number' ? size : avatarSizes[size]
   const width = chosenSize

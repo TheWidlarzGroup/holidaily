@@ -11,7 +11,6 @@ import { useSiriListeners } from 'hooks/useSiriListeners'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
-// import { AdminPanelEmployeesNavigation } from './AdminPanelEmployeesNavigation'
 import { BudgetNavigation } from './BudgetNavigation'
 
 const Drawer = createDrawerNavigator<DrawerRoutes>()
@@ -80,11 +79,6 @@ export const DrawerNavigator = () => {
         component={ProfileNavigation}
         options={{ title: t('editProfile'), swipeEnabled: false }}
       />
-      {/* <Drawer.Screen
-        name="AdminPanelEmployeesNavigation"
-        component={AdminPanelEmployeesNavigation}
-        options={{ title: t('employees'), swipeEnabled: false }}
-      /> */}
       <Drawer.Screen
         name="HolidayBudget"
         component={BudgetNavigation}
