@@ -8,6 +8,8 @@ type ModalPropsType = {
   onPress?: F0
 }
 
+const successIcon = require('assets/icons/success-icon.png')
+
 export const SuccessModal = ({ title, onPressText, onPress }: ModalPropsType) => {
   const styles = useStyles()
 
@@ -21,7 +23,7 @@ export const SuccessModal = ({ title, onPressText, onPress }: ModalPropsType) =>
       borderColor="approvedGreen"
       borderRadius="l1min"
       flexDirection="row">
-      <Image source={require('assets/icons/success-icon.png')} style={styles.image} />
+      <Image source={successIcon} style={styles.image} />
       <Text marginLeft="xm" variant="textSM">
         {title}
       </Text>

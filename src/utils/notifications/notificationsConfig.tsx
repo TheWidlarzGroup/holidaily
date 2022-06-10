@@ -4,6 +4,8 @@ import { createNotifications, generateAnimationConfig } from 'react-native-notif
 import { Easing, interpolate, SharedValue } from 'react-native-reanimated'
 import { theme } from 'utils/theme'
 
+const successIcon = require('assets/icons/success-icon.png')
+
 export const useGetNotificationsConfig = () => {
   const { userSettings } = useUserSettingsContext()
   const isDarkMode = userSettings?.darkMode
@@ -45,7 +47,7 @@ export const useGetNotificationsConfig = () => {
         bgColor: isDarkMode ? theme.colors.black : theme.colors.successToastBg,
         titleColor: isDarkMode ? theme.colors.white : theme.colors.black,
         borderRadius: theme.borderRadii.l1min,
-        leftIconSource: require('assets/icons/success-icon.png'),
+        leftIconSource: successIcon,
       },
     },
   })
