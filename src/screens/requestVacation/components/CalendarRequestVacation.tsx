@@ -33,7 +33,7 @@ export const CalendarRequestVacation = ({
   const haveUserPickedPeriod = !!periodStart && !!periodEnd
   const availablePto = user?.availablePto ?? 0
   const ptoTaken = haveUserPickedPeriod ? calculatePTO(periodStart, periodEnd) : 0
-  const periodState = (() => {
+  const periodState: keyof ReturnType<typeof mkModalTexts> = (() => {
     const alreadyScheduledPeriod =
       user?.requests &&
       periodStart &&
