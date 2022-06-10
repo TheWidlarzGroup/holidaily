@@ -14,8 +14,8 @@ import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
 import { Comment } from 'mock-api/models/miragePostTypes'
 import { generateUUID } from 'utils/generateUUID'
-import { notify } from 'react-native-notificated'
 import { isAndroid } from 'utils/layout'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 
 export type MessageInputProps = {
   messageContent: string
@@ -47,6 +47,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
   const { t } = useTranslation('messageInput')
   const inputRef = useRef<TextInput>(null)
   const combinedInputRef = useCombinedRefs([ref, inputRef])
+  const { notify } = useGetNotificationsConfig()
 
   const { user } = useUserContext()
 
@@ -97,7 +98,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
       text: messageContent,
     }
     props.handleSubmitComment?.(message)
-    notify('success', { params: { title: t('commentAdded') } })
+    notify('successCustom', { params: { title: t('commentAdded') } })
   }
 
   const handleBlur = () => {
