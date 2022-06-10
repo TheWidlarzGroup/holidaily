@@ -25,8 +25,8 @@ const imgStyles = {
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const SliderContent: FC<SliderContentProps> = ({ title, text, image }) => {
-  const translateY = useSharedValue(260)
-  const scale = useSharedValue(0)
+  const translateY = useSharedValue(236)
+  const scale = useSharedValue(0.57)
   const opacity = useSharedValue(0)
   const rotate = useSharedValue(0)
   const opacityStyles = useAnimatedStyle(() => ({ opacity: opacity.value }), [])
@@ -42,8 +42,6 @@ export const SliderContent: FC<SliderContentProps> = ({ title, text, image }) =>
   )
 
   useEffect(() => {
-    translateY.value = withTiming(260)
-    scale.value = withDelay(200, withSpring(0.5))
     rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 750 }), 4, true))
     translateY.value = withDelay(2200, withSpring(280))
     scale.value = withDelay(2400, withSpring(1))

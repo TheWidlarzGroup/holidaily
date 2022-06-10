@@ -48,7 +48,7 @@ const SLIDER_DATA: {
 const { width } = Dimensions.get('window')
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
-const ANIMATION_TIME = 3500
+const ANIMATION_TIME = 3300
 
 export const Slider: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'SLIDER'>>()
