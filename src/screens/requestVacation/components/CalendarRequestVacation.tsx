@@ -76,8 +76,11 @@ export const CalendarRequestVacation = ({
     periodState === 'alreadyScheduledPeriod'
       ? {
           extraBtn: true,
-          extraBtnText: 'test',
-          onExtraBtnPress: () => navigation.navigate('DRAWER_NAVIGATOR'),
+          extraBtnText: t('drop'),
+          onExtraBtnPress: () => {
+            navigation.goBack()
+            navigation.goBack()
+          },
         }
       : {}
 
@@ -100,7 +103,7 @@ export const CalendarRequestVacation = ({
           <ActionModal
             isVisible={!!periodStart}
             onUserAction={onModalBtnPress}
-            label={isPeriodValid ? t('select') : t('clear')}
+            label={modalTexts[periodState].btnText}
             variant={actionModalVariant}
             header={modalTexts[periodState].header}
             content={modalTexts[periodState].content}
