@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { mkUseStyles, Theme } from 'utils/theme'
@@ -26,6 +26,7 @@ export const AppNavigation = () => {
   // COMMENT: types in navigationRef could be <NavigationContainerRef> probably, needs research
 
   const { user, updateUser } = useUserContext()
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
   const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('BeforeCheck')
   const isFirstRender = useRef(true)
@@ -47,6 +48,12 @@ export const AppNavigation = () => {
   useEffect(() => {
     SplashScreen.hide()
   }, [])
+
+  useEffect(() => {
+    console.log('loginStatus', loginStatus)
+    console.log('isUserLoggedIn', isUserLoggedIn)
+    console.log('xxxx')
+  }, [isUserLoggedIn, loginStatus])
 
   useEffect(() => {
     if (isFirstRender.current) return
@@ -86,6 +93,14 @@ export const AppNavigation = () => {
     },
   }
 
+  useEffect(() => {
+    const checkIfUserIsLoggedIn = async () => {
+      const userLoggedIn = await getItem('firstName')
+      if (userLoggedIn) setIsUserLoggedIn(true)
+    }
+    checkIfUserIsLoggedIn()
+  }, [])
+
   return (
     <NavigationContainer
       linking={linking}
@@ -102,7 +117,7 @@ export const AppNavigation = () => {
         if (currentScreenName) Analytics().setCurrentScreen(currentScreenName)
         routeNameRef.current = currentRouteName
       }}>
-      {loginStatus === 'BeforeCheck' && <Splash />}
+      {loginStatus === 'BeforeCheck' && <Splash showIcon={isUserLoggedIn} />}
       {loginStatus === 'LoggedIn' && <AppStackNavigation />}
       {loginStatus === 'FirstVisit' && <AuthStackNavigation />}
       {loginStatus === 'LoggedOut' && <AuthStackNavigation initialRoute="WELCOME" userLoggedOut />}

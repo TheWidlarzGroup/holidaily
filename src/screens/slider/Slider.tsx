@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions, ScrollView, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import Animated, {
@@ -6,12 +6,14 @@ import Animated, {
   useAnimatedScrollHandler,
   useAnimatedRef,
   runOnJS,
+  withTiming,
+  useAnimatedStyle,
+  withDelay,
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationType } from 'navigation/types'
 import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
-
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
@@ -44,6 +46,8 @@ const SLIDER_DATA: {
 ]
 
 const { width } = Dimensions.get('window')
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
 export const Slider: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'SLIDER'>>()
@@ -51,6 +55,7 @@ export const Slider: FC = () => {
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
   const styles = useStyles()
+  const initialOpacity = useSharedValue(0)
 
   const navigateToWelcomeScreen = () => {
     navigation.navigate('WELCOME')
@@ -75,9 +80,16 @@ export const Slider: FC = () => {
     }
   }
 
+  const initialOpacityStyles = useAnimatedStyle(() => ({ opacity: initialOpacity.value }), [])
+
+  useEffect(() => {
+    initialOpacity.value = withDelay(2800, withTiming(1, { duration: 300 }))
+  }, [initialOpacity])
+
   return (
     <SafeAreaView style={styles.container}>
-      <Box
+      <AnimatedBox
+        style={initialOpacityStyles}
         justifyContent="center"
         alignItems="flex-end"
         width="100%"
@@ -90,8 +102,9 @@ export const Slider: FC = () => {
             {t('skip')}
           </Text>
         </TouchableOpacity>
-      </Box>
-      <Animated.ScrollView
+      </AnimatedBox>
+      <AnimatedScrollView
+        bounces={false}
         ref={aref}
         onScroll={scrollHandler}
         horizontal
@@ -107,19 +120,21 @@ export const Slider: FC = () => {
             image={item.image}
           />
         ))}
-      </Animated.ScrollView>
-      <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="m">
-        <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
-      </Box>
-      <Box marginBottom="lplus">
-        <CustomButton
-          variant="alternative"
-          label={t('next')}
-          onPress={handlePressButton}
-          customStyle={{ backgroundColor: theme.colors.alwaysBlack }}
-          customTextColor="alwaysWhite"
-        />
-      </Box>
+      </AnimatedScrollView>
+      <AnimatedBox style={initialOpacityStyles}>
+        <Box alignItems="center" justifyContent="center" alignSelf="center" marginBottom="m">
+          <ProgressBar scrollPositionX={translateX} slidersCount={SLIDER_DATA.length} />
+        </Box>
+        <Box marginBottom="lplus">
+          <CustomButton
+            variant="alternative"
+            label={t('next')}
+            onPress={handlePressButton}
+            customStyle={{ backgroundColor: theme.colors.alwaysBlack }}
+            customTextColor="alwaysWhite"
+          />
+        </Box>
+      </AnimatedBox>
     </SafeAreaView>
   )
 }
