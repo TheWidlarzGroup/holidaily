@@ -319,6 +319,8 @@
     "discardRequestYes": "Odrzuć",
     "discardRequestNo": "Kontynuuj edycję",
     "sickDayDescription": "Wniosek o zwolnienie lekarskie nie wymaga zatwierdzenia przez przełożonego.",
+    "addRequestValidation": "Aby kontynuować dodawanie wniosku, musisz wybrać datę.",
+    "understand": "Rozumiem",
     "outOfOffice": "Poza biurem",
     "removeAttachmentYes": "Usuń",
     "removeAttachmentNo": "Anuluj"

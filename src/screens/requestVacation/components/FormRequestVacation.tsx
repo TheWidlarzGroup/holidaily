@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Box, Text } from 'utils/theme/index'
+import { BaseOpacity, Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
@@ -31,6 +31,7 @@ type FormRequestVacationProps = {
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
   removeAttachment: F1<string>
+  setIsFormEmpty: F1<boolean>
 }
 
 export const FormRequestVacation: FC<FormRequestVacationProps> = ({
@@ -42,6 +43,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   photos,
   files,
   removeAttachment,
+  setIsFormEmpty,
 }) => {
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -53,6 +55,10 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
 
   const { t } = useTranslation('requestVacation')
+
+  const handleSubmitValidation = () => {
+    if (!date.start) setIsFormEmpty(true)
+  }
 
   const handleFormSubmit = () => {
     if (!date.start) return
@@ -123,9 +129,13 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
         </Box>
       </KeyboardAwareScrollView>
       {isNextVisible && !showMessageInput && (
-        <Box marginBottom={isIos ? 'ml' : 'none'}>
-          <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
-        </Box>
+        <BaseOpacity
+          onPress={handleSubmitValidation}
+          hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}>
+          <Box marginBottom={isIos ? 'ml' : 'none'}>
+            <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
+          </Box>
+        </BaseOpacity>
       )}
       <ConfirmationModal
         onAccept={clearPhotosToRemove}
