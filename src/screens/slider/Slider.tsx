@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions, ScrollView, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import Animated, {
@@ -48,14 +48,21 @@ const SLIDER_DATA: {
 const { width } = Dimensions.get('window')
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
+const ANIMATION_TIME = 3500
 
 export const Slider: FC = () => {
   const navigation = useNavigation<AuthNavigationType<'SLIDER'>>()
+  const [isScrollEnabled, setIsScrollEnabled] = useState(false)
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
   const styles = useStyles()
   const initialOpacity = useSharedValue(0)
+
+  useEffect(() => {
+    const enableSlideDelay = setTimeout(() => setIsScrollEnabled(true), ANIMATION_TIME)
+    return () => clearTimeout(enableSlideDelay)
+  }, [])
 
   const navigateToWelcomeScreen = () => {
     navigation.navigate('WELCOME')
@@ -83,7 +90,7 @@ export const Slider: FC = () => {
   const initialOpacityStyles = useAnimatedStyle(() => ({ opacity: initialOpacity.value }), [])
 
   useEffect(() => {
-    initialOpacity.value = withDelay(2800, withTiming(1, { duration: 300 }))
+    initialOpacity.value = withDelay(3000, withTiming(1, { duration: 300 }))
   }, [initialOpacity])
 
   return (
@@ -104,6 +111,7 @@ export const Slider: FC = () => {
         </TouchableOpacity>
       </AnimatedBox>
       <AnimatedScrollView
+        scrollEnabled={isScrollEnabled}
         bounces={false}
         ref={aref}
         onScroll={scrollHandler}
