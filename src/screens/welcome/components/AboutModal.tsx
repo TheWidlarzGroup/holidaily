@@ -8,6 +8,7 @@ type AboutModalProps = {
   isOpen: boolean
   onHide: F0
 }
+
 export const AboutModal = (p: AboutModalProps) => {
   const { t } = useTranslation('welcome')
   return (

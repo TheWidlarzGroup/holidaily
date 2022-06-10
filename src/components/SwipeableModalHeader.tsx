@@ -26,6 +26,8 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   const styles = useStyles()
   const navigation = useNavigation()
 
+  const iconPosition = props.closeAction === 'close' ? 'flex-end' : 'space-between'
+
   const handleGoBack = () => {
     if (props.closeAction === 'back') {
       navigation.goBack()
@@ -58,7 +60,7 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   return (
     <Box padding="m" paddingVertical="none">
       {props.hasIndicator && <ModalHandleIndicator />}
-      <Box justifyContent="space-between" flexDirection="row" marginVertical="xsplus">
+      <Box justifyContent={iconPosition} flexDirection="row" marginVertical="xsplus">
         <TouchableOpacity onPress={handleGoBack} hitSlop={HIT_SLOP}>
           {closeButton()}
         </TouchableOpacity>
