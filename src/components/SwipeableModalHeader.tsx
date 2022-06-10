@@ -27,6 +27,7 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   const navigation = useNavigation()
 
   const iconPosition = props.closeAction === 'close' ? 'flex-end' : 'space-between'
+  const iconMargin = props.closeAction === 'close' ? '-m' : 'none'
 
   const handleGoBack = () => {
     if (props.closeAction === 'back') {
@@ -60,7 +61,11 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   return (
     <Box padding="m" paddingVertical="none">
       {props.hasIndicator && <ModalHandleIndicator />}
-      <Box justifyContent={iconPosition} flexDirection="row" marginVertical="xsplus">
+      <Box
+        justifyContent={iconPosition}
+        flexDirection="row"
+        marginVertical="xsplus"
+        marginRight={iconMargin}>
         <TouchableOpacity onPress={handleGoBack} hitSlop={HIT_SLOP}>
           {closeButton()}
         </TouchableOpacity>
