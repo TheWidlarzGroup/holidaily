@@ -90,7 +90,7 @@ export const Slider: FC = () => {
   const initialOpacityStyles = useAnimatedStyle(() => ({ opacity: initialOpacity.value }), [])
 
   useEffect(() => {
-    initialOpacity.value = withDelay(3000, withTiming(1, { duration: 300 }))
+    initialOpacity.value = withDelay(3500, withTiming(1, { duration: 300 }))
   }, [initialOpacity])
 
   return (

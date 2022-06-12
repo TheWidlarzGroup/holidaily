@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { Dimensions, ImageSourcePropType, Image } from 'react-native'
 import { Box, Text } from 'utils/theme/index'
-import { isSmallScreen } from 'utils/deviceSizes'
+import { isSmallScreen, windowHeight } from 'utils/deviceSizes'
 import Animated, {
   useSharedValue,
   withTiming,
@@ -23,9 +23,11 @@ const imgStyles = {
   maxWidth: 240,
 }
 const AnimatedBox = Animated.createAnimatedComponent(Box)
+const IMAGE_HEIGHT = 192
+const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT
 
 export const SliderContent: FC<SliderContentProps> = ({ title, text, image }) => {
-  const translateY = useSharedValue(236)
+  const translateY = useSharedValue(middleScreenY)
   const scale = useSharedValue(0.57)
   const opacity = useSharedValue(0)
   const rotate = useSharedValue(0)
@@ -42,11 +44,11 @@ export const SliderContent: FC<SliderContentProps> = ({ title, text, image }) =>
   )
 
   useEffect(() => {
-    rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 750 }), 4, true))
-    translateY.value = withDelay(2200, withSpring(280))
-    scale.value = withDelay(2400, withSpring(1))
-    translateY.value = withDelay(2600, withSpring(0))
-    opacity.value = withDelay(3000, withTiming(1, { duration: 300 }))
+    rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), 6, true))
+    translateY.value = withDelay(2600, withTiming(middleScreenY + 30))
+    scale.value = withDelay(3000, withSpring(1))
+    translateY.value = withDelay(3000, withSpring(0))
+    opacity.value = withDelay(3600, withTiming(1, { duration: 300 }))
   }, [opacity, scale, translateY, rotate])
 
   return (
