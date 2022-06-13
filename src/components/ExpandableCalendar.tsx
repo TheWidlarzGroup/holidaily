@@ -5,7 +5,7 @@ import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
 import ArrowLeft from 'assets/icons/arrow-left.svg'
 import ArrowRight from 'assets/icons/arrow-right.svg'
-import ArrowUp from 'assets/icons/icon-arrow-up.svg'
+import ArrowDown from 'assets/icons/arrowDown.svg'
 import { getISODateString, getShortWeekDays } from 'utils/dates'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
@@ -67,7 +67,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   )
 
   // Calendar footer arrow animation
-  const rotation = useSharedValue(180)
+  const rotation = useSharedValue(0)
   const rotationStyles = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
   }))
@@ -161,10 +161,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     const { layout } = e.nativeEvent
     if (layout.y > 300) {
       props.setIsFullHeight(true)
-      rotation.value = withSpring(0)
+      rotation.value = withSpring(180)
     } else {
       props.setIsFullHeight(false)
-      rotation.value = withSpring(180)
+      rotation.value = withSpring(0)
     }
   }
 
@@ -249,14 +249,14 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
             </Box>
           </Animated.View>
           <BaseOpacity
+            hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}
             onLayout={(e) => trackCalendarHeight(e)}
+            onPress={() => toggleOnPress()}
             justifyContent="center"
             alignItems="center"
-            onPress={() => toggleOnPress()}
-            marginTop="xxm"
-            marginBottom="-m">
+            marginTop="xxm">
             <Animated.View style={[rotationStyles]}>
-              <ArrowUp color={theme.colors.black} />
+              <ArrowDown color={theme.colors.black} />
             </Animated.View>
           </BaseOpacity>
         </Animated.View>
