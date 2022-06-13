@@ -7,7 +7,7 @@ import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { getItem, setItem } from 'utils/localStorage'
+import { setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
@@ -15,7 +15,6 @@ import { createNotifications } from 'react-native-notificated'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { AuthNavigationProps } from 'navigation/types'
 import { Analytics } from 'services/analytics'
-import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
 
@@ -30,13 +29,14 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
   const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
-  const [hasUserSeenDashboard, setHasUserSeenDashboard] = useState(false)
+  const [hasUserLoggedOut, setHasUserLoggedOut] = useState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
       notify('success', { params: { title: t('logoutSuccess') } })
+      setHasUserLoggedOut(true)
     }
   }, [route.params?.userLoggedOut, notify, t])
 
@@ -53,19 +53,13 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
     )
   }
 
-  useAsyncEffect(async () => {
-    const userSeenDashboard = await getItem('seenDashboard')
-    setHasUserSeenDashboard(!!userSeenDashboard)
-    console.log(userSeenDashboard)
-  }, [])
-
   return (
     <SafeAreaWrapper>
       <KeyboardAwareScrollView
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled">
-        <WelcomeTopBar openModal={openModal} hasUserSeenDashboard={hasUserSeenDashboard} />
+        <WelcomeTopBar openModal={openModal} hasUserLoggedOut={hasUserLoggedOut} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>

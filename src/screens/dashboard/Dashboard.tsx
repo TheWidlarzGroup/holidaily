@@ -15,10 +15,10 @@ export const Dashboard = () => {
     useBooleanState(false)
 
   useAsyncEffect(async () => {
-    const seenTeamsModal = await getItem('seenDashboard')
+    const seenTeamsModal = await getItem('seenTeamsModal')
     if (seenTeamsModal === 'true') return
     requestAnimationFrame(openSuccessModal)
-    setItem('seenDashboard', 'true')
+    setItem('seenTeamsModal', 'true')
   }, [openSuccessModal])
 
   return (
