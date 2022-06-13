@@ -240,14 +240,15 @@
     "discard": "Odrzuć",
     "keepEditing": "Kontynuuj edycję",
     "discardHeader": "Odrzucić post?",
-    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane."
+    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
+    "savedAsDraft": "Zapisano post jako wersja robocza."
   },
   "createPost": {
     "title": "Utwórz Post",
     "clearPost": "Wyczyść",
     "inputPlaceholder": "Co słychać?",
     "sendPost": "Opublikuj",
-    "postSent": "Wiadomość wysłana!"
+    "postSent": "Opublikowano post!"
   },
   "settings": {
     "name": "Ustawienia ",

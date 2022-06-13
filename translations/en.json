@@ -240,7 +240,8 @@
     "discard": "Discard",
     "keepEditing": "Keep editing",
     "discardHeader": "Discard post?",
-    "discardDesc": "By clicking Discard, all changes will be lost."
+    "discardDesc": "By clicking Discard, all changes will be lost.",
+    "savedAsDraft": "Post saved as draft!"
   },
   "createPost": {
     "title": "Create Post",
