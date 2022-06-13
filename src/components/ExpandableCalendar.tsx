@@ -67,13 +67,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   )
 
   // Calendar footer arrow animation
-  const rotation = useSharedValue(180)
+  const rotation = useSharedValue(0)
   const rotationStyles = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
   }))
-  useEffect(() => {
-    rotation.value = props.isFullHeight ? withSpring(180) : withSpring(0)
-  }, [props.isFullHeight, rotation])
 
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
@@ -161,13 +158,14 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   )
 
   useEffect(() => {
-    if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT * 4) {
+    if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT) {
       containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT)
+      rotation.value = withSpring(180)
       props.setIsFullHeight(true)
     }
     // Comment: we don't want to track props.setIsFullHeight
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isFullHeight, containerHeight])
+  }, [props.isFullHeight, containerHeight, rotation])
 
   return (
     <>
@@ -238,7 +236,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           <BaseOpacity
             justifyContent="center"
             alignItems="center"
-            onPress={() => console.log('Pressed')}
+            onPress={() => props.setIsFullHeight(!props.isFullHeight)}
             marginTop="xxm"
             marginBottom="-m">
             <Animated.View style={[rotationStyles]}>
