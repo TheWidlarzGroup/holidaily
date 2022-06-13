@@ -15,6 +15,7 @@ import { createNotifications } from 'react-native-notificated'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { AuthNavigationProps } from 'navigation/types'
 import { Analytics } from 'services/analytics'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
 
@@ -52,12 +53,10 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
     )
   }
 
-  useEffect(() => {
-    const getIsUserLoggedIn = async () => {
-      const userSeenDashboard = await getItem('seenDashboard')
-      setHasUserSeenDashboard(!!userSeenDashboard)
-    }
-    getIsUserLoggedIn()
+  useAsyncEffect(async () => {
+    const userSeenDashboard = await getItem('seenDashboard')
+    setHasUserSeenDashboard(!!userSeenDashboard)
+    console.log(userSeenDashboard)
   }, [])
 
   return (
