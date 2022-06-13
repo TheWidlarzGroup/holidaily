@@ -41,6 +41,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     const { offset } = getItemLayout(days, currentIndex)
 
     const btnShownCondition = pageOffsetY !== offset
+    const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
 
     return (
       <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
@@ -62,7 +63,9 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
           onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
-        {btnShownCondition && <GoUpDownButton onPress={btnOnPress} />}
+        {btnShownCondition && (
+          <GoUpDownButton onPress={btnOnPress} arrowDirection={arrowDirection} />
+        )}
       </Box>
     )
   }
