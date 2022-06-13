@@ -1,3 +1,4 @@
+import { InfoModal } from 'components/notifications/InfoModal'
 import { SuccessModal } from 'components/notifications/SuccessModal'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { createNotifications, generateAnimationConfig } from 'react-native-notificated'
@@ -35,11 +36,18 @@ export const useGetNotificationsConfig = () => {
         component: SuccessModal,
         config: {
           notificationPosition: 'top',
-          duration: 1200,
+          duration: 3000,
+        },
+      },
+      infoCustom: {
+        component: InfoModal,
+        config: {
+          notificationPosition: 'top',
+          duration: 3000,
         },
       },
     },
-    duration: 1200,
+    duration: 3000,
     animationConfig: notificationAnimation,
     defaultStylesSettings: {
       successConfig: {
