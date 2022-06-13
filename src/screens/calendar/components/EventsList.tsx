@@ -42,6 +42,12 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
 
     const btnShownCondition = pageOffsetY !== offset
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
+    const handleBtn = () => {
+      if (switchCalendarHeight) setSwitchCalendarHeight(false)
+      setTimeout(() => {
+        btnOnPress()
+      }, 1000)
+    }
 
     return (
       <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
@@ -64,7 +70,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
           contentContainerStyle={{ paddingBottom: 80 }}
         />
         {btnShownCondition && (
-          <GoUpDownButton onPress={btnOnPress} arrowDirection={arrowDirection} />
+          <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />
         )}
       </Box>
     )
