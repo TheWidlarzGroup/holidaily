@@ -11,7 +11,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
 import deepmerge from 'deepmerge'
-import { ViewProps } from 'react-native'
+import { LayoutChangeEvent, ViewProps } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -67,7 +67,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   )
 
   // Calendar footer arrow animation
-  const rotation = useSharedValue(0)
+  const rotation = useSharedValue(180)
   const rotationStyles = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
   }))
@@ -157,15 +157,22 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     [markedDates, selectedDate]
   )
 
+  const trackCalendarHeight = (e: LayoutChangeEvent) => {
+    const { layout } = e.nativeEvent
+    if (layout.y > 300) {
+      props.setIsFullHeight(true)
+      rotation.value = withSpring(0)
+    } else {
+      props.setIsFullHeight(false)
+      rotation.value = withSpring(180)
+    }
+  }
+
   useEffect(() => {
     if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT) {
       containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT)
-      rotation.value = withSpring(180)
-      props.setIsFullHeight(true)
     }
-    // Comment: we don't want to track props.setIsFullHeight
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isFullHeight, containerHeight, rotation])
+  }, [props.isFullHeight, containerHeight])
 
   return (
     <>
@@ -234,6 +241,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
             </Box>
           </Animated.View>
           <BaseOpacity
+            onLayout={(e) => trackCalendarHeight(e)}
             justifyContent="center"
             alignItems="center"
             onPress={() => props.setIsFullHeight(!props.isFullHeight)}
