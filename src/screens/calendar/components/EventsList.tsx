@@ -43,10 +43,14 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     const btnShownCondition = pageOffsetY !== offset
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
     const handleBtn = () => {
-      if (switchCalendarHeight) setSwitchCalendarHeight(false)
-      setTimeout(() => {
+      if (switchCalendarHeight) {
+        setSwitchCalendarHeight(false)
+        setTimeout(() => {
+          btnOnPress()
+        }, 1000)
+      } else {
         btnOnPress()
-      }, 1000)
+      }
     }
 
     return (
