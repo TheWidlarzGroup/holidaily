@@ -240,15 +240,15 @@
     "discard": "Discard",
     "keepEditing": "Keep editing",
     "discardHeader": "Discard post?",
-    "discardDesc": "By clicking Discard, all changes will be lost.",
-    "savedAsDraft": "Post saved as draft!"
+    "discardDesc": "By clicking Discard, all changes will be lost."
   },
   "createPost": {
     "title": "Create Post",
     "clearPost": "Clear",
     "inputPlaceholder": "What's up?",
     "sendPost": "Post",
-    "postSent": "Post published!"
+    "postSent": "Post published!",
+    "savedAsDraft": "Post saved as draft!"
   },
   "settings": {
     "name": "Settings",
