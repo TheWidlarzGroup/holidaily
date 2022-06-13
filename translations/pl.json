@@ -236,7 +236,11 @@
     "showLess": "Pokaż mniej",
     "edit": "Edytuj",
     "delete": "Usuń",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "discard": "Odrzuć",
+    "keepEditing": "Kontynuuj edycję",
+    "discardHeader": "Odrzucić post?",
+    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane."
   },
   "createPost": {
     "title": "Utwórz Post",

@@ -236,7 +236,11 @@
     "showLess": "Show less",
     "edit": "Edit",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "discard": "Discard",
+    "keepEditing": "Keep editing",
+    "discardHeader": "Discard post?",
+    "discardDesc": "By clicking Discard, all changes will be lost."
   },
   "createPost": {
     "title": "Create Post",
