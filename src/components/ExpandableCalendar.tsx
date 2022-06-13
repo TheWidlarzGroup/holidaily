@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useMemo } from 'react'
-import { Box, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, useTheme } from 'utils/theme'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
 import ArrowLeft from 'assets/icons/arrow-left.svg'
 import ArrowRight from 'assets/icons/arrow-right.svg'
+import ArrowUp from 'assets/icons/icon-arrow-up.svg'
 import { getISODateString, getShortWeekDays } from 'utils/dates'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
@@ -64,6 +65,15 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const containerHeight = useSharedValue(
     getInitialCalendarHeight(isScreenHeightShort, hasUserSeenCalendar || false)
   )
+
+  // Calendar footer arrow animation
+  const rotation = useSharedValue(180)
+  const rotationStyles = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }))
+  useEffect(() => {
+    rotation.value = props.isFullHeight ? withSpring(180) : withSpring(0)
+  }, [props.isFullHeight, rotation])
 
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
@@ -225,6 +235,16 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
               />
             </Box>
           </Animated.View>
+          <BaseOpacity
+            justifyContent="center"
+            alignItems="center"
+            onPress={() => console.log('Pressed')}
+            marginTop="xxm"
+            marginBottom="-m">
+            <Animated.View style={[rotationStyles]}>
+              <ArrowUp color={theme.colors.black} />
+            </Animated.View>
+          </BaseOpacity>
         </Animated.View>
       </PanGestureHandler>
       {isIos ? (
