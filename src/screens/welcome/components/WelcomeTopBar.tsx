@@ -11,6 +11,7 @@ type WelcomeTopBarTypes = { openModal: F0; hasUserSeenDashboard: boolean }
 export const WelcomeTopBar = ({ openModal, hasUserSeenDashboard }: WelcomeTopBarTypes) => {
   const { navigate } = useNavigation()
   const theme = useTheme()
+
   return (
     <Box
       justifyContent="space-between"
@@ -19,11 +20,7 @@ export const WelcomeTopBar = ({ openModal, hasUserSeenDashboard }: WelcomeTopBar
       paddingTop={isIos ? 's' : 'l'}>
       <Box>
         <TouchableOpacity
-          onPress={() =>
-            navigate('SLIDER', {
-              disableInitialAnimation: hasUserSeenDashboard,
-            })
-          }
+          onPress={() => navigate('SLIDER', { disableInitialAnimation: hasUserSeenDashboard })}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <BackArrowIcon height={18} width={18} color={theme.colors.black} />
         </TouchableOpacity>
