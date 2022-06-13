@@ -15,6 +15,7 @@
 		23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7794E26A74159009C34A4 /* BridgeHeader.swift */; };
 		3483B783610E77CFF9049525 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 549E703D35A938DE7513DEBA /* libPods-OneSignalNotificationServiceExtension.a */; };
 		4921F76A3DC743B79253D1A0 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29F33DBF71844F71BB19B849 /* Nunito-SemiBold.ttf */; };
+		5DB06838B50868B0DB431DE2 /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E98079052B49B84FBF716E /* libPods-Holidayly.a */; };
 		6A311BD7BF597274A5DF6AA7 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392D92A95213A14CFFB9828 /* ExpoModulesProvider.swift */; };
 		78737D9F879D4E579FC97C40 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2012E5C6E95D496DB1E18D2A /* Nunito-Regular.ttf */; };
 		791521C85FEF46AE82663ECC /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D83AA926887646598CE83E69 /* Nunito-Italic-VariableFont_wght.ttf */; };
@@ -84,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB0D982E24ADCEF2DB023A84 /* libPods-Holidayly.a in Frameworks */,
+				5DB06838B50868B0DB431DE2 /* libPods-Holidayly.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,13 +505,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Holidayly/Holidayly.entitlements;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 23QAX5XY7P;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Holidayly/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.35;
+				MARKETING_VERSION = 1.0.36;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -536,12 +537,12 @@
 				CODE_SIGN_ENTITLEMENTS = Holidayly/Holidayly.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 23QAX5XY7P;
 				INFOPLIST_FILE = Holidayly/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.35;
+				MARKETING_VERSION = 1.0.36;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
