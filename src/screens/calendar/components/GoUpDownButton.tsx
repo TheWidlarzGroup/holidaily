@@ -1,7 +1,11 @@
 import React from 'react'
 import { BaseOpacity, Text } from 'utils/theme'
 
-export const GoUpDownButton = () => (
+type GoUpDownButtonProps = {
+  onPress: F0
+}
+
+export const GoUpDownButton = (props: GoUpDownButtonProps) => (
   <BaseOpacity
     width={40}
     height={40}
@@ -12,7 +16,7 @@ export const GoUpDownButton = () => (
     borderRadius="full"
     justifyContent="center"
     alignItems="center"
-    onPress={() => console.log('pressed')}>
+    onPress={() => props.onPress()}>
     <Text color="alwaysWhite">X</Text>
   </BaseOpacity>
 )

@@ -5,7 +5,6 @@ import { Box } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
-import { GoUpDownButton } from './GoUpDownButton'
 
 export type EventsListProps = {
   days: DayInfoProps[]
@@ -46,7 +45,6 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
           onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
-        <GoUpDownButton />
       </Box>
     )
   }

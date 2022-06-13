@@ -7,13 +7,15 @@ import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
-import { parseISO } from 'utils/dates'
+import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { CategoriesSlider } from './components/CategoriesSlider'
+import { GoUpDownButton } from './components/GoUpDownButton'
 
 const CalendarToWrap = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
 
@@ -25,11 +27,25 @@ const CalendarToWrap = () => {
     currentMonthDays,
   } = useCalendarData()
 
+  useEffect(() => {
+    if (currentIndex === 0) {
+      const currentDate = getISODateString(new Date())
+      const dayEvents = currentMonthDays.find((a) => a.date === currentDate)
+      if (!dayEvents) return
+      const index = currentMonthDays.indexOf(dayEvents)
+      setCurrentIndex(index)
+    }
+
+    // Comment: we don't want to track currentIndex
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMonthDays])
+
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
       const dayEvents = currentMonthDays.find((a) => a.date === dateString)
       if (!dayEvents) return
       const index = currentMonthDays.indexOf(dayEvents)
+      setCurrentIndex(index)
       flatListRef.current?.scrollToIndex({ index, animated: true })
       setTimeout(() => setSelectedDate(parseISO(dateString)))
     },
@@ -78,6 +94,9 @@ const CalendarToWrap = () => {
         days={currentMonthDays}
         switchCalendarHeight={switchCalendarHeight}
         setSwitchCalendarHeight={setSwitchCalendarHeight}
+      />
+      <GoUpDownButton
+        onPress={() => flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })}
       />
     </SafeAreaWrapper>
   )
