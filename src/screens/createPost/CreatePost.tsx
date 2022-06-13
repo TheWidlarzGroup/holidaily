@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
-import { PostState } from './CreatePostForm/usePostFormReducer'
+import { PostState, usePostFormReducer } from './CreatePostForm/usePostFormReducer'
 
 type PostAttachment = {
   uri: string
@@ -26,6 +26,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { t } = useTranslation('createPost')
   useSetStatusBarStyle(userSettings)
   const photo = route.params?.photo
+  const [state, dispatch] = usePostFormReducer()
   const { user } = useUserContext()
   const { mutate } = useAddPost()
   const { goBack } = useNavigation()
@@ -84,9 +85,16 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     notify('successCustom', { params: { title: t('postSent') } })
   }
 
+  const onCreatePostDismiss = () => {
+    const { images, location, text } = state
+    if (images.length > 0 || text.length > 0 || !!location) {
+      notify('infoCustom', { params: { title: t('savedAsDraft') } })
+    }
+  }
+
   return (
-    <SwipeableScreen>
-      <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
+    <SwipeableScreen onDismiss={onCreatePostDismiss}>
+      <CreatePostForm photosAsset={photo} onSend={handleOnSend} state={state} dispatch={dispatch} />
     </SwipeableScreen>
   )
 }

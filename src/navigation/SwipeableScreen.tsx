@@ -26,6 +26,7 @@ export type SwipeableScreenProps = {
   children: ReactNode
   swipeWithIndicator?: true
   extraStyle?: ViewProps['style']
+  onDismiss?: F0
 } & Omit<BoxProps<Theme>, 'style'> &
   (
     | { confirmLeave?: never; confirmLeaveOptions?: never }
@@ -44,6 +45,7 @@ export const SwipeableScreen = ({
   confirmLeaveOptions,
   swipeWithIndicator,
   extraStyle,
+  onDismiss,
   ...extraContainerProps
 }: SwipeableScreenProps) => {
   const { height } = useDimensions()
@@ -84,9 +86,14 @@ export const SwipeableScreen = ({
   const containerStyle: ViewProps['style'] = [animatedTranslation, extraStyle ?? {}]
   if (swipeWithIndicator)
     return (
-      <Wrapper>
+      <Wrapper onDismiss={onDismiss}>
         <AnimatedBox {...containerProps} style={containerStyle}>
-          <PanGestureHandler onGestureEvent={gestureHandler} onEnded={onSwipeEnd}>
+          <PanGestureHandler
+            onGestureEvent={gestureHandler}
+            onEnded={() => {
+              onDismiss?.()
+              onSwipeEnd()
+            }}>
             <AnimatedBox height={50} width="100%">
               <ModalHandleIndicator />
             </AnimatedBox>
@@ -97,8 +104,13 @@ export const SwipeableScreen = ({
     )
 
   return (
-    <Wrapper>
-      <PanGestureHandler onGestureEvent={gestureHandler} onEnded={onSwipeEnd}>
+    <Wrapper onDismiss={onDismiss}>
+      <PanGestureHandler
+        onGestureEvent={gestureHandler}
+        onEnded={() => {
+          onDismiss?.()
+          onSwipeEnd()
+        }}>
         <AnimatedBox {...containerProps} style={containerStyle}>
           {children}
         </AnimatedBox>
@@ -106,15 +118,22 @@ export const SwipeableScreen = ({
     </Wrapper>
   )
 }
-const Wrapper = ({ children }: { children: React.ReactNode }) => {
+
+type WrapperProps = { children: React.ReactNode; onDismiss?: F0 }
+
+const Wrapper = ({ children, onDismiss }: WrapperProps) => {
   const { goBack } = useNavigation()
+  const handleBackdropPress = () => {
+    goBack()
+    onDismiss?.()
+  }
   return (
     <SafeAreaWrapper edges={['top']} isDefaultBgColor>
       <BaseOpacity
         position="absolute"
         style={{ width: '100%', height: '100%' }}
         zIndex="-1"
-        onPress={goBack}
+        onPress={handleBackdropPress}
       />
       {children}
     </SafeAreaWrapper>

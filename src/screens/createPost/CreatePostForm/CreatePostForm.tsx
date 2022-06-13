@@ -12,17 +12,18 @@ import { useNavigation } from '@react-navigation/native'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
-import { PostState, usePostFormReducer } from './usePostFormReducer'
+import { PostAction, PostState } from './usePostFormReducer'
 import { ModalLocationPicker } from './ModalLocationPicker'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
   onSend: F1<PostState>
+  state: PostState
+  dispatch: F1<PostAction>
   photosAsset?: Asset
 }
 
-export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => {
-  const [state, dispatch] = usePostFormReducer()
+export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreatePostFormProps) => {
   const [isLocationPickerOpen, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
     useBooleanState(false)
   const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
