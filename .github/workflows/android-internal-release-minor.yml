@@ -1,5 +1,4 @@
-name: Android Build And Deployment
-
+name: Android Internal Test-Deploy New Minor
 on:
   workflow_dispatch:
 jobs:
@@ -26,3 +25,11 @@ jobs:
         run: bundle exec fastlane android beta
         env:
           ANDROID_PACKAGE_NAME: com.holidayly
+      - name: Commit version bump
+        run: |
+          PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
+          git add ./package.json
+          git add  ./fastlane/report.xml
+          git add ./android/app/build.gradle
+          git commit -m "bump to version $PACKAGE_VERSION"
+          git push
