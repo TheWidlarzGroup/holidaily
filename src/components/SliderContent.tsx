@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Dimensions, ImageSourcePropType, Image } from 'react-native'
 import { Box, Text } from 'utils/theme/index'
 import { isSmallScreen, windowHeight } from 'utils/deviceSizes'
@@ -17,16 +17,18 @@ type SliderContentProps = {
   title: string
   text: string
   image: ImageSourcePropType
+  isUserLoggedIn: boolean
 }
-const imgStyles = {
-  width: '75%',
-  maxWidth: 240,
-}
-const AnimatedBox = Animated.createAnimatedComponent(Box)
-const IMAGE_HEIGHT = 192
-const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT
 
-export const SliderContent: FC<SliderContentProps> = ({ title, text, image }) => {
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+const IMAGE_HEIGHT = 280
+const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / 1.5
+
+const imgStyles = {
+  height: IMAGE_HEIGHT,
+}
+
+export const SliderContent = ({ title, text, image, isUserLoggedIn }: SliderContentProps) => {
   const translateY = useSharedValue(middleScreenY)
   const scale = useSharedValue(0.57)
   const opacity = useSharedValue(0)
@@ -44,12 +46,16 @@ export const SliderContent: FC<SliderContentProps> = ({ title, text, image }) =>
   )
 
   useEffect(() => {
-    rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), 6, true))
-    translateY.value = withDelay(2600, withTiming(middleScreenY + 30))
-    scale.value = withDelay(3000, withSpring(1))
-    translateY.value = withDelay(3000, withSpring(0))
-    opacity.value = withDelay(3600, withTiming(1, { duration: 300 }))
-  }, [opacity, scale, translateY, rotate])
+    const rotateCount = isUserLoggedIn ? -1 : 6
+    rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), rotateCount, true))
+    const longAnimation = () => {
+      translateY.value = withDelay(2600, withTiming(middleScreenY + 30))
+      scale.value = withDelay(3000, withSpring(1))
+      translateY.value = withDelay(3000, withSpring(0))
+      opacity.value = withDelay(3600, withTiming(1, { duration: 300 }))
+    }
+    if (!isUserLoggedIn) longAnimation()
+  }, [isUserLoggedIn, opacity, rotate, scale, translateY])
 
   return (
     <Box width={width} alignItems="center" justifyContent="space-around">

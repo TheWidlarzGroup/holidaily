@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dimensions, ScrollView, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import Animated, {
@@ -17,6 +17,7 @@ import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
+import { getItem } from 'utils/localStorage'
 
 const SLIDER_DATA: {
   title: `slider${1 | 2 | 3 | 4}Title`
@@ -48,11 +49,12 @@ const SLIDER_DATA: {
 const { width } = Dimensions.get('window')
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
-const ANIMATION_TIME = 3300
+const ANIMATION_TIME = 3400
 
-export const Slider: FC = () => {
+export const Slider = () => {
   const navigation = useNavigation<AuthNavigationType<'SLIDER'>>()
   const [isScrollEnabled, setIsScrollEnabled] = useState(false)
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
   const translateX = useSharedValue(0)
   const aref = useAnimatedRef<Animated.ScrollView & ScrollView>()
   const { t } = useTranslation('slider')
@@ -90,8 +92,16 @@ export const Slider: FC = () => {
   const initialOpacityStyles = useAnimatedStyle(() => ({ opacity: initialOpacity.value }), [])
 
   useEffect(() => {
-    initialOpacity.value = withDelay(3500, withTiming(1, { duration: 300 }))
-  }, [initialOpacity])
+    if (!isUserLoggedIn) initialOpacity.value = withDelay(3500, withTiming(1, { duration: 300 }))
+  }, [initialOpacity, isUserLoggedIn])
+
+  useEffect(() => {
+    const getIsUserLoggedIn = async () => {
+      const userLoggedIn = await getItem('firstName')
+      setIsUserLoggedIn(!!userLoggedIn)
+    }
+    getIsUserLoggedIn()
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -111,7 +121,7 @@ export const Slider: FC = () => {
         </TouchableOpacity>
       </AnimatedBox>
       <AnimatedScrollView
-        scrollEnabled={isScrollEnabled}
+        scrollEnabled={isUserLoggedIn ? false : isScrollEnabled}
         bounces={false}
         ref={aref}
         onScroll={scrollHandler}
@@ -126,6 +136,7 @@ export const Slider: FC = () => {
             title={t(item.title)}
             text={t(item.text)}
             image={item.image}
+            isUserLoggedIn={isUserLoggedIn}
           />
         ))}
       </AnimatedScrollView>
