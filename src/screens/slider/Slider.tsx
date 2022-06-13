@@ -141,7 +141,7 @@ export const Slider = ({ route }: AuthNavigationProps<'SLIDER'>) => {
             text={t(item.text)}
             image={item.image}
             isUserLoggedIn={isUserLoggedIn}
-            disableInitialAnimation={disableInitialAnimation || false}
+            disableInitialAnimation={disableInitialAnimation}
           />
         ))}
       </AnimatedScrollView>

@@ -6,9 +6,9 @@ import BackArrowIcon from 'assets/icons/icon-back2.svg'
 import AboutIcon from 'assets/icons/icon-info2.svg'
 import { isIos } from 'utils/layout'
 
-type WelcomeTopBarTypes = { openModal: F0; hasUserSeenDashboard: boolean }
+type WelcomeTopBarProps = { openModal: F0; hasUserSeenDashboard: boolean }
 
-export const WelcomeTopBar = ({ openModal, hasUserSeenDashboard }: WelcomeTopBarTypes) => {
+export const WelcomeTopBar = ({ openModal, hasUserSeenDashboard }: WelcomeTopBarProps) => {
   const { navigate } = useNavigation()
   const theme = useTheme()
 

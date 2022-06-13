@@ -18,7 +18,7 @@ type SliderContentProps = {
   text: string
   image: ImageSourcePropType
   isUserLoggedIn: boolean
-  disableInitialAnimation: boolean
+  disableInitialAnimation?: boolean
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
