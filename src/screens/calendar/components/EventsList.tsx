@@ -8,6 +8,8 @@ import { DayInfoProps } from '../../../types/DayInfoProps'
 
 export type EventsListProps = {
   days: DayInfoProps[]
+  switchCalendarHeight: boolean
+  setSwitchCalendarHeight: F1<boolean>
 }
 
 const renderItem = ({ item }: { item: DayInfoProps }) => (
@@ -16,28 +18,37 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
   </TouchableOpacity>
 )
 
-export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days }, flatListRef) => {
-  const [language] = useLanguage()
-  return (
-    <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
-      <FlatList
-        data={days}
-        renderItem={renderItem}
-        initialNumToRender={6}
-        maxToRenderPerBatch={10}
-        updateCellsBatchingPeriod={300}
-        windowSize={17}
-        extraData={[days, language]}
-        keyExtractor={(item) => item.date}
-        initialScrollIndex={new Date().getDate() - 1}
-        getItemLayout={getItemLayout}
-        ref={flatListRef}
-        onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
-        contentContainerStyle={{ paddingBottom: 80 }}
-      />
-    </Box>
-  )
-})
+export const EventsList = React.forwardRef<FlatList, EventsListProps>(
+  ({ days, switchCalendarHeight, setSwitchCalendarHeight }, flatListRef) => {
+    const [language] = useLanguage()
+
+    const handleTouchAndScroll = () => {
+      if (switchCalendarHeight) setSwitchCalendarHeight(false)
+    }
+
+    return (
+      <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
+        <FlatList
+          data={days}
+          renderItem={renderItem}
+          initialNumToRender={6}
+          maxToRenderPerBatch={10}
+          updateCellsBatchingPeriod={300}
+          windowSize={17}
+          extraData={[days, language]}
+          keyExtractor={(item) => item.date}
+          initialScrollIndex={new Date().getDate() - 1}
+          getItemLayout={getItemLayout}
+          ref={flatListRef}
+          onTouchEnd={handleTouchAndScroll}
+          onScrollBeginDrag={handleTouchAndScroll}
+          onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
+          contentContainerStyle={{ paddingBottom: 80 }}
+        />
+      </Box>
+    )
+  }
+)
 EventsList.displayName = 'EventsList'
 
 // Comment: Entirely removing getItemLayout cause the EventList scrollTo to fail for some time after initial render, because the flatlist is performing measurment by itself.

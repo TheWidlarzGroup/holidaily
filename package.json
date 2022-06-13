@@ -1,6 +1,6 @@
 {
   "name": "Holidaily",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -40,6 +40,7 @@
     "react-native-calendars": "1.1278.0",
     "react-native-confetti-cannon": "^1.5.2",
     "react-native-confirmation-code-field": "^7.0.1",
+    "react-native-device-info": "^9.0.2",
     "react-native-document-picker": "^8.0.0",
     "react-native-dotenv": "^2.5.5",
     "react-native-fast-image": "^8.3.4",
@@ -48,7 +49,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "13.0.1",
     "react-native-month-year-picker": "^1.6.4",
-    "react-native-notificated": "^0.0.1-alpha.0",
+    "react-native-notificated": "^0.0.1-alpha.2",
     "react-native-onesignal": "^4.2.0",
     "react-native-permissions": "^3.3.1",
     "react-native-reanimated": "2.4.0",

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -15,6 +15,8 @@ import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
+  const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
+
   const {
     filterCategories,
     toggleFilterItemSelection,
@@ -67,9 +69,16 @@ const CalendarToWrap = () => {
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           onDayPress={handleDayPress}
+          isFullHeight={switchCalendarHeight}
+          setIsFullHeight={setSwitchCalendarHeight}
         />
       </Box>
-      <EventsList days={currentMonthDays} ref={flatListRef} />
+      <EventsList
+        ref={flatListRef}
+        days={currentMonthDays}
+        switchCalendarHeight={switchCalendarHeight}
+        setSwitchCalendarHeight={setSwitchCalendarHeight}
+      />
     </SafeAreaWrapper>
   )
 }
