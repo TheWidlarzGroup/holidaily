@@ -62,6 +62,7 @@ export const CalendarRequestVacation = ({
       end: periodEnd,
     })
   const isPeriodValid = periodState === 'valid'
+  const isPeriodAlreadyScheduled = periodState === 'alreadyScheduledPeriod'
   const onModalBtnPress = isPeriodValid ? onSubmit : onClear
   const actionModalVariant = isPeriodValid ? 'regular' : 'error'
   // Calendar component draw phase takes long, so we initially show a loading spinner and mount the calendar after the screen is loaded
@@ -70,19 +71,17 @@ export const CalendarRequestVacation = ({
   const styles = useStyles()
   const modalTexts = mkModalTexts({ periodStart, periodEnd, ptoTaken, availablePto, tFunc: t })
 
-  const modalExtraProps:
-    | Record<string, never>
-    | Pick<ActionModalProps, 'extraBtn' | 'onExtraBtnPress' | 'extraBtnText'> =
-    periodState === 'alreadyScheduledPeriod'
-      ? {
-          extraBtn: true,
-          extraBtnText: t('drop'),
-          onExtraBtnPress: () => {
+  const modalExtraButtons: ActionModalProps['extraButtons'] = isPeriodAlreadyScheduled
+    ? [
+        {
+          label: t('drop'),
+          onPress: () => {
             navigation.goBack()
             navigation.goBack()
           },
-        }
-      : {}
+        },
+      ]
+    : undefined
 
   return (
     <SwipeableScreen swipeWithIndicator alignItems="center" extraStyle={styles.container}>
@@ -107,7 +106,7 @@ export const CalendarRequestVacation = ({
             variant={actionModalVariant}
             header={modalTexts[periodState].header}
             content={modalTexts[periodState].content}
-            {...modalExtraProps}
+            extraButtons={modalExtraButtons}
           />
         </>
       )}

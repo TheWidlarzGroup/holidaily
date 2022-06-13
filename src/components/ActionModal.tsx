@@ -3,9 +3,14 @@ import React from 'react'
 import Modal from 'react-native-modal'
 import { Box, Text } from 'utils/theme'
 import { CircleStatusIcon } from './CircleStatusIcon'
-import { CustomButton } from './CustomButton'
+import { CustomButton, CustomButtonProps } from './CustomButton'
 
 type ActionModalVariants = 'regular' | 'success' | 'error'
+type ExtraBtnProps = {
+  onPress: F0
+  label: string
+  variant?: CustomButtonProps['variant']
+}
 
 export type ActionModalProps = {
   onUserAction: F0
@@ -14,9 +19,7 @@ export type ActionModalProps = {
   label: string
   header?: string
   content?: string
-  extraBtn?: true
-  onExtraBtnPress?: F0
-  extraBtnText?: string
+  extraButtons?: ExtraBtnProps[]
 }
 
 export const ActionModal = (p: ActionModalProps) => {
@@ -46,15 +49,16 @@ export const ActionModal = (p: ActionModalProps) => {
         <Box marginTop={p.variant === 'regular' ? 'm' : 'xl'}>
           <CustomButton label={p.label} variant="primary" onPress={p.onUserAction} />
         </Box>
-        {p.extraBtn && (
-          <Box marginTop="m">
-            <CustomButton
-              label={p.extraBtnText ?? ''}
-              variant="secondary"
-              onPress={p.onExtraBtnPress ?? (() => {})}
-            />
-          </Box>
-        )}
+        {p.extraButtons?.length &&
+          p.extraButtons.map((btnProps) => (
+            <Box marginTop="m" key={btnProps.label}>
+              <CustomButton
+                label={btnProps.label}
+                variant={btnProps.variant ?? 'secondary'}
+                onPress={btnProps.onPress}
+              />
+            </Box>
+          ))}
       </Box>
     </Modal>
   )
