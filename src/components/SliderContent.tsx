@@ -21,8 +21,8 @@ type SliderContentProps = {
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
-const IMAGE_HEIGHT = 280
-const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / 1.5
+const IMAGE_HEIGHT = 300
+const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / 1.7
 
 const imgStyles = {
   height: IMAGE_HEIGHT,
@@ -49,7 +49,7 @@ export const SliderContent = ({ title, text, image, isUserLoggedIn }: SliderCont
     const rotateCount = isUserLoggedIn ? -1 : 6
     rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), rotateCount, true))
     const longAnimation = () => {
-      translateY.value = withDelay(2600, withTiming(middleScreenY + 30))
+      translateY.value = withDelay(2600, withTiming(middleScreenY))
       scale.value = withDelay(3000, withSpring(1))
       translateY.value = withDelay(3000, withSpring(0))
       opacity.value = withDelay(3600, withTiming(1, { duration: 300 }))
