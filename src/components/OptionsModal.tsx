@@ -18,7 +18,7 @@ type OptionsModalProps = {
   isOpen: boolean
   onHide: F0
   hideBackdrop?: true
-  onDismiss?: F0
+  onSwipeStart?: F0
 }
 
 export const OptionsModal = (p: OptionsModalProps) => {

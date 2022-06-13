@@ -11,7 +11,7 @@ type CommentBoxProps = {
   toggleCommentsExpanded: F0
   openEditModal: F1<EditTargetType>
   post: FeedPost
-  isEditingComment: boolean
+  isEditingTarget: boolean
 }
 
 export const CommentBox = ({
@@ -19,7 +19,7 @@ export const CommentBox = ({
   toggleCommentsExpanded,
   openEditModal,
   post,
-  isEditingComment,
+  isEditingTarget,
 }: CommentBoxProps) => {
   const [editCommentId, setEditCommentId] = useState('')
   const { comments, id } = post
@@ -47,7 +47,7 @@ export const CommentBox = ({
               openEditModal={openEditModal}
               editCommentId={editCommentId}
               setEditCommentId={setEditCommentId}
-              isEditingComment={isEditingComment}
+              isEditingTarget={isEditingTarget}
               postId={id}
               comment={comment}
               hideAvatar={commentFromPreviousUser(comments, index)}

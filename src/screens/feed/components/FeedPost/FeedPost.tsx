@@ -14,7 +14,7 @@ import { FeedPostHeader } from './FeedPostHeader'
 type FeedPostProps = {
   post: FeedPostType
   openEditModal: F1<EditTargetType>
-  isEditingComment: boolean
+  isEditingTarget: boolean
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)

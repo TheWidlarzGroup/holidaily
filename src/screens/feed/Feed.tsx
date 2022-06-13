@@ -33,10 +33,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
-  const [isModalOpen, { setFalse: closeModal, setTrue: openModal }] = useBooleanState(false)
-  const [isEditingComment, { setFalse: setEditingCommentFalse, setTrue: setEditingCommentTrue }] =
+  const [isOptionsModalOpen, { setFalse: closeOptionsModal, setTrue: openOptionsModal }] =
     useBooleanState(false)
-  const [editTarget, setEditTarget] = useState<EditTargetType>()
+  const [editTarget, setEditTarget] = useState<EditTargetType | null>()
   const [messageContent, setMessageContent] = useState('')
 
   const { mutate: deleteComment } = useDeleteComment()
@@ -45,23 +44,20 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const openEditModal = (target: EditTargetType) => {
     if (!(target.authorId === user?.id)) return
     setEditTarget(target)
-    openModal?.()
-    if (target.type === 'comment') {
-      setEditingCommentTrue()
-    }
+    openOptionsModal?.()
   }
 
   const onPressModalDelete = () => {
-    closeModal?.()
+    closeOptionsModal?.()
     if (editTarget?.type === 'comment') {
       deleteComment(editTarget.commentId)
-      setEditingCommentFalse()
       notify('success', { params: { title: t('commentDeleted') } })
     }
+    setEditTarget(null)
   }
 
   const onPressModalEdit = () => {
-    closeModal?.()
+    closeOptionsModal?.()
     if (editTarget?.type === 'comment') {
       if (!editTarget.text) return
       setMessageContent(editTarget?.text)
@@ -72,13 +68,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const onCommentEdit = () => {
     hideMessageInput()
     if (editTarget?.type === 'comment') {
-      editComment({
-        ...editTarget,
-        text: messageContent,
-      })
+      editComment({ ...editTarget, text: messageContent })
     }
     setMessageContent('')
-    setEditingCommentFalse()
+    setEditTarget(null)
     notify('success', { params: { title: t('changesSaved') } })
   }
 
@@ -135,7 +128,11 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         ListHeaderComponent={FeedHeader}
         data={data}
         renderItem={({ item }) => (
-          <FeedPost post={item} openEditModal={openEditModal} isEditingComment={isEditingComment} />
+          <FeedPost
+            post={item}
+            openEditModal={openEditModal}
+            isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+          />
         )}
         keyExtractor={(post) => post.id}
         extraData={language}
@@ -143,9 +140,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       />
       <OptionsModal
         options={modalOptions}
-        isOpen={isModalOpen}
-        onHide={closeModal}
-        onDismiss={setEditingCommentFalse}
+        isOpen={isOptionsModalOpen}
+        onHide={closeOptionsModal}
+        onSwipeStart={() => setEditTarget(null)}
         hideBackdrop
       />
       <MessageInputModal

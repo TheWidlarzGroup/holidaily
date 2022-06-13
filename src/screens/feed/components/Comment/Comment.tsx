@@ -12,7 +12,7 @@ type CommentProps = {
   id: string
   editCommentId: string
   setEditCommentId: F1<string>
-  isEditingComment: boolean
+  isEditingTarget: boolean
   postId: string
   hideAvatar?: boolean
 }
@@ -25,7 +25,7 @@ export const Comment = ({
   postId,
   editCommentId,
   setEditCommentId,
-  isEditingComment,
+  isEditingTarget,
 }: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
   const { t } = useTranslation('feed')
@@ -66,7 +66,7 @@ export const Comment = ({
         )}
       </Box>
       <Bubble
-        borderColor={editCommentId === id && isEditingComment ? 'special' : 'transparent'}
+        borderColor={editCommentId === id && isEditingTarget ? 'special' : 'transparent'}
         borderWidth={1}
         padding="xm"
         flexShrink={1}

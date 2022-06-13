@@ -25,7 +25,7 @@ export const SwipeableModal = ({
   isOpen,
   onHide,
   hideBackdrop,
-  onDismiss,
+  onSwipeStart,
   ...rest
 }: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
@@ -40,7 +40,7 @@ export const SwipeableModal = ({
       hasBackdrop={!hideBackdrop}
       useNativeDriverForBackdrop
       coverScreen
-      onDismiss={onDismiss}
+      onSwipeStart={onSwipeStart}
       hideModalContentWhileAnimating
       backdropColor="black"
       backdropOpacity={0.6}
