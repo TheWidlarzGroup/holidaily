@@ -6,7 +6,10 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { useTranslation } from 'react-i18next'
 import { Box, useTheme } from 'utils/theme'
+import { useNavigation } from '@react-navigation/native'
+import { ConfirmationModal } from 'components/ConfirmationModal'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostState, usePostFormReducer } from './usePostFormReducer'
@@ -20,15 +23,27 @@ type CreatePostFormProps = {
 
 export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => {
   const [state, dispatch] = usePostFormReducer()
-  const [locationPickerOpened, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
+  const [isLocationPickerOpen, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
+    useBooleanState(false)
+  const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
     useBooleanState(false)
   const theme = useTheme()
+  const { t } = useTranslation('feed')
+  const { goBack } = useNavigation()
 
   const galleryImages = state.images.map(assetToGalleryItem)
   const sendDisabled = isSendDisabled(state)
 
   const removeAttachment = (id: string) => {
     dispatch({ type: 'removeImage', payload: { id } })
+  }
+
+  const closeCreatePostForm = () => {
+    const { images, location, text } = state
+    if (images.length > 0 || text.length > 0 || !!location) {
+      return openDeclineModal()
+    }
+    goBack()
   }
 
   useEffect(() => {
@@ -42,7 +57,7 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
       <KeyboardAvoidingView
         style={{ flex: 1, backgroundColor: theme.colors.white }}
         behavior="height">
-        <PostHeader />
+        <PostHeader closeCreatePostForm={closeCreatePostForm} />
         <ScrollView>
           <PostBody
             text={state.text}
@@ -62,12 +77,25 @@ export const CreatePostForm = ({ onSend, photosAsset }: CreatePostFormProps) => 
         <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
       </Box>
       <ModalLocationPicker
-        visible={locationPickerOpened}
+        visible={isLocationPickerOpen}
         onLocationChange={(locationPayload) => {
           dispatch({ type: 'setLocation', payload: locationPayload })
           hideLocationPicker()
         }}
         onRequestClose={hideLocationPicker}
+      />
+      <ConfirmationModal
+        isVisible={isDeclineModalOpen}
+        header={t('discardHeader')}
+        content={t('discardDesc')}
+        acceptBtnText={t('discard')}
+        declineBtnText={t('keepEditing')}
+        onAccept={() => {
+          hideDeclineModal()
+          goBack()
+        }}
+        hideModal={hideDeclineModal}
+        onDecline={hideDeclineModal}
       />
     </SafeAreaWrapper>
   )
