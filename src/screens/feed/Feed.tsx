@@ -31,12 +31,11 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const flatListRef = useRef<FlatList | null>(null)
   const scrollRetries = useRef(0)
 
-  const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
+  const [isMessageInputOpen, { setFalse: closeMessageInput, setTrue: openMessageInput }] =
     useBooleanState(false)
   const [isOptionsModalOpen, { setFalse: closeOptionsModal, setTrue: openOptionsModal }] =
     useBooleanState(false)
   const [editTarget, setEditTarget] = useState<EditTargetType | null>()
-  const [messageContent, setMessageContent] = useState('')
 
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
@@ -60,33 +59,26 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     closeOptionsModal?.()
     if (editTarget?.type === 'comment') {
       if (!editTarget.text) return
-      setMessageContent(editTarget?.text)
-      setTimeout(() => showMessageInput(), 400)
+      handleSetMessageContent(editTarget?.text)
+      setTimeout(() => openMessageInput(), 400)
     }
   }
 
   const onCommentEdit = () => {
-    hideMessageInput()
+    closeMessageInput()
     if (editTarget?.type === 'comment') {
-      editComment({ ...editTarget, text: messageContent })
+      editComment({ ...editTarget, text: editTarget?.text })
     }
-    setMessageContent('')
+    handleSetMessageContent('')
     setEditTarget(null)
     notify('success', { params: { title: t('changesSaved') } })
   }
 
-  const modalOptions = [
-    {
-      Icon: EditIcon,
-      text: t('edit'),
-      onPress: onPressModalEdit,
-    },
-    {
-      Icon: BinIcon,
-      text: t('delete'),
-      onPress: onPressModalDelete,
-    },
-  ]
+  const handleSetMessageContent = (text: string) => {
+    if (editTarget?.type === 'comment') {
+      setEditTarget((prev) => prev && { ...prev, text })
+    }
+  }
 
   const scrollToId = useCallback(() => {
     if (
@@ -114,6 +106,19 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     })
     return removeListener
   }, [navigation])
+
+  const modalOptions = [
+    {
+      Icon: EditIcon,
+      text: t('edit'),
+      onPress: onPressModalEdit,
+    },
+    {
+      Icon: BinIcon,
+      text: t('delete'),
+      onPress: onPressModalDelete,
+    },
+  ]
 
   if (!data) return <LoadingModal show />
 
@@ -146,11 +151,11 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         hideBackdrop
       />
       <MessageInputModal
-        messageContent={messageContent}
-        setMessageContent={setMessageContent}
-        visible={messageInputOpened}
-        onSubmitEditing={hideMessageInput}
-        onRequestClose={hideMessageInput}
+        messageContent={editTarget?.type === 'comment' && editTarget?.text ? editTarget?.text : ''}
+        setMessageContent={handleSetMessageContent}
+        visible={isMessageInputOpen}
+        onSubmitEditing={closeMessageInput}
+        onRequestClose={closeMessageInput}
         handleEditComment={onCommentEdit}
         autofocus
       />
