@@ -12,7 +12,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { AuthNavigationType } from 'navigation/types'
+import { AuthNavigationProps, AuthNavigationType } from 'navigation/types'
 import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
@@ -51,7 +51,7 @@ const AnimatedBox = Animated.createAnimatedComponent(Box)
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 const ANIMATION_TIME = 3400
 
-export const Slider = () => {
+export const Slider = ({ route }: AuthNavigationProps<'SLIDER'>) => {
   const navigation = useNavigation<AuthNavigationType<'SLIDER'>>()
   const [isScrollEnabled, setIsScrollEnabled] = useState(false)
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
@@ -60,11 +60,13 @@ export const Slider = () => {
   const { t } = useTranslation('slider')
   const styles = useStyles()
   const initialOpacity = useSharedValue(0)
+  const disableInitialAnimation = route.params?.disableInitialAnimation
 
   useEffect(() => {
-    const enableSlideDelay = setTimeout(() => setIsScrollEnabled(true), ANIMATION_TIME)
-    return () => clearTimeout(enableSlideDelay)
-  }, [])
+    const enableSlideDelay = disableInitialAnimation ? 0 : ANIMATION_TIME
+    const enableSlideDelayTimeout = setTimeout(() => setIsScrollEnabled(true), enableSlideDelay)
+    return () => clearTimeout(enableSlideDelayTimeout)
+  }, [disableInitialAnimation])
 
   const navigateToWelcomeScreen = () => {
     navigation.navigate('WELCOME')
@@ -92,8 +94,10 @@ export const Slider = () => {
   const initialOpacityStyles = useAnimatedStyle(() => ({ opacity: initialOpacity.value }), [])
 
   useEffect(() => {
-    if (!isUserLoggedIn) initialOpacity.value = withDelay(3500, withTiming(1, { duration: 300 }))
-  }, [initialOpacity, isUserLoggedIn])
+    const opacityDelay = disableInitialAnimation ? 0 : 3500
+    if (!isUserLoggedIn)
+      initialOpacity.value = withDelay(opacityDelay, withTiming(1, { duration: 300 }))
+  }, [disableInitialAnimation, initialOpacity, isUserLoggedIn])
 
   useEffect(() => {
     const getIsUserLoggedIn = async () => {
@@ -121,7 +125,7 @@ export const Slider = () => {
         </TouchableOpacity>
       </AnimatedBox>
       <AnimatedScrollView
-        scrollEnabled={isUserLoggedIn ? false : isScrollEnabled}
+        scrollEnabled={isScrollEnabled}
         bounces={false}
         ref={aref}
         onScroll={scrollHandler}
@@ -137,6 +141,7 @@ export const Slider = () => {
             text={t(item.text)}
             image={item.image}
             isUserLoggedIn={isUserLoggedIn}
+            disableInitialAnimation={disableInitialAnimation || false}
           />
         ))}
       </AnimatedScrollView>

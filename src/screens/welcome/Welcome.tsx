@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -7,7 +7,7 @@ import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { setItem } from 'utils/localStorage'
+import { getItem, setItem } from 'utils/localStorage'
 import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
@@ -29,6 +29,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
   const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
+  const [hasUserSeenDashboard, setHasUserSeenDashboard] = useState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
 
@@ -51,13 +52,21 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
     )
   }
 
+  useEffect(() => {
+    const getIsUserLoggedIn = async () => {
+      const userSeenDashboard = await getItem('seenDashboard')
+      setHasUserSeenDashboard(!!userSeenDashboard)
+    }
+    getIsUserLoggedIn()
+  }, [])
+
   return (
     <SafeAreaWrapper>
       <KeyboardAwareScrollView
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled">
-        <WelcomeTopBar openModal={openModal} />
+        <WelcomeTopBar openModal={openModal} hasUserSeenDashboard={hasUserSeenDashboard} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>

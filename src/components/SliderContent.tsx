@@ -18,6 +18,7 @@ type SliderContentProps = {
   text: string
   image: ImageSourcePropType
   isUserLoggedIn: boolean
+  disableInitialAnimation: boolean
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
@@ -28,7 +29,13 @@ const imgStyles = {
   height: IMAGE_HEIGHT,
 }
 
-export const SliderContent = ({ title, text, image, isUserLoggedIn }: SliderContentProps) => {
+export const SliderContent = ({
+  title,
+  text,
+  image,
+  isUserLoggedIn,
+  disableInitialAnimation,
+}: SliderContentProps) => {
   const translateY = useSharedValue(middleScreenY)
   const scale = useSharedValue(0.57)
   const opacity = useSharedValue(0)
@@ -46,6 +53,13 @@ export const SliderContent = ({ title, text, image, isUserLoggedIn }: SliderCont
   )
 
   useEffect(() => {
+    if (disableInitialAnimation) {
+      translateY.value = withTiming(middleScreenY)
+      scale.value = withTiming(1)
+      translateY.value = withSpring(0)
+      opacity.value = withTiming(1)
+      return
+    }
     const rotateCount = isUserLoggedIn ? -1 : 6
     rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), rotateCount, true))
     const longAnimation = () => {
@@ -55,7 +69,7 @@ export const SliderContent = ({ title, text, image, isUserLoggedIn }: SliderCont
       opacity.value = withDelay(3600, withTiming(1, { duration: 300 }))
     }
     if (!isUserLoggedIn) longAnimation()
-  }, [isUserLoggedIn, opacity, rotate, scale, translateY])
+  }, [disableInitialAnimation, isUserLoggedIn, opacity, rotate, scale, translateY])
 
   return (
     <Box width={width} alignItems="center" justifyContent="space-around">

@@ -6,7 +6,9 @@ import BackArrowIcon from 'assets/icons/icon-back2.svg'
 import AboutIcon from 'assets/icons/icon-info2.svg'
 import { isIos } from 'utils/layout'
 
-export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
+type WelcomeTopBarTypes = { openModal: F0; hasUserSeenDashboard: boolean }
+
+export const WelcomeTopBar = ({ openModal, hasUserSeenDashboard }: WelcomeTopBarTypes) => {
   const { navigate } = useNavigation()
   const theme = useTheme()
   return (
@@ -17,7 +19,11 @@ export const WelcomeTopBar = ({ openModal }: { openModal: F0 }) => {
       paddingTop={isIos ? 's' : 'l'}>
       <Box>
         <TouchableOpacity
-          onPress={() => navigate('SLIDER')}
+          onPress={() =>
+            navigate('SLIDER', {
+              disableInitialAnimation: hasUserSeenDashboard,
+            })
+          }
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <BackArrowIcon height={18} width={18} color={theme.colors.black} />
         </TouchableOpacity>
