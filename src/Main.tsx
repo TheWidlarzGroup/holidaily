@@ -8,7 +8,7 @@ import { QueryClientProvider } from 'react-query'
 import { TeamsContextProvider } from 'contexts/TeamsProvider'
 import { queryClient } from 'dataAccess/queryClient'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { getNotificationsConfig } from 'utils/notifications/notificationsConfig'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
@@ -20,7 +20,7 @@ export const Main = () => {
   const currentTheme = userSettings?.darkMode ? darkTheme : theme
   const statusBarBgColor = currentTheme.colors.transparent
   const statusBarStyle = userSettings?.darkMode ? 'light-content' : 'dark-content'
-  const { NotificationsProvider } = getNotificationsConfig({ isDarkMode: userSettings?.darkMode })
+  const { NotificationsProvider } = useGetNotificationsConfig()
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

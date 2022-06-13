@@ -12,7 +12,7 @@ import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
-import { Box, theme } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -66,7 +66,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
         decelerationRate="normal"
         disableIntervalMomentum
-        contentContainerStyle={{ alignItems: 'center', paddingTop: theme.spacing.xxm }}
+        contentContainerStyle={{ alignItems: 'center' }}
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.uri}

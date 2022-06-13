@@ -322,6 +322,8 @@
     "discardRequestYes": "Discard",
     "discardRequestNo": "Keep editing",
     "sickDayDescription": "Sick leave request doesn’t need your supervisor’s approval.",
+    "addRequestValidation": "You must select a date to continue adding the request.",
+    "understand": "I understand",
     "outOfOffice": "Out of office",
     "removeAttachmentYes": "Delete",
     "removeAttachmentNo": "Cancel"
@@ -351,11 +353,14 @@
   "notifications": {
     "header": "Notifications",
     "new": "new",
-    "seen": "SEEN",
-    "unseen": "UNSEEN",
-    "markAllAsSeen": "Mark all as seen",
-    "markSeen": "Seen",
-    "like": "<b>{{author}}</b> liked your <b>Holifeed</b> post",
+    "seen": "READ",
+    "unseen": "NEW",
+    "markAllAsSeen": "Mark all as read",
+    "markSeen": "Read",
+    "accepted": "Wohoo! Your <b>{{description}}</b> request has been approved!",
+    "cancelled": "Bad news. Your <b>{{description}}</b> request has been declined.",
+    "prompt": "Hey! Let’s take some time off 🌴 Check out available dates now!",
+    "like": "<b>{{author}}</b> reacted to your <b>Holifeed</b> post",
     "comment": "<b>{{author}}</b> commented your <b>Holifeed</b> post",
     "dayOff": "<b>{{author}}</b> <b>is off tomorrow</b> and will be back on <b>{{endDate}}</b>"
   },
