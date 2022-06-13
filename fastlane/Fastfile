@@ -2,7 +2,7 @@ fastlane_version "2.190.0"
 
 before_all do
    yarn(command: "install", step_name: "install_dependencies")
-   ensure_git_branch
+   ensure_git_branch(branch: "staging")
    # ensure_git_status_clean
    git_pull
 end
