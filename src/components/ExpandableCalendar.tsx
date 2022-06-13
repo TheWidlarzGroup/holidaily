@@ -168,6 +168,14 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     }
   }
 
+  const toggleOnPress = () => {
+    if (containerHeight.value > WEEK_CALENDAR_HEIGHT) {
+      containerHeight.value = withSpring(WEEK_CALENDAR_HEIGHT, { overshootClamping: true })
+    } else {
+      containerHeight.value = withSpring(fullCalendarHeight.value, { overshootClamping: true })
+    }
+  }
+
   useEffect(() => {
     if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT) {
       containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT)
@@ -244,7 +252,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
             onLayout={(e) => trackCalendarHeight(e)}
             justifyContent="center"
             alignItems="center"
-            onPress={() => props.setIsFullHeight(!props.isFullHeight)}
+            onPress={() => toggleOnPress()}
             marginTop="xxm"
             marginBottom="-m">
             <Animated.View style={[rotationStyles]}>
