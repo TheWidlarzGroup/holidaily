@@ -18,6 +18,7 @@ import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
 import { getItem } from 'utils/localStorage'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
 
 const SLIDER_DATA: {
   title: `slider${1 | 2 | 3 | 4}Title`
@@ -99,12 +100,9 @@ export const Slider = ({ route }: AuthNavigationProps<'SLIDER'>) => {
       initialOpacity.value = withDelay(opacityDelay, withTiming(1, { duration: 300 }))
   }, [disableInitialAnimation, initialOpacity, isUserLoggedIn])
 
-  useEffect(() => {
-    const getIsUserLoggedIn = async () => {
-      const userLoggedIn = await getItem('firstName')
-      setIsUserLoggedIn(!!userLoggedIn)
-    }
-    getIsUserLoggedIn()
+  useAsyncEffect(async () => {
+    const userLoggedIn = await getItem('firstName')
+    setIsUserLoggedIn(!!userLoggedIn)
   }, [])
 
   return (
