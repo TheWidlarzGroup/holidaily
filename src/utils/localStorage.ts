@@ -8,7 +8,7 @@ export type StorageKeys =
   | 'userColor'
   | 'seenNotificationsIds'
   | 'language'
-  | 'seenTeamsModal'
+  | 'seenDashboard'
   | 'userSettings'
   | 'userId'
 

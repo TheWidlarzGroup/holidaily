@@ -14,10 +14,10 @@ export const Dashboard = () => {
     useBooleanState(false)
   useEffect(() => {
     const openModalOnFirstAppLaunch = async () => {
-      const seenTeamsModal = await getItem('seenTeamsModal')
+      const seenTeamsModal = await getItem('seenDashboard')
       if (seenTeamsModal === 'true') return
       requestAnimationFrame(openSuccessModal)
-      setItem('seenTeamsModal', 'true')
+      setItem('seenDashboard', 'true')
     }
     openModalOnFirstAppLaunch()
   }, [openSuccessModal])
