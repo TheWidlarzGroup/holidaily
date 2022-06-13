@@ -12,7 +12,6 @@ import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { GoUpDownButton } from './components/GoUpDownButton'
 
 const CalendarToWrap = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -92,11 +91,12 @@ const CalendarToWrap = () => {
       <EventsList
         ref={flatListRef}
         days={currentMonthDays}
+        currentIndex={currentIndex}
         switchCalendarHeight={switchCalendarHeight}
         setSwitchCalendarHeight={setSwitchCalendarHeight}
-      />
-      <GoUpDownButton
-        onPress={() => flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })}
+        btnOnPress={() =>
+          flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
+        }
       />
     </SafeAreaWrapper>
   )
