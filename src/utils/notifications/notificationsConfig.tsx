@@ -36,18 +36,18 @@ export const useGetNotificationsConfig = () => {
         component: SuccessModal,
         config: {
           notificationPosition: 'top',
-          duration: 3000,
+          duration: 2300,
         },
       },
       infoCustom: {
         component: InfoModal,
         config: {
           notificationPosition: 'top',
-          duration: 3000,
+          duration: 2300,
         },
       },
     },
-    duration: 3000,
+    duration: 2300,
     animationConfig: notificationAnimation,
     defaultStylesSettings: {
       successConfig: {

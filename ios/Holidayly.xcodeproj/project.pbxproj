@@ -13,6 +13,7 @@
 		232E9F8D26B3F69A00949471 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232E9F8C26B3F69A00949471 /* NotificationService.swift */; };
 		232E9F9126B3F69A00949471 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 232E9F8A26B3F69A00949471 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7794E26A74159009C34A4 /* BridgeHeader.swift */; };
+		2E1BEC0E832F73A0CD73C2CC /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E98079052B49B84FBF716E /* libPods-Holidayly.a */; };
 		3483B783610E77CFF9049525 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 549E703D35A938DE7513DEBA /* libPods-OneSignalNotificationServiceExtension.a */; };
 		4921F76A3DC743B79253D1A0 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29F33DBF71844F71BB19B849 /* Nunito-SemiBold.ttf */; };
 		6A311BD7BF597274A5DF6AA7 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0392D92A95213A14CFFB9828 /* ExpoModulesProvider.swift */; };
@@ -84,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB0D982E24ADCEF2DB023A84 /* libPods-Holidayly.a in Frameworks */,
+				2E1BEC0E832F73A0CD73C2CC /* libPods-Holidayly.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

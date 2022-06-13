@@ -12,6 +12,7 @@ export type StorageKeys =
   | 'seenTeamsModal'
   | 'userSettings'
   | 'userId'
+  | 'draftPost'
 
 type Callback = F1<Error | null | undefined>
 type MultiCallback = F1<readonly (Error | null)[] | null | undefined>
