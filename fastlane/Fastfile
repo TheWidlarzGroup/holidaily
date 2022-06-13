@@ -62,7 +62,7 @@ platform :android do
 
    desc "Bump version in package"
    private_lane :bump_version_package do
-      sh("npm", "version", "patch", "--no-git-tag-version")
+      sh("npm", "version", ENV["DEPLOY_VERSION"], "--no-git-tag-version")
    end
 
    desc "Bump build version"
@@ -77,7 +77,7 @@ platform :android do
       )
 
    end
-
+   
    desc "Android build and release to beta"
    lane :beta do
       bump_version_package
@@ -87,7 +87,7 @@ platform :android do
 
       upload_to_play_store(
          package_name: ENV["ANDROID_PACKAGE_NAME"],
-         track: "internal",
+         track: ENV["DEPLOY_TRACK"],
          json_key: "./android/app/holidaily-fastlane.json",
          aab: "./android/app/build/outputs/bundle/release/app-release.aab"
       )
