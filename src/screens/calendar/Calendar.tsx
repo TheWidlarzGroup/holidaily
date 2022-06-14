@@ -11,11 +11,16 @@ import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
+import { useBackHandler } from 'hooks/useBackHandler'
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
+  const [prevScreen, setPrevScreen] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
+  const route = useRoute()
+  const navigation = useNavigation()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
 
   const {
@@ -25,6 +30,28 @@ const CalendarToWrap = () => {
     setSelectedDate,
     currentMonthDays,
   } = useCalendarData()
+
+  useFocusEffect(
+    useCallback(() => {
+      if (route.params) {
+        const keys = Object.keys(route.params)
+        const values = Object.values(route.params)
+        if (keys && keys.length > 0) {
+          const param = keys[0]
+          setPrevScreen(values[0])
+          delete route.params[param as keyof Readonly<Record<string, unknown> | undefined>]
+        }
+      }
+    }, [route.params])
+  )
+
+  useBackHandler(() => {
+    if (prevScreen) {
+      navigation.navigate(prevScreen)
+      return true
+    }
+    return false
+  })
 
   useEffect(() => {
     if (currentIndex === 0) {
