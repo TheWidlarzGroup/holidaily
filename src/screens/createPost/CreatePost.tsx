@@ -37,19 +37,19 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
 
   useAsyncEffect(async () => {
     const draftPost = await getItem('draftPost')
-    let savedPost: PostState
-    if (draftPost) savedPost = JSON.parse(draftPost)
+    let post: PostState
+    if (draftPost) post = JSON.parse(draftPost)
     if (undoSendPost)
-      savedPost = {
+      post = {
         text: undoSendPost.text,
         location: undoSendPost.meta.location || null,
         images: undoSendPost.data,
       }
-    if (!savedPost) return
+    if (!post) return
 
-    dispatch({ type: 'addImages', payload: { images: savedPost.images } })
-    dispatch({ type: 'updateText', payload: { text: savedPost.text } })
-    dispatch({ type: 'setLocation', payload: savedPost.location })
+    dispatch({ type: 'addImages', payload: { images: post.images } })
+    dispatch({ type: 'updateText', payload: { text: post.text } })
+    dispatch({ type: 'setLocation', payload: post.location })
   }, [undoSendPost])
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
