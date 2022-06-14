@@ -65,7 +65,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
           userColor: user?.userColor,
           lastName: user?.lastName,
         },
-        timestamp: { createdAt: new Date() },
+        timestamp: { createdAt: new Date().getTime() },
         location: {
           position: data.location?.position || null,
           addresses: data.location?.addresses || [],

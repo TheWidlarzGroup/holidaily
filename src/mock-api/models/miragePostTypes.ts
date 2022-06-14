@@ -11,7 +11,7 @@ type UserData = {
 }
 
 export type Timestamp = {
-  createdAt: Date
+  createdAt: number
 }
 
 export type MetaData = {
