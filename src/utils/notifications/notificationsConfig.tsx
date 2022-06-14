@@ -1,7 +1,9 @@
+import { InfoModal } from 'components/notifications/InfoModal'
 import { SuccessModal } from 'components/notifications/SuccessModal'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { createNotifications, generateAnimationConfig } from 'react-native-notificated'
 import { Easing, interpolate, SharedValue } from 'react-native-reanimated'
+import { isAndroid } from 'utils/layout'
 import { theme } from 'utils/theme'
 
 const successIcon = require('assets/icons/success-icon.png')
@@ -20,7 +22,8 @@ export const useGetNotificationsConfig = () => {
     transitionInStyles: (progress: SharedValue<number>) => {
       'worklet'
 
-      const translateY = interpolate(progress.value, [0, 1], [-100, 30])
+      const androidTranslateY = isAndroid ? -20 : -10
+      const translateY = interpolate(progress.value, [0, 1], [-100, androidTranslateY])
 
       return {
         opacity: progress.value,
@@ -34,13 +37,19 @@ export const useGetNotificationsConfig = () => {
       successCustom: {
         component: SuccessModal,
         config: {
-          notificationPosition: 'top',
-          duration: 1200,
+          animationConfig: notificationAnimation,
+        },
+      },
+      infoCustom: {
+        component: InfoModal,
+        config: {
+          animationConfig: notificationAnimation,
         },
       },
     },
-    duration: 1200,
+    duration: 2300,
     animationConfig: notificationAnimation,
+    isNotch: true,
     defaultStylesSettings: {
       successConfig: {
         titleSize: 14,

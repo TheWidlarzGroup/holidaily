@@ -10,10 +10,12 @@ import { Asset } from 'react-native-image-picker'
 import { Analytics } from 'services/analytics'
 import { generateUUID } from 'utils/generateUUID'
 import { useNavigation } from '@react-navigation/native'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { useTranslation } from 'react-i18next'
+import { getItem, removeItem, setItem } from 'utils/localStorage'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
-import { PostState } from './CreatePostForm/usePostFormReducer'
+import { PostState, usePostFormReducer } from './CreatePostForm/usePostFormReducer'
 
 type PostAttachment = {
   uri: string
@@ -26,10 +28,20 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { t } = useTranslation('createPost')
   useSetStatusBarStyle(userSettings)
   const photo = route.params?.photo
+  const [state, dispatch] = usePostFormReducer()
   const { user } = useUserContext()
   const { mutate } = useAddPost()
   const { goBack } = useNavigation()
   const { notify } = useGetNotificationsConfig()
+
+  useAsyncEffect(async () => {
+    const draftPost = await getItem('draftPost')
+    if (!draftPost) return
+    const parsedDraftPost: PostState = JSON.parse(draftPost)
+    dispatch({ type: 'addImages', payload: { images: parsedDraftPost.images } })
+    dispatch({ type: 'updateText', payload: { text: parsedDraftPost.text } })
+    dispatch({ type: 'setLocation', payload: parsedDraftPost.location })
+  }, [])
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
     attachments.map((item) => {
@@ -82,11 +94,20 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     })
     goBack()
     notify('successCustom', { params: { title: t('postSent') } })
+    removeItem('draftPost')
+  }
+
+  const onCreatePostDismiss = () => {
+    const { images, location, text } = state
+    if (images.length > 0 || text.length > 0 || !!location) {
+      notify('infoCustom', { params: { title: t('savedAsDraft') } })
+      setItem('draftPost', JSON.stringify(state))
+    }
   }
 
   return (
-    <SwipeableScreen>
-      <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
+    <SwipeableScreen onDismiss={onCreatePostDismiss}>
+      <CreatePostForm photosAsset={photo} onSend={handleOnSend} state={state} dispatch={dispatch} />
     </SwipeableScreen>
   )
 }

@@ -237,6 +237,10 @@
     "edit": "Edytuj",
     "delete": "Usuń",
     "cancel": "Anuluj",
+    "discard": "Odrzuć",
+    "keepEditing": "Kontynuuj edycję",
+    "discardHeader": "Odrzucić post?",
+    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "changesSaved": "Zapisano zamiany!",
     "commentDeleted": "Usunięto komentarz!",
     "postDeleted": "Usunięto post!"
@@ -246,7 +250,8 @@
     "clearPost": "Wyczyść",
     "inputPlaceholder": "Co słychać?",
     "sendPost": "Opublikuj",
-    "postSent": "Wiadomość wysłana!"
+    "postSent": "Opublikowano post!",
+    "savedAsDraft": "Zapisano post jako wersja robocza."
   },
   "settings": {
     "name": "Ustawienia ",

@@ -145,6 +145,7 @@ export const colors = {
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
   loadingModalBackdrop: palette.grayscale50SemiOpaque,
+  infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
 }
 
@@ -232,5 +233,6 @@ export const darkThemeColors = {
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
   loadingModalBackdrop: palette.grayscale900SemiOpaque,
+  infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
 }

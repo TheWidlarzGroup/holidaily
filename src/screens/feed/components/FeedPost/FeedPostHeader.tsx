@@ -1,9 +1,10 @@
 import React from 'react'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
-import { Box } from 'utils/theme'
+import { BaseOpacity, Box, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { FeedPostHeaderInfo } from 'screens/feed/FeedPostHeaderInfo/FeedPostHeaderInfo'
 import { LocationInfo } from 'components/LocationInfo'
+import IconDots from 'assets/icons/icon-dots2.svg'
 
 type FeedPostHeaderProps = {
   post: Pick<FeedPost, 'meta'>
@@ -13,6 +14,7 @@ type FeedPostHeaderProps = {
 export const FeedPostHeader = (props: FeedPostHeaderProps) => {
   const { post, showBorder } = props
   const isBorderShown = showBorder ? 2 : 0
+  const theme = useTheme()
 
   return (
     <Box
@@ -42,6 +44,13 @@ export const FeedPostHeader = (props: FeedPostHeaderProps) => {
         <FeedPostHeaderInfo meta={post.meta} />
       </Box>
       <LocationInfo location={post.meta?.location} />
+      <BaseOpacity
+        position="absolute"
+        right={20}
+        top={45}
+        hitSlop={{ top: 20, bottom: 20, left: 25, right: 20 }}>
+        <IconDots color={theme.colors.black} />
+      </BaseOpacity>
     </Box>
   )
 }
