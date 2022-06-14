@@ -9,6 +9,8 @@ export function postsRoute(context: Server<ModelsSchema>) {
   context.post('/addpost', addPost)
   context.post('/posts/:postId', addComment)
   context.put('/posts/:postId', addReaction)
+  context.delete('/comment/:id', deleteComment)
+  context.put('/comment/:id', editComment)
 }
 function fetchPosts(schema: Schema<ModelsSchema>) {
   return schema.all('post')
@@ -21,19 +23,19 @@ function addPost(schema: Schema<ModelsSchema>, req: Request) {
 
 function addComment(schema: Schema<ModelsSchema>, req: Request) {
   const body = JSON.parse(req.requestBody)
-  const getPost = schema.find('post', body.postId)
-  if (!getPost) return new Response(404)
-  schema.create('comment', { ...body.comment, post: getPost })
-  return getPost
+  const post = schema.find('post', body.postId)
+  if (!post) return new Response(404)
+  schema.create('comment', { ...body.comment, post })
+  return post
 }
 
 function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   const user = requireAuth(schema, req)
 
   const body = JSON.parse(req.requestBody)
-  const getPost = schema.find('post', body.postId)
-  if (!getPost || !user.id) return new Response(404)
-  const allPostReactions = getPost.reactionIds.map((id) => schema.find('reaction', id))
+  const post = schema.find('post', body.postId)
+  if (!post || !user.id) return new Response(404)
+  const allPostReactions = post.reactionIds.map((id) => schema.find('reaction', id))
   const filterReactions = allPostReactions.filter(
     (reaction: Reaction) => reaction.type === body.reaction.type
   )
@@ -46,7 +48,24 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
       singleReaction?.update({ users: [...singleReaction?.users, user.id.toString()] })
     }
   } else if (filterReactions.length <= 0) {
-    schema.create('reaction', { ...body.reaction, post: getPost })
+    schema.create('reaction', { ...body.reaction, post })
   }
-  return getPost
+  return post
+}
+
+function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
+  const comment = schema.find('comment', req.requestBody)
+  const post = schema.find('post', comment.postId)
+  if (!comment || !post) return new Response(404)
+  comment.destroy()
+  return post
+}
+
+function editComment(schema: Schema<ModelsSchema>, req: Request) {
+  const body = JSON.parse(req.requestBody)
+  const comment = schema.find('comment', body.commentId)
+  const post = schema.find('post', comment.postId)
+  if (!comment || !post) return new Response(404)
+  comment.update({ text: body.text })
+  return post
 }

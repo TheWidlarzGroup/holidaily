@@ -22,6 +22,7 @@ export type MessageInputProps = {
   setMessageContent: F1<string>
   onSubmitEditing: F1<string>
   handleSubmitComment?: F1<Comment>
+  handleEditComment?: F0
   onBlur?: F1<string>
   defaultValue?: string
   maxLength?: number
@@ -42,6 +43,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     messageContent,
     setMessageContent,
     placeholder,
+    handleEditComment,
   } = props
   const [error, setError] = useState('')
   const { t } = useTranslation('messageInput')
@@ -77,12 +79,12 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     []
   )
 
-  const handleSubmit = () => {
+  const handleSubmitComment = () => {
     if (error) return
     onSubmitEditing(messageContent)
     const message: Comment = {
+      id: generateUUID(),
       meta: {
-        id: generateUUID(),
         author: {
           id: user?.id || '',
           occupation: user?.occupation || '',
@@ -123,7 +125,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
-          onSubmitEditing={handleSubmit}
+          onSubmitEditing={handleSubmitComment}
           onBlur={handleBlur}
           blurOnSubmit
           multiline
@@ -135,7 +137,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           <BaseOpacity
             width={32}
             height={32}
-            onPress={handleSubmit}
+            onPress={handleEditComment || handleSubmitComment}
             backgroundColor="special"
             borderRadius="full"
             justifyContent="center"

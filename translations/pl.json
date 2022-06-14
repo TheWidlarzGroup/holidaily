@@ -240,7 +240,10 @@
     "discard": "Odrzuć",
     "keepEditing": "Kontynuuj edycję",
     "discardHeader": "Odrzucić post?",
-    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane."
+    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
+    "changesSaved": "Zapisano zamiany!",
+    "commentDeleted": "Usunięto komentarz!",
+    "postDeleted": "Usunięto post!"
   },
   "createPost": {
     "title": "Utwórz Post",
@@ -316,6 +319,10 @@
     "notEnoughPto": "Ups! Nie masz tyle dni urlopu do wykorzystania :(",
     "noPtoAvailable": "Ups! Niestety nie masz już żadnych dni urlopowych do wykorzystania :(",
     "maxSickDays": "Ups! Pojedynczy wniosek o chorobowe może wynosić maksymalnie {{maxDays}} dni :(",
+    "alreadyScheduledHeader": "Wygląda na to, że już wziąłeś urlop w tym terminie!",
+    "alreadyScheduledContent": "Zrezygnuj z dodawania nowego urlopu lub weź urlop z inną datą.",
+    "drop": "Zrezygnuj",
+    "change": "Zmień datę",
     "clear": "Wyczyść",
     "availablePto": "Możesz wziąć {{availablePto}} urlopu.",
     "changeDays": "Zmień termin",

@@ -15,7 +15,6 @@ export type Timestamp = {
 }
 
 export type MetaData = {
-  id: string
   author: UserData
   timestamp: Timestamp
   location?: CompoundLocation
@@ -27,6 +26,7 @@ export type Reaction = {
 }
 
 export type Comment = {
+  id: string
   meta: MetaData
   text: string
 }
@@ -41,13 +41,13 @@ export type AddReaction = {
 }
 
 export type FeedPost = {
-  id?: string
-  recentlyAdded?: boolean
+  id: string
   meta: MetaData
   comments: Comment[]
   data: FeedPostData[]
   text: string
   reactions: Reaction[]
+  recentlyAdded?: boolean
 }
 
 export type FeedPostData = {
@@ -57,3 +57,19 @@ export type FeedPostData = {
 }
 
 export type FeedPostDataType = 'image' | 'video'
+
+export type EditComment = {
+  type: 'comment'
+  postId: string
+  commentId: string
+  authorId?: string
+  text?: string
+}
+
+type EditPost = {
+  type: 'post'
+  authorId: string
+  postId: string
+}
+
+export type EditTargetType = EditComment | EditPost

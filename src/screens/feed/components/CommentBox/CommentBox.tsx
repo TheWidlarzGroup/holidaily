@@ -1,27 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box } from 'utils/theme'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Comment as CommentType, FeedPost } from 'mock-api/models/miragePostTypes'
+import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Analytics } from 'services/analytics'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
 
-type CommentBoxProps = Pick<FeedPost, 'comments'> & {
+type CommentBoxProps = {
   areCommentsExpanded: boolean
   toggleCommentsExpanded: F0
+  openEditModal: F1<EditTargetType>
+  post: FeedPost
+  isEditingTarget: boolean
 }
 
 export const CommentBox = ({
-  comments,
   areCommentsExpanded,
   toggleCommentsExpanded,
+  openEditModal,
+  post,
+  isEditingTarget,
 }: CommentBoxProps) => {
+  const [editCommentId, setEditCommentId] = useState('')
+  const { comments, id } = post
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
-      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].meta.id })
+      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
   }, [areCommentsExpanded, comments])
 
   if (comments?.length === 0) return null
+
+  const commentsCopy = comments.slice().reverse()
 
   return (
     <Box padding="s" marginTop="-ml" paddingBottom="xm">
@@ -31,17 +40,22 @@ export const CommentBox = ({
         opened={areCommentsExpanded}
       />
       <ScrollView>
-        {areCommentsExpanded ? (
-          comments.map((comment, index) => (
+        {commentsCopy.map((comment, index) => {
+          if (!areCommentsExpanded && index > 0) return
+          return (
             <Comment
+              openEditModal={openEditModal}
+              editCommentId={editCommentId}
+              setEditCommentId={setEditCommentId}
+              isEditingTarget={isEditingTarget}
+              postId={id}
               comment={comment}
-              key={comment.meta.id}
               hideAvatar={commentFromPreviousUser(comments, index)}
+              id={comment.id}
+              key={comment.id}
             />
-          ))
-        ) : (
-          <Comment comment={comments[comments.length - 1]} />
-        )}
+          )
+        })}
       </ScrollView>
     </Box>
   )

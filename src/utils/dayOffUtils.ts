@@ -1,10 +1,23 @@
 import { eachDayOfInterval } from 'date-fns'
-import { Team, User } from 'mockApi/models/mirageTypes'
+import type { DayOffRequest, User, Team } from 'mockApi/models'
 import { isWeekendOrHoliday } from 'poland-public-holidays'
-import { DayOffEvent } from 'screens/calendar/components/DayEvent'
-import { getISODateString, getISOMonthYearString } from './dates'
+import type { DayOffEvent } from 'screens/calendar/components/DayEvent'
+import type { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { getISODateString, getISOMonthYearString, isDateBetween, isWeekend } from './dates'
 import { generateUUID } from './generateUUID'
 import { getUserTeamId } from './getUserTeamId'
+
+export const drawnDayoffInAlreadyScheduledTime = (
+  req: Pick<DayOffRequest, 'startDate' | 'endDate'>,
+  requests: Omit<DayOffRequest, 'id'>[]
+) => {
+  const start = new Date(req.startDate)
+  const end = new Date(req.endDate)
+  return requests.some((existingReq) => {
+    const days = eachDayOfInterval({ start, end })
+    return days.some((day) => isDateBetween(day, existingReq.startDate, existingReq.endDate))
+  })
+}
 
 export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], appUser: User) => {
   const allSingleRequests: DayOffEvent[] = []
@@ -39,4 +52,17 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
   })
 
   return { allSingleRequests }
+}
+
+export const getFirstRequestsOfMonth = (allRequestsOfMonth: HolidailyRequestMonthType) => {
+  const firstDaysOfNextMonthRequests = allRequestsOfMonth?.days.filter((day) => {
+    if (isWeekend(day.date)) return
+    return (
+      day.date.slice(-2) === '01' ||
+      day.date.slice(-2) === '02' ||
+      day.date.slice(-2) === '03' ||
+      day.date.slice(-2) === '04'
+    )
+  })
+  return firstDaysOfNextMonthRequests
 }

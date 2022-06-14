@@ -1,5 +1,5 @@
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
-import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
+import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 
 describe('Get holiday requests of next month', () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeedPost } from 'mock-api/models/miragePostTypes'
+import { EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import { isIos } from 'utils/layout'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -9,6 +9,8 @@ import { FooterBar } from '../FooterBar/FooterBar'
 
 type Post = {
   post: FeedPost
+  openEditModal: F1<EditTargetType>
+  isEditingTarget: boolean
   showBorder: boolean
 }
 
@@ -28,9 +30,9 @@ export const FeedPostFooter = (props: Post) => {
       borderTopWidth={0}>
       <FooterBar post={post} expandComments={expandComments} />
       <CommentBox
-        comments={post.comments}
         areCommentsExpanded={areCommentsExpanded}
         toggleCommentsExpanded={toggleCommentsExpanded}
+        {...props}
       />
     </Box>
   )
