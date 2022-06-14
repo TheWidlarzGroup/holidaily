@@ -44,7 +44,11 @@ export const FeedPostHeader = (props: FeedPostHeaderProps) => {
         <FeedPostHeaderInfo meta={post.meta} />
       </Box>
       <LocationInfo location={post.meta?.location} />
-      <BaseOpacity position="absolute" right={20} top={45}>
+      <BaseOpacity
+        position="absolute"
+        right={20}
+        top={45}
+        hitSlop={{ top: 20, bottom: 20, left: 25, right: 20 }}>
         <IconDots color={theme.colors.black} />
       </BaseOpacity>
     </Box>
