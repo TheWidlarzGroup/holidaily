@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { ConfirmationModal } from 'components/ConfirmationModal'
+import { removeItem } from 'utils/localStorage'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostAction, PostState } from './usePostFormReducer'
@@ -96,7 +97,10 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
           goBack()
         }}
         hideModal={hideDeclineModal}
-        onDecline={hideDeclineModal}
+        onDecline={() => {
+          hideDeclineModal()
+          removeItem('draftPost')
+        }}
       />
     </SafeAreaWrapper>
   )
