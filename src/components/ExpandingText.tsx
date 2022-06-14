@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
-import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
-import ArrowDown from 'assets/icons/arrowDown.svg'
+import { BaseOpacity, Text } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 type ExpandingTextProps = React.ComponentProps<typeof Text> & {
   text: string
   lines?: number
 }
 
-const ICON_SIZE = 13
-
 export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextProps) => {
+  const { t } = useTranslation('feed')
   const [numOfLines, setNumOfLines] = useState(lines)
   const [opened, { toggle }] = useBooleanState(false)
-  const styles = useStyles()
 
   const onTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
     const textLines = e?.nativeEvent?.lines.length
     setNumOfLines(textLines)
   }
+
+  const numberOfChars = opened ? 999 : 130
 
   return (
     <BaseOpacity onPress={toggle} activeOpacity={1}>
@@ -31,19 +31,21 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
         lineHeight={21}
         paddingRight={!opened && numOfLines >= 3 ? 'ml' : 'none'}
         paddingBottom="xxm">
-        {text}
+        {text.slice(0, numberOfChars)}
+        {text.length > 130 && !opened && (
+          <>
+            {'... '}
+            <Text variant="textSM" color="special">
+              {t('seeMoreCapitalized')}
+            </Text>
+          </>
+        )}
+        {opened && (
+          <Text variant="textSM" color="special">
+            {t('showLessCapitalized')}
+          </Text>
+        )}
       </Text>
-      {!opened && numOfLines >= 3 && (
-        <Box position="absolute" bottom={5} right={2}>
-          <ArrowDown color={styles.arrow.color} width={ICON_SIZE} />
-        </Box>
-      )}
     </BaseOpacity>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  arrow: {
-    color: theme.colors.black,
-  },
-}))

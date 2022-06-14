@@ -230,6 +230,8 @@
     "locationNotFound": "Nie znaleziono",
     "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
     "seeMore": "pokaż więcej",
+    "seeMoreCapitalized": "Więcej",
+    "showLessCapitalized": "Mniej",
     "postPublished": "Opublikowano post!",
     "undo": "Cofnij",
     "more": "więcej",

@@ -230,6 +230,8 @@
     "locationNotFound": "Not found",
     "exceededAmount": "You exceeded amount of images in single post",
     "seeMore": "see more",
+    "seeMoreCapitalized": "See more",
+    "showLessCapitalized": "Show less",
     "postPublished": "Post published!",
     "undo": "Undo",
     "more": "more",
