@@ -28,20 +28,29 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { t } = useTranslation('createPost')
   useSetStatusBarStyle(userSettings)
   const photo = route.params?.photo
+  const undoSendPost = route.params?.sentPost
   const [state, dispatch] = usePostFormReducer()
   const { user } = useUserContext()
   const { mutate } = useAddPost()
-  const { goBack } = useNavigation()
+  const { navigate, goBack } = useNavigation()
   const { notify } = useGetNotificationsConfig()
 
   useAsyncEffect(async () => {
     const draftPost = await getItem('draftPost')
-    if (!draftPost) return
-    const parsedDraftPost: PostState = JSON.parse(draftPost)
-    dispatch({ type: 'addImages', payload: { images: parsedDraftPost.images } })
-    dispatch({ type: 'updateText', payload: { text: parsedDraftPost.text } })
-    dispatch({ type: 'setLocation', payload: parsedDraftPost.location })
-  }, [])
+    let savedPost: PostState
+    if (draftPost) savedPost = JSON.parse(draftPost)
+    if (undoSendPost)
+      savedPost = {
+        text: undoSendPost.text,
+        location: undoSendPost.meta.location || null,
+        images: undoSendPost.data,
+      }
+    if (!savedPost) return
+
+    dispatch({ type: 'addImages', payload: { images: savedPost.images } })
+    dispatch({ type: 'updateText', payload: { text: savedPost.text } })
+    dispatch({ type: 'setLocation', payload: savedPost.location })
+  }, [undoSendPost])
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
     attachments.map((item) => {
@@ -93,7 +102,13 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       location: JSON.stringify(locationToSend),
     })
     goBack()
-    notify('successCustom', { params: { title: t('postSent') } })
+    notify('successCustom', {
+      params: {
+        title: t('postSent'),
+        onPressText: t('undo'),
+        onPress: () => navigate('CREATE_POST', { sentPost: feedPost }),
+      },
+    })
     removeItem('draftPost')
   }
 
