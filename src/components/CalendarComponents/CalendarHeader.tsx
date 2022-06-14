@@ -1,7 +1,6 @@
 import React from 'react'
-import { Box, Text, Theme } from 'utils/theme'
+import { BaseOpacity, Box, Text, Theme } from 'utils/theme'
 import { getMonthName } from 'utils/dates'
-import { TouchableOpacity } from 'react-native'
 
 type CalendarHeaderProps = {
   ignoreDarkmode?: true
@@ -14,7 +13,7 @@ export const CalendarHeader = (p: CalendarHeaderProps) => {
   const year = p.date.getFullYear()
   const fontColor: keyof Theme['colors'] = p.ignoreDarkmode ? 'alwaysBlack' : 'black'
   return (
-    <TouchableOpacity onPress={p.onHeaderPressed}>
+    <BaseOpacity onPress={p.onHeaderPressed} activeOpacity={p.onHeaderPressed ? 0.8 : 1}>
       <Box margin="xm" flexDirection="row" alignItems="center">
         <Text variant="textSM" color={fontColor}>
           {monthName}
@@ -23,6 +22,6 @@ export const CalendarHeader = (p: CalendarHeaderProps) => {
           {year}
         </Text>
       </Box>
-    </TouchableOpacity>
+    </BaseOpacity>
   )
 }

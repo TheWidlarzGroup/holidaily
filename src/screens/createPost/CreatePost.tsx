@@ -9,9 +9,9 @@ import React from 'react'
 import { Asset } from 'react-native-image-picker'
 import { Analytics } from 'services/analytics'
 import { generateUUID } from 'utils/generateUUID'
-import { notify } from 'react-native-notificated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 import { PostState } from './CreatePostForm/usePostFormReducer'
 
@@ -29,6 +29,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { user } = useUserContext()
   const { mutate } = useAddPost()
   const { goBack } = useNavigation()
+  const { notify } = useGetNotificationsConfig()
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
     attachments.map((item) => {
@@ -48,8 +49,8 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
 
   const handleOnSend = (data: PostState) => {
     const feedPost: FeedPost = {
+      id: generateUUID(),
       meta: {
-        id: generateUUID(),
         author: {
           id: user?.id || '',
           name: `${user?.firstName} ${user?.lastName}` || '',
@@ -80,7 +81,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       location: JSON.stringify(locationToSend),
     })
     goBack()
-    notify('success', { params: { title: t('postSent') } })
+    notify('successCustom', { params: { title: t('postSent') } })
   }
 
   return (

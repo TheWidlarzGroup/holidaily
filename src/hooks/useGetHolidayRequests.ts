@@ -1,6 +1,6 @@
 import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { useEffect, useState } from 'react'
-import { getAllSingleHolidayRequests } from 'utils/getAllSingleHolidayRequests'
+import { getAllSingleHolidayRequests } from 'utils/dayOffUtils'
 import { groupRequestsToMonths } from 'utils/groupRequestsToMonths'
 import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
 import { useUserContext } from './context-hooks/useUserContext'

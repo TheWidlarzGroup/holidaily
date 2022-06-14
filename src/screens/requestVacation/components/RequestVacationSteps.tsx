@@ -25,8 +25,17 @@ export const RequestVacationSteps = ({
   removeAttachment,
   showSentModal,
 }: StepsProps) => {
-  const { step, setStep, sickTime, toggleSickTime, startDate, endDate, requestData, createdAt } =
-    useRequestVacationContext()
+  const {
+    step,
+    setStep,
+    sickTime,
+    toggleSickTime,
+    startDate,
+    endDate,
+    requestData,
+    createdAt,
+    setIsFormEmpty,
+  } = useRequestVacationContext()
 
   useEffect(() => {
     Analytics().track('REQUEST_STEP_CHANGED', { step })
@@ -37,6 +46,7 @@ export const RequestVacationSteps = ({
       <FormRequestVacation
         nextStep={() => setStep(1)}
         sickTime={sickTime}
+        setIsFormEmpty={setIsFormEmpty}
         toggleSickTime={toggleSickTime}
         changeRequestData={changeRequestData}
         date={{ start: startDate, end: endDate }}

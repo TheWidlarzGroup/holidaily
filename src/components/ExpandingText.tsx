@@ -29,7 +29,8 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
         numberOfLines={opened ? undefined : 3}
         variant="textSM"
         lineHeight={21}
-        paddingRight={!opened && numOfLines >= 3 ? 'ml' : 'none'}>
+        paddingRight={!opened && numOfLines >= 3 ? 'ml' : 'none'}
+        paddingBottom="xxm">
         {text}
       </Text>
       {!opened && numOfLines >= 3 && (

@@ -37,9 +37,12 @@ import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
 
+export type Dot = { key: string; color: string }
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
-type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
+type MarkedDatesMultiDots = { [key: string]: { dots: Dot[] } }
 type ExpandableCalendarProps = {
+  isFullHeight: boolean
+  setIsFullHeight: F1<boolean>
   markedDates: MarkedDatesMultiDots
   selectedDate: Date
   setSelectedDate: F1<Date>
@@ -146,6 +149,15 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
       }),
     [markedDates, selectedDate]
   )
+
+  useEffect(() => {
+    if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT * 4) {
+      containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT)
+      props.setIsFullHeight(true)
+    }
+    // Comment: we don't want to track props.setIsFullHeight
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isFullHeight, containerHeight])
 
   return (
     <>

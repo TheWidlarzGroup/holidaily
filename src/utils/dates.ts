@@ -152,8 +152,9 @@ export const isDateBetween = (
   if (!(date instanceof Date)) date = new Date(date)
   if (!(rangeStart instanceof Date)) rangeStart = new Date(rangeStart)
   if (!(rangeEnd instanceof Date)) rangeEnd = new Date(rangeEnd)
-
-  return date.getTime() > rangeStart.getTime() && date.getTime() < rangeEnd.getTime()
+  rangeStart.setHours(0, 0, 0, 0)
+  rangeEnd.setHours(23, 59, 59, 999)
+  return date.getTime() >= rangeStart.getTime() && date.getTime() <= rangeEnd.getTime()
 }
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24

@@ -1,12 +1,14 @@
+import { SuccessModal } from 'components/notifications/SuccessModal'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { createNotifications, generateAnimationConfig } from 'react-native-notificated'
 import { Easing, interpolate, SharedValue } from 'react-native-reanimated'
 import { theme } from 'utils/theme'
 
-type ConfigType = {
-  isDarkMode?: boolean
-}
+const successIcon = require('assets/icons/success-icon.png')
 
-export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
+export const useGetNotificationsConfig = () => {
+  const { userSettings } = useUserSettingsContext()
+  const isDarkMode = userSettings?.darkMode
   const notificationAnimation = generateAnimationConfig({
     animationConfigIn: {
       type: 'timing',
@@ -27,7 +29,16 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
     },
   })
 
-  const { NotificationsProvider } = createNotifications({
+  const { NotificationsProvider, useNotifications } = createNotifications({
+    variants: {
+      successCustom: {
+        component: SuccessModal,
+        config: {
+          notificationPosition: 'top',
+          duration: 1200,
+        },
+      },
+    },
     duration: 1200,
     animationConfig: notificationAnimation,
     defaultStylesSettings: {
@@ -36,10 +47,12 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
         bgColor: isDarkMode ? theme.colors.black : theme.colors.successToastBg,
         titleColor: isDarkMode ? theme.colors.white : theme.colors.black,
         borderRadius: theme.borderRadii.l1min,
-        leftIconSource: require('assets/icons/success-icon.png'),
+        leftIconSource: successIcon,
       },
     },
   })
 
-  return { NotificationsProvider, notificationAnimation }
+  const { notify } = useNotifications()
+
+  return { NotificationsProvider, notificationAnimation, useNotifications, notify }
 }

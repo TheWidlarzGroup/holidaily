@@ -1,3 +1,4 @@
+import type { Dot } from 'components/ExpandableCalendar'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useCallback } from 'react'
 import { calculatePTO, getDatesBetween } from './dates'
@@ -9,18 +10,40 @@ export type MarkedDateType = {
   startingDay?: boolean
   period?: boolean
   isInvalid?: boolean
+  dots?: Dot[]
 }
 
-export const genMarkedDates = (start?: string, end?: string, isInvalid?: boolean) => {
-  if (!start || !end) return {}
+type GenMarkedDatesOptions = {
+  dotMarking?: {
+    dates: Dot[]
+  }
+}
+
+export const genMarkedDates = (
+  start?: string,
+  end?: string,
+  isInvalid?: boolean,
+  options?: GenMarkedDatesOptions
+) => {
   const calendarDatesObj: { [key: string]: MarkedDateType } = {}
-  const dates = getDatesBetween(start, end)
+  const dots = options?.dotMarking?.dates ?? []
+  let dates: string[] = []
+  if (start && end) dates = getDatesBetween(start, end)
   dates.forEach((date, idx) => {
+    const dot = options?.dotMarking?.dates.find((dot) => dot.key === date)
     calendarDatesObj[date] = {
       period: true,
       startingDay: idx === 0,
       endingDay: idx === dates.length - 1,
       isInvalid,
+      dots: dot ? [dot] : undefined,
+    }
+  })
+
+  dots.forEach((dot) => {
+    if (calendarDatesObj[dot.key]) return
+    calendarDatesObj[dot.key] = {
+      dots: [dot],
     }
   })
 
