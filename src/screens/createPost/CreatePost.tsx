@@ -1,4 +1,4 @@
-import { useAddPost } from 'dataAccess/mutations/useAddPost'
+import { useAddPost, useEditPost } from 'dataAccess/mutations/useAddPost'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
@@ -26,18 +26,19 @@ type PostAttachment = {
 export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   const { userSettings } = useUserSettingsContext()
   const { t } = useTranslation('createPost')
-  useSetStatusBarStyle(userSettings)
-  const photo = route.params?.photo
-  const undoSendPost = route.params?.sentPost
-  const [state, dispatch] = usePostFormReducer()
   const { user } = useUserContext()
-  const { mutate } = useAddPost()
+  const { mutate: addPost } = useAddPost()
+  const { mutate: editPost } = useEditPost()
   const { navigate, goBack } = useNavigation()
   const { notify } = useGetNotificationsConfig()
+  const [state, dispatch] = usePostFormReducer()
+  const photo = route.params?.photo
+  const undoSendPost = route.params?.sentPost
+  useSetStatusBarStyle(userSettings)
 
   useAsyncEffect(async () => {
     const draftPost = await getItem('draftPost')
-    let post: PostState
+    let post
     if (draftPost) post = JSON.parse(draftPost)
     if (undoSendPost)
       post = {
@@ -51,22 +52,6 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     dispatch({ type: 'updateText', payload: { text: post.text } })
     dispatch({ type: 'setLocation', payload: post.location })
   }, [undoSendPost])
-
-  const addAttachments = (attachments: Asset[]): PostAttachment[] =>
-    attachments.map((item) => {
-      if (item.type === 'image/jpeg') {
-        return {
-          uri: item.uri || '',
-          type: 'image',
-          id: generateUUID(),
-        }
-      }
-      return {
-        uri: item.uri || '',
-        type: 'video',
-        id: generateUUID(),
-      }
-    })
 
   const handleOnSend = (data: PostState) => {
     const feedPost: FeedPost = {
@@ -92,7 +77,9 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       recentlyAdded: true,
       data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
-    mutate(feedPost)
+
+    if (undoSendPost) editPost({ ...feedPost, id: undoSendPost.id })
+    else addPost(feedPost)
 
     const address = data.location?.addresses[0]
     const locationToSend = address ? `${address.city} ${address.country}` : data.location
@@ -111,6 +98,22 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     })
     removeItem('draftPost')
   }
+
+  const addAttachments = (attachments: Asset[]): PostAttachment[] =>
+    attachments.map((item) => {
+      if (item.type === 'image/jpeg') {
+        return {
+          uri: item.uri || '',
+          type: 'image',
+          id: generateUUID(),
+        }
+      }
+      return {
+        uri: item.uri || '',
+        type: 'video',
+        id: generateUUID(),
+      }
+    })
 
   const onCreatePostDismiss = () => {
     const { images, location, text } = state
