@@ -73,8 +73,7 @@ function editComment(schema: Schema<ModelsSchema>, req: Request) {
 
 function editPost(schema: Schema<ModelsSchema>, req: Request) {
   const body = JSON.parse(req.requestBody)
-  const post = schema.find('post', body.id)
-  console.log(post)
+  const post = schema.find('post', req.params.postId)
   if (!post) return new Response(404)
   post.update(body)
   return post

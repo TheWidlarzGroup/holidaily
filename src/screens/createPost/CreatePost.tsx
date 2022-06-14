@@ -55,7 +55,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
 
   const handleOnSend = (data: PostState) => {
     const feedPost: FeedPost = {
-      id: generateUUID(),
+      id: undoSendPost?.id || generateUUID(),
       meta: {
         author: {
           id: user?.id || '',
@@ -78,7 +78,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
 
-    if (undoSendPost) editPost({ ...feedPost, id: undoSendPost.id })
+    if (undoSendPost) editPost(feedPost)
     else addPost(feedPost)
 
     const address = data.location?.addresses[0]
