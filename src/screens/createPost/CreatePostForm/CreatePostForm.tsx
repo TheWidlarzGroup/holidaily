@@ -42,9 +42,7 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
 
   const closeCreatePostForm = () => {
     const { images, location, text } = state
-    if (images.length > 0 || text.length > 0 || !!location) {
-      return openDeclineModal()
-    }
+    if (images.length > 0 || text.length > 0 || !!location) return openDeclineModal()
     goBack()
   }
 
