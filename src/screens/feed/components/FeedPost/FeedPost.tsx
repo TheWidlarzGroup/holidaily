@@ -1,5 +1,5 @@
+import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import React, { useEffect, useState } from 'react'
-import { FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import { Box } from 'utils/theme'
 import Animated, {
   Easing,
@@ -14,11 +14,14 @@ import { FeedPostHeader } from './FeedPostHeader'
 
 type FeedPostProps = {
   post: FeedPostType
+  openEditModal: F1<EditTargetType>
+  isEditingTarget: boolean
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
-export const FeedPost = ({ post }: FeedPostProps) => {
+export const FeedPost = (props: FeedPostProps) => {
+  const { post } = props
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
   const navigation = useNavigation<any>()
@@ -58,7 +61,7 @@ export const FeedPost = ({ post }: FeedPostProps) => {
       marginTop={showBorder ? 'xsplus' : 's'}>
       <FeedPostHeader post={post} showBorder={showBorder} />
       <FeedPostBody post={post} showBorder={showBorder} />
-      <FeedPostFooter post={post} showBorder={showBorder} />
+      <FeedPostFooter {...props} showBorder={showBorder} />
     </AnimatedBox>
   )
 }

@@ -40,7 +40,6 @@ export const UploadAttachmentModal = ({
   hideEditAttachmentModal,
   ...p
 }: UploadAttachmentModalProps) => {
-  // TODO: IOS setup required
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
       p.onUserCancelled()

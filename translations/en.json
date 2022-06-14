@@ -236,7 +236,10 @@
     "showLess": "Show less",
     "edit": "Edit",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "changesSaved": "Changes saved!",
+    "commentDeleted": "Comment deleted!",
+    "postDeleted": "Post deleted!"
   },
   "createPost": {
     "title": "Create Post",

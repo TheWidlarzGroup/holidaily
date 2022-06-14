@@ -49,8 +49,8 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
 
   const handleOnSend = (data: PostState) => {
     const feedPost: FeedPost = {
+      id: generateUUID(),
       meta: {
-        id: generateUUID(),
         author: {
           id: user?.id || '',
           name: `${user?.firstName} ${user?.lastName}` || '',

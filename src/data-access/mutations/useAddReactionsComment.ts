@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
-import { AddComment, AddReaction, FeedPost } from 'mock-api/models/miragePostTypes'
+import { AddComment, AddReaction, EditComment, FeedPost } from 'mock-api/models/miragePostTypes'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { API } from '../API'
@@ -45,17 +45,56 @@ export const useAddReaction = () =>
         const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
         if (postIndex !== -1 && allPosts) {
           const filtered = payload.post.reactions.filter((reaction) => reaction.users.length > 0)
-
           payload.post.reactions = filtered
-
           allPosts[postIndex] = payload.post
         }
-
         if (allPosts?.length) return [...allPosts]
         return [payload.post]
       })
     },
     onError: (err) => {
       console.log('Error while adding reaction: ', err.message)
+    },
+  })
+
+const deleteComment = async (comment: string): Promise<SubmitSuccess> => {
+  const { data } = await axios.delete(API.DELETE.deleteComment(comment), { data: comment })
+  return data
+}
+export const useDeleteComment = () =>
+  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, string>(deleteComment, {
+    onSuccess: (payload) => {
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        const allPosts = data
+        const deletedCommentPostId = payload.post.id
+        const postIndex = allPosts?.findIndex((post) => post.id === deletedCommentPostId)
+        allPosts[postIndex] = payload.post
+        return allPosts
+      })
+    },
+    onError: (err) => {
+      console.log('Error while removing comment: ', err.message)
+    },
+  })
+
+const editComment = async (comment: EditComment): Promise<SubmitSuccess> => {
+  const { data } = await axios.put(API.PUT.editComment(comment), comment)
+  return data
+}
+export const useEditComment = () =>
+  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, EditComment>(editComment, {
+    onSuccess: (payload) => {
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        const allPosts = data
+        const editedCommentPostId = payload.post.id
+        const postIndex = allPosts?.findIndex((post) => post.id === editedCommentPostId)
+        allPosts[postIndex] = payload.post
+        return allPosts
+      })
+    },
+    onError: (err) => {
+      console.log('Error while editing comment: ', err.message)
     },
   })

@@ -11,6 +11,7 @@ export const palette = {
   grayscale50: 'rgba(252, 252, 252, 1)',
   grayscaleOpaque: 'rgba(213, 215, 224, 0.3)',
   grayscale50SemiOpaque: 'rgba(252, 252, 252, 0.8)',
+  grayscale700Opaque: 'rgba(51, 58, 85, 0.06)',
   grayscale900SemiOpaque: 'rgba(0, 5, 21, 0.85)',
   primary700: 'rgba(220, 98, 10, 1)',
   primary500: 'rgba(255, 142, 60, 1)',
@@ -144,6 +145,7 @@ export const colors = {
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
   loadingModalBackdrop: palette.grayscale50SemiOpaque,
+  modalShadow: palette.grayscale700Opaque,
 }
 
 export const darkThemeColors = {
@@ -230,4 +232,5 @@ export const darkThemeColors = {
   contextMenu: palette.contextMenu,
   contextMenuBorder: palette.contextMenuBorder,
   loadingModalBackdrop: palette.grayscale900SemiOpaque,
+  modalShadow: palette.grayscale700Opaque,
 }

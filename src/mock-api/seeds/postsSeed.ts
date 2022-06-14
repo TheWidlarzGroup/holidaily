@@ -23,8 +23,8 @@ export const postsSeed = (context: Server<Schema>) => {
 
 export const postsMock: FeedPost[] = [
   {
+    id: '1',
     meta: {
-      id: '1',
       author: {
         id: '1',
         occupation: 'Project Manager',
@@ -57,7 +57,7 @@ export const postsMock: FeedPost[] = [
     data: [
       {
         type: 'image',
-        uri: 'https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80',
+        uri: 'https://images.unsplash.com/photo-1653343325659-98c7fde4ef11?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
         id: '1',
       },
       {
@@ -85,8 +85,8 @@ export const postsMock: FeedPost[] = [
     comments: [],
   },
   {
+    id: '2',
     meta: {
-      id: '2',
       author: {
         id: '1',
         occupation: 'UI/UX Designer',
@@ -126,8 +126,8 @@ export const postsMock: FeedPost[] = [
     comments: [],
   },
   {
+    id: '3',
     meta: {
-      id: '3',
       author: {
         id: '1',
         occupation: 'Software Engineer',
@@ -153,8 +153,8 @@ export const postsMock: FeedPost[] = [
 
 export const commentsMock: Comment[] = [
   {
+    id: '1',
     meta: {
-      id: '1',
       author: {
         id: '1',
         occupation: 'QA Tester',
@@ -168,8 +168,8 @@ export const commentsMock: Comment[] = [
     text: 'Cool',
   },
   {
+    id: '2',
     meta: {
-      id: '2',
       author: {
         id: '4',
         occupation: 'QA Tester',
@@ -183,8 +183,8 @@ export const commentsMock: Comment[] = [
     text: 'Porto is an interesting place to see. Is a quiet old city with nice architecture. On the river shores are few terraces with a lovely view over the other shore where are a lot of Porto wine shops. On some of them you can see how the wine is kept and processed and also you cat taste it.',
   },
   {
+    id: '3',
     meta: {
-      id: '3',
       author: {
         id: '1',
         occupation: 'Software Engineer',
@@ -198,8 +198,8 @@ export const commentsMock: Comment[] = [
     text: 'Venice is awesome!!',
   },
   {
+    id: '4',
     meta: {
-      id: '4',
       author: {
         id: '1',
         occupation: 'QA Tester',
@@ -213,8 +213,8 @@ export const commentsMock: Comment[] = [
     text: 'Nice flowers',
   },
   {
+    id: '5',
     meta: {
-      id: '5',
       author: {
         id: sourcePeter.id,
         occupation: sourcePeter.occupation,
