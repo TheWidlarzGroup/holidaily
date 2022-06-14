@@ -5,7 +5,6 @@ export type StorageKeys =
   | 'occupation'
   | 'lastName'
   | 'firstName'
-  | 'firstName'
   | 'userColor'
   | 'seenNotificationsIds'
   | 'language'

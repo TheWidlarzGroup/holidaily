@@ -10,7 +10,9 @@ import Animated, {
 } from 'react-native-reanimated'
 import { mkUseStyles, Theme } from 'utils/theme/index'
 
-export const Splash = () => {
+const splashIcon = require('assets/Splash_screen.png')
+
+export const Splash = ({ showIcon }: { showIcon: boolean }) => {
   const styles = useStyles()
   const scale = useSharedValue(0)
   const rotate = useSharedValue(0)
@@ -29,13 +31,11 @@ export const Splash = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.imageContainer, style]}>
-        <Animated.Image
-          style={styles.image}
-          source={require('assets/Splash_screen.png')}
-          resizeMode="contain"
-        />
-      </Animated.View>
+      {showIcon && (
+        <Animated.View style={[styles.imageContainer, style]}>
+          <Animated.Image style={styles.image} source={splashIcon} resizeMode="contain" />
+        </Animated.View>
+      )}
     </View>
   )
 }
