@@ -38,7 +38,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
 
   useAsyncEffect(async () => {
     const draftPost = await getItem('draftPost')
-    let post
+    let post: PostState | undefined
     if (draftPost) post = JSON.parse(draftPost)
     if (undoSendPost)
       post = {
