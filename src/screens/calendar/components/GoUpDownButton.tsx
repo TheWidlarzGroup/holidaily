@@ -31,7 +31,7 @@ export const GoUpDownButton = (props: GoUpDownButtonProps) => {
       borderRadius="full"
       justifyContent="center"
       alignItems="center"
-      onPress={() => props.onPress()}>
+      onPress={props.onPress}>
       <Animated.View style={[rotationStyles]}>
         <ArrowUp color={theme.colors.alwaysWhite} />
       </Animated.View>

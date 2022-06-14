@@ -66,7 +66,6 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     getInitialCalendarHeight(isScreenHeightShort, hasUserSeenCalendar || false)
   )
 
-  // Calendar footer arrow animation
   const rotation = useSharedValue(0)
   const rotationStyles = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
@@ -250,8 +249,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
           </Animated.View>
           <BaseOpacity
             hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}
-            onLayout={(e) => trackCalendarHeight(e)}
-            onPress={() => toggleOnPress()}
+            onLayout={trackCalendarHeight}
+            onPress={toggleOnPress}
             justifyContent="center"
             alignItems="center"
             marginTop="xxm">
