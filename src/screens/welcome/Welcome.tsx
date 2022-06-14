@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -27,7 +27,6 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { control, handleSubmit, errors, watch } = useForm()
   const nameInput = watch('firstName')
   const [isModalVisible, { setTrue: openModal, setFalse: hideModal }] = useBooleanState(false)
-  const [hasUserLoggedOut, setHasUserLoggedOut] = useState(false)
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
   const { notify } = useGetNotificationsConfig()
@@ -35,7 +34,6 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   useEffect(() => {
     if (route.params?.userLoggedOut) {
       notify('successCustom', { params: { title: t('logoutSuccess') } })
-      setHasUserLoggedOut(true)
     }
   }, [route.params?.userLoggedOut, notify, t])
 
@@ -58,7 +56,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled">
-        <WelcomeTopBar openModal={openModal} hasUserLoggedOut={hasUserLoggedOut} />
+        <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
           <Text variant="title1">{t('welcomeTitle')}</Text>
         </Box>
