@@ -39,15 +39,15 @@ export const CommentBox = ({
     height.value = withDelay(
       heightDelay,
       withTiming(areCommentsExpanded ? 100 : 0, {
-        duration: 250,
+        duration: 300,
         easing: Easing.exp,
       })
     )
-    const opacityDelay = areCommentsExpanded ? 0 : 100
+    const opacityDelay = areCommentsExpanded ? 0 : 60
     opacity.value = withDelay(
       opacityDelay,
       withTiming(areCommentsExpanded ? 1 : 0, {
-        duration: 250,
+        duration: 300,
         easing: Easing.exp,
       })
     )
