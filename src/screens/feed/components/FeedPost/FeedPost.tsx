@@ -7,7 +7,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native'
+import { BottomTabRoutes } from 'navigation/types'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'
 import { FeedPostHeader } from './FeedPostHeader'
@@ -24,7 +25,7 @@ export const FeedPost = (props: FeedPostProps) => {
   const { post } = props
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
-  const navigation = useNavigation<any>()
+  const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
 
   useEffect(() => {
     animProgress.value = withTiming(11, { duration: 800, easing: Easing.exp })
@@ -32,9 +33,8 @@ export const FeedPost = (props: FeedPostProps) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      const { routes } = navigation.getState()
-      const getIdParam = routes.slice().pop()?.params?.postId
-      const isFromNotifications = getIdParam === Number(post.id)
+      const getIdParam = route.params?.postId
+      const isFromNotifications = Number(getIdParam) === Number(post.id)
 
       if (isFromNotifications) {
         setShowBorder(true)
@@ -43,7 +43,7 @@ export const FeedPost = (props: FeedPostProps) => {
           setShowBorder(false)
         }, 6000)
       }
-    }, [navigation, post.id])
+    }, [route, post.id])
   )
 
   const animatedStyle = useAnimatedStyle(() => ({
