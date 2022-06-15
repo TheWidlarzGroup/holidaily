@@ -16,6 +16,7 @@ type ExpandingTextProps = React.ComponentProps<typeof Text> & {
 }
 
 const AnimatedBaseOpacity = Animated.createAnimatedComponent(BaseOpacity)
+const AnimatedText = Animated.createAnimatedComponent(Text)
 
 const LINE_HEIGHT = 21
 const PADDING = 12
@@ -40,10 +41,10 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
 
   useEffect(() => {
     height.value = withTiming(LINE_HEIGHT * numOfLines + PADDING, {
-      duration: 250,
+      duration: 180,
       easing: Easing.exp,
     })
-    opacity.value = withTiming(opened ? 1 : 0, { duration: 400 })
+    opacity.value = withTiming(opened ? 1 : 1, { duration: 400 })
   }, [height, initialNumOfLines, numOfLines, opacity, opened])
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -81,9 +82,9 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
         {text.length > 130 && !opened && (
           <>
             {'... '}
-            <Text variant="textSM" color="special" style={animatedText}>
+            <AnimatedText variant="textSM" color="special" style={animatedText}>
               {t('seeMoreCapitalized')}
-            </Text>
+            </AnimatedText>
           </>
         )}
       </Text>

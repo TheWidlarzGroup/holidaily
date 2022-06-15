@@ -4,7 +4,6 @@ import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/model
 import { Analytics } from 'services/analytics'
 import Animated, {
   Easing,
-  Layout,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
@@ -32,13 +31,9 @@ export const CommentBox = ({
 }: CommentBoxProps) => {
   const [editCommentId, setEditCommentId] = useState('')
   const { comments, id } = post
-  useEffect(() => {
-    if (areCommentsExpanded && comments?.length > 0)
-      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
-  }, [areCommentsExpanded, comments])
-
   const height = useSharedValue(0)
   const opacity = useSharedValue(0)
+
   useEffect(() => {
     const heightDelay = areCommentsExpanded ? 80 : 0
     height.value = withDelay(
@@ -63,6 +58,11 @@ export const CommentBox = ({
     opacity: opacity.value,
   }))
 
+  useEffect(() => {
+    if (areCommentsExpanded && comments?.length > 0)
+      Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
+  }, [areCommentsExpanded, comments])
+
   const commentsCopy = comments.slice().reverse()
 
   if (comments?.length === 0) return null
@@ -86,7 +86,7 @@ export const CommentBox = ({
           id={commentsCopy[0].id}
           key={commentsCopy[0].id}
         />
-        <AnimatedBox style={[animatedStyle]} layout={Layout.mass(500)}>
+        <AnimatedBox style={[animatedStyle]}>
           {commentsCopy.map((comment, index) => {
             if (index === 0) return
             return (
