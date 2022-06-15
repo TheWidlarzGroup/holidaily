@@ -94,7 +94,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           lastName: user?.lastName,
         },
         timestamp: {
-          createdAt: new Date(),
+          createdAt: new Date().getTime(),
         },
       },
       text: messageContent,

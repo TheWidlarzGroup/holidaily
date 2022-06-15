@@ -253,7 +253,8 @@
     "inputPlaceholder": "What's up?",
     "sendPost": "Post",
     "postSent": "Post published!",
-    "savedAsDraft": "Post saved as draft!"
+    "savedAsDraft": "Post saved as draft!",
+    "undo": "Undo"
   },
   "settings": {
     "name": "Settings",

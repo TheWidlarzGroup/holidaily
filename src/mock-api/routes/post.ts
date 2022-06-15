@@ -11,6 +11,7 @@ export function postsRoute(context: Server<ModelsSchema>) {
   context.put('/posts/:postId', addReaction)
   context.delete('/comment/:id', deleteComment)
   context.put('/comment/:id', editComment)
+  context.put('/posts/:postId', editPost)
 }
 function fetchPosts(schema: Schema<ModelsSchema>) {
   return schema.all('post')
@@ -67,5 +68,13 @@ function editComment(schema: Schema<ModelsSchema>, req: Request) {
   const post = schema.find('post', comment.postId)
   if (!comment || !post) return new Response(404)
   comment.update({ text: body.text })
+  return post
+}
+
+function editPost(schema: Schema<ModelsSchema>, req: Request) {
+  const body = JSON.parse(req.requestBody)
+  const post = schema.find('post', req.params.postId)
+  if (!post) return new Response(404)
+  post.update(body)
   return post
 }

@@ -7,7 +7,7 @@ import { FeedPost } from 'mock-api/models/miragePostTypes'
 type FeedPostHeaderInfoProps = Pick<FeedPost, 'meta'>
 
 export const FeedPostHeaderInfo = ({ meta }: FeedPostHeaderInfoProps) => {
-  const formattedDate = displayDDMonYYYY(meta?.timestamp?.createdAt)
+  const formattedDate = displayDDMonYYYY(new Date(meta?.timestamp?.createdAt))
 
   return (
     <Box flexGrow={1} paddingHorizontal="xs" flex={1} justifyContent="space-evenly">
