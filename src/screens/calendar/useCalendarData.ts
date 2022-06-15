@@ -8,17 +8,22 @@ import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRo
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
-import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
+import { addHours, eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
 
 export const useCalendarData = () => {
   const { teams } = useTeamsContext()
   const [filterCategories, setFilterCategories] = useState<FilterCategory[] | null>(null)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDateState] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
   const { requests } = useRequestsContext()
   const { user } = useUserContext()
+
+  const setSelectedDate = (date: Date) => {
+    // Comment: this fn is created as there is a problem with the time zone
+    setSelectedDateState(addHours(date, 2))
+  }
 
   useEffect(() => {
     if (!teams.length) return
