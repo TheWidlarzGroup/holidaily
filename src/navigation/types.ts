@@ -121,7 +121,7 @@ export type BottomTabRoutes = {
   CALENDAR: { prevScreen?: string } | undefined
   RequestModal: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
-  FEED: { postId?: string } | undefined
+  FEED: { postId?: string; prevScreen?: string } | undefined
 }
 
 export type DrawerRoutes = {

@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/native'
+import {
+  RouteProp,
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
@@ -8,7 +14,7 @@ import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { EditTargetType } from 'mock-api/models/miragePostTypes'
-import { BottomTabNavigationProps } from 'navigation/types'
+import { BottomTabNavigationProps, BottomTabRoutes } from 'navigation/types'
 import { FlatList } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
@@ -16,15 +22,19 @@ import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useNotifications } from 'react-native-notificated'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useBackHandler } from 'hooks/useBackHandler'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
 const MAX_SCROLL_RETRIES = 4
 
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
+  const [prevScreen, setPrevScreen] = useState('')
   const [language] = useLanguage()
   const { notify } = useNotifications()
   const { data } = useGetPostsData()
+  const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
+  const focus = useIsFocused()
   const navigation = useNavigation()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
@@ -39,6 +49,31 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
+
+  useFocusEffect(
+    useCallback(() => {
+      if (route.params?.prevScreen) {
+        setPrevScreen(route.params.prevScreen)
+        navigation.setParams({ prevScreen: undefined })
+      }
+      // Comment: we want to trigger this fn once, we don't want to track navigation
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [route])
+  )
+
+  useEffect(() => {
+    if (!focus && prevScreen) setPrevScreen('')
+    // Comment: we don't want to track prevScreen
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus])
+
+  useBackHandler(() => {
+    if (prevScreen) {
+      navigation.navigate(prevScreen)
+      return true
+    }
+    return false
+  })
 
   const openEditModal = (target: EditTargetType) => {
     if (!(target.authorId === user?.id)) return
