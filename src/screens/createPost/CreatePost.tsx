@@ -78,8 +78,18 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       data: data.images.length > 0 ? addAttachments(data.images) : [],
     }
 
-    if (sentPostToEdit) editPost(feedPost)
-    else addPost(feedPost)
+    const showSuccessModal = () => {
+      notify('successCustom', {
+        params: {
+          title: t('postSent'),
+          onPressText: t('undo'),
+          onPress: () => navigate('CREATE_POST', { sentPost: feedPost }),
+        },
+      })
+    }
+
+    if (sentPostToEdit) editPost(feedPost, { onSuccess: showSuccessModal })
+    else addPost(feedPost, { onSuccess: showSuccessModal })
 
     const address = data.location?.addresses[0]
     const locationToSend = address ? `${address.city} ${address.country}` : data.location
@@ -89,13 +99,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
       location: JSON.stringify(locationToSend),
     })
     goBack()
-    notify('successCustom', {
-      params: {
-        title: t('postSent'),
-        onPressText: t('undo'),
-        onPress: () => navigate('CREATE_POST', { sentPost: feedPost }),
-      },
-    })
+
     removeItem('draftPost')
   }
 

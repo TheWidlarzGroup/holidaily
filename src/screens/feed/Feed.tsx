@@ -51,12 +51,18 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const onPressModalDelete = () => {
     closeOptionsModal?.()
     if (editTarget?.type === 'comment') {
-      deleteComment(editTarget.commentId)
-      notify('successCustom', { params: { title: t('commentDeleted') } })
+      deleteComment(editTarget.commentId, {
+        onSuccess: () => {
+          notify('successCustom', { params: { title: t('commentDeleted') } })
+        },
+      })
     }
     if (editTarget?.type === 'post') {
-      deletePost(editTarget.postId)
-      notify('successCustom', { params: { title: t('postDeleted') } })
+      deletePost(editTarget.postId, {
+        onSuccess: () => {
+          notify('successCustom', { params: { title: t('postDeleted') } })
+        },
+      })
     }
     setEditTarget(null)
   }
@@ -77,11 +83,17 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const onCommentEdit = () => {
     closeMessageInput()
     if (editTarget?.type === 'comment') {
-      editComment({ ...editTarget, text: editTarget?.text })
+      editComment(
+        { ...editTarget, text: editTarget?.text },
+        {
+          onSuccess: () => {
+            notify('successCustom', { params: { title: t('changesSaved') } })
+          },
+        }
+      )
     }
     handleSetMessageContent('')
     setEditTarget(null)
-    notify('successCustom', { params: { title: t('changesSaved') } })
   }
 
   const handleSetMessageContent = (text: string) => {
