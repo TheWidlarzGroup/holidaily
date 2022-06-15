@@ -27,5 +27,6 @@ export const API = {
   },
   DELETE: {
     deleteComment: (commentId: string) => `/api/comment/${commentId}`,
+    deletePost: (postId: string) => `/api/posts/${postId}`,
   },
 }

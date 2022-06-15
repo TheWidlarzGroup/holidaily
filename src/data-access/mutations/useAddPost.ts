@@ -46,3 +46,21 @@ export const useEditPost = () =>
       console.log('Error while adding post: ', err.message)
     },
   })
+
+const deletePost = async (id: string): Promise<string> => {
+  const { data } = await axios.delete(API.DELETE.deletePost(id), { data: id })
+  return data
+}
+export const useDeletePost = () =>
+  useMutation<string, AxiosError<{ errors: string[] }>, string>(deletePost, {
+    onSuccess: (payload) => {
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        const filteredPosts = data.filter((post) => post.id !== payload)
+        return filteredPosts
+      })
+    },
+    onError: (err) => {
+      console.log('Error while removing post: ', err.message)
+    },
+  })

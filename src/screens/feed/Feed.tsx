@@ -16,6 +16,7 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -39,6 +40,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
+  const { mutate: deletePost } = useDeletePost()
 
   const openEditModal = (target: EditTargetType) => {
     if (!(target.authorId === user?.id)) return
@@ -51,6 +53,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     if (editTarget?.type === 'comment') {
       deleteComment(editTarget.commentId)
       notify('successCustom', { params: { title: t('commentDeleted') } })
+    }
+    if (editTarget?.type === 'post') {
+      deletePost(editTarget.postId)
+      notify('successCustom', { params: { title: t('postDeleted') } })
     }
     setEditTarget(null)
   }

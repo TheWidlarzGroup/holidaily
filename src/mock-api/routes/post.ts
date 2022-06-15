@@ -12,6 +12,7 @@ export function postsRoute(context: Server<ModelsSchema>) {
   context.delete('/comment/:id', deleteComment)
   context.put('/comment/:id', editComment)
   context.put('/posts/:postId', editPost)
+  context.delete('/posts/:postId', deletePost)
 }
 function fetchPosts(schema: Schema<ModelsSchema>) {
   return schema.all('post')
@@ -77,4 +78,11 @@ function editPost(schema: Schema<ModelsSchema>, req: Request) {
   if (!post) return new Response(404)
   post.update(body)
   return post
+}
+
+function deletePost(schema: Schema<ModelsSchema>, req: Request) {
+  const post = schema.find('post', req.params.postId)
+  if (!post) return new Response(404)
+  post.destroy()
+  return post.id
 }
