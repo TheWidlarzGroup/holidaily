@@ -38,7 +38,7 @@ export const CommentBox = ({
     const heightDelay = areCommentsExpanded ? 80 : 0
     height.value = withDelay(
       heightDelay,
-      withTiming(areCommentsExpanded ? 0 : 100, {
+      withTiming(areCommentsExpanded ? 100 : 0, {
         duration: 250,
         easing: Easing.exp,
       })
@@ -46,7 +46,7 @@ export const CommentBox = ({
     const opacityDelay = areCommentsExpanded ? 0 : 100
     opacity.value = withDelay(
       opacityDelay,
-      withTiming(areCommentsExpanded ? 0 : 1, {
+      withTiming(areCommentsExpanded ? 1 : 0, {
         duration: 250,
         easing: Easing.exp,
       })
@@ -86,7 +86,7 @@ export const CommentBox = ({
           id={commentsCopy[0].id}
           key={commentsCopy[0].id}
         />
-        <AnimatedBox style={[animatedStyle]}>
+        <AnimatedBox style={animatedStyle}>
           {commentsCopy.map((comment, index) => {
             if (index === 0) return
             return (
@@ -97,7 +97,6 @@ export const CommentBox = ({
                 isEditingTarget={isEditingTarget}
                 postId={id}
                 comment={comment}
-                hideAvatar={commentFromPreviousUser(comments, index)}
                 id={comment.id}
                 key={comment.id}
               />
