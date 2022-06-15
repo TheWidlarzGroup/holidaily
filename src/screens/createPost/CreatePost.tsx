@@ -100,20 +100,11 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
   }
 
   const addAttachments = (attachments: Asset[]): PostAttachment[] =>
-    attachments.map((item) => {
-      if (item.type === 'image/jpeg') {
-        return {
-          uri: item.uri || '',
-          type: 'image',
-          id: generateUUID(),
-        }
-      }
-      return {
-        uri: item.uri || '',
-        type: 'video',
-        id: generateUUID(),
-      }
-    })
+    attachments.map((item) => ({
+      uri: item.uri || '',
+      type: item.type === 'image/jpeg' ? 'image' : 'video',
+      id: generateUUID(),
+    }))
 
   const onCreatePostDismiss = () => {
     const { images, location, text } = state
