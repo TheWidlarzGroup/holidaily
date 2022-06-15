@@ -118,7 +118,7 @@ export type ModalRoutes = {
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  CALENDAR: undefined
+  CALENDAR: { prevScreen?: string } | undefined
   RequestModal: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
   FEED: { postId?: string } | undefined

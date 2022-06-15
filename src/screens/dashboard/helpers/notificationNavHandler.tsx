@@ -16,6 +16,7 @@ export const notificationNavHandler = (
         },
       },
     })
-  if (type === 'prompt') navigate('CALENDAR', { prevScreen: 'NOTIFICATIONS' })
+  if (type === 'prompt')
+    navigate({ name: 'CALENDAR', params: { prevScreen: 'NOTIFICATIONS' }, merge: true })
   else navigate('FEED', { postId: 3 })
 }
