@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Box } from 'utils/theme'
-import { ScrollView } from 'react-native-gesture-handler'
 import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Analytics } from 'services/analytics'
+import Animated, {
+  Easing,
+  Layout,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from 'react-native-reanimated'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
 
@@ -13,6 +20,8 @@ type CommentBoxProps = {
   post: FeedPost
   isEditingTarget: boolean
 }
+
+const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const CommentBox = ({
   areCommentsExpanded,
@@ -28,9 +37,35 @@ export const CommentBox = ({
       Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
   }, [areCommentsExpanded, comments])
 
-  if (comments?.length === 0) return null
+  const height = useSharedValue(0)
+  const opacity = useSharedValue(0)
+  useEffect(() => {
+    const heightDelay = areCommentsExpanded ? 80 : 0
+    height.value = withDelay(
+      heightDelay,
+      withTiming(areCommentsExpanded ? 0 : 100, {
+        duration: 250,
+        easing: Easing.exp,
+      })
+    )
+    const opacityDelay = areCommentsExpanded ? 0 : 100
+    opacity.value = withDelay(
+      opacityDelay,
+      withTiming(areCommentsExpanded ? 0 : 1, {
+        duration: 250,
+        easing: Easing.exp,
+      })
+    )
+  }, [height, areCommentsExpanded, opacity])
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    maxHeight: `${height.value}%`,
+    opacity: opacity.value,
+  }))
 
   const commentsCopy = comments.slice().reverse()
+
+  if (comments?.length === 0) return null
 
   return (
     <Box padding="s" marginTop="-ml" paddingBottom="xm">
@@ -39,24 +74,37 @@ export const CommentBox = ({
         onPress={toggleCommentsExpanded}
         opened={areCommentsExpanded}
       />
-      <ScrollView>
-        {commentsCopy.map((comment, index) => {
-          if (!areCommentsExpanded && index > 0) return
-          return (
-            <Comment
-              openEditModal={openEditModal}
-              editCommentId={editCommentId}
-              setEditCommentId={setEditCommentId}
-              isEditingTarget={isEditingTarget}
-              postId={id}
-              comment={comment}
-              hideAvatar={commentFromPreviousUser(comments, index)}
-              id={comment.id}
-              key={comment.id}
-            />
-          )
-        })}
-      </ScrollView>
+      <Box>
+        <Comment
+          openEditModal={openEditModal}
+          editCommentId={editCommentId}
+          setEditCommentId={setEditCommentId}
+          isEditingTarget={isEditingTarget}
+          postId={id}
+          comment={commentsCopy[0]}
+          hideAvatar={commentFromPreviousUser(commentsCopy, 0)}
+          id={commentsCopy[0].id}
+          key={commentsCopy[0].id}
+        />
+        <AnimatedBox style={[animatedStyle]} layout={Layout.mass(500)}>
+          {commentsCopy.map((comment, index) => {
+            if (index === 0) return
+            return (
+              <Comment
+                openEditModal={openEditModal}
+                editCommentId={editCommentId}
+                setEditCommentId={setEditCommentId}
+                isEditingTarget={isEditingTarget}
+                postId={id}
+                comment={comment}
+                hideAvatar={commentFromPreviousUser(comments, index)}
+                id={comment.id}
+                key={comment.id}
+              />
+            )
+          })}
+        </AnimatedBox>
+      </Box>
     </Box>
   )
 }
