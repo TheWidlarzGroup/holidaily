@@ -14,7 +14,11 @@ import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { EditTargetType } from 'mock-api/models/miragePostTypes'
-import { BottomTabNavigationProps, BottomTabRoutes } from 'navigation/types'
+import {
+  BottomTabNavigationProps,
+  BottomTabNavigationType,
+  BottomTabRoutes,
+} from 'navigation/types'
 import { FlatList } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
@@ -22,20 +26,22 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { useBackHandler } from 'hooks/useBackHandler'
+import { usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
 const MAX_SCROLL_RETRIES = 4
 
+type PrevScreen = 'NOTIFICATIONS' | undefined
+
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
-  const [prevScreen, setPrevScreen] = useState('')
+  const [prevScreen, setPrevScreen] = useState<PrevScreen>()
   const [language] = useLanguage()
   const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
-  const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
   const focus = useIsFocused()
-  const navigation = useNavigation()
+  const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
+  const navigation = useNavigation<BottomTabNavigationType<'FEED'>>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
   const flatListRef = useRef<FlatList | null>(null)
@@ -52,8 +58,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   useFocusEffect(
     useCallback(() => {
-      if (route.params?.prevScreen) {
-        setPrevScreen(route.params.prevScreen)
+      const prevScreenValue = route.params?.prevScreen
+      if (prevScreenValue === 'NOTIFICATIONS') {
+        setPrevScreen('NOTIFICATIONS')
         navigation.setParams({ prevScreen: undefined })
       }
       // Comment: we want to trigger this fn once, we don't want to track navigation
@@ -62,18 +69,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   )
 
   useEffect(() => {
-    if (!focus && prevScreen) setPrevScreen('')
+    if (!focus && prevScreen) setPrevScreen(undefined)
     // Comment: we don't want to track prevScreen
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus])
 
-  useBackHandler(() => {
-    if (prevScreen) {
-      navigation.navigate(prevScreen)
-      return true
-    }
-    return false
-  })
+  usePrevScreenBackHandler(navigation, prevScreen)
 
   const openEditModal = (target: EditTargetType) => {
     if (!(target.authorId === user?.id)) return

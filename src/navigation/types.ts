@@ -120,6 +120,7 @@ export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
   CALENDAR: { prevScreen?: string } | undefined
   RequestModal: undefined
+  NOTIFICATIONS: undefined
   Stats: NestedNavigatorParams<RequestsRoutes>
   FEED: { postId?: string; prevScreen?: string } | undefined
 }

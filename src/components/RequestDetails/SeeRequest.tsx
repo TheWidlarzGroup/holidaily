@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { StatusBar } from 'react-native'
 import { Analytics } from 'services/analytics'
 import { useBackHandler } from 'hooks/useBackHandler'
+import { usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
@@ -27,6 +28,8 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
   useEffect(() => {
     Analytics().track('REQUEST_OPENED', { request: { ...p } })
   }, [p])
+
+  usePrevScreenBackHandler(navigation, prevScreen)
 
   useBackHandler(() => {
     if (prevScreen) {
