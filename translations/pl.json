@@ -253,7 +253,8 @@
     "inputPlaceholder": "Co słychać?",
     "sendPost": "Opublikuj",
     "postSent": "Opublikowano post!",
-    "savedAsDraft": "Zapisano post jako wersja robocza."
+    "savedAsDraft": "Zapisano post jako wersja robocza.",
+    "undo": "Cofnij"
   },
   "settings": {
     "name": "Ustawienia ",
