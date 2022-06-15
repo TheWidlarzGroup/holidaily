@@ -33,6 +33,7 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
       contentContainerStyle={{ paddingBottom: theme.spacing.xxxxl }}
       sections={sections}
       keyExtractor={({ id }) => id}
+      showsVerticalScrollIndicator={false}
       ListHeaderComponent={<MarkAllAsSeen unseen={unseenNotifications} />}
       renderSectionHeader={({ section: { title, data } }) =>
         data.length ? (

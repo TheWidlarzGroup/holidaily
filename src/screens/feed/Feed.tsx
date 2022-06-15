@@ -18,9 +18,9 @@ import { BottomTabNavigationProps, BottomTabRoutes } from 'navigation/types'
 import { FlatList } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
-import { useNotifications } from 'react-native-notificated'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useBackHandler } from 'hooks/useBackHandler'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
@@ -31,7 +31,7 @@ const MAX_SCROLL_RETRIES = 4
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [prevScreen, setPrevScreen] = useState('')
   const [language] = useLanguage()
-  const { notify } = useNotifications()
+  const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
   const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
   const focus = useIsFocused()
@@ -85,7 +85,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     closeOptionsModal?.()
     if (editTarget?.type === 'comment') {
       deleteComment(editTarget.commentId)
-      notify('success', { params: { title: t('commentDeleted') } })
+      notify('successCustom', { params: { title: t('commentDeleted') } })
     }
     setEditTarget(null)
   }
@@ -106,7 +106,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
     handleSetMessageContent('')
     setEditTarget(null)
-    notify('success', { params: { title: t('changesSaved') } })
+    notify('successCustom', { params: { title: t('changesSaved') } })
   }
 
   const handleSetMessageContent = (text: string) => {
