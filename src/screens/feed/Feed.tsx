@@ -62,6 +62,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       handleSetMessageContent(editTarget?.text)
       setTimeout(() => openMessageInput(), 400)
     }
+    if (editTarget?.type === 'post') {
+      const editedPost = data?.find((post) => post.id === editTarget.postId)
+      navigation.navigate('CREATE_POST', { sentPost: editedPost })
+    }
   }
 
   const onCommentEdit = () => {
