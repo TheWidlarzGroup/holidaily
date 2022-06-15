@@ -77,6 +77,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     if (editTarget?.type === 'post') {
       const postToEdit = data?.find((post) => post.id === editTarget.postId)
       navigation.navigate('CREATE_POST', { sentPost: postToEdit })
+      setEditTarget(null)
     }
   }
 
@@ -159,6 +160,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
             post={item}
             openEditModal={openEditModal}
             isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+            editTargetId={editTarget?.postId}
           />
         )}
         keyExtractor={(post) => post.id}
