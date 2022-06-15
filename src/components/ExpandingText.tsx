@@ -86,11 +86,6 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
             </Text>
           </>
         )}
-        {opened && initialNumOfLines > 3 && (
-          <Text variant="textSM" color="special">
-            {t('showLessCapitalized')}
-          </Text>
-        )}
       </Text>
     </AnimatedBaseOpacity>
   )
