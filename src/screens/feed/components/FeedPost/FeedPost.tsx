@@ -59,7 +59,7 @@ export const FeedPost = (props: FeedPostProps) => {
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"
       marginTop={showBorder ? 'xsplus' : 's'}>
-      <FeedPostHeader post={post} showBorder={showBorder} />
+      <FeedPostHeader post={post} openEditModal={props.openEditModal} showBorder={showBorder} />
       <FeedPostBody post={post} showBorder={showBorder} />
       <FeedPostFooter {...props} showBorder={showBorder} />
     </AnimatedBox>
