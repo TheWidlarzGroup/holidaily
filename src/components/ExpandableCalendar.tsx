@@ -260,7 +260,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
             onPress={toggleOnPress}
             justifyContent="center"
             alignItems="center"
-            marginTop="xxm">
+            marginTop="m">
             <Animated.View style={[rotationStyles]}>
               <ArrowDown color={theme.colors.black} />
             </Animated.View>
