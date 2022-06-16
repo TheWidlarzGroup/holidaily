@@ -28,11 +28,43 @@ function addPost(schema: Schema<ModelsSchema>, req: Request) {
   return postWithNewId
 }
 
+function editPost(schema: Schema<ModelsSchema>, req: Request) {
+  const body = JSON.parse(req.requestBody)
+  const post = schema.find('post', req.params.postId)
+  if (!post) return new Response(404)
+  post.update(body)
+  return post
+}
+
+function deletePost(schema: Schema<ModelsSchema>, req: Request) {
+  const post = schema.find('post', req.params.postId)
+  if (!post) return new Response(404)
+  post.destroy()
+  return post.id
+}
+
 function addComment(schema: Schema<ModelsSchema>, req: Request) {
   const body = JSON.parse(req.requestBody)
   const post = schema.find('post', body.postId)
   if (!post) return new Response(404)
   schema.create('comment', { ...body.comment, post })
+  return post
+}
+
+function editComment(schema: Schema<ModelsSchema>, req: Request) {
+  const body = JSON.parse(req.requestBody)
+  const comment = schema.find('comment', body.commentId)
+  const post = schema.find('post', comment.postId)
+  if (!comment || !post) return new Response(404)
+  comment.update({ text: body.text })
+  return post
+}
+
+function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
+  const comment = schema.find('comment', req.requestBody)
+  const post = schema.find('post', comment.postId)
+  if (!comment || !post) return new Response(404)
+  comment.destroy()
   return post
 }
 
@@ -58,36 +90,4 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
     schema.create('reaction', { ...body.reaction, post })
   }
   return post
-}
-
-function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
-  const comment = schema.find('comment', req.requestBody)
-  const post = schema.find('post', comment.postId)
-  if (!comment || !post) return new Response(404)
-  comment.destroy()
-  return post
-}
-
-function editComment(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req.requestBody)
-  const comment = schema.find('comment', body.commentId)
-  const post = schema.find('post', comment.postId)
-  if (!comment || !post) return new Response(404)
-  comment.update({ text: body.text })
-  return post
-}
-
-function editPost(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req.requestBody)
-  const post = schema.find('post', req.params.postId)
-  if (!post) return new Response(404)
-  post.update(body)
-  return post
-}
-
-function deletePost(schema: Schema<ModelsSchema>, req: Request) {
-  const post = schema.find('post', req.params.postId)
-  if (!post) return new Response(404)
-  post.destroy()
-  return post.id
 }
