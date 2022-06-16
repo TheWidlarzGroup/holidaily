@@ -9,16 +9,16 @@ type PostSuccess = {
   post: FeedPost
 }
 
-const addPost = async (body: FeedPost): Promise<PostSuccess> => {
-  const { data } = await axios.post<PostSuccess>(API.POST.addPost, body)
+const addPost = async (body: FeedPost): Promise<FeedPost> => {
+  const { data } = await axios.post<FeedPost>(API.POST.addPost, body)
   return data
 }
 export const useAddPost = () =>
-  useMutation<PostSuccess, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
+  useMutation<FeedPost, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
-        if (data?.length) return [payload.post, ...data]
-        return [payload.post]
+        if (data?.length) return [payload, ...data]
+        return [payload]
       })
     },
     onError: (err) => {

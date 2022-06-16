@@ -16,7 +16,7 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { useDeletePost } from 'dataAccess/mutations/useAddPost'
+import { useAddPost, useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -41,6 +41,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
   const { mutate: deletePost } = useDeletePost()
+  const { mutate: addPost } = useAddPost()
 
   const openEditModal = (target: EditTargetType) => {
     if (!(target.authorId === user?.id)) return
@@ -58,9 +59,16 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       })
     }
     if (editTarget?.type === 'post') {
+      const deletedPost = data?.find((post) => post.id === editTarget.postId)
       deletePost(editTarget.postId, {
         onSuccess: () => {
-          notify('successCustom', { params: { title: t('postDeleted') } })
+          notify('successCustom', {
+            params: {
+              title: t('postDeleted'),
+              onPressText: t('undo'),
+              onPress: () => deletedPost && addPost(deletedPost),
+            },
+          })
         },
       })
     }

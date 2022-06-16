@@ -2,6 +2,7 @@
 import { Server, Request } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { requireAuth } from 'mockApi/utils/requireAuth'
+import { generateUUID } from 'utils/generateUUID'
 import { Reaction, Schema as ModelsSchema } from '../models'
 
 export function postsRoute(context: Server<ModelsSchema>) {
@@ -19,8 +20,12 @@ function fetchPosts(schema: Schema<ModelsSchema>) {
 }
 
 function addPost(schema: Schema<ModelsSchema>, req: Request) {
-  const body = JSON.parse(req.requestBody)
-  return schema.create('post', body)
+  const post = JSON.parse(req.requestBody)
+  // Comment: when newly added post is deleted and it's posted back with the same data,
+  // mirage shows error 500, when new Id is added to this post it's working fine
+  const postWithNewId = { ...post, id: generateUUID() }
+  schema.create('post', postWithNewId)
+  return postWithNewId
 }
 
 function addComment(schema: Schema<ModelsSchema>, req: Request) {
