@@ -49,6 +49,7 @@ export const Additionals = (p: AdditionalsProps) => {
             variant="medium"
             onChangeText={setMsgContent}
             autoFocus
+            value={msgContent}
             maxLength={MSG_MAX_LEN}
           />
           <Box alignSelf="flex-end">
