@@ -181,7 +181,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         options={modalOptions}
         isOpen={isOptionsModalOpen}
         onHide={closeOptionsModal}
-        onSwipeStart={() => setEditTarget(null)}
+        onSwipeComplete={() => setEditTarget(null)}
+        onBackdropPress={() => setEditTarget(null)}
         backdropColor="transparent"
       />
       <MessageInputModal

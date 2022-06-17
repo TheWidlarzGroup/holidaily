@@ -18,7 +18,8 @@ type OptionsModalProps = {
   isOpen: boolean
   onHide: F0
   hideBackdrop?: true
-  onSwipeStart?: F0
+  onSwipeComplete?: F0
+  onBackdropPress?: F0
   backdropColor?: 'transparent'
 }
 
