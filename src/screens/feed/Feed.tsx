@@ -182,7 +182,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         isOpen={isOptionsModalOpen}
         onHide={closeOptionsModal}
         onSwipeStart={() => setEditTarget(null)}
-        hideBackdrop
+        backdropColor="transparent"
       />
       <MessageInputModal
         messageContent={editTarget?.type === 'comment' && editTarget?.text ? editTarget?.text : ''}

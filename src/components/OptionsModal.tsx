@@ -19,6 +19,7 @@ type OptionsModalProps = {
   onHide: F0
   hideBackdrop?: true
   onSwipeStart?: F0
+  backdropColor?: 'transparent'
 }
 
 export const OptionsModal = (p: OptionsModalProps) => {
