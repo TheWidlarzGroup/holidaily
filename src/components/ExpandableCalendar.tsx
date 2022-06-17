@@ -161,10 +161,10 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     const { layout } = e.nativeEvent
     if (layout.y > 300) {
       props.setIsFullHeight(true)
-      rotation.value = withSpring(180)
+      rotation.value = 180
     } else {
       props.setIsFullHeight(false)
-      rotation.value = withSpring(0)
+      rotation.value = 0
     }
   }
 
