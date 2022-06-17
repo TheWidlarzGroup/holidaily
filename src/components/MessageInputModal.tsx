@@ -1,22 +1,17 @@
-import React, { useCallback, useRef } from 'react'
-import { Modal, ModalProps, NativeSyntheticEvent, TextInput } from 'react-native'
+import React, { useCallback } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BaseOpacity, Box } from 'utils/theme'
 import { MessageInput, MessageInputProps } from './MessageInput'
+import { SwipeableModal } from './SwipeableModal'
 
-type MessageInputModalProps = MessageInputProps &
-  ModalProps & {
-    requestCloseOnBlur?: true
-  }
+type MessageInputModalProps = MessageInputProps & {
+  requestCloseOnBlur?: true
+  visible: boolean
+  onRequestClose: F0
+}
 
 export const MessageInputModal = (props: MessageInputModalProps) => {
-  const inputRef = useRef<TextInput>(null)
-  const { onShow, requestCloseOnBlur, onBlur, onRequestClose } = props
-
-  const handleShow = (event: NativeSyntheticEvent<unknown>) => {
-    onShow?.(event)
-    if (props.autofocus) inputRef.current?.focus()
-  }
+  const { requestCloseOnBlur, onBlur, onRequestClose, visible } = props
 
   const handleBlur = useCallback(
     (value: string) => {
@@ -27,15 +22,15 @@ export const MessageInputModal = (props: MessageInputModalProps) => {
   )
 
   return (
-    <Modal transparent animationType="slide" {...props} onShow={handleShow}>
+    <SwipeableModal isOpen={visible} onHide={onRequestClose} backdropColor="transparent">
       <KeyboardAwareScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
         keyboardShouldPersistTaps="handled">
         <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onRequestClose} />
         <Box bg="disabled" borderTopLeftRadius="l" borderTopRightRadius="l" backgroundColor="white">
-          <MessageInput ref={inputRef} {...props} onBlur={handleBlur} />
+          <MessageInput {...props} onBlur={handleBlur} />
         </Box>
       </KeyboardAwareScrollView>
-    </Modal>
+    </SwipeableModal>
   )
 }
