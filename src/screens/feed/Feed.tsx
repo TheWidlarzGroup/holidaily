@@ -66,7 +66,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
             params: {
               title: t('postDeleted'),
               onPressText: t('undo'),
-              onPress: () => deletedPost && addPost(deletedPost),
+              onPress: () => {
+                if (deletedPost) addPost(deletedPost)
+              },
             },
           })
         },
