@@ -11,12 +11,17 @@ import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { BottomTabRoutes } from 'navigation/types'
+import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
+  const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
+  const prevScreen: PrevScreen = route.params?.prevScreen
 
   const {
     filterCategories,
@@ -25,6 +30,8 @@ const CalendarToWrap = () => {
     setSelectedDate,
     currentMonthDays,
   } = useCalendarData()
+
+  usePrevScreenBackHandler(prevScreen)
 
   useEffect(() => {
     if (currentIndex === 0) {

@@ -4,6 +4,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { DayOffRequest, FeedPost } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
+import { PrevScreen } from 'hooks/usePrevScreenBackHandler'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -118,10 +119,12 @@ export type ModalRoutes = {
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  CALENDAR: undefined
+  CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
   RequestModal: undefined
+  NOTIFICATIONS: undefined
+  CREATE_POST: { sentPost: FeedPost | undefined }
   Stats: NestedNavigatorParams<RequestsRoutes>
-  FEED: { postId?: string } | undefined
+  FEED: { postId?: string; prevScreen?: 'NOTIFICATIONS' } | undefined
 }
 
 export type DrawerRoutes = {
@@ -162,7 +165,7 @@ export type BudgetRoutes = {
 
 export type RequestsRoutes = {
   STATS_AND_REQUESTS: undefined
-  SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
+  SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'> & { prevScreen?: PrevScreen }
   NOTIFICATIONS: undefined
 }
 
