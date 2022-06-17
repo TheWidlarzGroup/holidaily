@@ -1,46 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
-import { useNavigation } from '@react-navigation/native'
-import { RequestsNavigationProps, RequestsNavigatorType } from 'navigation/types'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { RequestsNavigationProps, RequestsNavigatorType, RequestsRoutes } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
 import { StatusBar } from 'react-native'
 import { Analytics } from 'services/analytics'
-import { useBackHandler } from 'hooks/useBackHandler'
-import { usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
-type PrevScreen = 'NOTIFICATIONS' | 'STATS_AND_REQUESTS'
-
 export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SEE_REQUEST'>) => {
-  const [prevScreen, setPrevScreen] = useState<PrevScreen>('STATS_AND_REQUESTS')
   const navigation = useNavigation<RequestsNavigatorType<'SEE_REQUEST'>>()
   const { t } = useTranslation('seeRequest')
+  const route = useRoute<RouteProp<RequestsRoutes, 'SEE_REQUEST'>>()
   const theme = useTheme()
-
-  useEffect(() => {
-    const getPrevScreen = navigation.getState().routes.slice().pop()?.params?.prevScreen
-    if (getPrevScreen) setPrevScreen(getPrevScreen)
-  }, [navigation])
 
   useEffect(() => {
     Analytics().track('REQUEST_OPENED', { request: { ...p } })
   }, [p])
 
-  usePrevScreenBackHandler(navigation, prevScreen)
-
-  useBackHandler(() => {
-    if (prevScreen) {
-      navigation.navigate(prevScreen)
-      return true
-    }
-    return false
-  })
+  const prevScreen: PrevScreen = route.params?.prevScreen
+  usePrevScreenBackHandler(prevScreen, true)
 
   const goBack = () => {
-    navigation.navigate(prevScreen)
+    navigation.navigate(prevScreen || 'STATS_AND_REQUESTS')
   }
 
   return (

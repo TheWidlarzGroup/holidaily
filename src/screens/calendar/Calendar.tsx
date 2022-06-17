@@ -11,20 +11,17 @@ import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
-import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
-import { BottomTabNavigationType, BottomTabRoutes } from 'navigation/types'
-import { usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { BottomTabRoutes } from 'navigation/types'
+import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
-type PrevScreen = 'NOTIFICATIONS' | undefined
-
 const CalendarToWrap = () => {
-  const [prevScreen, setPrevScreen] = useState<PrevScreen>()
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
-  const navigation = useNavigation<BottomTabNavigationType<'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
+  const prevScreen: PrevScreen = route.params?.prevScreen
 
   const {
     filterCategories,
@@ -34,19 +31,7 @@ const CalendarToWrap = () => {
     currentMonthDays,
   } = useCalendarData()
 
-  useFocusEffect(
-    useCallback(() => {
-      const prevScreenValue = route.params?.prevScreen
-      if (prevScreenValue === 'NOTIFICATIONS') {
-        setPrevScreen('NOTIFICATIONS')
-        navigation.setParams({ prevScreen: undefined })
-      }
-      // Comment: we want to trigger this fn once, we don't want to track route and navigation
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-  )
-
-  usePrevScreenBackHandler(navigation, prevScreen)
+  usePrevScreenBackHandler(prevScreen)
 
   useEffect(() => {
     if (currentIndex === 0) {
