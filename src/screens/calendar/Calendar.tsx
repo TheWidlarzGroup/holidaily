@@ -48,15 +48,21 @@ const CalendarToWrap = () => {
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
-      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-      if (!dayEvents) return
-      const index = currentMonthDays.indexOf(dayEvents)
-      setCurrentIndex(index)
-      flatListRef.current?.scrollToIndex({ index, animated: true })
       setTimeout(() => setSelectedDate(parseISO(dateString)))
     },
-    [currentMonthDays, setSelectedDate]
+    [setSelectedDate]
   )
+
+  useEffect(() => {
+    const dateString = getISODateString(selectedDate)
+    const dayEvents = currentMonthDays.find((a) => a.date === dateString)
+    if (!dayEvents) return
+
+    const index = currentMonthDays.indexOf(dayEvents)
+    setCurrentIndex(index)
+
+    flatListRef.current?.scrollToIndex({ index, animated: true })
+  }, [currentMonthDays, selectedDate])
 
   // Comment: show loader spinner while calendar is rendering
   const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)

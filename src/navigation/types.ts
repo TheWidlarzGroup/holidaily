@@ -122,6 +122,7 @@ export type BottomTabRoutes = {
   CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
   RequestModal: undefined
   NOTIFICATIONS: undefined
+  CREATE_POST: { sentPost: FeedPost | undefined }
   Stats: NestedNavigatorParams<RequestsRoutes>
   FEED: { postId?: string; prevScreen?: 'NOTIFICATIONS' } | undefined
 }

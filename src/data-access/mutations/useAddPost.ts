@@ -9,16 +9,16 @@ type PostSuccess = {
   post: FeedPost
 }
 
-const addPost = async (body: FeedPost): Promise<PostSuccess> => {
-  const { data } = await axios.post<PostSuccess>(API.POST.addPost, body)
+const addPost = async (body: FeedPost): Promise<FeedPost> => {
+  const { data } = await axios.post<FeedPost>(API.POST.addPost, body)
   return data
 }
 export const useAddPost = () =>
-  useMutation<PostSuccess, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
+  useMutation<FeedPost, AxiosError<{ errors: string[] }>, FeedPost>(addPost, {
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
-        if (data?.length) return [payload.post, ...data]
-        return [payload.post]
+        if (data?.length) return [payload, ...data]
+        return [payload]
       })
     },
     onError: (err) => {
@@ -44,5 +44,23 @@ export const useEditPost = () =>
     },
     onError: (err) => {
       console.log('Error while adding post: ', err.message)
+    },
+  })
+
+const deletePost = async (id: string): Promise<string> => {
+  const { data } = await axios.delete(API.DELETE.deletePost(id), { data: id })
+  return data
+}
+export const useDeletePost = () =>
+  useMutation<string, AxiosError<{ errors: string[] }>, string>(deletePost, {
+    onSuccess: (payload) => {
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        const filteredPosts = data.filter((post) => post.id !== payload)
+        return filteredPosts
+      })
+    },
+    onError: (err) => {
+      console.log('Error while removing post: ', err.message)
     },
   })

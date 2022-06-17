@@ -21,6 +21,7 @@ import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { useAddPost, useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -45,6 +46,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
+  const { mutate: deletePost } = useDeletePost()
+  const { mutate: addPost } = useAddPost()
 
   const prevScreen: PrevScreen = route.params?.prevScreen
   usePrevScreenBackHandler(prevScreen)
@@ -58,8 +61,27 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const onPressModalDelete = () => {
     closeOptionsModal?.()
     if (editTarget?.type === 'comment') {
-      deleteComment(editTarget.commentId)
-      notify('successCustom', { params: { title: t('commentDeleted') } })
+      deleteComment(editTarget.commentId, {
+        onSuccess: () => {
+          notify('successCustom', { params: { title: t('commentDeleted') } })
+        },
+      })
+    }
+    if (editTarget?.type === 'post') {
+      const deletedPost = data?.find((post) => post.id === editTarget.postId)
+      deletePost(editTarget.postId, {
+        onSuccess: () => {
+          notify('successCustom', {
+            params: {
+              title: t('postDeleted'),
+              onPressText: t('undo'),
+              onPress: () => {
+                if (deletedPost) addPost(deletedPost)
+              },
+            },
+          })
+        },
+      })
     }
     setEditTarget(null)
   }
@@ -71,16 +93,27 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       handleSetMessageContent(editTarget?.text)
       setTimeout(() => openMessageInput(), 400)
     }
+    if (editTarget?.type === 'post') {
+      const postToEdit = data?.find((post) => post.id === editTarget.postId)
+      navigation.navigate('CREATE_POST', { sentPost: postToEdit })
+      setEditTarget(null)
+    }
   }
 
   const onCommentEdit = () => {
     closeMessageInput()
     if (editTarget?.type === 'comment') {
-      editComment({ ...editTarget, text: editTarget?.text })
+      editComment(
+        { ...editTarget, text: editTarget?.text },
+        {
+          onSuccess: () => {
+            notify('successCustom', { params: { title: t('changesSaved') } })
+          },
+        }
+      )
     }
     handleSetMessageContent('')
     setEditTarget(null)
-    notify('successCustom', { params: { title: t('changesSaved') } })
   }
 
   const handleSetMessageContent = (text: string) => {
@@ -146,6 +179,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
             post={item}
             openEditModal={openEditModal}
             isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+            editTargetId={editTarget?.postId}
           />
         )}
         keyExtractor={(post) => post.id}

@@ -15,8 +15,7 @@ type Post = {
 }
 
 export const FeedPostFooter = (props: Post) => {
-  const [areCommentsExpanded, { toggle: toggleCommentsExpanded, setTrue: expandComments }] =
-    useBooleanState(false)
+  const [areCommentsExpanded, { toggle: toggleCommentsExpanded }] = useBooleanState(false)
   const { post, showBorder } = props
   const isBorderShown = showBorder ? 2 : 0
 
@@ -28,7 +27,7 @@ export const FeedPostFooter = (props: Post) => {
       paddingBottom={showBorder ? 'none' : 'xxs'}
       borderColor="special"
       borderTopWidth={0}>
-      <FooterBar post={post} expandComments={expandComments} />
+      <FooterBar post={post} />
       <CommentBox
         areCommentsExpanded={areCommentsExpanded}
         toggleCommentsExpanded={toggleCommentsExpanded}
