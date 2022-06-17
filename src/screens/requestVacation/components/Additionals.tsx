@@ -46,7 +46,7 @@ export const Additionals = (p: AdditionalsProps) => {
             onSubmitEditing={({ nativeEvent: e }) => p.onMsgSubmit(e.text)}
             inputLabel={t('messageLabel')}
             isError={false}
-            variant="medium"
+            variant="mediumHeightGrow"
             onChangeText={setMsgContent}
             autoFocus
             value={msgContent}
