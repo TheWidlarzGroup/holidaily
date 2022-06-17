@@ -100,7 +100,8 @@ export const TeamMemberModal = ({ onHide, isOpen, modalUser }: TeamMemberProps) 
       useScrollView={teamMemberHeight > SWIPEABLE_MODAL_HEIGHT}
       hasIndicator
       isOpen={isOpen}
-      onHide={onHide}>
+      onHide={onHide}
+      addTopOffset>
       <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
     </SwipeableModalRegular>
   )
