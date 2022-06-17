@@ -19,6 +19,7 @@ export type SwipeableModalRegularProps = PropsWithChildren<
     hasIndicator?: boolean
     closeAction?: 'close' | 'back'
     useScrollView?: boolean
+    addTopOffset?: true
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >

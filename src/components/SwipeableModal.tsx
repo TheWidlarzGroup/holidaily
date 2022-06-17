@@ -13,6 +13,7 @@ type SwipeableModalProps = PropsWithChildren<
     hideBackdrop?: true
     onSwipeComplete?: F0
     onBackdropPress?: F0
+    addTopOffset?: true
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >
@@ -29,6 +30,7 @@ export const SwipeableModal = ({
   onSwipeComplete,
   backdropColor,
   onBackdropPress,
+  addTopOffset,
   ...rest
 }: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
@@ -49,7 +51,7 @@ export const SwipeableModal = ({
       swipeDirection="down"
       animationIn="slideInUp"
       animationOut="slideOutDown"
-      style={styles.container}
+      style={[styles.container, addTopOffset && styles.topOffset]}
       animationInTiming={DEFAULT_MODAL_ANIM_TIME}
       animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
       onModalHide={() => {
@@ -74,9 +76,11 @@ export const SwipeableModal = ({
 const useStyles = mkUseStyles((theme) => ({
   container: {
     margin: 0,
-    marginTop: SWIPEABLE_MODAL_OFFSET_TOP,
     shadowColor: theme.colors.modalShadow,
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 1,
+  },
+  topOffset: {
+    marginTop: SWIPEABLE_MODAL_OFFSET_TOP,
   },
 }))
