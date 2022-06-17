@@ -66,7 +66,7 @@ export type EditComment = {
   text?: string
 }
 
-type EditPost = {
+export type EditPost = {
   type: 'post'
   authorId: string
   postId: string
