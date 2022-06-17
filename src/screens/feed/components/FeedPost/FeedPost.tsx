@@ -16,22 +16,21 @@ import { FeedPostHeader } from './FeedPostHeader'
 type FeedPostProps = {
   post: FeedPostType
   openEditModal: F1<EditTargetType>
-  isEditingTarget: boolean
-  editTargetId?: string
+  editTarget?: EditTargetType | null
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const FeedPost = (props: FeedPostProps) => {
-  const { post } = props
+  const { post, editTarget, openEditModal } = props
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
   const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
 
   useEffect(() => {
-    if (props.editTargetId === post.id && props.isEditingTarget) setShowBorder(true)
+    if (editTarget?.postId === post.id && editTarget.type === 'post') setShowBorder(true)
     else setShowBorder(false)
-  }, [post.id, props.editTargetId, props.isEditingTarget])
+  }, [post.id, editTarget?.postId, editTarget?.type])
 
   useEffect(() => {
     animProgress.value = withTiming(11, { duration: 800, easing: Easing.exp })
@@ -65,9 +64,13 @@ export const FeedPost = (props: FeedPostProps) => {
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"
       marginTop={showBorder ? 'xsplus' : 's'}>
-      <FeedPostHeader post={post} openEditModal={props.openEditModal} showBorder={showBorder} />
+      <FeedPostHeader post={post} openEditModal={openEditModal} showBorder={showBorder} />
       <FeedPostBody post={post} showBorder={showBorder} />
-      <FeedPostFooter {...props} showBorder={showBorder} />
+      <FeedPostFooter
+        {...props}
+        showBorder={showBorder}
+        isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+      />
     </AnimatedBox>
   )
 }

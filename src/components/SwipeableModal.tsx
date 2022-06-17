@@ -2,7 +2,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
 import { windowHeight } from 'utils/deviceSizes'
-import { mkUseStyles, theme } from 'utils/theme'
+import { mkUseStyles } from 'utils/theme'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
@@ -11,7 +11,8 @@ type SwipeableModalProps = PropsWithChildren<
     isOpen: boolean
     onHide: F0
     hideBackdrop?: true
-    onSwipeClose?: F0
+    onSwipeComplete?: F0
+    onBackdropPress?: F0
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >
@@ -25,7 +26,9 @@ export const SwipeableModal = ({
   isOpen,
   onHide,
   hideBackdrop,
-  onSwipeStart,
+  onSwipeComplete,
+  backdropColor,
+  onBackdropPress,
   ...rest
 }: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
@@ -40,9 +43,8 @@ export const SwipeableModal = ({
       hasBackdrop={!hideBackdrop}
       useNativeDriverForBackdrop
       coverScreen
-      onSwipeStart={onSwipeStart}
       hideModalContentWhileAnimating
-      backdropColor="black"
+      backdropColor={backdropColor || 'black'}
       backdropOpacity={0.6}
       swipeDirection="down"
       animationIn="slideInUp"
@@ -54,22 +56,27 @@ export const SwipeableModal = ({
         onHide()
         resetState()
       }}
-      onSwipeComplete={fadeOut}
+      onSwipeComplete={() => {
+        fadeOut()
+        onSwipeComplete?.()
+      }}
       onBackButtonPress={fadeOut}
-      onBackdropPress={fadeOut}
+      onBackdropPress={() => {
+        fadeOut()
+        onBackdropPress?.()
+      }}
       {...rest}>
       {children}
     </Modal>
   )
 }
 
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme) => ({
   container: {
     margin: 0,
     marginTop: SWIPEABLE_MODAL_OFFSET_TOP,
     shadowColor: theme.colors.modalShadow,
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 1,
-    shadowRadius: 8,
   },
 }))
