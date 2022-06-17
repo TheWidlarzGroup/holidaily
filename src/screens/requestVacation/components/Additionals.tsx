@@ -38,7 +38,7 @@ export const Additionals = (p: AdditionalsProps) => {
       </Text>
 
       {p.isMsgInputVisible && (
-        <>
+        <Box marginTop="m">
           <CustomInput
             multiline
             blurOnSubmit
@@ -46,9 +46,10 @@ export const Additionals = (p: AdditionalsProps) => {
             onSubmitEditing={({ nativeEvent: e }) => p.onMsgSubmit(e.text)}
             inputLabel={t('messageLabel')}
             isError={false}
-            variant="medium"
+            variant="mediumHeightGrow"
             onChangeText={setMsgContent}
             autoFocus
+            value={msgContent}
             maxLength={MSG_MAX_LEN}
           />
           <Box alignSelf="flex-end">
@@ -56,11 +57,13 @@ export const Additionals = (p: AdditionalsProps) => {
               {t('messageCharactes', { count: msgContent.length, max: MSG_MAX_LEN })}
             </Text>
           </Box>
-        </>
+        </Box>
       )}
       {!p.isMsgInputVisible && !!msgContent && (
         <Box marginTop="m">
-          <Text variant="inputLabel">{t('messageLabel')}</Text>
+          <Text variant="inputLabel" marginLeft="s">
+            {t('messageLabel')}
+          </Text>
           <Message content={msgContent} onPress={p.onMsgBtnPress} maxLen={MSG_MAX_LEN} />
         </Box>
       )}
