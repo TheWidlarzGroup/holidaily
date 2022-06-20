@@ -23,7 +23,7 @@ export const API = {
     editUser: '/api/users',
     addReactionToPost: (reaction: AddReaction) => `/api/posts/${reaction.postId}`,
     editComment: (comment: EditComment) => `/api/comment/${comment.commentId}`,
-    editPost: (post: FeedPost) => `/api/editpost/${post.id}`,
+    editPost: (post: FeedPost) => `/api/posts/edit/${post.id}`,
   },
   DELETE: {
     deleteComment: (commentId: string) => `/api/comment/${commentId}`,

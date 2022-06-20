@@ -12,7 +12,7 @@ export function postsRoute(context: Server<ModelsSchema>) {
   context.put('/posts/:postId', addReaction)
   context.delete('/comment/:id', deleteComment)
   context.put('/comment/:id', editComment)
-  context.put('/editpost/:postId', editPost)
+  context.put('/posts/edit/:postId', editPost)
   context.delete('/posts/:postId', deletePost)
 }
 function fetchPosts(schema: Schema<ModelsSchema>) {
