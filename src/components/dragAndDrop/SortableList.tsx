@@ -88,7 +88,6 @@ export const SortableList = ({ children }: SortableListProps) => {
           height: children.length > 0 ? CONTAINER_HEIGHT : 600,
         }}
         showsVerticalScrollIndicator={false}
-        bounces={false}
         scrollEventThrottle={16}
         onScroll={onScroll}
         CellRendererComponent={CellRenderer}
