@@ -3,6 +3,7 @@ import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
+import { Analytics } from 'services/analytics'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
@@ -51,6 +52,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
       } else {
         btnOnPress()
       }
+      Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
     }
 
     return (

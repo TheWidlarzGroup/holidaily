@@ -48,6 +48,12 @@ export const analyticsEventMap = {
     payload: fcast<never>(),
   },
 
+  // Calendar
+  CALENDAR_SCROLL_TO_BUTTON_PRESSED: {
+    name: '[CALENDAR] Scroll To Button Pressed',
+    payload: fcast<never>(),
+  },
+
   // Holifeed
   CREATE_POST: {
     name: '[HOLIFEED] Post Created',
