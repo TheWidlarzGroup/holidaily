@@ -46,7 +46,6 @@ const CalendarToWrap = () => {
     if (!dayEvents) return
 
     const index = currentMonthDays.indexOf(dayEvents)
-    console.log('🚀 ~ file: Calendar.tsx ~ line 49 ~ useEffect ~ index', index)
     const validatedIndex = index >= 31 ? 0 : index
     setCurrentIndex(validatedIndex)
 
