@@ -8,7 +8,7 @@ import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRo
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
-import { addDays, eachDayOfInterval, lastDayOfMonth } from 'date-fns'
+import { addHours, eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { FilterCategory } from './components/CategoriesSlider'
 import { DayInfoProps } from '../../types/DayInfoProps'
 
@@ -20,20 +20,9 @@ export const useCalendarData = () => {
   const { requests } = useRequestsContext()
   const { user } = useUserContext()
 
-  console.log(
-    '🚀 ~ file: useCalendarData.ts ~ line 19 ~ useCalendarData ~ selectedDate',
-    selectedDate
-  )
-  const convertToLocalDate = (date: string) => {
-    const dateToConvert = new Date(date)
-    const localDate = new Date()
-    dateToConvert.setHours(dateToConvert.getHours() + localDate.getTimezoneOffset() / 60)
-    return dateToConvert
-  }
-
   const setSelectedDate = (date: Date) => {
-    const localDate = convertToLocalDate(getISODateString(date))
-    setSelectedDateState(addDays(localDate, 1))
+    // Comment: this fn is created as there is a problem with the time zone
+    setSelectedDateState(addHours(date, 2))
   }
 
   useEffect(() => {
