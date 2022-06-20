@@ -35,7 +35,7 @@ const CalendarToWrap = () => {
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
-      setTimeout(() => setSelectedDate(parseISO(dateString)))
+      setSelectedDate(parseISO(dateString))
     },
     [setSelectedDate]
   )
@@ -46,6 +46,7 @@ const CalendarToWrap = () => {
     if (!dayEvents) return
 
     const index = currentMonthDays.indexOf(dayEvents)
+    console.log('🚀 ~ file: Calendar.tsx ~ line 49 ~ useEffect ~ index', index)
     const validatedIndex = index >= 31 ? 0 : index
     setCurrentIndex(validatedIndex)
 
