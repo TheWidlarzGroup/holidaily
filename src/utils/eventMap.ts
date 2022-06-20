@@ -97,6 +97,14 @@ export const analyticsEventMap = {
     name: '[HOLIFEED] Add Attachment Modal Opened',
     payload: fcast<never>(),
   },
+  FEED_ADD_ATTACHMENT_IMAGE_ADDED: {
+    name: '[HOLIFEED] Add Attachment Image Added',
+    payload: fcast<{ uri: string; type?: string }>(),
+  },
+  FEED_ADD_ATTACHMENT_PHOTO_ADDED: {
+    name: '[HOLIFEED] Add Attachment Photo Added',
+    payload: fcast<{ type?: string }>(),
+  },
   FEED_ADD_ATTACHMENT_MODAL_CANCELLED: {
     name: '[HOLIFEED] Add Attachment Modal Cancelled',
     payload: fcast<never>(),
@@ -147,6 +155,14 @@ export const analyticsEventMap = {
     name: '[REQUEST_VACATION] Add Attachment Modal Opened',
     payload: fcast<never>(),
   },
+  REQUEST_ADD_ATTACHMENT_IMAGE_ADDED: {
+    name: '[REQUEST_VACATION] Add Attachment Image Added',
+    payload: fcast<{ uri: string; type?: string }>(),
+  },
+  REQUEST_ADD_ATTACHMENT_PHOTO_ADDED: {
+    name: '[REQUEST_VACATION] Add Attachment Image Added',
+    payload: fcast<{ type?: string }>(),
+  },
   REQUEST_ADD_ATTACHMENT_MODAL_CANCELLED: {
     name: '[REQUEST_VACATION] Add Attachment Modal Cancelled',
     payload: fcast<never>(),
@@ -178,6 +194,14 @@ export const analyticsEventMap = {
   USER_ADD_ATTACHMENT_MODAL_OPENED: {
     name: '[EDIT_PROFILE] Add Attachment Modal Opened',
     payload: fcast<never>(),
+  },
+  USER_ADD_ATTACHMENT_IMAGE_ADDED: {
+    name: '[EDIT_PROFILE] Add Attachment Image Added',
+    payload: fcast<{ uri: string; type?: string }>(),
+  },
+  USER_ADD_ATTACHMENT_PHOTO_ADDED: {
+    name: '[EDIT_PROFILE] Add Attachment Photo Added',
+    payload: fcast<{ type?: string }>(),
   },
   USER_ADD_ATTACHMENT_MODAL_CANCELLED: {
     name: '[EDIT_PROFILE] Add Attachment Modal Cancelled',
