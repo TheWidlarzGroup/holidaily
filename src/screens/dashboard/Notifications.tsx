@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { LoadingModal } from 'components/LoadingModal'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
+import { useBackHandler } from 'hooks/useBackHandler'
+import { sleep } from 'utils/sleep'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
@@ -16,15 +18,23 @@ export const Notifications = () => {
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
 
-  const goBack = () => {
+  const handleBack = async () => {
     setShowLoadingModal(true)
-    setTimeout(() => {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'DRAWER_NAVIGATOR' }],
-      })
-    }, 100)
+    await sleep(100)
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'DRAWER_NAVIGATOR' }],
+    })
   }
+
+  const goBack = () => {
+    handleBack()
+  }
+
+  useBackHandler(() => {
+    handleBack()
+    return true
+  })
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
