@@ -31,6 +31,14 @@ export const analyticsEventMap = {
     name: '[DASHBOARD] Team Mate Modal Opened',
     payload: fcast<{ teamMateName: string }>(),
   },
+  DASHBOARD_TEAM_LONG_PRESSED: {
+    name: '[DASHBOARD] Team Long Pressed',
+    payload: fcast<{ element: number | null }>(),
+  },
+  DASHBOARD_TEAM_DRAGGED: {
+    name: '[DASHBOARD] Team Dragged',
+    payload: fcast<{ element: number | null; newPosition: number | null }>(),
+  },
   DASHBOARD_CAROUSEL_OPENED: {
     name: '[DASHBOARD] Carousel Modal Opened',
     payload: fcast<{ profileName: string }>(),
@@ -161,6 +169,7 @@ export const analyticsEventMap = {
     name: '[STATS_AND_REQUESTS] Request Opened',
     payload: fcast<{ request: Request }>(),
   },
+
   // Edit Profile
   USER_COLOR_PICKED: {
     name: '[EDIT_PROFILE] User Color Picked',
