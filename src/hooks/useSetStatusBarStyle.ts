@@ -7,10 +7,7 @@ type UseSetStatusBarStyleProps = {
 
 export const useSetStatusBarStyle = (props: UseSetStatusBarStyleProps | null) => {
   useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-    return () => {
-      const statusBarStyle = props?.darkMode ? 'light-content' : 'dark-content'
-      StatusBar.setBarStyle(statusBarStyle)
-    }
+    const statusBarStyle = props?.darkMode === false ? 'dark-content' : 'light-content'
+    StatusBar.setBarStyle(statusBarStyle)
   }, [props])
 }
