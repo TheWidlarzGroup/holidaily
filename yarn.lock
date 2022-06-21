@@ -7939,9 +7939,9 @@ react-native-notificated@^0.0.1-alpha.2:
   integrity sha512-ELI6zEjKFfi0iG1anHEm2YUrOFvSW1cRif8xMTDMMcLSQwOECGPUX632AmJFWmA8mINPburXNltNlhgNYsHx+A==
 
 react-native-onesignal@^4.2.0:
-  version "4.3.10"
-  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.3.10.tgz#3db2dbcd0862f885717e65726e90d4c6bbbc6145"
-  integrity sha512-rAwRO3kyADAJ3rZo6cSG3dyF8FMLP8rxDJTquaMMo5SBJ1D9O0O/UMou86BH1+bqoLsPTVr2fnAqFv+NiMXILA==
+  version "4.3.11"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.3.11.tgz#ad017f8daf0f1674babf19eb10f70b2bda80e32d"
+  integrity sha512-sBIFu6/+I/fXeH+GAOP1zUYUy2eJmchPOPj7RRDsArURTGcSR5jcGgoFjo9b6BT2tHkIeo39GkeojQD7pIvPzA==
   dependencies:
     invariant "^2.2.2"
 

@@ -145,6 +145,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 48
         versionName "1.0.38"
+      testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+      testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     splits {
         abi {
@@ -180,6 +182,14 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // Detox-specific additions to pro-guard
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
+        }
+        releaseE2E {
+            initWith release
+            setMatchingFallbacks('release')
+
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
         }
         
     }
@@ -199,7 +209,6 @@ android {
         }
     }
 }
-
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
@@ -221,6 +230,9 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
+
+    androidTestImplementation('com.wix:detox:+')
+    implementation 'androidx.appcompat:appcompat:1.4.2'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
