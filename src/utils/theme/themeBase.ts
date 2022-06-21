@@ -33,6 +33,7 @@ export const themeBase = createTheme({
     xxl2plus: 70,
     xxxl: 75,
     xxxxl: 100,
+    '7xl': 180,
   },
   colors,
   breakpoints: {},

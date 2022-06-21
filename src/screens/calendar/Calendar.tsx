@@ -85,34 +85,33 @@ const CalendarToWrap = () => {
         filterCategories={filterCategories || []}
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
-      <Box
-        width={calendarWidth}
-        position="absolute"
-        marginTop="xxxl"
-        marginHorizontal="xm"
-        borderRadius="lmin"
-        backgroundColor="white"
-        zIndex="10"
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowColor="black"
-        shadowOpacity={0.15}
-        shadowRadius={6}
-        elevation={4}>
-        <ExpandableCalendar
-          markedDates={markedDates}
-          markingType="multi-dot"
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          onDayPress={handleDayPress}
-          isFullHeight={switchCalendarHeight}
-          setIsFullHeight={setSwitchCalendarHeight}
-        />
+      <Box marginTop="m" zIndex="10">
+        <Box
+          width={calendarWidth}
+          position="absolute"
+          marginHorizontal="xm"
+          borderRadius="lmin"
+          backgroundColor="white"
+          shadowOffset={{ width: 0, height: 2 }}
+          shadowColor="black"
+          shadowOpacity={0.15}
+          shadowRadius={6}
+          elevation={4}>
+          <ExpandableCalendar
+            markedDates={markedDates}
+            markingType="multi-dot"
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            onDayPress={handleDayPress}
+            isFullHeight={switchCalendarHeight}
+            setIsFullHeight={setSwitchCalendarHeight}
+          />
+        </Box>
       </Box>
       <EventsList
         ref={flatListRef}
         days={currentMonthDays}
         currentIndex={currentIndex}
-        componentWidth={calendarWidth}
         switchCalendarHeight={switchCalendarHeight}
         setSwitchCalendarHeight={setSwitchCalendarHeight}
         btnOnPress={() =>
