@@ -95,37 +95,24 @@ export const useAddReaction = () => {
       const reactionToUpdate = allPosts[postIndex].reactions.filter(
         (oldReaction) => oldReaction.type === reaction.type
       )
-      console.log('AA', reactionToUpdate)
       const typesOfReactionsInPost = allPosts[postIndex].reactions.map((reaction) => reaction.type)
       const allPostReactions = allPosts[postIndex].reactions
-      let updatedReactions: Reaction[]
-      if (reactionToUpdate[0]?.users.includes(user?.id || '')) {
-        console.log('juz jest')
-        updatedReactions = allPostReactions.map((oldReaction) => {
-          if (oldReaction.users.includes(user?.id || '')) {
-            const reactionUsers = oldReaction.users.filter((id) => id !== user?.id)
-            return { ...oldReaction, users: reactionUsers }
-          }
-          return oldReaction
-        })
-        updatedReactions = updatedReactions.filter((reaction) => reaction.users.length > 0)
-      } else {
-        console.log('nie ma')
-        updatedReactions = allPostReactions.map((oldReaction) => {
+
+      if (!reactionToUpdate[0]?.users.includes(user?.id || '')) {
+        let updatedReactions: Reaction[] = allPostReactions.map((oldReaction) => {
           if (oldReaction.type === reaction.type)
             return { ...oldReaction, users: [...oldReaction.users, user?.id || ''] }
           return oldReaction
         })
         if (!typesOfReactionsInPost.includes(reaction.type))
           updatedReactions = [...updatedReactions, reaction]
+        const updatedPost: FeedPost = {
+          ...allPosts[postIndex],
+          reactions: updatedReactions,
+        }
+        allPosts[postIndex] = updatedPost
+        queryClient.setQueryData([QueryKeys.POSTS], allPosts)
       }
-      const updatedPost: FeedPost = {
-        ...allPosts[postIndex],
-        reactions: updatedReactions,
-      }
-      console.log('onMutate', updatedReactions)
-      allPosts[postIndex] = updatedPost
-      queryClient.setQueryData([QueryKeys.POSTS], allPosts)
     },
     onSuccess: (payload) => {
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
@@ -137,7 +124,6 @@ export const useAddReaction = () => {
           payload.post.reactions = filtered
           allPosts[postIndex] = payload.post
         }
-        console.log('onSucesss', allPosts[postIndex].reactions)
 
         if (allPosts?.length) return [...allPosts]
         return [payload.post]
@@ -146,8 +132,8 @@ export const useAddReaction = () => {
     onError: (err) => {
       console.log('Error while adding reaction: ', err.message)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries([QueryKeys.POSTS])
+    onSettled: (data) => {
+      queryClient.invalidateQueries([QueryKeys.POSTS, data?.post.id])
     },
   })
 }

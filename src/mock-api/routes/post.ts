@@ -74,7 +74,6 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   const post = schema.find('post', body.postId)
   if (!post || !user.id) return new Response(404)
   const allPostReactions = post.reactionIds.map((id) => schema.find('reaction', id))
-  console.log('all reactions', allPostReactions)
   const filterReactions = allPostReactions.filter(
     (reaction: Reaction) => reaction.type === body.reaction.type
   )
