@@ -14,7 +14,6 @@ import { removeItem } from 'utils/localStorage'
 import { PostHeader } from './PostFormHeader'
 import { PostBody } from './PostFormBody'
 import { PostAction, PostState } from './usePostFormReducer'
-import { ModalLocationPicker } from './ModalLocationPicker'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 
 type CreatePostFormProps = {
@@ -25,13 +24,11 @@ type CreatePostFormProps = {
 }
 
 export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreatePostFormProps) => {
-  const [isLocationPickerOpen, { setTrue: openLocationPicker, setFalse: hideLocationPicker }] =
-    useBooleanState(false)
   const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
     useBooleanState(false)
   const theme = useTheme()
   const { t } = useTranslation('feed')
-  const { goBack } = useNavigation()
+  const navigation = useNavigation()
 
   const galleryImages = state.images.map(assetToGalleryItem)
   const sendDisabled = isSendDisabled(state)
@@ -43,7 +40,7 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
   const closeCreatePostForm = () => {
     const { images, location, text } = state
     if (images.length > 0 || text.length > 0 || !!location) return openDeclineModal()
-    goBack()
+    navigation.goBack()
   }
 
   useEffect(() => {
@@ -68,7 +65,7 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
           />
         </ScrollView>
         <PostFormFooter
-          onLocationPress={openLocationPicker}
+          onLocationPress={() => navigation.navigate('LOCATION_FORM', { dispatch })}
           onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
           imagesCount={state.images.length}
         />
@@ -76,14 +73,6 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
       <Box bg="white" paddingBottom="s">
         <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
       </Box>
-      <ModalLocationPicker
-        visible={isLocationPickerOpen}
-        onLocationChange={(locationPayload) => {
-          dispatch({ type: 'setLocation', payload: locationPayload })
-          hideLocationPicker()
-        }}
-        onRequestClose={hideLocationPicker}
-      />
       <ConfirmationModal
         isVisible={isDeclineModalOpen}
         header={t('discardHeader')}
@@ -92,7 +81,7 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
         declineBtnText={t('keepEditing')}
         onAccept={() => {
           hideDeclineModal()
-          goBack()
+          navigation.goBack()
         }}
         hideModal={hideDeclineModal}
         onDecline={() => {
