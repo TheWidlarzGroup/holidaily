@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
-import { Box } from 'utils/theme'
+import { useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
-import { useDebouncedCallbackWithDeps } from 'hooks/useDebounce'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
@@ -36,12 +36,21 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     },
     flatListRef
   ) => {
-    const [componentTop, setComponentTop] = useState(430)
     const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
+    const theme = useTheme()
 
-    const handleComponentMarginTop = () => setComponentTop(componentMarginTop)
-    useDebouncedCallbackWithDeps(handleComponentMarginTop, 20, [componentMarginTop])
+    const marginTop = useSharedValue(430)
+    const containerStyles = useAnimatedStyle(() => ({
+      flex: 1,
+      justifyContent: 'center',
+      marginTop: marginTop.value,
+      marginHorizontal: theme.spacing.xm,
+    }))
+
+    useEffect(() => {
+      marginTop.value = withTiming(componentMarginTop)
+    }, [marginTop, componentMarginTop])
 
     const handleTouchAndScroll = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
@@ -69,11 +78,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     }
 
     return (
-      <Box
-        marginHorizontal="xm"
-        justifyContent="center"
-        flex={1}
-        style={{ marginTop: componentTop }}>
+      <Animated.View style={[containerStyles]}>
         <FlatList
           data={days}
           renderItem={renderItem}
@@ -95,7 +100,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
         {btnShownCondition && (
           <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />
         )}
-      </Box>
+      </Animated.View>
     )
   }
 )
