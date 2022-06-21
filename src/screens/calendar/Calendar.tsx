@@ -5,7 +5,7 @@ import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
-import { FlatList, useWindowDimensions } from 'react-native'
+import { FlatList, LayoutChangeEvent, useWindowDimensions } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
@@ -18,6 +18,7 @@ import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [calendarHeight, setCalendarHeight] = useState(430)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
@@ -62,6 +63,12 @@ const CalendarToWrap = () => {
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
+  const handleCalendarHeight = (e: LayoutChangeEvent) => {
+    const newHeight = Math.ceil(e.nativeEvent.layout.height)
+    if (Math.ceil(calendarHeight) !== newHeight) {
+      setCalendarHeight(newHeight)
+    }
+  }
   const calendarMarginVertical = 24
   const calendarWidth = width - calendarMarginVertical
 
@@ -82,6 +89,7 @@ const CalendarToWrap = () => {
           backgroundColor="white"
           shadowOffset={{ width: 0, height: 2 }}
           shadowColor="black"
+          onLayout={handleCalendarHeight}
           shadowOpacity={0.15}
           shadowRadius={6}
           elevation={4}>
@@ -99,6 +107,7 @@ const CalendarToWrap = () => {
       <EventsList
         ref={flatListRef}
         days={currentMonthDays}
+        componentMarginTop={calendarHeight}
         currentIndex={currentIndex}
         switchCalendarHeight={switchCalendarHeight}
         setSwitchCalendarHeight={setSwitchCalendarHeight}

@@ -4,12 +4,14 @@ import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } f
 import { Box } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
+import { useDebouncedCallbackWithDeps } from 'hooks/useDebounce'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
 
 export type EventsListProps = {
   btnOnPress: F0
+  componentMarginTop: number
   currentIndex: number
   days: DayInfoProps[]
   switchCalendarHeight: boolean
@@ -24,11 +26,22 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
 
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(
   (
-    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex },
+    {
+      days,
+      switchCalendarHeight,
+      setSwitchCalendarHeight,
+      btnOnPress,
+      currentIndex,
+      componentMarginTop,
+    },
     flatListRef
   ) => {
+    const [componentTop, setComponentTop] = useState(430)
     const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
+
+    const handleComponentMarginTop = () => setComponentTop(componentMarginTop)
+    useDebouncedCallbackWithDeps(handleComponentMarginTop, 20, [componentMarginTop])
 
     const handleTouchAndScroll = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
@@ -56,7 +69,11 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     }
 
     return (
-      <Box marginTop="7xl" marginHorizontal="xm" justifyContent="center" flex={1}>
+      <Box
+        marginHorizontal="xm"
+        justifyContent="center"
+        flex={1}
+        style={{ marginTop: componentTop }}>
         <FlatList
           data={days}
           renderItem={renderItem}
