@@ -6,7 +6,6 @@ import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withTiming,
 } from 'react-native-reanimated'
 import { Comment } from '../Comment/Comment'
@@ -35,22 +34,16 @@ export const CommentBox = ({
   const opacity = useSharedValue(0)
 
   useEffect(() => {
-    const heightDelay = areCommentsExpanded ? 80 : 0
-    height.value = withDelay(
-      heightDelay,
-      withTiming(areCommentsExpanded ? 100 : 0, {
-        duration: 300,
-        easing: Easing.exp,
-      })
-    )
-    const opacityDelay = areCommentsExpanded ? 0 : 60
-    opacity.value = withDelay(
-      opacityDelay,
-      withTiming(areCommentsExpanded ? 1 : 0, {
-        duration: 300,
-        easing: Easing.exp,
-      })
-    )
+    const heightDuration = areCommentsExpanded ? 210 : 320
+    height.value = withTiming(areCommentsExpanded ? 100 : 0, {
+      duration: heightDuration,
+      easing: Easing.exp,
+    })
+
+    opacity.value = withTiming(areCommentsExpanded ? 1 : 0, {
+      duration: 350,
+      easing: Easing.exp,
+    })
   }, [height, areCommentsExpanded, opacity])
 
   const animatedStyle = useAnimatedStyle(() => ({
