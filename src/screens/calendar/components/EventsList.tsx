@@ -11,6 +11,7 @@ export type EventsListProps = {
   btnOnPress: F0
   currentIndex: number
   days: DayInfoProps[]
+  componentWidth: number
   switchCalendarHeight: boolean
   setSwitchCalendarHeight: F1<boolean>
 }
@@ -23,7 +24,14 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
 
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(
   (
-    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex },
+    {
+      days,
+      switchCalendarHeight,
+      setSwitchCalendarHeight,
+      btnOnPress,
+      currentIndex,
+      componentWidth,
+    },
     flatListRef
   ) => {
     const [pageOffsetY, setPageOffsetY] = useState(0)
@@ -54,7 +62,12 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     }
 
     return (
-      <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
+      <Box
+        width={componentWidth}
+        marginTop="xxxl"
+        marginHorizontal="xm"
+        justifyContent="center"
+        flex={1}>
         <FlatList
           data={days}
           renderItem={renderItem}

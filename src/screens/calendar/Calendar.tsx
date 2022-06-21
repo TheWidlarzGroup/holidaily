@@ -5,7 +5,7 @@ import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
-import { FlatList } from 'react-native'
+import { FlatList, useWindowDimensions } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
@@ -22,6 +22,7 @@ const CalendarToWrap = () => {
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
+  const { width } = useWindowDimensions()
 
   const {
     filterCategories,
@@ -73,6 +74,9 @@ const CalendarToWrap = () => {
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
+  const calendarMarginVertical = 24
+  const calendarWidth = width - calendarMarginVertical
+
   if (isLoading) return <LoadingModal show />
 
   return (
@@ -82,10 +86,13 @@ const CalendarToWrap = () => {
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
       <Box
+        width={calendarWidth}
+        position="absolute"
+        marginTop="xxxl"
+        marginHorizontal="xm"
         borderRadius="lmin"
         backgroundColor="white"
-        marginTop="m"
-        marginHorizontal="xm"
+        zIndex="10"
         shadowOffset={{ width: 0, height: 2 }}
         shadowColor="black"
         shadowOpacity={0.15}
@@ -105,6 +112,7 @@ const CalendarToWrap = () => {
         ref={flatListRef}
         days={currentMonthDays}
         currentIndex={currentIndex}
+        componentWidth={calendarWidth}
         switchCalendarHeight={switchCalendarHeight}
         setSwitchCalendarHeight={setSwitchCalendarHeight}
         btnOnPress={() =>
