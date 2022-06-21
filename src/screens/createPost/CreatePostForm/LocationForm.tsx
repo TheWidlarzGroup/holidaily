@@ -3,7 +3,7 @@ import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import IconArrowLeft from 'assets/icons/arrow-left.svg'
 import IconGeolocation from 'assets/icons/icon-geolocation.svg'
 import { useTranslation } from 'react-i18next'
-import { CompoundLocation, useLocation } from 'hooks/useLocation'
+import { useLocation } from 'hooks/useLocation'
 import { useSearch } from 'hooks/useSearch'
 import { CustomButton } from 'components/CustomButton'
 import { Analytics } from 'services/analytics'
@@ -14,13 +14,9 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { SearchBar } from './SearchBar'
 import { ModalLocationList } from './ModalLocationList'
 
-export type ModalLocationPickerProps = {
-  onLocationChange: F1<CompoundLocation>
-}
-
 const ICON_SIZE = 16
 
-export const LocationForm = ({ onLocationChange, route }: ModalLocationPickerProps) => {
+export const LocationForm = ({ route }) => {
   const { t } = useTranslation('feed')
   const navigation = useNavigation()
   const { userSettings } = useUserSettingsContext()
@@ -41,7 +37,7 @@ export const LocationForm = ({ onLocationChange, route }: ModalLocationPickerPro
     const location = await requestLocation()
     if (!location?.position) return
     Analytics().track('FEED_LOCATION_ADDED', { location })
-    onLocationChange(location)
+    dispatch({ type: 'setLocation', payload: location })
     navigation.goBack()
   }
   const theme = useTheme()
