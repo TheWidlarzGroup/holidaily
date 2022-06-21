@@ -36,7 +36,7 @@ export const useEditPost = () =>
       queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
         if (!data) throw new Error('No posts found!')
         const allPosts = data
-        const editedPostId = payload.post.id
+        const editedPostId = payload?.post?.id
         const postIndex = allPosts?.findIndex((post) => post.id === editedPostId)
         allPosts[postIndex] = payload.post
         return allPosts
