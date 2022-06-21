@@ -164,6 +164,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   if (!data) return <LoadingModal show />
 
+  const allPosts = data.sort((a, b) => b.meta.timestamp.createdAt - a.meta.timestamp.createdAt)
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <FlatList
@@ -173,13 +175,13 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           setTimeout(scrollToId, 100)
         }}
         ListHeaderComponent={FeedHeader}
-        data={data}
+        data={allPosts}
         renderItem={({ item }) => (
           <FeedPost post={item} openEditModal={openEditModal} editTarget={editTarget} />
         )}
         keyExtractor={(post) => post.id}
         extraData={language}
-        contentContainerStyle={{ paddingBottom: 90 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
       />
       <OptionsModal
         options={modalOptions}
