@@ -47,7 +47,15 @@ export const UploadAttachmentModal = ({
     }
     if (response.assets) {
       const photo = response.assets[0]
-      if (photo.uri) p.setPhotoURI(photo.uri)
+      if (photo.uri) {
+        Analytics().track(`${p.source}_ADD_ATTACHMENT_IMAGE_ADDED`, {
+          uri: photo.uri,
+          type: photo.type,
+        })
+        p.setPhotoURI(photo.uri)
+      } else {
+        Analytics().track(`${p.source}_ADD_ATTACHMENT_PHOTO_ADDED`, { type: photo.type })
+      }
     }
   }
 

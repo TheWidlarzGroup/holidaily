@@ -1,8 +1,15 @@
 import { useMutation } from 'react-query'
 import axios, { AxiosError } from 'axios'
-import { AddComment, AddReaction, EditComment, FeedPost } from 'mock-api/models/miragePostTypes'
+import {
+  AddComment,
+  AddReaction,
+  EditComment,
+  FeedPost,
+  Reaction,
+} from 'mock-api/models/miragePostTypes'
 import { queryClient } from 'dataAccess/queryClient'
 import { QueryKeys } from 'dataAccess/QueryKeys'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { API } from '../API'
 
 type SubmitSuccess = {
@@ -29,31 +36,6 @@ export const useAddComment = () =>
     },
     onError: (err) => {
       console.log('Error while adding comment: ', err.message)
-    },
-  })
-
-const addReaction = async (reaction: AddReaction): Promise<SubmitSuccess> => {
-  const { data } = await axios.put(API.PUT.addReactionToPost(reaction), reaction)
-  return data
-}
-export const useAddReaction = () =>
-  useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, AddReaction>(addReaction, {
-    onSuccess: (payload) => {
-      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
-        if (!data) throw new Error('No posts found!')
-        const allPosts = data
-        const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
-        if (postIndex !== -1 && allPosts) {
-          const filtered = payload.post.reactions.filter((reaction) => reaction.users.length > 0)
-          payload.post.reactions = filtered
-          allPosts[postIndex] = payload.post
-        }
-        if (allPosts?.length) return [...allPosts]
-        return [payload.post]
-      })
-    },
-    onError: (err) => {
-      console.log('Error while adding reaction: ', err.message)
     },
   })
 
@@ -98,3 +80,60 @@ export const useEditComment = () =>
       console.log('Error while editing comment: ', err.message)
     },
   })
+
+const addReaction = async (reaction: AddReaction): Promise<SubmitSuccess> => {
+  const { data } = await axios.put(API.PUT.addReactionToPost(reaction), reaction)
+  return data
+}
+export const useAddReaction = () => {
+  const { user } = useUserContext()
+  return useMutation<SubmitSuccess, AxiosError<{ errors: string[] }>, AddReaction>(addReaction, {
+    onMutate: async ({ reaction, postId }) => {
+      await queryClient.cancelQueries([QueryKeys.POSTS])
+      const allPosts: FeedPost[] = queryClient.getQueryData([QueryKeys.POSTS]) || []
+      const postIndex = allPosts?.findIndex((post) => post.id === postId)
+      const reactionToUpdate = allPosts[postIndex].reactions.filter(
+        (oldReaction) => oldReaction.type === reaction.type
+      )
+      const typesOfReactionsInPost = allPosts[postIndex].reactions.map((reaction) => reaction.type)
+      const allPostReactions = allPosts[postIndex].reactions
+
+      if (!reactionToUpdate[0]?.users.includes(user?.id || '')) {
+        let updatedReactions: Reaction[] = allPostReactions.map((oldReaction) => {
+          if (oldReaction.type === reaction.type)
+            return { ...oldReaction, users: [...oldReaction.users, user?.id || ''] }
+          return oldReaction
+        })
+        if (!typesOfReactionsInPost.includes(reaction.type))
+          updatedReactions = [...updatedReactions, reaction]
+        const updatedPost: FeedPost = {
+          ...allPosts[postIndex],
+          reactions: updatedReactions,
+        }
+        allPosts[postIndex] = updatedPost
+        queryClient.setQueryData([QueryKeys.POSTS], allPosts)
+      }
+    },
+    onSuccess: (payload) => {
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (!data) throw new Error('No posts found!')
+        const allPosts = data
+        const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
+        if (postIndex !== -1 && allPosts) {
+          const filtered = payload.post.reactions.filter((reaction) => reaction.users.length > 0)
+          payload.post.reactions = filtered
+          allPosts[postIndex] = payload.post
+        }
+
+        if (allPosts?.length) return [...allPosts]
+        return [payload.post]
+      })
+    },
+    onError: (err) => {
+      console.log('Error while adding reaction: ', err.message)
+    },
+    onSettled: (data) => {
+      queryClient.invalidateQueries([QueryKeys.POSTS, data?.post.id])
+    },
+  })
+}

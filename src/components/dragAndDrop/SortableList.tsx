@@ -11,6 +11,7 @@ import { Box, Text } from 'utils/theme'
 import { keys } from 'utils/manipulation'
 import { FlatList, FlatListProps } from 'react-native'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
+import { Analytics } from 'services/analytics'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
@@ -26,6 +27,7 @@ let persistedOrder: Positions = {}
 
 export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
+  const [prevElement, setPrevElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
@@ -33,6 +35,10 @@ export const SortableList = ({ children }: SortableListProps) => {
 
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)
+    if (element !== null) {
+      setPrevElement(element)
+      Analytics().track('DASHBOARD_TEAM_LONG_PRESSED', { element })
+    }
   }
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -73,8 +79,10 @@ export const SortableList = ({ children }: SortableListProps) => {
   useEffect(() => {
     if (draggedElement === null) {
       persistedOrder = positions.value
+      const newPosition = persistedOrder[`${prevElement}`]
+      Analytics().track('DASHBOARD_TEAM_DRAGGED', { element: prevElement, newPosition })
     }
-  }, [draggedElement, positions])
+  }, [draggedElement, positions, prevElement])
 
   const CONTAINER_HEIGHT =
     Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING

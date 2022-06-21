@@ -70,7 +70,6 @@ function deleteComment(schema: Schema<ModelsSchema>, req: Request) {
 
 function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   const user = requireAuth(schema, req)
-
   const body = JSON.parse(req.requestBody)
   const post = schema.find('post', body.postId)
   if (!post || !user.id) return new Response(404)
@@ -81,13 +80,11 @@ function addReaction(schema: Schema<ModelsSchema>, req: Request) {
   if (filterReactions.length > 0) {
     const singleReaction = schema.find('reaction', filterReactions[0].id)
     if (singleReaction?.users?.includes(user.id.toString())) {
-      const filteredUsersReaction = singleReaction?.users.filter((usr) => usr !== user.id)
-      singleReaction?.update({ users: [...filteredUsersReaction] })
-    } else {
-      singleReaction?.update({ users: [...singleReaction?.users, user.id.toString()] })
-    }
-  } else if (filterReactions.length <= 0) {
-    schema.create('reaction', { ...body.reaction, post })
-  }
+      if (singleReaction.users?.length > 1) {
+        const filteredUsersReaction = singleReaction?.users.filter((usr) => usr !== user.id)
+        singleReaction?.update({ users: [...filteredUsersReaction] })
+      } else singleReaction.destroy()
+    } else singleReaction?.update({ users: [...singleReaction?.users, user.id.toString()] })
+  } else schema.create('reaction', { ...body.reaction, post })
   return post
 }

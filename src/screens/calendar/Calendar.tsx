@@ -34,22 +34,9 @@ const CalendarToWrap = () => {
 
   usePrevScreenBackHandler(prevScreen)
 
-  useEffect(() => {
-    if (currentIndex === 0) {
-      const currentDate = getISODateString(new Date())
-      const dayEvents = currentMonthDays.find((a) => a.date === currentDate)
-      if (!dayEvents) return
-      const index = currentMonthDays.indexOf(dayEvents)
-      setCurrentIndex(index)
-    }
-
-    // Comment: we don't want to track currentIndex
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMonthDays])
-
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
-      setTimeout(() => setSelectedDate(parseISO(dateString)))
+      setSelectedDate(parseISO(dateString))
     },
     [setSelectedDate]
   )
@@ -60,9 +47,10 @@ const CalendarToWrap = () => {
     if (!dayEvents) return
 
     const index = currentMonthDays.indexOf(dayEvents)
-    setCurrentIndex(index)
+    const validatedIndex = index >= 31 ? 0 : index
+    setCurrentIndex(validatedIndex)
 
-    flatListRef.current?.scrollToIndex({ index, animated: true })
+    flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
   }, [currentMonthDays, selectedDate])
 
   // Comment: show loader spinner while calendar is rendering
