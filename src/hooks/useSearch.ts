@@ -1,26 +1,21 @@
-// How to manage generic function that can be async or sync?
-// onClear?
-// TODO: Break it down into two hooks
-// TODO: Make reducer out of it
-// TODO: add inital handling
-
 import { LocationGeocodedAddress } from 'expo-location'
 import { useCallback, useState } from 'react'
 import { useDebouncedCallback } from './useDebounce'
+import { CompoundLocation } from './useLocation'
 
-type UseSearchProps<T> = {
-  onQueryChange: F1<string, Promise<T>>
+type UseSearchProps = {
+  onQueryChange: F1<string, Promise<CompoundLocation[]>>
   onClear?: F0
   query?: string
   delay?: number
 }
 
-export const useSearch = <T>(props: UseSearchProps<T>) => {
+export const useSearch = (props: UseSearchProps) => {
   const { onQueryChange, onClear } = props
   const [query, setQuery] = useState(props.query || '')
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<LocationGeocodedAddress | null>(null)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<unknown>()
 
   const clearSearch = useCallback(() => {
     onClear?.()
@@ -33,11 +28,11 @@ export const useSearch = <T>(props: UseSearchProps<T>) => {
     if (query === '') return
     setLoading(true)
     try {
-      const locData = await onQueryChange(query)
-      setData(locData[0]?.addresses[0])
+      const locationData = await onQueryChange(query)
+      setData(locationData[0]?.addresses[0])
     } catch (error) {
       setData(null)
-      // setError(error) FIXME
+      setError(error)
     } finally {
       setLoading(false)
     }
