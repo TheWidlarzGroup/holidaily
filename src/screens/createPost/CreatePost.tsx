@@ -65,7 +65,9 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
           userColor: user?.userColor,
           lastName: user?.lastName,
         },
-        timestamp: { createdAt: new Date().getTime() },
+        timestamp: {
+          createdAt: sentPostToEdit?.meta?.timestamp?.createdAt || new Date().getTime(),
+        },
         location: {
           position: data.location?.position || null,
           addresses: data.location?.addresses || [],
