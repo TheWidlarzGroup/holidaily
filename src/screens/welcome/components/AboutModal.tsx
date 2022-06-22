@@ -13,6 +13,7 @@ export const AboutModal = (p: AboutModalProps) => {
   const { t } = useTranslation('welcome')
   return (
     <SwipeableModalRegular
+      addTopOffset
       hasIndicator
       title={t('about')}
       buttonLabel={t('aboutButton')}
