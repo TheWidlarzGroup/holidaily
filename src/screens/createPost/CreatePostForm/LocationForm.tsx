@@ -25,7 +25,7 @@ export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) =
   const {
     query,
     setQuery,
-    data: locations,
+    data: location,
     clearSearch,
   } = useSearch({
     onQueryChange: requestAddresses,
@@ -38,7 +38,7 @@ export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) =
     const location = await requestLocation()
     if (!location?.position) return
     Analytics().track('FEED_LOCATION_ADDED', { location })
-    dispatch({ type: 'setLocation', payload: location })
+    dispatch({ type: 'setLocation', payload: location.addresses[0] })
     navigation.goBack()
   }
   const theme = useTheme()
@@ -56,7 +56,7 @@ export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) =
       <Box paddingHorizontal="l" paddingTop="m">
         <SearchBar query={query} onQueryChange={setQuery} onClear={clearSearch} />
         <ModalLocationList
-          locations={locations}
+          location={location}
           onLocationPress={(location) => {
             dispatch({ type: 'setLocation', payload: location })
             navigation.goBack()
