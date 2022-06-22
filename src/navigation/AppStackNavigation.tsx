@@ -8,6 +8,7 @@ import { CreatePost } from 'screens/createPost/CreatePost'
 import { Notifications } from 'screens/dashboard/Notifications'
 import { PrivacyPolicy } from 'screens/about/components/PrivacyPolicy'
 import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
+import { LocationForm } from 'screens/createPost/CreatePostForm/LocationForm'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
 import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
@@ -24,9 +25,7 @@ export const AppStackNavigation = () => {
         <AppStack.Screen
           name="NOTIFICATIONS"
           component={Notifications}
-          options={{
-            ...TransitionPresets.DefaultTransition,
-          }}
+          options={TransitionPresets.DefaultTransition}
         />
         <AppStack.Screen name="REQUEST_VACATION" component={RequestVacation} />
         <AppStack.Screen name="REQUEST_VACATION_CALENDAR" component={CalendarRequestVacation} />
@@ -40,13 +39,16 @@ export const AppStackNavigation = () => {
           }}
         />
         <AppStack.Screen name="CREATE_POST" component={CreatePost} />
+        <AppStack.Screen
+          name="LOCATION_FORM"
+          component={LocationForm}
+          options={TransitionPresets.SlideFromRightIOS}
+        />
         <AppStack.Screen name="SUBSCRIBE_NEW_TEAM" component={SubscribeNewTeam} />
         <AppStack.Screen
           name="PRIVACY_POLICY"
           component={PrivacyPolicy}
-          options={{
-            ...TransitionPresets.SlideFromRightIOS,
-          }}
+          options={TransitionPresets.SlideFromRightIOS}
         />
       </AppStack.Navigator>
     </Box>
