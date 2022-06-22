@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Box, Theme, useTheme } from 'utils/theme'
+import { Box, Colors, useTheme } from 'utils/theme'
 
 import IconPalm from 'assets/icons/icon-palm.svg'
 import IconPill from 'assets/icons/icon-pill.svg'
@@ -22,11 +22,9 @@ export const HolidayTag = ({
 }: HolidayTagProps) => {
   const theme = useTheme()
 
-  let border: keyof Theme['colors'] = 'white'
-  let tagBackground: keyof Theme['colors'] = 'white'
-  const borderBackground: keyof Theme['colors'] = isBorderBackgroundGrey
-    ? 'dashboardBackground'
-    : 'white'
+  let border: Colors = 'white'
+  let tagBackground: Colors = 'white'
+  const borderBackground: Colors = isBorderBackgroundGrey ? 'dashboardBackground' : 'white'
   let icon: ReactElement = <Box />
 
   switch (true) {

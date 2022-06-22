@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, Theme } from 'utils/theme'
+import { Box, Colors, Text, Theme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
@@ -7,8 +7,8 @@ import { ResponsiveValue } from '@shopify/restyle'
 import { SectionHeader } from './components/SectionHeader'
 
 type StatsTabProps = {
-  bgColor: ResponsiveValue<keyof Theme['colors'], Theme>
-  textColor: ResponsiveValue<keyof Theme['colors'], Theme>
+  bgColor: ResponsiveValue<Colors, Theme>
+  textColor: ResponsiveValue<Colors, Theme>
   caption: string
   value?: number | `${number}`
 }
