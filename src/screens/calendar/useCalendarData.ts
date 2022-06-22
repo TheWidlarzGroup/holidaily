@@ -23,7 +23,7 @@ export const useCalendarData = () => {
   const convertToLocalDate = (date: string) => {
     const dateToConvert = new Date(date)
     const localDate = new Date()
-    dateToConvert.setHours(dateToConvert.getHours() + localDate.getTimezoneOffset() / 60)
+    dateToConvert.setHours(dateToConvert.getHours() - localDate.getTimezoneOffset() / 60)
     return dateToConvert
   }
 
