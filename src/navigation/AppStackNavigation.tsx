@@ -25,9 +25,7 @@ export const AppStackNavigation = () => {
         <AppStack.Screen
           name="NOTIFICATIONS"
           component={Notifications}
-          options={{
-            ...TransitionPresets.DefaultTransition,
-          }}
+          options={TransitionPresets.DefaultTransition}
         />
         <AppStack.Screen name="REQUEST_VACATION" component={RequestVacation} />
         <AppStack.Screen name="REQUEST_VACATION_CALENDAR" component={CalendarRequestVacation} />
@@ -44,17 +42,13 @@ export const AppStackNavigation = () => {
         <AppStack.Screen
           name="LOCATION_FORM"
           component={LocationForm}
-          options={{
-            ...TransitionPresets.SlideFromRightIOS,
-          }}
+          options={TransitionPresets.SlideFromRightIOS}
         />
         <AppStack.Screen name="SUBSCRIBE_NEW_TEAM" component={SubscribeNewTeam} />
         <AppStack.Screen
           name="PRIVACY_POLICY"
           component={PrivacyPolicy}
-          options={{
-            ...TransitionPresets.SlideFromRightIOS,
-          }}
+          options={TransitionPresets.SlideFromRightIOS}
         />
       </AppStack.Navigator>
     </Box>
