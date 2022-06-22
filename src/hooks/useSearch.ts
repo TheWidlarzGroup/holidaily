@@ -4,6 +4,7 @@
 // TODO: Make reducer out of it
 // TODO: add inital handling
 
+import { LocationGeocodedAddress } from 'expo-location'
 import { useCallback, useState } from 'react'
 import { useDebouncedCallback } from './useDebounce'
 
@@ -18,7 +19,7 @@ export const useSearch = <T>(props: UseSearchProps<T>) => {
   const { onQueryChange, onClear } = props
   const [query, setQuery] = useState(props.query || '')
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<Maybe<T>>(null)
+  const [data, setData] = useState<LocationGeocodedAddress | null>(null)
   const [error, setError] = useState(null)
 
   const clearSearch = useCallback(() => {
@@ -32,8 +33,8 @@ export const useSearch = <T>(props: UseSearchProps<T>) => {
     if (query === '') return
     setLoading(true)
     try {
-      const data = await onQueryChange(query)
-      setData(data)
+      const locData = await onQueryChange(query)
+      setData(locData[0]?.addresses[0])
     } catch (error) {
       setData(null)
       // setError(error) FIXME

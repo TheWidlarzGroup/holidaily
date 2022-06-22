@@ -4,18 +4,16 @@ import { displayDDMonYYYY } from 'utils/functions'
 import { Box, Text } from 'utils/theme'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
 
-type FeedPostHeaderInfoProps = Pick<FeedPost, 'meta'>
-
-export const FeedPostHeaderInfo = ({ meta }: FeedPostHeaderInfoProps) => {
-  const formattedDate = displayDDMonYYYY(new Date(meta?.timestamp?.createdAt))
+export const FeedPostHeaderInfo = ({ post }: { post: FeedPost }) => {
+  const formattedDate = displayDDMonYYYY(new Date(post.createdAt))
 
   return (
     <Box flexGrow={1} paddingHorizontal="xs" flex={1} justifyContent="space-evenly">
       <Text variant="textBoldSM" color="blackBrighterDouble">
-        {meta?.author?.name}
+        {post?.author?.name}
       </Text>
       <Text variant="textXS" color="darkGrey">
-        {meta?.author?.occupation}
+        {post?.author?.occupation}
       </Text>
       <Box position="absolute" right={0}>
         <Text variant="textXS" color="darkGrey">

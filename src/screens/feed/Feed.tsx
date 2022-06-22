@@ -164,7 +164,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   if (!data) return <LoadingModal show />
 
-  const allPosts = data.sort((a, b) => b.meta.timestamp.createdAt - a.meta.timestamp.createdAt)
+  const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>

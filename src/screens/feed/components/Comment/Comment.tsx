@@ -37,7 +37,7 @@ export const Comment = ({
       type: 'comment',
       postId,
       commentId: comment.id,
-      authorId: comment.meta.author.id,
+      authorId: comment.author.id,
       text: comment.text,
     })
     setEditCommentId(comment.id)
@@ -52,13 +52,13 @@ export const Comment = ({
         {!hideAvatar && (
           <Avatar
             size="s"
-            src={comment.meta.author.pictureUrl}
+            src={comment.author?.pictureUrl}
             userDetails={
-              comment.meta.author.userColor
+              comment.author.userColor
                 ? {
-                    userColor: comment.meta.author.userColor,
-                    firstName: comment.meta.author.name,
-                    lastName: comment.meta.author.lastName,
+                    userColor: comment.author.userColor,
+                    firstName: comment.author.name,
+                    lastName: comment.author.lastName,
                   }
                 : undefined
             }

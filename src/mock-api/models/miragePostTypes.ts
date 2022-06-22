@@ -1,5 +1,4 @@
 import { LocationGeocodedAddress } from 'expo-location'
-import { CompoundLocation } from 'hooks/useLocation'
 import { User } from './mirageTypes'
 
 type UserData = {
@@ -9,16 +8,6 @@ type UserData = {
   pictureUrl: User['photo']
   userColor?: string
   lastName?: string
-}
-
-export type Timestamp = {
-  createdAt: number
-}
-
-export type MetaData = {
-  author: UserData
-  timestamp: Timestamp
-  location?: CompoundLocation
 }
 
 export type Reaction = {

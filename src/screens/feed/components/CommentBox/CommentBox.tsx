@@ -102,4 +102,4 @@ export const CommentBox = ({
 }
 
 const commentFromPreviousUser = (comments: CommentType[], index: number) =>
-  comments[index].meta.author.id === comments?.[index - 1]?.meta.author?.id
+  comments[index]?.author?.id === comments?.[index - 1]?.author?.id

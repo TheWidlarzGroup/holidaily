@@ -84,19 +84,15 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     onSubmitEditing(messageContent)
     const message: Comment = {
       id: generateUUID(),
-      meta: {
-        author: {
-          id: user?.id || '',
-          occupation: user?.occupation || '',
-          name: `${user?.firstName} ${user?.lastName}` || '',
-          pictureUrl: user?.photo || null,
-          userColor: user?.userColor,
-          lastName: user?.lastName,
-        },
-        timestamp: {
-          createdAt: new Date().getTime(),
-        },
+      author: {
+        id: user?.id || '',
+        occupation: user?.occupation || '',
+        name: `${user?.firstName} ${user?.lastName}` || '',
+        pictureUrl: user?.photo || null,
+        userColor: user?.userColor,
+        lastName: user?.lastName,
       },
+      createdAt: new Date().getTime(),
       text: messageContent,
     }
     props.handleSubmitComment?.(message)
