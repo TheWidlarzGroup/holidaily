@@ -11,12 +11,13 @@ import { useNavigation } from '@react-navigation/native'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { ModalNavigationProps } from 'navigation/types'
 import { SearchBar } from './SearchBar'
 import { ModalLocationList } from './ModalLocationList'
 
 const ICON_SIZE = 16
 
-export const LocationForm = ({ route }) => {
+export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) => {
   const { t } = useTranslation('feed')
   const navigation = useNavigation()
   const { userSettings } = useUserSettingsContext()
