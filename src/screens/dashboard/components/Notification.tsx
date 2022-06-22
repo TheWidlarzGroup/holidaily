@@ -38,14 +38,21 @@ export const Notification = ({
     setIsModalVisible(true)
   }
 
+  const closeModal = () => {
+    setIsModalVisible(false)
+    if (!wasSeenByHolder) mutate(p.id)
+  }
+
   const notificationRequest = p.requestId
     ? user?.requests.find((item) => item.id === p.requestId)
     : undefined
 
   const onPress = () => {
-    if (!wasSeenByHolder) mutate(p.id)
     if (type === 'dayOff') openModal()
-    if (type !== 'dayOff') notificationNavHandler(navigate, type, notificationRequest)
+    if (type !== 'dayOff') {
+      if (!wasSeenByHolder) mutate(p.id)
+      notificationNavHandler(navigate, type, notificationRequest)
+    }
   }
 
   return (
@@ -79,11 +86,7 @@ export const Notification = ({
         </Box>
       </BaseOpacity>
       {modalUser && (
-        <TeamMemberModal
-          onHide={() => setIsModalVisible(false)}
-          isOpen={isModalVisible}
-          modalUser={modalUser}
-        />
+        <TeamMemberModal onHide={closeModal} isOpen={isModalVisible} modalUser={modalUser} />
       )}
     </>
   )
