@@ -101,6 +101,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
 
   const handleBlur = () => {
     onBlur?.(messageContent)
+    if (handleEditComment) handleEditComment()
   }
 
   useEffect(() => {
@@ -121,7 +122,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
-          onSubmitEditing={handleSubmitComment}
+          onSubmitEditing={handleEditComment || handleSubmitComment}
           onBlur={handleBlur}
           blurOnSubmit
           multiline
