@@ -43,36 +43,29 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     if (sentPostToEdit)
       post = {
         text: sentPostToEdit.text,
-        location: sentPostToEdit.meta.location || null,
+        location: sentPostToEdit.location,
         images: sentPostToEdit.data,
       }
     if (!post) return
 
     dispatch({ type: 'addImages', payload: { images: post.images } })
     dispatch({ type: 'updateText', payload: { text: post.text } })
-    dispatch({ type: 'setLocation', payload: post.location })
+    if (post.location) dispatch({ type: 'setLocation', payload: post.location })
   }, [sentPostToEdit])
 
   const handleOnSend = (data: PostState) => {
     const feedPost: FeedPost = {
       id: sentPostToEdit?.id || generateUUID(),
-      meta: {
-        author: {
-          id: user?.id || '',
-          name: `${user?.firstName} ${user?.lastName}` || '',
-          occupation: user?.occupation || '',
-          pictureUrl: user?.photo || '',
-          userColor: user?.userColor,
-          lastName: user?.lastName,
-        },
-        timestamp: {
-          createdAt: sentPostToEdit?.meta?.timestamp?.createdAt || new Date().getTime(),
-        },
-        location: {
-          position: data.location?.position || null,
-          addresses: data.location?.addresses || [],
-        },
+      author: {
+        id: user?.id || '',
+        name: `${user?.firstName} ${user?.lastName}` || '',
+        occupation: user?.occupation || '',
+        pictureUrl: user?.photo || '',
+        userColor: user?.userColor,
+        lastName: user?.lastName,
       },
+      createdAt: sentPostToEdit?.createdAt || new Date().getTime(),
+      location: data.location,
       text: data.text,
       reactions: [],
       comments: [],
@@ -93,7 +86,7 @@ export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
     if (sentPostToEdit) editPost(feedPost, { onSuccess: showSuccessModal })
     else addPost(feedPost, { onSuccess: showSuccessModal })
 
-    const address = data.location?.addresses[0]
+    const address = data.location
     const locationToSend = address ? `${address.city} ${address.country}` : data.location
     Analytics().track('CREATE_POST', {
       content: data.text,

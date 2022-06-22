@@ -1,3 +1,4 @@
+import { LocationGeocodedAddress } from 'expo-location'
 import { CompoundLocation } from 'hooks/useLocation'
 import { User } from './mirageTypes'
 
@@ -27,7 +28,8 @@ export type Reaction = {
 
 export type Comment = {
   id: string
-  meta: MetaData
+  author: UserData
+  createdAt: number
   text: string
 }
 
@@ -42,11 +44,13 @@ export type AddReaction = {
 
 export type FeedPost = {
   id: string
-  meta: MetaData
+  author: UserData
+  createdAt: number
   comments: Comment[]
   data: FeedPostData[]
   text: string
   reactions: Reaction[]
+  location?: LocationGeocodedAddress
   recentlyAdded?: boolean
 }
 
