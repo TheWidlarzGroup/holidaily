@@ -1,6 +1,6 @@
 import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import React, { useEffect, useState } from 'react'
-import { Box } from 'utils/theme'
+import { Box, Theme } from 'utils/theme'
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -26,6 +26,7 @@ export const FeedPost = (props: FeedPostProps) => {
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
   const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
+  const borderColor: keyof Theme['colors'] = showBorder ? 'special' : 'white'
 
   useEffect(() => {
     if (editTarget?.postId === post.id && editTarget.type === 'post') setShowBorder(true)
@@ -63,12 +64,12 @@ export const FeedPost = (props: FeedPostProps) => {
       bg="white"
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"
-      marginTop={showBorder ? 'xsplus' : 's'}>
-      <FeedPostHeader post={post} openEditModal={openEditModal} showBorder={showBorder} />
-      <FeedPostBody post={post} showBorder={showBorder} />
+      marginTop="s">
+      <FeedPostHeader post={post} openEditModal={openEditModal} borderColor={borderColor} />
+      <FeedPostBody post={post} borderColor={borderColor} />
       <FeedPostFooter
         {...props}
-        showBorder={showBorder}
+        borderColor={borderColor}
         isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
       />
     </AnimatedBox>

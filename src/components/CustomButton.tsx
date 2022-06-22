@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
-import { Text, mkUseStyles, Theme, useTheme, BaseOpacity } from 'utils/theme/index'
+import { Text, mkUseStyles, Theme, useTheme, BaseOpacity, Colors } from 'utils/theme/index'
 import IconGoogle from 'assets/icons/icon-google.svg'
 import IconApple from 'assets/icons/icon-apple.svg'
 import IconPlusSmall from 'assets/icons/icon-plus-small.svg'
@@ -19,7 +19,7 @@ export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   onPress?: F0
   children?: ReactNode
   customStyle?: RectButtonProperties['style']
-  customTextColor?: keyof Theme['colors']
+  customTextColor?: Colors
 }
 
 export const CustomButton: FC<CustomButtonProps> = ({

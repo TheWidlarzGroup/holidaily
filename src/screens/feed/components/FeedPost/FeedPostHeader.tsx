@@ -1,6 +1,6 @@
 import React from 'react'
 import { EditPost, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
-import { BaseOpacity, Box, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Theme, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { FeedPostHeaderInfo } from 'screens/feed/FeedPostHeaderInfo/FeedPostHeaderInfo'
 import { LocationInfo } from 'components/LocationInfo'
@@ -9,13 +9,12 @@ import { useUserContext } from 'hooks/context-hooks/useUserContext'
 
 type FeedPostHeaderProps = {
   post: FeedPost
-  showBorder: boolean
+  borderColor: keyof Theme['colors']
   openEditModal: F1<EditTargetType>
 }
 
 export const FeedPostHeader = (props: FeedPostHeaderProps) => {
-  const { post, showBorder } = props
-  const isBorderShown = showBorder ? 2 : 0
+  const { post, borderColor } = props
   const theme = useTheme()
   const { user } = useUserContext()
 
@@ -30,13 +29,13 @@ export const FeedPostHeader = (props: FeedPostHeaderProps) => {
 
   return (
     <Box
-      paddingHorizontal={showBorder ? 'ms' : 'm'}
-      paddingTop={showBorder ? 'ms' : 'm'}
+      paddingHorizontal="m"
+      paddingTop="s"
       alignItems="flex-start"
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"
-      borderWidth={isBorderShown}
-      borderColor="special"
+      borderWidth={2}
+      borderColor={borderColor}
       borderBottomWidth={0}>
       <Box flexDirection="row" paddingBottom="xm">
         <Avatar
