@@ -10,6 +10,7 @@ import Animated, {
   withSpring,
   withRepeat,
 } from 'react-native-reanimated'
+import { isAndroid } from 'utils/layout'
 
 const { width } = Dimensions.get('window')
 
@@ -23,7 +24,8 @@ type SliderContentProps = {
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 const IMAGE_HEIGHT = 300
-const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / 1.7
+const iconPosition = isAndroid ? 3.2 : 2
+const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / iconPosition
 
 const imgStyles = {
   height: IMAGE_HEIGHT,
