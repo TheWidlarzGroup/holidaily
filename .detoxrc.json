@@ -14,12 +14,13 @@
     "android.debug": {
       "type": "android.apk",
       "testBinaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
-      "binaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
       "build": "cd android && gradlew assembleDebugAndroidTest -DtestBuildType=debug && cd .."
     },
     "android.release": {
       "type": "android.apk",
-      "binaryPath": "android/app/build/outputs/apk/androidTest/releaseE2E/app-releaseE2E.apk",
+      "testBinaryPath": "android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
+      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
       "build": "cd android && gradlew assembleReleaseAndroidTest -DtestBuildType=release && cd .."
     }
   },

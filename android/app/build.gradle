@@ -193,6 +193,12 @@ android {
         }
         
     }
+    buildTypes {
+        release {
+            // COMMENT: this is the fix for error "Execution failed for task ':app:validateSigningReleaseAndroidTest'. > Keystore file not set for signing config release"
+            signingConfig signingConfigs.debug
+        }
+    }
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->

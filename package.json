@@ -11,8 +11,10 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --config .prettierrc --write src/**/*.{js,jsx,ts,tsx}",
     "type-check": "tsc --noEmit",
-    "detox:android": "detox test --configuration android.emu.debug",
-    "detox:build": "cd android && gradlew assembleDebugAndroidTest -DtestBuildType=debug && cd ..",
+    "detox:android": "detox test -c android.emu.release",
+    "detox:android-debug": "detox test -c android.emu.debug",
+    "detox:build-android": "cd android && gradlew assembleReleaseAndroidTest -DtestBuildType=release && cd ..",
+    "detox:build-android-debug": "cd android && gradlew assembleDebugAndroidTest -DtestBuildType=debug && cd ..",
     "ios:beta": "fastlane ios beta",
     "android:beta": "fastlane android beta"
   },
