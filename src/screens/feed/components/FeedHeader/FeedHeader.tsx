@@ -61,9 +61,9 @@ export const FeedHeader = () => {
           hideModal={setShowAttachmentModalFalse}
           onUserCancelled={setShowAttachmentModalFalse}
           showCamera
-          setPhotoURI={(uri) => {
+          setPhotoURI={(uri, type) => {
             if (!uri) return
-            changeDataRequest({ uri, id: new Date().toString() })
+            changeDataRequest({ uri, id: new Date().toString(), type })
           }}
         />
       </Box>
