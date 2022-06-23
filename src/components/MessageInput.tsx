@@ -84,19 +84,15 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     onSubmitEditing(messageContent)
     const message: Comment = {
       id: generateUUID(),
-      meta: {
-        author: {
-          id: user?.id || '',
-          occupation: user?.occupation || '',
-          name: `${user?.firstName} ${user?.lastName}` || '',
-          pictureUrl: user?.photo || null,
-          userColor: user?.userColor,
-          lastName: user?.lastName,
-        },
-        timestamp: {
-          createdAt: new Date().getTime(),
-        },
+      author: {
+        id: user?.id || '',
+        occupation: user?.occupation || '',
+        name: `${user?.firstName} ${user?.lastName}` || '',
+        pictureUrl: user?.photo || null,
+        userColor: user?.userColor,
+        lastName: user?.lastName,
       },
+      createdAt: new Date().getTime(),
       text: messageContent,
     }
     props.handleSubmitComment?.(message)
@@ -105,6 +101,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
 
   const handleBlur = () => {
     onBlur?.(messageContent)
+    if (handleEditComment) handleEditComment()
   }
 
   useEffect(() => {
@@ -125,7 +122,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
-          onSubmitEditing={handleSubmitComment}
+          onSubmitEditing={handleEditComment || handleSubmitComment}
           onBlur={handleBlur}
           blurOnSubmit
           multiline

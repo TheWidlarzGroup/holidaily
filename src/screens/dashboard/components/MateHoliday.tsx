@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, Theme } from 'utils/theme'
+import { Box, Colors, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { displayDatesRange } from 'utils/functions'
 import { DayOffRequest, User } from 'mock-api/models/mirageTypes'
@@ -15,8 +15,8 @@ export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHoliday
   const { t } = useTranslation('dashboard')
 
   let header: keyof Languages['en' | 'pl']['dashboard'] = 'outOfWorkNow'
-  let background: keyof Theme['colors'] = 'primaryOpaque'
-  let text: keyof Theme['colors'] = 'primaryOpaque'
+  let background: Colors = 'primaryOpaque'
+  let text: Colors = 'primaryOpaque'
 
   switch (true) {
     case isNextRequest:

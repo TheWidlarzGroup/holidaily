@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { ScrollView } from 'react-native'
 import { Trans, useTranslation } from 'react-i18next'
-import { Box, Text, Theme, useTheme } from 'utils/theme'
+import { Box, Text, Theme, useTheme, Colors } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { calculatePTO, getDurationInDays } from 'utils/dates'
@@ -121,9 +121,7 @@ const getIconStatus = (status: DayOffRequest['status']): IconStatus => {
   return status
 }
 
-const getStatusColor = (
-  status: DayOffRequest['status']
-): ResponsiveValue<keyof Theme['colors'], Theme> => {
+const getStatusColor = (status: DayOffRequest['status']): ResponsiveValue<Colors, Theme> => {
   if (status === 'past') return 'headerGrey'
   if (status === 'pending') return 'special'
   if (status === 'accepted') return 'approvedGreen'

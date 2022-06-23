@@ -24,6 +24,7 @@ export const MessageInputModal = (props: MessageInputModalProps) => {
   return (
     <SwipeableModal isOpen={visible} onHide={onRequestClose} backdropColor="transparent">
       <KeyboardAwareScrollView
+        enableOnAndroid
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
         keyboardShouldPersistTaps="handled">
         <BaseOpacity flexGrow={1} activeOpacity={1} onPress={onRequestClose} />

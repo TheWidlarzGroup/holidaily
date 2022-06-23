@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
-import { TouchableOpacity } from 'react-native'
 
 type DrawerBackArrowProps = {
   goBack: () => void
@@ -17,9 +16,12 @@ export const DrawerBackArrow: FC<DrawerBackArrowProps> = ({ goBack, title = '' }
       justifyContent="space-between"
       paddingHorizontal="m"
       paddingVertical="m">
-      <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+      <BaseOpacity
+        zIndex="10"
+        onPress={goBack}
+        hitSlop={{ top: 35, bottom: 35, left: 35, right: 35 }}>
         <BackArrowIcon height={18} width={18} color={styles.arrow.color} />
-      </TouchableOpacity>
+      </BaseOpacity>
       <Box flex={1}>
         <Text variant="displayBoldSM">{title}</Text>
       </Box>

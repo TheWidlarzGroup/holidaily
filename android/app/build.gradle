@@ -143,8 +143,8 @@ android {
         applicationId "com.holidaily"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 48
-        versionName "1.0.38"
+        versionCode 49
+        versionName "1.0.39"
       testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
       testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

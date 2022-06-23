@@ -5,6 +5,7 @@ import { AttachmentType } from 'types/holidaysDataTypes'
 import { DayOffRequest, FeedPost } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { PrevScreen } from 'hooks/usePrevScreenBackHandler'
+import { PostAction } from 'screens/createPost/CreatePostForm/usePostFormReducer'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -115,6 +116,7 @@ export type ModalRoutes = {
   CREATE_POST: { photo: { id: string; uri: string }; sentPost: FeedPost }
   SUBSCRIBE_NEW_TEAM: undefined
   PRIVACY_POLICY: undefined
+  LOCATION_FORM: { dispatch: F1<PostAction> }
 }
 
 export type BottomTabRoutes = {

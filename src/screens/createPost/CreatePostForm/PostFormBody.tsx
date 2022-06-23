@@ -5,18 +5,18 @@ import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
-import { CompoundLocation } from 'hooks/useLocation'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Attachments } from 'screens/requestVacation/components/additionals/Attachments'
 import { isIos } from 'utils/layout'
+import { LocationGeocodedAddress } from 'expo-location'
 
 type PostBodyProps = {
   text: string
-  location: Maybe<CompoundLocation>
   onTextChange: F1<string>
   data: AttachmentType[]
   removeAttachment: F1<string>
+  location?: LocationGeocodedAddress
 }
 
 export const PostBody = (props: PostBodyProps) => {
@@ -47,7 +47,7 @@ export const PostBody = (props: PostBodyProps) => {
         </Box>
       </Box>
       <Box paddingHorizontal="s" marginTop="-s" marginBottom="-xm">
-        {location?.addresses && <LocationInfo location={location} />}
+        {location && <LocationInfo location={location} />}
       </Box>
       <Box marginHorizontal="xm">
         <Attachments
