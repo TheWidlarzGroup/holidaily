@@ -19,6 +19,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
       occupation: user?.occupation || '',
       name: `${user?.firstName} ${user?.lastName}`,
       pictureUrl: user?.photo || '',
+      userColor: user?.userColor,
     },
     createdAt: new Date().getTime(),
     text: '',

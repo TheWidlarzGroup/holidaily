@@ -12,6 +12,7 @@ import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { CreatePostNavigationProps } from 'navigation/types'
+import { FeedPost } from 'mockApi/models/miragePostTypes'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 
 export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) => {
@@ -35,8 +36,8 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
     }
     const draftPost = await getItem('draftPost')
     if (draftPost) {
-      console.log(draftPost)
-      updatePostData(JSON.parse(draftPost))
+      const parsedDraftPost: FeedPost = JSON.parse(draftPost)
+      updatePostData({ ...parsedDraftPost, createdAt: new Date().getTime() })
     }
   }, [])
 
@@ -54,7 +55,7 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
         },
       })
     }
-
+    console.log(postData)
     if (editPostId && postData) editPost(postData, { onSuccess: showSuccessModal })
     else if (postData) addPost(postData, { onSuccess: showSuccessModal })
 
