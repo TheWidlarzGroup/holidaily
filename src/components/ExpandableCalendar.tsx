@@ -171,8 +171,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const toggleOnPress = () => {
     if (containerHeight.value > WEEK_CALENDAR_HEIGHT) {
       containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT, {
-        duration: 1000,
-        easing: Easing.bezierFn(0.25, 0.1, 0.25, 1),
+        duration: 500,
+        easing: Easing.linear,
       })
     } else {
       containerHeight.value = withSpring(fullCalendarHeight.value, { overshootClamping: true })
@@ -182,8 +182,8 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   useEffect(() => {
     if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT) {
       containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT, {
-        duration: 1000,
-        easing: Easing.bezierFn(0.25, 0.1, 0.25, 1),
+        duration: 500,
+        easing: Easing.linear,
       })
     }
   }, [props.isFullHeight, containerHeight])
