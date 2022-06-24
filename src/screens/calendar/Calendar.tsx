@@ -23,13 +23,7 @@ const CalendarToWrap = () => {
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
 
-  const {
-    filterCategories,
-    toggleFilterItemSelection,
-    selectedDate,
-    setSelectedDate,
-    currentMonthDays,
-  } = useCalendarData()
+  const { selectedDate, setSelectedDate, currentMonthDays } = useCalendarData()
 
   usePrevScreenBackHandler(prevScreen)
 
@@ -65,10 +59,7 @@ const CalendarToWrap = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <CategoriesSlider
-        filterCategories={filterCategories || []}
-        toggleFilterItemSelection={toggleFilterItemSelection}
-      />
+      <CategoriesSlider />
       <Box
         borderRadius="lmin"
         backgroundColor="white"
