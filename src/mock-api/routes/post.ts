@@ -8,6 +8,7 @@ import { Reaction, Schema as ModelsSchema } from '../models'
 export function postsRoute(context: Server<ModelsSchema>) {
   context.get('/posts', fetchPosts)
   context.post('/addpost', addPost)
+  context.post('/addpost/newid', addPostWithNewId)
   context.post('/posts/:postId', addComment)
   context.put('/posts/:postId', addReaction)
   context.delete('/comment/:id', deleteComment)
@@ -21,8 +22,14 @@ function fetchPosts(schema: Schema<ModelsSchema>) {
 
 function addPost(schema: Schema<ModelsSchema>, req: Request) {
   const post = JSON.parse(req.requestBody)
+  schema.create('post', post)
+  return post
+}
+
+function addPostWithNewId(schema: Schema<ModelsSchema>, req: Request) {
   // Comment: when newly added post is deleted and it's posted back with the same data,
-  // mirage shows error 500, when new Id is added to this post it's working fine
+  // mirage shows error 500, because new post has the same id as old post
+  const post = JSON.parse(req.requestBody)
   const postWithNewId = { ...post, id: generateUUID() }
   schema.create('post', postWithNewId)
   return postWithNewId

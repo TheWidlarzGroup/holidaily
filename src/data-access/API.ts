@@ -13,6 +13,7 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
     addPost: '/api/addpost',
+    addPostWithNewId: '/api/addpost/newid',
     createDayOff: '/api/request',
     addCommentToPost: (comment: AddComment) => `/api/posts/${comment.postId}`,
   },
