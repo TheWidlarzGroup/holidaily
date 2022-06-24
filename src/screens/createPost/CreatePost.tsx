@@ -13,9 +13,12 @@ import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { CreatePostNavigationProps } from 'navigation/types'
 import { FeedPost } from 'mockApi/models/miragePostTypes'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
 
 export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) => {
+  const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
+    useBooleanState(false)
   const { userSettings } = useUserSettingsContext()
   const { t } = useTranslation('createPost')
   const { postData, updatePostData } = useCreatePostContext()
@@ -27,6 +30,13 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
   const modalAsset = route?.params?.modalAsset
   const editPostId = route?.params?.editPostId
   useSetStatusBarStyle(userSettings)
+
+  const prevVersionOfPost = allPosts?.find((post) => post.id === postData?.id)
+  const isPostEdited =
+    editPostId &&
+    (JSON.stringify(prevVersionOfPost?.data) !== JSON.stringify(postData?.data) ||
+      JSON.stringify(prevVersionOfPost?.location) !== JSON.stringify(postData?.location) ||
+      prevVersionOfPost?.text !== postData?.text)
 
   useAsyncEffect(async () => {
     if (modalAsset) return updatePostData({ data: [modalAsset] })
@@ -56,13 +66,11 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
       })
     }
 
-    const prevVersionOfPost = allPosts?.find((post) => post.id === postData?.id)
     if (editPostId && postData) {
-      if (JSON.stringify(prevVersionOfPost) === JSON.stringify(postData)) return goBack()
+      if (isPostEdited) return goBack()
       editPost(postData, { onSuccess: showSuccessModal })
-    } else if (postData) {
-      if (!prevVersionOfPost) addPost(postData, { onSuccess: showSuccessModal })
     }
+    if (postData && !prevVersionOfPost) addPost(postData, { onSuccess: showSuccessModal })
 
     const address = postData?.location
     const locationToSend = address ? `${address.city} ${address.country}` : postData?.location
@@ -79,15 +87,22 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
   const onCreatePostDismiss = () => {
     if (!postData) return
     const { data, location, text } = postData
-    if (data.length > 0 || text.length > 0 || !!location) {
+    if (!editPostId && (data.length > 0 || text.length > 0 || !!location)) {
       notify('infoCustom', { params: { title: t('savedAsDraft') } })
       setItem('draftPost', JSON.stringify(postData))
     }
   }
 
   return (
-    <SwipeableScreen onDismiss={onCreatePostDismiss}>
-      <CreatePostForm submitForm={submitForm} />
+    <SwipeableScreen
+      onDismiss={onCreatePostDismiss}
+      onSwipeStart={() => (isPostEdited ? openDeclineModal() : null)}>
+      <CreatePostForm
+        submitForm={submitForm}
+        isDeclineModalOpen={isDeclineModalOpen}
+        openDeclineModal={openDeclineModal}
+        hideDeclineModal={hideDeclineModal}
+      />
     </SwipeableScreen>
   )
 }

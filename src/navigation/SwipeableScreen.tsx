@@ -27,6 +27,7 @@ export type SwipeableScreenProps = {
   swipeWithIndicator?: true
   extraStyle?: ViewProps['style']
   onDismiss?: F0
+  onSwipeStart?: F0
 } & Omit<BoxProps<Theme>, 'style'> &
   (
     | { confirmLeave?: never; confirmLeaveOptions?: never }
@@ -46,6 +47,7 @@ export const SwipeableScreen = ({
   swipeWithIndicator,
   extraStyle,
   onDismiss,
+  onSwipeStart,
   ...extraContainerProps
 }: SwipeableScreenProps) => {
   const { height } = useDimensions()
@@ -84,13 +86,19 @@ export const SwipeableScreen = ({
       onDismiss?.()
     } else translateY.value = withTiming(0)
   }
+
   const containerProps = { ...baseContainerProps, ...(extraContainerProps ?? {}) }
   const containerStyle: ViewProps['style'] = [animatedTranslation, extraStyle ?? {}]
   if (swipeWithIndicator)
     return (
       <Wrapper onDismiss={onDismiss}>
         <AnimatedBox {...containerProps} style={containerStyle}>
-          <PanGestureHandler onGestureEvent={gestureHandler} onEnded={() => onSwipeEnd()}>
+          <PanGestureHandler
+            onGestureEvent={gestureHandler}
+            onEnded={() => {
+              onSwipeEnd?.()
+            }}
+            onActivated={() => onSwipeStart?.()}>
             <AnimatedBox backgroundColor="errorBrighter" height={50} width="100%">
               <ModalHandleIndicator />
             </AnimatedBox>
@@ -102,7 +110,10 @@ export const SwipeableScreen = ({
 
   return (
     <Wrapper onDismiss={onDismiss}>
-      <PanGestureHandler onGestureEvent={gestureHandler} onEnded={() => onSwipeEnd()}>
+      <PanGestureHandler
+        onGestureEvent={gestureHandler}
+        onEnded={() => onSwipeEnd()}
+        onActivated={() => onSwipeStart?.()}>
         <AnimatedBox backgroundColor="errorBrighter" {...containerProps} style={containerStyle}>
           {children}
         </AnimatedBox>

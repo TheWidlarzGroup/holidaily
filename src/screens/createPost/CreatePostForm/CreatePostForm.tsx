@@ -1,6 +1,5 @@
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
 import { KeyboardAvoidingView } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -20,11 +19,17 @@ import { PostFormBody } from './PostFormBody'
 
 type CreatePostFormProps = {
   submitForm: F0
+  openDeclineModal: F0
+  hideDeclineModal: F0
+  isDeclineModalOpen: boolean
 }
 
-export const CreatePostForm = ({ submitForm }: CreatePostFormProps) => {
-  const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
-    useBooleanState(false)
+export const CreatePostForm = ({
+  submitForm,
+  openDeclineModal,
+  hideDeclineModal,
+  isDeclineModalOpen,
+}: CreatePostFormProps) => {
   const theme = useTheme()
   const { t } = useTranslation('feed')
   const navigation = useNavigation<CreatePostNavigationType<'LOCATION_FORM'>>()
