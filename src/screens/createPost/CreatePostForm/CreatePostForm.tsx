@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import { AttachmentType } from 'types/holidaysDataTypes'
-import { Asset } from 'react-native-image-picker'
+import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Submit } from 'components/Submit'
@@ -11,44 +9,34 @@ import { Box, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { removeItem } from 'utils/localStorage'
-import { AppNavigationType } from 'navigation/types'
+import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
+import { CreatePostNavigationType } from 'navigation/types'
+import { Asset } from 'react-native-image-picker'
+import { generateUUID } from 'utils/generateUUID'
+import { FeedPost, FeedPostData } from 'mockApi/models/miragePostTypes'
 import { PostHeader } from './PostFormHeader'
-import { PostBody } from './PostFormBody'
-import { PostAction, PostState } from './usePostFormReducer'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
+import { PostFormBody } from './PostFormBody'
 
 type CreatePostFormProps = {
-  onSend: F1<PostState>
-  state: PostState
-  dispatch: F1<PostAction>
-  photosAsset?: Asset
+  submitForm: F0
 }
 
-export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreatePostFormProps) => {
+export const CreatePostForm = ({ submitForm }: CreatePostFormProps) => {
   const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
     useBooleanState(false)
   const theme = useTheme()
   const { t } = useTranslation('feed')
-  const navigation = useNavigation<AppNavigationType<'LOCATION_FORM'>>()
-
-  const galleryImages = state.images.map(assetToGalleryItem)
-  const sendDisabled = isSendDisabled(state)
-
-  const removeAttachment = (id: string) => {
-    dispatch({ type: 'removeImage', payload: { id } })
-  }
+  const navigation = useNavigation<CreatePostNavigationType<'LOCATION_FORM'>>()
+  const { postData, updatePostData, removePostAsset } = useCreatePostContext()
+  const sendDisabled = isSendDisabled(postData)
 
   const closeCreatePostForm = () => {
-    const { images, location, text } = state
-    if (images.length > 0 || text.length > 0 || !!location) return openDeclineModal()
+    if (!postData) return navigation.goBack()
+    if (postData?.data.length > 0 || postData?.text.length > 0 || !!postData?.location)
+      return openDeclineModal()
     navigation.goBack()
   }
-
-  useEffect(() => {
-    if (photosAsset) {
-      dispatch({ type: 'addImages', payload: { images: [photosAsset] } })
-    }
-  }, [dispatch, photosAsset])
 
   return (
     <SafeAreaWrapper edges={['bottom']}>
@@ -57,22 +45,18 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
         behavior="height">
         <PostHeader closeCreatePostForm={closeCreatePostForm} />
         <ScrollView>
-          <PostBody
-            text={state.text}
-            location={state.location}
-            onTextChange={(text) => dispatch({ type: 'updateText', payload: { text } })}
-            data={galleryImages}
-            removeAttachment={removeAttachment}
-          />
+          <PostFormBody removeAttachment={removePostAsset} />
         </ScrollView>
         <PostFormFooter
-          onLocationPress={() => navigation.navigate('LOCATION_FORM', { dispatch })}
-          onImagesPick={(images) => dispatch({ type: 'addImages', payload: { images } })}
-          imagesCount={state.images.length}
+          onLocationPress={() => navigation.navigate('LOCATION_FORM')}
+          onImagesPick={(images) =>
+            updatePostData({ data: [...(postData?.data || []), ...addAttachments(images)] })
+          }
+          imagesCount={postData?.data.length || 0}
         />
       </KeyboardAvoidingView>
       <Box bg="white" paddingBottom="s">
-        <Submit disabledCTA={sendDisabled} noBg onCTAPress={() => onSend(state)} />
+        <Submit disabledCTA={sendDisabled} noBg onCTAPress={submitForm} />
       </Box>
       <ConfirmationModal
         isVisible={isDeclineModalOpen}
@@ -94,10 +78,15 @@ export const CreatePostForm = ({ onSend, photosAsset, state, dispatch }: CreateP
   )
 }
 
-const assetToGalleryItem = (asset: Asset): AttachmentType => ({
-  id: asset.id ?? '',
-  type: asset.type ? 'image' : 'video',
-  uri: asset.uri ?? '',
-})
+const isSendDisabled = (props: Partial<FeedPost> | null) => {
+  if ((props?.text && props?.text?.length > 0) || (props?.data && props?.data.length > 0))
+    return false
+  return true
+}
 
-const isSendDisabled = ({ text, images }: PostState) => text.length === 0 && images.length === 0
+const addAttachments = (attachments: Asset[]): FeedPostData[] =>
+  attachments.map((item) => ({
+    uri: item.uri || '',
+    type: item.type === 'image/jpeg' ? 'image' : 'video',
+    id: generateUUID(),
+  }))
