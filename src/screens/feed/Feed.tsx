@@ -183,7 +183,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         )}
         keyExtractor={(post) => post.id}
         extraData={language}
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingBottom: 60 }}
       />
       <OptionsModal
         options={modalOptions}
