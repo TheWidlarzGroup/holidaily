@@ -4,14 +4,13 @@ import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { RequestVacation } from 'screens/requestVacation/RequestVacation'
 import { CalendarRequestVacation } from 'screens/requestVacation/components/CalendarRequestVacation'
 import { GalleryScreen } from 'screens/gallery/GalleryScreen'
-import { CreatePost } from 'screens/createPost/CreatePost'
 import { Notifications } from 'screens/dashboard/Notifications'
 import { PrivacyPolicy } from 'screens/about/components/PrivacyPolicy'
 import { SubscribeNewTeam } from 'screens/editProfile/components/SubscribeNewTeam'
-import { LocationForm } from 'screens/createPost/CreatePostForm/LocationForm'
 import { DrawerNavigator } from './DrawerNavigator'
 import { ModalRoutes } from './types'
 import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
+import { CreatePostNavigation } from './CreatePostNavigation'
 
 const AppStack = createStackNavigator<ModalRoutes>()
 
@@ -38,18 +37,13 @@ export const AppStackNavigation = () => {
             cardStyleInterpolator: undefined,
           }}
         />
-        <AppStack.Screen name="CREATE_POST" component={CreatePost} />
-        <AppStack.Screen
-          name="LOCATION_FORM"
-          component={LocationForm}
-          options={TransitionPresets.SlideFromRightIOS}
-        />
         <AppStack.Screen name="SUBSCRIBE_NEW_TEAM" component={SubscribeNewTeam} />
         <AppStack.Screen
           name="PRIVACY_POLICY"
           component={PrivacyPolicy}
           options={TransitionPresets.SlideFromRightIOS}
         />
+        <AppStack.Screen name="CREATE_POST_NAVIGATION" component={CreatePostNavigation} />
       </AppStack.Navigator>
     </Box>
   )
