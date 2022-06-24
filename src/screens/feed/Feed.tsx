@@ -94,7 +94,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       setTimeout(() => openMessageInput(), 400)
     }
     if (editTarget?.type === 'post') {
-      navigation.navigate('CREATE_POST', { editPostId: editTarget.postId })
+      navigation.navigate('CREATE_POST_NAVIGATION', {
+        screen: 'CREATE_POST',
+        params: { editPostId: editTarget.postId },
+      })
       setEditTarget(null)
     }
   }

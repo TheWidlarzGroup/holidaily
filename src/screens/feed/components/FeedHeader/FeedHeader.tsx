@@ -10,11 +10,12 @@ import { AttachmentType } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Analytics } from 'services/analytics'
+import { BottomTabNavigationType } from 'navigation/types'
 
 const ICON_SIZE = 30
 
 export const FeedHeader = () => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<BottomTabNavigationType<'FEED'>>()
   const { t } = useTranslation('feed')
   const theme = useTheme()
   const [
@@ -24,7 +25,10 @@ export const FeedHeader = () => {
   const { user } = useUserContext()
 
   const changeDataRequest = (modalPhoto: AttachmentType) => {
-    navigate('CREATE_POST', { photo: modalPhoto })
+    navigate('CREATE_POST_NAVIGATION', {
+      screen: 'CREATE_POST',
+      params: { modalAsset: modalPhoto },
+    })
   }
 
   const handleGalleryIcon = () => {
@@ -47,7 +51,10 @@ export const FeedHeader = () => {
         <Box marginRight="m" marginLeft="xs">
           <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
         </Box>
-        <BaseOpacity flexGrow={1} onPress={() => navigate('CREATE_POST')} justifyContent="center">
+        <BaseOpacity
+          flexGrow={1}
+          onPress={() => navigate('CREATE_POST_NAVIGATION')}
+          justifyContent="center">
           <Text variant="textSM" color="headerGrey">
             {t('createPostLabel')}
           </Text>
