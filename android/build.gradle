@@ -5,7 +5,7 @@ buildscript {
         buildToolsVersion = "30.0.0"
         minSdkVersion = 16
         compileSdkVersion = 31
-        targetSdkVersion = 31
+        targetSdkVersion = 27
     }
     repositories {
         mavenCentral()

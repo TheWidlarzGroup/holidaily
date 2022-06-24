@@ -7,17 +7,12 @@ describe('Example', () => {
     await device.reloadReactNative()
   })
 
-  it('should have welcome screen', async () => {
+  it.skip('should display "skip" on slider screen', async () => {
+    await expect(element(by.id('skip'))).toBeVisible()
+  })
+
+  it('navigate to welcome screen onPress "skip', async () => {
+    await element(by.id('skip')).tap()
     await expect(element(by.id('welcome'))).toBeVisible()
-  })
-
-  it.skip('should show hello screen after tap', async () => {
-    await element(by.id('hello_button')).tap()
-    await expect(element(by.text('Hello!!!'))).toBeVisible()
-  })
-
-  it.skip('should show world screen after tap', async () => {
-    await element(by.id('world_button')).tap()
-    await expect(element(by.text('World!!!'))).toBeVisible()
   })
 })
