@@ -22,6 +22,7 @@ type CreatePostFormProps = {
   openDeclineModal: F0
   hideDeclineModal: F0
   isDeclineModalOpen: boolean
+  isPostEdited: boolean
 }
 
 export const CreatePostForm = ({
@@ -29,6 +30,7 @@ export const CreatePostForm = ({
   openDeclineModal,
   hideDeclineModal,
   isDeclineModalOpen,
+  isPostEdited,
 }: CreatePostFormProps) => {
   const theme = useTheme()
   const { t } = useTranslation('feed')
@@ -65,7 +67,7 @@ export const CreatePostForm = ({
       </Box>
       <ConfirmationModal
         isVisible={isDeclineModalOpen}
-        header={t('discardHeader')}
+        header={t(isPostEdited ? 'discardChangesHeader' : 'discardPostHeader')}
         content={t('discardDesc')}
         acceptBtnText={t('discard')}
         declineBtnText={t('keepEditing')}

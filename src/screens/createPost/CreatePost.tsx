@@ -32,8 +32,8 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
   useSetStatusBarStyle(userSettings)
 
   const prevVersionOfPost = allPosts?.find((post) => post.id === postData?.id)
-  const isPostEdited =
-    editPostId &&
+  const isPostEdited: boolean =
+    !!editPostId &&
     (JSON.stringify(prevVersionOfPost?.data) !== JSON.stringify(postData?.data) ||
       JSON.stringify(prevVersionOfPost?.location) !== JSON.stringify(postData?.location) ||
       prevVersionOfPost?.text !== postData?.text)
@@ -102,6 +102,7 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
         isDeclineModalOpen={isDeclineModalOpen}
         openDeclineModal={openDeclineModal}
         hideDeclineModal={hideDeclineModal}
+        isPostEdited={isPostEdited}
       />
     </SwipeableScreen>
   )
