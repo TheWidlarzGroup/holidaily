@@ -91,7 +91,7 @@ export const SwipeableScreen = ({
   const containerStyle: ViewProps['style'] = [animatedTranslation, extraStyle ?? {}]
   if (swipeWithIndicator)
     return (
-      <Wrapper onDismiss={onDismiss}>
+      <Wrapper onDismiss={onDismiss} onSwipeStart={onSwipeStart}>
         <AnimatedBox {...containerProps} style={containerStyle}>
           <PanGestureHandler
             onGestureEvent={gestureHandler}
@@ -109,7 +109,7 @@ export const SwipeableScreen = ({
     )
 
   return (
-    <Wrapper onDismiss={onDismiss}>
+    <Wrapper onDismiss={onDismiss} onSwipeStart={onSwipeStart}>
       <PanGestureHandler
         onGestureEvent={gestureHandler}
         onEnded={() => onSwipeEnd()}
@@ -122,11 +122,12 @@ export const SwipeableScreen = ({
   )
 }
 
-type WrapperProps = { children: React.ReactNode; onDismiss?: F0 }
+type WrapperProps = { children: React.ReactNode; onDismiss?: F0; onSwipeStart?: F0 }
 
-const Wrapper = ({ children, onDismiss }: WrapperProps) => {
+const Wrapper = ({ children, onDismiss, onSwipeStart }: WrapperProps) => {
   const { goBack } = useNavigation()
   const handleBackdropPress = () => {
+    if (onSwipeStart) return onSwipeStart()
     goBack()
     onDismiss?.()
   }
