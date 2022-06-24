@@ -66,7 +66,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
         getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
         decelerationRate="normal"
         disableIntervalMomentum
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={{ alignItems: 'center', paddingTop: 8 }}
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.uri}
