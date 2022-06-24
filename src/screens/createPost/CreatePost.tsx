@@ -55,9 +55,14 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
         },
       })
     }
-    console.log(postData)
-    if (editPostId && postData) editPost(postData, { onSuccess: showSuccessModal })
-    else if (postData) addPost(postData, { onSuccess: showSuccessModal })
+
+    const prevVersionOfPost = allPosts?.find((post) => post.id === postData?.id)
+    if (editPostId && postData) {
+      if (JSON.stringify(prevVersionOfPost) === JSON.stringify(postData)) return goBack()
+      editPost(postData, { onSuccess: showSuccessModal })
+    } else if (postData) {
+      if (!prevVersionOfPost) addPost(postData, { onSuccess: showSuccessModal })
+    }
 
     const address = postData?.location
     const locationToSend = address ? `${address.city} ${address.country}` : postData?.location
