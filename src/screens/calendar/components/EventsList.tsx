@@ -68,8 +68,10 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
 
     useEffect(() => {
       if (selectedDate !== pickedDate) setPickedDate(selectedDate)
-      setShowNavButton(false)
-    }, [selectedDate, pickedDate])
+      if (showNavButton) setShowNavButton(false)
+      // Comment: we don't want to track picked date and showNavButton
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedDate])
 
     useEffect(() => {
       if (days.length > 0 && currentIndex) setShowLoadingModal(false)
