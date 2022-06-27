@@ -67,7 +67,7 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
     }
 
     if (editPostId && postData) {
-      if (isPostEdited) return goBack()
+      if (!isPostEdited) return goBack()
       editPost(postData, { onSuccess: showSuccessModal })
     }
     if (postData && !prevVersionOfPost) addPost(postData, { onSuccess: showSuccessModal })
