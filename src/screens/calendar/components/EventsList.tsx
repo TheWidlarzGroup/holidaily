@@ -41,7 +41,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
 
     const { offset } = getItemLayout(days, currentIndex)
 
-    const btnShownCondition = pageOffsetY !== offset
+    const btnShownCondition = Math.abs(pageOffsetY - offset || offset - pageOffsetY) > 300
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
     const handleBtn = () => {
       if (switchCalendarHeight) {
