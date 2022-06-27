@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
+import { LoadingModal } from 'components/LoadingModal'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
@@ -27,23 +28,28 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex },
     flatListRef
   ) => {
+    const [showLoadingModal, setShowLoadingModal] = useState(true)
+    const [showNavButton, setShowNavButton] = useState(false)
     const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
+    const theme = useTheme()
 
     const handleTouchAndScroll = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
+      if (pageOffsetY !== offset) setShowNavButton(true)
     }
 
     const measureScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const { y } = e.nativeEvent.contentOffset
       setPageOffsetY(y)
+      if (pageOffsetY === offset) setShowNavButton(false)
     }
 
     const { offset } = getItemLayout(days, currentIndex)
 
-    const btnShownCondition = pageOffsetY !== offset
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
     const handleBtn = () => {
+      setShowNavButton(false)
       if (switchCalendarHeight) {
         setSwitchCalendarHeight(false)
         setTimeout(() => {
@@ -54,6 +60,10 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
       }
       Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
     }
+
+    useEffect(() => {
+      if (days.length > 0 && currentIndex) setShowLoadingModal(false)
+    }, [days, currentIndex])
 
     return (
       <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
@@ -75,9 +85,11 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
           onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
-        {btnShownCondition && (
-          <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />
-        )}
+        {showNavButton && <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />}
+        <LoadingModal
+          show={showLoadingModal}
+          style={{ backgroundColor: theme.colors.whiteDarken }}
+        />
       </Box>
     )
   }
