@@ -37,10 +37,10 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
           hitSlop={{ top: 24, right: 24, bottom: 24, left: 24 }}
           marginLeft="ml"
           paddingBottom="ml"
-          paddingTop="lplus">
+          paddingTop="ml">
           <IconBack width={9} height={16} color={theme.colors.black} />
         </BaseOpacity>
-        <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="lplus">
+        <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="ml">
           {t('yourRequest')}
         </Text>
         <Box paddingRight="xl" />
