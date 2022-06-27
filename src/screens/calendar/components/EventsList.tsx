@@ -11,6 +11,7 @@ import { GoUpDownButton } from './GoUpDownButton'
 
 export type EventsListProps = {
   btnOnPress: F0
+  selectedDate: Date
   currentIndex: number
   days: DayInfoProps[]
   switchCalendarHeight: boolean
@@ -25,9 +26,10 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
 
 export const EventsList = React.forwardRef<FlatList, EventsListProps>(
   (
-    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex },
+    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex, selectedDate },
     flatListRef
   ) => {
+    const [pickedDate, setPickedDate] = useState(new Date())
     const [showLoadingModal, setShowLoadingModal] = useState(true)
     const [showNavButton, setShowNavButton] = useState(false)
     const [pageOffsetY, setPageOffsetY] = useState(0)
@@ -60,6 +62,10 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
       }
       Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
     }
+
+    useEffect(() => {
+      if (selectedDate !== pickedDate) setPickedDate(selectedDate)
+    }, [selectedDate, pickedDate])
 
     useEffect(() => {
       if (days.length > 0 && currentIndex) setShowLoadingModal(false)

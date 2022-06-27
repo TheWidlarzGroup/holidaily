@@ -80,6 +80,7 @@ const CalendarToWrap = () => {
       </Box>
       <EventsList
         ref={flatListRef}
+        selectedDate={selectedDate}
         days={currentMonthDays}
         currentIndex={currentIndex}
         switchCalendarHeight={switchCalendarHeight}
