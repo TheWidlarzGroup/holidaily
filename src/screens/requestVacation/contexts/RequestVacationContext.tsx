@@ -1,6 +1,13 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import React, { createContext, ReactNode, useContext, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { calculatePTO } from 'utils/dates'
 import { MAX_SICK_DAYS_COUNT } from '../components/MaxSickDays'
@@ -26,8 +33,8 @@ export type RequestVacationContextProps = RequestVacationData & {
   setStartDate: F1<Date | undefined>
   setEndDate: F1<Date | undefined>
   setCreatedAt: F1<Date | undefined>
-  setIsFormEmpty: F1<RequestVacationData['isFormEmpty']>
-  setRequestData: F1<RequestVacationData['requestData']>
+  setIsFormEmpty: F1<SetStateAction<RequestVacationData['isFormEmpty']>>
+  setRequestData: F1<SetStateAction<RequestVacationData['requestData']>>
   markSickTime: F0
   cancelSickTime: F0
   toggleSickTime: F0
