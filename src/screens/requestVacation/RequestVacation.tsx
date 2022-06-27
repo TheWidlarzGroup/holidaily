@@ -28,7 +28,7 @@ export type RequestDataTypes = {
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
 }
-type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
+type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>
 type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
