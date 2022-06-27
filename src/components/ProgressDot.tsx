@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Dimensions } from 'react-native'
 import Animated, { useAnimatedStyle, interpolateColor } from 'react-native-reanimated'
 import { Analytics } from 'services/analytics'
@@ -14,12 +14,12 @@ type ProgressDotProps = {
   postId?: string
 }
 
-export const ProgressDot: FC<ProgressDotProps> = ({
+export const ProgressDot = ({
   scrollPositionX,
   index,
   postPagination,
   postId,
-}) => {
+}: ProgressDotProps) => {
   const styles = useStyles()
   const sliderDotColors = [colors.white, colors.black, colors.white]
   const postDotColors = [colors.paginationDot, colors.tertiary, colors.paginationDot]

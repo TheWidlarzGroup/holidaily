@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -6,7 +6,7 @@ import { CustomButton } from 'components/CustomButton'
 import { Box, Text, theme } from 'utils/theme/index'
 import { AuthNavigationType } from 'navigation/types'
 
-export const UpdateModalChildren: FC = () => {
+export const UpdateModalChildren = () => {
   const { t } = useTranslation('updatePasswordModal')
   const navigation = useNavigation<AuthNavigationType<'NewPassword'>>()
 

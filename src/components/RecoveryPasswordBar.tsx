@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Box } from 'utils/theme/index'
 import { AnimatedBar } from './AnimatedBar'
 
@@ -6,7 +6,7 @@ type RecoveryPasswordBarTypes = {
   currentScreen: 'RecoveryCode' | 'NewPassword'
 }
 
-export const RecoveryPasswordBar: FC<RecoveryPasswordBarTypes> = ({ currentScreen }) => (
+export const RecoveryPasswordBar = ({ currentScreen }: RecoveryPasswordBarTypes) => (
   <Box flexDirection="row" paddingHorizontal="m">
     {currentScreen === 'RecoveryCode' ? (
       <>

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BaseOpacity, Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -34,7 +34,7 @@ type FormRequestVacationProps = {
   setIsFormEmpty: F1<boolean>
 }
 
-export const FormRequestVacation: FC<FormRequestVacationProps> = ({
+export const FormRequestVacation = ({
   date,
   sickTime,
   toggleSickTime,
@@ -44,7 +44,7 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   files,
   removeAttachment,
   setIsFormEmpty,
-}) => {
+}: FormRequestVacationProps) => {
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
   const [
