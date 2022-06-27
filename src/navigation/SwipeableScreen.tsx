@@ -99,7 +99,7 @@ export const SwipeableScreen = ({
               onSwipeEnd?.()
             }}
             onActivated={() => onSwipeStart?.()}>
-            <AnimatedBox backgroundColor="errorBrighter" height={50} width="100%">
+            <AnimatedBox height={50} width="100%">
               <ModalHandleIndicator />
             </AnimatedBox>
           </PanGestureHandler>
@@ -114,7 +114,7 @@ export const SwipeableScreen = ({
         onGestureEvent={gestureHandler}
         onEnded={() => onSwipeEnd()}
         onActivated={() => onSwipeStart?.()}>
-        <AnimatedBox backgroundColor="errorBrighter" {...containerProps} style={containerStyle}>
+        <AnimatedBox {...containerProps} style={containerStyle}>
           {children}
         </AnimatedBox>
       </PanGestureHandler>
