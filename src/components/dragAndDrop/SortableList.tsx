@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { JSXElementConstructor, ReactElement, useCallback, useEffect, useState } from 'react'
 import { Item, SortableListItemType } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
@@ -143,7 +143,7 @@ export const orderToPositions = (order: (string | number)[]) => {
 }
 
 export const makeOrder = (
-  sortableItems: React.ReactElement<{ id: number }, string | React.JSXElementConstructor<any>>[],
+  sortableItems: ReactElement<{ id: number }, string | JSXElementConstructor<any>>[],
   persistedOrder: Positions
 ) => {
   const persistedOrderKeys = keys(persistedOrder)

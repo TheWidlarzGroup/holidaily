@@ -12,7 +12,7 @@ import { colors } from 'utils/theme/colors'
 type RecoveryCodeInputProps = {
   cellCount: number
   value: string
-  setValue: React.Dispatch<React.SetStateAction<string>>
+  setValue: F1<string>
 }
 
 export const RecoveryCodeInput = ({ cellCount, value, setValue }: RecoveryCodeInputProps) => {

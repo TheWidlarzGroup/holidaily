@@ -1,5 +1,5 @@
 import { FormInput } from 'components/FormInput'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BaseOpacity, Box, useTheme } from 'utils/theme'
 import { AppNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
@@ -27,7 +27,7 @@ export const Details = (p: DetailsProps) => {
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
 
-  React.useEffect(() => {
+  useEffect(() => {
     register('description', { required: false })
   }, [register])
 

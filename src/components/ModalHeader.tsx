@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Box } from 'utils/theme'
 
-export const ModalHeader = ({ children }: { children: React.ReactNode }) => (
+export const ModalHeader = ({ children }: { children: ReactNode }) => (
   <Box
     bg="veryLightGrey"
     flexDirection="row"

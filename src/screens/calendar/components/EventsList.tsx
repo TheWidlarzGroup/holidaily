@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
 import { Box } from 'utils/theme'
@@ -22,7 +22,7 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
   </TouchableOpacity>
 )
 
-export const EventsList = React.forwardRef<FlatList, EventsListProps>(
+export const EventsList = forwardRef<FlatList, EventsListProps>(
   (
     { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex },
     flatListRef

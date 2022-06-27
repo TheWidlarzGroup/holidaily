@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { mkUseStyles, Theme } from 'utils/theme'
@@ -26,7 +26,7 @@ export const AppNavigation = () => {
 
   const { user, updateUser } = useUserContext()
   const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
-  const [loginStatus, setLoginStatus] = React.useState<LoginStatusTypes>('FirstVisit')
+  const [loginStatus, setLoginStatus] = useState<LoginStatusTypes>('FirstVisit')
   const isFirstRender = useRef(true)
   const initTeams = useInitDemoUserTeams()
   useEffect(() => {

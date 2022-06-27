@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import { Box, Text, theme } from 'utils/theme'
 import { isScreenHeightShort } from 'utils/deviceSizes'
@@ -6,7 +6,7 @@ import { isScreenHeightShort } from 'utils/deviceSizes'
 type DrawerItemProps = {
   onPress: () => void
   text?: string
-  icon?: React.ReactNode
+  icon?: ReactNode
 }
 
 export const DrawerItem = ({ icon, text, onPress }: DrawerItemProps) => (

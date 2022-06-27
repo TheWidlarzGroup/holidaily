@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { ComponentProps, useEffect, useRef } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { Box } from 'utils/theme/index'
 
@@ -6,7 +6,7 @@ type AnimatedBarProps = {
   isActive: boolean
   reverseAnimation?: boolean
   disableInitialAnimation?: boolean
-} & React.ComponentProps<typeof Box>
+} & ComponentProps<typeof Box>
 export const AnimatedBar = ({
   reverseAnimation,
   disableInitialAnimation,
