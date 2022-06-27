@@ -36,22 +36,24 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     const [language] = useLanguage()
     const theme = useTheme()
 
-    const handleTouchAndScroll = () => {
+    const handleTouch = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
-      if (pageOffsetY !== offset) setShowNavButton(true)
+    }
+
+    const handleScroll = () => {
+      handleTouch()
+      setShowNavButton(true)
     }
 
     const measureScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const { y } = e.nativeEvent.contentOffset
       setPageOffsetY(y)
-      if (pageOffsetY === offset) setShowNavButton(false)
     }
 
     const { offset } = getItemLayout(days, currentIndex)
 
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
     const handleBtn = () => {
-      setShowNavButton(false)
       if (switchCalendarHeight) {
         setSwitchCalendarHeight(false)
         setTimeout(() => {
@@ -60,11 +62,13 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
       } else {
         btnOnPress()
       }
+      setShowNavButton(false)
       Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
     }
 
     useEffect(() => {
       if (selectedDate !== pickedDate) setPickedDate(selectedDate)
+      setShowNavButton(false)
     }, [selectedDate, pickedDate])
 
     useEffect(() => {
@@ -85,8 +89,8 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
           initialScrollIndex={new Date().getDate() - 1}
           getItemLayout={getItemLayout}
           ref={flatListRef}
-          onTouchEnd={handleTouchAndScroll}
-          onScrollBeginDrag={handleTouchAndScroll}
+          onTouchEnd={handleTouch}
+          onScrollBeginDrag={handleScroll}
           onScroll={(e) => measureScroll(e)}
           onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
