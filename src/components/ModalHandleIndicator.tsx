@@ -13,7 +13,6 @@ const useStyles = mkUseStyles((theme) => ({
     height: 3,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: theme.spacing.xm,
     backgroundColor: theme.colors.grey,
     borderTopEndRadius: theme.borderRadii.xs,
     borderTopStartRadius: theme.borderRadii.xs,
