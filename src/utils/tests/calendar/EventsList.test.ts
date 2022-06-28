@@ -7,7 +7,7 @@ import { getUserTeamId } from 'utils/getUserTeamId'
 describe('EventsList getItemLayout', () => {
   const event: DayOffEvent = {
     id: '1',
-    person: 'Joe',
+    firstName: 'Joe',
     reason: 'Not much',
     position: 'Manager',
     color: 'red',
