@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { ReactNode } from 'react'
 import { StyleProp, ViewStyle, StyleSheet } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { BaseOpacity, mkUseStyles } from 'utils/theme'
@@ -7,9 +7,10 @@ type AlertProps = {
   show: boolean
   style?: StyleProp<ViewStyle>
   onPress?: F0
+  children?: ReactNode
 }
 
-export const Alert: FC<AlertProps> = ({ show, style, onPress, children }) => {
+export const Alert = ({ show, style, onPress, children }: AlertProps) => {
   const styles = useStyles()
   const progress = useDerivedValue(() => (show ? 0 : 1), [show])
 

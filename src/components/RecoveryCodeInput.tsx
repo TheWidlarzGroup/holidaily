@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import {
   CodeField,
@@ -12,10 +12,10 @@ import { colors } from 'utils/theme/colors'
 type RecoveryCodeInputProps = {
   cellCount: number
   value: string
-  setValue: React.Dispatch<React.SetStateAction<string>>
+  setValue: F1<string>
 }
 
-export const RecoveryCodeInput: FC<RecoveryCodeInputProps> = ({ cellCount, value, setValue }) => {
+export const RecoveryCodeInput = ({ cellCount, value, setValue }: RecoveryCodeInputProps) => {
   const codeFieldRef = useBlurOnFulfill({ value, cellCount })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,

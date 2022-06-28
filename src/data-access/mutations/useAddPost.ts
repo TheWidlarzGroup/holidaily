@@ -26,6 +26,23 @@ export const useAddPost = () =>
     },
   })
 
+const addPostWithNewId = async (body: FeedPost): Promise<FeedPost> => {
+  const { data } = await axios.post<FeedPost>(API.POST.addPostWithNewId, body)
+  return data
+}
+export const useAddPostWithNewId = () =>
+  useMutation<FeedPost, AxiosError<{ errors: string[] }>, FeedPost>(addPostWithNewId, {
+    onSuccess: (payload) => {
+      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
+        if (data?.length) return [payload, ...data]
+        return [payload]
+      })
+    },
+    onError: (err) => {
+      console.log('Error while adding post: ', err.message)
+    },
+  })
+
 const editPost = async (post: FeedPost): Promise<PostSuccess> => {
   const { data } = await axios.put<PostSuccess>(API.PUT.editPost(post), post)
   return data

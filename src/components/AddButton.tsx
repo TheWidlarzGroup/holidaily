@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import { Box, mkUseStyles, Theme, theme } from 'utils/theme/index'
 import IconPlus from 'assets/icons/icon-plus.svg'
@@ -10,7 +10,7 @@ type AddButtonProps = {
 
 export const ADD_BTN_WIDTH = 90
 
-export const AddButton: FC<AddButtonProps> = ({ onPress }) => {
+export const AddButton = ({ onPress }: AddButtonProps) => {
   const styles = useStyles()
   return (
     <Box position="relative" alignItems="center" width={ADD_BTN_WIDTH}>

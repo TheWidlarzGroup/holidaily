@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
@@ -12,11 +12,11 @@ type ForgotPasswordErrorModalProps = Pick<ModalProps, 'isVisible'> & {
   subTitle: 'errorEmailSubTitle' | 'errorRecoveryCodeSubTitle'
 }
 
-export const ForgotPasswordErrorModal: FC<ForgotPasswordErrorModalProps> = ({
+export const ForgotPasswordErrorModal = ({
   isVisible,
   hideModal,
   subTitle,
-}) => (
+}: ForgotPasswordErrorModalProps) => (
   <CustomModal
     isVisible={isVisible}
     onBackButtonPress={hideModal}

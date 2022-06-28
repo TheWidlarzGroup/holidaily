@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme/index'
@@ -13,7 +13,7 @@ type PasswordResetErrorsProps = {
 const EmailErrorImage = require('assets/Illustration_error_cone.png')
 const RecoveryCodeErrorImage = require('assets/Illustration_error_sunglasses.png')
 
-export const PasswordResetErrors: FC<PasswordResetErrorsProps> = ({ hideModal, subTitle }) => {
+export const PasswordResetErrors = ({ hideModal, subTitle }: PasswordResetErrorsProps) => {
   const { t } = useTranslation('errorModals')
 
   return (

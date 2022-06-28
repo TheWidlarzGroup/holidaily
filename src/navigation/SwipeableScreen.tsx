@@ -27,6 +27,7 @@ export type SwipeableScreenProps = {
   swipeWithIndicator?: true
   extraStyle?: ViewProps['style']
   onDismiss?: F0
+  onSwipeStart?: F0
 } & Omit<BoxProps<Theme>, 'style'> &
   (
     | { confirmLeave?: never; confirmLeaveOptions?: never }
@@ -46,6 +47,7 @@ export const SwipeableScreen = ({
   swipeWithIndicator,
   extraStyle,
   onDismiss,
+  onSwipeStart,
   ...extraContainerProps
 }: SwipeableScreenProps) => {
   const { height } = useDimensions()
@@ -84,14 +86,20 @@ export const SwipeableScreen = ({
       onDismiss?.()
     } else translateY.value = withTiming(0)
   }
+
   const containerProps = { ...baseContainerProps, ...(extraContainerProps ?? {}) }
   const containerStyle: ViewProps['style'] = [animatedTranslation, extraStyle ?? {}]
   if (swipeWithIndicator)
     return (
-      <Wrapper onDismiss={onDismiss}>
+      <Wrapper onDismiss={onDismiss} onSwipeStart={onSwipeStart}>
         <AnimatedBox {...containerProps} style={containerStyle}>
-          <PanGestureHandler onGestureEvent={gestureHandler} onEnded={() => onSwipeEnd()}>
-            <AnimatedBox backgroundColor="errorBrighter" height={50} width="100%">
+          <PanGestureHandler
+            onGestureEvent={gestureHandler}
+            onEnded={() => {
+              onSwipeEnd?.()
+            }}
+            onActivated={() => onSwipeStart?.()}>
+            <AnimatedBox height={50} width="100%">
               <ModalHandleIndicator />
             </AnimatedBox>
           </PanGestureHandler>
@@ -101,9 +109,12 @@ export const SwipeableScreen = ({
     )
 
   return (
-    <Wrapper onDismiss={onDismiss}>
-      <PanGestureHandler onGestureEvent={gestureHandler} onEnded={() => onSwipeEnd()}>
-        <AnimatedBox backgroundColor="errorBrighter" {...containerProps} style={containerStyle}>
+    <Wrapper onDismiss={onDismiss} onSwipeStart={onSwipeStart}>
+      <PanGestureHandler
+        onGestureEvent={gestureHandler}
+        onEnded={() => onSwipeEnd()}
+        onActivated={() => onSwipeStart?.()}>
+        <AnimatedBox {...containerProps} style={containerStyle}>
           {children}
         </AnimatedBox>
       </PanGestureHandler>
@@ -111,11 +122,12 @@ export const SwipeableScreen = ({
   )
 }
 
-type WrapperProps = { children: React.ReactNode; onDismiss?: F0 }
+type WrapperProps = { children: ReactNode; onDismiss?: F0; onSwipeStart?: F0 }
 
-const Wrapper = ({ children, onDismiss }: WrapperProps) => {
+const Wrapper = ({ children, onDismiss, onSwipeStart }: WrapperProps) => {
   const { goBack } = useNavigation()
   const handleBackdropPress = () => {
+    if (onSwipeStart) return onSwipeStart()
     goBack()
     onDismiss?.()
   }

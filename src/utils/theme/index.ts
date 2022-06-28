@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { createText, createBox, useTheme as useReTheme, RNStyle } from '@shopify/restyle'
 import { TouchableOpacityProps, TouchableOpacity } from 'react-native'
 import { textVariants } from './textVariants'
@@ -26,7 +26,7 @@ export const Text = createText<Theme>()
 export const BaseOpacity = createBox<
   ThemeBase,
   TouchableOpacityProps & {
-    children?: React.ReactNode
+    children?: ReactNode
   }
 >(TouchableOpacity)
 

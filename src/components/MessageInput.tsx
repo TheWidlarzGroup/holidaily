@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import { StyleProp, TextInput, ViewStyle } from 'react-native'
 import { BaseOpacity, Box, mkUseStyles, theme, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/icon-paperplane.svg'
@@ -33,7 +33,7 @@ export type MessageInputProps = {
 const ICON_SIZE = 16
 const androidPaddings: StyleProp<ViewStyle> = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
 
-export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
+export const MessageInput = forwardRef<TextInput, MessageInputProps>((props, ref) => {
   const {
     onSubmitEditing,
     onBlur,

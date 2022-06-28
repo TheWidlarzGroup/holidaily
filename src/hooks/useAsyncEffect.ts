@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { DependencyList, useEffect } from 'react'
 
-export const useAsyncEffect = (cb: () => Promise<any>, deps: React.DependencyList = []) =>
+export const useAsyncEffect = (cb: () => Promise<any>, deps: DependencyList = []) =>
   useEffect(() => {
     cb()
     // eslint-disable-next-line react-hooks/exhaustive-deps

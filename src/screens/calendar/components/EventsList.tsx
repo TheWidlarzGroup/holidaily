@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, forwardRef } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
 import { Box, useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
 import { LoadingModal } from 'components/LoadingModal'
+import { sleep } from 'utils/sleep'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
@@ -24,7 +25,7 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
   </TouchableOpacity>
 )
 
-export const EventsList = React.forwardRef<FlatList, EventsListProps>(
+export const EventsList = forwardRef<FlatList, EventsListProps>(
   (
     { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex, selectedDate },
     flatListRef
@@ -36,13 +37,16 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
     const [language] = useLanguage()
     const theme = useTheme()
 
+    const { offset } = getItemLayout(days, currentIndex)
+
     const handleTouch = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
     }
 
     const handleScroll = () => {
       handleTouch()
-      setShowNavButton(true)
+      if (Math.abs(pageOffsetY - offset) > 300) setShowNavButton(true)
+      else setShowNavButton(false)
     }
 
     const measureScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -50,10 +54,8 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
       setPageOffsetY(y)
     }
 
-    const { offset } = getItemLayout(days, currentIndex)
-
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
-    const handleBtn = () => {
+    const handleBtn = async () => {
       if (switchCalendarHeight) {
         setSwitchCalendarHeight(false)
         setTimeout(() => {
@@ -62,8 +64,9 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
       } else {
         btnOnPress()
       }
-      setShowNavButton(false)
       Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
+      await sleep(500)
+      setShowNavButton(false)
     }
 
     useEffect(() => {
@@ -92,7 +95,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(
           getItemLayout={getItemLayout}
           ref={flatListRef}
           onTouchEnd={handleTouch}
-          onScrollBeginDrag={handleScroll}
+          onMomentumScrollEnd={handleScroll}
           onScroll={(e) => measureScroll(e)}
           onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
