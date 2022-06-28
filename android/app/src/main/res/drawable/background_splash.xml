@@ -2,8 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:drawable="@color/primary" />
       <item
-        android:width="139dp"
-        android:height="170dp"
+        android:width="115dp"
+        android:height="115dp"
         android:drawable="@drawable/icon"
         android:gravity="center"
         />
