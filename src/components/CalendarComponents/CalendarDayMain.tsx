@@ -30,6 +30,7 @@ export const CalendarDayMain = (p: CalendarDayMainProps) => {
   const textColor = () => {
     if (isDisabled && p.marking?.period) return 'alwaysWhite'
     if (isDisabled) return 'headerGreyDarker'
+    if (isToday(day) && !p.marking?.selected && p.ignoreDarkMode) return 'alwaysBlack'
     if ((p.marking?.selected || p.marking?.period) && p.ignoreDarkMode) return 'alwaysWhite'
     if (p.ignoreDarkMode) return 'black'
     return 'black'
