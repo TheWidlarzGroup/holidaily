@@ -10,7 +10,6 @@ import Animated, {
   withSpring,
   withRepeat,
 } from 'react-native-reanimated'
-import { isAndroid } from 'utils/layout'
 
 const { width } = Dimensions.get('window')
 
@@ -24,8 +23,7 @@ type SliderContentProps = {
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 const IMAGE_HEIGHT = 300
-const iconPosition = isAndroid ? 3.2 : 2
-const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / iconPosition
+const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / 1.7
 
 const imgStyles = {
   height: IMAGE_HEIGHT,
@@ -39,7 +37,7 @@ export const SliderContent = ({
   disableInitialAnimation,
 }: SliderContentProps) => {
   const translateY = useSharedValue(middleScreenY)
-  const scale = useSharedValue(0.57)
+  const scale = useSharedValue(0)
   const opacity = useSharedValue(0)
   const rotate = useSharedValue(0)
   const opacityStyles = useAnimatedStyle(() => ({ opacity: opacity.value }), [])
@@ -63,6 +61,7 @@ export const SliderContent = ({
       return
     }
     const rotateCount = isUserLoggedIn ? -1 : 6
+    scale.value = withDelay(200, withSpring(0.55))
     rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), rotateCount, true))
     const longAnimation = () => {
       translateY.value = withDelay(2600, withTiming(middleScreenY))
