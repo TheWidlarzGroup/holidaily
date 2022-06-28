@@ -1,20 +1,5 @@
 import { User } from 'mock-api/models/mirageTypes'
 
-export const USER_DATA = {
-  id: '',
-  firstName: 'Paweł',
-  lastName: 'Ogonek',
-  photo: null,
-  email: '',
-  confirmed: true,
-  occupation: '',
-  userColor: '',
-  language: 'pl',
-  role: 'Admin',
-  requests: [],
-  teams: [],
-}
-
 export const TEAM_MATES_AKADEMIA: User[] = [
   {
     id: '',
