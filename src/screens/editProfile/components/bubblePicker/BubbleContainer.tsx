@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { Box, mkUseStyles, Text, Theme, useTheme } from 'utils/theme'
+import { Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import { shadow } from 'utils/theme/shadows'
 import { UserProfileNavigationProps } from 'navigation/types'
 import { windowWidth } from 'utils/deviceSizes'
@@ -29,7 +28,7 @@ export const BubbleContainer = ({
   }, [dropColor, p, theme.colors.colorPickerDropArea])
 
   return (
-    <View style={styles.mainContainer}>
+    <Box flex={1} backgroundColor="colorPickerBackdrop" flexWrap="wrap">
       {animateCheckmark && <CheckMark animateCheckmark={animateCheckmark} />}
       <BubbleContainerButtons />
       <BubbleContainerHeader />
@@ -59,16 +58,11 @@ export const BubbleContainer = ({
           {t('dropAreaText')}
         </Text>
       </Box>
-    </View>
+    </Box>
   )
 }
 
-const useStyles = mkUseStyles((theme: Theme) => ({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: theme.colors.colorPickerBackdrop,
-    flexWrap: 'wrap',
-  },
+const useStyles = mkUseStyles(() => ({
   dropArea: {
     position: 'absolute',
     width: windowWidth * 1.2,

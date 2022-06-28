@@ -59,7 +59,7 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   }
 
   return (
-    <Box padding="m" paddingVertical="none">
+    <Box padding="m" paddingBottom="none" paddingTop="s">
       {props.hasIndicator && <ModalHandleIndicator />}
       <Box
         justifyContent={iconPosition}

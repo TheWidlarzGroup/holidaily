@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React, { ReactNode } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { mkUseStyles, Theme } from 'utils/theme'
 
-export const Container: FC = ({ children }) => {
+export const Container = ({ children }: { children: ReactNode }) => {
   const styles = useStyles()
   return (
     <SafeAreaView style={styles.container}>

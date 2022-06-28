@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 import { CustomModal } from 'components/CustomModal'
 import { mkUseStyles, Theme } from 'utils/theme'
@@ -12,12 +12,12 @@ type PendingAccountConfModalProps = Pick<ModalProps, 'isVisible'> & {
   isConfirmed?: boolean
 }
 
-export const PendingAccountConfirmationModal: FC<PendingAccountConfModalProps> = ({
+export const PendingAccountConfirmationModal = ({
   isVisible,
   hideModal,
   showModal,
   isConfirmed,
-}) => {
+}: PendingAccountConfModalProps) => {
   const styles = useStyles()
   useEffect(() => {
     if (!isConfirmed || !showModal) return

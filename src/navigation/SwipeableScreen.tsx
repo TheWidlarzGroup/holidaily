@@ -122,7 +122,7 @@ export const SwipeableScreen = ({
   )
 }
 
-type WrapperProps = { children: React.ReactNode; onDismiss?: F0; onSwipeStart?: F0 }
+type WrapperProps = { children: ReactNode; onDismiss?: F0; onSwipeStart?: F0 }
 
 const Wrapper = ({ children, onDismiss, onSwipeStart }: WrapperProps) => {
   const { goBack } = useNavigation()

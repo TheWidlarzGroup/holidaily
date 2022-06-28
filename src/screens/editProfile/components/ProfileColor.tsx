@@ -10,11 +10,6 @@ import { InputEditIcon } from 'components/InputEditIcon'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { Analytics } from 'services/analytics'
 
-type ProfileColorViewProps = {
-  onChange: F1<string>
-  value: string
-}
-
 type ControlledColorPickerProps = {
   control: Control<FieldValues>
   name: string
@@ -22,7 +17,35 @@ type ControlledColorPickerProps = {
 
 type UncontrolledColorPickerProps = { onUpdate?: F1<EditUserSuccess> }
 
-type PorifileColorProps = ControlledColorPickerProps | UncontrolledColorPickerProps
+type ProfileColorProps = ControlledColorPickerProps | UncontrolledColorPickerProps
+
+export const ProfileColor = (p: ProfileColorProps) => {
+  const isControlled = 'control' in p
+  return isControlled ? (
+    <Controller
+      control={p.control}
+      name={p.name}
+      render={({ onChange, value }) => <ProfileColorView onChange={onChange} value={value} />}
+    />
+  ) : (
+    <UncontrolledProfileColor {...p} />
+  )
+}
+const useStyles = mkUseStyles((theme: Theme) => ({
+  colorBtn: {
+    marginTop: theme.spacing.xm,
+    marginLeft: theme.spacing.m,
+    height: 44,
+    width: 44,
+    borderRadius: theme.borderRadii.full,
+  },
+}))
+
+type ProfileColorViewProps = {
+  onChange: F1<string>
+  value: string
+}
+
 const ProfileColorView = (p: ProfileColorViewProps) => {
   const styles = useStyles()
   const { user } = useUserContext()
@@ -87,25 +110,3 @@ const UncontrolledProfileColor = (p: UncontrolledColorPickerProps) => {
     />
   )
 }
-
-export const ProfileColor = (p: PorifileColorProps) => {
-  const isControlled = 'control' in p
-  return isControlled ? (
-    <Controller
-      control={p.control}
-      name={p.name}
-      render={({ onChange, value }) => <ProfileColorView onChange={onChange} value={value} />}
-    />
-  ) : (
-    <UncontrolledProfileColor {...p} />
-  )
-}
-const useStyles = mkUseStyles((theme: Theme) => ({
-  colorBtn: {
-    marginTop: theme.spacing.xm,
-    marginLeft: theme.spacing.m,
-    height: 44,
-    width: 44,
-    borderRadius: theme.borderRadii.full,
-  },
-}))

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { AddButton, ADD_BTN_WIDTH } from 'components/AddButton'
 import { mkUseStyles, Theme, Box } from 'utils/theme'
@@ -15,7 +15,7 @@ type TabsHandlerProps = {
   activeTabIndex: number
 }
 
-export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
+export const TabsHandler = ({ tabs, tabWidth, activeTabIndex }: TabsHandlerProps) => {
   const styles = useStyles()
   const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
 

@@ -2,10 +2,10 @@ import React from 'react'
 import { EditPost, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { BaseOpacity, Box, Theme, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
-import { FeedPostHeaderInfo } from 'screens/feed/FeedPostHeaderInfo/FeedPostHeaderInfo'
 import { LocationInfo } from 'components/LocationInfo'
 import IconDots from 'assets/icons/icon-dots2.svg'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { FeedPostHeaderInfo } from '../FeedPostHeaderInfo/FeedPostHeaderInfo'
 
 type FeedPostHeaderProps = {
   post: FeedPost

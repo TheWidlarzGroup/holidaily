@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Svg, { Circle } from 'react-native-svg'
 import Animated, { interpolate, useAnimatedProps } from 'react-native-reanimated'
 import { StyleSheet } from 'react-native'
@@ -12,13 +12,13 @@ type LoaderProps = {
 }
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
-export const Loader: FC<LoaderProps> = ({
+export const Loader = ({
   progress,
   size,
   strokeWidth,
   backLayerColor,
   frontLayerColor,
-}) => {
+}: LoaderProps) => {
   const r = (size - strokeWidth) / 2
   const cx = size / 2
   const cy = size / 2

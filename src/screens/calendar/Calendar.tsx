@@ -17,6 +17,7 @@ import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHan
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
+  const [isScreenLoading, { setFalse: hideScreenLoader }] = useBooleanState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
@@ -52,16 +53,13 @@ const CalendarToWrap = () => {
     flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
   }, [currentMonthDays, selectedDate])
 
-  // Comment: show loader spinner while calendar is rendering
-  const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
-
   useEffect(() => {
-    hideLoader()
-  }, [hideLoader])
+    hideScreenLoader()
+  }, [hideScreenLoader])
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
-  if (isLoading) return <LoadingModal show />
+  if (isScreenLoading) return <LoadingModal show />
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>

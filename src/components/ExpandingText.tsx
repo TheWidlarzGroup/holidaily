@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ComponentProps, useEffect, useState } from 'react'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-type ExpandingTextProps = React.ComponentProps<typeof Text> & {
+type ExpandingTextProps = ComponentProps<typeof Text> & {
   text: string
   lines?: number
 }

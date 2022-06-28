@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import IconClose from 'assets/icons/icon-close.svg'
@@ -6,8 +6,8 @@ import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 type PostHeaderProps = {
   closeCreatePostForm: F0
-  left?: React.ReactNode
-  right?: React.ReactNode
+  left?: ReactNode
+  right?: ReactNode
 }
 
 const ICON_SIZE = 16

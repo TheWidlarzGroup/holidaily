@@ -1,5 +1,5 @@
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { ModalProps } from 'react-native-modal'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { Box } from 'utils/theme'
@@ -7,7 +7,7 @@ import { Box } from 'utils/theme'
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 type BottomModalProps = Pick<ModalProps, 'isVisible'> & {
-  children: React.ReactNode
+  children: ReactNode
   isInvalid?: boolean
   coverScreen?: true
 }

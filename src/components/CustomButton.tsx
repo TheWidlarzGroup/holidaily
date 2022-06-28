@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { FlexStyle, ActivityIndicator } from 'react-native'
 import { RectButton, RectButtonProperties } from 'react-native-gesture-handler'
 import { Text, mkUseStyles, Theme, useTheme, BaseOpacity, Colors } from 'utils/theme/index'
@@ -22,7 +22,7 @@ export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   customTextColor?: Colors
 }
 
-export const CustomButton: FC<CustomButtonProps> = ({
+export const CustomButton = ({
   variant = 'secondary',
   label,
   icon,
@@ -33,7 +33,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   customStyle,
   customTextColor,
   ...rest
-}) => {
+}: CustomButtonProps) => {
   const styles = useStyles()
   const theme = useTheme()
   let bgColor

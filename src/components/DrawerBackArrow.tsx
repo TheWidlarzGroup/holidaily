@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
 
@@ -7,7 +7,7 @@ type DrawerBackArrowProps = {
   title?: string
 }
 
-export const DrawerBackArrow: FC<DrawerBackArrowProps> = ({ goBack, title = '' }) => {
+export const DrawerBackArrow = ({ goBack, title = '' }: DrawerBackArrowProps) => {
   const styles = useStyles()
   return (
     <Box
