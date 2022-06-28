@@ -3,34 +3,23 @@
 buildscript {
     ext {
         buildToolsVersion = "30.0.0"
-        minSdkVersion = 16
-        compileSdkVersion = 31
-        targetSdkVersion = 27
+        minSdkVersion = 23
+        compileSdkVersion = 30
+        targetSdkVersion = 30
     }
     repositories {
         mavenCentral()
         google()
     }
-    ext.kotlinVersion = '1.7.0'
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.0")
         classpath('com.google.gms:google-services:4.3.8')
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
 allprojects {
-    afterEvaluate {
-        if (it.hasProperty('android')){
-            android {
-                defaultConfig {
-                    minSdkVersion 26
-                }
-            }
-        }
-    }
     repositories {
         mavenLocal()
         maven {
@@ -45,10 +34,6 @@ allprojects {
             url "https://sdk.smartlook.com/android/release"
         }
         google()
-        maven {
-            // All of Detox' artifacts are provided via the npm module
-            url "$rootDir/../node_modules/detox/Detox-android"
-        }
         jcenter()
         maven { url 'https://www.jitpack.io' }
     }
