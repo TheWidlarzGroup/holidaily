@@ -1,14 +1,14 @@
-import React from 'react'
+import { MutableRefObject, Ref, RefCallback, useEffect, useRef } from 'react'
 
-const isCallbackRef = <T>(ref: React.Ref<T>): ref is React.RefCallback<T> =>
+const isCallbackRef = <T>(ref: Ref<T>): ref is RefCallback<T> =>
   ref !== null && typeof ref === 'function'
-const isMutableRef = <T>(ref: React.Ref<T>): ref is React.MutableRefObject<T> =>
+const isMutableRef = <T>(ref: Ref<T>): ref is MutableRefObject<T> =>
   ref !== null && typeof ref !== 'function' && 'current' in ref
 
-export const useCombinedRefs = <T>(refs: React.Ref<T | null>[]) => {
-  const targetRef = React.useRef<T>(null)
+export const useCombinedRefs = <T>(refs: Ref<T | null>[]) => {
+  const targetRef = useRef<T>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     refs.forEach((ref) => {
       if (!ref) return
       if (isCallbackRef(ref)) ref(targetRef.current)

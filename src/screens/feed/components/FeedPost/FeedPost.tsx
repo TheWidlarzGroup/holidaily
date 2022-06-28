@@ -1,5 +1,5 @@
 import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Box, Theme } from 'utils/theme'
 import Animated, {
   Easing,
@@ -38,7 +38,7 @@ export const FeedPost = (props: FeedPostProps) => {
   }, [animProgress])
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       const getIdParam = route.params?.postId
       const isFromNotifications = Number(getIdParam) === Number(post.id)
 

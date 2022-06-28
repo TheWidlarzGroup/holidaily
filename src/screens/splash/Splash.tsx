@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,7 +7,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated'
-import { mkUseStyles, Theme } from 'utils/theme/index'
+import { Box, mkUseStyles } from 'utils/theme/index'
 
 const splashIcon = require('assets/Splash_screen.png')
 
@@ -30,23 +29,17 @@ export const Splash = ({ showIcon }: { showIcon: boolean }) => {
   }, [rotate, scale])
 
   return (
-    <View style={styles.container}>
+    <Box flex={1} alignItems="center" justifyContent="center" backgroundColor="mainBackground">
       {showIcon && (
         <Animated.View style={[styles.imageContainer, style]}>
           <Animated.Image style={styles.image} source={splashIcon} resizeMode="contain" />
         </Animated.View>
       )}
-    </View>
+    </Box>
   )
 }
 
-const useStyles = mkUseStyles((theme: Theme) => ({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.mainBackground,
-  },
+const useStyles = mkUseStyles(() => ({
   imageContainer: {
     width: '100%',
     height: '50%',

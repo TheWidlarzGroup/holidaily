@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import { ModalProps } from 'react-native-modal'
 
@@ -9,7 +9,7 @@ import { UpdateModalChildren } from './UpdateModalChildren'
 
 type PasswordUpdatedModalProps = Pick<ModalProps, 'isVisible'> & { hideModal: () => void }
 
-export const PasswordUpdatedModal: FC<PasswordUpdatedModalProps> = ({ isVisible, hideModal }) => (
+export const PasswordUpdatedModal = ({ isVisible, hideModal }: PasswordUpdatedModalProps) => (
   <CustomModal
     isVisible={isVisible}
     onBackButtonPress={hideModal}

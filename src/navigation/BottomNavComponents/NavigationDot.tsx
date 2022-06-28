@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { mkUseStyles, Theme } from 'utils/theme'
 import Animated, {
   interpolate,
@@ -14,7 +14,7 @@ type NavigationDotProps = {
   minIconWidth: number
 }
 
-export const NavigationDot: FC<NavigationDotProps> = ({ width, activeTabIndex, minIconWidth }) => {
+export const NavigationDot = ({ width, activeTabIndex, minIconWidth }: NavigationDotProps) => {
   const styles = useStyles()
   const startingPos = (width - 5) / 2
   const dotWidth = useSharedValue(5)
