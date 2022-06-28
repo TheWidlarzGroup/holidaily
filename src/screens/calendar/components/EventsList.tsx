@@ -1,15 +1,18 @@
-import React, { forwardRef, useState } from 'react'
+import React, { useEffect, useState, forwardRef } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
-import { Box } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
+import { LoadingModal } from 'components/LoadingModal'
+import { sleep } from 'utils/sleep'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
 
 export type EventsListProps = {
   btnOnPress: F0
+  selectedDate: Date
   currentIndex: number
   days: DayInfoProps[]
   switchCalendarHeight: boolean
@@ -24,14 +27,26 @@ const renderItem = ({ item }: { item: DayInfoProps }) => (
 
 export const EventsList = forwardRef<FlatList, EventsListProps>(
   (
-    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex },
+    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex, selectedDate },
     flatListRef
   ) => {
+    const [pickedDate, setPickedDate] = useState(new Date())
+    const [showLoadingModal, setShowLoadingModal] = useState(true)
+    const [showNavButton, setShowNavButton] = useState(false)
     const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
+    const theme = useTheme()
 
-    const handleTouchAndScroll = () => {
+    const { offset } = getItemLayout(days, currentIndex)
+
+    const handleTouch = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
+    }
+
+    const handleScroll = () => {
+      handleTouch()
+      if (Math.abs(pageOffsetY - offset) > 300) setShowNavButton(true)
+      else setShowNavButton(false)
     }
 
     const measureScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -39,11 +54,8 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
       setPageOffsetY(y)
     }
 
-    const { offset } = getItemLayout(days, currentIndex)
-
-    const btnShownCondition = Math.abs(pageOffsetY - offset) > 300
     const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
-    const handleBtn = () => {
+    const handleBtn = async () => {
       if (switchCalendarHeight) {
         setSwitchCalendarHeight(false)
         setTimeout(() => {
@@ -53,7 +65,20 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
         btnOnPress()
       }
       Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
+      await sleep(500)
+      setShowNavButton(false)
     }
+
+    useEffect(() => {
+      if (selectedDate !== pickedDate) setPickedDate(selectedDate)
+      if (showNavButton) setShowNavButton(false)
+      // Comment: we don't want to track picked date and showNavButton
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedDate])
+
+    useEffect(() => {
+      if (days.length > 0 && currentIndex) setShowLoadingModal(false)
+    }, [days, currentIndex])
 
     return (
       <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
@@ -69,15 +94,17 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
           initialScrollIndex={new Date().getDate() - 1}
           getItemLayout={getItemLayout}
           ref={flatListRef}
-          onTouchEnd={handleTouchAndScroll}
-          onScrollBeginDrag={handleTouchAndScroll}
+          onTouchEnd={handleTouch}
+          onMomentumScrollEnd={handleScroll}
           onScroll={(e) => measureScroll(e)}
           onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
-        {btnShownCondition && (
-          <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />
-        )}
+        {showNavButton && <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />}
+        <LoadingModal
+          show={showLoadingModal}
+          style={{ backgroundColor: theme.colors.whiteDarken }}
+        />
       </Box>
     )
   }

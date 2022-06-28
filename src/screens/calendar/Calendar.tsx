@@ -9,15 +9,12 @@ import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
-import { useBooleanState } from 'hooks/useBooleanState'
-import { LoadingModal } from 'components/LoadingModal'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
-  const [isScreenLoading, { setFalse: hideScreenLoader }] = useBooleanState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
@@ -47,13 +44,7 @@ const CalendarToWrap = () => {
     flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
   }, [currentMonthDays, selectedDate])
 
-  useEffect(() => {
-    hideScreenLoader()
-  }, [hideScreenLoader])
-
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
-
-  if (isScreenLoading) return <LoadingModal show />
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
@@ -80,6 +71,7 @@ const CalendarToWrap = () => {
       </Box>
       <EventsList
         ref={flatListRef}
+        selectedDate={selectedDate}
         days={currentMonthDays}
         currentIndex={currentIndex}
         switchCalendarHeight={switchCalendarHeight}
