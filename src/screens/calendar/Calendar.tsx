@@ -62,7 +62,7 @@ const CalendarToWrap = () => {
         borderRadius="lmin"
         backgroundColor="white"
         marginTop="m"
-        marginHorizontal="xm"
+        paddingHorizontal="ms"
         shadowOffset={{ width: 0, height: 2 }}
         shadowColor="black"
         shadowOpacity={0.15}
