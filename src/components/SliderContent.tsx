@@ -10,6 +10,7 @@ import Animated, {
   withSpring,
   withRepeat,
 } from 'react-native-reanimated'
+import { isAndroid } from 'react-native-calendars/src/expandableCalendar/commons'
 
 const { width } = Dimensions.get('window')
 
@@ -23,7 +24,8 @@ type SliderContentProps = {
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 const IMAGE_HEIGHT = 300
-const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / 1.7
+const iconPosition = isAndroid ? 3 : 1.7
+const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / iconPosition
 
 const imgStyles = {
   height: IMAGE_HEIGHT,
@@ -61,7 +63,7 @@ export const SliderContent = ({
       return
     }
     const rotateCount = isUserLoggedIn ? -1 : 6
-    scale.value = withDelay(200, withSpring(0.55))
+    scale.value = withDelay(200, withSpring(0.6))
     rotate.value = withDelay(700, withRepeat(withTiming(-25, { duration: 580 }), rotateCount, true))
     const longAnimation = () => {
       translateY.value = withDelay(2600, withTiming(middleScreenY))
