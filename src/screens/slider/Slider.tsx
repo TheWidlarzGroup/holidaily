@@ -114,9 +114,7 @@ export const Slider = ({ route }: AuthNavigationProps<'SLIDER'>) => {
         width="100%"
         height={50}
         paddingHorizontal="m">
-        {/* Comment: testID used temporarily for e2e tests, remove it */}
         <TouchableOpacity
-          testID="skip"
           onPress={navigateToWelcomeScreen}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <Text variant="boldBlack18" color="alwaysBlack">
