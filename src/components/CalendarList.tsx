@@ -101,6 +101,7 @@ const mkCalendarTheme = (
   appTheme: Theme,
   themeProp: RNCalendarProps['theme']
 ): NewCalendarBaseProps['theme'] => ({
+  calendarBackground: appTheme.colors.white,
   textDayFontFamily: appTheme.fontFamily.nunitoRegular,
   textDayFontSize: appTheme.fontSize.xs,
   textSectionTitleColor: appTheme.colors.grey,
