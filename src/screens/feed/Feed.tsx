@@ -21,7 +21,7 @@ import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
-import { useAddPost, useDeletePost } from 'dataAccess/mutations/useAddPost'
+import { useAddPostWithNewId, useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -47,7 +47,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const { mutate: deleteComment } = useDeleteComment()
   const { mutate: editComment } = useEditComment()
   const { mutate: deletePost } = useDeletePost()
-  const { mutate: addPost } = useAddPost()
+  const { mutate: addPostWithNewId } = useAddPostWithNewId()
 
   const prevScreen: PrevScreen = route.params?.prevScreen
   usePrevScreenBackHandler(prevScreen)
@@ -76,7 +76,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
               title: t('postDeleted'),
               onPressText: t('undo'),
               onPress: () => {
-                if (deletedPost) addPost(deletedPost)
+                if (deletedPost) addPostWithNewId(deletedPost)
               },
             },
           })
@@ -94,8 +94,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       setTimeout(() => openMessageInput(), 400)
     }
     if (editTarget?.type === 'post') {
-      const postToEdit = data?.find((post) => post.id === editTarget.postId)
-      navigation.navigate('CREATE_POST', { sentPost: postToEdit })
+      navigation.navigate('CREATE_POST_NAVIGATION', {
+        screen: 'CREATE_POST',
+        params: { editPostId: editTarget.postId },
+      })
       setEditTarget(null)
     }
   }
@@ -181,7 +183,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         )}
         keyExtractor={(post) => post.id}
         extraData={language}
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingBottom: 60 }}
       />
       <OptionsModal
         options={modalOptions}

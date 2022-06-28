@@ -11,17 +11,18 @@ import { useNavigation } from '@react-navigation/native'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { ModalNavigationProps } from 'navigation/types'
+import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
 import { SearchBar } from './SearchBar'
 import { ModalLocationList } from './ModalLocationList'
 
 const ICON_SIZE = 16
 
-export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) => {
+export const LocationForm = () => {
   const { t } = useTranslation('feed')
   const navigation = useNavigation()
   const { userSettings } = useUserSettingsContext()
   const { requestLocation, requestAddresses } = useLocation()
+  const { updatePostData } = useCreatePostContext()
   const {
     query,
     setQuery,
@@ -31,14 +32,13 @@ export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) =
     onQueryChange: requestAddresses,
     delay: 500,
   })
-  const dispatch = route?.params?.dispatch
   useSetStatusBarStyle({ darkMode: userSettings?.darkMode })
 
   const handleLocationAccess = async () => {
     const location = await requestLocation()
     if (!location?.position) return
     Analytics().track('FEED_LOCATION_ADDED', { location })
-    dispatch({ type: 'setLocation', payload: location.addresses[0] })
+    updatePostData({ location: location.addresses[0] })
     navigation.goBack()
   }
   const theme = useTheme()
@@ -58,7 +58,7 @@ export const LocationForm = ({ route }: ModalNavigationProps<'LOCATION_FORM'>) =
         <ModalLocationList
           location={location}
           onLocationPress={(location) => {
-            dispatch({ type: 'setLocation', payload: location })
+            updatePostData({ location })
             navigation.goBack()
           }}
           query={query}
