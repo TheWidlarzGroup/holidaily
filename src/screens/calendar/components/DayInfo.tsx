@@ -28,9 +28,9 @@ export const DayInfo = React.memo(
         borderRadius="lmin"
         backgroundColor="white"
         paddingVertical={DAY_PADDING_VERTICAL}
-        paddingHorizontal="lplus"
+        paddingHorizontal="m"
         marginVertical={OUTER_BOX_MARGIN}>
-        <Text variant={HEADING_TEXT_VARIANT}>
+        <Text variant={HEADING_TEXT_VARIANT} marginBottom="xxs">
           {getDateWithMonthString(p.date)}, <Text color="darkGrey">{getDayName(p.date)}</Text>
         </Text>
         {typeof p.events !== 'undefined' && p.events?.length > 0 && (

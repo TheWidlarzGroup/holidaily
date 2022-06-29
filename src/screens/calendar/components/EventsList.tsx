@@ -81,7 +81,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
     }, [days, currentIndex])
 
     return (
-      <Box marginTop="m" marginHorizontal="xm" justifyContent="center" flex={1}>
+      <Box marginTop="xxs" marginHorizontal="s" justifyContent="center" flex={1}>
         <FlatList
           data={days}
           renderItem={renderItem}

@@ -50,12 +50,12 @@ const CalendarToWrap = () => {
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <CategoriesSlider />
       <Box
-        borderRadius="lmin"
+        borderRadius="xm"
         backgroundColor="white"
         marginTop="m"
-        marginHorizontal="xm"
+        paddingHorizontal="ms"
         shadowOffset={{ width: 0, height: 2 }}
-        shadowColor="black"
+        shadowColor="blackOpaque"
         shadowOpacity={0.15}
         shadowRadius={6}
         elevation={4}>
