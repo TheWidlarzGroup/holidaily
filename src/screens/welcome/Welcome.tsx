@@ -58,7 +58,9 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         keyboardShouldPersistTaps="handled">
         <WelcomeTopBar openModal={openModal} />
         <Box justifyContent="center" marginTop="m">
-          <Text variant="title1">{t('welcomeTitle')}</Text>
+          <Text testID="welcome-title" variant="title1">
+            {t('welcomeTitle')}
+          </Text>
         </Box>
         <Box justifyContent="center" marginTop="m">
           <Text variant="body1">{t('welcomeSubtitle')}</Text>

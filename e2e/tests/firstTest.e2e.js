@@ -1,27 +1,3 @@
-// describe('Example', () => {
-//   beforeAll(async () => {
-//     await device.launchApp();
-//   });
-
-//   beforeEach(async () => {
-//     await device.reloadReactNative();
-//   });
-
-//   it('should have welcome screen', async () => {
-//     await expect(element(by.id('welcome'))).toBeVisible();
-//   });
-
-//   it('should show hello screen after tap', async () => {
-//     await element(by.id('hello_button')).tap();
-//     await expect(element(by.text('Hello!!!'))).toBeVisible();
-//   });
-
-//   it('should show world screen after tap', async () => {
-//     await element(by.id('world_button')).tap();
-//     await expect(element(by.text('World!!!'))).toBeVisible();
-//   });
-// });
-
 describe('First test - example', () => {
   beforeAll(async () => {
     await device.launchApp()
@@ -33,5 +9,10 @@ describe('First test - example', () => {
 
   it('should have skip test on the splash screen', async () => {
     await expect(element(by.id('slider-touchable-opacity-skip'))).toBeVisible()
+  })
+
+  it('navigate to welcome screen onPress skip', async () => {
+    await element(by.id('slider-touchable-opacity-skip')).tap()
+    await expect(element(by.id('welcome-title'))).toBeVisible()
   })
 })
