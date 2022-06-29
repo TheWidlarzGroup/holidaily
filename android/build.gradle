@@ -3,9 +3,10 @@
 buildscript {
     ext {
         buildToolsVersion = "30.0.0"
-        minSdkVersion = 23
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        minSdkVersion = 16
+        compileSdkVersion = 31
+        targetSdkVersion = 31
+        kotlinVersion = '1.6.21'
     }
     repositories {
         mavenCentral()
@@ -14,12 +15,23 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.0")
         classpath('com.google.gms:google-services:4.3.8')
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
 allprojects {
+    afterEvaluate {
+        if (it.hasProperty('android')){
+            android {
+                defaultConfig {
+                    minSdkVersion 26
+                }
+            }
+        }
+    }
+    
     repositories {
         mavenLocal()
         maven {
@@ -36,5 +48,8 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
+        maven {
+            url "$rootDir/../node_modules/detox/Detox-android"
+        }
     }
 }

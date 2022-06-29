@@ -115,6 +115,7 @@ export const Slider = ({ route }: AuthNavigationProps<'SLIDER'>) => {
         height={50}
         paddingHorizontal="m">
         <TouchableOpacity
+          testID="slider-touchable-opacity-skip"
           onPress={navigateToWelcomeScreen}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <Text variant="boldBlack18" color="alwaysBlack">
