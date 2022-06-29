@@ -96,7 +96,7 @@ export const MessageInput = forwardRef<TextInput, MessageInputProps>((props, ref
       text: messageContent,
     }
     props.handleSubmitComment?.(message)
-    notify('successCustom', { params: { title: t('commentAdded') } })
+    if (messageContent.length > 0) notify('successCustom', { params: { title: t('commentAdded') } })
   }
 
   const handleBlur = () => {
