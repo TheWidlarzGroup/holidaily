@@ -4,8 +4,8 @@ import { Avatar, AvatarSize, avatarSizes } from 'components/Avatar'
 
 export type DayOffEvent = {
   id: string
-  person: string
-  personLastName?: string
+  firstName: string
+  lastName?: string
   reason: string
   position: string
   color: string
@@ -30,13 +30,13 @@ export const DayEvent = ({ event }: DayEventProps) => (
     flexDirection="row"
     marginLeft="xsplus"
     alignItems="center"
-    key={event.person}>
+    key={event.id}>
     <Avatar
       src={event?.photo}
       userDetails={{
         userColor: event.color,
-        firstName: event.person,
-        lastName: event.personLastName,
+        firstName: event.firstName,
+        lastName: event.lastName,
       }}
       size="xs"
     />
@@ -50,7 +50,7 @@ export const DayEvent = ({ event }: DayEventProps) => (
     <Box>
       <Box flexDirection="row" alignItems="center">
         <Text fontSize={12} fontFamily="Nunito-Bold" lineHeight={18} color="blackBrighter">
-          {`${event.person}: `}
+          {`${event.firstName} ${event.lastName}: `}
         </Text>
         <Text fontSize={12} fontFamily="Nunito-Regular" lineHeight={18} color="blackBrighter">
           {event.reason}

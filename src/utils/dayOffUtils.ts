@@ -32,8 +32,8 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
         if (isWeekendOrHoliday(date)) return
         const request = {
           id: generateUUID(),
-          person: `${user.firstName} ${user.lastName}`,
-          personLastName: user.lastName,
+          firstName: user.firstName,
+          lastName: user.lastName,
           reason: req.description,
           position: user.occupation,
           color: user.userColor,
@@ -43,7 +43,7 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
           photo: user.photo,
           status: req.status,
         }
-        if (request.person === `${appUser.firstName} ${appUser.lastName}`) {
+        if (request.lastName === appUser.lastName && request.firstName === appUser.firstName) {
           if (request.status === 'cancelled' || request.status === 'pending') return
         }
         allSingleRequests.push(request)
