@@ -6,6 +6,8 @@ import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
+import { getItem, setItem } from 'utils/localStorage'
+import { useAsyncLayoutEffect } from 'hooks/useAsyncLayoutEffect'
 import { DayInfoProps } from '../../types/DayInfoProps'
 import { useTeamCategories } from './useTeamCategories'
 
@@ -14,6 +16,14 @@ export const useCalendarData = () => {
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
   const { filterCategories } = useTeamCategories()
   const { requests } = useRequestsContext()
+
+  useAsyncLayoutEffect(async () => {
+    const pickedDate = await getItem('pickedCalendarDate')
+    if (pickedDate) {
+      const cachedDate = Date.parse(pickedDate)
+      setSelectedDateState(new Date(cachedDate))
+    }
+  }, [])
 
   const convertToLocalDate = (date: string) => {
     const dateToConvert = new Date(date)
@@ -24,6 +34,8 @@ export const useCalendarData = () => {
 
   const setSelectedDate = (date: Date) => {
     const localDate = convertToLocalDate(getISODateString(date))
+    const pickedDate = getISODateString(localDate)
+    setItem('pickedCalendarDate', pickedDate)
     setSelectedDateState(localDate)
   }
 
