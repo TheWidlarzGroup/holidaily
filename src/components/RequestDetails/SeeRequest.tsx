@@ -28,7 +28,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
   }
 
   return (
-    <SwipeableScreen onDismiss={goBack} marginTop="none">
+    <SwipeableScreen onDismiss={goBack} marginTop="-l">
       <ModalHeader>
         <BaseOpacity
           onPress={goBack}
