@@ -3,7 +3,6 @@ import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
 import { LayoutChangeEvent, ScrollView } from 'react-native'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
@@ -12,6 +11,7 @@ import { User } from 'mockApi/models'
 import { SwipeableModalRegular, SwipeableModalRegularProps } from 'components/SwipeableModalRegular'
 import { Analytics } from 'services/analytics'
 import { SWIPEABLE_MODAL_HEIGHT } from 'components/SwipeableModal'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
@@ -49,7 +49,7 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
 
   return (
     <>
-      <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+      <SwipeableScreen marginTop="-l">
         <TeamHeader title={params.name} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Box paddingHorizontal="m" paddingBottom="xxxl">
@@ -74,7 +74,7 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
             </Box>
           </Box>
         </ScrollView>
-      </SafeAreaWrapper>
+      </SwipeableScreen>
       {modalUser && (
         <TeamMemberModal
           onHide={() => setIsModalVisible(false)}
