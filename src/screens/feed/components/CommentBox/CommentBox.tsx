@@ -87,6 +87,7 @@ export const CommentBox = ({
                 openEditModal={openEditModal}
                 editCommentId={editCommentId}
                 setEditCommentId={setEditCommentId}
+                hideAvatar={commentFromPreviousUser(commentsCopy, index)}
                 isEditingTarget={isEditingTarget}
                 postId={id}
                 comment={comment}
