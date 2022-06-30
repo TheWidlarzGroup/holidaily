@@ -29,7 +29,12 @@ export const Section = (p: SectionProps) => {
   const { data: organization } = useGetOrganization()
   const PTO_LIMIT = organization?.maxPtoDays ?? 21
   return (
-    <Box bg="veryLightGrey" borderRadius="l1min" marginBottom="s" overflow="hidden">
+    <Box
+      bg="veryLightGrey"
+      borderRadius="l1min"
+      marginBottom="s"
+      overflow="hidden"
+      marginHorizontal="m">
       <Box padding="m">
         <Text variant="textBoldMD" color={headerColors[p.variant]} marginBottom="s">
           {getDurationInDays(p.duration)}
