@@ -21,7 +21,7 @@ type CommentBoxProps = {
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
-export const CommentBox = ({
+const CommentBox = ({
   areCommentsExpanded,
   toggleCommentsExpanded,
   openEditModal,
@@ -100,6 +100,22 @@ export const CommentBox = ({
     </Box>
   )
 }
+
+const arePropsEqual = (prevProps: CommentBoxProps, nextProps: CommentBoxProps) => {
+  const { post, isEditingTarget, areCommentsExpanded } = prevProps
+  const {
+    post: newPost,
+    isEditingTarget: newIsEditingTarget,
+    areCommentsExpanded: newAreCommentsExpanded,
+  } = nextProps
+  return (
+    JSON.stringify(post.comments) === JSON.stringify(newPost.comments) &&
+    isEditingTarget === newIsEditingTarget &&
+    areCommentsExpanded === newAreCommentsExpanded
+  )
+}
+
+export default React.memo(CommentBox, arePropsEqual)
 
 const commentFromPreviousUser = (comments: CommentType[], index: number) =>
   comments[index]?.author?.id === comments?.[index - 1]?.author?.id
