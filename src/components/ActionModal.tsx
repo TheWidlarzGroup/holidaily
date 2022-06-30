@@ -15,17 +15,18 @@ type ExtraBtnProps = {
 export type ActionModalProps = {
   onUserAction: F0
   isVisible: boolean
-  variant: ActionModalVariants
   label: string
+  variant?: ActionModalVariants
   header?: string
   content?: string
   extraButtons?: ExtraBtnProps[]
   onBackdropPress?: F0
 }
 
+const iconHeight = 54
+
 export const ActionModal = (p: ActionModalProps) => {
   const styles = useModalStyles()
-  const iconHeight = 54
   return (
     <Modal
       isVisible={p.isVisible}
@@ -35,7 +36,7 @@ export const ActionModal = (p: ActionModalProps) => {
       onBackdropPress={p.onBackdropPress}
       coverScreen={false}>
       <Box style={styles.bottomModal}>
-        {p.variant !== 'regular' && (
+        {p.variant && p.variant !== 'regular' && (
           <CircleStatusIcon
             height={iconHeight}
             marginBottom="m"
@@ -49,7 +50,7 @@ export const ActionModal = (p: ActionModalProps) => {
             {p.content}
           </Text>
         )}
-        <Box marginTop={p.variant === 'regular' ? 'm' : 'xl'}>
+        <Box marginTop={p.variant === 'regular' || !p.variant ? 'm' : 'xl'}>
           <CustomButton label={p.label} variant="primary" onPress={p.onUserAction} />
         </Box>
         {p.extraButtons?.length &&

@@ -16,11 +16,11 @@ import { useModalContext } from 'contexts/ModalProvider'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
+import { ActionModal } from 'components/ActionModal'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
-import { SaveChangesButton } from './components/SaveChangesButton'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
@@ -129,12 +129,12 @@ export const EditProfile = () => {
           <Box height={getBottomOffset()} />
         </ScrollView>
         {isLoading && <LoadingModal show />}
-        {!isLoading && isDirty && (
-          <SaveChangesButton
-            onDiscard={onDiscard}
-            handleEditDetailsSubmit={handleSubmit(onSubmit)}
-          />
-        )}
+        <ActionModal
+          isVisible={isDirty}
+          onUserAction={handleSubmit(onSubmit)}
+          label={t('saveChanges')}
+          extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
+        />
       </KeyboardAvoidingView>
     </SafeAreaWrapper>
   )
