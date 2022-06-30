@@ -76,7 +76,11 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
     return (
       <>
-        <Text variant="inputLabel" marginLeft="s" marginBottom="xs" color="darkGreyBrighter">
+        <Text
+          variant="inputLabel"
+          marginLeft="s"
+          marginBottom="xs"
+          color={isError ? 'errorRed' : 'darkGreyBrighter'}>
           {inputLabel}
         </Text>
         <Box flexDirection="row">
