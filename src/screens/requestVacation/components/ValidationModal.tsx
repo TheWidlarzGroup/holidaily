@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ActionModal } from 'components/ActionModal'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 
-export const AddButtonValidation = () => {
+export const ValidationModal = () => {
   const { isFormEmpty, setIsFormEmpty } = useRequestVacationContext()
   const { t } = useTranslation('requestVacation')
   const { user } = useUserContext()
@@ -18,6 +18,7 @@ export const AddButtonValidation = () => {
       label={t('understand')}
       variant="error"
       header={t('addRequestValidation')}
+      onBackdropPress={() => setIsFormEmpty(false)}
     />
   )
 }

@@ -20,6 +20,7 @@ export type ActionModalProps = {
   header?: string
   content?: string
   extraButtons?: ExtraBtnProps[]
+  onBackdropPress?: F0
 }
 
 export const ActionModal = (p: ActionModalProps) => {
@@ -29,7 +30,9 @@ export const ActionModal = (p: ActionModalProps) => {
     <Modal
       isVisible={p.isVisible}
       style={styles.nativeModalStyleReset}
-      hasBackdrop={false}
+      hasBackdrop={!!p.onBackdropPress || false}
+      backdropColor="transparent"
+      onBackdropPress={p.onBackdropPress}
       coverScreen={false}>
       <Box style={styles.bottomModal}>
         {p.variant !== 'regular' && (
