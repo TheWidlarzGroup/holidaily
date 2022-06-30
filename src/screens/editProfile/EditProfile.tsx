@@ -97,9 +97,9 @@ export const EditProfile = () => {
   const onDeletePicture = () => editUser({ photo: null })
 
   const getBottomOffset = () => {
-    if (keyboardOpen && isDirty) return 210
-    if (keyboardOpen && !isDirty) return 200
-    if (!keyboardOpen && isDirty) return 95
+    if (keyboardOpen && isDirty) return 220
+    if (keyboardOpen && !isDirty) return 220
+    if (!keyboardOpen && isDirty) return 120
     return 0
   }
 
