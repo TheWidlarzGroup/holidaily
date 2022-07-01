@@ -31,7 +31,7 @@ const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 export const EditProfile = () => {
   const navigation = useNavigation()
   const styles = useStyles()
-  const { keyboardOpen } = useKeyboard()
+  const { keyboardOpen, keyboardHeight } = useKeyboard()
   const { user } = useUserContext()
   const { notify } = useGetNotificationsConfig()
   const defaultValues = {
@@ -101,8 +101,8 @@ export const EditProfile = () => {
   const onDeletePicture = () => editUser({ photo: null })
 
   const getBottomOffset = () => {
-    if (keyboardOpen && isDirty) return 220
-    if (keyboardOpen && !isDirty) return 220
+    if (keyboardOpen && isDirty) return keyboardHeight
+    if (keyboardOpen && !isDirty) return keyboardHeight
     if (!keyboardOpen && isDirty) return 120
     return 0
   }
