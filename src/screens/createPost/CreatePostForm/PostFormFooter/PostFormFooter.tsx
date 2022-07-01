@@ -24,7 +24,7 @@ type PostFooterProps = {
 }
 
 export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: PostFooterProps) => {
-  const [keyboardShown] = useKeyboard()
+  const { keyboardOpen } = useKeyboard()
   const { t } = useTranslation('feed')
   const theme = useTheme()
   const { requestLocationPermission } = useLocation()
@@ -94,7 +94,7 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
       alignItems="center"
       paddingVertical="m"
       style={{
-        paddingBottom: keyboardShown ? 80 : 0,
+        paddingBottom: keyboardOpen ? 80 : 0,
       }}>
       <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
         <IconCamera color={theme.colors.black} />

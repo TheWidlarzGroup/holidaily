@@ -31,7 +31,7 @@ const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 export const EditProfile = () => {
   const navigation = useNavigation()
   const styles = useStyles()
-  const [keyboardOpen] = useKeyboard()
+  const { keyboardOpen } = useKeyboard()
   const { user } = useUserContext()
   const { notify } = useGetNotificationsConfig()
   const defaultValues = {
