@@ -55,10 +55,10 @@ const CalendarToWrap = () => {
         marginTop="m"
         paddingHorizontal="ms"
         shadowOffset={{ width: 0, height: 2 }}
-        shadowColor="blackOpaque"
-        shadowOpacity={0.15}
+        shadowColor="blackMuchDarker"
+        shadowOpacity={1}
         shadowRadius={6}
-        elevation={4}>
+        elevation={8}>
         <ExpandableCalendar
           markedDates={markedDates}
           markingType="multi-dot"
