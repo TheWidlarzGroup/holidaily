@@ -90,7 +90,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
 
   const { keyboardHeight } = useKeyboard()
-  console.log('req', keyboardHeight)
 
   return (
     <SwipeableScreen

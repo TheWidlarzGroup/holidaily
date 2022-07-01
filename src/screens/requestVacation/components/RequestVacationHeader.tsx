@@ -8,7 +8,7 @@ export const RequestVacationHeader = () => {
   const { step, setStep } = useRequestVacationContext()
 
   return (
-    <Box paddingBottom="m" marginTop="-l2plus">
+    <Box paddingBottom="m">
       <RequestVacationHeaderText step={step} setStep={setStep} />
       <RequestVacationBar currentScreen={step ? 'Summary' : 'Form'} />
     </Box>
