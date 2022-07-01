@@ -20,7 +20,7 @@ import {
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
 import { RequestSentModal } from './components/RequestSentModal'
-import { AddButtonValidation } from './components/AddButtonValidation'
+import { ValidationModal } from './components/ValidationModal'
 
 export type RequestDataTypes = {
   description: string
@@ -106,7 +106,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         showSentModal={markRequestAsSent}
       />
       <BadStateController />
-      <AddButtonValidation />
+      <ValidationModal />
     </SwipeableScreen>
   )
 }
