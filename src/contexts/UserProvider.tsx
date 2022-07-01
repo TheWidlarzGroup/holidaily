@@ -61,7 +61,6 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       'seenNotificationsIds',
       'seenTeamsModal',
       'draftPost',
-      'pickedCalendarDate',
     ])
   }
 

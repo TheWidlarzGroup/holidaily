@@ -12,6 +12,7 @@ import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
@@ -20,6 +21,7 @@ const CalendarToWrap = () => {
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
+  const { userSettings } = useUserSettingsContext()
 
   const { selectedDate, setSelectedDate, currentMonthDays } = useCalendarData()
 
@@ -31,6 +33,15 @@ const CalendarToWrap = () => {
     },
     [setSelectedDate]
   )
+
+  useEffect(() => {
+    const pickedDate = userSettings?.pickedDate
+    if (pickedDate !== selectedDate && pickedDate) {
+      setSelectedDate(pickedDate)
+    }
+    // Comment: we want to trigger this fn once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const dateString = getISODateString(selectedDate)

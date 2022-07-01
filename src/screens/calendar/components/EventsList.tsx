@@ -6,9 +6,8 @@ import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
 import { LoadingModal } from 'components/LoadingModal'
 import { sleep } from 'utils/sleep'
-import { useAsyncEffect } from 'hooks/useAsyncEffect'
-import { getItem } from 'utils/localStorage'
 import { getISODateString } from 'utils/dates'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
@@ -35,6 +34,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
   ) => {
     const [pickedDate, setPickedDate] = useState(new Date())
     const [showLoadingModal, setShowLoadingModal] = useState(true)
+    const { userSettings } = useUserSettingsContext()
     const [showNavButton, setShowNavButton] = useState(false)
     const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
@@ -79,16 +79,17 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDate])
 
-    useAsyncEffect(async () => {
+    useEffect(() => {
       const condition = days.length > 0 && currentIndex >= 0
-      const pickedDate = await getItem('pickedCalendarDate')
-      if (pickedDate) {
-        const cachedDate = Date.parse(pickedDate)
+      const cachedDate = userSettings?.pickedDate
+      if (cachedDate && selectedDate) {
+        const cachedDateToString = getISODateString(cachedDate)
         const selectedDateToString = getISODateString(selectedDate)
-        const selectedDateToNumber = Date.parse(selectedDateToString)
-        if (cachedDate === selectedDateToNumber && condition) setShowLoadingModal(false)
+        if (cachedDateToString === selectedDateToString && condition) setShowLoadingModal(false)
       }
-      if (!pickedDate && condition) setShowLoadingModal(false)
+      if (!cachedDate && condition) setShowLoadingModal(false)
+      // Comment: we don't want to track userSettings and selectedDate
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [days, currentIndex])
 
     return (
