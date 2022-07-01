@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { RequestsNavigationProps, RequestsNavigatorType, RequestsRoutes } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
-import { StatusBar } from 'react-native'
+import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { Analytics } from 'services/analytics'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { ModalHeader } from '../ModalHeader'
@@ -29,15 +28,14 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
   }
 
   return (
-    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
-      <StatusBar backgroundColor={theme.colors.veryLightGrey} />
+    <SwipeableScreen onDismiss={goBack} marginTop="-l">
       <ModalHeader>
         <BaseOpacity
           onPress={goBack}
           hitSlop={{ top: 24, right: 24, bottom: 24, left: 24 }}
           marginLeft="ml"
-          paddingBottom="ml"
-          paddingTop="ml">
+          paddingTop="ml"
+          paddingBottom="ml">
           <IconBack width={9} height={16} color={theme.colors.black} />
         </BaseOpacity>
         <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="ml">
@@ -48,6 +46,6 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
       <Box marginTop="l" paddingBottom="m" flex={1}>
         <RequestDetails {...p} showStatus wasSent />
       </Box>
-    </SafeAreaWrapper>
+    </SwipeableScreen>
   )
 }

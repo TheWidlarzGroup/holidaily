@@ -16,13 +16,13 @@ import { Box, mkUseStyles } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
+import { ActionModal } from 'components/ActionModal'
 import Animated from 'react-native-reanimated'
 import { useRecognizeSwipe } from 'hooks/useRecognizeSwipe'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
 import { ProfileColor } from './components/ProfileColor'
-import { SaveChangesButton } from './components/SaveChangesButton'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
@@ -101,9 +101,9 @@ export const EditProfile = () => {
   const onDeletePicture = () => editUser({ photo: null })
 
   const getBottomOffset = () => {
-    if (keyboardOpen && isDirty) return 210
-    if (keyboardOpen && !isDirty) return 200
-    if (!keyboardOpen && isDirty) return 95
+    if (keyboardOpen && isDirty) return 220
+    if (keyboardOpen && !isDirty) return 220
+    if (!keyboardOpen && isDirty) return 120
     return 0
   }
 
@@ -135,12 +135,12 @@ export const EditProfile = () => {
           </AnimatedScrollView>
         </PanGestureHandler>
         {isLoading && <LoadingModal show />}
-        {!isLoading && isDirty && (
-          <SaveChangesButton
-            onDiscard={onDiscard}
-            handleEditDetailsSubmit={handleSubmit(onSubmit)}
-          />
-        )}
+        <ActionModal
+          isVisible={isDirty}
+          onUserAction={handleSubmit(onSubmit)}
+          label={t('saveChanges')}
+          extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
+        />
       </KeyboardAvoidingView>
     </SafeAreaWrapper>
   )
