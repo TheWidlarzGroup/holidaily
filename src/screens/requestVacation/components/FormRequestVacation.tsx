@@ -6,7 +6,6 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { Submit } from 'components/Submit'
-import { isIos } from 'utils/layout'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -129,7 +128,7 @@ export const FormRequestVacation = ({
         <BaseOpacity
           onPress={handleSubmitValidation}
           hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}>
-          <Box marginBottom={isIos ? 'ml' : 'none'}>
+          <Box>
             <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
           </Box>
         </BaseOpacity>
