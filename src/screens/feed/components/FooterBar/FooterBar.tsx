@@ -12,7 +12,7 @@ type Post = {
   post: FeedPost
 }
 
-export const FooterBar = ({ post }: Post) => {
+const FooterBar = ({ post }: Post) => {
   const { reactions, id } = post
   const [messageInputOpened, { setTrue: showMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -80,3 +80,8 @@ export const FooterBar = ({ post }: Post) => {
     </>
   )
 }
+
+const arePropsEqual = ({ post }: Post, { post: newPost }: Post) =>
+  JSON.stringify(post.reactions) === JSON.stringify(newPost.reactions)
+
+export default React.memo(FooterBar, arePropsEqual)

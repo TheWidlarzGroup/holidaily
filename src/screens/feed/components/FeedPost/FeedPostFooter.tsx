@@ -4,8 +4,8 @@ import { Box, Theme } from 'utils/theme'
 import { isIos } from 'utils/layout'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { isScreenHeightShort } from 'utils/deviceSizes'
-import { CommentBox } from '../CommentBox/CommentBox'
-import { FooterBar } from '../FooterBar/FooterBar'
+import CommentBox from '../CommentBox/CommentBox'
+import FooterBar from '../FooterBar/FooterBar'
 
 type Post = {
   post: FeedPost
