@@ -48,33 +48,31 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   }, [params?.users])
 
   return (
-    <>
-      <SwipeableScreen marginTop="-l">
-        <TeamHeader title={params.name} />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Box paddingHorizontal="m" paddingBottom="xxxl">
-            {matesOnHoliday.length > 0 && (
-              <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
-            )}
-            {matesWithPlannedHolidays.length > 0 && (
-              <TeamSection
-                openUserModal={openModal}
-                matesArray={matesWithPlannedHolidays}
-                isOutOfOffice={false}
-              />
-            )}
+    <SwipeableScreen marginTop="-l">
+      <TeamHeader title={params.name} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Box paddingHorizontal="m" paddingBottom="xxxl">
+          {matesOnHoliday.length > 0 && (
+            <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
+          )}
+          {matesWithPlannedHolidays.length > 0 && (
+            <TeamSection
+              openUserModal={openModal}
+              matesArray={matesWithPlannedHolidays}
+              isOutOfOffice={false}
+            />
+          )}
 
-            <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
-              {t('allTeamMembers').toUpperCase()} ({mates.length})
-            </Text>
-            <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
-              {mates.map((mate) => (
-                <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
-              ))}
-            </Box>
+          <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
+            {t('allTeamMembers').toUpperCase()} ({mates.length})
+          </Text>
+          <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
+            {mates.map((mate) => (
+              <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
+            ))}
           </Box>
-        </ScrollView>
-      </SwipeableScreen>
+        </Box>
+      </ScrollView>
       {modalUser && (
         <TeamMemberModal
           onHide={() => setIsModalVisible(false)}
@@ -82,7 +80,7 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
           modalUser={modalUser}
         />
       )}
-    </>
+    </SwipeableScreen>
   )
 }
 
