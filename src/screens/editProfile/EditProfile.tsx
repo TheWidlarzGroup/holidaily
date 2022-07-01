@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react'
-import { BackHandler, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
+import { BackHandler, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import GestureRecognizer from 'react-native-swipe-gestures'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { useWithConfirmation } from 'hooks/useWithConfirmation'
@@ -15,7 +14,10 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
+import { PanGestureHandler } from 'react-native-gesture-handler'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
+import Animated from 'react-native-reanimated'
+import { useRecognizeSwipe } from 'hooks/useRecognizeSwipe'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -23,6 +25,8 @@ import { ProfileColor } from './components/ProfileColor'
 import { SaveChangesButton } from './components/SaveChangesButton'
 
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
+
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
 export const EditProfile = () => {
   const navigation = useNavigation()
@@ -104,6 +108,7 @@ export const EditProfile = () => {
   }
 
   const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
+  const { onTouchStart, onTouchMove } = useRecognizeSwipe(handleGoBack)
 
   useFocusEffect(
     useCallback(() => {
@@ -119,15 +124,16 @@ export const EditProfile = () => {
   return (
     <SafeAreaWrapper>
       <KeyboardAvoidingView style={styles.container}>
-        <ScrollView keyboardShouldPersistTaps="handled">
-          <GestureRecognizer onSwipeRight={handleGoBack} style={[StyleSheet.absoluteFill]} />
-          <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-          <TeamSubscriptions />
-          <ProfileColor onUpdate={onUpdate} />
-          <Box height={getBottomOffset()} />
-        </ScrollView>
+        <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove}>
+          <AnimatedScrollView keyboardShouldPersistTaps="handled">
+            <DrawerBackArrow goBack={handleGoBack} />
+            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+            <TeamSubscriptions />
+            <ProfileColor onUpdate={onUpdate} />
+            <Box height={getBottomOffset()} />
+          </AnimatedScrollView>
+        </PanGestureHandler>
         {isLoading && <LoadingModal show />}
         {!isLoading && isDirty && (
           <SaveChangesButton

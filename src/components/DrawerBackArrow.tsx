@@ -19,7 +19,7 @@ export const DrawerBackArrow = ({ goBack, title = '' }: DrawerBackArrowProps) =>
       <BaseOpacity
         zIndex="10"
         onPress={goBack}
-        hitSlop={{ top: 35, bottom: 35, left: 35, right: 35 }}>
+        hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
         <BackArrowIcon height={18} width={18} color={styles.arrow.color} />
       </BaseOpacity>
       <Box flex={1}>
