@@ -23,7 +23,7 @@ export type ActionModalProps = {
   onBackdropPress?: F0
 }
 
-const iconHeight = 54
+const ICON_HEIGHT = 54
 
 export const ActionModal = (p: ActionModalProps) => {
   const styles = useModalStyles()
@@ -38,7 +38,7 @@ export const ActionModal = (p: ActionModalProps) => {
       <Box style={styles.bottomModal}>
         {p.variant && p.variant !== 'regular' && (
           <CircleStatusIcon
-            height={iconHeight}
+            height={ICON_HEIGHT}
             marginBottom="m"
             iconProps={{ height: '40%', width: '40%', color: styles.bottomModal.backgroundColor }}
             status={p.variant}
