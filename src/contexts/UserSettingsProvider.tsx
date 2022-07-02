@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect } from 'react'
+import React, { ReactNode, useState, useEffect, useLayoutEffect } from 'react'
 import { Appearance } from 'react-native'
 import { getItem, setItem } from 'utils/localStorage'
 import { UserSettingsContextProps, UserSettings, UserSettingsContext } from './UserSettingsContext'
@@ -10,6 +10,7 @@ type ProviderProps = {
 export const defaultUserSettings: UserSettings = {
   darkMode: Appearance.getColorScheme() === 'dark',
   hasUserSeenCalendar: false,
+  pickedDate: undefined,
 }
 
 export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
@@ -21,6 +22,10 @@ export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
     )
   }
 
+  useLayoutEffect(() => {
+    updateSettings({ pickedDate: new Date() })
+  }, [])
+
   useEffect(() => {
     const getItemFn = async () => {
       const data = await getItem('userSettings')
@@ -31,7 +36,9 @@ export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
   }, [])
 
   useEffect(() => {
-    setItem('userSettings', JSON.stringify(userSettings))
+    const userSettingsClone = { ...userSettings }
+    delete userSettingsClone.pickedDate
+    setItem('userSettings', JSON.stringify(userSettingsClone))
   }, [userSettings])
 
   const value: UserSettingsContextProps = { userSettings, updateSettings }
