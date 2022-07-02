@@ -8,11 +8,11 @@ import {
   useWindowDimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  ScrollView,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { isScreenHeightShort } from 'utils/deviceSizes'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { isIos } from 'utils/layout'
 import { Box } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
@@ -88,13 +88,11 @@ export const Gallery = ({
   return (
     <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
       {fullScreenPicture ? (
-        <ScrollView
-          onScrollEndDrag={() => navigation.goBack()}
-          contentContainerStyle={{
-            flex: 1,
-          }}>
+        <GestureRecognizer
+          onSwipeDown={() => navigation.goBack()}
+          onSwipeUp={() => navigation.goBack()}>
           {flatListComponent}
-        </ScrollView>
+        </GestureRecognizer>
       ) : (
         flatListComponent
       )}
