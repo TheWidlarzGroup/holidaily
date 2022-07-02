@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BaseOpacity, Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
@@ -7,7 +6,6 @@ import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { Submit } from 'components/Submit'
-import { isIos } from 'utils/layout'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -104,35 +102,33 @@ export const FormRequestVacation = ({
   }
 
   return (
-    <Box flex={1}>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-        <Box margin="ml" paddingBottom="xxxl">
-          <Text variant="sectionLabel" textAlign="left" marginBottom="m">
-            {t('detailsTitle')}
-          </Text>
-          <SickTime sickTime={sickTime} toggle={onSicktimeToggle} />
-          <Details
-            showNext={showNext}
-            hideNext={hideNext}
-            onDescriptionChange={handleDescriptionChange}
-            date={date}
-          />
-          <Additionals
-            onMsgBtnPress={toggleShowMessageInput}
-            onMsgSubmit={handleMessageSubmit}
-            hideMsgInput={hideMessageInput}
-            isMsgInputVisible={showMessageInput}
-            showAttachmentModal={setShowAttachmentModalTrue}
-            attachments={[...photos, ...files]}
-            removeAttachment={askRemovePhoto}
-          />
-        </Box>
-      </KeyboardAwareScrollView>
+    <>
+      <Box margin="ml" paddingBottom="xxxl">
+        <Text variant="sectionLabel" textAlign="left" marginBottom="m">
+          {t('detailsTitle')}
+        </Text>
+        <SickTime sickTime={sickTime} toggle={onSicktimeToggle} />
+        <Details
+          showNext={showNext}
+          hideNext={hideNext}
+          onDescriptionChange={handleDescriptionChange}
+          date={date}
+        />
+        <Additionals
+          onMsgBtnPress={toggleShowMessageInput}
+          onMsgSubmit={handleMessageSubmit}
+          hideMsgInput={hideMessageInput}
+          isMsgInputVisible={showMessageInput}
+          showAttachmentModal={setShowAttachmentModalTrue}
+          attachments={[...photos, ...files]}
+          removeAttachment={askRemovePhoto}
+        />
+      </Box>
       {isNextVisible && !showMessageInput && (
         <BaseOpacity
           onPress={handleSubmitValidation}
           hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}>
-          <Box marginBottom={isIos ? 'ml' : 'none'}>
+          <Box>
             <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
           </Box>
         </BaseOpacity>
@@ -162,6 +158,6 @@ export const FormRequestVacation = ({
           }))
         }}
       />
-    </Box>
+    </>
   )
 }

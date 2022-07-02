@@ -11,6 +11,8 @@ import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { Analytics } from 'services/analytics'
+import { useKeyboard } from 'hooks/useKeyboard'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
   RequestVacationData,
@@ -87,6 +89,8 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
 
+  const { keyboardHeight } = useKeyboard()
+
   return (
     <SwipeableScreen
       swipeWithIndicator
@@ -99,14 +103,16 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         header: t('discardRequestHeader'),
         content: t('discardRequestContent'),
       }}>
-      <RequestVacationHeader />
-      <RequestVacationSteps
-        changeRequestData={changeRequestData}
-        removeAttachment={removeAttachment}
-        showSentModal={markRequestAsSent}
-      />
-      <BadStateController />
-      <ValidationModal />
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" extraHeight={keyboardHeight}>
+        <RequestVacationHeader />
+        <RequestVacationSteps
+          changeRequestData={changeRequestData}
+          removeAttachment={removeAttachment}
+          showSentModal={markRequestAsSent}
+        />
+        <BadStateController />
+        <ValidationModal />
+      </KeyboardAwareScrollView>
     </SwipeableScreen>
   )
 }
