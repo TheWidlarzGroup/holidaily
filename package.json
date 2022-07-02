@@ -1,6 +1,6 @@
 {
   "name": "Holidaily",
-  "version": "1.0.39",
+  "version": "1.0.41",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
