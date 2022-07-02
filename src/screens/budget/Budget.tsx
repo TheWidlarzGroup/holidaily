@@ -27,7 +27,7 @@ export const Budget = () => {
   if (isLoading) return <LoadingModal show />
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer component="Box" onSwipeRight={handleGoBack}>
+      <GestureRecognizer onSwipeRight={handleGoBack}>
         <DrawerBackArrow goBack={handleGoBack} title={t('budget')} />
         <BaseOpacity activeOpacity={0.8} onPress={() => navigate('PTO_POLICY')} paddingTop="lplus">
           <Section variant="left" duration={user.availablePto ?? 0} />

@@ -19,7 +19,7 @@ export const About = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor={false}>
-      <GestureRecognizer onSwipeRight={handleGoBack} component="Box">
+      <GestureRecognizer onSwipeRight={handleGoBack}>
         <AboutHeader onClose={handleGoBack} />
         <AboutDescription />
         <AboutLinks />

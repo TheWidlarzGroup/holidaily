@@ -25,7 +25,7 @@ export const Settings = () => {
 
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer onSwipeRight={handleGoBack} component="Box">
+      <GestureRecognizer onSwipeRight={handleGoBack}>
         <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
         <Box marginHorizontal="m">
           <DarkModeSwitch />
