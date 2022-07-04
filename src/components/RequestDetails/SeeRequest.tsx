@@ -25,6 +25,13 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
 
   const goBack = () => {
     navigation.navigate(prevScreen || 'STATS_AND_REQUESTS')
+
+    if (prevScreen === 'NOTIFICATIONS') {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'STATS_AND_REQUESTS' }],
+      })
+    }
   }
 
   return (
