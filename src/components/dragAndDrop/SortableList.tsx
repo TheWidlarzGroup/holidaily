@@ -26,6 +26,18 @@ const AnimatedFlatList =
 
 let persistedOrder: Positions = {}
 
+const calculateContainerHeight = (dataLength?: number) =>
+  !dataLength
+    ? 600
+    : Math.ceil(dataLength / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING
+
+const getItemLayout = (data: SortableListItemType[] | null | undefined, index: number) => ({
+  height: NESTED_ELEM_OFFSET,
+  offset: calculateContainerHeight(data?.length),
+  length: data?.length || 0,
+  index,
+})
+
 export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
   const [prevElement, setPrevElement] = useState<null | number>(null)
@@ -90,17 +102,17 @@ export const SortableList = ({ children }: SortableListProps) => {
     }
   }, [draggedElement, positions, prevElement])
 
-  const CONTAINER_HEIGHT =
-    Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING
+  const containerHeight = {
+    height: calculateContainerHeight(children.length),
+  }
 
   return (
     <Box paddingBottom="xxxl">
       <AnimatedFlatList
+        getItemLayout={getItemLayout}
         removeClippedSubviews={false}
         ref={scrollView}
-        contentContainerStyle={{
-          height: children.length > 0 ? CONTAINER_HEIGHT : 600,
-        }}
+        contentContainerStyle={containerHeight}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
         onScroll={onScroll}

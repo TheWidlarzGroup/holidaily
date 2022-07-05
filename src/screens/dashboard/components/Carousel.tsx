@@ -3,13 +3,19 @@ import { User } from 'mock-api/models/mirageTypes'
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
 import { CarouselElement } from 'screens/dashboard/components/CarouselElement'
 import { getCurrentLocale } from 'utils/locale'
 import { Text } from 'utils/theme'
 import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { Analytics } from 'services/analytics'
+import { FlashList } from '@shopify/flash-list'
 import { TeamMemberModal } from '../DashboardTeam'
+
+const CAROUSEL_ITEM_WIDTH = 94.2
+
+type FlatListItem = {
+  item: User
+}
 
 export const Carousel = () => {
   const { t } = useTranslation('dashboard')
@@ -33,6 +39,22 @@ export const Carousel = () => {
   const { sortedRequests } = useSortAllHolidayRequests()
   const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
 
+  const renderItem = ({ item: user }: FlatListItem) => (
+    <TouchableOpacity activeOpacity={1} onPress={() => openModal(user)}>
+      <CarouselElement
+        isOnHoliday={user.isOnHoliday}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        photo={user.photo}
+        userColor={user.userColor}
+        dayToBeDisplayed={displayDay(user)}
+        isSickTime={user.requests[0].isSickTime}
+      />
+    </TouchableOpacity>
+  )
+
+  const keyExtractor = (item: User) => item.id
+
   return (
     <>
       <Text
@@ -44,23 +66,13 @@ export const Carousel = () => {
         {t('bookedHolidays').toUpperCase()}
       </Text>
       {sortedRequests.length > 0 && (
-        <FlatList
+        <FlashList
           data={first20Users}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item: user }) => (
-            <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openModal(user)}>
-              <CarouselElement
-                isOnHoliday={user.isOnHoliday}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                photo={user.photo}
-                userColor={user.userColor}
-                dayToBeDisplayed={displayDay(user)}
-                isSickTime={user.requests[0].isSickTime}
-              />
-            </TouchableOpacity>
-          )}
+          renderItem={renderItem}
+          estimatedItemSize={CAROUSEL_ITEM_WIDTH}
+          keyExtractor={keyExtractor}
         />
       )}
       {modalUser && (
