@@ -13,7 +13,7 @@ import { TeamMemberModal } from '../DashboardTeam'
 
 const CAROUSEL_ITEM_WIDTH = 94.2
 
-interface FlatListItem {
+type FlatListItem = {
   item: User
 }
 
