@@ -9,7 +9,12 @@ import { getCurrentLocale } from 'utils/locale'
 import { Text } from 'utils/theme'
 import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { Analytics } from 'services/analytics'
+import { windowWidth } from 'utils/deviceSizes'
 import { TeamMemberModal } from '../DashboardTeam'
+import { FlashList } from '@shopify/flash-list'
+
+const CAROUSEL_ITEM_WIDTH = 94.2
+const CAROUSEL_ITEMS_ON_SCREEN = Math.ceil(windowWidth / CAROUSEL_ITEM_WIDTH) + 1
 
 export const Carousel = () => {
   const { t } = useTranslation('dashboard')
@@ -33,6 +38,22 @@ export const Carousel = () => {
   const { sortedRequests } = useSortAllHolidayRequests()
   const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
 
+  const renderItem = ({ item: user }: { item: User }) => (
+    <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openModal(user)}>
+      <CarouselElement
+        isOnHoliday={user.isOnHoliday}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        photo={user.photo}
+        userColor={user.userColor}
+        dayToBeDisplayed={displayDay(user)}
+        isSickTime={user.requests[0].isSickTime}
+      />
+    </TouchableOpacity>
+  )
+
+  console.log('CAROUSEL_ITEMS_ON_SCREEN', CAROUSEL_ITEMS_ON_SCREEN)
+
   return (
     <>
       <Text
@@ -44,23 +65,15 @@ export const Carousel = () => {
         {t('bookedHolidays').toUpperCase()}
       </Text>
       {sortedRequests.length > 0 && (
-        <FlatList
+        <FlashList
           data={first20Users}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item: user }) => (
-            <TouchableOpacity key={user.id} activeOpacity={1} onPress={() => openModal(user)}>
-              <CarouselElement
-                isOnHoliday={user.isOnHoliday}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                photo={user.photo}
-                userColor={user.userColor}
-                dayToBeDisplayed={displayDay(user)}
-                isSickTime={user.requests[0].isSickTime}
-              />
-            </TouchableOpacity>
-          )}
+          renderItem={renderItem}
+          estimatedItemSize={94.2}
+          // estimatedListSize={20}
+          // initialNumToRender={CAROUSEL_ITEMS_ON_SCREEN}
+          // maxToRenderPerBatch={CAROUSEL_ITEMS_ON_SCREEN}
         />
       )}
       {modalUser && (

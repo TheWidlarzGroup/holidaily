@@ -1823,6 +1823,13 @@
   resolved "https://registry.yarnpkg.com/@seznam/compose-react-refs/-/compose-react-refs-1.0.6.tgz#6ec4e70bdd6e32f8e70b4100f27267cf306bd8df"
   integrity sha512-izzOXQfeQLonzrIQb8u6LQ8dk+ymz3WXTIXjvOlTXHq6sbzROg3NWU+9TTAOpEoK9Bth24/6F/XrfHJ5yR5n6Q==
 
+"@shopify/flash-list@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@shopify/flash-list/-/flash-list-1.0.4.tgz#4b0350f3577b75b7f75a8f09e32e8c0ba86cda02"
+  integrity sha512-2HXQW19hVi2EkcdYbcMK0+rXym2dxud5O0o5qi8RcjRymvGsd1oyFx6xPUjgPk+etjFAQ9/6iO4f3GfOGTX7sA==
+  dependencies:
+    recyclerlistview "3.3.0-beta.2"
+
 "@shopify/restyle@^1.4.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@shopify/restyle/-/restyle-1.8.0.tgz#77451232f88124aad03b54c9e3a222e7f604b886"
@@ -8284,6 +8291,15 @@ recast@^0.20.3:
     esprima "~4.0.0"
     source-map "~0.6.1"
     tslib "^2.0.1"
+
+recyclerlistview@3.3.0-beta.2:
+  version "3.3.0-beta.2"
+  resolved "https://registry.yarnpkg.com/recyclerlistview/-/recyclerlistview-3.3.0-beta.2.tgz#c51781a0e40115ece491ef3c30620e88f27da66a"
+  integrity sha512-xrg5boxoF/IZnfsvS5jUSxOYRmir7PM78XUnj0WXSYYQTEIEDRNYcF8Bx75+RnsbamBNnqME11xV5dEnFkrMNA==
+  dependencies:
+    lodash.debounce "4.0.8"
+    prop-types "15.5.8"
+    ts-object-utils "0.0.5"
 
 recyclerlistview@^3.0.5:
   version "3.0.5"

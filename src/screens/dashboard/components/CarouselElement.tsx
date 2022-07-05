@@ -55,6 +55,7 @@ export const CarouselElement = (p: CarouselElementProps) => {
   else status = 'futureDayOff'
   const { textColor, icon } = appearanceDictionary[status]
 
+  console.log('here 2')
   return (
     <Box marginBottom="m" alignItems="center" flexGrow={1}>
       <Box marginHorizontal="m" marginTop="m" marginBottom="xs" height={65} width={62}>

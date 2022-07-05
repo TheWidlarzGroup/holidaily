@@ -79,9 +79,17 @@ export const SortableList = ({ children }: SortableListProps) => {
   const CONTAINER_HEIGHT =
     Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING
 
+  const getItemLayout = (data: SortableListItemType[] | null | undefined, index: number) => ({
+    height: NESTED_ELEM_OFFSET,
+    offset: CONTAINER_HEIGHT,
+    length: data?.length || 0,
+    index,
+  })
+
   return (
     <Box paddingBottom="xxxl">
       <AnimatedFlatList
+        getItemLayout={getItemLayout}
         removeClippedSubviews={false}
         ref={scrollView}
         contentContainerStyle={{
