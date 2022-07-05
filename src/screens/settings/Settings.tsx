@@ -8,14 +8,10 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Box } from 'utils/theme'
 import { LoadingModal } from 'components/LoadingModal'
 import { isIos } from 'utils/layout'
-import Animated from 'react-native-reanimated'
-import { useRecognizeSwipe } from 'hooks/useRecognizeSwipe'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { DarkModeSwitch } from './components/DarkModeSwitch'
 import { Language } from './components/Language'
 import { Siri } from './components/Siri'
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const Settings = () => {
   const { t } = useTranslation('settings')
@@ -27,21 +23,17 @@ export const Settings = () => {
     navigation.dispatch(DrawerActions.openDrawer())
   }, [navigation])
 
-  const { onTouchStart, onTouchMove } = useRecognizeSwipe(handleGoBack)
-
   return (
     <SafeAreaWrapper>
-      <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove}>
-        <AnimatedBox flex={1}>
-          <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
-          <Box marginHorizontal="m">
-            <DarkModeSwitch />
-            {/* <BiometricPasscode /> */}
-            <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
-            {isIos && <Siri />}
-          </Box>
-        </AnimatedBox>
-      </PanGestureHandler>
+      <GestureRecognizer onSwipeRight={handleGoBack}>
+        <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
+        <Box marginHorizontal="m">
+          <DarkModeSwitch />
+          {/* <BiometricPasscode /> */}
+          <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
+          {isIos && <Siri />}
+        </Box>
+      </GestureRecognizer>
       <LoadingModal show={loading} />
     </SafeAreaWrapper>
   )
