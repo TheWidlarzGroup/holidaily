@@ -17,7 +17,7 @@ import { InputEditIcon } from './InputEditIcon'
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
-  variant: 'medium' | 'small' | 'mediumSpecial'
+  variant: 'medium' | 'small' | 'mediumSpecial' | 'mediumHeightGrow'
   isPasswordIconVisible?: boolean
   hasValueChanged?: boolean
   disabled?: boolean
@@ -71,15 +71,23 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       setIsFocused(true)
     }
 
+    const containerHeightStyle =
+      variant === 'mediumHeightGrow' ? styles.containerMaxHeight : styles.constainerHeight
+
     return (
       <>
-        <Text variant="inputLabel" marginLeft="s" marginBottom="xs" color="darkGreyBrighter">
+        <Text
+          variant="inputLabel"
+          marginLeft="s"
+          marginBottom="xs"
+          color={isError ? 'errorRed' : 'darkGreyBrighter'}>
           {inputLabel}
         </Text>
         <Box flexDirection="row">
           <Animated.View
             style={[
               styles.container,
+              containerHeightStyle,
               progressStyle,
               isFocused && [styles.noBackground, styles.focusBorder],
               isError && styles.errorBorder,
@@ -136,7 +144,12 @@ const useStyles = mkUseStyles((theme) => ({
     paddingLeft: theme.spacing.xm,
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
+  },
+  constainerHeight: {
     height: 40,
+  },
+  containerMaxHeight: {
+    maxHeight: 200,
   },
   noBackground: { backgroundColor: theme.colors.white },
   leftPadding: { paddingLeft: theme.spacing.l2plus },

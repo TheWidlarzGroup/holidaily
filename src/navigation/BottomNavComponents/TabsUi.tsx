@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { NavigationState } from '@react-navigation/native'
 import { windowWidth } from 'utils/deviceSizes'
 import { ADD_BTN_WIDTH } from 'components/AddButton'
@@ -13,7 +13,7 @@ type TabsUiProps = {
   state: NavigationState
 }
 
-export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
+export const TabsUi = ({ tabs, state }: TabsUiProps) => {
   const tabWidth = (windowWidth - ADD_BTN_WIDTH) / (tabs.length - 1)
 
   return (

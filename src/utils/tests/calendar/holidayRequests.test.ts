@@ -1,5 +1,5 @@
 import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
-import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
+import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 
 describe('Get holiday requests of next month', () => {
@@ -16,8 +16,8 @@ describe('Get holiday requests of next month', () => {
               date: '2022-08-03',
               id: 'Zuq7mkbPnfUzTfPLFewDZZZEoTXnxI6d',
               monthYear: '2022-08',
-              person: 'Brent Morris',
-              personLastName: 'Morris',
+              firstName: 'Brent',
+              lastName: 'Morris',
               photo: 'https://randomuser.me/api/portraits/men/11.jpg',
               position: 'QA Tester',
               reason: 'Edinburgh',
@@ -38,8 +38,8 @@ describe('Get holiday requests of next month', () => {
               date: '2021-09-02',
               id: 'kP0rU5jPMCqwUg8V49Xwj7t04jmiwIoc',
               monthYear: '2022-09',
-              person: 'Peter Kansas',
-              personLastName: 'Kansas',
+              firstName: 'Peter',
+              lastName: 'Kansas',
               photo: 'https://randomuser.me/api/portraits/men/1.jpg',
               position: 'Software Engineer',
               reason: 'Sick time off',
@@ -55,8 +55,8 @@ describe('Get holiday requests of next month', () => {
               date: '2021-09-10',
               id: 'kP0rU5jPMCqwUg8V49Xwj7t04jmiwIoc',
               monthYear: '2022-09',
-              person: 'Ben Ten',
-              personLastName: 'Ten',
+              firstName: 'Ben',
+              lastName: 'Ten',
               photo: 'https://randomuser.me/api/portraits/men/1.jpg',
               position: 'Software Engineer',
               reason: 'Sick time off',

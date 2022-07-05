@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import React, { useCallback, useRef } from 'react'
@@ -7,12 +8,13 @@ import {
   useWindowDimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  ScrollView,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
-import { Box, theme } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -21,12 +23,21 @@ type GalleryProps = {
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
   postId?: string
+  fullScreenPicture?: true
 }
 
-export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
+export const Gallery = ({
+  data,
+  index = 0,
+  onIndexChanged,
+  onItemPress,
+  postId,
+  fullScreenPicture,
+}: GalleryProps) => {
   const { width } = useWindowDimensions()
   const listRef = useRef<FlatList>(null)
   const translateX = useSharedValue(0)
+  const navigation = useNavigation()
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -54,25 +65,40 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
     [width, onItemPress]
   )
 
+  const flatListComponent = (
+    <FlatList
+      horizontal
+      ref={listRef}
+      snapToInterval={width}
+      snapToAlignment="center"
+      initialScrollIndex={index}
+      viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+      getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
+      decelerationRate="normal"
+      disableIntervalMomentum
+      contentContainerStyle={{ alignItems: 'center', paddingTop: 8 }}
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.uri}
+      onScroll={onScroll}
+      showsHorizontalScrollIndicator={false}
+    />
+  )
+
   return (
     <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
-      <FlatList
-        horizontal
-        ref={listRef}
-        snapToInterval={width}
-        snapToAlignment="center"
-        initialScrollIndex={index}
-        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-        getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
-        decelerationRate="normal"
-        disableIntervalMomentum
-        contentContainerStyle={{ alignItems: 'center', paddingTop: theme.spacing.xxm }}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.uri}
-        onScroll={onScroll}
-        showsHorizontalScrollIndicator={false}
-      />
+      {fullScreenPicture ? (
+        <ScrollView
+          onScrollEndDrag={() => navigation.goBack()}
+          contentContainerStyle={{
+            flex: 1,
+          }}>
+          {flatListComponent}
+        </ScrollView>
+      ) : (
+        flatListComponent
+      )}
+
       {data.length > 1 && (
         <Box
           alignSelf="center"

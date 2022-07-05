@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { PropsWithChildren, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
@@ -10,7 +10,7 @@ const AnimatedBox = Animated.createAnimatedComponent(Box)
 export const SwipeableNotification = ({
   children,
   notificationId,
-}: React.PropsWithChildren<{ notificationId: string }>) => {
+}: PropsWithChildren<{ notificationId: string }>) => {
   const opacity = useSharedValue(1)
   const { mutate } = useMarkNotificationAsSeen()
   const markAsSeen = () => {

@@ -1,22 +1,21 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
-
 import IconClose from 'assets/icons/icon-close.svg'
-import { useNavigation } from '@react-navigation/native'
 import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 type PostHeaderProps = {
-  left?: React.ReactNode
-  right?: React.ReactNode
+  closeCreatePostForm: F0
+  left?: ReactNode
+  right?: ReactNode
 }
 
 const ICON_SIZE = 16
 
-export const PostHeader = ({ left, right }: PostHeaderProps) => {
+export const PostHeader = ({ closeCreatePostForm, left, right }: PostHeaderProps) => {
   const { t } = useTranslation('createPost')
-  const { goBack } = useNavigation()
   const theme = useTheme()
+
   return (
     <Box
       flexDirection="row"
@@ -29,7 +28,7 @@ export const PostHeader = ({ left, right }: PostHeaderProps) => {
       </Box>
       <Box position="absolute" right={0} top={4}>
         {left ?? (
-          <BaseOpacity padding="m" onPress={() => goBack()}>
+          <BaseOpacity padding="m" onPress={closeCreatePostForm}>
             <IconClose color={theme.colors.black} height={ICON_SIZE} width={ICON_SIZE} />
           </BaseOpacity>
         )}

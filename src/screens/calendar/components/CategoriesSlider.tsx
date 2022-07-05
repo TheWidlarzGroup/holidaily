@@ -5,34 +5,23 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Box } from 'utils/theme'
+import { useTeamCategories } from '../useTeamCategories'
 
-export type FilterCategory = {
-  id: number
-  title: string
-  isSelected: boolean
-}
-type CategoriesSliderProps = {
-  filterCategories: FilterCategory[]
-  toggleFilterItemSelection: F1<number>
-}
-
-export const CategoriesSlider = ({
-  filterCategories,
-  toggleFilterItemSelection,
-}: CategoriesSliderProps) => {
+export const CategoriesSlider = () => {
   const { t } = useTranslation('calendar')
+  const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
   const [isWarningModalOpen, { setTrue: openWarningModal, setFalse: closeWarningModal }] =
     useBooleanState(false)
 
   const handleToggleSelection = (id: number) => {
-    const selectedTeams = filterCategories.filter((team) => team.isSelected)
-    const isSelected = filterCategories.find((cat) => cat.id === id)?.isSelected
+    const selectedTeams = (filterCategories || []).filter((team) => team.isSelected)
+    const isSelected = (filterCategories || []).find((cat) => cat.id === id)?.isSelected
     if (selectedTeams.length === 1 && isSelected) return openWarningModal()
     toggleFilterItemSelection(id)
   }
 
   return (
-    <Box paddingTop="l">
+    <Box paddingTop="l" marginLeft="-s">
       <FlatList
         horizontal
         data={filterCategories}

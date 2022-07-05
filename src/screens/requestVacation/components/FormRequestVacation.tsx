@@ -1,13 +1,11 @@
-import React, { FC, useState } from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Box, Text } from 'utils/theme/index'
+import React, { useState } from 'react'
+import { BaseOpacity, Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { Submit } from 'components/Submit'
-import { isIos } from 'utils/layout'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -31,9 +29,10 @@ type FormRequestVacationProps = {
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
   removeAttachment: F1<string>
+  setIsFormEmpty: F1<boolean>
 }
 
-export const FormRequestVacation: FC<FormRequestVacationProps> = ({
+export const FormRequestVacation = ({
   date,
   sickTime,
   toggleSickTime,
@@ -42,7 +41,8 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   photos,
   files,
   removeAttachment,
-}) => {
+  setIsFormEmpty,
+}: FormRequestVacationProps) => {
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
   const [
@@ -53,6 +53,10 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
 
   const { t } = useTranslation('requestVacation')
+
+  const handleSubmitValidation = () => {
+    if (!date.start) setIsFormEmpty(true)
+  }
 
   const handleFormSubmit = () => {
     if (!date.start) return
@@ -98,34 +102,36 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
   }
 
   return (
-    <Box flex={1}>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-        <Box margin="ml" paddingBottom="xxxl">
-          <Text variant="sectionLabel" textAlign="left" marginBottom="m">
-            {t('detailsTitle')}
-          </Text>
-          <SickTime sickTime={sickTime} toggle={onSicktimeToggle} />
-          <Details
-            showNext={showNext}
-            hideNext={hideNext}
-            onDescriptionChange={handleDescriptionChange}
-            date={date}
-          />
-          <Additionals
-            onMsgBtnPress={toggleShowMessageInput}
-            onMsgSubmit={handleMessageSubmit}
-            hideMsgInput={hideMessageInput}
-            isMsgInputVisible={showMessageInput}
-            showAttachmentModal={setShowAttachmentModalTrue}
-            attachments={[...photos, ...files]}
-            removeAttachment={askRemovePhoto}
-          />
-        </Box>
-      </KeyboardAwareScrollView>
+    <>
+      <Box margin="ml" paddingBottom="xxxl">
+        <Text variant="sectionLabel" textAlign="left" marginBottom="m">
+          {t('detailsTitle')}
+        </Text>
+        <SickTime sickTime={sickTime} toggle={onSicktimeToggle} />
+        <Details
+          showNext={showNext}
+          hideNext={hideNext}
+          onDescriptionChange={handleDescriptionChange}
+          date={date}
+        />
+        <Additionals
+          onMsgBtnPress={toggleShowMessageInput}
+          onMsgSubmit={handleMessageSubmit}
+          hideMsgInput={hideMessageInput}
+          isMsgInputVisible={showMessageInput}
+          showAttachmentModal={setShowAttachmentModalTrue}
+          attachments={[...photos, ...files]}
+          removeAttachment={askRemovePhoto}
+        />
+      </Box>
       {isNextVisible && !showMessageInput && (
-        <Box marginBottom={isIos ? 'ml' : 'none'}>
-          <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
-        </Box>
+        <BaseOpacity
+          onPress={handleSubmitValidation}
+          hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}>
+          <Box>
+            <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
+          </Box>
+        </BaseOpacity>
       )}
       <ConfirmationModal
         onAccept={clearPhotosToRemove}
@@ -152,6 +158,6 @@ export const FormRequestVacation: FC<FormRequestVacationProps> = ({
           }))
         }}
       />
-    </Box>
+    </>
   )
 }

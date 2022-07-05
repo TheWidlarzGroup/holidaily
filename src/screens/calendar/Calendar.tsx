@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -7,69 +7,90 @@ import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
-import { parseISO } from 'utils/dates'
+import { getISODateString, parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
-import { useBooleanState } from 'hooks/useBooleanState'
-import { LoadingModal } from 'components/LoadingModal'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { BottomTabRoutes } from 'navigation/types'
+import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
 const CalendarToWrap = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
-  const {
-    filterCategories,
-    toggleFilterItemSelection,
-    selectedDate,
-    setSelectedDate,
-    currentMonthDays,
-  } = useCalendarData()
+  const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
+  const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
+  const prevScreen: PrevScreen = route.params?.prevScreen
+  const { userSettings } = useUserSettingsContext()
+
+  const { selectedDate, setSelectedDate, currentMonthDays } = useCalendarData()
+
+  usePrevScreenBackHandler(prevScreen)
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
-      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-      if (!dayEvents) return
-      const index = currentMonthDays.indexOf(dayEvents)
-      flatListRef.current?.scrollToIndex({ index, animated: true })
-      setTimeout(() => setSelectedDate(parseISO(dateString)))
+      setSelectedDate(parseISO(dateString))
     },
-    [currentMonthDays, setSelectedDate]
+    [setSelectedDate]
   )
 
-  // Comment: show loader spinner while calendar is rendering
-  const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
+  useEffect(() => {
+    const pickedDate = userSettings?.pickedDate
+    if (pickedDate !== selectedDate && pickedDate) {
+      setSelectedDate(pickedDate)
+    }
+    // Comment: we want to trigger this fn once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
-    hideLoader()
-  }, [hideLoader])
+    const dateString = getISODateString(selectedDate)
+    const dayEvents = currentMonthDays.find((a) => a.date === dateString)
+    if (!dayEvents) return
+
+    const index = currentMonthDays.indexOf(dayEvents)
+    const validatedIndex = index >= 31 ? 0 : index
+    setCurrentIndex(validatedIndex)
+
+    flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
+  }, [currentMonthDays, selectedDate])
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
-  if (isLoading) return <LoadingModal show />
-
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <CategoriesSlider
-        filterCategories={filterCategories || []}
-        toggleFilterItemSelection={toggleFilterItemSelection}
-      />
+      <CategoriesSlider />
       <Box
-        borderRadius="lmin"
+        borderRadius="xm"
         backgroundColor="white"
         marginTop="m"
-        marginHorizontal="xm"
+        paddingHorizontal="ms"
         shadowOffset={{ width: 0, height: 2 }}
-        shadowColor="black"
-        shadowOpacity={0.15}
+        shadowColor="blackMuchDarker"
+        shadowOpacity={1}
         shadowRadius={6}
-        elevation={4}>
+        elevation={8}>
         <ExpandableCalendar
           markedDates={markedDates}
           markingType="multi-dot"
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           onDayPress={handleDayPress}
+          isFullHeight={switchCalendarHeight}
+          setIsFullHeight={setSwitchCalendarHeight}
         />
       </Box>
-      <EventsList days={currentMonthDays} ref={flatListRef} />
+      <EventsList
+        ref={flatListRef}
+        selectedDate={selectedDate}
+        days={currentMonthDays}
+        currentIndex={currentIndex}
+        switchCalendarHeight={switchCalendarHeight}
+        setSwitchCalendarHeight={setSwitchCalendarHeight}
+        btnOnPress={() =>
+          flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
+        }
+      />
     </SafeAreaWrapper>
   )
 }

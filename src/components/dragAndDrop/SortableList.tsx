@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { JSXElementConstructor, ReactElement, useCallback, useEffect, useState } from 'react'
 import { Item, SortableListItemType } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
@@ -11,6 +11,8 @@ import { Box, Text } from 'utils/theme'
 import { keys } from 'utils/manipulation'
 import { FlatList, FlatListProps } from 'react-native'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
+import { Analytics } from 'services/analytics'
+import { useIsDrawerOpen } from '@react-navigation/drawer'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
@@ -38,13 +40,23 @@ const getItemLayout = (data: SortableListItemType[] | null | undefined, index: n
 
 export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
+  const [prevElement, setPrevElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const positions = useSharedValue<Positions>(orderToPositions(makeOrder(children, persistedOrder)))
+  const isDrawerOpen = useIsDrawerOpen()
+
+  useEffect(() => {
+    if (isDrawerOpen) setDraggedElement(null)
+  }, [isDrawerOpen])
 
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)
+    if (element !== null) {
+      setPrevElement(element)
+      Analytics().track('DASHBOARD_TEAM_LONG_PRESSED', { element })
+    }
   }
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -85,8 +97,10 @@ export const SortableList = ({ children }: SortableListProps) => {
   useEffect(() => {
     if (draggedElement === null) {
       persistedOrder = positions.value
+      const newPosition = persistedOrder[`${prevElement}`]
+      Analytics().track('DASHBOARD_TEAM_DRAGGED', { element: prevElement, newPosition })
     }
-  }, [draggedElement, positions])
+  }, [draggedElement, positions, prevElement])
 
   const containerHeight = {
     height: calculateContainerHeight(children.length),
@@ -100,7 +114,6 @@ export const SortableList = ({ children }: SortableListProps) => {
         ref={scrollView}
         contentContainerStyle={containerHeight}
         showsVerticalScrollIndicator={false}
-        bounces={false}
         scrollEventThrottle={16}
         onScroll={onScroll}
         CellRendererComponent={CellRenderer}
@@ -148,7 +161,7 @@ export const orderToPositions = (order: (string | number)[]) => {
 }
 
 export const makeOrder = (
-  sortableItems: React.ReactElement<{ id: number }, string | React.JSXElementConstructor<any>>[],
+  sortableItems: ReactElement<{ id: number }, string | JSXElementConstructor<any>>[],
   persistedOrder: Positions
 ) => {
   const persistedOrderKeys = keys(persistedOrder)

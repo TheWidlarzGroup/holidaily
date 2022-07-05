@@ -1,9 +1,10 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { AttachmentType } from 'types/holidaysDataTypes'
-import { DayOffRequest } from 'mock-api/models'
+import { DayOffRequest, FeedPostData } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
+import { PrevScreen } from 'hooks/usePrevScreenBackHandler'
+import { AttachmentType } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -35,6 +36,17 @@ export type BudgetNavigationType<RouteName extends keyof BudgetRoutes> = Composi
   StackNavigationProp<BudgetRoutes, RouteName>,
   StackNavigationProp<DrawerRoutes, 'HolidayBudget'>
 >
+
+export type CreatePostNavigationType<RouteName extends keyof CreatePostRoutes> =
+  CompositeNavigationProp<
+    StackNavigationProp<CreatePostRoutes, RouteName>,
+    StackNavigationProp<ModalRoutes, 'CREATE_POST_NAVIGATION'>
+  >
+
+export type CreatePostNavigationProps<RouteName extends keyof CreatePostRoutes> = {
+  navigation: BottomTabNavigationProp<CreatePostRoutes, RouteName>
+  route: RouteProp<CreatePostRoutes, RouteName>
+}
 
 // for useNavigation hook
 export type DrawerNavigationType<RouteName extends keyof DrawerRoutes> = CompositeNavigationProp<
@@ -110,18 +122,23 @@ export type ModalRoutes = {
   NOTIFICATIONS: undefined
   REQUEST_VACATION_CALENDAR: { isSickTime?: boolean }
   DRAWER_NAVIGATOR: NestedNavigatorParams<DrawerRoutes>
-  GALLERY: { data: AttachmentType[]; index: number; postId?: string }
-  CREATE_POST: { photo: { id: string; uri: string } }
+  GALLERY: { data: FeedPostData[]; index: number; postId?: string }
   SUBSCRIBE_NEW_TEAM: undefined
   PRIVACY_POLICY: undefined
+  CREATE_POST_NAVIGATION: undefined
 }
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  CALENDAR: undefined
+  CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
   RequestModal: undefined
+  NOTIFICATIONS: undefined
+  CREATE_POST_NAVIGATION?: {
+    screen: string
+    params: { modalAsset?: AttachmentType; editPostId?: string }
+  }
   Stats: NestedNavigatorParams<RequestsRoutes>
-  FEED: { postId?: string } | undefined
+  FEED: { postId?: string; prevScreen?: 'NOTIFICATIONS' } | undefined
 }
 
 export type DrawerRoutes = {
@@ -134,7 +151,7 @@ export type DrawerRoutes = {
 }
 
 export type AuthRoutes = {
-  SLIDER: undefined
+  SLIDER: { disableInitialAnimation: boolean } | undefined
   WELCOME: { userLoggedOut?: true } | undefined
   ABOUT: { isFromWelcomeScreen?: true }
   TeamsModal: { firstName: string }
@@ -159,10 +176,15 @@ export type BudgetRoutes = {
   BUDGET: undefined
   PTO_POLICY: undefined
 }
+export type CreatePostRoutes = {
+  CREATE_POST: { modalAsset: FeedPostData; editPostId?: string }
+  LOCATION_FORM: undefined
+}
 
 export type RequestsRoutes = {
   STATS_AND_REQUESTS: undefined
-  SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'>
+  SEE_REQUEST: Omit<DayOffRequest, 'id' | 'user' | 'isOnHoliday'> & { prevScreen?: PrevScreen }
+  NOTIFICATIONS: undefined
 }
 
 export type UserProfileRoutes = {

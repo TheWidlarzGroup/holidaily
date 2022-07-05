@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { BaseOpacity, Text } from 'utils/theme'
+import { BaseOpacity, Text, useTheme } from 'utils/theme'
 import { SectionList } from 'react-native'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +8,7 @@ import { Notification } from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
 export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
+  const theme = useTheme()
   const { t } = useTranslation('notifications')
   const { seenNotifications, unseenNotifications } = useMemo(
     () => ({
@@ -29,8 +30,10 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
   return (
     <SectionList
       style={{ width: '100%' }}
+      contentContainerStyle={{ paddingBottom: theme.spacing.xxxxl }}
       sections={sections}
       keyExtractor={({ id }) => id}
+      showsVerticalScrollIndicator={false}
       ListHeaderComponent={<MarkAllAsSeen unseen={unseenNotifications} />}
       renderSectionHeader={({ section: { title, data } }) =>
         data.length ? (

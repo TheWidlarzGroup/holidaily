@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Box, Text } from 'utils/theme/index'
@@ -10,7 +10,7 @@ type SecondRegisterDialogBoxTypes = {
   hideModal: () => void
 }
 
-export const SecondRegisterDialogBox: FC<SecondRegisterDialogBoxTypes> = ({ hideModal }) => {
+export const SecondRegisterDialogBox = ({ hideModal }: SecondRegisterDialogBoxTypes) => {
   const { t } = useTranslation('modal')
 
   const navigation = useNavigation<AuthNavigationType<'ConfirmedAccount'>>()

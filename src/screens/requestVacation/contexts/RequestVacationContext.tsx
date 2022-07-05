@@ -1,6 +1,13 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { calculatePTO } from 'utils/dates'
 import { MAX_SICK_DAYS_COUNT } from '../components/MaxSickDays'
@@ -18,6 +25,7 @@ export type RequestVacationData = {
   }
   sickTime: boolean
   isPeriodInvalid: boolean
+  isFormEmpty: boolean
 }
 
 export type RequestVacationContextProps = RequestVacationData & {
@@ -25,7 +33,8 @@ export type RequestVacationContextProps = RequestVacationData & {
   setStartDate: F1<Date | undefined>
   setEndDate: F1<Date | undefined>
   setCreatedAt: F1<Date | undefined>
-  setRequestData: React.Dispatch<React.SetStateAction<RequestVacationData['requestData']>>
+  setIsFormEmpty: F1<SetStateAction<RequestVacationData['isFormEmpty']>>
+  setRequestData: F1<SetStateAction<RequestVacationData['requestData']>>
   markSickTime: F0
   cancelSickTime: F0
   toggleSickTime: F0
@@ -33,7 +42,7 @@ export type RequestVacationContextProps = RequestVacationData & {
 
 const RequestVacationContext = createContext<RequestVacationContextProps | undefined>(undefined)
 
-export const RequestVacationProvider = ({ children }: { children: React.ReactNode }) => {
+export const RequestVacationProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useUserContext()
   const [step, setStep] = useState(0)
   const [startDate, setStartDate] = useState<Date | undefined>()
@@ -42,6 +51,7 @@ export const RequestVacationProvider = ({ children }: { children: React.ReactNod
   const [requestData, setRequestData] = useState<RequestVacationData['requestData']>(emptyRequest)
   const [sickTime, { setTrue: markSickTime, setFalse: cancelSickTime, toggle: toggleSickTime }] =
     useBooleanState(false)
+  const [isFormEmpty, setIsFormEmpty] = useState<boolean>(false)
   const isPeriodInvalid = useMemo(() => {
     if (user?.availablePto === undefined || !startDate) return false
     if (sickTime) return calculatePTO(startDate, endDate ?? startDate) > MAX_SICK_DAYS_COUNT
@@ -56,12 +66,14 @@ export const RequestVacationProvider = ({ children }: { children: React.ReactNod
         createdAt,
         requestData,
         sickTime,
+        isFormEmpty,
         isPeriodInvalid,
         setStep,
         setStartDate,
         setEndDate,
         setCreatedAt,
         setRequestData,
+        setIsFormEmpty,
         markSickTime,
         cancelSickTime,
         toggleSickTime,

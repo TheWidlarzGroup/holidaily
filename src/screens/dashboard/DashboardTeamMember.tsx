@@ -15,6 +15,7 @@ export const DashboardTeamMember = ({ user, onLayout }: MemberProps) => {
   const { t } = useTranslation('dashboard')
   let sortedRequests = user.requests.slice().sort(sortSingleUserRequests)
   sortedRequests = sortedRequests.filter((req) => req.status !== 'past')
+
   return (
     <Box paddingHorizontal="xm" paddingBottom="xxxl" onLayout={onLayout}>
       <MateHeader user={user} />
@@ -23,6 +24,7 @@ export const DashboardTeamMember = ({ user, onLayout }: MemberProps) => {
           <MateHoliday user={user} sortedRequests={sortedRequests} />
           <Box flexDirection="row">
             <MateHolidayDetail type="start" date={sortedRequests[0].startDate || ''} />
+
             <MateHolidayDetail type="end" date={sortedRequests[0].endDate || ''} />
           </Box>
         </>

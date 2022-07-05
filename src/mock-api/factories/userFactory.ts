@@ -2,7 +2,7 @@ import { Factory } from 'miragejs'
 import { faker } from '@faker-js/faker'
 import { getRandomValue } from 'utils/getRandomValue'
 
-const colors = [
+export const colors = [
   '#91A6FF',
   '#4E70FF',
   '#FF88DC',

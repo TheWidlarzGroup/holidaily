@@ -16,6 +16,7 @@ import FileIcon from 'assets/icons/icon-file.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import { useTranslation } from 'react-i18next'
 import { Analytics } from 'services/analytics'
+import { FeedPostDataType } from 'mockApi/models/miragePostTypes'
 import { AnalyticsScreens } from 'utils/eventMap'
 import { OptionsModal } from './OptionsModal'
 
@@ -31,7 +32,7 @@ type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   source: AnalyticsScreens
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
-  setPhotoURI: F1<string | null>
+  setPhotoURI: F2<string | null, FeedPostDataType | undefined>
   showCamera?: true
 } & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
@@ -40,7 +41,6 @@ export const UploadAttachmentModal = ({
   hideEditAttachmentModal,
   ...p
 }: UploadAttachmentModalProps) => {
-  // TODO: IOS setup required
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
       p.onUserCancelled()
@@ -48,7 +48,17 @@ export const UploadAttachmentModal = ({
     }
     if (response.assets) {
       const photo = response.assets[0]
-      if (photo.uri) p.setPhotoURI(photo.uri)
+      if (photo.uri) {
+        Analytics().track(`${p.source}_ADD_ATTACHMENT_IMAGE_ADDED`, {
+          uri: photo.uri,
+          type: photo.type,
+        })
+        let assetType: FeedPostDataType | undefined
+        if (photo.type === 'image' || photo.type === 'video') assetType = photo.type
+        p.setPhotoURI(photo.uri, assetType)
+      } else {
+        Analytics().track(`${p.source}_ADD_ATTACHMENT_PHOTO_ADDED`, { type: photo.type })
+      }
     }
   }
 

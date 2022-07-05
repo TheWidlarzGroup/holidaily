@@ -1,5 +1,5 @@
 import { FormInput } from 'components/FormInput'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BaseOpacity, Box, useTheme } from 'utils/theme'
 import { AppNavigationType } from 'navigation/types'
 import { useNavigation } from '@react-navigation/native'
@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { CustomInput } from 'components/CustomInput'
 import CalendarIcon from 'assets/icons/icon-calendar.svg'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 
 type DetailsProps = {
@@ -23,11 +24,19 @@ type DetailsProps = {
 export const Details = (p: DetailsProps) => {
   const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const { control, register, errors } = useForm()
-  const { sickTime, isPeriodInvalid, requestData } = useRequestVacationContext()
+  const { sickTime, isPeriodInvalid, requestData, isFormEmpty, startDate } =
+    useRequestVacationContext()
+  const [isInputError, { setTrue: triggerInputError, setFalse: dismissInputError }] =
+    useBooleanState(false)
   const { t } = useTranslation('requestVacation')
   const theme = useTheme()
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (isFormEmpty) triggerInputError()
+    if (startDate) dismissInputError()
+  }, [dismissInputError, isFormEmpty, startDate, triggerInputError])
+
+  useEffect(() => {
     register('description', { required: false })
   }, [register])
 
@@ -51,7 +60,7 @@ export const Details = (p: DetailsProps) => {
           disabled
           placeholder={t('selectDate')}
           inputLabel={t('detailsDate')}
-          isError={isPeriodInvalid}
+          isError={isInputError || isPeriodInvalid}
           variant="medium"
           value={getFormattedPeriod(p.date.start, p.date.end)}
         />

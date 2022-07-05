@@ -2,7 +2,7 @@ import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { getDurationInDays } from 'utils/dates'
-import { Box, Text, Theme, useTheme } from 'utils/theme'
+import { Box, Text, useTheme, Colors } from 'utils/theme'
 import ArrowRight from 'assets/icons/arrow-right.svg'
 import { Languages } from '../../../../i18n'
 
@@ -11,7 +11,7 @@ type SectionProps = {
   duration: number
 }
 
-const headerColors: Record<SectionProps['variant'], keyof Theme['colors']> = {
+const headerColors: Record<SectionProps['variant'], Colors> = {
   sick: 'quarternary',
   took: 'special',
   left: 'tertiary',
@@ -29,7 +29,12 @@ export const Section = (p: SectionProps) => {
   const { data: organization } = useGetOrganization()
   const PTO_LIMIT = organization?.maxPtoDays ?? 21
   return (
-    <Box bg="veryLightGrey" borderRadius="l1min" marginBottom="s" overflow="hidden">
+    <Box
+      bg="veryLightGrey"
+      borderRadius="l1min"
+      marginBottom="s"
+      overflow="hidden"
+      marginHorizontal="m">
       <Box padding="m">
         <Text variant="textBoldMD" color={headerColors[p.variant]} marginBottom="s">
           {getDurationInDays(p.duration)}

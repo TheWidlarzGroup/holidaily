@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ComponentProps, ReactNode } from 'react'
 import { TouchableOpacityProps } from 'react-native'
 import { BaseOpacity } from 'utils/theme'
 
-export type BubbleProps = React.ComponentProps<typeof BaseOpacity> &
+export type BubbleProps = ComponentProps<typeof BaseOpacity> &
   TouchableOpacityProps & {
-    children?: React.ReactNode
+    children?: ReactNode
     isCommentBubble?: true
   }
 

@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,7 @@ import { DashboardTeamMember } from './DashboardTeamMember'
 
 type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
 
-export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
+export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -51,8 +51,7 @@ export const DashboardTeam: FC<DashboardTeamProps> = ({ route }) => {
     <>
       <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
         <TeamHeader title={params.name} />
-        {/* TODO: refactor to use SectionList */}
-        <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Box paddingHorizontal="m" paddingBottom="xxxl">
             {matesOnHoliday.length > 0 && (
               <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
@@ -100,7 +99,8 @@ export const TeamMemberModal = ({ onHide, isOpen, modalUser }: TeamMemberProps) 
       useScrollView={teamMemberHeight > SWIPEABLE_MODAL_HEIGHT}
       hasIndicator
       isOpen={isOpen}
-      onHide={onHide}>
+      onHide={onHide}
+      addTopOffset>
       <DashboardTeamMember user={modalUser} onLayout={getTeamMemberContainerHeight} />
     </SwipeableModalRegular>
   )

@@ -7,7 +7,7 @@ type AboutDescriptionProps = {
 }
 
 export const AboutDescription = (p: AboutDescriptionProps) => (
-  <Box paddingHorizontal="m" paddingBottom="lplus" paddingTop="ml">
+  <Box marginHorizontal="m" paddingBottom="lplus" paddingTop="ml">
     <Text textAlign="left" variant="textMD" color="black">
       <Trans
         ns="welcome"

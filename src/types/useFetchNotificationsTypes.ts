@@ -3,7 +3,7 @@ import { UserData } from './holidaysDataTypes'
 type CommonNotificationProps = {
   id: string
   isSeen: boolean
-  type: 'like' | 'comment' | 'dayOff'
+  type: 'like' | 'comment' | 'dayOff' | 'prompt'
   createdAt: string
   author: UserData
 }

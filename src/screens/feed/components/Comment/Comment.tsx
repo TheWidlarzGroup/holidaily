@@ -1,21 +1,47 @@
-import { Avatar } from 'components/Avatar'
 import React from 'react'
+import { Avatar } from 'components/Avatar'
 import { Box, Text } from 'utils/theme'
-import { Comment as CommentType } from 'mock-api/models/miragePostTypes'
+import { Comment as CommentType, EditTargetType } from 'mock-api/models/miragePostTypes'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Bubble } from '../Bubble/Bubble'
 
 type CommentProps = {
   comment: CommentType
+  openEditModal: F1<EditTargetType>
+  id: string
+  editCommentId: string
+  setEditCommentId: F1<string>
+  isEditingTarget: boolean
+  postId: string
   hideAvatar?: boolean
 }
 
-export const Comment = ({ comment, hideAvatar }: CommentProps) => {
+export const Comment = ({
+  comment,
+  hideAvatar,
+  openEditModal,
+  id,
+  postId,
+  editCommentId,
+  setEditCommentId,
+  isEditingTarget,
+}: CommentProps) => {
   const [isCommentExpanded, { setTrue: expandComment }] = useBooleanState(false)
   const { t } = useTranslation('feed')
 
   const numberOfChars = isCommentExpanded ? 999 : 130
+
+  const handleOnPress = () => {
+    openEditModal({
+      type: 'comment',
+      postId,
+      commentId: comment.id,
+      authorId: comment.author.id,
+      text: comment.text,
+    })
+    setEditCommentId(comment.id)
+  }
 
   return (
     <Box flexDirection="row" padding="xs" alignItems="flex-start" marginTop="xs">
@@ -26,20 +52,29 @@ export const Comment = ({ comment, hideAvatar }: CommentProps) => {
         {!hideAvatar && (
           <Avatar
             size="s"
-            src={comment.meta.author.pictureUrl}
+            src={comment.author?.pictureUrl}
             userDetails={
-              comment.meta.author.userColor
+              comment.author.userColor
                 ? {
-                    userColor: comment.meta.author.userColor,
-                    firstName: comment.meta.author.name,
-                    lastName: comment.meta.author.lastName,
+                    userColor: comment.author.userColor,
+                    firstName: comment.author.name,
+                    lastName: comment.author.lastName,
                   }
                 : undefined
             }
           />
         )}
       </Box>
-      <Bubble padding="xm" flexShrink={1} activeOpacity={1} isCommentBubble marginTop="-xs">
+      <Bubble
+        borderColor={editCommentId === id && isEditingTarget ? 'special' : 'transparent'}
+        borderWidth={1}
+        padding="xm"
+        flexShrink={1}
+        activeOpacity={0.6}
+        isCommentBubble
+        marginTop="-xs"
+        onLongPress={handleOnPress}
+        onPress={handleOnPress}>
         <Text variant="textXS">
           {comment.text.slice(0, numberOfChars)}
           {comment.text.length > 130 && !isCommentExpanded && (

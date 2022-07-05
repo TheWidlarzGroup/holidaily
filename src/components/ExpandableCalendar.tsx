@@ -1,18 +1,20 @@
 import React, { useRef, useEffect, useMemo } from 'react'
-import { Box, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, useTheme } from 'utils/theme'
 import { CalendarProps as RNCalendarProps, DateObject, LocaleConfig } from 'react-native-calendars'
 import CalendarHeader from 'react-native-calendars/src/calendar/header'
 import XDate from 'xdate'
 import ArrowLeft from 'assets/icons/arrow-left.svg'
 import ArrowRight from 'assets/icons/arrow-right.svg'
+import ArrowDown from 'assets/icons/arrowDown.svg'
 import { getISODateString, getShortWeekDays } from 'utils/dates'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CustomModal } from 'components/CustomModal'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker'
 import deepmerge from 'deepmerge'
-import { ViewProps } from 'react-native'
+import { LayoutChangeEvent, ViewProps } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import Animated, {
+  Easing,
   useAnimatedGestureHandler,
   useAnimatedRef,
   useAnimatedStyle,
@@ -37,9 +39,12 @@ import { WeekCalendar } from './CalendarComponents/WeekCalendar'
 import { CalendarRef } from './CalendarComponents/CalendarTypes'
 import { NewCalendar } from './CalendarComponents/NewCalendar'
 
+export type Dot = { key: string; color: string }
 type MonthChangeEventType = ACTION_DATE_SET | ACTION_DISMISSED
-type MarkedDatesMultiDots = { [key: string]: { dots: { key: string; color: string }[] } }
+type MarkedDatesMultiDots = { [key: string]: { dots: Dot[] } }
 type ExpandableCalendarProps = {
+  isFullHeight: boolean
+  setIsFullHeight: F1<boolean>
   markedDates: MarkedDatesMultiDots
   selectedDate: Date
   setSelectedDate: F1<Date>
@@ -61,6 +66,11 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
   const containerHeight = useSharedValue(
     getInitialCalendarHeight(isScreenHeightShort, hasUserSeenCalendar || false)
   )
+
+  const rotation = useSharedValue(0)
+  const rotationStyles = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }))
 
   const opacity = useDerivedValue(() =>
     containerHeight.value > WEEK_CALENDAR_HEIGHT ? withTiming(1) : withTiming(0)
@@ -147,6 +157,37 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     [markedDates, selectedDate]
   )
 
+  const trackCalendarHeight = (e: LayoutChangeEvent) => {
+    const { layout } = e.nativeEvent
+    if (layout.y > 300) {
+      props.setIsFullHeight(true)
+      rotation.value = 180
+    } else {
+      props.setIsFullHeight(false)
+      rotation.value = 0
+    }
+  }
+
+  const toggleOnPress = () => {
+    if (containerHeight.value > WEEK_CALENDAR_HEIGHT) {
+      containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT, {
+        duration: 500,
+        easing: Easing.linear,
+      })
+    } else {
+      containerHeight.value = withSpring(fullCalendarHeight.value, { overshootClamping: true })
+    }
+  }
+
+  useEffect(() => {
+    if (!props.isFullHeight && containerHeight.value > WEEK_CALENDAR_HEIGHT) {
+      containerHeight.value = withTiming(WEEK_CALENDAR_HEIGHT, {
+        duration: 500,
+        easing: Easing.linear,
+      })
+    }
+  }, [props.isFullHeight, containerHeight])
+
   return (
     <>
       <PanGestureHandler onGestureEvent={gestureHandler}>
@@ -213,6 +254,17 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
               />
             </Box>
           </Animated.View>
+          <BaseOpacity
+            hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}
+            onLayout={trackCalendarHeight}
+            onPress={toggleOnPress}
+            justifyContent="center"
+            alignItems="center"
+            marginTop="m">
+            <Animated.View style={[rotationStyles]}>
+              <ArrowDown color={theme.colors.black} />
+            </Animated.View>
+          </BaseOpacity>
         </Animated.View>
       </PanGestureHandler>
       {isIos ? (

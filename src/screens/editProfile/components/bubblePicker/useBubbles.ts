@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { randomFromRange } from 'utils/randomFromRange'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
-import { COLORS } from '../../helpers/mockedData'
+import { colors } from 'mockApi/factories/userFactory'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 export const useBubbles = () => {
@@ -10,16 +10,17 @@ export const useBubbles = () => {
   const dropTop = useSharedValue(height - C.DROP_AREA_OFFSET_BOTTOM)
   const dropHeight = useSharedValue(C.DROP_AREA_INIT_HEIGHT)
   const [animateCheckmark, setAnimateCheckmark] = useState(false)
+  const userColors = colors.map((color, index) => ({ color, id: index }))
   const initBubbles = useMemo(
     () =>
-      COLORS.map((color) => ({
+      userColors.map((color) => ({
         ...color,
         position: {
           x: randomFromRange(C.BUBBLE_SIZE, width - C.BUBBLE_SIZE),
           y: randomFromRange(C.BUBBLES_OFFSET_TOP, height - C.BUBBLES_OFFSET_BOTTOM),
         },
       })),
-    [height, width]
+    [height, userColors, width]
   )
 
   const animateDropArea = () => {

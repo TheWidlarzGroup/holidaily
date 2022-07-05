@@ -1,4 +1,4 @@
-import { CompoundLocation } from 'hooks/useLocation'
+import { LocationGeocodedAddress } from 'expo-location'
 import { useReducer } from 'react'
 import { Asset } from 'react-native-image-picker'
 import { generateUUID } from 'utils/generateUUID'
@@ -6,7 +6,7 @@ import { generateUUID } from 'utils/generateUUID'
 export type PostState = {
   readonly text: string
   readonly images: Asset[]
-  readonly location: Maybe<CompoundLocation>
+  readonly location?: LocationGeocodedAddress
 }
 
 export type PostAction =
@@ -16,7 +16,7 @@ export type PostAction =
     }
   | {
       type: 'setLocation'
-      payload: Maybe<CompoundLocation>
+      payload: LocationGeocodedAddress
     }
   | {
       type: 'addImages'
@@ -30,7 +30,7 @@ export type PostAction =
       type: 'reset'
     }
 
-const initState: PostState = { text: '', images: [], location: null }
+const initState: PostState = { text: '', images: [], location: undefined }
 
 const reducer = (state: PostState, action: PostAction): PostState => {
   switch (action.type) {

@@ -7,7 +7,10 @@ import { theme } from 'utils/theme'
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { DrawerRoutes } from 'navigation/types'
+import { useNavigationState } from '@react-navigation/native'
+import { getActiveRouteName } from 'utils/getActiveRouteName'
 import { useSiriListeners } from 'hooks/useSiriListeners'
+import { isIos } from 'utils/layout'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -16,6 +19,8 @@ import { BudgetNavigation } from './BudgetNavigation'
 const Drawer = createDrawerNavigator<DrawerRoutes>()
 
 export const DrawerNavigator = () => {
+  const navState = useNavigationState((state) => state)
+  const activeRouteName = getActiveRouteName(navState)
   const { t } = useTranslation('navigation')
   const { width } = useDimensions()
   let screenStyles = {}
@@ -71,7 +76,12 @@ export const DrawerNavigator = () => {
       }}
       overlayColor="transparent"
       drawerType="back">
-      <Drawer.Screen name="Home" options={{ title: t('home') }}>
+      <Drawer.Screen
+        name="Home"
+        options={{
+          title: t('home'),
+          gestureEnabled: !(isIos && activeRouteName === 'DASHBOARD_TEAM'),
+        }}>
         {(props) => <Home style={screenStyles} {...props} />}
       </Drawer.Screen>
       <Drawer.Screen

@@ -11,6 +11,8 @@ import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { Analytics } from 'services/analytics'
+import { useKeyboard } from 'hooks/useKeyboard'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
   RequestVacationData,
@@ -20,6 +22,7 @@ import {
 import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
 import { RequestSentModal } from './components/RequestSentModal'
+import { ValidationModal } from './components/ValidationModal'
 
 export type RequestDataTypes = {
   description: string
@@ -27,7 +30,7 @@ export type RequestDataTypes = {
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
 }
-type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
+type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>
 type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
@@ -86,9 +89,12 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
   const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
 
+  const { keyboardHeight } = useKeyboard()
+
   return (
     <SwipeableScreen
       swipeWithIndicator
+      extraStyle={{ paddingTop: 6 }}
       bg="dashboardBackground"
       confirmLeave={isDirty && !requestSent}
       confirmLeaveOptions={{
@@ -97,13 +103,16 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         header: t('discardRequestHeader'),
         content: t('discardRequestContent'),
       }}>
-      <RequestVacationHeader />
-      <RequestVacationSteps
-        changeRequestData={changeRequestData}
-        removeAttachment={removeAttachment}
-        showSentModal={markRequestAsSent}
-      />
-      <BadStateController />
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" extraHeight={keyboardHeight}>
+        <RequestVacationHeader />
+        <RequestVacationSteps
+          changeRequestData={changeRequestData}
+          removeAttachment={removeAttachment}
+          showSentModal={markRequestAsSent}
+        />
+        <BadStateController />
+        <ValidationModal />
+      </KeyboardAwareScrollView>
     </SwipeableScreen>
   )
 }

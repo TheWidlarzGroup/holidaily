@@ -1,12 +1,16 @@
+import { InfoModal } from 'components/notifications/InfoModal'
+import { SuccessModal } from 'components/notifications/SuccessModal'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { createNotifications, generateAnimationConfig } from 'react-native-notificated'
 import { Easing, interpolate, SharedValue } from 'react-native-reanimated'
+import { isAndroid } from 'utils/layout'
 import { theme } from 'utils/theme'
 
-type ConfigType = {
-  isDarkMode?: boolean
-}
+const successIcon = require('assets/icons/success-icon.png')
 
-export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
+export const useGetNotificationsConfig = () => {
+  const { userSettings } = useUserSettingsContext()
+  const isDarkMode = userSettings?.darkMode
   const notificationAnimation = generateAnimationConfig({
     animationConfigIn: {
       type: 'timing',
@@ -18,7 +22,8 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
     transitionInStyles: (progress: SharedValue<number>) => {
       'worklet'
 
-      const translateY = interpolate(progress.value, [0, 1], [-100, 30])
+      const androidTranslateY = isAndroid ? -20 : -10
+      const translateY = interpolate(progress.value, [0, 1], [-100, androidTranslateY])
 
       return {
         opacity: progress.value,
@@ -27,19 +32,36 @@ export const getNotificationsConfig = ({ isDarkMode }: ConfigType) => {
     },
   })
 
-  const { NotificationsProvider } = createNotifications({
-    duration: 1200,
+  const { NotificationsProvider, useNotifications } = createNotifications({
+    variants: {
+      successCustom: {
+        component: SuccessModal,
+        config: {
+          animationConfig: notificationAnimation,
+        },
+      },
+      infoCustom: {
+        component: InfoModal,
+        config: {
+          animationConfig: notificationAnimation,
+        },
+      },
+    },
+    duration: 2300,
     animationConfig: notificationAnimation,
+    isNotch: true,
     defaultStylesSettings: {
       successConfig: {
         titleSize: 14,
         bgColor: isDarkMode ? theme.colors.black : theme.colors.successToastBg,
         titleColor: isDarkMode ? theme.colors.white : theme.colors.black,
         borderRadius: theme.borderRadii.l1min,
-        leftIconSource: require('assets/icons/success-icon.png'),
+        leftIconSource: successIcon,
       },
     },
   })
 
-  return { NotificationsProvider, notificationAnimation }
+  const { notify } = useNotifications()
+
+  return { NotificationsProvider, notificationAnimation, useNotifications, notify }
 }
