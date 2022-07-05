@@ -49,7 +49,7 @@ export const ConfirmationModal = ({
             {content}
           </Text>
         )}
-        <Box marginBottom="xm" marginTop="xl">
+        <Box marginBottom="xm" marginTop="l">
           <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" onPress={onAccept} />
         </Box>
         {!hideRejectButton && (
