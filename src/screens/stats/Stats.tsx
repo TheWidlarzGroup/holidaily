@@ -1,15 +1,13 @@
 import React from 'react'
-import { Box, Colors, Text, Theme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Stats as StatsType } from 'dataAccess/queries/useFetchUserStats'
-import { ResponsiveValue } from '@shopify/restyle'
 import { SectionHeader } from './components/SectionHeader'
 
 type StatsTabProps = {
-  bgColor: ResponsiveValue<Colors, Theme>
-  textColor: ResponsiveValue<Colors, Theme>
   caption: string
+  type: 'daysAvailable' | 'daysUsed'
   value?: number | `${number}`
 }
 
@@ -20,19 +18,9 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
   return (
     <Box marginTop="m">
       <SectionHeader text={t('requests')} />
-      <Box marginTop="m" marginBottom="s" flexDirection="row" justifyContent="space-around">
-        <StatsTab
-          bgColor="tertiaryOpaqueBrighter"
-          textColor="tertiary"
-          value={user?.availablePto}
-          caption={t('daysToUse')}
-        />
-        <StatsTab
-          bgColor="quarternaryOpaque"
-          textColor="quarternaryDark"
-          value={stats.sickdaysTaken}
-          caption={t('sickLeaveDaysTaken')}
-        />
+      <Box marginTop="m" marginBottom="s" flexDirection="row" justifyContent="space-between">
+        <StatsTab value={user?.availablePto} caption={t('daysToUse')} type="daysAvailable" />
+        <StatsTab value={stats.sickdaysTaken} caption={t('sickLeaveDaysTaken')} type="daysUsed" />
       </Box>
     </Box>
   )
@@ -44,11 +32,25 @@ const StatsTab = (props: StatsTabProps) => (
     flexDirection="column"
     alignItems="center"
     justifyContent="center"
-    backgroundColor={`${props.bgColor}`}>
-    <Text variant="bold20" marginTop="m" lineHeight={30} color={`${props.textColor}`}>
+    backgroundColor={
+      props.type === 'daysAvailable' ? 'tertiaryOpaqueBrighter' : 'quarternaryOpaque'
+    }
+    borderBottomRightRadius={props.type === 'daysAvailable' ? 'mplus' : 'none'}
+    borderBottomLeftRadius={props.type === 'daysAvailable' ? 'none' : 'mplus'}
+    borderTopLeftRadius={props.type === 'daysAvailable' ? 'none' : 'mplus'}
+    borderTopRightRadius={props.type === 'daysAvailable' ? 'mplus' : 'none'}>
+    <Text
+      variant="bold20"
+      marginTop="m"
+      lineHeight={30}
+      color={props.type === 'daysAvailable' ? 'tertiary' : 'quarternaryDark'}>
       {props.value ?? 0}
     </Text>
-    <Text variant="displayXS" marginBottom="m" lineHeight={18} color={`${props.textColor}`}>
+    <Text
+      variant="displayXS"
+      marginBottom="m"
+      lineHeight={18}
+      color={props.type === 'daysAvailable' ? 'tertiary' : 'quarternaryDark'}>
       {props.caption}
     </Text>
   </Box>
