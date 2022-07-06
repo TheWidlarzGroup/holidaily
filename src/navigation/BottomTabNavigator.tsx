@@ -25,6 +25,10 @@ const tabs = [
   { name: 'FEED' },
 ]
 
+const screenOptions = {
+  headerShown: false,
+}
+
 export const BottomTabNavigator = ({ style }: ViewProps) => {
   const styles = useStyles()
 
@@ -32,7 +36,9 @@ export const BottomTabNavigator = ({ style }: ViewProps) => {
     <SafeAreaWrapper edges={['bottom']}>
       <Animated.View style={[style, { flex: 1 }]}>
         <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
-          <Tab.Navigator tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}>
+          <Tab.Navigator
+            tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}
+            screenOptions={screenOptions}>
             <Tab.Screen
               name="DashboardNavigation"
               options={{ unmountOnBlur: true }}

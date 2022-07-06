@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
@@ -8,11 +8,7 @@ import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { EditTargetType } from 'mock-api/models/miragePostTypes'
-import {
-  BottomTabNavigationProps,
-  BottomTabNavigationType,
-  BottomTabRoutes,
-} from 'navigation/types'
+import { BottomTabNavigationProps, BottomTabNavigationType } from 'navigation/types'
 import { FlatList } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
@@ -31,7 +27,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [language] = useLanguage()
   const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
-  const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
   const navigation = useNavigation<BottomTabNavigationType<'FEED'>>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
@@ -49,10 +44,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const { mutate: deletePost } = useDeletePost()
   const { mutate: addPostWithNewId } = useAddPostWithNewId()
 
-  const prevScreen: PrevScreen = route.params?.prevScreen
+  const prevScreen: PrevScreen = p?.prevScreen
 
-  console.log('route params', route?.params)
-  console.log('component route ', p)
   usePrevScreenBackHandler(prevScreen)
 
   const openEditModal = (target: EditTargetType) => {

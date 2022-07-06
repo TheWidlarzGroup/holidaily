@@ -28,6 +28,10 @@ const defaultScreenOptions: DrawerNavigationOptions = {
   swipeEnabled: false,
 }
 
+const navigatorOptions = {
+  headerShown: false,
+}
+
 export const DrawerNavigator = () => {
   const navState = useNavigationState((state) => state)
   const activeRouteName = getActiveRouteName(navState)
@@ -42,6 +46,7 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
+      screenOptions={navigatorOptions}
       drawerContent={(props) => {
         const screenScale = Animated.interpolateNode(progress, {
           inputRange: [0, 1],
