@@ -95,6 +95,7 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
 
   return (
     <SwipeableScreen
+      swipeWithIndicator
       onDismiss={onCreatePostDismiss}
       onSwipeStart={isPostEdited ? () => openDeclineModal() : undefined}>
       <CreatePostForm

@@ -99,7 +99,7 @@ export const SwipeableScreen = ({
               onSwipeEnd?.()
             }}
             onActivated={() => onSwipeStart?.()}>
-            <AnimatedBox height={10} width="100%">
+            <AnimatedBox height={16} width="100%" paddingTop="s">
               <ModalHandleIndicator />
             </AnimatedBox>
           </PanGestureHandler>
