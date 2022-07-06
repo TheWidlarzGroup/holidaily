@@ -7,7 +7,7 @@ import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
-import { getISODateString, parseISO } from 'utils/dates'
+import { parseISO } from 'utils/dates'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
@@ -28,9 +28,17 @@ export const Calendar = () => {
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
+      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
+      if (!dayEvents) return
+
+      const index = currentMonthDays.indexOf(dayEvents)
+      const validatedIndex = index >= 31 ? 0 : index
+      setCurrentIndex(validatedIndex)
+
+      flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
       setSelectedDate(parseISO(dateString))
     },
-    [setSelectedDate]
+    [currentMonthDays, setSelectedDate]
   )
 
   useEffect(() => {
@@ -41,18 +49,6 @@ export const Calendar = () => {
     // Comment: we want to trigger this fn once
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    const dateString = getISODateString(selectedDate)
-    const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-    if (!dayEvents) return
-
-    const index = currentMonthDays.indexOf(dayEvents)
-    const validatedIndex = index >= 31 ? 0 : index
-    setCurrentIndex(validatedIndex)
-
-    flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
-  }, [currentMonthDays, selectedDate])
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
