@@ -13,11 +13,15 @@ type AuthStackNavigationProps = {
   userLoggedOut?: true
 }
 
+const screenOptions = {
+  headerShown: false,
+}
+
 export const AuthStackNavigation = ({
   initialRoute = 'SLIDER',
   userLoggedOut,
 }: AuthStackNavigationProps) => (
-  <AppStack.Navigator headerMode="none" initialRouteName={initialRoute}>
+  <AppStack.Navigator screenOptions={screenOptions} initialRouteName={initialRoute}>
     <AppStack.Screen name="SLIDER" component={Slider} />
     <AppStack.Screen name="WELCOME" component={Welcome} initialParams={{ userLoggedOut }} />
     <AppStack.Screen name="ABOUT" component={About} />

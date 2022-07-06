@@ -6,8 +6,12 @@ import { DashboardRoutes } from './types'
 
 const DashboardStack = createStackNavigator<DashboardRoutes>()
 
+const screenOptions = {
+  headerShown: false,
+}
+
 export const DashboardNavigation = () => (
-  <DashboardStack.Navigator headerMode="none" initialRouteName="DASHBOARD">
+  <DashboardStack.Navigator screenOptions={screenOptions} initialRouteName="DASHBOARD">
     <DashboardStack.Screen name="DASHBOARD" component={Dashboard} />
     <DashboardStack.Screen name="DASHBOARD_TEAM" component={DashboardTeam} />
   </DashboardStack.Navigator>

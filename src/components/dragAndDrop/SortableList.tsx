@@ -12,7 +12,7 @@ import { keys } from 'utils/manipulation'
 import { FlatList, FlatListProps } from 'react-native'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { Analytics } from 'services/analytics'
-import { useIsDrawerOpen } from '@react-navigation/drawer'
+import { useDrawerStatus } from '@react-navigation/drawer'
 import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
@@ -45,7 +45,7 @@ export const SortableList = ({ children }: SortableListProps) => {
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const positions = useSharedValue<Positions>(orderToPositions(makeOrder(children, persistedOrder)))
-  const isDrawerOpen = useIsDrawerOpen()
+  const isDrawerOpen = useDrawerStatus()
 
   useEffect(() => {
     if (isDrawerOpen) setDraggedElement(null)

@@ -11,7 +11,6 @@ const CreatePostStack = createStackNavigator<CreatePostRoutes>()
 export const CreatePostNavigation = () => (
   <CreatePostProvider>
     <CreatePostStack.Navigator
-      headerMode="none"
       initialRouteName="CREATE_POST"
       {...StackNavigatorPresets.modalNavigator}>
       <CreatePostStack.Screen name="CREATE_POST" component={CreatePost} />
