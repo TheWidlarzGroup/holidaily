@@ -41,8 +41,10 @@ export const Calendar = () => {
     [currentMonthDays, setSelectedDate]
   )
 
-  const scrollToIndex = (index: number) =>
-    flatListRef.current?.scrollToIndex({ index, animated: true })
+  const scrollToIndex = useCallback(
+    (index: number) => flatListRef.current?.scrollToIndex({ index, animated: true }),
+    []
+  )
 
   useEffect(() => {
     const pickedDate = userSettings?.pickedDate
