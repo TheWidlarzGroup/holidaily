@@ -17,8 +17,6 @@ type DetailsProps = {
     end?: Date
   }
   onDescriptionChange: F1<string>
-  hideNext: F0
-  showNext: F0
 }
 
 export const Details = (p: DetailsProps) => {
@@ -80,8 +78,6 @@ export const Details = (p: DetailsProps) => {
           validationPattern={/$/}
           errorMessage={t('detailsDescriptionError')}
           keyboardType="default"
-          onFocus={p.hideNext}
-          onBlur={p.showNext}
           autoComplete="off"
           onChange={(e) => p.onDescriptionChange(e.nativeEvent.text)}
           reset={() => p.onDescriptionChange('')}

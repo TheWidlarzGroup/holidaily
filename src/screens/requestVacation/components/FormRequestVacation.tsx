@@ -45,7 +45,6 @@ export const FormRequestVacation = ({
     { setFalse: setShowAttachmentModalFalse, setTrue: setShowAttachmentModalTrue },
   ] = useBooleanState(false)
   const [attachmentsToRemove, setAttachmentsToRemove] = useState<string[]>([])
-  const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
 
   const { t } = useTranslation('requestVacation')
 
@@ -89,17 +88,12 @@ export const FormRequestVacation = ({
 
   return (
     <>
-      <Box margin="ml" paddingBottom="xxxl">
+      <Box margin="ml" paddingBottom="xxxl" marginBottom="xl">
         <Text variant="sectionLabel" textAlign="left" marginBottom="m">
           {t('detailsTitle')}
         </Text>
         <SickTime sickTime={sickTime} toggle={onSicktimeToggle} />
-        <Details
-          showNext={showNext}
-          hideNext={hideNext}
-          onDescriptionChange={handleDescriptionChange}
-          date={date}
-        />
+        <Details onDescriptionChange={handleDescriptionChange} date={date} />
         <Additionals
           onMsgBtnPress={toggleShowMessageInput}
           onMsgSubmit={handleMessageSubmit}

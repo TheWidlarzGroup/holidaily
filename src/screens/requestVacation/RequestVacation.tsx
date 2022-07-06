@@ -38,28 +38,20 @@ type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const { t } = useTranslation('requestVacation')
   const { userSettings } = useUserSettingsContext()
-  const { showModal, hideModal } = useModalContext()
+  const { showModal } = useModalContext()
   const { keyboardHeight } = useKeyboard()
   const { mutate, isLoading } = useCreateDayOffRequest()
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
   const wasSubmitEventTriggered = useRef(false)
   const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
   const {
-    markSickTime,
     setEndDate,
     setStartDate,
-    startDate,
-    endDate,
-    requestData,
-    createdAt,
-    sickTime,
     setCreatedAt,
-    step,
     setStep,
     setIsFormEmpty,
     setRequestData,
-    isPeriodInvalid,
-    isFormEmpty,
+    ...ctx
   } = useRequestVacationContext()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
@@ -76,39 +68,13 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
   useEffect(() => {
     if (!requestSent || wasSubmitEventTriggered.current) return
-    const ctxData = {
-      markSickTime,
-      startDate,
-      endDate,
-      requestData,
-      createdAt,
-      sickTime,
-      step,
-      setStep,
-      isPeriodInvalid,
-      isFormEmpty,
-    }
     wasSubmitEventTriggered.current = true
     goBack()
-    sendAnalytics(ctxData)
-    showModal(<RequestSentModal navigate={navigate} ctx={ctxData} />)
-  }, [
-    requestSent,
-    goBack,
-    navigate,
-    hideModal,
-    showModal,
-    markSickTime,
-    startDate,
-    endDate,
-    requestData,
-    createdAt,
-    sickTime,
-    step,
-    setStep,
-    isPeriodInvalid,
-    isFormEmpty,
-  ])
+    sendAnalytics(ctx)
+    showModal(<RequestSentModal navigate={navigate} ctx={ctx} />)
+  }, [ctx, goBack, navigate, requestSent, setStep, showModal])
+
+  const { markSickTime, startDate, endDate, requestData, createdAt, sickTime, step } = ctx
 
   useEffect(() => {
     const { params } = route

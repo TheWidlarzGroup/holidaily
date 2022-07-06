@@ -22,19 +22,16 @@ export const SubmitButton = ({
   const theme = useTheme()
 
   return (
-    <BaseOpacity
-      hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}
-      onPress={handleValidation}
-      backgroundColor="alwaysDarkenWhite">
-      <Box
-        position="absolute"
-        right={0}
-        left={0}
-        bottom={0}
-        backgroundColor="alwaysDarkenWhite"
-        alignItems="center"
-        justifyContent="center"
-        paddingBottom="xl">
+    <Box
+      position="absolute"
+      right={0}
+      left={0}
+      bottom={0}
+      backgroundColor="dashboardBackground"
+      alignItems="center"
+      justifyContent="center"
+      paddingBottom="xl">
+      <BaseOpacity onPress={handleValidation} backgroundColor="dashboardBackground">
         <CustomButton
           loading={isLoading}
           marginHorizontal={theme.spacing.lplus}
@@ -44,7 +41,7 @@ export const SubmitButton = ({
           variant="primary"
           onPress={onPress}
         />
-      </Box>
-    </BaseOpacity>
+      </BaseOpacity>
+    </Box>
   )
 }
