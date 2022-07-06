@@ -41,6 +41,9 @@ export const Calendar = () => {
     [currentMonthDays, setSelectedDate]
   )
 
+  const scrollToIndex = (index: number) =>
+    flatListRef.current?.scrollToIndex({ index, animated: true })
+
   useEffect(() => {
     const pickedDate = userSettings?.pickedDate
     if (pickedDate !== selectedDate && pickedDate) {
@@ -70,6 +73,8 @@ export const Calendar = () => {
           markingType="multi-dot"
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          setCurrentIndex={setCurrentIndex}
+          scrollToIndex={scrollToIndex}
           onDayPress={handleDayPress}
           isFullHeight={switchCalendarHeight}
           setIsFullHeight={setSwitchCalendarHeight}
