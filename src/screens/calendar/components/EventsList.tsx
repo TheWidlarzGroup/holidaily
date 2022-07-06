@@ -103,7 +103,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
           windowSize={17}
           extraData={[days, language]}
           keyExtractor={(item) => item.date}
-          initialScrollIndex={new Date().getDate() - 1}
+          initialScrollIndex={selectedDate.getDate() - 1}
           getItemLayout={getItemLayout}
           ref={flatListRef}
           onTouchEnd={handleTouch}
