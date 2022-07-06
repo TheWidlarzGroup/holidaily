@@ -297,3 +297,19 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     </>
   )
 }
+
+// const arePropsEqual = (prevProps: ExpandableCalendarProps, nextProps: ExpandableCalendarProps) => {
+//   const { isFullHeight, markedDates, selectedDate } = prevProps
+//   const {
+//     isFullHeight: newIsFullHeight,
+//     markedDates: newMarkedDates,
+//     selectedDate: newSelectedDate,
+//   } = nextProps
+//   return (
+//     JSON.stringify({ markedDates }) === JSON.stringify({ markedDates: newMarkedDates }) &&
+//     isFullHeight === newIsFullHeight &&
+//     selectedDate === newSelectedDate
+//   )
+// }
+
+// export default React.memo(ExpandableCalendar, arePropsEqual)

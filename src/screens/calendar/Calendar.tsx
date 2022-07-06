@@ -8,14 +8,13 @@ import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { getISODateString, parseISO } from 'utils/dates'
-import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
-const CalendarToWrap = () => {
+export const Calendar = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
@@ -94,9 +93,3 @@ const CalendarToWrap = () => {
     </SafeAreaWrapper>
   )
 }
-
-export const Calendar = () => (
-  <RequestsContextProvider>
-    <CalendarToWrap />
-  </RequestsContextProvider>
-)
