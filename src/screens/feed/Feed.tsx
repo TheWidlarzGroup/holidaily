@@ -50,6 +50,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const { mutate: addPostWithNewId } = useAddPostWithNewId()
 
   const prevScreen: PrevScreen = route.params?.prevScreen
+
+  console.log('route params', route?.params)
+  console.log('component route ', p)
   usePrevScreenBackHandler(prevScreen)
 
   const openEditModal = (target: EditTargetType) => {
