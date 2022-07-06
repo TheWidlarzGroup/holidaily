@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { BaseOpacity, Box, Text } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
-import { Submit } from 'components/Submit'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -24,24 +23,20 @@ type FormRequestVacationProps = {
   }
   sickTime: boolean
   toggleSickTime: F0
-  nextStep: () => void
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
   photos: AttachmentType[]
   files: (AttachmentType & { name: string })[]
   removeAttachment: F1<string>
-  setIsFormEmpty: F1<boolean>
 }
 
 export const FormRequestVacation = ({
   date,
   sickTime,
   toggleSickTime,
-  nextStep,
   changeRequestData,
   photos,
   files,
   removeAttachment,
-  setIsFormEmpty,
 }: FormRequestVacationProps) => {
   const [showMessageInput, { toggle: toggleShowMessageInput, setFalse: hideMessageInput }] =
     useBooleanState(false)
@@ -53,15 +48,6 @@ export const FormRequestVacation = ({
   const [isNextVisible, { setTrue: showNext, setFalse: hideNext }] = useBooleanState(true)
 
   const { t } = useTranslation('requestVacation')
-
-  const handleSubmitValidation = () => {
-    if (!date.start) setIsFormEmpty(true)
-  }
-
-  const handleFormSubmit = () => {
-    if (!date.start) return
-    nextStep()
-  }
 
   const handleDescriptionChange = (description: string) => {
     changeRequestData((oldData) => ({ ...oldData, description }))
@@ -124,15 +110,6 @@ export const FormRequestVacation = ({
           removeAttachment={askRemovePhoto}
         />
       </Box>
-      {isNextVisible && !showMessageInput && (
-        <BaseOpacity
-          onPress={handleSubmitValidation}
-          hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}>
-          <Box>
-            <Submit onCTAPress={handleFormSubmit} disabledCTA={!date.start} noBg text={t('CTA')} />
-          </Box>
-        </BaseOpacity>
-      )}
       <ConfirmationModal
         onAccept={clearPhotosToRemove}
         onDecline={cancelRemovingPhoto}
