@@ -110,9 +110,7 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
 
       props.onDayPress(getDateObject(monthStartDate))
       setSelectedDate(monthStartDate)
-
       props.setCurrentIndex(0)
-      props.scrollToIndex(0)
     }
   }
 
