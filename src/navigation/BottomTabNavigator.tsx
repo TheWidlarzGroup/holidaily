@@ -31,7 +31,7 @@ const screenStyles = {
   shadowColor: theme.colors.black,
   shadowRadius: 10,
   borderWidth: 0,
-  backgroundColor: '#0000',
+  backgroundColor: theme.colors.white,
   flex: 1,
 }
 
