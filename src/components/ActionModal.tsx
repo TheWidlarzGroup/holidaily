@@ -1,5 +1,6 @@
 import { useModalStyles } from 'components/ConfirmationModal'
 import React from 'react'
+import { ViewProps } from 'react-native'
 import Modal from 'react-native-modal'
 import { Box, Text } from 'utils/theme'
 import { CircleStatusIcon } from './CircleStatusIcon'
@@ -21,6 +22,7 @@ export type ActionModalProps = {
   content?: string
   extraButtons?: ExtraBtnProps[]
   onBackdropPress?: F0
+  extraStyle?: ViewProps['style']
 }
 
 const ICON_HEIGHT = 54
@@ -35,7 +37,7 @@ export const ActionModal = (p: ActionModalProps) => {
       backdropColor="transparent"
       onBackdropPress={p.onBackdropPress}
       coverScreen={false}>
-      <Box style={styles.bottomModal}>
+      <Box style={[styles.bottomModal, p.extraStyle]}>
         {p.variant && p.variant !== 'regular' && (
           <CircleStatusIcon
             height={ICON_HEIGHT}
@@ -50,7 +52,7 @@ export const ActionModal = (p: ActionModalProps) => {
             {p.content}
           </Text>
         )}
-        <Box marginTop={p.variant === 'regular' || !p.variant ? 'm' : 'xl'}>
+        <Box marginTop={p.variant === 'regular' || !p.variant ? 's' : 'xl'}>
           <CustomButton label={p.label} variant="primary" onPress={p.onUserAction} />
         </Box>
         {p.extraButtons?.length &&

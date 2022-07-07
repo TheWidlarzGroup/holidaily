@@ -27,10 +27,6 @@ export const Notifications = () => {
     })
   }
 
-  const goBack = () => {
-    handleBack()
-  }
-
   useBackHandler(() => {
     handleBack()
     return true
@@ -48,7 +44,9 @@ export const Notifications = () => {
         alignItems="center"
         justifyContent="space-between"
         paddingLeft="m">
-        <TouchableOpacity onPress={goBack} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+        <TouchableOpacity
+          onPress={handleBack}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <IconBack height={16} width={10} color={theme.colors.black} />
         </TouchableOpacity>
         <Text variant="displayBoldSM">{t('header')}</Text>
