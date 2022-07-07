@@ -11,7 +11,7 @@ import { getItem, removeItem, setItem } from 'utils/localStorage'
 import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
-import { CreatePostNavigationProps } from 'navigation/types'
+import { BottomTabNavigationType, CreatePostNavigationProps } from 'navigation/types'
 import { FeedPost } from 'mockApi/models/miragePostTypes'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
@@ -25,7 +25,7 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
   const { mutate: addPost } = useAddPost()
   const { mutate: editPost } = useEditPost()
   const { data: allPosts } = useGetPostsData()
-  const { navigate, goBack } = useNavigation()
+  const { navigate, goBack } = useNavigation<BottomTabNavigationType<'CREATE_POST_NAVIGATION'>>()
   const { notify } = useGetNotificationsConfig()
   const modalAsset = route?.params?.modalAsset
   const editPostId = route?.params?.editPostId

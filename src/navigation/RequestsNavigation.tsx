@@ -6,10 +6,12 @@ import { StatsAndRequests } from '../screens/stats/StatsAndRequests'
 
 const RequestsStack = createStackNavigator<RequestsRoutes>()
 
+const screenOptions = {
+  headerShown: false,
+}
+
 export const RequestsNavigation = () => (
-  <RequestsStack.Navigator
-    initialRouteName="STATS_AND_REQUESTS"
-    screenOptions={{ headerShown: false }}>
+  <RequestsStack.Navigator initialRouteName="STATS_AND_REQUESTS" screenOptions={screenOptions}>
     <RequestsStack.Screen name="STATS_AND_REQUESTS" component={StatsAndRequests} />
     <RequestsStack.Screen
       name="SEE_REQUEST"

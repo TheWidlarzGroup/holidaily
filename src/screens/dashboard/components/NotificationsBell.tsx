@@ -2,9 +2,10 @@ import React from 'react'
 import IconBell from 'assets/icons/icon-bell.svg'
 import { BaseOpacity, Text, Box, theme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
+import { AppNavigationType } from 'navigation/types'
 
 export const NotificationsBell = ({ unseenCount }: { unseenCount: number }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<AppNavigationType<'NOTIFICATIONS'>>()
   return (
     <BaseOpacity
       padding="m"

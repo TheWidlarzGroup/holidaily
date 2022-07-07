@@ -9,12 +9,13 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { useBackHandler } from 'hooks/useBackHandler'
 import { sleep } from 'utils/sleep'
+import { AppNavigationType } from 'navigation/types'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
   const [showLoadingModal, setShowLoadingModal] = useState(false)
   const theme = useTheme()
-  const navigation = useNavigation()
+  const navigation = useNavigation<AppNavigationType<'NOTIFICATIONS'>>()
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
 

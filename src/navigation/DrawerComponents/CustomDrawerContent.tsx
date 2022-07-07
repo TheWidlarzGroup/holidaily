@@ -1,6 +1,6 @@
 import React from 'react'
-import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import Animated from 'react-native-reanimated'
+import { DrawerContentComponentProps, useDrawerProgress } from '@react-navigation/drawer'
+import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { Box, mkUseStyles } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
@@ -8,11 +8,25 @@ import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
 import { DrawerRoutes } from 'navigation/types'
+import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { Logout } from './Logout'
 
-export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentProps) => {
+export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) => {
   const { user } = useUserContext()
   const styles = useStyles()
+  const progress = useDrawerProgress() as Readonly<SharedValue<number>>
+  const { width } = useDimensions()
+
+  const style = useAnimatedStyle(() => {
+    const drawerScale = interpolate(progress.value, [0, 1], [1.1, 1])
+    const drawerTranslate = interpolate(progress.value, [0, 1], [0.1 * width, 1])
+    const drawerOpacity = interpolate(progress.value, [0, 1], [0, 2])
+
+    return {
+      transform: [{ scale: drawerScale }, { translateX: drawerTranslate }],
+      opacity: drawerOpacity,
+    }
+  })
 
   if (!user) return null
 
@@ -28,7 +42,7 @@ export const CustomDrawerContent = ({ style, ...props }: DrawerContentComponentP
   return (
     <SafeAreaWrapper>
       <Animated.View
-        style={[style, { flex: 1, backgroundColor: styles.container.backgroundColor }]}>
+        style={[{ flex: 1, backgroundColor: styles.container.backgroundColor }, style]}>
         <DrawerHeader
           firstName={user.firstName}
           lastName={user.lastName}

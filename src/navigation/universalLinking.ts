@@ -4,20 +4,23 @@ const config = {
     RecoveryCode: '/password_reset/:code',
     RequestVacation: '/request_vacation',
     SignupWithCode: '/signup/:code',
-    DrawerNavigator: {
-      screens: {
-        Home: {
-          screens: {
-            Stats: '/requests',
-            DashboardNavigation: {
-              screens: {
-                Dashboard: '/dashboard',
-              },
-            },
-          },
-        },
-      },
-    },
+    DRAWER_NAVIGATOR: '/dashboard', // TODO: Test it when will be needed
+    // Old path caused typescript error
+
+    // DrawerNavigator: {
+    //   screens: {
+    //     Home: {
+    //       screens: {
+    //         Stats: '/requests',
+    //         DashboardNavigation: {
+    //           screens: {
+    //             Dashboard: '/dashboard',
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
   },
 }
 

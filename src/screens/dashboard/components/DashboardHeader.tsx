@@ -3,7 +3,7 @@ import { Box, Text, BaseOpacity } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { Avatar } from 'components/Avatar'
 import { useNavigation, DrawerActions } from '@react-navigation/native'
-import { useIsDrawerOpen } from '@react-navigation/drawer'
+import { useDrawerStatus } from '@react-navigation/drawer'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { formatDate } from 'utils/formatDate'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
@@ -17,7 +17,8 @@ export const DashboardHeader = () => {
   const { user } = useUserContext()
   const date = `${formatDate(new Date(), 'dayNumeralLongMonthNoYear', getCurrentLocale())}`
 
-  const isDrawerOpen = useIsDrawerOpen()
+  const isDrawerOpen = useDrawerStatus() === 'open'
+
   const { data } = useFetchNotifications()
   const unseenCount = useMemo(() => {
     if (!data) return 0

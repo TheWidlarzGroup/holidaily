@@ -1,7 +1,7 @@
 import type { StackNavigationOptions } from '@react-navigation/stack'
 
 export const StackNavigatorPresets: {
-  modalNavigator: { screenOptions: StackNavigationOptions; mode: 'modal' }
+  modalNavigator: { screenOptions: StackNavigationOptions; presentation: 'modal' }
 } = {
   modalNavigator: {
     screenOptions: {
@@ -24,6 +24,6 @@ export const StackNavigatorPresets: {
         },
       }),
     },
-    mode: 'modal',
+    presentation: 'modal',
   },
 }
