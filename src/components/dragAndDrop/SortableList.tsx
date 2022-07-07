@@ -45,7 +45,7 @@ export const SortableList = ({ children }: SortableListProps) => {
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const positions = useSharedValue<Positions>(orderToPositions(makeOrder(children, persistedOrder)))
-  const isDrawerOpen = useDrawerStatus()
+  const isDrawerOpen = useDrawerStatus() === 'open'
 
   useEffect(() => {
     if (isDrawerOpen) setDraggedElement(null)

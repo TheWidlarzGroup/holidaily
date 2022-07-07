@@ -1,13 +1,14 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Animated from 'react-native-reanimated'
-import { ViewProps } from 'react-native'
+import Animated, { SharedValue, useAnimatedStyle, interpolate } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { mkUseStyles, Theme } from 'utils/theme'
+import { mkUseStyles, theme, Theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Feed } from 'screens/feed/Feed'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { useDrawerProgress } from '@react-navigation/drawer'
+import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 import { RequestsNavigation } from './RequestsNavigation'
@@ -25,16 +26,40 @@ const tabs = [
   { name: 'FEED' },
 ]
 
-const screenOptions = {
-  headerShown: false,
+const screenStyles = {
+  shadowOffset: { width: 0, height: 0 },
+  shadowColor: theme.colors.black,
+  shadowRadius: 10,
+  borderWidth: 0,
+  backgroundColor: '#0000',
 }
-
-export const BottomTabNavigator = ({ style }: ViewProps) => {
+export const BottomTabNavigator = (props: any) => {
   const styles = useStyles()
+  const progress = useDrawerProgress() as Readonly<SharedValue<number>>
+  const { width } = useDimensions()
 
+  const style = useAnimatedStyle(() => {
+    const screenScale = interpolate(progress.value, [0, 1], [1, 0.8])
+    const screenTranslate = interpolate(progress.value, [0, 1], [0, 0.8 * width * -0.1])
+    const screenShadowAndroid = interpolate(progress.value, [0, 1], [0, 10])
+    const screenShadowIOS = interpolate(progress.value, [0, 1], [0, 0.2])
+
+    return {
+      transform: [{ scale: screenScale }, { translateX: screenTranslate }],
+      shadowOpacity: screenShadowIOS,
+      elevation: screenShadowAndroid,
+    }
+  })
+
+  const screenOptions = {
+    headerShown: false,
+    gestureEnabled: props.gestureEnabled,
+  }
+
+  console.log('bottom props,', props)
   return (
     <SafeAreaWrapper edges={['bottom']}>
-      <Animated.View style={[style, { flex: 1 }]}>
+      <Animated.View style={[screenStyles, style, { flex: 1 }]}>
         <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
           <Tab.Navigator
             tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}

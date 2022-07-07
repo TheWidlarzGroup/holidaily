@@ -17,7 +17,8 @@ export const DashboardHeader = () => {
   const { user } = useUserContext()
   const date = `${formatDate(new Date(), 'dayNumeralLongMonthNoYear', getCurrentLocale())}`
 
-  const isDrawerOpen = useDrawerStatus()
+  const isDrawerOpen = useDrawerStatus() === 'open'
+
   const { data } = useFetchNotifications()
   const unseenCount = useMemo(() => {
     if (!data) return 0
