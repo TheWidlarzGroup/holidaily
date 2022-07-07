@@ -32,8 +32,14 @@ const screenStyles = {
   shadowRadius: 10,
   borderWidth: 0,
   backgroundColor: '#0000',
+  flex: 1,
 }
-export const BottomTabNavigator = (props: any) => {
+
+type Props = {
+  gestureEnabled: boolean
+}
+
+export const BottomTabNavigator = (props: Props) => {
   const styles = useStyles()
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
@@ -56,10 +62,9 @@ export const BottomTabNavigator = (props: any) => {
     gestureEnabled: props.gestureEnabled,
   }
 
-  console.log('bottom props,', props)
   return (
     <SafeAreaWrapper edges={['bottom']}>
-      <Animated.View style={[{ flex: 1 }, screenStyles, style]}>
+      <Animated.View style={[screenStyles, style]}>
         <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
           <Tab.Navigator
             tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}

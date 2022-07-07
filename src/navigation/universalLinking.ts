@@ -5,6 +5,8 @@ const config = {
     RequestVacation: '/request_vacation',
     SignupWithCode: '/signup/:code',
     DRAWER_NAVIGATOR: '/dashboard', // TODO: Test it when will be needed
+    // Old path caused typescript error
+
     // DrawerNavigator: {
     //   screens: {
     //     Home: {
