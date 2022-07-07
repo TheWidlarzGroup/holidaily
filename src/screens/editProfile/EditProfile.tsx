@@ -92,7 +92,7 @@ export const EditProfile = () => {
     header: t('confirmSave'),
     content: t('changesWillBeLost'),
     acceptBtnText: t('saveChanges'),
-    declineBtnText: t('discard'),
+    declineBtnText: t('discardChanges'),
   })
   const onDeletePicture = () => editUser({ photo: null })
 
