@@ -48,6 +48,8 @@ type ExpandableCalendarProps = {
   markedDates: MarkedDatesMultiDots
   selectedDate: Date
   setSelectedDate: F1<Date>
+  setCurrentIndex: F1<number>
+  scrollToIndex: F1<number>
   onDayPress: F1<DateObject>
 }
 
@@ -85,10 +87,33 @@ export const ExpandableCalendar = (props: ExpandableCalendarProps & RNCalendarPr
     calendarRef?.current?.updateMonth(new XDate(selectedDate))
   }, [selectedDate])
 
+  const getDateObject = (date: Date) => ({
+    dateString: getISODateString(date),
+    day: date.getDate(),
+    month: date.getMonth(),
+    year: date.getFullYear(),
+    timestamp: date.getTime(),
+  })
+
   const handleAddMonth = (count: 1 | -1) => {
-    if (containerHeight.value === WEEK_CALENDAR_HEIGHT)
-      setSelectedDate(startOfWeek(addWeeks(selectedDate, count), { weekStartsOn: 1 }))
-    else setSelectedDate(startOfMonth(addMonths(selectedDate, count)))
+    if (containerHeight.value === WEEK_CALENDAR_HEIGHT) {
+      const weekStartDate = startOfWeek(addWeeks(selectedDate, count), { weekStartsOn: 1 })
+      const weekStartDateObject = getDateObject(weekStartDate)
+
+      props.onDayPress(weekStartDateObject)
+      setSelectedDate(weekStartDate)
+
+      props.setCurrentIndex(weekStartDateObject.day - 1)
+      props.scrollToIndex(weekStartDateObject.day - 1)
+    } else {
+      const monthStartDate = startOfMonth(addMonths(selectedDate, count))
+
+      props.onDayPress(getDateObject(monthStartDate))
+      setSelectedDate(monthStartDate)
+
+      props.setCurrentIndex(0)
+      props.scrollToIndex(0)
+    }
   }
 
   const gestureHandler = useAnimatedGestureHandler<

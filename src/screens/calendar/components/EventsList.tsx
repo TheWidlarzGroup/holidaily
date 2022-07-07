@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef } from 'react'
+import React, { useEffect, useState, forwardRef, useCallback } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
 import { Box, useTheme } from 'utils/theme'
@@ -21,11 +21,11 @@ export type EventsListProps = {
   setSwitchCalendarHeight: F1<boolean>
 }
 
-const renderItem = ({ item }: { item: DayInfoProps }) => (
-  <TouchableOpacity activeOpacity={1} key={item.date}>
+export const Item = React.memo(({ item }: { item: DayInfoProps }) => (
+  <TouchableOpacity activeOpacity={1}>
     <DayInfo date={item.date} events={item.events} weekend={item.weekend} />
   </TouchableOpacity>
-)
+))
 
 export const EventsList = forwardRef<FlatList, EventsListProps>(
   (
@@ -41,6 +41,8 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
     const theme = useTheme()
 
     const { offset } = getItemLayout(days, currentIndex)
+
+    const renderItem = useCallback(({ item }) => <Item key={item.date} item={item} />, [])
 
     const handleTouch = () => {
       if (switchCalendarHeight) setSwitchCalendarHeight(false)
@@ -103,7 +105,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
           windowSize={17}
           extraData={[days, language]}
           keyExtractor={(item) => item.date}
-          initialScrollIndex={new Date().getDate() - 1}
+          initialScrollIndex={selectedDate.getDate() - 1}
           getItemLayout={getItemLayout}
           ref={flatListRef}
           onTouchEnd={handleTouch}

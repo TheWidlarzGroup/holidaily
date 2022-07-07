@@ -7,15 +7,14 @@ import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
-import { getISODateString, parseISO } from 'utils/dates'
-import { RequestsContextProvider } from 'contexts/RequestsProvider'
+import { parseISO } from 'utils/dates'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
-const CalendarToWrap = () => {
+export const Calendar = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
@@ -29,9 +28,22 @@ const CalendarToWrap = () => {
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
+      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
+      if (!dayEvents) return
+
+      const index = currentMonthDays.indexOf(dayEvents)
+      const validatedIndex = index >= 31 ? 0 : index
+      setCurrentIndex(validatedIndex)
+
+      flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
       setSelectedDate(parseISO(dateString))
     },
-    [setSelectedDate]
+    [currentMonthDays, setSelectedDate]
+  )
+
+  const scrollToIndex = useCallback(
+    (index: number) => flatListRef.current?.scrollToIndex({ index, animated: true }),
+    []
   )
 
   useEffect(() => {
@@ -42,18 +54,6 @@ const CalendarToWrap = () => {
     // Comment: we want to trigger this fn once
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    const dateString = getISODateString(selectedDate)
-    const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-    if (!dayEvents) return
-
-    const index = currentMonthDays.indexOf(dayEvents)
-    const validatedIndex = index >= 31 ? 0 : index
-    setCurrentIndex(validatedIndex)
-
-    flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
-  }, [currentMonthDays, selectedDate])
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
@@ -75,6 +75,8 @@ const CalendarToWrap = () => {
           markingType="multi-dot"
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          setCurrentIndex={setCurrentIndex}
+          scrollToIndex={scrollToIndex}
           onDayPress={handleDayPress}
           isFullHeight={switchCalendarHeight}
           setIsFullHeight={setSwitchCalendarHeight}
@@ -94,9 +96,3 @@ const CalendarToWrap = () => {
     </SafeAreaWrapper>
   )
 }
-
-export const Calendar = () => (
-  <RequestsContextProvider>
-    <CalendarToWrap />
-  </RequestsContextProvider>
-)
