@@ -8,6 +8,7 @@ import { linkWithFallback } from 'utils/linkWithFallback'
 import { Analytics } from 'services/analytics'
 import { isIos } from 'utils/layout'
 import { useNavigation } from '@react-navigation/native'
+import { DrawerNavigationType } from 'navigation/types'
 
 const ANDROID_RATE_LINK = 'market://details?id=com.holidaily'
 const APPLE_RATE_LINK = 'itms-apps://itunes.apple.com/us/app/id1572204223?mt=8'
@@ -16,7 +17,7 @@ const COMPANY_WEBSITE_LINK = 'https://thewidlarzgroup.com'
 export const AboutLinks = () => {
   const theme = useTheme()
   const { t } = useTranslation('about')
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<DrawerNavigationType<'ABOUT'>>()
 
   return (
     <Box paddingHorizontal="m">

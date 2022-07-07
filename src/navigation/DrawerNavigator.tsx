@@ -29,7 +29,7 @@ export const DrawerNavigator = () => {
   const activeRouteName = getActiveRouteName(navState)
   const { t } = useTranslation('navigation')
 
-  useSiriListeners()
+  useSiriListeners<'Home'>()
 
   return (
     <Drawer.Navigator
