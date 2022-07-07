@@ -2,8 +2,6 @@ import React from 'react'
 import { Box, Text, useTheme } from 'utils/theme/index'
 import { useTranslation } from 'react-i18next'
 import { RequestDetails } from 'components/RequestDetails/RequestDetails'
-import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
-import { Submit } from 'components/Submit'
 import IconPill from 'assets/icons/icon-pill.svg'
 import { isIos } from 'utils/layout'
 
@@ -19,52 +17,22 @@ type SummaryRequestVacationProps = {
   hideNext?: boolean
 }
 
-export const SummaryRequestVacation = ({ onNextPressed, ...p }: SummaryRequestVacationProps) => {
-  const { t } = useTranslation('requestVacation')
-  const { mutate, isLoading } = useCreateDayOffRequest()
-  const onSubmit = () => {
-    if (!p.startDate || !p.endDate) return
-    const createdAt = p.createdAt ?? new Date()
-    mutate(
-      {
-        startDate: p.startDate.toISOString(),
-        endDate: p.endDate.toISOString(),
-        createdAt: createdAt.toISOString(),
-        description: p.description ?? t('outOfOffice'),
-        isSickTime: p.isSick,
-        message: p.message ?? '',
-        attachments: p.attachments,
-      },
-      { onSuccess: onNextPressed }
-    )
-  }
-
-  return (
-    <Box flex={1} paddingHorizontal="m" paddingBottom={isIos ? 'ml' : 'none'}>
-      {p.isSick && <SickTimeInfo />}
-      <RequestDetails
-        source="ADD_REQUEST"
-        description={p.description}
-        message={p.message ?? ''}
-        attachments={p.attachments}
-        startDate={(p.startDate ?? new Date()).toISOString()}
-        endDate={(p.endDate ?? new Date()).toISOString()}
-        createdAt={(p.createdAt ?? new Date()).toISOString()}
-        isSickTime={p.isSick}
-        status={p.isSick ? 'accepted' : 'pending'}
-      />
-      {!p.hideNext && (
-        <Submit
-          loading={isLoading}
-          onCTAPress={onSubmit}
-          disabledCTA={false}
-          noBg
-          text={t('sendRequest')}
-        />
-      )}
-    </Box>
-  )
-}
+export const SummaryRequestVacation = (p: SummaryRequestVacationProps) => (
+  <Box flex={1} paddingHorizontal="m" paddingBottom={isIos ? 'ml' : 'none'}>
+    {p.isSick && <SickTimeInfo />}
+    <RequestDetails
+      source="ADD_REQUEST"
+      description={p.description}
+      message={p.message ?? ''}
+      attachments={p.attachments}
+      startDate={(p.startDate ?? new Date()).toISOString()}
+      endDate={(p.endDate ?? new Date()).toISOString()}
+      createdAt={(p.createdAt ?? new Date()).toISOString()}
+      isSickTime={p.isSick}
+      status={p.isSick ? 'accepted' : 'pending'}
+    />
+  </Box>
+)
 
 const SickTimeInfo = () => {
   const { t } = useTranslation('requestVacation')

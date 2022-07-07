@@ -13,6 +13,7 @@ import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { Analytics } from 'services/analytics'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
   RequestVacationData,
@@ -23,6 +24,7 @@ import { RequestVacationSteps } from './components/RequestVacationSteps'
 import { BadStateController } from './components/BadStateController'
 import { RequestSentModal } from './components/RequestSentModal'
 import { ValidationModal } from './components/ValidationModal'
+import { SubmitButton } from './components/SubmitButton'
 
 export type RequestDataTypes = {
   description: string
@@ -34,38 +36,48 @@ type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>
 type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
 const RequestVacation = ({ route }: RequestVacationProps) => {
+  const { t } = useTranslation('requestVacation')
   const { userSettings } = useUserSettingsContext()
+  const { showModal } = useModalContext()
+  const { keyboardHeight } = useKeyboard()
+  const { mutate, isLoading } = useCreateDayOffRequest()
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
-  const { markSickTime, setEndDate, setStartDate, setCreatedAt, ...ctx } =
-    useRequestVacationContext()
   const wasSubmitEventTriggered = useRef(false)
   const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
+  const {
+    setEndDate,
+    setStartDate,
+    setCreatedAt,
+    setStep,
+    setIsFormEmpty,
+    setRequestData,
+    ...ctx
+  } = useRequestVacationContext()
   useSoftInputMode(SoftInputModes.ADJUST_RESIZE)
   useSetStatusBarStyle(userSettings)
-  const { showModal, hideModal } = useModalContext()
   const changeRequestData = (callback: ChangeRequestDataCallbackType) => {
-    const newData = callback(ctx.requestData)
-    ctx.setRequestData((oldData) => ({ ...oldData, ...newData }))
+    const newData = callback(requestData)
+    setRequestData((oldData) => ({ ...oldData, ...newData }))
   }
   const removeAttachment = (id: string) => {
-    ctx.setRequestData((old) => ({
+    setRequestData((old) => ({
       ...old,
       photos: old.photos.filter((p) => p.id !== id),
       files: old.files.filter((f) => f.id !== id),
     }))
   }
-  const { t } = useTranslation('requestVacation')
   useEffect(() => {
     if (!requestSent || wasSubmitEventTriggered.current) return
     wasSubmitEventTriggered.current = true
     goBack()
     sendAnalytics(ctx)
     showModal(<RequestSentModal navigate={navigate} ctx={ctx} />)
-  }, [requestSent, goBack, navigate, hideModal, showModal, ctx])
+  }, [ctx, goBack, navigate, requestSent, setStep, showModal])
+
+  const { markSickTime, startDate, endDate, requestData, createdAt, sickTime, step } = ctx
 
   useEffect(() => {
     const { params } = route
-
     if (params?.start) {
       const newStartDate = new Date(params.start)
       setStartDate(newStartDate)
@@ -86,10 +98,30 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
     }
   }, [route, route.params, markSickTime, setEndDate, setStartDate, setCreatedAt])
 
-  const requestDataChanged = keys(ctx.requestData).some((key) => !!ctx.requestData[key].length)
-  const isDirty = ctx.sickTime || !!ctx.startDate || requestDataChanged
+  const requestDataChanged = keys(requestData).some((key) => !!requestData[key].length)
+  const isDirty = sickTime || !!startDate || requestDataChanged
 
-  const { keyboardHeight } = useKeyboard()
+  const handleSubmitValidation = () => {
+    if (!startDate) setIsFormEmpty(true)
+  }
+
+  const onSubmit = () => {
+    if (step === 0) return setStep(1)
+    if (!startDate || !endDate) return
+    const reqCreatedAt = createdAt || new Date()
+    mutate(
+      {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        createdAt: reqCreatedAt.toISOString(),
+        description: requestData.description || t('outOfOffice'),
+        isSickTime: sickTime,
+        message: requestData.message || '',
+        attachments: [...requestData.photos, ...requestData.files],
+      },
+      { onSuccess: markRequestAsSent }
+    )
+  }
 
   return (
     <SwipeableScreen
@@ -110,8 +142,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
           showSentModal={markRequestAsSent}
         />
         <BadStateController />
-        <ValidationModal />
       </KeyboardAwareScrollView>
+      <SubmitButton
+        onPress={onSubmit}
+        handleValidation={handleSubmitValidation}
+        isDisabled={!startDate}
+        isLoading={isLoading}
+        step={step}
+      />
+      <ValidationModal />
     </SwipeableScreen>
   )
 }
