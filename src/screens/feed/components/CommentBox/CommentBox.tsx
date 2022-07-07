@@ -92,7 +92,7 @@ const CommentBox = ({
                 postId={id}
                 comment={comment}
                 id={comment?.id}
-                key={comment?.id}
+                key={index}
               />
             )
           })}

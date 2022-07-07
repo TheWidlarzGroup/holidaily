@@ -141,7 +141,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       onPress: onPressModalDelete,
     },
   ]
-  // const index = data?.findIndex((post) => String(post.id) === String(p.postId))
 
   const [wasLoaded, setWasLoaded] = useState(false)
 
