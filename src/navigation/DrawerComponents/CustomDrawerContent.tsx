@@ -20,7 +20,7 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
   const style = useAnimatedStyle(() => {
     const drawerScale = interpolate(progress.value, [0, 1], [1.1, 1])
     const drawerTranslate = interpolate(progress.value, [0, 1], [0.1 * width, 1])
-    const drawerOpacity = interpolate(progress.value, [0, 1], [0, 1])
+    const drawerOpacity = interpolate(progress.value, [0, 1], [0, 2])
 
     return {
       transform: [{ scale: drawerScale }, { translateX: drawerTranslate }],
@@ -38,12 +38,11 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
     if (isHome || isAdminPanelEmployees) return false
     return true
   }
-  console.log('isHidden', props.state.routes)
 
   return (
     <SafeAreaWrapper>
       <Animated.View
-        style={[style, { flex: 1, backgroundColor: styles.container.backgroundColor }]}>
+        style={[{ flex: 1, backgroundColor: styles.container.backgroundColor }, style]}>
         <DrawerHeader
           firstName={user.firstName}
           lastName={user.lastName}

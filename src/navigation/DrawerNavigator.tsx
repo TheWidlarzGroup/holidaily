@@ -22,7 +22,6 @@ const Drawer = createDrawerNavigator<DrawerRoutes>()
 const defaultScreenOptions: DrawerNavigationOptions = {
   overlayColor: 'transparent',
   drawerType: 'back',
-  swipeEnabled: false,
 }
 
 const navigatorOptions = {
@@ -47,28 +46,29 @@ export const DrawerNavigator = () => {
         name="Home"
         options={{
           title: t('home'),
+          ...defaultScreenOptions,
         }}>
         {() => <Home gestureEnabled={!(isIos && activeRouteName === 'DASHBOARD_TEAM')} />}
       </Drawer.Screen>
       <Drawer.Screen
         name="ProfileNavigation"
         component={ProfileNavigation}
-        options={{ title: t('editProfile'), ...defaultScreenOptions }}
+        options={{ title: t('editProfile'), swipeEnabled: false, ...defaultScreenOptions }}
       />
       <Drawer.Screen
         name="HolidayBudget"
         component={BudgetNavigation}
-        options={{ title: t('budget'), ...defaultScreenOptions }}
+        options={{ title: t('budget'), swipeEnabled: false, ...defaultScreenOptions }}
       />
       <Drawer.Screen
         name="SETTINGS"
         component={Settings}
-        options={{ title: t('settings'), ...defaultScreenOptions }}
+        options={{ title: t('settings'), swipeEnabled: false, ...defaultScreenOptions }}
       />
       <Drawer.Screen
         name="ABOUT"
         component={About}
-        options={{ title: t('about'), ...defaultScreenOptions }}
+        options={{ title: t('about'), swipeEnabled: false, ...defaultScreenOptions }}
       />
     </Drawer.Navigator>
   )

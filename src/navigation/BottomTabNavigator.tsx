@@ -59,7 +59,7 @@ export const BottomTabNavigator = (props: any) => {
   console.log('bottom props,', props)
   return (
     <SafeAreaWrapper edges={['bottom']}>
-      <Animated.View style={[screenStyles, style, { flex: 1 }]}>
+      <Animated.View style={[{ flex: 1 }, screenStyles, style]}>
         <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
           <Tab.Navigator
             tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}
