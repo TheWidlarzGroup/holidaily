@@ -1,11 +1,6 @@
 import React, { ReactNode, useRef } from 'react'
-import { View } from 'react-native'
 import { isIos } from 'react-native-calendars/src/expandableCalendar/commons'
-import {
-  HandlerStateChangeEvent,
-  PanGestureHandler,
-  ScrollView,
-} from 'react-native-gesture-handler'
+import { HandlerStateChangeEvent, PanGestureHandler } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 
 type GestureRecognizerProps = {
@@ -28,10 +23,6 @@ export const GestureRecognizer = ({
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
 
-  const AnimatedComponent = scrollEnabled
-    ? Animated.createAnimatedComponent(ScrollView)
-    : Animated.createAnimatedComponent(View)
-
   const onTouchStart = (e: HandlerStateChangeEvent<Record<string, any>>) => {
     if (onSwipeLeft || onSwipeRight) touchStartX.current = e.nativeEvent.x
     if (onSwipeUp || onSwipeDown) touchStartY.current = e.nativeEvent.y
@@ -48,11 +39,16 @@ export const GestureRecognizer = ({
     if (onSwipeUp && touchStartY.current - touchMoveY > minSwipeDistance) onSwipeUp()
   }
 
+  if (scrollEnabled)
+    return (
+      <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove}>
+        <Animated.ScrollView style={{ flex: 1 }}>{children}</Animated.ScrollView>
+      </PanGestureHandler>
+    )
+
   return (
     <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove}>
-      <AnimatedComponent scrollEnabled={scrollEnabled} style={{ flex: 1 }}>
-        {children}
-      </AnimatedComponent>
+      <Animated.View style={{ flex: 1 }}>{children}</Animated.View>
     </PanGestureHandler>
   )
 }
