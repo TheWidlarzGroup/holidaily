@@ -112,23 +112,41 @@ export const useAddReaction = () => {
         }
         allPosts[postIndex] = updatedPost
         queryClient.setQueryData([QueryKeys.POSTS], allPosts)
-      }
-    },
-    onSuccess: (payload) => {
-      queryClient.setQueryData<FeedPost[]>([QueryKeys.POSTS], (data) => {
-        if (!data) throw new Error('No posts found!')
-        const allPosts = data
-        const postIndex = allPosts?.findIndex((post) => post.id === payload.post.id)
-        if (postIndex !== -1 && allPosts) {
-          const filtered = payload.post.reactions.filter((reaction) => reaction.users.length > 0)
-          payload.post.reactions = filtered
-          allPosts[postIndex] = payload.post
+      } else {
+        const reactionToModify = allPostReactions.find((a) => a.type === reaction.type)
+        if (!reactionToModify) return
+
+        const filteredUsers = reactionToModify?.users.filter((a) => a !== user?.id)
+
+        const updatedReaction = { ...reactionToModify, users: filteredUsers }
+
+        const indexOfUpdatedReaction = allPosts[postIndex].reactions.findIndex(
+          (a) => a.type === reaction.type
+        )
+        const postReactionsWithoutUpdatedOne = allPosts[postIndex].reactions.filter(
+          (a) => a.type !== reaction.type
+        )
+
+        const insert = (arr: Reaction[], index: number, newItem: Reaction) => [
+          ...arr.slice(0, index),
+          newItem,
+          ...arr.slice(index),
+        ]
+
+        const updatedPost: FeedPost = {
+          ...allPosts[postIndex],
+          reactions: insert(
+            postReactionsWithoutUpdatedOne,
+            indexOfUpdatedReaction,
+            updatedReaction
+          ),
         }
 
-        if (allPosts?.length) return [...allPosts]
-        return [payload.post]
-      })
+        allPosts[postIndex] = updatedPost
+        queryClient.setQueryData([QueryKeys.POSTS], allPosts)
+      }
     },
+
     onError: (err) => {
       console.log('Error while adding reaction: ', err.message)
     },
