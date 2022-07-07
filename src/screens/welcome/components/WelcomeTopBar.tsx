@@ -5,11 +5,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import BackArrowIcon from 'assets/icons/icon-back2.svg'
 import AboutIcon from 'assets/icons/icon-info2.svg'
 import { isIos } from 'utils/layout'
+import { AuthNavigationType } from 'navigation/types'
 
 type WelcomeTopBarProps = { openModal: F0 }
 
 export const WelcomeTopBar = ({ openModal }: WelcomeTopBarProps) => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<AuthNavigationType<'WELCOME'>>()
   const theme = useTheme()
 
   return (

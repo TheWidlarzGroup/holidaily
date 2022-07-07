@@ -9,6 +9,7 @@ import { SectionList, TouchableOpacity } from 'react-native'
 import { isDateBetween } from 'utils/dates'
 import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
+import { RequestsNavigatorType } from 'navigation/types'
 import { Stats } from './Stats'
 import { Request } from './components/Request'
 
@@ -90,7 +91,7 @@ export const StatsAndRequests = () => {
 }
 
 const Item = ({ item }: { item: DayOffRequest }) => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<RequestsNavigatorType<'SEE_REQUEST'>>()
   return (
     <TouchableOpacity
       activeOpacity={1}

@@ -7,6 +7,7 @@ import IconPeople from 'assets/icons/icon-people.svg'
 import { useNavigation } from '@react-navigation/native'
 import { ToggleButton } from 'components/ToggleButton'
 import { isScreenHeightShort } from 'utils/deviceSizes'
+import { DashboardNavigationType } from 'navigation/types'
 
 const ICON_SIZE = 18
 
@@ -14,7 +15,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { t } = useTranslation('welcome')
   const { user } = useUserContext()
   const theme = useTheme()
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<DashboardNavigationType<'DASHBOARD'>>()
   const screenSizeAwareSpacing = isScreenHeightShort ? 'xm' : 'l'
   return (
     <Box flex={1} borderTopLeftRadius="l1min" borderTopRightRadius="l1min" overflow="hidden">
