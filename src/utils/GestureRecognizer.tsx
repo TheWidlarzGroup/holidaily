@@ -5,7 +5,6 @@ import Animated from 'react-native-reanimated'
 
 type GestureRecognizerProps = {
   children?: ReactNode
-  scrollEnabled?: boolean
   onSwipeLeft?: F0
   onSwipeRight?: F0
   onSwipeUp?: F0
@@ -14,7 +13,6 @@ type GestureRecognizerProps = {
 
 export const GestureRecognizer = ({
   children,
-  scrollEnabled = false,
   onSwipeLeft,
   onSwipeRight,
   onSwipeUp,
@@ -38,13 +36,6 @@ export const GestureRecognizer = ({
     if (onSwipeDown && touchMoveY - touchStartY.current > minSwipeDistance) onSwipeDown()
     if (onSwipeUp && touchStartY.current - touchMoveY > minSwipeDistance) onSwipeUp()
   }
-
-  if (scrollEnabled)
-    return (
-      <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove}>
-        <Animated.ScrollView style={{ flex: 1 }}>{children}</Animated.ScrollView>
-      </PanGestureHandler>
-    )
 
   return (
     <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove}>

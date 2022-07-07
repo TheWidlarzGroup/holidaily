@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
-import { BackHandler, KeyboardAvoidingView } from 'react-native'
-import { DrawerActions, useFocusEffect, useNavigation } from '@react-navigation/native'
+import React from 'react'
+import { KeyboardAvoidingView } from 'react-native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
@@ -17,6 +17,8 @@ import { useKeyboard } from 'hooks/useKeyboard'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { ActionModal } from 'components/ActionModal'
+import { useBackHandler } from 'hooks/useBackHandler'
+import { ScrollView } from 'react-native-gesture-handler'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -105,36 +107,32 @@ export const EditProfile = () => {
 
   const handleGoBack = isDirty ? onUnsavedChanges : onGoBack
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        handleGoBack()
-        return true
-      }
-      BackHandler.addEventListener('hardwareBackPress', onBackPress)
-      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress)
-    }, [handleGoBack])
-  )
+  useBackHandler(() => {
+    handleGoBack()
+    return true
+  })
 
   return (
     <SafeAreaWrapper>
-      <KeyboardAvoidingView style={styles.container}>
-        <GestureRecognizer onSwipeRight={handleGoBack} scrollEnabled>
-          <DrawerBackArrow goBack={handleGoBack} />
-          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-          <TeamSubscriptions />
-          <ProfileColor onUpdate={onUpdate} />
-          <Box height={getBottomOffset()} />
-        </GestureRecognizer>
-        {isLoading && <LoadingModal show />}
-        <ActionModal
-          isVisible={isDirty}
-          onUserAction={handleSubmit(onSubmit)}
-          label={t('saveChanges')}
-          extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
-        />
-      </KeyboardAvoidingView>
+      <GestureRecognizer onSwipeRight={handleGoBack}>
+        <KeyboardAvoidingView style={styles.container}>
+          <ScrollView>
+            <DrawerBackArrow goBack={handleGoBack} />
+            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+            <TeamSubscriptions />
+            <ProfileColor onUpdate={onUpdate} />
+            <Box height={getBottomOffset()} />
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </GestureRecognizer>
+      {isLoading && <LoadingModal show />}
+      <ActionModal
+        isVisible={isDirty}
+        onUserAction={handleSubmit(onSubmit)}
+        label={t('saveChanges')}
+        extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
+      />
     </SafeAreaWrapper>
   )
 }
