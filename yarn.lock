@@ -8026,10 +8026,10 @@ react-native-device-info@^9.0.2:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-9.0.2.tgz#00c7ab139a620ac9650852cd0ef0fb69d9a4418d"
   integrity sha512-+IfYZ/OuKjnFf7SFfgIzEqynSeFngrIHc5KgHUIfXusLDXIFJ+LhRBCD7skqnraHrfmESUOMjLbNcvy4SVdwSA==
 
-react-native-document-picker@^8.0.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-8.1.0.tgz#e167a98b6fcdd1aee08597793029101d674eab83"
-  integrity sha512-FdaehvEoqkVkMTkIy09wpgHUHh9SskI1k8ug8Dwkwk7MJ+XxzrphAk/mXZtu5RkM1Iwxmd82QfwiQJxrZ2LSVg==
+react-native-document-picker@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-8.1.1.tgz#642bbe25752cc428b96416318f8dc07cef29ee10"
+  integrity sha512-mH0oghd7ndgU9/1meVJdqts1sAkOfUQW1qbrqTTsvR5f2K9r0BAj/X02dve5IBMOMZvlGd7qWrNVuIFg5AUXWg==
   dependencies:
     invariant "^2.2.4"
 
@@ -8040,7 +8040,7 @@ react-native-dotenv@^2.5.5:
   dependencies:
     dotenv "^10.0.0"
 
-react-native-fast-image@^8.3.4:
+react-native-fast-image@^8.5.11:
   version "8.5.11"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.5.11.tgz#e3dc969d0e4e8df026646bf18194465aa55cbc2b"
   integrity sha512-cNW4bIJg3nvKaheG8vGMfqCt5LMWX9MS5+wMudgKIHbGO51spRr4sgnlhVgwHLcZ5aeNOVJ8CPRxDIWKRq/0QA==
@@ -8050,10 +8050,10 @@ react-native-flipper-performance-plugin@^0.2.1:
   resolved "https://registry.yarnpkg.com/react-native-flipper-performance-plugin/-/react-native-flipper-performance-plugin-0.2.1.tgz#49d00a14d548b666cd2cb5734172fc1bacf73e5b"
   integrity sha512-wZuCgVkHfJ9363XynKVdAiG532lO5sw49HoQMjUJDOEI6BuicUxKzf2WJlO/VSHMUCfP1Ys6EO+ElwPM9sxEIg==
 
-react-native-gesture-handler@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.4.2.tgz#de93760b0bc251d94e8ae692f9850ec3ed2e4f27"
-  integrity sha512-K3oMiQV7NOVB5RvNlxkyJxU1Gn6m1cYu53MoFA542FVDSTR491d1eQkWDdqy4lW52rfF7IK7eE1LCi+kTJx7jw==
+react-native-gesture-handler@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.5.0.tgz#61385583570ed0a45a9ed142425e35f8fe8274fb"
+  integrity sha512-djZdcprFf08PZC332D+AeG5wcGeAPhzfCJtB3otUgOgTlvjVXmg/SLFdPJSpzLBqkRAmrC77tM79QgKbuLxkfw==
   dependencies:
     "@egjs/hammerjs" "^2.0.17"
     hoist-non-react-statics "^3.3.0"
@@ -8061,10 +8061,10 @@ react-native-gesture-handler@^2.4.2:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-image-picker@^4.0.3:
-  version "4.8.3"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.3.tgz#a74801e8428325133a42dcd818fa54f08e6b20e6"
-  integrity sha512-mA3xKN8TtXpLl3Aoo65ArZvusv3gCsbe3/hsOLKI1DcC+QcYPcDnsYK/ft05rWBj4BdiJ9E2JoveiHNtU8W9GA==
+react-native-image-picker@^4.8.4:
+  version "4.8.4"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.4.tgz#ac52f1e265458e944664adf1dcd0a9ee408fe083"
+  integrity sha512-Mjh2j/sddyolb16EpmprWzbtyeFvW8Xgzr/8WNi9d6bR2FC/kL78cY/a+7Yzujg5ZDtT1MWys+eWw/qtfwgGiw==
 
 react-native-iphone-x-helper@^1.0.3, react-native-iphone-x-helper@^1.3.0:
   version "1.3.1"
@@ -8095,10 +8095,10 @@ react-native-month-year-picker@^1.6.4:
     invariant "^2.2.4"
     moment "^2.24.0"
 
-react-native-notificated@^0.0.1-alpha.2:
-  version "0.0.1-alpha.2"
-  resolved "https://registry.yarnpkg.com/react-native-notificated/-/react-native-notificated-0.0.1-alpha.2.tgz#c5a47c1a332c329fabcb05632263b4e37704f46a"
-  integrity sha512-ELI6zEjKFfi0iG1anHEm2YUrOFvSW1cRif8xMTDMMcLSQwOECGPUX632AmJFWmA8mINPburXNltNlhgNYsHx+A==
+react-native-notificated@^0.0.1-beta.0:
+  version "0.0.1-beta.0"
+  resolved "https://registry.yarnpkg.com/react-native-notificated/-/react-native-notificated-0.0.1-beta.0.tgz#371de87b3cba7fccc15cb154ba99d01730f2ae89"
+  integrity sha512-6cwVMUWOiW9d7TY+rd9/GfEZrkvUQ3o3zEc1rwlmAPV5tajp7CKEwT8OLRP74w1QY4cUwNP+mxQID9yQXtA8Sw==
 
 react-native-onesignal@^4.2.0:
   version "4.3.10"
@@ -8148,7 +8148,7 @@ react-native-siri-shortcut@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-native-siri-shortcut/-/react-native-siri-shortcut-2.1.0.tgz#1fab87c48cb686091180d687931a8087bc868c0b"
   integrity sha512-p3Mq3tyNTF4je1/VwsQVCJnYdTV25FfdCqWOTy1ztOlHUMTzr4LH77KEwB8BUbx8W0tOufEXthtfYv79O9e6Lg==
 
-react-native-splash-screen@^3.2.0:
+react-native-splash-screen@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
   integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
