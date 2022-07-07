@@ -22,7 +22,7 @@ import { FlashList } from '@shopify/flash-list'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
-const MAX_SCROLL_RETRIES = 4
+const ESTIMATED_POST_HEIGHT = 700
 
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
@@ -141,30 +141,28 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
       onPress: onPressModalDelete,
     },
   ]
+  // const index = data?.findIndex((post) => String(post.id) === String(p.postId))
+
+  const [wasLoaded, setWasLoaded] = useState(false)
+
+  InteractionManager.runAfterInteractions(() => {
+    if (flatListRef.current && p?.postId && !!data?.length && wasLoaded) {
+      const index = data.findIndex((post) => String(post.id) === String(p.postId))
+      if (index && index >= 0 && index < data.length) {
+        flatListRef.current.scrollToIndex({ index, animated: true })
+      }
+    }
+  })
 
   if (!data) return <LoadingModal show />
 
   const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
 
-  InteractionManager.runAfterInteractions(() => {
-    if (
-      flatListRef.current &&
-      p?.postId &&
-      !!data?.length &&
-      scrollRetries.current <= MAX_SCROLL_RETRIES
-    ) {
-      const index = data.findIndex((post) => String(post.id) === String(p.postId))
-      if (index && index >= 0 && index < data.length) {
-        flatListRef.current.scrollToIndex({ index, animated: true })
-        scrollRetries.current++
-      }
-    }
-  })
-
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <FlashList
         ref={flatListRef}
+        onLoad={() => setWasLoaded(true)}
         keyboardShouldPersistTaps="handled"
         ListHeaderComponent={FeedHeader}
         data={allPosts}
@@ -174,7 +172,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         keyExtractor={(post) => post.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 60 }}
-        estimatedItemSize={700}
+        estimatedItemSize={ESTIMATED_POST_HEIGHT}
       />
       <OptionsModal
         options={modalOptions}
