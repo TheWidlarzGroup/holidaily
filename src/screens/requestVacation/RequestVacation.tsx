@@ -94,7 +94,6 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   return (
     <SwipeableScreen
       swipeWithIndicator
-      extraStyle={{ paddingTop: 6 }}
       bg="dashboardBackground"
       confirmLeave={isDirty && !requestSent}
       confirmLeaveOptions={{

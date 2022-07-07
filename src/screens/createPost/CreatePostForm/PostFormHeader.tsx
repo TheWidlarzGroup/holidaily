@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import IconClose from 'assets/icons/icon-close.svg'
-import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 type PostHeaderProps = {
   closeCreatePostForm: F0
@@ -23,10 +22,7 @@ export const PostHeader = ({ closeCreatePostForm, left, right }: PostHeaderProps
       justifyContent="center"
       padding="l"
       backgroundColor="transparent">
-      <Box position="absolute" top={-2}>
-        <ModalHandleIndicator />
-      </Box>
-      <Box position="absolute" right={0} top={4}>
+      <Box position="absolute" right={0} top={-15}>
         {left ?? (
           <BaseOpacity padding="m" onPress={closeCreatePostForm}>
             <IconClose color={theme.colors.black} height={ICON_SIZE} width={ICON_SIZE} />

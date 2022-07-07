@@ -22,7 +22,7 @@ export const useGetNotificationsConfig = () => {
     transitionInStyles: (progress: SharedValue<number>) => {
       'worklet'
 
-      const androidTranslateY = isAndroid ? -20 : -10
+      const androidTranslateY = isAndroid ? -16 : -10
       const translateY = interpolate(progress.value, [0, 1], [-100, androidTranslateY])
 
       return {

@@ -41,7 +41,6 @@ export const MateElement = ({ userData, openUserModal }: MateElementProps) => {
 
   return (
     <BaseOpacity
-      delayPressIn={60}
       backgroundColor={isSick ? 'quarternaryOpaque' : version.color}
       borderRadius="lmin"
       marginVertical="s"
