@@ -19,6 +19,7 @@ import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { ActionModal } from 'components/ActionModal'
 import { useBackHandler } from 'hooks/useBackHandler'
 import { ScrollView } from 'react-native-gesture-handler'
+import { isIos } from 'utils/layout'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -132,6 +133,7 @@ export const EditProfile = () => {
         onUserAction={handleSubmit(onSubmit)}
         label={t('saveChanges')}
         extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
+        extraStyle={{ paddingBottom: isIos ? 45 : 20 }}
       />
     </SafeAreaWrapper>
   )
