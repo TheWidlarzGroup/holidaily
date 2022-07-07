@@ -1,5 +1,4 @@
 import React from 'react'
-import { KeyboardAvoidingView } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -116,16 +115,14 @@ export const EditProfile = () => {
   return (
     <SafeAreaWrapper>
       <GestureRecognizer onSwipeRight={handleGoBack}>
-        <KeyboardAvoidingView style={styles.container}>
-          <ScrollView>
-            <DrawerBackArrow goBack={handleGoBack} />
-            <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
-            <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
-            <TeamSubscriptions />
-            <ProfileColor onUpdate={onUpdate} />
-            <Box height={getBottomOffset()} />
-          </ScrollView>
-        </KeyboardAvoidingView>
+        <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+          <DrawerBackArrow goBack={handleGoBack} />
+          <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
+          <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
+          <TeamSubscriptions />
+          <ProfileColor onUpdate={onUpdate} />
+          <Box height={getBottomOffset()} />
+        </ScrollView>
       </GestureRecognizer>
       {isLoading && <LoadingModal show />}
       <ActionModal
