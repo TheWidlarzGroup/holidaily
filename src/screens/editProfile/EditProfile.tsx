@@ -101,7 +101,7 @@ export const EditProfile = () => {
   const getBottomOffset = () => {
     if (keyboardOpen && isDirty) return keyboardHeight
     if (keyboardOpen && !isDirty) return keyboardHeight
-    if (!keyboardOpen && isDirty) return 120
+    if (!keyboardOpen && isDirty) return 170
     return 0
   }
 
@@ -113,7 +113,7 @@ export const EditProfile = () => {
   })
 
   return (
-    <SafeAreaWrapper>
+    <SafeAreaWrapper edges={['left', 'right']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
           <DrawerBackArrow goBack={handleGoBack} />
@@ -123,21 +123,22 @@ export const EditProfile = () => {
           <ProfileColor onUpdate={onUpdate} />
           <Box height={getBottomOffset()} />
         </ScrollView>
+        <ActionModal
+          isVisible={isDirty}
+          onUserAction={handleSubmit(onSubmit)}
+          label={t('saveChanges')}
+          extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
+          extraStyle={{ paddingBottom: isIos ? 45 : 20 }}
+        />
       </GestureRecognizer>
       {isLoading && <LoadingModal show />}
-      <ActionModal
-        isVisible={isDirty}
-        onUserAction={handleSubmit(onSubmit)}
-        label={t('saveChanges')}
-        extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
-        extraStyle={{ paddingBottom: isIos ? 45 : 20 }}
-      />
     </SafeAreaWrapper>
   )
 }
 
-const useStyles = mkUseStyles(() => ({
+const useStyles = mkUseStyles((theme) => ({
   container: {
     flex: 1,
+    paddingTop: theme.spacing.xl,
   },
 }))
