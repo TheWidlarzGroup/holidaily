@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
@@ -9,7 +9,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { EditTargetType } from 'mock-api/models/miragePostTypes'
 import { BottomTabNavigationProps, BottomTabNavigationType } from 'navigation/types'
-import { FlatList } from 'react-native'
+import { InteractionManager } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
 import EditIcon from 'assets/icons/icon-edit2.svg'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
@@ -18,6 +18,7 @@ import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useAddPostWithNewId, useDeletePost } from 'dataAccess/mutations/useAddPost'
+import { FlashList } from '@shopify/flash-list'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -30,7 +31,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const navigation = useNavigation<BottomTabNavigationType<'FEED'>>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
-  const flatListRef = useRef<FlatList | null>(null)
+  const flatListRef = useRef<FlashList<any> | null>(null)
   const scrollRetries = useRef(0)
 
   const [isMessageInputOpen, { setFalse: closeMessageInput, setTrue: openMessageInput }] =
@@ -120,25 +121,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
-  const scrollToId = useCallback(() => {
-    if (
-      flatListRef.current &&
-      p?.postId &&
-      !!data?.length &&
-      scrollRetries.current <= MAX_SCROLL_RETRIES
-    ) {
-      const index = data.findIndex((post) => String(post.id) === String(p.postId))
-      if (index && index >= 0 && index < data.length) {
-        flatListRef.current.scrollToIndex({ index, animated: true })
-        scrollRetries.current++
-      }
-    }
-  }, [p?.postId, data])
-
-  useEffect(() => {
-    scrollToId()
-  }, [scrollToId])
-
   useEffect(() => {
     const removeListener = navigation.addListener('blur', () => {
       scrollRetries.current = 0
@@ -164,14 +146,26 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
 
+  InteractionManager.runAfterInteractions(() => {
+    if (
+      flatListRef.current &&
+      p?.postId &&
+      !!data?.length &&
+      scrollRetries.current <= MAX_SCROLL_RETRIES
+    ) {
+      const index = data.findIndex((post) => String(post.id) === String(p.postId))
+      if (index && index >= 0 && index < data.length) {
+        flatListRef.current.scrollToIndex({ index, animated: true })
+        scrollRetries.current++
+      }
+    }
+  })
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <FlatList
+      <FlashList
         ref={flatListRef}
         keyboardShouldPersistTaps="handled"
-        onScrollToIndexFailed={() => {
-          setTimeout(scrollToId, 100)
-        }}
         ListHeaderComponent={FeedHeader}
         data={allPosts}
         renderItem={({ item }) => (
@@ -180,6 +174,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         keyExtractor={(post) => post.id}
         extraData={language}
         contentContainerStyle={{ paddingBottom: 60 }}
+        estimatedItemSize={700}
       />
       <OptionsModal
         options={modalOptions}
