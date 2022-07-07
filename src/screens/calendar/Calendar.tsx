@@ -48,10 +48,7 @@ export const Calendar = () => {
 
   useEffect(() => {
     const pickedDate = userSettings?.pickedDate
-    if (pickedDate !== selectedDate && pickedDate) {
-      setSelectedDate(pickedDate)
-    }
-    // Comment: we want to trigger this fn once
+    if (pickedDate !== selectedDate && pickedDate) setSelectedDate(pickedDate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
