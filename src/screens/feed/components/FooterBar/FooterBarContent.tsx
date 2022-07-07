@@ -10,8 +10,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { Analytics } from 'services/analytics'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
 import { ReactionBubble } from '../Bubble/ReactionBubble'
-import { MoreBubble } from '../Bubble/MoreBubble'
-import { LessBubble } from '../Bubble/LessBubble'
+import { MoreLessBubble } from '../Bubble/MoreLessBubble'
 
 type FooterBarContentProps = {
   postId: string | undefined
@@ -21,7 +20,7 @@ type FooterBarContentProps = {
   handleAddReaction: F1<EmojiType>
 }
 
-const ADD_COMMENT_BTN_WIDTH = 134
+const ADD_COMMENT_BTN_WIDTH = 136
 const ADD_EMOJI_BTN_WIDTH = 50
 const EMOJI_BTN_WIDTH = 70
 
@@ -76,7 +75,7 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
           width={110}
           alignSelf="flex-start">
           <IconComment color={theme.colors.black} />
-          <Text variant="captionText" fontWeight="700" paddingHorizontal="s" paddingVertical="xs">
+          <Text variant="buttonXS" paddingHorizontal="s" paddingVertical="xs">
             {t('postCommentBtn')}
           </Text>
         </Bubble>
@@ -99,9 +98,13 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
             )
           })}
         {!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1 && (
-          <MoreBubble count={emojisCounter - totalMaxNumberOfEmojis + 2} onPress={showMore} />
+          <MoreLessBubble
+            type="more"
+            count={emojisCounter - totalMaxNumberOfEmojis + 2}
+            onPress={showMore}
+          />
         )}
-        {isShowMoreOpen && <LessBubble onPress={showLess} />}
+        {isShowMoreOpen && <MoreLessBubble type="less" onPress={showLess} />}
       </Box>
     </Box>
   )

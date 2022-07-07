@@ -24,7 +24,7 @@ export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubble
       height={42}>
       <Text padding="s">{reaction.type}</Text>
       {reaction.users?.length > 0 && (
-        <Text paddingEnd="m" variant="primaryBold12" color="black">
+        <Text paddingEnd="m" variant="buttonXS">
           {reaction.users?.length}
         </Text>
       )}
