@@ -161,7 +161,6 @@ const useStyles = mkUseStyles((theme) => ({
   },
   // Comment: Not using theme.colors.white / alwaysWhite because newCalendarList has #fff background, and idk where it comes from
   container: {
-    paddingTop: 12,
     backgroundColor: theme.colors.white,
   },
 }))
