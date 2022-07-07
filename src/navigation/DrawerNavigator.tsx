@@ -4,11 +4,7 @@ import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigatio
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { DrawerRoutes } from 'navigation/types'
-import {
-  useNavigationState,
-  useRoute,
-  getFocusedRouteNameFromRoute,
-} from '@react-navigation/native'
+import { useNavigationState } from '@react-navigation/native'
 import { getActiveRouteName } from 'utils/getActiveRouteName'
 import { useSiriListeners } from 'hooks/useSiriListeners'
 import { isIos } from 'utils/layout'
@@ -29,14 +25,12 @@ const navigatorOptions = {
 }
 
 export const DrawerNavigator = () => {
-  const route = useRoute()
   const navState = useNavigationState((state) => state)
-  const activeRouteName = getFocusedRouteNameFromRoute(route)
+  const activeRouteName = getActiveRouteName(navState)
   const { t } = useTranslation('navigation')
 
   useSiriListeners()
 
-  console.log('activeRouteName', activeRouteName)
   return (
     <Drawer.Navigator
       initialRouteName="Home"
