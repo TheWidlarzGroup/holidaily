@@ -5,7 +5,7 @@ import { Box, Text } from 'utils/theme'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
 
 export const FeedPostHeaderInfo = ({ post }: { post: FeedPost }) => {
-  const formattedDate = displayDDMonYYYY(new Date(post.createdAt))
+  const formattedDate = 'xd'
 
   return (
     <Box flexGrow={1} paddingHorizontal="xs" flex={1} justifyContent="space-evenly">

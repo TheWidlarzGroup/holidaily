@@ -56,7 +56,7 @@ const CommentBox = ({
       Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
   }, [areCommentsExpanded, comments])
 
-  const commentsCopy = comments.slice().reverse()
+  const commentsCopy = comments?.slice()?.reverse()
 
   if (comments?.length === 0) return null
 
@@ -74,13 +74,13 @@ const CommentBox = ({
           setEditCommentId={setEditCommentId}
           isEditingTarget={isEditingTarget}
           postId={id}
-          comment={commentsCopy[0]}
+          comment={commentsCopy?.[0]}
           hideAvatar={commentFromPreviousUser(commentsCopy, 0)}
-          id={commentsCopy[0].id}
-          key={commentsCopy[0].id}
+          id={commentsCopy?.[0].id}
+          key={commentsCopy?.[0].id}
         />
         <AnimatedBox style={animatedStyle}>
-          {commentsCopy.map((comment, index) => {
+          {commentsCopy?.map((comment, index) => {
             if (index === 0) return
             return (
               <Comment
@@ -91,8 +91,8 @@ const CommentBox = ({
                 isEditingTarget={isEditingTarget}
                 postId={id}
                 comment={comment}
-                id={comment.id}
-                key={comment.id}
+                id={comment?.id}
+                key={comment?.id}
               />
             )
           })}
@@ -119,4 +119,4 @@ const arePropsEqual = (prevProps: CommentBoxProps, nextProps: CommentBoxProps) =
 export default React.memo(CommentBox, arePropsEqual)
 
 const commentFromPreviousUser = (comments: CommentType[], index: number) =>
-  comments[index]?.author?.id === comments?.[index - 1]?.author?.id
+  comments?.[index]?.author?.id === comments?.[index - 1]?.author?.id
