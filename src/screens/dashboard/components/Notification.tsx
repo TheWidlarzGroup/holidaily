@@ -40,7 +40,9 @@ export const Notification = ({
     const userModalData = allUsers.find(
       (userData) => userData.firstName === author.firstName && userData.lastName === author.lastName
     )
-    setModalUser(userModalData)
+    if (userModalData?.id !== modalUser?.id) {
+      setModalUser(userModalData)
+    }
     setIsModalVisible(true)
   }
 
@@ -99,3 +101,5 @@ export const Notification = ({
     </>
   )
 }
+
+export default React.memo(Notification)

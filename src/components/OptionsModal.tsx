@@ -82,7 +82,7 @@ const OptionButton = ({ children, onPress }: PropsWithChildren<{ onPress: F0 }>)
 const useStyles = mkUseStyles((theme) => ({
   modalHandleBar: {
     top: 0,
-    marginTop: theme.spacing.xm,
+    marginTop: theme.spacing.s,
     marginBottom: theme.spacing.l,
     position: 'relative',
   },

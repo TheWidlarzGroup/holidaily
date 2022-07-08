@@ -1,10 +1,19 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: [
+    [
+      'module:metro-react-native-babel-preset',
+      {
+        runtime: 'automatic',
+        development: process.env.NODE_ENV === 'development',
+        importSource: '@welldone-software/why-did-you-render',
+      },
+    ],
+  ],
   plugins: [
+    'transform-remove-console',
     'react-native-reanimated/plugin',
     [
       'module:react-native-dotenv',
-
       {
         moduleName: '@env',
         path: '.env',
