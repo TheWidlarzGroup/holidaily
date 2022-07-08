@@ -11,12 +11,7 @@ import { notificationNavHandler } from '../helpers/notificationNavHandler'
 import { NotificationThumbnail } from './NotificationThumbnail'
 import { TeamMemberModal } from '../DashboardTeam'
 
-export const Notification = ({
-  source: author,
-  wasSeenByHolder,
-  type,
-  ...p
-}: NotificationModel) => {
+const Notification = ({ source: author, wasSeenByHolder, type, ...p }: NotificationModel) => {
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
   const description = 'description' in p ? p.description : undefined
   const { user } = useUserContext()
@@ -34,7 +29,9 @@ export const Notification = ({
     const userModalData = allUsers.find(
       (userData) => userData.firstName === author.firstName && userData.lastName === author.lastName
     )
-    setModalUser(userModalData)
+    if (userModalData?.id !== modalUser?.id) {
+      setModalUser(userModalData)
+    }
     setIsModalVisible(true)
   }
 
@@ -91,3 +88,5 @@ export const Notification = ({
     </>
   )
 }
+
+export default React.memo(Notification)

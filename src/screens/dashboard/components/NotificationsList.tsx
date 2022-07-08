@@ -1,14 +1,18 @@
 import React, { useMemo } from 'react'
-import { BaseOpacity, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Text, theme } from 'utils/theme'
 import { SectionList } from 'react-native'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
-import { Notification } from './Notification'
+import Notification from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
+const style = { width: '100%' }
+const contentContainerStyle = { paddingBottom: theme.spacing.xxxxl }
+
+const keyExtractor = ({ id }: { id: string }) => id
+
 export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
-  const theme = useTheme()
   const { t } = useTranslation('notifications')
   const { seenNotifications, unseenNotifications } = useMemo(
     () => ({
@@ -27,21 +31,23 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
       data: seenNotifications,
     },
   ]
+
   return (
     <SectionList
-      style={{ width: '100%' }}
-      contentContainerStyle={{ paddingBottom: theme.spacing.xxxxl }}
+      style={style}
+      contentContainerStyle={contentContainerStyle}
       sections={sections}
-      keyExtractor={({ id }) => id}
+      keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={<MarkAllAsSeen unseen={unseenNotifications} />}
-      renderSectionHeader={({ section: { title, data } }) =>
-        data.length ? (
+      renderSectionHeader={({ section: { title, data } }) => {
+        if (!data.length) return null
+        return (
           <Text variant="inputLabel" marginBottom="s" color="darkGreyBrighter">
             {title}
           </Text>
-        ) : null
-      }
+        )
+      }}
       renderItem={({ item }) =>
         item.wasSeenByHolder ? (
           <Notification {...item} />
