@@ -4,7 +4,7 @@ import { SectionList } from 'react-native'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
-import { Notification } from './Notification'
+import Notification from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
 export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
