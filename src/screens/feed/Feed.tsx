@@ -171,6 +171,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         extraData={language}
         contentContainerStyle={{ paddingBottom: 60 }}
         estimatedItemSize={ESTIMATED_POST_HEIGHT}
+        disableAutoLayout
       />
       <OptionsModal
         options={modalOptions}

@@ -4,7 +4,9 @@ import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/model
 import { Analytics } from 'services/analytics'
 import Animated, {
   Easing,
-  useAnimatedStyle,
+  FadeInUp,
+  FadeOutDown,
+  Layout,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
@@ -46,11 +48,6 @@ const CommentBox = ({
     })
   }, [height, areCommentsExpanded, opacity])
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    maxHeight: `${height.value}%`,
-    opacity: opacity.value,
-  }))
-
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
       Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
@@ -67,7 +64,7 @@ const CommentBox = ({
         onPress={toggleCommentsExpanded}
         opened={areCommentsExpanded}
       />
-      <Box>
+      <AnimatedBox>
         <Comment
           openEditModal={openEditModal}
           editCommentId={editCommentId}
@@ -79,25 +76,30 @@ const CommentBox = ({
           id={commentsCopy?.[0].id}
           key={commentsCopy?.[0].id}
         />
-        <AnimatedBox style={animatedStyle}>
-          {commentsCopy?.map((comment, index) => {
-            if (index === 0) return
-            return (
-              <Comment
-                openEditModal={openEditModal}
-                editCommentId={editCommentId}
-                setEditCommentId={setEditCommentId}
-                hideAvatar={commentFromPreviousUser(commentsCopy, index)}
-                isEditingTarget={isEditingTarget}
-                postId={id}
-                comment={comment}
-                id={comment?.id}
-                key={index}
-              />
-            )
-          })}
-        </AnimatedBox>
-      </Box>
+        {areCommentsExpanded ? (
+          <AnimatedBox
+            layout={Layout.duration(350)}
+            entering={FadeInUp}
+            exiting={FadeOutDown.duration(300)}>
+            {commentsCopy?.map((comment, index) => {
+              if (index === 0) return
+              return (
+                <Comment
+                  openEditModal={openEditModal}
+                  editCommentId={editCommentId}
+                  setEditCommentId={setEditCommentId}
+                  hideAvatar={commentFromPreviousUser(commentsCopy, index)}
+                  isEditingTarget={isEditingTarget}
+                  postId={id}
+                  comment={comment}
+                  id={comment?.id}
+                  key={index}
+                />
+              )
+            })}
+          </AnimatedBox>
+        ) : null}
+      </AnimatedBox>
     </Box>
   )
 }
