@@ -2,27 +2,26 @@ import React, { useEffect, useState } from 'react'
 import IconComment from 'assets/icons/icon-comment.svg'
 import IconReaction from 'assets/icons/icon-reaction.svg'
 import { Reaction } from 'mock-api/models/miragePostTypes'
-import { Box, Text, useTheme } from 'utils/theme'
+import { Box, Text, theme, useTheme } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
 import EmojiPicker from 'rn-emoji-keyboard'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Analytics } from 'services/analytics'
 import { Bubble, BubbleProps } from '../Bubble/Bubble'
-import { ReactionBubble } from '../Bubble/ReactionBubble'
 import { MoreLessBubble } from '../Bubble/MoreLessBubble'
+import { ReactionBubble } from '../Bubble/ReactionBubble'
 
-type FooterBarContentProps = {
-  postId: string | undefined
+export type FooterBarContentProps = {
+  postId: string
   reactions: Reaction[]
   onCommentBtnPress: F0
   handlePressReaction: F1<string>
   handleAddReaction: F1<EmojiType>
 }
 
-const ADD_COMMENT_BTN_WIDTH = 136
-const ADD_EMOJI_BTN_WIDTH = 50
-const EMOJI_BTN_WIDTH = 70
+const BOX_MARGIN = 's'
+const MARGINS_WIDTH = theme.spacing[BOX_MARGIN] * 2
 
 export const FooterBarContent = (props: FooterBarContentProps) => {
   const { reactions, onCommentBtnPress } = props
@@ -31,11 +30,16 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
   const { t } = useTranslation('feed')
   const theme = useTheme()
   const [footerWidth, setFooterWidth] = useState(0)
+  const [bubblesSize, setBubblesSize] = useState({
+    addCommentBtn: 0,
+    addEmojiBtn: 0,
+    singleEmoji: 0,
+  })
 
   const maxEmojisInFirstLine = Math.trunc(
-    (footerWidth - ADD_COMMENT_BTN_WIDTH - ADD_EMOJI_BTN_WIDTH) / EMOJI_BTN_WIDTH
+    (footerWidth - bubblesSize.addCommentBtn - bubblesSize.addEmojiBtn) / bubblesSize.singleEmoji
   )
-  const maxEmojisInSecondLine = Math.trunc(footerWidth / EMOJI_BTN_WIDTH)
+  const maxEmojisInSecondLine = Math.trunc(footerWidth / bubblesSize.singleEmoji)
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
 
   let emojisCounter = 0
@@ -51,61 +55,71 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
 
   return (
     <Box
+      margin={BOX_MARGIN}
       flexDirection="row"
-      padding="s"
-      paddingTop="xm"
-      justifyContent="space-between"
+      flexWrap="wrap"
+      justifyContent="flex-start"
       alignItems="center"
+      flexGrow={1}
+      flexShrink={1}
       onLayout={({ nativeEvent }) => {
         setFooterWidth(nativeEvent.layout.width)
       }}>
-      <Box
-        flexDirection="row"
-        flexWrap="wrap"
-        justifyContent="flex-start"
-        alignItems="center"
-        flexGrow={1}
-        flexShrink={1}>
-        <Bubble
-          padding="s"
-          marginHorizontal="xs"
-          marginTop="xs"
-          onPress={handleCommentBtn}
-          height={42}
-          width={110}
-          alignSelf="flex-start">
-          <IconComment color={theme.colors.black} />
-          <Text variant="buttonXS" paddingHorizontal="s" paddingVertical="xs">
-            {t('postCommentBtn')}
-          </Text>
-        </Bubble>
-        <EmojiPicker
-          onEmojiSelected={props.handleAddReaction}
-          open={isPickerOpen}
-          onClose={closePicker}
+      <Bubble
+        onLayout={({ nativeEvent }) => {
+          setBubblesSize((prev) => ({
+            ...prev,
+            addCommentBtn: nativeEvent.layout.width + MARGINS_WIDTH,
+          }))
+        }}
+        padding="s"
+        marginHorizontal="xs"
+        marginTop="xs"
+        onPress={handleCommentBtn}
+        height={42}
+        width={110}
+        alignSelf="flex-start">
+        <IconComment color={theme.colors.black} />
+        <Text variant="buttonXS" paddingHorizontal="s" paddingVertical="xs">
+          {t('postCommentBtn')}
+        </Text>
+      </Bubble>
+      <EmojiPicker
+        onEmojiSelected={props.handleAddReaction}
+        open={isPickerOpen}
+        onClose={closePicker}
+      />
+      <ReactionPickerBtn
+        onPress={openPicker}
+        onLayout={({ nativeEvent }) => {
+          setBubblesSize((prev) => ({
+            ...prev,
+            addEmojiBtn: nativeEvent.layout.width + MARGINS_WIDTH,
+          }))
+        }}
+      />
+      {reactions.length > 0 &&
+        reactions.map((item, index) => {
+          emojisCounter = index
+          if (!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1) return
+          return (
+            <ReactionBubble
+              key={item.type}
+              handlePressReaction={props.handlePressReaction}
+              reaction={item}
+              setBubblesSize={setBubblesSize}
+              marginsWidth={MARGINS_WIDTH}
+            />
+          )
+        })}
+      {!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1 && (
+        <MoreLessBubble
+          type="more"
+          count={emojisCounter - totalMaxNumberOfEmojis + 2}
+          onPress={showMore}
         />
-        <ReactionPickerBtn onPress={openPicker} />
-        {reactions &&
-          reactions.map((item, index) => {
-            emojisCounter = index
-            if (!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1) return
-            return (
-              <ReactionBubble
-                key={item.type}
-                handlePressReaction={props.handlePressReaction}
-                reaction={item}
-              />
-            )
-          })}
-        {!isShowMoreOpen && emojisCounter >= totalMaxNumberOfEmojis - 1 && (
-          <MoreLessBubble
-            type="more"
-            count={emojisCounter - totalMaxNumberOfEmojis + 2}
-            onPress={showMore}
-          />
-        )}
-        {isShowMoreOpen && <MoreLessBubble type="less" onPress={showLess} />}
-      </Box>
+      )}
+      {isShowMoreOpen && <MoreLessBubble type="less" onPress={showLess} />}
     </Box>
   )
 }

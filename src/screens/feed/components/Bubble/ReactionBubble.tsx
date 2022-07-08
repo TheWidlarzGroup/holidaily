@@ -1,16 +1,28 @@
-import React from 'react'
-
+import React, { Dispatch, SetStateAction } from 'react'
 import { Text } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Reaction } from 'mock-api/models/miragePostTypes'
 import { Bubble } from './Bubble'
 
+type BubbleSizesType = {
+  addCommentBtn: number
+  addEmojiBtn: number
+  singleEmoji: number
+}
+
 type ReactionBubbleProps = {
   reaction: Reaction
   handlePressReaction: F1<string>
+  setBubblesSize: Dispatch<SetStateAction<BubbleSizesType>>
+  marginsWidth: number
 }
 
-export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubbleProps) => {
+export const ReactionBubble = ({
+  reaction,
+  handlePressReaction,
+  setBubblesSize,
+  marginsWidth,
+}: ReactionBubbleProps) => {
   const { user } = useUserContext()
 
   const hasUserAddedReaction = reaction.users?.includes(user?.id || '')
@@ -19,6 +31,12 @@ export const ReactionBubble = ({ reaction, handlePressReaction }: ReactionBubble
     <Bubble
       margin="xs"
       onPress={() => handlePressReaction(reaction.type)}
+      onLayout={({ nativeEvent }) => {
+        setBubblesSize((prev) => ({
+          ...prev,
+          singleEmoji: nativeEvent.layout.width + marginsWidth,
+        }))
+      }}
       borderColor={hasUserAddedReaction ? 'black' : 'transparent'}
       borderWidth={1.2}
       height={42}>
