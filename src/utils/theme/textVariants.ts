@@ -134,6 +134,12 @@ const button = {
     fontSize: 14,
     color: 'titleActive',
   },
+  buttonXS: {
+    fontFamily: 'Nunito-Bold',
+    textAlign: 'center',
+    fontSize: 13,
+    color: 'titleActive',
+  },
 }
 
 const legacyVariants = {
