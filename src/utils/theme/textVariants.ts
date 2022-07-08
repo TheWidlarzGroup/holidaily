@@ -364,6 +364,7 @@ const legacyVariants = {
 }
 
 export const textVariants = {
+  defaults: {}, // fix for bug in restyle v2.1.0 - Value 'defaults' does not exist in theme['textVariants']
   ...avatar,
   ...legacyVariants,
   ...display,

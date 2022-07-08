@@ -4,8 +4,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
 import EditIcon from 'assets/icons/icon-edit.svg'
-import { Text, Box, mkUseStyles, useTheme } from 'utils/theme/index'
-import { textVariants } from 'utils/theme/textVariants'
+import { Text, Box, mkUseStyles, useTheme, TextVariant } from 'utils/theme/index'
 
 type ButtonInputTypes = {
   inputLabel: string
@@ -13,7 +12,7 @@ type ButtonInputTypes = {
   onClick: F0
   isError?: boolean
   showEditIcon?: boolean
-  labelTextVariant?: keyof typeof textVariants
+  labelTextVariant?: TextVariant
 }
 
 export const InputButton = ({
@@ -37,11 +36,14 @@ export const InputButton = ({
     errorOpacity.value = isError ? 2 : 0
   }, [isError, errorOpacity])
 
+  const variant = labelTextVariant || 'label1'
+
   return (
     <>
-      <Text variant={labelTextVariant || 'label1'} marginLeft="m" marginBottom="xs">
+      <Text variant={variant} marginLeft="m" marginBottom="xs">
         {inputLabel}
       </Text>
+
       <TouchableOpacity onPress={onClick} activeOpacity={0.2}>
         <Box flexDirection="row">
           <Animated.View style={[styles.input, styles.errorBorder, progressStyle]}>

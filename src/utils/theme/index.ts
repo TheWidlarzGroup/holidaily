@@ -13,7 +13,7 @@ export const theme = {
 export type Theme = typeof theme
 export type Colors = keyof Theme['colors']
 export type Spacing = keyof Theme['spacing']
-export type TextVariant = keyof typeof textVariants
+export type TextVariant = keyof Omit<typeof textVariants, 'defaults'>
 
 export const darkTheme: Theme = {
   ...theme,
