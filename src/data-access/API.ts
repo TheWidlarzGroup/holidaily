@@ -19,6 +19,7 @@ export const API = {
   },
   PATCH: {
     markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
+    markNotificationAsUnseen: (id: string) => `/api/notifications/seen/${id}`,
   },
   PUT: {
     editUser: '/api/users',
