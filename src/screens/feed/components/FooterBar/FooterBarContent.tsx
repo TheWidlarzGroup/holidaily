@@ -41,16 +41,6 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
   )
   const maxEmojisInSecondLine = Math.trunc(footerWidth / bubblesSize.singleEmoji)
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
-  console.log(footerWidth - bubblesSize.addCommentBtn - bubblesSize.addEmojiBtn)
-  console.log('max emmojis in first line', maxEmojisInFirstLine)
-  console.log(
-    'maxEmojisInFirstLine',
-    footerWidth,
-    bubblesSize.addCommentBtn,
-    bubblesSize.addEmojiBtn,
-    bubblesSize.singleEmoji
-  )
-  console.log('footer widtth', footerWidth)
 
   let emojisCounter = 0
 
