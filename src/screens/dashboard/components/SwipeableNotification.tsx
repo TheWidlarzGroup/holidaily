@@ -10,7 +10,8 @@ const AnimatedBox = Animated.createAnimatedComponent(Box)
 export const SwipeableNotification = ({
   children,
   notificationId,
-}: PropsWithChildren<{ notificationId: string }>) => {
+  isSeen,
+}: PropsWithChildren<{ notificationId: string; isSeen: boolean }>) => {
   const opacity = useSharedValue(1)
   const { mutate } = useMarkNotificationAsSeen()
   const markAsSeen = () => {
@@ -20,6 +21,7 @@ export const SwipeableNotification = ({
   const animatedOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }))
+  console.log(isSeen)
   const LeftActions = useCallback(
     () => (
       <AnimatedBox

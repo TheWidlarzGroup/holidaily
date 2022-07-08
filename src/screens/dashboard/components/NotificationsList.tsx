@@ -42,15 +42,11 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
           </Text>
         ) : null
       }
-      renderItem={({ item }) =>
-        item.wasSeenByHolder ? (
+      renderItem={({ item }) => (
+        <SwipeableNotification notificationId={item.id} isSeen={item.wasSeenByHolder}>
           <Notification {...item} />
-        ) : (
-          <SwipeableNotification notificationId={item.id}>
-            <Notification {...item} />
-          </SwipeableNotification>
-        )
-      }
+        </SwipeableNotification>
+      )}
     />
   )
 }
