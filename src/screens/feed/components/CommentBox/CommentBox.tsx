@@ -4,7 +4,9 @@ import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/model
 import { Analytics } from 'services/analytics'
 import Animated, {
   Easing,
-  useAnimatedStyle,
+  FadeInUp,
+  FadeOutDown,
+  Layout,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
@@ -46,17 +48,12 @@ const CommentBox = ({
     })
   }, [height, areCommentsExpanded, opacity])
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    maxHeight: `${height.value}%`,
-    opacity: opacity.value,
-  }))
-
   useEffect(() => {
     if (areCommentsExpanded && comments?.length > 0)
       Analytics().track('FEED_COMMENTS_EXPANDED', { postId: comments[0].id })
   }, [areCommentsExpanded, comments])
 
-  const commentsCopy = comments.slice().reverse()
+  const commentsCopy = comments?.slice()?.reverse()
 
   if (comments?.length === 0) return null
 
@@ -74,29 +71,34 @@ const CommentBox = ({
           setEditCommentId={setEditCommentId}
           isEditingTarget={isEditingTarget}
           postId={id}
-          comment={commentsCopy[0]}
+          comment={commentsCopy?.[0]}
           hideAvatar={commentFromPreviousUser(commentsCopy, 0)}
-          id={commentsCopy[0].id}
-          key={commentsCopy[0].id}
+          id={commentsCopy?.[0].id}
+          key={commentsCopy?.[0].id}
         />
-        <AnimatedBox style={animatedStyle}>
-          {commentsCopy.map((comment, index) => {
-            if (index === 0) return
-            return (
-              <Comment
-                openEditModal={openEditModal}
-                editCommentId={editCommentId}
-                setEditCommentId={setEditCommentId}
-                hideAvatar={commentFromPreviousUser(commentsCopy, index)}
-                isEditingTarget={isEditingTarget}
-                postId={id}
-                comment={comment}
-                id={comment.id}
-                key={comment.id}
-              />
-            )
-          })}
-        </AnimatedBox>
+        {areCommentsExpanded ? (
+          <AnimatedBox
+            layout={Layout.duration(350)}
+            entering={FadeInUp}
+            exiting={FadeOutDown.duration(300)}>
+            {commentsCopy?.map((comment, index) => {
+              if (index === 0) return
+              return (
+                <Comment
+                  openEditModal={openEditModal}
+                  editCommentId={editCommentId}
+                  setEditCommentId={setEditCommentId}
+                  hideAvatar={commentFromPreviousUser(commentsCopy, index)}
+                  isEditingTarget={isEditingTarget}
+                  postId={id}
+                  comment={comment}
+                  id={comment?.id}
+                  key={index}
+                />
+              )
+            })}
+          </AnimatedBox>
+        ) : null}
       </Box>
     </Box>
   )
@@ -119,4 +121,4 @@ const arePropsEqual = (prevProps: CommentBoxProps, nextProps: CommentBoxProps) =
 export default React.memo(CommentBox, arePropsEqual)
 
 const commentFromPreviousUser = (comments: CommentType[], index: number) =>
-  comments[index]?.author?.id === comments?.[index - 1]?.author?.id
+  comments?.[index]?.author?.id === comments?.[index - 1]?.author?.id

@@ -22,7 +22,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
 
   return (
     <Box>
-      {text.length > 0 && (
+      {text?.length > 0 && (
         <Box
           paddingTop="xm"
           marginBottom="-s"

@@ -29,7 +29,7 @@ export const FeedPost = (props: FeedPostProps) => {
   const borderColor: keyof Theme['colors'] = showBorder ? 'special' : 'white'
 
   useEffect(() => {
-    if (editTarget?.postId === post.id && editTarget.type === 'post') setShowBorder(true)
+    if (editTarget?.postId === post.id && editTarget?.type === 'post') setShowBorder(true)
     else setShowBorder(false)
   }, [post.id, editTarget?.postId, editTarget?.type])
 

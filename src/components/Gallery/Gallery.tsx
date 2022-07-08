@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import React, { useCallback, useRef } from 'react'
 import {
-  FlatList,
   ViewToken,
   useWindowDimensions,
   NativeSyntheticEvent,
@@ -35,7 +35,7 @@ export const Gallery = ({
   fullScreenPicture,
 }: GalleryProps) => {
   const { width } = useWindowDimensions()
-  const listRef = useRef<FlatList>(null)
+  const listRef = useRef<FlashList<AttachmentType>>(null)
   const translateX = useSharedValue(0)
   const navigation = useNavigation()
 
@@ -60,23 +60,23 @@ export const Gallery = ({
         {...item}
         width={width}
         onPress={() => onItemPress && onItemPress(index, item.uri)}
+        style={{ paddingTop: 8, justifyContent: 'center', height: '100%' }}
       />
     ),
     [width, onItemPress]
   )
 
   const flatListComponent = (
-    <FlatList
+    <FlashList
       horizontal
       ref={listRef}
       snapToInterval={width}
       snapToAlignment="center"
       initialScrollIndex={index}
       viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-      getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
+      estimatedItemSize={width}
       decelerationRate="normal"
       disableIntervalMomentum
-      contentContainerStyle={{ alignItems: 'center', paddingTop: 8 }}
       data={data}
       renderItem={renderItem}
       keyExtractor={(item) => item.uri}

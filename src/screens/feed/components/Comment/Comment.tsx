@@ -76,8 +76,8 @@ export const Comment = ({
         onLongPress={handleOnPress}
         onPress={handleOnPress}>
         <Text variant="textXS">
-          {comment.text.slice(0, numberOfChars)}
-          {comment.text.length > 130 && !isCommentExpanded && (
+          {comment?.text?.slice(0, numberOfChars)}
+          {comment?.text?.length > 130 && !isCommentExpanded && (
             <>
               {'... '}
               <Text variant="textXS" color="special" onPress={() => expandComment()}>
