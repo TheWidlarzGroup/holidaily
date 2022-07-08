@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { Notification as NotificationModel, User } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
@@ -17,12 +17,18 @@ export const Notification = ({
   type,
   ...p
 }: NotificationModel) => {
+  const defaultOpacity = wasSeenByHolder ? 0.6 : 1
+  const [opacity, setOpacity] = useState(defaultOpacity)
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
   const description = 'description' in p ? p.description : undefined
   const { user } = useUserContext()
   const { navigate } = useNavigation()
   const { mutate } = useMarkNotificationAsSeen()
-  const opacity = wasSeenByHolder ? 0.6 : 1
+
+  useEffect(() => {
+    if (wasSeenByHolder) setOpacity(0.6)
+    else setOpacity(1)
+  }, [wasSeenByHolder])
 
   // Comment: handle user timeOff type
   const { allUsers } = useTeamsContext()
@@ -57,34 +63,36 @@ export const Notification = ({
 
   return (
     <>
-      <BaseOpacity
-        activeOpacity={1}
-        onPress={onPress}
-        opacity={opacity}
+      <Box
         backgroundColor="lightGrey"
         borderRadius="lmin"
         marginVertical="s"
         marginTop="none"
         height={88}
-        flexDirection="row"
         overflow="hidden">
-        <NotificationThumbnail author={author} type={type} />
-        <Box flex={1}>
-          <NotificationContent
-            endDate={endDate}
-            type={type}
-            description={description}
-            firstName={author.firstName}
-            lastName={author.lastName}
-            isSeen={wasSeenByHolder}
-          />
-          <Box marginBottom="s" marginRight="m" alignSelf="flex-end">
-            <Text variant="textXS" color="darkGreyBrighter">
-              {formatDate(new Date(p.createdAt), 'ago')}
-            </Text>
+        <BaseOpacity
+          activeOpacity={defaultOpacity}
+          onPress={onPress}
+          opacity={opacity}
+          flexDirection="row">
+          <NotificationThumbnail author={author} type={type} />
+          <Box flex={1}>
+            <NotificationContent
+              endDate={endDate}
+              type={type}
+              description={description}
+              firstName={author.firstName}
+              lastName={author.lastName}
+              isSeen={wasSeenByHolder}
+            />
+            <Box marginBottom="s" marginRight="m" alignSelf="flex-end">
+              <Text variant="textXS" color="darkGreyBrighter">
+                {formatDate(new Date(p.createdAt), 'ago')}
+              </Text>
+            </Box>
           </Box>
-        </Box>
-      </BaseOpacity>
+        </BaseOpacity>
+      </Box>
       {modalUser && (
         <TeamMemberModal onHide={closeModal} isOpen={isModalVisible} modalUser={modalUser} />
       )}
