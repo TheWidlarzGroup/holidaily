@@ -64,7 +64,7 @@ const CommentBox = ({
         onPress={toggleCommentsExpanded}
         opened={areCommentsExpanded}
       />
-      <AnimatedBox>
+      <Box>
         <Comment
           openEditModal={openEditModal}
           editCommentId={editCommentId}
@@ -99,7 +99,7 @@ const CommentBox = ({
             })}
           </AnimatedBox>
         ) : null}
-      </AnimatedBox>
+      </Box>
     </Box>
   )
 }
