@@ -22,7 +22,7 @@ import { FlashList } from '@shopify/flash-list'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
-const ESTIMATED_POST_HEIGHT = 700
+const ESTIMATED_POST_HEIGHT = 746
 
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
@@ -44,6 +44,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const { mutate: editComment } = useEditComment()
   const { mutate: deletePost } = useDeletePost()
   const { mutate: addPostWithNewId } = useAddPostWithNewId()
+  const [wasFlashListLoaded, setWasFlashListLoaded] = useState(false)
 
   const prevScreen: PrevScreen = p?.prevScreen
 
@@ -142,10 +143,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     },
   ]
 
-  const [wasLoaded, setWasLoaded] = useState(false)
-
   InteractionManager.runAfterInteractions(() => {
-    if (flatListRef.current && p?.postId && !!data?.length && wasLoaded) {
+    if (flatListRef.current && p?.postId && !!data?.length && wasFlashListLoaded) {
       const index = data.findIndex((post) => String(post.id) === String(p.postId))
       if (index && index >= 0 && index < data.length) {
         flatListRef.current.scrollToIndex({ index, animated: true })
@@ -161,7 +160,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <FlashList
         ref={flatListRef}
-        onLoad={() => setWasLoaded(true)}
+        onLoad={() => setWasFlashListLoaded(true)}
         keyboardShouldPersistTaps="handled"
         ListHeaderComponent={FeedHeader}
         data={allPosts}
