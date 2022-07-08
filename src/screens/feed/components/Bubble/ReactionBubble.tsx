@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Text } from 'utils/theme'
+import { Text, Theme, theme } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Reaction } from 'mock-api/models/miragePostTypes'
 import { Bubble } from './Bubble'
@@ -14,7 +14,7 @@ type ReactionBubbleProps = {
   reaction: Reaction
   handlePressReaction: F1<string>
   setBubblesSize: Dispatch<SetStateAction<BubbleSizesType>>
-  marginsWidth: number
+  bubbleMargin: keyof Theme['spacing']
   reactionBubbleSize: number
 }
 
@@ -22,7 +22,7 @@ export const ReactionBubble = ({
   reaction,
   handlePressReaction,
   setBubblesSize,
-  marginsWidth,
+  bubbleMargin,
   reactionBubbleSize,
 }: ReactionBubbleProps) => {
   const { user } = useUserContext()
@@ -31,13 +31,13 @@ export const ReactionBubble = ({
 
   return (
     <Bubble
-      margin="xs"
+      margin={bubbleMargin}
       onPress={() => handlePressReaction(reaction.type)}
       onLayout={({ nativeEvent }) => {
         if (reactionBubbleSize) return
         setBubblesSize((prev) => ({
           ...prev,
-          singleEmoji: nativeEvent.layout.width + marginsWidth,
+          singleEmoji: nativeEvent.layout.width + theme.spacing[bubbleMargin] * 2, // calculate full width of emoji with margins
         }))
       }}
       borderColor={hasUserAddedReaction ? 'black' : 'transparent'}

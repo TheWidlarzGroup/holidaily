@@ -20,7 +20,7 @@ export type FooterBarContentProps = {
   handleAddReaction: F1<EmojiType>
 }
 
-const BOX_MARGIN = 's'
+const BOX_MARGIN = 'xs'
 const MARGINS_WIDTH = theme.spacing[BOX_MARGIN] * 2
 
 export const FooterBarContent = (props: FooterBarContentProps) => {
@@ -41,6 +41,16 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
   )
   const maxEmojisInSecondLine = Math.trunc(footerWidth / bubblesSize.singleEmoji)
   const totalMaxNumberOfEmojis = maxEmojisInFirstLine + maxEmojisInSecondLine
+  console.log(footerWidth - bubblesSize.addCommentBtn - bubblesSize.addEmojiBtn)
+  console.log('max emmojis in first line', maxEmojisInFirstLine)
+  console.log(
+    'maxEmojisInFirstLine',
+    footerWidth,
+    bubblesSize.addCommentBtn,
+    bubblesSize.addEmojiBtn,
+    bubblesSize.singleEmoji
+  )
+  console.log('footer widtth', footerWidth)
 
   let emojisCounter = 0
 
@@ -55,7 +65,7 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
 
   return (
     <Box
-      margin={BOX_MARGIN}
+      margin="s"
       flexDirection="row"
       flexWrap="wrap"
       justifyContent="flex-start"
@@ -74,7 +84,7 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
           }))
         }}
         padding="s"
-        marginHorizontal="xs"
+        marginHorizontal={BOX_MARGIN}
         marginTop="xs"
         onPress={handleCommentBtn}
         height={42}
@@ -111,7 +121,7 @@ export const FooterBarContent = (props: FooterBarContentProps) => {
               reaction={item}
               setBubblesSize={setBubblesSize}
               reactionBubbleSize={bubblesSize.singleEmoji}
-              marginsWidth={MARGINS_WIDTH}
+              bubbleMargin={BOX_MARGIN}
             />
           )
         })}
