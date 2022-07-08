@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerNavigationType } from 'navigation/types'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
@@ -18,10 +18,10 @@ export const Settings = () => {
   const navigation = useNavigation<DrawerNavigationType<'SETTINGS'>>()
   const [loading, { setTrue: setLoadingTrue, setFalse: setLoadingFalse }] = useBooleanState(false)
 
-  const handleGoBack = useCallback(() => {
+  const handleGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
-  }, [navigation])
+  }
 
   return (
     <SafeAreaWrapper>
