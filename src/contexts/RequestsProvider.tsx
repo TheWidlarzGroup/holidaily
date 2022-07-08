@@ -2,8 +2,8 @@ import React, { ReactNode, useState, useEffect } from 'react'
 import { useGetHolidayRequests } from 'hooks/useGetHolidayRequests'
 import { mergeRequestsArrays } from 'utils/mergeRequestsArrays'
 import { getMonthsWithoutRequests } from 'screens/calendar/getMonthsWithoutRequests'
+import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
 import { RequestContextProps, RequestsContext } from './RequestsContext'
-import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
 
 type RequestProviderProps = {
   children: ReactNode
