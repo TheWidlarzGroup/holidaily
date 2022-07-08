@@ -370,6 +370,7 @@
     "unseen": "NEW",
     "markAllAsSeen": "Mark all as read",
     "markSeen": "Read",
+    "markUnSeen": "New",
     "accepted": "Wohoo! Your <b>{{description}}</b> request has been approved!",
     "cancelled": "Bad news. Your <b>{{description}}</b> request has been declined.",
     "prompt": "Hey! Let’s take some time off 🌴 Check out available dates now!",
