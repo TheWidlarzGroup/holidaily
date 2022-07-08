@@ -16,6 +16,12 @@ type SubmitSuccess = {
   post: FeedPost
 }
 
+const insert = (arr: Reaction[], index: number, newItem: Reaction) => [
+  ...arr.slice(0, index),
+  newItem,
+  ...arr.slice(index),
+]
+
 const addComment = async (comment: AddComment): Promise<SubmitSuccess> => {
   const { data } = await axios.post(API.POST.addCommentToPost(comment), comment)
   return data
@@ -126,12 +132,6 @@ export const useAddReaction = () => {
         const postReactionsWithoutUpdatedOne = allPosts[postIndex].reactions.filter(
           (a) => a.type !== reaction.type
         )
-
-        const insert = (arr: Reaction[], index: number, newItem: Reaction) => [
-          ...arr.slice(0, index),
-          newItem,
-          ...arr.slice(index),
-        ]
 
         const updatedPost: FeedPost = {
           ...allPosts[postIndex],
