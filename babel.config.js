@@ -10,6 +10,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    'transform-remove-console',
     'react-native-reanimated/plugin',
     [
       'module:react-native-dotenv',
