@@ -3,6 +3,6 @@ import whyDidYouRender from '@welldone-software/why-did-you-render'
 
 if (process.env.NODE_ENV === 'development') {
   whyDidYouRender(React, {
-    trackAllPureComponents: true, // enable when testing
+    trackAllPureComponents: false, // enable when testing
   })
 }
