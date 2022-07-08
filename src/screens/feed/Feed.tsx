@@ -7,7 +7,7 @@ import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddRea
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
-import { EditTargetType } from 'mock-api/models/miragePostTypes'
+import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import { BottomTabNavigationProps, BottomTabNavigationType } from 'navigation/types'
 import { InteractionManager } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
@@ -31,7 +31,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const navigation = useNavigation<BottomTabNavigationType<'FEED'>>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
-  const flatListRef = useRef<FlashList<any> | null>(null)
+  const flatListRef = useRef<FlashList<FeedPostType> | null>(null)
   const scrollRetries = useRef(0)
 
   const [isMessageInputOpen, { setFalse: closeMessageInput, setTrue: openMessageInput }] =
