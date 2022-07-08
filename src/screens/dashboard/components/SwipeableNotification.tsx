@@ -6,6 +6,7 @@ import CheckIcon from 'assets/icons/icon-check.svg'
 import SwipeLeftIcon from 'assets/icons/icon-swipe-left.svg'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { useMarkNotificationAsUnseen } from 'dataAccess/mutations/useMarkNotificationAsUnseen'
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 export const SwipeableNotification = ({
@@ -15,14 +16,17 @@ export const SwipeableNotification = ({
 }: PropsWithChildren<{ notificationId: string; isSeen: boolean }>) => {
   const opacity = useSharedValue(1)
   const { mutate } = useMarkNotificationAsSeen()
+  const unseenMutate = useMarkNotificationAsUnseen()
+
   const markAsSeen = () => {
     opacity.value = withTiming(0)
     mutate(notificationId)
   }
-  const markAsUnseenSeen = () => {
+  const markAsUnseen = () => {
     opacity.value = withTiming(0)
-    mutate(notificationId)
+    unseenMutate.mutate(notificationId)
   }
+
   const animatedOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }))
@@ -58,9 +62,9 @@ export const SwipeableNotification = ({
 
   return (
     <Swipeable
-      renderLeftActions={LeftActions}
+      renderLeftActions={isSeen ? undefined : LeftActions}
       renderRightActions={isSeen ? RightActions : undefined}
-      onSwipeableOpen={isSeen ? markAsUnseenSeen : markAsSeen}
+      onSwipeableOpen={isSeen ? markAsUnseen : markAsSeen}
       leftThreshold={80}>
       {children}
     </Swipeable>
