@@ -1,7 +1,7 @@
 import React from 'react'
 import { DrawerContentComponentProps, useDrawerProgress } from '@react-navigation/drawer'
 import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { Box, mkUseStyles } from 'utils/theme'
+import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
@@ -11,9 +11,10 @@ import { DrawerRoutes } from 'navigation/types'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { Logout } from './Logout'
 
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) => {
   const { user } = useUserContext()
-  const styles = useStyles()
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
 
@@ -35,14 +36,12 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
     const isAdminPanelEmployees =
       name === 'AdminPanelEmployeesNavigation' && user.role !== 'Admin' && user.role !== 'MANAGER'
 
-    if (isHome || isAdminPanelEmployees) return false
-    return true
+    return !(isHome || isAdminPanelEmployees)
   }
 
   return (
     <SafeAreaWrapper>
-      <Animated.View
-        style={[{ flex: 1, backgroundColor: styles.container.backgroundColor }, style]}>
+      <AnimatedBox flex={1} backgroundColor="white" style={style}>
         <DrawerHeader
           firstName={user.firstName}
           lastName={user.lastName}
@@ -63,15 +62,8 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
               )
           )}
         </Box>
-
         <Logout />
-      </Animated.View>
+      </AnimatedBox>
     </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  container: {
-    backgroundColor: theme.colors.white,
-  },
-}))

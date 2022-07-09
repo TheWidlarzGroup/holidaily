@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback, useEffect } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
@@ -16,10 +16,6 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const [allUsers, setAllUsers] = useState<User[]>([])
   const [demoUserTeamMates, setDemoUserTeamMates] = useState<User[]>([])
 
-  const updateTeams = useCallback((newData: Team[]) => {
-    setTeams((prev) => [...prev, ...newData])
-  }, [])
-
   const addUserToTeams = (user: User, teamNames: string[], options?: { withReset?: true }) => {
     const initialTeams = data?.teams || []
     const teamsToUse = options?.withReset ? initialTeams : teams
@@ -29,7 +25,7 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     setTeams([...teamsToUpdate, ...unchangedTeams])
   }
 
-  const reset = useCallback(() => setTeams(data?.teams || []), [data?.teams])
+  const reset = () => setTeams(data?.teams || [])
 
   useEffect(() => {
     const usersWithoutDuplicates = getUsersWithoutDuplicates(teams)
@@ -47,14 +43,11 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   }, [teams, user?.teams])
 
   useEffect(() => {
-    if (data) {
-      setTeams(data?.teams)
-    }
+    if (data) setTeams(data?.teams)
   }, [data])
 
   const value: TeamsContextProps = {
     teams,
-    updateTeams,
     allUsers,
     addUserToTeams,
     reset,

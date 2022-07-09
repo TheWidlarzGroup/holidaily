@@ -5,7 +5,6 @@ type AddUserToTeamsOptions = { withReset?: true }
 
 export type TeamsContextProps = {
   teams: Team[]
-  updateTeams: (newData: Team[]) => void
   allUsers: User[]
   addUserToTeams: (u: User, t: string[], o?: AddUserToTeamsOptions) => void
   reset: F0

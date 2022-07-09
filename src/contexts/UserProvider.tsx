@@ -16,7 +16,7 @@ type ProviderProps = {
   children: ReactNode
 }
 
-export const emptyUser: User = {
+const defaultUser: User = {
   id: '',
   firstName: '',
   lastName: '',
@@ -39,7 +39,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const { reset: clearUserCache } = useCreateTempUser()
   const updateUser = useCallback(
     (newData: Partial<User> | null) =>
-      setUser((usr) => (usr ? { ...usr, ...newData } : { ...emptyUser, ...newData })),
+      setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData })),
     []
   )
   const handleLogout = async () => {
