@@ -1,5 +1,7 @@
-module.exports = {
-  presets: [
+module.exports = function (api) {
+  const isProd = api.env('production')
+
+  const presets = [
     [
       'module:metro-react-native-babel-preset',
       {
@@ -8,9 +10,9 @@ module.exports = {
         importSource: '@welldone-software/why-did-you-render',
       },
     ],
-  ],
-  plugins: [
-    'transform-remove-console',
+  ]
+
+  const plugins = [
     'react-native-reanimated/plugin',
     [
       'module:react-native-dotenv',
@@ -50,5 +52,17 @@ module.exports = {
         },
       },
     ],
-  ],
+  ]
+
+  if (isProd) {
+    return {
+      presets: presets,
+      plugins: [...plugins, 'transform-remove-console'],
+    }
+  }
+
+  return {
+    presets: presets,
+    plugins: plugins,
+  }
 }
