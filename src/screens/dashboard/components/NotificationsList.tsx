@@ -39,6 +39,7 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
       sections={sections}
       keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
+      stickySectionHeadersEnabled={false}
       ListHeaderComponent={<MarkAllAsSeen unseen={unseenNotifications} />}
       renderSectionHeader={({ section: { title, data } }) => {
         if (!data.length) return null
