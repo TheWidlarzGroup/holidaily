@@ -4,7 +4,7 @@ import { SectionList } from 'react-native'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
-import Notification from './Notification'
+import { Notification } from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
 const style = { width: '100%' }
@@ -48,15 +48,11 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
           </Text>
         )
       }}
-      renderItem={({ item }) =>
-        item.wasSeenByHolder ? (
+      renderItem={({ item }) => (
+        <SwipeableNotification notificationId={item.id} isSeen={item.wasSeenByHolder}>
           <Notification {...item} />
-        ) : (
-          <SwipeableNotification notificationId={item.id}>
-            <Notification {...item} />
-          </SwipeableNotification>
-        )
-      }
+        </SwipeableNotification>
+      )}
     />
   )
 }
@@ -64,7 +60,7 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
 const MarkAllAsSeen = ({ unseen }: { unseen: NotificationModel[] }) => {
   const { mutate } = useMarkNotificationAsSeen()
   const markAllAsSeen = () => {
-    unseen.forEach((n) => mutate(n.id))
+    unseen.forEach((n) => mutate({ id: n.id }))
   }
   const { t } = useTranslation('notifications')
   if (unseen.length < 2) return null

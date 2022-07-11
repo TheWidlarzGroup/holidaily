@@ -368,6 +368,7 @@
     "seen": "PRZECZYTANE",
     "unseen": "NOWE",
     "markSeen": "Przeczytano",
+    "markUnSeen": "Nowe",
     "markAllAsSeen": "Oznacz wszystkie jako przeczytane",
     "accepted": "Wohoo! Twoje zapytanie o <b>{{description}}</b> zostało zaakceptowane!",
     "cancelled": "Złe wieści. Twoje zapytanie o <b>{{description}}</b> zostało odrzucone.",

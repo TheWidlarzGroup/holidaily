@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { Notification as NotificationModel, User } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
@@ -11,13 +11,23 @@ import { notificationNavHandler } from '../helpers/notificationNavHandler'
 import { NotificationThumbnail } from './NotificationThumbnail'
 import { TeamMemberModal } from '../DashboardTeam'
 
-const Notification = ({ source: author, wasSeenByHolder, type, ...p }: NotificationModel) => {
+export const Notification = ({
+  source: author,
+  wasSeenByHolder,
+  type,
+  ...p
+}: NotificationModel) => {
+  const defaultOpacity = wasSeenByHolder ? 0.6 : 1
+  const [opacity, setOpacity] = useState(defaultOpacity)
   const endDate = 'endDate' in p ? new Date(p.endDate) : undefined
   const description = 'description' in p ? p.description : undefined
   const { user } = useUserContext()
   const { navigate } = useNavigation()
   const { mutate } = useMarkNotificationAsSeen()
-  const opacity = wasSeenByHolder ? 0.6 : 1
+
+  useEffect(() => {
+    setOpacity(wasSeenByHolder ? 0.6 : 1)
+  }, [wasSeenByHolder])
 
   // Comment: handle user timeOff type
   const { allUsers } = useTeamsContext()
@@ -37,7 +47,7 @@ const Notification = ({ source: author, wasSeenByHolder, type, ...p }: Notificat
 
   const closeModal = () => {
     setIsModalVisible(false)
-    if (!wasSeenByHolder) mutate(p.id)
+    if (!wasSeenByHolder) mutate({ id: p.id })
   }
 
   const notificationRequest = p.requestId
@@ -47,24 +57,24 @@ const Notification = ({ source: author, wasSeenByHolder, type, ...p }: Notificat
   const onPress = () => {
     if (type === 'dayOff') openModal()
     if (type !== 'dayOff') {
-      if (!wasSeenByHolder) mutate(p.id)
+      if (!wasSeenByHolder) mutate({ id: p.id })
       notificationNavHandler(navigate, type, notificationRequest)
     }
   }
 
   return (
-    <>
+    <Box
+      backgroundColor="lightGrey"
+      borderRadius="lmin"
+      marginVertical="s"
+      marginTop="none"
+      height={88}
+      overflow="hidden">
       <BaseOpacity
-        activeOpacity={1}
+        activeOpacity={defaultOpacity}
         onPress={onPress}
         opacity={opacity}
-        backgroundColor="lightGrey"
-        borderRadius="lmin"
-        marginVertical="s"
-        marginTop="none"
-        height={88}
-        flexDirection="row"
-        overflow="hidden">
+        flexDirection="row">
         <NotificationThumbnail author={author} type={type} />
         <Box flex={1}>
           <NotificationContent
@@ -85,7 +95,7 @@ const Notification = ({ source: author, wasSeenByHolder, type, ...p }: Notificat
       {modalUser && (
         <TeamMemberModal onHide={closeModal} isOpen={isModalVisible} modalUser={modalUser} />
       )}
-    </>
+    </Box>
   )
 }
 
