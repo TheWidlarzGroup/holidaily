@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
  * directory of this source tree.
@@ -53,7 +53,7 @@ public class ReactNativeFlipper {
       ReactContext reactContext = reactInstanceManager.getCurrentReactContext();
       if (reactContext == null) {
         reactInstanceManager.addReactInstanceEventListener(
-            new ReactInstanceManager.ReactInstanceEventListener() {
+            new ReactInstanceEventListener() {
               @Override
               public void onReactContextInitialized(ReactContext reactContext) {
                 reactInstanceManager.removeReactInstanceEventListener(this);
