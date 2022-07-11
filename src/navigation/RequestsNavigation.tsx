@@ -16,7 +16,7 @@ export const RequestsNavigation = () => (
     <RequestsStack.Screen
       name="SEE_REQUEST"
       component={SeeRequest}
-      options={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
+      options={{ ...TransitionPresets.SlideFromRightIOS }}
     />
   </RequestsStack.Navigator>
 )
