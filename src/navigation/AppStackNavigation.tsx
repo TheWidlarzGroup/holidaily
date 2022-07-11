@@ -34,7 +34,7 @@ export const AppStackNavigation = () => {
           component={GalleryScreen}
           options={{
             cardStyle: styles.galleryScreenCard,
-            cardStyleInterpolator: undefined,
+            ...TransitionPresets.ModalTransition,
           }}
         />
         <AppStack.Screen name="SUBSCRIBE_NEW_TEAM" component={SubscribeNewTeam} />

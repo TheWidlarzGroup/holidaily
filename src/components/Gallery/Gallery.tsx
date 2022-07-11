@@ -90,7 +90,8 @@ export const Gallery = ({
       {fullScreenPicture ? (
         <GestureRecognizer
           onSwipeDown={() => navigation.goBack()}
-          onSwipeUp={() => navigation.goBack()}>
+          onSwipeUp={() => navigation.goBack()}
+          onFailed={() => navigation.goBack()}>
           {flatListComponent}
         </GestureRecognizer>
       ) : (
