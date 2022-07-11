@@ -47,7 +47,7 @@ export const Notification = ({
 
   const closeModal = () => {
     setIsModalVisible(false)
-    if (!wasSeenByHolder) mutate(p.id)
+    if (!wasSeenByHolder) mutate({ id: p.id })
   }
 
   const notificationRequest = p.requestId
@@ -57,7 +57,7 @@ export const Notification = ({
   const onPress = () => {
     if (type === 'dayOff') openModal()
     if (type !== 'dayOff') {
-      if (!wasSeenByHolder) mutate(p.id)
+      if (!wasSeenByHolder) mutate({ id: p.id })
       notificationNavHandler(navigate, type, notificationRequest)
     }
   }

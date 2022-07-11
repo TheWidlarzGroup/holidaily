@@ -60,7 +60,7 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
 const MarkAllAsSeen = ({ unseen }: { unseen: NotificationModel[] }) => {
   const { mutate } = useMarkNotificationAsSeen()
   const markAllAsSeen = () => {
-    unseen.forEach((n) => mutate(n.id))
+    unseen.forEach((n) => mutate({ id: n.id }))
   }
   const { t } = useTranslation('notifications')
   if (unseen.length < 2) return null
