@@ -36,7 +36,7 @@ export const NotificationThumbnail = (props: NotificationThumbnailProps) => {
           style={{
             backgroundColor: user?.userColor,
             width: 56,
-            height: '100%',
+            height: 88,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
