@@ -26,8 +26,7 @@ export const Notification = ({
   const { mutate } = useMarkNotificationAsSeen()
 
   useEffect(() => {
-    if (wasSeenByHolder) setOpacity(0.6)
-    else setOpacity(1)
+    setOpacity(wasSeenByHolder ? 0.6 : 1)
   }, [wasSeenByHolder])
 
   // Comment: handle user timeOff type
@@ -64,41 +63,39 @@ export const Notification = ({
   }
 
   return (
-    <>
-      <Box
-        backgroundColor="lightGrey"
-        borderRadius="lmin"
-        marginVertical="s"
-        marginTop="none"
-        height={88}
-        overflow="hidden">
-        <BaseOpacity
-          activeOpacity={defaultOpacity}
-          onPress={onPress}
-          opacity={opacity}
-          flexDirection="row">
-          <NotificationThumbnail author={author} type={type} />
-          <Box flex={1}>
-            <NotificationContent
-              endDate={endDate}
-              type={type}
-              description={description}
-              firstName={author.firstName}
-              lastName={author.lastName}
-              isSeen={wasSeenByHolder}
-            />
-            <Box marginBottom="s" marginRight="m" alignSelf="flex-end">
-              <Text variant="textXS" color="darkGreyBrighter">
-                {formatDate(new Date(p.createdAt), 'ago')}
-              </Text>
-            </Box>
+    <Box
+      backgroundColor="lightGrey"
+      borderRadius="lmin"
+      marginVertical="s"
+      marginTop="none"
+      height={88}
+      overflow="hidden">
+      <BaseOpacity
+        activeOpacity={defaultOpacity}
+        onPress={onPress}
+        opacity={opacity}
+        flexDirection="row">
+        <NotificationThumbnail author={author} type={type} />
+        <Box flex={1}>
+          <NotificationContent
+            endDate={endDate}
+            type={type}
+            description={description}
+            firstName={author.firstName}
+            lastName={author.lastName}
+            isSeen={wasSeenByHolder}
+          />
+          <Box marginBottom="s" marginRight="m" alignSelf="flex-end">
+            <Text variant="textXS" color="darkGreyBrighter">
+              {formatDate(new Date(p.createdAt), 'ago')}
+            </Text>
           </Box>
-        </BaseOpacity>
-      </Box>
+        </Box>
+      </BaseOpacity>
       {modalUser && (
         <TeamMemberModal onHide={closeModal} isOpen={isModalVisible} modalUser={modalUser} />
       )}
-    </>
+    </Box>
   )
 }
 
