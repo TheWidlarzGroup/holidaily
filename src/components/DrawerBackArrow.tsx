@@ -11,6 +11,7 @@ export const DrawerBackArrow = ({ goBack, title = '' }: DrawerBackArrowProps) =>
   const styles = useStyles()
   return (
     <Box
+      zIndex="2"
       flexDirection="row"
       alignItems="center"
       justifyContent="space-between"

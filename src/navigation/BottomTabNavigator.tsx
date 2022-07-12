@@ -76,7 +76,11 @@ export const BottomTabNavigator = (props: Props) => {
             />
             <Tab.Screen name="CALENDAR" component={Calendar} options={{ unmountOnBlur: true }} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
-            <Tab.Screen name="Stats" component={RequestsNavigation} />
+            <Tab.Screen
+              name="Stats"
+              component={RequestsNavigation}
+              options={{ unmountOnBlur: true }}
+            />
             <Tab.Screen name="FEED" component={Feed} />
           </Tab.Navigator>
         </SafeAreaView>
