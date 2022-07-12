@@ -46,10 +46,12 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <GestureRecognizer onSwipeRight={goBack} onEnded androidOnly>
-        <Box marginTop="l" paddingBottom="m" flex={1}>
-          <RequestDetails {...p} showStatus wasSent />
-        </Box>
+      <GestureRecognizer
+        onSwipeRight={goBack}
+        onEnded
+        androidOnly
+        style={{ marginTop: theme.spacing.l, paddingBottom: theme.spacing.m }}>
+        <RequestDetails {...p} showStatus wasSent />
       </GestureRecognizer>
     </SafeAreaWrapper>
   )
