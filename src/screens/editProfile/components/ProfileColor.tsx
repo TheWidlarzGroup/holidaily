@@ -8,6 +8,8 @@ import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { Analytics } from 'services/analytics'
+import SwipeUpIcon from 'assets/icons/icon-swipe-up.svg'
+
 import { windowWidth } from 'utils/deviceSizes'
 import Animated from 'react-native-reanimated'
 
@@ -79,7 +81,13 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
             backgroundColor: p.value || user?.userColor || theme.colors.primary,
           },
         ]}>
-        <Text style={[styles.changeColor]} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
+        <SwipeUpIcon
+          width={12}
+          height={12}
+          style={styles.swipeUpIcon}
+          color={theme.colors.alwaysWhite}
+        />
+        <Text style={styles.changeColor} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
           Change color
         </Text>
       </DropArea>
@@ -109,7 +117,11 @@ const useStyles = mkUseStyles(() => ({
     borderRadius: 500,
     alignItems: 'center',
   },
+  swipeUpIcon: {
+    top: 17,
+  },
   changeColor: {
-    bottom: -70,
+    position: 'relative',
+    top: 42,
   },
 }))
