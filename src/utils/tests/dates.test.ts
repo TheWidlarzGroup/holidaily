@@ -9,6 +9,18 @@ import {
 import { parseISO } from 'date-fns'
 import { setCurrentLocale } from 'utils/locale'
 import '../../../i18n.ts'
+import i18next from 'i18next'
+
+const initLanguage = () => {
+  i18next.init({
+    lng: 'en',
+    debug: true,
+  })
+}
+
+beforeAll(() => {
+  initLanguage()
+})
 
 describe('checksIfItsWeekend', () => {
   const monday = parseISO('2021-06-07')
@@ -31,11 +43,11 @@ describe('checksIfItsWeekend', () => {
 
 describe('getsMonthName', () => {
   it('get proper month name from number', async () => {
-    await setCurrentLocale('en')
-    expect(getMonthName(1)).toBe('February')
-
     await setCurrentLocale('pl')
     expect(getMonthName(1)).toBe('luty')
+
+    await setCurrentLocale('en')
+    expect(getMonthName(1)).toBe('February')
   })
 })
 
