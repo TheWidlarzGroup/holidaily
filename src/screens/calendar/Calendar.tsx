@@ -16,6 +16,15 @@ import { FormInput } from 'components/FormInput'
 import { t } from 'i18next'
 import { CustomInput } from 'components/CustomInput'
 
+const daysInMonth = (year: number, month: number) => {
+  const days = new Date(year, month, 0).getDate()
+
+  const firstDayNumber = Number(String(days)[0])
+  const secondDayNumber = Number(String(days)[1])
+
+  return { firstDayNumber, secondDayNumber }
+}
+
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
   const {
@@ -51,18 +60,56 @@ const CalendarToWrap = () => {
   if (isLoading) return <LoadingModal show />
 
   const handleOnChange = (e: string) => {
+    const year = Number(e.slice(0, 4)) || 0
+    const month = Number(e.slice(5, 7)) || 0
+
+    const { firstDayNumber, secondDayNumber } = daysInMonth(year, month)
     switch (e.length) {
       case 1:
-        if (Number(e) > 3) {
-          setSelectedTo('3')
+        if (Number(e) !== 2) {
+          setSelectedTo('2')
+        } else {
+          setSelectedTo(e)
         }
-        setSelectedTo(e)
         break
       case 2:
-        setSelectedTo(`${e.slice(0, 2)}-`)
+        if (Number(e) !== 0) {
+          setSelectedTo(`${e.slice(0, 1)}0`)
+        } else {
+          setSelectedTo(e)
+        }
         break
       case 5:
-        setSelectedTo(`${e.slice(0, 2)}-${e.slice(3, 5)}-`)
+        if (Number(e.slice(4)) <= 1) {
+          setSelectedTo(`${e.slice(0, 4)}-${e.slice(4)}`)
+        } else {
+          setSelectedTo(`${e.slice(0, 4)}-1`)
+        }
+        break
+
+      case 7:
+        console.log('here')
+        if (Number(e.slice(6)) > 2) {
+          setSelectedTo(`${e.slice(0, 6)}2-`)
+        } else {
+          setSelectedTo(`${e.slice(0, 7)}-`)
+        }
+        break
+      case 9:
+        if (Number(e.slice(8)) > firstDayNumber) {
+          console.log('here')
+          setSelectedTo(`${e.slice(0, 8)}${firstDayNumber}`)
+        } else {
+          setSelectedTo(e)
+        }
+        break
+
+      case 10:
+        if (Number(e.slice(9)) > secondDayNumber) {
+          setSelectedTo(`${e.slice(0, 9)}${secondDayNumber}`)
+        } else {
+          setSelectedTo(e)
+        }
         break
       default:
         setSelectedTo(e)
@@ -82,7 +129,7 @@ const CalendarToWrap = () => {
       <Box>
         <CustomInput
           variant="medium"
-          maxLength={110}
+          maxLength={10}
           value={selectedTo}
           onChangeText={handleOnChange}
           // control={control}
