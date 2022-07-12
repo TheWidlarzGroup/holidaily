@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Box } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -12,6 +12,9 @@ import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
 import { CategoriesSlider } from './components/CategoriesSlider'
+import { FormInput } from 'components/FormInput'
+import { t } from 'i18next'
+import { CustomInput } from 'components/CustomInput'
 
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
@@ -22,6 +25,8 @@ const CalendarToWrap = () => {
     setSelectedDate,
     currentMonthDays,
   } = useCalendarData()
+
+  const [selectedTo, setSelectedTo] = useState('')
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
@@ -45,12 +50,70 @@ const CalendarToWrap = () => {
 
   if (isLoading) return <LoadingModal show />
 
+  const handleOnChange = (e: string) => {
+    switch (e.length) {
+      case 1:
+        if (Number(e) > 3) {
+          setSelectedTo('3')
+        }
+        setSelectedTo(e)
+        break
+      case 2:
+        setSelectedTo(`${e.slice(0, 2)}-`)
+        break
+      case 5:
+        setSelectedTo(`${e.slice(0, 2)}-${e.slice(3, 5)}-`)
+        break
+      default:
+        setSelectedTo(e)
+    }
+  }
+
+  // const convertDate = () => {
+  //   return selectedTo.length > 1 ? selectedTo.slice(0, 2) + '-' : selectedTo
+  // }
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <CategoriesSlider
         filterCategories={filterCategories || []}
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
+      <Box>
+        <CustomInput
+          variant="medium"
+          maxLength={110}
+          value={selectedTo}
+          onChangeText={handleOnChange}
+          // control={control}
+          // isError={!!errors.firstName}
+          // errors={errors}
+          // name="firstName"
+          inputLabel={t('yourName')}
+          // validationPattern={onlyLettersRegex}
+          // errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
+          blurOnSubmit
+          placeholder="dd-mm-yyyy"
+          keyboardType="number-pad"
+          isError={false}
+        />
+        <CustomInput
+          variant="medium"
+          maxLength={20}
+          isError={false}
+          onChangeText={(e) => console.log('e', e)}
+          // control={control}
+          // isError={!!errors.firstName}
+          // errors={errors}
+          // name="firstName"
+          inputLabel={t('yourName')}
+          // validationPattern={onlyLettersRegex}
+          // errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
+          blurOnSubmit
+          placeholder="dd-mm-yyyy"
+          keyboardType="number-pad"
+        />
+      </Box>
       <Box
         borderRadius="lmin"
         backgroundColor="white"
@@ -61,13 +124,15 @@ const CalendarToWrap = () => {
         shadowOpacity={0.15}
         shadowRadius={6}
         elevation={4}>
-        <ExpandableCalendar
-          markedDates={markedDates}
-          markingType="multi-dot"
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          onDayPress={handleDayPress}
-        />
+        {false && (
+          <ExpandableCalendar
+            markedDates={markedDates}
+            markingType="multi-dot"
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            onDayPress={handleDayPress}
+          />
+        )}
       </Box>
       <EventsList days={currentMonthDays} ref={flatListRef} />
     </SafeAreaWrapper>
