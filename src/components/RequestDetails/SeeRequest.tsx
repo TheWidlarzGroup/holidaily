@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { RequestsNavigationProps, RequestsNavigatorType, RequestsRoutes } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
-import { GestureResponderEvent, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { Analytics } from 'services/analytics'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
 export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SEE_REQUEST'>) => {
-  const [touchX, setTouchX] = useState(0)
   const navigation = useNavigation<RequestsNavigatorType<'SEE_REQUEST'>>()
   const { t } = useTranslation('seeRequest')
   const route = useRoute<RouteProp<RequestsRoutes, 'SEE_REQUEST'>>()
@@ -27,16 +27,6 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
 
   const goBack = () => {
     navigation.navigate(prevScreen || 'STATS_AND_REQUESTS')
-  }
-
-  const swipeStart = (e: GestureResponderEvent) => {
-    const { pageX } = e.nativeEvent
-    setTouchX(pageX)
-  }
-
-  const swipeEnd = (e: GestureResponderEvent) => {
-    const { pageX } = e.nativeEvent
-    if (pageX - touchX > 100) goBack()
   }
 
   return (
@@ -56,9 +46,11 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <Box marginTop="l" paddingBottom="m" flex={1} onTouchStart={swipeStart} onTouchEnd={swipeEnd}>
-        <RequestDetails {...p} showStatus wasSent />
-      </Box>
+      <GestureRecognizer onSwipeRight={goBack} onEnded>
+        <Box marginTop="l" paddingBottom="m" flex={1}>
+          <RequestDetails {...p} showStatus wasSent />
+        </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }
