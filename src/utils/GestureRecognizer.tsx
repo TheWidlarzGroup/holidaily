@@ -10,6 +10,7 @@ type GestureRecognizerProps = {
   onSwipeUp?: F0
   onSwipeDown?: F0
   onFailed?: F0
+  onEnded?: boolean
 }
 
 export const GestureRecognizer = ({
@@ -19,6 +20,7 @@ export const GestureRecognizer = ({
   onSwipeUp,
   onSwipeDown,
   onFailed,
+  onEnded,
 }: GestureRecognizerProps) => {
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
@@ -40,7 +42,11 @@ export const GestureRecognizer = ({
   }
 
   return (
-    <PanGestureHandler onBegan={onTouchStart} onActivated={onTouchMove} onFailed={onFailed}>
+    <PanGestureHandler
+      onBegan={onTouchStart}
+      onActivated={onEnded ? undefined : onTouchMove}
+      onEnded={onEnded ? onTouchMove : undefined}
+      onFailed={onFailed}>
       <Animated.View style={{ flex: 1 }}>{children}</Animated.View>
     </PanGestureHandler>
   )
