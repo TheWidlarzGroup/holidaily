@@ -1,14 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, mkUseStyles, Theme, BaseOpacity, useTheme } from 'utils/theme'
+import { Box, Text, mkUseStyles, useTheme, BaseOpacity } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
-import { InputEditIcon } from 'components/InputEditIcon'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { Analytics } from 'services/analytics'
+import { windowWidth } from 'utils/deviceSizes'
+import Animated from 'react-native-reanimated'
 
 type ControlledColorPickerProps = {
   control: Control<FieldValues>
@@ -31,15 +32,6 @@ export const ProfileColor = (p: ProfileColorProps) => {
     <UncontrolledProfileColor {...p} />
   )
 }
-const useStyles = mkUseStyles((theme: Theme) => ({
-  colorBtn: {
-    marginTop: theme.spacing.xm,
-    marginLeft: theme.spacing.m,
-    height: 44,
-    width: 44,
-    borderRadius: theme.borderRadii.full,
-  },
-}))
 
 type ProfileColorViewProps = {
   onChange: F1<string>
@@ -54,6 +46,9 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
   const navigation = useNavigation<UserProfileType<'COLOR_PICKER'>>()
   const { isLoading } = useTeamMocks()
   const isTouchDisabled = isLoading || !user
+
+  const DropArea = Animated.createAnimatedComponent(BaseOpacity)
+
   const onPress = () => {
     if (isTouchDisabled) return
     navigation.navigate('COLOR_PICKER', {
@@ -66,33 +61,28 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
   }
   return (
     <Box
+      height={103}
       pointerEvents={isTouchDisabled ? 'none' : undefined}
       opacity={isTouchDisabled ? 0.4 : 1}
       paddingLeft="xs"
       paddingRight="m"
       marginBottom="xxxl"
       marginTop="s">
-      <Text variant="sectionLabel" marginLeft="m" marginBottom="s">
+      <Text variant="sectionLabel" marginLeft="m" marginBottom="m">
         {t('userColor')}
       </Text>
-      <Text variant="textXS" color="darkGrey" marginLeft="m" lineHeight={18}>
-        {t('userColorDesc')}
-      </Text>
-      <BaseOpacity
+      <DropArea
         onPress={onPress}
         style={[
-          styles.colorBtn,
+          styles.componentArea,
           {
             backgroundColor: p.value || user?.userColor || theme.colors.primary,
           },
-        ]}
-      />
-      <InputEditIcon
-        bottom={theme.spacing['-xs']}
-        top={undefined}
-        right={theme.spacing.m}
-        onPress={onPress}
-      />
+        ]}>
+        <Text style={[styles.changeColor]} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
+          Change color
+        </Text>
+      </DropArea>
     </Box>
   )
 }
@@ -110,3 +100,16 @@ const UncontrolledProfileColor = (p: UncontrolledColorPickerProps) => {
     />
   )
 }
+
+const useStyles = mkUseStyles(() => ({
+  componentArea: {
+    width: windowWidth * 1.2,
+    left: -windowWidth * 0.1,
+    aspectRatio: 1,
+    borderRadius: 500,
+    alignItems: 'center',
+  },
+  changeColor: {
+    bottom: -70,
+  },
+}))
