@@ -2,6 +2,7 @@ import React, { ReactNode, useRef } from 'react'
 import { isIos } from 'react-native-calendars/src/expandableCalendar/commons'
 import { HandlerStateChangeEvent, PanGestureHandler } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
+import { Box } from './theme'
 
 type GestureRecognizerProps = {
   children?: ReactNode
@@ -11,6 +12,7 @@ type GestureRecognizerProps = {
   onSwipeDown?: F0
   onFailed?: F0
   onEnded?: boolean
+  androidOnly?: boolean
 }
 
 export const GestureRecognizer = ({
@@ -21,6 +23,7 @@ export const GestureRecognizer = ({
   onSwipeDown,
   onFailed,
   onEnded,
+  androidOnly,
 }: GestureRecognizerProps) => {
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
@@ -39,6 +42,10 @@ export const GestureRecognizer = ({
     if (onSwipeLeft && touchStartX.current - touchMoveX > minSwipeDistance) onSwipeLeft()
     if (onSwipeDown && touchMoveY - touchStartY.current > minSwipeDistance) onSwipeDown()
     if (onSwipeUp && touchStartY.current - touchMoveY > minSwipeDistance) onSwipeUp()
+  }
+
+  if (androidOnly && isIos) {
+    return <Box style={{ flex: 1 }}>{children}</Box>
   }
 
   return (

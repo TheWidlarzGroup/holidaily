@@ -30,7 +30,7 @@ export const PrivacyPolicy = () => {
         <Text variant="displayBoldSM">{t('privacyPolicy')}</Text>
         <Box paddingRight="xl" paddingVertical="lplus" />
       </ModalHeader>
-      <GestureRecognizer onSwipeRight={goBack} onEnded>
+      <GestureRecognizer onSwipeRight={goBack} onEnded androidOnly>
         <PrivacyPolicyContent />
       </GestureRecognizer>
     </SafeAreaView>
