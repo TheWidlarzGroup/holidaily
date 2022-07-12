@@ -1,10 +1,9 @@
 import React from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import IconClose from 'assets/icons/icon-close2.svg'
 import IconAbout from 'assets/icons/icon-info2.svg'
 import IconBack from 'assets/icons/icon-back2.svg'
-import { TouchableOpacity } from 'react-native'
 import { ModalHandleIndicator } from './ModalHandleIndicator'
 
 type SwipeableModalHeaderProps = {
@@ -49,11 +48,11 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   const aboutIcon = () => {
     if (props.aboutIcon)
       return (
-        <TouchableOpacity onPress={props.aboutAction} hitSlop={HIT_SLOP}>
+        <BaseOpacity onPress={props.aboutAction} hitSlop={HIT_SLOP}>
           <Box marginTop="-xs">
             <IconAbout height={ABOUT_SIZE} width={ABOUT_SIZE} color={styles.about.color} />
           </Box>
-        </TouchableOpacity>
+        </BaseOpacity>
       )
     return <Box paddingRight="l" />
   }
@@ -64,11 +63,11 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
       <Box
         justifyContent={iconPosition}
         flexDirection="row"
-        marginVertical="xsplus"
-        marginRight={iconMargin}>
-        <TouchableOpacity onPress={handleGoBack} hitSlop={HIT_SLOP}>
+        marginRight={iconMargin}
+        paddingTop="xsplus">
+        <BaseOpacity onPress={handleGoBack} hitSlop={HIT_SLOP}>
           {closeButton()}
-        </TouchableOpacity>
+        </BaseOpacity>
         {aboutIcon()}
       </Box>
       {props.title && (
