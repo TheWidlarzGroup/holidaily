@@ -11,10 +11,10 @@ import { parseISO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
-import { CategoriesSlider } from './components/CategoriesSlider'
-import { FormInput } from 'components/FormInput'
 import { t } from 'i18next'
 import { CustomInput } from 'components/CustomInput'
+import { formatWithMask } from 'react-native-mask-input'
+import { CategoriesSlider } from './components/CategoriesSlider'
 
 const daysInMonth = (year: number, month: number) => {
   const days = new Date(year, month, 0).getDate()
@@ -25,6 +25,7 @@ const daysInMonth = (year: number, month: number) => {
   return { firstDayNumber, secondDayNumber }
 }
 
+const mask = [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
   const {
@@ -36,6 +37,11 @@ const CalendarToWrap = () => {
   } = useCalendarData()
 
   const [selectedTo, setSelectedTo] = useState('')
+
+  const { masked } = formatWithMask({
+    text: selectedTo,
+    mask,
+  })
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
@@ -64,6 +70,7 @@ const CalendarToWrap = () => {
     const month = Number(e.slice(5, 7)) || 0
 
     const { firstDayNumber, secondDayNumber } = daysInMonth(year, month)
+
     switch (e.length) {
       case 1:
         if (Number(e) !== 2) {
@@ -80,25 +87,24 @@ const CalendarToWrap = () => {
         }
         break
       case 5:
-        if (Number(e.slice(4)) <= 1) {
-          setSelectedTo(`${e.slice(0, 4)}-${e.slice(4)}`)
+        if (Number(e.slice(4)) > 1) {
+          setSelectedTo(`${e.slice(0, 4)}1`)
         } else {
-          setSelectedTo(`${e.slice(0, 4)}-1`)
+          setSelectedTo(e)
         }
         break
 
       case 7:
-        console.log('here')
         if (Number(e.slice(6)) > 2) {
-          setSelectedTo(`${e.slice(0, 6)}2-`)
+          setSelectedTo(`${e.slice(0, 6)}2`)
         } else {
-          setSelectedTo(`${e.slice(0, 7)}-`)
+          setSelectedTo(e)
         }
         break
-      case 9:
-        if (Number(e.slice(8)) > firstDayNumber) {
-          console.log('here')
-          setSelectedTo(`${e.slice(0, 8)}${firstDayNumber}`)
+
+      case 8:
+        if (Number(e.slice(7)) > firstDayNumber) {
+          setSelectedTo(`${e.slice(0, 7)}${firstDayNumber}`)
         } else {
           setSelectedTo(e)
         }
@@ -111,14 +117,11 @@ const CalendarToWrap = () => {
           setSelectedTo(e)
         }
         break
+
       default:
         setSelectedTo(e)
     }
   }
-
-  // const convertDate = () => {
-  //   return selectedTo.length > 1 ? selectedTo.slice(0, 2) + '-' : selectedTo
-  // }
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
@@ -130,7 +133,7 @@ const CalendarToWrap = () => {
         <CustomInput
           variant="medium"
           maxLength={10}
-          value={selectedTo}
+          value={masked}
           onChangeText={handleOnChange}
           // control={control}
           // isError={!!errors.firstName}
@@ -144,7 +147,7 @@ const CalendarToWrap = () => {
           keyboardType="number-pad"
           isError={false}
         />
-        <CustomInput
+        {/* <CustomInput
           variant="medium"
           maxLength={20}
           isError={false}
@@ -159,7 +162,7 @@ const CalendarToWrap = () => {
           blurOnSubmit
           placeholder="dd-mm-yyyy"
           keyboardType="number-pad"
-        />
+        /> */}
       </Box>
       <Box
         borderRadius="lmin"
