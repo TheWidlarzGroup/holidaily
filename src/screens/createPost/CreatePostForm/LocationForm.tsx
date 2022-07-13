@@ -12,6 +12,7 @@ import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsConte
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { SearchBar } from './SearchBar'
 import { ModalLocationList } from './ModalLocationList'
 
@@ -19,7 +20,7 @@ const ICON_SIZE = 16
 
 export const LocationForm = () => {
   const { t } = useTranslation('feed')
-  const navigation = useNavigation()
+  const { goBack } = useNavigation()
   const { userSettings } = useUserSettingsContext()
   const { requestLocation, requestAddresses } = useLocation()
   const { updatePostData } = useCreatePostContext()
@@ -39,68 +40,75 @@ export const LocationForm = () => {
     if (!location?.position) return
     Analytics().track('FEED_LOCATION_ADDED', { location })
     updatePostData({ location: location.addresses[0] })
-    navigation.goBack()
+    goBack()
   }
   const theme = useTheme()
 
   return (
     <SafeAreaWrapper>
-      <Box padding="l" paddingTop="s" paddingBottom="none" alignItems="center" flexDirection="row">
-        <Box flexGrow={1}>
-          <Text variant="displayBoldSM">{t('locations')}</Text>
-        </Box>
-        <BaseOpacity padding="l" top={-12} position="absolute" onPress={() => navigation.goBack()}>
-          <IconArrowLeft color={theme.colors.black} width={ICON_SIZE} height={ICON_SIZE} />
-        </BaseOpacity>
-      </Box>
-      <Box paddingHorizontal="l" paddingTop="m">
-        <SearchBar query={query} onQueryChange={setQuery} onClear={clearSearch} />
-        <ModalLocationList
-          location={location}
-          onLocationPress={(location) => {
-            updatePostData({ location })
-            navigation.goBack()
-          }}
-          query={query}
-        />
-      </Box>
-      {query.length === 0 && (
+      <GestureRecognizer onSwipeRight={goBack} androidOnly>
         <Box
-          marginTop="l"
-          padding="m"
-          paddingHorizontal="xxm"
-          marginHorizontal="m"
+          padding="l"
+          paddingTop="s"
+          paddingBottom="none"
           alignItems="center"
-          borderRadius="l1min"
-          backgroundColor="secondaryOpaque">
-          <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-            <Box
-              height={36}
-              width={36}
-              marginRight="m"
-              backgroundColor="tertiaryOpaque"
-              justifyContent="center"
-              alignItems="center"
-              borderRadius="full">
-              <IconGeolocation color={theme.colors.tertiary} />
-            </Box>
-            <Box width="80%">
-              <Text variant="textBoldSM" lineHeight={21}>
-                {t('locationsAccessText')}
-              </Text>
-            </Box>
+          flexDirection="row">
+          <Box flexGrow={1}>
+            <Text variant="displayBoldSM">{t('locations')}</Text>
           </Box>
-          <Box marginTop="m" alignSelf="flex-end" marginRight="-xm">
-            <CustomButton
-              label={t('locationsAccessPromptText')}
-              variant="tertiary"
-              width={160}
-              customStyle={{ backgroundColor: theme.colors.tertiary }}
-              onPress={handleLocationAccess}
-            />
-          </Box>
+          <BaseOpacity padding="l" top={-12} position="absolute" onPress={goBack}>
+            <IconArrowLeft color={theme.colors.black} width={ICON_SIZE} height={ICON_SIZE} />
+          </BaseOpacity>
         </Box>
-      )}
+        <Box paddingHorizontal="l" paddingTop="m">
+          <SearchBar query={query} onQueryChange={setQuery} onClear={clearSearch} />
+          <ModalLocationList
+            location={location}
+            onLocationPress={(location) => {
+              updatePostData({ location })
+              goBack()
+            }}
+            query={query}
+          />
+        </Box>
+        {query.length === 0 && (
+          <Box
+            marginTop="l"
+            padding="m"
+            paddingHorizontal="xxm"
+            marginHorizontal="m"
+            alignItems="center"
+            borderRadius="l1min"
+            backgroundColor="secondaryOpaque">
+            <Box flexDirection="row" justifyContent="space-between" alignItems="center">
+              <Box
+                height={36}
+                width={36}
+                marginRight="m"
+                backgroundColor="tertiaryOpaque"
+                justifyContent="center"
+                alignItems="center"
+                borderRadius="full">
+                <IconGeolocation color={theme.colors.tertiary} />
+              </Box>
+              <Box width="80%">
+                <Text variant="textBoldSM" lineHeight={21}>
+                  {t('locationsAccessText')}
+                </Text>
+              </Box>
+            </Box>
+            <Box marginTop="m" alignSelf="flex-end" marginRight="-xm">
+              <CustomButton
+                label={t('locationsAccessPromptText')}
+                variant="tertiary"
+                width={160}
+                customStyle={{ backgroundColor: theme.colors.tertiary }}
+                onPress={handleLocationAccess}
+              />
+            </Box>
+          </Box>
+        )}
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }
