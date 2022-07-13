@@ -12,6 +12,8 @@ import { User } from 'mockApi/models'
 import { SwipeableModalRegular, SwipeableModalRegularProps } from 'components/SwipeableModalRegular'
 import { Analytics } from 'services/analytics'
 import { SWIPEABLE_MODAL_HEIGHT } from 'components/SwipeableModal'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { useNavigation } from '@react-navigation/native'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
@@ -19,6 +21,7 @@ type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
 export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
+  const { goBack } = useNavigation()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalUser, setModalUser] = useState<User>()
   const openModal = (user: User) => {
@@ -51,29 +54,31 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
     <>
       <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
         <TeamHeader title={params.name} />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Box paddingHorizontal="m" paddingBottom="xxxl">
-            {matesOnHoliday.length > 0 && (
-              <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
-            )}
-            {matesWithPlannedHolidays.length > 0 && (
-              <TeamSection
-                openUserModal={openModal}
-                matesArray={matesWithPlannedHolidays}
-                isOutOfOffice={false}
-              />
-            )}
+        <GestureRecognizer onSwipeRight={goBack} onEnded androidOnly>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Box paddingHorizontal="m" paddingBottom="xxxl">
+              {matesOnHoliday.length > 0 && (
+                <TeamSection openUserModal={openModal} matesArray={matesOnHoliday} isOutOfOffice />
+              )}
+              {matesWithPlannedHolidays.length > 0 && (
+                <TeamSection
+                  openUserModal={openModal}
+                  matesArray={matesWithPlannedHolidays}
+                  isOutOfOffice={false}
+                />
+              )}
 
-            <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
-              {t('allTeamMembers').toUpperCase()} ({mates.length})
-            </Text>
-            <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
-              {mates.map((mate) => (
-                <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
-              ))}
+              <Text variant="lightGreyRegular" color="headerGrey" marginTop="l">
+                {t('allTeamMembers').toUpperCase()} ({mates.length})
+              </Text>
+              <Box flexDirection="row" flexWrap="wrap" justifyContent="flex-start">
+                {mates.map((mate) => (
+                  <OtherMateElement key={mate.id} mate={mate} openUserModal={openModal} />
+                ))}
+              </Box>
             </Box>
-          </Box>
-        </ScrollView>
+          </ScrollView>
+        </GestureRecognizer>
       </SafeAreaWrapper>
       {modalUser && (
         <TeamMemberModal
