@@ -31,6 +31,11 @@ export const DrawerNavigator = () => {
 
   useSiriListeners<'Home'>()
 
+  const isSwipeEnabled = !(
+    (isIos && activeRouteName === 'DASHBOARD_TEAM') ||
+    (isIos && activeRouteName === 'SEE_REQUEST')
+  )
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
@@ -41,8 +46,9 @@ export const DrawerNavigator = () => {
         options={{
           title: t('home'),
           ...defaultScreenOptions,
+          swipeEnabled: isSwipeEnabled,
         }}>
-        {() => <Home gestureEnabled={!(isIos && activeRouteName === 'DASHBOARD_TEAM')} />}
+        {() => <Home />}
       </Drawer.Screen>
       <Drawer.Screen
         name="ProfileNavigation"

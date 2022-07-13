@@ -1,6 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Animated, { SharedValue, useAnimatedStyle, interpolate } from 'react-native-reanimated'
+import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { mkUseStyles, theme, Theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
@@ -35,11 +35,7 @@ const screenStyles = {
   flex: 1,
 }
 
-type Props = {
-  gestureEnabled: boolean
-}
-
-export const BottomTabNavigator = (props: Props) => {
+export const BottomTabNavigator = () => {
   const styles = useStyles()
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
@@ -59,7 +55,6 @@ export const BottomTabNavigator = (props: Props) => {
 
   const screenOptions = {
     headerShown: false,
-    gestureEnabled: props.gestureEnabled,
   }
 
   return (
