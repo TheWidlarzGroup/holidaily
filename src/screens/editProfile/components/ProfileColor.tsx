@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, mkUseStyles, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
@@ -12,12 +12,15 @@ import SwipeUpIcon from 'assets/icons/icon-swipe-up.svg'
 
 import { windowHeight, windowWidth } from 'utils/deviceSizes'
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
+  useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
+import { sleep } from 'utils/sleep'
 
 type ControlledColorPickerProps = {
   control: Control<FieldValues>
@@ -65,12 +68,7 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
     []
   )
 
-  useLayoutEffect(() => {
-    if (translateY.value !== startingPosition) translateY.value = startingPosition
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const onPress = () => {
+  const triggerAction = async () => {
     if (isTouchDisabled) return
     navigation.navigate('COLOR_PICKER', {
       onChange: (value) => {
@@ -79,8 +77,19 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
       },
       value: p.value,
     })
+    await sleep(500)
+    translateY.value = startingPosition
   }
-  console.log(onPress) // to delete - development purpose
+
+  useAnimatedReaction(
+    () => translateY.value,
+    (data) => {
+      const maxHeight = -windowHeight * 1.2
+      if (data === maxHeight) {
+        runOnJS(triggerAction)()
+      }
+    }
+  )
 
   const eventHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
