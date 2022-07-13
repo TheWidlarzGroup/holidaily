@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, mkUseStyles, useTheme, BaseOpacity } from 'utils/theme'
+import { Box, Text, mkUseStyles, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
@@ -10,8 +10,14 @@ import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { Analytics } from 'services/analytics'
 import SwipeUpIcon from 'assets/icons/icon-swipe-up.svg'
 
-import { windowWidth } from 'utils/deviceSizes'
-import Animated from 'react-native-reanimated'
+import { windowHeight, windowWidth } from 'utils/deviceSizes'
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated'
+import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 
 type ControlledColorPickerProps = {
   control: Control<FieldValues>
@@ -49,7 +55,20 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
   const { isLoading } = useTeamMocks()
   const isTouchDisabled = isLoading || !user
 
-  const DropArea = Animated.createAnimatedComponent(BaseOpacity)
+  const startingPosition = 0
+  const translateY = useSharedValue(startingPosition)
+  const ExpandableArea = Animated.createAnimatedComponent(Box)
+  const expandableAreaStyle = useAnimatedStyle(
+    () => ({
+      transform: [{ translateY: translateY.value }],
+    }),
+    []
+  )
+
+  useLayoutEffect(() => {
+    if (translateY.value !== startingPosition) translateY.value = startingPosition
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onPress = () => {
     if (isTouchDisabled) return
@@ -61,6 +80,29 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
       value: p.value,
     })
   }
+  console.log(onPress) // to delete - development purpose
+
+  const eventHandler = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    {
+      startY: number
+    }
+  >({
+    onStart: (_, ctx) => {
+      ctx.startY = startingPosition
+    },
+    onActive: (event, ctx) => {
+      translateY.value = ctx.startY + event.translationY
+    },
+    onEnd: (event) => {
+      if (event.translationY < -200) {
+        translateY.value = withSpring(-windowHeight * 1.2)
+      } else {
+        translateY.value = withSpring(startingPosition)
+      }
+    },
+  })
+
   return (
     <Box
       height={103}
@@ -73,24 +115,26 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
       <Text variant="sectionLabel" marginLeft="m" marginBottom="m">
         {t('userColor')}
       </Text>
-      <DropArea
-        onPress={onPress}
-        style={[
-          styles.componentArea,
-          {
-            backgroundColor: p.value || user?.userColor || theme.colors.primary,
-          },
-        ]}>
-        <SwipeUpIcon
-          width={12}
-          height={12}
-          style={styles.swipeUpIcon}
-          color={theme.colors.alwaysWhite}
-        />
-        <Text style={styles.changeColor} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
-          Change color
-        </Text>
-      </DropArea>
+      <PanGestureHandler onGestureEvent={eventHandler}>
+        <ExpandableArea
+          style={[
+            styles.componentArea,
+            expandableAreaStyle,
+            {
+              backgroundColor: p.value || user?.userColor || theme.colors.primary,
+            },
+          ]}>
+          <SwipeUpIcon
+            width={12}
+            height={12}
+            style={styles.swipeUpIcon}
+            color={theme.colors.alwaysWhite}
+          />
+          <Text style={styles.changeColor} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
+            Change color
+          </Text>
+        </ExpandableArea>
+      </PanGestureHandler>
     </Box>
   )
 }
@@ -111,10 +155,11 @@ const UncontrolledProfileColor = (p: UncontrolledColorPickerProps) => {
 
 const useStyles = mkUseStyles(() => ({
   componentArea: {
+    height: windowHeight * 2,
     width: windowWidth * 1.2,
     left: -windowWidth * 0.1,
-    aspectRatio: 1,
-    borderRadius: 500,
+    borderTopLeftRadius: 500,
+    borderTopRightRadius: 500,
     alignItems: 'center',
   },
   swipeUpIcon: {
