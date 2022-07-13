@@ -422,6 +422,10 @@
   "calendar": {
     "cantDeselect": "You can’t deselect all your Teams :(",
     "calendarPurpose": "The purpose of this Calendar is to find out about your Team members time off.",
-    "gotIt": "Got it!"
+    "gotIt": "Got it!",
+    "select": "Select",
+    "actionModalDefault": "Select a day or range of days",
+    "outOfOfficeSingular": "out of office",
+    "outOfOffice": "out of office"
   }
 }

@@ -98,12 +98,16 @@ export const useCalendarData = () => {
     } else setCurrentMonthDays([])
   }, [filterCategories, requests, selectedDate])
 
+  // TODO: Check if memo can improve performance
+  const requestsDays = requests.flatMap((a) => a.days.map((b) => b))
+
   return {
     filterCategories,
     toggleFilterItemSelection,
     selectedDate,
     setSelectedDate,
     currentMonthDays,
+    requestsDays,
   }
 }
 

@@ -1,31 +1,38 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { Box } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
-import { ExpandableCalendar } from 'components/ExpandableCalendar'
-import { parseISO } from 'utils/dates'
+import { getFormattedPeriod, parseISO, getDurationInDays, calculatePTO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
-import { t } from 'i18next'
-import { CustomInput } from 'components/CustomInput'
-import { formatWithMask } from 'react-native-mask-input'
+import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
+import { CalendarList } from 'components/CalendarList'
+import { CustomButton } from 'components/CustomButton'
+import { useTranslation } from 'react-i18next'
+import { DateInputs } from './components/DateInputs'
 import { CategoriesSlider } from './components/CategoriesSlider'
 
-const daysInMonth = (year: number, month: number) => {
-  const days = new Date(year, month, 0).getDate()
+const getActionModalHeaderText = (
+  periodStart: string,
+  periodEnd: string,
+  t: any,
+  language: string
+) => {
+  if (!periodStart && !periodEnd) return ''
 
-  const firstDayNumber = Number(String(days)[0])
-  const secondDayNumber = Number(String(days)[1])
+  const withOneBeforeText = language === 'en' ? '' : 1
 
-  return { firstDayNumber, secondDayNumber }
+  if (periodStart === periodEnd)
+    return `${withOneBeforeText} ${getDurationInDays(1)} ${t('outOfOfficeSingular')}`
+
+  return `${getDurationInDays(calculatePTO(periodStart, periodEnd))} ${t('outOfOffice')}`
 }
 
-const mask = [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
   const {
@@ -34,14 +41,18 @@ const CalendarToWrap = () => {
     selectedDate,
     setSelectedDate,
     currentMonthDays,
+    requestsDays,
   } = useCalendarData()
 
-  const [selectedTo, setSelectedTo] = useState('')
+  const styles = useStyles()
 
-  const { masked } = formatWithMask({
-    text: selectedTo,
-    mask,
-  })
+  const { i18n, t } = useTranslation('calendar')
+
+  const [periodStart, setPeriodStart] = useState('')
+  const [periodEnd, setPeriodEnd] = useState('')
+
+  const [isCalendarOpened, { setFalse: hideCalendar, setTrue: openCalendar }] =
+    useBooleanState(false)
 
   const handleDayPress = useCallback(
     ({ dateString }: { dateString: string }) => {
@@ -61,67 +72,17 @@ const CalendarToWrap = () => {
     hideLoader()
   }, [hideLoader])
 
-  const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
+  const markedDates = useMemo(() => getMarkedDates(requestsDays), [requestsDays])
+
+  // const handleOpenCalendar = () => {
+  //    setCalendarOpened
+  // }
+
+  const onModalBtnPress = () => {
+    hideCalendar()
+  }
 
   if (isLoading) return <LoadingModal show />
-
-  const handleOnChange = (e: string) => {
-    const year = Number(e.slice(0, 4)) || 0
-    const month = Number(e.slice(5, 7)) || 0
-
-    const { firstDayNumber, secondDayNumber } = daysInMonth(year, month)
-
-    switch (e.length) {
-      case 1:
-        if (Number(e) !== 2) {
-          setSelectedTo('2')
-        } else {
-          setSelectedTo(e)
-        }
-        break
-      case 2:
-        if (Number(e) !== 0) {
-          setSelectedTo(`${e.slice(0, 1)}0`)
-        } else {
-          setSelectedTo(e)
-        }
-        break
-      case 5:
-        if (Number(e.slice(4)) > 1) {
-          setSelectedTo(`${e.slice(0, 4)}1`)
-        } else {
-          setSelectedTo(e)
-        }
-        break
-
-      case 7:
-        if (Number(e.slice(6)) > 2) {
-          setSelectedTo(`${e.slice(0, 6)}2`)
-        } else {
-          setSelectedTo(e)
-        }
-        break
-
-      case 8:
-        if (Number(e.slice(7)) > firstDayNumber) {
-          setSelectedTo(`${e.slice(0, 7)}${firstDayNumber}`)
-        } else {
-          setSelectedTo(e)
-        }
-        break
-
-      case 10:
-        if (Number(e.slice(9)) > secondDayNumber) {
-          setSelectedTo(`${e.slice(0, 9)}${secondDayNumber}`)
-        } else {
-          setSelectedTo(e)
-        }
-        break
-
-      default:
-        setSelectedTo(e)
-    }
-  }
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
@@ -129,61 +90,72 @@ const CalendarToWrap = () => {
         filterCategories={filterCategories || []}
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
-      <Box>
-        <CustomInput
-          variant="medium"
-          maxLength={10}
-          value={masked}
-          onChangeText={handleOnChange}
-          // control={control}
-          // isError={!!errors.firstName}
-          // errors={errors}
-          // name="firstName"
-          inputLabel={t('yourName')}
-          // validationPattern={onlyLettersRegex}
-          // errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
-          blurOnSubmit
-          placeholder="dd-mm-yyyy"
-          keyboardType="number-pad"
-          isError={false}
-        />
-        {/* <CustomInput
-          variant="medium"
-          maxLength={20}
-          isError={false}
-          onChangeText={(e) => console.log('e', e)}
-          // control={control}
-          // isError={!!errors.firstName}
-          // errors={errors}
-          // name="firstName"
-          inputLabel={t('yourName')}
-          // validationPattern={onlyLettersRegex}
-          // errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
-          blurOnSubmit
-          placeholder="dd-mm-yyyy"
-          keyboardType="number-pad"
-        /> */}
-      </Box>
-      <Box
-        borderRadius="lmin"
-        backgroundColor="white"
-        marginTop="m"
-        marginHorizontal="xm"
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowColor="black"
-        shadowOpacity={0.15}
-        shadowRadius={6}
-        elevation={4}>
-        {false && (
-          <ExpandableCalendar
+
+      <DateInputs
+        onIconPress={openCalendar}
+        periodStart={periodStart}
+        periodEnd={periodEnd}
+        setPeriodStart={setPeriodStart}
+        setPeriodEnd={setPeriodEnd}
+      />
+
+      <SwipeableModalRegular
+        isOpen={isCalendarOpened}
+        onHide={hideCalendar}
+        hasIndicator
+        closeIcon="back">
+        <Box position="relative">
+          <CalendarList
+            periodStart={periodStart}
+            periodEnd={periodEnd}
+            selectPeriodStart={setPeriodStart}
+            selectPeriodEnd={setPeriodEnd}
+            selectable
+            disablePastDates
+            style={styles.calendar}
             markedDates={markedDates}
             markingType="multi-dot"
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            onDayPress={handleDayPress}
+            // isInvalid={isInvalid}
           />
-        )}
-      </Box>
+          <Box
+            shadowOffset={{ width: -2, height: 0 }}
+            shadowColor="black"
+            shadowOpacity={0.04}
+            shadowRadius={2}
+            elevation={20}
+            alignItems="center"
+            paddingVertical="l"
+            backgroundColor="alwaysWhite"
+            zIndex="2"
+            // height={200}
+            position="absolute"
+            bottom={100}
+            width="100%">
+            <Text variant="displayBoldSM">{getFormattedPeriod(periodStart, periodEnd)}</Text>
+            <Text variant="textSM">
+              {getActionModalHeaderText(periodStart, periodEnd, t, i18n.language)}
+            </Text>
+            <Box marginTop="m">
+              <CustomButton
+                label={t('select')}
+                variant="primary"
+                onPress={onModalBtnPress}
+                disabled={!periodStart}
+              />
+            </Box>
+          </Box>
+          {/* <ActionModal
+            isVisible
+            onUserAction={onModalBtnPress}
+            label={t('select')}
+            variant="regular"
+            isButtonDisabled={!periodStart}
+            header="random Text"
+            content="random content"
+            // content={actionModalTexts.content}
+          /> */}
+        </Box>
+      </SwipeableModalRegular>
       <EventsList days={currentMonthDays} ref={flatListRef} />
     </SafeAreaWrapper>
   )
@@ -194,3 +166,10 @@ export const Calendar = () => (
     <CalendarToWrap />
   </RequestsContextProvider>
 )
+
+const useStyles = mkUseStyles((theme) => ({
+  calendar: {
+    width: 400,
+    marginTop: theme.spacing.s,
+  },
+}))

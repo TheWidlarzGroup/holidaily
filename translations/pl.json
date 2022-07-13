@@ -390,6 +390,10 @@
   "calendar": {
     "cantDeselect": "Nie możesz odznaczyć wszystkich zespołów :(",
     "calendarPurpose": "Celem tego kalendarza jest możliwość sprawdzenia terminów urlopów Twoich wspólpracowników.",
-    "gotIt": "Rozumiem"
+    "gotIt": "Rozumiem",
+    "select": "Wybierz",
+    "actionModalDefault": "Wybierz dzień lub okres",
+    "outOfOfficeSingular": "wolny od pracy",
+    "outOfOffice": "wolnych od pracy"
   }
 }
