@@ -19,6 +19,7 @@ export const ValidationModal = () => {
       variant="error"
       header={t('addRequestValidation')}
       onBackdropPress={() => setIsFormEmpty(false)}
+      // extraStyle={}
     />
   )
 }

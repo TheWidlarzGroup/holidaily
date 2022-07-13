@@ -13,6 +13,7 @@ import { CreatePostNavigationType } from 'navigation/types'
 import { Asset } from 'react-native-image-picker'
 import { generateUUID } from 'utils/generateUUID'
 import { FeedPost, FeedPostData } from 'mockApi/models/miragePostTypes'
+import { isIos } from 'utils/layout'
 import { PostHeader } from './PostFormHeader'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
 import { PostFormBody } from './PostFormBody'
@@ -62,7 +63,7 @@ export const CreatePostForm = ({
           imagesCount={postData?.data.length || 0}
         />
       </KeyboardAvoidingView>
-      <Box bg="white" paddingBottom="s">
+      <Box bg="white" paddingBottom={isIos ? 'none' : 'xm'}>
         <Submit disabledCTA={sendDisabled} noBg onCTAPress={submitForm} />
       </Box>
       <ConfirmationModal

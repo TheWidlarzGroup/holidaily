@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { CustomButton } from 'components/CustomButton'
-import { Box, useTheme, BaseOpacity } from 'utils/theme'
+import { BaseOpacity, Box, useTheme } from 'utils/theme'
+import { isIos } from 'utils/layout'
 
 type SaveChangesButtonProps = {
   onPress: F0
@@ -30,7 +31,7 @@ export const SubmitButton = ({
       backgroundColor="dashboardBackground"
       alignItems="center"
       justifyContent="center"
-      paddingBottom="xl">
+      paddingBottom={isIos ? 'xl' : 'm'}>
       <BaseOpacity onPress={handleValidation} backgroundColor="dashboardBackground">
         <CustomButton
           loading={isLoading}
