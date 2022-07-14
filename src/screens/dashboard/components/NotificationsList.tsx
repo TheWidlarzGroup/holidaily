@@ -17,12 +17,8 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
     [data]
   )
 
-  const seenNotificationsList: NotificationModel[] = data.filter(
-    (notification) => notification.wasSeenByHolder === false
-  )
-  const unseenNotificationsList: NotificationModel[] = data.filter(
-    (notification) => notification.wasSeenByHolder === true
-  )
+  const seenNotificationsList: NotificationModel[] = processNotifications(data, 'unseen')
+  const unseenNotificationsList: NotificationModel[] = processNotifications(data, 'seen')
 
   const isSeenNotificationsList = seenNotificationsList.length > 0
   const isUnseenNotificationsList = unseenNotificationsList.length > 0
