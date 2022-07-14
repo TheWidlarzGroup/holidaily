@@ -10,7 +10,7 @@ import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
 const CreatePostStack = createStackNavigator<CreatePostRoutes>()
 
 export const CreatePostNavigation = () => {
-  // Nested navigators transparentModal are bugged in navigation V6,
+  // Nested navigators transparentModal is bugged in navigation V6,
   // that's why we need to hard code background color
 
   const { colors } = useTheme()
