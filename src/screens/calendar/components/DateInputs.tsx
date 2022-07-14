@@ -102,7 +102,7 @@ export const DateInputs = (p: Props) => {
   }
 
   return (
-    <Box flexDirection="row" paddingHorizontal="m" marginTop="xmm">
+    <Box flexDirection="row" marginTop="xmm">
       <Box flex={1}>
         <CustomInput
           variant="medium"

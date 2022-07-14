@@ -16,10 +16,12 @@ import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import AcceptIcon from 'assets/icons/icon-accept.svg'
+import GestureRecognizer from 'react-native-swipe-gestures'
 import { DayInfoProps } from 'types/DayInfoProps'
 import { DateInputs } from './components/DateInputs'
 import { CategoriesSlider } from './components/CategoriesSlider'
 import { CalendarButton } from './components/CalendarButton'
+import { DayEvent, DayOffEvent } from './components/DayEvent'
 
 const getActionModalHeaderText = (
   periodStart: string,
@@ -43,6 +45,9 @@ const getActionModalTitle = (periodStart: string, periodEnd: string) => {
   return getFormattedPeriod(periodStart, periodEnd)
 }
 
+const date = new Date()
+const today = date.toISOString().split('T')[0]
+
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
   const { filterCategories, toggleFilterItemSelection, currentMonthDays, requestsDays } =
@@ -57,13 +62,27 @@ const CalendarToWrap = () => {
 
   const [slicedRequests, setSlicedRequest] = useState<DayInfoProps[]>([])
 
+  const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
+
+  useEffect(() => {
+    const getPreviousEvent = () => {
+      const todayIndex = requestsDays.findIndex((a) => a.date === today)
+
+      const reversedRequests = requestsDays.slice(0, todayIndex).reverse()
+      const reversedRequestsWithEvents = reversedRequests.filter((a) => !!a?.events?.length)
+
+      const event = reversedRequestsWithEvents[0]?.events?.[0]
+
+      return event || null
+    }
+
+    setSinglePreviousEvent(getPreviousEvent)
+  }, [requestsDays])
+
   const [isCalendarOpened, { setFalse: hideCalendar, setTrue: openCalendar }] =
     useBooleanState(false)
 
   const handleSetEventsInPeriod = () => {
-    const date = new Date()
-    const today = date.toISOString().split('T')[0]
-
     const startDateItemIndex = requestsDays.findIndex(
       (a) => a.date === periodStart || a.date === today
     )
@@ -98,33 +117,79 @@ const CalendarToWrap = () => {
     setSlicedRequest([])
   }
 
+  const shouldShowCalendarButtons =
+    periodStart?.length === 10 || periodEnd?.length === 10 || slicedRequests?.length > 0
+
   if (isLoading) return <LoadingModal show />
 
   return (
-    <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <CategoriesSlider
-        filterCategories={filterCategories || []}
-        toggleFilterItemSelection={toggleFilterItemSelection}
-      />
+    <SafeAreaWrapper
+      edges={['left', 'right', 'bottom']}
+      isDefaultBgColor
+      // style={{ backgroundColor: theme.colors.lightGrey }}
+    >
+      <Box>
+        <CategoriesSlider
+          filterCategories={filterCategories || []}
+          toggleFilterItemSelection={toggleFilterItemSelection}
+        />
 
-      <DateInputs
-        onIconPress={openCalendar}
-        periodStart={periodStart}
-        periodEnd={periodEnd}
-        setPeriodStart={setPeriodStart}
-        setPeriodEnd={setPeriodEnd}
-      />
-      {periodStart?.length === 10 || periodEnd?.length === 10 || slicedRequests?.length > 0 ? (
-        <Box flexDirection="row" justifyContent="flex-end" marginHorizontal="m">
-          <CalendarButton onIconPress={clearDatesInputs}>
-            <CloseIcon color={theme.colors.headerGrey} />
-          </CalendarButton>
-          <CalendarButton onIconPress={handleSetEventsInPeriod} type="blue">
-            <AcceptIcon color={theme.colors.white} />
-          </CalendarButton>
+        <Box position="relative" paddingHorizontal="m">
+          <DateInputs
+            onIconPress={openCalendar}
+            periodStart={periodStart}
+            periodEnd={periodEnd}
+            setPeriodStart={setPeriodStart}
+            setPeriodEnd={setPeriodEnd}
+          />
+          {true ? (
+            <Box
+              flexDirection="row"
+              marginHorizontal="m"
+              position="absolute"
+              right={0}
+              top={70}
+              zIndex="2">
+              <CalendarButton onIconPress={clearDatesInputs}>
+                <CloseIcon color={theme.colors.headerGrey} />
+              </CalendarButton>
+              <CalendarButton onIconPress={handleSetEventsInPeriod} type="blue">
+                <AcceptIcon color={theme.colors.white} />
+              </CalendarButton>
+            </Box>
+          ) : null}
+          <Box marginTop="l1plus">
+            <Text
+              color="darkGrey"
+              marginBottom="m"
+              textTransform="uppercase"
+              fontSize={12}
+              fontWeight="600"
+              letterSpacing={1.08}
+              fontFamily="nunito">
+              Kalendarz Urlopów
+            </Text>
+          </Box>
         </Box>
-      ) : null}
-
+        <Box paddingHorizontal="xm" position="absolute" zIndex="50" top={200}>
+          <Box
+            opacity={0.5}
+            borderRadius="lmin"
+            backgroundColor="errorRed"
+            paddingVertical="m"
+            paddingHorizontal="lplus"
+            position="absolute"
+            style={{ zIndex: 9999 }}
+            top={0}>
+            {singlePreviousEvent ? <DayEvent event={singlePreviousEvent} /> : null}
+          </Box>
+        </Box>
+        {/* <Box backgroundColor="errorRed">
+          <GestureRecognizer>
+            <Text>Przesun palcem w dol aby zobaczyc poprzednie </Text>
+          </GestureRecognizer>
+        </Box> */}
+      </Box>
       <SwipeableModalRegular
         isOpen={isCalendarOpened}
         onHide={hideCalendar}
@@ -170,22 +235,17 @@ const CalendarToWrap = () => {
               />
             </Box>
           </Box>
-          {/* <ActionModal
-            isVisible
-            onUserAction={onModalBtnPress}
-            label={t('select')}
-            variant="regular"
-            isButtonDisabled={!periodStart}
-            header="random Text"
-            content="random content"
-            // content={actionModalTexts.content}
-          /> */}
         </Box>
       </SwipeableModalRegular>
-      <EventsList
-        days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
-        ref={flatListRef}
-      />
+      <Box backgroundColor="lightGrey" flex={1} paddingTop="xl" borderRadius="l">
+        <GestureRecognizer>
+          <Text>Przesun palcem w dol aby zobaczyc poprzednie </Text>
+        </GestureRecognizer>
+        <EventsList
+          days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
+          ref={flatListRef}
+        />
+      </Box>
     </SafeAreaWrapper>
   )
 }

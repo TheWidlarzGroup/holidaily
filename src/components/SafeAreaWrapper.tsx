@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { ViewStyle } from 'react-native'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { mkUseStyles, Theme, theme } from 'utils/theme'
@@ -10,6 +11,7 @@ type WrapperProps = {
   isDarkBgColor?: boolean
   isTabNavigation?: boolean
   edges?: EdgesTypes[]
+  style?: ViewStyle
 }
 export const SafeAreaWrapper: FC<WrapperProps> = ({
   isDefaultBgColor,
@@ -17,6 +19,7 @@ export const SafeAreaWrapper: FC<WrapperProps> = ({
   edges,
   children,
   isDarkBgColor,
+  style,
 }) => {
   const styles = useStyles()
   return (
@@ -27,6 +30,7 @@ export const SafeAreaWrapper: FC<WrapperProps> = ({
         !isDefaultBgColor && styles.containerBackground,
         isDarkBgColor && styles.darkContainerBackground,
         isTabNavigation && { paddingBottom: theme.spacing.xxxl },
+        style && style,
       ]}>
       {children}
     </SafeAreaView>
