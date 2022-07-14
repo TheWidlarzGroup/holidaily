@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
-import { Box, mkUseStyles, Text } from 'utils/theme'
+import { Box, mkUseStyles, Text, theme } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
-import { getFormattedPeriod, parseISO, getDurationInDays, calculatePTO } from 'utils/dates'
+import { getFormattedPeriod, getDurationInDays, calculatePTO } from 'utils/dates'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { LoadingModal } from 'components/LoadingModal'
@@ -14,8 +14,12 @@ import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { CalendarList } from 'components/CalendarList'
 import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
+import CloseIcon from 'assets/icons/icon-close.svg'
+import AcceptIcon from 'assets/icons/icon-accept.svg'
+import { DayInfoProps } from 'types/DayInfoProps'
 import { DateInputs } from './components/DateInputs'
 import { CategoriesSlider } from './components/CategoriesSlider'
+import { CalendarButton } from './components/CalendarButton'
 
 const getActionModalHeaderText = (
   periodStart: string,
@@ -23,7 +27,7 @@ const getActionModalHeaderText = (
   t: any,
   language: string
 ) => {
-  if (!periodStart && !periodEnd) return ''
+  if (periodStart?.length < 10 && periodEnd?.length < 10) return ''
 
   const withOneBeforeText = language === 'en' ? '' : 1
 
@@ -33,16 +37,16 @@ const getActionModalHeaderText = (
   return `${getDurationInDays(calculatePTO(periodStart, periodEnd))} ${t('outOfOffice')}`
 }
 
+const getActionModalTitle = (periodStart: string, periodEnd: string) => {
+  if (periodStart.length < 10 || periodEnd.length < 10) return ''
+
+  return getFormattedPeriod(periodStart, periodEnd)
+}
+
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
-  const {
-    filterCategories,
-    toggleFilterItemSelection,
-    selectedDate,
-    setSelectedDate,
-    currentMonthDays,
-    requestsDays,
-  } = useCalendarData()
+  const { filterCategories, toggleFilterItemSelection, currentMonthDays, requestsDays } =
+    useCalendarData()
 
   const styles = useStyles()
 
@@ -51,19 +55,22 @@ const CalendarToWrap = () => {
   const [periodStart, setPeriodStart] = useState('')
   const [periodEnd, setPeriodEnd] = useState('')
 
+  const [slicedRequests, setSlicedRequest] = useState<DayInfoProps[]>([])
+
   const [isCalendarOpened, { setFalse: hideCalendar, setTrue: openCalendar }] =
     useBooleanState(false)
 
-  const handleDayPress = useCallback(
-    ({ dateString }: { dateString: string }) => {
-      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-      if (!dayEvents) return
-      const index = currentMonthDays.indexOf(dayEvents)
-      flatListRef.current?.scrollToIndex({ index, animated: true })
-      setTimeout(() => setSelectedDate(parseISO(dateString)))
-    },
-    [currentMonthDays, setSelectedDate]
-  )
+  const handleSetEventsInPeriod = () => {
+    const startDateItemIndex = requestsDays.findIndex((a) => a.date === periodStart)
+
+    const endDateItemIndex = requestsDays.findIndex((a) => a.date === periodEnd)
+
+    const filtered = !endDateItemIndex
+      ? requestsDays.slice(startDateItemIndex)
+      : requestsDays.slice(startDateItemIndex, endDateItemIndex + 1)
+
+    setSlicedRequest(filtered)
+  }
 
   // Comment: show loader spinner while calendar is rendering
   const [isLoading, { setFalse: hideLoader }] = useBooleanState(true)
@@ -82,6 +89,11 @@ const CalendarToWrap = () => {
     hideCalendar()
   }
 
+  const clearDatesInputs = () => {
+    setPeriodStart('')
+    setPeriodEnd('')
+  }
+
   if (isLoading) return <LoadingModal show />
 
   return (
@@ -98,6 +110,14 @@ const CalendarToWrap = () => {
         setPeriodStart={setPeriodStart}
         setPeriodEnd={setPeriodEnd}
       />
+      <Box flexDirection="row" justifyContent="flex-end" marginHorizontal="m">
+        <CalendarButton onIconPress={clearDatesInputs}>
+          <CloseIcon color={theme.colors.headerGrey} />
+        </CalendarButton>
+        <CalendarButton onIconPress={handleSetEventsInPeriod} type="blue">
+          <AcceptIcon color={theme.colors.white} />
+        </CalendarButton>
+      </Box>
 
       <SwipeableModalRegular
         isOpen={isCalendarOpened}
@@ -107,7 +127,7 @@ const CalendarToWrap = () => {
         <Box position="relative">
           <CalendarList
             periodStart={periodStart}
-            periodEnd={periodEnd}
+            periodEnd={periodEnd || periodStart}
             selectPeriodStart={setPeriodStart}
             selectPeriodEnd={setPeriodEnd}
             selectable
@@ -127,11 +147,11 @@ const CalendarToWrap = () => {
             paddingVertical="l"
             backgroundColor="alwaysWhite"
             zIndex="2"
-            // height={200}
             position="absolute"
+            /// TODO:  FIX Bottom value
             bottom={100}
             width="100%">
-            <Text variant="displayBoldSM">{getFormattedPeriod(periodStart, periodEnd)}</Text>
+            <Text variant="displayBoldSM">{getActionModalTitle(periodStart, periodEnd)}</Text>
             <Text variant="textSM">
               {getActionModalHeaderText(periodStart, periodEnd, t, i18n.language)}
             </Text>
@@ -156,7 +176,10 @@ const CalendarToWrap = () => {
           /> */}
         </Box>
       </SwipeableModalRegular>
-      <EventsList days={currentMonthDays} ref={flatListRef} />
+      <EventsList
+        days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
+        ref={flatListRef}
+      />
     </SafeAreaWrapper>
   )
 }

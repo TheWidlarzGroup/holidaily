@@ -1,9 +1,9 @@
 import { CustomInput } from 'components/CustomInput'
 import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { formatWithMask } from 'react-native-mask-input'
-import { Box, mkUseStyles, theme } from 'utils/theme'
+import { Box, theme } from 'utils/theme'
 import CalendarIcon from 'assets/icons/icon-calendar.svg'
+import { CalendarButton } from './CalendarButton'
 
 const daysInMonth = (year: number, month: number) => {
   const days = new Date(year, month, 0).getDate()
@@ -54,8 +54,8 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
       break
 
     case 7:
-      if (Number(e.slice(6)) > 2) {
-        setDate(`${e.slice(0, 6)}2`)
+      if (Number(e.slice(6)) === 0) {
+        setDate(`${e.slice(0, 6)}1`)
       } else {
         setDate(e)
       }
@@ -70,7 +70,7 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
       break
 
     case 10:
-      if (Number(e.slice(9)) > secondDayNumber) {
+      if (Number(e.slice(7)) === firstDayNumber && Number(e.slice(9)) > secondDayNumber) {
         setDate(`${e.slice(0, 9)}${secondDayNumber}`)
       } else {
         setDate(e)
@@ -83,8 +83,6 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
 }
 
 export const DateInputs = (p: Props) => {
-  const styles = useStyles()
-
   const { masked: maskedStart } = formatWithMask({
     text: p.periodStart,
     mask,
@@ -96,9 +94,11 @@ export const DateInputs = (p: Props) => {
   })
 
   const handleOnChange = (e: string, type: 'from' | 'to') => {
-    if (type === 'from') handleOnChangeSwitch(e, p.setPeriodStart)
-
-    handleOnChangeSwitch(e, p.setPeriodEnd)
+    if (type === 'from') {
+      handleOnChangeSwitch(e, p.setPeriodStart)
+    } else {
+      handleOnChangeSwitch(e, p.setPeriodEnd)
+    }
   }
 
   return (
@@ -130,22 +130,9 @@ export const DateInputs = (p: Props) => {
         />
       </Box>
 
-      <TouchableOpacity onPress={p.onIconPress} style={styles.calendarButton}>
+      <CalendarButton onIconPress={p.onIconPress}>
         <CalendarIcon color={theme.colors.headerGrey} />
-      </TouchableOpacity>
+      </CalendarButton>
     </Box>
   )
 }
-
-const useStyles = mkUseStyles((theme) => ({
-  calendarButton: {
-    height: 40,
-    width: 40,
-    borderRadius: theme.borderRadii.l1min,
-    backgroundColor: theme.colors.disabled,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: theme.spacing.ml,
-    marginLeft: theme.spacing.xmm,
-  },
-}))

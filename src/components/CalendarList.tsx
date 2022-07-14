@@ -91,6 +91,7 @@ const CalendarDayComponent = React.memo(
   (props: NewDayComponentProps & { marking: MarkedDateType }) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
     const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
+
     return (
       <CalendarDay
         {...props}
