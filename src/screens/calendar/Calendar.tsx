@@ -27,7 +27,7 @@ const getActionModalHeaderText = (
   t: any,
   language: string
 ) => {
-  if (periodStart?.length < 10 && periodEnd?.length < 10) return ''
+  if (periodStart?.length < 10 || periodEnd?.length < 10) return ''
 
   const withOneBeforeText = language === 'en' ? '' : 1
 
@@ -61,14 +61,20 @@ const CalendarToWrap = () => {
     useBooleanState(false)
 
   const handleSetEventsInPeriod = () => {
-    const startDateItemIndex = requestsDays.findIndex((a) => a.date === periodStart)
+    const date = new Date()
+    const today = date.toISOString().split('T')[0]
+
+    const startDateItemIndex = requestsDays.findIndex(
+      (a) => a.date === periodStart || a.date === today
+    )
+
+    if (!periodStart) setPeriodStart(today)
 
     const endDateItemIndex = requestsDays.findIndex((a) => a.date === periodEnd)
 
-    const sliced = requestsDays.slice(
-      startDateItemIndex,
-      endDateItemIndex + 1 || requestsDays?.length
-    )
+    const sliceEndIndex = endDateItemIndex === -1 ? requestsDays?.length : endDateItemIndex + 1
+
+    const sliced = requestsDays.slice(startDateItemIndex, sliceEndIndex)
 
     setSlicedRequest(sliced)
   }
@@ -108,7 +114,7 @@ const CalendarToWrap = () => {
         setPeriodStart={setPeriodStart}
         setPeriodEnd={setPeriodEnd}
       />
-      {periodStart?.length === 10 || periodEnd?.length === 10 ? (
+      {periodStart?.length === 10 || periodEnd?.length === 10 || slicedRequests?.length > 0 ? (
         <Box flexDirection="row" justifyContent="flex-end" marginHorizontal="m">
           <CalendarButton onIconPress={clearDatesInputs}>
             <CloseIcon color={theme.colors.headerGrey} />

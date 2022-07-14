@@ -114,6 +114,7 @@ export const DateInputs = (p: Props) => {
           placeholder="yyyy-mm-dd"
           keyboardType="number-pad"
           isError={false}
+          reset={() => handleOnChange('', 'from')}
         />
       </Box>
       <Box flex={1} marginLeft="xmm">
