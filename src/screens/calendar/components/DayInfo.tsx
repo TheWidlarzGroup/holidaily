@@ -14,7 +14,7 @@ export const DayInfo = React.memo(
         borderRadius="lmin"
         backgroundColor="white"
         paddingVertical="m"
-        paddingHorizontal="lplus"
+        paddingHorizontal="mlplus"
         marginVertical="s">
         <Text variant="captionText">
           {getDateWithMonthString(p.date)},{' '}

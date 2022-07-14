@@ -19,7 +19,7 @@ export const EventsList = React.forwardRef<FlatList, EventsListProps>(({ days },
   const [language] = useLanguage()
   return (
     <Box justifyContent="center" flex={1} borderRadius="lmin">
-      <Box marginHorizontal="xm">
+      <Box marginHorizontal="s">
         <FlatList
           data={days}
           renderItem={renderItem}

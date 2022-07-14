@@ -123,11 +123,7 @@ const CalendarToWrap = () => {
   if (isLoading) return <LoadingModal show />
 
   return (
-    <SafeAreaWrapper
-      edges={['left', 'right', 'bottom']}
-      isDefaultBgColor
-      // style={{ backgroundColor: theme.colors.lightGrey }}
-    >
+    <SafeAreaWrapper edges={['left', 'right', 'bottom']} isDefaultBgColor>
       <Box>
         <CategoriesSlider
           filterCategories={filterCategories || []}
@@ -142,7 +138,7 @@ const CalendarToWrap = () => {
             setPeriodStart={setPeriodStart}
             setPeriodEnd={setPeriodEnd}
           />
-          {true ? (
+          {shouldShowCalendarButtons ? (
             <Box
               flexDirection="row"
               marginHorizontal="m"
@@ -164,6 +160,7 @@ const CalendarToWrap = () => {
               marginBottom="m"
               textTransform="uppercase"
               fontSize={12}
+              lineHeight={18}
               fontWeight="600"
               letterSpacing={1.08}
               fontFamily="nunito">
@@ -171,24 +168,6 @@ const CalendarToWrap = () => {
             </Text>
           </Box>
         </Box>
-        <Box paddingHorizontal="xm" position="absolute" zIndex="50" top={200}>
-          <Box
-            opacity={0.5}
-            borderRadius="lmin"
-            backgroundColor="errorRed"
-            paddingVertical="m"
-            paddingHorizontal="lplus"
-            position="absolute"
-            style={{ zIndex: 9999 }}
-            top={0}>
-            {singlePreviousEvent ? <DayEvent event={singlePreviousEvent} /> : null}
-          </Box>
-        </Box>
-        {/* <Box backgroundColor="errorRed">
-          <GestureRecognizer>
-            <Text>Przesun palcem w dol aby zobaczyc poprzednie </Text>
-          </GestureRecognizer>
-        </Box> */}
       </Box>
       <SwipeableModalRegular
         isOpen={isCalendarOpened}
@@ -237,14 +216,26 @@ const CalendarToWrap = () => {
           </Box>
         </Box>
       </SwipeableModalRegular>
-      <Box backgroundColor="lightGrey" flex={1} paddingTop="xl" borderRadius="l">
-        <GestureRecognizer>
-          <Text>Przesun palcem w dol aby zobaczyc poprzednie </Text>
-        </GestureRecognizer>
+      <Box backgroundColor="lightGrey" flex={1} paddingTop="xxxl" borderRadius="l">
+        <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
+          <GestureRecognizer>
+            <Text>Przesun palcem w dol aby zobaczyc poprzednie </Text>
+          </GestureRecognizer>
+        </Box>
         <EventsList
           days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
           ref={flatListRef}
         />
+      </Box>
+      <Box paddingHorizontal="s" position="absolute" top={205} width="100%">
+        <Box
+          opacity={0.5}
+          borderRadius="lmin"
+          backgroundColor="white"
+          paddingVertical="s"
+          paddingHorizontal="mlplus">
+          {singlePreviousEvent ? <DayEvent event={singlePreviousEvent} /> : null}
+        </Box>
       </Box>
     </SafeAreaWrapper>
   )
