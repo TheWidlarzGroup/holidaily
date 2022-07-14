@@ -65,11 +65,12 @@ const CalendarToWrap = () => {
 
     const endDateItemIndex = requestsDays.findIndex((a) => a.date === periodEnd)
 
-    const filtered = !endDateItemIndex
-      ? requestsDays.slice(startDateItemIndex)
-      : requestsDays.slice(startDateItemIndex, endDateItemIndex + 1)
+    const sliced = requestsDays.slice(
+      startDateItemIndex,
+      endDateItemIndex + 1 || requestsDays?.length
+    )
 
-    setSlicedRequest(filtered)
+    setSlicedRequest(sliced)
   }
 
   // Comment: show loader spinner while calendar is rendering
@@ -81,10 +82,6 @@ const CalendarToWrap = () => {
 
   const markedDates = useMemo(() => getMarkedDates(requestsDays), [requestsDays])
 
-  // const handleOpenCalendar = () => {
-  //    setCalendarOpened
-  // }
-
   const onModalBtnPress = () => {
     hideCalendar()
   }
@@ -92,6 +89,7 @@ const CalendarToWrap = () => {
   const clearDatesInputs = () => {
     setPeriodStart('')
     setPeriodEnd('')
+    setSlicedRequest([])
   }
 
   if (isLoading) return <LoadingModal show />
@@ -110,14 +108,16 @@ const CalendarToWrap = () => {
         setPeriodStart={setPeriodStart}
         setPeriodEnd={setPeriodEnd}
       />
-      <Box flexDirection="row" justifyContent="flex-end" marginHorizontal="m">
-        <CalendarButton onIconPress={clearDatesInputs}>
-          <CloseIcon color={theme.colors.headerGrey} />
-        </CalendarButton>
-        <CalendarButton onIconPress={handleSetEventsInPeriod} type="blue">
-          <AcceptIcon color={theme.colors.white} />
-        </CalendarButton>
-      </Box>
+      {periodStart?.length === 10 || periodEnd?.length === 10 ? (
+        <Box flexDirection="row" justifyContent="flex-end" marginHorizontal="m">
+          <CalendarButton onIconPress={clearDatesInputs}>
+            <CloseIcon color={theme.colors.headerGrey} />
+          </CalendarButton>
+          <CalendarButton onIconPress={handleSetEventsInPeriod} type="blue">
+            <AcceptIcon color={theme.colors.white} />
+          </CalendarButton>
+        </Box>
+      ) : null}
 
       <SwipeableModalRegular
         isOpen={isCalendarOpened}
