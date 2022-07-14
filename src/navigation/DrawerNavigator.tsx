@@ -7,7 +7,6 @@ import { DrawerRoutes } from 'navigation/types'
 import { useNavigationState } from '@react-navigation/native'
 import { getActiveRouteName } from 'utils/getActiveRouteName'
 import { useSiriListeners } from 'hooks/useSiriListeners'
-import { isIos } from 'utils/layout'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -31,6 +30,10 @@ export const DrawerNavigator = () => {
 
   useSiriListeners<'Home'>()
 
+  const isSwipeEnabled = !(
+    activeRouteName === 'DASHBOARD_TEAM' || activeRouteName === 'SEE_REQUEST'
+  )
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
@@ -41,8 +44,9 @@ export const DrawerNavigator = () => {
         options={{
           title: t('home'),
           ...defaultScreenOptions,
+          swipeEnabled: isSwipeEnabled,
         }}>
-        {() => <Home gestureEnabled={!(isIos && activeRouteName === 'DASHBOARD_TEAM')} />}
+        {() => <Home />}
       </Drawer.Screen>
       <Drawer.Screen
         name="ProfileNavigation"
