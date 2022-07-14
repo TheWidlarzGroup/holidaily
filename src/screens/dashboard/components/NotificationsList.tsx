@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { BaseOpacity, Text, theme } from 'utils/theme'
+import { BaseOpacity, Text } from 'utils/theme'
 import { SectionList } from 'react-native'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
@@ -8,8 +8,6 @@ import { Notification } from './Notification'
 import { SwipeableNotification } from './SwipeableNotification'
 
 const style = { width: '100%' }
-const contentContainerStyle = { paddingBottom: theme.spacing.xxxxl }
-
 const keyExtractor = ({ id }: { id: string }) => id
 
 export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
@@ -35,7 +33,6 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
   return (
     <SectionList
       style={style}
-      contentContainerStyle={contentContainerStyle}
       sections={sections}
       keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
