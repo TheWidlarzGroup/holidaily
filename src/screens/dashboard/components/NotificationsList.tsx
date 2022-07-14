@@ -29,8 +29,8 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
 
   return (
     <>
-      {isSeenNotificationsList && <MarkAllAsSeen unseen={unseenNotifications} />}
       <ScrollView style={style} showsVerticalScrollIndicator={false}>
+        {isSeenNotificationsList && <MarkAllAsSeen unseen={unseenNotifications} />}
         {isSeenNotificationsList && (
           <NotificationsSection heading={t('unseen')} notificationsList={seenNotificationsList} />
         )}
