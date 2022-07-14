@@ -39,7 +39,7 @@ export type FeedPost = {
   data: FeedPostData[]
   text: string
   reactions: Reaction[]
-  location?: LocationGeocodedAddress
+  location?: Omit<LocationGeocodedAddress, 'streetNumber'>
   recentlyAdded?: boolean
 }
 

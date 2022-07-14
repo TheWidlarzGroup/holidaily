@@ -5,7 +5,7 @@ import IconMapLocation from 'assets/icons/icon-map-location.svg'
 import { LocationGeocodedAddress } from 'expo-location'
 
 export type LocationInfoProps = {
-  location?: LocationGeocodedAddress
+  location?: Omit<LocationGeocodedAddress, 'streetNumber'>
 }
 
 const ICON_SIZE = 13

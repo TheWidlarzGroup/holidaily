@@ -14,7 +14,7 @@ export const useSearch = (props: UseSearchProps) => {
   const { onQueryChange, onClear } = props
   const [query, setQuery] = useState(props.query || '')
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<LocationGeocodedAddress | null>(null)
+  const [data, setData] = useState<Omit<LocationGeocodedAddress, 'streetNumber'> | null>(null)
   const [error, setError] = useState<unknown>()
 
   const clearSearch = useCallback(() => {

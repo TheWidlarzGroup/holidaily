@@ -5,8 +5,8 @@ import { Analytics } from 'services/analytics'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 
 type ModalLocationListProps = {
-  location: LocationGeocodedAddress | null
-  onLocationPress: F1<LocationGeocodedAddress>
+  location: Omit<LocationGeocodedAddress, 'streetNumber'> | null
+  onLocationPress: F1<Omit<LocationGeocodedAddress, 'streetNumber'>>
   query: string
 }
 
