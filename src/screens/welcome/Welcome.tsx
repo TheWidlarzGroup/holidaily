@@ -8,13 +8,13 @@ import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { setItem } from 'utils/localStorage'
-import { isIos } from 'utils/layout'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { AuthNavigationProps } from 'navigation/types'
 import { Analytics } from 'services/analytics'
+import { isIos } from 'utils/layout'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
 
@@ -57,32 +57,28 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled">
         <WelcomeTopBar openModal={openModal} />
-        <Box justifyContent="center" marginTop="m">
-          <Text variant="title1">{t('welcomeTitle')}</Text>
-        </Box>
-        <Box justifyContent="center" marginTop="m">
-          <Text variant="body1">{t('welcomeSubtitle')}</Text>
-        </Box>
-        <Box marginTop="xl">
-          <FormInput
-            variant="medium"
-            maxLength={20}
-            control={control}
-            isError={!!errors.firstName}
-            errors={errors}
-            name="firstName"
-            inputLabel={t('yourName')}
-            validationPattern={onlyLettersRegex}
-            errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
-            blurOnSubmit
-            placeholder={t('placeholder')}
-          />
-        </Box>
-        <Box>
-          <Text variant="lightGreyRegular" paddingHorizontal="s">
-            {t('whyAskForName')}
-          </Text>
-        </Box>
+        <Text variant="title1" marginTop="m" textAlign="center">
+          {t('welcomeTitle')}
+        </Text>
+        <Text variant="body1" marginTop="m" textAlign="center" marginBottom="xl">
+          {t('welcomeSubtitle')}
+        </Text>
+        <FormInput
+          variant="medium"
+          maxLength={20}
+          control={control}
+          isError={!!errors.firstName}
+          errors={errors}
+          name="firstName"
+          inputLabel={t('yourName')}
+          validationPattern={onlyLettersRegex}
+          errorMessage={t('firstNameErrMsg', { max: MAX_SIGNS })}
+          blurOnSubmit
+          placeholder={t('placeholder')}
+        />
+        <Text variant="lightGreyRegular" paddingHorizontal="s">
+          {t('whyAskForName')}
+        </Text>
       </KeyboardAwareScrollView>
       <Box
         position="absolute"
@@ -90,16 +86,15 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         left={0}
         bottom={0}
         backgroundColor="dashboardBackgroundBrighter"
-        paddingBottom="l"
+        paddingBottom={isIos ? 'ml' : 'xs'}
+        marginBottom="l"
         alignItems="center">
-        <Box paddingBottom={isIos ? 'xl' : 's'} backgroundColor="dashboardBackgroundBrighter">
-          <CustomButton
-            variant="primary"
-            label={t('seeDemoButton')}
-            onPress={handleSubmit(onSubmit)}
-            disabled={!(nameInput?.length >= MIN_SIGNS && nameInput?.length <= MAX_SIGNS)}
-          />
-        </Box>
+        <CustomButton
+          variant="primary"
+          label={t('seeDemoButton')}
+          onPress={handleSubmit(onSubmit)}
+          disabled={!(nameInput?.length >= MIN_SIGNS && nameInput?.length <= MAX_SIGNS)}
+        />
       </Box>
       <AboutModal isOpen={isModalVisible} onHide={hideModal} />
     </SafeAreaWrapper>
