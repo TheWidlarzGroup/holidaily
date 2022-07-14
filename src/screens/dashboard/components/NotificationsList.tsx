@@ -4,8 +4,7 @@ import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Notification } from './Notification'
-import { SwipeableNotification } from './SwipeableNotification'
+import { NotificationsSection } from './NotificationsSection'
 
 const style = { width: '100%' }
 
@@ -18,10 +17,10 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
     [data]
   )
 
-  const seenNotificationsList = data.filter(
+  const seenNotificationsList: NotificationModel[] = data.filter(
     (notification) => notification.wasSeenByHolder === false
   )
-  const unseenNotificationsList = data.filter(
+  const unseenNotificationsList: NotificationModel[] = data.filter(
     (notification) => notification.wasSeenByHolder === true
   )
 
@@ -33,34 +32,10 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
       {isSeenNotificationsList && <MarkAllAsSeen unseen={unseenNotifications} />}
       <ScrollView style={style} showsVerticalScrollIndicator={false}>
         {isSeenNotificationsList && (
-          <>
-            <Text variant="inputLabel" marginBottom="s" color="darkGreyBrighter">
-              {t('unseen')}
-            </Text>
-            {seenNotificationsList.map((item: NotificationModel) => (
-              <SwipeableNotification
-                key={item.id}
-                notificationId={item.id}
-                isSeen={item.wasSeenByHolder}>
-                <Notification {...item} />
-              </SwipeableNotification>
-            ))}
-          </>
+          <NotificationsSection heading={t('unseen')} notificationsList={seenNotificationsList} />
         )}
         {isUnseenNotificationsList && (
-          <>
-            <Text variant="inputLabel" marginBottom="s" color="darkGreyBrighter">
-              {t('seen')}
-            </Text>
-            {unseenNotificationsList.map((item: NotificationModel) => (
-              <SwipeableNotification
-                key={item.id}
-                notificationId={item.id}
-                isSeen={item.wasSeenByHolder}>
-                <Notification {...item} />
-              </SwipeableNotification>
-            ))}
-          </>
+          <NotificationsSection heading={t('seen')} notificationsList={unseenNotificationsList} />
         )}
       </ScrollView>
     </>
