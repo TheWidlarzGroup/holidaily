@@ -86,11 +86,8 @@ export const CreatePostForm = ({
   )
 }
 
-const isSendDisabled = (props: Partial<FeedPost> | null) => {
-  if ((props?.text && props?.text?.length > 0) || (props?.data && props?.data.length > 0))
-    return false
-  return true
-}
+const isSendDisabled = (props: Partial<FeedPost> | null) =>
+  !((props?.text && props?.text?.length > 0) || (props?.data && props?.data.length > 0))
 
 const addAttachments = (attachments: Asset[]): FeedPostData[] =>
   attachments.map((item) => ({
