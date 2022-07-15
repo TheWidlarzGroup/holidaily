@@ -16,6 +16,7 @@ import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import AcceptIcon from 'assets/icons/icon-accept.svg'
+import SwipeDown from 'assets/icons/icon-swipe-down.svg'
 import GestureRecognizer from 'react-native-swipe-gestures'
 import { DayInfoProps } from 'types/DayInfoProps'
 import { DateInputs } from './components/DateInputs'
@@ -155,15 +156,7 @@ const CalendarToWrap = () => {
             </Box>
           ) : null}
           <Box marginTop="l1plus">
-            <Text
-              color="darkGrey"
-              marginBottom="m"
-              textTransform="uppercase"
-              fontSize={12}
-              lineHeight={18}
-              fontWeight="600"
-              letterSpacing={1.08}
-              fontFamily="nunito">
+            <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
               Kalendarz Urlopów
             </Text>
           </Box>
@@ -185,7 +178,6 @@ const CalendarToWrap = () => {
             style={styles.calendar}
             markedDates={markedDates}
             markingType="multi-dot"
-            // isInvalid={isInvalid}
           />
           <Box
             shadowOffset={{ width: -2, height: 0 }}
@@ -198,7 +190,6 @@ const CalendarToWrap = () => {
             backgroundColor="alwaysWhite"
             zIndex="2"
             position="absolute"
-            /// TODO:  FIX Bottom value
             bottom={100}
             width="100%">
             <Text variant="displayBoldSM">{getActionModalTitle(periodStart, periodEnd)}</Text>
@@ -218,8 +209,9 @@ const CalendarToWrap = () => {
       </SwipeableModalRegular>
       <Box backgroundColor="lightGrey" flex={1} paddingTop="xxxl" borderRadius="l">
         <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
-          <GestureRecognizer>
-            <Text>Przesun palcem w dol aby zobaczyc poprzednie </Text>
+          <GestureRecognizer style={styles.swipeDownRecognizer}>
+            <Text variant="textXSGrey">Przesun palcem w dol aby zobaczyc poprzednie </Text>
+            <SwipeDown color={theme.colors.titleActive} style={styles.swipeDownIcon} />
           </GestureRecognizer>
         </Box>
         <EventsList
@@ -251,5 +243,13 @@ const useStyles = mkUseStyles((theme) => ({
   calendar: {
     width: 400,
     marginTop: theme.spacing.s,
+  },
+  swipeDownRecognizer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  swipeDownIcon: {
+    marginLeft: theme.spacing.xxm,
   },
 }))
