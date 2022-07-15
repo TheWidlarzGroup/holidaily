@@ -20,21 +20,18 @@ export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
   const seenNotificationsList: NotificationModel[] = processNotifications(data, 'unseen')
   const unseenNotificationsList: NotificationModel[] = processNotifications(data, 'seen')
 
-  const isSeenNotificationsList = seenNotificationsList.length > 0
-  const isUnseenNotificationsList = unseenNotificationsList.length > 0
-
   return (
-    <>
-      <ScrollView style={style} showsVerticalScrollIndicator={false}>
-        {isSeenNotificationsList && <MarkAllAsSeen unseen={unseenNotifications} />}
-        {isSeenNotificationsList && (
+    <ScrollView style={style} showsVerticalScrollIndicator={false}>
+      {seenNotificationsList.length > 0 && (
+        <>
+          <MarkAllAsSeen unseen={unseenNotifications} />
           <NotificationsSection heading={t('unseen')} notificationsList={seenNotificationsList} />
-        )}
-        {isUnseenNotificationsList && (
-          <NotificationsSection heading={t('seen')} notificationsList={unseenNotificationsList} />
-        )}
-      </ScrollView>
-    </>
+        </>
+      )}
+      {unseenNotificationsList.length > 0 && (
+        <NotificationsSection heading={t('seen')} notificationsList={unseenNotificationsList} />
+      )}
+    </ScrollView>
   )
 }
 

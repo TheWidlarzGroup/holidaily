@@ -54,7 +54,6 @@ export const Notifications = () => {
       </Box>
       <GestureRecognizer
         androidOnly
-        onEnded
         onSwipeRight={handleBack}
         style={{
           alignItems: 'flex-end',
