@@ -52,7 +52,10 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
         setDate(e)
       }
       break
-
+    case 6:
+      console.log('firstMonth', Number(e.slice(4, 5)))
+      setDate(e)
+      break
     case 7:
       if (Number(e.slice(6)) === 0) {
         setDate(`${e.slice(0, 6)}1`)

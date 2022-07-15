@@ -99,7 +99,11 @@ export const useCalendarData = () => {
   }, [filterCategories, requests, selectedDate])
 
   // TODO: Check if memo can improve performance
-  const requestsDays = requests.flatMap((a) => a.days.map((b) => b))
+  const sortedRequests = requests.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  )
+
+  const requestsDays = sortedRequests.flatMap((a) => a.days.map((b) => b))
 
   return {
     filterCategories,
