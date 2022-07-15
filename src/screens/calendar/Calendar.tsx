@@ -17,8 +17,14 @@ import { useTranslation } from 'react-i18next'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import AcceptIcon from 'assets/icons/icon-accept.svg'
 import SwipeDown from 'assets/icons/icon-swipe-down.svg'
-import GestureRecognizer from 'react-native-swipe-gestures'
+import {
+  Directions,
+  FlingGestureHandler,
+  FlingGestureHandlerGestureEvent,
+  State,
+} from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
+import Animated from 'react-native-reanimated'
 import { DateInputs } from './components/DateInputs'
 import { CategoriesSlider } from './components/CategoriesSlider'
 import { CalendarButton } from './components/CalendarButton'
@@ -49,6 +55,8 @@ const getActionModalTitle = (periodStart: string, periodEnd: string) => {
 const date = new Date()
 const today = date.toISOString().split('T')[0]
 
+const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 const CalendarToWrap = () => {
   const flatListRef = useRef<FlatList>(null)
   const { filterCategories, toggleFilterItemSelection, currentMonthDays, requestsDays } =
@@ -77,18 +85,16 @@ const CalendarToWrap = () => {
       return event || null
     }
 
-    setSinglePreviousEvent(getPreviousEvent)
+    setSinglePreviousEvent(getPreviousEvent())
   }, [requestsDays])
 
   const [isCalendarOpened, { setFalse: hideCalendar, setTrue: openCalendar }] =
     useBooleanState(false)
 
-  const handleSetEventsInPeriod = () => {
-    const startDateItemIndex = requestsDays.findIndex(
-      (a) => a.date === periodStart || a.date === today
-    )
+  const handleSetEventsInPeriod = (passedStartIndex?: number) => {
+    const startDateItemIndex = passedStartIndex || 0
 
-    if (!periodStart) setPeriodStart(today)
+    if (!periodStart && !passedStartIndex) setPeriodStart(today)
 
     const endDateItemIndex = requestsDays.findIndex((a) => a.date === periodEnd)
 
@@ -121,6 +127,43 @@ const CalendarToWrap = () => {
   const shouldShowCalendarButtons =
     periodStart?.length === 10 || periodEnd?.length === 10 || slicedRequests?.length > 0
 
+  const handleSwipeDown = (e: FlingGestureHandlerGestureEvent) => {
+    if (e.nativeEvent.state === State.ACTIVE) {
+      const dateToRevert = periodStart || today
+      const month = Number(dateToRevert.slice(5, 7))
+      const year = Number(dateToRevert.slice(0, 4))
+
+      let newPeriodStart = ''
+
+      if (month === 1) {
+        newPeriodStart = `${year - 1}-12-01`
+        setPeriodStart(newPeriodStart)
+      } else {
+        if (month > 10) {
+          newPeriodStart = `${year}-${month - 1}-01`
+        } else {
+          newPeriodStart = `${year}-0${month - 1}-01`
+        }
+        setPeriodStart(newPeriodStart)
+      }
+
+      const startDateItemIndex = requestsDays.findIndex((a) => a.date === newPeriodStart)
+
+      handleSetEventsInPeriod(startDateItemIndex)
+    }
+  }
+
+  const handleSetDatePress = () => {
+    let startIndex = 0
+
+    if (!periodStart) {
+      startIndex = requestsDays.findIndex((a) => a.date === today)
+    } else {
+      startIndex = requestsDays.findIndex((a) => a.date === periodStart)
+    }
+
+    handleSetEventsInPeriod(startIndex)
+  }
   if (isLoading) return <LoadingModal show />
 
   return (
@@ -150,7 +193,7 @@ const CalendarToWrap = () => {
               <CalendarButton onIconPress={clearDatesInputs}>
                 <CloseIcon color={theme.colors.headerGrey} />
               </CalendarButton>
-              <CalendarButton onIconPress={handleSetEventsInPeriod} type="blue">
+              <CalendarButton onIconPress={handleSetDatePress} type="blue">
                 <AcceptIcon color={theme.colors.white} />
               </CalendarButton>
             </Box>
@@ -209,10 +252,12 @@ const CalendarToWrap = () => {
       </SwipeableModalRegular>
       <Box backgroundColor="lightGrey" flex={1} paddingTop="xxxl" borderRadius="l">
         <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
-          <GestureRecognizer style={styles.swipeDownRecognizer}>
-            <Text variant="textXSGrey">Przesun palcem w dol aby zobaczyc poprzednie </Text>
-            <SwipeDown color={theme.colors.titleActive} style={styles.swipeDownIcon} />
-          </GestureRecognizer>
+          <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
+            <AnimatedBox style={styles.swipeDownRecognizer}>
+              <Text variant="textXSGrey">Przesun palcem w dol aby zobaczyc poprzednie </Text>
+              <SwipeDown color={theme.colors.titleActive} style={styles.swipeDownIcon} />
+            </AnimatedBox>
+          </FlingGestureHandler>
         </Box>
         <EventsList
           days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
