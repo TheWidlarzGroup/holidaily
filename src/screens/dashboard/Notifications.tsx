@@ -9,6 +9,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { useBackHandler } from 'hooks/useBackHandler'
 import { AppNavigationType } from 'navigation/types'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
@@ -51,10 +52,17 @@ export const Notifications = () => {
         <Text variant="displayBoldSM">{t('header')}</Text>
         <Box paddingRight="l" />
       </Box>
-      <Box alignItems="flex-end" paddingVertical="m" paddingHorizontal="xm" flex={1}>
+      <GestureRecognizer
+        androidOnly
+        onSwipeRight={handleBack}
+        style={{
+          alignItems: 'flex-end',
+          paddingVertical: theme.spacing.m,
+          paddingHorizontal: theme.spacing.xm,
+        }}>
         {data?.notifications && <NotificationsList data={data.notifications} />}
         <LoadingModal show={isLoading} />
-      </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

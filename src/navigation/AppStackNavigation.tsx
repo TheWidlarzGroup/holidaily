@@ -24,7 +24,7 @@ export const AppStackNavigation = () => {
         <AppStack.Screen
           name="NOTIFICATIONS"
           component={Notifications}
-          options={TransitionPresets.DefaultTransition}
+          options={TransitionPresets.SlideFromRightIOS}
         />
         <AppStack.Screen name="REQUEST_VACATION" component={RequestVacation} />
         <AppStack.Screen name="REQUEST_VACATION_CALENDAR" component={CalendarRequestVacation} />
