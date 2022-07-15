@@ -49,7 +49,11 @@ export const GestureRecognizer = ({
   }
 
   return (
-    <PanGestureHandler onBegan={onTouchStart} onEnded={onTouchMove} onFailed={onFailed}>
+    <PanGestureHandler
+      onBegan={onTouchStart}
+      onEnded={isIos ? undefined : onTouchMove}
+      onActivated={isIos ? onTouchMove : undefined}
+      onFailed={onFailed}>
       <Animated.View style={[{ flex: 1 }, style]}>{children}</Animated.View>
     </PanGestureHandler>
   )
