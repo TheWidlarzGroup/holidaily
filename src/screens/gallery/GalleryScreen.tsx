@@ -4,6 +4,4 @@ import React from 'react'
 
 type GalleryScreenProps = ModalNavigationProps<'GALLERY'>
 
-export const GalleryScreen = ({ route }: GalleryScreenProps) => (
-  <Gallery {...route.params} fullScreenPicture />
-)
+export const GalleryScreen = ({ route }: GalleryScreenProps) => <Gallery {...route.params} />

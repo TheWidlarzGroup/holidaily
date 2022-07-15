@@ -2,12 +2,13 @@ import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import {
-  ViewToken,
-  useWindowDimensions,
-  NativeSyntheticEvent,
   NativeScrollEvent,
+  NativeSyntheticEvent,
+  StatusBar,
+  useWindowDimensions,
+  ViewToken,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
@@ -15,6 +16,8 @@ import { isScreenHeightShort } from 'utils/deviceSizes'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { isIos } from 'utils/layout'
 import { Box } from 'utils/theme'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { useGetActiveRouteName } from 'utils/getActiveRouteName'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -23,26 +26,25 @@ type GalleryProps = {
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
   postId?: string
-  fullScreenPicture?: true
 }
 
-export const Gallery = ({
-  data,
-  index = 0,
-  onIndexChanged,
-  onItemPress,
-  postId,
-  fullScreenPicture,
-}: GalleryProps) => {
+export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
   const { width } = useWindowDimensions()
   const listRef = useRef<FlashList<AttachmentType>>(null)
   const translateX = useSharedValue(0)
   const navigation = useNavigation()
+  const { userSettings } = useUserSettingsContext()
+  const activeRouteName = useGetActiveRouteName()
+
+  useEffect(() => {
+    if (activeRouteName === 'GALLERY') StatusBar.setBarStyle('light-content')
+    else StatusBar.setBarStyle(userSettings?.darkMode ? 'light-content' : 'dark-content')
+  }, [activeRouteName, userSettings?.darkMode])
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       const [item] = viewableItems
-      if (item === undefined || item.index === null) return
+      if (!item || item.index === null) return
       onIndexChanged?.(item.index)
     },
     [onIndexChanged]
@@ -87,11 +89,10 @@ export const Gallery = ({
 
   return (
     <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
-      {fullScreenPicture ? (
+      {activeRouteName === 'GALLERY' ? (
         <GestureRecognizer
           onSwipeDown={() => navigation.goBack()}
-          onSwipeUp={() => navigation.goBack()}
-          onFailed={() => navigation.goBack()}>
+          onSwipeUp={() => navigation.goBack()}>
           {flatListComponent}
         </GestureRecognizer>
       ) : (
