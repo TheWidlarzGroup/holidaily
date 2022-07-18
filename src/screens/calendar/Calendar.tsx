@@ -65,7 +65,6 @@ const today = date.toISOString().split('T')[0]
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const Calendar = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
   const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
@@ -77,21 +76,6 @@ export const Calendar = () => {
   const { periodStart, periodEnd, handleSetPeriodStart, handleSetPeriodEnd } = useCalendarContext()
 
   usePrevScreenBackHandler(prevScreen)
-
-  const handleDayPress = useCallback(
-    ({ dateString }: { dateString: string }) => {
-      const dayEvents = currentMonthDays.find((a) => a.date === dateString)
-      if (!dayEvents) return
-
-      const index = currentMonthDays.indexOf(dayEvents)
-      const validatedIndex = index >= 31 ? 0 : index
-      setCurrentIndex(validatedIndex)
-
-      flatListRef.current?.scrollToIndex({ index: validatedIndex, animated: true })
-      setSelectedDate(parseISO(dateString))
-    },
-    [currentMonthDays, setSelectedDate]
-  )
 
   const scrollToIndex = useCallback(
     (index: number) => flatListRef.current?.scrollToIndex({ index, animated: true }),
@@ -274,12 +258,9 @@ export const Calendar = () => {
           ref={flatListRef}
           selectedDate={selectedDate}
           days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
-          currentIndex={currentIndex}
           switchCalendarHeight={switchCalendarHeight}
           setSwitchCalendarHeight={setSwitchCalendarHeight}
-          btnOnPress={() =>
-            flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
-          }
+          btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
         />
         <Box paddingHorizontal="s" position="absolute" top={-5} width="100%">
           <Box

@@ -15,7 +15,6 @@ import { GoUpDownButton } from './GoUpDownButton'
 export type EventsListProps = {
   btnOnPress: F0
   selectedDate: Date
-  currentIndex: number
   days: DayInfoProps[]
   switchCalendarHeight: boolean
   setSwitchCalendarHeight: F1<boolean>
@@ -29,7 +28,7 @@ export const Item = React.memo(({ item }: { item: DayInfoProps }) => (
 
 export const EventsList = forwardRef<FlatList, EventsListProps>(
   (
-    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, currentIndex, selectedDate },
+    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, selectedDate },
     flatListRef
   ) => {
     const [pickedDate, setPickedDate] = useState(new Date())
@@ -40,7 +39,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
     const [language] = useLanguage()
     const theme = useTheme()
 
-    const { offset } = getItemLayout(days, currentIndex)
+    const { offset } = getItemLayout(days, 0)
 
     const renderItem = useCallback(({ item }) => <Item key={item.date} item={item} />, [])
 
@@ -82,7 +81,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
     }, [selectedDate])
 
     useEffect(() => {
-      const condition = days.length > 0 && currentIndex >= 0
+      const condition = days.length > 0
       const cachedDate = userSettings?.pickedDate
       if (cachedDate && selectedDate) {
         const cachedDateToString = getISODateString(cachedDate)
@@ -92,7 +91,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
       if (!cachedDate && condition) setShowLoadingModal(false)
       // Comment: we don't want to track userSettings and selectedDate
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [days, currentIndex])
+    }, [days])
 
     return (
       <Box marginTop="xxs" marginHorizontal="s" justifyContent="center" flex={1}>
