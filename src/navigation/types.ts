@@ -86,6 +86,15 @@ export type DashboardNavigationProps<RouteName extends keyof DashboardRoutes> = 
 }
 
 // for useNavigation hook
+export type UserProfileType<RouteName extends keyof UserProfileRoutes> = CompositeNavigationProp<
+  StackNavigationProp<UserProfileRoutes, RouteName>,
+  StackNavigationProp<DrawerRoutes, 'ProfileNavigation'>
+>
+
+export type UserProfileNavigationProps<RouteName extends keyof UserProfileRoutes> = {
+  navigation: StackNavigationProp<UserProfileRoutes, RouteName>
+  route: RouteProp<UserProfileRoutes, RouteName>
+}
 
 export type ForgotPasswordProps<RouteName extends keyof ForgotPasswordRoutes> = {
   navigation: StackNavigationProp<ForgotPasswordRoutes, RouteName>
@@ -134,7 +143,7 @@ export type BottomTabRoutes = {
 
 export type DrawerRoutes = {
   Home: NestedNavigatorParams<BottomTabRoutes>
-  EDIT_PROFILE: undefined
+  ProfileNavigation: NestedNavigatorParams<UserProfileRoutes>
   HolidayBudget: undefined
   ABOUT: undefined
   SETTINGS: undefined

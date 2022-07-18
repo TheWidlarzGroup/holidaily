@@ -9,7 +9,7 @@ import { useTheme } from './theme'
 import { isScreenHeightShort } from './deviceSizes'
 
 export type Tab =
-  | 'EDIT_PROFILE'
+  | 'ProfileNavigation'
   | 'SETTINGS'
   | 'HolidayBudget'
   | 'ABOUT'
@@ -36,7 +36,7 @@ export const DrawerIcon = (tab: Tab) => {
   const theme = useTheme()
   const iconDimensions = isScreenHeightShort ? mediumDimensions : regularDimensions
   switch (tab) {
-    case 'EDIT_PROFILE': {
+    case 'ProfileNavigation': {
       return <EditIcon {...iconDimensions} color={theme.colors.black} />
     }
     case 'SETTINGS': {
