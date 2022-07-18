@@ -69,7 +69,7 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
 
   return (
     <Box
-      height={103}
+      height={75}
       pointerEvents={isTouchDisabled ? 'none' : undefined}
       opacity={isTouchDisabled ? 0.4 : 1}
       paddingLeft="xs"
