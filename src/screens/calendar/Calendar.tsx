@@ -6,15 +6,11 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { parseISO, getFormattedPeriod, getDurationInDays, calculatePTO } from 'utils/dates'
-
-import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
-import { CalendarList } from 'components/CalendarList'
-import { CustomButton } from 'components/CustomButton'
 import { useTranslation } from 'react-i18next'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import AcceptIcon from 'assets/icons/icon-accept.svg'
@@ -32,6 +28,9 @@ import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
+import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
+import { CalendarProvider } from 'contexts/CalendarProvider'
+import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 
 const getSlicedDate = (date: string) => {
   const splittedDate = date.split('-')
@@ -79,6 +78,8 @@ export const Calendar = () => {
 
   const { selectedDate, setSelectedDate, currentMonthDays, requestsDays } = useCalendarData()
 
+  const { periodStart, periodEnd, handleSetPeriodStart, handleSetPeriodEnd } = useCalendarContext()
+
   usePrevScreenBackHandler(prevScreen)
 
   const handleDayPress = useCallback(
@@ -111,9 +112,6 @@ export const Calendar = () => {
 
   const { i18n, t } = useTranslation('calendar')
 
-  const [periodStart, setPeriodStart] = useState('')
-  const [periodEnd, setPeriodEnd] = useState('')
-
   const [slicedRequests, setSlicedRequest] = useState<DayInfoProps[]>([])
 
   const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
@@ -139,7 +137,7 @@ export const Calendar = () => {
   const handleSetEventsInPeriod = (passedStartIndex?: number) => {
     const startDateItemIndex = passedStartIndex || 0
 
-    if (!periodStart && !passedStartIndex) setPeriodStart(today)
+    if (!periodStart && !passedStartIndex) handleSetPeriodStart(today)
 
     const endDateItemIndex = requestsDays.findIndex((a) => a.date === periodEnd)
 
@@ -157,8 +155,8 @@ export const Calendar = () => {
   }
 
   const clearDatesInputs = () => {
-    setPeriodStart('')
-    setPeriodEnd('')
+    handleSetPeriodStart('')
+    handleSetPeriodEnd('')
     setSlicedRequest([])
   }
 
@@ -177,14 +175,14 @@ export const Calendar = () => {
 
       if (month === 1) {
         newPeriodStart = `${year - 1}-12-01`
-        setPeriodStart(newPeriodStart)
+        handleSetPeriodStart(newPeriodStart)
       } else {
         if (month > 10) {
           newPeriodStart = `${year}-${month - 1}-01`
         } else {
           newPeriodStart = `${year}-0${month - 1}-01`
         }
-        setPeriodStart(newPeriodStart)
+        handleSetPeriodStart(newPeriodStart)
       }
 
       const startDateItemIndex = requestsDays.findIndex((a) => a.date === newPeriodStart)
@@ -208,7 +206,7 @@ export const Calendar = () => {
       } else {
         startDate = `${startYear}-${startMonth}-${startDay}`
       }
-      setPeriodStart(startDate)
+      handleSetPeriodStart(startDate)
     }
 
     if (periodEnd && endDay) {
@@ -219,7 +217,7 @@ export const Calendar = () => {
       } else {
         endDate = `${endYear}-${endMonth}-${endDay}`
       }
-      setPeriodEnd(endDate)
+      handleSetPeriodEnd(endDate)
     }
 
     return { startDate, endDate }
@@ -239,16 +237,18 @@ export const Calendar = () => {
     handleSetEventsInPeriod(startIndex)
   }
 
+  const { navigate } = useNavigation()
+
   return (
-    <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
       <CategoriesSlider />
       <Box position="relative" paddingHorizontal="m">
         <DateInputs
-          onIconPress={openCalendar}
+          onIconPress={() => navigate('CALENDAR_MODAL')}
           periodStart={periodStart}
           periodEnd={periodEnd}
-          setPeriodStart={setPeriodStart}
-          setPeriodEnd={setPeriodEnd}
+          handleSetPeriodStart={handleSetPeriodStart}
+          handleSetPeriodEnd={handleSetPeriodEnd}
         />
         {shouldShowCalendarButtons ? (
           <Box
@@ -273,51 +273,6 @@ export const Calendar = () => {
         </Box>
       </Box>
 
-      <SwipeableModalRegular
-        isOpen={isCalendarOpened}
-        onHide={hideCalendar}
-        hasIndicator
-        closeIcon="back">
-        <Box position="relative">
-          <CalendarList
-            periodStart={periodStart}
-            periodEnd={periodEnd || periodStart}
-            selectPeriodStart={setPeriodStart}
-            selectPeriodEnd={setPeriodEnd}
-            selectable
-            disablePastDates
-            style={styles.calendar}
-            markedDates={markedDates}
-            markingType="multi-dot"
-          />
-          <Box
-            shadowOffset={{ width: -2, height: 0 }}
-            shadowColor="black"
-            shadowOpacity={0.04}
-            shadowRadius={2}
-            elevation={20}
-            alignItems="center"
-            paddingVertical="l"
-            backgroundColor="alwaysWhite"
-            zIndex="2"
-            position="absolute"
-            bottom={100}
-            width="100%">
-            <Text variant="displayBoldSM">{getActionModalTitle(periodStart, periodEnd)}</Text>
-            <Text variant="textSM">
-              {getActionModalHeaderText(periodStart, periodEnd, t, i18n.language)}
-            </Text>
-            <Box marginTop="m">
-              <CustomButton
-                label={t('select')}
-                variant="primary"
-                onPress={onModalBtnPress}
-                disabled={!periodStart}
-              />
-            </Box>
-          </Box>
-        </Box>
-      </SwipeableModalRegular>
       <Box backgroundColor="lightGrey" flex={1} paddingTop="xxxl" borderRadius="l">
         <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
           <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>

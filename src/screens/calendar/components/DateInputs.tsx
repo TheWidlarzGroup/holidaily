@@ -19,9 +19,9 @@ const mask = [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
 interface Props {
   onIconPress: F0
   periodStart: string
-  setPeriodStart: React.Dispatch<React.SetStateAction<string>>
+  handleSetPeriodStart: F1<string>
   periodEnd: string
-  setPeriodEnd: React.Dispatch<React.SetStateAction<string>>
+  handleSetPeriodEnd: F1<string>
 }
 
 const handleOnChangeSwitch = (e: string, setDate: any) => {
@@ -100,9 +100,9 @@ export const DateInputs = (p: Props) => {
 
   const handleOnChange = (type: 'from' | 'to') => (e: string) => {
     if (type === 'from') {
-      handleOnChangeSwitch(e, p.setPeriodStart)
+      handleOnChangeSwitch(e, p.handleSetPeriodStart)
     } else {
-      handleOnChangeSwitch(e, p.setPeriodEnd)
+      handleOnChangeSwitch(e, p.handleSetPeriodEnd)
     }
   }
 

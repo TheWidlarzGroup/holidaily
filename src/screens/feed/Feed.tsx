@@ -157,7 +157,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
 
   return (
-    <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom', 'top']}>
       <FlashList
         ref={flatListRef}
         onLoad={() => setWasFlashListLoaded(true)}

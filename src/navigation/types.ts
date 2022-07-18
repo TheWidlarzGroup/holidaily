@@ -126,6 +126,7 @@ export type ModalRoutes = {
   SUBSCRIBE_NEW_TEAM: undefined
   PRIVACY_POLICY: undefined
   CREATE_POST_NAVIGATION: undefined
+  CALENDAR_MODAL: undefined
 }
 
 export type BottomTabRoutes = {
@@ -203,4 +204,9 @@ export type ForgotPasswordRoutes = {
 export type AdminPanelEmployeesRoutes = {
   Employees: undefined
   InviteMembers: undefined
+}
+
+export type CalendarRoutes = {
+  Calendar: undefined
+  CALENDAR_MODAL: undefined
 }

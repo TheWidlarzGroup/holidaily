@@ -1,17 +1,18 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { mkUseStyles, theme, Theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
-import { Calendar } from 'screens/calendar/Calendar'
 import { Feed } from 'screens/feed/Feed'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDrawerProgress } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
+import { useNavigationState } from '@react-navigation/native'
+import { getActiveRouteName } from 'utils/getActiveRouteName'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 import { RequestsNavigation } from './RequestsNavigation'
+import { CalendarNavigation } from './CalendarNavigator'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
@@ -40,6 +41,9 @@ export const BottomTabNavigator = () => {
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
 
+  const navState = useNavigationState((state) => state)
+  const activeRouteName = getActiveRouteName(navState)
+
   const style = useAnimatedStyle(() => {
     const screenScale = interpolate(progress.value, [0, 1], [1, 0.8])
     const screenTranslate = interpolate(progress.value, [0, 1], [0, 0.8 * width * -0.1])
@@ -57,28 +61,35 @@ export const BottomTabNavigator = () => {
     headerShown: false,
   }
 
+  const isCalendarModalScreen = activeRouteName === 'CALENDAR_MODAL'
+
   return (
     <SafeAreaWrapper edges={['bottom']}>
       <Animated.View style={[screenStyles, style]}>
-        <SafeAreaView edges={['top']} style={styles.safeAreaTop}>
-          <Tab.Navigator
-            tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}
-            screenOptions={screenOptions}>
-            <Tab.Screen
-              name="DashboardNavigation"
-              options={{ unmountOnBlur: true }}
-              component={DashboardNavigation}
-            />
-            <Tab.Screen name="CALENDAR" component={Calendar} options={{ unmountOnBlur: true }} />
-            <Tab.Screen name="RequestModal" component={EmptyComponent} />
-            <Tab.Screen
-              name="Stats"
-              component={RequestsNavigation}
-              options={{ unmountOnBlur: true }}
-            />
-            <Tab.Screen name="FEED" component={Feed} />
-          </Tab.Navigator>
-        </SafeAreaView>
+        <Tab.Navigator
+          tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
+          screenOptions={screenOptions}>
+          <Tab.Screen
+            name="DashboardNavigation"
+            options={{ unmountOnBlur: true }}
+            component={DashboardNavigation}
+          />
+          <Tab.Screen
+            name="CALENDAR"
+            component={CalendarNavigation}
+            options={{
+              unmountOnBlur: true,
+              tabBarStyle: { display: 'none', backgroundColor: 'red' },
+            }}
+          />
+          <Tab.Screen name="RequestModal" component={EmptyComponent} />
+          <Tab.Screen
+            name="Stats"
+            component={RequestsNavigation}
+            options={{ unmountOnBlur: true }}
+          />
+          <Tab.Screen name="FEED" component={Feed} />
+        </Tab.Navigator>
       </Animated.View>
     </SafeAreaWrapper>
   )

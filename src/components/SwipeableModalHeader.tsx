@@ -26,8 +26,8 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   const styles = useStyles()
   const navigation = useNavigation()
 
-  const iconPosition = props.closeAction === 'close' ? 'flex-end' : 'space-between'
-  const iconMargin = props.closeAction === 'close' ? '-m' : 'none'
+  const iconPosition = props.closeIcon === 'close' ? 'flex-end' : 'space-between'
+  const iconMargin = props.closeIcon === 'close' ? '-m' : 'none'
 
   const handleGoBack = () => {
     if (props.closeAction === 'back') {
