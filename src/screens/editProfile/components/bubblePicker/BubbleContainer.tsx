@@ -11,6 +11,7 @@ import { CheckMark } from './Checkmark'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 import { BubbleContainerButtons } from './BubbleContainerButtons'
 import { BubbleContainerHeader } from './BubbleContainerHeader'
+import { AnimatedBubble } from './AnimatedBubble'
 
 const DropArea = Animated.createAnimatedComponent(Box)
 
@@ -42,6 +43,7 @@ export const BubbleContainer = ({
           },
         ]}
       />
+      <AnimatedBubble currentColor={p.value} bubbles={bubbles} />
       {bubbles.map((bubble) => (
         <Box position="absolute" key={bubble.id}>
           <Bubble

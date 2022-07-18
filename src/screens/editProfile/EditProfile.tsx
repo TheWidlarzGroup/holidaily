@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -11,7 +11,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
-import { Box, mkUseStyles } from 'utils/theme'
+import { Box, mkUseStyles, useTheme } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
@@ -19,6 +19,9 @@ import { ActionModal } from 'components/ActionModal'
 import { useBackHandler } from 'hooks/useBackHandler'
 import { ScrollView } from 'react-native-gesture-handler'
 import { isIos } from 'utils/layout'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
+import { sleep } from 'utils/sleep'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -27,8 +30,11 @@ import { ProfileColor } from './components/ProfileColor'
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
 export const EditProfile = () => {
+  const [displayLoadingModal, { setTrue: showLoadingModal, setFalse: hideLoadingModal }] =
+    useBooleanState(true)
   const navigation = useNavigation()
   const styles = useStyles()
+  const theme = useTheme()
   const { keyboardOpen, keyboardHeight } = useKeyboard()
   const { user } = useUserContext()
   const { notify } = useGetNotificationsConfig()
@@ -61,6 +67,17 @@ export const EditProfile = () => {
       )
     }
   }
+
+  useAsyncEffect(async () => {
+    await sleep(300)
+    hideLoadingModal()
+  }, [])
+
+  useEffect(() => {
+    if (isLoading) showLoadingModal()
+    else hideLoadingModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading])
 
   const editUser = (data: Partial<User>) =>
     mutateUser(data, {
@@ -134,7 +151,7 @@ export const EditProfile = () => {
           extraStyle={{ paddingBottom: isIos ? 45 : 20 }}
         />
       </GestureRecognizer>
-      {isLoading && <LoadingModal show />}
+      <LoadingModal show={displayLoadingModal} style={{ backgroundColor: theme.colors.white }} />
     </SafeAreaWrapper>
   )
 }
