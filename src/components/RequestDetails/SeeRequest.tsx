@@ -48,7 +48,6 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
       </ModalHeader>
       <GestureRecognizer
         onSwipeRight={goBack}
-        onEnded
         androidOnly
         style={{ marginTop: theme.spacing.l, paddingBottom: theme.spacing.m }}>
         <RequestDetails {...p} showStatus wasSent />

@@ -54,7 +54,7 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
     <>
       <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
         <TeamHeader title={params.name} />
-        <GestureRecognizer onSwipeRight={goBack} onEnded androidOnly>
+        <GestureRecognizer onSwipeRight={goBack} androidOnly>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box paddingHorizontal="m" paddingBottom="xxxl">
               {matesOnHoliday.length > 0 && (
