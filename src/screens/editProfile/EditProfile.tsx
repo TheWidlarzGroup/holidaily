@@ -32,6 +32,8 @@ type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'ph
 export const EditProfile = () => {
   const [displayLoadingModal, { setTrue: showLoadingModal, setFalse: hideLoadingModal }] =
     useBooleanState(true)
+  const [animationTriggered, { setTrue: animationIsTriggered, setFalse: animationNotTriggered }] =
+    useBooleanState(false)
   const navigation = useNavigation()
   const styles = useStyles()
   const theme = useTheme()
@@ -130,7 +132,7 @@ export const EditProfile = () => {
   })
 
   return (
-    <SafeAreaWrapper edges={['top']}>
+    <SafeAreaWrapper edges={animationTriggered ? ['left', 'right'] : ['top']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView
           style={styles.container}
@@ -140,7 +142,10 @@ export const EditProfile = () => {
           <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
-          <ProfileColor onUpdate={onUpdate} />
+          <ProfileColor
+            onUpdate={onUpdate}
+            animationStatus={{ animationIsTriggered, animationNotTriggered }}
+          />
           <Box height={getBottomOffset()} />
         </ScrollView>
         <ActionModal

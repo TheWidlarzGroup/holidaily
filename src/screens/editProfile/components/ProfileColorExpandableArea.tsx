@@ -16,6 +16,10 @@ import { useTranslation } from 'react-i18next'
 
 type ProfileColorExpandableAreaProps = {
   callback: F0
+  animationStatus: {
+    animationIsTriggered: F0
+    animationNotTriggered: F0
+  }
   currentColor?: string
 }
 
@@ -39,6 +43,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
     props.callback()
     await sleep(500)
     translateY.value = STARTING_POSITION
+    props.animationStatus.animationNotTriggered()
   }
 
   useAnimatedReaction(
@@ -50,6 +55,11 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
       }
     }
   )
+
+  const onEndTriggerred = () => {
+    runOnJS(props.animationStatus.animationIsTriggered)()
+    translateY.value = withSpring(-windowHeight * 1.2)
+  }
 
   const eventHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
@@ -64,8 +74,12 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
       translateY.value = ctx.startY + event.translationY
     },
     onEnd: (event) => {
-      if (event.translationY < -200) translateY.value = withSpring(-windowHeight * 1.2)
-      else translateY.value = withSpring(STARTING_POSITION)
+      if (event.translationY < -200) {
+        runOnJS(onEndTriggerred)()
+      } else {
+        // runOnJS(props.animationStatus.animationNotTriggered)()
+        translateY.value = withSpring(STARTING_POSITION)
+      }
     },
   })
 
