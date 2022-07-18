@@ -449,6 +449,7 @@
     "actionModalDefault": "Select a day or range of days",
     "outOfOfficeSingular": "out of office",
     "outOfOffice": "out of office",
-    "dayOffCalendar": "Time off calendar"
+    "dayOffCalendar": "Time off calendar",
+    "dateInputPlaceholder": "yyyy/mm/dd"
   }
 }

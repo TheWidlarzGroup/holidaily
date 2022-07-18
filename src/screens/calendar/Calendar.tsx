@@ -27,17 +27,17 @@ import {
 } from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
 import Animated from 'react-native-reanimated'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { useBooleanState } from 'hooks/useBooleanState'
 
 const getSlicedDate = (date: string) => {
   const splittedDate = date.split('-')
   const year = splittedDate[0]
   const month = splittedDate[1]
-  const day = splittedDate[2] || month?.slice(-1)
+  const day = splittedDate[2]
 
   return { year, month, day }
 }
@@ -162,6 +162,7 @@ export const Calendar = () => {
     setSlicedRequest([])
   }
 
+  console.log('period start', periodStart)
   const shouldShowCalendarButtons =
     periodStart?.length >= 8 || periodEnd?.length >= 8 || slicedRequests?.length > 0
 
@@ -204,8 +205,9 @@ export const Calendar = () => {
       if (startDay === '0') {
         startDate = `${startYear}-${startMonth}-01`
       } else if (startDay.length < 2) {
-        console.log('her', startDay)
         startDate = `${startYear}-${startMonth}-0${startDay}`
+      } else {
+        startDate = `${startYear}-${startMonth}-${startDay}`
       }
       setPeriodStart(startDate)
     }
@@ -215,6 +217,8 @@ export const Calendar = () => {
         endDate = `${endYear}-${endMonth}-01`
       } else if (Number(endDay) < 10) {
         endDate = `${endYear}-${endMonth}-0${endDay}`
+      } else {
+        endDate = `${endYear}-${endMonth}-${endDay}`
       }
       setPeriodEnd(endDate)
     }
@@ -269,17 +273,83 @@ export const Calendar = () => {
           </Text>
         </Box>
       </Box>
-      <EventsList
-        ref={flatListRef}
-        selectedDate={selectedDate}
-        days={currentMonthDays}
-        currentIndex={currentIndex}
-        switchCalendarHeight={switchCalendarHeight}
-        setSwitchCalendarHeight={setSwitchCalendarHeight}
-        btnOnPress={() =>
-          flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
-        }
-      />
+
+      <SwipeableModalRegular
+        isOpen={isCalendarOpened}
+        onHide={hideCalendar}
+        hasIndicator
+        closeIcon="back">
+        <Box position="relative">
+          <CalendarList
+            periodStart={periodStart}
+            periodEnd={periodEnd || periodStart}
+            selectPeriodStart={setPeriodStart}
+            selectPeriodEnd={setPeriodEnd}
+            selectable
+            disablePastDates
+            style={styles.calendar}
+            markedDates={markedDates}
+            markingType="multi-dot"
+          />
+          <Box
+            shadowOffset={{ width: -2, height: 0 }}
+            shadowColor="black"
+            shadowOpacity={0.04}
+            shadowRadius={2}
+            elevation={20}
+            alignItems="center"
+            paddingVertical="l"
+            backgroundColor="alwaysWhite"
+            zIndex="2"
+            position="absolute"
+            bottom={100}
+            width="100%">
+            <Text variant="displayBoldSM">{getActionModalTitle(periodStart, periodEnd)}</Text>
+            <Text variant="textSM">
+              {getActionModalHeaderText(periodStart, periodEnd, t, i18n.language)}
+            </Text>
+            <Box marginTop="m">
+              <CustomButton
+                label={t('select')}
+                variant="primary"
+                onPress={onModalBtnPress}
+                disabled={!periodStart}
+              />
+            </Box>
+          </Box>
+        </Box>
+      </SwipeableModalRegular>
+      <Box backgroundColor="lightGrey" flex={1} paddingTop="xxxl" borderRadius="l">
+        <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
+          <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
+            <AnimatedBox style={styles.swipeDownRecognizer}>
+              <Text variant="textXSGrey">Przesun palcem w dol aby zobaczyc poprzednie </Text>
+              <SwipeDown color={theme.colors.titleActive} style={styles.swipeDownIcon} />
+            </AnimatedBox>
+          </FlingGestureHandler>
+        </Box>
+        <EventsList
+          ref={flatListRef}
+          selectedDate={selectedDate}
+          days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
+          currentIndex={currentIndex}
+          switchCalendarHeight={switchCalendarHeight}
+          setSwitchCalendarHeight={setSwitchCalendarHeight}
+          btnOnPress={() =>
+            flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
+          }
+        />
+        <Box paddingHorizontal="s" position="absolute" top={-5} width="100%">
+          <Box
+            opacity={0.5}
+            borderRadius="lmin"
+            backgroundColor="white"
+            paddingVertical="s"
+            paddingHorizontal="mlplus">
+            {singlePreviousEvent ? <DayEvent event={singlePreviousEvent} /> : null}
+          </Box>
+        </Box>
+      </Box>
     </SafeAreaWrapper>
   )
 }

@@ -1,9 +1,10 @@
-import { CustomInput } from 'components/CustomInput'
 import React from 'react'
 import { formatWithMask } from 'react-native-mask-input'
 import { Box, theme } from 'utils/theme'
 import CalendarIcon from 'assets/icons/icon-calendar.svg'
 import { CalendarButton } from './CalendarButton'
+import { MaskedInput } from 'components/MaskedInput'
+import { useTranslation } from 'react-i18next'
 
 const daysInMonth = (year: number, month: number) => {
   const days = new Date(year, month, 0).getDate()
@@ -52,10 +53,12 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
         setDate(e)
       }
       break
-    // case 6:
-    //   console.log('firstMonth', Number(e.slice(4, 5)))
-    //   setDate(e)
-    //   break
+    case 6:
+      if (Number(e.slice(5)) > 1) {
+        setDate(`${e.slice(0, 4)}1`)
+      }
+      setDate(e)
+      break
     case 7:
       if (Number(e.slice(6)) === 0) {
         setDate(`${e.slice(0, 6)}1`)
@@ -91,12 +94,19 @@ export const DateInputs = (p: Props) => {
     mask,
   })
 
-  const { masked: maskedEnd } = formatWithMask({
+  const {
+    masked: maskedEnd,
+    obfuscated,
+    unmasked,
+  } = formatWithMask({
     text: p.periodEnd,
     mask,
+    obfuscationCharacter: '-',
   })
 
-  const handleOnChange = (e: string, type: 'from' | 'to') => {
+  const { t } = useTranslation('calendar')
+
+  const handleOnChange = (type: 'from' | 'to') => (e: string) => {
     if (type === 'from') {
       handleOnChangeSwitch(e, p.setPeriodStart)
     } else {
@@ -105,32 +115,32 @@ export const DateInputs = (p: Props) => {
   }
 
   return (
-    <Box flexDirection="row" marginTop="xmm">
-      <Box flex={1}>
-        <CustomInput
-          variant="medium"
+    <Box flexDirection="row" marginTop="xmm" alignItems="center">
+      <Box flex={1} height={40}>
+        <MaskedInput
+          handleOnChange={handleOnChange('from')}
+          value={p.periodStart}
+          mask={mask}
           maxLength={10}
-          value={maskedStart}
-          onChangeText={(e) => handleOnChange(e, 'from')}
-          inputLabel="Date From"
-          blurOnSubmit
-          placeholder="yyyy-mm-dd"
+          placeholder={t('dateInputPlaceholder')}
           keyboardType="number-pad"
-          isError={false}
-          reset={() => handleOnChange('', 'from')}
+          obfuscationCharacter="-"
+          showObfuscatedValue
+          reset={() => handleOnChange('from')('')}
         />
       </Box>
-      <Box flex={1} marginLeft="xmm">
-        <CustomInput
-          variant="medium"
+
+      <Box flex={1} marginLeft="xmm" height={40}>
+        <MaskedInput
+          handleOnChange={handleOnChange('to')}
+          value={p.periodEnd}
+          mask={mask}
           maxLength={10}
-          value={maskedEnd}
-          onChangeText={(e) => handleOnChange(e, 'to')}
-          inputLabel="Date To"
-          blurOnSubmit
-          placeholder="yyyy-mm-dd"
+          placeholder={t('dateInputPlaceholder')}
           keyboardType="number-pad"
-          isError={false}
+          obfuscationCharacter="-"
+          showObfuscatedValue
+          reset={() => handleOnChange('to')('')}
         />
       </Box>
 

@@ -416,6 +416,7 @@
     "actionModalDefault": "Wybierz dzień lub okres",
     "outOfOfficeSingular": "wolny od pracy",
     "outOfOffice": "wolnych od pracy",
-    "dayOffCalendar": "Kalendarz urlopów"
+    "dayOffCalendar": "Kalendarz urlopów",
+    "dateInputPlaceholder": "yyyy/mm/dd"
   }
 }

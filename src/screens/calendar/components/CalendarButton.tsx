@@ -31,7 +31,6 @@ const useStyles = mkUseStyles((theme) => ({
     backgroundColor: theme.colors.disabled,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: theme.spacing.ml,
     marginLeft: theme.spacing.xmm,
   },
 }))
