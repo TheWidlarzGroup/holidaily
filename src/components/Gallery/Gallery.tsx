@@ -13,11 +13,11 @@ import {
 import { useSharedValue } from 'react-native-reanimated'
 import { AttachmentType } from 'types/holidaysDataTypes'
 import { isScreenHeightShort } from 'utils/deviceSizes'
-import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { isIos } from 'utils/layout'
-import { Box } from 'utils/theme'
+import { BaseOpacity, Box } from 'utils/theme'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useGetActiveRouteName } from 'utils/getActiveRouteName'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -62,7 +62,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
         {...item}
         width={width}
         onPress={() => onItemPress && onItemPress(index, item.uri)}
-        style={{ paddingTop: 8, justifyContent: 'center', height: '100%' }}
+        style={{ paddingTop: 8, justifyContent: 'center' }}
       />
     ),
     [width, onItemPress]
@@ -90,11 +90,24 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
   return (
     <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
       {activeRouteName === 'GALLERY' ? (
-        <GestureRecognizer
-          onSwipeDown={() => navigation.goBack()}
-          onSwipeUp={() => navigation.goBack()}>
-          {flatListComponent}
-        </GestureRecognizer>
+        <BaseOpacity
+          justifyContent="center"
+          alignItems="center"
+          flex={1}
+          activeOpacity={1}
+          onPress={() => navigation.goBack()}>
+          <GestureRecognizer
+            style={{
+              flex: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: (width * 4) / 3,
+            }}
+            onSwipeDown={() => navigation.goBack()}
+            onSwipeUp={() => navigation.goBack()}>
+            {flatListComponent}
+          </GestureRecognizer>
+        </BaseOpacity>
       ) : (
         flatListComponent
       )}
