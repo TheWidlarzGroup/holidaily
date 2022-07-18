@@ -162,7 +162,6 @@ export const Calendar = () => {
     setSlicedRequest([])
   }
 
-  console.log('period start', periodStart)
   const shouldShowCalendarButtons =
     periodStart?.length >= 8 || periodEnd?.length >= 8 || slicedRequests?.length > 0
 

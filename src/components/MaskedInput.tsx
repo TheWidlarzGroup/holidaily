@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MaskInput, { MaskInputProps } from 'react-native-mask-input'
-import { BaseOpacity, Box, mkUseStyles, theme } from 'utils/theme'
+import { BaseOpacity, mkUseStyles, theme } from 'utils/theme'
 
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { NativeSyntheticEvent, TextInputFocusEventData, TextInputProps } from 'react-native'
@@ -44,7 +44,6 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
     <Animated.View
       style={[
         styles.container,
-        styles.containerHeight,
         progressStyle,
         isFocused && [styles.noBackground, styles.focusBorder],
       ]}>
@@ -74,16 +73,13 @@ const useStyles = mkUseStyles((theme) => ({
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
   },
-  containerHeight: {
-    // height: 40,
-  },
+
   noBackground: { backgroundColor: theme.colors.white },
   focusBorder: {
     borderStyle: 'solid',
     borderColor: theme.colors.inputBorder,
   },
   input: {
-    // paddingVertical: 0,
     color: theme.colors.black,
     fontFamily: 'Nunito-Regular',
   },

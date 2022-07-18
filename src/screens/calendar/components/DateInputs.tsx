@@ -31,6 +31,9 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
 
   const { firstDayNumber, secondDayNumber } = daysInMonth(year, month)
 
+  const monthFirstNumber = Number(e.slice(5)[0])
+  const dayFirstNumberInInput = Number(e.slice(8)[0])
+
   switch (e.length) {
     case 1:
       if (Number(e) !== 2) {
@@ -56,27 +59,32 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
     case 6:
       if (Number(e.slice(5)) > 1) {
         setDate(`${e.slice(0, 4)}1`)
+      } else {
+        setDate(e)
       }
-      setDate(e)
       break
     case 7:
-      if (Number(e.slice(6)) === 0) {
+      if (Number(e.slice(6)) > 2 && monthFirstNumber > 0) {
+        setDate(`${e.slice(0, 6)}2`)
+      } else if (Number(e.slice(6)) === 0) {
         setDate(`${e.slice(0, 6)}1`)
       } else {
         setDate(e)
       }
+
       break
 
-    case 8:
-      if (Number(e.slice(7)) > firstDayNumber) {
+    case 9:
+      if (Number(e.slice(8)) > firstDayNumber) {
         setDate(`${e.slice(0, 7)}${firstDayNumber}`)
       } else {
         setDate(e)
       }
+
       break
 
     case 10:
-      if (Number(e.slice(7)) === firstDayNumber && Number(e.slice(9)) > secondDayNumber) {
+      if (dayFirstNumberInInput === firstDayNumber && Number(e.slice(9)) > secondDayNumber) {
         setDate(`${e.slice(0, 9)}${secondDayNumber}`)
       } else {
         setDate(e)
