@@ -130,7 +130,7 @@ export const EditProfile = () => {
   })
 
   return (
-    <SafeAreaWrapper edges={['left', 'right']}>
+    <SafeAreaWrapper edges={['top']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView
           style={styles.container}
@@ -156,9 +156,8 @@ export const EditProfile = () => {
   )
 }
 
-const useStyles = mkUseStyles((theme) => ({
+const useStyles = mkUseStyles(() => ({
   container: {
     flex: 1,
-    paddingTop: theme.spacing.xl,
   },
 }))
