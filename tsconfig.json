@@ -2,6 +2,7 @@
   "extends": "eslint-config-twg/tsconfig.json",
   "include": ["**/*"],
   "compilerOptions": {
+    "lib": ["es2019"],
     "jsx": "react-native",
     "typeRoots": ["node_modules/@types"],
     "types": ["jest", "node"],

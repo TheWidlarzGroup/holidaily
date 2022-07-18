@@ -8,6 +8,7 @@ import { ModalHandleIndicator } from './ModalHandleIndicator'
 
 type SwipeableModalHeaderProps = {
   closeAction: 'close' | 'back'
+  closeIcon?: 'close' | 'back'
   closeModal: F0
   title?: string
   aboutAction?: F0
@@ -39,9 +40,9 @@ export const SwipeableModalHeader = (props: SwipeableModalHeaderProps) => {
   }
 
   const closeButton = () => {
-    if (props.closeAction === 'close')
+    if (props.closeIcon === 'close')
       return <IconClose height={CLOSE_SIZE} width={CLOSE_SIZE} color={styles.close.color} />
-    if (props.closeAction === 'back')
+    if (props.closeIcon === 'back')
       return <IconBack height={BACK_SIZE} width={BACK_SIZE} color={styles.close.color} />
   }
 

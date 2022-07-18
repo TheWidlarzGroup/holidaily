@@ -72,6 +72,20 @@ const text = {
     textAlign: 'left',
     color: 'greyDark',
   },
+  textBoldXSGrey: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'darkGrey',
+    lineHeight: 18,
+    letterSpacing: 0.08 * 12,
+  },
+  textXSGrey: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'darkGrey',
+    lineHeight: 18,
+    letterSpacing: 0.08 * 12,
+  },
 }
 const display = {
   displayBoldLG: {
