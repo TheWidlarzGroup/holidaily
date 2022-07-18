@@ -4,7 +4,7 @@ import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { CalendarNavigatorType } from 'navigation/types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { calculatePTO, getDurationInDays, getFormattedPeriod } from 'utils/dates'
 import { mkUseStyles } from 'utils/theme'
 import { ActionModal, ActionModalProps } from 'components/ActionModal'
@@ -12,6 +12,8 @@ import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 import { TFunction, useTranslation } from 'react-i18next'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
+import { useCalendarData } from '../useCalendarData'
+import { getMarkedDates } from '../utils'
 
 type GetPeriodModalTextsProps = {
   periodStart: string
@@ -23,6 +25,9 @@ type GetPeriodModalTextsProps = {
 
 export const CalendarModal = () => {
   const { periodStart, periodEnd, handleSetPeriodStart, handleSetPeriodEnd } = useCalendarContext()
+  const { requestsDays } = useCalendarData()
+
+  const markedDates = useMemo(() => getMarkedDates(requestsDays), [requestsDays])
 
   const { user } = useUserContext()
   const { t } = useTranslation('requestVacation')
@@ -50,7 +55,7 @@ export const CalendarModal = () => {
     handleSetPeriodEnd('')
   }
 
-  const onSubmit = () => navigation.navigate('Calendar')
+  const onSubmit = () => navigation.navigate('CALENDAR')
 
   const isPeriodValid = periodState === 'valid'
   const isPeriodAlreadyScheduled = periodState === 'alreadyScheduledPeriod'
@@ -87,7 +92,7 @@ export const CalendarModal = () => {
             selectable
             disablePastDates
             style={styles.calendar}
-            markedDates={{}}
+            markedDates={markedDates}
             // isInvalid={!isPeriodValid}
           />
           <ActionModal
@@ -98,7 +103,6 @@ export const CalendarModal = () => {
             header={modalTexts[periodState].header}
             content={modalTexts[periodState].content}
             extraButtons={modalExtraButtons}
-            // extraStyle={{ paddingBottom: isIos ? 40 : 20 }}
           />
         </>
       )}
