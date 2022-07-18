@@ -22,6 +22,8 @@ type AnimatedBubbleProps = {
 }
 
 const STARTING_SCALE = 100
+const STARTING_Y = windowHeight * 0.5
+const STARTING_X = windowWidth * 0.5
 const AnimatedBubbleComponent = Animated.createAnimatedComponent(Box)
 
 export const AnimatedBubble = (props: AnimatedBubbleProps) => {
@@ -30,9 +32,6 @@ export const AnimatedBubble = (props: AnimatedBubbleProps) => {
     () => props.bubbles.find((bubble) => bubble.color === props.currentColor),
     [props.bubbles, props.currentColor]
   )
-
-  const STARTING_Y = windowHeight * 0.5
-  const STARTING_X = windowWidth * 0.5
 
   const bubbleY = useSharedValue(STARTING_Y)
   const bubbleX = useSharedValue(STARTING_X)
