@@ -1,9 +1,9 @@
-import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 
 describe('Get holiday requests of next month', () => {
-  const requests: HolidailyRequestMonthType[] = [
+  const requests: HolidayRequestMonthType[] = [
     {
       date: '2022-08',
       days: [

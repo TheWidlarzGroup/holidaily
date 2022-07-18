@@ -21,10 +21,10 @@ import type { Dot } from './ExpandableCalendar'
 
 type CustomCalendarProps = {
   markedDates: MarkingType | Record<string, never>
-  periodStart: string | undefined
-  periodEnd: string | undefined
   selectPeriodStart: F1<string>
   selectPeriodEnd: F1<string>
+  periodStart?: string
+  periodEnd?: string
   selectable?: boolean
   onHeaderPressed?: F0
   isInvalid?: boolean
@@ -142,7 +142,6 @@ const CalendarDayComponent = React.memo(
   (prevProps, nextProps) => {
     if ((prevProps.marking?.dots ?? []).length !== (nextProps.marking?.dots ?? []).length)
       return false
-    if (!prevProps.marking?.period && !nextProps.marking?.period) return true
-    return false
+    return !prevProps.marking?.period && !nextProps.marking?.period
   }
 )
