@@ -38,7 +38,7 @@ export const LoadingModal = ({ show, showText, style }: LoadingModalProps) => {
   }, [loaderProgress])
 
   useEffect(() => {
-    if (show === true) setHiddenFalse()
+    if (show) setHiddenFalse()
     else
       setTimeout(() => {
         setHiddenTrue()
