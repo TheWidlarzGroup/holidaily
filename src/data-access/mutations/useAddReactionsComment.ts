@@ -126,20 +126,19 @@ export const useAddReaction = () => {
 
         const updatedReaction = { ...reactionToModify, users: filteredUsers }
 
-        const indexOfUpdatedReaction = allPosts[postIndex].reactions.findIndex(
-          (a) => a.type === reaction.type
-        )
-        const postReactionsWithoutUpdatedOne = allPosts[postIndex].reactions.filter(
+        const indexOfUpdatedReaction = allPostReactions.findIndex((a) => a.type === reaction.type)
+        const postReactionsWithoutUpdatedOne = allPostReactions.filter(
           (a) => a.type !== reaction.type
         )
 
+        const postReactions =
+          filteredUsers.length > 0
+            ? insert(postReactionsWithoutUpdatedOne, indexOfUpdatedReaction, updatedReaction)
+            : postReactionsWithoutUpdatedOne
+
         const updatedPost: FeedPost = {
           ...allPosts[postIndex],
-          reactions: insert(
-            postReactionsWithoutUpdatedOne,
-            indexOfUpdatedReaction,
-            updatedReaction
-          ),
+          reactions: postReactions,
         }
 
         allPosts[postIndex] = updatedPost
