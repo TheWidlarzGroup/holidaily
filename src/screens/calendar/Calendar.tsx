@@ -30,6 +30,15 @@ import { CategoriesSlider } from './components/CategoriesSlider'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 
+const getSlicedDate = (date: string) => {
+  const splittedDate = date.split('-')
+  const year = splittedDate[0]
+  const month = splittedDate[1]
+  const day = splittedDate[2] || month?.slice(-1)
+
+  return { year, month, day }
+}
+
 const getActionModalHeaderText = (
   periodStart: string,
   periodEnd: string,
@@ -125,13 +134,15 @@ const CalendarToWrap = () => {
   }
 
   const shouldShowCalendarButtons =
-    periodStart?.length === 10 || periodEnd?.length === 10 || slicedRequests?.length > 0
+    periodStart?.length >= 8 || periodEnd?.length >= 8 || slicedRequests?.length > 0
 
   const handleSwipeDown = (e: FlingGestureHandlerGestureEvent) => {
     if (e.nativeEvent.state === State.ACTIVE) {
       const dateToRevert = periodStart || today
-      const month = Number(dateToRevert.slice(5, 7))
-      const year = Number(dateToRevert.slice(0, 4))
+      const { month: monthString, year: yearString } = getSlicedDate(dateToRevert)
+
+      const year = Number(yearString)
+      const month = Number(monthString)
 
       let newPeriodStart = ''
 
@@ -153,13 +164,44 @@ const CalendarToWrap = () => {
     }
   }
 
+  const adjustStartEndDates = () => {
+    const { year: startYear, month: startMonth, day: startDay } = getSlicedDate(periodStart)
+    const { year: endYear, month: endMonth, day: endDay } = getSlicedDate(periodEnd)
+
+    let startDate = ''
+    let endDate = ''
+
+    if (periodStart && startDay) {
+      if (startDay === '0') {
+        startDate = `${startYear}-${startMonth}-01`
+      } else if (startDay.length < 2) {
+        console.log('her', startDay)
+        startDate = `${startYear}-${startMonth}-0${startDay}`
+      }
+      setPeriodStart(startDate)
+    }
+
+    if (periodEnd && endDay) {
+      if (endDay === '0') {
+        endDate = `${endYear}-${endMonth}-01`
+      } else if (Number(endDay) < 10) {
+        endDate = `${endYear}-${endMonth}-0${endDay}`
+      }
+      setPeriodEnd(endDate)
+    }
+
+    return { startDate, endDate }
+  }
+
   const handleSetDatePress = () => {
     let startIndex = 0
 
-    if (!periodStart) {
+    const { startDate } = adjustStartEndDates()
+
+    if (!startDate) {
       startIndex = requestsDays.findIndex((a) => a.date === today)
     } else {
-      startIndex = requestsDays.findIndex((a) => a.date === periodStart)
+      startIndex = requestsDays.findIndex((a) => a.date === startDate)
     }
 
     handleSetEventsInPeriod(startIndex)
