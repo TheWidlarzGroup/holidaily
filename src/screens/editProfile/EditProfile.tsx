@@ -124,7 +124,10 @@ export const EditProfile = () => {
   return (
     <SafeAreaWrapper edges={['left', 'right']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
-        <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          style={styles.container}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
           <DrawerBackArrow goBack={handleGoBack} />
           <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />

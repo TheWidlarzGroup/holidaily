@@ -32,17 +32,24 @@ export const SubmitButton = ({
       alignItems="center"
       justifyContent="center"
       paddingBottom={isIos ? 'xl' : 'm'}>
-      <BaseOpacity onPress={handleValidation} backgroundColor="dashboardBackground">
-        <CustomButton
-          loading={isLoading}
-          marginHorizontal={theme.spacing.lplus}
-          marginTop={theme.spacing.xm}
-          disabled={isDisabled}
-          label={t(step === 0 ? 'CTA' : 'sendRequest')}
-          variant="primary"
-          onPress={onPress}
-        />
-      </BaseOpacity>
+      <BaseOpacity
+        onPress={handleValidation}
+        position="absolute"
+        height="120%"
+        width="100%"
+        disabled={!isDisabled}
+        style={{ zIndex: isDisabled ? 10 : -1 }}
+      />
+      <CustomButton
+        loading={isLoading}
+        marginHorizontal={theme.spacing.lplus}
+        marginTop={theme.spacing.xm}
+        disabled={isDisabled}
+        label={t(step === 0 ? 'CTA' : 'sendRequest')}
+        variant="primary"
+        onPress={onPress}
+        style={{ zIndex: isDisabled ? -1 : 10 }}
+      />
     </Box>
   )
 }
