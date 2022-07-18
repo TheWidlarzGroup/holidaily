@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { windowHeight, windowWidth } from 'utils/deviceSizes'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { Box } from 'utils/theme'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 type Bubble = {
@@ -20,22 +21,22 @@ type AnimatedBubbleProps = {
   bubbles: Bubble[]
 }
 
+const STARTING_SCALE = 100
 const AnimatedBubbleComponent = Animated.createAnimatedComponent(Box)
 
 export const AnimatedBubble = (props: AnimatedBubbleProps) => {
-  const [isAnimated, setIsAnimated] = useState(false)
+  const [isAnimated, { setTrue: animationCompleted }] = useBooleanState(false)
   const currentBubble = useMemo(
     () => props.bubbles.find((bubble) => bubble.color === props.currentColor),
     [props.bubbles, props.currentColor]
   )
 
-  const startingScale = 100
-  const startingY = windowHeight * 0.5
-  const startingX = windowWidth * 0.5
+  const STARTING_Y = windowHeight * 0.5
+  const STARTING_X = windowWidth * 0.5
 
-  const bubbleY = useSharedValue(startingY)
-  const bubbleX = useSharedValue(startingX)
-  const bubbleScale = useSharedValue(startingScale)
+  const bubbleY = useSharedValue(STARTING_Y)
+  const bubbleX = useSharedValue(STARTING_X)
+  const bubbleScale = useSharedValue(STARTING_SCALE)
 
   const AnimatedBubbleStyle = useAnimatedStyle(
     () => ({
@@ -53,7 +54,7 @@ export const AnimatedBubble = (props: AnimatedBubbleProps) => {
       bubbleX.value = currentBubble.position.x
       bubbleY.value = currentBubble.position.y
       await sleep(1000)
-      setIsAnimated(true)
+      animationCompleted()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

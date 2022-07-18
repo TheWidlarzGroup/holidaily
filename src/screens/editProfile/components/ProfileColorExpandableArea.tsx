@@ -12,19 +12,22 @@ import Animated, {
 import { Box, Text, mkUseStyles, useTheme } from 'utils/theme'
 import SwipeUpIcon from 'assets/icons/icon-swipe-up.svg'
 import { sleep } from 'utils/sleep'
+import { useTranslation } from 'react-i18next'
 
 type ProfileColorExpandableAreaProps = {
   callback: F0
   currentColor?: string
 }
 
+const STARTING_POSITION = 0
+const ExpandableArea = Animated.createAnimatedComponent(Box)
+
 export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProps) => {
   const styles = useStyles()
   const theme = useTheme()
+  const { t } = useTranslation('userProfile')
 
-  const startingPosition = 0
-  const translateY = useSharedValue(startingPosition)
-  const ExpandableArea = Animated.createAnimatedComponent(Box)
+  const translateY = useSharedValue(STARTING_POSITION)
   const expandableAreaStyle = useAnimatedStyle(
     () => ({
       transform: [{ translateY: translateY.value }],
@@ -35,7 +38,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
   const triggerAction = async () => {
     props.callback()
     await sleep(500)
-    translateY.value = startingPosition
+    translateY.value = STARTING_POSITION
   }
 
   useAnimatedReaction(
@@ -55,17 +58,14 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
     }
   >({
     onStart: (_, ctx) => {
-      ctx.startY = startingPosition
+      ctx.startY = STARTING_POSITION
     },
     onActive: (event, ctx) => {
       translateY.value = ctx.startY + event.translationY
     },
     onEnd: (event) => {
-      if (event.translationY < -200) {
-        translateY.value = withSpring(-windowHeight * 1.2)
-      } else {
-        translateY.value = withSpring(startingPosition)
-      }
+      if (event.translationY < -200) translateY.value = withSpring(-windowHeight * 1.2)
+      else translateY.value = withSpring(STARTING_POSITION)
     },
   })
 
@@ -86,7 +86,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
           color={theme.colors.alwaysWhite}
         />
         <Text style={styles.changeColor} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
-          Change color
+          {t('changeColor')}
         </Text>
       </ExpandableArea>
     </PanGestureHandler>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +21,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { isIos } from 'utils/layout'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -29,7 +30,8 @@ import { ProfileColor } from './components/ProfileColor'
 type EditDetailsTypes = Pick<User, 'lastName' | 'firstName' | 'occupation' | 'photo' | 'userColor'>
 
 export const EditProfile = () => {
-  const [showLoadingModal, setShowLoadingModal] = useState(true)
+  const [displayLoadingModal, { setTrue: showLoadingModal, setFalse: hideLoadingModal }] =
+    useBooleanState(true)
   const navigation = useNavigation()
   const styles = useStyles()
   const theme = useTheme()
@@ -68,8 +70,14 @@ export const EditProfile = () => {
 
   useAsyncEffect(async () => {
     await sleep(300)
-    setShowLoadingModal(false)
+    hideLoadingModal()
   }, [])
+
+  useEffect(() => {
+    if (isLoading) showLoadingModal()
+    else hideLoadingModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading])
 
   const editUser = (data: Partial<User>) =>
     mutateUser(data, {
@@ -143,8 +151,7 @@ export const EditProfile = () => {
           extraStyle={{ paddingBottom: isIos ? 45 : 20 }}
         />
       </GestureRecognizer>
-      <LoadingModal show={showLoadingModal} style={{ backgroundColor: theme.colors.white }} />
-      {isLoading && <LoadingModal show />}
+      <LoadingModal show={displayLoadingModal} style={{ backgroundColor: theme.colors.white }} />
     </SafeAreaWrapper>
   )
 }
