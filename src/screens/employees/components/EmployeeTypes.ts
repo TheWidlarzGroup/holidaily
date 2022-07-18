@@ -1,4 +1,4 @@
-import { User } from 'mock-api/models/mirageTypes'
+import { User } from 'mockApi/models'
 
 export type UserTypes = {
   confirmed: boolean
