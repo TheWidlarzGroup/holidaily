@@ -4,8 +4,7 @@ import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigatio
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { DrawerRoutes } from 'navigation/types'
-import { useNavigationState } from '@react-navigation/native'
-import { getActiveRouteName } from 'utils/getActiveRouteName'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 import { useSiriListeners } from 'hooks/useSiriListeners'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
@@ -24,8 +23,7 @@ const navigatorOptions = {
 }
 
 export const DrawerNavigator = () => {
-  const navState = useNavigationState((state) => state)
-  const activeRouteName = getActiveRouteName(navState)
+  const activeRouteName = useGetActiveRouteName()
   const { t } = useTranslation('navigation')
 
   useSiriListeners<'Home'>()

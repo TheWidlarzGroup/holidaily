@@ -46,6 +46,7 @@ export const StatsAndRequests = () => {
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['bottom']}>
       <SectionList
+        stickySectionHeadersEnabled={false}
         ListHeaderComponent={<Stats stats={stats} />}
         sections={[
           {

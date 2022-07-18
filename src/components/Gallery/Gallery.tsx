@@ -2,19 +2,22 @@ import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
+  StatusBar,
   useWindowDimensions,
   ViewToken,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { isScreenHeightShort } from 'utils/deviceSizes'
-import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { isIos } from 'utils/layout'
-import { Box } from 'utils/theme'
+import { BaseOpacity, Box } from 'utils/theme'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
+import { AttachmentDataType } from 'mockApi/models'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -23,26 +26,25 @@ type GalleryProps = {
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
   postId?: string
-  fullScreenPicture?: true
 }
 
-export const Gallery = ({
-  data,
-  index = 0,
-  onIndexChanged,
-  onItemPress,
-  postId,
-  fullScreenPicture,
-}: GalleryProps) => {
+export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
   const { width } = useWindowDimensions()
   const listRef = useRef<FlashList<AttachmentDataType>>(null)
   const translateX = useSharedValue(0)
   const navigation = useNavigation()
+  const { userSettings } = useUserSettingsContext()
+  const activeRouteName = useGetActiveRouteName()
+
+  useEffect(() => {
+    if (activeRouteName === 'GALLERY') StatusBar.setBarStyle('light-content')
+    else StatusBar.setBarStyle(userSettings?.darkMode ? 'light-content' : 'dark-content')
+  }, [activeRouteName, userSettings?.darkMode])
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       const [item] = viewableItems
-      if (item === undefined || item.index === null) return
+      if (!item || item.index === null) return
       onIndexChanged?.(item.index)
     },
     [onIndexChanged]
@@ -60,7 +62,7 @@ export const Gallery = ({
         {...item}
         width={width}
         onPress={() => onItemPress && onItemPress(index, item.uri)}
-        style={{ paddingTop: 8, justifyContent: 'center', height: '100%' }}
+        style={{ paddingTop: 8, justifyContent: 'center' }}
       />
     ),
     [width, onItemPress]
@@ -87,13 +89,25 @@ export const Gallery = ({
 
   return (
     <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
-      {fullScreenPicture ? (
-        <GestureRecognizer
-          onSwipeDown={() => navigation.goBack()}
-          onSwipeUp={() => navigation.goBack()}
-          onFailed={() => navigation.goBack()}>
-          {flatListComponent}
-        </GestureRecognizer>
+      {activeRouteName === 'GALLERY' ? (
+        <BaseOpacity
+          justifyContent="center"
+          alignItems="center"
+          flex={1}
+          activeOpacity={1}
+          onPress={() => navigation.goBack()}>
+          <GestureRecognizer
+            style={{
+              flex: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: (width * 4) / 3,
+            }}
+            onSwipeDown={() => navigation.goBack()}
+            onSwipeUp={() => navigation.goBack()}>
+            {flatListComponent}
+          </GestureRecognizer>
+        </BaseOpacity>
       ) : (
         flatListComponent
       )}
