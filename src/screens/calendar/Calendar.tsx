@@ -106,7 +106,7 @@ export const Calendar = () => {
 
   const styles = useStyles()
 
-  const { i18n, t } = useTranslation('calendar')
+  const { t } = useTranslation('calendar')
 
   const [slicedRequests, setSlicedRequest] = useState<DayInfoProps[]>([])
 
@@ -139,6 +139,7 @@ export const Calendar = () => {
     const sliced = requestsDays.slice(startDateItemIndex, sliceEndIndex)
 
     setSlicedRequest(sliced)
+    scrollToIndex(0)
   }
 
   const clearDatesInputs = () => {
