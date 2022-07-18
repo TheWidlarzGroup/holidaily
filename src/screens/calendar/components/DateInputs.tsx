@@ -1,5 +1,4 @@
 import React from 'react'
-import { formatWithMask } from 'react-native-mask-input'
 import { Box, theme } from 'utils/theme'
 import CalendarIcon from 'assets/icons/icon-calendar.svg'
 import { CalendarButton } from './CalendarButton'
@@ -97,21 +96,6 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
 }
 
 export const DateInputs = (p: Props) => {
-  const { masked: maskedStart } = formatWithMask({
-    text: p.periodStart,
-    mask,
-  })
-
-  const {
-    masked: maskedEnd,
-    obfuscated,
-    unmasked,
-  } = formatWithMask({
-    text: p.periodEnd,
-    mask,
-    obfuscationCharacter: '-',
-  })
-
   const { t } = useTranslation('calendar')
 
   const handleOnChange = (type: 'from' | 'to') => (e: string) => {
