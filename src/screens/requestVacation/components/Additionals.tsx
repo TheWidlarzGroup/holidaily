@@ -1,8 +1,8 @@
 import { CustomInput } from 'components/CustomInput'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AttachmentType } from 'types/holidaysDataTypes'
-import { Box, Text } from 'utils/theme/index'
+import { Box, Text } from 'utils/theme'
 import { AttachmentIcon } from './additionals/AttachmentIcon'
 import { Attachments } from './additionals/Attachments'
 import { Message } from './additionals/Message'
@@ -11,7 +11,7 @@ type AdditionalsProps = {
   onMsgBtnPress: F0
   isMsgInputVisible: boolean
   showAttachmentModal: F0
-  attachments: (AttachmentType | (AttachmentType & { name: string }))[]
+  attachments: (AttachmentDataType | (AttachmentDataType & { name: string }))[]
   removeAttachment: F1<string>
   hideMsgInput: F0
   onMsgSubmit: F1<string>

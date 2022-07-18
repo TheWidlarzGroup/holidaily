@@ -36,20 +36,20 @@ export type FeedPost = {
   author: UserData
   createdAt: number
   comments: Comment[]
-  data: FeedPostData[]
+  data: AttachmentDataType[]
   text: string
   reactions: Reaction[]
   location?: LocationGeocodedAddress
   recentlyAdded?: boolean
 }
 
-export type FeedPostData = {
-  type: FeedPostDataType
+export type AttachmentDataType = {
+  type?: AttachmentType
   uri: string
   id: string
 }
 
-export type FeedPostDataType = 'image' | 'video'
+export type AttachmentType = 'image' | 'video'
 
 export type EditComment = {
   type: 'comment'

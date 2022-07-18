@@ -8,8 +8,8 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { calculatePTO } from 'utils/dates'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import { MAX_SICK_DAYS_COUNT } from '../components/MaxSickDays'
 
 export type RequestVacationData = {
@@ -20,8 +20,8 @@ export type RequestVacationData = {
   requestData: {
     description: string
     message: string
-    photos: AttachmentType[]
-    files: (AttachmentType & { name: string })[]
+    photos: AttachmentDataType[]
+    files: (AttachmentDataType & { name: string })[]
   }
   sickTime: boolean
   isPeriodInvalid: boolean

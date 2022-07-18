@@ -1,10 +1,9 @@
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { DayOffRequest, FeedPostData } from 'mock-api/models'
+import { AttachmentDataType, DayOffRequest } from 'mock-api/models'
 import { Team, User } from 'mock-api/models/mirageTypes'
 import { PrevScreen } from 'hooks/usePrevScreenBackHandler'
-import { AttachmentType } from 'types/holidaysDataTypes'
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]?: { screen: K; params?: ParamList[K] }
@@ -122,7 +121,7 @@ export type ModalRoutes = {
   NOTIFICATIONS: undefined
   REQUEST_VACATION_CALENDAR: { isSickTime?: boolean }
   DRAWER_NAVIGATOR: NestedNavigatorParams<DrawerRoutes>
-  GALLERY: { data: FeedPostData[]; index: number; postId?: string }
+  GALLERY: { data: AttachmentDataType[]; index: number; postId?: string }
   SUBSCRIBE_NEW_TEAM: undefined
   PRIVACY_POLICY: undefined
   CREATE_POST_NAVIGATION: undefined
@@ -135,7 +134,7 @@ export type BottomTabRoutes = {
   NOTIFICATIONS: undefined
   CREATE_POST_NAVIGATION?: {
     screen: string
-    params: { modalAsset?: AttachmentType; editPostId?: string }
+    params: { modalAsset?: AttachmentDataType; editPostId?: string }
   }
   Stats: NestedNavigatorParams<RequestsRoutes>
   FEED: { postId?: string; prevScreen?: 'NOTIFICATIONS' } | undefined
@@ -177,7 +176,7 @@ export type BudgetRoutes = {
   PTO_POLICY: undefined
 }
 export type CreatePostRoutes = {
-  CREATE_POST: { modalAsset: FeedPostData; editPostId?: string }
+  CREATE_POST: { modalAsset: AttachmentDataType; editPostId?: string }
   LOCATION_FORM: undefined
 }
 

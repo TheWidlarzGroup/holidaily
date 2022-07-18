@@ -2,15 +2,15 @@ import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import React, { useCallback, useRef } from 'react'
 import {
-  ViewToken,
-  useWindowDimensions,
-  NativeSyntheticEvent,
   NativeScrollEvent,
+  NativeSyntheticEvent,
+  useWindowDimensions,
+  ViewToken,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { isIos } from 'utils/layout'
@@ -18,7 +18,7 @@ import { Box } from 'utils/theme'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
-  data: AttachmentType[]
+  data: AttachmentDataType[]
   index?: number
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
@@ -35,7 +35,7 @@ export const Gallery = ({
   fullScreenPicture,
 }: GalleryProps) => {
   const { width } = useWindowDimensions()
-  const listRef = useRef<FlashList<AttachmentType>>(null)
+  const listRef = useRef<FlashList<AttachmentDataType>>(null)
   const translateX = useSharedValue(0)
   const navigation = useNavigation()
 
@@ -55,7 +55,7 @@ export const Gallery = ({
   }
 
   const renderItem = useCallback(
-    ({ item, index }: { item: AttachmentType; index: number }) => (
+    ({ item, index }: { item: AttachmentDataType; index: number }) => (
       <GalleryItem
         {...item}
         width={width}

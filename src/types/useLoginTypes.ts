@@ -11,7 +11,3 @@ export type LoginUserTypes = {
     user: UserTypes
   }
 }
-
-export type ErrorTypes = {
-  message: string
-}
