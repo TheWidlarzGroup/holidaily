@@ -112,6 +112,11 @@ export type RequestsNavigationProps<RouteName extends keyof RequestsRoutes> = {
   route: RouteProp<RequestsRoutes, RouteName>
 }
 
+export type CalendarNavigatorType<RouteName extends keyof CalendarRoutes> = CompositeNavigationProp<
+  StackNavigationProp<CalendarRoutes, RouteName>,
+  StackNavigationProp<BottomTabRoutes, 'CALENDAR'>
+>
+
 export type AppRoutes = ModalRoutes
 export type ModalRoutes = {
   REQUEST_VACATION?: {
@@ -207,6 +212,6 @@ export type AdminPanelEmployeesRoutes = {
 }
 
 export type CalendarRoutes = {
-  Calendar: undefined
+  CALENDAR: undefined
   CALENDAR_MODAL: undefined
 }

@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Box, mkUseStyles, Text, theme } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { getMarkedDates } from 'screens/calendar/utils'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { BottomTabRoutes } from 'navigation/types'
+import { BottomTabRoutes, CalendarNavigatorType } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { parseISO, getFormattedPeriod, getDurationInDays, calculatePTO } from 'utils/dates'
@@ -23,14 +22,11 @@ import {
 } from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
 import Animated from 'react-native-reanimated'
-import { useBooleanState } from 'hooks/useBooleanState'
+import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
-import { CalendarProvider } from 'contexts/CalendarProvider'
-import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 
 const getSlicedDate = (date: string) => {
   const splittedDate = date.split('-')
@@ -131,9 +127,6 @@ export const Calendar = () => {
     setSinglePreviousEvent(getPreviousEvent())
   }, [requestsDays])
 
-  const [isCalendarOpened, { setFalse: hideCalendar, setTrue: openCalendar }] =
-    useBooleanState(false)
-
   const handleSetEventsInPeriod = (passedStartIndex?: number) => {
     const startDateItemIndex = passedStartIndex || 0
 
@@ -146,12 +139,6 @@ export const Calendar = () => {
     const sliced = requestsDays.slice(startDateItemIndex, sliceEndIndex)
 
     setSlicedRequest(sliced)
-  }
-
-  const markedDates = useMemo(() => getMarkedDates(requestsDays), [requestsDays])
-
-  const onModalBtnPress = () => {
-    hideCalendar()
   }
 
   const clearDatesInputs = () => {
@@ -237,7 +224,7 @@ export const Calendar = () => {
     handleSetEventsInPeriod(startIndex)
   }
 
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<CalendarNavigatorType<'CALENDAR'>>()
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>

@@ -3,7 +3,7 @@ import { CalendarList } from 'components/CalendarList'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { AppNavigationType } from 'navigation/types'
+import { CalendarNavigatorType } from 'navigation/types'
 import React, { useEffect } from 'react'
 import { calculatePTO, getDurationInDays, getFormattedPeriod } from 'utils/dates'
 import { mkUseStyles } from 'utils/theme'
@@ -43,7 +43,7 @@ export const CalendarModal = () => {
 
     return 'valid'
   })()
-  const navigation = useNavigation<AppNavigationType<'REQUEST_VACATION_CALENDAR'>>()
+  const navigation = useNavigation<CalendarNavigatorType<'CALENDAR_MODAL'>>()
 
   const onClear = () => {
     handleSetPeriodStart('')

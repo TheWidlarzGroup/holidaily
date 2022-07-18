@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { mkUseStyles, theme, Theme } from 'utils/theme'
+import { theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Feed } from 'screens/feed/Feed'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -37,7 +37,6 @@ const screenStyles = {
 }
 
 export const BottomTabNavigator = () => {
-  const styles = useStyles()
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
 
@@ -94,10 +93,3 @@ export const BottomTabNavigator = () => {
     </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles((theme: Theme) => ({
-  safeAreaTop: {
-    flex: 1,
-    backgroundColor: theme.colors.dashboardBackground,
-  },
-}))
