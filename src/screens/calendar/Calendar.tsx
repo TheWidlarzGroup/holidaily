@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import { Box, mkUseStyles, Text, theme } from 'utils/theme'
+import { Box, mkUseStyles, Text } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
@@ -20,9 +20,17 @@ import {
   State,
 } from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
-import Animated from 'react-native-reanimated'
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSequence,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { getDateWithMonthString, getDayName } from 'utils/dates'
 import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
@@ -48,6 +56,8 @@ export const Calendar = () => {
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
+
+  const offset = useSharedValue(0)
 
   const [inputWasFocused, { setTrue: setInputWasFocused }] = useBooleanState(false)
 
@@ -103,7 +113,7 @@ export const Calendar = () => {
     const sliced = requestsDays.slice(startDateItemIndex, sliceEndIndex)
 
     setSlicedRequest(sliced)
-    scrollToIndex(0)
+    // scrollToIndex(0)
   }
 
   const clearDatesInputs = () => {
@@ -114,8 +124,24 @@ export const Calendar = () => {
 
   const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
 
+  const springConfig = {
+    overshootClamping: true,
+    mass: 0.9,
+    stifness: 100,
+  }
+
+  const swipeDownAnimation = () => {
+    offset.value = withSequence(
+      withSpring(200, springConfig),
+      withSpring(-50, springConfig),
+      withSpring(0, springConfig)
+    )
+  }
+
+  console.log('offset', offset)
   const handleSwipeDown = (e: FlingGestureHandlerGestureEvent) => {
     if (e.nativeEvent.state === State.ACTIVE) {
+      swipeDownAnimation()
       const dateToRevert = periodStart || today
       const { month: monthString, year: yearString } = getSlicedDate(dateToRevert)
 
@@ -190,6 +216,10 @@ export const Calendar = () => {
 
   const { navigate } = useNavigation<CalendarNavigatorType<'CALENDAR'>>()
 
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ translateY: offset.value }],
+  }))
+
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
       <CategoriesSlider />
@@ -205,22 +235,24 @@ export const Calendar = () => {
       </Box>
 
       <Box backgroundColor="lightGrey" flex={1} borderRadius="l" marginTop="xxxl" paddingTop="xxxl">
-        <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
-          <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
-            <AnimatedBox style={styles.swipeDownRecognizer}>
-              <Text variant="textXSGrey">Przesun palcem w dol aby zobaczyc poprzednie </Text>
-              <SwipeDown style={styles.swipeDownIcon} />
-            </AnimatedBox>
-          </FlingGestureHandler>
-        </Box>
-        <EventsList
-          ref={flatListRef}
-          selectedDate={selectedDate}
-          days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
-          switchCalendarHeight={switchCalendarHeight}
-          setSwitchCalendarHeight={setSwitchCalendarHeight}
-          btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
-        />
+        <AnimatedBox flex={1} style={animatedStyles}>
+          <Box paddingTop="l" paddingBottom="xm" justifyContent="center" alignItems="center">
+            <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
+              <AnimatedBox style={styles.swipeDownRecognizer}>
+                <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
+                <SwipeDown style={styles.swipeDownIcon} />
+              </AnimatedBox>
+            </FlingGestureHandler>
+          </Box>
+          <EventsList
+            ref={flatListRef}
+            selectedDate={selectedDate}
+            days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
+            switchCalendarHeight={switchCalendarHeight}
+            setSwitchCalendarHeight={setSwitchCalendarHeight}
+            btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
+          />
+        </AnimatedBox>
       </Box>
       <Box paddingHorizontal="s" position="absolute" top={200} width="100%">
         <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
@@ -251,11 +283,15 @@ export const Calendar = () => {
           ) : null}
           <Box marginTop="m">
             <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
-              {t('dayOffCalendar')}
+              {slicedRequests.length > 0 ? t('selectedTimeframe') : t('dayOffCalendar')}
             </Text>
           </Box>
           {singlePreviousEvent ? (
             <Box opacity={0.5}>
+              <Text variant="captionText" marginBottom="xxs">
+                {getDateWithMonthString(singlePreviousEvent.date)},{' '}
+                <Text color="darkGrey">{getDayName(singlePreviousEvent.date)}</Text>
+              </Text>
               <DayEvent event={singlePreviousEvent} />
             </Box>
           ) : null}

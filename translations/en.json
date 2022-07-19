@@ -450,6 +450,9 @@
     "outOfOfficeSingular": "out of office",
     "outOfOffice": "out of office",
     "dayOffCalendar": "Time off calendar",
-    "dateInputPlaceholder": "yyyy/mm/dd"
+    "dateInputPlaceholder": "yyyy/mm/dd",
+    "selectedTimeframe": "selected timeframe",
+    "swipeDownToSeePrevious": "Swipe down to see previous",
+    "swipeUpToSeeNext": "Swipe up to see next"
   }
 }
