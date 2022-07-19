@@ -40,7 +40,6 @@ export const BubbleContainer = (props: BubbleContainerProps) => {
       style={styles.modal}
       coverScreen
       statusBarTranslucent
-      useNativeDriverForBackdrop
       animationIn="slideInLeft"
       animationOut="slideOutRight"
       hideModalContentWhileAnimating>

@@ -57,7 +57,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
   )
 
   const onEndTriggerred = () => {
-    runOnJS(props.animationStatus.animationIsTriggered)()
+    props.animationStatus.animationIsTriggered()
     translateY.value = withSpring(-windowHeight * 1.2)
   }
 
