@@ -22,6 +22,7 @@ import {
 import { DayInfoProps } from 'types/DayInfoProps'
 import Animated from 'react-native-reanimated'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
@@ -47,6 +48,8 @@ export const Calendar = () => {
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
+
+  const [inputWasFocused, { setTrue: setInputWasFocused }] = useBooleanState(false)
 
   const { selectedDate, setSelectedDate, currentMonthDays, requestsDays } = useCalendarData()
 
@@ -109,8 +112,7 @@ export const Calendar = () => {
     setSlicedRequest([])
   }
 
-  const shouldShowCalendarButtons =
-    periodStart?.length >= 8 || periodEnd?.length >= 8 || slicedRequests?.length > 0
+  const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
 
   const handleSwipeDown = (e: FlingGestureHandlerGestureEvent) => {
     if (e.nativeEvent.state === State.ACTIVE) {
@@ -198,6 +200,7 @@ export const Calendar = () => {
           periodEnd={periodEnd}
           handleSetPeriodStart={handleSetPeriodStart}
           handleSetPeriodEnd={handleSetPeriodEnd}
+          setInputWasFocused={setInputWasFocused}
         />
       </Box>
 
@@ -221,7 +224,7 @@ export const Calendar = () => {
       </Box>
       <Box paddingHorizontal="s" position="absolute" top={200} width="100%">
         <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
-          {shouldShowCalendarButtons ? (
+          {inputWasFocused ? (
             <Box
               flexDirection="row"
               marginHorizontal="m"
@@ -232,7 +235,10 @@ export const Calendar = () => {
               <CalendarButton onIconPress={clearDatesInputs}>
                 <CloseIcon color={theme.colors.headerGrey} />
               </CalendarButton>
-              <CalendarButton onIconPress={handleSetDatePress} type="blue">
+              <CalendarButton
+                onIconPress={handleSetDatePress}
+                type="blue"
+                disabled={disableSetDateButton}>
                 <AcceptIcon color={theme.colors.white} />
               </CalendarButton>
             </Box>

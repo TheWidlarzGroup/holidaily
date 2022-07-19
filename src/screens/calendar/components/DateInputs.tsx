@@ -22,6 +22,7 @@ interface Props {
   handleSetPeriodStart: F1<string>
   periodEnd: string
   handleSetPeriodEnd: F1<string>
+  setInputWasFocused: F0
 }
 
 const handleOnChangeSwitch = (e: string, setDate: any) => {
@@ -111,6 +112,7 @@ export const DateInputs = (p: Props) => {
       <Box flex={1} height={40}>
         <MaskedInput
           handleOnChange={handleOnChange('from')}
+          onFocus={p.setInputWasFocused}
           value={p.periodStart}
           mask={mask}
           maxLength={10}
