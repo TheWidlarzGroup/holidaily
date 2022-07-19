@@ -23,6 +23,28 @@ type GetPeriodModalTextsProps = {
   tFunc: TFunction<'requestVacation'>
 }
 
+const getActionModalHeaderText = (
+  periodStart: string,
+  periodEnd: string,
+  t: TFunction<'calendar'>,
+  language: string
+) => {
+  if (periodStart?.length < 10 || periodEnd?.length < 10) return ''
+
+  const withOneBeforeText = language === 'en' ? '' : 1
+
+  if (periodStart === periodEnd)
+    return `${withOneBeforeText} ${getDurationInDays(1)} ${t('outOfOfficeSingular')}`
+
+  return `${getDurationInDays(calculatePTO(periodStart, periodEnd))} ${t('outOfOffice')}`
+}
+
+const getActionModalTitle = (periodStart: string, periodEnd: string) => {
+  if (periodStart.length < 10 || periodEnd.length < 10) return ''
+
+  return getFormattedPeriod(periodStart, periodEnd)
+}
+
 export const CalendarModal = () => {
   const { periodStart, periodEnd, handleSetPeriodStart, handleSetPeriodEnd } = useCalendarContext()
   const { requestsDays } = useCalendarData()
@@ -30,7 +52,8 @@ export const CalendarModal = () => {
   const markedDates = useMemo(() => getMarkedDates(requestsDays), [requestsDays])
 
   const { user } = useUserContext()
-  const { t } = useTranslation('requestVacation')
+  const { t, i18n } = useTranslation('requestVacation')
+
   const haveUserPickedPeriod = !!periodStart && !!periodEnd
   const availablePto = user?.availablePto ?? 0
   const ptoTaken = haveUserPickedPeriod ? calculatePTO(periodStart, periodEnd) : 0
@@ -93,15 +116,14 @@ export const CalendarModal = () => {
             disablePastDates
             style={styles.calendar}
             markedDates={markedDates}
-            // isInvalid={!isPeriodValid}
           />
           <ActionModal
             isVisible={!!periodStart}
             onUserAction={onModalBtnPress}
             label={modalTexts[periodState].btnText}
             variant={actionModalVariant}
-            header={modalTexts[periodState].header}
-            content={modalTexts[periodState].content}
+            header={getActionModalTitle(periodStart, periodEnd)}
+            content={getActionModalHeaderText(periodStart, periodEnd, t, i18n.language)}
             extraButtons={modalExtraButtons}
           />
         </>

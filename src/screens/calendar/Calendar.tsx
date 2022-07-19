@@ -9,7 +9,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes, CalendarNavigatorType } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-// import { getFormattedPeriod, getDurationInDays, calculatePTO } from 'utils/dates'
 import { useTranslation } from 'react-i18next'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import AcceptIcon from 'assets/icons/icon-accept.svg'
@@ -36,28 +35,6 @@ const getSlicedDate = (date: string) => {
 
   return { year, month, day }
 }
-
-// const getActionModalHeaderText = (
-//   periodStart: string,
-//   periodEnd: string,
-//   t: any,
-//   language: string
-// ) => {
-//   if (periodStart?.length < 10 || periodEnd?.length < 10) return ''
-
-//   const withOneBeforeText = language === 'en' ? '' : 1
-
-//   if (periodStart === periodEnd)
-//     return `${withOneBeforeText} ${getDurationInDays(1)} ${t('outOfOfficeSingular')}`
-
-//   return `${getDurationInDays(calculatePTO(periodStart, periodEnd))} ${t('outOfOffice')}`
-// }
-
-// const getActionModalTitle = (periodStart: string, periodEnd: string) => {
-//   if (periodStart.length < 10 || periodEnd.length < 10) return ''
-
-//   return getFormattedPeriod(periodStart, periodEnd)
-// }
 
 const date = new Date()
 const today = date.toISOString().split('T')[0]
