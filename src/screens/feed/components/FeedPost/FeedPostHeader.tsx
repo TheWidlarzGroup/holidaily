@@ -1,6 +1,6 @@
 import React from 'react'
 import { EditPost, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
-import { BaseOpacity, Box, Theme, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Colors, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { LocationInfo } from 'components/LocationInfo'
 import IconDots from 'assets/icons/icon-dots2.svg'
@@ -9,7 +9,7 @@ import { FeedPostHeaderInfo } from '../FeedPostHeaderInfo/FeedPostHeaderInfo'
 
 type FeedPostHeaderProps = {
   post: FeedPost
-  borderColor: keyof Theme['colors']
+  borderColor: Colors
   openEditModal: F1<EditTargetType>
 }
 

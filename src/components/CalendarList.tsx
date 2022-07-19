@@ -120,7 +120,7 @@ const mkCalendarTheme = (
   ...themeProp,
 })
 
-const renderHeader = (date: Date) => <CalendarHeader ignoreDarkmode date={date} />
+const renderHeader = (date: Date) => <CalendarHeader date={date} />
 const CalendarDayComponent = React.memo(
   (props: NewDayComponentProps & { marking: MarkedDateType }) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
