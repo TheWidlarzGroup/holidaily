@@ -68,7 +68,7 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
                   label={t('joinMoreButton')}
                   width={120}
                   onPress={() => {
-                    navigate('EDIT_PROFILE')
+                    navigate('ProfileNavigation')
                     closeModal()
                   }}
                 />

@@ -7,7 +7,7 @@ import { DrawerRoutes } from 'navigation/types'
 import { useNavigationState } from '@react-navigation/native'
 import { getActiveRouteName } from 'utils/getActiveRouteName'
 import { useSiriListeners } from 'hooks/useSiriListeners'
-import { EditProfile } from 'screens/editProfile/EditProfile'
+import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
 import { BudgetNavigation } from './BudgetNavigation'
@@ -49,8 +49,8 @@ export const DrawerNavigator = () => {
         {() => <Home />}
       </Drawer.Screen>
       <Drawer.Screen
-        name="EDIT_PROFILE"
-        component={EditProfile}
+        name="ProfileNavigation"
+        component={ProfileNavigation}
         options={{ title: t('editProfile'), swipeEnabled: false, ...defaultScreenOptions }}
       />
       <Drawer.Screen
