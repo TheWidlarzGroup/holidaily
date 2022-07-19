@@ -1,7 +1,7 @@
 import React from 'react'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import { windowHeight, windowWidth } from 'utils/deviceSizes'
-import Animated, {
+import {
   runOnJS,
   useAnimatedGestureHandler,
   useAnimatedReaction,
@@ -9,10 +9,11 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
-import { Box, Text, mkUseStyles, useTheme } from 'utils/theme'
+import { mkUseStyles, Text, useTheme } from 'utils/theme'
 import SwipeUpIcon from 'assets/icons/icon-swipe-up.svg'
 import { sleep } from 'utils/sleep'
 import { useTranslation } from 'react-i18next'
+import { AnimatedBox } from 'components/AnimatedBox'
 
 type ProfileColorExpandableAreaProps = {
   callback: F0
@@ -20,7 +21,6 @@ type ProfileColorExpandableAreaProps = {
 }
 
 const STARTING_POSITION = 0
-const ExpandableArea = Animated.createAnimatedComponent(Box)
 
 export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProps) => {
   const styles = useStyles()
@@ -71,7 +71,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
 
   return (
     <PanGestureHandler onGestureEvent={eventHandler}>
-      <ExpandableArea
+      <AnimatedBox
         style={[
           styles.componentArea,
           expandableAreaStyle,
@@ -88,7 +88,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
         <Text style={styles.changeColor} variant="textBoldSM" lineHeight={21} color="alwaysWhite">
           {t('changeColor')}
         </Text>
-      </ExpandableArea>
+      </AnimatedBox>
     </PanGestureHandler>
   )
 }

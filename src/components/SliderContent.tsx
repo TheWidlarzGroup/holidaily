@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
-import { Dimensions, ImageSourcePropType, Image } from 'react-native'
-import { Box, Text } from 'utils/theme/index'
+import { Dimensions, Image, ImageSourcePropType } from 'react-native'
+import { Box, Text } from 'utils/theme'
 import { isSmallScreen, windowHeight } from 'utils/deviceSizes'
-import Animated, {
-  useSharedValue,
-  withTiming,
+import {
   useAnimatedStyle,
+  useSharedValue,
   withDelay,
-  withSpring,
   withRepeat,
+  withSpring,
+  withTiming,
 } from 'react-native-reanimated'
 import { isAndroid } from 'react-native-calendars/src/expandableCalendar/commons'
+import { AnimatedBox } from './AnimatedBox'
 
 const { width } = Dimensions.get('window')
 
@@ -22,7 +23,6 @@ type SliderContentProps = {
   disableInitialAnimation?: boolean
 }
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 const IMAGE_HEIGHT = 300
 const iconPosition = isAndroid ? 3 : 1.7
 const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / iconPosition

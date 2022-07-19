@@ -1,6 +1,6 @@
 import React from 'react'
 import { DrawerContentComponentProps, useDrawerProgress } from '@react-navigation/drawer'
-import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
+import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { Box } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
@@ -9,9 +9,8 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
 import { DrawerRoutes } from 'navigation/types'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { Logout } from './Logout'
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) => {
   const { user } = useUserContext()

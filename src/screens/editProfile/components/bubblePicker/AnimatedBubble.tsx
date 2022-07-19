@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react'
 import { windowHeight, windowWidth } from 'utils/deviceSizes'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import { Box } from 'utils/theme'
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 
 type Bubble = {
@@ -24,7 +24,6 @@ type AnimatedBubbleProps = {
 const STARTING_SCALE = 100
 const STARTING_Y = windowHeight * 0.5
 const STARTING_X = windowWidth * 0.5
-const AnimatedBubbleComponent = Animated.createAnimatedComponent(Box)
 
 export const AnimatedBubble = (props: AnimatedBubbleProps) => {
   const [isAnimated, { setTrue: animationCompleted }] = useBooleanState(false)
@@ -61,7 +60,7 @@ export const AnimatedBubble = (props: AnimatedBubbleProps) => {
   return (
     <>
       {!isAnimated && (
-        <AnimatedBubbleComponent
+        <AnimatedBox
           zIndex="10"
           position="absolute"
           width={C.BUBBLE_SIZE}

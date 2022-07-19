@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Box } from 'utils/theme'
 import { Comment as CommentType, EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
 import { Analytics } from 'services/analytics'
-import Animated, {
+import {
   Easing,
   FadeInUp,
   FadeOutDown,
@@ -10,6 +10,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { Comment } from '../Comment/Comment'
 import { CommentBoxBtn } from './CommentBoxBtn'
 
@@ -20,8 +21,6 @@ type CommentBoxProps = {
   post: FeedPost
   isEditingTarget: boolean
 }
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 const CommentBox = ({
   areCommentsExpanded,
