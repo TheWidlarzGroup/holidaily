@@ -7,13 +7,13 @@ import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useModalContext } from 'contexts/ModalProvider'
 import { keys } from 'utils/manipulation'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { Analytics } from 'services/analytics'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
+import { AttachmentDataType } from 'mockApi/models'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
   RequestVacationData,
@@ -29,8 +29,8 @@ import { SubmitButton } from './components/SubmitButton'
 export type RequestDataTypes = {
   description: string
   message: string
-  photos: AttachmentType[]
-  files: (AttachmentType & { name: string })[]
+  photos: AttachmentDataType[]
+  files: (AttachmentDataType & { name: string })[]
 }
 type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>
 type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>

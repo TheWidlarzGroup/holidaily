@@ -12,7 +12,7 @@ import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
 import { CreatePostNavigationType } from 'navigation/types'
 import { Asset } from 'react-native-image-picker'
 import { generateUUID } from 'utils/generateUUID'
-import { FeedPost, FeedPostData } from 'mockApi/models/miragePostTypes'
+import { AttachmentDataType, FeedPost } from 'mockApi/models/miragePostTypes'
 import { isIos } from 'utils/layout'
 import { PostHeader } from './PostFormHeader'
 import { PostFormFooter } from './PostFormFooter/PostFormFooter'
@@ -89,7 +89,7 @@ export const CreatePostForm = ({
 const isSendDisabled = (props: Partial<FeedPost> | null) =>
   !((props?.text && props?.text?.length > 0) || (props?.data && props?.data.length > 0))
 
-const addAttachments = (attachments: Asset[]): FeedPostData[] =>
+const addAttachments = (attachments: Asset[]): AttachmentDataType[] =>
   attachments.map((item) => ({
     uri: item.uri || '',
     type: item.type === 'image/jpeg' ? 'image' : 'video',

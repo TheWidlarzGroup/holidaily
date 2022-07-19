@@ -4,7 +4,7 @@ import { useRequestsContext } from 'hooks/context-hooks/useRequestsContext'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
 import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
-import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { DayInfoProps } from '../../types/DayInfoProps'
@@ -52,7 +52,7 @@ export const useCalendarData = () => {
         days: eachDayOfMonth.map((day) => ({ date: getISODateString(day) })),
       }
     }
-    let bothMonthsRequests: HolidailyRequestMonthType = {
+    let bothMonthsRequests: HolidayRequestMonthType = {
       date: currentMonthRequests.date,
       days: currentMonthRequests.days,
     }

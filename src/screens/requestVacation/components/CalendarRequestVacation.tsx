@@ -27,8 +27,8 @@ export const CalendarRequestVacation = ({
     params: { isSickTime },
   },
 }: ModalNavigationProps<'REQUEST_VACATION_CALENDAR'>) => {
-  const [periodStart, selectPeriodStart] = useState<string>('')
-  const [periodEnd, selectPeriodEnd] = useState<string>('')
+  const [periodStart, selectPeriodStart] = useState('')
+  const [periodEnd, selectPeriodEnd] = useState('')
   const { user } = useUserContext()
   const { t } = useTranslation('requestVacation')
   const haveUserPickedPeriod = !!periodStart && !!periodEnd

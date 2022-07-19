@@ -11,17 +11,17 @@ import {
   ViewToken,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
 import { BaseOpacity, Box } from 'utils/theme'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { useGetActiveRouteName } from 'utils/getActiveRouteName'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
+import { AttachmentDataType } from 'mockApi/models'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
-  data: AttachmentType[]
+  data: AttachmentDataType[]
   index?: number
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
@@ -30,7 +30,7 @@ type GalleryProps = {
 
 export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
   const { width } = useWindowDimensions()
-  const listRef = useRef<FlashList<AttachmentType>>(null)
+  const listRef = useRef<FlashList<AttachmentDataType>>(null)
   const translateX = useSharedValue(0)
   const navigation = useNavigation()
   const { userSettings } = useUserSettingsContext()
@@ -57,7 +57,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
   }
 
   const renderItem = useCallback(
-    ({ item, index }: { item: AttachmentType; index: number }) => (
+    ({ item, index }: { item: AttachmentDataType; index: number }) => (
       <GalleryItem
         {...item}
         width={width}
