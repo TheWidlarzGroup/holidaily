@@ -44,9 +44,9 @@ export type FeedPost = {
 }
 
 export type AttachmentDataType = {
-  type?: AttachmentType
   uri: string
   id: string
+  type?: AttachmentType
 }
 
 export type AttachmentType = 'image' | 'video'
