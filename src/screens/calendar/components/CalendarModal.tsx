@@ -103,7 +103,11 @@ export const CalendarModal = () => {
     : undefined
 
   return (
-    <SwipeableScreen swipeWithIndicator alignItems="center" extraStyle={styles.container}>
+    <SwipeableScreen
+      swipeWithIndicator
+      alignItems="center"
+      extraStyle={styles.container}
+      withBackIcon>
       <LoadingModal style={styles.loadingSpinner} show={!isCalendarVisible} />
       {isCalendarVisible && (
         <>
