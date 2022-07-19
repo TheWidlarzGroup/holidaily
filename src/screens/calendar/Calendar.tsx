@@ -24,7 +24,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { getDateWithMonthString, getDayName } from 'utils/dates'
 import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
@@ -263,7 +262,7 @@ export const Calendar = () => {
           />
         </AnimatedBox>
       </Box>
-      <Box paddingHorizontal="s" position="absolute" top={200} width="100%">
+      <Box paddingHorizontal="s" position="absolute" top={190} width="100%">
         <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
           {inputWasFocused || periodEnd || periodStart ? (
             <Box
@@ -297,10 +296,6 @@ export const Calendar = () => {
           </Box>
           {singlePreviousEvent ? (
             <Box opacity={0.5}>
-              <Text variant="captionText" marginBottom="xxs">
-                {getDateWithMonthString(singlePreviousEvent.date)}
-                <Text color="darkGrey"> {getDayName(singlePreviousEvent.date)}</Text>
-              </Text>
               <DayEvent event={singlePreviousEvent} />
             </Box>
           ) : null}
