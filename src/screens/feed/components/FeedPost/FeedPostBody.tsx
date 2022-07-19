@@ -21,7 +21,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
   }
 
   return (
-    <Box paddingBottom="xs">
+    <Box paddingBottom="xxs">
       {text?.length > 0 && (
         <Box
           paddingTop="xm"
@@ -31,7 +31,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
           borderColor={borderColor}
           borderBottomWidth={0}
           borderTopWidth={0}
-          paddingBottom={data?.length === 0 && isIos ? 'lplus' : 'none'}>
+          paddingBottom={data?.length === 0 && isIos ? 'xl' : 'none'}>
           <ExpandingText text={text} />
         </Box>
       )}
