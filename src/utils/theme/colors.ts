@@ -59,6 +59,7 @@ export const palette = {
     'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
   contextMenu: 'rgba(237, 237, 237, 0.9)',
   contextMenuBorder: 'rgba(106, 113, 141, 0.9)',
+  whiteSemiOpaque: 'rgba(255, 255, 255, 0.5)',
 }
 
 export const colors = {
@@ -149,6 +150,7 @@ export const colors = {
   loadingModalBackdrop: palette.grayscale50SemiOpaque,
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
+  calendarOlderEvents: palette.whiteSemiOpaque,
 }
 
 export const darkThemeColors = {
@@ -239,4 +241,5 @@ export const darkThemeColors = {
   loadingModalBackdrop: palette.grayscale900SemiOpaque,
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale900SemiOpaque,
+  calendarOlderEvents: palette.grayscale800,
 }

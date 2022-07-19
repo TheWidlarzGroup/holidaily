@@ -199,30 +199,9 @@ export const Calendar = () => {
           handleSetPeriodStart={handleSetPeriodStart}
           handleSetPeriodEnd={handleSetPeriodEnd}
         />
-        {shouldShowCalendarButtons ? (
-          <Box
-            flexDirection="row"
-            marginHorizontal="m"
-            position="absolute"
-            right={0}
-            top={70}
-            zIndex="2">
-            <CalendarButton onIconPress={clearDatesInputs}>
-              <CloseIcon color={theme.colors.headerGrey} />
-            </CalendarButton>
-            <CalendarButton onIconPress={handleSetDatePress} type="blue">
-              <AcceptIcon color={theme.colors.white} />
-            </CalendarButton>
-          </Box>
-        ) : null}
-        <Box marginTop="l1plus">
-          <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
-            {t('dayOffCalendar')}
-          </Text>
-        </Box>
       </Box>
 
-      <Box backgroundColor="lightGrey" flex={1} paddingTop="xxxl" borderRadius="l">
+      <Box backgroundColor="lightGrey" flex={1} borderRadius="l" marginTop="xxxl" paddingTop="xxxl">
         <Box paddingTop="ml" paddingBottom="ml" justifyContent="center" alignItems="center">
           <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
             <AnimatedBox style={styles.swipeDownRecognizer}>
@@ -239,15 +218,35 @@ export const Calendar = () => {
           setSwitchCalendarHeight={setSwitchCalendarHeight}
           btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
         />
-        <Box paddingHorizontal="s" position="absolute" top={-5} width="100%">
-          <Box
-            opacity={0.5}
-            borderRadius="lmin"
-            backgroundColor="white"
-            paddingVertical="s"
-            paddingHorizontal="mlplus">
-            {singlePreviousEvent ? <DayEvent event={singlePreviousEvent} /> : null}
+      </Box>
+      <Box paddingHorizontal="s" position="absolute" top={200} width="100%">
+        <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
+          {shouldShowCalendarButtons ? (
+            <Box
+              flexDirection="row"
+              marginHorizontal="m"
+              position="absolute"
+              right={0}
+              top={10}
+              zIndex="2">
+              <CalendarButton onIconPress={clearDatesInputs}>
+                <CloseIcon color={theme.colors.headerGrey} />
+              </CalendarButton>
+              <CalendarButton onIconPress={handleSetDatePress} type="blue">
+                <AcceptIcon color={theme.colors.white} />
+              </CalendarButton>
+            </Box>
+          ) : null}
+          <Box marginTop="m">
+            <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
+              {t('dayOffCalendar')}
+            </Text>
           </Box>
+          {singlePreviousEvent ? (
+            <Box opacity={0.5}>
+              <DayEvent event={singlePreviousEvent} />
+            </Box>
+          ) : null}
         </Box>
       </Box>
     </SafeAreaWrapper>

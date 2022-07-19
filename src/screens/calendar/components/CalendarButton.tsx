@@ -22,13 +22,13 @@ export const CalendarButton = (props: Props) => {
 
 const useStyles = mkUseStyles((theme) => ({
   calendarButtonBlue: {
-    backgroundColor: theme.colors.special,
+    backgroundColor: theme.colors.specialDarker,
   },
   calendarButton: {
     height: 40,
     width: 40,
     borderRadius: theme.borderRadii.l1min,
-    backgroundColor: theme.colors.disabled,
+    backgroundColor: theme.colors.lightGrey,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: theme.spacing.xmm,
