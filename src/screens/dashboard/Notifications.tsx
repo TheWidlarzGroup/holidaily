@@ -49,7 +49,9 @@ export const Notifications = () => {
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <IconBack height={16} width={10} color={theme.colors.black} />
         </TouchableOpacity>
-        <Text variant="displayBoldSM">{t('header')}</Text>
+        <Text variant="displayBoldSM" lineHeight={24}>
+          {t('header')}
+        </Text>
         <Box paddingRight="l" />
       </Box>
       <GestureRecognizer
