@@ -18,10 +18,6 @@ const defaultScreenOptions: DrawerNavigationOptions = {
   drawerType: 'back',
 }
 
-const navigatorOptions = {
-  headerShown: false,
-}
-
 export const DrawerNavigator = () => {
   const activeRouteName = useGetActiveRouteName()
   const { t } = useTranslation('navigation')
@@ -35,7 +31,7 @@ export const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      screenOptions={navigatorOptions}
+      screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="Home"

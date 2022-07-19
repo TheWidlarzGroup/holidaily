@@ -59,14 +59,6 @@ export const BottomTabNavigator = () => {
     <SafeAreaView edges={['left', 'right']} style={styles.outerSafeArea}>
       <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
         <SafeAreaView edges={['bottom', 'top']} style={styles.innerSafeArea}>
-          {/* Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
-          <AnimatedBox
-            position="absolute"
-            backgroundColor="dashboardBackground"
-            height={50}
-            width="100%"
-            style={animatedTopBoxStyle}
-          />
           <Tab.Navigator
             tabBar={(props) => <TabsUi {...{ tabs, ...props }} />}
             screenOptions={{ headerShown: false }}>
@@ -84,6 +76,14 @@ export const BottomTabNavigator = () => {
             />
             <Tab.Screen name="FEED" component={Feed} />
           </Tab.Navigator>
+          {/* Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
+          <AnimatedBox
+            position="absolute"
+            backgroundColor="dashboardBackground"
+            height={50}
+            width="100%"
+            style={animatedTopBoxStyle}
+          />
         </SafeAreaView>
       </AnimatedBox>
     </SafeAreaView>
