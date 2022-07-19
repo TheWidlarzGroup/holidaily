@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Text, useTheme } from 'utils/theme'
-import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Control, Controller, FieldValues } from 'react-hook-form'
-import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
 import { Analytics } from 'services/analytics'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { ProfileColorExpandableArea } from './ProfileColorExpandableArea'
+import { BubbleContainer } from './bubblePicker/BubbleContainer'
 
 type AnimationStatusProps = {
   animationIsTriggered: F0
@@ -50,41 +50,49 @@ type ProfileColorViewProps = {
 }
 
 const ProfileColorView = (p: ProfileColorViewProps) => {
+  const [displayBubbleContainer, { setTrue: showBubbleContainer, setFalse: hideBubbleContainer }] =
+    useBooleanState(false)
   const { user } = useUserContext()
   const { isLoading } = useTeamMocks()
   const isTouchDisabled = isLoading || !user
   const { t } = useTranslation('userProfile')
-  const navigation = useNavigation<UserProfileType<'COLOR_PICKER'>>()
 
   const animationEndsAction = () => {
     if (isTouchDisabled) return
-    navigation.navigate('COLOR_PICKER', {
-      onChange: (value) => {
-        p.onChange(value)
-        Analytics().track('USER_COLOR_PICKED', { color: value })
-      },
-      value: p.value,
-    })
+    showBubbleContainer()
+  }
+
+  const onChange = (value: string) => {
+    p.onChange(value)
+    Analytics().track('USER_COLOR_PICKED', { color: value })
   }
 
   return (
-    <Box
-      height={75}
-      pointerEvents={isTouchDisabled ? 'none' : undefined}
-      opacity={isTouchDisabled ? 0.4 : 1}
-      paddingLeft="xs"
-      paddingRight="m"
-      marginBottom="xxxl"
-      marginTop="s">
-      <Text variant="sectionLabel" marginLeft="m" marginBottom="m">
-        {t('userColor')}
-      </Text>
-      <ProfileColorExpandableArea
-        callback={animationEndsAction}
-        animationStatus={p.animationStatus}
-        currentColor={p.value || user?.userColor}
+    <>
+      <Box
+        height={75}
+        pointerEvents={isTouchDisabled ? 'none' : undefined}
+        opacity={isTouchDisabled ? 0.4 : 1}
+        paddingLeft="xs"
+        paddingRight="m"
+        marginBottom="xxxl"
+        marginTop="s">
+        <Text variant="sectionLabel" marginLeft="m" marginBottom="m">
+          {t('userColor')}
+        </Text>
+        <ProfileColorExpandableArea
+          callback={animationEndsAction}
+          animationStatus={p.animationStatus}
+          currentColor={p.value || user?.userColor}
+        />
+      </Box>
+      <BubbleContainer
+        isOpen={displayBubbleContainer}
+        handleClose={hideBubbleContainer}
+        onChange={() => onChange(p.value)}
+        value={p.value}
       />
-    </Box>
+    </>
   )
 }
 
