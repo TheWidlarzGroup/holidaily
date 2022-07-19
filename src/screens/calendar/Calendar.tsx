@@ -13,20 +13,14 @@ import { useTranslation } from 'react-i18next'
 import CloseIcon from 'assets/icons/icon-close.svg'
 import AcceptIcon from 'assets/icons/icon-accept.svg'
 import SwipeDown from 'assets/icons/icon-swipe-down.svg'
-import {
-  Directions,
-  FlingGestureHandler,
-  FlingGestureHandlerGestureEvent,
-  State,
-} from 'react-native-gesture-handler'
+import { PanGestureHandler } from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
 import Animated, {
+  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
-  withSequence,
   withSpring,
-  withTiming,
+  runOnJS,
 } from 'react-native-reanimated'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -67,10 +61,8 @@ export const Calendar = () => {
 
   usePrevScreenBackHandler(prevScreen)
 
-  const scrollToIndex = useCallback(
-    (index: number) => flatListRef.current?.scrollToIndex({ index, animated: true }),
-    []
-  )
+  const scrollToIndex = (index: number) =>
+    flatListRef.current?.scrollToIndex({ index, animated: true })
 
   useEffect(() => {
     const pickedDate = userSettings?.pickedDate
@@ -86,9 +78,9 @@ export const Calendar = () => {
 
   const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
 
-  useEffect(() => {
+  const handleSetPreviousEvent = useCallback(() => {
     const getPreviousEvent = () => {
-      const todayIndex = requestsDays.findIndex((a) => a.date === today)
+      const todayIndex = requestsDays.findIndex((a) => a.date === periodStart || a.date === today)
 
       const reversedRequests = requestsDays.slice(0, todayIndex).reverse()
       const reversedRequestsWithEvents = reversedRequests.filter((a) => !!a?.events?.length)
@@ -98,8 +90,16 @@ export const Calendar = () => {
       return event || null
     }
 
-    setSinglePreviousEvent(getPreviousEvent())
-  }, [requestsDays])
+    const prevEvent = getPreviousEvent()
+
+    if (singlePreviousEvent?.date !== prevEvent?.date) {
+      setSinglePreviousEvent(prevEvent)
+    }
+  }, [periodStart, requestsDays, singlePreviousEvent?.date])
+
+  useEffect(() => {
+    handleSetPreviousEvent()
+  }, [handleSetPreviousEvent])
 
   const handleSetEventsInPeriod = (passedStartIndex?: number) => {
     const startDateItemIndex = passedStartIndex || 0
@@ -113,7 +113,6 @@ export const Calendar = () => {
     const sliced = requestsDays.slice(startDateItemIndex, sliceEndIndex)
 
     setSlicedRequest(sliced)
-    // scrollToIndex(0)
   }
 
   const clearDatesInputs = () => {
@@ -122,51 +121,60 @@ export const Calendar = () => {
     setSlicedRequest([])
   }
 
+  useEffect(() => {
+    if (slicedRequests.length > 0) {
+      scrollToIndex(0)
+    }
+  }, [slicedRequests.length])
+
   const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
 
   const springConfig = {
-    overshootClamping: true,
-    mass: 0.9,
-    stifness: 100,
+    damping: 2,
+    mass: 0.2,
   }
 
-  const swipeDownAnimation = () => {
-    offset.value = withSequence(
-      withSpring(200, springConfig),
-      withSpring(-50, springConfig),
-      withSpring(0, springConfig)
-    )
-  }
+  const handleSwipeDown = () => {
+    const dateToRevert = periodStart || today
+    const { month: monthString, year: yearString } = getSlicedDate(dateToRevert)
 
-  console.log('offset', offset)
-  const handleSwipeDown = (e: FlingGestureHandlerGestureEvent) => {
-    if (e.nativeEvent.state === State.ACTIVE) {
-      swipeDownAnimation()
-      const dateToRevert = periodStart || today
-      const { month: monthString, year: yearString } = getSlicedDate(dateToRevert)
+    const year = Number(yearString)
+    const month = Number(monthString)
 
-      const year = Number(yearString)
-      const month = Number(monthString)
+    let newPeriodStart = ''
 
-      let newPeriodStart = ''
-
-      if (month === 1) {
-        newPeriodStart = `${year - 1}-12-01`
-        handleSetPeriodStart(newPeriodStart)
+    if (month === 1) {
+      newPeriodStart = `${year - 1}-12-01`
+      handleSetPeriodStart(newPeriodStart)
+    } else {
+      if (month > 10) {
+        newPeriodStart = `${year}-${month - 1}-01`
       } else {
-        if (month > 10) {
-          newPeriodStart = `${year}-${month - 1}-01`
-        } else {
-          newPeriodStart = `${year}-0${month - 1}-01`
-        }
-        handleSetPeriodStart(newPeriodStart)
+        newPeriodStart = `${year}-0${month - 1}-01`
       }
-
-      const startDateItemIndex = requestsDays.findIndex((a) => a.date === newPeriodStart)
-
-      handleSetEventsInPeriod(startDateItemIndex)
+      handleSetPeriodStart(newPeriodStart)
     }
+
+    const startDateItemIndex = requestsDays.findIndex((a) => a.date === newPeriodStart)
+
+    handleSetEventsInPeriod(startDateItemIndex)
+    handleSetPreviousEvent()
   }
+
+  const panGestureHandler = useAnimatedGestureHandler({
+    onStart: () => {},
+    onEnd: (event) => {
+      if (event.velocityY > 0) {
+        offset.value = withSpring(150, springConfig, (finished) => {
+          if (finished) {
+            offset.value = withSpring(0, springConfig)
+          }
+        })
+
+        runOnJS(handleSwipeDown)()
+      }
+    },
+  })
 
   const adjustStartEndDates = () => {
     const { year: startYear, month: startMonth, day: startDay } = getSlicedDate(periodStart)
@@ -212,6 +220,7 @@ export const Calendar = () => {
     }
 
     handleSetEventsInPeriod(startIndex)
+    handleSetPreviousEvent()
   }
 
   const { navigate } = useNavigation<CalendarNavigatorType<'CALENDAR'>>()
@@ -237,12 +246,12 @@ export const Calendar = () => {
       <Box backgroundColor="lightGrey" flex={1} borderRadius="l" marginTop="xxxl" paddingTop="xxxl">
         <AnimatedBox flex={1} style={animatedStyles}>
           <Box paddingTop="l" paddingBottom="xm" justifyContent="center" alignItems="center">
-            <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
+            <PanGestureHandler onGestureEvent={panGestureHandler}>
               <AnimatedBox style={styles.swipeDownRecognizer}>
                 <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
                 <SwipeDown style={styles.swipeDownIcon} />
               </AnimatedBox>
-            </FlingGestureHandler>
+            </PanGestureHandler>
           </Box>
           <EventsList
             ref={flatListRef}
@@ -256,7 +265,7 @@ export const Calendar = () => {
       </Box>
       <Box paddingHorizontal="s" position="absolute" top={200} width="100%">
         <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
-          {inputWasFocused ? (
+          {inputWasFocused || periodEnd || periodStart ? (
             <Box
               flexDirection="row"
               marginHorizontal="m"
@@ -289,8 +298,8 @@ export const Calendar = () => {
           {singlePreviousEvent ? (
             <Box opacity={0.5}>
               <Text variant="captionText" marginBottom="xxs">
-                {getDateWithMonthString(singlePreviousEvent.date)},{' '}
-                <Text color="darkGrey">{getDayName(singlePreviousEvent.date)}</Text>
+                {getDateWithMonthString(singlePreviousEvent.date)}
+                <Text color="darkGrey"> {getDayName(singlePreviousEvent.date)}</Text>
               </Text>
               <DayEvent event={singlePreviousEvent} />
             </Box>
