@@ -209,7 +209,7 @@ export const Calendar = () => {
           <FlingGestureHandler direction={Directions.DOWN} onHandlerStateChange={handleSwipeDown}>
             <AnimatedBox style={styles.swipeDownRecognizer}>
               <Text variant="textXSGrey">Przesun palcem w dol aby zobaczyc poprzednie </Text>
-              <SwipeDown color={theme.colors.titleActive} style={styles.swipeDownIcon} />
+              <SwipeDown style={styles.swipeDownIcon} />
             </AnimatedBox>
           </FlingGestureHandler>
         </Box>
@@ -233,13 +233,19 @@ export const Calendar = () => {
               top={10}
               zIndex="2">
               <CalendarButton onIconPress={clearDatesInputs}>
-                <CloseIcon color={theme.colors.headerGrey} />
+                <CloseIcon color={styles.closeIcon.color} />
               </CalendarButton>
               <CalendarButton
                 onIconPress={handleSetDatePress}
                 type="blue"
                 disabled={disableSetDateButton}>
-                <AcceptIcon color={theme.colors.white} />
+                <AcceptIcon
+                  color={
+                    !disableSetDateButton
+                      ? styles.acceptIcon.color
+                      : styles.acceptIconDisabled.color
+                  }
+                />
               </CalendarButton>
             </Box>
           ) : null}
@@ -271,5 +277,15 @@ const useStyles = mkUseStyles((theme) => ({
   },
   swipeDownIcon: {
     marginLeft: theme.spacing.xxm,
+    color: theme.colors.titleActive,
+  },
+  closeIcon: {
+    color: theme.colors.headerGrey,
+  },
+  acceptIcon: {
+    color: theme.colors.alwaysWhite,
+  },
+  acceptIconDisabled: {
+    color: theme.colors.disabledAcceptIcon,
   },
 }))

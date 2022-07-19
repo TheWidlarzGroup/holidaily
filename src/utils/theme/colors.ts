@@ -153,6 +153,7 @@ export const colors = {
   calendarOlderEvents: palette.whiteSemiOpaque,
   clearInputIcon: palette.grayscale300,
   disabledButtonBg: palette.secondary300,
+  disabledAcceptIcon: palette.grayscale200,
 }
 
 export const darkThemeColors = {
@@ -246,4 +247,5 @@ export const darkThemeColors = {
   calendarOlderEvents: palette.grayscale800,
   clearInputIcon: palette.grayscale500,
   disabledButtonBg: palette.grayscale800,
+  disabledAcceptIcon: palette.grayscale700,
 }
