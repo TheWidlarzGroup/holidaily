@@ -1,6 +1,6 @@
 import React from 'react'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
-import { Box, Theme } from 'utils/theme'
+import { Box, Colors } from 'utils/theme'
 import { ExpandingText } from 'components/ExpandingText'
 import { Gallery } from 'components/Gallery/Gallery'
 import { useNavigation } from '@react-navigation/native'
@@ -8,7 +8,7 @@ import { AppNavigationType } from 'navigation/types'
 import { isIos } from 'utils/layout'
 
 type FeedPostBodyProps = {
-  borderColor: keyof Theme['colors']
+  borderColor: Colors
   post: Pick<FeedPost, 'data' | 'text' | 'id'>
 }
 
