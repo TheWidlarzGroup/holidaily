@@ -6,7 +6,6 @@ import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Feed } from 'screens/feed/Feed'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDrawerProgress } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { isIos } from 'utils/layout'
@@ -57,10 +56,10 @@ export const BottomTabNavigator = () => {
   }))
 
   return (
-    <SafeAreaWrapper edges={['left', 'right']}>
-      <AnimatedBox style={[styles.animatedView, animatedStyle]}>
-        <SafeAreaView edges={['bottom', 'top']} style={styles.safeArea}>
-          {/* Box below is added to cover different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
+    <SafeAreaView edges={['left', 'right']} style={styles.outerSafeArea}>
+      <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
+        <SafeAreaView edges={['bottom', 'top']} style={styles.innerSafeArea}>
+          {/* Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
           <AnimatedBox
             position="absolute"
             backgroundColor="dashboardBackground"
@@ -87,25 +86,28 @@ export const BottomTabNavigator = () => {
           </Tab.Navigator>
         </SafeAreaView>
       </AnimatedBox>
-    </SafeAreaWrapper>
+    </SafeAreaView>
   )
 }
 
 const useStyles = mkUseStyles((theme: Theme) => ({
-  safeArea: {
+  outerSafeArea: {
     flex: 1,
-    marginTop: isIos ? -1 : 0,
+    backgroundColor: theme.colors.white,
+  },
+  innerSafeArea: {
+    flex: 1,
+    marginTop: isIos ? -6 : 0,
     marginBottom: -7,
     backgroundColor: theme.colors.white,
     borderRadius: openDrawerScreenBorder,
     overflow: 'hidden',
   },
-  animatedView: {
+  animatedBox: {
     shadowOffset: { width: 0, height: 2 },
     shadowColor: theme.colors.black,
     shadowRadius: 10,
     borderWidth: 0,
-    backgroundColor: theme.colors.white,
     flex: 1,
     borderRadius: openDrawerScreenBorder,
   },

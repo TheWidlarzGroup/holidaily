@@ -41,7 +41,7 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
 
   return (
     <SafeAreaWrapper>
-      <AnimatedBox flex={1} backgroundColor="drawerBackground" style={style}>
+      <AnimatedBox flex={1} backgroundColor="white" style={style}>
         <DrawerHeader
           firstName={user.firstName}
           lastName={user.lastName}
