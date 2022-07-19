@@ -98,6 +98,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginBottom: -7,
     backgroundColor: theme.colors.white,
     borderRadius: openDrawerScreenBorder,
+    overflow: 'hidden',
   },
   animatedView: {
     shadowOffset: { width: 0, height: 2 },
