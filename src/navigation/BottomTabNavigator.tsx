@@ -27,7 +27,7 @@ const tabs = [
 ]
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
-const openDrawerScreenBorder = theme.borderRadii.l
+const OPEN_DRAWER_SCREEN_BORDER = theme.borderRadii.l
 
 export const BottomTabNavigator = () => {
   const styles = useStyles()
@@ -50,8 +50,8 @@ export const BottomTabNavigator = () => {
   const animatedTopBoxStyle = useAnimatedStyle(() => ({
     borderTopLeftRadius: interpolate(
       progress.value,
-      [0, openDrawerScreenBorder],
-      [openDrawerScreenBorder, 0]
+      [0, OPEN_DRAWER_SCREEN_BORDER],
+      [OPEN_DRAWER_SCREEN_BORDER, 0]
     ),
   }))
 
@@ -100,7 +100,7 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     marginTop: isIos ? -6 : 0,
     marginBottom: -7,
     backgroundColor: theme.colors.white,
-    borderRadius: openDrawerScreenBorder,
+    borderRadius: OPEN_DRAWER_SCREEN_BORDER,
     overflow: 'hidden',
   },
   animatedBox: {
@@ -109,6 +109,6 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     shadowRadius: 10,
     borderWidth: 0,
     flex: 1,
-    borderRadius: openDrawerScreenBorder,
+    borderRadius: OPEN_DRAWER_SCREEN_BORDER,
   },
 }))
