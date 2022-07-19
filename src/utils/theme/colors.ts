@@ -151,6 +151,7 @@ export const colors = {
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
   calendarOlderEvents: palette.whiteSemiOpaque,
+  clearInputIcon: palette.grayscale300,
 }
 
 export const darkThemeColors = {
@@ -242,4 +243,5 @@ export const darkThemeColors = {
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale900SemiOpaque,
   calendarOlderEvents: palette.grayscale800,
+  clearInputIcon: palette.grayscale500,
 }

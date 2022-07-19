@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, theme } from 'utils/theme'
 import CalendarIcon from 'assets/icons/icon-calendar.svg'
-import { CalendarButton } from './CalendarButton'
 import { MaskedInput } from 'components/MaskedInput'
 import { useTranslation } from 'react-i18next'
+import { CalendarButton } from './CalendarButton'
 
 const daysInMonth = (year: number, month: number) => {
   const days = new Date(year, month, 0).getDate()

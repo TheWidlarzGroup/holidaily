@@ -57,7 +57,7 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
       />
       {p?.reset && p?.value && p?.value.length > 0 && isFocused ? (
         <BaseOpacity position="absolute" right={15} onPress={p?.reset}>
-          <DeleteIcon width={20} height={20} />
+          <DeleteIcon width={20} height={20} color={styles.deleteIcon.color} />
         </BaseOpacity>
       ) : null}
     </Animated.View>
@@ -73,7 +73,6 @@ const useStyles = mkUseStyles((theme) => ({
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
   },
-
   noBackground: { backgroundColor: theme.colors.white },
   focusBorder: {
     borderStyle: 'solid',
@@ -82,5 +81,8 @@ const useStyles = mkUseStyles((theme) => ({
   input: {
     color: theme.colors.black,
     fontFamily: 'Nunito-Regular',
+  },
+  deleteIcon: {
+    color: theme.colors.clearInputIcon,
   },
 }))

@@ -109,7 +109,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
 
             {reset && value && value.length > 0 && isFocused ? (
               <BaseOpacity position="absolute" right={15} onPress={reset}>
-                <DeleteIcon width={20} height={20} />
+                <DeleteIcon width={20} height={20} color={styles.deleteIcon.color} />
               </BaseOpacity>
             ) : null}
           </Animated.View>
@@ -168,5 +168,8 @@ const useStyles = mkUseStyles((theme) => ({
   },
   disabled: {
     color: theme.colors.greyDark,
+  },
+  deleteIcon: {
+    color: theme.colors.clearInputIcon,
   },
 }))
