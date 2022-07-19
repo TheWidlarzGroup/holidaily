@@ -62,7 +62,7 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
         {...item}
         width={width}
         onPress={() => onItemPress && onItemPress(index, item.uri)}
-        style={{ paddingTop: 8, justifyContent: 'center' }}
+        style={{ justifyContent: 'center' }}
       />
     ),
     [width, onItemPress]
