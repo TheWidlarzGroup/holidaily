@@ -80,7 +80,7 @@ export const CustomButton = ({
   return (
     <RectButton
       rippleColor={disabled ? bgColor : rippleColor}
-      onPress={onPress}
+      onPress={!disabled && !isAndroid ? onPress : () => null}
       activeOpacity={disabled ? 0 : 0.2}
       style={[
         styles.container,

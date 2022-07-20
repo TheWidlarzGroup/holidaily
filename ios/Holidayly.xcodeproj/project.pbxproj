@@ -281,8 +281,8 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 23QAX5XY7P;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Manual;
 					};
 					232E9F8926B3F69A00949471 = {
 						CreatedOnToolsVersion = 12.5;
