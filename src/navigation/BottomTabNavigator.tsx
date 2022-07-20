@@ -18,9 +18,7 @@ const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
 const EmptyComponent = () => null
 const tabs = [
-  {
-    name: 'DashboardNavigation',
-  },
+  { name: 'DashboardNavigation' },
   { name: 'CALENDAR' },
   { name: 'RequestModal' },
   { name: 'Stats' },
