@@ -244,7 +244,7 @@ export const Calendar = () => {
 
       <Box backgroundColor="lightGrey" flex={1} borderRadius="l" marginTop="xxxl" paddingTop="xxxl">
         <AnimatedBox flex={1} style={animatedStyles}>
-          <Box paddingTop="l" paddingBottom="xm" justifyContent="center" alignItems="center">
+          <Box paddingBottom="xm" justifyContent="center" alignItems="center">
             <PanGestureHandler onGestureEvent={panGestureHandler}>
               <AnimatedBox style={styles.swipeDownRecognizer}>
                 <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
