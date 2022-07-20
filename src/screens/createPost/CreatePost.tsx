@@ -68,9 +68,13 @@ export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) 
 
     if (editPostId && postData) {
       if (!isPostEdited) return goBack()
-      editPost(postData, { onSuccess: showSuccessModal })
+      editPost(postData)
+      showSuccessModal()
     }
-    if (postData && !prevVersionOfPost) addPost(postData, { onSuccess: showSuccessModal })
+    if (postData && !prevVersionOfPost) {
+      addPost(postData)
+      showSuccessModal()
+    }
 
     const address = postData?.location
     const locationToSend = address ? `${address.city} ${address.country}` : postData?.location

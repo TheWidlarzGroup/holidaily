@@ -1,8 +1,8 @@
 import { add, parseISO } from 'date-fns'
-import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 
 export const getNextMonthRequests = (
-  singleMonthRequests: HolidailyRequestMonthType[],
+  singleMonthRequests: HolidayRequestMonthType[],
   currentDate: Date
 ) => {
   const allNextMonthRequests = singleMonthRequests.find((month) => {

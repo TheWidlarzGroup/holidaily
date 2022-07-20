@@ -168,8 +168,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           <FeedPost post={item} openEditModal={openEditModal} editTarget={editTarget} />
         )}
         keyExtractor={(post) => post.id}
-        extraData={language}
-        contentContainerStyle={{ paddingBottom: 60 }}
+        extraData={[language, editTarget]}
+        contentContainerStyle={{ paddingBottom: 90 }}
         estimatedItemSize={ESTIMATED_POST_HEIGHT}
         disableAutoLayout
       />

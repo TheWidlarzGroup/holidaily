@@ -14,6 +14,10 @@ const screenOptions = {
 export const BudgetNavigation = () => (
   <BudgetStack.Navigator screenOptions={screenOptions}>
     <BudgetStack.Screen name="BUDGET" component={Budget} />
-    <BudgetStack.Screen name="PTO_POLICY" component={PtoPolicy} />
+    <BudgetStack.Screen
+      name="PTO_POLICY"
+      component={PtoPolicy}
+      options={TransitionPresets.SlideFromRightIOS}
+    />
   </BudgetStack.Navigator>
 )

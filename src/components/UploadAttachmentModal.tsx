@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 import {
   ImageLibraryOptions,
-  launchImageLibrary,
   ImagePickerResponse,
   launchCamera,
+  launchImageLibrary,
 } from 'react-native-image-picker'
 import {
   DocumentPickerOptions,
@@ -16,8 +16,8 @@ import FileIcon from 'assets/icons/icon-file.svg'
 import Smartphone from 'assets/icons/icon-smartphone.svg'
 import { useTranslation } from 'react-i18next'
 import { Analytics } from 'services/analytics'
-import { FeedPostDataType } from 'mockApi/models/miragePostTypes'
 import { AnalyticsScreens } from 'utils/eventMap'
+import { AttachmentType } from 'mockApi/models'
 import { OptionsModal } from './OptionsModal'
 
 type UploadFilesProps =
@@ -32,7 +32,7 @@ type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   source: AnalyticsScreens
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
-  setPhotoURI: F2<string | null, FeedPostDataType | undefined>
+  setPhotoURI: F2<string | null, AttachmentType | undefined>
   showCamera?: true
 } & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
@@ -53,7 +53,7 @@ export const UploadAttachmentModal = ({
           uri: photo.uri,
           type: photo.type,
         })
-        let assetType: FeedPostDataType | undefined
+        let assetType: AttachmentType | undefined
         if (photo.type === 'image' || photo.type === 'video') assetType = photo.type
         p.setPhotoURI(photo.uri, assetType)
       } else {

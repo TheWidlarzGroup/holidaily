@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ToggleButton } from 'components/ToggleButton'
 import { isScreenHeightShort } from 'utils/deviceSizes'
 import { DashboardNavigationType } from 'navigation/types'
+import { isIos } from 'utils/layout'
 
 const ICON_SIZE = 18
 
@@ -18,7 +19,12 @@ export const TeamsModal = ({ closeModal }: { closeModal: F0 }) => {
   const { navigate } = useNavigation<DashboardNavigationType<'DASHBOARD'>>()
   const screenSizeAwareSpacing = isScreenHeightShort ? 'xm' : 'l'
   return (
-    <Box flex={1} borderTopLeftRadius="l1min" borderTopRightRadius="l1min" overflow="hidden">
+    <Box
+      flex={1}
+      borderTopLeftRadius="l1min"
+      borderTopRightRadius="l1min"
+      overflow="hidden"
+      marginBottom={isIos ? 'l' : 'none'}>
       <Box backgroundColor="white" flexGrow={1} paddingVertical={screenSizeAwareSpacing}>
         <Box flex={1}>
           <TeamsModalHeader />

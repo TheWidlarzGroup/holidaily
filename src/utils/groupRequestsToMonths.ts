@@ -1,12 +1,12 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 import { DayOffEvent } from 'screens/calendar/components/DayEvent'
-import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from '../types/HolidayRequestMonthType'
 import { groupArrayByKey } from './groupArrayByKey'
 import { sortByRequestDate } from './sortByDate'
 
 export const groupRequestsToMonths = (allRequests: DayOffEvent[]) => {
-  const groupedMonths: HolidailyRequestMonthType[] = []
+  const groupedMonths: HolidayRequestMonthType[] = []
 
   const groupedAllRequestsByMonth = groupArrayByKey(allRequests, 'monthYear')
   // for loops are used for better performance

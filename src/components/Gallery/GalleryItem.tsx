@@ -1,10 +1,10 @@
 import React from 'react'
 import FastImage from 'react-native-fast-image'
 import { BaseOpacity } from 'utils/theme'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { ViewStyle } from 'react-native'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 
-type GalleryItemProps = AttachmentType & {
+type GalleryItemProps = AttachmentDataType & {
   width: number
   onPress: F0
   style: ViewStyle
