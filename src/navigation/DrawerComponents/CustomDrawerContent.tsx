@@ -1,21 +1,22 @@
 import React from 'react'
 import { DrawerContentComponentProps, useDrawerProgress } from '@react-navigation/drawer'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { Box } from 'utils/theme'
+import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { DrawerIcon, Tab } from 'utils/getDrawerIcon'
 import { DrawerItem } from 'navigation/DrawerComponents/DrawerItem'
-import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerHeader } from 'navigation/DrawerComponents/DrawerHeader'
 import { DrawerRoutes } from 'navigation/types'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Logout } from './Logout'
 
 export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) => {
   const { user } = useUserContext()
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
+  const styles = useStyles()
 
   const style = useAnimatedStyle(() => {
     const drawerScale = interpolate(progress.value, [0, 1], [1.1, 1])
@@ -39,7 +40,7 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
   }
 
   return (
-    <SafeAreaWrapper>
+    <SafeAreaView style={styles.safeArea}>
       <AnimatedBox flex={1} backgroundColor="white" style={style}>
         <DrawerHeader
           firstName={user.firstName}
@@ -63,6 +64,13 @@ export const CustomDrawerContent = ({ ...props }: DrawerContentComponentProps) =
         </Box>
         <Logout />
       </AnimatedBox>
-    </SafeAreaWrapper>
+    </SafeAreaView>
   )
 }
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  safeArea: {
+    flex: 1,
+    backgroundColor: theme.colors.white,
+  },
+}))
