@@ -27,7 +27,7 @@ export const BubbleContainer = ({
   }, [dropColor, p, theme.colors.colorPickerDropArea])
 
   return (
-    <Box flex={1} backgroundColor="colorPickerBackdrop" flexWrap="wrap">
+    <Box flex={1} backgroundColor="rippleColor" flexWrap="wrap">
       {animateCheckmark && <CheckMark animateCheckmark={animateCheckmark} />}
       <BubbleContainerButtons />
       <BubbleContainerHeader />
