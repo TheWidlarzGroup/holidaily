@@ -76,11 +76,11 @@ export const BottomTabNavigator = () => {
             />
             <Tab.Screen name="FEED" component={Feed} />
           </Tab.Navigator>
-          {/* Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
+          {/* Comment: Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
           <AnimatedBox
             position="absolute"
             backgroundColor="dashboardBackground"
-            height={50}
+            height={isIos ? 50 : 30}
             width="100%"
             style={animatedTopBoxStyle}
           />

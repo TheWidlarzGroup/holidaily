@@ -25,7 +25,8 @@ export const TabsHandler = ({ tabs, tabWidth, activeTabIndex }: TabsHandlerProps
       shadowOffset={{ width: 0, height: 2 }}
       shadowColor="blackMuchDarker"
       shadowOpacity={0.3}
-      shadowRadius={6}>
+      shadowRadius={6}
+      elevation={4}>
       {tabs.map((tab, key: number) => {
         const onPress = () => {
           if (tab.name === 'RequestModal') navigation.navigate('REQUEST_VACATION')
@@ -48,7 +49,6 @@ export const TabsHandler = ({ tabs, tabWidth, activeTabIndex }: TabsHandlerProps
             flexDirection="column"
             backgroundColor="white"
             zIndex="5"
-            elevation={4}
             borderTopLeftRadius={tabsBorderRadius({ key, side: 'left' })}
             borderTopRightRadius={tabsBorderRadius({ key, side: 'right' })}>
             <BorderlessButton onPress={onPress} style={styles.button}>
