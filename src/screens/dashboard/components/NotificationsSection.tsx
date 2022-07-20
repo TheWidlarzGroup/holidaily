@@ -9,15 +9,27 @@ type NotificationsSectionProps = {
   notificationsList: NotificationModel[]
 }
 
-export const NotificationsSection = (props: NotificationsSectionProps) => (
-  <>
-    <Text variant="inputLabel" marginBottom="s" color="darkGreyBrighter">
-      {props.heading}
-    </Text>
-    {props.notificationsList.map((item: NotificationModel) => (
-      <SwipeableNotification key={item.id} notificationId={item.id} isSeen={item.wasSeenByHolder}>
-        <Notification {...item} />
-      </SwipeableNotification>
-    ))}
-  </>
-)
+export const NotificationsSection = (props: NotificationsSectionProps) => {
+  const isSeen = props.notificationsList.filter(
+    (item: NotificationModel) => item.wasSeenByHolder === true
+  )
+  const marginTop = isSeen.length > 0 ? 'l' : 'none'
+
+  return (
+    <>
+      <Text
+        variant="inputLabel"
+        marginBottom="s"
+        marginTop={marginTop}
+        color="darkGreyBrighter"
+        lineHeight={18}>
+        {props.heading}
+      </Text>
+      {props.notificationsList.map((item: NotificationModel) => (
+        <SwipeableNotification key={item.id} notificationId={item.id} isSeen={item.wasSeenByHolder}>
+          <Notification {...item} />
+        </SwipeableNotification>
+      ))}
+    </>
+  )
+}
