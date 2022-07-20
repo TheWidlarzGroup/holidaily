@@ -18,6 +18,7 @@ test('Button fire callback after animation finished', () => {
     const { getByTestId, getByText } = render(
       <CheckmarkButton label={label} onFinish={mockFn} variant="secondary" />
     )
+
     const container = getByTestId('buttonContainer')
     act(() => {
       expect(mockFn).not.toBeCalled()

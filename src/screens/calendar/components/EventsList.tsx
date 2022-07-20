@@ -1,5 +1,5 @@
-import React, { useEffect, useState, forwardRef, useCallback } from 'react'
-import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
+import React, { forwardRef, useCallback, useEffect, useState } from 'react'
+import { DAY_ITEM_HEIGHT, DayInfo } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
 import { Box, useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
@@ -8,8 +8,8 @@ import { LoadingModal } from 'components/LoadingModal'
 import { sleep } from 'utils/sleep'
 import { getISODateString } from 'utils/dates'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { DayInfoProps } from 'types/DayInfoProps'
 import { EVENT_HEIGHT } from './DayEvent'
-import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
 
 export type EventsListProps = {
@@ -135,7 +135,7 @@ export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: nu
     }
   let prevEventsCount = 0
   for (let i = 0; i < index; i++) {
-    prevEventsCount += data[i].events?.length ?? 0
+    prevEventsCount += data?.[i]?.events?.length ?? 0
   }
   return {
     length: DAY_ITEM_HEIGHT,
