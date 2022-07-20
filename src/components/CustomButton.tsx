@@ -22,6 +22,8 @@ export interface CustomButtonProps extends RectButtonProperties, FlexStyle {
   customTextColor?: Colors
 }
 
+const isTestEnv = process.env.NODE_ENV === 'test'
+
 export const CustomButton = ({
   variant = 'secondary',
   label,
@@ -78,7 +80,7 @@ export const CustomButton = ({
   return (
     <RectButton
       rippleColor={disabled ? bgColor : rippleColor}
-      onPress={!disabled && !isAndroid ? onPress : () => null}
+      onPress={onPress}
       activeOpacity={disabled ? 0 : 0.2}
       style={[
         styles.container,
@@ -89,7 +91,7 @@ export const CustomButton = ({
       ]}>
       <BaseOpacity
         activeOpacity={1}
-        onPress={!disabled && isAndroid ? onPress : () => null}
+        onPress={!disabled && (isAndroid || isTestEnv) ? onPress : () => null}
         width="100%"
         height={variant === 'tertiary' ? 41 : 47}
         flexDirection="row"
