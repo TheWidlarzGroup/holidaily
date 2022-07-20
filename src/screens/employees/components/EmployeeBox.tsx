@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Animated, { useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { useTranslation } from 'react-i18next'
-import { Box, Text, theme, mkUseStyles } from 'utils/theme'
+import { Box, mkUseStyles, Text, theme } from 'utils/theme'
 import { capitalize } from 'utils/role'
-import { UserTypes } from 'types/useUserTypes'
 import { useModalContext } from 'contexts/ModalProvider'
 import { ConfirmationModal } from 'components/ConfirmationModal'
 import { ChangesSavedModal } from 'components/ChangesSavedModal'
 import { Avatar } from 'components/Avatar'
 import { EmployeeBoxButtons } from './EmployeeBoxButtons'
+import { UserTypes } from './EmployeeTypes'
 
 type EmployeeBoxProps = {
   color?: string

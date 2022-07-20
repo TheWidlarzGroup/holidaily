@@ -13,7 +13,7 @@ export const sourceHolidaily = {
 export const sourcePeter = {
   firstName: 'Peter',
   lastName: 'Kansas',
-  userColor: '#FF88DC',
+  userColor: 'rgba(255, 136, 220, 1)',
   id: 'source-peter',
   photo: 'https://randomuser.me/api/portraits/men/1.jpg',
   occupation: 'Software Engineer',
@@ -22,7 +22,7 @@ export const sourcePeter = {
 export const sourceJune = {
   firstName: 'June',
   lastName: 'Osbourne',
-  userColor: '#FD8989',
+  userColor: 'rgba(253, 137, 137, 1)',
   id: 'source-june',
   photo: 'https://randomuser.me/api/portraits/women/68.jpg',
 }
@@ -30,7 +30,7 @@ export const sourceJune = {
 export const sourceTom = {
   firstName: 'Tom',
   lastName: 'Waist',
-  userColor: '#91A6FF',
+  userColor: 'rgba(145, 166, 255, 1)',
   id: 'source-tom',
   photo: 'https://randomuser.me/api/portraits/men/2.jpg',
 }

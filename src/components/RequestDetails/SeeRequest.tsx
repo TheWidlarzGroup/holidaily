@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { StatusBar } from 'react-native'
 import { Analytics } from 'services/analytics'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
@@ -45,9 +46,12 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <Box marginTop="l" paddingBottom="m" flex={1}>
+      <GestureRecognizer
+        onSwipeRight={goBack}
+        androidOnly
+        style={{ marginTop: theme.spacing.l, paddingBottom: theme.spacing.m }}>
         <RequestDetails {...p} showStatus wasSent />
-      </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

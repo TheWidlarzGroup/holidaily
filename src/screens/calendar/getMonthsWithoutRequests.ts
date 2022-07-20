@@ -8,7 +8,7 @@ import {
   sub,
 } from 'date-fns'
 import { DayInfoProps } from 'types/DayInfoProps'
-import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { getISODateString } from 'utils/dates'
 
 export const getMonthsWithoutRequests = () => {
@@ -19,7 +19,7 @@ export const getMonthsWithoutRequests = () => {
     end: endDate,
   })
 
-  const allMonths: HolidailyRequestMonthType[] = []
+  const allMonths: HolidayRequestMonthType[] = []
   eachMonthBetweenDates.forEach((month) => {
     const singleMonthDaysEvents: DayInfoProps[] = []
 

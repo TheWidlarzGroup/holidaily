@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Server, Request } from 'miragejs'
+import { Request, Server } from 'miragejs'
 import Schema from 'miragejs/orm/schema'
 import { requireAuth } from 'mockApi/utils/requireAuth'
 import { generateUUID } from 'utils/generateUUID'
@@ -8,7 +8,7 @@ import { Reaction, Schema as ModelsSchema } from '../models'
 export function postsRoute(context: Server<ModelsSchema>) {
   context.get('/posts', fetchPosts)
   context.post('/addpost', addPost)
-  context.post('/addpost/newid', addPostWithNewId)
+  context.post('/addpost/postId', addPostWithNewId)
   context.post('/posts/:postId', addComment)
   context.put('/posts/:postId', addReaction)
   context.delete('/comment/:id', deleteComment)

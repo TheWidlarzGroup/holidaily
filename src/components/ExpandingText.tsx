@@ -56,22 +56,12 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
       onPress={toggle}
       activeOpacity={1}
       style={initialNumOfLines > 3 && animatedStyle}>
-      {/* Comment: below non visible box to get initial number of text lines */}
-      <Box position="absolute" zIndex="-1">
-        <Text
-          variant="textSM"
-          lineHeight={LINE_HEIGHT}
-          onTextLayout={onTextLayout}
-          color="transparent">
-          {text}
-        </Text>
-      </Box>
       <Text
         {...textProps}
         numberOfLines={opened ? undefined : 3}
         variant="textSM"
         lineHeight={LINE_HEIGHT}
-        paddingBottom="xxm">
+        paddingBottom="m">
         {text.slice(0, numberOfChars)}
         {text.length > 130 && !opened && (
           <>
@@ -82,6 +72,16 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
           </>
         )}
       </Text>
+      {/* Comment: below non visible box to get initial number of text lines */}
+      <Box position="absolute" zIndex="-1">
+        <Text
+          variant="textSM"
+          lineHeight={LINE_HEIGHT}
+          onTextLayout={onTextLayout}
+          color="transparent">
+          {text}
+        </Text>
+      </Box>
     </AnimatedBaseOpacity>
   )
 }

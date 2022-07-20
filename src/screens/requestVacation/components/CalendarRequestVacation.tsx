@@ -3,7 +3,7 @@ import { CalendarList } from 'components/CalendarList'
 import { LoadingModal } from 'components/LoadingModal'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { ModalNavigationProps, AppNavigationType } from 'navigation/types'
+import { AppNavigationType, ModalNavigationProps } from 'navigation/types'
 import React, { useEffect, useState } from 'react'
 import { calculatePTO, getDurationInDays, getFormattedPeriod } from 'utils/dates'
 import { mkUseStyles } from 'utils/theme'
@@ -11,6 +11,7 @@ import { ActionModal, ActionModalProps } from 'components/ActionModal'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { drawnDayoffInAlreadyScheduledTime } from 'utils/dayOffUtils'
 import { TFunction, useTranslation } from 'react-i18next'
+import { isIos } from 'utils/layout'
 import { MAX_SICK_DAYS_COUNT } from './MaxSickDays'
 
 type GetPeriodModalTextsProps = {
@@ -26,8 +27,8 @@ export const CalendarRequestVacation = ({
     params: { isSickTime },
   },
 }: ModalNavigationProps<'REQUEST_VACATION_CALENDAR'>) => {
-  const [periodStart, selectPeriodStart] = useState<string>('')
-  const [periodEnd, selectPeriodEnd] = useState<string>('')
+  const [periodStart, selectPeriodStart] = useState('')
+  const [periodEnd, selectPeriodEnd] = useState('')
   const { user } = useUserContext()
   const { t } = useTranslation('requestVacation')
   const haveUserPickedPeriod = !!periodStart && !!periodEnd
@@ -85,7 +86,7 @@ export const CalendarRequestVacation = ({
 
   return (
     <SwipeableScreen swipeWithIndicator alignItems="center" extraStyle={styles.container}>
-      <LoadingModal style={styles.loadingSpinneer} show={!isCalendarVisible} />
+      <LoadingModal style={styles.loadingSpinner} show={!isCalendarVisible} />
       {isCalendarVisible && (
         <>
           <CalendarList
@@ -107,6 +108,7 @@ export const CalendarRequestVacation = ({
             header={modalTexts[periodState].header}
             content={modalTexts[periodState].content}
             extraButtons={modalExtraButtons}
+            extraStyle={{ paddingBottom: isIos ? 40 : 20 }}
           />
         </>
       )}
@@ -156,7 +158,7 @@ const useStyles = mkUseStyles((theme) => ({
   dayNames: {
     width: '100%',
   },
-  loadingSpinneer: {
+  loadingSpinner: {
     backgroundColor: theme.colors.transparent,
   },
   // Comment: Not using theme.colors.white / alwaysWhite because newCalendarList has #fff background, and idk where it comes from

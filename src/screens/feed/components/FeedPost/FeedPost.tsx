@@ -1,14 +1,10 @@
 import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Box, Theme } from 'utils/theme'
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
+import { Theme } from 'utils/theme'
+import { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'
 import { FeedPostHeader } from './FeedPostHeader'
@@ -18,8 +14,6 @@ type FeedPostProps = {
   openEditModal: F1<EditTargetType>
   editTarget?: EditTargetType | null
 }
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const FeedPost = (props: FeedPostProps) => {
   const { post, editTarget, openEditModal } = props

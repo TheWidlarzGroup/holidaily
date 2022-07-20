@@ -1,6 +1,6 @@
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import React, { useEffect } from 'react'
 import { Analytics } from 'services/analytics'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { FormRequestVacation } from './FormRequestVacation'
 import { SummaryRequestVacation } from './SummaryRequestVacation'
@@ -8,8 +8,8 @@ import { SummaryRequestVacation } from './SummaryRequestVacation'
 type RequestDataTypes = {
   description: string
   message: string
-  photos: AttachmentType[]
-  files: (AttachmentType & { name: string })[]
+  photos: AttachmentDataType[]
+  files: (AttachmentDataType & { name: string })[]
 }
 
 type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>

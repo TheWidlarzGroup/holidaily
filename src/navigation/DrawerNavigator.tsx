@@ -4,10 +4,8 @@ import { createDrawerNavigator, DrawerNavigationOptions } from '@react-navigatio
 import { About } from 'screens/about/About'
 import { Settings } from 'screens/settings/Settings'
 import { DrawerRoutes } from 'navigation/types'
-import { useNavigationState } from '@react-navigation/native'
-import { getActiveRouteName } from 'utils/getActiveRouteName'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 import { useSiriListeners } from 'hooks/useSiriListeners'
-import { isIos } from 'utils/layout'
 import { ProfileNavigation } from './ProfileNavigation'
 import { CustomDrawerContent } from './DrawerComponents/CustomDrawerContent'
 import { BottomTabNavigator as Home } from './BottomTabNavigator'
@@ -20,29 +18,29 @@ const defaultScreenOptions: DrawerNavigationOptions = {
   drawerType: 'back',
 }
 
-const navigatorOptions = {
-  headerShown: false,
-}
-
 export const DrawerNavigator = () => {
-  const navState = useNavigationState((state) => state)
-  const activeRouteName = getActiveRouteName(navState)
+  const activeRouteName = useGetActiveRouteName()
   const { t } = useTranslation('navigation')
 
   useSiriListeners<'Home'>()
 
+  const isSwipeEnabled = !(
+    activeRouteName === 'DASHBOARD_TEAM' || activeRouteName === 'SEE_REQUEST'
+  )
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      screenOptions={navigatorOptions}
+      screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="Home"
         options={{
           title: t('home'),
           ...defaultScreenOptions,
+          swipeEnabled: isSwipeEnabled,
         }}>
-        {() => <Home gestureEnabled={!(isIos && activeRouteName === 'DASHBOARD_TEAM')} />}
+        {() => <Home />}
       </Drawer.Screen>
       <Drawer.Screen
         name="ProfileNavigation"
