@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Dimensions, ScrollView, ImageSourcePropType, TouchableOpacity } from 'react-native'
+import { Dimensions, ImageSourcePropType, ScrollView, TouchableOpacity } from 'react-native'
 import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedRef,
   runOnJS,
-  withTiming,
+  useAnimatedRef,
+  useAnimatedScrollHandler,
   useAnimatedStyle,
+  useSharedValue,
   withDelay,
+  withTiming,
 } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +19,7 @@ import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
 import { getItem } from 'utils/localStorage'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
+import { AnimatedBox } from 'components/AnimatedBox'
 
 const SLIDER_DATA: {
   title: `slider${1 | 2 | 3 | 4}Title`
@@ -48,7 +49,6 @@ const SLIDER_DATA: {
 ]
 
 const { width } = Dimensions.get('window')
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 const ANIMATION_TIME = 3400
 

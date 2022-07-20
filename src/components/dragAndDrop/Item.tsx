@@ -2,33 +2,34 @@ import React, { ReactElement, ReactNode, RefObject } from 'react'
 import { FlatList, StyleSheet, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
+  runOnJS,
+  scrollTo,
   useAnimatedGestureHandler,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
-  scrollTo,
-  runOnJS,
   withTiming,
 } from 'react-native-reanimated'
 import {
-  State,
   LongPressGestureHandler,
+  LongPressGestureHandlerStateChangeEvent,
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
-  LongPressGestureHandlerStateChangeEvent,
+  State,
 } from 'react-native-gesture-handler'
-import { Box, useTheme } from 'utils/theme'
+import { useTheme } from 'utils/theme'
+import { AnimatedBox } from 'components/AnimatedBox'
 import {
-  COL,
-  getPosition,
-  Positions,
-  SIZE_W,
-  getOrder,
   animationConfig,
-  SIZE_H,
-  HEADER_OFFSET,
   BOTTOM_OFFSET,
+  COL,
+  getOrder,
+  getPosition,
+  HEADER_OFFSET,
   NESTED_ELEM_OFFSET,
+  Positions,
+  SIZE_H,
+  SIZE_W,
 } from './Config'
 
 type ItemProps = {
@@ -179,5 +180,3 @@ export const Item = (props: ItemProps) => {
     </LongPressGestureHandler>
   )
 }
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)

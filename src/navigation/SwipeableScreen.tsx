@@ -1,17 +1,16 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
 import { ViewProps } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { BaseOpacity, Box, Theme } from 'utils/theme'
+import { BaseOpacity, Theme } from 'utils/theme'
 import { PanGestureHandler } from 'react-native-gesture-handler'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { BoxProps } from '@shopify/restyle'
 import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 import { ConfirmationModalProps } from 'types/confirmationModalProps'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { useOnGoback, useSwipeGestureHandler } from './service/swipeableScreenUtils'
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 const baseContainerProps: BoxProps<Theme> = {
   flex: 1,
