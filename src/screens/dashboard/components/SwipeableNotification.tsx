@@ -28,6 +28,7 @@ export const SwipeableNotification = ({
   const animatedOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }))
+
   const LeftActions = useCallback(
     () => (
       <AnimatedBox
@@ -63,7 +64,8 @@ export const SwipeableNotification = ({
       renderLeftActions={isSeen ? undefined : LeftActions}
       renderRightActions={isSeen ? RightActions : undefined}
       onSwipeableOpen={isSeen ? markAsUnseen : markAsSeen}
-      leftThreshold={80}>
+      leftThreshold={50}
+      rightThreshold={50}>
       {children}
     </Swipeable>
   )
