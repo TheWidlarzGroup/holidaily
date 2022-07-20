@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2000500C31207DCD1A3F610D /* libPods-Holidayly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D1E8DE142E4092271D1570 /* libPods-Holidayly.a */; };
@@ -21,6 +20,8 @@
 		791521C85FEF46AE82663ECC /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D83AA926887646598CE83E69 /* Nunito-Italic-VariableFont_wght.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C9802163B524495DAD789F05 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6A8EF2419904A28B00070D1 /* Nunito-Bold.ttf */; };
+		CEEDE2A2288857330051AF06 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEEDE2A1288857330051AF06 /* AppDelegate.mm */; };
+		CEEDE2A42888574F0051AF06 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEEDE2A32888574F0051AF06 /* AppDelegate.mm */; };
 		F6400A4811754D149C5D8217 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED85F5F2EF7A4497A6E9DE87 /* Nunito-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,8 @@
 		98840D060D0761F346A02A23 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		A36BB97015CE24074470A761 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A8EF2419904A28B00070D1 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Bold.ttf"; path = "../src/assets/fonts/Nunito-Bold.ttf"; sourceTree = "<group>"; };
+		CEEDE2A1288857330051AF06 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Holidayly/AppDelegate.mm; sourceTree = "<group>"; };
+		CEEDE2A32888574F0051AF06 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Holidayly/AppDelegate.mm; sourceTree = "<group>"; };
 		D83AA926887646598CE83E69 /* Nunito-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Italic-VariableFont_wght.ttf"; path = "../src/assets/fonts/Nunito-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		ED85F5F2EF7A4497A6E9DE87 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-ExtraBold.ttf"; path = "../src/assets/fonts/Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +185,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CEEDE2A1288857330051AF06 /* AppDelegate.mm */,
+				CEEDE2A32888574F0051AF06 /* AppDelegate.mm */,
 				13B07FAE1A68108700A75B9A /* Holidayly */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HolidaylyTests */,
@@ -474,7 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23E7794F26A74159009C34A4 /* BridgeHeader.swift in Sources */,
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				CEEDE2A2288857330051AF06 /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				6A311BD7BF597274A5DF6AA7 /* ExpoModulesProvider.swift in Sources */,
 			);
@@ -485,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				232E9F8D26B3F69A00949471 /* NotificationService.swift in Sources */,
+				CEEDE2A42888574F0051AF06 /* AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
