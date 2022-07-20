@@ -1,23 +1,17 @@
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import React, { useCallback, useEffect, useRef } from 'react'
-import {
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  StatusBar,
-  useWindowDimensions,
-  ViewToken,
-} from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, StatusBar, ViewToken } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { isScreenHeightShort } from 'utils/deviceSizes'
+import { isScreenHeightShort, windowHeight, windowWidth } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
 import { BaseOpacity, Box } from 'utils/theme'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 import { AttachmentDataType } from 'mockApi/models'
+import { ScrollView } from 'react-native-gesture-handler'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -28,8 +22,10 @@ type GalleryProps = {
   postId?: string
 }
 
+const IMAGE_HEIGHT = (windowWidth * 4) / 3
+const PADDING_TO_CENTER_IMG = (windowHeight - IMAGE_HEIGHT) / 2
+
 export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
-  const { width } = useWindowDimensions()
   const listRef = useRef<FlashList<AttachmentDataType>>(null)
   const translateX = useSharedValue(0)
   const navigation = useNavigation()
@@ -60,23 +56,23 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
     ({ item, index }: { item: AttachmentDataType; index: number }) => (
       <GalleryItem
         {...item}
-        width={width}
+        width={windowWidth}
         onPress={() => onItemPress && onItemPress(index, item.uri)}
         style={{ justifyContent: 'center' }}
       />
     ),
-    [width, onItemPress]
+    [onItemPress]
   )
 
   const flatListComponent = (
     <FlashList
       horizontal
       ref={listRef}
-      snapToInterval={width}
+      snapToInterval={windowWidth}
       snapToAlignment="center"
       initialScrollIndex={index}
       viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-      estimatedItemSize={width}
+      estimatedItemSize={windowWidth}
       decelerationRate="normal"
       disableIntervalMomentum
       data={data}
@@ -95,18 +91,17 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
           alignItems="center"
           flex={1}
           activeOpacity={1}
-          onPress={() => navigation.goBack()}>
-          <GestureRecognizer
-            style={{
-              flex: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: (width * 4) / 3,
+          onPress={() => isIos && navigation.goBack()}>
+          <ScrollView
+            contentContainerStyle={{
+              // Comment: it's not possible to center image, so paddingTop is used to do that
+              paddingTop: PADDING_TO_CENTER_IMG,
+              flex: 1,
             }}
-            onSwipeDown={() => navigation.goBack()}
-            onSwipeUp={() => navigation.goBack()}>
+            onScrollEndDrag={() => isIos && navigation.goBack()}
+            onEnded={() => navigation.goBack()}>
             {flatListComponent}
-          </GestureRecognizer>
+          </ScrollView>
         </BaseOpacity>
       ) : (
         flatListComponent
