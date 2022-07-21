@@ -453,6 +453,7 @@
     "dateInputPlaceholder": "yyyy/mm/dd",
     "selectedTimeframe": "selected timeframe",
     "swipeDownToSeePrevious": "Swipe down to see previous",
-    "swipeUpToSeeNext": "Swipe up to see next"
+    "swipeUpToSeeNext": "Swipe up to see next",
+    "emptyStateNotificationTitle": "There are no time off events to show."
   }
 }

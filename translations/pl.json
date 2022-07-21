@@ -420,6 +420,7 @@
     "dateInputPlaceholder": "yyyy/mm/dd",
     "selectedTimeframe": "wybrany okres",
     "swipeDownToSeePrevious": "Przesuń palcem w dół aby zobaczyć poprzednie",
-    "swipeUpToSeeNext": "Przesuń palcem w górę aby zobaczyć następne"
+    "swipeUpToSeeNext": "Przesuń palcem w górę aby zobaczyć następne",
+    "emptyStateNotificationTitle": "Brak urlopów do wyświetlenia."
   }
 }

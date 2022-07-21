@@ -24,6 +24,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
@@ -68,6 +69,8 @@ export const Calendar = () => {
     if (pickedDate !== selectedDate && pickedDate) setSelectedDate(pickedDate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const { notify } = useGetNotificationsConfig()
 
   const styles = useStyles()
 
@@ -238,6 +241,10 @@ export const Calendar = () => {
 
     if (startIndex === -1) {
       setSlicedRequest([])
+      notify('successCustom', {
+        params: { title: t('emptyStateNotificationTitle') },
+        config: { duration: 5000 },
+      })
     } else {
       handleSetEventsInPeriod(startIndex)
     }
