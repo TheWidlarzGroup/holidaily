@@ -239,8 +239,15 @@ export const Calendar = () => {
 
     const { startDate, endDate } = adjustStartEndDates()
 
+    const notificationConfig = {
+      params: { title: t('emptyStateNotificationTitle') },
+      config: { duration: 5000 },
+    }
+
     if (isEndDateLowerThanStartDate(startDate, endDate)) {
-      /// do sth
+      notify('infoCustom', notificationConfig)
+      setWasDateChangePressed()
+      return setSlicedRequest([])
     }
 
     if (!startDate) {
@@ -253,10 +260,7 @@ export const Calendar = () => {
 
     if (startIndex === -1) {
       setSlicedRequest([])
-      notify('infoCustom', {
-        params: { title: t('emptyStateNotificationTitle') },
-        config: { duration: 5000 },
-      })
+      notify('infoCustom', notificationConfig)
     } else {
       handleSetEventsInPeriod(startIndex)
     }
@@ -315,7 +319,9 @@ export const Calendar = () => {
             <EventsList
               ref={flatListRef}
               selectedDate={selectedDate}
-              days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
+              days={
+                !wasDateChangePressed && !slicedRequests?.length ? currentMonthDays : slicedRequests
+              }
               switchCalendarHeight={switchCalendarHeight}
               setSwitchCalendarHeight={setSwitchCalendarHeight}
               btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
