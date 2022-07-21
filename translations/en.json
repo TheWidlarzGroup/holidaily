@@ -455,6 +455,8 @@
     "swipeDownToSeePrevious": "Swipe down to see previous",
     "swipeUpToSeeNext": "Swipe up to see next",
     "emptyStateNotificationTitle": "There are no time off events to show.",
-    "endOfEventsList": "You've reached end of list"
+    "endOfEventsList": "You've reached end of list",
+    "emptyScreenTitle": "There are no time off events to show.",
+    "emptyScreenSubtitle": "Pick earlier dates or swipe down."
   }
 }

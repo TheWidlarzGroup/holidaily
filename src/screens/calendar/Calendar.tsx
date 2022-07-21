@@ -42,6 +42,13 @@ const getSlicedDate = (date: string) => {
 const date = new Date()
 const today = date.toISOString().split('T')[0]
 
+const isEndDateLowerThanStartDate = (startDate: string, endDate: string) => {
+  const startTimestamp = new Date(startDate).getTime()
+  const endTimestamp = new Date(endDate).getTime()
+
+  return endTimestamp < startTimestamp
+}
+
 const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const Calendar = () => {
@@ -232,6 +239,10 @@ export const Calendar = () => {
 
     const { startDate, endDate } = adjustStartEndDates()
 
+    if (isEndDateLowerThanStartDate(startDate, endDate)) {
+      /// do sth
+    }
+
     if (!startDate) {
       startIndex = requestsDays.findIndex((a) => a.date === today)
     } else if (isPeriodStartLowerThanRequestsDate && !endDate) {
@@ -242,7 +253,7 @@ export const Calendar = () => {
 
     if (startIndex === -1) {
       setSlicedRequest([])
-      notify('successCustom', {
+      notify('infoCustom', {
         params: { title: t('emptyStateNotificationTitle') },
         config: { duration: 5000 },
       })
@@ -275,7 +286,14 @@ export const Calendar = () => {
           setInputWasFocused={setInputWasFocused}
         />
       </Box>
-      {showEmptyState ? null : (
+      {!showEmptyState ? (
+        <Box marginTop="xxxxl" alignItems="center">
+          <Text variant="textMD">{t('emptyScreenTitle')}</Text>
+          <Text marginTop="xs" variant="textXSGrey">
+            {t('emptyScreenSubtitle')}
+          </Text>
+        </Box>
+      ) : (
         <Box
           backgroundColor="lightGrey"
           flex={1}
