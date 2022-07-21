@@ -421,6 +421,7 @@
     "selectedTimeframe": "wybrany okres",
     "swipeDownToSeePrevious": "Przesuń palcem w dół aby zobaczyć poprzednie",
     "swipeUpToSeeNext": "Przesuń palcem w górę aby zobaczyć następne",
-    "emptyStateNotificationTitle": "Brak urlopów do wyświetlenia."
+    "emptyStateNotificationTitle": "Brak urlopów do wyświetlenia.",
+    "endOfEventsList": "Dotarleś do końca listy"
   }
 }

@@ -454,6 +454,7 @@
     "selectedTimeframe": "selected timeframe",
     "swipeDownToSeePrevious": "Swipe down to see previous",
     "swipeUpToSeeNext": "Swipe up to see next",
-    "emptyStateNotificationTitle": "There are no time off events to show."
+    "emptyStateNotificationTitle": "There are no time off events to show.",
+    "endOfEventsList": "You've reached end of list"
   }
 }

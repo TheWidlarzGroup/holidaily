@@ -1,13 +1,14 @@
 import React, { useEffect, useState, forwardRef, useCallback } from 'react'
 import { DayInfo, DAY_ITEM_HEIGHT } from 'screens/calendar/components/DayInfo'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
-import { Box, useTheme } from 'utils/theme'
+import { Box, Text, useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
 import { Analytics } from 'services/analytics'
 import { LoadingModal } from 'components/LoadingModal'
 import { sleep } from 'utils/sleep'
 import { getISODateString } from 'utils/dates'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { TFunction, useTranslation } from 'react-i18next'
 import { EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 import { GoUpDownButton } from './GoUpDownButton'
@@ -26,6 +27,12 @@ export const Item = React.memo(({ item }: { item: DayInfoProps }) => (
   </TouchableOpacity>
 ))
 
+const ListFooterComponent = (t: TFunction<'calendar'>) => (
+  <Box marginTop="s" alignItems="center">
+    <Text variant="textXSGrey">{t('endOfEventsList')}</Text>
+  </Box>
+)
+
 export const EventsList = forwardRef<FlatList, EventsListProps>(
   (
     { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, selectedDate },
@@ -38,6 +45,8 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
     const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
     const theme = useTheme()
+
+    const { t } = useTranslation('calendar')
 
     const { offset } = getItemLayout(days, 0)
 
@@ -96,6 +105,7 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
     return (
       <Box marginTop="xxs" marginHorizontal="s" justifyContent="center" flex={1}>
         <FlatList
+          ListFooterComponent={ListFooterComponent(t)}
           data={days}
           renderItem={renderItem}
           initialNumToRender={6}

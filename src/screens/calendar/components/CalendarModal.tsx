@@ -120,6 +120,7 @@ export const CalendarModal = () => {
             disablePastDates
             style={styles.calendar}
             markedDates={markedDates}
+            current={periodStart}
           />
           <ActionModal
             isVisible={!!periodStart}
