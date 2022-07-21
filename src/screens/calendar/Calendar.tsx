@@ -271,7 +271,10 @@ export const Calendar = () => {
     transform: [{ translateY: offset.value }],
   }))
 
-  const showEmptyState = wasDateChangePressed && slicedRequests.length === 0
+  const showEmptyState =
+    (periodStart || periodEnd) &&
+    wasDateChangePressed &&
+    (slicedRequests.length === 0 || currentMonthDays.length === 0)
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
@@ -286,7 +289,7 @@ export const Calendar = () => {
           setInputWasFocused={setInputWasFocused}
         />
       </Box>
-      {!showEmptyState ? (
+      {showEmptyState ? (
         <Box marginTop="xxxxl" alignItems="center">
           <Text variant="textMD">{t('emptyScreenTitle')}</Text>
           <Text marginTop="xs" variant="textXSGrey">
@@ -320,7 +323,7 @@ export const Calendar = () => {
           </AnimatedBox>
         </Box>
       )}
-      <Box paddingHorizontal="s" position="absolute" top={190} width="100%">
+      <Box paddingHorizontal="s" position="absolute" top="26%" width="100%">
         <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
           {inputWasFocused || periodEnd || periodStart ? (
             <Box
