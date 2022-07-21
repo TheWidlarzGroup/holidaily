@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, DrawerActions } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
@@ -19,6 +19,8 @@ import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useAddPostWithNewId, useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { FlashList } from '@shopify/flash-list'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -28,7 +30,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [language] = useLanguage()
   const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
-  const navigation = useNavigation<BottomTabNavigationType<'FEED'>>()
+  const navigation = useNavigation<BottomTabNavigationType<'FEED'> & typeof DrawerActions>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
   const flatListRef = useRef<FlashList<FeedPostType> | null>(null)
@@ -47,6 +49,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const [wasFlashListLoaded, setWasFlashListLoaded] = useState(false)
 
   const prevScreen: PrevScreen = p?.prevScreen
+
+  const memoizedPrevScreen = useMemoizedNonNullValue(prevScreen)
+
+  const wasNavigatedFromNotifications = memoizedPrevScreen[0] === 'NOTIFICATIONS'
 
   usePrevScreenBackHandler(prevScreen)
 
@@ -143,6 +149,13 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     },
   ]
 
+  useEffect(() => {
+    const parent = navigation.getParent()
+    if (wasNavigatedFromNotifications) {
+      parent?.setOptions({ swipeEnabled: false })
+    }
+  }, [navigation, wasNavigatedFromNotifications])
+
   InteractionManager.runAfterInteractions(() => {
     if (flatListRef.current && p?.postId && !!data?.length && wasFlashListLoaded) {
       const index = data.findIndex((post) => String(post.id) === String(p.postId))
@@ -156,40 +169,57 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
 
+  const handleGoBack = () => {
+    if (wasNavigatedFromNotifications) {
+      navigation.navigate('NOTIFICATIONS')
+    } else {
+      navigation.openDrawer()
+    }
+  }
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <FlashList
-        ref={flatListRef}
-        onLoad={() => setWasFlashListLoaded(true)}
-        keyboardShouldPersistTaps="handled"
-        ListHeaderComponent={FeedHeader}
-        data={allPosts}
-        renderItem={({ item }) => (
-          <FeedPost post={item} openEditModal={openEditModal} editTarget={editTarget} />
-        )}
-        keyExtractor={(post) => post.id}
-        extraData={[language, editTarget]}
-        contentContainerStyle={{ paddingBottom: 90 }}
-        estimatedItemSize={ESTIMATED_POST_HEIGHT}
-        disableAutoLayout
-      />
-      <OptionsModal
-        options={modalOptions}
-        isOpen={isOptionsModalOpen}
-        onHide={closeOptionsModal}
-        onSwipeComplete={() => setEditTarget(null)}
-        onBackdropPress={() => setEditTarget(null)}
-        backdropColor="transparent"
-      />
-      <MessageInputModal
-        messageContent={editTarget?.type === 'comment' && editTarget?.text ? editTarget?.text : ''}
-        setMessageContent={handleSetMessageContent}
-        visible={isMessageInputOpen}
-        onSubmitEditing={closeMessageInput}
-        onRequestClose={closeMessageInput}
-        handleEditComment={onCommentEdit}
-        autofocus
-      />
+      <GestureRecognizer onSwipeRight={handleGoBack}>
+        <FlashList
+          ref={flatListRef}
+          onLoad={() => setWasFlashListLoaded(true)}
+          keyboardShouldPersistTaps="handled"
+          ListHeaderComponent={FeedHeader}
+          data={allPosts}
+          renderItem={({ item }) => (
+            <FeedPost
+              post={item}
+              openEditModal={openEditModal}
+              editTarget={editTarget}
+              wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+            />
+          )}
+          keyExtractor={(post) => post.id}
+          extraData={[language, editTarget]}
+          contentContainerStyle={{ paddingBottom: 90 }}
+          estimatedItemSize={ESTIMATED_POST_HEIGHT}
+          disableAutoLayout
+        />
+        <OptionsModal
+          options={modalOptions}
+          isOpen={isOptionsModalOpen}
+          onHide={closeOptionsModal}
+          onSwipeComplete={() => setEditTarget(null)}
+          onBackdropPress={() => setEditTarget(null)}
+          backdropColor="transparent"
+        />
+        <MessageInputModal
+          messageContent={
+            editTarget?.type === 'comment' && editTarget?.text ? editTarget?.text : ''
+          }
+          setMessageContent={handleSetMessageContent}
+          visible={isMessageInputOpen}
+          onSubmitEditing={closeMessageInput}
+          onRequestClose={closeMessageInput}
+          handleEditComment={onCommentEdit}
+          autofocus
+        />
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

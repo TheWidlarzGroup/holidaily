@@ -10,10 +10,11 @@ import { isIos } from 'utils/layout'
 type FeedPostBodyProps = {
   borderColor: Colors
   post: Pick<FeedPost, 'data' | 'text' | 'id'>
+  wasNavigatedFromNotifications?: boolean
 }
 
 export const FeedPostBody = (props: FeedPostBodyProps) => {
-  const { post, borderColor } = props
+  const { post, borderColor, wasNavigatedFromNotifications } = props
   const { data, text, id } = post
   const { navigate } = useNavigation<AppNavigationType<'GALLERY'>>()
   const handleGalleryItemPress = (index: number) => {
@@ -36,7 +37,12 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
         </Box>
       )}
       {data?.length > 0 ? (
-        <Gallery data={data} postId={id} onItemPress={handleGalleryItemPress} />
+        <Gallery
+          data={data}
+          postId={id}
+          onItemPress={handleGalleryItemPress}
+          wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+        />
       ) : null}
     </Box>
   )
