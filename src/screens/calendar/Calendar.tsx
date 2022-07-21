@@ -146,8 +146,9 @@ export const Calendar = () => {
   const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
 
   const springConfig = {
-    damping: 2,
-    mass: 0.2,
+    damping: 6,
+    stiffness: 288,
+    mass: 1,
   }
 
   const handleSwipeDown = () => {
