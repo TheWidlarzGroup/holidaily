@@ -1,14 +1,15 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
+import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
+import { mkUseStyles, Theme, theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Calendar } from 'screens/calendar/Calendar'
 import { Feed } from 'screens/feed/Feed'
 import { useDrawerProgress } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { isIos } from 'utils/layout'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 import { RequestsNavigation } from './RequestsNavigation'
@@ -17,16 +18,13 @@ const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
 const EmptyComponent = () => null
 const tabs = [
-  {
-    name: 'DashboardNavigation',
-  },
+  { name: 'DashboardNavigation' },
   { name: 'CALENDAR' },
   { name: 'RequestModal' },
   { name: 'Stats' },
   { name: 'FEED' },
 ]
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 const OPEN_DRAWER_SCREEN_BORDER = theme.borderRadii.l
 
 export const BottomTabNavigator = () => {
