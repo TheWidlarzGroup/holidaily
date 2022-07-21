@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Box, mkUseStyles, Text } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
@@ -77,8 +77,19 @@ export const Calendar = () => {
 
   const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
 
+  const isPeriodStartLowerThanRequestsDate = useMemo(() => {
+    const periodStartTimestamp = new Date(periodStart)?.getTime()
+    const firstRequestDayTimestamp = new Date(requestsDays?.[0]?.date)?.getTime()
+
+    return periodStartTimestamp < firstRequestDayTimestamp
+  }, [periodStart, requestsDays])
+
   const handleSetPreviousEvent = useCallback(() => {
     const getPreviousEvent = () => {
+      if (isPeriodStartLowerThanRequestsDate) {
+        return null
+      }
+
       const todayIndex = requestsDays.findIndex((a) => a.date === periodStart || a.date === today)
 
       const reversedRequests = requestsDays.slice(0, todayIndex).reverse()
@@ -94,11 +105,13 @@ export const Calendar = () => {
     if (singlePreviousEvent?.date !== prevEvent?.date) {
       setSinglePreviousEvent(prevEvent)
     }
-  }, [periodStart, requestsDays, singlePreviousEvent?.date])
+  }, [isPeriodStartLowerThanRequestsDate, periodStart, requestsDays, singlePreviousEvent?.date])
 
   useEffect(() => {
     handleSetPreviousEvent()
-  }, [handleSetPreviousEvent])
+    // we want to set this only on initial render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleSetEventsInPeriod = (passedStartIndex?: number) => {
     const startDateItemIndex = passedStartIndex || 0
@@ -118,6 +131,7 @@ export const Calendar = () => {
     handleSetPeriodStart('')
     handleSetPeriodEnd('')
     setSlicedRequest([])
+    handleSetPreviousEvent()
   }
 
   useEffect(() => {
@@ -196,7 +210,7 @@ export const Calendar = () => {
     if (periodEnd && endDay) {
       if (endDay === '0') {
         endDate = `${endYear}-${endMonth}-01`
-      } else if (Number(endDay) < 10) {
+      } else if (endDay.length < 2) {
         endDate = `${endYear}-${endMonth}-0${endDay}`
       } else {
         endDate = `${endYear}-${endMonth}-${endDay}`
@@ -207,18 +221,28 @@ export const Calendar = () => {
     return { startDate, endDate }
   }
 
+  const [wasDateChangePressed, { setTrue: setWasDateChangePressed }] = useBooleanState(false)
+
   const handleSetDatePress = () => {
     let startIndex = 0
 
-    const { startDate } = adjustStartEndDates()
+    const { startDate, endDate } = adjustStartEndDates()
 
     if (!startDate) {
       startIndex = requestsDays.findIndex((a) => a.date === today)
+    } else if (isPeriodStartLowerThanRequestsDate && !endDate) {
+      startIndex = 0
     } else {
       startIndex = requestsDays.findIndex((a) => a.date === startDate)
     }
 
-    handleSetEventsInPeriod(startIndex)
+    if (startIndex === -1) {
+      setSlicedRequest([])
+    } else {
+      handleSetEventsInPeriod(startIndex)
+    }
+
+    setWasDateChangePressed()
     handleSetPreviousEvent()
   }
 
@@ -227,6 +251,8 @@ export const Calendar = () => {
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateY: offset.value }],
   }))
+
+  const showEmptyState = wasDateChangePressed && slicedRequests.length === 0
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
@@ -241,27 +267,33 @@ export const Calendar = () => {
           setInputWasFocused={setInputWasFocused}
         />
       </Box>
-
-      <Box backgroundColor="lightGrey" flex={1} borderRadius="l" marginTop="xxxl" paddingTop="xxxl">
-        <AnimatedBox flex={1} style={animatedStyles}>
-          <Box paddingBottom="xm" justifyContent="center" alignItems="center">
-            <PanGestureHandler onGestureEvent={panGestureHandler}>
-              <AnimatedBox style={styles.swipeDownRecognizer}>
-                <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
-                <SwipeDown style={styles.swipeDownIcon} />
-              </AnimatedBox>
-            </PanGestureHandler>
-          </Box>
-          <EventsList
-            ref={flatListRef}
-            selectedDate={selectedDate}
-            days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
-            switchCalendarHeight={switchCalendarHeight}
-            setSwitchCalendarHeight={setSwitchCalendarHeight}
-            btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
-          />
-        </AnimatedBox>
-      </Box>
+      {showEmptyState ? null : (
+        <Box
+          backgroundColor="lightGrey"
+          flex={1}
+          borderRadius="l"
+          marginTop={singlePreviousEvent ? 'xxxl' : 'l'}
+          paddingTop="xxxl">
+          <AnimatedBox flex={1} style={animatedStyles}>
+            <Box paddingBottom="xm" justifyContent="center" alignItems="center">
+              <PanGestureHandler onGestureEvent={panGestureHandler}>
+                <AnimatedBox style={styles.swipeDownRecognizer}>
+                  <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
+                  <SwipeDown style={styles.swipeDownIcon} />
+                </AnimatedBox>
+              </PanGestureHandler>
+            </Box>
+            <EventsList
+              ref={flatListRef}
+              selectedDate={selectedDate}
+              days={!slicedRequests?.length ? currentMonthDays : slicedRequests}
+              switchCalendarHeight={switchCalendarHeight}
+              setSwitchCalendarHeight={setSwitchCalendarHeight}
+              btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
+            />
+          </AnimatedBox>
+        </Box>
+      )}
       <Box paddingHorizontal="s" position="absolute" top={190} width="100%">
         <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
           {inputWasFocused || periodEnd || periodStart ? (
@@ -270,7 +302,7 @@ export const Calendar = () => {
               marginHorizontal="m"
               position="absolute"
               right={0}
-              top={10}
+              top={5}
               zIndex="2">
               <CalendarButton onIconPress={clearDatesInputs}>
                 <CloseIcon color={styles.closeIcon.color} />
@@ -295,7 +327,7 @@ export const Calendar = () => {
             </Text>
           </Box>
           {singlePreviousEvent ? (
-            <Box opacity={0.5}>
+            <Box opacity={showEmptyState ? 0 : 0.5} height={showEmptyState ? 0 : 'auto'}>
               <DayEvent event={singlePreviousEvent} />
             </Box>
           ) : null}
