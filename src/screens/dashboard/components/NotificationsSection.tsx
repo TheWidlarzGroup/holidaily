@@ -10,9 +10,7 @@ type NotificationsSectionProps = {
 }
 
 export const NotificationsSection = (props: NotificationsSectionProps) => {
-  const isSeen = props.notificationsList.filter(
-    (item: NotificationModel) => item.wasSeenByHolder === true
-  )
+  const isSeen = props.notificationsList.filter((item: NotificationModel) => item.wasSeenByHolder)
   const marginTop = isSeen.length > 0 ? 'l' : 'none'
 
   return (
