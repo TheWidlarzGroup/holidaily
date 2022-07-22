@@ -1,11 +1,11 @@
-import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { sortByRequestDate } from './sortByDate'
 
 export const mergeRequestsArrays = (
-  arr1: HolidailyRequestMonthType[],
-  arr2: HolidailyRequestMonthType[]
+  arr1: HolidayRequestMonthType[],
+  arr2: HolidayRequestMonthType[]
 ) => {
-  const mergedMonths: HolidailyRequestMonthType[] = []
+  const mergedMonths: HolidayRequestMonthType[] = []
   const listOfMonths = arr1.map((month) => month.date)
 
   arr1.forEach((x) => {

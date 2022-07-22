@@ -10,6 +10,7 @@ import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { useBackHandler } from 'hooks/useBackHandler'
 import { AppNavigationType } from 'navigation/types'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { isIos } from 'utils/layout'
 import { NotificationsList } from './components/NotificationsList'
 
 export const Notifications = () => {
@@ -33,10 +34,10 @@ export const Notifications = () => {
   })
 
   return (
-    <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
+    <SafeAreaWrapper edges={['left', 'right']}>
       <Box
         paddingBottom="m"
-        paddingTop="xxlplus"
+        paddingTop={isIos ? 'xxlplus' : 'xlplus'}
         backgroundColor="veryLightGrey"
         borderBottomRightRadius="lmin"
         borderBottomLeftRadius="lmin"
@@ -49,7 +50,9 @@ export const Notifications = () => {
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
           <IconBack height={16} width={10} color={theme.colors.black} />
         </TouchableOpacity>
-        <Text variant="displayBoldSM">{t('header')}</Text>
+        <Text variant="displayBoldSM" lineHeight={24}>
+          {t('header')}
+        </Text>
         <Box paddingRight="l" />
       </Box>
       <GestureRecognizer
@@ -57,12 +60,11 @@ export const Notifications = () => {
         onSwipeRight={handleBack}
         style={{
           alignItems: 'flex-end',
-          paddingVertical: theme.spacing.m,
           paddingHorizontal: theme.spacing.xm,
         }}>
         {data?.notifications && <NotificationsList data={data.notifications} />}
-        <LoadingModal show={isLoading} />
       </GestureRecognizer>
+      <LoadingModal show={isLoading} />
     </SafeAreaWrapper>
   )
 }

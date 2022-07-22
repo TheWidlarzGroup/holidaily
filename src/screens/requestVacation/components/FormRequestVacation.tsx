@@ -3,8 +3,8 @@ import { Box, Text } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
 import { ConfirmationModal } from 'components/ConfirmationModal'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { useTranslation } from 'react-i18next'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import { Additionals } from './Additionals'
 import { Details } from './Details'
 import { SickTime } from './SickTime'
@@ -12,8 +12,8 @@ import { SickTime } from './SickTime'
 type RequestDataTypes = {
   description: string
   message: string
-  photos: AttachmentType[]
-  files: (AttachmentType & { name: string })[]
+  photos: AttachmentDataType[]
+  files: (AttachmentDataType & { name: string })[]
 }
 
 type FormRequestVacationProps = {
@@ -24,8 +24,8 @@ type FormRequestVacationProps = {
   sickTime: boolean
   toggleSickTime: F0
   changeRequestData: (callback: (currentData: RequestDataTypes) => RequestDataTypes) => void
-  photos: AttachmentType[]
-  files: (AttachmentType & { name: string })[]
+  photos: AttachmentDataType[]
+  files: (AttachmentDataType & { name: string })[]
   removeAttachment: F1<string>
 }
 

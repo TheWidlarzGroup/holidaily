@@ -1,6 +1,6 @@
 import React from 'react'
 import { EditTargetType, FeedPost } from 'mock-api/models/miragePostTypes'
-import { Box, Theme } from 'utils/theme'
+import { Box, Colors } from 'utils/theme'
 import { isIos } from 'utils/layout'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { isScreenHeightShort } from 'utils/deviceSizes'
@@ -11,7 +11,7 @@ type Post = {
   post: FeedPost
   openEditModal: F1<EditTargetType>
   isEditingTarget: boolean
-  borderColor: keyof Theme['colors']
+  borderColor: Colors
 }
 
 export const FeedPostFooter = (props: Post) => {

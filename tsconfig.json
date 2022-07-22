@@ -2,7 +2,12 @@
   "extends": "eslint-config-twg/tsconfig.json",
   "include": ["**/*"],
   "compilerOptions": {
+<<<<<<< HEAD
     "lib": ["es2019"],
+=======
+    "target": "esnext",
+    "downlevelIteration": true,
+>>>>>>> staging
     "jsx": "react-native",
     "typeRoots": ["node_modules/@types"],
     "types": ["jest", "node"],

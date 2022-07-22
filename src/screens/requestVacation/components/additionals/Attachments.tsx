@@ -1,13 +1,13 @@
 import React from 'react'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { BaseOpacity, Box, mkUseStyles, Text, theme } from 'utils/theme'
 import { Photo } from 'components/RequestDetails/Photo'
 import { CircleStatusIcon } from 'components/CircleStatusIcon'
 import { windowWidth } from 'utils/deviceSizes'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import { AddMore } from './AddMore'
 
 type AttachmentsProps = {
-  attachments: (AttachmentType & { name?: string })[]
+  attachments: (AttachmentDataType & { name?: string })[]
   removeAttachment?: F1<string>
   imagesPerScreenWidth: 2 | 4
   addMore?: F0

@@ -20,6 +20,7 @@ export const SafeAreaWrapper = ({
   isDarkBgColor,
 }: WrapperProps) => {
   const styles = useStyles()
+
   return (
     <SafeAreaView
       edges={edges || ['top', 'right', 'bottom', 'left']}

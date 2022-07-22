@@ -11,7 +11,7 @@ export const PtoPolicy = () => {
   return (
     <SafeAreaWrapper>
       <PolicyHeader />
-      <GestureRecognizer onSwipeRight={goBack} onEnded androidOnly>
+      <GestureRecognizer onSwipeRight={goBack} androidOnly>
         <Policies />
       </GestureRecognizer>
     </SafeAreaWrapper>

@@ -45,7 +45,7 @@ const MarkAllAsSeen = ({ unseen }: { unseen: NotificationModel[] }) => {
 
   return (
     <BaseOpacity onPress={markAllAsSeen} marginTop="s" marginBottom="s" alignSelf="flex-end">
-      <Text variant="textSM" color="darkGreyBrighter">
+      <Text variant="textBoldSM" color="darkGreyBrighter" lineHeight={21}>
         {t('markAllAsSeen')}
       </Text>
     </BaseOpacity>

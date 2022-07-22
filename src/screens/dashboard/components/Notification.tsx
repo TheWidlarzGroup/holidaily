@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BaseOpacity, Box, Text } from 'utils/theme'
 import { Notification as NotificationModel, User } from 'mockApi/models'
 import { formatDate } from 'utils/formatDate'
@@ -35,7 +35,7 @@ export const Notification = ({
   const [modalUser, setModalUser] = useState<User>()
 
   const openModal = () => {
-    // TO-DO: first and last name are used for mocks - with BE change for user id
+    // TODO: first and last name are used for mocks - with BE change for user id
     const userModalData = allUsers.find(
       (userData) => userData.firstName === author.firstName && userData.lastName === author.lastName
     )

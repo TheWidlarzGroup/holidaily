@@ -1,6 +1,6 @@
 import React from 'react'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
-import { Box, Theme } from 'utils/theme'
+import { Box, Colors } from 'utils/theme'
 import { ExpandingText } from 'components/ExpandingText'
 import { Gallery } from 'components/Gallery/Gallery'
 import { useNavigation } from '@react-navigation/native'
@@ -8,7 +8,7 @@ import { AppNavigationType } from 'navigation/types'
 import { isIos } from 'utils/layout'
 
 type FeedPostBodyProps = {
-  borderColor: keyof Theme['colors']
+  borderColor: Colors
   post: Pick<FeedPost, 'data' | 'text' | 'id'>
 }
 
@@ -21,7 +21,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
   }
 
   return (
-    <Box>
+    <Box paddingBottom="xxs">
       {text?.length > 0 && (
         <Box
           paddingTop="xm"
@@ -31,7 +31,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
           borderColor={borderColor}
           borderBottomWidth={0}
           borderTopWidth={0}
-          paddingBottom={data?.length === 0 && isIos ? 'lplus' : 'none'}>
+          paddingBottom={data?.length === 0 && isIos ? 'xl' : 'none'}>
           <ExpandingText text={text} />
         </Box>
       )}

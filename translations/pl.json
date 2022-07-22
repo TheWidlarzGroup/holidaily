@@ -173,6 +173,7 @@
     "userPassword": "Hasło",
     "userTeams": "TWOJE ZESPOŁY",
     "userColor": "TWÓJ KOLOR:",
+    "changeColor": "Zmień kolor",
     "userColorDesc": "Twój kolor będzie widoczny dla innych członków zespołu, aby mogli odróżnić w kalendarzu Twój czas poza biurem.",
     "saveChanges": "Zapisz zmiany",
     "changesSaved": "Zmiany zostały zapisane",

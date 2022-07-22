@@ -5,9 +5,9 @@ import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import SwipeLeftIcon from 'assets/icons/icon-swipe-left.svg'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { AnimatedBox } from 'components/AnimatedBox'
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 export const SwipeableNotification = ({
   children,
   notificationId,
@@ -28,6 +28,7 @@ export const SwipeableNotification = ({
   const animatedOpacity = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }))
+
   const LeftActions = useCallback(
     () => (
       <AnimatedBox
@@ -63,7 +64,8 @@ export const SwipeableNotification = ({
       renderLeftActions={isSeen ? undefined : LeftActions}
       renderRightActions={isSeen ? RightActions : undefined}
       onSwipeableOpen={isSeen ? markAsUnseen : markAsSeen}
-      leftThreshold={80}>
+      leftThreshold={50}
+      rightThreshold={50}>
       {children}
     </Swipeable>
   )

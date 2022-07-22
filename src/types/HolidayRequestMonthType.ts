@@ -1,6 +1,6 @@
 import { DayInfoProps } from './DayInfoProps'
 
-export type HolidailyRequestMonthType = {
+export type HolidayRequestMonthType = {
   date: string
   days: DayInfoProps[]
 }

@@ -173,6 +173,7 @@
     "userPassword": "Password",
     "userTeams": "YOUR TEAMS",
     "userColor": "YOUR COLOR:",
+    "changeColor": "Change color",
     "userColorDesc": "Your color will be visible for other team members to distinguish your time off from others in a shared calendar.",
     "saveChanges": "Save changes",
     "changesSaved": "Changes saved",
