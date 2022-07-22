@@ -51,10 +51,10 @@ export const getSlicedDate = (date: string) => {
 }
 
 export const getDaysInMonth = (year: number, month: number) => {
-  const days = new Date(year, month, 0).getDate()
+  const maxDay = new Date(year, month, 0).getDate()
 
-  const firstDayNumber = Number(String(days)[0])
-  const secondDayNumber = Number(String(days)[1])
+  const firstDayNumber = Number(String(maxDay)[0])
+  const secondDayNumber = Number(String(maxDay)[1])
 
-  return { firstDayNumber, secondDayNumber }
+  return { maxDay, firstDayNumber, secondDayNumber }
 }

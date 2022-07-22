@@ -28,7 +28,7 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { getSlicedDate } from './utils'
+import { getSlicedDate, getDaysInMonth } from './utils'
 import { DateInputs } from './components/DateInputs'
 
 const date = new Date()
@@ -152,22 +152,39 @@ export const Calendar = () => {
 
   const handleSwipeDown = () => {
     const dateToRevert = periodStart || today
-    const { month: monthString, year: yearString } = getSlicedDate(dateToRevert)
+    const { month: monthString, year: yearString, day: dayString } = getSlicedDate(dateToRevert)
 
     const year = Number(yearString)
     const month = Number(monthString)
+    const day = Number(dayString)
 
     let newPeriodStart = ''
 
+    let newDay
+
     if (month === 1) {
-      newPeriodStart = `${year - 1}-12-01`
+      const { maxDay } = getDaysInMonth(year - 1, month)
+
+      if (day > maxDay) {
+        newDay = maxDay
+      }
+
+      newPeriodStart = `${year - 1}-12-${newDay || day}`
+
       handleSetPeriodStart(newPeriodStart)
     } else {
-      if (month > 10) {
-        newPeriodStart = `${year}-${month - 1}-01`
-      } else {
-        newPeriodStart = `${year}-0${month - 1}-01`
+      const { maxDay } = getDaysInMonth(year, month - 1)
+
+      if (day > maxDay) {
+        newDay = maxDay
       }
+
+      if (month > 10) {
+        newPeriodStart = `${year}-${month - 1}-${newDay || day}`
+      } else {
+        newPeriodStart = `${year}-0${month - 1}-${newDay || day}`
+      }
+
       handleSetPeriodStart(newPeriodStart)
     }
 
