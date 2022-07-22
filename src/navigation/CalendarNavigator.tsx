@@ -16,13 +16,9 @@ const screenOptions = {
 export const CalendarNavigation = () => (
   <CalendarProvider>
     <CalendarStack.Navigator>
-      <CalendarStack.Screen name="Calendar" component={Calendar} options={screenOptions} />
+      <CalendarStack.Screen name="CALENDAR" component={Calendar} options={screenOptions} />
       <CalendarStack.Group {...StackNavigatorPresets.modalNavigator}>
-        <CalendarStack.Screen
-          name="CALENDAR_MODAL"
-          component={CalendarModal}
-          //   options={{ headerShown: false }}
-        />
+        <CalendarStack.Screen name="CALENDAR_MODAL" component={CalendarModal} />
       </CalendarStack.Group>
     </CalendarStack.Navigator>
   </CalendarProvider>

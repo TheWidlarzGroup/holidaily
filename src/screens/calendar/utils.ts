@@ -40,3 +40,21 @@ export const getMarkedDates = (days: DayInfoProps[]) =>
 
 export const WEEK_CALENDAR_HEIGHT = 50
 export const BASE_CALENDAR_HEIGHT = 300
+
+export const getSlicedDate = (date: string) => {
+  const splittedDate = date.split('-')
+  const year = splittedDate[0]
+  const month = splittedDate[1]
+  const day = splittedDate[2]
+
+  return { year, month, day }
+}
+
+export const getDaysInMonth = (year: number, month: number) => {
+  const days = new Date(year, month, 0).getDate()
+
+  const firstDayNumber = Number(String(days)[0])
+  const secondDayNumber = Number(String(days)[1])
+
+  return { firstDayNumber, secondDayNumber }
+}

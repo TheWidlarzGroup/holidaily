@@ -19,7 +19,6 @@ export type SwipeableModalRegularProps = PropsWithChildren<
     buttonLabel?: string
     hasIndicator?: boolean
     closeAction?: 'close' | 'back'
-    closeIcon?: 'close' | 'back'
     useScrollView?: boolean
     addTopOffset?: true
   } & Partial<
@@ -36,7 +35,6 @@ export const SwipeableModalRegular = (props: SwipeableModalRegularProps) => {
       closeModal={props.onHide}
       hasIndicator={props.hasIndicator}
       closeAction={props.closeAction || 'close'}
-      closeIcon={props.closeIcon || 'close'}
       aboutAction={props.aboutAction || props.onHide}
     />
   )

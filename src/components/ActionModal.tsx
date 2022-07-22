@@ -48,7 +48,7 @@ export const ActionModal = (p: ActionModalProps) => {
         )}
         {!!p.header && <Text variant="displayBoldSM">{p.header}</Text>}
         {!!p.content && (
-          <Text variant="textSM" textAlign="center" marginTop="s" textTransform="lowercase">
+          <Text variant="textSM" textAlign="center" marginTop="s">
             {p.content}
           </Text>
         )}

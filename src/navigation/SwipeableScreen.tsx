@@ -110,9 +110,7 @@ export const SwipeableScreen = ({
               <AnimatedBox width="100%" paddingTop="s" flexDirection="row" height={37}>
                 <BaseOpacity
                   onPress={() => goBack()}
-                  position="absolute"
-                  left={20}
-                  top={20}
+                  style={styles.backIconWrapper}
                   hitSlop={HIT_SLOP}>
                   <IconBack height={16} width={16} color={styles.backIcon.color} />
                 </BaseOpacity>
@@ -166,6 +164,11 @@ const Wrapper = ({ children, onDismiss, onSwipeStart }: WrapperProps) => {
 }
 
 const useStyles = mkUseStyles((theme) => ({
+  backIconWrapper: {
+    position: 'absolute',
+    top: theme.spacing.ml,
+    left: theme.spacing.ml,
+  },
   backIcon: {
     color: theme.colors.black,
   },

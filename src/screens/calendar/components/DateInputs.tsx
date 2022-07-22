@@ -4,15 +4,7 @@ import CalendarIcon from 'assets/icons/icon-calendar.svg'
 import { MaskedInput } from 'components/MaskedInput'
 import { useTranslation } from 'react-i18next'
 import { CalendarButton } from './CalendarButton'
-
-const daysInMonth = (year: number, month: number) => {
-  const days = new Date(year, month, 0).getDate()
-
-  const firstDayNumber = Number(String(days)[0])
-  const secondDayNumber = Number(String(days)[1])
-
-  return { firstDayNumber, secondDayNumber }
-}
+import { getDaysInMonth, getSlicedDate } from '../utils'
 
 const mask = [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]
 
@@ -26,13 +18,15 @@ interface Props {
 }
 
 const handleOnChangeSwitch = (e: string, setDate: any) => {
-  const year = Number(e.slice(0, 4)) || 0
-  const month = Number(e.slice(5, 7)) || 0
+  const { year, month, day } = getSlicedDate(e)
 
-  const { firstDayNumber, secondDayNumber } = daysInMonth(year, month)
+  const yearNumber = Number(year) || 0
+  const monthNumber = Number(month) || 0
 
-  const monthFirstNumber = Number(e.slice(5)[0])
-  const dayFirstNumberInInput = Number(e.slice(8)[0])
+  const { firstDayNumber, secondDayNumber } = getDaysInMonth(yearNumber, monthNumber)
+
+  const monthFirstNumber = Number(month[0])
+  const dayFirstNumberInInput = Number(day[0])
 
   switch (e.length) {
     case 1:
@@ -107,6 +101,10 @@ export const DateInputs = (p: Props) => {
     }
   }
 
+  const handleReset = (type: 'from' | 'to') => {
+    handleOnChange(type)('')
+  }
+
   return (
     <Box flexDirection="row" marginTop="xmm" alignItems="center">
       <Box flex={1} height={40}>
@@ -120,7 +118,7 @@ export const DateInputs = (p: Props) => {
           keyboardType="number-pad"
           obfuscationCharacter="-"
           showObfuscatedValue
-          reset={() => handleOnChange('from')('')}
+          reset={() => handleReset('from')}
         />
       </Box>
 
@@ -134,7 +132,7 @@ export const DateInputs = (p: Props) => {
           keyboardType="number-pad"
           obfuscationCharacter="-"
           showObfuscatedValue
-          reset={() => handleOnChange('to')('')}
+          reset={() => handleReset('to')}
         />
       </Box>
 

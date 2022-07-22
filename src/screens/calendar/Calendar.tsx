@@ -25,19 +25,11 @@ import Animated, {
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
-import { DateInputs } from './components/DateInputs'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
-
-const getSlicedDate = (date: string) => {
-  const splittedDate = date.split('-')
-  const year = splittedDate[0]
-  const month = splittedDate[1]
-  const day = splittedDate[2]
-
-  return { year, month, day }
-}
+import { getSlicedDate } from './utils'
+import { DateInputs } from './components/DateInputs'
 
 const date = new Date()
 const today = date.toISOString().split('T')[0]
