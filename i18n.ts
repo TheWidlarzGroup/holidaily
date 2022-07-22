@@ -31,7 +31,7 @@ const initI18 = async () => {
     lng: lang || locale,
     fallbackLng: ['en', 'pl'],
     keySeparator: false,
-    debug: __DEV__,
+    // debug: __DEV__,
     interpolation: {
       // TODO: get rid of type assertions
       format: (value: Date, format, language) => {
