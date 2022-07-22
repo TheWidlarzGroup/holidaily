@@ -6,7 +6,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { BottomTabRoutes, CalendarNavigatorType } from 'navigation/types'
+import { CalendarNavigatorType, CalendarRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useTranslation } from 'react-i18next'
@@ -45,7 +45,7 @@ const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const Calendar = () => {
   const flatListRef = useRef<FlatList>(null)
-  const route = useRoute<RouteProp<BottomTabRoutes, 'CALENDAR'>>()
+  const route = useRoute<RouteProp<CalendarRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()

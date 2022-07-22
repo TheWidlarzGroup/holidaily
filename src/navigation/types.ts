@@ -113,7 +113,7 @@ export type RequestsNavigationProps<RouteName extends keyof RequestsRoutes> = {
 
 export type CalendarNavigatorType<RouteName extends keyof CalendarRoutes> = CompositeNavigationProp<
   StackNavigationProp<CalendarRoutes, RouteName>,
-  StackNavigationProp<BottomTabRoutes, 'CALENDAR'>
+  StackNavigationProp<BottomTabRoutes, 'CALENDAR_NAVIGATION'>
 >
 
 export type AppRoutes = ModalRoutes
@@ -211,6 +211,6 @@ export type AdminPanelEmployeesRoutes = {
 }
 
 export type CalendarRoutes = {
-  CALENDAR: undefined
+  CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
   CALENDAR_MODAL: undefined
 }
