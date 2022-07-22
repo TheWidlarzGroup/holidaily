@@ -415,7 +415,7 @@
     "gotIt": "Rozumiem",
     "select": "Wybierz",
     "actionModalDefault": "Wybierz dzień lub okres",
-    "outOfOfficeSingular": "wolny od pracy",
+    "singleDayOutOfOffice": "wolny od pracy",
     "outOfOffice": "wolnych od pracy",
     "dayOffCalendar": "Kalendarz urlopów",
     "dateInputPlaceholder": "yyyy/mm/dd",

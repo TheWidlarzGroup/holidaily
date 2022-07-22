@@ -448,7 +448,7 @@
     "gotIt": "Got it!",
     "select": "Select",
     "actionModalDefault": "Select a day or range of days",
-    "outOfOfficeSingular": "out of office",
+    "singleDayOutOfOffice": "out of office",
     "outOfOffice": "out of office",
     "dayOffCalendar": "Time off calendar",
     "dateInputPlaceholder": "yyyy/mm/dd",
