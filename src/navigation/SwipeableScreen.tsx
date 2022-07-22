@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from 'react'
 import { ViewProps } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { BaseOpacity, Box, mkUseStyles, Theme } from 'utils/theme'
+import { BaseOpacity, mkUseStyles, Theme } from 'utils/theme'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'

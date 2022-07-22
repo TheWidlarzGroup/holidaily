@@ -9,11 +9,11 @@ import { useDrawerProgress } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { isIos } from 'utils/layout'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 import { RequestsNavigation } from './RequestsNavigation'
 import { CalendarNavigation } from './CalendarNavigator'
-import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>()
 
