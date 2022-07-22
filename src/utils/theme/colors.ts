@@ -151,15 +151,12 @@ export const colors = {
   loadingModalBackdrop: palette.grayscale50SemiOpaque,
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
-<<<<<<< HEAD
   calendarOlderEvents: palette.whiteSemiOpaque,
   clearInputIcon: palette.grayscale300,
   disabledButtonBg: palette.secondary300,
   disabledAcceptIcon: palette.grayscale200,
-=======
   drawerBackground: palette.grayscale50,
   drawerShadow: palette.grayscale100,
->>>>>>> staging
 }
 
 export const darkThemeColors = {
@@ -250,13 +247,10 @@ export const darkThemeColors = {
   loadingModalBackdrop: palette.grayscale900SemiOpaque,
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale900SemiOpaque,
-<<<<<<< HEAD
   calendarOlderEvents: palette.grayscale800Opaque,
   clearInputIcon: palette.grayscale500,
   disabledButtonBg: palette.grayscale800,
   disabledAcceptIcon: palette.grayscale700,
-=======
   drawerBackground: palette.grayscale900,
   drawerShadow: palette.grayscale900,
->>>>>>> staging
 }
