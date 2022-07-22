@@ -26,11 +26,13 @@ import { FeedPost } from './components/FeedPost/FeedPost'
 
 const ESTIMATED_POST_HEIGHT = 746
 
+type NavigationHookType = BottomTabNavigationType<'FEED'> & typeof DrawerActions
+
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
   const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
-  const navigation = useNavigation<BottomTabNavigationType<'FEED'> & typeof DrawerActions>()
+  const navigation = useNavigation<NavigationHookType>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
   const flatListRef = useRef<FlashList<FeedPostType> | null>(null)
