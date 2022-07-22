@@ -7,7 +7,6 @@ import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Feed } from 'screens/feed/Feed'
 import { useDrawerProgress } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
-import { useNavigationState } from '@react-navigation/native'
 import { isIos } from 'utils/layout'
 import { AnimatedBox } from 'components/AnimatedBox'
 import { BottomTabRoutes } from './types'
@@ -21,7 +20,7 @@ const Tab = createBottomTabNavigator<BottomTabRoutes>()
 const EmptyComponent = () => null
 const tabs = [
   { name: 'DashboardNavigation' },
-  { name: 'CALENDAR' },
+  { name: 'CALENDAR_NAVIGATION' },
   { name: 'RequestModal' },
   { name: 'Stats' },
   { name: 'FEED' },
@@ -35,7 +34,6 @@ export const BottomTabNavigator = () => {
 
   const styles = useStyles()
 
-  const navState = useNavigationState((state) => state)
   const activeRouteName = useGetActiveRouteName()
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -62,7 +60,7 @@ export const BottomTabNavigator = () => {
   const isCalendarModalScreen = activeRouteName === 'CALENDAR_MODAL'
 
   return (
-    <SafeAreaView edges={['left', 'right']} style={styles.outerSafeArea}>
+    <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.outerSafeArea}>
       <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
         <Tab.Navigator
           tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
@@ -73,7 +71,7 @@ export const BottomTabNavigator = () => {
             component={DashboardNavigation}
           />
           <Tab.Screen
-            name="CALENDAR"
+            name="CALENDAR_NAVIGATION"
             component={CalendarNavigation}
             options={{ unmountOnBlur: true }}
           />
@@ -86,13 +84,15 @@ export const BottomTabNavigator = () => {
           <Tab.Screen name="FEED" component={Feed} />
         </Tab.Navigator>
         {/* Comment: Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
-        <AnimatedBox
-          position="absolute"
-          backgroundColor="dashboardBackground"
-          height={isIos ? 50 : 30}
-          width="100%"
-          style={animatedTopBoxStyle}
-        />
+        {isCalendarModalScreen ? null : (
+          <AnimatedBox
+            position="absolute"
+            backgroundColor="dashboardBackground"
+            height={isIos ? 50 : 30}
+            width="100%"
+            style={animatedTopBoxStyle}
+          />
+        )}
       </AnimatedBox>
     </SafeAreaView>
   )

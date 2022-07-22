@@ -135,7 +135,7 @@ export type ModalRoutes = {
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
+  CALENDAR_NAVIGATION: { prevScreen?: 'NOTIFICATIONS' } | undefined
   RequestModal: undefined
   NOTIFICATIONS: undefined
   CREATE_POST_NAVIGATION?: {
