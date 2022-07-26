@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
@@ -39,8 +39,6 @@ export const Bubble = ({
   const { height, width } = useWindowDimensions()
   const initialX = position.x
   const initialY = position.y
-  let bubblePosX: number[] = []
-  let bubblePosY: number[] = []
   const translateX = useSharedValue(initialX)
   const translateY = useSharedValue(initialY)
   const bubbleSize = useSharedValue(C.BUBBLE_SIZE_INIT)
