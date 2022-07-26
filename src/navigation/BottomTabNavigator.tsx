@@ -10,6 +10,7 @@ import { useDrawerProgress } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { isIos } from 'utils/layout'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { StatusBarHeight } from 'utils/statusBarHeight'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 import { RequestsNavigation } from './RequestsNavigation'
@@ -78,7 +79,7 @@ export const BottomTabNavigator = () => {
           <AnimatedBox
             position="absolute"
             backgroundColor="dashboardBackground"
-            height={isIos ? 50 : 30}
+            height={StatusBarHeight}
             width="100%"
             style={animatedTopBoxStyle}
           />
