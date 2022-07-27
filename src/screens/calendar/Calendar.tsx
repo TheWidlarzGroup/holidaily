@@ -85,28 +85,33 @@ export const Calendar = () => {
     return periodStartTimestamp < firstRequestDayTimestamp
   }, [periodStart, requestsDays])
 
-  const handleSetPreviousEvent = useCallback(() => {
-    const getPreviousEvent = () => {
-      if (isPeriodStartLowerThanRequestsDate) {
-        return null
+  const handleSetPreviousEvent = useCallback(
+    (newPeriodStart?: string) => {
+      const getPreviousEvent = () => {
+        if (isPeriodStartLowerThanRequestsDate) {
+          return null
+        }
+
+        const todayIndex = requestsDays.findIndex(
+          (a) => a.date === newPeriodStart || a.date === periodStart || a.date === today
+        )
+
+        const reversedRequests = requestsDays.slice(0, todayIndex).reverse()
+        const reversedRequestsWithEvents = reversedRequests.filter((a) => !!a?.events?.length)
+
+        const event = reversedRequestsWithEvents[0]?.events?.[0]
+
+        return event || null
       }
 
-      const todayIndex = requestsDays.findIndex((a) => a.date === periodStart || a.date === today)
+      const prevEvent = getPreviousEvent()
 
-      const reversedRequests = requestsDays.slice(0, todayIndex).reverse()
-      const reversedRequestsWithEvents = reversedRequests.filter((a) => !!a?.events?.length)
-
-      const event = reversedRequestsWithEvents[0]?.events?.[0]
-
-      return event || null
-    }
-
-    const prevEvent = getPreviousEvent()
-
-    if (singlePreviousEvent?.date !== prevEvent?.date) {
-      setSinglePreviousEvent(prevEvent)
-    }
-  }, [isPeriodStartLowerThanRequestsDate, periodStart, requestsDays, singlePreviousEvent?.date])
+      if (singlePreviousEvent?.date !== prevEvent?.date) {
+        setSinglePreviousEvent(prevEvent)
+      }
+    },
+    [isPeriodStartLowerThanRequestsDate, periodStart, requestsDays, singlePreviousEvent?.date]
+  )
 
   useEffect(() => {
     handleSetPreviousEvent()
@@ -190,7 +195,7 @@ export const Calendar = () => {
     const startDateItemIndex = requestsDays.findIndex((a) => a.date === newPeriodStart)
 
     handleSetEventsInPeriod(startDateItemIndex)
-    handleSetPreviousEvent()
+    handleSetPreviousEvent(newPeriodStart)
   }
 
   const panGestureHandler = useAnimatedGestureHandler({
