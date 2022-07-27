@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Colors, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
-import { displayDatesRange } from 'utils/functions'
+import { getReversedFormattedPeriod } from 'utils/dates'
 import { DayOffRequest, User } from 'mock-api/models/mirageTypes'
 import { HolidayTag } from './HolidayTag'
 import { Languages } from '../../../../i18n'
@@ -68,7 +68,7 @@ export const MateHoliday = ({ user, isNextRequest, sortedRequests }: MateHoliday
         {description || t('coupleDaysOff')}
       </Text>
       <Text variant="textSM" textAlign="center" marginTop="xs">
-        {startDate && endDate && displayDatesRange(startDate, endDate)}
+        {startDate && endDate && getReversedFormattedPeriod(startDate, endDate, 'long')}
       </Text>
     </Box>
   )
