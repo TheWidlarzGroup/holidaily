@@ -34,6 +34,7 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
           name="firstName"
           inputLabel={t('userFirstName')}
           placeholder={t('firstNamePlaceholder')}
+          maxLength={20}
         />
       </Box>
       <Box position="relative">
