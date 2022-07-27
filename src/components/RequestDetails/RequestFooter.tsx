@@ -3,7 +3,7 @@ import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
 import { useTranslation } from 'react-i18next'
 import { parseISO, addDays, sub, isAfter, isSameDay } from 'date-fns'
-import { getDateWithMonthString } from 'utils/dates'
+import { getDateWithMonthString, getReversedDateWithMonthString } from 'utils/dates'
 
 type RequestFooterProps = {
   isSick: boolean
@@ -37,7 +37,7 @@ export const RequestFooter = (props: RequestFooterProps) => {
           {t('sent')}
         </Text>
         <Text variant="textSM" color="blackDarker" lineHeight={LINE_HEIGHT} marginLeft="xs">
-          {getDateWithMonthString(sentDate)}
+          {getReversedDateWithMonthString(sentDate)}
         </Text>
       </Box>
 
