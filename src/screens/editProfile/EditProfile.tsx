@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -55,7 +55,11 @@ export const EditProfile = () => {
   } = useForm({
     defaultValues,
   })
-  const onDiscard = () => reset(defaultValues)
+  const [showSaveModal, setShowSaveModal] = useState(false)
+  const onDiscard = () => {
+    setShowSaveModal(false)
+    reset(defaultValues)
+  }
   const { t } = useTranslation('userProfile')
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
@@ -69,6 +73,9 @@ export const EditProfile = () => {
       )
     }
   }
+  useEffect(() => {
+    setShowSaveModal(isDirty)
+  }, [isDirty])
 
   useAsyncEffect(async () => {
     await sleep(300)
@@ -95,7 +102,10 @@ export const EditProfile = () => {
         notify('successCustom', { params: { title: t('changesSaved') } })
       },
     })
-  const onSubmit = (data: EditDetailsTypes) => editUser(data)
+  const onSubmit = (data: EditDetailsTypes) => {
+    setShowSaveModal(false)
+    editUser(data)
+  }
   const onGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
@@ -149,7 +159,7 @@ export const EditProfile = () => {
           <Box height={getBottomOffset()} />
         </ScrollView>
         <ActionModal
-          isVisible={isDirty}
+          isVisible={showSaveModal}
           onUserAction={handleSubmit(onSubmit)}
           label={t('saveChanges')}
           extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}
