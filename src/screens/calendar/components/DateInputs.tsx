@@ -30,59 +30,43 @@ const handleOnChangeSwitch = (e: string, setDate: any) => {
 
   switch (e.length) {
     case 1:
-      if (Number(e) !== 2) {
-        setDate('2')
-      } else {
-        setDate(e)
-      }
+      if (Number(e) !== 2) setDate('2')
+      else setDate(e)
+
       break
     case 2:
-      if (Number(e) !== 0) {
-        setDate(`${e.slice(0, 1)}0`)
-      } else {
-        setDate(e)
-      }
+      if (Number(e) !== 0) setDate(`${e.slice(0, 1)}0`)
+      else setDate(e)
+
       break
     case 5:
-      if (Number(e.slice(4)) > 1) {
-        setDate(`${e.slice(0, 4)}1`)
-      } else {
-        setDate(e)
-      }
+      if (Number(e.slice(4)) > 1) setDate(`${e.slice(0, 4)}1`)
+      else setDate(e)
+
       break
     case 6:
-      if (Number(e.slice(5)) > 1) {
-        setDate(`${e.slice(0, 4)}1`)
-      } else {
-        setDate(e)
-      }
+      if (Number(e.slice(5)) > 1) setDate(`${e.slice(0, 4)}1`)
+      else setDate(e)
+
       break
     case 7:
-      if (Number(e.slice(6)) > 2 && monthFirstNumber > 0) {
-        setDate(`${e.slice(0, 6)}2`)
-      } else if (Number(e.slice(6)) === 0) {
-        setDate(`${e.slice(0, 6)}1`)
-      } else {
-        setDate(e)
-      }
+      if (Number(e.slice(6)) > 2 && monthFirstNumber > 0) setDate(`${e.slice(0, 6)}2`)
+      else if (Number(e.slice(6)) === 0) setDate(`${e.slice(0, 6)}1`)
+      else setDate(e)
 
       break
 
     case 9:
-      if (Number(e.slice(8)) > firstDayNumber) {
-        setDate(`${e.slice(0, 7)}${firstDayNumber}`)
-      } else {
-        setDate(e)
-      }
+      if (Number(e.slice(8)) > firstDayNumber) setDate(`${e.slice(0, 7)}${firstDayNumber}`)
+      else setDate(e)
 
       break
 
     case 10:
-      if (dayFirstNumberInInput === firstDayNumber && Number(e.slice(9)) > secondDayNumber) {
+      if (dayFirstNumberInInput === firstDayNumber && Number(e.slice(9)) > secondDayNumber)
         setDate(`${e.slice(0, 9)}${secondDayNumber}`)
-      } else {
-        setDate(e)
-      }
+      else setDate(e)
+
       break
 
     default:

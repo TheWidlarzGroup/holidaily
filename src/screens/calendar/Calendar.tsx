@@ -14,7 +14,7 @@ import AcceptIcon from 'assets/icons/icon-accept.svg'
 import SwipeDown from 'assets/icons/icon-swipe-down.svg'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
-import Animated, {
+import {
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -26,6 +26,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
@@ -42,7 +43,11 @@ const isEndDateLowerThanStartDate = (startDate: string, endDate: string) => {
   return endTimestamp < startTimestamp
 }
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
+const springConfig = {
+  damping: 6,
+  stiffness: 288,
+  mass: 1,
+}
 
 type NavigationType = CalendarNavigatorType<'CALENDAR'> & typeof DrawerActions
 
@@ -52,6 +57,8 @@ export const Calendar = () => {
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
+
+  const navigation = useNavigation<NavigationType>()
 
   const offset = useSharedValue(0)
 
@@ -119,7 +126,7 @@ export const Calendar = () => {
 
   useEffect(() => {
     handleSetPreviousEvent()
-    // we want to set this only on initial render
+    // we want to set previous event only once, on initial render
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -152,12 +159,6 @@ export const Calendar = () => {
 
   const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
 
-  const springConfig = {
-    damping: 6,
-    stiffness: 288,
-    mass: 1,
-  }
-
   const handleSwipeDown = () => {
     const dateToRevert = periodStart || today
     const { month: monthString, year: yearString, day: dayString } = getSlicedDate(dateToRevert)
@@ -173,9 +174,7 @@ export const Calendar = () => {
     if (month === 1) {
       const { maxDay } = getDaysInMonth(year - 1, month)
 
-      if (day > maxDay) {
-        newDay = maxDay
-      }
+      if (day > maxDay) newDay = maxDay
 
       newPeriodStart = `${year - 1}-12-${newDay || day}`
 
@@ -183,15 +182,10 @@ export const Calendar = () => {
     } else {
       const { maxDay } = getDaysInMonth(year, month - 1)
 
-      if (day > maxDay) {
-        newDay = maxDay
-      }
+      if (day > maxDay) newDay = maxDay
 
-      if (month > 10) {
-        newPeriodStart = `${year}-${month - 1}-${newDay || day}`
-      } else {
-        newPeriodStart = `${year}-0${month - 1}-${newDay || day}`
-      }
+      if (month > 10) newPeriodStart = `${year}-${month - 1}-${newDay || day}`
+      else newPeriodStart = `${year}-0${month - 1}-${newDay || day}`
 
       handleSetPeriodStart(newPeriodStart)
     }
@@ -207,9 +201,7 @@ export const Calendar = () => {
     onEnd: (event) => {
       if (event.velocityY > 0) {
         offset.value = withSpring(150, springConfig, (finished) => {
-          if (finished) {
-            offset.value = withSpring(0, springConfig)
-          }
+          if (finished) offset.value = withSpring(0, springConfig)
         })
 
         runOnJS(handleSwipeDown)()
@@ -225,24 +217,18 @@ export const Calendar = () => {
     let endDate = ''
 
     if (periodStart && startDay) {
-      if (startDay === '0') {
-        startDate = `${startYear}-${startMonth}-01`
-      } else if (startDay.length < 2) {
-        startDate = `${startYear}-${startMonth}-0${startDay}`
-      } else {
-        startDate = `${startYear}-${startMonth}-${startDay}`
-      }
+      if (startDay === '0') startDate = `${startYear}-${startMonth}-01`
+      else if (startDay.length < 2) startDate = `${startYear}-${startMonth}-0${startDay}`
+      else startDate = `${startYear}-${startMonth}-${startDay}`
+
       handleSetPeriodStart(startDate)
     }
 
     if (periodEnd && endDay) {
-      if (endDay === '0') {
-        endDate = `${endYear}-${endMonth}-01`
-      } else if (endDay.length < 2) {
-        endDate = `${endYear}-${endMonth}-0${endDay}`
-      } else {
-        endDate = `${endYear}-${endMonth}-${endDay}`
-      }
+      if (endDay === '0') endDate = `${endYear}-${endMonth}-01`
+      else if (endDay.length < 2) endDate = `${endYear}-${endMonth}-0${endDay}`
+      else endDate = `${endYear}-${endMonth}-${endDay}`
+
       handleSetPeriodEnd(endDate)
     }
 
@@ -267,26 +253,18 @@ export const Calendar = () => {
       return setSlicedRequest([])
     }
 
-    if (!startDate) {
-      startIndex = requestsDays.findIndex((a) => a.date === today)
-    } else if (isPeriodStartLowerThanRequestsDate && !endDate) {
-      startIndex = 0
-    } else {
-      startIndex = requestsDays.findIndex((a) => a.date === startDate)
-    }
+    if (!startDate) startIndex = requestsDays.findIndex((a) => a.date === today)
+    else if (isPeriodStartLowerThanRequestsDate && !endDate) startIndex = 0
+    else startIndex = requestsDays.findIndex((a) => a.date === startDate)
 
     if (startIndex === -1) {
       setSlicedRequest([])
       notify('infoCustom', notificationConfig)
-    } else {
-      handleSetEventsInPeriod(startIndex)
-    }
+    } else handleSetEventsInPeriod(startIndex)
 
     setWasDateChangePressed()
     handleSetPreviousEvent()
   }
-
-  const navigation = useNavigation<NavigationType>()
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateY: offset.value }],
