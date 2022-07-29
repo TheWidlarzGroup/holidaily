@@ -17,7 +17,7 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
   const errorMessage = t('fieldRequired')
 
   const commonInputProps = {
-    maxLength: 15,
+    maxLength: 20,
     control,
     errors,
     validationPattern,
@@ -34,7 +34,6 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
           name="firstName"
           inputLabel={t('userFirstName')}
           placeholder={t('firstNamePlaceholder')}
-          maxLength={20}
         />
       </Box>
       <Box position="relative">
