@@ -47,11 +47,11 @@ export const AnimatedBubble = (props: AnimatedBubbleProps) => {
 
   useAsyncEffect(async () => {
     if (currentBubble) {
-      bubbleScale.value = withTiming(1, { duration: 2000 })
-      await sleep(1000)
+      bubbleScale.value = withTiming(1, { duration: 1000 })
+      await sleep(500)
       bubbleX.value = currentBubble.position.x
       bubbleY.value = currentBubble.position.y
-      await sleep(1000)
+      await sleep(500)
       animationCompleted()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
