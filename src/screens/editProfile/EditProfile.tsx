@@ -22,10 +22,10 @@ import { isIos } from 'utils/layout'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { StatusBarHeight } from 'utils/statusBarHeight'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 import { StatusBar } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -67,6 +67,7 @@ export const EditProfile = () => {
     reset(defaultValues)
   }
   const { t } = useTranslation('userProfile')
+  const safeAreaInsets = useSafeAreaInsets()
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
   const { hideModal } = useModalContext()
@@ -159,7 +160,7 @@ export const EditProfile = () => {
     <SafeAreaWrapper edges={animationTriggered ? ['left', 'right'] : ['top']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView
-          style={{ flex: 1, paddingTop: animationTriggered ? StatusBarHeight + 10 : 0 }}
+          style={{ flex: 1, paddingTop: animationTriggered ? safeAreaInsets.top + 10 : 0 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           <DrawerBackArrow
