@@ -364,7 +364,7 @@ export const Calendar = () => {
             </AnimatedBox>
           </Box>
         )}
-        <Box paddingHorizontal="s" position="absolute" top="26%" width="100%">
+        <Box paddingHorizontal="s" position="absolute" top="12%" width="100%">
           <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
             {inputWasFocused || periodEnd || periodStart ? (
               <Box
