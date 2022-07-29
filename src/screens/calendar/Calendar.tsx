@@ -71,11 +71,8 @@ export const Calendar = () => {
   }, [navigation, wasNavigatedFromNotifications])
 
   const handleSwipeRight = () => {
-    if (wasNavigatedFromNotifications) {
-      navigation.navigate('NOTIFICATIONS')
-    } else {
-      navigation.openDrawer()
-    }
+    if (wasNavigatedFromNotifications) navigation.navigate('NOTIFICATIONS')
+    else navigation.openDrawer()
   }
 
   return (
