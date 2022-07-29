@@ -55,7 +55,12 @@ export const EditProfile = () => {
   } = useForm({
     defaultValues,
   })
-  const onDiscard = () => reset(defaultValues)
+  const [displaySaveModal, { setTrue: showSaveModal, setFalse: hideSaveModal }] =
+    useBooleanState(false)
+  const onDiscard = () => {
+    hideSaveModal()
+    reset(defaultValues)
+  }
   const { t } = useTranslation('userProfile')
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
@@ -69,6 +74,11 @@ export const EditProfile = () => {
       )
     }
   }
+
+  useEffect(
+    () => (isDirty ? showSaveModal() : hideSaveModal()),
+    [isDirty, showSaveModal, hideSaveModal]
+  )
 
   useAsyncEffect(async () => {
     await sleep(300)
@@ -95,7 +105,10 @@ export const EditProfile = () => {
         notify('successCustom', { params: { title: t('changesSaved') } })
       },
     })
-  const onSubmit = (data: EditDetailsTypes) => editUser(data)
+  const onSubmit = (data: EditDetailsTypes) => {
+    hideSaveModal()
+    editUser(data)
+  }
   const onGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
@@ -149,7 +162,7 @@ export const EditProfile = () => {
           <Box height={getBottomOffset()} />
         </ScrollView>
         <ActionModal
-          isVisible={isDirty}
+          isVisible={displaySaveModal}
           onUserAction={handleSubmit(onSubmit)}
           label={t('saveChanges')}
           extraButtons={[{ onPress: onDiscard, label: t('discardChanges'), variant: 'secondary' }]}

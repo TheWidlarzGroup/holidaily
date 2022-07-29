@@ -25,6 +25,14 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
   const prevScreen: PrevScreen = route.params?.prevScreen
   usePrevScreenBackHandler(prevScreen, true)
 
+  useEffect(() => {
+    const parent = navigation.getParent()?.getParent()
+
+    if (prevScreen && ['NOTIFICATIONS'].includes(prevScreen)) {
+      parent?.setOptions({ swipeEnabled: false })
+    }
+  }, [navigation, prevScreen])
+
   const goBack = () => {
     navigation.navigate(prevScreen || 'STATS_AND_REQUESTS')
   }

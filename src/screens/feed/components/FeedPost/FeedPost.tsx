@@ -13,10 +13,11 @@ type FeedPostProps = {
   post: FeedPostType
   openEditModal: F1<EditTargetType>
   editTarget?: EditTargetType | null
+  wasNavigatedFromNotifications?: boolean
 }
 
 export const FeedPost = (props: FeedPostProps) => {
-  const { post, editTarget, openEditModal } = props
+  const { post, editTarget, openEditModal, wasNavigatedFromNotifications } = props
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
   const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
@@ -60,7 +61,11 @@ export const FeedPost = (props: FeedPostProps) => {
       borderTopRightRadius="lmin"
       marginTop="s">
       <FeedPostHeader post={post} openEditModal={openEditModal} borderColor={borderColor} />
-      <FeedPostBody post={post} borderColor={borderColor} />
+      <FeedPostBody
+        post={post}
+        borderColor={borderColor}
+        wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+      />
       <FeedPostFooter
         {...props}
         borderColor={borderColor}

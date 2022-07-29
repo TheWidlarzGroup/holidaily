@@ -17,7 +17,7 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
   const errorMessage = t('fieldRequired')
 
   const commonInputProps = {
-    maxLength: 15,
+    maxLength: 20,
     control,
     errors,
     validationPattern,
@@ -50,7 +50,6 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
       <Box position="relative">
         <FormInput
           {...commonInputProps}
-          maxLength={20}
           variant="mediumSpecial"
           isError={!!errors.occupation}
           name="occupation"

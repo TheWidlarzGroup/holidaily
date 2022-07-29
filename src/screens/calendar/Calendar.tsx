@@ -8,11 +8,15 @@ import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
 import { ExpandableCalendar } from 'components/ExpandableCalendar'
 import { parseISO } from 'utils/dates'
-import { RouteProp, useRoute } from '@react-navigation/native'
-import { BottomTabRoutes } from 'navigation/types'
+import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { BottomTabNavigationType, BottomTabRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { CategoriesSlider } from './components/CategoriesSlider'
+
+type NavigationType = BottomTabNavigationType<'CALENDAR'> & typeof DrawerActions
 
 export const Calendar = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -21,6 +25,8 @@ export const Calendar = () => {
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
+
+  const navigation = useNavigation<NavigationType>()
 
   const { selectedDate, setSelectedDate, currentMonthDays } = useCalendarData()
 
@@ -54,42 +60,59 @@ export const Calendar = () => {
 
   const markedDates = useMemo(() => getMarkedDates(currentMonthDays), [currentMonthDays])
 
+  const memoizedPrevScreen = useMemoizedNonNullValue(prevScreen)
+
+  const wasNavigatedFromNotifications = memoizedPrevScreen[0] === 'NOTIFICATIONS'
+
+  useEffect(() => {
+    const parent = navigation.getParent()
+
+    if (wasNavigatedFromNotifications) parent?.setOptions({ swipeEnabled: false })
+  }, [navigation, wasNavigatedFromNotifications])
+
+  const handleSwipeRight = () => {
+    if (wasNavigatedFromNotifications) navigation.navigate('NOTIFICATIONS')
+    else navigation.openDrawer()
+  }
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <CategoriesSlider />
-      <Box
-        borderRadius="xm"
-        backgroundColor="white"
-        marginTop="m"
-        paddingHorizontal="ms"
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowColor="blackMuchDarker"
-        shadowOpacity={0.5}
-        shadowRadius={4}
-        elevation={4}>
-        <ExpandableCalendar
-          markedDates={markedDates}
-          markingType="multi-dot"
+      <GestureRecognizer onSwipeRight={handleSwipeRight}>
+        <Box
+          borderRadius="xm"
+          backgroundColor="white"
+          marginTop="m"
+          paddingHorizontal="ms"
+          shadowOffset={{ width: 0, height: 2 }}
+          shadowColor="blackMuchDarker"
+          shadowOpacity={0.5}
+          shadowRadius={4}
+          elevation={4}>
+          <ExpandableCalendar
+            markedDates={markedDates}
+            markingType="multi-dot"
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            setCurrentIndex={setCurrentIndex}
+            scrollToIndex={scrollToIndex}
+            onDayPress={handleDayPress}
+            isFullHeight={switchCalendarHeight}
+            setIsFullHeight={setSwitchCalendarHeight}
+          />
+        </Box>
+        <EventsList
+          ref={flatListRef}
           selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          setCurrentIndex={setCurrentIndex}
-          scrollToIndex={scrollToIndex}
-          onDayPress={handleDayPress}
-          isFullHeight={switchCalendarHeight}
-          setIsFullHeight={setSwitchCalendarHeight}
+          days={currentMonthDays}
+          currentIndex={currentIndex}
+          switchCalendarHeight={switchCalendarHeight}
+          setSwitchCalendarHeight={setSwitchCalendarHeight}
+          btnOnPress={() =>
+            flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
+          }
         />
-      </Box>
-      <EventsList
-        ref={flatListRef}
-        selectedDate={selectedDate}
-        days={currentMonthDays}
-        currentIndex={currentIndex}
-        switchCalendarHeight={switchCalendarHeight}
-        setSwitchCalendarHeight={setSwitchCalendarHeight}
-        btnOnPress={() =>
-          flatListRef.current?.scrollToIndex({ index: currentIndex, animated: true })
-        }
-      />
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }
