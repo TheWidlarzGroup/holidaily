@@ -50,7 +50,6 @@ export const ProfileDetails = ({ errors, control, hasValueChanged }: UserData) =
       <Box position="relative">
         <FormInput
           {...commonInputProps}
-          maxLength={20}
           variant="mediumSpecial"
           isError={!!errors.occupation}
           name="occupation"
