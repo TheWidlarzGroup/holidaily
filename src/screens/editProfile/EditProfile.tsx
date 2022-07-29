@@ -23,6 +23,9 @@ import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { StatusBarHeight } from 'utils/statusBarHeight'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
+import { StatusBar } from 'react-native'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -38,6 +41,8 @@ export const EditProfile = () => {
   const navigation = useNavigation()
   const theme = useTheme()
   const { keyboardOpen, keyboardHeight } = useKeyboard()
+  const { userSettings } = useUserSettingsContext()
+  const activeRouteName = useGetActiveRouteName()
   const { user } = useUserContext()
   const { notify } = useGetNotificationsConfig()
   const defaultValues = {
@@ -90,6 +95,11 @@ export const EditProfile = () => {
     else hideLoadingModal()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
+
+  useEffect(() => {
+    if (activeRouteName === 'EDIT_PROFILE')
+      StatusBar.setBarStyle(userSettings?.darkMode ? 'light-content' : 'dark-content')
+  }, [activeRouteName, userSettings?.darkMode])
 
   const editUser = (data: Partial<User>) =>
     mutateUser(data, {
