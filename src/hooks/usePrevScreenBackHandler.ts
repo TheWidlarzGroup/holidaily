@@ -3,7 +3,7 @@ import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/n
 import { useCallback, useEffect, useState } from 'react'
 import { useBackHandler } from './useBackHandler'
 
-export type PrevScreen = 'NOTIFICATIONS' | 'STATS_AND_REQUESTS' | undefined
+export type PrevScreen = 'NOTIFICATIONS' | 'STATS_AND_REQUESTS' | 'DashboardNavigation' | undefined
 
 export const usePrevScreenBackHandler = (prevScreen: PrevScreen, avoidResetParams?: boolean) => {
   const [cachedPrevScreen, setCachedPrevScreen] = useState<PrevScreen>()

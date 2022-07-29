@@ -4,7 +4,7 @@ import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
 import { FlatList } from 'react-native'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { CalendarNavigatorType, CalendarRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
@@ -24,6 +24,8 @@ import Animated, {
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
+import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
@@ -41,6 +43,8 @@ const isEndDateLowerThanStartDate = (startDate: string, endDate: string) => {
 }
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
+
+type NavigationType = CalendarNavigatorType<'CALENDAR'> & typeof DrawerActions
 
 export const Calendar = () => {
   const flatListRef = useRef<FlatList>(null)
@@ -282,7 +286,7 @@ export const Calendar = () => {
     handleSetPreviousEvent()
   }
 
-  const { navigate } = useNavigation<CalendarNavigatorType<'CALENDAR'>>()
+  const navigation = useNavigation<NavigationType>()
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateY: offset.value }],
@@ -293,94 +297,113 @@ export const Calendar = () => {
     wasDateChangePressed &&
     (slicedRequests.length === 0 || currentMonthDays.length === 0)
 
+  const memoizedPrevScreen = useMemoizedNonNullValue(prevScreen)
+
+  const wasNavigatedFromNotifications = memoizedPrevScreen[0] === 'NOTIFICATIONS'
+
+  useEffect(() => {
+    const parent = navigation.getParent()
+
+    if (wasNavigatedFromNotifications) parent?.setOptions({ swipeEnabled: false })
+  }, [navigation, wasNavigatedFromNotifications])
+
+  const handleSwipeRight = () => {
+    if (wasNavigatedFromNotifications) navigation.navigate('NOTIFICATIONS')
+    else navigation.openDrawer()
+  }
+
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
       <CategoriesSlider />
-      <Box position="relative" paddingHorizontal="m">
-        <DateInputs
-          onIconPress={() => navigate('CALENDAR_MODAL')}
-          periodStart={periodStart}
-          periodEnd={periodEnd}
-          handleSetPeriodStart={handleSetPeriodStart}
-          handleSetPeriodEnd={handleSetPeriodEnd}
-          setInputWasFocused={setInputWasFocused}
-        />
-      </Box>
-      {showEmptyState ? (
-        <Box marginTop="xxxxl" alignItems="center">
-          <Text variant="textMD">{t('emptyScreenTitle')}</Text>
-          <Text marginTop="xs" variant="textXSGrey">
-            {t('emptyScreenSubtitle')}
-          </Text>
+      <GestureRecognizer onSwipeRight={handleSwipeRight}>
+        <Box position="relative" paddingHorizontal="m">
+          <DateInputs
+            onIconPress={() => navigation.navigate('CALENDAR_MODAL')}
+            periodStart={periodStart}
+            periodEnd={periodEnd}
+            handleSetPeriodStart={handleSetPeriodStart}
+            handleSetPeriodEnd={handleSetPeriodEnd}
+            setInputWasFocused={setInputWasFocused}
+          />
         </Box>
-      ) : (
-        <Box
-          backgroundColor="lightGrey"
-          flex={1}
-          borderRadius="l"
-          marginTop={singlePreviousEvent ? 'xxxl' : 'l'}
-          paddingTop="xxxl">
-          <AnimatedBox flex={1} style={animatedStyles}>
-            <Box paddingBottom="xm" justifyContent="center" alignItems="center">
-              <PanGestureHandler onGestureEvent={panGestureHandler}>
-                <AnimatedBox style={styles.swipeDownRecognizer}>
-                  <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
-                  <SwipeDown style={styles.swipeDownIcon} />
-                </AnimatedBox>
-              </PanGestureHandler>
-            </Box>
-            <EventsList
-              ref={flatListRef}
-              selectedDate={selectedDate}
-              days={
-                !wasDateChangePressed && !slicedRequests?.length ? currentMonthDays : slicedRequests
-              }
-              switchCalendarHeight={switchCalendarHeight}
-              setSwitchCalendarHeight={setSwitchCalendarHeight}
-              btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
-            />
-          </AnimatedBox>
-        </Box>
-      )}
-      <Box paddingHorizontal="s" position="absolute" top="26%" width="100%">
-        <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
-          {inputWasFocused || periodEnd || periodStart ? (
-            <Box
-              flexDirection="row"
-              marginHorizontal="m"
-              position="absolute"
-              right={0}
-              top={5}
-              zIndex="2">
-              <CalendarButton onIconPress={clearDatesInputs}>
-                <CloseIcon color={styles.closeIcon.color} />
-              </CalendarButton>
-              <CalendarButton
-                onIconPress={handleSetDatePress}
-                type="blue"
-                disabled={disableSetDateButton}>
-                <AcceptIcon
-                  color={
-                    !disableSetDateButton
-                      ? styles.acceptIcon.color
-                      : styles.acceptIconDisabled.color
-                  }
-                />
-              </CalendarButton>
-            </Box>
-          ) : null}
-          <Box marginTop="m">
-            <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
-              {slicedRequests.length > 0 ? t('selectedTimeframe') : t('dayOffCalendar')}
+        {showEmptyState ? (
+          <Box marginTop="xxxxl" alignItems="center">
+            <Text variant="textMD">{t('emptyScreenTitle')}</Text>
+            <Text marginTop="xs" variant="textXSGrey">
+              {t('emptyScreenSubtitle')}
             </Text>
           </Box>
-          {singlePreviousEvent ? (
-            <Box opacity={showEmptyState ? 0 : 0.5} height={showEmptyState ? 0 : 'auto'}>
-              <DayEvent event={singlePreviousEvent} />
+        ) : (
+          <Box
+            backgroundColor="lightGrey"
+            flex={1}
+            borderRadius="l"
+            marginTop={singlePreviousEvent ? 'xxxl' : 'l'}
+            paddingTop="xxxl">
+            <AnimatedBox flex={1} style={animatedStyles}>
+              <Box paddingBottom="xm" justifyContent="center" alignItems="center">
+                <PanGestureHandler onGestureEvent={panGestureHandler}>
+                  <AnimatedBox style={styles.swipeDownRecognizer}>
+                    <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
+                    <SwipeDown style={styles.swipeDownIcon} />
+                  </AnimatedBox>
+                </PanGestureHandler>
+              </Box>
+              <EventsList
+                ref={flatListRef}
+                selectedDate={selectedDate}
+                days={
+                  !wasDateChangePressed && !slicedRequests?.length
+                    ? currentMonthDays
+                    : slicedRequests
+                }
+                switchCalendarHeight={switchCalendarHeight}
+                setSwitchCalendarHeight={setSwitchCalendarHeight}
+                btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
+              />
+            </AnimatedBox>
+          </Box>
+        )}
+        <Box paddingHorizontal="s" position="absolute" top="26%" width="100%">
+          <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
+            {inputWasFocused || periodEnd || periodStart ? (
+              <Box
+                flexDirection="row"
+                marginHorizontal="m"
+                position="absolute"
+                right={0}
+                top={5}
+                zIndex="2">
+                <CalendarButton onIconPress={clearDatesInputs}>
+                  <CloseIcon color={styles.closeIcon.color} />
+                </CalendarButton>
+                <CalendarButton
+                  onIconPress={handleSetDatePress}
+                  type="blue"
+                  disabled={disableSetDateButton}>
+                  <AcceptIcon
+                    color={
+                      !disableSetDateButton
+                        ? styles.acceptIcon.color
+                        : styles.acceptIconDisabled.color
+                    }
+                  />
+                </CalendarButton>
+              </Box>
+            ) : null}
+            <Box marginTop="m">
+              <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
+                {slicedRequests.length > 0 ? t('selectedTimeframe') : t('dayOffCalendar')}
+              </Text>
             </Box>
-          ) : null}
+            {singlePreviousEvent ? (
+              <Box opacity={showEmptyState ? 0 : 0.5} height={showEmptyState ? 0 : 'auto'}>
+                <DayEvent event={singlePreviousEvent} />
+              </Box>
+            ) : null}
+          </Box>
         </Box>
-      </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

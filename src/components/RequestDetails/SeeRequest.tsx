@@ -25,6 +25,14 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
   const prevScreen: PrevScreen = route.params?.prevScreen
   usePrevScreenBackHandler(prevScreen, true)
 
+  useEffect(() => {
+    const parent = navigation.getParent()?.getParent()
+
+    if (prevScreen && ['NOTIFICATIONS'].includes(prevScreen)) {
+      parent?.setOptions({ swipeEnabled: false })
+    }
+  }, [navigation, prevScreen])
+
   const goBack = () => {
     navigation.navigate(prevScreen || 'STATS_AND_REQUESTS')
   }
@@ -46,10 +54,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <GestureRecognizer
-        onSwipeRight={goBack}
-        androidOnly
-        style={{ marginTop: theme.spacing.l, paddingBottom: theme.spacing.m }}>
+      <GestureRecognizer onSwipeRight={goBack} androidOnly>
         <RequestDetails {...p} showStatus wasSent />
       </GestureRecognizer>
     </SafeAreaWrapper>

@@ -143,7 +143,7 @@ export type BottomTabRoutes = {
     params: { modalAsset?: AttachmentDataType; editPostId?: string }
   }
   Stats: NestedNavigatorParams<RequestsRoutes>
-  FEED: { postId?: string; prevScreen?: 'NOTIFICATIONS' } | undefined
+  FEED: { postId?: string; prevScreen?: 'NOTIFICATIONS' | 'DashboardNavigation' } | undefined
 }
 
 export type DrawerRoutes = {

@@ -12,6 +12,7 @@ import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsConte
 import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
 import { AttachmentDataType } from 'mockApi/models'
 import { ScrollView } from 'react-native-gesture-handler'
+import { AppNavigationType } from 'navigation/types'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
@@ -20,15 +21,23 @@ type GalleryProps = {
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
   postId?: string
+  wasNavigatedFromNotifications?: boolean
 }
 
 const IMAGE_HEIGHT = (windowWidth * 4) / 3
 const PADDING_TO_CENTER_IMG = (windowHeight - IMAGE_HEIGHT) / 2
 
-export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
+export const Gallery = ({
+  data,
+  index = 0,
+  onIndexChanged,
+  onItemPress,
+  postId,
+  wasNavigatedFromNotifications,
+}: GalleryProps) => {
   const listRef = useRef<FlashList<AttachmentDataType>>(null)
   const translateX = useSharedValue(0)
-  const navigation = useNavigation()
+  const navigation = useNavigation<AppNavigationType<'GALLERY'>>()
   const { userSettings } = useUserSettingsContext()
   const activeRouteName = useGetActiveRouteName()
 
@@ -48,6 +57,13 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
   const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig, onViewableItemsChanged }])
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (
+      translateX.value === 0 &&
+      event.nativeEvent.contentOffset?.x < 0 &&
+      wasNavigatedFromNotifications
+    ) {
+      navigation.navigate('NOTIFICATIONS')
+    }
     const xPos = event.nativeEvent.contentOffset.x
     translateX.value = xPos
   }
