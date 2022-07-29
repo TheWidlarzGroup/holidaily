@@ -11,7 +11,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
-import { Box, mkUseStyles, useTheme } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
@@ -22,6 +22,7 @@ import { isIos } from 'utils/layout'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { StatusBarHeight } from 'utils/statusBarHeight'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -35,7 +36,6 @@ export const EditProfile = () => {
   const [animationTriggered, { setTrue: animationIsTriggered, setFalse: animationNotTriggered }] =
     useBooleanState(false)
   const navigation = useNavigation()
-  const styles = useStyles()
   const theme = useTheme()
   const { keyboardOpen, keyboardHeight } = useKeyboard()
   const { user } = useUserContext()
@@ -148,10 +148,13 @@ export const EditProfile = () => {
     <SafeAreaWrapper edges={animationTriggered ? ['left', 'right'] : ['top']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView
-          style={styles.container}
+          style={{ flex: 1, paddingTop: animationTriggered ? StatusBarHeight + 10 : 0 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          <DrawerBackArrow goBack={handleGoBack} />
+          <DrawerBackArrow
+            goBack={handleGoBack}
+            arrowColor={animationTriggered ? theme.colors.transparent : undefined}
+          />
           <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
@@ -173,9 +176,3 @@ export const EditProfile = () => {
     </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  container: {
-    flex: 1,
-  },
-}))
