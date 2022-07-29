@@ -55,8 +55,9 @@ export const Notification = ({
     : undefined
 
   const onPress = () => {
-    if (type === 'dayOff') openModal()
-    if (type !== 'dayOff') {
+    if (type === 'dayOff') {
+      openModal()
+    } else {
       if (!wasSeenByHolder) mutate({ id: p.id })
       notificationNavHandler(navigate, type, notificationRequest)
     }

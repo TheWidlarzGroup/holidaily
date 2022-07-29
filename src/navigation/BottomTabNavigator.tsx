@@ -72,7 +72,11 @@ export const BottomTabNavigator = () => {
               component={RequestsNavigation}
               options={{ unmountOnBlur: true }}
             />
-            <Tab.Screen name="FEED" component={Feed} />
+            <Tab.Screen
+              name="FEED"
+              component={Feed}
+              initialParams={{ prevScreen: 'DashboardNavigation' }}
+            />
           </Tab.Navigator>
           {/* Comment: Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
           <AnimatedBox
