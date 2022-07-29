@@ -5,7 +5,6 @@ import { UserProfileNavigationProps } from 'navigation/types'
 import { windowWidth } from 'utils/deviceSizes'
 import { useTranslation } from 'react-i18next'
 import { AnimatedBox } from 'components/AnimatedBox'
-import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
 import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
@@ -22,7 +21,6 @@ export const BubbleContainer = ({
   const { t } = useTranslation('userProfile')
   const [dropColor, setDropColor] = useState(theme.colors.colorPickerDropArea)
   const { animatedDrop, bubbles, animateCheckmark, dropArea, animateDropArea } = useBubbles()
-  useSetStatusBarStyle({ darkMode: true })
 
   useEffect(() => {
     if (dropColor !== theme.colors.colorPickerDropArea) p.onChange(dropColor)

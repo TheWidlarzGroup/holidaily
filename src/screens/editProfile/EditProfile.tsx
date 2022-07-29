@@ -99,6 +99,7 @@ export const EditProfile = () => {
   useEffect(() => {
     if (activeRouteName === 'EDIT_PROFILE')
       StatusBar.setBarStyle(userSettings?.darkMode ? 'light-content' : 'dark-content')
+    if (activeRouteName === 'COLOR_PICKER') StatusBar.setBarStyle('light-content')
   }, [activeRouteName, userSettings?.darkMode])
 
   const editUser = (data: Partial<User>) =>
@@ -121,7 +122,7 @@ export const EditProfile = () => {
   }
   const onGoBack = () => {
     navigation.goBack()
-    navigation.dispatch(DrawerActions.openDrawer())
+    if (activeRouteName === 'EDIT_PROFILE') navigation.dispatch(DrawerActions.openDrawer())
   }
   const onUnsavedChanges = useWithConfirmation({
     onAccept: () => {
