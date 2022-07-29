@@ -302,7 +302,7 @@ export const Calendar = () => {
   const wasNavigatedFromNotifications = memoizedPrevScreen[0] === 'NOTIFICATIONS'
 
   useEffect(() => {
-    const parent = navigation.getParent()
+    const parent = navigation.getParent()?.getParent()
 
     if (wasNavigatedFromNotifications) parent?.setOptions({ swipeEnabled: false })
   }, [navigation, wasNavigatedFromNotifications])
@@ -316,7 +316,7 @@ export const Calendar = () => {
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
       <CategoriesSlider />
       <GestureRecognizer onSwipeRight={handleSwipeRight}>
-        <Box position="relative" paddingHorizontal="m">
+        <Box paddingHorizontal="m">
           <DateInputs
             onIconPress={() => navigation.navigate('CALENDAR_MODAL')}
             periodStart={periodStart}
