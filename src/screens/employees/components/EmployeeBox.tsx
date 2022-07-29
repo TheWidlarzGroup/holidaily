@@ -111,7 +111,7 @@ export const EmployeeBox = (p: EmployeeBoxProps) => {
 
         <Box margin="xm" justifyContent="flex-start" flex={1}>
           <Box>
-            <Text numberOfLines={1} variant="bold16">
+            <Text numberOfLines={1} variant="textBoldMD">
               {userNameToDisplay}
             </Text>
           </Box>

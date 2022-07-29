@@ -49,7 +49,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
           paddingTop="ml">
           <IconBack width={9} height={16} color={theme.colors.black} />
         </BaseOpacity>
-        <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="ml">
+        <Text variant="textBoldMD" color="black" paddingBottom="ml" paddingTop="ml">
           {t('yourRequest')}
         </Text>
         <Box paddingRight="xl" />
