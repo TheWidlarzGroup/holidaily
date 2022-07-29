@@ -74,11 +74,8 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
       translateY.value = ctx.startY + event.translationY
     },
     onEnd: (event) => {
-      if (event.translationY < -200) {
-        runOnJS(onEndTriggerred)()
-      } else {
-        translateY.value = withSpring(STARTING_POSITION)
-      }
+      if (event.translationY < -70) runOnJS(onEndTriggerred)()
+      else translateY.value = withSpring(STARTING_POSITION)
     },
   })
 
