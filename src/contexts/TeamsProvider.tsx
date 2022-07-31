@@ -1,9 +1,9 @@
-import React, { ReactNode, useState, useEffect } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
-import { TeamsContextProps, TeamsContext } from './TeamsContext'
+import { TeamsContext, TeamsContextProps } from './TeamsContext'
 
 type TeamsProviderProps = {
   children: ReactNode

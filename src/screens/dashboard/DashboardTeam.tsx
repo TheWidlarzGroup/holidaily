@@ -32,19 +32,17 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   }
 
   const { matesOnHoliday, matesWithPlannedHolidays, mates } = useMemo(() => {
-    const mates: User[] = params?.users ?? []
+    let mates: User[] = params?.users ?? []
+    mates = mates.map((mate) => ({
+      ...mate,
+      requests: mate.requests.filter((req) => req.status !== 'past'),
+    }))
 
-    let matesOnHoliday = mates.filter((mate) => mate.isOnHoliday)
-    matesOnHoliday = matesOnHoliday.filter(
-      (user) => user.requests[0].endDate > new Date().toISOString()
-    )
+    const matesOnHoliday = mates.filter((mate) => mate.isOnHoliday)
     matesOnHoliday.sort(sortByEndDate)
 
-    let matesWithPlannedHolidays = mates.filter(
+    const matesWithPlannedHolidays = mates.filter(
       (mate) => !mate.isOnHoliday && mate.requests[0]?.startDate
-    )
-    matesWithPlannedHolidays = matesWithPlannedHolidays.filter(
-      (user) => user.requests[0].endDate > new Date().toISOString()
     )
     matesWithPlannedHolidays.sort(sortByStartDate)
 
@@ -93,6 +91,7 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
 }
 
 type TeamMemberProps = Pick<SwipeableModalRegularProps, 'isOpen' | 'onHide'> & { modalUser: User }
+
 export const TeamMemberModal = ({ onHide, isOpen, modalUser }: TeamMemberProps) => {
   const [teamMemberHeight, setTeamMemberHeight] = useState(0)
   const getTeamMemberContainerHeight = (event: LayoutChangeEvent) => {
