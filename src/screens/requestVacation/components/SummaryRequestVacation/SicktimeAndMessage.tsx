@@ -19,7 +19,7 @@ export const SicktimeAndMessage = ({ isSick, message }: SicktimeAndMessageProps)
         </Box>
       )}
       {!!message && (
-        <Text variant="regular15" paddingTop="m">
+        <Text variant="textSM" paddingTop="m" lineHeight={20}>
           {message}
         </Text>
       )}

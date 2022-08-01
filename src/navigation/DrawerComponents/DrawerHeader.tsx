@@ -16,7 +16,11 @@ export const DrawerHeader = ({ firstName, lastName, occupation }: DrawerHeaderPr
       <Text marginTop="m" variant="boldBlack18">
         {firstName} {lastName}
       </Text>
-      {!!occupation && <Text variant="regularGrey16">{occupation}</Text>}
+      {!!occupation && (
+        <Text variant="textMD" color="grey">
+          {occupation}
+        </Text>
+      )}
     </Box>
   )
 }

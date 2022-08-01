@@ -4,7 +4,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import BackArrowIcon from 'assets/icons/backArrow.svg'
 import EditIcon from 'assets/icons/icon-edit.svg'
-import { Text, Box, mkUseStyles, useTheme, TextVariant } from 'utils/theme/index'
+import { Box, mkUseStyles, Text, TextVariant, useTheme } from 'utils/theme/index'
 
 type ButtonInputTypes = {
   inputLabel: string
@@ -36,7 +36,7 @@ export const InputButton = ({
     errorOpacity.value = isError ? 2 : 0
   }, [isError, errorOpacity])
 
-  const variant = labelTextVariant || 'label1'
+  const variant = labelTextVariant || 'textBoldMD'
 
   return (
     <>
