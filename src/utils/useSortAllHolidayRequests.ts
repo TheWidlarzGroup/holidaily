@@ -9,18 +9,14 @@ export const useSortAllHolidayRequests = () => {
   let allSortedUsers: User[] = demoUserTeamMates
 
   // Comment: Demo user from TeamsContext didn't have teams assigned, so whole user is added from UserContext
-  allSortedUsers = allSortedUsers.filter(
-    (teamsUser) => teamsUser.firstName !== user?.firstName && teamsUser.lastName !== user?.lastName
-  )
+  allSortedUsers = allSortedUsers.filter((teamsUser) => teamsUser.id !== user?.id)
   if (user) allSortedUsers.push(user)
 
-  allSortedUsers = allSortedUsers.filter(
-    (user, index, arr) => arr.findIndex((usr) => usr.id === user.id) === index
-  )
+  allSortedUsers = allSortedUsers.map((user) => ({
+    ...user,
+    requests: user.requests.filter((req) => req.status !== 'past'),
+  }))
   allSortedUsers = allSortedUsers.filter((user) => user.requests.length > 0)
-  allSortedUsers = allSortedUsers.filter(
-    (user) => user.requests[0].endDate > new Date().toISOString()
-  )
 
   const sortUsers = (users: User[]) => {
     const usersWithHoliday = users.filter((user) => user.isOnHoliday)
