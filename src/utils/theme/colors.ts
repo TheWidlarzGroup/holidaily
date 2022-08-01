@@ -150,7 +150,6 @@ export const colors = {
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
   drawerBackground: palette.grayscale50,
-  drawerShadow: palette.grayscale100,
 }
 
 export const darkThemeColors = {
@@ -242,5 +241,4 @@ export const darkThemeColors = {
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale900SemiOpaque,
   drawerBackground: palette.grayscale900,
-  drawerShadow: palette.grayscale900,
 }
