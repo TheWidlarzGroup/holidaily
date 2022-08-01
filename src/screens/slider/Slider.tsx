@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Dimensions, ImageSourcePropType, ScrollView, TouchableOpacity } from 'react-native'
+import { Dimensions, ScrollView, TouchableOpacity } from 'react-native'
 import Animated, {
   runOnJS,
   useAnimatedRef,
@@ -13,18 +13,19 @@ import Animated, {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { AuthNavigationProps, AuthNavigationType } from 'navigation/types'
-import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme/index'
+import { Box, mkUseStyles, Text, theme, Theme } from 'utils/theme'
 import { SliderContent } from 'components/SliderContent'
 import { ProgressBar } from 'components/ProgressBar'
 import { CustomButton } from 'components/CustomButton'
 import { getItem } from 'utils/localStorage'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { Source } from 'react-native-fast-image'
 
 const SLIDER_DATA: {
   title: `slider${1 | 2 | 3 | 4}Title`
   text: `slider${1 | 2 | 3 | 4}SubTitle`
-  image: ImageSourcePropType
+  image: Source
 }[] = [
   {
     title: 'slider1Title',
