@@ -40,7 +40,7 @@ const StatsTab = (props: StatsTabProps) => (
     borderTopLeftRadius={props.type === 'daysAvailable' ? 'none' : 'mplus'}
     borderTopRightRadius={props.type === 'daysAvailable' ? 'mplus' : 'none'}>
     <Text
-      variant="bold20"
+      variant="displayBoldMD"
       marginTop="m"
       lineHeight={30}
       color={props.type === 'daysAvailable' ? 'tertiary' : 'quarternaryDark'}>

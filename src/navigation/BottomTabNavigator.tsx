@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { mkUseStyles, Theme, theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Feed } from 'screens/feed/Feed'
@@ -10,7 +10,6 @@ import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { isIos } from 'utils/layout'
 import { AnimatedBox } from 'components/AnimatedBox'
 import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
-import { StatusBarHeight } from 'utils/statusBarHeight'
 import { BottomTabRoutes } from './types'
 import { DashboardNavigation } from './DashboardNavigation'
 import { RequestsNavigation } from './RequestsNavigation'
@@ -32,6 +31,7 @@ const OPEN_DRAWER_SCREEN_BORDER = theme.borderRadii.l
 export const BottomTabNavigator = () => {
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
   const { width } = useDimensions()
+  const safeAreaInsets = useSafeAreaInsets()
 
   const styles = useStyles()
 
@@ -89,7 +89,7 @@ export const BottomTabNavigator = () => {
           <AnimatedBox
             position="absolute"
             backgroundColor="dashboardBackground"
-            height={StatusBarHeight}
+            height={safeAreaInsets.top}
             width="100%"
             style={animatedTopBoxStyle}
           />

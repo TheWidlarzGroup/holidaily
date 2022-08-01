@@ -3,30 +3,17 @@ import { useTranslation } from 'react-i18next'
 import { Box, Text, useTheme } from 'utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { Control, Controller, FieldValues } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
-import { EditUserSuccess, useEditUser } from 'dataAccess/mutations/useEditUser'
+import { useEditUser } from 'dataAccess/mutations/useEditUser'
 import { Analytics } from 'services/analytics'
+import {
+  ProfileColorProps,
+  ProfileColorViewProps,
+  UncontrolledColorPickerProps,
+} from 'types/ColorPickerTypes'
 import { ProfileColorExpandableArea } from './ProfileColorExpandableArea'
-
-type AnimationStatusProps = {
-  animationIsTriggered: F0
-  animationNotTriggered: F0
-}
-
-type ControlledColorPickerProps = {
-  control: Control<FieldValues>
-  name: string
-  animationStatus: AnimationStatusProps
-}
-
-type UncontrolledColorPickerProps = {
-  animationStatus: AnimationStatusProps
-  onUpdate?: F1<EditUserSuccess>
-}
-
-type ProfileColorProps = ControlledColorPickerProps | UncontrolledColorPickerProps
 
 export const ProfileColor = (p: ProfileColorProps) => {
   const isControlled = 'control' in p
@@ -41,12 +28,6 @@ export const ProfileColor = (p: ProfileColorProps) => {
   ) : (
     <UncontrolledProfileColor {...p} />
   )
-}
-
-type ProfileColorViewProps = {
-  onChange: F1<string>
-  value: string
-  animationStatus: AnimationStatusProps
 }
 
 const ProfileColorView = (p: ProfileColorViewProps) => {

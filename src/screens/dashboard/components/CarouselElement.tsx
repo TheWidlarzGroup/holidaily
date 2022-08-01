@@ -77,7 +77,7 @@ export const CarouselElement = (p: CarouselElementProps) => {
       </Box>
       <Box flexDirection="row" alignItems="center" justifyContent="center" width={90} height={20}>
         {icon}
-        <Text variant="holidayDate" color={textColor} marginLeft="xs">
+        <Text variant="textBoldXS" color={textColor} marginLeft="xs" lineHeight={14}>
           {p.dayToBeDisplayed}
         </Text>
       </Box>

@@ -14,7 +14,7 @@ export const Message = (p: MessageProps) => {
   return (
     <TouchableOpacity onPress={p.onPress}>
       <Box padding="m" backgroundColor="lightGrey" borderRadius="l1min" marginTop="xs">
-        <Text variant="regularGrey16" color="black">
+        <Text variant="textMD" color="black">
           {p.content}
         </Text>
       </Box>

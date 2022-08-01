@@ -11,7 +11,7 @@ import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { LoadingModal } from 'components/LoadingModal'
 import { useModalContext } from 'contexts/ModalProvider'
-import { Box, mkUseStyles, useTheme } from 'utils/theme'
+import { Box, useTheme } from 'utils/theme'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
@@ -22,6 +22,10 @@ import { isIos } from 'utils/layout'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { sleep } from 'utils/sleep'
 import { useBooleanState } from 'hooks/useBooleanState'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
+import { StatusBar } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ProfilePicture } from './components/ProfilePicture'
 import { ProfileDetails } from './components/ProfileDetails'
 import { TeamSubscriptions } from './components/TeamSubscriptions'
@@ -35,9 +39,10 @@ export const EditProfile = () => {
   const [animationTriggered, { setTrue: animationIsTriggered, setFalse: animationNotTriggered }] =
     useBooleanState(false)
   const navigation = useNavigation()
-  const styles = useStyles()
   const theme = useTheme()
   const { keyboardOpen, keyboardHeight } = useKeyboard()
+  const { userSettings } = useUserSettingsContext()
+  const activeRouteName = useGetActiveRouteName()
   const { user } = useUserContext()
   const { notify } = useGetNotificationsConfig()
   const defaultValues = {
@@ -62,6 +67,7 @@ export const EditProfile = () => {
     reset(defaultValues)
   }
   const { t } = useTranslation('userProfile')
+  const safeAreaInsets = useSafeAreaInsets()
   const { mutate: mutateUser, isLoading } = useEditUser()
   const { addUserToTeams } = useTeamsContext()
   const { hideModal } = useModalContext()
@@ -91,6 +97,12 @@ export const EditProfile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
+  useEffect(() => {
+    if (activeRouteName === 'EDIT_PROFILE')
+      StatusBar.setBarStyle(userSettings?.darkMode ? 'light-content' : 'dark-content')
+    if (activeRouteName === 'COLOR_PICKER') StatusBar.setBarStyle('light-content')
+  }, [activeRouteName, userSettings?.darkMode])
+
   const editUser = (data: Partial<User>) =>
     mutateUser(data, {
       onSuccess: (payload) => {
@@ -111,7 +123,7 @@ export const EditProfile = () => {
   }
   const onGoBack = () => {
     navigation.goBack()
-    navigation.dispatch(DrawerActions.openDrawer())
+    if (activeRouteName === 'EDIT_PROFILE') navigation.dispatch(DrawerActions.openDrawer())
   }
   const onUnsavedChanges = useWithConfirmation({
     onAccept: () => {
@@ -148,10 +160,13 @@ export const EditProfile = () => {
     <SafeAreaWrapper edges={animationTriggered ? ['left', 'right'] : ['top']}>
       <GestureRecognizer onSwipeRight={handleGoBack}>
         <ScrollView
-          style={styles.container}
+          style={{ flex: 1, paddingTop: animationTriggered ? safeAreaInsets.top + 10 : 0 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          <DrawerBackArrow goBack={handleGoBack} />
+          <DrawerBackArrow
+            goBack={handleGoBack}
+            arrowColor={animationTriggered ? theme.colors.transparent : undefined}
+          />
           <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
@@ -173,9 +188,3 @@ export const EditProfile = () => {
     </SafeAreaWrapper>
   )
 }
-
-const useStyles = mkUseStyles(() => ({
-  container: {
-    flex: 1,
-  },
-}))
