@@ -107,10 +107,9 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     overflow: 'hidden',
   },
   animatedBox: {
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 1, height: 2 },
     shadowColor: theme.colors.black,
-    shadowRadius: 10,
-    borderWidth: 0,
+    shadowRadius: 8,
     flex: 1,
     borderRadius: OPEN_DRAWER_SCREEN_BORDER,
   },
