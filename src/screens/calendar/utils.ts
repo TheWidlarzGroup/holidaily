@@ -43,9 +43,9 @@ export const BASE_CALENDAR_HEIGHT = 300
 
 export const getSlicedDate = (date: string) => {
   const splittedDate = date.split('-')
-  const year = splittedDate[0]
-  const month = splittedDate[1]
-  const day = splittedDate[2]
+  const year = splittedDate?.[0] || ''
+  const month = splittedDate?.[1] || ''
+  const day = splittedDate?.[2] || ''
 
   return { year, month, day }
 }

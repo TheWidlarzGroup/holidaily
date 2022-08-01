@@ -46,7 +46,7 @@ const isEndDateLowerThanStartDate = (startDate: string, endDate: string) => {
 const springConfig = {
   damping: 6,
   stiffness: 288,
-  mass: 1,
+  mass: 0.7,
 }
 
 type NavigationType = CalendarNavigatorType<'CALENDAR'> & typeof DrawerActions
@@ -200,7 +200,7 @@ export const Calendar = () => {
     onStart: () => {},
     onEnd: (event) => {
       if (event.velocityY > 0) {
-        offset.value = withSpring(150, springConfig, (finished) => {
+        offset.value = withSpring(100, springConfig, (finished) => {
           if (finished) offset.value = withSpring(0, springConfig)
         })
 
