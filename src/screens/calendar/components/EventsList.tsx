@@ -1,20 +1,16 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react'
-import { DAY_ITEM_HEIGHT, DayInfo } from 'screens/calendar/components/DayInfo'
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native'
+import { DayInfo } from 'screens/calendar/components/DayInfo'
+import { TouchableOpacity } from 'react-native'
 import { Box, Text, useTheme } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
-import { Analytics } from 'services/analytics'
 import { LoadingModal } from 'components/LoadingModal'
-import { sleep } from 'utils/sleep'
 import { getISODateString } from 'utils/dates'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { TFunction, useTranslation } from 'react-i18next'
 import { DayInfoProps } from 'types/DayInfoProps'
-import { EVENT_HEIGHT } from './DayEvent'
-import { GoUpDownButton } from './GoUpDownButton'
+import { FlashList } from '@shopify/flash-list'
 
 export type EventsListProps = {
-  btnOnPress: F0
   selectedDate: Date
   days: DayInfoProps[]
   switchCalendarHeight: boolean
@@ -33,22 +29,16 @@ const ListFooterComponent = (t: TFunction<'calendar'>) => (
   </Box>
 )
 
-export const EventsList = forwardRef<FlatList, EventsListProps>(
-  (
-    { days, switchCalendarHeight, setSwitchCalendarHeight, btnOnPress, selectedDate },
-    flatListRef
-  ) => {
+export const EventsList = forwardRef<FlashList<DayInfoProps>, EventsListProps>(
+  ({ days, switchCalendarHeight, setSwitchCalendarHeight, selectedDate }, flatListRef) => {
     const [pickedDate, setPickedDate] = useState(new Date())
     const [showLoadingModal, setShowLoadingModal] = useState(true)
     const { userSettings } = useUserSettingsContext()
     const [showNavButton, setShowNavButton] = useState(false)
-    const [pageOffsetY, setPageOffsetY] = useState(0)
     const [language] = useLanguage()
     const theme = useTheme()
 
     const { t } = useTranslation('calendar')
-
-    const { offset } = getItemLayout(days, 0)
 
     const renderItem = useCallback(({ item }) => <Item key={item.date} item={item} />, [])
 
@@ -58,28 +48,6 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
 
     const handleScroll = () => {
       handleTouch()
-      if (Math.abs(pageOffsetY - offset) > 300) setShowNavButton(true)
-      else setShowNavButton(false)
-    }
-
-    const measureScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const { y } = e.nativeEvent.contentOffset
-      setPageOffsetY(y)
-    }
-
-    const arrowDirection = pageOffsetY > offset ? 'up' : 'down'
-    const handleBtn = async () => {
-      if (switchCalendarHeight) {
-        setSwitchCalendarHeight(false)
-        setTimeout(() => {
-          btnOnPress()
-        }, 1000)
-      } else {
-        btnOnPress()
-      }
-      Analytics().track('CALENDAR_SCROLL_TO_BUTTON_PRESSED')
-      await sleep(500)
-      setShowNavButton(false)
     }
 
     useEffect(() => {
@@ -104,26 +72,19 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
 
     return (
       <Box marginTop="xxs" marginHorizontal="s" justifyContent="center" flex={1}>
-        <FlatList
+        <FlashList
           ListFooterComponent={ListFooterComponent(t)}
+          estimatedItemSize={56}
           data={days}
           renderItem={renderItem}
-          initialNumToRender={6}
-          maxToRenderPerBatch={10}
-          updateCellsBatchingPeriod={300}
-          windowSize={17}
           extraData={[days, language]}
           keyExtractor={(item) => item.date}
           initialScrollIndex={selectedDate.getDate() - 1}
-          getItemLayout={getItemLayout}
           ref={flatListRef}
           onTouchEnd={handleTouch}
           onMomentumScrollEnd={handleScroll}
-          onScroll={(e) => measureScroll(e)}
-          onScrollToIndexFailed={() => console.error('EventList scrollTo failed')}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
-        {showNavButton && <GoUpDownButton onPress={handleBtn} arrowDirection={arrowDirection} />}
         <LoadingModal
           show={showLoadingModal}
           style={{ backgroundColor: theme.colors.whiteDarken }}
@@ -133,22 +94,3 @@ export const EventsList = forwardRef<FlatList, EventsListProps>(
   }
 )
 EventsList.displayName = 'EventsList'
-
-// Comment: Entirely removing getItemLayout cause the EventList scrollTo to fail for some time after initial render, because the flatlist is performing measurment by itself.
-export const getItemLayout = (data: DayInfoProps[] | null | undefined, index: number) => {
-  if (!data)
-    return {
-      length: DAY_ITEM_HEIGHT,
-      offset: DAY_ITEM_HEIGHT * index,
-      index,
-    }
-  let prevEventsCount = 0
-  for (let i = 0; i < index; i++) {
-    prevEventsCount += data?.[i]?.events?.length ?? 0
-  }
-  return {
-    length: DAY_ITEM_HEIGHT,
-    offset: index * DAY_ITEM_HEIGHT + prevEventsCount * EVENT_HEIGHT,
-    index,
-  }
-}

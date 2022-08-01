@@ -3,7 +3,6 @@ import { Box, mkUseStyles, Text } from 'utils/theme'
 import { EventsList } from 'screens/calendar/components/EventsList'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useCalendarData } from 'screens/calendar/useCalendarData'
-import { FlatList } from 'react-native'
 import { DrawerActions, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { CalendarNavigatorType, CalendarRoutes } from 'navigation/types'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
@@ -27,6 +26,7 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { FlashList } from '@shopify/flash-list'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
@@ -52,7 +52,7 @@ const springConfig = {
 type NavigationType = CalendarNavigatorType<'CALENDAR'> & typeof DrawerActions
 
 export const Calendar = () => {
-  const flatListRef = useRef<FlatList>(null)
+  const flatListRef = useRef<FlashList<DayInfoProps>>(null)
   const route = useRoute<RouteProp<CalendarRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
@@ -335,7 +335,6 @@ export const Calendar = () => {
                 }
                 switchCalendarHeight={switchCalendarHeight}
                 setSwitchCalendarHeight={setSwitchCalendarHeight}
-                btnOnPress={() => flatListRef.current?.scrollToIndex({ index: 0, animated: true })}
               />
             </AnimatedBox>
           </Box>
