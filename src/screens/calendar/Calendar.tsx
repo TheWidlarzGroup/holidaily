@@ -58,17 +58,32 @@ export const Calendar = () => {
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
 
+  const { notify } = useGetNotificationsConfig()
+  const { t } = useTranslation('calendar')
   const navigation = useNavigation<NavigationType>()
+  const styles = useStyles()
 
   const offset = useSharedValue(0)
 
   const [inputWasFocused, { setTrue: setInputWasFocused }] = useBooleanState(false)
+  const [wasDateChangePressed, { setTrue: setWasDateChangePressed }] = useBooleanState(false)
 
   const { selectedDate, setSelectedDate, currentMonthDays, requestsDays } = useCalendarData()
 
   const { periodStart, periodEnd, handleSetPeriodStart, handleSetPeriodEnd } = useCalendarContext()
 
+  const [slicedRequests, setSlicedRequest] = useState<DayInfoProps[]>([])
+
+  const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
+
+  const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
+
   usePrevScreenBackHandler(prevScreen)
+
+  const showEmptyState =
+    (periodStart || periodEnd) &&
+    wasDateChangePressed &&
+    (slicedRequests.length === 0 || currentMonthDays.length === 0)
 
   const scrollToIndex = (index: number) =>
     flatListRef.current?.scrollToIndex({ index, animated: true })
@@ -78,16 +93,6 @@ export const Calendar = () => {
     if (pickedDate !== selectedDate && pickedDate) setSelectedDate(pickedDate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const { notify } = useGetNotificationsConfig()
-
-  const styles = useStyles()
-
-  const { t } = useTranslation('calendar')
-
-  const [slicedRequests, setSlicedRequest] = useState<DayInfoProps[]>([])
-
-  const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
 
   const isPeriodStartLowerThanRequestsDate = useMemo(() => {
     const periodStartTimestamp = new Date(periodStart)?.getTime()
@@ -156,8 +161,6 @@ export const Calendar = () => {
       scrollToIndex(0)
     }
   }, [slicedRequests.length])
-
-  const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
 
   const handleSwipeDown = () => {
     const dateToRevert = periodStart || today
@@ -237,8 +240,6 @@ export const Calendar = () => {
     return { startDate, endDate }
   }
 
-  const [wasDateChangePressed, { setTrue: setWasDateChangePressed }] = useBooleanState(false)
-
   const handleSetDatePress = () => {
     let startIndex = 0
 
@@ -271,11 +272,6 @@ export const Calendar = () => {
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateY: offset.value }],
   }))
-
-  const showEmptyState =
-    (periodStart || periodEnd) &&
-    wasDateChangePressed &&
-    (slicedRequests.length === 0 || currentMonthDays.length === 0)
 
   const memoizedPrevScreen = useMemoizedNonNullValue(prevScreen)
 
