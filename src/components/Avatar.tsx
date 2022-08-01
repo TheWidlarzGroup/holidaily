@@ -14,23 +14,18 @@ type AvatarProps = ComponentProps<typeof Box> & {
 
 export type AvatarSize = keyof typeof avatarSizes
 
-export const Avatar = ({ size = 'l', src, userDetails, ...containerProps }: AvatarProps) => {
-  const chosenSize = typeof size === 'number' ? size : avatarSizes[size]
-  const width = chosenSize
-  const height = chosenSize
-  return (
-    <Box
-      overflow="hidden"
-      borderRadius="full"
-      alignItems="center"
-      justifyContent="center"
-      width={width}
-      height={height}
-      {...containerProps}>
-      <UserPhoto src={src} userDetails={userDetails} size={chosenSize} />
-    </Box>
-  )
-}
+export const Avatar = ({ size = 'l', src, userDetails, ...containerProps }: AvatarProps) => (
+  <Box
+    overflow="hidden"
+    borderRadius="full"
+    alignItems="center"
+    justifyContent="center"
+    width={avatarSizes[size]}
+    height={avatarSizes[size]}
+    {...containerProps}>
+    <UserPhoto src={src} userDetails={userDetails} size={avatarSizes[size]} />
+  </Box>
+)
 
 const UserPhoto = ({
   src,
