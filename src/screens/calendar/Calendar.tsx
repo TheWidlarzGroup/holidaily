@@ -32,6 +32,7 @@ import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
 import { getSlicedDate, getDaysInMonth } from './utils'
 import { DateInputs } from './components/DateInputs'
+import { useTeamCategories } from './useTeamCategories'
 
 const date = new Date()
 const today = date.toISOString().split('T')[0]
@@ -57,6 +58,8 @@ export const Calendar = () => {
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
+
+  const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
 
   const { notify } = useGetNotificationsConfig()
   const { t } = useTranslation('calendar')
@@ -288,9 +291,30 @@ export const Calendar = () => {
     else navigation.openDrawer()
   }
 
+  const getDaysFilteredByCategory = () => {
+    const nonSelectedCategories = filterCategories?.map((a) => {
+      if (!a.isSelected) return a.id
+
+      return undefined
+    })
+
+    const days =
+      !wasDateChangePressed && !slicedRequests?.length ? currentMonthDays : slicedRequests
+
+    const requestsFilteredByCategory = days?.flatMap((a) => ({
+      ...a,
+      events: a?.events?.filter((c) => !nonSelectedCategories?.includes(c.categoryId)),
+    }))
+
+    return requestsFilteredByCategory || []
+  }
+
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
-      <CategoriesSlider />
+      <CategoriesSlider
+        filterCategories={filterCategories}
+        toggleFilterItemSelection={toggleFilterItemSelection}
+      />
       <GestureRecognizer onSwipeRight={handleSwipeRight}>
         <Box paddingHorizontal="m">
           <DateInputs
@@ -328,11 +352,7 @@ export const Calendar = () => {
               <EventsList
                 ref={flatListRef}
                 selectedDate={selectedDate}
-                days={
-                  !wasDateChangePressed && !slicedRequests?.length
-                    ? currentMonthDays
-                    : slicedRequests
-                }
+                days={getDaysFilteredByCategory()}
                 switchCalendarHeight={switchCalendarHeight}
                 setSwitchCalendarHeight={setSwitchCalendarHeight}
               />
