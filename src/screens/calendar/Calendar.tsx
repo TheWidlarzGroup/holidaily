@@ -171,6 +171,8 @@ export const Calendar = () => {
 
     let newDay
 
+    if (day < 10) newDay = `0${day}`
+
     if (month === 1) {
       const { maxDay } = getDaysInMonth(year - 1, month)
 
