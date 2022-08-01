@@ -68,10 +68,12 @@ export const CalendarModal = () => {
             selectPeriodStart={handleSetPeriodStart}
             selectPeriodEnd={handleSetPeriodEnd}
             selectable
-            disablePastDates
             style={styles.calendar}
             markedDates={markedDates}
             current={periodStart}
+            pastScrollRange={12}
+            futureScrollRange={12}
+            disablePastDates={false}
           />
           <ActionModal
             isVisible={!!periodStart}
