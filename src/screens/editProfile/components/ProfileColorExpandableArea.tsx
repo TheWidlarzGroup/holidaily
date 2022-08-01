@@ -11,9 +11,9 @@ import {
 } from 'react-native-reanimated'
 import { mkUseStyles, Text, useTheme } from 'utils/theme'
 import SwipeUpIcon from 'assets/icons/icon-swipe-up.svg'
-import { sleep } from 'utils/sleep'
 import { useTranslation } from 'react-i18next'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { sleep } from 'utils/sleep'
 
 type ProfileColorExpandableAreaProps = {
   callback: F0
@@ -41,7 +41,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
 
   const triggerAction = async () => {
     props.callback()
-    await sleep(500)
+    await sleep(100)
     translateY.value = STARTING_POSITION
     props.animationStatus.animationNotTriggered()
   }
@@ -50,9 +50,7 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
     () => translateY.value,
     (data) => {
       const maxHeight = -windowHeight * 1.2
-      if (data === maxHeight) {
-        runOnJS(triggerAction)()
-      }
+      if (data === maxHeight) runOnJS(triggerAction)()
     }
   )
 
@@ -74,11 +72,8 @@ export const ProfileColorExpandableArea = (props: ProfileColorExpandableAreaProp
       translateY.value = ctx.startY + event.translationY
     },
     onEnd: (event) => {
-      if (event.translationY < -200) {
-        runOnJS(onEndTriggerred)()
-      } else {
-        translateY.value = withSpring(STARTING_POSITION)
-      }
+      if (event.translationY < -70) runOnJS(onEndTriggerred)()
+      else translateY.value = withSpring(STARTING_POSITION)
     },
   })
 
