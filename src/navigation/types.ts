@@ -167,7 +167,7 @@ export type AuthRoutes = {
 
 export type DashboardRoutes = {
   DASHBOARD: undefined
-  DASHBOARD_TEAM: Team
+  DASHBOARD_TEAM: { teamId: Team['id'] }
   DASHBOARD_TEAM_MEMBER: User
 }
 

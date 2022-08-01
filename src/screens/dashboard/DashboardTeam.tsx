@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
@@ -9,12 +9,13 @@ import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
-import { User } from 'mockApi/models'
+import { Team, User } from 'mockApi/models'
 import { SwipeableModalRegular, SwipeableModalRegularProps } from 'components/SwipeableModalRegular'
 import { Analytics } from 'services/analytics'
 import { SWIPEABLE_MODAL_HEIGHT } from 'components/SwipeableModal'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useNavigation } from '@react-navigation/native'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { DashboardTeamMember } from './DashboardTeamMember'
 
 type DashboardTeamProps = DashboardNavigationProps<'DASHBOARD_TEAM'>
@@ -25,14 +26,28 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   const { goBack } = useNavigation()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalUser, setModalUser] = useState<User>()
+  const { user } = useUserContext()
+  const [team, setTeam] = useState<Team>()
+
+  useEffect(() => {
+    // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
+    // So developer has to remember to add him wherever he needs to show him in teams.
+    const teams: Team[] = (user?.teams ?? []).map((team) => {
+      if (user) return { ...team, users: [...team.users, user] }
+      return team
+    })
+    const findTeam = teams.find((team) => team.id === params.teamId)
+    if (findTeam) setTeam(findTeam)
+  }, [params.teamId, user, user?.teams])
+
   const openModal = (user: User) => {
     setModalUser(user)
     setIsModalVisible(true)
-    Analytics().track('DASHBOARD_TEAM_OPENED', { teamName: params.name })
+    Analytics().track('DASHBOARD_TEAM_OPENED', { teamName: team?.name || '' })
   }
 
   const { matesOnHoliday, matesWithPlannedHolidays, mates } = useMemo(() => {
-    let mates: User[] = params?.users ?? []
+    let mates: User[] = team?.users ?? []
     mates = mates.map((mate) => ({
       ...mate,
       requests: mate.requests.filter((req) => req.status !== 'past'),
@@ -47,12 +62,14 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
     matesWithPlannedHolidays.sort(sortByStartDate)
 
     return { matesOnHoliday, matesWithPlannedHolidays, mates }
-  }, [params?.users])
+  }, [team?.users])
+
+  if (!team) return null
 
   return (
     <>
       <SafeAreaWrapper edges={['left', 'right', 'bottom']}>
-        <TeamHeader title={params.name} />
+        <TeamHeader title={team.name} />
         <GestureRecognizer onSwipeRight={goBack} androidOnly>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box paddingHorizontal="m" paddingBottom="xxxl">
