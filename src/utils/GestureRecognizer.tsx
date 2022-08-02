@@ -11,7 +11,7 @@ type GestureRecognizerProps = {
   onSwipeUp?: F0
   onSwipeDown?: F0
   onFailed?: F0
-  androidOnly?: true
+  androidOnly?: boolean
   style?: ViewStyle
 }
 
