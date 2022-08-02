@@ -9,10 +9,12 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { LocationGeocodedAddress } from 'expo-location'
 
 type ExpandingTextProps = ComponentProps<typeof Text> & {
   text: string
   lines?: number
+  location?: LocationGeocodedAddress
 }
 
 const AnimatedBaseOpacity = Animated.createAnimatedComponent(BaseOpacity)
@@ -20,7 +22,7 @@ const AnimatedBaseOpacity = Animated.createAnimatedComponent(BaseOpacity)
 const LINE_HEIGHT = 21
 const PADDING = 12
 
-export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextProps) => {
+export const ExpandingText = ({ text, location, lines = 3, ...textProps }: ExpandingTextProps) => {
   const { t } = useTranslation('feed')
   const [numOfLines, setNumOfLines] = useState(lines)
   const [opened, { toggle }] = useBooleanState(false)
@@ -53,6 +55,7 @@ export const ExpandingText = ({ text, lines = 3, ...textProps }: ExpandingTextPr
 
   return (
     <AnimatedBaseOpacity
+      marginTop={location ? '-m' : 'none'}
       onPress={toggle}
       activeOpacity={1}
       style={initialNumOfLines > 3 && animatedStyle}>

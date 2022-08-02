@@ -16,7 +16,7 @@ export const LocationInfo = (props: LocationInfoProps) => {
   const address = props.location
 
   return (
-    <Box flexDirection="row" alignItems="center" collapsable>
+    <Box flexDirection="row" alignItems="center" collapsable paddingBottom="xm">
       <Box marginRight="xs">
         <IconMapLocation width={ICON_SIZE} height={ICON_SIZE} color={theme.colors.headerGrey} />
       </Box>

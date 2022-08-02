@@ -9,7 +9,7 @@ import { isIos } from 'utils/layout'
 
 type FeedPostBodyProps = {
   borderColor: Colors
-  post: Pick<FeedPost, 'data' | 'text' | 'id'>
+  post: Pick<FeedPost, 'data' | 'text' | 'id' | 'location'>
   wasNavigatedFromNotifications?: boolean
 }
 
@@ -33,7 +33,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
           borderBottomWidth={0}
           borderTopWidth={0}
           paddingBottom={data?.length === 0 && isIos ? 'xl' : 'none'}>
-          <ExpandingText text={text} />
+          <ExpandingText text={text} location={post.location} />
         </Box>
       )}
       {data?.length > 0 ? (
