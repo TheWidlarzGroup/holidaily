@@ -30,15 +30,13 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   const [team, setTeam] = useState<Team>()
 
   useEffect(() => {
+    const findTeam = user?.teams.find((team) => team.id === params.teamId)
     // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
     // So developer has to remember to add him wherever he needs to show him in teams.
-    const teams: Team[] = (user?.teams ?? []).map((team) => {
-      if (user) return { ...team, users: [...team.users, user] }
-      return team
-    })
-    const findTeam = teams.find((team) => team.id === params.teamId)
-    if (findTeam) setTeam(findTeam)
-  }, [params.teamId, user, user?.teams])
+    if (findTeam && user) {
+      setTeam({ ...findTeam, users: [...findTeam.users, user] })
+    }
+  }, [params.teamId, user])
 
   const openModal = (user: User) => {
     setModalUser(user)
