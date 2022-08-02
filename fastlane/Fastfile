@@ -1,4 +1,4 @@
-fastlane_version "2.207.0"
+fastlane_version "2.208.0"
 
 before_all do
    ensure_git_branch(branch: 'staging')
