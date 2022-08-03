@@ -24,8 +24,7 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   const { params } = route
   const { t } = useTranslation('dashboard')
   const { goBack } = useNavigation()
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [modalUser, setModalUser] = useState<User>()
+  const [modalUser, setModalUser] = useState<User | null>(null)
   const { user } = useUserContext()
   const [team, setTeam] = useState<Team>()
 
@@ -40,7 +39,6 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
 
   const openModal = (user: User) => {
     setModalUser(user)
-    setIsModalVisible(true)
     Analytics().track('DASHBOARD_TEAM_OPENED', { teamName: team?.name || '' })
   }
 
@@ -96,8 +94,8 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
       </SafeAreaWrapper>
       {modalUser && (
         <TeamMemberModal
-          onHide={() => setIsModalVisible(false)}
-          isOpen={isModalVisible}
+          onHide={() => setModalUser(null)}
+          isOpen={!!modalUser}
           modalUser={modalUser}
         />
       )}
