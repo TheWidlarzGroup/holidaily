@@ -20,6 +20,7 @@ export const Logout = () => {
 
   const [isConfirmationNeeded, { setTrue: askUserForConfirmation, setFalse: hideModal }] =
     useBooleanState(false)
+
   const handleLogout = async () => {
     updateUser(null)
     delete axios.defaults.headers.common.userId
@@ -42,10 +43,10 @@ export const Logout = () => {
     ])
   }
 
-  const onLogout = () => {
+  const onLogout = async () => {
     hideModal()
     Analytics().track('LOG_OUT')
-    handleLogout()
+    await handleLogout()
   }
 
   return (
