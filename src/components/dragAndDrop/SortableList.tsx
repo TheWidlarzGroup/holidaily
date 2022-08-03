@@ -13,7 +13,7 @@ import { FlatList, FlatListProps } from 'react-native'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
 import { Analytics } from 'services/analytics'
 import { useDrawerStatus } from '@react-navigation/drawer'
-import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
+import { COL, NESTED_ELEM_OFFSET, Positions, SIZE_H } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
 
@@ -104,53 +104,54 @@ export const SortableList = ({ children }: SortableListProps) => {
 
   const containerHeight = {
     height: calculateContainerHeight(children.length),
+    paddingBottom: 75,
   }
 
+  const flatListHeader = (
+    <>
+      {children.length > 0 ? (
+        <Box height={NESTED_ELEM_OFFSET}>
+          <Carousel />
+          <Text
+            variant="lightGreyRegular"
+            color="darkGrey"
+            marginHorizontal="xm"
+            marginBottom="xs"
+            letterSpacing={0.7}>
+            {t('teamsList').toUpperCase()}
+          </Text>
+        </Box>
+      ) : (
+        <>
+          <Text
+            marginTop="m"
+            variant="lightGreyRegular"
+            color="darkGrey"
+            marginHorizontal="xm"
+            marginBottom="xs"
+            letterSpacing={0.7}>
+            {t('teamsList').toUpperCase()}
+          </Text>
+          <JoinFirstTeam />
+        </>
+      )}
+    </>
+  )
+
   return (
-    <Box paddingBottom="xxxl">
-      <AnimatedFlatList
-        getItemLayout={getItemLayout}
-        removeClippedSubviews={false}
-        ref={scrollView}
-        contentContainerStyle={containerHeight}
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-        onScroll={onScroll}
-        CellRendererComponent={CellRenderer}
-        ListHeaderComponent={
-          <>
-            {children.length > 0 ? (
-              <Box height={NESTED_ELEM_OFFSET}>
-                <Carousel />
-                <Text
-                  variant="lightGreyRegular"
-                  color="darkGrey"
-                  marginHorizontal="xm"
-                  marginBottom="xs"
-                  letterSpacing={0.7}>
-                  {t('teamsList').toUpperCase()}
-                </Text>
-              </Box>
-            ) : (
-              <>
-                <Text
-                  marginTop="m"
-                  variant="lightGreyRegular"
-                  color="darkGrey"
-                  marginHorizontal="xm"
-                  marginBottom="xs"
-                  letterSpacing={0.7}>
-                  {t('teamsList').toUpperCase()}
-                </Text>
-                <JoinFirstTeam />
-              </>
-            )}
-          </>
-        }
-        data={children}
-        renderItem={renderItem}
-      />
-    </Box>
+    <AnimatedFlatList
+      getItemLayout={getItemLayout}
+      removeClippedSubviews={false}
+      ref={scrollView}
+      contentContainerStyle={containerHeight}
+      showsVerticalScrollIndicator={false}
+      scrollEventThrottle={16}
+      onScroll={onScroll}
+      CellRendererComponent={CellRenderer}
+      ListHeaderComponent={flatListHeader}
+      data={children}
+      renderItem={renderItem}
+    />
   )
 }
 
