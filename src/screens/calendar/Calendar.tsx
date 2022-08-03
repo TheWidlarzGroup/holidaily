@@ -14,11 +14,11 @@ import SwipeDown from 'assets/icons/icon-swipe-down.svg'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import { DayInfoProps } from 'types/DayInfoProps'
 import {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  runOnJS,
 } from 'react-native-reanimated'
 import { useCalendarContext } from 'hooks/context-hooks/useCalendarContext'
 import { useBooleanState } from 'hooks/useBooleanState'
@@ -30,7 +30,7 @@ import { FlashList } from '@shopify/flash-list'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
-import { getSlicedDate, getDaysInMonth } from './utils'
+import { getDaysInMonth, getSlicedDate } from './utils'
 import { DateInputs } from './components/DateInputs'
 import { useTeamCategories } from './useTeamCategories'
 
@@ -53,18 +53,16 @@ const springConfig = {
 type NavigationType = CalendarNavigatorType<'CALENDAR'> & typeof DrawerActions
 
 export const Calendar = () => {
+  const { t } = useTranslation('calendar')
+  const navigation = useNavigation<NavigationType>()
   const flatListRef = useRef<FlashList<DayInfoProps>>(null)
+  const { notify } = useGetNotificationsConfig()
+  const styles = useStyles()
   const route = useRoute<RouteProp<CalendarRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings } = useUserSettingsContext()
-
   const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
-
-  const { notify } = useGetNotificationsConfig()
-  const { t } = useTranslation('calendar')
-  const navigation = useNavigation<NavigationType>()
-  const styles = useStyles()
 
   const offset = useSharedValue(0)
 
@@ -107,9 +105,7 @@ export const Calendar = () => {
   const handleSetPreviousEvent = useCallback(
     (newPeriodStart?: string) => {
       const getPreviousEvent = () => {
-        if (isPeriodStartLowerThanRequestsDate) {
-          return null
-        }
+        if (isPeriodStartLowerThanRequestsDate) return null
 
         const todayIndex = requestsDays.findIndex(
           (a) => a.date === newPeriodStart || a.date === periodStart || a.date === today
@@ -125,9 +121,7 @@ export const Calendar = () => {
 
       const prevEvent = getPreviousEvent()
 
-      if (singlePreviousEvent?.date !== prevEvent?.date) {
-        setSinglePreviousEvent(prevEvent)
-      }
+      if (singlePreviousEvent?.date !== prevEvent?.date) setSinglePreviousEvent(prevEvent)
     },
     [isPeriodStartLowerThanRequestsDate, periodStart, requestsDays, singlePreviousEvent?.date]
   )
@@ -160,9 +154,7 @@ export const Calendar = () => {
   }
 
   useEffect(() => {
-    if (slicedRequests.length > 0) {
-      scrollToIndex(0)
-    }
+    if (slicedRequests.length > 0) scrollToIndex(0)
   }, [slicedRequests.length])
 
   const handleSwipeDown = () => {
@@ -205,13 +197,11 @@ export const Calendar = () => {
   }
 
   const panGestureHandler = useAnimatedGestureHandler({
-    onStart: () => {},
-    onEnd: (event) => {
-      if (event.velocityY > 0) {
+    onActive: (event) => {
+      if (event.translationY > 10) {
         offset.value = withSpring(100, springConfig, (finished) => {
           if (finished) offset.value = withSpring(0, springConfig)
         })
-
         runOnJS(handleSwipeDown)()
       }
     },
