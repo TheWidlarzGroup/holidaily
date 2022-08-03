@@ -5,7 +5,6 @@ import { formatDate } from 'utils/formatDate'
 import { useNavigation } from '@react-navigation/native'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { NotificationContent } from './NotificationContent'
 import { notificationNavHandler } from '../helpers/notificationNavHandler'
 import { NotificationThumbnail } from './NotificationThumbnail'
@@ -30,9 +29,8 @@ export const Notification = ({
   }, [wasSeenByHolder])
 
   // Comment: handle user timeOff type
-  const { allUsers } = useTeamsContext()
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [modalUser, setModalUser] = useState<User>()
+  const { allUsers } = useUserContext()
+  const [modalUser, setModalUser] = useState<User | null>(null)
 
   const openModal = () => {
     // TODO: first and last name are used for mocks - with BE change for user id
@@ -40,13 +38,12 @@ export const Notification = ({
       (userData) => userData.firstName === author.firstName && userData.lastName === author.lastName
     )
     if (userModalData?.id !== modalUser?.id) {
-      setModalUser(userModalData)
+      setModalUser(userModalData || null)
     }
-    setIsModalVisible(true)
   }
 
   const closeModal = () => {
-    setIsModalVisible(false)
+    setModalUser(null)
     if (!wasSeenByHolder) mutate({ id: p.id })
   }
 
@@ -94,7 +91,7 @@ export const Notification = ({
         </Box>
       </BaseOpacity>
       {modalUser && (
-        <TeamMemberModal onHide={closeModal} isOpen={isModalVisible} modalUser={modalUser} />
+        <TeamMemberModal onHide={closeModal} isOpen={!!modalUser} modalUser={modalUser} />
       )}
     </Box>
   )
