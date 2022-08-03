@@ -2,6 +2,8 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
+import { sortUsersByHolidayDate } from 'utils/sortByDate'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { TeamsContext, TeamsContextProps } from './TeamsContext'
 
 type TeamsProviderProps = {
@@ -10,8 +12,10 @@ type TeamsProviderProps = {
 
 export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const { data } = useGetOrganization()
+  const { user } = useUserContext()
   const [teams, setTeams] = useState<Team[]>(data?.teams || [])
   const [allUsers, setAllUsers] = useState<User[]>([])
+  const [usersWithoutPastReq, setUsersWithoutPastReq] = useState<User[]>([])
 
   const addUserToTeams = (user: User, teamNames: string[], options?: { withReset?: true }) => {
     const initialTeams = data?.teams || []
@@ -25,9 +29,24 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const reset = () => setTeams(data?.teams || [])
 
   useEffect(() => {
+    if (teams.length < 1) return
     const usersWithoutDuplicates = getUsersWithoutDuplicates(teams)
     setAllUsers(usersWithoutDuplicates)
   }, [teams])
+
+  useEffect(() => {
+    // Comment: Demo user from TeamsContext didn't have teams assigned, so whole user is added from UserContext
+    let allFilteredUsers: User[] = allUsers.filter((teamsUser) => teamsUser.id !== user?.id)
+    if (user) allFilteredUsers.push(user)
+
+    allFilteredUsers = allFilteredUsers.map((user) => ({
+      ...user,
+      requests: user.requests.filter((req) => req.status !== 'past'),
+    }))
+    allFilteredUsers = allFilteredUsers.filter((user) => user.requests.length > 0)
+
+    setUsersWithoutPastReq(sortUsersByHolidayDate(allFilteredUsers))
+  }, [allUsers, user])
 
   useEffect(() => {
     if (data) setTeams(data?.teams)
@@ -38,6 +57,7 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     allUsers,
     addUserToTeams,
     reset,
+    usersWithoutPastReq,
   }
   return <TeamsContext.Provider value={value}>{children}</TeamsContext.Provider>
 }
