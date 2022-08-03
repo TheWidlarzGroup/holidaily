@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Box, Text } from 'utils/theme'
 import { DashboardNavigationProps } from 'navigation/types'
 import { useTranslation } from 'react-i18next'
@@ -9,7 +9,7 @@ import { OtherMateElement } from 'screens/dashboard/components/OtherMateElement'
 import { TeamSection } from 'screens/dashboard/components/TeamSection'
 import { TeamHeader } from 'screens/dashboard/components/TeamHeader'
 import { sortByEndDate, sortByStartDate } from 'utils/sortByDate'
-import { Team, User } from 'mockApi/models'
+import { User } from 'mockApi/models'
 import { SwipeableModalRegular, SwipeableModalRegularProps } from 'components/SwipeableModalRegular'
 import { Analytics } from 'services/analytics'
 import { SWIPEABLE_MODAL_HEIGHT } from 'components/SwipeableModal'
@@ -26,16 +26,8 @@ export const DashboardTeam = ({ route }: DashboardTeamProps) => {
   const { goBack } = useNavigation()
   const [modalUser, setModalUser] = useState<User | null>(null)
   const { user } = useUserContext()
-  const [team, setTeam] = useState<Team>()
 
-  useEffect(() => {
-    const findTeam = user?.teams.find((team) => team.id === params.teamId)
-    // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
-    // So developer has to remember to add him wherever he needs to show him in teams.
-    if (findTeam && user) {
-      setTeam({ ...findTeam, users: [...findTeam.users, user] })
-    }
-  }, [params.teamId, user])
+  const team = user?.teams.find((team) => team.id === params.teamId)
 
   const openModal = (user: User) => {
     setModalUser(user)
