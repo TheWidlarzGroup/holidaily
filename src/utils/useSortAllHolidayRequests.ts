@@ -5,8 +5,8 @@ import { sortByEndDate, sortByStartDate } from './sortByDate'
 
 export const useSortAllHolidayRequests = () => {
   const { user } = useUserContext()
-  const { demoUserTeamMates } = useTeamsContext()
-  let allSortedUsers: User[] = demoUserTeamMates
+  const { allUsers } = useTeamsContext()
+  let allSortedUsers: User[] = allUsers
 
   // Comment: Demo user from TeamsContext didn't have teams assigned, so whole user is added from UserContext
   allSortedUsers = allSortedUsers.filter((teamsUser) => teamsUser.id !== user?.id)

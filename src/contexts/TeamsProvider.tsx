@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
 import { TeamsContext, TeamsContextProps } from './TeamsContext'
 
@@ -11,10 +10,8 @@ type TeamsProviderProps = {
 
 export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const { data } = useGetOrganization()
-  const { user } = useUserContext()
   const [teams, setTeams] = useState<Team[]>(data?.teams || [])
   const [allUsers, setAllUsers] = useState<User[]>([])
-  const [demoUserTeamMates, setDemoUserTeamMates] = useState<User[]>([])
 
   const addUserToTeams = (user: User, teamNames: string[], options?: { withReset?: true }) => {
     const initialTeams = data?.teams || []
@@ -33,16 +30,6 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   }, [teams])
 
   useEffect(() => {
-    const getAllDemoUserTeammates = () => {
-      const demoUserTeamsList = user?.teams.map((team) => team.name)
-      const demoUserTeams = teams.filter((team) => demoUserTeamsList?.includes(team.name))
-      const noDuplicatedUsers = getUsersWithoutDuplicates(demoUserTeams)
-      setDemoUserTeamMates(noDuplicatedUsers)
-    }
-    getAllDemoUserTeammates()
-  }, [teams, user?.teams])
-
-  useEffect(() => {
     if (data) setTeams(data?.teams)
   }, [data])
 
@@ -51,7 +38,6 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
     allUsers,
     addUserToTeams,
     reset,
-    demoUserTeamMates,
   }
   return <TeamsContext.Provider value={value}>{children}</TeamsContext.Provider>
 }
