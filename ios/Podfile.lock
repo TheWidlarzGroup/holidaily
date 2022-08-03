@@ -107,15 +107,15 @@ PODS:
   - libwebp/mux (1.2.1):
     - libwebp/demux
   - libwebp/webp (1.2.1)
-  - OneSignal (3.11.1):
-    - OneSignal/OneSignalCore (= 3.11.1)
-    - OneSignal/OneSignalExtension (= 3.11.1)
-    - OneSignal/OneSignalOutcomes (= 3.11.1)
-  - OneSignal/OneSignalCore (3.11.1)
-  - OneSignal/OneSignalExtension (3.11.1):
+  - OneSignal (3.11.2):
+    - OneSignal/OneSignalCore (= 3.11.2)
+    - OneSignal/OneSignalExtension (= 3.11.2)
+    - OneSignal/OneSignalOutcomes (= 3.11.2)
+  - OneSignal/OneSignalCore (3.11.2)
+  - OneSignal/OneSignalExtension (3.11.2):
     - OneSignal/OneSignalCore
     - OneSignal/OneSignalOutcomes
-  - OneSignal/OneSignalOutcomes (3.11.1):
+  - OneSignal/OneSignalOutcomes (3.11.2):
     - OneSignal/OneSignalCore
   - OneSignalXCFramework (3.11.1):
     - OneSignalXCFramework/OneSignalCore (= 3.11.1)
@@ -470,10 +470,10 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
-  - SDWebImageWebPCoder (0.8.4):
+  - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Smartlook (1.8.8)
+  - Smartlook (1.8.9)
   - smartlook-react-native-bridge (1.2.6):
     - React
     - Smartlook (~> 1.8.3)
@@ -756,7 +756,7 @@ SPEC CHECKSUMS:
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
-  OneSignal: 60902887c93f91e9b5599583e7df5f55b2144755
+  OneSignal: 8861a1407c321ca1ae59d3adca6286eb7caf9d6e
   OneSignalXCFramework: 8bdcaa3b7f6082565bf29c5481435376a33e94f2
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-LocationAlways: fbf36cbdcabc3101f1168ad1ec45cfc5a6448cc4
@@ -804,8 +804,8 @@ SPEC CHECKSUMS:
   RNSiriShortcuts: 93d7607c6e1dd693657395ce6d705f6005e88240
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
-  SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
-  Smartlook: db524b84f9af30ce0712c3990a0a317c3d224771
+  SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
+  Smartlook: 9a49d32502f9c659045c1a599aad495c2a0b9480
   smartlook-react-native-bridge: d4ad49aa3118d68611af8ef5a606bfbce194f0c5
   UMTaskManagerInterface: 5654c50e68af11b19b9d05452bacf23d19b3f30f
   Yoga: d6b6a80659aa3e91aaba01d0012e7edcbedcbecd

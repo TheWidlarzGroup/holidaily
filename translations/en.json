@@ -445,6 +445,19 @@
   "calendar": {
     "cantDeselect": "You can’t deselect all your Teams :(",
     "calendarPurpose": "The purpose of this Calendar is to find out about your Team members time off.",
-    "gotIt": "Got it!"
+    "gotIt": "Got it!",
+    "select": "Select",
+    "actionModalDefault": "Select a day or range of days",
+    "singleDayOutOfOffice": "out of office",
+    "outOfOffice": "out of office",
+    "dayOffCalendar": "Time off calendar",
+    "dateInputPlaceholder": "yyyy/mm/dd",
+    "selectedTimeframe": "selected timeframe",
+    "swipeDownToSeePrevious": "Swipe down to see previous",
+    "swipeUpToSeeNext": "Swipe up to see next",
+    "emptyStateNotificationTitle": "There are no time off events to show.",
+    "endOfEventsList": "You've reached end of list",
+    "emptyScreenTitle": "There are no time off events to show.",
+    "emptyScreenSubtitle": "Pick earlier dates or swipe down."
   }
 }

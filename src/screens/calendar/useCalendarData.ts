@@ -14,7 +14,7 @@ export const useCalendarData = () => {
   const [selectedDate, setSelectedDateState] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
   const { updateSettings } = useUserSettingsContext()
-  const { filterCategories } = useTeamCategories()
+  const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
   const { requests } = useRequestsContext()
 
   const convertToLocalDate = (date: string) => {
@@ -86,9 +86,19 @@ export const useCalendarData = () => {
     } else setCurrentMonthDays([])
   }, [filterCategories, requests, selectedDate])
 
+  // TODO: Check if memo can improve performance
+
+  const sortedRequests = requests?.sort(
+    (a, b) => new Date(a?.date).getTime() - new Date(b?.date).getTime()
+  )
+
+  const requestsDays = sortedRequests.flatMap((a) => a?.days?.map((b) => b))
+
   return {
     selectedDate,
     setSelectedDate,
     currentMonthDays,
+    requestsDays,
+    toggleFilterItemSelection,
   }
 }
