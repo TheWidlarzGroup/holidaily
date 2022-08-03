@@ -5,6 +5,7 @@ import { formatDate } from 'utils/formatDate'
 import { useNavigation } from '@react-navigation/native'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
 import { NotificationContent } from './NotificationContent'
 import { notificationNavHandler } from '../helpers/notificationNavHandler'
 import { NotificationThumbnail } from './NotificationThumbnail'
@@ -29,7 +30,7 @@ export const Notification = ({
   }, [wasSeenByHolder])
 
   // Comment: handle user timeOff type
-  const { allUsers } = useUserContext()
+  const { allUsers } = useTeamsContext()
   const [modalUser, setModalUser] = useState<User | null>(null)
 
   const openModal = () => {
