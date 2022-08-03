@@ -2,8 +2,8 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import { Team, User } from 'mockApi/models/mirageTypes'
 import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
-import { sortUsersByHolidayDate } from 'utils/sortByDate'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { sortUsersByHolidayDate } from 'utils/sortByDate'
 import { TeamsContext, TeamsContextProps } from './TeamsContext'
 
 type TeamsProviderProps = {
@@ -29,12 +29,17 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const reset = () => setTeams(data?.teams || [])
 
   useEffect(() => {
+    if (data) setTeams(data?.teams)
+  }, [data])
+
+  useEffect(() => {
     if (teams.length < 1) return
     const usersWithoutDuplicates = getUsersWithoutDuplicates(teams)
     setAllUsers(usersWithoutDuplicates)
   }, [teams])
 
   useEffect(() => {
+    if (allUsers.length < 1) return
     // Comment: Demo user from TeamsContext didn't have teams assigned, so whole user is added from UserContext
     let allFilteredUsers: User[] = allUsers.filter((teamsUser) => teamsUser.id !== user?.id)
     if (user) allFilteredUsers.push(user)
@@ -47,10 +52,6 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
 
     setUsersWithoutPastReq(sortUsersByHolidayDate(allFilteredUsers))
   }, [allUsers, user])
-
-  useEffect(() => {
-    if (data) setTeams(data?.teams)
-  }, [data])
 
   const value: TeamsContextProps = {
     teams,
