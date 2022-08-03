@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getISODateString, parseISO } from 'utils/dates'
 import { useRequestsContext } from 'hooks/context-hooks/useRequestsContext'
 import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
@@ -7,7 +7,7 @@ import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { DayInfoProps } from '../../types/DayInfoProps'
+import { DayInfoProps } from 'types/DayInfoProps'
 import { useTeamCategories } from './useTeamCategories'
 
 export const useCalendarData = () => {
@@ -86,10 +86,9 @@ export const useCalendarData = () => {
     } else setCurrentMonthDays([])
   }, [filterCategories, requests, selectedDate])
 
-  // TODO: Check if memo can improve performance
-
-  const sortedRequests = requests?.sort(
-    (a, b) => new Date(a?.date).getTime() - new Date(b?.date).getTime()
+  const sortedRequests = useMemo(
+    () => requests?.sort((a, b) => new Date(a?.date).getTime() - new Date(b?.date).getTime()),
+    [requests]
   )
 
   const requestsDays = sortedRequests.flatMap((a) => a?.days?.map((b) => b))
