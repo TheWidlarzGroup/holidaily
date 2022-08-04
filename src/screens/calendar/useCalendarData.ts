@@ -6,14 +6,12 @@ import { getNextMonthRequests } from 'utils/getNextMonthRequests'
 import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
-import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { DayInfoProps } from '../../types/DayInfoProps'
+import { DayInfoProps } from 'types/DayInfoProps'
 import { useTeamCategories } from './useTeamCategories'
 
 export const useCalendarData = () => {
   const [selectedDate, setSelectedDateState] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
-  const { updateSettings } = useUserSettingsContext()
   const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
   const { requests } = useRequestsContext()
 
@@ -26,7 +24,6 @@ export const useCalendarData = () => {
 
   const setSelectedDate = (date: Date) => {
     const localDate = convertToLocalDate(getISODateString(date))
-    updateSettings({ pickedDate: localDate })
     setSelectedDateState(localDate)
   }
 
