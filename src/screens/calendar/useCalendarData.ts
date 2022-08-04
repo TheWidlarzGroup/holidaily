@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getISODateString, parseISO } from 'utils/dates'
 import { useRequestsContext } from 'hooks/context-hooks/useRequestsContext'
-import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
-import { getNextMonthRequests } from 'utils/getNextMonthRequests'
-import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
 import { DayInfoProps } from 'types/DayInfoProps'
@@ -49,27 +46,13 @@ export const useCalendarData = () => {
         days: eachDayOfMonth.map((day) => ({ date: getISODateString(day) })),
       }
     }
-    let bothMonthsRequests: HolidayRequestMonthType = {
+    const singleMonthRequests: HolidayRequestMonthType = {
       date: currentMonthRequests.date,
       days: currentMonthRequests.days,
     }
 
-    if (doesMonthInCalendarHasSixRows(selectedDate)) {
-      const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
-      const fewRequestsOfNextMonth = nextMonthRequests
-        ? getFirstRequestsOfMonth(nextMonthRequests)
-        : []
-
-      const currentMonthRequestsDays = currentMonthRequests?.days
-
-      bothMonthsRequests = {
-        ...bothMonthsRequests,
-        days: [...currentMonthRequestsDays, ...fewRequestsOfNextMonth],
-      }
-    }
-
-    if (bothMonthsRequests) {
-      const newCurrentMonthDays = bothMonthsRequests.days.map((day) => {
+    if (singleMonthRequests) {
+      const newCurrentMonthDays = singleMonthRequests.days.map((day) => {
         if (day.weekend || !day.events) return day
         return {
           ...day,
