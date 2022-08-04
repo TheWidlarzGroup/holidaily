@@ -1,11 +1,8 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react'
 import { DayInfo } from 'screens/calendar/components/DayInfo'
 import { TouchableOpacity } from 'react-native'
-import { Box, Text, useTheme } from 'utils/theme'
+import { Box, Text } from 'utils/theme'
 import { useLanguage } from 'hooks/useLanguage'
-import { LoadingModal } from 'components/LoadingModal'
-import { getISODateString } from 'utils/dates'
-import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { TFunction, useTranslation } from 'react-i18next'
 import { DayInfoProps } from 'types/DayInfoProps'
 import { FlashList } from '@shopify/flash-list'
@@ -32,11 +29,8 @@ const ListFooterComponent = (t: TFunction<'calendar'>) => (
 export const EventsList = forwardRef<FlashList<DayInfoProps>, EventsListProps>(
   ({ days, switchCalendarHeight, setSwitchCalendarHeight, selectedDate }, flatListRef) => {
     const [pickedDate, setPickedDate] = useState(new Date())
-    const [showLoadingModal, setShowLoadingModal] = useState(true)
-    const { userSettings } = useUserSettingsContext()
     const [showNavButton, setShowNavButton] = useState(false)
     const [language] = useLanguage()
-    const theme = useTheme()
 
     const { t } = useTranslation('calendar')
 
@@ -57,19 +51,6 @@ export const EventsList = forwardRef<FlashList<DayInfoProps>, EventsListProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDate])
 
-    useEffect(() => {
-      const condition = days.length > 0
-      const cachedDate = userSettings?.pickedDate
-      if (cachedDate && selectedDate) {
-        const cachedDateToString = getISODateString(cachedDate)
-        const selectedDateToString = getISODateString(selectedDate)
-        if (cachedDateToString === selectedDateToString && condition) setShowLoadingModal(false)
-      }
-      if (!cachedDate && condition) setShowLoadingModal(false)
-      // Comment: we don't want to track userSettings and selectedDate
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [days])
-
     return (
       <Box marginTop="xxs" marginHorizontal="s" justifyContent="center" flex={1}>
         <FlashList
@@ -84,10 +65,6 @@ export const EventsList = forwardRef<FlashList<DayInfoProps>, EventsListProps>(
           onTouchEnd={handleTouch}
           onMomentumScrollEnd={handleScroll}
           contentContainerStyle={{ paddingBottom: 80 }}
-        />
-        <LoadingModal
-          show={showLoadingModal}
-          style={{ backgroundColor: theme.colors.whiteDarken }}
         />
       </Box>
     )
