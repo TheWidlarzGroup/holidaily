@@ -24,6 +24,7 @@ import { BadStateController } from './components/BadStateController'
 import { RequestSentModal } from './components/RequestSentModal'
 import { ValidationModal } from './components/ValidationModal'
 import { SubmitButton } from './components/SubmitButton'
+import { useKeyboard } from 'hooks/useKeyboard'
 
 export type RequestDataTypes = {
   description: string
@@ -34,11 +35,14 @@ export type RequestDataTypes = {
 type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>
 type RequestVacationProps = ModalNavigationProps<'REQUEST_VACATION'>
 
+const INPUT_HEIGHT = 60
+
 const RequestVacation = ({ route }: RequestVacationProps) => {
   const { t } = useTranslation('requestVacation')
   const { userSettings } = useUserSettingsContext()
   const { showModal } = useModalContext()
   const { mutate, isLoading } = useCreateDayOffRequest()
+  const { keyboardHeight } = useKeyboard()
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
   const wasSubmitEventTriggered = useRef(false)
   const { goBack, navigate } = useNavigation<AppNavigationType<'REQUEST_VACATION'>>()
@@ -122,7 +126,10 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   }
 
   return (
-    <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" enableOnAndroid>
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="handled"
+      enableOnAndroid
+      extraHeight={keyboardHeight - INPUT_HEIGHT}>
       <SwipeableScreen
         swipeWithIndicator
         bg="dashboardBackground"
