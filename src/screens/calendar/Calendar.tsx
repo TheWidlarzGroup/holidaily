@@ -27,6 +27,7 @@ import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullVal
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { AnimatedBox } from 'components/AnimatedBox'
 import { FlashList } from '@shopify/flash-list'
+import { LoadingModal } from 'components/LoadingModal'
 import { getISODateString } from 'utils/dates'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
@@ -305,6 +306,8 @@ export const Calendar = () => {
 
     return requestsFilteredByCategory || []
   }
+
+  if (currentMonthDays.length < 1) return <LoadingModal show />
 
   return (
     <SafeAreaWrapper edges={['left', 'right', 'bottom', 'top']} isDefaultBgColor>
