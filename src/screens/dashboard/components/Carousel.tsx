@@ -20,14 +20,12 @@ type FlatListItem = {
 export const Carousel = () => {
   const { usersWithoutPastReq } = useTeamsContext()
   const { t } = useTranslation('dashboard')
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [modalUser, setModalUser] = useState<User>()
+  const [modalUser, setModalUser] = useState<User | null>(null)
   const openModal = (user: User) => {
     setModalUser(user)
     Analytics().track('DASHBOARD_CAROUSEL_OPENED', {
       profileName: `${user.firstName} ${user.lastName}`,
     })
-    setIsModalVisible(true)
   }
   const displayDay = (user: User) => {
     const { endDate, startDate } = user.requests[0]
@@ -77,8 +75,8 @@ export const Carousel = () => {
       )}
       {modalUser && (
         <TeamMemberModal
-          isOpen={isModalVisible}
-          onHide={() => setIsModalVisible(false)}
+          isOpen={!!modalUser}
+          onHide={() => setModalUser(null)}
           modalUser={modalUser}
         />
       )}
