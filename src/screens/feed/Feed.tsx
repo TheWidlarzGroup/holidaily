@@ -174,14 +174,12 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const handleGoBack = () => {
     if (wasNavigatedFromNotifications) {
       navigation.navigate('NOTIFICATIONS')
-    } else {
-      navigation.openDrawer()
     }
   }
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-      <GestureRecognizer onSwipeRight={handleGoBack}>
+      <GestureRecognizer onSwipeRight={handleGoBack} iosOnly>
         <FlashList
           ref={flatListRef}
           onLoad={() => setWasFlashListLoaded(true)}
@@ -202,26 +200,24 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout
         />
-        <OptionsModal
-          options={modalOptions}
-          isOpen={isOptionsModalOpen}
-          onHide={closeOptionsModal}
-          onSwipeComplete={() => setEditTarget(null)}
-          onBackdropPress={() => setEditTarget(null)}
-          backdropColor="transparent"
-        />
-        <MessageInputModal
-          messageContent={
-            editTarget?.type === 'comment' && editTarget?.text ? editTarget?.text : ''
-          }
-          setMessageContent={handleSetMessageContent}
-          visible={isMessageInputOpen}
-          onSubmitEditing={closeMessageInput}
-          onRequestClose={closeMessageInput}
-          handleEditComment={onCommentEdit}
-          autofocus
-        />
       </GestureRecognizer>
+      <OptionsModal
+        options={modalOptions}
+        isOpen={isOptionsModalOpen}
+        onHide={closeOptionsModal}
+        onSwipeComplete={() => setEditTarget(null)}
+        onBackdropPress={() => setEditTarget(null)}
+        backdropColor="transparent"
+      />
+      <MessageInputModal
+        messageContent={editTarget?.type === 'comment' && editTarget?.text ? editTarget?.text : ''}
+        setMessageContent={handleSetMessageContent}
+        visible={isMessageInputOpen}
+        onSubmitEditing={closeMessageInput}
+        onRequestClose={closeMessageInput}
+        handleEditComment={onCommentEdit}
+        autofocus
+      />
     </SafeAreaWrapper>
   )
 }
