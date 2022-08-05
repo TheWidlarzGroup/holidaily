@@ -9,10 +9,9 @@ import { formatDate } from 'utils/formatDate'
 import { useFetchNotifications } from 'dataAccess/queries/useFetchNotifications'
 import { getCurrentLocale } from 'utils/locale'
 import { makeUserDetails } from 'utils/userDetails'
-import Animated, { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
+import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { NotificationsBell } from './NotificationsBell'
-
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 
 export const DashboardHeader = () => {
   const { t } = useTranslation('dashboard')
@@ -31,32 +30,30 @@ export const DashboardHeader = () => {
     return data.notifications.filter((n) => !n.wasSeenByHolder).length
   }, [data])
   return (
-    <Box marginVertical="m" flexDirection="row" justifyContent="space-between" alignItems="center">
-      <Box flexDirection="row" alignItems="center" justifyContent="flex-start">
-        <BaseOpacity
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-          position="absolute"
-          zIndex="10">
-          <AnimatedBox
-            style={animatedBoxStyle}
-            bg="white"
-            padding="s"
-            paddingLeft="m"
-            borderTopRightRadius="lplus"
-            borderBottomRightRadius="lplus">
-            <Avatar size="m" src={user?.photo} userDetails={makeUserDetails(user)} />
-          </AnimatedBox>
-        </BaseOpacity>
-        <Box alignItems="center" flex={1}>
-          <Text variant="textXS" color="titleActive" lineHeight={16}>
-            {t('today')}
-          </Text>
-          <Text variant="textBoldMD" color="black" lineHeight={21}>
-            {date}
-          </Text>
-        </Box>
-        <NotificationsBell unseenCount={unseenCount} />
+    <Box marginVertical="m" flexDirection="row" alignItems="center">
+      <BaseOpacity
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        position="absolute"
+        zIndex="10">
+        <AnimatedBox
+          style={animatedBoxStyle}
+          bg="white"
+          padding="s"
+          paddingLeft="m"
+          borderTopRightRadius="lplus"
+          borderBottomRightRadius="lplus">
+          <Avatar size="m" src={user?.photo} userDetails={makeUserDetails(user)} />
+        </AnimatedBox>
+      </BaseOpacity>
+      <Box alignItems="center" flex={1}>
+        <Text variant="textXS" color="titleActive" lineHeight={16}>
+          {t('today')}
+        </Text>
+        <Text variant="textBoldMD" color="black" lineHeight={21}>
+          {date}
+        </Text>
       </Box>
+      <NotificationsBell unseenCount={unseenCount} />
     </Box>
   )
 }

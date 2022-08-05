@@ -1,7 +1,7 @@
-import React, { ReactNode, useState, useEffect, useLayoutEffect } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Appearance } from 'react-native'
 import { getItem, setItem } from 'utils/localStorage'
-import { UserSettingsContextProps, UserSettings, UserSettingsContext } from './UserSettingsContext'
+import { UserSettings, UserSettingsContext, UserSettingsContextProps } from './UserSettingsContext'
 
 type ProviderProps = {
   children: ReactNode
@@ -21,10 +21,6 @@ export const UserSettingsContextProvider = ({ children }: ProviderProps) => {
       prevSettings ? { ...prevSettings, ...newData } : { ...defaultUserSettings, ...newData }
     )
   }
-
-  useLayoutEffect(() => {
-    updateSettings({ pickedDate: new Date() })
-  }, [])
 
   useEffect(() => {
     const getItemFn = async () => {

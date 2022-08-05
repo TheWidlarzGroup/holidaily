@@ -1,11 +1,13 @@
 import React from 'react'
-import { displayDDMonYYYY } from 'utils/functions'
 
 import { Box, Text } from 'utils/theme'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
+import { getReversedDateWithShortMonthString } from 'utils/dates'
 
 export const FeedPostHeaderInfo = ({ post }: { post: FeedPost }) => {
-  const formattedDate = post.createdAt ? displayDDMonYYYY(new Date(post.createdAt)) : ''
+  const formattedDate = post.createdAt
+    ? getReversedDateWithShortMonthString(new Date(post.createdAt))
+    : ''
 
   return (
     <Box flexGrow={1} paddingHorizontal="xs" flex={1} justifyContent="space-evenly">

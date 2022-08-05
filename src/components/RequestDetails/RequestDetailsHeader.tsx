@@ -24,8 +24,9 @@ export const RequestDetailsHeader = (p: RequestDetailsHeaderProps) => {
         <>
           <Box marginVertical="s">
             <Text variant="textSM" lineHeight={21}>
-              {getFormattedPeriod(p.startDate, p.endDate)}{' '}
               {new Date(p.endDate ?? p.startDate).getFullYear()}
+              {', '}
+              {getFormattedPeriod(p.startDate, p.endDate)}
             </Text>
           </Box>
           <Text variant="textBoldXS">
