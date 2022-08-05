@@ -3,7 +3,10 @@ import { createContext } from 'react'
 export type UserSettings = {
   darkMode?: boolean
   hasUserSeenCalendar?: boolean
-  pickedDate?: Date
+  pickedDate?: {
+    startDate?: Date
+    endDate?: Date
+  }
 }
 
 export type UserSettingsContextProps = {

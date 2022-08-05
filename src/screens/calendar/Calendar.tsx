@@ -28,6 +28,7 @@ import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { AnimatedBox } from 'components/AnimatedBox'
 import { FlashList } from '@shopify/flash-list'
 import { LoadingModal } from 'components/LoadingModal'
+import { getISODateString } from 'utils/dates'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
@@ -62,7 +63,7 @@ export const Calendar = () => {
   const route = useRoute<RouteProp<CalendarRoutes, 'CALENDAR'>>()
   const [switchCalendarHeight, setSwitchCalendarHeight] = useState(true)
   const prevScreen: PrevScreen = route.params?.prevScreen
-  const { userSettings } = useUserSettingsContext()
+  const { userSettings, updateSettings } = useUserSettingsContext()
   const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
 
   const offset = useSharedValue(0)
@@ -70,7 +71,7 @@ export const Calendar = () => {
   const [inputWasFocused, { setTrue: setInputWasFocused }] = useBooleanState(false)
   const [wasDateChangePressed, { setTrue: setWasDateChangePressed }] = useBooleanState(false)
 
-  const { selectedDate, setSelectedDate, currentMonthDays, requestsDays } = useCalendarData()
+  const { selectedDate, currentMonthDays, requestsDays } = useCalendarData()
 
   const { periodStart, periodEnd, handleSetPeriodStart, handleSetPeriodEnd } = useCalendarContext()
 
@@ -89,12 +90,6 @@ export const Calendar = () => {
 
   const scrollToIndex = (index: number) =>
     flatListRef.current?.scrollToIndex({ index, animated: true })
-
-  useEffect(() => {
-    const pickedDate = userSettings?.pickedDate
-    if (pickedDate !== selectedDate && pickedDate) setSelectedDate(pickedDate)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const isPeriodStartLowerThanRequestsDate = useMemo(() => {
     const periodStartTimestamp = new Date(periodStart)?.getTime()
@@ -128,6 +123,13 @@ export const Calendar = () => {
   )
 
   useEffect(() => {
+    const pickedDate = userSettings?.pickedDate
+    if (pickedDate) {
+      if (pickedDate.startDate)
+        handleSetPeriodStart(getISODateString(pickedDate.startDate.toISOString()))
+      if (pickedDate.endDate) handleSetPeriodEnd(getISODateString(pickedDate.endDate.toISOString()))
+    }
+
     handleSetPreviousEvent()
     // we want to set previous event only once, on initial render
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -258,6 +260,11 @@ export const Calendar = () => {
       setSlicedRequest([])
       notify('infoCustom', notificationConfig)
     } else handleSetEventsInPeriod(startIndex)
+
+    if (startDate) updateSettings({ pickedDate: { startDate: new Date(startDate) } })
+    if (endDate) updateSettings({ pickedDate: { endDate: new Date(endDate) } })
+    if (startDate && endDate)
+      updateSettings({ pickedDate: { startDate: new Date(startDate), endDate: new Date(endDate) } })
 
     setWasDateChangePressed()
     handleSetPreviousEvent()
