@@ -11,9 +11,8 @@ type GestureRecognizerProps = {
   onSwipeRight?: F0
   onSwipeUp?: F0
   onSwipeDown?: F0
-  onFailed?: F0
-  androidOnly?: true
-  iosOnly?: true
+  androidOnly?: boolean
+  iosOnly?: boolean
   style?: ViewStyle
 }
 
@@ -23,7 +22,6 @@ export const GestureRecognizer = ({
   onSwipeRight,
   onSwipeUp,
   onSwipeDown,
-  onFailed,
   androidOnly,
   iosOnly,
   style,
@@ -58,8 +56,7 @@ export const GestureRecognizer = ({
     <PanGestureHandler
       onBegan={onTouchStart}
       onEnded={isIos ? undefined : onTouchMove}
-      onActivated={isIos ? onTouchMove : undefined}
-      onFailed={onFailed}>
+      onActivated={isIos ? onTouchMove : undefined}>
       <Animated.View style={[{ flex: 1 }, style]}>{children}</Animated.View>
     </PanGestureHandler>
   )

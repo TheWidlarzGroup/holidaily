@@ -9,6 +9,7 @@ import { StatusBar } from 'react-native'
 import { Analytics } from 'services/analytics'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { isIos } from 'utils/layout'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
@@ -28,7 +29,7 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
   useEffect(() => {
     const parent = navigation.getParent()?.getParent()
 
-    if (prevScreen && ['NOTIFICATIONS'].includes(prevScreen)) {
+    if (prevScreen === 'NOTIFICATIONS') {
       parent?.setOptions({ swipeEnabled: false })
     }
   }, [navigation, prevScreen])
@@ -54,7 +55,9 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <GestureRecognizer onSwipeRight={goBack} androidOnly>
+      <GestureRecognizer
+        onSwipeRight={goBack}
+        androidOnly={prevScreen === 'STATS_AND_REQUESTS' && isIos}>
         <RequestDetails {...p} showStatus wasSent />
       </GestureRecognizer>
     </SafeAreaWrapper>
