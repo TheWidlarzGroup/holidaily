@@ -9,7 +9,6 @@ import { Text } from 'utils/theme'
 import { Analytics } from 'services/analytics'
 import { FlashList } from '@shopify/flash-list'
 import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
-import { useSortAllHolidayRequests } from 'utils/useSortAllHolidayRequests'
 import { TeamMemberModal } from '../DashboardTeam'
 
 const CAROUSEL_ITEM_WIDTH = 94.2
@@ -19,8 +18,8 @@ type FlatListItem = {
 }
 
 export const Carousel = () => {
+  const { usersWithoutPastReq } = useTeamsContext()
   const { t } = useTranslation('dashboard')
-  const { allUsers } = useTeamsContext()
   const [modalUser, setModalUser] = useState<User | null>(null)
   const openModal = (user: User) => {
     setModalUser(user)
@@ -36,8 +35,7 @@ export const Carousel = () => {
     return user.isOnHoliday ? formatDayoffDate(endDate) : formatDayoffDate(startDate)
   }
 
-  const { sortedRequests } = useSortAllHolidayRequests()
-  const first20Users = useMemo(() => sortedRequests.slice(0, 20), [sortedRequests])
+  const first20Users = useMemo(() => usersWithoutPastReq.slice(0, 20), [usersWithoutPastReq])
 
   const renderItem = ({ item: user }: FlatListItem) => (
     <TouchableOpacity activeOpacity={1} onPress={() => openModal(user)}>
@@ -65,7 +63,7 @@ export const Carousel = () => {
         paddingTop="m">
         {t('bookedHolidays').toUpperCase()}
       </Text>
-      {allUsers.length > 0 && (
+      {usersWithoutPastReq.length > 0 && (
         <FlashList
           data={first20Users}
           horizontal

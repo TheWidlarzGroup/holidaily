@@ -111,6 +111,11 @@ export type RequestsNavigationProps<RouteName extends keyof RequestsRoutes> = {
   route: RouteProp<RequestsRoutes, RouteName>
 }
 
+export type CalendarNavigatorType<RouteName extends keyof CalendarRoutes> = CompositeNavigationProp<
+  StackNavigationProp<CalendarRoutes, RouteName>,
+  StackNavigationProp<BottomTabRoutes, 'CALENDAR_NAVIGATION'>
+>
+
 export type AppRoutes = ModalRoutes
 export type ModalRoutes = {
   REQUEST_VACATION?: {
@@ -125,11 +130,12 @@ export type ModalRoutes = {
   SUBSCRIBE_NEW_TEAM: undefined
   PRIVACY_POLICY: undefined
   CREATE_POST_NAVIGATION: undefined
+  CALENDAR_MODAL: undefined
 }
 
 export type BottomTabRoutes = {
   DashboardNavigation: NestedNavigatorParams<DashboardRoutes>
-  CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
+  CALENDAR_NAVIGATION: { prevScreen?: 'NOTIFICATIONS' } | undefined
   RequestModal: undefined
   NOTIFICATIONS: undefined
   CREATE_POST_NAVIGATION?: {
@@ -202,4 +208,9 @@ export type ForgotPasswordRoutes = {
 export type AdminPanelEmployeesRoutes = {
   Employees: undefined
   InviteMembers: undefined
+}
+
+export type CalendarRoutes = {
+  CALENDAR: { prevScreen?: 'NOTIFICATIONS' } | undefined
+  CALENDAR_MODAL: undefined
 }
