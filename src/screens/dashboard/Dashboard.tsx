@@ -22,11 +22,9 @@ export const Dashboard = () => {
   }, [openSuccessModal])
 
   return (
-    <>
-      <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
-        <DashboardHeader />
-        <SortableTeams />
-      </SafeAreaWrapper>
+    <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
+      <DashboardHeader />
+      <SortableTeams />
       <SwipeableModalRegular
         hasIndicator
         style={teamsModalStyle}
@@ -34,7 +32,7 @@ export const Dashboard = () => {
         onHide={closeSuccessModal}>
         <TeamsModal closeModal={closeSuccessModal} />
       </SwipeableModalRegular>
-    </>
+    </SafeAreaWrapper>
   )
 }
 
