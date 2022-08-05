@@ -18,6 +18,9 @@ type NavigationType = RequestsNavigatorType<'STATS_AND_REQUESTS'> & typeof Drawe
 
 export const StatsAndRequests = () => {
   const { isLoading, data: stats } = useFetchUserStats()
+
+  console.log('xx', JSON.stringify(stats, null, 2))
+
   const { t } = useTranslation('stats')
   const { user } = useUserContext()
   const navigation = useNavigation<NavigationType>()
