@@ -12,6 +12,7 @@ export const palette = {
   grayscaleOpaque: 'rgba(213, 215, 224, 0.3)',
   grayscale50SemiOpaque: 'rgba(252, 252, 252, 0.8)',
   grayscale700Opaque: 'rgba(51, 58, 85, 0.12)',
+  grayscale800Opaque: 'rgba(19, 25, 46, 0.5)',
   grayscale900SemiOpaque: 'rgba(0, 5, 21, 0.85)',
   primary700: 'rgba(220, 98, 10, 1)',
   primary500: 'rgba(255, 142, 60, 1)',
@@ -59,6 +60,7 @@ export const palette = {
     'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.13) 31.77%, rgba(0, 0, 0, 0.08) 100%)',
   contextMenu: 'rgba(237, 237, 237, 0.9)',
   contextMenuBorder: 'rgba(106, 113, 141, 0.9)',
+  whiteSemiOpaque: 'rgba(255, 255, 255, 0.5)',
 }
 
 export const colors = {
@@ -149,6 +151,10 @@ export const colors = {
   loadingModalBackdrop: palette.grayscale50SemiOpaque,
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale700Opaque,
+  calendarOlderEvents: palette.whiteSemiOpaque,
+  clearInputIcon: palette.grayscale300,
+  disabledButtonBg: palette.secondary300,
+  disabledAcceptIcon: palette.grayscale200,
   drawerBackground: palette.grayscale50,
 }
 
@@ -240,5 +246,9 @@ export const darkThemeColors = {
   loadingModalBackdrop: palette.grayscale900SemiOpaque,
   infoModalGray: palette.grayscale300,
   modalShadow: palette.grayscale900SemiOpaque,
+  calendarOlderEvents: palette.grayscale800Opaque,
+  clearInputIcon: palette.grayscale500,
+  disabledButtonBg: palette.grayscale800,
+  disabledAcceptIcon: palette.grayscale700,
   drawerBackground: palette.grayscale900,
 }

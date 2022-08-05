@@ -29,6 +29,8 @@ type CustomCalendarProps = {
   onHeaderPressed?: F0
   isInvalid?: boolean
   disablePastDates?: boolean
+  pastScrollRange?: number
+  futureScrollRange?: number
 }
 
 export const CalendarList = ({
@@ -62,13 +64,14 @@ export const CalendarList = ({
 
   return (
     <NewCalendarList
-      pastScrollRange={0}
-      futureScrollRange={24}
+      pastScrollRange={p.pastScrollRange || 0}
+      futureScrollRange={p.futureScrollRange || 24}
       firstDay={1}
-      hideExtraDays
       hideArrows
       theme={calendarTheme}
-      dayComponent={CalendarDayComponent}
+      dayComponent={(props: NewDayComponentProps) => (
+        <CalendarDayComponent {...props} disablePastDates={p.disablePastDates} />
+      )}
       markingType="period"
       onDayPress={handleClick}
       renderHeader={renderHeader}
@@ -121,8 +124,9 @@ const mkCalendarTheme = (
 })
 
 const renderHeader = (date: Date) => <CalendarHeader date={date} />
+
 const CalendarDayComponent = React.memo(
-  (props: NewDayComponentProps & { marking: MarkedDateType }) => {
+  (props: NewDayComponentProps & { marking: MarkedDateType; disablePastDates?: boolean }) => {
     const isPastDate = !isToday(props.date.timestamp) && isPast(props.date.timestamp)
     const { validPeriodStyles, invalidPeriodStyles } = useCalendarPeriodStyles()
     return (
@@ -132,7 +136,7 @@ const CalendarDayComponent = React.memo(
         dayWidth={37}
         marking={{
           ...(props.marking ?? {}),
-          disabled: isPastDate || props.marking?.disabled,
+          disabled: (isPastDate || props.marking?.disabled) && props?.disablePastDates,
         }}
         ignoreDarkMode
         styles={props.marking?.isInvalid ? invalidPeriodStyles : validPeriodStyles}

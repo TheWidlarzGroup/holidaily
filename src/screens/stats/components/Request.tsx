@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DayOffRequest } from 'mockApi/models'
 import { Box, Text } from 'utils/theme'
-import { getDateWithShortMonthString, getFormattedPeriod, isDateBetween } from 'utils/dates'
+import {
+  getReversedDateWithShortMonthString,
+  isDateBetween,
+  getReversedFormattedPeriod,
+} from 'utils/dates'
 import { Additional, AdditionalsIcons } from './AdditionalsIcons'
 import { StatusIcon } from './StatusIcon'
 
@@ -61,12 +65,12 @@ export const Request = (p: DayOffRequest) => {
           {p.description || t('requestVacation:timeOffDescriptionPlaceholder')}
         </Text>
         <Text variant="textSM" color="blackBrighter" lineHeight={21} marginBottom="xm">
-          {getFormattedPeriod(p.startDate, p.endDate, 'shortMonths')}
+          {getReversedFormattedPeriod(p.startDate, p.endDate, 'shortMonths')}
         </Text>
         <Box flexDirection="row" justifyContent="space-between">
           <AdditionalsIcons additionals={additionals} />
           <Text variant="displayXS" color="darkGreyBrighter">
-            {`${t('stats:sent')}: ${getDateWithShortMonthString(p.createdAt)}`}
+            {`${t('stats:sent')}: ${getReversedDateWithShortMonthString(p.createdAt)}`}
           </Text>
         </Box>
       </Box>

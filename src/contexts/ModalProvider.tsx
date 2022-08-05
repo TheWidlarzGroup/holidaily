@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useState } from 'react'
 
 type ContextValue = {
   isModalVisible: boolean
@@ -21,20 +21,18 @@ export const ModalContext = createContext<ContextValue>(initialValues)
 export const useModalContext = () => useContext(ModalContext)
 
 export const ModalProvider = ({ children }: ContextProviderProps) => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [modalContent, setModalContent] = useState<ReactNode>(null)
 
   const showModal = (content: ReactNode) => {
-    setIsModalVisible(!isModalVisible)
     setModalContent(content)
   }
   const hideModal = () => {
-    setIsModalVisible(!isModalVisible)
     setModalContent(null)
   }
 
   return (
-    <ModalContext.Provider value={{ isModalVisible, showModal, hideModal, modalContent }}>
+    <ModalContext.Provider
+      value={{ isModalVisible: !!modalContent, showModal, hideModal, modalContent }}>
       {modalContent}
       {children}
     </ModalContext.Provider>

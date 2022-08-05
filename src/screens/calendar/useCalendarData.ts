@@ -1,20 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getISODateString, parseISO } from 'utils/dates'
 import { useRequestsContext } from 'hooks/context-hooks/useRequestsContext'
-import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
-import { getNextMonthRequests } from 'utils/getNextMonthRequests'
-import { getFirstRequestsOfMonth } from 'utils/dayOffUtils'
 import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
-import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { DayInfoProps } from '../../types/DayInfoProps'
+import { DayInfoProps } from 'types/DayInfoProps'
 import { useTeamCategories } from './useTeamCategories'
 
 export const useCalendarData = () => {
   const [selectedDate, setSelectedDateState] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
-  const { updateSettings } = useUserSettingsContext()
-  const { filterCategories } = useTeamCategories()
+  const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
   const { requests } = useRequestsContext()
 
   const convertToLocalDate = (date: string) => {
@@ -26,7 +21,6 @@ export const useCalendarData = () => {
 
   const setSelectedDate = (date: Date) => {
     const localDate = convertToLocalDate(getISODateString(date))
-    updateSettings({ pickedDate: localDate })
     setSelectedDateState(localDate)
   }
 
@@ -52,27 +46,13 @@ export const useCalendarData = () => {
         days: eachDayOfMonth.map((day) => ({ date: getISODateString(day) })),
       }
     }
-    let bothMonthsRequests: HolidayRequestMonthType = {
+    const singleMonthRequests: HolidayRequestMonthType = {
       date: currentMonthRequests.date,
       days: currentMonthRequests.days,
     }
 
-    if (doesMonthInCalendarHasSixRows(selectedDate)) {
-      const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
-      const fewRequestsOfNextMonth = nextMonthRequests
-        ? getFirstRequestsOfMonth(nextMonthRequests)
-        : []
-
-      const currentMonthRequestsDays = currentMonthRequests?.days
-
-      bothMonthsRequests = {
-        ...bothMonthsRequests,
-        days: [...currentMonthRequestsDays, ...fewRequestsOfNextMonth],
-      }
-    }
-
-    if (bothMonthsRequests) {
-      const newCurrentMonthDays = bothMonthsRequests.days.map((day) => {
+    if (singleMonthRequests) {
+      const newCurrentMonthDays = singleMonthRequests.days.map((day) => {
         if (day.weekend || !day.events) return day
         return {
           ...day,
@@ -86,9 +66,18 @@ export const useCalendarData = () => {
     } else setCurrentMonthDays([])
   }, [filterCategories, requests, selectedDate])
 
+  const sortedRequests = useMemo(
+    () => requests?.sort((a, b) => new Date(a?.date).getTime() - new Date(b?.date).getTime()),
+    [requests]
+  )
+
+  const requestsDays = sortedRequests.flatMap((a) => a?.days?.map((b) => b))
+
   return {
     selectedDate,
     setSelectedDate,
     currentMonthDays,
+    requestsDays,
+    toggleFilterItemSelection,
   }
 }
