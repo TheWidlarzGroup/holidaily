@@ -5,77 +5,77 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.000609">
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.000506">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: ensure_git_branch" time="0.028457">
+      <testcase classname="fastlane.lanes" name="01: ensure_git_branch" time="0.025605">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: install_dependencies" time="1.601619">
+      <testcase classname="fastlane.lanes" name="02: install_dependencies" time="1.807001">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: Switch to ios build lane" time="0.000438">
+      <testcase classname="fastlane.lanes" name="03: Switch to ios build lane" time="0.000391">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: cocoapods" time="24.781334">
+      <testcase classname="fastlane.lanes" name="04: cocoapods" time="28.193463">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: Switch to ios connect_to_app_store lane" time="0.000802">
+      <testcase classname="fastlane.lanes" name="05: Switch to ios connect_to_app_store lane" time="0.001434">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: app_store_connect_api_key" time="0.00814">
+      <testcase classname="fastlane.lanes" name="06: app_store_connect_api_key" time="0.044497">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: Switch to ios bump_version_package lane" time="0.000463">
+      <testcase classname="fastlane.lanes" name="07: Switch to ios bump_version_package lane" time="0.000353">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: npm version patch --no-git-tag-version" time="0.471487">
+      <testcase classname="fastlane.lanes" name="08: npm version patch --no-git-tag-version" time="0.464051">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: Switch to ios update_version lane" time="0.000494">
+      <testcase classname="fastlane.lanes" name="09: Switch to ios update_version lane" time="0.001109">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: load_json" time="0.001362">
+      <testcase classname="fastlane.lanes" name="10: load_json" time="0.005037">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: increment_build_number" time="2.028503">
+      <testcase classname="fastlane.lanes" name="11: increment_build_number" time="2.019198">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: increment_version_number" time="1.076545">
+      <testcase classname="fastlane.lanes" name="12: increment_version_number" time="1.618981">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="13: gym" time="520.504941">
+      <testcase classname="fastlane.lanes" name="13: gym" time="661.714505">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="14: upload_to_testflight" time="134.488345">
+      <testcase classname="fastlane.lanes" name="14: upload_to_testflight" time="137.811472">
         
       </testcase>
     
