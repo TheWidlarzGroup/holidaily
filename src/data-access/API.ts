@@ -2,12 +2,9 @@ import { AddComment, AddReaction, EditComment, FeedPost } from 'mockApi/models/m
 
 export const API = {
   GET: {
-    allUsers: '/api/users',
-    user: (id: string) => `api/users/${id}`,
     getOrganization: '/api/organization',
     notifications: '/api/notifications',
     getPosts: '/api/posts',
-    userRequests: '/api/requests',
     userStats: '/api/stats',
   },
   POST: {
