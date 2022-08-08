@@ -170,10 +170,7 @@ export const EditProfile = () => {
           <ProfilePicture onDelete={onDeletePicture} control={control} name="photo" />
           <ProfileDetails {...user} errors={errors} control={control} hasValueChanged={isDirty} />
           <TeamSubscriptions />
-          <ProfileColor
-            onUpdate={onUpdate}
-            animationStatus={{ animationIsTriggered, animationNotTriggered }}
-          />
+          <ProfileColor animationStatus={{ animationIsTriggered, animationNotTriggered }} />
           <Box height={getBottomOffset()} />
         </ScrollView>
         <ActionModal

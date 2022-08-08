@@ -196,7 +196,7 @@ export type UserProfileRoutes = {
   EDIT_PROFILE: undefined
   CHANGE_PASSWORD: undefined
   RECOVERY: undefined
-  COLOR_PICKER: { onChange: F1<string>; value: string }
+  COLOR_PICKER: undefined
 }
 
 export type ForgotPasswordRoutes = {
