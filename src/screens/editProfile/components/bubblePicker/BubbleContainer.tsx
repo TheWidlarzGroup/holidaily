@@ -4,8 +4,8 @@ import { shadow } from 'utils/theme/shadows'
 import { windowWidth } from 'utils/deviceSizes'
 import { useTranslation } from 'react-i18next'
 import { AnimatedBox } from 'components/AnimatedBox'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Analytics } from 'services/analytics'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
@@ -24,7 +24,7 @@ export const BubbleContainer = () => {
 
   useEffect(() => {
     if (dropColor !== theme.colors.colorPickerDropArea) {
-      updateUser({ userColor: dropColor })
+      updateUser({ userColor: dropColor }, { updateTeamsData: false })
       Analytics().track('USER_COLOR_PICKED', { color: dropColor })
     }
   }, [dropColor, theme.colors.colorPickerDropArea, updateUser])
