@@ -39,14 +39,12 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const { reset: clearUserCache } = useCreateTempUser()
 
   const updateUser = useCallback(
-    (
-      newData: Partial<User> | null,
-      config: { updateTeamsData?: boolean } = { updateTeamsData: true }
-    ) => {
+    (newData: Partial<User> | null, config?: { updateTeamsData: boolean }) => {
       setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
       // Comment: if updateTeamsData is false, useEffect below that updates teams in user.teams will not trigger
       // this update is reduntant in some cases and causes error
-      if (config.updateTeamsData) updateRef.current = true
+      if (config?.updateTeamsData === false) return
+      updateRef.current = true
     },
     []
   )
