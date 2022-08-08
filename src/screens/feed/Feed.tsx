@@ -4,7 +4,6 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
-import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
 import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
@@ -23,6 +22,7 @@ import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
+import data from '../../data-access/mockedPosts.json'
 
 const ESTIMATED_POST_HEIGHT = 746
 
@@ -31,7 +31,6 @@ type NavigationHookType = BottomTabNavigationType<'FEED'> & typeof DrawerActions
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
   const { notify } = useGetNotificationsConfig()
-  const { data } = useGetPostsData()
   const navigation = useNavigation<NavigationHookType>()
   const { t } = useTranslation('feed')
   const { user } = useUserContext()
