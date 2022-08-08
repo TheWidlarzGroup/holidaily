@@ -4,7 +4,10 @@ import { useGetOrganization } from 'dataAccess/queries/useOrganizationData'
 import { getUsersWithoutDuplicates } from 'utils/getUsersWithoutDuplicates'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { sortUsersByHolidayDate } from 'utils/sortByDate'
+import { queryClient } from 'dataAccess/queryClient'
+import { QueryKeys } from 'dataAccess/QueryKeys'
 import { TeamsContext, TeamsContextProps } from './TeamsContext'
+import orgData from '../data-access/mockedOrg.json'
 
 type TeamsProviderProps = {
   children: ReactNode
@@ -12,6 +15,7 @@ type TeamsProviderProps = {
 
 export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const { data } = useGetOrganization()
+  queryClient.setQueryData([QueryKeys.ORGANIZATION], orgData)
   const { user } = useUserContext()
   const [teams, setTeams] = useState<Team[]>(data?.teams || [])
   const [allUsers, setAllUsers] = useState<User[]>([])
@@ -29,7 +33,7 @@ export const TeamsContextProvider = ({ children }: TeamsProviderProps) => {
   const reset = () => setTeams(data?.teams || [])
 
   useEffect(() => {
-    if (data) setTeams(data?.teams)
+    if (orgData) setTeams(orgData?.teams)
   }, [data])
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { Organization } from 'mock-api/models/mirageTypes'
 import { QueryKeys } from 'dataAccess/QueryKeys'
 import { API } from 'dataAccess/API'
 
-export const getOrganization = async () => {
+const getOrganization = async () => {
   const response = await axios.get(API.GET.getOrganization)
   return response.data.organizations[0]
 }

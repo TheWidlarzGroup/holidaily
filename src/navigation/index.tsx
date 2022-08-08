@@ -5,7 +5,7 @@ import { mkUseStyles, Theme } from 'utils/theme'
 import SplashScreen from 'react-native-splash-screen'
 import { sleep } from 'utils/sleep'
 import { getItem } from 'utils/localStorage'
-import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
+import { PostTempUserBody } from 'dataAccess/mutations/useCreateTempUser'
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { Analytics } from 'services/analytics'
@@ -25,7 +25,7 @@ export const AppNavigation = () => {
   // COMMENT: types in navigationRef could be <NavigationContainerRef> probably, needs research
 
   const { user, updateUser } = useUserContext()
-  const { mutate: createTempUser, isSuccess: isTempUserCreated } = useCreateTempUser()
+  const isTempUserCreated = true
   const [loginStatus, setLoginStatus] = useState<LoginStatusTypes>('FirstVisit')
   const isFirstRender = useRef(true)
   const initTeams = useInitDemoUserTeams()
@@ -67,11 +67,11 @@ export const AppNavigation = () => {
         if (occupation) userData.occupation = occupation
         if (photo) userData.photo = photo
         if (userColor) userData.userColor = userColor
-        createTempUser(userData, { onSuccess: (data) => updateUser(data.user) })
+        // createTempUser(userData, { onSuccess: (data) => updateUser(data.user) })
       } else return setLoginStatus('FirstVisit')
     }
     checkLoginStatus()
-  }, [updateUser, isTempUserCreated, createTempUser, init])
+  }, [updateUser, isTempUserCreated, init])
 
   const navigatorTheme = {
     dark: isDarkTheme,

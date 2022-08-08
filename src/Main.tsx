@@ -13,9 +13,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
-import { initBackendMocks } from './mock-api/server'
 
-initBackendMocks()
+// initBackendMocks()
 export const Main = () => {
   const { userSettings } = useUserSettingsContext()
   const currentTheme = userSettings?.darkMode ? darkTheme : theme

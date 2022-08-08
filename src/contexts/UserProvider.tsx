@@ -16,7 +16,7 @@ type ProviderProps = {
   children: ReactNode
 }
 
-const defaultUser: User = {
+export const defaultUser: User = {
   id: '',
   firstName: '',
   lastName: '',
@@ -34,7 +34,7 @@ const defaultUser: User = {
 }
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<User | null>(defaultUser)
   const updateRef = useRef(false)
 
   const { reset: clearUserCache } = useCreateTempUser()
