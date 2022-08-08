@@ -2,7 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { mkUseStyles, Theme, theme } from 'utils/theme'
+import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Feed } from 'screens/feed/Feed'
 import { useDrawerProgress } from '@react-navigation/drawer'
@@ -63,37 +63,39 @@ export const BottomTabNavigator = () => {
   return (
     <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.outerSafeArea}>
       <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
-        <Tab.Navigator
-          tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
-          screenOptions={{ headerShown: false }}>
-          <Tab.Screen
-            name="DashboardNavigation"
-            options={{ unmountOnBlur: true }}
-            component={DashboardNavigation}
-          />
-          <Tab.Screen
-            name="CALENDAR_NAVIGATION"
-            component={CalendarNavigation}
-            options={{ unmountOnBlur: true }}
-          />
-          <Tab.Screen name="RequestModal" component={EmptyComponent} />
-          <Tab.Screen
-            name="Stats"
-            component={RequestsNavigation}
-            options={{ unmountOnBlur: true }}
-          />
-          <Tab.Screen name="FEED" component={Feed} />
-        </Tab.Navigator>
-        {/* Comment: Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
-        {isCalendarModalScreen ? null : (
-          <AnimatedBox
-            position="absolute"
-            backgroundColor="dashboardBackground"
-            height={safeAreaInsets.top}
-            width="100%"
-            style={animatedTopBoxStyle}
-          />
-        )}
+        <Box style={styles.boxShadow}>
+          <Tab.Navigator
+            tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
+            screenOptions={{ headerShown: false }}>
+            <Tab.Screen
+              name="DashboardNavigation"
+              options={{ unmountOnBlur: true }}
+              component={DashboardNavigation}
+            />
+            <Tab.Screen
+              name="CALENDAR_NAVIGATION"
+              component={CalendarNavigation}
+              options={{ unmountOnBlur: true }}
+            />
+            <Tab.Screen name="RequestModal" component={EmptyComponent} />
+            <Tab.Screen
+              name="Stats"
+              component={RequestsNavigation}
+              options={{ unmountOnBlur: true }}
+            />
+            <Tab.Screen name="FEED" component={Feed} />
+          </Tab.Navigator>
+          {/* Comment: Box below covers different color of top edge of SafeAreaView, as it's not possible to add different color on top than bottom */}
+          {isCalendarModalScreen ? null : (
+            <AnimatedBox
+              position="absolute"
+              backgroundColor="dashboardBackground"
+              height={safeAreaInsets.top}
+              width="100%"
+              style={animatedTopBoxStyle}
+            />
+          )}
+        </Box>
       </AnimatedBox>
     </SafeAreaView>
   )
@@ -113,10 +115,18 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     overflow: 'hidden',
   },
   animatedBox: {
-    shadowOffset: { width: 1, height: 2 },
-    shadowColor: theme.colors.black,
+    flex: 1,
     shadowRadius: 8,
+    borderRadius: OPEN_DRAWER_SCREEN_BORDER,
+  },
+  boxShadow: {
     flex: 1,
     borderRadius: OPEN_DRAWER_SCREEN_BORDER,
+    shadowOffset: { width: 0, height: 5 },
+    shadowColor: theme.colors.black,
+    elevation: 5,
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    overflow: 'hidden',
   },
 }))
