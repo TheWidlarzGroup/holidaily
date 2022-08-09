@@ -315,7 +315,7 @@ export const Calendar = () => {
         filterCategories={filterCategories}
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
-      <GestureRecognizer onSwipeRight={handleSwipeRight}>
+      <GestureRecognizer onSwipeRight={handleSwipeRight} iosOnly>
         <Box paddingHorizontal="m">
           <DateInputs
             onIconPress={() => navigation.navigate('CALENDAR_MODAL')}

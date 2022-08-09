@@ -55,7 +55,7 @@ export const StatsAndRequests = () => {
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['bottom']}>
-      <GestureRecognizer onSwipeRight={handleSwipeRight}>
+      <GestureRecognizer onSwipeRight={handleSwipeRight} iosOnly>
         <SectionList
           stickySectionHeadersEnabled={false}
           ListHeaderComponent={<Stats stats={stats} />}
