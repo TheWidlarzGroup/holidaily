@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Box, Text, useTheme } from 'utils/theme'
 import { TouchableOpacity } from 'react-native'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -19,14 +19,24 @@ export const Notifications = () => {
   const { t } = useTranslation('notifications')
   const { isLoading, data } = useFetchNotifications()
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     navigation.navigate('DRAWER_NAVIGATOR', {
       screen: 'Home',
       params: {
         screen: 'DashboardNavigation',
       },
     })
-  }
+  }, [navigation])
+
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', (e) => {
+        if (e.data.action.type === 'NAVIGATE') return
+        e.preventDefault()
+        handleBack()
+      }),
+    [handleBack, navigation]
+  )
 
   useBackHandler(() => {
     handleBack()
