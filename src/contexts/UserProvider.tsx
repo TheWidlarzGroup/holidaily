@@ -36,37 +36,22 @@ const defaultUser: User = {
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
   const updateRef = useRef(false)
-
   const { reset: clearUserCache } = useCreateTempUser()
-  const updateUser = useCallback((newData: Partial<User> | null) => {
-    setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
-    updateRef.current = true
-  }, [])
-  const handleLogout = async () => {
-    setUser(null)
-    delete axios.defaults.headers.common.userId
-    clearUserCache()
-    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
-    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
-    queryClient.invalidateQueries(QueryKeys.USER_STATS)
-    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
-    queryClient.invalidateQueries(QueryKeys.POSTS)
-    await removeMany([
-      'userId',
-      'firstName',
-      'lastName',
-      'occupation',
-      'photo',
-      'userColor',
-      'seenNotificationsIds',
-      'seenTeamsModal',
-      'draftPost',
-    ])
-  }
+
+  const updateUser = useCallback(
+    (newData: Partial<User> | null, config?: { updateTeamsData: boolean }) => {
+      setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
+      // Comment: if updateTeamsData is false, useEffect below that updates teams in user.teams will not trigger
+      // this update is reduntant in some cases and causes error
+      if (config?.updateTeamsData === false) return
+      updateRef.current = true
+    },
+    []
+  )
 
   useEffect(() => {
-    // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
-    // So developer has to remember to add him wherever he needs to show him in teams.
+    // Comment: Demo user has teams, but he is not a member of these teams in UserProvider.
+    // So code below updates user.teams, everytime updateUser function is triggered
     if (!user || !(user.teams.length > 0) || !updateRef.current) return
 
     const teamsWithUser = user.teams.map((team) => {
@@ -100,6 +85,28 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       }
     }
   }, [user])
+
+  const handleLogout = async () => {
+    setUser(null)
+    delete axios.defaults.headers.common.userId
+    clearUserCache()
+    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
+    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
+    queryClient.invalidateQueries(QueryKeys.USER_STATS)
+    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
+    queryClient.invalidateQueries(QueryKeys.POSTS)
+    await removeMany([
+      'userId',
+      'firstName',
+      'lastName',
+      'occupation',
+      'photo',
+      'userColor',
+      'seenNotificationsIds',
+      'seenTeamsModal',
+      'draftPost',
+    ])
+  }
 
   const value: ContextProps = {
     user,

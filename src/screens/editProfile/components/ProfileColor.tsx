@@ -7,7 +7,6 @@ import { Controller } from 'react-hook-form'
 import { UserProfileType } from 'navigation/types'
 import { useTeamMocks } from 'utils/mocks/teamsMocks'
 import { useEditUser } from 'dataAccess/mutations/useEditUser'
-import { Analytics } from 'services/analytics'
 import {
   ProfileColorProps,
   ProfileColorViewProps,
@@ -39,13 +38,7 @@ const ProfileColorView = (p: ProfileColorViewProps) => {
 
   const animationEndsAction = () => {
     if (isTouchDisabled) return
-    navigation.navigate('COLOR_PICKER', {
-      onChange: (value) => {
-        p.onChange(value)
-        Analytics().track('USER_COLOR_PICKED', { color: value })
-      },
-      value: p.value,
-    })
+    navigation.navigate('COLOR_PICKER')
   }
 
   return (
