@@ -6,7 +6,7 @@ type GenerateInputErrorsTypes = {
   name: string
   passwordsAreEqual?: boolean
   screenName?: string
-  t: TFunction<'inputErrors'>
+  t: TFunction<'userProfile'>
 }
 
 export const generateInputErrors = ({
