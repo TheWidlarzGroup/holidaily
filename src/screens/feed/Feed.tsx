@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { palette } from 'utils/theme/colors'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -196,7 +197,11 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           )}
           keyExtractor={(post) => post.id}
           extraData={[language, editTarget]}
-          contentContainerStyle={{ paddingBottom: 90, paddingTop: 22 }}
+          contentContainerStyle={{
+            paddingBottom: 90,
+            backgroundColor: palette.grayscale100,
+            paddingTop: 22,
+          }}
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout
         />
