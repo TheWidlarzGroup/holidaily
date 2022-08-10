@@ -197,7 +197,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           )}
           keyExtractor={(post) => post.id}
           extraData={[language, editTarget]}
-          contentContainerStyle={{ paddingBottom: 90, backgroundColor: palette.grayscale100 }}
+          contentContainerStyle={{ paddingBottom: 90, backgroundColor: palette.grayscale100, paddingTop: 22 }}
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout
         />
