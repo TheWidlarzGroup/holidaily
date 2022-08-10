@@ -4,10 +4,10 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 
 global.__reanimatedWorkletInit = jest.fn()
+global.ReanimatedDataMock = { now: () => 0 }
+require('react-native-reanimated/lib/reanimated2/jestUtils').setUpTests()
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
-
-require('react-native-reanimated/lib/reanimated2/jestUtils').setUpTests()
 
 jest.mock('poland-public-holidays', () => ({
   __esModule: true,
@@ -25,3 +25,9 @@ jest.mock('@shopify/restyle', () => {
   RealModule.createRestyleComponent = (f, c) => c || RN.View
   return RealModule
 })
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => key,
+  }),
+}))
