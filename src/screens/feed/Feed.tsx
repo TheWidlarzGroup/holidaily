@@ -23,6 +23,7 @@ import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
+import { palette } from 'utils/theme/colors'
 
 const ESTIMATED_POST_HEIGHT = 746
 
@@ -196,7 +197,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           )}
           keyExtractor={(post) => post.id}
           extraData={[language, editTarget]}
-          contentContainerStyle={{ paddingBottom: 90 }}
+          contentContainerStyle={{ paddingBottom: 90, backgroundColor: palette.grayscale100 }}
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout
         />
