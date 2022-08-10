@@ -11,9 +11,9 @@ import { useTranslation } from 'react-i18next'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
 import { Analytics } from 'services/analytics'
 import { useKeyboard } from 'hooks/useKeyboard'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useCreateDayOffRequest } from 'dataAccess/mutations/useCreateDayoffRequest'
 import { AttachmentDataType } from 'mockApi/models'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { RequestVacationHeader } from './components/RequestVacationHeader'
 import {
   RequestVacationData,
@@ -39,7 +39,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
   const { t } = useTranslation('requestVacation')
   const { userSettings } = useUserSettingsContext()
   const { showModal } = useModalContext()
-  const { keyboardHeight } = useKeyboard()
+  const { keyboardOpen } = useKeyboard()
   const { mutate, isLoading } = useCreateDayOffRequest()
   const [requestSent, { setTrue: markRequestAsSent }] = useBooleanState(false)
   const wasSubmitEventTriggered = useRef(false)
@@ -135,7 +135,7 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         content: t('discardRequestContent'),
       }}>
       <RequestVacationHeader />
-      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" extraHeight={keyboardHeight}>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" style={{ flex: 1 }}>
         <RequestVacationSteps
           changeRequestData={changeRequestData}
           removeAttachment={removeAttachment}
@@ -143,13 +143,15 @@ const RequestVacation = ({ route }: RequestVacationProps) => {
         />
         <BadStateController />
       </KeyboardAwareScrollView>
-      <SubmitButton
-        onPress={onSubmit}
-        handleValidation={handleSubmitValidation}
-        isDisabled={!startDate}
-        isLoading={isLoading}
-        step={step}
-      />
+      {!keyboardOpen && (
+        <SubmitButton
+          onPress={onSubmit}
+          handleValidation={handleSubmitValidation}
+          isDisabled={!startDate}
+          isLoading={isLoading}
+          step={step}
+        />
+      )}
       <ValidationModal />
     </SwipeableScreen>
   )
