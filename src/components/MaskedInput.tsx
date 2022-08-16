@@ -56,7 +56,7 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
         {...p}
       />
       {p?.reset && p?.value && p?.value.length > 0 && isFocused ? (
-        <BaseOpacity position="absolute" right={15} onPress={p?.reset}>
+        <BaseOpacity position="absolute" right={10} onPress={p?.reset}>
           <DeleteIcon width={20} height={20} color={styles.deleteIcon.color} />
         </BaseOpacity>
       ) : null}
