@@ -151,7 +151,7 @@ export const Calendar = () => {
 
   const clearDatesInputs = () => {
     handleSetPeriodStart('')
-    handleSetPeriodEnd('')
+    handleSetPeriodEnd(' ')
     setSlicedRequest([])
     handleSetPreviousEvent()
   }
