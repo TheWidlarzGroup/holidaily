@@ -3,5 +3,4 @@ export const minOneSignRegex = /.{1,}$/i
 export const minOneWordRegex = /^(\w+).+/i
 export const minTwoWordsRegex = /^(\w+\s).+/i
 export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
-export const onlyLettersRegex2 = /^[A-Za-z\s]+$/
 export const onlyLettersRegex = /^[^-\s][a-zA-Z_\s-]+$/
