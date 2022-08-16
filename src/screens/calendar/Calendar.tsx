@@ -66,6 +66,8 @@ export const Calendar = () => {
   const { userSettings, updateSettings } = useUserSettingsContext()
   const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
 
+  const [inputErrors, setInputErrors] = useState({ startDateError: false, endDateError: false })
+
   const offset = useSharedValue(0)
 
   const [inputWasFocused, { setTrue: setInputWasFocused }] = useBooleanState(false)
@@ -261,6 +263,17 @@ export const Calendar = () => {
       notify('infoCustom', notificationConfig)
     } else handleSetEventsInPeriod(startIndex)
 
+    const { year: startYear, month: startMonth, day: startDay } = getSlicedDate(periodStart)
+    const { year: endYear, month: endMonth, day: endDay } = getSlicedDate(periodEnd)
+    const actualYear = new Date().getFullYear()
+
+    if (actualYear - +startYear > 3 || +startMonth > 12 || +startDay > 31)
+      setInputErrors((prev) => ({ ...prev, startDateError: true }))
+    else setInputErrors((prev) => ({ ...prev, startDateError: false }))
+    if (actualYear - +endYear < -3 || +endMonth > 12 || +endDay > 31)
+      setInputErrors((prev) => ({ ...prev, endDateError: true }))
+    else setInputErrors((prev) => ({ ...prev, endDateError: false }))
+
     if (startDate) updateSettings({ pickedDate: { startDate: new Date(startDate) } })
     if (endDate) updateSettings({ pickedDate: { endDate: new Date(endDate) } })
     if (startDate && endDate)
@@ -324,6 +337,7 @@ export const Calendar = () => {
             handleSetPeriodStart={handleSetPeriodStart}
             handleSetPeriodEnd={handleSetPeriodEnd}
             setInputWasFocused={setInputWasFocused}
+            inputErrors={inputErrors}
           />
         </Box>
         {showEmptyState ? (
@@ -359,7 +373,7 @@ export const Calendar = () => {
             </AnimatedBox>
           </Box>
         )}
-        <Box paddingHorizontal="s" position="absolute" top="12%" width="100%">
+        <Box paddingHorizontal="s" position="absolute" top="16%" width="100%">
           <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
             {inputWasFocused || periodEnd || periodStart ? (
               <Box
