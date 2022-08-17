@@ -38,16 +38,10 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const updateRef = useRef(false)
   const { reset: clearUserCache } = useCreateTempUser()
 
-  const updateUser = useCallback(
-    (newData: Partial<User> | null, config?: { updateTeamsData: boolean }) => {
-      setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
-      // Comment: if updateTeamsData is false, useEffect below that updates teams in user.teams will not trigger
-      // this update is reduntant in some cases and causes error
-      if (config?.updateTeamsData === false) return
-      updateRef.current = true
-    },
-    []
-  )
+  const updateUser = useCallback((newData: Partial<User> | null) => {
+    setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
+    updateRef.current = true
+  }, [])
 
   useEffect(() => {
     // Comment: Demo user has teams, but he is not a member of these teams in UserProvider.
