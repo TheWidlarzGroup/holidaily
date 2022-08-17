@@ -65,6 +65,7 @@ export const Calendar = () => {
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings, updateSettings } = useUserSettingsContext()
   const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
+  usePrevScreenBackHandler(prevScreen)
 
   const [inputErrors, setInputErrors] = useState({ startDateError: false, endDateError: false })
 
@@ -82,8 +83,6 @@ export const Calendar = () => {
   const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
 
   const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
-
-  usePrevScreenBackHandler(prevScreen)
 
   const showEmptyState =
     (periodStart || periodEnd) &&
@@ -156,6 +155,7 @@ export const Calendar = () => {
     handleSetPeriodEnd('')
     setSlicedRequest([])
     handleSetPreviousEvent()
+    setInputErrors({ startDateError: false, endDateError: false })
   }
 
   useEffect(() => {
@@ -239,8 +239,6 @@ export const Calendar = () => {
   }
 
   const handleSetDatePress = () => {
-    let startIndex = 0
-
     const { startDate, endDate } = adjustStartEndDates()
 
     const notificationConfig = {
@@ -254,6 +252,21 @@ export const Calendar = () => {
       return setSlicedRequest([])
     }
 
+    const { year: startYear, month: startMonth, day: startDay } = getSlicedDate(periodStart)
+    const { year: endYear, month: endMonth, day: endDay } = getSlicedDate(periodEnd)
+    const actualYear = new Date().getFullYear()
+
+    const isStartDateError =
+      +startYear > 0 && (actualYear - +startYear > 3 || +startMonth > 12 || +startDay > 31)
+    const isEndDateError =
+      +endYear > 0 && (actualYear - +endYear < -3 || +endMonth > 12 || +endDay > 31)
+
+    setInputErrors({ startDateError: isStartDateError, endDateError: isEndDateError })
+
+    if (inputErrors.startDateError || inputErrors.endDateError) return
+
+    let startIndex = 0
+
     if (!startDate) startIndex = requestsDays.findIndex((a) => a.date === today)
     else if (isPeriodStartLowerThanRequestsDate && !endDate) startIndex = 0
     else startIndex = requestsDays.findIndex((a) => a.date === startDate)
@@ -262,17 +275,6 @@ export const Calendar = () => {
       setSlicedRequest([])
       notify('infoCustom', notificationConfig)
     } else handleSetEventsInPeriod(startIndex)
-
-    const { year: startYear, month: startMonth, day: startDay } = getSlicedDate(periodStart)
-    const { year: endYear, month: endMonth, day: endDay } = getSlicedDate(periodEnd)
-    const actualYear = new Date().getFullYear()
-
-    if (actualYear - +startYear > 3 || +startMonth > 12 || +startDay > 31)
-      setInputErrors((prev) => ({ ...prev, startDateError: true }))
-    else setInputErrors((prev) => ({ ...prev, startDateError: false }))
-    if (actualYear - +endYear < -3 || +endMonth > 12 || +endDay > 31)
-      setInputErrors((prev) => ({ ...prev, endDateError: true }))
-    else setInputErrors((prev) => ({ ...prev, endDateError: false }))
 
     if (startDate) updateSettings({ pickedDate: { startDate: new Date(startDate) } })
     if (endDate) updateSettings({ pickedDate: { endDate: new Date(endDate) } })

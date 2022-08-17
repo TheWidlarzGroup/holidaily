@@ -20,11 +20,9 @@ type Props = {
 export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
   const styles = useStyles()
   const { t } = useTranslation('calendar')
-
   const [isFocused, setIsFocused] = useState(false)
 
   const focusOpacity = useSharedValue(0)
-
   const progressStyle = useAnimatedStyle(() => ({
     borderWidth: withTiming(focusOpacity.value, {
       duration: 300,
@@ -32,8 +30,8 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
   }))
 
   useEffect(() => {
-    focusOpacity.value = isFocused ? 0.8 : 0
-  }, [focusOpacity, isFocused])
+    focusOpacity.value = isFocused || p.isError ? 0.8 : 0
+  }, [focusOpacity, isFocused, p.isError])
 
   const handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     p?.onBlur?.(e)
@@ -77,7 +75,7 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
       </AnimatedBox>
       <Box height={20}>
         {p.isError && (
-          <Text paddingVertical="xs" paddingLeft="xxm" variant="inputLabel" color="errorBrighter">
+          <Text paddingVertical="xs" paddingLeft="s" variant="inputLabel" color="errorBrighter">
             {t('enterValidYear')}
           </Text>
         )}
@@ -103,6 +101,7 @@ const useStyles = mkUseStyles((theme) => ({
   errorBorder: {
     borderStyle: 'solid',
     borderColor: theme.colors.errorBrighter,
+    borderWidth: 1,
   },
   input: {
     color: theme.colors.black,
