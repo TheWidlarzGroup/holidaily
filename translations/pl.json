@@ -425,6 +425,9 @@
     "emptyStateNotificationTitle": "Brak urlopów do wyświetlenia.",
     "endOfEventsList": "Dotarleś do końca listy",
     "emptyScreenTitle": "Brak urlopów do wyświetlenia.",
-    "emptyScreenSubtitle": "Wybierz wcześniejsze daty lub przesuń w dół."
+    "emptyScreenSubtitle": "Wybierz wcześniejsze daty lub przesuń w dół.",
+    "enterValidYear": "Wpisz prawidłową datę",
+    "dateFrom": "Data od",
+    "dateTo": "Data do"
   }
 }
