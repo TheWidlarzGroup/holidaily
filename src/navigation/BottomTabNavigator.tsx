@@ -5,7 +5,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
 import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
 import { Feed } from 'screens/feed/Feed'
-import { useDrawerProgress } from '@react-navigation/drawer'
+import { useDrawerProgress, useDrawerStatus } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
 import { isIos } from 'utils/layout'
 import { AnimatedBox } from 'components/AnimatedBox'
@@ -30,6 +30,7 @@ const OPEN_DRAWER_SCREEN_BORDER = theme.borderRadii.l
 
 export const BottomTabNavigator = () => {
   const progress = useDrawerProgress() as Readonly<SharedValue<number>>
+  const isDrawerOpen = useDrawerStatus() === 'open'
   const { width } = useDimensions()
   const safeAreaInsets = useSafeAreaInsets()
 
@@ -60,10 +61,12 @@ export const BottomTabNavigator = () => {
 
   const isCalendarModalScreen = activeRouteName === 'CALENDAR_MODAL'
 
+  const containerBorderRadius = { borderRadius: isDrawerOpen ? OPEN_DRAWER_SCREEN_BORDER : 0 }
+
   return (
     <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.outerSafeArea}>
       <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
-        <Box style={styles.boxShadow}>
+        <Box style={[styles.boxShadow, containerBorderRadius]}>
           <Tab.Navigator
             tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
             screenOptions={{ headerShown: false }}>
@@ -121,8 +124,8 @@ const useStyles = mkUseStyles((theme: Theme) => ({
   },
   boxShadow: {
     flex: 1,
-    borderRadius: OPEN_DRAWER_SCREEN_BORDER,
     shadowOffset: { width: 0, height: 5 },
+    borderRadius: OPEN_DRAWER_SCREEN_BORDER,
     shadowColor: theme.colors.black,
     elevation: 5,
     shadowOpacity: 0.5,
