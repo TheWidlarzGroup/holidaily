@@ -15,6 +15,7 @@ interface Props {
   periodEnd: string
   handleSetPeriodEnd: F1<string>
   setInputWasFocused: F0
+  inputErrors: { startDateError: boolean; endDateError: boolean }
 }
 
 const handleOnChangeSwitch = (e: string, setDate: any) => {
@@ -78,11 +79,8 @@ export const DateInputs = (p: Props) => {
   const { t } = useTranslation('calendar')
 
   const handleOnChange = (type: 'from' | 'to') => (e: string) => {
-    if (type === 'from') {
-      handleOnChangeSwitch(e, p.handleSetPeriodStart)
-    } else {
-      handleOnChangeSwitch(e, p.handleSetPeriodEnd)
-    }
+    if (type === 'from') handleOnChangeSwitch(e, p.handleSetPeriodStart)
+    else handleOnChangeSwitch(e, p.handleSetPeriodEnd)
   }
 
   const handleReset = (type: 'from' | 'to') => {
@@ -90,11 +88,15 @@ export const DateInputs = (p: Props) => {
   }
 
   return (
-    <Box flexDirection="row" marginTop="xmm" alignItems="center" paddingHorizontal="m">
-      <Box flex={1} height={40}>
+    <Box
+      flexDirection="row"
+      marginTop="xxs"
+      alignItems="center"
+      justifyContent="center"
+      paddingHorizontal="m">
+      <Box flex={1} height={80}>
         <MaskedInput
           handleOnChange={handleOnChange('from')}
-          onFocus={p.setInputWasFocused}
           value={p.periodStart}
           mask={mask}
           maxLength={10}
@@ -103,10 +105,12 @@ export const DateInputs = (p: Props) => {
           obfuscationCharacter="-"
           showObfuscatedValue
           reset={() => handleReset('from')}
+          isError={p.inputErrors.startDateError}
+          inputLabel={t('dateFrom')}
         />
       </Box>
 
-      <Box flex={1} marginLeft="xmm" height={40}>
+      <Box flex={1} marginLeft="xmm" height={80}>
         <MaskedInput
           handleOnChange={handleOnChange('to')}
           value={p.periodEnd}
@@ -117,12 +121,15 @@ export const DateInputs = (p: Props) => {
           obfuscationCharacter="-"
           showObfuscatedValue
           reset={() => handleReset('to')}
+          isError={p.inputErrors.endDateError}
+          inputLabel={t('dateTo')}
         />
       </Box>
-
-      <CalendarButton onIconPress={p.onIconPress}>
-        <CalendarIcon color={theme.colors.headerGrey} />
-      </CalendarButton>
+      <Box paddingTop="m" height={80} marginBottom="-m">
+        <CalendarButton onIconPress={p.onIconPress}>
+          <CalendarIcon color={theme.colors.headerGrey} />
+        </CalendarButton>
+      </Box>
     </Box>
   )
 }

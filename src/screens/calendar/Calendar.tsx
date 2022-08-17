@@ -66,6 +66,9 @@ export const Calendar = () => {
   const prevScreen: PrevScreen = route.params?.prevScreen
   const { userSettings, updateSettings } = useUserSettingsContext()
   const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
+  usePrevScreenBackHandler(prevScreen)
+
+  const [inputErrors, setInputErrors] = useState({ startDateError: false, endDateError: false })
 
   const offset = useSharedValue(0)
 
@@ -81,8 +84,6 @@ export const Calendar = () => {
   const [singlePreviousEvent, setSinglePreviousEvent] = useState<DayOffEvent | null>(null)
 
   const disableSetDateButton = periodStart?.length < 9 && periodEnd?.length < 9
-
-  usePrevScreenBackHandler(prevScreen)
 
   const showEmptyState =
     (periodStart || periodEnd) &&
@@ -152,10 +153,11 @@ export const Calendar = () => {
 
   const clearDatesInputs = () => {
     handleSetPeriodStart('')
-    handleSetPeriodEnd('')
+    handleSetPeriodEnd(' ')
     setSlicedRequest([])
     handleSetPreviousEvent()
     Keyboard.dismiss()
+    setInputErrors({ startDateError: false, endDateError: false })
   }
 
   useEffect(() => {
@@ -239,7 +241,6 @@ export const Calendar = () => {
   }
 
   const handleSetDatePress = () => {
-    let startIndex = 0
     const { startDate, endDate } = adjustStartEndDates()
 
     const notificationConfig = {
@@ -254,6 +255,21 @@ export const Calendar = () => {
       setWasDateChangePressed()
       return setSlicedRequest([])
     }
+
+    const { year: startYear, month: startMonth, day: startDay } = getSlicedDate(periodStart)
+    const { year: endYear, month: endMonth, day: endDay } = getSlicedDate(periodEnd)
+    const actualYear = new Date().getFullYear()
+
+    const isStartDateError =
+      +startYear > 0 && (actualYear - +startYear > 3 || +startMonth > 12 || +startDay > 31)
+    const isEndDateError =
+      +endYear > 0 && (actualYear - +endYear < -3 || +endMonth > 12 || +endDay > 31)
+
+    setInputErrors({ startDateError: isStartDateError, endDateError: isEndDateError })
+
+    if (inputErrors.startDateError || inputErrors.endDateError) return
+
+    let startIndex = 0
 
     if (!startDate) startIndex = requestsDays.findIndex((a) => a.date === today)
     else if (isPeriodStartLowerThanRequestsDate && !endDate) startIndex = 0
@@ -327,6 +343,7 @@ export const Calendar = () => {
           handleSetPeriodStart={handleSetPeriodStart}
           handleSetPeriodEnd={handleSetPeriodEnd}
           setInputWasFocused={setInputWasFocused}
+          inputErrors={inputErrors}
         />
         {showEmptyState ? (
           <Box marginTop="xxxxl" alignItems="center">
@@ -365,7 +382,7 @@ export const Calendar = () => {
         )}
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <Box paddingHorizontal="s" position="absolute" top="12%" width="100%">
+          <Box paddingHorizontal="s" position="absolute" top="16%" width="100%">
             <Box
               borderRadius="lmin"
               backgroundColor="calendarOlderEvents"

@@ -22,6 +22,7 @@ import { useAddPostWithNewId, useDeletePost } from 'dataAccess/mutations/useAddP
 import { FlashList } from '@shopify/flash-list'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
+import { isIos } from 'utils/layout'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -200,7 +201,7 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           contentContainerStyle={{
             paddingBottom: 90,
             backgroundColor: palette.grayscale100,
-            paddingTop: 22,
+            paddingTop: isIos ? 36 : 22,
           }}
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout

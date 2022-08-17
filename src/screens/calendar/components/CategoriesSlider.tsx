@@ -27,7 +27,7 @@ export const CategoriesSlider = (props: Props) => {
   }
 
   return (
-    <Box paddingTop="l" marginLeft="-s">
+    <Box paddingTop="xxm" marginLeft="-s">
       <FlatList
         horizontal
         data={props?.filterCategories}
