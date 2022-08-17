@@ -121,15 +121,11 @@ const useStyles = mkUseStyles((theme: Theme) => ({
     flex: 1,
     shadowRadius: 8,
     borderRadius: OPEN_DRAWER_SCREEN_BORDER,
+    shadowColor: theme.colors.drawerShadow,
   },
   boxShadow: {
     flex: 1,
-    shadowOffset: { width: 0, height: 5 },
     borderRadius: OPEN_DRAWER_SCREEN_BORDER,
-    shadowColor: theme.colors.black,
-    elevation: 5,
-    shadowOpacity: 0.5,
-    shadowRadius: 8,
     overflow: 'hidden',
   },
 }))
