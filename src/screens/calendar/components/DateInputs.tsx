@@ -88,7 +88,12 @@ export const DateInputs = (p: Props) => {
   }
 
   return (
-    <Box flexDirection="row" marginTop="xxs" alignItems="center" justifyContent="center">
+    <Box
+      flexDirection="row"
+      marginTop="xxs"
+      alignItems="center"
+      justifyContent="center"
+      paddingHorizontal="m">
       <Box flex={1} height={80}>
         <MaskedInput
           handleOnChange={handleOnChange('from')}

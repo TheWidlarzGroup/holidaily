@@ -29,6 +29,7 @@ import { AnimatedBox } from 'components/AnimatedBox'
 import { FlashList } from '@shopify/flash-list'
 import { LoadingModal } from 'components/LoadingModal'
 import { getISODateString } from 'utils/dates'
+import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { CalendarButton } from './components/CalendarButton'
 import { DayEvent, DayOffEvent } from './components/DayEvent'
 import { CategoriesSlider } from './components/CategoriesSlider'
@@ -155,6 +156,7 @@ export const Calendar = () => {
     handleSetPeriodEnd(' ')
     setSlicedRequest([])
     handleSetPreviousEvent()
+    Keyboard.dismiss()
     setInputErrors({ startDateError: false, endDateError: false })
   }
 
@@ -246,6 +248,8 @@ export const Calendar = () => {
       config: { duration: 5000 },
     }
 
+    Keyboard.dismiss()
+
     if (isEndDateLowerThanStartDate(startDate, endDate)) {
       notify('infoCustom', notificationConfig)
       setWasDateChangePressed()
@@ -330,18 +334,17 @@ export const Calendar = () => {
         filterCategories={filterCategories}
         toggleFilterItemSelection={toggleFilterItemSelection}
       />
+
       <GestureRecognizer onSwipeRight={handleSwipeRight} iosOnly>
-        <Box paddingHorizontal="m">
-          <DateInputs
-            onIconPress={() => navigation.navigate('CALENDAR_MODAL')}
-            periodStart={periodStart}
-            periodEnd={periodEnd}
-            handleSetPeriodStart={handleSetPeriodStart}
-            handleSetPeriodEnd={handleSetPeriodEnd}
-            setInputWasFocused={setInputWasFocused}
-            inputErrors={inputErrors}
-          />
-        </Box>
+        <DateInputs
+          onIconPress={() => navigation.navigate('CALENDAR_MODAL')}
+          periodStart={periodStart}
+          periodEnd={periodEnd}
+          handleSetPeriodStart={handleSetPeriodStart}
+          handleSetPeriodEnd={handleSetPeriodEnd}
+          setInputWasFocused={setInputWasFocused}
+          inputErrors={inputErrors}
+        />
         {showEmptyState ? (
           <Box marginTop="xxxxl" alignItems="center">
             <Text variant="textMD">{t('emptyScreenTitle')}</Text>
@@ -350,70 +353,78 @@ export const Calendar = () => {
             </Text>
           </Box>
         ) : (
-          <Box
-            backgroundColor="lightGrey"
-            flex={1}
-            borderRadius="l"
-            marginTop={singlePreviousEvent ? 'xxxl' : 'l'}
-            paddingTop="xxxl">
-            <AnimatedBox flex={1} style={animatedStyles}>
-              <Box paddingBottom="xm" justifyContent="center" alignItems="center">
-                <PanGestureHandler onGestureEvent={panGestureHandler}>
-                  <AnimatedBox style={styles.swipeDownRecognizer}>
-                    <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
-                    <SwipeDown style={styles.swipeDownIcon} />
-                  </AnimatedBox>
-                </PanGestureHandler>
-              </Box>
-              <EventsList
-                ref={flatListRef}
-                selectedDate={selectedDate}
-                days={getDaysFilteredByCategory()}
-                switchCalendarHeight={switchCalendarHeight}
-                setSwitchCalendarHeight={setSwitchCalendarHeight}
-              />
-            </AnimatedBox>
-          </Box>
-        )}
-        <Box paddingHorizontal="s" position="absolute" top="16%" width="100%">
-          <Box borderRadius="lmin" backgroundColor="calendarOlderEvents" paddingHorizontal="mlplus">
-            {inputWasFocused || periodEnd || periodStart ? (
-              <Box
-                flexDirection="row"
-                marginHorizontal="m"
-                position="absolute"
-                right={0}
-                top={5}
-                zIndex="2">
-                <CalendarButton onIconPress={clearDatesInputs}>
-                  <CloseIcon color={styles.closeIcon.color} />
-                </CalendarButton>
-                <CalendarButton
-                  onIconPress={handleSetDatePress}
-                  type="blue"
-                  disabled={disableSetDateButton}>
-                  <AcceptIcon
-                    color={
-                      !disableSetDateButton
-                        ? styles.acceptIcon.color
-                        : styles.acceptIconDisabled.color
-                    }
-                  />
-                </CalendarButton>
-              </Box>
-            ) : null}
-            <Box marginTop="m">
-              <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
-                {slicedRequests.length > 0 ? t('selectedTimeframe') : t('dayOffCalendar')}
-              </Text>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <Box
+              backgroundColor="lightGrey"
+              flex={1}
+              borderRadius="l"
+              marginTop={singlePreviousEvent ? 'xxxl' : 'l'}
+              paddingTop="xxxl">
+              <AnimatedBox flex={1} style={animatedStyles}>
+                <Box paddingBottom="xm" justifyContent="center" alignItems="center">
+                  <PanGestureHandler onGestureEvent={panGestureHandler}>
+                    <AnimatedBox style={styles.swipeDownRecognizer}>
+                      <Text variant="textXSGrey">{t('swipeDownToSeePrevious')}</Text>
+                      <SwipeDown style={styles.swipeDownIcon} />
+                    </AnimatedBox>
+                  </PanGestureHandler>
+                </Box>
+                <EventsList
+                  ref={flatListRef}
+                  selectedDate={selectedDate}
+                  days={getDaysFilteredByCategory()}
+                  switchCalendarHeight={switchCalendarHeight}
+                  setSwitchCalendarHeight={setSwitchCalendarHeight}
+                />
+              </AnimatedBox>
             </Box>
-            {singlePreviousEvent ? (
-              <Box opacity={showEmptyState ? 0 : 0.5} height={showEmptyState ? 0 : 'auto'}>
-                <DayEvent event={singlePreviousEvent} />
+          </TouchableWithoutFeedback>
+        )}
+
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <Box paddingHorizontal="s" position="absolute" top="16%" width="100%">
+            <Box
+              borderRadius="lmin"
+              backgroundColor="calendarOlderEvents"
+              paddingHorizontal="mlplus">
+              {inputWasFocused || periodEnd || periodStart ? (
+                <Box
+                  flexDirection="row"
+                  marginHorizontal="m"
+                  position="absolute"
+                  right={0}
+                  top={5}
+                  zIndex="2">
+                  <CalendarButton onIconPress={clearDatesInputs}>
+                    <CloseIcon color={styles.closeIcon.color} />
+                  </CalendarButton>
+                  <CalendarButton
+                    onIconPress={handleSetDatePress}
+                    type="blue"
+                    disabled={disableSetDateButton}>
+                    <AcceptIcon
+                      color={
+                        !disableSetDateButton
+                          ? styles.acceptIcon.color
+                          : styles.acceptIconDisabled.color
+                      }
+                    />
+                  </CalendarButton>
+                </Box>
+              ) : null}
+              <Box marginTop="m">
+                <Text marginBottom="m" textTransform="uppercase" variant="textBoldXSGrey">
+                  {slicedRequests.length > 0 ? t('selectedTimeframe') : t('dayOffCalendar')}
+                </Text>
               </Box>
-            ) : null}
+              {singlePreviousEvent ? (
+                <Box opacity={showEmptyState ? 0 : 0.5} height={showEmptyState ? 0 : 'auto'}>
+                  <DayEvent event={singlePreviousEvent} />
+                </Box>
+              ) : null}
+            </Box>
           </Box>
-        </Box>
+        </TouchableWithoutFeedback>
       </GestureRecognizer>
     </SafeAreaWrapper>
   )

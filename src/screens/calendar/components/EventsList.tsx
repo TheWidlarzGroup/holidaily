@@ -65,6 +65,7 @@ export const EventsList = forwardRef<FlashList<DayInfoProps>, EventsListProps>(
           onTouchEnd={handleTouch}
           onMomentumScrollEnd={handleScroll}
           contentContainerStyle={{ paddingBottom: 80 }}
+          keyboardShouldPersistTaps="handled"
         />
       </Box>
     )
