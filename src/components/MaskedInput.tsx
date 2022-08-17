@@ -101,7 +101,6 @@ const useStyles = mkUseStyles((theme) => ({
   errorBorder: {
     borderStyle: 'solid',
     borderColor: theme.colors.errorBrighter,
-    borderWidth: 1,
   },
   input: {
     color: theme.colors.black,
