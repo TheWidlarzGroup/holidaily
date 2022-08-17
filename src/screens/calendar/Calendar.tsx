@@ -152,7 +152,7 @@ export const Calendar = () => {
 
   const clearDatesInputs = () => {
     handleSetPeriodStart('')
-    handleSetPeriodEnd('')
+    handleSetPeriodEnd(' ')
     setSlicedRequest([])
     handleSetPreviousEvent()
     setInputErrors({ startDateError: false, endDateError: false })
