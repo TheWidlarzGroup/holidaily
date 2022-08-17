@@ -48,7 +48,7 @@ export const ExpandingText = ({ text, location, lines = 3, ...textProps }: Expan
   }, [height, initialNumOfLines, numOfLines, opacity, opened])
 
   const animatedStyle = useAnimatedStyle(() => ({
-    height: height.value,
+    height: height.value + 10,
   }))
 
   const numberOfChars = opened ? 999 : 130
