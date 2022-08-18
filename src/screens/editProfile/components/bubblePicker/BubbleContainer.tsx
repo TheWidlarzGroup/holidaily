@@ -24,7 +24,7 @@ export const BubbleContainer = () => {
 
   useEffect(() => {
     if (dropColor !== theme.colors.colorPickerDropArea) {
-      updateUser({ userColor: dropColor }, { updateTeamsData: false })
+      updateUser({ userColor: dropColor })
       Analytics().track('USER_COLOR_PICKED', { color: dropColor })
     }
   }, [dropColor, theme.colors.colorPickerDropArea, updateUser])
