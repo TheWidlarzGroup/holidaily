@@ -267,7 +267,7 @@ export const Calendar = () => {
 
     setInputErrors({ startDateError: isStartDateError, endDateError: isEndDateError })
 
-    if (inputErrors.startDateError || inputErrors.endDateError) return
+    if (isStartDateError || isEndDateError) return
 
     let startIndex = 0
 
