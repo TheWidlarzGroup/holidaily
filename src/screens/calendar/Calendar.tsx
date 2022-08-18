@@ -267,7 +267,7 @@ export const Calendar = () => {
 
     setInputErrors({ startDateError: isStartDateError, endDateError: isEndDateError })
 
-    if (inputErrors.startDateError || inputErrors.endDateError) return
+    if (isStartDateError || isEndDateError) return
 
     let startIndex = 0
 
@@ -382,7 +382,7 @@ export const Calendar = () => {
         )}
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <Box paddingHorizontal="s" position="absolute" top="16%" width="100%">
+          <Box paddingHorizontal="s" position="absolute" top="14.5%" width="100%">
             <Box
               borderRadius="lmin"
               backgroundColor="calendarOlderEvents"
