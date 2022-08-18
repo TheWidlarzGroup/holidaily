@@ -94,7 +94,7 @@ export const DateInputs = (p: Props) => {
       alignItems="center"
       justifyContent="center"
       paddingHorizontal="m">
-      <Box flex={1} height={80}>
+      <Box flex={1} height={69}>
         <MaskedInput
           handleOnChange={handleOnChange('from')}
           value={p.periodStart}
@@ -110,7 +110,7 @@ export const DateInputs = (p: Props) => {
         />
       </Box>
 
-      <Box flex={1} marginLeft="xmm" height={80}>
+      <Box flex={1} marginLeft="xmm" height={69}>
         <MaskedInput
           handleOnChange={handleOnChange('to')}
           value={p.periodEnd}
@@ -125,7 +125,7 @@ export const DateInputs = (p: Props) => {
           inputLabel={t('dateTo')}
         />
       </Box>
-      <Box paddingTop="m" height={80} marginBottom="-m">
+      <Box paddingTop="m" height={69} marginBottom="-m">
         <CalendarButton onIconPress={p.onIconPress}>
           <CalendarIcon color={theme.colors.headerGrey} />
         </CalendarButton>

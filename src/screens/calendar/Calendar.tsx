@@ -382,7 +382,7 @@ export const Calendar = () => {
         )}
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <Box paddingHorizontal="s" position="absolute" top="16%" width="100%">
+          <Box paddingHorizontal="s" position="absolute" top="14.5%" width="100%">
             <Box
               borderRadius="lmin"
               backgroundColor="calendarOlderEvents"
