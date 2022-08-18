@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { palette } from 'utils/theme/colors'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -23,6 +22,7 @@ import { FlashList } from '@shopify/flash-list'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
 import { isIos } from 'utils/layout'
+import { mkUseStyles, Theme } from 'utils/theme'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
 
@@ -32,6 +32,7 @@ type NavigationHookType = BottomTabNavigationType<'FEED'> & typeof DrawerActions
 
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
+  const styles = useStyles()
   const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
   const navigation = useNavigation<NavigationHookType>()
@@ -200,8 +201,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
           extraData={[language, editTarget]}
           contentContainerStyle={{
             paddingBottom: 90,
-            backgroundColor: palette.grayscale100,
             paddingTop: isIos ? 36 : 22,
+            backgroundColor: styles.background.color,
           }}
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout
@@ -227,3 +228,9 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     </SafeAreaWrapper>
   )
 }
+
+const useStyles = mkUseStyles((theme: Theme) => ({
+  background: {
+    color: theme.colors.dashboardBackground,
+  },
+}))

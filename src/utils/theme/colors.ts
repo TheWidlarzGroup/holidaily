@@ -155,7 +155,7 @@ export const colors = {
   clearInputIcon: palette.grayscale300,
   disabledButtonBg: palette.secondary300,
   disabledAcceptIcon: palette.grayscale200,
-  drawerBackground: palette.grayscale50,
+  drawerShadow: palette.grayscale800,
 }
 
 export const darkThemeColors = {
@@ -250,5 +250,5 @@ export const darkThemeColors = {
   clearInputIcon: palette.grayscale500,
   disabledButtonBg: palette.grayscale800,
   disabledAcceptIcon: palette.grayscale700,
-  drawerBackground: palette.grayscale900,
+  drawerShadow: palette.grayscale300,
 }
