@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
@@ -35,27 +35,11 @@ const defaultUser: User = {
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
-  const updateRef = useRef(false)
   const { reset: clearUserCache } = useCreateTempUser()
 
   const updateUser = useCallback((newData: Partial<User> | null) => {
     setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
-    updateRef.current = true
   }, [])
-
-  useEffect(() => {
-    // Comment: Demo user has teams, but he is not a member of these teams in UserProvider.
-    // So code below updates user.teams, everytime updateUser function is triggered
-    if (!user || !(user.teams.length > 0) || !updateRef.current) return
-
-    const teamsWithUser = user.teams.map((team) => {
-      const teamUsers = team.users.filter((usr) => usr.id !== user.id)
-      return { ...team, users: [...teamUsers, user] }
-    })
-
-    updateUser({ teams: teamsWithUser })
-    updateRef.current = false
-  }, [updateUser, user])
 
   useAsyncEffect(async () => {
     const cachedUserId = await getItem('userId')
