@@ -73,7 +73,7 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
           </BaseOpacity>
         ) : null}
       </AnimatedBox>
-      <Box height={20}>
+      <Box>
         {p.isError && (
           <Text paddingVertical="xs" paddingLeft="s" variant="inputLabel" color="errorBrighter">
             {t('enterValidYear')}
