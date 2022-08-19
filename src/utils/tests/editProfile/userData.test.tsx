@@ -54,39 +54,4 @@ describe('test user edit inputs', () => {
 
     expect(lastNameInput.props.value).not.toBe('Smith')
   })
-
-  it.skip('clear input when clear button is pressed', () => {
-    const screen = render(
-      <MockedNavigator stateChangeSpy={navigationSpy} component={EditProfile} />,
-      {
-        wrapper: MockGlobalProviders,
-      }
-    )
-
-    const firstNameInput = screen.getByPlaceholderText(t('firstNamePlaceholder'))
-    fireEvent.changeText(firstNameInput, 'John')
-    expect(firstNameInput.props.value).toBe('John')
-    const inputClearBtn = screen.queryByTestId('clear-text-icon')
-    if (inputClearBtn) fireEvent.press(inputClearBtn)
-    expect(firstNameInput.props.value).toBe('')
-    // const modalSaveButton = screen.getByText(t('saveChanges'))
-    // fireEvent.press(modalSaveButton)
-    // await screen.findByText(t('requiredField'))
-  })
-
-  it('should be able do unsubscribe the team', () => {
-    const { t: t2 } = useTranslation('confirmationModal')
-    const screen = render(
-      <MockedNavigator stateChangeSpy={navigationSpy} component={EditProfile} />,
-      {
-        wrapper: MockGlobalProviders,
-      }
-    )
-
-    const teamBtn = screen.queryByText('SmartSoft')
-    if (teamBtn) fireEvent.press(teamBtn)
-    const modalYesBtn = screen.queryByText(t2('yes'))
-    if (modalYesBtn) fireEvent.press(modalYesBtn)
-    screen.queryByText('SmartSoft')
-  })
 })
