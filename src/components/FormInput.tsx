@@ -47,7 +47,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     },
     ref
   ) => {
-    const { t } = useTranslation('inputErrors')
+    const { t } = useTranslation('userProfile')
     const errorOpacity = useSharedValue(0)
     const progressStyle = useAnimatedStyle(() => ({
       opacity: withTiming(errorOpacity.value, {

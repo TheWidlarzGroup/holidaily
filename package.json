@@ -101,6 +101,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "jest": "25.5.4",
+    "jest-svg-transformer": "^1.0.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^2.2.1",
     "react-native-flipper-performance-plugin": "^0.2.1",
@@ -111,6 +112,9 @@
     "@types/react": "^16"
   },
   "jest": {
+    "transform": {
+      "^.+\\.svg$": "jest-svg-transformer"
+    },
     "preset": "react-native",
     "transformIgnorePatterns": [],
     "moduleFileExtensions": [

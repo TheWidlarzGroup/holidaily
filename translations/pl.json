@@ -143,10 +143,6 @@
     "yes": "Wyloguj",
     "no": "Anuluj"
   },
-  "inputErrors": {
-    "requiredField": "To pole jest wymagane",
-    "passwordMatch": "Hasła muszą być identyczne"
-  },
   "navigation": {
     "logout": "Wyloguj",
     "home": "Strona Główna",
@@ -199,7 +195,9 @@
     "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
     "backToSelection": "Wróć do wyboru",
     "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
-    "search": "Wyszukaj"
+    "search": "Wyszukaj",
+    "requiredField": "To pole jest wymagane",
+    "passwordMatch": "Hasła muszą być identyczne"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",

@@ -1,16 +1,16 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import {
-  TextInput,
-  TouchableOpacity,
-  TextInputProps,
   NativeSyntheticEvent,
+  TextInput,
   TextInputFocusEventData,
+  TextInputProps,
+  TouchableOpacity,
 } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import DeleteIcon from 'assets/icons/icon-delete.svg'
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
-import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
+import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { InputEditIcon } from './InputEditIcon'
 
@@ -108,7 +108,7 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             />
 
             {reset && value && value.length > 0 && isFocused ? (
-              <BaseOpacity position="absolute" right={15} onPress={reset}>
+              <BaseOpacity position="absolute" right={15} onPress={reset} testID="clear-text-icon">
                 <DeleteIcon width={20} height={20} color={styles.deleteIcon.color} />
               </BaseOpacity>
             ) : null}

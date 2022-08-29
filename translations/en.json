@@ -143,10 +143,6 @@
     "yes": "Log out",
     "no": "Cancel"
   },
-  "inputErrors": {
-    "requiredField": "This field is required",
-    "passwordMatch": "Password must match"
-  },
   "navigation": {
     "logout": "Log out",
     "home": "Home",
@@ -200,7 +196,9 @@
     "discardTeams": "Do you want to discard selected teams?",
     "backToSelection": "Back to selection",
     "teamsEmptyState": "Click + and join your first Team!",
-    "search": "Search"
+    "search": "Search",
+    "requiredField": "This field is required",
+    "passwordMatch": "Password must match"
   },
   "dashboard": {
     "today": "Today is:",
