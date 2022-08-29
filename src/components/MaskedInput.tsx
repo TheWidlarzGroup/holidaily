@@ -11,9 +11,9 @@ import { AnimatedBox } from 'components/AnimatedBox'
 type Props = {
   handleOnChange: F1<string>
   inputLabel: string
+  reset: F0
   onBlur?: F0
   onFocus?: F0
-  reset?: F0
   isError?: boolean
 }
 
@@ -46,7 +46,7 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
   }
 
   const handleClear = () => {
-    p.reset && p.reset()
+    p.reset()
     setShowButton(false)
   }
 
@@ -74,7 +74,7 @@ export const MaskedInput = (p: MaskInputProps & TextInputProps & Props) => {
           placeholderTextColor={theme.colors.headerGrey}
           {...p}
         />
-        {p?.reset && p?.value && p?.value.length > 0 && showButton ? (
+        {p?.value && p?.value.length > 0 && showButton ? (
           <BaseOpacity position="absolute" right={15} onPress={handleClear}>
             <DeleteIcon width={20} height={20} color={styles.deleteIcon.color} />
           </BaseOpacity>
