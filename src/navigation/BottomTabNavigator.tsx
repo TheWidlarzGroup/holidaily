@@ -70,16 +70,8 @@ export const BottomTabNavigator = () => {
           <Tab.Navigator
             tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
             screenOptions={{ headerShown: false }}>
-            <Tab.Screen
-              name="DashboardNavigation"
-              options={{ unmountOnBlur: true }}
-              component={DashboardNavigation}
-            />
-            <Tab.Screen
-              name="CALENDAR_NAVIGATION"
-              component={CalendarNavigation}
-              options={{ unmountOnBlur: true }}
-            />
+            <Tab.Screen name="DashboardNavigation" component={DashboardNavigation} />
+            <Tab.Screen name="CALENDAR_NAVIGATION" component={CalendarNavigation} />
             <Tab.Screen name="RequestModal" component={EmptyComponent} />
             <Tab.Screen
               name="Stats"
