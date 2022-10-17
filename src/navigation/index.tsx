@@ -9,6 +9,7 @@ import { PostTempUserBody, useCreateTempUser } from 'dataAccess/mutations/useCre
 import { useInitDemoUserTeams } from 'hooks/useInitDemoUserTeams'
 import { UserSettingsContext } from 'contexts/UserSettingsContext'
 import { Analytics } from 'services/analytics'
+import { enableFreeze } from 'react-native-screens'
 import { linking } from './universalLinking'
 import { AuthStackNavigation } from './AuthStackNavigation'
 import { AppStackNavigation } from './AppStackNavigation'
@@ -20,6 +21,7 @@ export const AppNavigation = () => {
   const userSettingsContext = useContext(UserSettingsContext)
   const isDarkTheme = !!userSettingsContext?.userSettings?.darkMode
 
+  enableFreeze()
   const navigationRef: any = useRef()
   const routeNameRef = useRef()
   // COMMENT: types in navigationRef could be <NavigationContainerRef> probably, needs research
