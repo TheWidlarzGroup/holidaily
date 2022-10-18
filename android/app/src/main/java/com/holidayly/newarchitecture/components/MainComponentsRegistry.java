@@ -1,4 +1,4 @@
-package com.rndiffapp.newarchitecture.modules;
+package com.holidaily.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
