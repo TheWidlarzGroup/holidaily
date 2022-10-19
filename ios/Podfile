@@ -40,7 +40,7 @@ target 'Holidayly' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
       # some older pods don't support some architectures, anything over iOS 11 resolves that
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
       end
     end
   end
@@ -48,5 +48,5 @@ target 'Holidayly' do
 end
 
 target 'OneSignalNotificationServiceExtension' do
-  pod 'OneSignal', '>= 3.0', '< 4.0'
+  pod 'OneSignalXCFramework', '>= 3.0', '< 4.0'
 end

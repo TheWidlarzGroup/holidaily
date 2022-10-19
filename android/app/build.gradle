@@ -1,3 +1,8 @@
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+apply plugin: "com.android.application"
+
+import com.android.build.OutputFile
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -7,11 +12,6 @@ buildscript {
         
     }
 }
-
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-apply plugin: "com.android.application"
-
-import com.android.build.OutputFile
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -140,12 +140,9 @@ def reactNativeArchitectures() {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    ndkVersion rootProject.ext.ndkVersion
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "com.holidaily"
@@ -170,7 +167,7 @@ android {
                             cppFlags "-std=c++17"
                             // Make sure this target name is the same you specify inside the
                             // src/main/jni/Android.mk file for the `LOCAL_MODULE` variable.
-                            targets "holidaily"
+                            targets "holidaily_appmodules"
                         }
                     }
                     if (!enableSeparateBuildPerCPUArchitecture) {
@@ -267,7 +264,7 @@ android {
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
         }

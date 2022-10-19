@@ -108,16 +108,6 @@ PODS:
   - libwebp/mux (1.2.3):
     - libwebp/demux
   - libwebp/webp (1.2.3)
-  - OneSignal (3.11.3):
-    - OneSignal/OneSignalCore (= 3.11.3)
-    - OneSignal/OneSignalExtension (= 3.11.3)
-    - OneSignal/OneSignalOutcomes (= 3.11.3)
-  - OneSignal/OneSignalCore (3.11.3)
-  - OneSignal/OneSignalExtension (3.11.3):
-    - OneSignal/OneSignalCore
-    - OneSignal/OneSignalOutcomes
-  - OneSignal/OneSignalOutcomes (3.11.3):
-    - OneSignal/OneSignalCore
   - OneSignalXCFramework (3.11.2):
     - OneSignalXCFramework/OneSignalCore (= 3.11.2)
     - OneSignalXCFramework/OneSignalExtension (= 3.11.2)
@@ -532,7 +522,7 @@ DEPENDENCIES:
   - FlipperKit/FlipperKitUserDefaultsPlugin (= 0.125.0)
   - FlipperKit/SKIOSNetworkPlugin (= 0.125.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - OneSignal (< 4.0, >= 3.0)
+  - OneSignalXCFramework (< 4.0, >= 3.0)
   - OpenSSL-Universal (= 1.1.1100)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
@@ -602,7 +592,6 @@ SPEC REPOS:
     - fmt
     - libevent
     - libwebp
-    - OneSignal
     - OneSignalXCFramework
     - OpenSSL-Universal
     - SDWebImage
@@ -770,7 +759,6 @@ SPEC CHECKSUMS:
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 60305b2e989864154bd9be3d772730f08fc6a59c
-  OneSignal: d24237738defb21acdd41046f90435e6ad12bf23
   OneSignalXCFramework: 81ceac017a290f23793443323090cfbe888f74ea
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-LocationAlways: fbf36cbdcabc3101f1168ad1ec45cfc5a6448cc4
@@ -827,6 +815,6 @@ SPEC CHECKSUMS:
   Yoga: 75bf4b0131cfb46a659cd0c13309b79a6fcff66d
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: cbf89378141fff34313c9b972afa4f6f8c9a40fd
+PODFILE CHECKSUM: c1298932c292c0925b1e35e5c4de2fd75ab9c41c
 
 COCOAPODS: 1.11.3
