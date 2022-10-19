@@ -1,17 +1,29 @@
 import {
-  isTimeIntervalLessThanWeek,
-  displayWeekday,
-  displayDayShort,
-  setDateToBeDisplayed,
-  qtyOnHolidayNow,
-  displayDDMonYYYY,
   displayDatesRange,
+  displayDayShort,
+  displayDDMonYYYY,
+  displayWeekday,
+  isTimeIntervalLessThanWeek,
+  qtyOnHolidayNow,
+  setDateToBeDisplayed,
 } from 'utils/functions'
 import { TEAM_MATES_AKADEMIA, TEAM_MATES_DEV } from 'utils/mocks/userMocks'
 
 import { parseISO, subDays } from 'date-fns'
 import { setCurrentLocale } from 'utils/locale'
 import '../../../i18n.ts'
+import i18next from 'i18next'
+
+const initLanguage = () => {
+  i18next.init({
+    lng: 'en',
+    debug: true,
+  })
+}
+
+beforeAll(() => {
+  initLanguage()
+})
 
 describe('isTimeIntervalLessThanWeek', () => {
   const inputDayFalse = subDays(new Date(), 100)
@@ -45,7 +57,7 @@ describe('displayDayShort', () => {
 describe('setDateToBeDisplayed', () => {
   const outputIfTrue = parseISO('2021-06-11')
   const outputIfFalse = parseISO('2021-06-09')
-  it('should add or substract one day', () => {
+  it('should add or subtract one day', () => {
     expect(setDateToBeDisplayed('2021-06-10', true)).toEqual(outputIfTrue)
     expect(setDateToBeDisplayed('2021-06-10', false)).toEqual(outputIfFalse)
   })
@@ -71,9 +83,9 @@ describe('displayDDMonYYYY', () => {
 describe('displayDatesRange', () => {
   it('show holidays range', async () => {
     await setCurrentLocale('en')
-    expect(displayDatesRange('2021-06-09', '2021-06-11')).toBe('9 - 11 June 2021')
-    expect(displayDatesRange('2021-05-09', '2021-06-11')).toBe('9 May - 11 June 2021')
-    expect(displayDatesRange('2021-12-24', '2022-01-07')).toBe('24 December 2021 - 7 January 2022')
+    expect(displayDatesRange('2021-06-09', '2021-06-11')).toBe('9-11 June 2021')
+    expect(displayDatesRange('2021-05-09', '2021-06-11')).toBe('9 May-11 June 2021')
+    expect(displayDatesRange('2021-12-24', '2022-01-07')).toBe('24 December 2021-7 January 2022')
     expect(displayDatesRange('2021-06-11', '2021-06-11')).toBe('11 June 2021')
 
     await setCurrentLocale('pl')

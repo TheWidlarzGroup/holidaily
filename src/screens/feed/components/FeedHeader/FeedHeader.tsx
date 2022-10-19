@@ -1,16 +1,16 @@
 import React from 'react'
-import { Box, BaseOpacity, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import IconGallery from 'assets/icons/icon-gallery.svg'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Analytics } from 'services/analytics'
 import { BottomTabNavigationType } from 'navigation/types'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 
 const ICON_SIZE = 30
 
@@ -24,7 +24,7 @@ export const FeedHeader = () => {
   ] = useBooleanState(false)
   const { user } = useUserContext()
 
-  const changeDataRequest = (modalPhoto: AttachmentType) => {
+  const changeDataRequest = (modalPhoto: AttachmentDataType) => {
     navigate('CREATE_POST_NAVIGATION', {
       screen: 'CREATE_POST',
       params: { modalAsset: modalPhoto },

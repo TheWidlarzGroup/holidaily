@@ -4,18 +4,17 @@ import { Comment, FeedPost, Reaction, Schema } from 'mockApi/models'
 import { sourcePeter } from './notificationSources'
 
 export const postsSeed = (context: Server<Schema>) => {
-  // @ts-ignore
   const reactions = reactionsMock.map((reaction) => context.create('reaction', reaction))
-  // @ts-ignore
   const comments = commentsMock.map((comment) => context.create('comment', comment))
+  context.create('post', { ...postsMock[0], reactions: [reactions[3], reactions[7]] })
   context.create('post', {
-    ...postsMock[0],
+    ...postsMock[1],
     comments: [comments[0], comments[1]],
     reactions: [reactions[0], reactions[1], reactions[2]],
   })
-  context.create('post', { ...postsMock[1], comments: [comments[2]], reactions: [reactions[3]] })
+  context.create('post', { ...postsMock[2], comments: [comments[2]], reactions: [reactions[3]] })
   context.create('post', {
-    ...postsMock[2],
+    ...postsMock[3],
     comments: [comments[3], comments[4]],
     reactions: [reactions[4], reactions[5], reactions[6]],
   })
@@ -24,13 +23,51 @@ export const postsSeed = (context: Server<Schema>) => {
 export const postsMock: FeedPost[] = [
   {
     id: '1',
+    text: '',
+    author: {
+      id: '01',
+      occupation: 'React Native Dev',
+      name: 'Bart Widlarz',
+      pictureUrl: 'https://ca.slack-edge.com/TRT69R5EV-US2VDHVDJ-0ea07eeb5689-512',
+    },
+    data: [
+      {
+        type: 'image',
+        uri: 'https://i.ibb.co/7N719BN/pic22.png',
+        id: '1',
+      },
+      {
+        type: 'image',
+        uri: 'https://i.ibb.co/xJFJ6SB/Projekt-bez-tytu-u-2.png',
+        id: '1',
+      },
+    ],
+    createdAt: new Date().getTime(),
+    location: {
+      city: 'Krakow',
+      country: 'Poland',
+      district: '',
+      isoCountryCode: '',
+      name: '',
+      postalCode: '',
+      region: 'Krakow',
+      street: 'Krakow',
+      subregion: 'Krakow',
+      timezone: 'Europe',
+    },
+    comments: [],
+    reactions: [],
+  },
+
+  {
+    id: '3',
     author: {
       id: '1',
       occupation: 'Project Manager',
       name: 'Lena Morrison',
       pictureUrl: 'https://randomuser.me/api/portraits/women/35.jpg',
     },
-    createdAt: new Date().getTime(),
+    createdAt: subDays(new Date(), 2).getTime(),
     location: {
       city: 'Porto',
       country: 'Portugal',
@@ -77,7 +114,7 @@ export const postsMock: FeedPost[] = [
     comments: [],
   },
   {
-    id: '2',
+    id: '4',
     author: {
       id: '1',
       occupation: 'UI/UX Designer',
@@ -110,7 +147,7 @@ export const postsMock: FeedPost[] = [
     comments: [],
   },
   {
-    id: '3',
+    id: '5',
     author: {
       id: '1',
       occupation: 'Software Engineer',
@@ -217,5 +254,9 @@ export const reactionsMock: Reaction[] = [
   {
     type: '🎵',
     users: ['1'],
+  },
+  {
+    type: '👏',
+    users: ['1', '2', '3', '4'],
   },
 ]

@@ -143,10 +143,6 @@
     "yes": "Wyloguj",
     "no": "Anuluj"
   },
-  "inputErrors": {
-    "requiredField": "To pole jest wymagane",
-    "passwordMatch": "Hasła muszą być identyczne"
-  },
   "navigation": {
     "logout": "Wyloguj",
     "home": "Strona Główna",
@@ -173,6 +169,7 @@
     "userPassword": "Hasło",
     "userTeams": "TWOJE ZESPOŁY",
     "userColor": "TWÓJ KOLOR:",
+    "changeColor": "Przesuń aby zmienić kolor",
     "userColorDesc": "Twój kolor będzie widoczny dla innych członków zespołu, aby mogli odróżnić w kalendarzu Twój czas poza biurem.",
     "saveChanges": "Zapisz zmiany",
     "changesSaved": "Zmiany zostały zapisane",
@@ -198,7 +195,9 @@
     "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
     "backToSelection": "Wróć do wyboru",
     "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
-    "search": "Wyszukaj"
+    "search": "Wyszukaj",
+    "requiredField": "To pole jest wymagane",
+    "passwordMatch": "Hasła muszą być identyczne"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
@@ -368,6 +367,7 @@
     "seen": "PRZECZYTANE",
     "unseen": "NOWE",
     "markSeen": "Przeczytano",
+    "markUnSeen": "Nowe",
     "markAllAsSeen": "Oznacz wszystkie jako przeczytane",
     "accepted": "Wohoo! Twoje zapytanie o <b>{{description}}</b> zostało zaakceptowane!",
     "cancelled": "Złe wieści. Twoje zapytanie o <b>{{description}}</b> zostało odrzucone.",
@@ -410,6 +410,22 @@
   "calendar": {
     "cantDeselect": "Nie możesz odznaczyć wszystkich zespołów :(",
     "calendarPurpose": "Celem tego kalendarza jest możliwość sprawdzenia terminów urlopów Twoich wspólpracowników.",
-    "gotIt": "Rozumiem"
+    "gotIt": "Rozumiem",
+    "select": "Wybierz",
+    "actionModalDefault": "Wybierz dzień lub okres",
+    "singleDayOutOfOffice": "wolny od pracy",
+    "outOfOffice": "wolnych od pracy",
+    "dayOffCalendar": "Kalendarz urlopów",
+    "dateInputPlaceholder": "yyyy-mm-dd",
+    "selectedTimeframe": "wybrany okres",
+    "swipeDownToSeePrevious": "Przesuń palcem w dół aby zobaczyć poprzednie",
+    "swipeUpToSeeNext": "Przesuń palcem w górę aby zobaczyć następne",
+    "emptyStateNotificationTitle": "Brak urlopów do wyświetlenia.",
+    "endOfEventsList": "Dotarleś do końca listy",
+    "emptyScreenTitle": "Brak urlopów do wyświetlenia.",
+    "emptyScreenSubtitle": "Wybierz wcześniejsze daty lub przesuń w dół.",
+    "enterValidYear": "Wpisz prawidłową datę",
+    "dateFrom": "Data od",
+    "dateTo": "Data do"
   }
 }

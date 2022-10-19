@@ -37,7 +37,6 @@ export const Bubble = ({
 }: BubbleProps) => {
   const navigation = useNavigation()
   const { height, width } = useWindowDimensions()
-
   const initialX = position.x
   const initialY = position.y
   const translateX = useSharedValue(initialX)
@@ -45,8 +44,14 @@ export const Bubble = ({
   const bubbleSize = useSharedValue(C.BUBBLE_SIZE_INIT)
   const draggedBubbleScale = useSharedValue(1)
   const bubbleOpacity = useSharedValue(1)
-
   const randomDelay = Math.floor(Math.random() * 600)
+
+  const setPositions = () => {
+    if (translateY.value > dropArea) {
+      handleSelection()
+    }
+  }
+
   const handleSelection = () => {
     setDropColor(color)
     bubbleOpacity.value = 0
@@ -79,13 +84,15 @@ export const Bubble = ({
         velocity: velocityX,
         clamp: [C.BUBBLES_OFFSET_LEFT, width - C.BUBBLE_SIZE],
       })
-      translateY.value = withDecay({
-        velocity: velocityY,
-        clamp: [C.BUBBLES_OFFSET_TOP, height - C.BUBBLE_SIZE],
-      })
-      if (translateY.value > dropArea && draggedBubbleScale.value > 1) {
-        runOnJS(handleSelection)()
-      }
+      translateY.value = withDecay(
+        {
+          velocity: velocityY,
+          clamp: [C.BUBBLES_OFFSET_TOP, height - C.BUBBLE_SIZE],
+        },
+        () => {
+          runOnJS(setPositions)()
+        }
+      )
     },
   })
 

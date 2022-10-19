@@ -2,6 +2,8 @@
   "extends": "eslint-config-twg/tsconfig.json",
   "include": ["**/*"],
   "compilerOptions": {
+    "target": "esnext",
+    "downlevelIteration": true,
     "jsx": "react-native",
     "typeRoots": ["node_modules/@types"],
     "types": ["jest", "node"],

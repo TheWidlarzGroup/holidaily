@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback, useEffect } from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import { User } from 'mock-api/models/mirageTypes'
 import axios from 'axios'
 import { useCreateTempUser } from 'dataAccess/mutations/useCreateTempUser'
@@ -35,34 +35,11 @@ const defaultUser: User = {
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
-
   const { reset: clearUserCache } = useCreateTempUser()
-  const updateUser = useCallback(
-    (newData: Partial<User> | null) =>
-      setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData })),
-    []
-  )
-  const handleLogout = async () => {
-    setUser(null)
-    delete axios.defaults.headers.common.userId
-    clearUserCache()
-    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
-    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
-    queryClient.invalidateQueries(QueryKeys.USER_STATS)
-    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
-    queryClient.invalidateQueries(QueryKeys.POSTS)
-    await removeMany([
-      'userId',
-      'firstName',
-      'lastName',
-      'occupation',
-      'photo',
-      'userColor',
-      'seenNotificationsIds',
-      'seenTeamsModal',
-      'draftPost',
-    ])
-  }
+
+  const updateUser = useCallback((newData: Partial<User> | null) => {
+    setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
+  }, [])
 
   useAsyncEffect(async () => {
     const cachedUserId = await getItem('userId')
@@ -86,6 +63,28 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
       }
     }
   }, [user])
+
+  const handleLogout = async () => {
+    setUser(null)
+    delete axios.defaults.headers.common.userId
+    clearUserCache()
+    queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
+    queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
+    queryClient.invalidateQueries(QueryKeys.USER_STATS)
+    queryClient.invalidateQueries(QueryKeys.ORGANIZATION)
+    queryClient.invalidateQueries(QueryKeys.POSTS)
+    await removeMany([
+      'userId',
+      'firstName',
+      'lastName',
+      'occupation',
+      'photo',
+      'userColor',
+      'seenNotificationsIds',
+      'seenTeamsModal',
+      'draftPost',
+    ])
+  }
 
   const value: ContextProps = {
     user,

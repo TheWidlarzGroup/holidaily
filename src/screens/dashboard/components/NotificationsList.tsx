@@ -1,77 +1,51 @@
 import React, { useMemo } from 'react'
-import { BaseOpacity, Text, theme } from 'utils/theme'
-import { SectionList } from 'react-native'
+import { BaseOpacity, Text } from 'utils/theme'
 import { Notification as NotificationModel } from 'mockApi/models'
 import { useTranslation } from 'react-i18next'
 import { useMarkNotificationAsSeen } from 'dataAccess/mutations/useMarkNotificationAsSeen'
-import Notification from './Notification'
-import { SwipeableNotification } from './SwipeableNotification'
+import { ScrollView } from 'react-native-gesture-handler'
+import { NotificationsSection } from './NotificationsSection'
 
 const style = { width: '100%' }
-const contentContainerStyle = { paddingBottom: theme.spacing.xxxxl }
-
-const keyExtractor = ({ id }: { id: string }) => id
 
 export const NotificationsList = ({ data }: { data: NotificationModel[] }) => {
   const { t } = useTranslation('notifications')
-  const { seenNotifications, unseenNotifications } = useMemo(
+  const { unseenNotifications } = useMemo(
     () => ({
-      seenNotifications: processNotifications(data, 'seen'),
       unseenNotifications: processNotifications(data, 'unseen'),
     }),
     [data]
   )
-  const sections = [
-    {
-      title: t('unseen'),
-      data: unseenNotifications,
-    },
-    {
-      title: t('seen'),
-      data: seenNotifications,
-    },
-  ]
+
+  const seenNotificationsList: NotificationModel[] = processNotifications(data, 'unseen')
+  const unseenNotificationsList: NotificationModel[] = processNotifications(data, 'seen')
 
   return (
-    <SectionList
-      style={style}
-      contentContainerStyle={contentContainerStyle}
-      sections={sections}
-      keyExtractor={keyExtractor}
-      showsVerticalScrollIndicator={false}
-      ListHeaderComponent={<MarkAllAsSeen unseen={unseenNotifications} />}
-      renderSectionHeader={({ section: { title, data } }) => {
-        if (!data.length) return null
-        return (
-          <Text variant="inputLabel" marginBottom="s" color="darkGreyBrighter">
-            {title}
-          </Text>
-        )
-      }}
-      renderItem={({ item }) =>
-        item.wasSeenByHolder ? (
-          <Notification {...item} />
-        ) : (
-          <SwipeableNotification notificationId={item.id}>
-            <Notification {...item} />
-          </SwipeableNotification>
-        )
-      }
-    />
+    <ScrollView style={style} showsVerticalScrollIndicator={false}>
+      {seenNotificationsList.length > 0 && (
+        <>
+          <MarkAllAsSeen unseen={unseenNotifications} />
+          <NotificationsSection heading={t('unseen')} notificationsList={seenNotificationsList} />
+        </>
+      )}
+      {unseenNotificationsList.length > 0 && (
+        <NotificationsSection heading={t('seen')} notificationsList={unseenNotificationsList} />
+      )}
+    </ScrollView>
   )
 }
 
 const MarkAllAsSeen = ({ unseen }: { unseen: NotificationModel[] }) => {
   const { mutate } = useMarkNotificationAsSeen()
   const markAllAsSeen = () => {
-    unseen.forEach((n) => mutate(n.id))
+    unseen.forEach((n) => mutate({ id: n.id }))
   }
   const { t } = useTranslation('notifications')
   if (unseen.length < 2) return null
 
   return (
     <BaseOpacity onPress={markAllAsSeen} marginTop="s" marginBottom="s" alignSelf="flex-end">
-      <Text variant="textSM" color="darkGreyBrighter">
+      <Text variant="textBoldSM" color="darkGreyBrighter" lineHeight={21}>
         {t('markAllAsSeen')}
       </Text>
     </BaseOpacity>

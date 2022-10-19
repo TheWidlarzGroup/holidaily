@@ -1,9 +1,8 @@
 import React from 'react'
-import { BaseOpacity, Box, Text, Colors } from 'utils/theme'
+import { BaseOpacity, Box, Text } from 'utils/theme'
 import { getMonthName } from 'utils/dates'
 
 type CalendarHeaderProps = {
-  ignoreDarkmode?: true
   date: Date
   onHeaderPressed?: F0
 }
@@ -11,14 +10,14 @@ type CalendarHeaderProps = {
 export const CalendarHeader = (p: CalendarHeaderProps) => {
   const monthName = getMonthName(p.date.getMonth())
   const year = p.date.getFullYear()
-  const fontColor: Colors = p.ignoreDarkmode ? 'alwaysBlack' : 'black'
+
   return (
     <BaseOpacity onPress={p.onHeaderPressed} activeOpacity={p.onHeaderPressed ? 0.8 : 1}>
       <Box margin="xm" flexDirection="row" alignItems="center">
-        <Text variant="textSM" color={fontColor}>
+        <Text variant="textSM" color="black">
           {monthName}
         </Text>
-        <Text variant="textSM" marginLeft="s" color={fontColor}>
+        <Text variant="textSM" marginLeft="s" color="black">
           {year}
         </Text>
       </Box>

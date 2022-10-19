@@ -3,7 +3,7 @@ import { createContext } from 'react'
 
 export type ContextProps = {
   user: User | null
-  updateUser: F1<Partial<User>>
+  updateUser: (newData: Partial<User> | null) => void
   handleLogout: F0
 }
 

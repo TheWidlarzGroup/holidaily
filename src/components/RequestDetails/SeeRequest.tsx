@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { StatusBar } from 'react-native'
 import { Analytics } from 'services/analytics'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { isIos } from 'utils/layout'
 import { ModalHeader } from '../ModalHeader'
 import { RequestDetails } from './RequestDetails'
 
@@ -23,6 +25,14 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
 
   const prevScreen: PrevScreen = route.params?.prevScreen
   usePrevScreenBackHandler(prevScreen, true)
+
+  useEffect(() => {
+    const parent = navigation.getParent()?.getParent()
+
+    if (prevScreen === 'NOTIFICATIONS') {
+      parent?.setOptions({ swipeEnabled: false })
+    }
+  }, [navigation, prevScreen])
 
   const goBack = () => {
     navigation.navigate(prevScreen || 'STATS_AND_REQUESTS')
@@ -40,14 +50,16 @@ export const SeeRequest = ({ route: { params: p } }: RequestsNavigationProps<'SE
           paddingTop="ml">
           <IconBack width={9} height={16} color={theme.colors.black} />
         </BaseOpacity>
-        <Text variant="bold16" color="black" paddingBottom="ml" paddingTop="ml">
+        <Text variant="textBoldMD" color="black" paddingBottom="ml" paddingTop="ml">
           {t('yourRequest')}
         </Text>
         <Box paddingRight="xl" />
       </ModalHeader>
-      <Box marginTop="l" paddingBottom="m" flex={1}>
+      <GestureRecognizer
+        onSwipeRight={goBack}
+        androidOnly={prevScreen === 'STATS_AND_REQUESTS' && isIos}>
         <RequestDetails {...p} showStatus wasSent />
-      </Box>
+      </GestureRecognizer>
     </SafeAreaWrapper>
   )
 }

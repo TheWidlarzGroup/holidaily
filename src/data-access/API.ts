@@ -13,12 +13,13 @@ export const API = {
   POST: {
     createTempUser: '/api/users',
     addPost: '/api/addpost',
-    addPostWithNewId: '/api/addpost/newid',
+    addPostWithNewId: '/api/addpost/postId',
     createDayOff: '/api/request',
     addCommentToPost: (comment: AddComment) => `/api/posts/${comment.postId}`,
   },
   PATCH: {
     markNotificationAsSeen: (id: string) => `/api/notifications/seen/${id}`,
+    markNotificationAsUnseen: (id: string) => `/api/notifications/unseen/${id}`,
   },
   PUT: {
     editUser: '/api/users',

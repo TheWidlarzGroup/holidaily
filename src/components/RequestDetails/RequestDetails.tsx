@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { ScrollView } from 'react-native'
 import { Trans, useTranslation } from 'react-i18next'
-import { Box, Text, Theme, useTheme, Colors } from 'utils/theme'
+import { Box, Text, Theme, useTheme, Colors, mkUseStyles } from 'utils/theme'
 import { DayOffRequest } from 'mock-api/models'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { calculatePTO, getDurationInDays } from 'utils/dates'
@@ -30,8 +30,9 @@ export const RequestDetails = (
   const statusColor = getStatusColor(p.status)
   const pastIconColor = p.status === 'past' ? theme.colors.white : theme.colors.alwaysWhite
 
+  const styles = useStyles()
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
       {!!p.showStatus && (
         <Box bg={statusColor} borderRadius="lmin">
           <Box
@@ -127,3 +128,10 @@ const getStatusColor = (status: DayOffRequest['status']): ResponsiveValue<Colors
   if (status === 'accepted') return 'approvedGreen'
   return 'errorBrighter'
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    paddingTop: theme.spacing.l,
+    paddingBottom: theme.spacing.xxl,
+  },
+}))

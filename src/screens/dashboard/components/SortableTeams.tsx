@@ -9,19 +9,17 @@ import { TeamElement } from './TeamElement'
 
 export const SortableTeams = () => {
   const { user } = useUserContext()
-  // Comment: Demo user has teams but he is not a member of these teams in UserProvider.
-  // So developer has to remember to add him wherever he needs to show him in teams.
-  const teams: Team[] = (user?.teams ?? []).map((team) => {
-    if (user) return { ...team, users: [...team.users, user] }
-    return team
-  })
   const navigation = useNavigation<DashboardNavigationType<'DASHBOARD'>>()
-  const navigateToTeamDetails = (team: Team) => navigation.navigate('DASHBOARD_TEAM', { ...team })
-  const teamElements = teams.map((team: Team) => (
+  const navigateToTeamDetails = (teamId: Team['id']) =>
+    navigation.navigate('DASHBOARD_TEAM', { teamId })
+
+  if (!user) return null
+
+  const teamElements = user.teams.map((team: Team) => (
     <TeamElement
       {...team}
       key={team.name}
-      navigateToTeamScreen={() => navigateToTeamDetails(team)}
+      navigateToTeamScreen={() => navigateToTeamDetails(team.id)}
     />
   ))
 

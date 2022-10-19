@@ -1,6 +1,6 @@
 import React from 'react'
 import { FeedPost } from 'mock-api/models/miragePostTypes'
-import { Box, Theme } from 'utils/theme'
+import { Box, Colors } from 'utils/theme'
 import { ExpandingText } from 'components/ExpandingText'
 import { Gallery } from 'components/Gallery/Gallery'
 import { useNavigation } from '@react-navigation/native'
@@ -8,12 +8,13 @@ import { AppNavigationType } from 'navigation/types'
 import { isIos } from 'utils/layout'
 
 type FeedPostBodyProps = {
-  borderColor: keyof Theme['colors']
-  post: Pick<FeedPost, 'data' | 'text' | 'id'>
+  borderColor: Colors
+  post: Pick<FeedPost, 'data' | 'text' | 'id' | 'location'>
+  wasNavigatedFromNotifications?: boolean
 }
 
 export const FeedPostBody = (props: FeedPostBodyProps) => {
-  const { post, borderColor } = props
+  const { post, borderColor, wasNavigatedFromNotifications } = props
   const { data, text, id } = post
   const { navigate } = useNavigation<AppNavigationType<'GALLERY'>>()
   const handleGalleryItemPress = (index: number) => {
@@ -21,7 +22,7 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
   }
 
   return (
-    <Box>
+    <Box paddingBottom="xxs">
       {text?.length > 0 && (
         <Box
           paddingTop="xm"
@@ -31,12 +32,17 @@ export const FeedPostBody = (props: FeedPostBodyProps) => {
           borderColor={borderColor}
           borderBottomWidth={0}
           borderTopWidth={0}
-          paddingBottom={data?.length === 0 && isIos ? 'lplus' : 'none'}>
-          <ExpandingText text={text} />
+          paddingBottom={data?.length === 0 && isIos ? 'xl' : 'none'}>
+          <ExpandingText text={text} location={post.location} />
         </Box>
       )}
       {data?.length > 0 ? (
-        <Gallery data={data} postId={id} onItemPress={handleGalleryItemPress} />
+        <Gallery
+          data={data}
+          postId={id}
+          onItemPress={handleGalleryItemPress}
+          wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+        />
       ) : null}
     </Box>
   )

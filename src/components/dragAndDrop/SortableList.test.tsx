@@ -2,7 +2,7 @@ import React from 'react'
 import { makeOrder, orderToPositions } from './SortableList'
 
 // Comment: Tests throw "Can not find module react-native-reanimated from Item.tsx"
-describe.skip('makeOrder util', () => {
+describe('makeOrder util', () => {
   it('Should return order of children ids', () => {
     // eslint-disable-next-line
     const ComponentWithId = ({ id }: { id: number | string }) => null
@@ -20,7 +20,7 @@ describe.skip('makeOrder util', () => {
     ])
   })
 })
-describe.skip('orderToPositions', () => {
+describe('orderToPositions', () => {
   it('should create positions object', () => {
     const order = ['foo', 'baz', 'bar']
     expect(orderToPositions(order)).toEqual({ foo: 0, baz: 1, bar: 2 })

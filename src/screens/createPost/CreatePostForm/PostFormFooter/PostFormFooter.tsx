@@ -10,11 +10,12 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker'
-import { Alert } from 'react-native'
+import { Alert, PermissionsAndroid } from 'react-native'
 import { useKeyboard } from 'hooks/useKeyboard'
 import { useLocation } from 'hooks/useLocation'
 import { useTranslation } from 'react-i18next'
 import { Analytics } from 'services/analytics'
+import { isAndroid, isIos } from 'utils/layout'
 import { FooterButton } from './FooterButton'
 
 type PostFooterProps = {
@@ -32,56 +33,32 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
   const imagePickCallback = useCallback(
     (res: ImagePickerResponse) => {
       if (res.didCancel) return console.log('cancelled')
-      if (res.errorCode) return console.log('Error:', res.errorCode)
+      if (res.errorCode) return console.log('Error:', res.errorCode, res.errorMessage)
       if (!res.assets) return console.warn(__DEV__ && 'empty assets')
       onImagesPick(res.assets)
     },
     [onImagesPick]
   )
-  const handleCameraPress = () => {
-    Analytics().track('CREATE_POST_CAMERA_PRESSED')
-    if (imagesCount >= 5) {
-      return Alert.alert(t('exceededAmount'))
-    }
-    launchCamera(
-      {
-        mediaType: 'photo',
-        saveToPhotos: true,
-      },
-      imagePickCallback
-    )
-  }
-
-  const handleCameraLongPress = () => {
-    Analytics().track('CREATE_POST_CAMERA_LONG_PRESSED')
-    if (imagesCount >= 5) {
-      return Alert.alert(t('exceededAmount'))
-    }
-    launchCamera(
-      {
-        mediaType: 'video',
-        saveToPhotos: true,
-      },
-      imagePickCallback
-    )
-  }
 
   const handleGalleryPress = () => {
     Analytics().track('CREATE_POST_LOCATION_PRESSED')
-    if (imagesCount >= 5) {
-      return Alert.alert(t('exceededAmount'))
-    }
-    launchImageLibrary(
-      {
-        mediaType: 'mixed',
-      },
-      imagePickCallback
-    )
+    if (imagesCount >= 5) return Alert.alert(t('exceededAmount'))
+    launchImageLibrary({ mediaType: 'mixed' }, imagePickCallback)
   }
 
   const handleRequestLocation = async () => {
     const granted = await requestLocationPermission()
     if (granted) return onLocationPress()
+  }
+
+  const handleOpenCamera = async (method: 'onPress' | 'onLongPress') => {
+    let granted
+    if (isAndroid) granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+
+    if (isIos || (isAndroid && granted === PermissionsAndroid.RESULTS.GRANTED)) {
+      if (imagesCount >= 5) return Alert.alert(t('exceededAmount'))
+      launchCamera({ mediaType: method === 'onPress' ? 'photo' : 'video' }, imagePickCallback)
+    }
   }
 
   return (
@@ -96,7 +73,9 @@ export const PostFormFooter = ({ onLocationPress, onImagesPick, imagesCount }: P
       style={{
         paddingBottom: keyboardOpen ? 80 : 0,
       }}>
-      <FooterButton onPress={handleCameraPress} onLongPress={handleCameraLongPress}>
+      <FooterButton
+        onPress={() => handleOpenCamera('onPress')}
+        onLongPress={() => handleOpenCamera('onLongPress')}>
         <IconCamera color={theme.colors.black} />
       </FooterButton>
       <FooterButton onPress={handleGalleryPress}>

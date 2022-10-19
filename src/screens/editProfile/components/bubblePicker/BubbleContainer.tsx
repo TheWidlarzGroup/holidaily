@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import Animated from 'react-native-reanimated'
 import { Box, mkUseStyles, Text, useTheme } from 'utils/theme'
 import { shadow } from 'utils/theme/shadows'
-import { UserProfileNavigationProps } from 'navigation/types'
 import { windowWidth } from 'utils/deviceSizes'
 import { useTranslation } from 'react-i18next'
+import { AnimatedBox } from 'components/AnimatedBox'
+import { Analytics } from 'services/analytics'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { Bubble } from './Bubble'
 import { useBubbles } from './useBubbles'
 import { CheckMark } from './Checkmark'
 import { BUBBLE_CONSTANTS as C } from './BubbleHelper'
 import { BubbleContainerButtons } from './BubbleContainerButtons'
 import { BubbleContainerHeader } from './BubbleContainerHeader'
+import { AnimatedBubble } from './AnimatedBubble'
 
-const DropArea = Animated.createAnimatedComponent(Box)
-
-export const BubbleContainer = ({
-  route: { params: p },
-}: UserProfileNavigationProps<'COLOR_PICKER'>) => {
+export const BubbleContainer = () => {
   const styles = useStyles()
   const theme = useTheme()
+  const { updateUser, user } = useUserContext()
   const { t } = useTranslation('userProfile')
   const [dropColor, setDropColor] = useState(theme.colors.colorPickerDropArea)
   const { animatedDrop, bubbles, animateCheckmark, dropArea, animateDropArea } = useBubbles()
 
   useEffect(() => {
-    if (dropColor !== theme.colors.colorPickerDropArea) p.onChange(dropColor)
-  }, [dropColor, p, theme.colors.colorPickerDropArea])
+    if (dropColor !== theme.colors.colorPickerDropArea) {
+      updateUser({ userColor: dropColor })
+      Analytics().track('USER_COLOR_PICKED', { color: dropColor })
+    }
+  }, [dropColor, theme.colors.colorPickerDropArea, updateUser])
 
   return (
-    <Box flex={1} backgroundColor="colorPickerBackdrop" flexWrap="wrap">
+    <Box flex={1} backgroundColor="rippleColor" flexWrap="wrap">
       {animateCheckmark && <CheckMark animateCheckmark={animateCheckmark} />}
       <BubbleContainerButtons />
       <BubbleContainerHeader />
-      <DropArea
+      <AnimatedBox
         style={[
           styles.dropArea,
           animatedDrop,
@@ -42,6 +44,7 @@ export const BubbleContainer = ({
           },
         ]}
       />
+      <AnimatedBubble currentColor={user?.userColor || ''} bubbles={bubbles} />
       {bubbles.map((bubble) => (
         <Box position="absolute" key={bubble.id}>
           <Bubble

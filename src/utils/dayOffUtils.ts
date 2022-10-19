@@ -1,8 +1,8 @@
 import { eachDayOfInterval } from 'date-fns'
-import type { DayOffRequest, User, Team } from 'mockApi/models'
+import type { DayOffRequest, Team, User } from 'mockApi/models'
 import { isWeekendOrHoliday } from 'poland-public-holidays'
 import type { DayOffEvent } from 'screens/calendar/components/DayEvent'
-import type { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import type { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { getISODateString, getISOMonthYearString, isDateBetween, isWeekend } from './dates'
 import { generateUUID } from './generateUUID'
 import { getUserTeamId } from './getUserTeamId'
@@ -54,7 +54,7 @@ export const getAllSingleHolidayRequests = (allUsers: User[], teams: Team[], app
   return { allSingleRequests }
 }
 
-export const getFirstRequestsOfMonth = (allRequestsOfMonth: HolidailyRequestMonthType) => {
+export const getFirstRequestsOfMonth = (allRequestsOfMonth: HolidayRequestMonthType) => {
   const firstDaysOfNextMonthRequests = allRequestsOfMonth?.days.filter((day) => {
     if (isWeekend(day.date)) return
     return (

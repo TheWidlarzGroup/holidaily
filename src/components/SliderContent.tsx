@@ -1,34 +1,36 @@
 import React, { useEffect } from 'react'
-import { Dimensions, ImageSourcePropType, Image } from 'react-native'
-import { Box, Text } from 'utils/theme/index'
+import { Dimensions } from 'react-native'
+import { Box, Text } from 'utils/theme'
 import { isSmallScreen, windowHeight } from 'utils/deviceSizes'
-import Animated, {
-  useSharedValue,
-  withTiming,
+import {
   useAnimatedStyle,
+  useSharedValue,
   withDelay,
-  withSpring,
   withRepeat,
+  withSpring,
+  withTiming,
 } from 'react-native-reanimated'
 import { isAndroid } from 'react-native-calendars/src/expandableCalendar/commons'
+import FastImage, { Source } from 'react-native-fast-image'
+import { AnimatedBox } from './AnimatedBox'
 
 const { width } = Dimensions.get('window')
 
 type SliderContentProps = {
   title: string
   text: string
-  image: ImageSourcePropType
+  image: Source
   isUserLoggedIn: boolean
   disableInitialAnimation?: boolean
 }
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
 const IMAGE_HEIGHT = 300
 const iconPosition = isAndroid ? 3 : 1.7
 const middleScreenY = windowHeight / 2 - IMAGE_HEIGHT / iconPosition
 
 const imgStyles = {
   height: IMAGE_HEIGHT,
+  width: '100%',
 }
 
 export const SliderContent = ({
@@ -85,7 +87,7 @@ export const SliderContent = ({
         backgroundColor="primary"
         marginTop="-ml"
         marginBottom="-ml">
-        <Image style={imgStyles} source={image} resizeMode="contain" />
+        <FastImage style={imgStyles} source={image} resizeMode="contain" />
       </AnimatedBox>
       <AnimatedBox style={opacityStyles} maxWidth="80%" justifyContent="center" alignItems="center">
         <Text variant="title1" paddingBottom="m" color="alwaysBlack">

@@ -72,6 +72,20 @@ const text = {
     textAlign: 'left',
     color: 'greyDark',
   },
+  textBoldXSGrey: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'darkGrey',
+    lineHeight: 18,
+    letterSpacing: 0.08 * 12,
+  },
+  textXSGrey: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'darkGrey',
+    lineHeight: 18,
+    letterSpacing: 0.08 * 12,
+  },
 }
 const display = {
   displayBoldLG: {
@@ -156,47 +170,11 @@ const legacyVariants = {
     color: 'black',
     textAlign: 'center',
   },
-  buttonText1: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 18,
-    color: 'darkGrey',
-    textAlign: 'center',
-  },
   title1: {
     fontFamily: 'Nunito-Bold',
     fontSize: 22,
     color: 'black',
     textAlign: 'center',
-  },
-  label1: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 15,
-    color: 'black',
-  },
-  labelGrey: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 15,
-    color: 'darkGreyBrighter',
-  },
-  labelGreyLight: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 15,
-    color: 'headerGrey',
-  },
-  remind1: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 15,
-    color: 'grey',
-  },
-  inputErrorMessage: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 12,
-    color: 'errorRed',
-  },
-  boldBlack16: {
-    fontFamily: 'Nunito-Bold',
-    color: 'black',
-    fontSize: 16,
   },
   boldBlack18: {
     fontFamily: 'Nunito-Bold',
@@ -209,38 +187,11 @@ const legacyVariants = {
     fontSize: 18,
     textAlign: 'center',
   },
-  boldBlackCenter20: {
-    fontFamily: 'Nunito-Bold',
-    color: 'black',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  boldBlackCenter16: {
-    fontFamily: 'Nunito-Bold',
-    color: 'black',
-    fontSize: 16,
-    textAlign: 'center',
-  },
   lightGreyRegular: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
     color: 'headerGrey',
     lineHeight: 18,
-  },
-  primaryBold12: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 12,
-    color: 'primary',
-  },
-  regularGrey16: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 16,
-    color: 'grey',
-  },
-  lightGreyBold: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 12,
-    color: 'grey',
   },
   lightGreyBold10: {
     fontFamily: 'Nunito-Bold',
@@ -253,24 +204,9 @@ const legacyVariants = {
     fontSize: 16,
     color: 'primary',
   },
-  resendWhite: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 15,
-    color: 'white',
-  },
-  modalHeader: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 20,
-    color: 'black',
-  },
   heading4: {
     fontFamily: 'Nunito-Bold',
     fontSize: 24,
-    color: 'black',
-  },
-  heading1: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 36,
     color: 'black',
   },
   captionText: {
@@ -282,11 +218,6 @@ const legacyVariants = {
     fontFamily: 'Nunito-Bold',
     fontSize: 15,
     color: 'tertiary',
-  },
-  holidayDate: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 12,
-    lineHeight: 14,
   },
   bold15: {
     fontFamily: 'Nunito-Bold',
@@ -307,42 +238,6 @@ const legacyVariants = {
     fontSize: 14,
     lineHeight: 21,
   },
-  regular15Calendar: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 15,
-  },
-  regular16Holifeed: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 16,
-    color: 'black',
-    lineHeight: 20,
-  },
-  header: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 24,
-    color: 'black',
-    textAlign: 'center',
-  },
-  boldWhite24: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 24,
-    color: 'white',
-    textAlign: 'center',
-  },
-  bold20: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 20,
-    lineHeight: 27,
-  },
-  bold24: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 24,
-  },
-  regular15: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 15,
-    lineHeight: 20,
-  },
   regularWhite12: {
     fontFamily: 'Nunito-Regular',
     fontSize: 12,
@@ -352,20 +247,6 @@ const legacyVariants = {
     fontFamily: 'Nunito-Bold',
     fontSize: 12,
     color: 'white',
-  },
-  boldOrange20: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 20,
-    color: 'tertiary',
-  },
-  bold16: {
-    fontFamily: 'Nunito-Bold',
-    fontSize: 16,
-  },
-  regularNeutralGrey10: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 10,
-    color: 'headerGrey',
   },
 }
 
