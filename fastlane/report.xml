@@ -5,82 +5,79 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.001112">
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.000652">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: update_fastlane" time="3.592429">
+      <testcase classname="fastlane.lanes" name="01: update_fastlane" time="3.574862">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: ensure_git_branch" time="0.153564">
+      <testcase classname="fastlane.lanes" name="02: ensure_git_branch" time="0.016311">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: install_dependencies" time="1.592156">
+      <testcase classname="fastlane.lanes" name="03: ensure_git_status_clean" time="0.02694">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: Switch to ios build lane" time="0.000345">
+      <testcase classname="fastlane.lanes" name="04: git_pull" time="9.861505">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: cocoapods" time="29.840386">
+      <testcase classname="fastlane.lanes" name="05: install_dependencies" time="1.432677">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: Switch to ios connect_to_app_store lane" time="0.000585">
+      <testcase classname="fastlane.lanes" name="06: Switch to android bump_version_package lane" time="0.00036">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: app_store_connect_api_key" time="0.008935">
+      <testcase classname="fastlane.lanes" name="07: npm version patch --no-git-tag-version" time="0.769205">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: Switch to ios bump_version_package lane" time="0.0005">
+      <testcase classname="fastlane.lanes" name="08: Switch to android bump_build_version lane" time="0.000275">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: npm version patch --no-git-tag-version" time="0.851718">
+      <testcase classname="fastlane.lanes" name="09: load_json" time="0.001406">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: Switch to ios update_version lane" time="0.00048">
+      <testcase classname="fastlane.lanes" name="10: increment_version_code" time="0.004313">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: load_json" time="0.001028">
+      <testcase classname="fastlane.lanes" name="11: increment_version_name" time="0.002517">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: increment_build_number" time="2.160985">
+      <testcase classname="fastlane.lanes" name="12: clean" time="18.669372">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="13: increment_version_number" time="1.508508">
+      <testcase classname="fastlane.lanes" name="13: bundleRelease" time="225.46174">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="14: gym" time="529.439741">
+      <testcase classname="fastlane.lanes" name="14: upload_to_play_store" time="39.480801">
         
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="15: upload_to_testflight" time="126.933133">
+          <failure message="/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:229:in `chdir'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:229:in `execute_action'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing'&#10;Fastfile:95:in `block (2 levels) in parsing_binding'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/lane_manager.rb:47:in `cruise_lane'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run'&#10;/Library/Ruby/Gems/2.6.0/gems/commander-4.6.0/lib/commander/command.rb:187:in `call'&#10;/Library/Ruby/Gems/2.6.0/gems/commander-4.6.0/lib/commander/command.rb:157:in `run'&#10;/Library/Ruby/Gems/2.6.0/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!'&#10;/Library/Ruby/Gems/2.6.0/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/commands_generator.rb:354:in `run'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/commands_generator.rb:43:in `start'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off'&#10;/Library/Ruby/Gems/2.6.0/gems/fastlane-2.210.1/bin/fastlane:23:in `&lt;top (required)&gt;'&#10;/usr/local/bin/fastlane:23:in `load'&#10;/usr/local/bin/fastlane:23:in `&lt;main&gt;'&#10;&#10;Google Api Error: Invalid request - APK has the wrong package name." />
         
       </testcase>
     
