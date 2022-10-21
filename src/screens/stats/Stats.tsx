@@ -11,7 +11,7 @@ type StatsTabProps = {
   value?: number | `${number}`
 }
 
-export const Stats = ({ stats }: { stats: StatsType }) => {
+export const Stats = ({ stats }: { stats?: StatsType }) => {
   const { user } = useUserContext()
   const { t } = useTranslation('stats')
 
@@ -20,7 +20,7 @@ export const Stats = ({ stats }: { stats: StatsType }) => {
       <SectionHeader text={t('requests')} />
       <Box marginTop="m" marginBottom="s" flexDirection="row" justifyContent="space-between">
         <StatsTab value={user?.availablePto} caption={t('daysToUse')} type="daysAvailable" />
-        <StatsTab value={stats.sickdaysTaken} caption={t('sickLeaveDaysTaken')} type="daysUsed" />
+        <StatsTab value={stats?.sickdaysTaken} caption={t('sickLeaveDaysTaken')} type="daysUsed" />
       </Box>
     </Box>
   )

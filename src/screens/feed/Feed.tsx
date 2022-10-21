@@ -193,10 +193,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   const clearEditTarget = () => setEditTarget(null)
 
-  if (!data) return <LoadingModal show />
-
-  const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
-
   const handleGoBack = () => {
     if (wasNavigatedFromNotifications) {
       navigation.navigate('NOTIFICATIONS')
@@ -209,7 +205,10 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     backgroundColor: styles.background.color,
   }
 
-  console.log('rerender')
+  if (!data) return <LoadingModal show />
+
+  const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <GestureRecognizer onSwipeRight={handleGoBack} iosOnly>
