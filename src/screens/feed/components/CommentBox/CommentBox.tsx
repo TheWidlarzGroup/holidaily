@@ -73,7 +73,6 @@ const CommentBox = ({
           comment={commentsCopy?.[0]}
           hideAvatar={commentFromPreviousUser(commentsCopy, 0)}
           id={commentsCopy?.[0].id}
-          key={commentsCopy?.[0].id}
         />
         {areCommentsExpanded ? (
           <AnimatedBox
