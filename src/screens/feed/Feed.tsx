@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
@@ -30,6 +30,9 @@ const ESTIMATED_POST_HEIGHT = 746
 
 type NavigationHookType = BottomTabNavigationType<'FEED'> & typeof DrawerActions
 
+// eslint-disable-next-line react/no-unused-prop-types
+type RenderItemType = { item: FeedPostType }
+
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
   const styles = useStyles()
@@ -60,12 +63,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   const wasNavigatedFromNotifications = memoizedPrevScreen[0] === 'NOTIFICATIONS'
 
   usePrevScreenBackHandler(prevScreen)
-
-  const openEditModal = (target: EditTargetType) => {
-    if (!(target.authorId === user?.id)) return
-    setEditTarget(target)
-    openOptionsModal?.()
-  }
 
   const onPressModalDelete = () => {
     closeOptionsModal?.()
@@ -170,9 +167,31 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   })
 
-  if (!data) return <LoadingModal show />
+  const renderItem = useCallback(
+    ({ item }: RenderItemType) => {
+      const openEditModal = (target: EditTargetType) => {
+        if (!(target.authorId === user?.id)) return
+        setEditTarget(target)
+        openOptionsModal?.()
+      }
 
-  const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
+      return (
+        <FeedPost
+          post={item}
+          openEditModal={openEditModal}
+          editTarget={editTarget}
+          wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+        />
+      )
+    },
+    [editTarget, openOptionsModal, user?.id, wasNavigatedFromNotifications]
+  )
+
+  const keyExtractor = (post: FeedPostType) => post.id
+
+  const onListLoad = () => setWasFlashListLoaded(true)
+
+  const clearEditTarget = () => setEditTarget(null)
 
   const handleGoBack = () => {
     if (wasNavigatedFromNotifications) {
@@ -180,30 +199,29 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     }
   }
 
+  const contentContainerStyle = {
+    paddingBottom: 90,
+    paddingTop: isIos ? 36 : 22,
+    backgroundColor: styles.background.color,
+  }
+
+  if (!data) return <LoadingModal show />
+
+  const allPosts = data.sort((a, b) => b.createdAt - a.createdAt)
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <GestureRecognizer onSwipeRight={handleGoBack} iosOnly>
         <FlashList
           ref={flatListRef}
-          onLoad={() => setWasFlashListLoaded(true)}
+          onLoad={onListLoad}
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={FeedHeader}
           data={allPosts}
-          renderItem={({ item }) => (
-            <FeedPost
-              post={item}
-              openEditModal={openEditModal}
-              editTarget={editTarget}
-              wasNavigatedFromNotifications={wasNavigatedFromNotifications}
-            />
-          )}
-          keyExtractor={(post) => post.id}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
           extraData={[language, editTarget]}
-          contentContainerStyle={{
-            paddingBottom: 90,
-            paddingTop: isIos ? 36 : 22,
-            backgroundColor: styles.background.color,
-          }}
+          contentContainerStyle={contentContainerStyle}
           estimatedItemSize={ESTIMATED_POST_HEIGHT}
           disableAutoLayout
         />
@@ -212,8 +230,8 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
         options={modalOptions}
         isOpen={isOptionsModalOpen}
         onHide={closeOptionsModal}
-        onSwipeComplete={() => setEditTarget(null)}
-        onBackdropPress={() => setEditTarget(null)}
+        onSwipeComplete={clearEditTarget}
+        onBackdropPress={clearEditTarget}
         backdropColor="transparent"
       />
       <MessageInputModal

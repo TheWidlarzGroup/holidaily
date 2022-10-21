@@ -29,8 +29,7 @@ export const DayEvent = ({ event }: DayEventProps) => (
     paddingVertical={EVENT_VERTICAL_PADDING}
     flexDirection="row"
     marginLeft="xsplus"
-    alignItems="center"
-    key={event.id}>
+    alignItems="center">
     <Avatar
       src={event?.photo}
       userDetails={{

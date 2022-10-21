@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { useFetchUserStats } from 'dataAccess/queries/useFetchUserStats'
-import { LoadingModal } from 'components/LoadingModal'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +16,7 @@ import { Request } from './components/Request'
 type NavigationType = RequestsNavigatorType<'STATS_AND_REQUESTS'> & typeof DrawerActions
 
 export const StatsAndRequests = () => {
-  const { isLoading, data: stats } = useFetchUserStats()
+  const { data: stats } = useFetchUserStats()
   const { t } = useTranslation('stats')
   const { user } = useUserContext()
   const navigation = useNavigation<NavigationType>()
@@ -50,8 +49,6 @@ export const StatsAndRequests = () => {
   const handleSwipeRight = () => {
     navigation.openDrawer()
   }
-
-  if (isLoading || !stats) return <LoadingModal show />
 
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['bottom']}>
