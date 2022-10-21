@@ -7,6 +7,7 @@ import { isScreenHeightShort } from 'utils/deviceSizes'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { ModalProps } from 'react-native-modal'
+import { LoadingModal } from 'components/LoadingModal'
 import { SwipeableModalRegular } from 'components/SwipeableModalRegular'
 import { SortableTeams } from './components/SortableTeams'
 
@@ -34,7 +35,11 @@ export const Dashboard = () => {
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <DashboardHeader />
-      {screenState !== 'seen' ? null : <SortableTeams />}
+      {screenState !== 'seen' ? (
+        <LoadingModal show={screenState !== 'seen' && !isSuccessModalVisible} />
+      ) : (
+        <SortableTeams />
+      )}
       <SwipeableModalRegular
         hasIndicator
         style={teamsModalStyle}
