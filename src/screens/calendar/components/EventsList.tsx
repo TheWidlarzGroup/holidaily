@@ -60,11 +60,10 @@ export const EventsList = forwardRef<FlashList<DayInfoProps>, EventsListProps>(
           renderItem={renderItem}
           extraData={[days, language]}
           keyExtractor={(item) => item.date}
-          initialScrollIndex={selectedDate.getDate() - 1}
           ref={flatListRef}
           onTouchEnd={handleTouch}
           onMomentumScrollEnd={handleScroll}
-          contentContainerStyle={{ paddingBottom: 80 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           keyboardShouldPersistTaps="handled"
         />
       </Box>

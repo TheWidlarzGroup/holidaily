@@ -36,8 +36,8 @@ export const DayInfo = React.memo(
         </Text>
         {typeof p.events !== 'undefined' && p.events?.length > 0 && (
           <Box>
-            {p.events.map((event) => (
-              <DayEvent event={event} key={event.id} />
+            {p.events.map((event, index) => (
+              <DayEvent event={event} key={index} />
             ))}
           </Box>
         )}

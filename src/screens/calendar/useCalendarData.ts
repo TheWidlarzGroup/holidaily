@@ -62,7 +62,9 @@ export const useCalendarData = () => {
           ),
         }
       })
-      setCurrentMonthDays(newCurrentMonthDays)
+
+      const currentDay = selectedDate.getDate() - 1
+      setCurrentMonthDays(newCurrentMonthDays.slice(currentDay))
     } else setCurrentMonthDays([])
   }, [filterCategories, requests, selectedDate])
 
