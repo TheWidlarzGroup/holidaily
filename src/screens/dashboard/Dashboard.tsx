@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DashboardHeader } from 'screens/dashboard/components/DashboardHeader'
 import { TeamsModal } from 'screens/welcome/components/TeamsModal'
@@ -14,23 +14,33 @@ export const Dashboard = () => {
   const [isSuccessModalVisible, { setFalse: closeSuccessModal, setTrue: openSuccessModal }] =
     useBooleanState(false)
 
+  const [screenState, setScreenState] = useState('idle')
+
   useAsyncEffect(async () => {
     const seenTeamsModal = await getItem('seenTeamsModal')
-    if (seenTeamsModal === 'true') return
+    if (seenTeamsModal === 'true') {
+      setScreenState('seen')
+      return
+    }
     requestAnimationFrame(openSuccessModal)
     setItem('seenTeamsModal', 'true')
   }, [openSuccessModal])
 
+  const handleModalClose = () => {
+    closeSuccessModal()
+    setScreenState('seen')
+  }
+
   return (
     <SafeAreaWrapper isDefaultBgColor edges={['left', 'right', 'bottom']}>
       <DashboardHeader />
-      <SortableTeams />
+      {screenState !== 'seen' ? null : <SortableTeams />}
       <SwipeableModalRegular
         hasIndicator
         style={teamsModalStyle}
         isOpen={isSuccessModalVisible}
         onHide={closeSuccessModal}>
-        <TeamsModal closeModal={closeSuccessModal} />
+        <TeamsModal closeModal={handleModalClose} />
       </SwipeableModalRegular>
     </SafeAreaWrapper>
   )
