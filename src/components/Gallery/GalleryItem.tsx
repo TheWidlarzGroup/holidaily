@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import FastImage from 'react-native-fast-image'
 import { BaseOpacity } from 'utils/theme'
 import { ViewStyle } from 'react-native'
 import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import { SkeletonLoader } from 'components/SkeletonLoader'
 import { sleep } from 'utils/sleep'
+import { useBooleanState } from 'hooks/useBooleanState'
 
 type GalleryItemProps = AttachmentDataType & {
   width: number
@@ -13,11 +14,11 @@ type GalleryItemProps = AttachmentDataType & {
 }
 
 export const GalleryItem = ({ uri, width, onPress, style }: GalleryItemProps) => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, { setFalse: setIsNotLoading }] = useBooleanState(true)
 
   const onImageLoadEnd = async () => {
     await sleep(500)
-    setIsLoading(false)
+    setIsNotLoading()
   }
 
   return (

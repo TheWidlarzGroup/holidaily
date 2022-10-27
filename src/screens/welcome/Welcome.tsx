@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
@@ -30,7 +30,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
   const { notify } = useGetNotificationsConfig()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, { setFalse: setIsNotLoading, setTrue: setIsLoading }] = useBooleanState(false)
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
@@ -39,14 +39,14 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   }, [route.params?.userLoggedOut, notify, t])
 
   const onSubmit = async () => {
-    setIsLoading(true)
+    setIsLoading()
     await setItem('firstName', nameInput)
     Analytics().identify({ firstName: nameInput })
     createTempUser(
       { firstName: nameInput },
       {
         onSuccess: (data) => {
-          setIsLoading(false)
+          setIsNotLoading()
           updateUser(data.user)
         },
       }
