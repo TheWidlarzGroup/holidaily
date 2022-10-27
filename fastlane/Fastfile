@@ -1,4 +1,4 @@
-fastlane_version "2.209.0"
+fastlane_version "2.210.1"
 
 before_all do
    update_fastlane

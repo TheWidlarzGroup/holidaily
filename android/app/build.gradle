@@ -143,8 +143,8 @@ android {
         applicationId "com.holidaily"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 56
-        versionName "1.0.51"
+        versionCode 57
+        versionName "1.0.52"
         ndk {
             debugSymbolLevel 'SYMBOL_TABLE'
         }
