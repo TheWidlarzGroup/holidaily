@@ -4,7 +4,6 @@ import { BaseOpacity } from 'utils/theme'
 import { ViewStyle } from 'react-native'
 import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import { SkeletonLoader } from 'components/SkeletonLoader'
-import { sleep } from 'utils/sleep'
 import { useBooleanState } from 'hooks/useBooleanState'
 
 type GalleryItemProps = AttachmentDataType & {
@@ -16,8 +15,7 @@ type GalleryItemProps = AttachmentDataType & {
 export const GalleryItem = ({ uri, width, onPress, style }: GalleryItemProps) => {
   const [isLoading, { setFalse: setIsNotLoading }] = useBooleanState(true)
 
-  const onImageLoadEnd = async () => {
-    await sleep(500)
+  const onImageLoadEnd = () => {
     setIsNotLoading()
   }
 

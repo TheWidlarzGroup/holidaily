@@ -21,8 +21,6 @@ type Props = {
 export const SkeletonLoader = (props: Props) => {
   const loaderValue = useSharedValue(0)
 
-  const IMAGE_HEIGHT = (props.width * 4) / 3
-
   useEffect(() => {
     loaderValue.value = withRepeat(withTiming(1, { duration: 1500 }), Infinity)
 
@@ -45,7 +43,7 @@ export const SkeletonLoader = (props: Props) => {
   }
 
   return (
-    <MaskedView maskElement={props.children} style={{ height: IMAGE_HEIGHT, width: props.width }}>
+    <MaskedView maskElement={props.children} style={{ aspectRatio: 4 / 5, width: props.width }}>
       <AnimatedBox style={[StyleSheet.absoluteFill, animatedStyle]} width={props.width}>
         <MaskedView
           style={StyleSheet.absoluteFill}
