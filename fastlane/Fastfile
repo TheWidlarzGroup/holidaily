@@ -1,32 +1,22 @@
-fastlane_version "2.210.1"
-
-before_all do
-   update_fastlane
-   ensure_git_branch(branch: 'staging')
-   ensure_git_status_clean
-   git_pull
-   yarn(command: "install", step_name: "install_dependencies")
-end
-
-platform :ios do
+lane :build_and_release_to_app_store do |options|
    # iOS Lanes
    desc "connect to App store api"
    lane :connect_to_app_store do
       app_store_connect_api_key(
-         key_id: ENV["KEY_ID"],
-         issuer_id: ENV["ISSUER_ID"],
-         is_key_content_base64: false,
+         key_id: ENV["APPLE_KEY_ID"],
+         issuer_id: ENV["APPLE_ISSUER_ID"],
+         is_key_content_base64: true,
          key_content: ENV["IOS_AUTH_KEY"],
       )
    end
    
-   # TODO - uncomment after connecting gh actions
+   setup_git()
 
-   # desc "Fetch certificates and provisioning profiles"
-   # lane :certificates do
-   #    match(app_identifier: "com.holidaily", type: "development", readonly: true)
-   #    match(app_identifier: "com.holidaily", type: "appstore", readonly: true)
-   # end
+   desc "Fetch certificates and provisioning profiles"
+   lane :certificates do  
+      match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "appstore", readonly: true)
+      match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "development", readonly: true)
+   end
 
    desc "Bump version in package"
    private_lane :bump_version_package do
@@ -53,14 +43,22 @@ platform :ios do
         connect_to_app_store
         bump_version_package
         update_version
-        gym(scheme: "Holidayly", workspace: "./ios/Holidayly.xcworkspace")
+        gym(scheme: "Holidayly", workspace: "./ios/Holidayly.xcworkspace", export_options: {
+         provisioningProfiles: {
+            "com.holidaily" => "match AppStore com.holidaily",
+            "com.holidaily.OneSignalNotificationServiceExtension" => "Fastlane-onesignal"
+         }})
    end
 
    desc "Ship to Testflight."
         lane :beta do
             build
-            upload_to_testflight(username:ENV["TF_USERNAME"], app_identifier:ENV["APP_IDENTIFIER"], skip_submission: true,
-            skip_waiting_for_build_processing: true)
+            # upload_to_testflight(
+            #    username:ENV["TF_USERNAME"], 
+            #    app_identifier:ENV["APP_IDENTIFIER"], 
+            #    skip_submission: true,
+            #    skip_waiting_for_build_processing: true
+            # )
    end
 end
 

@@ -1,0 +1,61 @@
+name: PRODUCTION | Publish to Apple Store
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  release-ios-production:
+    name: PRODUCTION | Build and release iOS app
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare env file
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.14
+
+      - name: Restore node_modules from cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --network-timeout 300000
+
+      - name: Setup Ruby (bundle)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Restore Pods cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Bundle and Upload to App Store Connect
+        env:
+          VERSION_NAME: ${{ github.event.release.tag_name }}
+          KEY_ID: ${{secrets.KEY_ID}}
+          ISSUER_ID: ${{secrets.ISSUER_ID}}
+          IOS_AUTH_KEY: ${{secrets.IOS_AUTH_KEY}}
+          MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.BASE64_PAT}}
+          PAT: ${{secrets.DANIEL_PAT}}
+        run: bundle exec fastlane build_and_release_to_app_store
