@@ -369,7 +369,7 @@ PODS:
     - React-Core
   - react-native-image-picker (4.8.4):
     - React-Core
-  - react-native-month-year-picker (1.8.1):
+  - react-native-month-year-picker (1.9.0):
     - React
   - react-native-onesignal (4.3.10):
     - OneSignalXCFramework (= 3.11.1)
@@ -464,7 +464,7 @@ PODS:
     - React-Core
   - RNPermissions (3.3.1):
     - React-Core
-  - RNReanimated (2.8.0):
+  - RNReanimated (2.10.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -819,7 +819,7 @@ SPEC CHECKSUMS:
   react-native-document-picker: f68191637788994baed5f57d12994aa32cf8bf88
   react-native-flipper-performance-plugin: ab280430bbdd17deffb7a30d94b604738cd04150
   react-native-image-picker: cffb727cf2f59bd5c0408e30b3dbe0b935f88835
-  react-native-month-year-picker: 66acab2013309482578a015f01c71e8f2eebb134
+  react-native-month-year-picker: 948797e981ca502427024a34b17f545eb321bbff
   react-native-onesignal: ebe25c107bc2d04aa1db040b1b5dee56f4df4436
   react-native-safe-area-context: 6c12e3859b6f27b25de4fee8201cfb858432d8de
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -842,7 +842,7 @@ SPEC CHECKSUMS:
   RNFlashList: 18d906a373da5ff16776e5013df9495d826edc7e
   RNGestureHandler: bad495418bcbd3ab47017a38d93d290ebd406f50
   RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
-  RNReanimated: 141c77b0aea69a9ae44041d8dd9f07ae33340bb6
+  RNReanimated: 60e291d42c77752a0f6d6f358387bdf225a87c6e
   RNScreens: aa9a97835afbbdc18a4757870b2b59b7d9fae16a
   RNSiriShortcuts: 93d7607c6e1dd693657395ce6d705f6005e88240
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
