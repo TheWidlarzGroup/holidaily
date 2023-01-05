@@ -54,6 +54,7 @@ export const postsMock: FeedPost[] = [
       street: 'Krakow',
       subregion: 'Krakow',
       timezone: 'Europe',
+      streetNumber: '1',
     },
     comments: [],
     reactions: [],
@@ -80,6 +81,7 @@ export const postsMock: FeedPost[] = [
       street: 'Praça do Gen Humberto Delgado',
       subregion: 'District Porto',
       timezone: 'Europe/Lisbon',
+      streetNumber: '2',
     },
 
     text: 'Hope it will make you hungry guys! :D Greetings from Porto!',
@@ -133,6 +135,7 @@ export const postsMock: FeedPost[] = [
       street: 'Santa Croce',
       subregion: 'Venice',
       timezone: 'Europe/Rome',
+      streetNumber: '3',
     },
 
     text: 'Ahhh… city of lurrve!! Romance on every corner, a picture on every cobbled street and alley way. The light was just superb for photos and I had a great time getting lost in all the twisting and turning alley ways. I’ve always prided myself on my sense of direction and being able to nose my way in and around an area – not in Venice. ',
