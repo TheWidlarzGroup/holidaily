@@ -34,7 +34,7 @@ jobs:
       - name: validate JSON key
         run: bundle exec fastlane run validate_play_store_json_key json_key:android/app/holidaily-fastlane.json
       - name: Add keys to gradle.properties
-        run: printf "HOLIDAILY_UPLOAD_STORE_PASSWORD=${{ secrets.HOLIDAILY_UPLOAD_STORE_PASSWORD }}\nHOLIDAILY_UPLOAD_KEY_PASSWORD=${{ secrets.HOLIDAILY_UPLOAD_KEY_PASSWORD }}" >> android/gradle.properties
+        run: printf "HOLIDAILY_UPLOAD_STORE_PASSWORD=${{ secrets.HOLIDAILY_UPLOAD_STORE_PASSWORD }}\nHOLIDAILY_UPLOAD_KEY_PASSWORD=${{ secrets.HOLIDAILY_UPLOAD_KEY_PASSWORD }}\nHOLIDAILY_UPLOAD_KEY_ALIAS=${{ secrets.HOLIDAILY_UPLOAD_KEY_ALIAS }}" >> android/gradle.properties
       - name: Deploy android beta
         run: bundle exec fastlane android beta
         env:
