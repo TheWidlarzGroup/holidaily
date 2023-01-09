@@ -13,6 +13,7 @@ LogBox.ignoreLogs([
   'Require cycle: node_modules',
   '`new NativeEventEmitter()`',
   'EventEmitter.removeListener',
+  'Could not find Fiber with id', // it shows only with flipper and its annoying
 ])
 
 export const queryClient = new QueryClient()

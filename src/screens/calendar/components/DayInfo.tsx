@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Spacing, Text, TextVariant, theme } from 'utils/theme'
-import { getDateWithMonthString, getDayName, isWeekend } from 'utils/dates'
+import { getDayName, getReversedDateWithMonthString, isWeekend } from 'utils/dates'
 import { DayEvent, EVENT_HEIGHT } from './DayEvent'
 import { DayInfoProps } from '../../../types/DayInfoProps'
 
@@ -28,16 +28,16 @@ export const DayInfo = React.memo(
         borderRadius="lmin"
         backgroundColor="white"
         paddingVertical={DAY_PADDING_VERTICAL}
-        paddingHorizontal="lplus"
+        paddingHorizontal="m"
         marginVertical={OUTER_BOX_MARGIN}>
-        <Text variant={HEADING_TEXT_VARIANT}>
-          {getDateWithMonthString(p.date)},{' '}
-          <Text color="blackBrighterDouble">{getDayName(p.date)}</Text>
+        <Text variant={HEADING_TEXT_VARIANT} marginBottom="xxs">
+          {getReversedDateWithMonthString(p.date)},{' '}
+          <Text color="darkGrey">{getDayName(p.date)}</Text>
         </Text>
         {typeof p.events !== 'undefined' && p.events?.length > 0 && (
           <Box>
-            {p.events.map((event) => (
-              <DayEvent event={event} key={event.id} />
+            {p.events.map((event, index) => (
+              <DayEvent event={event} key={index} />
             ))}
           </Box>
         )}

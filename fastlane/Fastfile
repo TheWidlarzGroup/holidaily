@@ -1,10 +1,9 @@
-fastlane_version "2.190.0"
+fastlane_version "2.210.1"
 
 before_all do
-   yarn(command: "install", step_name: "install_dependencies")
    ensure_git_branch(branch: "staging")
-   # ensure_git_status_clean
    git_pull
+   yarn(command: "install", step_name: "install_dependencies")
 end
 
 platform :ios do
@@ -27,13 +26,18 @@ platform :ios do
    #    match(app_identifier: "com.holidaily", type: "appstore", readonly: true)
    # end
 
-   
+   desc "Bump version in package"
+   private_lane :bump_version_package do
+      sh("npm", "version", "patch", "--no-git-tag-version")
+   end
 
    desc "Update Version number"
       private_lane :update_version do
+      
+       package = load_json(json_path: "./package.json")
 
        increment_build_number(xcodeproj: "./ios/Holidayly.xcodeproj")
-       increment_version_number( xcodeproj: "./ios/Holidayly.xcodeproj") 
+       increment_version_number(xcodeproj: "./ios/Holidayly.xcodeproj", version_number: package['version']) 
    
     end
 
@@ -45,6 +49,7 @@ platform :ios do
             repo_update: true
           )
         connect_to_app_store
+        bump_version_package
         update_version
         gym(scheme: "Holidayly", workspace: "./ios/Holidayly.xcworkspace")
    end

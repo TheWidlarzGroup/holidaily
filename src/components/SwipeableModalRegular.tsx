@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { ScrollView, TouchableWithoutFeedback } from 'react-native'
 import { ModalProps } from 'react-native-modal'
+import { isIos } from 'utils/layout'
 import { BaseOpacity, Box } from 'utils/theme'
 import { CustomButton } from './CustomButton'
 import { SwipeableModal } from './SwipeableModal'
@@ -19,12 +20,12 @@ export type SwipeableModalRegularProps = PropsWithChildren<
     hasIndicator?: boolean
     closeAction?: 'close' | 'back'
     useScrollView?: boolean
+    addTopOffset?: true
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >
 >
 
-const btnStyle = { marginTop: 'auto' }
 export const SwipeableModalRegular = (props: SwipeableModalRegularProps) => {
   const Header = () => (
     <SwipeableModalHeader
@@ -67,14 +68,16 @@ type RegularModalButtonProps = Pick<
   'buttonLabel' | 'buttonAction' | 'onHide'
 >
 
-const RegularModalButton = (p: RegularModalButtonProps) => {
-  const btnLabel = p.buttonLabel ?? ''
-  return p.buttonLabel ? (
-    <Box paddingBottom="lplus" style={btnStyle}>
-      <CustomButton label={btnLabel} variant="primary" onPress={p.buttonAction || p.onHide} />
+const RegularModalButton = (p: RegularModalButtonProps) =>
+  p.buttonLabel ? (
+    <Box paddingBottom={isIos ? 'xlplus' : 'l'} style={{ marginTop: 'auto' }}>
+      <CustomButton
+        label={p.buttonLabel ?? ''}
+        variant="primary"
+        onPress={p.buttonAction || p.onHide}
+      />
     </Box>
   ) : null
-}
 const ModalScrollView = ({
   children,
   ...modalBtnProps

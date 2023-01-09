@@ -31,12 +31,26 @@ export const analyticsEventMap = {
     name: '[DASHBOARD] Team Mate Modal Opened',
     payload: fcast<{ teamMateName: string }>(),
   },
+  DASHBOARD_TEAM_LONG_PRESSED: {
+    name: '[DASHBOARD] Team Long Pressed',
+    payload: fcast<{ element: number | null }>(),
+  },
+  DASHBOARD_TEAM_DRAGGED: {
+    name: '[DASHBOARD] Team Dragged',
+    payload: fcast<{ element: number | null; newPosition: number | null }>(),
+  },
   DASHBOARD_CAROUSEL_OPENED: {
     name: '[DASHBOARD] Carousel Modal Opened',
     payload: fcast<{ profileName: string }>(),
   },
   DASHBOARD_FIRST_TEAM_VIEWED: {
     name: '[DASHBOARD] Join First Team Viewed',
+    payload: fcast<never>(),
+  },
+
+  // Calendar
+  CALENDAR_SCROLL_TO_BUTTON_PRESSED: {
+    name: '[CALENDAR] Scroll To Button Pressed',
     payload: fcast<never>(),
   },
 
@@ -89,6 +103,14 @@ export const analyticsEventMap = {
     name: '[HOLIFEED] Add Attachment Modal Opened',
     payload: fcast<never>(),
   },
+  FEED_ADD_ATTACHMENT_IMAGE_ADDED: {
+    name: '[HOLIFEED] Add Attachment Image Added',
+    payload: fcast<{ uri: string; type?: string }>(),
+  },
+  FEED_ADD_ATTACHMENT_PHOTO_ADDED: {
+    name: '[HOLIFEED] Add Attachment Photo Added',
+    payload: fcast<{ type?: string }>(),
+  },
   FEED_ADD_ATTACHMENT_MODAL_CANCELLED: {
     name: '[HOLIFEED] Add Attachment Modal Cancelled',
     payload: fcast<never>(),
@@ -139,6 +161,14 @@ export const analyticsEventMap = {
     name: '[REQUEST_VACATION] Add Attachment Modal Opened',
     payload: fcast<never>(),
   },
+  REQUEST_ADD_ATTACHMENT_IMAGE_ADDED: {
+    name: '[REQUEST_VACATION] Add Attachment Image Added',
+    payload: fcast<{ uri: string; type?: string }>(),
+  },
+  REQUEST_ADD_ATTACHMENT_PHOTO_ADDED: {
+    name: '[REQUEST_VACATION] Add Attachment Image Added',
+    payload: fcast<{ type?: string }>(),
+  },
   REQUEST_ADD_ATTACHMENT_MODAL_CANCELLED: {
     name: '[REQUEST_VACATION] Add Attachment Modal Cancelled',
     payload: fcast<never>(),
@@ -161,6 +191,7 @@ export const analyticsEventMap = {
     name: '[STATS_AND_REQUESTS] Request Opened',
     payload: fcast<{ request: Request }>(),
   },
+
   // Edit Profile
   USER_COLOR_PICKED: {
     name: '[EDIT_PROFILE] User Color Picked',
@@ -169,6 +200,14 @@ export const analyticsEventMap = {
   USER_ADD_ATTACHMENT_MODAL_OPENED: {
     name: '[EDIT_PROFILE] Add Attachment Modal Opened',
     payload: fcast<never>(),
+  },
+  USER_ADD_ATTACHMENT_IMAGE_ADDED: {
+    name: '[EDIT_PROFILE] Add Attachment Image Added',
+    payload: fcast<{ uri: string; type?: string }>(),
+  },
+  USER_ADD_ATTACHMENT_PHOTO_ADDED: {
+    name: '[EDIT_PROFILE] Add Attachment Photo Added',
+    payload: fcast<{ type?: string }>(),
   },
   USER_ADD_ATTACHMENT_MODAL_CANCELLED: {
     name: '[EDIT_PROFILE] Add Attachment Modal Cancelled',

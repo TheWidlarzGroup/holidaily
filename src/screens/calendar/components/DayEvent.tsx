@@ -4,8 +4,8 @@ import { Avatar, AvatarSize, avatarSizes } from 'components/Avatar'
 
 export type DayOffEvent = {
   id: string
-  person: string
-  personLastName?: string
+  firstName: string
+  lastName?: string
   reason: string
   position: string
   color: string
@@ -17,8 +17,8 @@ export type DayOffEvent = {
 
 type DayEventProps = { event: DayOffEvent }
 
-const EVENT_VERTICAL_PADDING: Spacing = 's'
-const AVATAR_SIZE: AvatarSize = 's'
+const EVENT_VERTICAL_PADDING: Spacing = 'm'
+const AVATAR_SIZE: AvatarSize = 'xs'
 // Comment: used to determine container flatlist scroll offset
 export const EVENT_HEIGHT = theme.spacing[EVENT_VERTICAL_PADDING] * 2 + avatarSizes[AVATAR_SIZE]
 
@@ -28,16 +28,16 @@ export const DayEvent = ({ event }: DayEventProps) => (
     height={EVENT_HEIGHT}
     paddingVertical={EVENT_VERTICAL_PADDING}
     flexDirection="row"
-    alignItems="center"
-    key={event.person}>
+    marginLeft="xsplus"
+    alignItems="center">
     <Avatar
       src={event?.photo}
       userDetails={{
         userColor: event.color,
-        firstName: event.person,
-        lastName: event.personLastName,
+        firstName: event.firstName,
+        lastName: event.lastName,
       }}
-      size="m"
+      size="xs"
     />
     <Box
       marginHorizontal="s"
@@ -46,10 +46,10 @@ export const DayEvent = ({ event }: DayEventProps) => (
       borderRadius="s"
       style={{ backgroundColor: event.color }}
     />
-    <Box style={{ marginTop: 1 }}>
+    <Box>
       <Box flexDirection="row" alignItems="center">
         <Text fontSize={12} fontFamily="Nunito-Bold" lineHeight={18} color="blackBrighter">
-          {`${event.person}: `}
+          {`${event.firstName} ${event.lastName}: `}
         </Text>
         <Text fontSize={12} fontFamily="Nunito-Regular" lineHeight={18} color="blackBrighter">
           {event.reason}

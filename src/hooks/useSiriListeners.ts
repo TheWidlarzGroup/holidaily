@@ -2,9 +2,10 @@ import { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SiriShortcutsEvent, suggestShortcuts } from 'react-native-siri-shortcut'
 import { sickday } from 'utils/siriShortcuts'
+import { DrawerNavigationType, DrawerRoutes } from 'navigation/types'
 
-export const useSiriListeners = () => {
-  const navigation = useNavigation()
+export const useSiriListeners = <T extends keyof DrawerRoutes>() => {
+  const navigation = useNavigation<DrawerNavigationType<T>>()
 
   useEffect(() => {
     suggestShortcuts([sickday])

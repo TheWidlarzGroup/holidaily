@@ -1,37 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
-import { Box } from 'utils/theme'
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Theme } from 'utils/theme'
+import { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native'
+import { BottomTabRoutes } from 'navigation/types'
+import { AnimatedBox } from 'components/AnimatedBox'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'
 import { FeedPostHeader } from './FeedPostHeader'
 
 type FeedPostProps = {
   post: FeedPostType
+  openEditModal: F1<EditTargetType>
+  editTarget?: EditTargetType | null
+  wasNavigatedFromNotifications?: boolean
 }
 
-const AnimatedBox = Animated.createAnimatedComponent(Box)
-
-export const FeedPost = ({ post }: FeedPostProps) => {
+export const FeedPost = (props: FeedPostProps) => {
+  const { post, editTarget, openEditModal, wasNavigatedFromNotifications } = props
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
-  const navigation = useNavigation<any>()
+  const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
+  const borderColor: keyof Theme['colors'] = showBorder ? 'special' : 'white'
+
+  useEffect(() => {
+    if (editTarget?.postId === post.id && editTarget?.type === 'post') setShowBorder(true)
+    else setShowBorder(false)
+  }, [post.id, editTarget?.postId, editTarget?.type])
 
   useEffect(() => {
     animProgress.value = withTiming(11, { duration: 800, easing: Easing.exp })
   }, [animProgress])
 
   useFocusEffect(
-    React.useCallback(() => {
-      const { routes } = navigation.getState()
-      const getIdParam = routes.slice().pop()?.params?.postId
-      const isFromNotifications = getIdParam === Number(post.id)
+    useCallback(() => {
+      const getIdParam = route.params?.postId
+      const isFromNotifications = Number(getIdParam) === Number(post.id)
 
       if (isFromNotifications) {
         setShowBorder(true)
@@ -40,7 +44,7 @@ export const FeedPost = ({ post }: FeedPostProps) => {
           setShowBorder(false)
         }, 6000)
       }
-    }, [navigation, post.id])
+    }, [route, post.id])
   )
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -55,10 +59,18 @@ export const FeedPost = ({ post }: FeedPostProps) => {
       bg="white"
       borderTopLeftRadius="lmin"
       borderTopRightRadius="lmin"
-      marginTop={showBorder ? 'xsplus' : 's'}>
-      <FeedPostHeader post={post} showBorder={showBorder} />
-      <FeedPostBody post={post} showBorder={showBorder} />
-      <FeedPostFooter post={post} showBorder={showBorder} />
+      marginTop="s">
+      <FeedPostHeader post={post} openEditModal={openEditModal} borderColor={borderColor} />
+      <FeedPostBody
+        post={post}
+        borderColor={borderColor}
+        wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+      />
+      <FeedPostFooter
+        {...props}
+        borderColor={borderColor}
+        isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+      />
     </AnimatedBox>
   )
 }

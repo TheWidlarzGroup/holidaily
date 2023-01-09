@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import { StyleProp, TextInput, ViewStyle } from 'react-native'
 import { BaseOpacity, Box, mkUseStyles, theme, useColors } from 'utils/theme'
 import SendArrowIcon from 'assets/icons/icon-paperplane.svg'
@@ -22,6 +22,7 @@ export type MessageInputProps = {
   setMessageContent: F1<string>
   onSubmitEditing: F1<string>
   handleSubmitComment?: F1<Comment>
+  handleEditComment?: F0
   onBlur?: F1<string>
   defaultValue?: string
   maxLength?: number
@@ -32,7 +33,7 @@ export type MessageInputProps = {
 const ICON_SIZE = 16
 const androidPaddings: StyleProp<ViewStyle> = isAndroid ? { paddingTop: -3, paddingBottom: -3 } : {}
 
-export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((props, ref) => {
+export const MessageInput = forwardRef<TextInput, MessageInputProps>((props, ref) => {
   const {
     onSubmitEditing,
     onBlur,
@@ -42,6 +43,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     messageContent,
     setMessageContent,
     placeholder,
+    handleEditComment,
   } = props
   const [error, setError] = useState('')
   const { t } = useTranslation('messageInput')
@@ -77,32 +79,29 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
     []
   )
 
-  const handleSubmit = () => {
+  const handleSubmitComment = () => {
     if (error) return
     onSubmitEditing(messageContent)
     const message: Comment = {
-      meta: {
-        id: generateUUID(),
-        author: {
-          id: user?.id || '',
-          occupation: user?.occupation || '',
-          name: `${user?.firstName} ${user?.lastName}` || '',
-          pictureUrl: user?.photo || null,
-          userColor: user?.userColor,
-          lastName: user?.lastName,
-        },
-        timestamp: {
-          createdAt: new Date(),
-        },
+      id: generateUUID(),
+      author: {
+        id: user?.id || '',
+        occupation: user?.occupation || '',
+        name: `${user?.firstName} ${user?.lastName}` || '',
+        pictureUrl: user?.photo || null,
+        userColor: user?.userColor,
+        lastName: user?.lastName,
       },
+      createdAt: new Date().getTime(),
       text: messageContent,
     }
     props.handleSubmitComment?.(message)
-    notify('successCustom', { params: { title: t('commentAdded') } })
+    if (messageContent.length > 0) notify('successCustom', { params: { title: t('commentAdded') } })
   }
 
   const handleBlur = () => {
     onBlur?.(messageContent)
+    if (handleEditComment) handleEditComment()
   }
 
   useEffect(() => {
@@ -123,7 +122,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           style={[styles.input, androidPaddings]}
           placeholder={placeholder || undefined}
           placeholderTextColor={colors.headerGrey}
-          onSubmitEditing={handleSubmit}
+          onSubmitEditing={handleEditComment || handleSubmitComment}
           onBlur={handleBlur}
           blurOnSubmit
           multiline
@@ -135,7 +134,7 @@ export const MessageInput = React.forwardRef<TextInput, MessageInputProps>((prop
           <BaseOpacity
             width={32}
             height={32}
-            onPress={handleSubmit}
+            onPress={handleEditComment || handleSubmitComment}
             backgroundColor="special"
             borderRadius="full"
             justifyContent="center"

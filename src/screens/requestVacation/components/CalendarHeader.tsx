@@ -8,7 +8,7 @@ export const CalendarHeader = ({ date }: { date: Date }) => {
   const { fontSize } = useTheme()
   return (
     <Box margin="xm" flexDirection="row" alignItems="flex-end">
-      <Text variant="bold16" color="black" marginRight="s">
+      <Text variant="textBoldMD" color="black" marginRight="s">
         {monthName}
       </Text>
       <Text fontSize={fontSize.xs} lineHeight={20} color="black">

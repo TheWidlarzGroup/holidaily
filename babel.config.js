@@ -1,10 +1,21 @@
-module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
-  plugins: [
+module.exports = function (api) {
+  const isProd = api.env('production')
+
+  const presets = [
+    [
+      'module:metro-react-native-babel-preset',
+      {
+        runtime: 'automatic',
+        development: process.env.NODE_ENV === 'development',
+        importSource: '@welldone-software/why-did-you-render',
+      },
+    ],
+  ]
+
+  const plugins = [
     'react-native-reanimated/plugin',
     [
       'module:react-native-dotenv',
-
       {
         moduleName: '@env',
         path: '.env',
@@ -41,5 +52,17 @@ module.exports = {
         },
       },
     ],
-  ],
+  ]
+
+  if (isProd) {
+    return {
+      presets: presets,
+      plugins: [...plugins, 'transform-remove-console'],
+    }
+  }
+
+  return {
+    presets: presets,
+    plugins: plugins,
+  }
 }

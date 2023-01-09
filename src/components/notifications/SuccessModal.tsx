@@ -1,6 +1,6 @@
 import React from 'react'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
-import { Image } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 type ModalPropsType = {
   title: string
@@ -23,7 +23,7 @@ export const SuccessModal = ({ title, onPressText, onPress }: ModalPropsType) =>
       borderColor="approvedGreen"
       borderRadius="l1min"
       flexDirection="row">
-      <Image source={successIcon} style={styles.image} />
+      <FastImage source={successIcon} style={styles.image} />
       <Text marginLeft="xm" variant="textSM">
         {title}
       </Text>

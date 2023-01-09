@@ -1,20 +1,21 @@
 import React from 'react'
-import { Box, BaseOpacity, Text, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import IconGallery from 'assets/icons/icon-gallery.svg'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { UploadAttachmentModal } from 'components/UploadAttachmentModal'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Analytics } from 'services/analytics'
+import { BottomTabNavigationType } from 'navigation/types'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 
 const ICON_SIZE = 30
 
 export const FeedHeader = () => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<BottomTabNavigationType<'FEED'>>()
   const { t } = useTranslation('feed')
   const theme = useTheme()
   const [
@@ -23,8 +24,11 @@ export const FeedHeader = () => {
   ] = useBooleanState(false)
   const { user } = useUserContext()
 
-  const changeDataRequest = (modalPhoto: AttachmentType) => {
-    navigate('CREATE_POST', { photo: modalPhoto })
+  const changeDataRequest = (modalPhoto: AttachmentDataType) => {
+    navigate('CREATE_POST_NAVIGATION', {
+      screen: 'CREATE_POST',
+      params: { modalAsset: modalPhoto },
+    })
   }
 
   const handleGalleryIcon = () => {
@@ -47,7 +51,10 @@ export const FeedHeader = () => {
         <Box marginRight="m" marginLeft="xs">
           <Avatar src={user?.photo} userDetails={makeUserDetails(user)} size="s" />
         </Box>
-        <BaseOpacity flexGrow={1} onPress={() => navigate('CREATE_POST')} justifyContent="center">
+        <BaseOpacity
+          flexGrow={1}
+          onPress={() => navigate('CREATE_POST_NAVIGATION')}
+          justifyContent="center">
           <Text variant="textSM" color="headerGrey">
             {t('createPostLabel')}
           </Text>
@@ -61,9 +68,9 @@ export const FeedHeader = () => {
           hideModal={setShowAttachmentModalFalse}
           onUserCancelled={setShowAttachmentModalFalse}
           showCamera
-          setPhotoURI={(uri) => {
+          setPhotoURI={(uri, type) => {
             if (!uri) return
-            changeDataRequest({ uri, id: new Date().toString() })
+            changeDataRequest({ uri, id: new Date().toString(), type })
           }}
         />
       </Box>

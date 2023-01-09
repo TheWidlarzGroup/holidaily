@@ -143,10 +143,6 @@
     "yes": "Wyloguj",
     "no": "Anuluj"
   },
-  "inputErrors": {
-    "requiredField": "To pole jest wymagane",
-    "passwordMatch": "Hasła muszą być identyczne"
-  },
   "navigation": {
     "logout": "Wyloguj",
     "home": "Strona Główna",
@@ -173,6 +169,7 @@
     "userPassword": "Hasło",
     "userTeams": "TWOJE ZESPOŁY",
     "userColor": "TWÓJ KOLOR:",
+    "changeColor": "Przesuń aby zmienić kolor",
     "userColorDesc": "Twój kolor będzie widoczny dla innych członków zespołu, aby mogli odróżnić w kalendarzu Twój czas poza biurem.",
     "saveChanges": "Zapisz zmiany",
     "changesSaved": "Zmiany zostały zapisane",
@@ -192,14 +189,15 @@
     "colorPickerSubtitle": "Aby wybrać kolor, kliknij i przeciągnij go do dołu ekranu.",
     "colorPickerInfo": "Twój kolor pojawi się w kalendarzu i w miejscu awatara, jeśli nie dodasz zdjęcia profilowego. Kolor jest przypisany do Twojego konta i widoczny dla wszystkich użytkowników.",
     "discardChanges": "Odrzuć zmiany",
-    "discard": "Odrzuć zmiany",
-    "changesWillBeLost": "Zmiany nie zostaną zapisane, jeśli ich nie zapiszesz.",
+    "changesWillBeLost": "Jeśli porzucisz zmiany, nie zostaną zapisane.",
     "dropAreaText": "Tutaj upuść wybrany kolor",
     "confirmSave": "Zapisać zmiany?",
     "discardTeams": "Czy chcesz zrezygnować z wybranych zespołów?",
     "backToSelection": "Wróć do wyboru",
     "teamsEmptyState": "Kliknij + i dołącz do Twojego pierwszego zespołu!",
-    "search": "Wyszukaj"
+    "search": "Wyszukaj",
+    "requiredField": "To pole jest wymagane",
+    "passwordMatch": "Hasła muszą być identyczne"
   },
   "dashboard": {
     "today": "Dzisiaj jest:",
@@ -230,20 +228,32 @@
     "locationNotFound": "Nie znaleziono",
     "exceededAmount": "Przekroczyłeś dozwoloną ilość zdjęć w poście",
     "seeMore": "pokaż więcej",
+    "seeMoreCapitalized": "Więcej",
+    "showLessCapitalized": "Mniej",
     "postPublished": "Opublikowano post!",
     "undo": "Cofnij",
     "more": "więcej",
     "showLess": "Pokaż mniej",
     "edit": "Edytuj",
     "delete": "Usuń",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "discard": "Odrzuć",
+    "keepEditing": "Kontynuuj edycję",
+    "discardPostHeader": "Odrzucić post?",
+    "discardChangesHeader": "Odrzucić zmiany?",
+    "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
+    "changesSaved": "Zapisano zamiany!",
+    "commentDeleted": "Usunięto komentarz!",
+    "postDeleted": "Usunięto post!"
   },
   "createPost": {
     "title": "Utwórz Post",
     "clearPost": "Wyczyść",
     "inputPlaceholder": "Co słychać?",
     "sendPost": "Opublikuj",
-    "postSent": "Wiadomość wysłana!"
+    "postSent": "Opublikowano post!",
+    "savedAsDraft": "Zapisano post jako wersja robocza.",
+    "undo": "Cofnij"
   },
   "settings": {
     "name": "Ustawienia ",
@@ -311,6 +321,10 @@
     "notEnoughPto": "Ups! Nie masz tyle dni urlopu do wykorzystania :(",
     "noPtoAvailable": "Ups! Niestety nie masz już żadnych dni urlopowych do wykorzystania :(",
     "maxSickDays": "Ups! Pojedynczy wniosek o chorobowe może wynosić maksymalnie {{maxDays}} dni :(",
+    "alreadyScheduledHeader": "Wygląda na to, że już wziąłeś urlop w tym terminie!",
+    "alreadyScheduledContent": "Zrezygnuj z dodawania nowego urlopu lub weź urlop z inną datą.",
+    "drop": "Zrezygnuj",
+    "change": "Zmień datę",
     "clear": "Wyczyść",
     "availablePto": "Możesz wziąć {{availablePto}} urlopu.",
     "changeDays": "Zmień termin",
@@ -353,6 +367,7 @@
     "seen": "PRZECZYTANE",
     "unseen": "NOWE",
     "markSeen": "Przeczytano",
+    "markUnSeen": "Nowe",
     "markAllAsSeen": "Oznacz wszystkie jako przeczytane",
     "accepted": "Wohoo! Twoje zapytanie o <b>{{description}}</b> zostało zaakceptowane!",
     "cancelled": "Złe wieści. Twoje zapytanie o <b>{{description}}</b> zostało odrzucone.",
@@ -395,6 +410,22 @@
   "calendar": {
     "cantDeselect": "Nie możesz odznaczyć wszystkich zespołów :(",
     "calendarPurpose": "Celem tego kalendarza jest możliwość sprawdzenia terminów urlopów Twoich wspólpracowników.",
-    "gotIt": "Rozumiem"
+    "gotIt": "Rozumiem",
+    "select": "Wybierz",
+    "actionModalDefault": "Wybierz dzień lub okres",
+    "singleDayOutOfOffice": "wolny od pracy",
+    "outOfOffice": "wolnych od pracy",
+    "dayOffCalendar": "Kalendarz urlopów",
+    "dateInputPlaceholder": "yyyy-mm-dd",
+    "selectedTimeframe": "wybrany okres",
+    "swipeDownToSeePrevious": "Przesuń palcem w dół aby zobaczyć poprzednie",
+    "swipeUpToSeeNext": "Przesuń palcem w górę aby zobaczyć następne",
+    "emptyStateNotificationTitle": "Brak urlopów do wyświetlenia.",
+    "endOfEventsList": "Dotarleś do końca listy",
+    "emptyScreenTitle": "Brak urlopów do wyświetlenia.",
+    "emptyScreenSubtitle": "Wybierz wcześniejsze daty lub przesuń w dół.",
+    "enterValidYear": "Wpisz prawidłową datę",
+    "dateFrom": "Data od",
+    "dateTo": "Data do"
   }
 }

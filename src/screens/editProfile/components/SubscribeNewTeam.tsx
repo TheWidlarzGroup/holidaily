@@ -18,7 +18,7 @@ export const SubscribeNewTeam = () => {
   if (!user) return <LoadingModal show />
 
   return (
-    <SwipeableScreen>
+    <SwipeableScreen swipeWithIndicator>
       <SearchTeams
         setSelectedTeams={setSelectedTeams}
         selectedTeams={selectedTeams}

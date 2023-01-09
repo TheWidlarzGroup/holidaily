@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 import {
   ImageLibraryOptions,
-  launchImageLibrary,
   ImagePickerResponse,
   launchCamera,
+  launchImageLibrary,
 } from 'react-native-image-picker'
 import {
   DocumentPickerOptions,
@@ -17,6 +17,7 @@ import Smartphone from 'assets/icons/icon-smartphone.svg'
 import { useTranslation } from 'react-i18next'
 import { Analytics } from 'services/analytics'
 import { AnalyticsScreens } from 'utils/eventMap'
+import { AttachmentType } from 'mockApi/models'
 import { OptionsModal } from './OptionsModal'
 
 type UploadFilesProps =
@@ -31,7 +32,7 @@ type UploadAttachmentModalProps = Pick<ModalProps, 'isVisible'> & {
   source: AnalyticsScreens
   hideEditAttachmentModal?: F0
   onUserCancelled: F0
-  setPhotoURI: F1<string | null>
+  setPhotoURI: F2<string | null, AttachmentType | undefined>
   showCamera?: true
 } & UploadFilesProps
 type PhotoSelectionChoice = 'gallery' | 'camera' | 'file'
@@ -40,7 +41,6 @@ export const UploadAttachmentModal = ({
   hideEditAttachmentModal,
   ...p
 }: UploadAttachmentModalProps) => {
-  // TODO: IOS setup required
   const onHandleResponse = (response: ImagePickerResponse) => {
     if (response.didCancel) {
       p.onUserCancelled()
@@ -48,7 +48,17 @@ export const UploadAttachmentModal = ({
     }
     if (response.assets) {
       const photo = response.assets[0]
-      if (photo.uri) p.setPhotoURI(photo.uri)
+      if (photo.uri) {
+        Analytics().track(`${p.source}_ADD_ATTACHMENT_IMAGE_ADDED`, {
+          uri: photo.uri,
+          type: photo.type,
+        })
+        let assetType: AttachmentType | undefined
+        if (photo.type === 'image' || photo.type === 'video') assetType = photo.type
+        p.setPhotoURI(photo.uri, assetType)
+      } else {
+        Analytics().track(`${p.source}_ADD_ATTACHMENT_PHOTO_ADDED`, { type: photo.type })
+      }
     }
   }
 

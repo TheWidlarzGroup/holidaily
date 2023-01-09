@@ -7,7 +7,7 @@ type SectionHeaderProps = {
 
 export const SectionHeader = ({ text }: SectionHeaderProps) => (
   <Box alignItems="center" justifyContent="center" marginBottom="l">
-    <Text variant="boldBlack16" textAlign="center" lineHeight={24}>
+    <Text variant="textBoldMD" textAlign="center" lineHeight={24}>
       {text}
     </Text>
   </Box>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Animated from 'react-native-reanimated'
 import { Box } from 'utils/theme/index'
 
@@ -11,12 +11,12 @@ type ProgressBarProps = {
   postId?: string
 }
 
-export const ProgressBar: FC<ProgressBarProps> = ({
+export const ProgressBar = ({
   scrollPositionX,
   slidersCount,
   postPagination,
   postId,
-}) => {
+}: ProgressBarProps) => {
   const mockArr = Array(slidersCount).fill('')
 
   return (

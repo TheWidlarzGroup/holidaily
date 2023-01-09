@@ -1,4 +1,4 @@
-import { CompoundLocation } from 'hooks/useLocation'
+import { LocationGeocodedAddress } from 'expo-location'
 import { User } from './mirageTypes'
 
 type UserData = {
@@ -10,24 +10,15 @@ type UserData = {
   lastName?: string
 }
 
-export type Timestamp = {
-  createdAt: Date
-}
-
-export type MetaData = {
-  id: string
-  author: UserData
-  timestamp: Timestamp
-  location?: CompoundLocation
-}
-
 export type Reaction = {
   type: string
   users: string[]
 }
 
 export type Comment = {
-  meta: MetaData
+  id: string
+  author: UserData
+  createdAt: number
   text: string
 }
 
@@ -41,19 +32,37 @@ export type AddReaction = {
 }
 
 export type FeedPost = {
-  id?: string
-  recentlyAdded?: boolean
-  meta: MetaData
+  id: string
+  author: UserData
+  createdAt: number
   comments: Comment[]
-  data: FeedPostData[]
+  data: AttachmentDataType[]
   text: string
   reactions: Reaction[]
+  location?: LocationGeocodedAddress
+  recentlyAdded?: boolean
 }
 
-export type FeedPostData = {
-  type: FeedPostDataType
+export type AttachmentDataType = {
   uri: string
   id: string
+  type?: AttachmentType
 }
 
-export type FeedPostDataType = 'image' | 'video'
+export type AttachmentType = 'image' | 'video'
+
+export type EditComment = {
+  type: 'comment'
+  postId: string
+  commentId: string
+  authorId?: string
+  text?: string
+}
+
+export type EditPost = {
+  type: 'post'
+  authorId: string
+  postId: string
+}
+
+export type EditTargetType = EditComment | EditPost

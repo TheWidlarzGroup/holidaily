@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { NavigationState } from '@react-navigation/native'
 import { windowWidth } from 'utils/deviceSizes'
 import { ADD_BTN_WIDTH } from 'components/AddButton'
@@ -10,14 +10,19 @@ type TabsUiProps = {
   tabs: {
     name: string
   }[]
+  isCalendarModalScreen: boolean
   state: NavigationState
 }
 
-export const TabsUi: FC<TabsUiProps> = ({ tabs, state }) => {
+export const TabsUi = ({ tabs, isCalendarModalScreen, state }: TabsUiProps) => {
   const tabWidth = (windowWidth - ADD_BTN_WIDTH) / (tabs.length - 1)
 
   return (
-    <Box position="absolute" bottom={-5} width={windowWidth}>
+    <Box
+      position="absolute"
+      bottom={-5}
+      width={windowWidth}
+      style={isCalendarModalScreen ? { display: 'none' } : null}>
       <TabsHandler {...{ tabs, tabWidth }} activeTabIndex={state.index} />
       <NavigationDot width={tabWidth} activeTabIndex={state.index} minIconWidth={ADD_BTN_WIDTH} />
     </Box>

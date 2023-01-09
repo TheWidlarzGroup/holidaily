@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import IconProfile from 'assets/icons/icon-profile.svg'
 import { Box, Text } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
@@ -6,7 +6,7 @@ import { User } from 'mockApi/models'
 
 export const avatarSizes = { xs: 24, s: 32, m: 40, l: 56, xl: 100 }
 
-type AvatarProps = React.ComponentProps<typeof Box> & {
+type AvatarProps = ComponentProps<typeof Box> & {
   src?: string | null
   size?: keyof typeof avatarSizes
   userDetails?: Pick<User, 'userColor' | 'firstName'> & Partial<Pick<User, 'lastName'>>
@@ -14,23 +14,18 @@ type AvatarProps = React.ComponentProps<typeof Box> & {
 
 export type AvatarSize = keyof typeof avatarSizes
 
-export const Avatar = ({ size = 'l', src, userDetails, ...containerProps }: AvatarProps) => {
-  const chosenSize = typeof size === 'number' ? size : avatarSizes[size]
-  const width = chosenSize
-  const height = chosenSize
-  return (
-    <Box
-      overflow="hidden"
-      borderRadius="full"
-      alignItems="center"
-      justifyContent="center"
-      width={width}
-      height={height}
-      {...containerProps}>
-      <UserPhoto src={src} userDetails={userDetails} size={chosenSize} />
-    </Box>
-  )
-}
+export const Avatar = ({ size = 'l', src, userDetails, ...containerProps }: AvatarProps) => (
+  <Box
+    overflow="hidden"
+    borderRadius="full"
+    alignItems="center"
+    justifyContent="center"
+    width={avatarSizes[size]}
+    height={avatarSizes[size]}
+    {...containerProps}>
+    <UserPhoto src={src} userDetails={userDetails} size={avatarSizes[size]} />
+  </Box>
+)
 
 const UserPhoto = ({
   src,

@@ -7,22 +7,26 @@ import { ModalHandleIndicator } from './ModalHandleIndicator'
 import { SwipeableModal } from './SwipeableModal'
 
 type Option = {
-  Icon?: Svg | F1<SvgProps, JSX.Element>
-  key?: string
   text: string
   onPress: F0
+  Icon?: Svg | F1<SvgProps, JSX.Element>
+  key?: string
 }
 
 type OptionsModalProps = {
   options: Option[]
   isOpen: boolean
   onHide: F0
+  hideBackdrop?: true
+  onSwipeComplete?: F0
+  onBackdropPress?: F0
+  backdropColor?: 'transparent'
 }
 
 export const OptionsModal = (p: OptionsModalProps) => {
   const styles = useStyles()
   return (
-    <SwipeableModal isOpen={p.isOpen} onHide={p.onHide}>
+    <SwipeableModal {...p}>
       <Box
         bg="white"
         position="absolute"
@@ -78,7 +82,7 @@ const OptionButton = ({ children, onPress }: PropsWithChildren<{ onPress: F0 }>)
 const useStyles = mkUseStyles((theme) => ({
   modalHandleBar: {
     top: 0,
-    marginTop: theme.spacing.xm,
+    marginTop: theme.spacing.s,
     marginBottom: theme.spacing.l,
     position: 'relative',
   },

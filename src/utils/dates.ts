@@ -25,7 +25,13 @@ export const getDayName = (date: DateOrISO): string => formatFromISO(date, 'cccc
 
 export const getDateWithShortMonthString = (date: DateOrISO): string =>
   formatFromISO(date, 'd MMM y')
+export const getReversedDateWithShortMonthString = (date: DateOrISO): string =>
+  formatFromISO(date, 'y, d MMM')
+
 export const getDateWithMonthString = (date: DateOrISO): string => formatFromISO(date, 'd MMMM y')
+export const getReversedDateWithMonthString = (date: DateOrISO): string =>
+  formatFromISO(date, 'y, d MMMM')
+
 export const getISODateString = (date: DateOrISO): string => formatFromISO(date, 'yyyy-MM-dd')
 export const getISOMonthYearString = (date: DateOrISO): string => formatFromISO(date, 'yyyy-MM')
 
@@ -111,6 +117,51 @@ export const getFormattedPeriod = (
   return `${a} - ${b}`
 }
 
+export const getReversedFormattedPeriod = (
+  dateA?: DateOrISO,
+  dateB?: DateOrISO,
+  format: 'short' | 'long' | 'shortMonths' = 'short'
+) => {
+  if (!dateA || !dateB) return ''
+
+  const parsedDateA = parseISO(dateA)
+  const parsedDateB = parseISO(dateB)
+
+  let a
+  let b
+  if (format === 'short') {
+    a = formatFromISO(parsedDateA, 'd MMM')
+    b = formatFromISO(parsedDateB, 'd MMM')
+  } else if (format === 'shortMonths' && isSameMonth(parsedDateA, parsedDateB)) {
+    a = formatFromISO(parsedDateA, 'yyyy, d')
+    b = formatFromISO(parsedDateB, 'd MMM')
+  } else if (
+    format === 'shortMonths' &&
+    !isSameMonth(parsedDateA, parsedDateB) &&
+    isSameYear(parsedDateA, parsedDateB)
+  ) {
+    a = formatFromISO(parsedDateA, 'yyyy, d MMM')
+    b = formatFromISO(parsedDateB, 'd MMM')
+  } else if (format === 'long' && isSameMonth(parsedDateA, parsedDateB)) {
+    a = formatFromISO(parsedDateA, 'yyyy, d')
+    b = formatFromISO(parsedDateB, 'd MMMM')
+  } else if (
+    format === 'long' &&
+    !isSameMonth(parsedDateA, parsedDateB) &&
+    isSameYear(parsedDateA, parsedDateB)
+  ) {
+    a = formatFromISO(parsedDateA, 'yyyy, d MMMM')
+    b = formatFromISO(parsedDateB, 'd MMMM')
+  } else {
+    a = formatFromISO(parsedDateA, 'yyyy, d MMMM')
+    b = formatFromISO(parsedDateB, 'yyyy, d MMMM')
+  }
+
+  if (parsedDateA.toISOString() === parsedDateB.toISOString()) return b
+
+  return `${a} - ${b}`
+}
+
 export const getNumberOfWorkingDaysBetween = (dateA: DateOrISO, dateB: DateOrISO) => {
   const startDate = parseISO(dateA)
   const endDate = parseISO(dateB)
@@ -152,8 +203,9 @@ export const isDateBetween = (
   if (!(date instanceof Date)) date = new Date(date)
   if (!(rangeStart instanceof Date)) rangeStart = new Date(rangeStart)
   if (!(rangeEnd instanceof Date)) rangeEnd = new Date(rangeEnd)
-
-  return date.getTime() > rangeStart.getTime() && date.getTime() < rangeEnd.getTime()
+  rangeStart.setHours(0, 0, 0, 0)
+  rangeEnd.setHours(23, 59, 59, 999)
+  return date.getTime() >= rangeStart.getTime() && date.getTime() <= rangeEnd.getTime()
 }
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24

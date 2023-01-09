@@ -1,8 +1,15 @@
 import { useBooleanState } from 'hooks/useBooleanState'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
-import React, { createContext, useContext, useMemo, useState } from 'react'
-import { AttachmentType } from 'types/holidaysDataTypes'
+import React, {
+  createContext,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
 import { calculatePTO } from 'utils/dates'
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import { MAX_SICK_DAYS_COUNT } from '../components/MaxSickDays'
 
 export type RequestVacationData = {
@@ -13,8 +20,8 @@ export type RequestVacationData = {
   requestData: {
     description: string
     message: string
-    photos: AttachmentType[]
-    files: (AttachmentType & { name: string })[]
+    photos: AttachmentDataType[]
+    files: (AttachmentDataType & { name: string })[]
   }
   sickTime: boolean
   isPeriodInvalid: boolean
@@ -26,8 +33,8 @@ export type RequestVacationContextProps = RequestVacationData & {
   setStartDate: F1<Date | undefined>
   setEndDate: F1<Date | undefined>
   setCreatedAt: F1<Date | undefined>
-  setIsFormEmpty: React.Dispatch<React.SetStateAction<RequestVacationData['isFormEmpty']>>
-  setRequestData: React.Dispatch<React.SetStateAction<RequestVacationData['requestData']>>
+  setIsFormEmpty: F1<SetStateAction<RequestVacationData['isFormEmpty']>>
+  setRequestData: F1<SetStateAction<RequestVacationData['requestData']>>
   markSickTime: F0
   cancelSickTime: F0
   toggleSickTime: F0
@@ -35,7 +42,7 @@ export type RequestVacationContextProps = RequestVacationData & {
 
 const RequestVacationContext = createContext<RequestVacationContextProps | undefined>(undefined)
 
-export const RequestVacationProvider = ({ children }: { children: React.ReactNode }) => {
+export const RequestVacationProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useUserContext()
   const [step, setStep] = useState(0)
   const [startDate, setStartDate] = useState<Date | undefined>()

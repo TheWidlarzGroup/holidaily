@@ -5,13 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import IconBack from 'assets/icons/icon-back2.svg'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { PrivacyPolicyContent } from './PrivacyPolicyContent'
 
 export const PrivacyPolicy = () => {
   const theme = useTheme()
   const styles = useStyles()
   const { t } = useTranslation('about')
-  const navigation = useNavigation()
+  const { goBack } = useNavigation()
 
   return (
     <SafeAreaView
@@ -21,7 +22,7 @@ export const PrivacyPolicy = () => {
       }}>
       <ModalHeader>
         <BaseOpacity
-          onPress={() => navigation.goBack()}
+          onPress={goBack}
           hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
           paddingLeft="m">
           <IconBack height={18} width={18} color={styles.arrow.color} />
@@ -29,7 +30,9 @@ export const PrivacyPolicy = () => {
         <Text variant="displayBoldSM">{t('privacyPolicy')}</Text>
         <Box paddingRight="xl" paddingVertical="lplus" />
       </ModalHeader>
-      <PrivacyPolicyContent />
+      <GestureRecognizer onSwipeRight={goBack} androidOnly>
+        <PrivacyPolicyContent />
+      </GestureRecognizer>
     </SafeAreaView>
   )
 }

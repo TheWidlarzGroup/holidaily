@@ -2,6 +2,7 @@ import { useBooleanState } from 'hooks/useBooleanState'
 import React, { PropsWithChildren } from 'react'
 import Modal, { ModalProps } from 'react-native-modal'
 import { windowHeight } from 'utils/deviceSizes'
+import { mkUseStyles } from 'utils/theme'
 
 const DEFAULT_MODAL_ANIM_TIME = 300
 
@@ -9,6 +10,10 @@ type SwipeableModalProps = PropsWithChildren<
   {
     isOpen: boolean
     onHide: F0
+    hideBackdrop?: true
+    onSwipeComplete?: F0
+    onBackdropPress?: F0
+    addTopOffset?: true
   } & Partial<
     Omit<ModalProps, 'onSwipeComplete' | 'onBackButtonPress' | 'onBackdropPress' | 'isVisible'>
   >
@@ -17,35 +22,65 @@ type SwipeableModalProps = PropsWithChildren<
 export const SWIPEABLE_MODAL_OFFSET_TOP = 110
 export const SWIPEABLE_MODAL_HEIGHT = windowHeight - SWIPEABLE_MODAL_OFFSET_TOP
 
-export const SwipeableModal = ({ children, isOpen, onHide, ...rest }: SwipeableModalProps) => {
+export const SwipeableModal = ({
+  children,
+  isOpen,
+  onHide,
+  hideBackdrop,
+  onSwipeComplete,
+  backdropColor,
+  onBackdropPress,
+  addTopOffset,
+  ...rest
+}: SwipeableModalProps) => {
   // we keep internal state to schedule parent rerender after the modal hide animation is finished. Otherwise we would experience lag between swipe gesture and hide animation
   const [isVisible, { setFalse: fadeOut, setTrue: resetState }] = useBooleanState(true)
+  const styles = useStyles()
+
   return (
     <Modal
       statusBarTranslucent
       swipeThreshold={20}
       isVisible={isOpen && isVisible}
-      hasBackdrop
+      hasBackdrop={!hideBackdrop}
       useNativeDriverForBackdrop
       coverScreen
       hideModalContentWhileAnimating
-      backdropColor="black"
+      backdropColor={backdropColor || 'black'}
       backdropOpacity={0.6}
       swipeDirection="down"
       animationIn="slideInUp"
       animationOut="slideOutDown"
-      style={{ margin: 0, marginTop: SWIPEABLE_MODAL_OFFSET_TOP }}
+      style={[styles.container, addTopOffset && styles.topOffset]}
       animationInTiming={DEFAULT_MODAL_ANIM_TIME}
       animationOutTiming={DEFAULT_MODAL_ANIM_TIME}
       onModalHide={() => {
         onHide()
         resetState()
       }}
-      onSwipeComplete={fadeOut}
+      onSwipeComplete={() => {
+        fadeOut()
+        onSwipeComplete?.()
+      }}
       onBackButtonPress={fadeOut}
-      onBackdropPress={fadeOut}
+      onBackdropPress={() => {
+        fadeOut()
+        onBackdropPress?.()
+      }}
       {...rest}>
       {children}
     </Modal>
   )
 }
+
+const useStyles = mkUseStyles((theme) => ({
+  container: {
+    margin: 0,
+    shadowColor: theme.colors.modalShadow,
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 1,
+  },
+  topOffset: {
+    marginTop: SWIPEABLE_MODAL_OFFSET_TOP,
+  },
+}))

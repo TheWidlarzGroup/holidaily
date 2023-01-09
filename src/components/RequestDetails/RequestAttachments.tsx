@@ -10,7 +10,7 @@ export const RequestAttachments = ({
 }) => (
   <>
     {!!attachments?.length && (
-      <Box flexDirection="row" flexWrap="wrap" paddingLeft="xs">
+      <Box flexDirection="row" flexWrap="wrap" paddingLeft="xs" marginHorizontal="-m">
         <Attachments attachments={attachments} imagesPerScreenWidth={4} />
       </Box>
     )}

@@ -143,8 +143,11 @@ android {
         applicationId "com.holidaily"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 46
-        versionName "1.0.36"
+        versionCode 57
+        versionName "1.0.52"
+        ndk {
+            debugSymbolLevel 'SYMBOL_TABLE'
+        }
     }
     splits {
         abi {

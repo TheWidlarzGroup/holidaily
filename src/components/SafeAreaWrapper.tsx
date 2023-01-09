@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { ReactNode } from 'react'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { mkUseStyles, Theme, theme } from 'utils/theme'
@@ -10,15 +10,17 @@ type WrapperProps = {
   isDarkBgColor?: boolean
   isTabNavigation?: boolean
   edges?: EdgesTypes[]
+  children?: ReactNode
 }
-export const SafeAreaWrapper: FC<WrapperProps> = ({
+export const SafeAreaWrapper = ({
   isDefaultBgColor,
   isTabNavigation,
   edges,
   children,
   isDarkBgColor,
-}) => {
+}: WrapperProps) => {
   const styles = useStyles()
+
   return (
     <SafeAreaView
       edges={edges || ['top', 'right', 'bottom', 'left']}

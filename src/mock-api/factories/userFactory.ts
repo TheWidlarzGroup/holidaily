@@ -2,20 +2,37 @@ import { Factory } from 'miragejs'
 import { faker } from '@faker-js/faker'
 import { getRandomValue } from 'utils/getRandomValue'
 
-const colors = [
-  '#91A6FF',
-  '#4E70FF',
-  '#FF88DC',
-  '#80ED99',
-  '#FAFF7F',
-  '#E5ED22',
-  '#EE4A16',
-  '#E522AC',
-  '#001D96',
-  '#B7FF7F',
-  '#B137EB',
-  '#3BEFB9',
+export const colors = [
+  'rgba(145, 166, 255, 1)',
+  'rgba(78, 112, 255, 1)',
+  'rgba(255, 136, 220, 1)',
+  'rgba(128, 237, 153, 1)',
+  'rgba(250, 255, 127, 1)',
+  'rgba(229, 237, 34, 1)',
+  'rgba(238, 74, 22, 1)',
+  'rgba(229, 34, 172, 1)',
+  'rgba(0, 29, 150, 1)',
+  'rgba(183, 255, 127, 1)',
+  'rgba(177, 55, 235, 1)',
+  'rgba(59, 239, 185, 1)',
+  'rgba(255, 197, 131, 1)',
 ]
+
+// COMMENT: I've changed hex values into rgba to make the app more consistent
+// const legacyColors = [
+//   '#91A6FF',
+//   '#4E70FF',
+//   '#FF88DC',
+//   '#80ED99',
+//   '#FAFF7F',
+//   '#E5ED22',
+//   '#EE4A16',
+//   '#E522AC',
+//   '#001D96',
+//   '#B7FF7F',
+//   '#B137EB',
+//   '#3BEFB9',
+// ]
 
 export const userFactory = Factory.extend({
   confirmed: true,

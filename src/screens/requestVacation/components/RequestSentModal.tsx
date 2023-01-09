@@ -21,7 +21,6 @@ export const RequestSentModal = ({ navigate, ctx }: RequestSentModalProps) => {
     <ConfirmationModal
       isVisible
       header={t('sent')}
-      content={t('sentDescription')}
       acceptBtnText={t('ok')}
       declineBtnText={t('seeRequest')}
       hideModal={hideModal}

@@ -1,23 +1,23 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import {
-  TextInput,
-  TouchableOpacity,
-  TextInputProps,
   NativeSyntheticEvent,
+  TextInput,
   TextInputFocusEventData,
+  TextInputProps,
+  TouchableOpacity,
 } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import DeleteIcon from 'assets/icons/icon-delete.svg'
 import IconPasswordVisibile from 'assets/icons/icon-togglePassword.svg'
 import IconPasswordInvisibile from 'assets/icons/icon-password-invisible.svg'
-import { Text, Box, mkUseStyles, BaseOpacity, useTheme } from 'utils/theme/index'
+import { BaseOpacity, Box, mkUseStyles, Text, useTheme } from 'utils/theme/index'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { InputEditIcon } from './InputEditIcon'
 
 type CustomInputTypes = {
   inputLabel: string
   isError: boolean
-  variant: 'medium' | 'small' | 'mediumSpecial'
+  variant: 'medium' | 'small' | 'mediumSpecial' | 'mediumHeightGrow'
   isPasswordIconVisible?: boolean
   hasValueChanged?: boolean
   disabled?: boolean
@@ -71,15 +71,23 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
       setIsFocused(true)
     }
 
+    const containerHeightStyle =
+      variant === 'mediumHeightGrow' ? styles.containerMaxHeight : styles.constainerHeight
+
     return (
       <>
-        <Text variant="inputLabel" marginLeft="s" marginBottom="xs" color="darkGreyBrighter">
+        <Text
+          variant="inputLabel"
+          marginLeft="s"
+          marginBottom="xs"
+          color={isError ? 'errorRed' : 'darkGreyBrighter'}>
           {inputLabel}
         </Text>
         <Box flexDirection="row">
           <Animated.View
             style={[
               styles.container,
+              containerHeightStyle,
               progressStyle,
               isFocused && [styles.noBackground, styles.focusBorder],
               isError && styles.errorBorder,
@@ -100,8 +108,8 @@ export const CustomInput = forwardRef<TextInput, CustomInputTypes & TextInputPro
             />
 
             {reset && value && value.length > 0 && isFocused ? (
-              <BaseOpacity position="absolute" right={15} onPress={reset}>
-                <DeleteIcon width={20} height={20} />
+              <BaseOpacity position="absolute" right={15} onPress={reset} testID="clear-text-icon">
+                <DeleteIcon width={20} height={20} color={styles.deleteIcon.color} />
               </BaseOpacity>
             ) : null}
           </Animated.View>
@@ -136,7 +144,12 @@ const useStyles = mkUseStyles((theme) => ({
     paddingLeft: theme.spacing.xm,
     paddingRight: theme.spacing.l,
     justifyContent: 'center',
+  },
+  constainerHeight: {
     height: 40,
+  },
+  containerMaxHeight: {
+    maxHeight: 200,
   },
   noBackground: { backgroundColor: theme.colors.white },
   leftPadding: { paddingLeft: theme.spacing.l2plus },
@@ -155,5 +168,8 @@ const useStyles = mkUseStyles((theme) => ({
   },
   disabled: {
     color: theme.colors.greyDark,
+  },
+  deleteIcon: {
+    color: theme.colors.clearInputIcon,
   },
 }))

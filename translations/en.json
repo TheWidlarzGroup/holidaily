@@ -143,10 +143,6 @@
     "yes": "Log out",
     "no": "Cancel"
   },
-  "inputErrors": {
-    "requiredField": "This field is required",
-    "passwordMatch": "Password must match"
-  },
   "navigation": {
     "logout": "Log out",
     "home": "Home",
@@ -173,6 +169,7 @@
     "userPassword": "Password",
     "userTeams": "YOUR TEAMS",
     "userColor": "YOUR COLOR:",
+    "changeColor": "Swipe to change color",
     "userColorDesc": "Your color will be visible for other team members to distinguish your time off from others in a shared calendar.",
     "saveChanges": "Save changes",
     "changesSaved": "Changes saved",
@@ -199,7 +196,9 @@
     "discardTeams": "Do you want to discard selected teams?",
     "backToSelection": "Back to selection",
     "teamsEmptyState": "Click + and join your first Team!",
-    "search": "Search"
+    "search": "Search",
+    "requiredField": "This field is required",
+    "passwordMatch": "Password must match"
   },
   "dashboard": {
     "today": "Today is:",
@@ -230,20 +229,32 @@
     "locationNotFound": "Not found",
     "exceededAmount": "You exceeded amount of images in single post",
     "seeMore": "see more",
+    "seeMoreCapitalized": "See more",
+    "showLessCapitalized": "Show less",
     "postPublished": "Post published!",
     "undo": "Undo",
     "more": "more",
     "showLess": "Show less",
     "edit": "Edit",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "discard": "Discard",
+    "keepEditing": "Keep editing",
+    "discardPostHeader": "Discard post?",
+    "discardChangesHeader": "Discard changes?",
+    "discardDesc": "By clicking Discard, all changes will be lost.",
+    "changesSaved": "Changes saved!",
+    "commentDeleted": "Comment deleted!",
+    "postDeleted": "Post deleted!"
   },
   "createPost": {
     "title": "Create Post",
     "clearPost": "Clear",
     "inputPlaceholder": "What's up?",
     "sendPost": "Post",
-    "postSent": "Post published!"
+    "postSent": "Post published!",
+    "savedAsDraft": "Post saved as draft!",
+    "undo": "Undo"
   },
   "settings": {
     "name": "Settings",
@@ -311,6 +322,10 @@
     "notEnoughPto": "Ooops! You don’t that many PTO",
     "noPtoAvailable": "Ooops! Unfortunately, you don't have any more days out of office :(",
     "maxSickDays": "Ooops! You can take max. {{maxDays}} days of sick leave over a single request :(",
+    "alreadyScheduledHeader": "You've already taken a days out of office this term!",
+    "alreadyScheduledContent": "Decline to add a new leave or take a leave with a different date.",
+    "drop": "Drop this request",
+    "change": "Change date",
     "clear": "Clear selection",
     "availablePto": "You have {{availablePto}} of PTO to use",
     "changeDays": "Change days",
@@ -354,6 +369,7 @@
     "unseen": "NEW",
     "markAllAsSeen": "Mark all as read",
     "markSeen": "Read",
+    "markUnSeen": "New",
     "accepted": "Wohoo! Your <b>{{description}}</b> request has been approved!",
     "cancelled": "Bad news. Your <b>{{description}}</b> request has been declined.",
     "prompt": "Hey! Let’s take some time off 🌴 Check out available dates now!",
@@ -427,6 +443,22 @@
   "calendar": {
     "cantDeselect": "You can’t deselect all your Teams :(",
     "calendarPurpose": "The purpose of this Calendar is to find out about your Team members time off.",
-    "gotIt": "Got it!"
+    "gotIt": "Got it!",
+    "select": "Select",
+    "actionModalDefault": "Select a day or range of days",
+    "singleDayOutOfOffice": "out of office",
+    "outOfOffice": "out of office",
+    "dayOffCalendar": "Time off calendar",
+    "dateInputPlaceholder": "yyyy-mm-dd",
+    "selectedTimeframe": "selected timeframe",
+    "swipeDownToSeePrevious": "Swipe down to see previous",
+    "swipeUpToSeeNext": "Swipe up to see next",
+    "emptyStateNotificationTitle": "There are no time off events to show.",
+    "endOfEventsList": "You've reached end of list",
+    "emptyScreenTitle": "There are no time off events to show.",
+    "emptyScreenSubtitle": "Pick earlier dates or swipe down.",
+    "enterValidYear": "Enter valid date",
+    "dateFrom": "Date from",
+    "dateTo": "Date to"
   }
 }

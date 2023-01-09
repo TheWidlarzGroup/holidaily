@@ -5,7 +5,7 @@ import KeyIcon from 'assets/icons/icon-key.svg'
 import MailIcon from 'assets/icons/icon-mail.svg'
 import HistoryIcon from 'assets/icons/icon-history.svg'
 import AvatarIcon from 'assets/icons/icon-avatar-minus.svg'
-import { UserTypes } from 'types/useUserTypes'
+import { UserTypes } from 'screens/employees/components/EmployeeTypes'
 
 type EmployeeBoxButtonsProps = {
   onOpenHistory?: F0

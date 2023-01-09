@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { ComponentProps, useState } from 'react'
 import { Box, mkUseStyles } from 'utils/theme'
 import FastImage from 'react-native-fast-image'
 
-type PhotoProps = React.ComponentProps<typeof Box> & {
+type PhotoProps = ComponentProps<typeof Box> & {
   src: string
 }
 

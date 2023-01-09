@@ -10,6 +10,7 @@ import { queryClient } from 'dataAccess/queryClient'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { RequestsContextProvider } from 'contexts/RequestsProvider'
 import { darkTheme, theme } from './utils/theme'
 import { AppNavigation } from './navigation'
 import { initBackendMocks } from './mock-api/server'
@@ -28,17 +29,19 @@ export const Main = () => {
         <SafeAreaProvider>
           <UserContextProvider>
             <TeamsContextProvider>
-              <QueryClientProvider client={queryClient}>
-                <ModalProvider>
-                  <StatusBar
-                    translucent
-                    barStyle={statusBarStyle}
-                    backgroundColor={statusBarBgColor}
-                  />
-                  <AppNavigation />
-                </ModalProvider>
-                <NotificationsProvider />
-              </QueryClientProvider>
+              <RequestsContextProvider>
+                <QueryClientProvider client={queryClient}>
+                  <ModalProvider>
+                    <StatusBar
+                      translucent
+                      barStyle={statusBarStyle}
+                      backgroundColor={statusBarBgColor}
+                    />
+                    <AppNavigation />
+                  </ModalProvider>
+                  <NotificationsProvider />
+                </QueryClientProvider>
+              </RequestsContextProvider>
             </TeamsContextProvider>
           </UserContextProvider>
         </SafeAreaProvider>

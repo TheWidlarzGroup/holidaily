@@ -5,13 +5,13 @@ export type StorageKeys =
   | 'occupation'
   | 'lastName'
   | 'firstName'
-  | 'firstName'
   | 'userColor'
   | 'seenNotificationsIds'
   | 'language'
   | 'seenTeamsModal'
   | 'userSettings'
   | 'userId'
+  | 'draftPost'
 
 type Callback = F1<Error | null | undefined>
 type MultiCallback = F1<readonly (Error | null)[] | null | undefined>

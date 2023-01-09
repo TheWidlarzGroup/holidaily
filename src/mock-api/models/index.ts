@@ -1,6 +1,6 @@
 import { belongsTo, hasMany, Model } from 'miragejs'
 import { Comment, FeedPost, Reaction } from './miragePostTypes'
-import { Organization, Team, DayOffRequest, User } from './mirageTypes'
+import { Organization, Team, DayOffRequest, User, Notification } from './mirageTypes'
 
 export type Schema = {
   user: User[]

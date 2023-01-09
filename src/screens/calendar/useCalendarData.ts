@@ -1,45 +1,27 @@
-import { useTeamsContext } from 'hooks/context-hooks/useTeamsContext'
-import { useEffect, useState } from 'react'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useEffect, useMemo, useState } from 'react'
 import { getISODateString, parseISO } from 'utils/dates'
-import { Team } from 'mockApi/models'
 import { useRequestsContext } from 'hooks/context-hooks/useRequestsContext'
-import { doesMonthInCalendarHasSixRows } from 'utils/doesMonthInCalendarHasSixRows'
-import { getNextMonthRequests } from 'utils/getNextMonthRequests'
-import { getFirstRequestsOfMonth } from 'utils/getFirstRequestsOfMonth'
-import { HolidailyRequestMonthType } from 'types/HolidayRequestMonthType'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { eachDayOfInterval, lastDayOfMonth } from 'date-fns'
-import { FilterCategory } from './components/CategoriesSlider'
-import { DayInfoProps } from '../../types/DayInfoProps'
+import { DayInfoProps } from 'types/DayInfoProps'
+import { useTeamCategories } from './useTeamCategories'
 
 export const useCalendarData = () => {
-  const { teams } = useTeamsContext()
-  const [filterCategories, setFilterCategories] = useState<FilterCategory[] | null>(null)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDateState] = useState<Date>(new Date())
   const [currentMonthDays, setCurrentMonthDays] = useState<DayInfoProps[]>([])
+  const { filterCategories, toggleFilterItemSelection } = useTeamCategories()
   const { requests } = useRequestsContext()
-  const { user } = useUserContext()
 
-  useEffect(() => {
-    if (!teams.length) return
-    const unsubscribedTeams: FilterCategory[] = []
-    const userTeams: FilterCategory[] = []
-    teams.forEach((team) => {
-      if (user?.teams.some((t) => t.name === team.name))
-        return userTeams.push(parseCategory(team, true))
-      unsubscribedTeams.push(parseCategory(team, false))
-    })
-    setFilterCategories([...userTeams, ...unsubscribedTeams])
-  }, [teams, user?.teams])
+  const convertToLocalDate = (date: string) => {
+    const dateToConvert = new Date(date)
+    const localDate = new Date()
+    dateToConvert.setHours(dateToConvert.getHours() - localDate.getTimezoneOffset() / 60)
+    return dateToConvert
+  }
 
-  const toggleFilterItemSelection = (id: number) => {
-    setFilterCategories((prevState) => {
-      if (!prevState) return []
-      const newState = [...prevState]
-      const index = newState.findIndex((item) => item.id === id)
-      newState[index].isSelected = !prevState[index].isSelected
-      return newState
-    })
+  const setSelectedDate = (date: Date) => {
+    const localDate = convertToLocalDate(getISODateString(date))
+    setSelectedDateState(localDate)
   }
 
   useEffect(() => {
@@ -64,27 +46,13 @@ export const useCalendarData = () => {
         days: eachDayOfMonth.map((day) => ({ date: getISODateString(day) })),
       }
     }
-    let bothMonthsRequests: HolidailyRequestMonthType = {
+    const singleMonthRequests: HolidayRequestMonthType = {
       date: currentMonthRequests.date,
       days: currentMonthRequests.days,
     }
 
-    if (doesMonthInCalendarHasSixRows(selectedDate)) {
-      const nextMonthRequests = getNextMonthRequests(requests, selectedDate)
-      const fewRequestsOfNextMonth = nextMonthRequests
-        ? getFirstRequestsOfMonth(nextMonthRequests)
-        : []
-
-      const currentMonthRequestsDays = currentMonthRequests?.days
-
-      bothMonthsRequests = {
-        ...bothMonthsRequests,
-        days: [...currentMonthRequestsDays, ...fewRequestsOfNextMonth],
-      }
-    }
-
-    if (bothMonthsRequests) {
-      const newCurrentMonthDays = bothMonthsRequests.days.map((day) => {
+    if (singleMonthRequests) {
+      const newCurrentMonthDays = singleMonthRequests.days.map((day) => {
         if (day.weekend || !day.events) return day
         return {
           ...day,
@@ -94,21 +62,24 @@ export const useCalendarData = () => {
           ),
         }
       })
-      setCurrentMonthDays(newCurrentMonthDays)
+
+      const currentDay = selectedDate.getDate() - 1
+      setCurrentMonthDays(newCurrentMonthDays.slice(currentDay))
     } else setCurrentMonthDays([])
   }, [filterCategories, requests, selectedDate])
 
+  const sortedRequests = useMemo(
+    () => requests?.sort((a, b) => new Date(a?.date).getTime() - new Date(b?.date).getTime()),
+    [requests]
+  )
+
+  const requestsDays = sortedRequests.flatMap((a) => a?.days?.map((b) => b))
+
   return {
-    filterCategories,
-    toggleFilterItemSelection,
     selectedDate,
     setSelectedDate,
     currentMonthDays,
+    requestsDays,
+    toggleFilterItemSelection,
   }
 }
-
-const parseCategory = (team: Team, isSelected: boolean) => ({
-  id: +team.id,
-  title: team.name,
-  isSelected,
-})

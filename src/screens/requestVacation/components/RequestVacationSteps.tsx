@@ -1,6 +1,6 @@
+import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
 import React, { useEffect } from 'react'
 import { Analytics } from 'services/analytics'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { useRequestVacationContext } from '../contexts/RequestVacationContext'
 import { FormRequestVacation } from './FormRequestVacation'
 import { SummaryRequestVacation } from './SummaryRequestVacation'
@@ -8,11 +8,11 @@ import { SummaryRequestVacation } from './SummaryRequestVacation'
 type RequestDataTypes = {
   description: string
   message: string
-  photos: AttachmentType[]
-  files: (AttachmentType & { name: string })[]
+  photos: AttachmentDataType[]
+  files: (AttachmentDataType & { name: string })[]
 }
 
-type ChangeRequestDataCallbackType = (currentData: RequestDataTypes) => RequestDataTypes
+type ChangeRequestDataCallbackType = F1<RequestDataTypes, RequestDataTypes>
 
 type StepsProps = {
   changeRequestData: F1<ChangeRequestDataCallbackType>
@@ -25,17 +25,8 @@ export const RequestVacationSteps = ({
   removeAttachment,
   showSentModal,
 }: StepsProps) => {
-  const {
-    step,
-    setStep,
-    sickTime,
-    toggleSickTime,
-    startDate,
-    endDate,
-    requestData,
-    createdAt,
-    setIsFormEmpty,
-  } = useRequestVacationContext()
+  const { step, sickTime, toggleSickTime, startDate, endDate, requestData, createdAt } =
+    useRequestVacationContext()
 
   useEffect(() => {
     Analytics().track('REQUEST_STEP_CHANGED', { step })
@@ -44,9 +35,7 @@ export const RequestVacationSteps = ({
   if (step === 0)
     return (
       <FormRequestVacation
-        nextStep={() => setStep(1)}
         sickTime={sickTime}
-        setIsFormEmpty={setIsFormEmpty}
         toggleSickTime={toggleSickTime}
         changeRequestData={changeRequestData}
         date={{ start: startDate, end: endDate }}

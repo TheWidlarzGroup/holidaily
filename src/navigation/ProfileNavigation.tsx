@@ -7,9 +7,15 @@ import { StackNavigatorPresets } from './Presets/StackNavigatorPresets'
 
 const ProfileStack = createStackNavigator<UserProfileRoutes>()
 
+const ColorPickerOptions = { animationEnabled: false }
+
 export const ProfileNavigation = () => (
   <ProfileStack.Navigator {...StackNavigatorPresets.modalNavigator}>
     <ProfileStack.Screen name="EDIT_PROFILE" component={EditProfile} />
-    <ProfileStack.Screen name="COLOR_PICKER" component={BubbleContainer} />
+    <ProfileStack.Screen
+      name="COLOR_PICKER"
+      component={BubbleContainer}
+      options={ColorPickerOptions}
+    />
   </ProfileStack.Navigator>
 )

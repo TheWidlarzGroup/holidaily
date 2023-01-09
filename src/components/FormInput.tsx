@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect } from 'react'
-import { TextInputProps, TextInput } from 'react-native'
-import { Controller, Control, FieldErrors } from 'react-hook-form'
+import { TextInput, TextInputProps } from 'react-native'
+import { Control, Controller, FieldErrors } from 'react-hook-form'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { Text } from 'utils/theme/index'
 import { generateInputErrors } from 'utils/generateInputErrors'
@@ -47,7 +47,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
     },
     ref
   ) => {
-    const { t } = useTranslation('inputErrors')
+    const { t } = useTranslation('userProfile')
     const errorOpacity = useSharedValue(0)
     const progressStyle = useAnimatedStyle(() => ({
       opacity: withTiming(errorOpacity.value, {
@@ -92,7 +92,7 @@ export const FormInput = forwardRef<TextInput, FormInputTypes & TextInputProps>(
         />
         {props.variant === 'small' && <InputSearchIcon />}
         <Animated.View style={progressStyle}>
-          <Text variant="inputErrorMessage" marginTop="xs" marginLeft="s">
+          <Text variant="textXS" marginTop="xs" marginLeft="s" color="errorRed">
             {generateInputErrors({ errors, name, passwordsAreEqual, screenName, t })}
           </Text>
         </Animated.View>

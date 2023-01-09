@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, BaseOpacity, useTheme } from 'utils/theme'
+import { BaseOpacity, Box, Text, useTheme } from 'utils/theme'
 import IconPalm from 'assets/icons/icon-palm.svg'
 import { Avatar } from 'components/Avatar'
 import { SIZE_H } from 'components/dragAndDrop/Config'
@@ -17,7 +17,6 @@ export const TeamElement = (p: TeamElementProps) => {
   return (
     <Box key={p.id} height={SIZE_H}>
       <BaseOpacity
-        delayPressIn={60}
         marginBottom="m"
         borderRadius="m"
         padding="s"
@@ -29,7 +28,7 @@ export const TeamElement = (p: TeamElementProps) => {
           {qtyOnHolidayNow(p.users) > 0 && (
             <Box flexDirection="row" alignItems="center">
               <IconPalm color={theme.colors.tertiary} width={16} height={16} />
-              <Text variant="label1" marginLeft="s" color="tertiary">
+              <Text variant="textBoldMD" marginLeft="s" color="tertiary">
                 {qtyOnHolidayNow(p.users)}
               </Text>
             </Box>

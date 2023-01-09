@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { ComponentProps, useEffect, useRef } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { Box } from 'utils/theme/index'
 
@@ -6,13 +6,13 @@ type AnimatedBarProps = {
   isActive: boolean
   reverseAnimation?: boolean
   disableInitialAnimation?: boolean
-} & React.ComponentProps<typeof Box>
-export const AnimatedBar: FC<AnimatedBarProps> = ({
+} & ComponentProps<typeof Box>
+export const AnimatedBar = ({
   reverseAnimation,
   disableInitialAnimation,
   isActive,
   ...p
-}) => {
+}: AnimatedBarProps) => {
   const barWidth = useSharedValue(reverseAnimation ? 100 : 0)
   const isFirstRender = useRef(true)
   const animatedProgressStyle = useAnimatedStyle(() => ({

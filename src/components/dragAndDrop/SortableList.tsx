@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { JSXElementConstructor, ReactElement, useCallback, useEffect, useState } from 'react'
 import { Item, SortableListItemType } from 'components/dragAndDrop/Item'
 import { Carousel } from 'screens/dashboard/components/Carousel'
 import Animated, {
@@ -11,7 +11,9 @@ import { Box, Text } from 'utils/theme'
 import { keys } from 'utils/manipulation'
 import { FlatList, FlatListProps } from 'react-native'
 import { JoinFirstTeam } from 'screens/dashboard/components/JoinFirstTeam'
-import { COL, Positions, SIZE_H, NESTED_ELEM_OFFSET } from './Config'
+import { Analytics } from 'services/analytics'
+import { useDrawerStatus } from '@react-navigation/drawer'
+import { COL, NESTED_ELEM_OFFSET, Positions, SIZE_H } from './Config'
 
 const SCROLL_VIEW_BOTTOM_PADDING = 75
 
@@ -24,15 +26,37 @@ const AnimatedFlatList =
 
 let persistedOrder: Positions = {}
 
+const calculateContainerHeight = (dataLength?: number) =>
+  !dataLength
+    ? 600
+    : Math.ceil(dataLength / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING
+
+const getItemLayout = (data: SortableListItemType[] | null | undefined, index: number) => ({
+  height: NESTED_ELEM_OFFSET,
+  offset: calculateContainerHeight(data?.length),
+  length: data?.length || 0,
+  index,
+})
+
 export const SortableList = ({ children }: SortableListProps) => {
   const [draggedElement, setDraggedElement] = useState<null | number>(null)
+  const [prevElement, setPrevElement] = useState<null | number>(null)
   const scrollView = useAnimatedRef<FlatList<SortableListItemType>>()
   const scrollY = useSharedValue(0)
   const { t } = useTranslation('dashboard')
   const positions = useSharedValue<Positions>(orderToPositions(makeOrder(children, persistedOrder)))
+  const isDrawerOpen = useDrawerStatus() === 'open'
+
+  useEffect(() => {
+    if (isDrawerOpen) setDraggedElement(null)
+  }, [isDrawerOpen])
 
   const onLongPress = (element: null | number) => {
     setDraggedElement(element)
+    if (element !== null) {
+      setPrevElement(element)
+      Analytics().track('DASHBOARD_TEAM_LONG_PRESSED', { element })
+    }
   }
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -73,59 +97,61 @@ export const SortableList = ({ children }: SortableListProps) => {
   useEffect(() => {
     if (draggedElement === null) {
       persistedOrder = positions.value
+      const newPosition = persistedOrder[`${prevElement}`]
+      Analytics().track('DASHBOARD_TEAM_DRAGGED', { element: prevElement, newPosition })
     }
-  }, [draggedElement, positions])
+  }, [draggedElement, positions, prevElement])
 
-  const CONTAINER_HEIGHT =
-    Math.ceil(children.length / COL) * SIZE_H + NESTED_ELEM_OFFSET + SCROLL_VIEW_BOTTOM_PADDING
+  const containerHeight = {
+    height: calculateContainerHeight(children.length),
+    paddingBottom: 75,
+  }
+
+  const flatListHeader = (
+    <>
+      {children.length > 0 ? (
+        <Box height={NESTED_ELEM_OFFSET}>
+          <Carousel />
+          <Text
+            variant="lightGreyRegular"
+            color="darkGrey"
+            marginHorizontal="xm"
+            marginBottom="xs"
+            letterSpacing={0.7}>
+            {t('teamsList').toUpperCase()}
+          </Text>
+        </Box>
+      ) : (
+        <>
+          <Text
+            marginTop="m"
+            variant="lightGreyRegular"
+            color="darkGrey"
+            marginHorizontal="xm"
+            marginBottom="xs"
+            letterSpacing={0.7}>
+            {t('teamsList').toUpperCase()}
+          </Text>
+          <JoinFirstTeam />
+        </>
+      )}
+    </>
+  )
 
   return (
-    <Box paddingBottom="xxxl">
-      <AnimatedFlatList
-        removeClippedSubviews={false}
-        ref={scrollView}
-        contentContainerStyle={{
-          height: children.length > 0 ? CONTAINER_HEIGHT : 600,
-        }}
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-        scrollEventThrottle={16}
-        onScroll={onScroll}
-        CellRendererComponent={CellRenderer}
-        ListHeaderComponent={
-          <>
-            {children.length > 0 ? (
-              <Box height={NESTED_ELEM_OFFSET}>
-                <Carousel />
-                <Text
-                  variant="lightGreyRegular"
-                  color="darkGrey"
-                  marginHorizontal="xm"
-                  marginBottom="xs"
-                  letterSpacing={0.7}>
-                  {t('teamsList').toUpperCase()}
-                </Text>
-              </Box>
-            ) : (
-              <>
-                <Text
-                  marginTop="m"
-                  variant="lightGreyRegular"
-                  color="darkGrey"
-                  marginHorizontal="xm"
-                  marginBottom="xs"
-                  letterSpacing={0.7}>
-                  {t('teamsList').toUpperCase()}
-                </Text>
-                <JoinFirstTeam />
-              </>
-            )}
-          </>
-        }
-        data={children}
-        renderItem={renderItem}
-      />
-    </Box>
+    <AnimatedFlatList
+      getItemLayout={getItemLayout}
+      removeClippedSubviews={false}
+      ref={scrollView}
+      contentContainerStyle={containerHeight}
+      showsVerticalScrollIndicator={false}
+      scrollEventThrottle={16}
+      onScroll={onScroll}
+      CellRendererComponent={CellRenderer}
+      ListHeaderComponent={flatListHeader}
+      data={children}
+      renderItem={renderItem}
+    />
   )
 }
 
@@ -136,7 +162,7 @@ export const orderToPositions = (order: (string | number)[]) => {
 }
 
 export const makeOrder = (
-  sortableItems: React.ReactElement<{ id: number }, string | React.JSXElementConstructor<any>>[],
+  sortableItems: ReactElement<{ id: number }, string | JSXElementConstructor<any>>[],
   persistedOrder: Positions
 ) => {
   const persistedOrderKeys = keys(persistedOrder)

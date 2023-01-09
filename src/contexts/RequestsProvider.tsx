@@ -1,9 +1,9 @@
-import React, { ReactNode, useState, useCallback, useEffect } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { useGetHolidayRequests } from 'hooks/useGetHolidayRequests'
 import { mergeRequestsArrays } from 'utils/mergeRequestsArrays'
 import { getMonthsWithoutRequests } from 'screens/calendar/getMonthsWithoutRequests'
+import { HolidayRequestMonthType } from 'types/HolidayRequestMonthType'
 import { RequestContextProps, RequestsContext } from './RequestsContext'
-import { HolidailyRequestMonthType } from '../types/HolidayRequestMonthType'
 
 type RequestProviderProps = {
   children: ReactNode
@@ -11,11 +11,7 @@ type RequestProviderProps = {
 
 export const RequestsContextProvider = ({ children }: RequestProviderProps) => {
   const { allMonths } = useGetHolidayRequests()
-  const [requests, setRequests] = useState<HolidailyRequestMonthType[]>(allMonths || [])
-
-  const updateRequests = useCallback((newData: HolidailyRequestMonthType[]) => {
-    setRequests((prev) => [...prev, ...newData])
-  }, [])
+  const [requests, setRequests] = useState<HolidayRequestMonthType[]>(allMonths || [])
 
   useEffect(() => {
     if (allMonths.length > 0) {
@@ -24,6 +20,6 @@ export const RequestsContextProvider = ({ children }: RequestProviderProps) => {
     }
   }, [allMonths])
 
-  const value: RequestContextProps = { requests, updateRequests }
+  const value: RequestContextProps = { requests }
   return <RequestsContext.Provider value={value}>{children}</RequestsContext.Provider>
 }

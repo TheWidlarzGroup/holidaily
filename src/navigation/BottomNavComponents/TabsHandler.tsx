@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { AddButton, ADD_BTN_WIDTH } from 'components/AddButton'
-import { mkUseStyles, Theme, Box } from 'utils/theme'
+import { ADD_BTN_WIDTH, AddButton } from 'components/AddButton'
+import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { getBottomTabIcon } from 'utils/getBottomTabIcon'
 import { AppNavigationType } from 'navigation/types'
 import { BorderlessButton } from 'react-native-gesture-handler'
@@ -15,31 +15,33 @@ type TabsHandlerProps = {
   activeTabIndex: number
 }
 
-export const TabsHandler: FC<TabsHandlerProps> = ({ tabs, tabWidth, activeTabIndex }) => {
+export const TabsHandler = ({ tabs, tabWidth, activeTabIndex }: TabsHandlerProps) => {
   const styles = useStyles()
   const navigation = useNavigation<AppNavigationType<'DRAWER_NAVIGATOR'>>()
 
   return (
-    <Box flexDirection="row">
+    <Box
+      flexDirection="row"
+      shadowOffset={{ width: 0, height: 2 }}
+      shadowColor="blackMuchDarker"
+      shadowOpacity={0.3}
+      shadowRadius={6}
+      elevation={4}>
       {tabs.map((tab, key: number) => {
         const onPress = () => {
-          if (tab.name === 'RequestModal') {
-            navigation.navigate('REQUEST_VACATION')
-          } else {
-            navigation.navigate(tab.name as never)
-          }
+          if (tab.name === 'RequestModal') navigation.navigate('REQUEST_VACATION')
+          else navigation.navigate(tab.name as never)
         }
-        if (tab.name === 'RequestModal') {
+        if (tab.name === 'RequestModal')
           return (
             <Box key="logo" backgroundColor="transparent" width={ADD_BTN_WIDTH}>
               <AddButton onPress={onPress} />
             </Box>
           )
-        }
 
         return (
           <Box
-            {...{ key }}
+            key={key}
             height={40}
             width={tabWidth}
             marginTop="lplus"

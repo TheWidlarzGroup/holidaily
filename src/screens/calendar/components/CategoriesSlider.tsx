@@ -5,37 +5,32 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Box } from 'utils/theme'
+import { FilterCategory } from '../useTeamCategories'
 
-export type FilterCategory = {
-  id: number
-  title: string
-  isSelected: boolean
-}
-type CategoriesSliderProps = {
-  filterCategories: FilterCategory[]
+type Props = {
+  filterCategories: FilterCategory[] | null
   toggleFilterItemSelection: F1<number>
 }
 
-export const CategoriesSlider = ({
-  filterCategories,
-  toggleFilterItemSelection,
-}: CategoriesSliderProps) => {
+export const CategoriesSlider = (props: Props) => {
   const { t } = useTranslation('calendar')
+
   const [isWarningModalOpen, { setTrue: openWarningModal, setFalse: closeWarningModal }] =
     useBooleanState(false)
 
   const handleToggleSelection = (id: number) => {
-    const selectedTeams = filterCategories.filter((team) => team.isSelected)
-    const isSelected = filterCategories.find((cat) => cat.id === id)?.isSelected
+    const selectedTeams = (props?.filterCategories || []).filter((team) => team?.isSelected)
+    const isSelected = (props?.filterCategories || []).find((cat) => cat?.id === id)?.isSelected
+
     if (selectedTeams.length === 1 && isSelected) return openWarningModal()
-    toggleFilterItemSelection(id)
+    props.toggleFilterItemSelection(id)
   }
 
   return (
-    <Box paddingTop="l">
+    <Box paddingTop="xxm" marginLeft="-s">
       <FlatList
         horizontal
-        data={filterCategories}
+        data={props?.filterCategories}
         renderItem={({ item }) => (
           <TertiaryButton
             teamName={item.title}

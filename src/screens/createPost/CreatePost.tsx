@@ -1,92 +1,114 @@
-import { useAddPost } from 'dataAccess/mutations/useAddPost'
+import { useAddPost, useEditPost } from 'dataAccess/mutations/useAddPost'
 import { useSetStatusBarStyle } from 'hooks/useSetStatusBarStyle'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
-import { FeedPost, FeedPostDataType } from 'mockApi/models/miragePostTypes'
 import { SwipeableScreen } from 'navigation/SwipeableScreen'
-import { ModalNavigationProps } from 'navigation/types'
 import React from 'react'
-import { Asset } from 'react-native-image-picker'
 import { Analytics } from 'services/analytics'
-import { generateUUID } from 'utils/generateUUID'
 import { useNavigation } from '@react-navigation/native'
+import { useAsyncEffect } from 'hooks/useAsyncEffect'
 import { useTranslation } from 'react-i18next'
+import { getItem, removeItem, setItem } from 'utils/localStorage'
+import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
+import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
+import { BottomTabNavigationType, CreatePostNavigationProps } from 'navigation/types'
+import { FeedPost } from 'mockApi/models/miragePostTypes'
+import { useBooleanState } from 'hooks/useBooleanState'
 import { CreatePostForm } from './CreatePostForm/CreatePostForm'
-import { PostState } from './CreatePostForm/usePostFormReducer'
 
-type PostAttachment = {
-  uri: string
-  type: FeedPostDataType
-  id: string
-}
-
-export const CreatePost = ({ route }: ModalNavigationProps<'CREATE_POST'>) => {
+export const CreatePost = ({ route }: CreatePostNavigationProps<'CREATE_POST'>) => {
+  const [isDeclineModalOpen, { setTrue: openDeclineModal, setFalse: hideDeclineModal }] =
+    useBooleanState(false)
   const { userSettings } = useUserSettingsContext()
   const { t } = useTranslation('createPost')
-  useSetStatusBarStyle(userSettings)
-  const photo = route.params?.photo
-  const { user } = useUserContext()
-  const { mutate } = useAddPost()
-  const { goBack } = useNavigation()
+  const { postData, updatePostData } = useCreatePostContext()
+  const { mutate: addPost } = useAddPost()
+  const { mutate: editPost } = useEditPost()
+  const { data: allPosts } = useGetPostsData()
+  const { navigate, goBack } = useNavigation<BottomTabNavigationType<'CREATE_POST_NAVIGATION'>>()
   const { notify } = useGetNotificationsConfig()
+  const modalAsset = route?.params?.modalAsset
+  const editPostId = route?.params?.editPostId
+  useSetStatusBarStyle(userSettings)
 
-  const addAttachments = (attachments: Asset[]): PostAttachment[] =>
-    attachments.map((item) => {
-      if (item.type === 'image/jpeg') {
-        return {
-          uri: item.uri || '',
-          type: 'image',
-          id: generateUUID(),
-        }
-      }
-      return {
-        uri: item.uri || '',
-        type: 'video',
-        id: generateUUID(),
-      }
-    })
+  const prevVersionOfPost = allPosts?.find((post) => post.id === postData?.id)
+  const isPostEdited: boolean =
+    !!editPostId &&
+    (JSON.stringify(prevVersionOfPost?.data) !== JSON.stringify(postData?.data) ||
+      JSON.stringify(prevVersionOfPost?.location) !== JSON.stringify(postData?.location) ||
+      prevVersionOfPost?.text !== postData?.text)
 
-  const handleOnSend = (data: PostState) => {
-    const feedPost: FeedPost = {
-      meta: {
-        id: generateUUID(),
-        author: {
-          id: user?.id || '',
-          name: `${user?.firstName} ${user?.lastName}` || '',
-          occupation: user?.occupation || '',
-          pictureUrl: user?.photo || '',
-          userColor: user?.userColor,
-          lastName: user?.lastName,
-        },
-        timestamp: { createdAt: new Date() },
-        location: {
-          position: data.location?.position || null,
-          addresses: data.location?.addresses || [],
-        },
-      },
-      text: data.text,
-      reactions: [],
-      comments: [],
-      recentlyAdded: true,
-      data: data.images.length > 0 ? addAttachments(data.images) : [],
+  useAsyncEffect(async () => {
+    if (modalAsset) return updatePostData({ data: [modalAsset] })
+    if (editPostId) {
+      const postToEdit = allPosts?.find((post) => post.id === editPostId)
+      if (postToEdit) return updatePostData(postToEdit)
     }
-    mutate(feedPost)
+    const draftPost = await getItem('draftPost')
+    if (draftPost) {
+      const parsedDraftPost: FeedPost = JSON.parse(draftPost)
+      updatePostData({ ...parsedDraftPost, createdAt: new Date().getTime() })
+    }
+  }, [])
 
-    const address = data.location?.addresses[0]
-    const locationToSend = address ? `${address.city} ${address.country}` : data.location
+  const submitForm = () => {
+    const showSuccessModal = () => {
+      notify('successCustom', {
+        params: {
+          title: t('postSent'),
+          onPressText: t('undo'),
+          onPress: () =>
+            navigate('CREATE_POST_NAVIGATION', {
+              screen: 'CREATE_POST',
+              params: { editPostId: postData?.id },
+            }),
+        },
+      })
+    }
+
+    if (editPostId && postData) {
+      if (!isPostEdited) return goBack()
+      editPost(postData)
+      showSuccessModal()
+    }
+    if (postData && !prevVersionOfPost) {
+      addPost(postData)
+      showSuccessModal()
+    }
+
+    const address = postData?.location
+    const locationToSend = address ? `${address.city} ${address.country}` : postData?.location
     Analytics().track('CREATE_POST', {
-      content: data.text,
-      imagesCount: data.images.length,
+      content: postData?.text || '',
+      imagesCount: postData?.data?.length || 0,
       location: JSON.stringify(locationToSend),
     })
     goBack()
-    notify('successCustom', { params: { title: t('postSent') } })
+    removeItem('draftPost')
+    updatePostData(null)
+  }
+
+  const onCreatePostDismiss = () => {
+    if (!postData) return
+    const { data, location, text } = postData
+    if (!editPostId && (data.length > 0 || text.length > 0 || !!location)) {
+      notify('infoCustom', { params: { title: t('savedAsDraft') } })
+      setItem('draftPost', JSON.stringify(postData))
+    }
   }
 
   return (
-    <SwipeableScreen>
-      <CreatePostForm photosAsset={photo} onSend={handleOnSend} />
+    <SwipeableScreen
+      swipeWithIndicator
+      onDismiss={onCreatePostDismiss}
+      onSwipeStart={isPostEdited ? () => openDeclineModal() : undefined}>
+      <CreatePostForm
+        submitForm={submitForm}
+        isDeclineModalOpen={isDeclineModalOpen}
+        openDeclineModal={openDeclineModal}
+        hideDeclineModal={hideDeclineModal}
+        isPostEdited={isPostEdited}
+      />
     </SwipeableScreen>
   )
 }

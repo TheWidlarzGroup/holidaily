@@ -3,27 +3,22 @@ import { useTranslation } from 'react-i18next'
 import { Box, mkUseStyles, Theme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { TextInput } from 'react-native-gesture-handler'
-import { AttachmentType } from 'types/holidaysDataTypes'
 import { LocationInfo } from 'components/LocationInfo'
-import { CompoundLocation } from 'hooks/useLocation'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { makeUserDetails } from 'utils/userDetails'
 import { Attachments } from 'screens/requestVacation/components/additionals/Attachments'
 import { isIos } from 'utils/layout'
+import { useCreatePostContext } from 'hooks/context-hooks/useCreatePostContext'
 
 type PostBodyProps = {
-  text: string
-  location: Maybe<CompoundLocation>
-  onTextChange: F1<string>
-  data: AttachmentType[]
   removeAttachment: F1<string>
 }
 
-export const PostBody = (props: PostBodyProps) => {
-  const { location, onTextChange, text, data } = props
+export const PostFormBody = (props: PostBodyProps) => {
   const { user } = useUserContext()
   const { t } = useTranslation('createPost')
   const styles = useStyles()
+  const { postData, updatePostData } = useCreatePostContext()
 
   return (
     <Box flexGrow={1} padding="s">
@@ -41,18 +36,18 @@ export const PostBody = (props: PostBodyProps) => {
             underlineColorAndroid="transparent"
             style={styles.textInput}
             placeholder={t('inputPlaceholder')}
-            onChangeText={onTextChange}
-            value={text}
+            onChangeText={(text) => updatePostData({ text })}
+            value={postData?.text}
           />
         </Box>
       </Box>
       <Box paddingHorizontal="s" marginTop="-s" marginBottom="-xm">
-        {location?.addresses && <LocationInfo location={location} />}
+        {postData?.location && <LocationInfo location={postData?.location} />}
       </Box>
       <Box marginHorizontal="xm">
         <Attachments
           removeAttachment={props.removeAttachment}
-          attachments={data}
+          attachments={postData?.data || []}
           imagesPerScreenWidth={2}
           disableDeleteImgOnPress
         />

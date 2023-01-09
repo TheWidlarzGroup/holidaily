@@ -14,8 +14,10 @@ export const getBottomTabIcon = (
     case 'DashboardNavigation': {
       return <HomeIcon color={routeName === 'DashboardNavigation' ? fillActive : fillInactive} />
     }
-    case 'CALENDAR': {
-      return <CalendarIcon color={routeName === 'CALENDAR' ? fillActive : fillInactive} />
+    case 'CALENDAR_NAVIGATION': {
+      return (
+        <CalendarIcon color={routeName === 'CALENDAR_NAVIGATION' ? fillActive : fillInactive} />
+      )
     }
     case 'Stats': {
       return <StatsIcon color={routeName === 'Stats' ? fillActive : fillInactive} />

@@ -78,7 +78,7 @@ export const SearchTeams = (p: SearchBarProps) => {
     },
     header: t('discardTeams'),
     declineBtnText: t('backToSelection'),
-    acceptBtnText: t('discard'),
+    acceptBtnText: t('discardChanges'),
   })
 
   const handleGoBack = () => {

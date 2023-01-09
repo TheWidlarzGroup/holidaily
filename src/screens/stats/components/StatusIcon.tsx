@@ -1,14 +1,28 @@
 import React from 'react'
 import { Box, Theme, useTheme } from 'utils/theme'
 import SpinnerIcon from 'assets/icons/icon-spinner.svg'
+import PalmIcon from 'assets/icons/icon-palm.svg'
 import CheckIcon from 'assets/icons/icon-check.svg'
 import ClockIcon from 'assets/icons/icon-past-request-clock.svg'
 import CrossIcon from 'assets/icons/icon-close.svg'
 import { DayOffRequest } from 'mock-api/models'
 import { BoxProps } from '@shopify/restyle'
 
-export const StatusIcon = ({ status }: { status: DayOffRequest['status'] }) => {
+export const StatusIcon = ({
+  status,
+  isOngoing,
+}: {
+  status: DayOffRequest['status']
+  isOngoing?: boolean
+}) => {
   const theme = useTheme()
+  if (isOngoing)
+    return (
+      <Box backgroundColor="special" {...commonIconProps}>
+        <PalmIcon color={theme.colors.alwaysWhite} />
+      </Box>
+    )
+
   switch (status) {
     case 'accepted':
       return (

@@ -1,12 +1,16 @@
 import type { StackNavigationOptions } from '@react-navigation/stack'
 
 export const StackNavigatorPresets: {
-  modalNavigator: { screenOptions: StackNavigationOptions; mode: 'modal' }
+  modalNavigator: {
+    screenOptions: StackNavigationOptions
+    presentation: 'modal' | 'transparentModal'
+  }
 } = {
   modalNavigator: {
     screenOptions: {
       headerShown: false,
       cardStyle: { backgroundColor: 'transparent' },
+      presentation: 'transparentModal',
       cardOverlayEnabled: true,
       cardStyleInterpolator: ({ current: { progress } }) => ({
         cardStyle: {
@@ -24,6 +28,6 @@ export const StackNavigatorPresets: {
         },
       }),
     },
-    mode: 'modal',
+    presentation: 'transparentModal',
   },
 }

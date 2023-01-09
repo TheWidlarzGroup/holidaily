@@ -15,6 +15,7 @@ export const AboutHeader = ({ onClose }: HeaderProps) => {
     <Box
       justifyContent="space-between"
       flexDirection="row"
+      paddingTop="m"
       paddingBottom="lplus"
       paddingHorizontal="m">
       <TouchableOpacity onPress={onClose} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>

@@ -1,41 +1,40 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
 import { DrawerNavigationType } from 'navigation/types'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
-import GestureRecognizer from 'react-native-swipe-gestures'
 import { DrawerBackArrow } from 'components/DrawerBackArrow'
 import { useTranslation } from 'react-i18next'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { Box } from 'utils/theme'
 import { LoadingModal } from 'components/LoadingModal'
 import { isIos } from 'utils/layout'
+import { GestureRecognizer } from 'utils/GestureRecognizer'
+import { DarkModeSwitch } from './components/DarkModeSwitch'
 import { Language } from './components/Language'
 import { Siri } from './components/Siri'
-import { DarkModeSwitch } from './components/DarkModeSwitch'
 
 export const Settings = () => {
+  const { t } = useTranslation('settings')
   const navigation = useNavigation<DrawerNavigationType<'SETTINGS'>>()
   const [loading, { setTrue: setLoadingTrue, setFalse: setLoadingFalse }] = useBooleanState(false)
 
-  const handleGoBack = useCallback(() => {
+  const handleGoBack = () => {
     navigation.goBack()
     navigation.dispatch(DrawerActions.openDrawer())
-  }, [navigation])
-
-  const { t } = useTranslation('settings')
+  }
 
   return (
     <SafeAreaWrapper>
-      <GestureRecognizer onSwipeRight={handleGoBack} style={{ flex: 1 }}>
+      <GestureRecognizer onSwipeRight={handleGoBack}>
         <DrawerBackArrow goBack={handleGoBack} title={t('name')} />
-        <Box marginHorizontal="m" flex={1}>
+        <Box marginHorizontal="m">
           <DarkModeSwitch />
           {/* <BiometricPasscode /> */}
           <Language setLoadingFalse={setLoadingFalse} setLoadingTrue={setLoadingTrue} />
           {isIos && <Siri />}
         </Box>
-        <LoadingModal show={loading} />
       </GestureRecognizer>
+      <LoadingModal show={loading} />
     </SafeAreaWrapper>
   )
 }

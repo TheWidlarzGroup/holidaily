@@ -49,7 +49,7 @@ export const ConfirmationModal = ({
             {content}
           </Text>
         )}
-        <Box marginBottom="xm" marginTop="xl">
+        <Box marginBottom="xm" marginTop="l">
           <CustomButton label={acceptBtnText ?? t('yes')} variant="primary" onPress={onAccept} />
         </Box>
         {!hideRejectButton && (
@@ -75,10 +75,10 @@ export const useModalStyles = mkUseStyles((theme) => ({
     borderTopLeftRadius: theme.borderRadii.l2min,
     borderTopRightRadius: theme.borderRadii.l2min,
     alignItems: 'center',
-    shadowOffset: { width: -2, height: 0 },
-    shadowColor: theme.colors.black,
-    shadowOpacity: 0.04,
-    shadowRadius: 2,
+    shadowOffset: { width: 0, height: -2 },
+    shadowColor: theme.colors.modalShadow,
+    shadowOpacity: 1,
+    shadowRadius: 8,
     elevation: 20,
   },
   nativeModalStyleReset: {

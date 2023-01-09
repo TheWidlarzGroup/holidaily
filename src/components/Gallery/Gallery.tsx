@@ -1,37 +1,55 @@
+import React, { useCallback, useEffect, useRef } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
 import { ProgressBar } from 'components/ProgressBar'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import React, { useCallback, useRef } from 'react'
-import {
-  FlatList,
-  ViewToken,
-  useWindowDimensions,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-} from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, StatusBar, ViewToken } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
-import { AttachmentType } from 'types/holidaysDataTypes'
-import { isScreenHeightShort } from 'utils/deviceSizes'
+import { isScreenHeightShort, windowHeight, windowWidth } from 'utils/deviceSizes'
 import { isIos } from 'utils/layout'
-import { Box } from 'utils/theme'
+import { BaseOpacity, Box } from 'utils/theme'
+import { useUserSettingsContext } from 'hooks/context-hooks/useUserSettingsContext'
+import { useGetActiveRouteName } from 'utils/useGetActiveRouteName'
+import { AttachmentDataType } from 'mockApi/models'
+import { ScrollView } from 'react-native-gesture-handler'
+import { AppNavigationType } from 'navigation/types'
 import { GalleryItem } from './GalleryItem'
 
 type GalleryProps = {
-  data: AttachmentType[]
+  data: AttachmentDataType[]
   index?: number
   onIndexChanged?: F1<number>
   onItemPress?: F2<number, string>
   postId?: string
+  wasNavigatedFromNotifications?: boolean
 }
 
-export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }: GalleryProps) => {
-  const { width } = useWindowDimensions()
-  const listRef = useRef<FlatList>(null)
+const IMAGE_HEIGHT = (windowWidth * 4) / 3
+const PADDING_TO_CENTER_IMG = (windowHeight - IMAGE_HEIGHT) / 2
+
+export const Gallery = ({
+  data,
+  index = 0,
+  onIndexChanged,
+  onItemPress,
+  postId,
+  wasNavigatedFromNotifications,
+}: GalleryProps) => {
+  const listRef = useRef<FlashList<AttachmentDataType>>(null)
   const translateX = useSharedValue(0)
+  const navigation = useNavigation<AppNavigationType<'GALLERY'>>()
+  const { userSettings } = useUserSettingsContext()
+  const activeRouteName = useGetActiveRouteName()
+
+  useEffect(() => {
+    if (activeRouteName === 'GALLERY') StatusBar.setBarStyle('light-content')
+    else StatusBar.setBarStyle(userSettings?.darkMode ? 'light-content' : 'dark-content')
+  }, [activeRouteName, userSettings?.darkMode])
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       const [item] = viewableItems
-      if (item === undefined || item.index === null) return
+      if (!item || item.index === null) return
       onIndexChanged?.(item.index)
     },
     [onIndexChanged]
@@ -39,40 +57,72 @@ export const Gallery = ({ data, index = 0, onIndexChanged, onItemPress, postId }
   const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig, onViewableItemsChanged }])
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (
+      translateX.value === 0 &&
+      event.nativeEvent.contentOffset?.x < 0 &&
+      wasNavigatedFromNotifications
+    ) {
+      navigation.navigate('NOTIFICATIONS')
+    }
     const xPos = event.nativeEvent.contentOffset.x
     translateX.value = xPos
   }
 
   const renderItem = useCallback(
-    ({ item, index }: { item: AttachmentType; index: number }) => (
+    ({ item, index }: { item: AttachmentDataType; index: number }) => (
       <GalleryItem
         {...item}
-        width={width}
+        width={windowWidth}
         onPress={() => onItemPress && onItemPress(index, item.uri)}
+        style={{ justifyContent: 'center' }}
       />
     ),
-    [width, onItemPress]
+    [onItemPress]
+  )
+
+  const flatListComponent = (
+    <FlashList
+      horizontal
+      ref={listRef}
+      snapToInterval={windowWidth}
+      snapToAlignment="center"
+      initialScrollIndex={index}
+      viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+      estimatedItemSize={windowWidth}
+      decelerationRate="normal"
+      disableIntervalMomentum
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.uri}
+      onScroll={onScroll}
+      showsHorizontalScrollIndicator={false}
+    />
   )
 
   return (
     <SafeAreaWrapper edges={['bottom']} isDefaultBgColor>
-      <FlatList
-        horizontal
-        ref={listRef}
-        snapToInterval={width}
-        snapToAlignment="center"
-        initialScrollIndex={index}
-        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-        getItemLayout={(_, index) => ({ length: width, offset: width * index, index })}
-        decelerationRate="normal"
-        disableIntervalMomentum
-        contentContainerStyle={{ alignItems: 'center' }}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.uri}
-        onScroll={onScroll}
-        showsHorizontalScrollIndicator={false}
-      />
+      {activeRouteName === 'GALLERY' ? (
+        <BaseOpacity
+          justifyContent="center"
+          alignItems="center"
+          flex={1}
+          activeOpacity={1}
+          onPress={() => isIos && navigation.goBack()}>
+          <ScrollView
+            contentContainerStyle={{
+              // Comment: it's not possible to center image, so paddingTop is used to do that
+              paddingTop: PADDING_TO_CENTER_IMG,
+              flex: 1,
+            }}
+            onScrollEndDrag={() => isIos && navigation.goBack()}
+            onEnded={() => navigation.goBack()}>
+            {flatListComponent}
+          </ScrollView>
+        </BaseOpacity>
+      ) : (
+        flatListComponent
+      )}
+
       {data.length > 1 && (
         <Box
           alignSelf="center"

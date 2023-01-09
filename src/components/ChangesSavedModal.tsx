@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { ModalProps } from 'react-native-modal'
 import { CustomModal } from 'components/CustomModal'
 import TickIcon from 'assets/icons/icon-button-tick.svg'
-import { theme, BaseOpacity, mkUseStyles, Theme, Text } from 'utils/theme/index'
+import { BaseOpacity, mkUseStyles, Text, Theme, theme } from 'utils/theme/index'
 
 type ChangesSavedModalProps = Pick<ModalProps, 'isVisible'> & {
   hideModal?: F0
@@ -32,7 +32,7 @@ export const ChangesSavedModal = ({ isVisible, hideModal, content }: ChangesSave
       style={styles.modal}
       hideModalContentWhileAnimating>
       <BaseOpacity onPress={hideModal} flex={1} justifyContent="center" alignItems="center">
-        <Text variant="boldBlackCenter20" marginBottom="xl">
+        <Text variant="displayBoldMD" marginBottom="xl">
           {content}
         </Text>
         <TickIcon />

@@ -2,18 +2,22 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseOpacity, Box, mkUseStyles, Text } from 'utils/theme'
 import CloseIcon from 'assets/icons/icon-close.svg'
-import { ModalHandleIndicator } from 'components/ModalHandleIndicator'
 
 export const SearchHeader = ({ handleGoBack }: { handleGoBack: F0 }) => {
   const { t } = useTranslation('userProfile')
   const styles = useStyles()
   return (
     <Box>
-      <ModalHandleIndicator style={{ top: 10 }} />
-      <BaseOpacity padding="m" activeOpacity={0.2} onPress={handleGoBack}>
+      <BaseOpacity
+        paddingLeft="m"
+        activeOpacity={0.2}
+        onPress={handleGoBack}
+        hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}>
         <CloseIcon style={styles.closeIcon} />
       </BaseOpacity>
-      <Text variant="displayBoldSM">{t('joinTeams')}</Text>
+      <Text variant="displayBoldSM" marginTop="xm">
+        {t('joinTeams')}
+      </Text>
       <Box paddingRight="s" />
     </Box>
   )
