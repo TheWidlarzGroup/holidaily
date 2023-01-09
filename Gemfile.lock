@@ -279,6 +279,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   cocoapods
@@ -289,4 +290,4 @@ DEPENDENCIES
   fastlane-plugin-yarn
 
 BUNDLED WITH
-   2.3.11
+   2.3.25
