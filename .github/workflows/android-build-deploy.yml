@@ -38,7 +38,7 @@ jobs:
       - name: Deploy android beta
         run: bundle exec fastlane android beta
         env:
-          ANDROID_PACKAGE_NAME: com.holidaily
+          ANDROID_PACKAGE_NAME: com.holidayly
           DEPLOY_TRACK: ${{ github.event.inputs.deploy_track }}
           DEPLOY_VERSION: ${{ github.event.inputs.deploy_version }}
       - name: Commit version bump
