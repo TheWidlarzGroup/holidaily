@@ -1,10 +1,12 @@
 import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Theme } from 'utils/theme'
+import { Box, Theme, Text } from 'utils/theme'
 import { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native'
 import { BottomTabRoutes } from 'navigation/types'
 import { AnimatedBox } from 'components/AnimatedBox'
+import { useUserContext } from 'hooks/context-hooks/useUserContext'
+import { useTranslation } from 'react-i18next'
 import { FeedPostBody } from './FeedPostBody'
 import { FeedPostFooter } from './FeedPostFooter'
 import { FeedPostHeader } from './FeedPostHeader'
@@ -16,12 +18,20 @@ type FeedPostProps = {
   wasNavigatedFromNotifications?: boolean
 }
 
+const emptyBoxBorder = {
+  borderBottomWidth: 2,
+  borderLeftWidth: 2,
+  borderRightWidth: 2,
+}
+
 export const FeedPost = (props: FeedPostProps) => {
   const { post, editTarget, openEditModal, wasNavigatedFromNotifications } = props
   const [showBorder, setShowBorder] = useState(false)
   const animProgress = useSharedValue(post.recentlyAdded ? 0 : 11)
   const route = useRoute<RouteProp<BottomTabRoutes, 'FEED'>>()
   const borderColor: keyof Theme['colors'] = showBorder ? 'special' : 'white'
+  const { user } = useUserContext()
+  const { t } = useTranslation('feed')
 
   useEffect(() => {
     if (editTarget?.postId === post.id && editTarget?.type === 'post') setShowBorder(true)
@@ -52,6 +62,8 @@ export const FeedPost = (props: FeedPostProps) => {
     opacity: animProgress.value,
   }))
 
+  const isPostBlocked = user?.blockedPostsIds?.includes(post.id)
+
   return (
     <AnimatedBox
       style={[animatedStyle]}
@@ -61,16 +73,26 @@ export const FeedPost = (props: FeedPostProps) => {
       borderTopRightRadius="lmin"
       marginTop="s">
       <FeedPostHeader post={post} openEditModal={openEditModal} borderColor={borderColor} />
-      <FeedPostBody
-        post={post}
-        borderColor={borderColor}
-        wasNavigatedFromNotifications={wasNavigatedFromNotifications}
-      />
-      <FeedPostFooter
-        {...props}
-        borderColor={borderColor}
-        isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
-      />
+      {isPostBlocked ? (
+        <Box borderColor={borderColor} {...emptyBoxBorder} padding="m" alignItems="center">
+          <Text variant="textSM" textAlign="center">
+            {t('hiddenPostPlaceholder')}
+          </Text>
+        </Box>
+      ) : (
+        <>
+          <FeedPostBody
+            post={post}
+            borderColor={borderColor}
+            wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+          />
+          <FeedPostFooter
+            {...props}
+            borderColor={borderColor}
+            isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+          />
+        </>
+      )}
     </AnimatedBox>
   )
 }

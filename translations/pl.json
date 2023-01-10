@@ -247,7 +247,8 @@
     "postDeleted": "Usunięto post!",
     "hidePost": "Ukryj ten post",
     "showPost": "Pokaż ten post",
-    "reportPost": "Zgloś i ukryj ten Post"
+    "reportPost": "Zgloś i ukryj ten Post",
+    "hiddenPostPlaceholder": "Zawartość tego posta została przez Ciebie ukryta"
   },
   "createPost": {
     "title": "Utwórz Post",

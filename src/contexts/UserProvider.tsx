@@ -41,7 +41,6 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
   const updateUser = useCallback((newData: Partial<User> | null) => {
     setUser((prev) => (prev ? { ...prev, ...newData } : { ...defaultUser, ...newData }))
   }, [])
-  console.log('user', user?.blockedPostsIds)
 
   useAsyncEffect(async () => {
     const cachedUserId = await getItem('userId')

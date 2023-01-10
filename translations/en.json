@@ -248,7 +248,8 @@
     "postDeleted": "Post deleted!",
     "hidePost": "Hide this post",
     "showPost": "Show this post",
-    "reportPost": "Report and hide this Post"
+    "reportPost": "Report and hide this Post",
+    "hiddenPostPlaceholder": "The content of this post is hidden by you"
   },
   "createPost": {
     "title": "Create Post",
