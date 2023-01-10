@@ -4,7 +4,6 @@ import { BaseOpacity, Box, Colors, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { LocationInfo } from 'components/LocationInfo'
 import IconDots from 'assets/icons/icon-dots2.svg'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { FeedPostHeaderInfo } from '../FeedPostHeaderInfo/FeedPostHeaderInfo'
 
 type FeedPostHeaderProps = {
@@ -16,7 +15,6 @@ type FeedPostHeaderProps = {
 export const FeedPostHeader = (props: FeedPostHeaderProps) => {
   const { post, borderColor } = props
   const theme = useTheme()
-  const { user } = useUserContext()
 
   const handleDotsOnPress = () => {
     const post: EditPost = {
