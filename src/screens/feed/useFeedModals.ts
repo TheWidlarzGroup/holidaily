@@ -142,8 +142,9 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
 
     const unBlockPost = () => {
       const posts = user?.blockedPostsIds?.filter((a) => a !== target.postId)
-      closeOptionsModal?.()
+
       updateUser({ blockedPostsIds: posts })
+      closeOptionsModal?.()
     }
 
     const editModalOptions = [
