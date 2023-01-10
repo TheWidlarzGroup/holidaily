@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import EditIcon from 'assets/icons/icon-edit2.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
+import ReportIcon from 'assets/icons/circle-cross.svg'
+import HideIcon from 'assets/icons/icon-password-invisible.svg'
 import Svg from 'react-native-svg'
 import { Analytics } from 'services/analytics'
 
@@ -19,6 +21,7 @@ type ModalOption = {
   Icon: Svg
   text: string
   onPress: F0
+  show?: boolean
 }
 
 export const useFeedModals = (data: FeedPostType[] | undefined) => {
@@ -156,31 +159,35 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
       },
     ]
 
+    const isPostBlocked = user?.blockedPostsIds?.includes(target.postId)
+
     const reportModalOptions = [
       {
-        Icon: EditIcon,
+        Icon: HideIcon,
         text: t('hidePost'),
         onPress: onHidePress,
+        show: !isPostBlocked,
       },
       {
-        Icon: EditIcon,
+        Icon: ReportIcon,
         text: t('reportPost'),
         onPress: onReportPress,
+        show: !isPostBlocked,
       },
       {
         Icon: EditIcon,
         text: t('showPost'),
         onPress: unBlockPost,
+        show: isPostBlocked,
       },
     ]
 
-    const blockPostsOptions = user?.blockedPostsIds?.includes(target.postId)
-      ? reportModalOptions
-      : reportModalOptions.slice(0, reportModalOptions.length - 1)
+    const blockPostsOptions = reportModalOptions.filter((a) => a.show)
 
     const finalOptions = target.authorId === user?.id ? editModalOptions : blockPostsOptions
     setModalOptions(finalOptions)
   }
+
   const openEditModal = (target: EditTargetType) => {
     setEditTarget(target)
     generateModalOptions(target)
