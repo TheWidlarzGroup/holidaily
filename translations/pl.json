@@ -244,7 +244,10 @@
     "discardDesc": "Jeśli klikniesz “Odrzuć”, zmiany nie zostaną zapisane.",
     "changesSaved": "Zapisano zamiany!",
     "commentDeleted": "Usunięto komentarz!",
-    "postDeleted": "Usunięto post!"
+    "postDeleted": "Usunięto post!",
+    "hidePost": "Ukryj ten post",
+    "showPost": "Pokaż ten post",
+    "reportPost": "Zgloś i ukryj ten Post"
   },
   "createPost": {
     "title": "Utwórz Post",

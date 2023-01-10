@@ -76,7 +76,6 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
   }
 
   const onPressModalEdit = (target: EditTargetType) => {
-    console.log('edit target', target)
     closeOptionsModal?.()
     if (target?.type === 'comment') {
       if (!target.text) return
@@ -158,17 +157,17 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
     const reportModalOptions = [
       {
         Icon: EditIcon,
-        text: 'Report',
-        onPress: onReportPress,
-      },
-      {
-        Icon: EditIcon,
-        text: 'Hide',
+        text: t('hidePost'),
         onPress: onHidePress,
       },
       {
         Icon: EditIcon,
-        text: 'Show this post',
+        text: t('reportPost'),
+        onPress: onReportPress,
+      },
+      {
+        Icon: EditIcon,
+        text: t('showPost'),
         onPress: unBlockPost,
       },
     ]

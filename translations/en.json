@@ -245,7 +245,10 @@
     "discardDesc": "By clicking Discard, all changes will be lost.",
     "changesSaved": "Changes saved!",
     "commentDeleted": "Comment deleted!",
-    "postDeleted": "Post deleted!"
+    "postDeleted": "Post deleted!",
+    "hidePost": "Hide this post",
+    "showPost": "Show this post",
+    "reportPost": "Report and hide this Post"
   },
   "createPost": {
     "title": "Create Post",
