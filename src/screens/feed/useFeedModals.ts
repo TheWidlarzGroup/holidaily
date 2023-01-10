@@ -11,6 +11,7 @@ import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import EditIcon from 'assets/icons/icon-edit2.svg'
 import BinIcon from 'assets/icons/icon-bin.svg'
 import Svg from 'react-native-svg'
+import { Analytics } from 'services/analytics'
 
 type NavigationHookType = BottomTabNavigationType<'FEED'> & typeof DrawerActions
 
@@ -126,6 +127,7 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
     }
 
     const onReportPress = () => {
+      Analytics().track('FEED_POST_REPORT', { postId: target.postId, userId: user?.id })
       updateBlockedPosts()
       closeOptionsModal?.()
     }
