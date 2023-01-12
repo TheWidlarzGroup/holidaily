@@ -89,7 +89,7 @@ export const FeedPost = (props: FeedPostProps) => {
           <FeedPostFooter
             {...props}
             borderColor={borderColor}
-            isEditingTarget={editTarget?.type === 'comment' || editTarget?.type === 'post'}
+            isEditingTarget={!!(editTarget && ['comment', 'post'].includes(editTarget?.type))}
           />
         </>
       )}

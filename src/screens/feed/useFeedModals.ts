@@ -2,7 +2,12 @@ import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddRea
 import { useAddPostWithNewId, useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
 import { useBooleanState } from 'hooks/useBooleanState'
-import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
+import {
+  EditComment,
+  EditPost,
+  EditTargetType,
+  FeedPost as FeedPostType,
+} from 'mock-api/models/miragePostTypes'
 import { useState } from 'react'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { BottomTabNavigationType } from 'navigation/types'
@@ -51,36 +56,47 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
     }
   }
 
-  const onPressModalDelete = (target: EditTargetType) => {
+  const handleCommentDeletion = (target: EditComment) => {
+    deleteComment(target.commentId, {
+      onSuccess: () => {
+        notify('successCustom', { params: { title: t('commentDeleted') } })
+      },
+    })
+  }
+
+  const handlePostDeletion = (target: EditPost) => {
+    const deletedPost = data?.find((post) => post.id === target.postId)
+    deletePost(target.postId, {
+      onSuccess: () => {
+        notify('successCustom', {
+          params: {
+            title: t('postDeleted'),
+            onPressText: t('undo'),
+            onPress: () => {
+              if (deletedPost) addPostWithNewId(deletedPost)
+            },
+          },
+        })
+      },
+    })
+  }
+
+  const onModalButtonPressWrapper = (cb: F0) => {
     closeOptionsModal?.()
+    cb()
+  }
+
+  const onPressModalDelete = (target: EditTargetType) => {
     if (target?.type === 'comment') {
-      deleteComment(target.commentId, {
-        onSuccess: () => {
-          notify('successCustom', { params: { title: t('commentDeleted') } })
-        },
-      })
+      handleCommentDeletion(target)
     }
     if (target?.type === 'post') {
-      const deletedPost = data?.find((post) => post.id === target.postId)
-      deletePost(target.postId, {
-        onSuccess: () => {
-          notify('successCustom', {
-            params: {
-              title: t('postDeleted'),
-              onPressText: t('undo'),
-              onPress: () => {
-                if (deletedPost) addPostWithNewId(deletedPost)
-              },
-            },
-          })
-        },
-      })
+      handlePostDeletion(target)
     }
     setEditTarget(null)
   }
 
   const onPressModalEdit = (target: EditTargetType) => {
-    closeOptionsModal?.()
     if (target?.type === 'comment') {
       if (!target.text) return
       handleSetMessageContent(target?.text)
@@ -96,7 +112,6 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
   }
 
   const onCommentEdit = () => {
-    closeMessageInput()
     if (editTarget?.type === 'comment') {
       editComment(
         { ...editTarget, text: editTarget?.text },
@@ -113,11 +128,11 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
 
   const generateModalOptions = (target: EditTargetType) => {
     const onEditPress = () => {
-      onPressModalEdit(target)
+      onModalButtonPressWrapper(() => onPressModalEdit(target))
     }
 
     const onDeletePress = () => {
-      onPressModalDelete(target)
+      onModalButtonPressWrapper(() => onPressModalDelete(target))
     }
 
     const updateBlockedPosts = () => {
@@ -132,19 +147,12 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
     const onReportPress = () => {
       Analytics().track('FEED_POST_REPORT', { postId: target.postId, userId: user?.id })
       updateBlockedPosts()
-      closeOptionsModal?.()
-    }
-
-    const onHidePress = () => {
-      updateBlockedPosts()
-      closeOptionsModal?.()
     }
 
     const unBlockPost = () => {
       const posts = user?.blockedPostsIds?.filter((a) => a !== target.postId)
 
       updateUser({ blockedPostsIds: posts })
-      closeOptionsModal?.()
     }
 
     const editModalOptions = [
@@ -166,19 +174,19 @@ export const useFeedModals = (data: FeedPostType[] | undefined) => {
       {
         Icon: HideIcon,
         text: t('hidePost'),
-        onPress: onHidePress,
+        onPress: () => onModalButtonPressWrapper(updateBlockedPosts),
         show: !isPostBlocked,
       },
       {
         Icon: ReportIcon,
         text: t('reportPost'),
-        onPress: onReportPress,
+        onPress: () => onModalButtonPressWrapper(onReportPress),
         show: !isPostBlocked,
       },
       {
         Icon: EditIcon,
         text: t('showPost'),
-        onPress: unBlockPost,
+        onPress: () => onModalButtonPressWrapper(unBlockPost),
         show: isPostBlocked,
       },
     ]
