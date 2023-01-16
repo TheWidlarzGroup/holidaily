@@ -13,6 +13,7 @@ export type User = {
   availablePto: number
   requests: DayOffRequest[]
   isOnHoliday: boolean
+  blockedPostsIds?: string[]
 }
 
 type Attachment = {

@@ -1,23 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { LoadingModal } from 'components/LoadingModal'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { useDeleteComment, useEditComment } from 'dataAccess/mutations/useAddReactionsComment'
 import { useGetPostsData } from 'dataAccess/queries/useFeedPostsData'
-import { useBooleanState } from 'hooks/useBooleanState'
 import { useLanguage } from 'hooks/useLanguage'
-import { EditTargetType, FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
+import { FeedPost as FeedPostType } from 'mock-api/models/miragePostTypes'
 import { BottomTabNavigationProps, BottomTabNavigationType } from 'navigation/types'
 import { InteractionManager } from 'react-native'
 import { OptionsModal } from 'components/OptionsModal'
-import EditIcon from 'assets/icons/icon-edit2.svg'
-import { useGetNotificationsConfig } from 'utils/notifications/notificationsConfig'
-import BinIcon from 'assets/icons/icon-bin.svg'
 import { MessageInputModal } from 'components/MessageInputModal'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { PrevScreen, usePrevScreenBackHandler } from 'hooks/usePrevScreenBackHandler'
-import { useAddPostWithNewId, useDeletePost } from 'dataAccess/mutations/useAddPost'
 import { FlashList } from '@shopify/flash-list'
 import { GestureRecognizer } from 'utils/GestureRecognizer'
 import { useMemoizedNonNullValue } from 'hooks/memoization/useMemoizedNonNullValue'
@@ -25,6 +17,7 @@ import { isIos } from 'utils/layout'
 import { mkUseStyles, Theme } from 'utils/theme'
 import { FeedHeader } from './components/FeedHeader/FeedHeader'
 import { FeedPost } from './components/FeedPost/FeedPost'
+import { useFeedModals } from './useFeedModals'
 
 const ESTIMATED_POST_HEIGHT = 746
 
@@ -36,24 +29,23 @@ type RenderItemType = { item: FeedPostType }
 export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>) => {
   const [language] = useLanguage()
   const styles = useStyles()
-  const { notify } = useGetNotificationsConfig()
   const { data } = useGetPostsData()
   const navigation = useNavigation<NavigationHookType>()
-  const { t } = useTranslation('feed')
-  const { user } = useUserContext()
   const flatListRef = useRef<FlashList<FeedPostType> | null>(null)
   const scrollRetries = useRef(0)
 
-  const [isMessageInputOpen, { setFalse: closeMessageInput, setTrue: openMessageInput }] =
-    useBooleanState(false)
-  const [isOptionsModalOpen, { setFalse: closeOptionsModal, setTrue: openOptionsModal }] =
-    useBooleanState(false)
-  const [editTarget, setEditTarget] = useState<EditTargetType | null>()
-
-  const { mutate: deleteComment } = useDeleteComment()
-  const { mutate: editComment } = useEditComment()
-  const { mutate: deletePost } = useDeletePost()
-  const { mutate: addPostWithNewId } = useAddPostWithNewId()
+  const {
+    onCommentEdit,
+    handleSetMessageContent,
+    closeOptionsModal,
+    closeMessageInput,
+    isMessageInputOpen,
+    isOptionsModalOpen,
+    setEditTarget,
+    editTarget,
+    openEditModal,
+    modalOptions,
+  } = useFeedModals(data)
   const [wasFlashListLoaded, setWasFlashListLoaded] = useState(false)
 
   const prevScreen: PrevScreen = p?.prevScreen
@@ -64,72 +56,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
 
   usePrevScreenBackHandler(prevScreen)
 
-  const onPressModalDelete = () => {
-    closeOptionsModal?.()
-    if (editTarget?.type === 'comment') {
-      deleteComment(editTarget.commentId, {
-        onSuccess: () => {
-          notify('successCustom', { params: { title: t('commentDeleted') } })
-        },
-      })
-    }
-    if (editTarget?.type === 'post') {
-      const deletedPost = data?.find((post) => post.id === editTarget.postId)
-      deletePost(editTarget.postId, {
-        onSuccess: () => {
-          notify('successCustom', {
-            params: {
-              title: t('postDeleted'),
-              onPressText: t('undo'),
-              onPress: () => {
-                if (deletedPost) addPostWithNewId(deletedPost)
-              },
-            },
-          })
-        },
-      })
-    }
-    setEditTarget(null)
-  }
-
-  const onPressModalEdit = () => {
-    closeOptionsModal?.()
-    if (editTarget?.type === 'comment') {
-      if (!editTarget.text) return
-      handleSetMessageContent(editTarget?.text)
-      setTimeout(() => openMessageInput(), 400)
-    }
-    if (editTarget?.type === 'post') {
-      navigation.navigate('CREATE_POST_NAVIGATION', {
-        screen: 'CREATE_POST',
-        params: { editPostId: editTarget.postId },
-      })
-      setEditTarget(null)
-    }
-  }
-
-  const onCommentEdit = () => {
-    closeMessageInput()
-    if (editTarget?.type === 'comment') {
-      editComment(
-        { ...editTarget, text: editTarget?.text },
-        {
-          onSuccess: () => {
-            notify('successCustom', { params: { title: t('changesSaved') } })
-          },
-        }
-      )
-    }
-    handleSetMessageContent('')
-    setEditTarget(null)
-  }
-
-  const handleSetMessageContent = (text: string) => {
-    if (editTarget?.type === 'comment') {
-      setEditTarget((prev) => prev && { ...prev, text })
-    }
-  }
-
   useEffect(() => {
     const removeListener = navigation.addListener('blur', () => {
       scrollRetries.current = 0
@@ -137,19 +63,6 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
     })
     return removeListener
   }, [navigation])
-
-  const modalOptions = [
-    {
-      Icon: EditIcon,
-      text: t('edit'),
-      onPress: onPressModalEdit,
-    },
-    {
-      Icon: BinIcon,
-      text: t('delete'),
-      onPress: onPressModalDelete,
-    },
-  ]
 
   useEffect(() => {
     const parent = navigation.getParent()
@@ -168,23 +81,15 @@ export const Feed = ({ route: { params: p } }: BottomTabNavigationProps<'FEED'>)
   })
 
   const renderItem = useCallback(
-    ({ item }: RenderItemType) => {
-      const openEditModal = (target: EditTargetType) => {
-        if (!(target.authorId === user?.id)) return
-        setEditTarget(target)
-        openOptionsModal?.()
-      }
-
-      return (
-        <FeedPost
-          post={item}
-          openEditModal={openEditModal}
-          editTarget={editTarget}
-          wasNavigatedFromNotifications={wasNavigatedFromNotifications}
-        />
-      )
-    },
-    [editTarget, openOptionsModal, user?.id, wasNavigatedFromNotifications]
+    ({ item }: RenderItemType) => (
+      <FeedPost
+        post={item}
+        openEditModal={openEditModal}
+        editTarget={editTarget}
+        wasNavigatedFromNotifications={wasNavigatedFromNotifications}
+      />
+    ),
+    [editTarget, openEditModal, wasNavigatedFromNotifications]
   )
 
   const keyExtractor = (post: FeedPostType) => post.id
