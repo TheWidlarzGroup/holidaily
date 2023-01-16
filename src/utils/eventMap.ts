@@ -135,6 +135,10 @@ export const analyticsEventMap = {
     name: '[HOLIFEED] Message Input Modal Opened',
     payload: fcast<{ postId?: string }>(),
   },
+  FEED_POST_REPORT: {
+    name: '[HOLIFEED] Post reported by user',
+    payload: fcast<{ postId: string; userId?: string }>(),
+  },
 
   // Add Request
   REQUEST_VACATION_ADD: {

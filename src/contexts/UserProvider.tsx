@@ -31,6 +31,7 @@ const defaultUser: User = {
   isOnHoliday: false,
   requests: [],
   teams: [],
+  blockedPostsIds: [],
 }
 
 export const UserContextProvider = ({ children }: ProviderProps) => {
