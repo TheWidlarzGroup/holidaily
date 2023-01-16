@@ -4,7 +4,6 @@ import { BaseOpacity, Box, Colors, useTheme } from 'utils/theme'
 import { Avatar } from 'components/Avatar'
 import { LocationInfo } from 'components/LocationInfo'
 import IconDots from 'assets/icons/icon-dots2.svg'
-import { useUserContext } from 'hooks/context-hooks/useUserContext'
 import { FeedPostHeaderInfo } from '../FeedPostHeaderInfo/FeedPostHeaderInfo'
 
 type FeedPostHeaderProps = {
@@ -16,14 +15,14 @@ type FeedPostHeaderProps = {
 export const FeedPostHeader = (props: FeedPostHeaderProps) => {
   const { post, borderColor } = props
   const theme = useTheme()
-  const { user } = useUserContext()
 
   const handleDotsOnPress = () => {
     const post: EditPost = {
       type: 'post',
       postId: props.post.id,
-      authorId: user?.id || '',
+      authorId: props.post.author.id || '',
     }
+
     props.openEditModal(post)
   }
 
@@ -55,16 +54,14 @@ export const FeedPostHeader = (props: FeedPostHeaderProps) => {
         <FeedPostHeaderInfo post={post} />
       </Box>
       <LocationInfo location={post?.location} />
-      {post.author?.id === user?.id && (
-        <BaseOpacity
-          onPress={handleDotsOnPress}
-          position="absolute"
-          right={20}
-          top={45}
-          hitSlop={{ top: 20, bottom: 20, left: 25, right: 20 }}>
-          <IconDots color={theme.colors.black} />
-        </BaseOpacity>
-      )}
+      <BaseOpacity
+        onPress={handleDotsOnPress}
+        position="absolute"
+        right={20}
+        top={45}
+        hitSlop={{ top: 20, bottom: 20, left: 25, right: 20 }}>
+        <IconDots color={theme.colors.black} />
+      </BaseOpacity>
     </Box>
   )
 }

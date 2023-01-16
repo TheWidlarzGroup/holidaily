@@ -43,7 +43,7 @@ export const OptionsModal = (p: OptionsModalProps) => {
             <OptionButton key={key ?? text} onPress={onPress}>
               <Box style={styles.optionWrapper}>
                 {Icon && (
-                  <Box width={35}>
+                  <Box width={35} alignItems="center">
                     <Icon style={styles.optionIcon} />
                   </Box>
                 )}
