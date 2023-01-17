@@ -14,9 +14,10 @@ export const useBackgroundEffect = (callback: () => void) => {
     [callback]
   )
   useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange)
+    const appStateListener = AppState.addEventListener('change', handleAppStateChange)
+
     return () => {
-      AppState.removeEventListener('change', handleAppStateChange)
+      appStateListener.remove()
     }
   }, [handleAppStateChange])
 }
