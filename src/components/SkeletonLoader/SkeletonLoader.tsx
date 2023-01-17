@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import MaskedView from '@react-native-masked-view/masked-view'
-import {
-  useSharedValue,
-  withRepeat,
-  withTiming,
-  useAnimatedStyle,
-  interpolate,
-} from 'react-native-reanimated'
+
 import { Box, theme } from 'utils/theme'
 import LinearGradient from 'react-native-linear-gradient'
-import { AnimatedBox } from './AnimatedBox'
+import { AnimatedBox } from '../AnimatedBox'
+import { useSkeletonLoader } from './useSkeletonLoader'
 
 type Props = {
   children: React.ReactElement
@@ -19,24 +14,7 @@ type Props = {
 }
 
 export const SkeletonLoader = (props: Props) => {
-  const loaderValue = useSharedValue(0)
-
-  useEffect(() => {
-    loaderValue.value = withRepeat(withTiming(1, { duration: 1500 }), Infinity)
-
-    return () => {
-      loaderValue.value = 0
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateX: interpolate(loaderValue.value, [0, 1], [-props.width, props.width]),
-      },
-    ],
-  }))
+  const { animatedStyle } = useSkeletonLoader(props.width)
 
   if (!props.isLoading) {
     return props.children

@@ -3,7 +3,7 @@ import FastImage from 'react-native-fast-image'
 import { BaseOpacity } from 'utils/theme'
 import { ViewStyle } from 'react-native'
 import { AttachmentDataType } from 'mockApi/models/miragePostTypes'
-import { SkeletonLoader } from 'components/SkeletonLoader'
+import { SkeletonLoader } from 'components/SkeletonLoader/SkeletonLoader'
 import { useBooleanState } from 'hooks/useBooleanState'
 
 type GalleryItemProps = AttachmentDataType & {

@@ -30,7 +30,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
   const { notify } = useGetNotificationsConfig()
-  const [isLoading, { setFalse: setIsNotLoading, setTrue: setIsLoading }] = useBooleanState(false)
+  const [isLoading, { setFalse: hideLoader, setTrue: showLoader }] = useBooleanState(false)
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
@@ -39,14 +39,14 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   }, [route.params?.userLoggedOut, notify, t])
 
   const onSubmit = async () => {
-    setIsLoading()
+    showLoader()
     await setItem('firstName', nameInput)
     Analytics().identify({ firstName: nameInput })
     createTempUser(
       { firstName: nameInput },
       {
         onSuccess: (data) => {
-          setIsNotLoading()
+          hideLoader()
           updateUser(data.user)
         },
       }
