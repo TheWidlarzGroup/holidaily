@@ -11,7 +11,8 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --config .prettierrc --write src/**/*.{js,jsx,ts,tsx}",
     "type-check": "tsc --noEmit",
-    "ios:beta": "fastlane ios beta",
+    "ios:build-tf": "fastlane ios build_and_release_to_testflight",
+    "ios:build-store": "fastlane ios build_and_release_to_app_store",
     "android:beta": "fastlane android beta",
     "test:watch": "jest --watch --detectOpenHandles"
   },
