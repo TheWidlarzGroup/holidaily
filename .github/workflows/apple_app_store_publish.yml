@@ -1,4 +1,4 @@
-name: TESTFLIGHT | Publish to Apple Store
+name: PRODUCTION | Publish to Apple Store
 
 on:
   workflow_dispatch:
@@ -12,8 +12,8 @@ on:
           - major
 
 jobs:
-  release-ios-testflight:
-    name: TESTFLIGHT | Build and release iOS app
+  release-ios-production:
+    name: PRODUCTION | Build and release iOS app
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -56,7 +56,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Bundle and Upload to Testflight
+      - name: Bundle and Upload to App Store
         env:
           KEY_ID: ${{secrets.APPLE_KEY_ID}}
           ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
@@ -64,4 +64,4 @@ jobs:
           MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
           PAT: ${{secrets.PAT}}
-        run: bundle exec fastlane build_and_release_to_testflight
+        run: bundle exec fastlane build_and_release_to_app_store
