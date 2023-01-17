@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.14
+          cache: yarn
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile --network-timeout 300000
