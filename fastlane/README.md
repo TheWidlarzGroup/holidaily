@@ -52,6 +52,14 @@ Ship to Testflight.
 
 Android build and release to beta
 
+### android validate
+
+```sh
+[bundle exec] fastlane android validate
+```
+
+
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
