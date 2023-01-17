@@ -65,3 +65,4 @@ jobs:
           git add ./ios/Holidayly/Info.plist
           git add ./ios/OneSignalNotificationServiceExtension/Info.plist
           git commit -m "bump iOS to version $PACKAGE_VERSION"
+          git push
