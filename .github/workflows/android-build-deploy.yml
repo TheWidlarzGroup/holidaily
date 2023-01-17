@@ -49,5 +49,4 @@ jobs:
           git add ./package.json
           git add  ./fastlane/report.xml
           git add ./android/app/build.gradle
-          git commit -m "bump to version $PACKAGE_VERSION"
-          git push
+          git commit -m "bump ANDROID to version $PACKAGE_VERSION"

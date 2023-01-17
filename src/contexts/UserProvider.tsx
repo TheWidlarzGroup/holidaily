@@ -67,7 +67,7 @@ export const UserContextProvider = ({ children }: ProviderProps) => {
 
   const handleLogout = async () => {
     setUser(null)
-    delete axios.defaults.headers.common.userId
+    axios.defaults.headers.common.userId = ''
     clearUserCache()
     queryClient.invalidateQueries(QueryKeys.NOTIFICATIONS)
     queryClient.invalidateQueries(QueryKeys.USER_REQUESTS)
