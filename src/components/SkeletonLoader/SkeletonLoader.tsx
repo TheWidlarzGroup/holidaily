@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import MaskedView from '@react-native-masked-view/masked-view'
 
