@@ -25,7 +25,7 @@ platform :ios do
 
       desc "Bump version in package"
       private_lane :bump_version_package do
-         sh("npm", "version", "patch", "--no-git-tag-version")
+         sh("npm", "version", ENV["DEPLOY_VERSION"], "--no-git-tag-version")
       end
 
       desc "Update Version number"
@@ -66,7 +66,7 @@ platform :ios do
       end
 
       desc "Ship to Testflight."
-         lane :build_and_release_to_app_store do
+         lane :build_and_release_to_testflight do
                build
                upload_to_testflight(
                   username:ENV["TF_USERNAME"], 
@@ -75,6 +75,19 @@ platform :ios do
                   skip_waiting_for_build_processing: true
                )
       end
+
+      desc "Ship to AppStore."
+
+         lane :build_and_release_to_app_store do
+            package = load_json(json_path: "./package.json")
+            build
+            deliver(
+               app_version: package['version'],
+               submit_for_review: false,
+               force:true,
+               skip_screenshots: true,
+               skip_metadata: false,
+            )
 end
 
 platform :android do

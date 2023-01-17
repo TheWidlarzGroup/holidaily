@@ -1,12 +1,19 @@
 name: PRODUCTION | Publish to Apple Store
 
 on:
-  release:
-    types: [released]
+  workflow_dispatch:
+    inputs:
+      deploy_version:
+        type: choice
+        description: Type of new deployed version
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
-  release-ios-production:
-    name: PRODUCTION | Build and release iOS app
+  release-ios-testflight:
+    name: Testflight | Build and release iOS app
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -49,13 +56,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Bundle and Upload to App Store Connect
+      - name: Bundle and Upload to Testflight
         env:
-          VERSION_NAME: ${{ github.event.release.tag_name }}
-          KEY_ID: ${{secrets.KEY_ID}}
-          ISSUER_ID: ${{secrets.ISSUER_ID}}
-          IOS_AUTH_KEY: ${{secrets.IOS_AUTH_KEY}}
+          KEY_ID: ${{secrets.APPLE_KEY_ID}}
+          ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
+          IOS_AUTH_KEY: ${{secrets.IOS_AUTH_KEY_BASE64}}
           MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
-          MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.BASE64_PAT}}
-          PAT: ${{secrets.DANIEL_PAT}}
-        run: bundle exec fastlane build_and_release_to_app_store
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
+          PAT: ${{secrets.PAT}}
+        run: bundle exec fastlane build_and_release_to_testflight
