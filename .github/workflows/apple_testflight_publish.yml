@@ -1,0 +1,67 @@
+name: TESTFLIGHT | Publish to Apple Store
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_version:
+        type: choice
+        description: Type of new deployed version
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release-ios-testflight:
+    name: TESTFLIGHT | Build and release iOS app
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare env file
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.14
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --network-timeout 300000
+
+      - name: Setup Ruby (bundle)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Restore Pods cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Bundle and Upload to Testflight
+        env:
+          KEY_ID: ${{secrets.APPLE_KEY_ID}}
+          ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
+          IOS_AUTH_KEY: ${{secrets.IOS_AUTH_KEY_BASE64}}
+          MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
+          PAT: ${{secrets.PAT}}
+        run: bundle exec fastlane build_and_release_to_testflight
+
+      - name: Commit version bump
+        run: |
+          PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
+          git config --global user.name 'jan-kozinski'
+          git config --global user.email 'jan-kozinski@users.noreply.github.com'
+          git add ./package.json
+          git add  ./fastlane/report.xml
+          git add ./ios/Holidayly.xcodeproj/project.pbxproj
+          git add ./ios/Holidayly/Info.plist
+          git add ./ios/OneSignalNotificationServiceExtension/Info.plist
+          git commit -m "bump iOS to version $PACKAGE_VERSION"

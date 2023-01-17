@@ -1,65 +1,93 @@
-fastlane_version "2.211.0"
-
 before_all do
    ensure_git_branch(branch: "staging")
    git_pull
    yarn(command: "install", step_name: "install_dependencies")
 end
 
-platform :ios do
-   # iOS Lanes
-   desc "connect to App store api"
-   lane :connect_to_app_store do
-      app_store_connect_api_key(
-         key_id: ENV["KEY_ID"],
-         issuer_id: ENV["ISSUER_ID"],
-         is_key_content_base64: false,
-         key_content: ENV["IOS_AUTH_KEY"],
-      )
-   end
+platform :ios do 
    
-   # TODO - uncomment after connecting gh actions
-
-   # desc "Fetch certificates and provisioning profiles"
-   # lane :certificates do
-   #    match(app_identifier: "com.holidaily", type: "development", readonly: true)
-   #    match(app_identifier: "com.holidaily", type: "appstore", readonly: true)
-   # end
-
-   desc "Bump version in package"
-   private_lane :bump_version_package do
-      sh("npm", "version", "patch", "--no-git-tag-version")
-   end
-
-   desc "Update Version number"
-      private_lane :update_version do
+      # iOS Lanes
+      desc "connect to App store api"
+      lane :connect_to_app_store do
+         app_store_connect_api_key(
+            key_id: ENV["APPLE_KEY_ID"],
+            issuer_id: ENV["APPLE_ISSUER_ID"],
+            is_key_content_base64: true,
+            key_content: ENV["IOS_AUTH_KEY_BASE64"],
+         )
+      end
       
-       package = load_json(json_path: "./package.json")
+      desc "Fetch certificates and provisioning profiles"
+      lane :certificates do  
+         match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "appstore", readonly: true)
+         match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "development", readonly: true)
+      end
 
-       increment_build_number(xcodeproj: "./ios/Holidayly.xcodeproj")
-       increment_version_number(xcodeproj: "./ios/Holidayly.xcodeproj", version_number: package['version']) 
-   
-    end
+      desc "Bump version in package"
+      private_lane :bump_version_package do
+         sh("npm", "version", ENV["DEPLOY_VERSION"], "--no-git-tag-version")
+      end
 
-   desc "Build the iOS application."
+      desc "Update Version number"
+         private_lane :update_version do
+         
+         package = load_json(json_path: "./package.json")
 
-      lane :build do
-         cocoapods(
-            podfile: "./ios/Podfile",
-            repo_update: true
-          )
-        connect_to_app_store
-        bump_version_package
-        update_version
-        gym(scheme: "Holidayly", workspace: "./ios/Holidayly.xcworkspace")
-   end
+         increment_build_number(xcodeproj: "./ios/Holidayly.xcodeproj")
+         increment_version_number(xcodeproj: "./ios/Holidayly.xcodeproj", version_number: package['version']) 
+      
+      end
+       
+      desc "Build the iOS application."
 
-   desc "Ship to Testflight."
-        lane :beta do
+         lane :build do
+            cocoapods(
+               podfile: "./ios/Podfile",
+               repo_update: true
+            )
+         connect_to_app_store
+         bump_version_package
+         update_version
+         gym(
+            include_bitcode: true,
+            include_symbols: true,
+            silent: true,
+            clean: true,
+            scheme: "Holidayly", 
+            workspace: "./ios/Holidayly.xcworkspace", 
+            export_method: "app-store",
+            export_options: {
+               provisioningProfiles: {
+                     "com.holidaily" => "match AppStore com.holidaily",
+                     "com.holidaily.OneSignalNotificationServiceExtension" => "Fastlane-onesignal"
+                  }
+               },
+            )
+      end
+
+      desc "Ship to Testflight."
+         lane :build_and_release_to_testflight do
+               build
+               upload_to_testflight(
+                  username:ENV["TF_USERNAME"], 
+                  app_identifier:ENV["APP_IDENTIFIER"], 
+                  skip_submission: true,
+                  skip_waiting_for_build_processing: true
+               )
+      end
+
+      desc "Ship to AppStore."
+
+         lane :build_and_release_to_app_store do
+            package = load_json(json_path: "./package.json")
             build
-            upload_to_testflight(username:ENV["TF_USERNAME"], app_identifier:ENV["APP_IDENTIFIER"], skip_submission: true,
-            skip_waiting_for_build_processing: true)
-   end
+            deliver(
+               app_version: package['version'],
+               submit_for_review: false,
+               force:true,
+               skip_screenshots: true,
+               skip_metadata: false,
+            )
 end
 
 platform :android do
