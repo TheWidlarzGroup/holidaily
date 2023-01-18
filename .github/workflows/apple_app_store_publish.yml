@@ -34,6 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Bundle and Upload to App Store
+        run: bundle exec fastlane ios build_and_release_to_app_store
         env:
           APPLE_KEY_ID: ${{secrets.APPLE_KEY_ID}}
           APPLE_ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
@@ -41,8 +42,7 @@ jobs:
           MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
           PAT: ${{secrets.PAT}}
-        run: bundle exec fastlane ios build_and_release_to_app_store
-
+          DEPLOY_VERSION: ${{ github.event.inputs.deploy_version }}
       - name: Commit version bump
         run: |
           PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
