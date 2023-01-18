@@ -5,7 +5,8 @@ before_all do
 end
 
 platform :ios do 
-   
+      xcodes(version: "13.2.1")
+
       # iOS Lanes
       desc "connect to App store api"
       lane :connect_to_app_store do
@@ -68,12 +69,12 @@ platform :ios do
       desc "Ship to Testflight."
          lane :build_and_release_to_testflight do
                build
-               upload_to_testflight(
-                  username:ENV["TF_USERNAME"], 
-                  app_identifier:ENV["APP_IDENTIFIER"], 
-                  skip_submission: true,
-                  skip_waiting_for_build_processing: true
-               )
+               # upload_to_testflight(
+               #    username:ENV["TF_USERNAME"], 
+               #    app_identifier:ENV["APP_IDENTIFIER"], 
+               #    skip_submission: true,
+               #    skip_waiting_for_build_processing: true
+               # )
       end
 
       desc "Ship to AppStore."
