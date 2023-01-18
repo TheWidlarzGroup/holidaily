@@ -9,29 +9,20 @@ on:
           - patch
           - minor
           - major
-
 jobs:
-  release-ios-production:
-    name: PRODUCTION | Build and release iOS app
+  deploy:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: Prepare env file
-
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
       - uses: actions/setup-node@v3
         with:
           node-version: 16.14
           cache: yarn
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --network-timeout 300000
-
-      - name: Setup Ruby (bundle)
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6
-          bundler-cache: true
-
       - name: Restore Pods cache
         uses: actions/cache@v2
         with:
@@ -42,7 +33,6 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-
       - name: Bundle and Upload to App Store
         env:
           KEY_ID: ${{secrets.APPLE_KEY_ID}}
