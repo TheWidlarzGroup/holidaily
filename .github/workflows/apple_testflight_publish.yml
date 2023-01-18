@@ -1,4 +1,4 @@
-name: TESTFLIGHT | Publish to Apple Store
+name: TESTFLIGHT | Publish to Testlifght
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ on:
           - major
 jobs:
   deploy:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v3
       - name: Prepare env file
