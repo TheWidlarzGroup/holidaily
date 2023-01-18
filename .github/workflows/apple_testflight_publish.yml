@@ -36,9 +36,9 @@ jobs:
       - name: Bundle and Upload to Testflight
         run: bundle exec fastlane ios build_and_release_to_testflight
         env:
-          KEY_ID: ${{secrets.APPLE_KEY_ID}}
-          ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
-          IOS_AUTH_KEY: ${{secrets.IOS_AUTH_KEY_BASE64}}
+          APPLE_KEY_ID: ${{secrets.APPLE_KEY_ID}}
+          APPLE_ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
+          IOS_AUTH_KEY_BASE64: ${{secrets.IOS_AUTH_KEY_BASE64}}
           MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
           PAT: ${{secrets.PAT}}
