@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Box, mkUseStyles, Theme, theme } from 'utils/theme'
-import { TabsUi } from 'navigation/BottomNavComponents/TabsUi'
+import TabsUi from 'navigation/BottomNavComponents/TabsUi'
 import { Feed } from 'screens/feed/Feed'
 import { useDrawerProgress, useDrawerStatus } from '@react-navigation/drawer'
 import useDimensions from '@shopify/restyle/dist/hooks/useDimensions'
@@ -68,6 +68,7 @@ export const BottomTabNavigator = () => {
       <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
         <Box style={[styles.boxShadow, containerBorderRadius]}>
           <Tab.Navigator
+            initialRouteName="FEED"
             tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
             screenOptions={{ headerShown: false }}>
             <Tab.Screen name="DashboardNavigation" component={DashboardNavigation} />

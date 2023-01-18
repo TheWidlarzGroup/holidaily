@@ -72,3 +72,4 @@ android/app/holidaily-fastlane.json
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+/ios/.xcode.env.local

@@ -14,7 +14,7 @@ type TabsUiProps = {
   state: NavigationState
 }
 
-export const TabsUi = ({ tabs, isCalendarModalScreen, state }: TabsUiProps) => {
+const TabsUi = ({ tabs, isCalendarModalScreen, state }: TabsUiProps) => {
   const tabWidth = (windowWidth - ADD_BTN_WIDTH) / (tabs.length - 1)
 
   return (
@@ -28,3 +28,5 @@ export const TabsUi = ({ tabs, isCalendarModalScreen, state }: TabsUiProps) => {
     </Box>
   )
 }
+
+export default React.memo(TabsUi)

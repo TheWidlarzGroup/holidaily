@@ -30,6 +30,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { updateUser } = useUserContext()
   const { mutate: createTempUser } = useCreateTempUser()
   const { notify } = useGetNotificationsConfig()
+  const [isLoading, { setFalse: hideLoader, setTrue: showLoader }] = useBooleanState(false)
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
@@ -38,12 +39,14 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   }, [route.params?.userLoggedOut, notify, t])
 
   const onSubmit = async () => {
+    showLoader()
     await setItem('firstName', nameInput)
     Analytics().identify({ firstName: nameInput })
     createTempUser(
       { firstName: nameInput },
       {
         onSuccess: (data) => {
+          hideLoader()
           updateUser(data.user)
         },
       }
@@ -90,6 +93,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         marginBottom="l"
         alignItems="center">
         <CustomButton
+          loading={isLoading}
           variant="primary"
           label={t('seeDemoButton')}
           onPress={handleSubmit(onSubmit)}
