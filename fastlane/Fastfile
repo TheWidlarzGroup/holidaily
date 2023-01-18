@@ -5,7 +5,8 @@ before_all do
 end
 
 platform :ios do 
-   
+      xcodes(version: "13.2.1")
+
       # iOS Lanes
       desc "connect to App store api"
       lane :connect_to_app_store do
