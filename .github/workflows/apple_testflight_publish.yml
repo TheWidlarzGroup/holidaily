@@ -1,5 +1,4 @@
 name: TESTFLIGHT | Publish to Apple Store
-
 on:
   workflow_dispatch:
     inputs:
@@ -59,9 +58,11 @@ jobs:
           PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
           git config --global user.name 'jan-kozinski'
           git config --global user.email 'jan-kozinski@users.noreply.github.com'
+          git checkout -b release/ios-$PACKAGE_VERSION
           git add ./package.json
           git add  ./fastlane/report.xml
           git add ./ios/Holidayly.xcodeproj/project.pbxproj
           git add ./ios/Holidayly/Info.plist
           git add ./ios/OneSignalNotificationServiceExtension/Info.plist
           git commit -m "bump iOS to version $PACKAGE_VERSION"
+          git push
