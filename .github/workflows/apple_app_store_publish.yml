@@ -41,7 +41,7 @@ jobs:
           MATCH_PASSWORD: ${{secrets.MATCH_PASSWORD}}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{secrets.MATCH_GIT_BASIC_AUTHORIZATION}}
           PAT: ${{secrets.PAT}}
-        run: bundle exec fastlane build_and_release_to_app_store
+        run: bundle exec fastlane ios build_and_release_to_app_store
 
       - name: Commit version bump
         run: |
