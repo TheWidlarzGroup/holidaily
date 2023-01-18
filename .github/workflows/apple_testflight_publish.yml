@@ -34,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
       - name: Bundle and Upload to Testflight
-        run: bundle exec fastlane build_and_release_to_testflight
+        run: bundle exec fastlane ios build_and_release_to_testflight
         env:
           KEY_ID: ${{secrets.APPLE_KEY_ID}}
           ISSUER_ID: ${{secrets.APPLE_ISSUER_ID}}
