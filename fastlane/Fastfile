@@ -54,7 +54,13 @@ platform :ios do
             clean: true,
             scheme: "Holidayly", 
             workspace: "./ios/Holidayly.xcworkspace", 
-            export_method: "app-store"
+            export_method: "app-store",
+            export_options: {
+               provisioningProfiles: {
+                     "com.holidaily" => "match AppStore com.holidaily",
+                     "com.holidaily.OneSignalNotificationServiceExtension" => "match AppStore com.holidaily.OneSignalNotificationServiceExtension"
+               }
+            }
             )
       end
 
