@@ -41,14 +41,17 @@ jobs:
           ANDROID_PACKAGE_NAME: com.holidaily
           DEPLOY_TRACK: ${{ github.event.inputs.deploy_track }}
           DEPLOY_VERSION: ${{ github.event.inputs.deploy_version }}
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
       - name: Commit version bump
         run: |
           PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
           git config --global user.name 'jan-kozinski'
           git config --global user.email 'jan-kozinski@users.noreply.github.com'
-          git checkout -b release/android-$PACKAGE_VERSION
+          git checkout -b release/android-${{ steps.package-version.outputs.current-version}}
           git add ./package.json
           git add  ./fastlane/report.xml
           git add ./android/app/build.gradle
-          git commit -m "bump ANDROID to version $PACKAGE_VERSION"
-          git push
+          git commit -m "bump ANDROID to version ${{ steps.package-version.outputs.current-version}}"
+          git push --set-upstream origin release/android-${{ steps.package-version.outputs.current-version}}
