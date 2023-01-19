@@ -19,7 +19,12 @@ platform :ios do
       
       desc "Fetch certificates and provisioning profiles"
       lane :certificates do  
-         match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "appstore", readonly: true)
+         match(
+            app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"],
+            type: "appstore", 
+            readonly: true, 
+            git_url:"https://github.com/TheWidlarzGroup/holidaily_fastlane"
+            )
       end
 
       desc "Bump version in package"
