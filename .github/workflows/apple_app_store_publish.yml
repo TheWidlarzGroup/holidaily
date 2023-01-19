@@ -59,3 +59,5 @@ jobs:
           git add ./ios/OneSignalNotificationServiceExtension/Info.plist
           git commit -m "bump iOS to version ${{ steps.package-version.outputs.current-version}}"
           git push --set-upstream origin release/ios-${{ steps.package-version.outputs.current-version}}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
