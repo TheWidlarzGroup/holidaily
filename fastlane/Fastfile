@@ -52,6 +52,7 @@ platform :ios do
          connect_to_app_store
          bump_version_package
          update_version
+         setup_ci(force: true)
          certificates
          gym(
             include_bitcode: true,
