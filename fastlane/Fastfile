@@ -1,8 +1,8 @@
-before_all do
-   ensure_git_branch(branch: "staging")
-   git_pull
-   yarn(command: "install", step_name: "install_dependencies")
-end
+# before_all do
+#    ensure_git_branch(branch: "staging")
+#    git_pull
+#    yarn(command: "install", step_name: "install_dependencies")
+# end
 
 platform :ios do 
 
@@ -52,6 +52,7 @@ platform :ios do
          connect_to_app_store
          bump_version_package
          update_version
+         setup_ci(force: true)
          certificates
          gym(
             include_bitcode: true,
