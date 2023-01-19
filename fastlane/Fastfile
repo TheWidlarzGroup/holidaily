@@ -36,6 +36,29 @@ platform :ios do
          increment_version_number(xcodeproj: "./ios/Holidayly.xcodeproj", version_number: package['version']) 
       
       end
+
+      desc "Update Profiles"
+      private_lane: update_profiles do
+
+         update_project_provisioning(
+            xcodeproj: "./ios/Holidayly.xcodeproj",
+            target_filter: "Holidayly",
+            profile: "sigh_com.holidaily_appstore",
+            build_configuartion: "Release",
+         )
+         update_project_provisioning(
+            xcodeproj: "./ios/Holidayly.xcodeproj",
+            target_filter: "OneSignalNotificationServiceExtension",
+            profile: "sigh_com.holidaily.OneSignalNotificationServiceExtension_appstore",
+            build_configuartion: "Release",
+         )
+
+         update_project_team(
+            path: "./ios/Holidayly.xcodeproj",
+            teamid: "23QAX5XY7P"
+         )
+
+      end
        
       desc "Build the iOS application."
 
@@ -47,6 +70,7 @@ platform :ios do
          connect_to_app_store
          bump_version_package
          update_version
+         update_profiles
          gym(
             include_bitcode: true,
             include_symbols: true,
@@ -55,12 +79,6 @@ platform :ios do
             scheme: "Holidayly", 
             workspace: "./ios/Holidayly.xcworkspace", 
             export_method: "app-store",
-            export_options: {
-               provisioningProfiles: {
-                     "com.holidaily" => "match AppStore com.holidaily",
-                     "com.holidaily.OneSignalNotificationServiceExtension" => "match AppStore com.holidaily.OneSignalNotificationServiceExtension"
-               }
-            }
             )
       end
 
