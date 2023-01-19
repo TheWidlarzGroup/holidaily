@@ -41,14 +41,12 @@ target 'Holidayly' do
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
 
   post_install do |installer|
-
-
     installer.generated_projects.each do |project|
       project.targets.each do |target|
         target.build_configurations.each do |config|
           config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
           config.build_settings['ENABLE_BITCODE'] = 'NO'
-        
+  
           config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator'
           config.build_settings['SUPPORTS_MACCATALYST'] = 'NO'
           config.build_settings['SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD'] = 'NO'
@@ -56,16 +54,6 @@ target 'Holidayly' do
       end
     end
     
-    # Get the development team id from the main project
-    dev_team_id = ""
-    project = installer.aggregate_targets[0].user_project
-    project.targets.each do |target|
-      target.build_configurations.each do |config|
-        if dev_team_id.empty? and !config.build_settings['DEVELOPMENT_TEAM'].nil?
-          dev_team_id = config.build_settings['DEVELOPMENT_TEAM']
-        end
-      end
-    end
     targetsToFix = ["React-Core-AccessibilityResources", "EXConstants-EXConstants"];
 
     installer.generated_projects.each do |project|
