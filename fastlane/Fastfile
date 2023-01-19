@@ -20,7 +20,6 @@ platform :ios do
       desc "Fetch certificates and provisioning profiles"
       lane :certificates do  
          match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "appstore", readonly: true)
-         match(app_identifier: ["com.holidaily", "com.holidaily.OneSignalNotificationServiceExtension"], type: "development", readonly: true)
       end
 
       desc "Bump version in package"
@@ -55,13 +54,7 @@ platform :ios do
             clean: true,
             scheme: "Holidayly", 
             workspace: "./ios/Holidayly.xcworkspace", 
-            export_method: "app-store",
-            export_options: {
-               provisioningProfiles: {
-                     "com.holidaily" => "match AppStore com.holidaily",
-                     "com.holidaily.OneSignalNotificationServiceExtension" => "Fastlane-onesignal"
-                  }
-               },
+            export_method: "app-store"
             )
       end
 
