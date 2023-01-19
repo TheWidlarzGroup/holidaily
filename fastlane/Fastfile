@@ -1,8 +1,8 @@
-# before_all do
-#    ensure_git_branch(branch: "staging")
-#    git_pull
-#    yarn(command: "install", step_name: "install_dependencies")
-# end
+before_all do
+   ensure_git_branch(branch: "staging")
+   git_pull
+   yarn(command: "install", step_name: "install_dependencies")
+end
 
 platform :ios do 
 
