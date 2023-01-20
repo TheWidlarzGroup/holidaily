@@ -100,7 +100,7 @@ platform :android do
    end
 
    desc "Bump build version"
-   private_lane :bump_build_version do
+   lane :bump_build_version do
    
       package = load_json(json_path: "./package.json")
       increment_version_code(gradle_file_path: "android/app/build.gradle")
