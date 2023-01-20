@@ -57,4 +57,4 @@ jobs:
             ./package.json
             ./fastlane/report.xml
             ./android/app/build.gradle
-          title: [RELEASE]: Android-${{ steps.package-version.outputs.current-version}}
+          title: [RELEASE] Android-${{ steps.package-version.outputs.current-version}}
