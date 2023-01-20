@@ -68,7 +68,6 @@ export const BottomTabNavigator = () => {
       <AnimatedBox style={[styles.animatedBox, animatedStyle]}>
         <Box style={[styles.boxShadow, containerBorderRadius]}>
           <Tab.Navigator
-            initialRouteName="FEED"
             tabBar={(props) => <TabsUi {...{ tabs, isCalendarModalScreen, ...props }} />}
             screenOptions={{ headerShown: false }}>
             <Tab.Screen name="DashboardNavigation" component={DashboardNavigation} />
