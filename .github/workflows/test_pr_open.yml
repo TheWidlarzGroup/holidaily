@@ -1,32 +1,40 @@
 name: Open PR
 on:
   workflow_dispatch:
-    jobs:
-      deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - name: Set up ruby env
-          uses: ruby/setup-ruby@v1
-          with:
-            ruby-version: 3.1.2
-            bundler-cache: true
-        - name: get-npm-version
-          id: package-version
-          uses: martinbeentjes/npm-get-version-action@main
-        - name: Bump versions
-          run: bundle exec fastlane android bump_build_version
-        - name: Commit version bump
-          run: |
-            PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
-            git config --global user.name 'jan-kozinski'
-            git config --global user.email 'jan-kozinski@users.noreply.github.com'
-            git checkout -b release/android-${{ steps.package-version.outputs.current-version}}
-            git add ./package.json
-            git add  ./fastlane/report.xml
-            git add ./android/app/build.gradle
-            git commit -m "bump ANDROID to version ${{ steps.package-version.outputs.current-version}}"
-            git push --set-upstream origin release/android-${{ steps.package-version.outputs.current-version}}
-        - name: Create Pull Request
-          uses: peter-evans/create-pull-request@v4
-          branch: release/android-${{ steps.package-version.outputs.current-version}}
+  inputs:
+    deploy_version:
+      type: choice
+      description: Type of new deployed version
+      options:
+        - patch
+        - minor
+        - major
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+      - name: Bump versions
+        run: bundle exec fastlane android bump_build_version
+      - name: Commit version bump
+        run: |
+          PACKAGE_VERSION=$(sed -nr 's/^\s*\"version": "([0-9]{1,}\.[0-9]{1,}.*)",$/\1/p' package.json)
+          git config --global user.name 'jan-kozinski'
+          git config --global user.email 'jan-kozinski@users.noreply.github.com'
+          git checkout -b release/android-${{ steps.package-version.outputs.current-version}}
+          git add ./package.json
+          git add  ./fastlane/report.xml
+          git add ./android/app/build.gradle
+          git commit -m "bump ANDROID to version ${{ steps.package-version.outputs.current-version}}"
+          git push --set-upstream origin release/android-${{ steps.package-version.outputs.current-version}}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        branch: release/android-${{ steps.package-version.outputs.current-version}}
