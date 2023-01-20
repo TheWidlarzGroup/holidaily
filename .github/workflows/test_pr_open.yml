@@ -1,14 +1,14 @@
 name: Open PR
 on:
   workflow_dispatch:
-  inputs:
-    deploy_version:
-      type: choice
-      description: Type of new deployed version
-      options:
-        - patch
-        - minor
-        - major
+    inputs:
+      deploy_version:
+        type: choice
+        description: Type of new deployed version
+        options:
+          - patch
+          - minor
+          - major
 jobs:
   deploy:
     runs-on: ubuntu-latest
