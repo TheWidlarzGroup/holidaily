@@ -41,9 +41,9 @@ jobs:
           ANDROID_PACKAGE_NAME: com.holidaily
           DEPLOY_TRACK: ${{ github.event.inputs.deploy_track }}
           DEPLOY_VERSION: ${{ github.event.inputs.deploy_version }}
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@main
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.0.6
       - name: Set github user
         run: |
           git config --global user.name 'jan-kozinski'
@@ -51,10 +51,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          branch: release/android-${{ steps.package-version.outputs.current-version}}
+          branch: release/android-${{ steps.extract_version.outputs.version }}
           token: ${{secrets.PAT}}
           add-paths: |
             ./package.json
             ./fastlane/report.xml
             ./android/app/build.gradle
-          title: RELEASE Android-${{ steps.package-version.outputs.current-version}}
+          title: RELEASE Android-${{ steps.extract_version.outputs.version }}
