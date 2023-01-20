@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 connect to App store api
 
+### ios certificates
+
+```sh
+[bundle exec] fastlane ios certificates
+```
+
+Fetch certificates and provisioning profiles
+
 ### ios build
 
 ```sh
@@ -31,18 +39,34 @@ connect to App store api
 
 Build the iOS application.
 
-### ios beta
+### ios build_and_release_to_testflight
 
 ```sh
-[bundle exec] fastlane ios beta
+[bundle exec] fastlane ios build_and_release_to_testflight
 ```
 
 Ship to Testflight.
+
+### ios build_and_release_to_app_store
+
+```sh
+[bundle exec] fastlane ios build_and_release_to_app_store
+```
+
+Ship to AppStore.
 
 ----
 
 
 ## Android
+
+### android bump_build_version
+
+```sh
+[bundle exec] fastlane android bump_build_version
+```
+
+Bump build version
 
 ### android beta
 
@@ -51,14 +75,6 @@ Ship to Testflight.
 ```
 
 Android build and release to beta
-
-### android validate
-
-```sh
-[bundle exec] fastlane android validate
-```
-
-
 
 ----
 
