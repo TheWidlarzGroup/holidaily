@@ -11,7 +11,7 @@ on:
           - major
       deploy_track:
         type: choice
-        description: Choose wheter you want to deploy to internal tests or to production
+        description: Choose whether you want to deploy to internal tests or to production
         options:
           - internal
           - production
@@ -57,4 +57,4 @@ jobs:
             ./package.json
             ./fastlane/report.xml
             ./android/app/build.gradle
-          title: [RELEASE]: Android-${{ steps.package-version.outputs.current-version}}
+          title: RELEASE Android-${{ steps.package-version.outputs.current-version}}

@@ -61,4 +61,4 @@ jobs:
             ./ios/Holidayly.xcodeproj/project.pbxproj
             ./ios/Holidayly/Info.plist
             ./ios/OneSignalNotificationServiceExtension/Info.plist
-          title: [RELEASE]: iOS-${{ steps.package-version.outputs.current-version}}
+          title: RELEASE iOS-${{ steps.package-version.outputs.current-version}}
