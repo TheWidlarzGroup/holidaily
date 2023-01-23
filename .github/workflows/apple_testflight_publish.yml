@@ -57,7 +57,6 @@ jobs:
           token: ${{secrets.PAT}}
           add-paths: |
             ./package.json
-            ./fastlane/report.xml
             ./ios/Holidayly.xcodeproj/project.pbxproj
             ./ios/Holidayly/Info.plist
             ./ios/OneSignalNotificationServiceExtension/Info.plist
