@@ -55,6 +55,5 @@ jobs:
           token: ${{secrets.PAT}}
           add-paths: |
             ./package.json
-            ./fastlane/report.xml
             ./android/app/build.gradle
           title: RELEASE Android-${{ steps.extract_version.outputs.version }}
