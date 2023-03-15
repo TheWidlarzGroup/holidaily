@@ -87,7 +87,7 @@
     "placeholder": "Your first name",
     "logoutSuccess": "Logged out successfully!",
     "privacyPolicyNormal": "By pressing <b>{{btnLabel}}</b>, I agree that I have read and accepted the",
-    "privacyPolicyAccent": "Terms and Conditions & Privacy Policy"
+    "privacyPolicyAccent": "terms and Conditions & Privacy Policy"
   },
   "signupEmail": {
     "signupEmailTitle": "Create company account",

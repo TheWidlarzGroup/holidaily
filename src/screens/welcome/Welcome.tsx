@@ -98,8 +98,8 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         paddingBottom={isIos ? 'ml' : 'xs'}
         marginBottom="l"
         alignItems="center">
-        <Box marginBottom="xl" paddingHorizontal="l">
-          <Text variant="lightGreyRegular" textAlign="center">
+        <BaseOpacity marginBottom="xl" paddingHorizontal="l" onPress={showPrivacyPolicyModal}>
+          <Text variant="lightGreyRegular" textAlign="left">
             <Trans
               t={t}
               i18nKey="privacyPolicyNormal"
@@ -108,13 +108,12 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
               }}
               values={{ btnLabel: t('seeDemoButton') }}
             />
-          </Text>
-          <BaseOpacity onPress={showPrivacyPolicyModal}>
+
             <Text variant="lightGreyRegularBold" textAlign="center" color="primary">
               {t('privacyPolicyAccent')}
             </Text>
-          </BaseOpacity>
-        </Box>
+          </Text>
+        </BaseOpacity>
         <CustomButton
           loading={isLoading}
           variant="primary"
