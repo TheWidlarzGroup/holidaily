@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
+import { BaseOpacity, Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
 import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
@@ -15,6 +15,8 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import { AuthNavigationProps } from 'navigation/types'
 import { Analytics } from 'services/analytics'
 import { isIos } from 'utils/layout'
+import { PrivacyPolicyContent } from 'screens/about/components/PrivacyPolicyContent'
+import { CustomModal } from 'components/CustomModal'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
 
@@ -31,6 +33,10 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { mutate: createTempUser } = useCreateTempUser()
   const { notify } = useGetNotificationsConfig()
   const [isLoading, { setFalse: hideLoader, setTrue: showLoader }] = useBooleanState(false)
+  const [
+    isPrivacyPolicyModalVisible,
+    { setFalse: hidePrivacyPolicyModal, setTrue: showPrivacyPolicyModal },
+  ] = useBooleanState(false)
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
@@ -92,6 +98,23 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         paddingBottom={isIos ? 'ml' : 'xs'}
         marginBottom="l"
         alignItems="center">
+        <Box marginBottom="xl" paddingHorizontal="l">
+          <Text variant="lightGreyRegular" textAlign="center">
+            <Trans
+              t={t}
+              i18nKey="privacyPolicyNormal"
+              components={{
+                b: <Text variant="lightGreyRegularBold" textAlign="left" />,
+              }}
+              values={{ btnLabel: t('seeDemoButton') }}
+            />
+          </Text>
+          <BaseOpacity onPress={showPrivacyPolicyModal}>
+            <Text variant="lightGreyRegularBold" textAlign="center" color="primary">
+              {t('privacyPolicyAccent')}
+            </Text>
+          </BaseOpacity>
+        </Box>
         <CustomButton
           loading={isLoading}
           variant="primary"
@@ -101,6 +124,17 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         />
       </Box>
       <AboutModal isOpen={isModalVisible} onHide={hideModal} />
+      <CustomModal
+        style={{
+          marginTop: isIos ? 30 : 0,
+        }}
+        backdropColor="white"
+        backdropOpacity={1}
+        isVisible={isPrivacyPolicyModalVisible}
+        onBackdropPress={hidePrivacyPolicyModal}
+        onBackButtonPress={hidePrivacyPolicyModal}>
+        <PrivacyPolicyContent />
+      </CustomModal>
     </SafeAreaWrapper>
   )
 }

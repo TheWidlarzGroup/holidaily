@@ -85,7 +85,9 @@
     "joinMoreButton": "Dołącz teraz",
     "thanksButton": "Ok, dzięki!",
     "placeholder": "Twoje imię",
-    "logoutSuccess": "Wylogowano pomyślnie!"
+    "logoutSuccess": "Wylogowano pomyślnie!",
+    "privacyPolicyNormal": "Klikając <b>{{btnLabel}}</b>, potwierdzam, że zapoznałem się z i akceptuję",
+    "privacyPolicyAccent": "Warunki użytkowania i politykę prywatności"
   },
   "signupEmail": {
     "signupEmailTitle": "Stwórz konto firmowe",
