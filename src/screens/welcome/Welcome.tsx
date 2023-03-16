@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { SafeAreaWrapper } from 'components/SafeAreaWrapper'
-import { BaseOpacity, Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
+import { Box, mkUseStyles, Text, Theme } from 'utils/theme/index'
 import { onlyLettersRegex } from 'utils/regex'
 import { FormInput } from 'components/FormInput'
 import { CustomButton } from 'components/CustomButton'
@@ -19,6 +19,7 @@ import { PrivacyPolicyContent } from 'screens/about/components/PrivacyPolicyCont
 import { CustomModal } from 'components/CustomModal'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
+import { ShowPrivacyPolicyButton } from './components/ShowPrivacyPolicyButton'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
@@ -98,22 +99,8 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         paddingBottom={isIos ? 'ml' : 'xs'}
         marginBottom="l"
         alignItems="center">
-        <BaseOpacity marginBottom="xl" paddingHorizontal="l" onPress={showPrivacyPolicyModal}>
-          <Text variant="lightGreyRegular" textAlign="left">
-            <Trans
-              t={t}
-              i18nKey="privacyPolicyNormal"
-              components={{
-                b: <Text variant="lightGreyRegularBold" textAlign="left" />,
-              }}
-              values={{ btnLabel: t('seeDemoButton') }}
-            />
+        <ShowPrivacyPolicyButton onPress={showPrivacyPolicyModal} />
 
-            <Text variant="lightGreyRegularBold" textAlign="center" color="primary">
-              {t('privacyPolicyAccent')}
-            </Text>
-          </Text>
-        </BaseOpacity>
         <CustomButton
           loading={isLoading}
           variant="primary"
