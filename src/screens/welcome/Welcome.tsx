@@ -15,8 +15,11 @@ import { useGetNotificationsConfig } from 'utils/notifications/notificationsConf
 import { AuthNavigationProps } from 'navigation/types'
 import { Analytics } from 'services/analytics'
 import { isIos } from 'utils/layout'
+import { PrivacyPolicyContent } from 'screens/about/components/PrivacyPolicyContent'
+import { CustomModal } from 'components/CustomModal'
 import { WelcomeTopBar } from './components/WelcomeTopBar'
 import { AboutModal } from './components/AboutModal'
+import { ShowPrivacyPolicyButton } from './components/ShowPrivacyPolicyButton'
 
 const MIN_SIGNS = 2
 const MAX_SIGNS = 20
@@ -31,6 +34,10 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
   const { mutate: createTempUser } = useCreateTempUser()
   const { notify } = useGetNotificationsConfig()
   const [isLoading, { setFalse: hideLoader, setTrue: showLoader }] = useBooleanState(false)
+  const [
+    isPrivacyPolicyModalVisible,
+    { setFalse: hidePrivacyPolicyModal, setTrue: showPrivacyPolicyModal },
+  ] = useBooleanState(false)
 
   useEffect(() => {
     if (route.params?.userLoggedOut) {
@@ -92,6 +99,8 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         paddingBottom={isIos ? 'ml' : 'xs'}
         marginBottom="l"
         alignItems="center">
+        <ShowPrivacyPolicyButton onPress={showPrivacyPolicyModal} />
+
         <CustomButton
           loading={isLoading}
           variant="primary"
@@ -101,6 +110,17 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         />
       </Box>
       <AboutModal isOpen={isModalVisible} onHide={hideModal} />
+      <CustomModal
+        style={{
+          marginTop: isIos ? 30 : 0,
+        }}
+        backdropColor="white"
+        backdropOpacity={1}
+        isVisible={isPrivacyPolicyModalVisible}
+        onBackdropPress={hidePrivacyPolicyModal}
+        onBackButtonPress={hidePrivacyPolicyModal}>
+        <PrivacyPolicyContent />
+      </CustomModal>
     </SafeAreaWrapper>
   )
 }

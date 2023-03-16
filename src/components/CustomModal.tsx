@@ -4,7 +4,7 @@ import Modal, { ModalProps } from 'react-native-modal'
 import { Box } from 'utils/theme/index'
 
 type CustomModalProps = {
-  style: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
   onRequestClose?: F1<boolean>
 }
 

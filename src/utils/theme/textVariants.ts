@@ -193,6 +193,12 @@ const legacyVariants = {
     color: 'headerGrey',
     lineHeight: 18,
   },
+  lightGreyRegularBold: {
+    fontFamily: 'Nunito-Bold',
+    fontSize: 12,
+    color: 'headerGrey',
+    lineHeight: 18,
+  },
   lightGreyBold10: {
     fontFamily: 'Nunito-Bold',
     fontSize: 10,
