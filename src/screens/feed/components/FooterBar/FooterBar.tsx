@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Comment, FeedPost } from 'mock-api/models/miragePostTypes'
-import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/types'
+import { EmojiType } from 'rn-emoji-keyboard/lib/typescript/src/types'
 import { useBooleanState } from 'hooks/useBooleanState'
 import { MessageInputModal } from 'components/MessageInputModal'
 import { useUserContext } from 'hooks/context-hooks/useUserContext'
