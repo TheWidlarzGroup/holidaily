@@ -48,7 +48,7 @@
     "react-native-dotenv": "^2.5.5",
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "^2.5.0",
-    "react-native-image-picker": "^4.8.4",
+    "react-native-image-picker": "^4.10.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-mask-input": "^1.2.0",
