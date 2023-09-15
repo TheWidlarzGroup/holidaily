@@ -44,7 +44,7 @@ export const Dashboard = () => {
         hasIndicator
         style={teamsModalStyle}
         isOpen={isSuccessModalVisible}
-        onHide={closeSuccessModal}>
+        onHide={handleModalClose}>
         <TeamsModal closeModal={handleModalClose} />
       </SwipeableModalRegular>
     </SafeAreaWrapper>
