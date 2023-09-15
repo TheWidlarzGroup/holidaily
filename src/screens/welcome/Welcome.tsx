@@ -114,7 +114,7 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
         style={{
           marginTop: isIos ? 30 : 0,
         }}
-        backdropColor="white"
+        backdropColor={styles.privacyPolicyModalBackdrop.backgroundColor}
         backdropOpacity={1}
         isVisible={isPrivacyPolicyModalVisible}
         onBackdropPress={hidePrivacyPolicyModal}
@@ -128,5 +128,8 @@ export const Welcome = ({ route }: AuthNavigationProps<'WELCOME'>) => {
 const useStyles = mkUseStyles((theme: Theme) => ({
   formContainer: {
     marginHorizontal: theme.spacing.l,
+  },
+  privacyPolicyModalBackdrop: {
+    backgroundColor: theme.colors.dashboardBackground,
   },
 }))
